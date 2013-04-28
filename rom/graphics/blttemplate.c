@@ -49,13 +49,13 @@ static ULONG blttemplate_render(APTR btr_data, WORD srcx, WORD srcy,
 /*  SYNOPSIS */
 
 	AROS_LHA(PLANEPTR		, source	, A0),
-	AROS_LHA(WORD              	, xSrc		, D0),
-	AROS_LHA(WORD              	, srcMod	, D1),
+	AROS_LHA(LONG              	, xSrc		, D0),
+	AROS_LHA(LONG              	, srcMod	, D1),
 	AROS_LHA(struct RastPort * 	, destRP	, A1),
-	AROS_LHA(WORD              	, xDest		, D2),
-	AROS_LHA(WORD              	, yDest		, D3),
-	AROS_LHA(WORD              	, xSize		, D4),
-	AROS_LHA(WORD              	, ySize		, D5),
+	AROS_LHA(LONG              	, xDest		, D2),
+	AROS_LHA(LONG              	, yDest		, D3),
+	AROS_LHA(LONG              	, xSize		, D4),
+	AROS_LHA(LONG              	, ySize		, D5),
 
 /*  LOCATION */
 	struct GfxBase *, GfxBase, 6, Graphics)

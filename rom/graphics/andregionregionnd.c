@@ -22,7 +22,7 @@
 	AROS_LHA(struct Region *, R2, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 187, Graphics)
+	struct GfxBase *, GfxBase, 108, Graphics)
 
 /*  FUNCTION
 	AND of one region with another region

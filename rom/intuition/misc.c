@@ -120,6 +120,8 @@ struct Screen *FindFirstScreen(Object *monitor, struct IntuitionBase *IntuitionB
     return scr;
 }
 
+#ifdef __MORPHOS__
+
 struct RastPort *MyCreateRastPort(struct IntuitionBase *IntuitionBase)
 {
     struct IntIntuitionBase *_intuitionBase = GetPrivIBase(IntuitionBase);
@@ -160,8 +162,6 @@ void MyFreeRastPort(struct IntuitionBase *IntuitionBase, struct RastPort *rp)
 
     FreeMem(rp, sizeof(*rp));
 }
-
-#ifdef __MORPHOS__
 
 BOOL IsLayerHiddenBySibling(struct Layer *layer, BOOL xx)
 {

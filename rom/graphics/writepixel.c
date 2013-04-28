@@ -24,8 +24,8 @@ static LONG pix_write(APTR pr_data, OOP_Object *bm, OOP_Object *gc,
 
 /*  SYNOPSIS */
 	AROS_LHA(struct RastPort *, rp, A1),
-	AROS_LHA(WORD             , x, D0),
-	AROS_LHA(WORD             , y, D1),
+	AROS_LHA(LONG             , x, D0),
+	AROS_LHA(LONG             , y, D1),
 
 /*  LOCATION */
 	struct GfxBase *, GfxBase, 54, Graphics)
