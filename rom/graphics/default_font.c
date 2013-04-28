@@ -216,9 +216,15 @@ const struct TextFont topaz8_tf =
 		{	/* mn_Node */
 			NULL,
 			NULL,
+#if defined(__i386__)
+			"topaz.font", /* ABI_V0 compatibility */
+			NT_FONT,
+			0
+#else
 			NT_FONT,
 			0,
 			"topaz.font"
+#endif
 		},
 		NULL,
 		0
