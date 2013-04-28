@@ -18,7 +18,7 @@ AROS_LH9(LONG, WritePixels8,
 	 AROS_LHA(LONG, ystop, D4),
 	 AROS_LHA(APTR, pixlut, A2),
 	 AROS_LHA(BOOL, do_update, D5),
-	 struct GfxBase *, GfxBase, 197, Graphics)
+	 struct GfxBase *, GfxBase, 198, Graphics)
 {
     AROS_LIBFUNC_INIT
 
@@ -36,7 +36,7 @@ AROS_LH8(LONG, FillRectPenDrMd,
     	 AROS_LHA(ULONG, pix, D4),
 	 AROS_LHA(IPTR, drmd, D5),
 	 AROS_LHA(BOOL, do_update, D6),
-	 struct GfxBase *, GfxBase, 198, Graphics)
+	 struct GfxBase *, GfxBase, 199, Graphics)
 {
     AROS_LIBFUNC_INIT
 
@@ -52,7 +52,7 @@ AROS_LH6(ULONG, DoRenderFunc,
 	 AROS_LHA(APTR, render_func, A3),
 	 AROS_LHA(APTR, funcdata, A4),
 	 AROS_LHA(BOOL, do_update, D0),
-	 struct GfxBase *, GfxBase, 199, Graphics)
+	 struct GfxBase *, GfxBase, 200, Graphics)
 {
     AROS_LIBFUNC_INIT
 
@@ -68,7 +68,7 @@ AROS_LH6(LONG, DoPixelFunc,
     	 AROS_LHA(APTR, render_func, A1),
 	 AROS_LHA(APTR, funcdata, A2),
 	 AROS_LHA(BOOL, do_update, D2),
-	 struct GfxBase *, GfxBase, 200, Graphics)
+	 struct GfxBase *, GfxBase, 201, Graphics)
 {
     AROS_LIBFUNC_INIT
 

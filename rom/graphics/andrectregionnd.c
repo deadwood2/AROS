@@ -25,7 +25,7 @@
 	AROS_LHA(struct Rectangle *, Rect, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 186, Graphics)
+	struct GfxBase *, GfxBase, 107, Graphics)
 
 /*  FUNCTION
         Remove everything inside 'region' that is outside 'rectangle'

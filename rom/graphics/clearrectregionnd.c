@@ -25,7 +25,7 @@
 	AROS_LHA(struct Rectangle *, Rect, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 192, Graphics)
+	struct GfxBase *, GfxBase, 124, Graphics)
 
 /*  FUNCTION
 	Clear the given Rectangle from the given Region
