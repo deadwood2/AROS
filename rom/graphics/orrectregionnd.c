@@ -24,7 +24,7 @@
 	AROS_LHA(struct Rectangle *, Rect, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 188, Graphics)
+	struct GfxBase *, GfxBase, 123, Graphics)
 
 /*  FUNCTION
 	Add the given Rectangle to the given Region (if not

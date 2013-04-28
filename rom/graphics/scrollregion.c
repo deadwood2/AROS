@@ -25,7 +25,7 @@
 	AROS_LHA(WORD,               dy,     D1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 185, Graphics)
+	struct GfxBase *, GfxBase, 191, Graphics)
 
 /*  FUNCTION
 	Scroll the rectangles in the region by the amount of pixels specified, within the

@@ -22,7 +22,7 @@
         AROS_LHA(struct Region *, dest, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 181, Graphics)
+	struct GfxBase *, GfxBase, 195, Graphics)
 
 /*  FUNCTION
         Sets the destination region to the source region.
