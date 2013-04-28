@@ -23,7 +23,7 @@
 	AROS_LHA(struct Rectangle *, Rect, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 190, Graphics)
+	struct GfxBase *, GfxBase, 152, Graphics)
 
 /*  FUNCTION
 	Exclusive-OR the given rectangle to the given

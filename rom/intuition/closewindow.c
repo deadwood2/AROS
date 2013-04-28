@@ -456,6 +456,7 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
 void intui_CloseWindow (struct Window * w,
                         struct IntuitionBase * IntuitionBase)
 {
+    struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
     struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
     KillWinSysGadgets(w, IntuitionBase);
 
