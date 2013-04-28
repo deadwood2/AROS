@@ -23,7 +23,7 @@
 	AROS_LHA(WORD,            y,   D1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 184, Graphics)
+	struct GfxBase *, GfxBase, 190, Graphics)
 
 /*  FUNCTION
 	Checks if the point (x, y) is contained in the region Reg

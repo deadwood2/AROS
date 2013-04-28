@@ -25,7 +25,7 @@
 	AROS_LHA(APTR, userdata, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 108, Graphics)
+	struct GfxBase *, GfxBase, 186, Graphics)
 
 /*  FUNCTION
 	Specify a display driver notification callback.

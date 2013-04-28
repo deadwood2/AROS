@@ -1152,10 +1152,10 @@ IPTR Custom_DoMethodA(struct IntuitionBase *, struct Gadget *, Msg);
 
 #ifdef __MORPHOS__
 #define DeinitRastPort(rp)  	    ((void)0)
-#endif
 #define CreateRastPort()            MyCreateRastPort(IntuitionBase)
 #define CloneRastPort(rp)           MyCloneRastPort(IntuitionBase, rp)
 #define FreeRastPort(rp)            MyFreeRastPort(IntuitionBase, rp)
+#endif
 
 /* Replacement for dos.library/DisplayError() */
 AROS_UFP3(LONG, Intuition_DisplayError,

@@ -56,10 +56,10 @@ static ULONG ellipse_render(APTR ellipse_rd, WORD srcx, WORD srcy,
 
 /*  SYNOPSIS */
 	AROS_LHA(struct RastPort *, rp, A1),
-	AROS_LHA(WORD             , xCenter, D0),
-	AROS_LHA(WORD             , yCenter, D1),
-	AROS_LHA(WORD             , a, D2),
-	AROS_LHA(WORD             , b, D3),
+	AROS_LHA(LONG             , xCenter, D0),
+	AROS_LHA(LONG             , yCenter, D1),
+	AROS_LHA(LONG             , a, D2),
+	AROS_LHA(LONG             , b, D3),
 
 /*  LOCATION */
 	struct GfxBase *, GfxBase, 30, Graphics)

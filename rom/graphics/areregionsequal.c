@@ -22,7 +22,7 @@
 	AROS_LHA(struct Region *, R2, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 183, Graphics)
+	struct GfxBase *, GfxBase, 189, Graphics)
 
 /*  FUNCTION
 	Compares two regions.

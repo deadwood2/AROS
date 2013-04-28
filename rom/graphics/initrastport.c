@@ -19,7 +19,7 @@
     NAME */
 #include <proto/graphics.h>
 
-	AROS_LH1(void, InitRastPort,
+	AROS_LH1(BOOL, InitRastPort,
 
 /*  SYNOPSIS */
 	AROS_LHA(struct RastPort *, rp, A1),
@@ -68,6 +68,8 @@
     rp->LinePtrn = 0xFFFF;
 
     SetFont (rp, GfxBase->DefaultFont);
+
+    return TRUE;
 
     AROS_LIBFUNC_EXIT
     

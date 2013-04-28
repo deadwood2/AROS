@@ -45,6 +45,7 @@
 {
     AROS_LIBFUNC_INIT
 
+    struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
     struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
     DEBUG_RELEASEGIRPORT(dprintf("ReleaseGIRPort: RPort 0x%lx\n", rp));
 

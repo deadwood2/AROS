@@ -19,7 +19,7 @@ AROS_LH5(void, UpdateBitMap,
 	 AROS_LHA(UWORD, y     , D1),
 	 AROS_LHA(UWORD, width , D2),
 	 AROS_LHA(UWORD, height, D3),
-	 struct GfxBase *, GfxBase, 201, Graphics)
+	 struct GfxBase *, GfxBase, 202, Graphics)
 {
     AROS_LIBFUNC_INIT
 

@@ -23,7 +23,7 @@
 	AROS_LHA(struct Region *, R2, A1),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 193, Graphics)
+	struct GfxBase *, GfxBase, 141, Graphics)
 
 /*  FUNCTION
 	Clear the given Region region1 from the given Region region2.

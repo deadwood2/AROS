@@ -7,13 +7,9 @@ include $(SRCDIR)/config/aros.cfg
 
 FILES	:= \
     calcchecksum \
-    clonerastport \
     createbstr \
-    createrastport \
     createseglist \
     debugmem \
-    deinitrastport \
-    freerastport \
     freestruct \
     hexdump \
     isdosentrya \
