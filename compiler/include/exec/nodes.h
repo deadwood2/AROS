@@ -33,9 +33,14 @@ struct Node
 {
     struct Node * ln_Succ,
 		* ln_Pred;
+#if defined(__i386__)
+    char	* ln_Name;  /* ABI_V0 compatibility */
+#endif
     UBYTE	  ln_Type;
     BYTE	  ln_Pri;
+#if !defined(__i386__)
     char	* ln_Name;
+#endif
 };
 
 struct __mayalias MinNode;
