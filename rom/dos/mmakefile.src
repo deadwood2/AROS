@@ -26,7 +26,7 @@ FUNCTIONS := abortpkt addbuffers adddosentry addpart addsegment \
 	     close comparedates createdir createnewproc \
 	     createproc currentdir datestamp datetostr delay deletefile \
 	     deletevar deviceproc displayerror dopkt dosgetstring \
-	     duplock duplockfromfh endnotify errorreport \
+	     duplock duplockfromfh endnotify error errorreport \
 	     exall exallend examine examinefh execute exit exnext \
 	     fault fgetc fgets filepart findarg findcliproc finddosentry findsegment \
 	     findvar flush format fputc fputs fread freeargs freedeviceproc \
@@ -40,7 +40,7 @@ FUNCTIONS := abortpkt addbuffers adddosentry addpart addsegment \
 	     open openfromlock output parentdir parentoffh parsepattern \
 	     parsepatternnocase pathpart printfault putstr read readargs \
 	     readitem relabel readlink remassignlist remdosentry remsegment rename \
-	     replypkt runcommand samedevice samelock scanvars seek \
+	     replypkt runcommand samedevice samelock scanvars seek selecterror \
 	     selectinput selectoutput sendpkt setargstr setcomment setconsoletask \
 	     setcurrentdirname setfiledate setfilesize setfilesystask \
 	     setioerr setmode setowner setprogramdir setprogramname \
