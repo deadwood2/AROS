@@ -147,6 +147,23 @@ static LONG InternalOpen(CONST_STRPTR name, LONG accessMode,
         return DOSFALSE;
     }
 
+    /* ABI_V0 compatibility */
+    switch(accessMode)
+    {
+        case MODE_NEWFILE:
+        case MODE_READWRITE:
+        case MODE_OLDFILE:
+            break;
+        default:
+            if (accessMode & (1L<<5)) /* FMF_CLEAR */
+                accessMode = MODE_NEWFILE;
+            else if (accessMode & (1L<<4)) /* FMF_CREATE */
+                accessMode = MODE_READWRITE;
+            else if (accessMode & ((1L<<3)|(1L<<2))) /* FMF_READ | FMF_WRITE */
+                accessMode = MODE_OLDFILE;
+
+    }
+
     /* IN:, OUT:, ERR: pseudodevices
      */
     if (pseudoLock(name, (accessMode == MODE_OLDFILE) ? ACCESS_READ :
