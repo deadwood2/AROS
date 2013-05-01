@@ -13,6 +13,8 @@
 __attribute__((section(".data"))) static unsigned int debug_y_resolution = 0;
 __attribute__((section(".data"))) static void *debug_framebuffer = NULL;
 
+#define MIN_WIDTH   480
+
 int krnPutC(int c, struct KernelBase *KernelBase)
 {
     unsigned long flags;
@@ -59,13 +61,14 @@ void vesahack_Init(char *cmdline, struct vbe_mode *vmode)
 
 	/*
 	 * VESA hack.
-	 * It divides screen height by 2 and increments framebuffer pointer.
-	 * This allows VESA driver to use only upper half of the screen, while
-	 * lower half will still be used for debug output.
+	 * It divides screen into two parts.
+	 * This allows VESA driver to use only upper part of the screen, while
+	 * lower part will still be used for debug output. At minimum, 480
+	 * lines are needed to boot into Wanderer.
 	 */
-	vmode->y_resolution >>= 1;
 
-	debug_y_resolution = vmode->y_resolution;
+	debug_y_resolution = vmode->y_resolution - MIN_WIDTH;
+	vmode->y_resolution = MIN_WIDTH;
 	debug_framebuffer  = (void *)(unsigned long)vmode->phys_base + vmode->y_resolution * vmode->bytes_per_scanline;
     }
 }

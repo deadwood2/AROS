@@ -108,7 +108,8 @@ static inline unsigned long long RDTSC() {
    return _tsc_lower | ((unsigned long long)_tsc_upper << 32);
 } 
 #else
-#define INTR_USERMODESTACK        (regs->ds != KERNEL_DS)
+/* ABI_V0 compatibility */
+#define INTR_USERMODESTACK        (regs->cs != KERNEL_CS)
 static inline unsigned long long RDTSC() {
    unsigned long long _tsc;
    asm volatile (".byte 0x0f, 0x31" : "=A" (_tsc));
