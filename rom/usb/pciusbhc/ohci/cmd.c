@@ -735,7 +735,8 @@ void CheckSpecialCtrlTransfers(struct PCIController *hc,
 /* \\\ */
 
 /* /// "NakTimeoutInt()" */
-AROS_INTH1(NakTimeoutInt, struct PCIUnit *, unit)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(NakTimeoutInt, struct PCIUnit *, unit)
 {
     AROS_INTFUNC_INIT
 

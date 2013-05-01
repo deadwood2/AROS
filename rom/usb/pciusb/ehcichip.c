@@ -16,7 +16,8 @@
 #undef HiddAttrBase
 #define HiddAttrBase (hd->hd_HiddAB)
 
-static AROS_INTH1(EhciResetHandler, struct PCIController *, hc)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(EhciResetHandler, struct PCIController *, hc)
 {
     AROS_INTFUNC_INIT
 
@@ -1088,7 +1089,8 @@ void ehciUpdateFrameCounter(struct PCIController *hc) {
     Enable();
 }
 
-static AROS_INTH1(ehciCompleteInt, struct PCIController *, hc)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ehciCompleteInt, struct PCIController *, hc)
 {
     AROS_INTFUNC_INIT
 

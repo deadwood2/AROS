@@ -54,7 +54,8 @@ void SureCause(struct PCIDevice *base, struct Interrupt *interrupt)
             interrupt->is_Node.ln_Type = NT_SOFTINT;
             Forbid(); // make sure code is not interrupted by other tasks
             Enable();
-            AROS_INTC1(interrupt->is_Code, interrupt->is_Data);
+            /* ABI_V0 compatibility */
+            AROS_SOFTINTC1(interrupt->is_Code, interrupt->is_Data);
             Disable();
             Permit();
         } while(interrupt->is_Node.ln_Type != NT_SOFTINT);
@@ -2128,7 +2129,8 @@ void uhwCheckSpecialCtrlTransfers(struct PCIController *hc, struct IOUsbHWReq *i
 /* \\\ */
 
 /* /// "uhwNakTimeoutInt()" */
-AROS_INTH1(uhwNakTimeoutInt, struct PCIUnit *,  unit)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(uhwNakTimeoutInt, struct PCIUnit *,  unit)
 {
     AROS_INTFUNC_INIT
 
