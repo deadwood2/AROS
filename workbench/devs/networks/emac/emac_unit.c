@@ -527,7 +527,8 @@ void rx_int(struct EMACUnit *unit, struct ExecBase *SysBase)
     }
 }
 
-static AROS_INTH1(EMAC_RX_Int, struct EMACUnit *, unit)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(EMAC_RX_Int, struct EMACUnit *, unit)
 {
     AROS_INTFUNC_INIT
 
@@ -690,7 +691,8 @@ void tx_int(struct EMACUnit *unit, struct ExecBase *SysBase)
 
 }
 
-static AROS_INTH1(EMAC_TX_Int, struct EMACUnit *, unit)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(EMAC_TX_Int, struct EMACUnit *, unit)
 {
     AROS_INTFUNC_INIT
 
@@ -702,7 +704,8 @@ static AROS_INTH1(EMAC_TX_Int, struct EMACUnit *, unit)
     AROS_INTFUNC_EXIT
 }
 
-static AROS_INTH1(EMAC_TXEnd_Int, struct EMACUnit *, unit)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(EMAC_TXEnd_Int, struct EMACUnit *, unit)
 {
     AROS_INTFUNC_INIT
 

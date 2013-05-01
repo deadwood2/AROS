@@ -58,7 +58,7 @@ AROS_LD1(VOID, AROSDevAbortIO,
 static BOOL RXFunction(struct IOSana2Req *request, APTR buffer, ULONG size);
 static BOOL TXFunction(APTR buffer, struct IOSana2Req *request, ULONG size);
 static UBYTE *DMATXFunction(struct IOSana2Req *request);
-AROS_INTP(AROSInt);
+AROS_SOFTINTP(AROSInt); /* ABI_V0 compatibility */
 
 extern const APTR init_data;
 extern const struct Resident rom_tag;
@@ -382,14 +382,15 @@ static UBYTE *DMATXFunction(struct IOSana2Req *request)
 */
 #undef SysBase
 
-AROS_INTH2(AROSInt, APTR *, int_data, mask)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(AROSInt, APTR *, int_data)
 {
    AROS_INTFUNC_INIT
 
-   BOOL (*int_code)(APTR, APTR, UBYTE);
+   BOOL (*int_code)(APTR, APTR);
 
    int_code = int_data[0];
-   return int_code(int_data[1], int_code, mask);
+   return int_code(int_data[1], int_code);
 
    AROS_INTFUNC_EXIT
 }

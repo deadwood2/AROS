@@ -262,7 +262,8 @@ BOOL METHOD(OHCI, Hidd_USBHub, SetPortFeature)
     return TRUE;
 }
 
-AROS_INTH1(OHCI_HubInterrupt, ohci_data_t *,ohci)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(OHCI_HubInterrupt, ohci_data_t *,ohci)
 {
     AROS_INTFUNC_INIT
 
