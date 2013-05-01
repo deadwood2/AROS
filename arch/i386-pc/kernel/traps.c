@@ -198,13 +198,18 @@ void handleException(struct ExceptionContext *regs, unsigned long error_code, un
 	    }
 	}
 
-	/* Upon exit from the lowest-level hardware IRQ we run the task scheduler */
-	if (SysBase && (regs->ds != KERNEL_DS))
+	/* Upon exit from the lowest-level hardware IRQ we run the task scheduler
+	 *
+	 * Only CS is guaranteed to be atomically set to correct segment upon privilage
+	 * level switch
+	 */
+	/* ABI_V0 compatibility */
+	if (SysBase && (regs->cs != KERNEL_CS))
 	{
-	    /* Disable interrupts for a while */
-	    __asm__ __volatile__("cli; cld;");
+            /* Disable interrupts for a while */
+            __asm__ __volatile__("cli; cld;");
 
-	    core_ExitInterrupt(regs);
+            core_ExitInterrupt(regs);
 	}
     }
     else if (irq_number == 0x80)  /* Syscall? */
@@ -233,15 +238,19 @@ void handleException(struct ExceptionContext *regs, unsigned long error_code, un
 	 * level switch occurs upon an interrupt, ss is reset to zero. Old ss value
 	 * is always pushed to stack as part of interrupt context.
 	 * We rely on this in order to determine which CPL we are returning to.
+	 *
+	 * Only CS is guaranteed to be atomically set to correct segment upon privilage
+	 * level switch
 	 */
-        if (regs->ds != KERNEL_DS)
+	    /* ABI_V0 compatibility */
+        if (regs->cs != KERNEL_CS)
         {
             DSYSCALL(bug("[Kernel] User-mode syscall\n"));
 
-	    /* Disable interrupts for a while */
-	    __asm__ __volatile__("cli; cld;");
+            /* Disable interrupts for a while */
+            __asm__ __volatile__("cli; cld;");
 
-	    core_SysCall(sc, regs);
+            core_SysCall(sc, regs);
         }
 
 	DSYSCALL(bug("[Kernel] Returning from syscall...\n"));

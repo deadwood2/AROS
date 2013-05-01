@@ -104,7 +104,7 @@ core_Interrupt:				// At this point two ULONGs for segment registers are
 	movl	%eax, reg_fs(%ebx)
 	mov	%gs, %ax
 	movl	%eax, reg_gs(%ebx)
-	mov	$KERNEL_DS, %ax		// We are supervisor now
+	mov	$KERNEL_DS, %ax		// We are supervisor now (Note: CS is used intead of DS for checks in handlerException)
 	mov	%ax, %ds
 	mov	%ax, %es
 
@@ -138,14 +138,6 @@ noSegments:
 core_Unused_Int:
 	iret
 	.size core_Interrupt, .-core_Interrupt
-
-	.globl core_LeaveInterrupt
-	.type core_LeaveInterrupt, @function
-core_LeaveInterrupt:
-	popl	%ebx			// Remove return address
-	popl	%ebx			// Get argument
-	jmp	restoreRegs
-	.size core_LeaveInterrupt, .-core_LeaveInterrupt
 
 	.globl core_Supervisor
 	.type core_Supervisor, @function
