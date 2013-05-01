@@ -51,7 +51,8 @@ static inline void ehciFreeTD(struct ehc_controller *ehc, struct EhciTD *etd) {
     ehc->ehc_EhciTDPool = etd;
 }
 
-static AROS_INTH1(ehciResetHandler, struct ehc_controller *, ehc)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ehciResetHandler, struct ehc_controller *, ehc)
 {
     AROS_INTFUNC_INIT
 
