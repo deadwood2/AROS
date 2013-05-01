@@ -151,6 +151,20 @@ struct SoftIntList
  *            (A1, A5, A6)
  */
 
+#define AROS_SOFTINTP(n)                                    \
+        AROS_UFP3(ULONG, n,                                 \
+          AROS_UFPA(APTR,      __ufi_data,    A1),          \
+          AROS_UFPA(VOID_FUNC, __ufi_code,    A5),          \
+          AROS_UFPA(struct ExecBase *, __ufi_SysBase, A6))
+
+#define AROS_SOFTINTC2(n, data, code)         \
+        AROS_UFC3(ULONG, n,                                 \
+                AROS_UFCA(APTR,      data,    A1),          \
+                AROS_UFCA(VOID_FUNC, code,    A5),          \
+                AROS_UFCA(struct ExecBase *, SysBase, A6))  \
+
+#define AROS_SOFTINTC1(n, data)                     AROS_SOFTINTC2(n, data, (VOID_FUNC)(n));
+
 #define AROS_SOFTINTH2(n, type, data, code)                 \
         AROS_UFH3(ULONG, n,                                \
           AROS_UFHA(APTR,      __ufi_data, A1),            \

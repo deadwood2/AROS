@@ -174,10 +174,7 @@ AROS_INTH0(SoftIntDispatch)
 
                     /* Call the software interrupt. */
                     /* ABI_V0 compatibility */
-                    AROS_UFC3(void, intr->is_Code,
-                              AROS_UFCA(APTR, intr->is_Data, A1),
-                              AROS_UFCA(APTR, intr->is_Code, A5),
-                              AROS_UFCA(struct ExecBase *, SysBase, A6));
+                    AROS_SOFTINTC1(intr->is_Code, intr->is_Data);
 
                     /* Get out and start loop *all* over again *from scratch*! */
                     break;
