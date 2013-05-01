@@ -33,7 +33,7 @@
 	AROS_LHA(ULONG *, return_flags, A1),
 
 /*  LOCATION */
-	struct ExecBase *, SysBase, 151, Exec)
+	struct ExecBase *, SysBase, 174, Exec)
 
 /*  FUNCTION
 	Allocate a number of memory blocks through a MemList structure.
@@ -157,4 +157,50 @@
     
     AROS_LIBFUNC_EXIT
 } /* AllocEntry */
+
+/* ABI_V0 compatibility */
+
+/*****************************************************************************
+
+    NAME */
+
+    AROS_LH3(BOOL, NewAllocEntryABIV0,
+
+/*  SYNOPSIS */
+    AROS_LHA(struct MemList *, entry, A0),
+    AROS_LHA(struct MemList **, return_entry, A1),
+    AROS_LHA(ULONG *, return_flags, D0),
+
+/*  LOCATION */
+    struct ExecBase *, SysBase, 151, Exec)
+
+/*  FUNCTION
+
+    INPUTS
+
+    RESULT
+
+    NOTES
+        This function is AROS-specific.
+
+    EXAMPLE
+
+    BUGS
+
+    SEE ALSO
+    AllocEntry(), FreeEntry()
+
+    INTERNALS
+
+******************************************************************************/
+{
+    AROS_LIBFUNC_INIT
+
+    if ((*return_entry = NewAllocEntry(entry, return_flags)) != NULL)
+        return TRUE;
+    else
+        return FALSE;
+
+    AROS_LIBFUNC_EXIT
+} /* NewAllocEntryABIV0 */
 
