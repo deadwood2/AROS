@@ -33,7 +33,7 @@
 	AROS_LHA(const struct TagItem *, tags, A2),
 
 /*  LOCATION */
-	struct GfxBase *, GfxBase, 181, Graphics)
+	struct GfxBase *, GfxBase, 203, Graphics)
 
 /*  FUNCTION
 	Add a display driver to the system.
