@@ -294,6 +294,10 @@ int __open(int wanted_fd, const char *pathname, int flags, int mode)
 	errno = __stdc_ioerr2errno(ioerr);
         goto err;
     }
+
+    /* ABI_V0 compatibility */
+    if (!strcasecmp(pathname, "NIL:"))
+        goto success;
    
     /* Handle O_TRUNC */
     if((flags & O_TRUNC) && (flags & (O_RDWR | O_WRONLY)))
