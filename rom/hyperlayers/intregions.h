@@ -47,6 +47,8 @@ do                                    \
     (region)->RegionRectangle = NULL; \
 } while (0)
 
+#if 0
+/* ABI_V0 compatibility */
 static inline struct Region *_NewRectRegion(WORD MinX, WORD MinY, WORD MaxX, WORD MaxY, struct GfxBase *GfxBase)
 {
     struct Region *region = NewRegion();
@@ -64,5 +66,6 @@ static inline struct Region *_NewRectRegion(WORD MinX, WORD MinY, WORD MaxX, WOR
     return NULL;
 
 } /* NewRectRegion */
+#endif
 
 #endif /* !INTREGIONS_H */
