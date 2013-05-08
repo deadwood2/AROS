@@ -6,20 +6,25 @@
     Lang: english
 */
 
-#include <graphics/gfx.h>
+#include <aros/debug.h>
+#include "graphics_intern.h"
+#include <graphics/regions.h>
 #include <clib/macros.h>
 
 /*****************************************************************************
 
     NAME */
-#include <proto/alib.h>
+#include <clib/graphics_protos.h>
 
-	BOOL AndRectRect(
+    AROS_LH3(BOOL, AndRectRect,
 
 /*  SYNOPSIS */
-    	struct Rectangle *rect1,
-	struct Rectangle *rect2,
-	struct Rectangle *intersect)
+        AROS_LHA(struct Rectangle *, rect1, A0),
+    AROS_LHA(struct Rectangle *, rect2, A1),
+    AROS_LHA(struct Rectangle *, intersect, A2),
+
+/*  LOCATION */
+    struct GfxBase *, GfxBase, 193, Graphics)
 
 /*  FUNCTION
     	Calculate the intersection rectangle between the
@@ -53,6 +58,8 @@
 
 *****************************************************************************/
 {
+    AROS_LIBFUNC_INIT
+
     WORD MinX = MAX(rect1->MinX, rect2->MinX);
     WORD MinY = MAX(rect1->MinY, rect2->MinY);
     WORD MaxX = MIN(rect1->MaxX, rect2->MaxX);
@@ -71,4 +78,7 @@
 
         return TRUE;
     }
+
+    AROS_LIBFUNC_EXIT
+
 } /* AndRectRect */
