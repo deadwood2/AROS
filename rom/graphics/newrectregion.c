@@ -5,22 +5,26 @@
     Desc: Graphics function NewRectRegion()
     Lang: english
 */
-
+#include "graphics_intern.h"
 #include <graphics/regions.h>
-#include <proto/graphics.h>
+#include <clib/macros.h>
+#include "intregions.h"
 
 /*****************************************************************************
 
     NAME */
-#include <proto/alib.h>
+#include <proto/graphics.h>
 
-	struct Region *NewRectRegion(
+    AROS_LH4(struct Region *, NewRectRegion,
 
 /*  SYNOPSIS */
-    	WORD MinX,
-	WORD MinY,
-	WORD MaxX,
-	WORD MaxY)
+        AROS_LHA(WORD, MinX, D0),
+    AROS_LHA(WORD, MinY, D1),
+    AROS_LHA(WORD, MaxX, D2),
+    AROS_LHA(WORD, MaxY, D3),
+
+/*  LOCATION */
+    struct GfxBase *, GfxBase, 194, Graphics)
 
 /*  FUNCTION
     	Creates a new rectangular Region
@@ -58,6 +62,8 @@
 
 *****************************************************************************/
 {
+    AROS_LIBFUNC_INIT
+
     struct Region *region = NewRegion();
     
     if (region)
@@ -72,5 +78,7 @@
     }
 
     return NULL;
+
+    AROS_LIBFUNC_EXIT
 
 } /* NewRectRegion */

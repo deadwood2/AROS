@@ -109,6 +109,9 @@ int _MoveLayerToFront(struct Layer * l,
                       struct Layer * lbehind,
                       LIBBASETYPEPTR LayersBase);
 
+#if 0
+/* ABI_V0 compatibility */
 #define NewRectRegion(MinX, MinY, MaxX, MaxY) _NewRectRegion(MinX, MinY, MaxX, MaxY, LIBBASE->lb_GfxBase)
+#endif
 
 #endif /* _LAYERS_INTERN_H */
