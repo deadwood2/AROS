@@ -41,8 +41,8 @@ struct Screen
     WORD Width;
     WORD Height;
 
-    WORD MouseY;
-    WORD MouseX;
+    WORD MouseX; /* ABI_V0 compatibility */
+    WORD MouseY; /* ABI_V0 compatibility */
 
     UWORD   Flags;
     UBYTE * Title;

@@ -35,8 +35,8 @@ struct IntuitionBase
 
     ULONG Flags;
 
-    WORD  MouseY;
-    WORD  MouseX;
+    WORD  MouseX; /* ABI_V0 compatibility */
+    WORD  MouseY; /* ABI_V0 compatibility */
 
     ULONG Seconds;
     ULONG Micros;
