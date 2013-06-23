@@ -492,8 +492,8 @@ struct Window
     WORD Width;
     WORD Height;
 
-    WORD MouseY;
-    WORD MouseX;
+    WORD MouseX; /* ABI_V0 compatibility */
+    WORD MouseY; /* ABI_V0 compatibility */
 
     WORD MinWidth;
     WORD MinHeight;
@@ -682,10 +682,10 @@ struct ExtNewWindow
 #define WA_HelpGroupWindow   (WA_Dummy + 57)
 /* AmigaOS4 -compatible tags follow */
 #define WA_Hidden            (WA_Dummy + 60)
-#define WA_ToolBox           (WA_Dummy + 61)
-#define WA_ShapeRegion 	     (WA_Dummy + 65)
-#define WA_ShapeHook	     (WA_Dummy + 66)
-#define WA_InFrontOf	     (WA_Dummy + 67)
+#define WA_ToolBox           (WA_Dummy + 58) /* ABI_V0 compatibility */
+#define WA_ShapeRegion 	     (WA_Dummy + 105) /* ABI_V0 compatibility */
+#define WA_ShapeHook	     (WA_Dummy + 106) /* ABI_V0 compatibility */
+#define WA_InFrontOf	     (WA_Dummy + 102) /* ABI_V0 compatibility */
 /* AROS specific tags follow */
 #define WA_Priority 	     (WA_Dummy + 100)
 #define WA_Parent   	     (WA_Dummy + 101)
