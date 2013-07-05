@@ -5,6 +5,7 @@
 
 
 #include <exec/types.h>
+#include <exec/interrupts.h>
 #include <utility/tagitem.h>
 #include <libraries/prometheus.h>
 
@@ -18,6 +19,7 @@
 #define KernelBase (base->kernelBase)
 
 /* Private prototypes */
+AROS_INTP(WrapperIRQ); /* ABI_V0 compatibility */
 
 static const struct TagItem map_tag_list[] =
 {
@@ -521,11 +523,34 @@ static UPINT GetOwner(struct LibBase *base, PCIBoard *board)
    AROS_LIBFUNC_INIT
 
    struct LibBase *base = (APTR)PrometheusBase;
-   BOOL success = FALSE;
+   /* ABI_V0 compatibility */
+   BOOL success = TRUE;
+   struct Interrupt *aros_irq;
+
+   /* Allocate AROS int structure */
+
+   if(board == NULL || board->aros_irq != NULL)
+      success = FALSE;
+
+   if(success)
+   {
+      aros_irq =
+         AllocMem(sizeof(struct Interrupt), MEMF_PUBLIC | MEMF_CLEAR);
+      if(aros_irq == NULL)
+         success = FALSE;
+   }
 
    /* Add AROS int to system */
-   if (board)
-      success = HIDD_PCIDevice_AddInterrupt(board->aros_board, interrupt);
+
+   if(success)
+   {
+      board->aros_irq = aros_irq;
+      aros_irq->is_Node.ln_Name = interrupt->is_Node.ln_Name;
+      aros_irq->is_Code = (VOID_FUNC)WrapperIRQ;
+      aros_irq->is_Data = interrupt;
+
+      success = HIDD_PCIDevice_AddInterrupt(board->aros_board, aros_irq);
+   }
 
    return success;
 
@@ -559,7 +584,12 @@ static UPINT GetOwner(struct LibBase *base, PCIBoard *board)
    struct LibBase *base = (APTR)PrometheusBase;
 
    if(board != NULL)
-      HIDD_PCIDevice_RemoveInterrupt(board->aros_board, interrupt);
+   {
+      HIDD_PCIDevice_RemoveInterrupt(board->aros_board, board->aros_irq);
+      /* ABI_V0 compatibility */
+      FreeMem(board->aros_irq, sizeof(struct Interrupt));
+      board->aros_irq = NULL;
+   }
 
    AROS_LIBFUNC_EXIT
 }
@@ -670,4 +700,15 @@ static UPINT GetOwner(struct LibBase *base, PCIBoard *board)
    return KrnVirtualToPhysical(address);
 
    AROS_LIBFUNC_EXIT
+}
+
+
+/* ABI_V0 compatibility */
+AROS_INTH1(WrapperIRQ, struct Interrupt *, interrupt)
+{
+    AROS_INTFUNC_INIT
+
+    return AROS_SOFTINTC1(interrupt->is_Code, interrupt->is_Data);
+
+    AROS_INTFUNC_EXIT
 }

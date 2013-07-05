@@ -48,6 +48,7 @@ struct PCIBoard
    struct MinNode node;
    struct Node *owner;
    OOP_Object *aros_board;
+   struct Interrupt *aros_irq; /* ABI_V0 compatibility */
 };
 
 
