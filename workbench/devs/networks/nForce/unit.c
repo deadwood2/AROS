@@ -680,7 +680,7 @@ static AROS_INTH1(NF_IntHandler, struct NFUnit *, dev)
 
         /* Something received? Handle it! */
         if (events & (NVREG_IRQ_RX_ERROR|NVREG_IRQ_RX|NVREG_IRQ_RX_NOBUF)) {
-            AROS_INTC1(dev->rx_int.is_Code, dev->rx_int.is_Data);
+            AROS_SOFTINTC1(dev->rx_int.is_Code, dev->rx_int.is_Data); /* ABI_V0 compatibility */
             /* Mark received frames as free for hardware */
             dev->alloc_rx(dev);
         }
