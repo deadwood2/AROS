@@ -80,6 +80,7 @@ static void abiv0_delayed_startup()
     D(bug("[__arosc_program_startup] aroscbase 0x%p\n", aroscbase));
 
     aroscbase->acb_startup_error_ptr = NULL;
+    aroscbase->acb_flags |= ACPD_NEWSTARTUP;
 
     /* A some C error IO routines evidently rely on this, and
      * should be fixed!
@@ -133,6 +134,7 @@ static void abiv0_delayed_startup()
 
     aroscbase->acb_startup_error_ptr = errorptr;
     *aroscbase->acb_exit_jmp_buf = *exitjmp;
+    aroscbase->acb_flags |= ACPD_NEWSTARTUP;
 
     /* A some C error IO routines evidently rely on this, and
      * should be fixed!
