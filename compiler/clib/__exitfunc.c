@@ -51,3 +51,21 @@ void __callexitfuncs(void)
 }
 
 ADD2OPENLIB(__init_atexit, 100);
+
+/* ABI_V0 compatibility */
+/*
+ * Older ABI_V0 binaries did not call __arosc_program_end and relied on closing of arosc.library
+ * to run atexit handlers. Example: ltris
+ */
+void __exit_atexit(void)
+{
+    struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    if (!(aroscbase->acb_flags & (VFORK_PARENT | ACPD_NEWSTARTUP)))
+    {
+        if (!(aroscbase->acb_flags & ABNORMAL_EXIT))
+            __callexitfuncs();
+    }
+}
+
+ADD2CLOSELIB(__exit_atexit, 100);
