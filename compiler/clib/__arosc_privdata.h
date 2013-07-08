@@ -139,6 +139,12 @@ struct aroscbase
 /* Make a distinction between exit() and abort() */
 #define ABNORMAL_EXIT 0x00000020
 
+/* ABI_V0 compatibility */
+/* A flag to indicate that the new startup is used.
+   Programs compiled with an older version of the arosc startup code will not
+   set this flag and we should then try to be compatible */
+#define ACPD_NEWSTARTUP 64
+
 /* !acb_flags */
 
 /* This function is added by genmodule and returns the current arosc
