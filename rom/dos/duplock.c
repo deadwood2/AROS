@@ -53,6 +53,12 @@
 
     if (lock == BNULL)
         return BNULL;
+
+    /* ABI_V0 compatibility */
+    /* Up to 2010-12-03 DupLockFromFH was an alias/define to DupLock */
+    if ((fl->fl_Access != SHARED_LOCK) && (fl->fl_Access != EXCLUSIVE_LOCK))
+        return DupLockFromFH(lock);
+
     ret = (BPTR)dopacket1(DOSBase, NULL, fl->fl_Task, ACTION_COPY_DIR, lock);
     D(bug("[DupLock] %x -> %x\n", fl, BADDR(ret)));
     return ret;
