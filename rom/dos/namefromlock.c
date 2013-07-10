@@ -76,7 +76,14 @@
         }
     }
 
-    
+    {
+        /* ABI_V0 compatibility */
+        /* Up to 2010-12-03 NameFromFH was an alias/define to NameFromLock. Example: HFinder */
+        struct FileLock *fl = (struct FileLock *)BADDR(lock);
+        if ((fl->fl_Access != SHARED_LOCK) && (fl->fl_Access != EXCLUSIVE_LOCK))
+            return NameFromFH(lock, buffer, length);
+    }
+
     lock2 = DupLock(lock);
     res = namefrom_internal(DOSBase, lock2, buffer, length);
     UnLock(lock2);
