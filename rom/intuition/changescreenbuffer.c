@@ -109,4 +109,9 @@ void UpdateScreenBitMap(struct Screen *screen, struct IntuitionBase *IntuitionBa
         else
             screen->BitMap_OBSOLETE.Planes[i] = NULL;
     }
+
+    /* ABI_V0 compatibility */
+    /* Enable GetBitMapAttr(&Screen->BitMap, BMA_DEPTH). Example: AmiStart */
+    screen->BitMap_OBSOLETE.Planes[0] = (APTR)0xfeedbaa1;
+    screen->BitMap_OBSOLETE.Planes[1] = (APTR)bm;
 }
