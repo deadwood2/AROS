@@ -167,7 +167,7 @@
            } \
        } \
        type = dp->dp_Type; \
-       me->pr_HomeDir = BNULL; \
+       /* me->pr_HomeDir = BNULL; ABI_V0 compatibility. Needed for SystemTags("PROGDIR:abc"). Example: RX/RexxMast */ \
        segArray = BADDR(me->pr_SegList); \
        segArray[4] = segArray[3]; \
        segArray[3] = BNULL; \
