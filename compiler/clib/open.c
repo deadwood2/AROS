@@ -5,6 +5,9 @@
     POSIX.1-2008 function open().
 */
 
+#include "__arosc_privdata.h"
+
+#include <proto/exec.h>
 #include <stdarg.h>
 #include "__fdesc.h"
 
@@ -80,7 +83,9 @@
 
 ******************************************************************************/
 {
+    struct aroscbase *aroscbase = __aros_getbase_aroscbase();
     mode_t mode = 0644;
+    int fd = -1;
 
     if (flags & O_CREAT)
     {
@@ -91,6 +96,12 @@
         va_end(ap);
     }
     
-    return __open(__getfirstfd(0), pathname, flags, mode);
+    LOCKACB
+
+    fd = __open(__getfirstfd(0), pathname, flags, mode);
+
+    UNLOCKACB
+
+    return fd;
 } /* open */
 
