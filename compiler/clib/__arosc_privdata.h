@@ -106,6 +106,9 @@ struct aroscbase
     /* Used for arosc startup code */
     int *acb_startup_error_ptr;
     jmp_buf acb_exit_jmp_buf;
+
+    /* Used for thread safety */
+    struct SignalSemaphore acb_lock;
 };
 
 /* acb_flags */
@@ -151,5 +154,10 @@ struct aroscbase
    libbase.
 */
 struct aroscbase *__aros_getbase_aroscbase(void);
+
+/* Thread-safety macros */
+
+#define LOCKACB     ObtainSemaphore(&aroscbase->acb_lock);
+#define UNLOCKACB   ReleaseSemaphore(&aroscbase->acb_lock);
 
 #endif /* !___AROSC_PRIVDATA_H */
