@@ -13,6 +13,7 @@
 static int __arosc_open(struct aroscbase *aroscbase)
 {
     aroscbase->acb_internalpool = CreatePool(MEMF_PUBLIC, 256, 256);
+    InitSemaphore(&aroscbase->acb_lock);
 
     return aroscbase->acb_internalpool != NULL;
 }
