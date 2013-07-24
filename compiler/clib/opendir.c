@@ -5,6 +5,8 @@
     POSIX.1-2008 function opendir().
 */
 
+#include "__arosc_privdata.h"
+
 #include <dos/dos.h>
 #include <proto/dos.h>
 
@@ -56,6 +58,7 @@
 
 ******************************************************************************/
 {
+    struct aroscbase *aroscbase = __aros_getbase_aroscbase();
     DIR *dir;
     int fd;
     fcb *cblock;
@@ -140,8 +143,12 @@
     desc->fcb->opencount = 1;
     desc->fcb->privflags |= _FCB_ISDIR;
 
+    LOCKACB
+
     fd = __getfdslot(__getfirstfd(3));
     __setfdesc(fd, desc);
+
+    UNLOCKACB
 
     dir->fd = fd;
     dir->pos = 0;
