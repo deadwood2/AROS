@@ -3876,7 +3876,14 @@ IPTR Window__MUIM_AddEventHandler(struct IClass *cl, Object *obj,
 
     //D(bug("muimaster.library/window.c: Add Eventhandler %p\n", msg->ehnode));
 
+    /* ABI_V0 compatibility */
+#ifdef __AROS__
+#if defined(__i386__)
+    msg->ehnode->ehn_Node.ln_Pri = msg->ehnode->ehn_Priority;
+#else
     msg->ehnode->ehn_Priority = msg->ehnode->ehn_Priority;
+#endif
+#endif
     EnqueueByPriAndAddress((struct List *)&data->wd_EHList,
         (struct Node *)msg->ehnode);
     ChangeEvents(data, GetDefaultEvents());
@@ -3950,7 +3957,14 @@ IPTR Window__MUIM_AddControlCharHandler(struct IClass *cl, Object *obj,
 
     if (msg->ccnode->ehn_Events)
     {
+        /* ABI_V0 compatibility */
+#ifdef __AROS__
+#if defined(__i386__)
+        msg->ccnode->ehn_Node.ln_Pri = msg->ccnode->ehn_Priority;
+#else
         msg->ccnode->ehn_Priority = msg->ccnode->ehn_Priority;
+#endif
+#endif
         Enqueue((struct List *)&data->wd_CCList,
             (struct Node *)msg->ccnode);
     }
