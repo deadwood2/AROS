@@ -9,10 +9,6 @@
     Lang: english
 */
 
-#if defined(RT_ENABLE) && RT_ENABLE
-#include <aros/rt.h>
-#endif
-
 #include <aros/asmcall.h>
 #include <devices/inputevent.h>
 #include <devices/keymap.h>
