@@ -8,8 +8,8 @@
     startup section in stdcio.conf
 */
 
+#include <aros/symbolsets.h>
 #include <proto/stdc.h>
-#include <proto/stdcio.h>
 #include <libraries/stdcio.h>
 
 #define DEBUG 0
