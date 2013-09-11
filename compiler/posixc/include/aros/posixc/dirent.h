@@ -34,18 +34,16 @@
 
 #endif /* !_POSIX_SOURCE */
 
+/* ABI_V0 compatibility */
 struct dirent
 {
     ino_t   d_ino;
-    char    d_name[NAME_MAX + 1];	/* name must be no longer than this */
-#ifndef _POSIX_SOURCE
     unsigned short int d_reclen;
     unsigned char d_type;
-#else
-    unsigned short int reserved1;
-    unsigned char reserved2;
-#endif /* !_POSIX_SOURCE */
+#define MAXNAMLEN NAME_MAX
+    char    d_name[MAXNAMLEN + 1];  /* name must be no longer than this */
 };
+
 
 /* structure describing an open directory. */
 struct __dirdesc;
