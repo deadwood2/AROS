@@ -8,22 +8,21 @@
 
 #include <proto/exec.h>
 
-#include "__arosc_privdata.h"
-
 const unsigned short int * const *__ctype_b_ptr = NULL;
 /* ABI_V0 compatibility */
 const int * const *__ctype_toupper_ptr = NULL;
 const int * const *__ctype_tolower_ptr = NULL;
 
+struct aroscbase * __aros_getbase_aroscbase();
+
 static int __ctype_init(struct ExecBase *SysBase)
 {
     const struct arosc_ctype *ctype;
-    struct aroscbase *aroscbase = __aros_getbase_aroscbase();
 
-    if (!aroscbase)
-    	    return 0;
+    if (!__aros_getbase_aroscbase())
+        return 0;
 
-    ctype = &aroscbase->acb_acud.acud_ctype;
+    ctype = __get_arosc_ctype();
 
     __ctype_b_ptr = &ctype->b;
     __ctype_toupper_ptr = &ctype->toupper;
