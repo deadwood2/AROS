@@ -25,8 +25,9 @@
 #define _ISalnum    (_ISalpha | _ISdigit)
 
 extern const unsigned short int * const * const __ctype_b_ptr;
-extern const unsigned char * const * const __ctype_toupper_ptr;
-extern const unsigned char * const * const __ctype_tolower_ptr;
+/* ABI_V0 compatibility */
+extern const int * const * const __ctype_toupper_ptr;
+extern const int * const * const __ctype_tolower_ptr;
 
 #define _istype(c,type) \
     ((*__ctype_b_ptr)[((int) (c)) & 0xff] & (unsigned short int) (type))
