@@ -281,7 +281,8 @@ static const unsigned short int __ctype_b_array[256] =
     0, /* ÿ */
 };
 
-static const unsigned char __ctype_toupper_array[256] =
+/* ABI_V0 compatibility */
+static const int __ctype_toupper_array[256] =
 {
       0,  1,  2,  3,   4,  5,  6,  7,
       8,  9, 10, 11,  12, 13, 14, 15,
@@ -318,7 +319,8 @@ static const unsigned char __ctype_toupper_array[256] =
     248,249,250,251, 252,253,254,255,
 };
 
-static const unsigned char __ctype_tolower_array[256] =
+/* ABI_V0 compatibility */
+static const int __ctype_tolower_array[256] =
 {
       0,  1,  2,  3,   4,  5,  6,  7,
       8,  9, 10, 11,  12, 13, 14, 15,
@@ -357,12 +359,13 @@ static const unsigned char __ctype_tolower_array[256] =
 
 #ifdef AROSC_SHARED
 const unsigned short int *__ctype_b = &__ctype_b_array[0];
-const unsigned char  *__ctype_toupper = &__ctype_toupper_array[0];
-const unsigned char  *__ctype_tolower = &__ctype_tolower_array[0];
+/* ABI_V0 compatibility */
+const int *__ctype_toupper = &__ctype_toupper_array[0];
+const int *__ctype_tolower = &__ctype_tolower_array[0];
 
 const unsigned short int * const * const __ctype_b_ptr = &__ctype_b;
-const unsigned char * const * const __ctype_toupper_ptr = &__ctype_toupper;
-const unsigned char * const * const __ctype_tolower_ptr = &__ctype_tolower;
+const int * const * const __ctype_toupper_ptr = &__ctype_toupper;
+const int * const * const __ctype_tolower_ptr = &__ctype_tolower;
 
 const struct arosc_ctype *__get_arosc_ctype(void)
 {
@@ -383,8 +386,9 @@ static int __ctype_init(struct ExecBase *SysBase)
 ADD2INIT(__ctype_init, 20);
 #else
 const unsigned short * const __ctype_b = &__ctype_b_array[0];
-const unsigned char  * const __ctype_toupper = &__ctype_toupper_array[0];
-const unsigned char  * const __ctype_tolower = &__ctype_tolower_array[0];
+/* ABI_V0 compatibility */
+const int * const __ctype_toupper = &__ctype_toupper_array[0];
+const int * const __ctype_tolower = &__ctype_tolower_array[0];
 #endif
 
 /*****************************************************************************
