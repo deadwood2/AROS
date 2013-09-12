@@ -11,8 +11,9 @@
 #include "__arosc_privdata.h"
 
 const unsigned short int * const *__ctype_b_ptr = NULL;
-const unsigned char * const *__ctype_toupper_ptr = NULL;
-const unsigned char * const *__ctype_tolower_ptr = NULL;
+/* ABI_V0 compatibility */
+const int * const *__ctype_toupper_ptr = NULL;
+const int * const *__ctype_tolower_ptr = NULL;
 
 static int __ctype_init(struct ExecBase *SysBase)
 {
