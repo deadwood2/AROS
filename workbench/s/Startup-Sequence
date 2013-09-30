@@ -52,7 +52,7 @@ If EXISTS "Sys:RexxC"
     Path "Sys:RexxC" ADD QUIET
 Endif
 
-Copy >NIL: "ENVARC:" "ENV:" ALL NOPRO NOREQ PAT "~(def_#?.info)"
+Copy >NIL: "ENVARC:" "ENV:" ALL NOPRO NOREQ
 
 If EXISTS "ENV:SYS/theme.var"
     Assign "THEME:" "${SYS/theme.var}"
