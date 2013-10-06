@@ -129,6 +129,15 @@
     OOP_Object *pf;
     IPTR cpf;
     
+    /*
+     * Disallow any direct bitmap access. This is mostly used by SDL and the SDL code seems to be broken
+     * for 32-bit (BGR0, etc) bitmaps. This became move visible as vesa.hidd had its bitmap lock-enabled.
+     * In future SDL needs to be fixed and probably pass some private flag so that applications using
+     * fixed SDL as permitted to use direct bitmap access. It might also be needed to introduce
+     * whitelist for existing application that require this function and handle it correctly
+     */
+    return NULL;
+
     if (!IS_HIDD_BM(bm))
     {
     	D(bug("!!! TRYING TO CALL LockBitMapTagList() ON NON-HIDD BM !!!\n"));
