@@ -345,7 +345,7 @@ static VOID HIDDCompositorRedrawAlphaRegions(struct HIDDCompositorData *compdata
 
     DREDRAWSCR(if (drawrect){ bug("[Compositor:%s] Rect [%d, %d - %d, %d]\n", __PRETTY_FUNCTION__, _RECT((*drawrect))); })
 
-    OOP_GetAttr(renderTarget, aHidd_BitMap_BMStruct, (IPTR *)&backbm);
+    OOP_GetAttr(renderTarget, aHidd_BitMap_BMStructDONOTUSE, (IPTR *)&backbm);
 
     // Alpha Regions are drawn in reverse order incase they overlap..
     for (n = (struct StackBitMapNode *)compdata->bitmapstack.mlh_TailPred;
@@ -463,7 +463,7 @@ static VOID HIDDCompositorRedrawVisibleRegions(struct HIDDCompositorData *compda
                 }
             }
         }
-        OOP_GetAttr(renderTarget, aHidd_BitMap_BMStruct, (IPTR *)&clearbm);
+        OOP_GetAttr(renderTarget, aHidd_BitMap_BMStructDONOTUSE, (IPTR *)&clearbm);
 
         struct RegionRectangle * dispclrrect = dispvisregion->RegionRectangle;
         while (dispclrrect)
@@ -779,7 +779,7 @@ static BOOL HIDDCompositorToggleCompositing(struct HIDDCompositorData *compdata,
 
         DTOGGLE(bug("[Compositor:%s] Disposing old alpha-intermediate bitmap 0x%p\n", __PRETTY_FUNCTION__, oldintermedbitmap));
 
-        OOP_GetAttr(oldintermedbitmap, aHidd_BitMap_BMStruct, (IPTR *)&freebm);
+        OOP_GetAttr(oldintermedbitmap, aHidd_BitMap_BMStructDONOTUSE, (IPTR *)&freebm);
         if (freebm)
             FreeBitMap(freebm);
         else
@@ -794,7 +794,7 @@ static BOOL HIDDCompositorToggleCompositing(struct HIDDCompositorData *compdata,
 
         DTOGGLE(bug("[Compositor:%s] Disposing old display bitmap 0x%p\n", __PRETTY_FUNCTION__, olddisplaybitmap));
 
-        OOP_GetAttr(olddisplaybitmap, aHidd_BitMap_BMStruct, (IPTR *)&freebm);
+        OOP_GetAttr(olddisplaybitmap, aHidd_BitMap_BMStructDONOTUSE, (IPTR *)&freebm);
         if (freebm)
             FreeBitMap(freebm);
         else

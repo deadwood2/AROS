@@ -364,7 +364,7 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
             OOP_Object *bm_obj = NULL;
             BOOL ok = TRUE;
 
-            SET_BM_TAG(bm_tags, 6, BMStruct, nbm);
+            SET_BM_TAG(bm_tags, 6, BMStructDONOTUSE, nbm);
  
             /* Use the memory driver if we didn't get another object in any way */
             if (!drv)
