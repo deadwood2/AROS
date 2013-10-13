@@ -474,7 +474,16 @@ AROS_LH2(struct Library *, OpenLibrary,
 
     struct LDDemonBase *ldBase = SysBase->ex_RamLibPrivate;
     struct Library *library;
-    struct LDObjectNode *object = LDRequestObject(libname, version, "libs", &SysBase->LibList, SysBase);
+    struct LDObjectNode *object = NULL;
+
+    /* ABI_V0 compatibility */
+    /* It was possible to open libraries by names not matching casing with library name. This is a workaround
+     * for programs that did this (example FPC runtime)
+     */
+    if (strcmp(libname, "Thread.library") == 0)
+        libname = "thread.library";
+
+    object = LDRequestObject(libname, version, "libs", &SysBase->LibList, SysBase);
 
     if (!object)
     	return NULL;
