@@ -130,6 +130,15 @@
 		break;
 
 	    case RPTAG_PenMode:
+	        /* ABI_V0 compatibility */
+	        /* RPTAG_PenMode was not handled in V0 and some applications were passing now-invalid
+	         * combinations. Example: ShowWindows
+	         */
+	        if (tag->ti_Data == 1)
+	        {
+	            if (FindTagItem(RPTAG_FgColor, tags) != NULL)
+	                tag->ti_Data = 0;
+	        }
 	    	D(bug("[SetRPAttrs] RastPort 0x%p, PenMode set to %ld\n", rp, tag->ti_Data));
 	    	if (tag->ti_Data)
 		    rp->Flags &= ~RPF_NO_PENS;
