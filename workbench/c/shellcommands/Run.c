@@ -124,7 +124,12 @@ AROS_SHAH(STRPTR, ,COMMAND,/F,NULL ,  "The program (resp. script) to run (argume
 
     /* All the 'noise' goes to cli_StandardError
      */
-    if (!SHArg(QUIET)) {
+    /* ABI_V0 compatibility: simulate always running in QUIET mode */
+    /* High number of V0 apps / script were not aware of explicit QUIET mode. This
+     * now causes shell windows to pop up with [CLI x] names. Example: starting
+     * Shell from AmiStart started during startup sequence
+     */
+    if (0) {
         if (cli)
         {
             ces = cli->cli_StandardError;
