@@ -1,7 +1,7 @@
 MAIL_FILE=/tmp/_aros_build_mail_body
 
 MAIL_SUBJECT_PREFIX="[BUILD]"
-MAIL_SUBJECT_BASE="Nightly build on $CFG_NAME"
+MAIL_SUBJECT_BASE="Nightly ABIV0 build on $CFG_NAME"
 
 MAIL_SUBJECT=""
 
