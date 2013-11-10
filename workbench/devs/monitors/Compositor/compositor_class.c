@@ -66,7 +66,7 @@ enum
 #define MAX(a,b) a > b ? a : b
 #define MIN(a,b) a < b ? a : b
 
-BOOL isRectInRegion(struct Region *region, struct Rectangle *rect)
+BOOL isRectInRegion(struct HIDDCompositorData * compdata, struct Region *region, struct Rectangle *rect)
 {
     struct RegionRectangle *rrect = region->RegionRectangle;
 
@@ -1263,7 +1263,7 @@ VOID METHOD(Compositor, Hidd_Compositor, BitMapRectChanged)
 
                     if (!(n->sbmflags & COMPF_ALPHA))
                     {
-                        if ((compdata->alpharegion) && (isRectInRegion(compdata->alpharegion, &dstandvisrect)))
+                        if ((compdata->alpharegion) && (isRectInRegion(compdata, compdata->alpharegion, &dstandvisrect)))
                         {
                             DUPDATE(bug("[Compositor] %s: ** BitMap in Alpha Region!\n", __func__));
                             updateAlphaBmps = TRUE;
