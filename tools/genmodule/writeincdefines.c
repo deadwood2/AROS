@@ -164,6 +164,14 @@ void writeincdefines(struct config *cfg)
                 }
             }
 
+            if (funclistit->hidden)
+            {
+                fprintf(out,
+                        "\n"
+                        "#if defined(__ENABLE_HIDDEN_LIBAPI__)"
+                        "\n");
+            }
+
             writedefineregister(out, funclistit, cfg, isvararg);
             if (!funclistit->novararg && isvararg)
             {
@@ -171,6 +179,14 @@ void writeincdefines(struct config *cfg)
                 free(varargname);
             }
             writealiases(out, funclistit, cfg);
+
+            if (funclistit->hidden)
+            {
+                fprintf(out,
+                        "\n"
+                        "#endif /* defined(__ENABLE_HIDDEN_LIBAPI__) */"
+                        "\n");
+            }
 
             fprintf(out,
                     "\n"

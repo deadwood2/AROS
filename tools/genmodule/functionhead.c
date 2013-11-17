@@ -28,6 +28,7 @@ struct functionhead *newfunctionhead(const char *name, enum libcall libcall)
         funchead->novararg = 0;
         funchead->priv= 0;
         funchead->unusedlibbase = 0;
+        funchead->hidden = 0;
     }
     else
     {
@@ -293,6 +294,12 @@ void writefuncprotos(FILE *out, struct config *cfg, struct functionhead *funclis
                 fprintf(out, "/* private */\n");
                 break;
             }
+            if (funclistit->hidden) {
+                fprintf(out,
+                        "\n"
+                        "#if defined(__ENABLE_HIDDEN_LIBAPI__)"
+                        "\n");
+            }
 
             if (funclistit->arguments == NULL
                 || strchr(funclistit->arguments->reg, '/') == NULL
@@ -360,6 +367,12 @@ void writefuncprotos(FILE *out, struct config *cfg, struct functionhead *funclis
                         ");\n",
                         cfg->libbase, funclistit->lvo, cfg->basename
                 );
+            }
+            if (funclistit->hidden) {
+                fprintf(out,
+                        "\n"
+                        "#endif /* defined(__ENABLE_HIDDEN_LIBAPI__) */"
+                        "\n");
             }
             break;
 
