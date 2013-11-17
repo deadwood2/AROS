@@ -1673,6 +1673,13 @@ static void readsectionfunctionlist(const char *type, struct functionhead **func
 
                 (*funclistptr)->priv = 1;
             }
+            else if (strncmp(s, "hidden", 6)==0)
+            {
+                if (*funclistptr == NULL)
+                    exitfileerror(20, ".hidden has to come after a function declaration\n");
+
+                (*funclistptr)->hidden = 1;
+            }
             else if (strncmp(s, "novararg", 8)==0)
             {
                 if (*funclistptr == NULL)

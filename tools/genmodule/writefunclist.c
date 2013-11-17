@@ -95,6 +95,9 @@ void writefunclist(struct config *cfg)
                 if (funclistit->priv)
                     fprintf(out, ".private\n");
 
+                if (funclistit->hidden)
+                    fprintf(out, ".hidden\n");
+
                 lvo = funclistit->lvo;
             }
         }
