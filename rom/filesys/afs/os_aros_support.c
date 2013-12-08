@@ -266,7 +266,8 @@ LONG getGeometry
 	return DoIO((struct IORequest *)&ioh->ioreq->iotd_Req);
 }
 
-AROS_INTP(changeIntCode);
+/* ABI_V0 compatibility */
+AROS_SOFTINTP(changeIntCode);
 
 LONG addChangeInt(struct AFSBase *afsbase, struct IOHandle *ioh) {
 
@@ -557,7 +558,8 @@ BOOL retry = TRUE;
 
 #undef SysBase
 
-AROS_INTH1(changeIntCode, struct IOHandle *, ioh)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(changeIntCode, struct IOHandle *, ioh)
 {
 	AROS_INTFUNC_INIT
 
