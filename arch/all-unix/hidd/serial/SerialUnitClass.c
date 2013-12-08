@@ -594,7 +594,8 @@ UWORD UXSerUnit__Hidd_SerialUnit__GetStatus(OOP_Class *cl, OOP_Object *o, struct
 
 #define READBUFFER_SIZE 513
 
-AROS_INTH1(serialunit_receive_data, struct HIDDSerialUnitData *, data)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(serialunit_receive_data, struct HIDDSerialUnitData *, data)
 {
   AROS_INTFUNC_INIT
 
@@ -624,7 +625,8 @@ AROS_INTH1(serialunit_receive_data, struct HIDDSerialUnitData *, data)
   AROS_INTFUNC_EXIT
 }
 
-AROS_INTH1(serialunit_write_more_data, struct HIDDSerialUnitData *, data)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(serialunit_write_more_data, struct HIDDSerialUnitData *, data)
 {
   AROS_INTFUNC_INIT
 

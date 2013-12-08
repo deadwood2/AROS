@@ -65,7 +65,8 @@
 #define DEBUG 0
 #include <aros/debug.h>
 
-AROS_INTH1(ResetHandler, struct inputbase *, InputDevice)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(ResetHandler, struct inputbase *, InputDevice)
 {
     AROS_INTFUNC_INIT
 

@@ -143,7 +143,8 @@ UBYTE isdiskpresent(void)
 }
 
 #ifdef __AROS__
-static AROS_INTH1(changeintserver, struct IntData *, intdata)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(changeintserver, struct IntData *, intdata)
 {
     AROS_INTFUNC_INIT
  
