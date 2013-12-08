@@ -33,7 +33,8 @@ AROS_UFH3(void, taskentry,
     AROS_USERFUNC_EXIT
 }
 
-AROS_INTH1(intentry, struct MsgPort *, port)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(intentry, struct MsgPort *, port)
 {
     AROS_INTFUNC_INIT
 

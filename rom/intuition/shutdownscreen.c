@@ -26,7 +26,8 @@ static const UWORD empty_pointer[1] = { 0 };
 
 /* This reset handler is called if software power-off or reboot has not
  * occurred */
-AROS_INTH1(ShutdownScreenHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(ShutdownScreenHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 

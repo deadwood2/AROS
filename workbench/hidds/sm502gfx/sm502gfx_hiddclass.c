@@ -31,7 +31,8 @@
 
 #include LC_LIBDEFS_FILE
 
-static AROS_INTH1(ResetHandler, struct SM502_HWData *, hwdata)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ResetHandler, struct SM502_HWData *, hwdata)
 {
     AROS_INTFUNC_INIT
 
