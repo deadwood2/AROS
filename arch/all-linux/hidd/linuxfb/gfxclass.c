@@ -44,7 +44,8 @@ static BOOL setup_linuxfb(struct LinuxFB_staticdata *fsd, int fbdev,
 static VOID cleanup_linuxfb(struct LinuxFB_data *data, struct LinuxFB_staticdata *fsd);
 static BOOL get_pixfmt(struct TagItem *pftags, struct fb_fix_screeninfo *fsi, struct fb_var_screeninfo *vsi);
 
-static AROS_INTH1(ResetHandler, struct LinuxFB_data *, data)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ResetHandler, struct LinuxFB_data *, data)
 {
     AROS_INTFUNC_INIT
 

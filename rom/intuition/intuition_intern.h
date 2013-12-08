@@ -1129,7 +1129,8 @@ void *FindBestMonitorNode(void *family, const char *name, ULONG modeid, struct I
 void *FindBest3dMonitor(void *family, struct IntuitionBase *IntuitionBase);
 ULONG FindBestModeID(const char *name, ULONG depth, ULONG width, ULONG height, struct IntuitionBase *IntuitionBase);
 
-AROS_INTP(ShutdownScreenHandler);
+/* ABI_V0 compatibility */
+AROS_SOFTINTP(ShutdownScreenHandler);
 
 #ifdef __MORPHOS__
 BOOL IsLayerHiddenBySibling(struct Layer *layer, BOOL xx);

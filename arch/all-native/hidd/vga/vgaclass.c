@@ -34,7 +34,8 @@
 #define DEBUG 0
 #include <aros/debug.h>
 
-static AROS_INTH1(ResetHandler, struct vga_staticdata *, xsd)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ResetHandler, struct vga_staticdata *, xsd)
 {
     AROS_INTFUNC_INIT
 

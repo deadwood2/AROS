@@ -62,7 +62,8 @@ static usb_interface_descriptor_t *find_idesc(usb_config_descriptor_t *cd, int i
     return (NULL);
 }
 
-static AROS_INTH1(HidInterrupt, HidData *, hid)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(HidInterrupt, HidData *, hid)
 {
     AROS_INTFUNC_INIT
 

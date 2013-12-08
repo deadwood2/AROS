@@ -98,7 +98,8 @@ static const UWORD SupportedCommands[] =
 static BOOL fillrequest(struct IORequest *ioreq, BOOL *trigged, struct GameportBase *GPBase);
 static VOID mouseCallback(struct GameportBase *GPBase,
 			  struct pHidd_Mouse_ExtEvent *ev);
-static AROS_INTP(gpSendQueuedEvents);
+/* ABI_V0 compatibility */
+static AROS_SOFTINTP(gpSendQueuedEvents);
 
 
 /****************************************************************************************/
@@ -534,7 +535,8 @@ static VOID mouseCallback(struct GameportBase *GPBase,
         D(bug("doing software irq, node type=%d\n", GPBase->gp_Interrupt.is_Node.ln_Type));
 	Cause(&GPBase->gp_Interrupt);	
 #else
-    AROS_INTC1(gpSendQueuedEvents, GPBase);
+	 /* ABI_V0 compatibility */
+    AROS_SOFTINTC1(gpSendQueuedEvents, GPBase);
 #endif
     }
     
@@ -548,7 +550,8 @@ Copied and pasted from the function above */
 
 #undef SysBase
 
-static AROS_INTH1(gpSendQueuedEvents, struct GameportBase *, GPBase)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(gpSendQueuedEvents, struct GameportBase *, GPBase)
 {
     AROS_INTFUNC_INIT
 

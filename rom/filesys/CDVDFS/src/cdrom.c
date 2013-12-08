@@ -85,7 +85,8 @@
 #include "clib_stuff.h"
 #include <exec/interrupts.h>
 
-AROS_INTH1(CDChangeHandler, struct CDVDBase *, global)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(CDChangeHandler, struct CDVDBase *, global)
 { 
     AROS_INTFUNC_INIT
 

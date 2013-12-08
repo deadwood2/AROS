@@ -162,7 +162,8 @@ static struct IntData
     ULONG signal;
 } DiskChangeIntData;
 
-static AROS_INTH1(DiskChangeIntHandler, struct IntData *,  MyIntData)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(DiskChangeIntHandler, struct IntData *,  MyIntData)
 {
     AROS_INTFUNC_INIT
 

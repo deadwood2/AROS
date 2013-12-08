@@ -51,7 +51,8 @@
 
 OOP_AttrBase HiddUHCIAttrBase;
 
-static AROS_INTH1(HubInterrupt, UHCIData *, uhci)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(HubInterrupt, UHCIData *, uhci)
 {
     AROS_INTFUNC_INIT
 

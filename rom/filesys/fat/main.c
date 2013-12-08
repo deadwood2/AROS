@@ -203,7 +203,8 @@ LONG handler(struct ExecBase *SysBase)
     return RETURN_OK;
 }
 
-static AROS_INTH1(DiskChangeIntHandler, struct IntData *, MyIntData)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(DiskChangeIntHandler, struct IntData *, MyIntData)
 {
     AROS_INTFUNC_INIT
 
