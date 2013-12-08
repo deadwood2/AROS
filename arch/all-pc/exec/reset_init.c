@@ -16,7 +16,8 @@
 
 /* This reset handler is called if more modern system reset mechanisms fail
  * or are not available */
-AROS_INTH1(static ColdResetHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(static ColdResetHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 
@@ -38,7 +39,8 @@ AROS_INTH1(static ColdResetHandler, struct Interrupt *, handler)
 }
 
 /* This reset handler is called for ColdReboot() */
-AROS_INTH1(static WarmResetHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(static WarmResetHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 
@@ -59,7 +61,8 @@ AROS_INTH1(static WarmResetHandler, struct Interrupt *, handler)
 /* This reset handler is called if software power-off or reboot has not
  * occurred. It is called after the shutdown screen is shown so that the
  * system isn't still alive in the background */
-AROS_INTH1(static ShutdownHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(static ShutdownHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 
