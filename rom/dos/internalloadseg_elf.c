@@ -323,6 +323,10 @@ static int relocate
     ULONG numrel = shrel->size / shrel->entsize;
     ULONG i;
 
+#ifndef NO_SYSBASE_REMAP /* ABI_V0 compatibility */
+    struct symbol *SysBase_sym = NULL;
+#endif
+
     for (i=0; i<numrel; i++, rel++)
     {
         struct symbol *sym;
@@ -368,7 +372,24 @@ static int relocate
                 return 0;
 
             case SHN_ABS:
+#ifdef NO_SYSBASE_REMAP /* ABI_V0 compatibility */
                 s = sym->value;
+#else
+                if (SysBase_sym == NULL)
+                {
+                    if (strncmp((STRPTR) sh[shsymtab->link].addr + sym->name, "SysBase", 8) == 0)
+                    {
+                        SysBase_sym = sym;
+                        s = (IPTR) &SysBase;
+                    }
+                    else
+                        s = sym->value;
+                }
+                else if (SysBase_sym == sym)
+                    s = (IPTR) &SysBase;
+                else
+                    s = sym->value;
+#endif
                 break;
 
             case SHN_UNDEF:
