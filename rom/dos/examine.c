@@ -61,7 +61,7 @@
     ASSERT_VALID_PTR_OR_NULL(BADDR(lock));
     /* ABI_V0 compatibility */
     /* Up to 2010-12-03 ExamineFH was an alias/define to Examine */
-    if ((fl->fl_Access != SHARED_LOCK) && (fl->fl_Access != EXCLUSIVE_LOCK))
+    if (ABIV0_IS_FL_A_FH(fl))
         return ExamineFH(lock, fib);
 
     D(bug("[Examine] lock=%x fib=%x\n", fl, fib));

@@ -57,6 +57,16 @@
     struct FileLock *fl = (struct FileLock *)BADDR(lock);
     LONG status;
 
+    /* ABI_V0 compatibility */
+    if (ABIV0_IS_FL_A_FH(fl))
+    {
+        BPTR reallock = DupLockFromFH(lock);
+        struct FileLock *realfl = (struct FileLock *)BADDR(reallock);
+        status = dopacket2(DOSBase, NULL, realfl ? realfl->fl_Task : GetFileSysTask(), ACTION_INFO, reallock, MKBADDR(parameterBlock));
+        UnLock(reallock);
+        return status;
+    }
+
     status = dopacket2(DOSBase, NULL, fl ? fl->fl_Task : GetFileSysTask(), ACTION_INFO, lock, MKBADDR(parameterBlock));
     return status;
 
