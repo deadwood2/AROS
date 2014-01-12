@@ -325,6 +325,10 @@ void freepacketinfo(struct DosLibrary *DOSBase, struct PacketHelperStruct*);
         } \
     } while (0);
 
+/* ABI_V0 compatibility helper */
+#define ABIV0_IS_FL_A_FH(fl) \
+        ((fl->fl_Access != SHARED_LOCK) && (fl->fl_Access != EXCLUSIVE_LOCK))
+
 /* Shell utilities */
 BPTR findseg_cli(BOOL isBoot, struct DosLibrary *DOSBase);
 
