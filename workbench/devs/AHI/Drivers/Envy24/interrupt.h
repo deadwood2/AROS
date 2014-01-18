@@ -20,8 +20,8 @@ void RecordInterrupt(struct ExceptionContext *pContext, struct ExecBase *SysBase
 
 #elif defined(__AROS__)
 AROS_INTP(CardInterrupt);
-AROS_INTP(PlaybackInterrupt);
-AROS_INTP(RecordInterrupt);
+AROS_SOFTINTP(PlaybackInterrupt); /* ABI_V0 compatibility */
+AROS_SOFTINTP(RecordInterrupt); /* ABI_V0 compatibility */
 
 #else
 

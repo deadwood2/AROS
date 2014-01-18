@@ -91,6 +91,23 @@ MyKPrintFArgs( UBYTE*           fmt,
     );
 # define INTERRUPT_NODE_TYPE NT_INTERRUPT
 
+/* ABI_V0 compatibility */
+# define SOFTINTGW_void(q,n,f)                          \
+    q AROS_SOFTINTH1(n, void *, d) { \
+        AROS_INTFUNC_INIT \
+        f(d); \
+        return FALSE; \
+        AROS_INTFUNC_EXIT \
+    }
+# define SOFTINTGW_ULONG(q,n,f)                         \
+    q AROS_SOFTINTH1(n, void *, d) { \
+        AROS_INTFUNC_INIT \
+        return f(d); \
+        AROS_INTFUNC_EXIT \
+    }
+# define SOFTINTGW(q,t,n,f) \
+    SOFTINTGW_##t(q,n,f)
+
 #elif defined(__AMIGAOS4__)
 
 # define INTGW(q,t,n,f) \

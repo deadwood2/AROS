@@ -47,8 +47,8 @@ static void AddResetHandler(struct EMU10kxData* dd);
 // handling CAMD support too, it needs to be done at driver loading
 // time.
 
-INTGW( static, void,  playbackinterrupt, PlaybackInterrupt );
-INTGW( static, void,  recordinterrupt,   RecordInterrupt );
+SOFTINTGW( static, void,  playbackinterrupt, PlaybackInterrupt ); /* ABI_V0 compatibility */
+SOFTINTGW( static, void,  recordinterrupt,   RecordInterrupt ); /* ABI_V0 compatibility */
 INTGW( static, ULONG, emu10kxinterrupt,  EMU10kxInterrupt );
 
 

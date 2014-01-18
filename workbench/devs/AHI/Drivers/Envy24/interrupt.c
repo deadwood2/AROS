@@ -118,7 +118,8 @@ AROS_INTH1(CardInterrupt, struct CardData *, card)
 ** Playback interrupt handler *************************************************
 ******************************************************************************/
 
-AROS_INTH1(PlaybackInterrupt, struct CardData *, card)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(PlaybackInterrupt, struct CardData *, card)
 {
   AROS_INTFUNC_INIT
 
@@ -203,7 +204,8 @@ AROS_INTH1(PlaybackInterrupt, struct CardData *, card)
 ** Record interrupt handler ***************************************************
 ******************************************************************************/
 
-AROS_INTH1(RecordInterrupt, struct CardData *, card)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(RecordInterrupt, struct CardData *, card)
 {
   AROS_INTFUNC_INIT
 
