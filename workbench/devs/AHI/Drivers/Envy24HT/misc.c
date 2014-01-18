@@ -464,9 +464,10 @@ void CleanUpTimerDevice()
       
 }
 
-#ifdef __MORPHOS__
-INTGW( static, void,  playbackinterrupt, PlaybackInterrupt );
-INTGW( static, void,  recordinterrupt,   RecordInterrupt );
+
+#if defined(__MORPHOS__) || defined(__AROS__)
+SOFTINTGW( static, void,  playbackinterrupt, PlaybackInterrupt ); /* ABI_V0 compatibility */
+SOFTINTGW( static, void,  recordinterrupt,   RecordInterrupt ); /* ABI_V0 compatibility */
 INTGW( static, ULONG, cardinterrupt,  CardInterrupt );
 #endif
 
@@ -496,7 +497,7 @@ struct CardData* AllocDriverData(struct PCIDevice *dev, struct DriverBase* AHIsu
   card->interrupt.is_Node.ln_Type = IRQTYPE;
   card->interrupt.is_Node.ln_Pri  = 0;
   card->interrupt.is_Node.ln_Name = (STRPTR) LibName;
-#ifndef __MORPHOS__
+#if !defined(__MORPHOS__) && !defined(__AROS__)
   card->interrupt.is_Code         = (void(*)(void)) CardInterrupt;
 #else
   card->interrupt.is_Code         = (void(*)(void)) &cardinterrupt;
@@ -506,7 +507,7 @@ struct CardData* AllocDriverData(struct PCIDevice *dev, struct DriverBase* AHIsu
   card->playback_interrupt.is_Node.ln_Type = IRQTYPE;
   card->playback_interrupt.is_Node.ln_Pri  = 0;
   card->playback_interrupt.is_Node.ln_Name = (STRPTR) LibName;
-#ifndef __MORPHOS__
+#if !defined(__MORPHOS__) && !defined(__AROS__)
   card->playback_interrupt.is_Code         = PlaybackInterrupt;
 #else
   card->playback_interrupt.is_Code         = (void(*)(void)) &playbackinterrupt;
@@ -516,7 +517,7 @@ struct CardData* AllocDriverData(struct PCIDevice *dev, struct DriverBase* AHIsu
   card->record_interrupt.is_Node.ln_Type = IRQTYPE;
   card->record_interrupt.is_Node.ln_Pri  = 0;
   card->record_interrupt.is_Node.ln_Name = (STRPTR) LibName;
-#ifndef __MORPHOS__
+#if !defined(__MORPHOS__) && !defined(__AROS__)
   card->record_interrupt.is_Code         = RecordInterrupt;
 #else
   card->record_interrupt.is_Code         = (void(*)(void)) &recordinterrupt;
