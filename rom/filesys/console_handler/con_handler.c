@@ -79,7 +79,7 @@ static const struct NewWindow default_nw =
     0,              /* Screen */
     0,              /* Bitmap */
     100,            /* MinWidth */
-    70,             /* MinHeight */
+    120,            /* MinHeight */
     32767,          /* MaxWidth */
     32767,          /* MaxHeight */
     WBENCHSCREEN    /* type */
