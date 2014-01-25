@@ -322,6 +322,9 @@ SHARED    := \
     gets \
     getw \
     gmtime \
+    locale/mbrtowc \
+    locale/none \
+    locale/table \
     localtime \
     lstat \
     malloc \
@@ -540,7 +543,7 @@ MLIB := \
 # This makes sure that code takes from posixc and stdc searches for includes in clib
 
 CFLAGS_IQUOTE := -L
-USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/compiler/posixc/regex
+USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/posixc/regex
 
 %build_linklib mmake=compiler-arosccommon-legacy \
     libname=arosccommon files="$(COMMON_SOURCES)" \
