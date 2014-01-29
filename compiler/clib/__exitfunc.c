@@ -7,8 +7,19 @@
 
 #include <aros/symbolsets.h>
 #include <exec/lists.h>
+#include <proto/exec.h>
+#include <string.h>
 #include "__exitfunc.h"
 
+static void __exitfuncsquirk(struct aroscbase *aroscbase)
+{
+    if (strcmp(FindTask(NULL)->tc_Node.ln_Name, "zsnes") == 0)
+    {
+        /* Run application atexit (which uses TimerIO) before SDL atexit (which frees TimerIO) */
+        struct Node * tmp = REMHEAD((struct List *) &aroscbase->acb_atexit_list);
+        ADDTAIL((struct List *)&aroscbase->acb_atexit_list, tmp);
+    }
+}
 int __addexitfunc(struct AtExitNode *aen)
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
@@ -29,6 +40,8 @@ void __callexitfuncs(void)
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
     struct AtExitNode *aen;
+
+    __exitfuncsquirk(aroscbase);
 
     while (
         (aen = (struct AtExitNode *) REMHEAD((struct List *) &aroscbase->acb_atexit_list))
