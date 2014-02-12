@@ -194,7 +194,7 @@ static inline LONG is_question(BYTE * buff, LONG buffsize)
     LONG it, item, chars, delthis;
     struct CSource lcs, *cs;
     BOOL is_file_not_buffer;
-    TEXT argbuff[256 + 1];        /* Maximum BCPL string length + injected \n + ASCIIZ */
+    TEXT argbuff[512];        /* ABI_V0 compatibility */
 
     ASSERT_VALID_PTR(template);
     ASSERT_VALID_PTR(array);
