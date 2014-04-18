@@ -186,6 +186,10 @@ static void abiv0_delayed_startup()
 
     D(bug("[__arosc_program_end]\n"));
 
+    struct ETask *etask = GetETask(FindTask(NULL));
+    if (etask)
+        etask->et_Result1 = *aroscbase->acb_startup_error_ptr;
+
     if (!(aroscbase->acb_flags & ABNORMAL_EXIT))
         __callexitfuncs();
 }
