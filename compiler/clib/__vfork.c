@@ -428,6 +428,10 @@ static void parent_enterpretendchild(struct vfork_data *udata)
     aroscbase->acb_cd_lock = udata->child_aroscbase->acb_cd_lock;
     udata->parent_curdir = CurrentDir(((struct Process *) udata->child)->pr_CurrentDir);
 
+    /* Remember and switch apathbuf */
+    udata->parent_apathbuf = aroscbase->acb_apathbuf;
+    aroscbase->acb_apathbuf = udata->child_aroscbase->acb_apathbuf;
+
     /* Pretend to be running as the child created by vfork */
     udata->parent_flags = aroscbase->acb_flags;
     aroscbase->acb_flags |= PRETEND_CHILD;
@@ -467,6 +471,9 @@ static void parent_leavepretendchild(struct vfork_data *udata)
     aroscbase->acb_cd_changed = udata->parent_cd_changed;
     aroscbase->acb_cd_lock = udata->parent_cd_lock;
     CurrentDir(udata->parent_curdir);
+
+    /* Restore parent's apathbuf */
+    aroscbase->acb_apathbuf = udata->parent_apathbuf;
 
     /* Switch to previous vfork_data */
     aroscbase->acb_vfork_data = udata->prev;
