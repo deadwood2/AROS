@@ -34,6 +34,7 @@ struct vfork_data
     int parent_numslots;
     fdesc **parent_fd_array;
     int parent_flags;
+    char *parent_apathbuf;
 
     ULONG child_id;
     struct Task *child;
