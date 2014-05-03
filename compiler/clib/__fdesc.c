@@ -22,6 +22,7 @@
 #include <exec/memory.h>
 #include <exec/semaphores.h>
 #include <dos/dos.h>
+#include <dos/stdio.h>
 #include <aros/symbolsets.h>
 #include <aros/debug.h>
 #include "__fdesc.h"
@@ -381,6 +382,21 @@ void __free_fdesc(fdesc *desc)
     FreePooled(aroscbase->acb_internalpool, desc, sizeof(fdesc));
 }
 
+static void stderrlogic(struct Process *me, fcb *fcb)
+{
+    if ((fcb->handle != BNULL) && !(fcb->privflags & _FCB_DONTCLOSE_FH))
+        Close(fcb->handle);
+    if (ErrorOutput() != BNULL)
+    {
+        fcb->handle = ErrorOutput();
+        fcb->privflags |= _FCB_DONTCLOSE_FH;
+    }
+    else
+    {
+        fcb->handle = Open("NIL:", MODE_OLDFILE);
+        fcb->privflags &= ~_FCB_DONTCLOSE_FH;
+    }
+}
 
 /* FIXME: perhaps this has to be handled in a different way...  */
 int __init_stdfiles(struct aroscbase *aroscbase)
@@ -388,7 +404,6 @@ int __init_stdfiles(struct aroscbase *aroscbase)
     struct Process *me;
     fcb *infcb = NULL, *outfcb = NULL, *errfcb = NULL;
     fdesc *indesc=NULL, *outdesc=NULL, *errdesc=NULL;
-    BPTR infh, outfh;
     int res = __getfdslot(2);
 
     if
@@ -417,61 +432,36 @@ int __init_stdfiles(struct aroscbase *aroscbase)
 
     me = (struct Process *)FindTask (NULL);
 
-    infh = Input();
-    infcb->handle  = OpenFromLock(DupLockFromFH(infh));
+    infcb->handle  = Input();
     infcb->flags  = O_RDONLY;
     infcb->opencount = 1;
     /* Remove (remaining) command line args on first read */
     infcb->privflags = _FCB_FLUSHONREAD;
-    /* Use original fh if it can't be duplicated */
-    if (infcb->handle == BNULL)
-    {
-        infcb->handle = infh;
-        infcb->privflags |= _FCB_DONTCLOSE_FH;
-    }
+    infcb->privflags |= _FCB_DONTCLOSE_FH;
     indesc->fcb = infcb;
     indesc->fdflags = 0;
     D(bug("[__init_stdfiles]Input(): %p, infcb->fh: %p\n",
           BADDR(Input()), BADDR(infcb->fh)
     ));
 
-    outfh = Output();
-    outfcb->handle = OpenFromLock(DupLockFromFH(outfh));
+    outfcb->handle = Output();
     outfcb->flags = O_WRONLY | O_APPEND;
     outfcb->opencount = 1;
-    /* Use original fh if it can't be duplicated */
-    if (outfcb->handle == BNULL)
-    {
-        outfcb->handle = outfh;
-        outfcb->privflags |= _FCB_DONTCLOSE_FH;
-    }
+    outfcb->privflags = _FCB_DONTCLOSE_FH;
     outdesc->fcb = outfcb;
     outdesc->fdflags = 0;
     D(bug("[__init_stdfiles]Output(): %p, outfcb->fh: %p\n",
           BADDR(Output()), BADDR(outfcb->fh)
     ));
 
-    if (me->pr_CES != BNULL)
-    {
-        errfcb->handle = OpenFromLock(DupLockFromFH(me->pr_CES));
-        /* Use original fh if it can't be duplicated */
-        if (errfcb->handle == BNULL)
-        {
-            errfcb->handle = me->pr_CES;
-            errfcb->privflags |= _FCB_DONTCLOSE_FH;
-        }
-    }
-    else
-    {
-        errfcb->handle = outdesc->fcb->handle;
-        errfcb->privflags = _FCB_DONTCLOSE_FH;
-    }
+    errfcb->privflags = 0;
+    stderrlogic(me, errfcb);
     errfcb->flags = O_WRONLY | O_APPEND;
     errfcb->opencount = 1;
     errdesc->fcb = errfcb;
     errdesc->fdflags = 0;
-    D(bug("[__init_stdfiles]me->pr_CES: %p, errfcb->fh: %p\n",
-          BADDR(me->pr_CES), BADDR(errfcb->fh)
+    D(bug("[__init_stdfiles]ErrorOutput(): %p, errfcb->fh: %p\n",
+          BADDR(ErrorOutput()), BADDR(errfcb->fh)
     ));
 
     aroscbase->acb_fd_array[STDIN_FILENO]  = indesc;
@@ -565,32 +555,13 @@ void __updatestdio(void)
     fflush(stderr);
 
     fcb = aroscbase->acb_fd_array[STDIN_FILENO]->fcb;
-    if (!(fcb->privflags & _FCB_DONTCLOSE_FH))
-        Close(fcb->handle);
-    else
-        fcb->privflags &= ~_FCB_DONTCLOSE_FH;
-    fcb->handle = OpenFromLock(DupLockFromFH(Input()));
+    fcb->handle = Input();
 
     fcb = aroscbase->acb_fd_array[STDOUT_FILENO]->fcb;
-    if (!(fcb->privflags & _FCB_DONTCLOSE_FH))
-        Close(fcb->handle);
-    else
-        fcb->privflags &= ~_FCB_DONTCLOSE_FH;
-    fcb->handle = OpenFromLock(DupLockFromFH(Output()));
+    fcb->handle = Output();
 
     fcb = aroscbase->acb_fd_array[STDERR_FILENO]->fcb;
-    if (!(fcb->privflags & _FCB_DONTCLOSE_FH))
-        Close(fcb->handle);
-    if (me->pr_CES != BNULL)
-    {
-        fcb->handle = OpenFromLock(DupLockFromFH(me->pr_CES));
-        fcb->privflags &= ~_FCB_DONTCLOSE_FH;
-    }
-    else
-    {
-        fcb->handle = aroscbase->acb_fd_array[STDOUT_FILENO]->fcb->handle;
-        fcb->privflags |= _FCB_DONTCLOSE_FH;
-    }
+    stderrlogic(me, fcb);
 }
 
 ADD2OPENLIB(__init_fd, 2);
