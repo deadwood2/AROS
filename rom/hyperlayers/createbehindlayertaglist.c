@@ -29,7 +29,7 @@
 	AROS_LHA(struct TagItem    *, tagList, A2),
 
 /*  LOCATION */
-	struct LayersBase *, LayersBase, 40, Layers)
+	struct LayersBase *, LayersBase, 43, Layers)
 
 /*  FUNCTION
         Create a new layer according to the tags given.
