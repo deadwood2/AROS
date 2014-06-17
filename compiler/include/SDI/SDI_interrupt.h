@@ -115,6 +115,8 @@
 
 #elif defined(__AROS__)
 
+/* ABI_V0 compatibility */
+#if 0
   /* This is the same prototype for both Cause() and
    * AddIntServer() functions
    */
@@ -130,6 +132,7 @@
         name(custom, is_Data, sysBase ); return 0; \
         AROS_USERFUNC_EXIT }  \
       ret name(obj, data, struct ExecBase *SysBase)
+#endif
 
 #else
 
