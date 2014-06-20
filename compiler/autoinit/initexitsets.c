@@ -80,4 +80,4 @@ static void __startup_initexit(struct ExecBase *SysBase)
     D(bug("Leaving __startup_initexit\n"));
 }
 
-ADD2SET(__startup_initexit, PROGRAM_ENTRIES, -20);
+ADD2SET(__startup_initexit, PROGRAM_ENTRIES, -60);
