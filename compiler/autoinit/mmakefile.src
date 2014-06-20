@@ -7,20 +7,20 @@ include $(SRCDIR)/config/aros.cfg
 
 # list of automatically linked libs - included by the gcc spec file.
 AUTOFILE := \
-	auto
+        auto
 
 # libraries_nolibs must come BEFORE libraries
 LIBHANDLINGFILES := \
-	functions \
-	libraries_nolibs \
-	libraries
+        functions \
+        libraries_nolibs \
+        libraries
 
 STARTUPFILES := \
-	__showerror \
-	commandline \
-	commandname \
-	__stdiowin \
-	_programname \
+        __showerror \
+        commandline \
+        commandname \
+        __stdiowin \
+        _programname \
         stdiowin \
         fromwb \
         initexitsets \
@@ -28,18 +28,24 @@ STARTUPFILES := \
         programentries
 
 MISCFILES := \
-	detach
+        detach
 
-FILES := $(LIBBASEFILES) $(LIBHANDLINGFILES) $(STARTUPFILES) $(MISCFILES)
+LINKLIBFILES := $(LIBBASEFILES) $(LIBHANDLINGFILES) $(STARTUPFILES) $(MISCFILES)
 
 #MM- core-linklibs : linklibs-autoinit
-#MM- linklibs: linklibs-autoinit
-#MM linklibs-autoinit : includes includes-copy kernel-expansion-includes linklibs-autoinit-autofile
+#MM- linklibs-autoinit : linklibs-autoinit-autofile
+
+# every binary depends on libautoinit.a
+#MM compiler-autoinit : linklibs-autoinit
+#MM compiler-autoinit-quick : linklibs-autoinit
 
 %copy_includes includes="autoinit.h detach.h" path=aros
 
 %copy_files_q mmake=linklibs-autoinit-autofile files=$(AUTOFILE) dst=$(AROS_LIB)
 
-%build_linklib mmake=linklibs-autoinit libname=autoinit files=$(FILES)
+%build_module mmake=compiler-autoinit \
+    modname=autoinit modtype=library \
+    files="" \
+    linklibfiles=$(LINKLIBFILES) \
 
 %common
