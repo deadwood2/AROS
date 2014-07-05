@@ -50,9 +50,12 @@
     /* Reply startup message to Workbench */
     if (WBenchMsg)
     {
+        /* ABI_V0 compatibility */
+#if 0
         /* Close original lock */
         CurrentDir(BNULL);
         UnLock(curdir);
+#endif
 
         Forbid(); /* make sure we're not UnLoadseg()ed before we're really done */
         ReplyMsg((struct Message *) WBenchMsg);
