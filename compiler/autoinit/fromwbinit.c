@@ -72,9 +72,12 @@
         __argv = (STRPTR *) WBenchMsg;
         __argc = 0;
 
+        /* ABI_V0 compatibility */
+#if 0
         /* WB started processes' pr_CurrentDir = BNULL */
         curdir = DupLock(WBenchMsg->sm_ArgList->wa_Lock);
         CurrentDir(curdir);
+#endif
 
         D(bug("[startup] Started from Workbench\n"));
     }
