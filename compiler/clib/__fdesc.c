@@ -506,7 +506,16 @@ int __init_fd(struct aroscbase *aroscbase)
     ));
 
     if (paroscbase && (paroscbase->acb_flags & (VFORK_PARENT | EXEC_PARENT)))
-        return __copy_fdarray(paroscbase->acb_fd_array, paroscbase->acb_numslots);
+    {
+        /* VFORK_PARENT use case - child manipulates file descriptors prior to calling exec* */
+        int res = __copy_fdarray(paroscbase->acb_fd_array, paroscbase->acb_numslots);
+
+        if (paroscbase->acb_flags & EXEC_PARENT)
+            /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
+            paroscbase->acb_fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
+
+        return res;
+    }
     else
         return __init_stdfiles(aroscbase);
 }
