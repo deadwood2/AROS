@@ -19,6 +19,78 @@
 #include "__arosc_privdata.h"
 #include "__exitfunc.h"
 
+/* ABI_V0 compatibility */
+
+/* The data stored for arosc startup code */
+struct arosc_startup
+{
+    jmp_buf as_startup_jmp_buf;
+    LONG    as_startup_error;
+};
+
+static void abiv0_delayed_startup()
+{
+    struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    if (aroscbase->acb_startup_error_ptr == NULL)
+    {
+        struct Task * me = FindTask(NULL);
+        struct arosc_startup * as = GetETask(me)->et_Compatibility[3];
+
+        aroscbase->acb_startup_error_ptr = (int*)&as->as_startup_error;
+        *aroscbase->acb_exit_jmp_buf = *as->as_startup_jmp_buf;
+    }
+}
+
+/*****************************************************************************
+
+    NAME */
+        void __arosc_program_startup_abiv0(
+
+/*  SYNOPSIS */
+        void)
+
+/*  FUNCTION
+        This is called during program startup and before calling main.
+        This is to allow arosc.library to do some initialization that couldn't
+        be done when opening the library.
+
+    INPUTS
+
+    RESULT
+        -
+
+    NOTES
+        This function is normally called by the startup code so one
+        should not need to do it oneself.
+
+    EXAMPLE
+
+    BUGS
+
+    SEE ALSO
+
+    INTERNALS
+
+******************************************************************************/
+{
+    struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+    struct Process *me = (struct Process *)FindTask(NULL);
+
+    D(bug("[__arosc_program_startup] aroscbase 0x%p\n", aroscbase));
+
+    aroscbase->acb_startup_error_ptr = NULL;
+
+    /* A some C error IO routines evidently rely on this, and
+     * should be fixed!
+     */
+    if (me->pr_Task.tc_Node.ln_Type == NT_PROCESS &&
+        me->pr_CES != BNULL)
+    {
+        SetVBuf(me->pr_CES, NULL, BUF_NONE, -1);
+    }
+}
+
 /*****************************************************************************
 
     NAME */
@@ -107,6 +179,9 @@
 ******************************************************************************/
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    abiv0_delayed_startup();
+
     D(bug("[__arosc_program_end]\n"));
 
     if (!(aroscbase->acb_flags & ABNORMAL_EXIT))
@@ -144,6 +219,9 @@
 ******************************************************************************/
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    abiv0_delayed_startup();
+
     int *old = aroscbase->acb_startup_error_ptr;
 
     aroscbase->acb_startup_error_ptr = errorptr;
@@ -182,6 +260,9 @@
 ******************************************************************************/
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    abiv0_delayed_startup();
+
     return aroscbase->acb_startup_error_ptr;
 }
 
@@ -217,6 +298,8 @@
 ******************************************************************************/
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    abiv0_delayed_startup();
    
     *previousjmp = *aroscbase->acb_exit_jmp_buf;
     *aroscbase->acb_exit_jmp_buf = *exitjmp;
@@ -260,6 +343,8 @@
 ******************************************************************************/
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+
+    abiv0_delayed_startup();
 
     /* No __arosc_progam_startup() called; Alert()
     */
