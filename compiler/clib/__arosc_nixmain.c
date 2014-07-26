@@ -275,3 +275,24 @@ static void update_PATH(void)
         setenv("PATH", PATH, 1);
     }
 }
+
+/* ABI_V0 compatibility:
+ * __arosc_nixmain in V0 was called without passing aroscbase to eax. This means that if
+ * standard call is made via AROS_GM_STACKCALL, the aroscbase in task storage slot becomes
+ * damaged (it is set to "current" eax value). Abusing a reg based call signature allows
+ * removing AROS_GM_STACKCALL from call stack, meaning task storage slot will not be set at
+ * all. The assumtion is that slot is already correctly set during opening of arosc.library
+ */
+
+AROS_LH3(int, __arosc_nixmain_abiv0,
+     AROS_LHA(void *,   main, A0),
+     AROS_LHA(int,      argc, D0),
+     AROS_LHA(char **,  argv, A1),
+     struct aroscbase *, aroscbase, 173, Arosc)
+{
+    AROS_LIBFUNC_INIT
+
+    return __arosc_nixmain(main, argc, argv);
+
+    AROS_LIBFUNC_EXIT
+}
