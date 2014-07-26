@@ -297,6 +297,7 @@ SHARED    := \
     __exitfunc \
     __fdesc \
     __signal \
+    __spawnv \
     __stdio \
     __upath \
     __vfork \
@@ -341,6 +342,8 @@ SHARED    := \
     rmdir \
     scanf \
     sharecontextwithchild \
+    spawnv \
+    spawnvp \
     stat \
     strerror \
     system \
