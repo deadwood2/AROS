@@ -104,5 +104,9 @@
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
 
-    return aroscbase->acb_environptr;
+    /* ABI_V0 compatibility */
+    if (aroscbase->acb_acud.acud_compatibility_2)
+        return (char ***)&aroscbase->acb_acud.acud_compatibility_2;
+    else
+        return aroscbase->acb_environptr;
 }
