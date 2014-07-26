@@ -150,6 +150,7 @@
                 sos = (BPTR)tag->ti_Data;
                 break;
 
+            case (SYS_Dummy + 10): /* ABI_V0 compatibility: SYS_Error had value SYS_Dummy + 10 */
             case SYS_Error:
                 ses = (BPTR)tag->ti_Data;
                 break;
