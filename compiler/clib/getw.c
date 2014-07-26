@@ -7,34 +7,36 @@
 
 /*****************************************************************************
 
-    NAME
+    NAME */
 
 #include <stdio.h>
 
-	int getw(
+	int getw_abiv0(
 
-    SYNOPSIS
+/*  SYNOPSIS */
 	FILE *stream)
 
-    FUNCTION
+/*  FUNCTION
 
     INPUTS
 
     RESULT
 
     NOTES
-        Implemented as static inline function.
-        This is not a POSIX function, please use standard fread() function.
 
     EXAMPLE
 
     BUGS
 
     SEE ALSO
-        fread()
 
     INTERNALS
 
 ******************************************************************************/
-
+{
+    int word;
+    
+    if (fread(&word, sizeof(word), 1, stream) > 0) return word;
+    else                                           return EOF;
+}
 

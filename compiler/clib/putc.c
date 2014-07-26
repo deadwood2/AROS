@@ -5,18 +5,28 @@
     C99 function putc().
 */
 
+#include <errno.h>
+#include <dos/dos.h>
+#include <dos/dosextens.h>
+#include <proto/exec.h>
+#include <proto/dos.h>
+#include "__fdesc.h"
+
+#include <stdio.h>
+#undef putc
+
 /*****************************************************************************
 
-    NAME
+    NAME */
 #include <stdio.h>
 
 	int putc (
 
-    SYNOPSIS
+/*  SYNOPSIS */
 	int    c,
 	FILE * stream)
 
-    FUNCTION
+/*  FUNCTION
 	Write one character to the specified stream.
 
     INPUTS
@@ -33,9 +43,11 @@
     BUGS
 
     SEE ALSO
-        fputc()
 
     INTERNALS
-        putc() is just an alias for fputc()
 
 ******************************************************************************/
+{
+    return fputc(c, stream);
+} /* putc */
+

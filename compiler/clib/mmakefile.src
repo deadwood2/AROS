@@ -163,6 +163,8 @@ POSIXC_SHARED_SOURCES = \
     freopen \
     fsetpos \
     ftello \
+    ftime \
+    gcvt \
     getcwd \
     getenv \
     getfsstat \
@@ -182,6 +184,7 @@ POSIXC_SHARED_SOURCES = \
     getrlimit \
     gettimeofday \
     getuid \
+    ioctl \
     jrand48 \
     kill \
     lcong48 \
@@ -272,6 +275,7 @@ POSIXC_SHARED_SOURCES = \
     seekdir \
     setvbuf \
     ungetc \
+    usleep \
     vfprintf \
     vfscanf \
     write \
@@ -309,10 +313,12 @@ SHARED    := \
     fflush \
     flock \
     free \
+    getc \
     getchar \
     getpid \
     getppid \
     gets \
+    getw \
     gmtime \
     localtime \
     lstat \
@@ -322,7 +328,9 @@ SHARED    := \
     perror \
     posix_memalign \
     printf \
+    putc \
     puts \
+    putw \
     rand \
     random \
     readdir \
@@ -350,9 +358,6 @@ SHARED_ARCH := \
 
 SHARED_LINKLIB := \
     arosc_environ \
-    ftime \
-    gcvt \
-    usleep \
     __ctype_linklib \
     __stdc_mb_cur_max
 
