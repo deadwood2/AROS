@@ -743,7 +743,7 @@ static void readsectionconfig(struct config *cfg, struct classinfo *cl, struct i
             const char *names[] =
             {
                 "basename", "libbase", "libbasetype", "libbasetypeextern",
-                "version", "date", "copyright", "libcall", "forcebase", "superclass",
+                "version", "date", "copyright", "libcall", "___", "superclass",
                 "superclass_field", "residentpri", "options", "sysbase_field",
                 "seglist_field", "rootbase_field", "classptr_field", "classptr_var",
                 "classid", "classdatatype", "beginio_func", "abortio_func", "dispatcher",
@@ -835,12 +835,6 @@ static void readsectionconfig(struct config *cfg, struct classinfo *cl, struct i
 
             case 8: /* libcall */
                 fprintf(stderr, "libcall specification is deprecated and ignored\n");
-                break;
-
-            case 9: /* forcebase */
-                if (inclass)
-                    exitfileerror(20, "forcebase not valid config option when in a class section\n");
-                slist_append(&cfg->forcelist, s);
                 break;
 
             case 10: /* superclass */
