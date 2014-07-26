@@ -50,24 +50,5 @@ void writeautoinit(struct config *cfg, int is_rel)
             is_rel ? "rel" : ""
     );
 
-    if (cfg->forcelist!=NULL)
-    {
-        struct stringlist * forcelistit;
-
-        fprintf(out, "\n");
-        for (forcelistit = cfg->forcelist;
-             forcelistit!=NULL;
-             forcelistit = forcelistit->next
-            )
-        {
-            /* By bringing in __aros_getbase_XXXBase() we assure parent will open
-               this library */
-            fprintf(
-                out,
-                "AROS_IMPORT_ASM_SYM(void *, __dummy_%s, __aros_getbase_%s);\n",
-                forcelistit->s, forcelistit->s
-            );
-        }
-    }
     fclose(out);
 }
