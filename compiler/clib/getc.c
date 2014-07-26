@@ -5,17 +5,27 @@
     C99 function getc().
 */
 
+#include <errno.h>
+#include <dos/dos.h>
+#include <dos/dosextens.h>
+#include <proto/exec.h>
+#include <proto/dos.h>
+#include "__fdesc.h"
+
+#include <stdio.h>
+#undef getc
+
 /*****************************************************************************
 
-    NAME
+    NAME */
 #include <stdio.h>
 
 	int getc (
 
-    SYNOPSIS
+/*  SYNOPSIS */
 	FILE * stream)
 
-    FUNCTION
+/*  FUNCTION
 	Read one character from the stream. If there is no character
 	available or an error occurred, the function returns EOF.
 
@@ -35,6 +45,9 @@
 	fgetc(), fputc(), putc()
 
     INTERNALS
-        getc() is just an alias for fgetc().
 
 ******************************************************************************/
+{
+    return fgetc(stream);
+} /* getc */
+
