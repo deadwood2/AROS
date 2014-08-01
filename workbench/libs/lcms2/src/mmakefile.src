@@ -39,6 +39,6 @@ USER_CFLAGS := $(NOWARN_FLAGS)
 USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/../include
 
 %build_module mmake=workbench-libs-lcms2 \
-  modname=lcms2 modtype=library files="$(FILES)"
+  modname=lcms2 modtype=library files="$(FILES) stdcio_startup"
 
 %common

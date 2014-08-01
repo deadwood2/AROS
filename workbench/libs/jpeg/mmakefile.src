@@ -24,7 +24,7 @@ USER_CFLAGS := $(NOWARN_FLAGS) -DNO_GETENV
 
 %build_module mmake=workbench-libs-jpeg \
   modname=jfif modtype=library \
-  files="$(FILES)" linklibname=jpeg
+  files="$(FILES) stdcio_startup" linklibname=jpeg
 
 
 INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h
