@@ -17,8 +17,8 @@ struct StdlibBase
 
     /* ctype.h */
     const unsigned short int * __ctype_b;
-    const unsigned char * __ctype_toupper;
-    const unsigned char * __ctype_tolower;
+    const int * __ctype_toupper;
+    const int * __ctype_tolower;
 };
 
 #endif /* _LIBRARIES_STDLIB_H */

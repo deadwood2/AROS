@@ -19,8 +19,8 @@ struct StdCBase
 
     /* ctype.h */
     const unsigned short int * __ctype_b;
-    const unsigned char * __ctype_toupper;
-    const unsigned char * __ctype_tolower;
+    const int * __ctype_toupper;
+    const int * __ctype_tolower;
 
     /* errno.h */
     int _errno;
