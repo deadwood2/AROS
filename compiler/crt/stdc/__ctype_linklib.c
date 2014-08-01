@@ -8,8 +8,8 @@
 #include <libraries/stdlib.h>
 
 const unsigned short int * const *__ctype_b_ptr = NULL;
-const unsigned char * const *__ctype_toupper_ptr = NULL;
-const unsigned char * const *__ctype_tolower_ptr = NULL;
+const int * const *__ctype_toupper_ptr = NULL;
+const int * const *__ctype_tolower_ptr = NULL;
 
 static struct StdlibBase *_StdlibBase = NULL;
 static int opened = 0;
