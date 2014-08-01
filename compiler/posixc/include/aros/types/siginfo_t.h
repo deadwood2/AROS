@@ -80,11 +80,12 @@
     siginfo_t is delivered to sigaction() style signal handlers.
     It's part of the POSIX Realtime Extension
 */
+/* ABI_V0 compatibility */
 typedef struct
 {
     int		    si_signo;	    /* signal number */
-    int		    si_code;	    /* signal code */
     int		    si_errno;	    /* errno value */
+    int		    si_code;	    /* signal code */
     pid_t	    si_pid;	    /* sending process ID */
     uid_t           si_uid;	    /* user ID of sending process XXX */
     void *	    si_addr;	    /* address of faulting instruction */

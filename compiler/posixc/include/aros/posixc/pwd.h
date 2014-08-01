@@ -12,15 +12,16 @@
 #include <aros/types/gid_t.h>
 #include <aros/types/uid_t.h>
 
+/* ABI_V0 compatibility */
 struct passwd
 {
   char  *pw_name;    /* Username */
+  char  *pw_passwd;  /* Password */
   uid_t  pw_uid;     /* User ID */
   gid_t  pw_gid;     /* Group ID */
+  char  *pw_gecos;   /* Real name */
   char  *pw_dir;     /* Home directory  */
   char  *pw_shell;   /* Shell */
-  char  *pw_passwd;  /* Password */
-  char  *pw_gecos;   /* Real name */
 };
 
 __BEGIN_DECLS
