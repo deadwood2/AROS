@@ -24,14 +24,15 @@
     sigaction() provides an advanced interface for setting signal handling
     options.
 */
+/* ABI_V0 compatibility */
 struct sigaction
 {
     union {
 	void		(*__sa_handler)(int);
 	void		(*__sa_sigaction)(int, siginfo_t *, void *);
     } __sigaction_u;			/* signal handler */
-    sigset_t		sa_mask;	/* signal mask to apply */
     int			sa_flags;	/* see above */
+    sigset_t		sa_mask;	/* signal mask to apply */
 };
 
 #define sa_handler	__sigaction_u.__sa_handler
