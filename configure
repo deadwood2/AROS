@@ -9747,7 +9747,7 @@ case "$target_cpu" in
         m68k_060_ldflags="ISA_MC68060_LDFLAGS           ="
         ;;
     *x86_64* | *i?86*)
-        x86_isa_extra="ISA_X86_FLAGS                 = -m32 -march=i486"
+        x86_isa_extra="ISA_X86_FLAGS                 = -m32 -march=i686"
         x86_64_isa_extra="ISA_X8664_FLAGS               = -mcmodel=large"
         ;;
     *powerpc*)
