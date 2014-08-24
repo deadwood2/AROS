@@ -3,8 +3,10 @@
     $Id$
 */
 
-#include <proto/peropener.h>
+#include <aros/libcall.h>
 #include "peropenerbase.h"
+
+struct Library * __aros_getbase_PeropenerBase();
 
 void PeropenerSetValueStack(int value)
 {
