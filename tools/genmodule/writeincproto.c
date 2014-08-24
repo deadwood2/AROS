@@ -45,70 +45,48 @@ void writeincproto(struct config *cfg)
             cfg->includename
     );
     freeBanner(banner);
-    if (!(cfg->options & OPTION_DUPBASE))
-    {
-        /* If single libbase store libbase in global variable.
-           This is here to be legacy compliant for code that expects this
-           global libbase. If that would not be needed we could always use
-           __aros_getbase_ModName() to access libbase
-         */
-        fprintf(out,
-                "#ifndef __%s_RELLIBBASE__\n"
-                " #if !defined(__NOLIBBASE__) && !defined(__%s_NOLIBBASE__)\n"
-                "  #if !defined(%s)\n"
-                "   #ifdef __%s_STDLIBBASE__\n"
-                "    extern struct Library *%s;\n"
-                "   #else\n"
-                "    extern %s%s;\n"
-                "   #endif\n"
-                "  #endif\n"
-                " #endif\n"
-                " #ifndef __aros_getbase_%s\n"
-                "  #define __aros_getbase_%s() (%s)\n"
-                " #endif\n"
-                "#else /* __%s_RELLIBASE__ */\n"
-                " extern const IPTR __aros_rellib_offset_%s;\n"
-                " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
-                " #define AROS_RELLIB_BASE_%s __aros_rellib_base_%s\n"
-                " #ifndef __aros_getbase_%s\n"
-                "  #ifndef __aros_getoffsettable\n"
-                "   char *__aros_getoffsettable(void);\n"
-                "  #endif\n"
-                "  #define __aros_getbase_%s() (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
-                " #endif\n"
-                "#endif\n"
-                "\n",
-                cfg->includenameupper,
-                cfg->includenameupper,
-                cfg->libbase,
-                cfg->includenameupper,
-                cfg->libbase,
-                cfg->libbasetypeptrextern, cfg->libbase,
-                cfg->libbase,
-                cfg->libbase, cfg->libbase,
-                cfg->includenameupper,
-                cfg->libbase,
-                cfg->includenameupper, cfg->libbase,
-                cfg->includenameupper, cfg->libbase,
-                cfg->libbase,
-                cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase
-        );
-    }
-    else /* cfg->options & OPTION_DUPBASE */
-    {
-        /* If multiple libbase access libbase through __aros_getbase_ModName() */
-        fprintf(out,
-                "%s__aros_getbase_%s(void);\n"
-                " extern const IPTR __aros_rellib_offset_%s;\n"
-                " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
-                " #define AROS_RELLIB_BASE_%s __aros_rellib_base_%s\n"
-                "\n",
-                cfg->libbasetypeptrextern, cfg->libbase,
-                cfg->libbase,
-                cfg->includenameupper, cfg->libbase,
-                cfg->includenameupper, cfg->libbase
-        );
-    }
+    fprintf(out,
+            "#ifndef __%s_RELLIBBASE__\n"
+            " #if !defined(__NOLIBBASE__) && !defined(__%s_NOLIBBASE__)\n"
+            "  #if !defined(%s)\n"
+            "   #ifdef __%s_STDLIBBASE__\n"
+            "    extern struct Library *%s;\n"
+            "   #else\n"
+            "    extern %s%s;\n"
+            "   #endif\n"
+            "  #endif\n"
+            " #endif\n"
+            " #ifndef __aros_getbase_%s\n"
+            "  #define __aros_getbase_%s() (%s)\n"
+            " #endif\n"
+            "#else /* __%s_RELLIBASE__ */\n"
+            " extern const IPTR __aros_rellib_offset_%s;\n"
+            " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
+            " #define AROS_RELLIB_BASE_%s __aros_rellib_base_%s\n"
+            " #ifndef __aros_getbase_%s\n"
+            "  #ifndef __aros_getoffsettable\n"
+            "   char *__aros_getoffsettable(void);\n"
+            "  #endif\n"
+            "  #define __aros_getbase_%s() (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
+            " #endif\n"
+            "#endif\n"
+            "\n",
+            cfg->includenameupper,
+            cfg->includenameupper,
+            cfg->libbase,
+            cfg->includenameupper,
+            cfg->libbase,
+            cfg->libbasetypeptrextern, cfg->libbase,
+            cfg->libbase,
+            cfg->libbase, cfg->libbase,
+            cfg->includenameupper,
+            cfg->libbase,
+            cfg->includenameupper, cfg->libbase,
+            cfg->includenameupper, cfg->libbase,
+            cfg->libbase,
+            cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase
+    );
+
 
     // define name must not start with a digit
     // this solves a problem with proto/8svx.h
