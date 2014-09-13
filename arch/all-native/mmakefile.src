@@ -3,12 +3,14 @@ include $(SRCDIR)/config/aros.cfg
 # 'fs' package includes necessary filesystems and partition.
 # These include filesystems and dos starter
 
-#MM kernel-package-fs:		\
+#MM- kernel-package-fs-deps:	\
 #MM	kernel-fs-afs		\
 #MM	kernel-fs-cdvdfs	\
 #MM	kernel-fs-sfs		\
 #MM	kernel-fs-fat		\
 #MM	kernel-partition
+
+#MM kernel-package-fs: kernel-package-fs-deps
 
 FS_LIBS     := partition
 FS_HANDLERS := afs cdrom sfs fat

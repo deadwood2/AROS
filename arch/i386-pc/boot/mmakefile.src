@@ -8,13 +8,13 @@ include $(SRCDIR)/config/aros.cfg
 # Rules to create kickstart packages for pc-i386
 #
 
-#MM- kernel-link-pc-i386 :	\
+#MM- kernel-link-pc-i386 : \
 #MM     kernel-pc-i386-kernel-gz \
-#MM	kernel-bsp-pc-i386-gz	\
-#MM     kernel-legacy-pc-i386-gz \
-#MM	kernel-package-base-gz	\
-#MM	kernel-package-usb-gz	\
-#MM	kernel-package-fs-gz
+#MM     kernel-bsp-pc-i386 \
+#MM     kernel-legacy-pc-i386 \
+#MM     kernel-objs \
+#MM     kernel-usb \
+#MM     kernel-package-fs-deps
 
 #
 # The kernel
@@ -60,7 +60,7 @@ KDEVS       := ahci ata
 KDEVS_ARCH  := timer
 KHIDDS      := ata_pci i8042 vesagfx vgah pci pcipc serial parallel
 
-%make_package mmake=kernel-bsp-pc-i386 file=$(AROSARCHDIR)/aros-bsp.pkg \
+%make_package mmake=kernel-bsp-pc-i386-yes file=$(AROSARCHDIR)/aros-bsp.pkg \
     devs=$(KDEVS) arch_devs=$(KDEVS_ARCH) hidds=$(KHIDDS) libs=$(KLIBS) \
     arch_libs=$(KLIBS_ARCH) res=$(KRSRCS) arch_res=$(KRSRCS_ARCH)
 
@@ -78,7 +78,7 @@ KHIDDS      := ata_pci i8042 vesagfx vgah pci pcipc serial parallel
 LEGACY_DEVS  := trackdisk
 LEGACY_HIDDS := serialmouse
 
-%make_package mmake=kernel-legacy-pc-i386 file=$(AROSARCHDIR)/aros-legacy.pkg \
+%make_package mmake=kernel-legacy-pc-i386-yes file=$(AROSARCHDIR)/aros-legacy.pkg \
 	devs=$(LEGACY_DEVS) hidds=$(LEGACY_HIDDS) res=$(LEGACY_RSRCS)
 
 %common

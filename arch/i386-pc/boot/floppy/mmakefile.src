@@ -6,6 +6,11 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM bootdisk-pc-i386 : AROS		\
 #MM			bootdisk-setup-pc-i386 \
+#MM			kernel-bsp-pc-i386-yes-gz \
+#MM			kernel-package-base-gz	\
+#MM			kernel-package-usb-gz	\
+#MM			kernel-package-fs-gz \
+#MM			kernel-legacy-pc-i386-yes-gz \
 #MM			kernel-link-pc-i386 \
 #MM			bootloader-$(AROS_TARGET_BOOTLOADER)-$(AROS_TARGET_ARCH)-$(AROS_TARGET_CPU)
 
@@ -23,7 +28,7 @@ SYSTEM_FILES := \
     Libs/iffparse.library \
     Libs/locale.library
 
-MODULES_DEFAULT := $(SRCDIR)/$(CURDIR)/../modules.default
+MODULES_DEFAULT := $(SRCDIR)/$(CURDIR)/modules.floppy
 MODULE_BOOTSTRAP := /$(AROS_DIR_ARCH)/bootstrap.gz
 MODULE_LEGACY := /$(AROS_DIR_ARCH)/aros-legacy.pkg.gz
 BOOT_FILES := $(MODULE_BOOTSTRAP) $(shell cat $(MODULES_DEFAULT)) \
