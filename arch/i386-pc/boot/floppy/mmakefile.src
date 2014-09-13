@@ -11,7 +11,10 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM systemdisk-pc-i386 : AROS		\
 #MM			systemdisk-setup-pc-i386 \
+#MM			systemdisk-theme-pc-i386 \
 #MM			bootloader-$(AROS_TARGET_BOOTLOADER)-$(AROS_TARGET_ARCH)-$(AROS_TARGET_CPU)
+
+%copy_dir_recursive mmake=systemdisk-theme-pc-i386 src=$(SRCDIR)/images/Themes/$(AROS_GUI_THEME) dst=$(AROS_THEMES)/$(AROS_GUI_THEME)
 
 SYSTEM_FILES := \
     AROS.boot \
