@@ -33,8 +33,8 @@
 #define DEFAULT_REFRESH 60
 #define MAX_LINE_LENGTH 500
 
-static const TEXT grub_config_path[] = "SYS:boot/pc/grub/grub.cfg";
-static const TEXT grub_config_path_tmp[] = "SYS:boot/pc/grub/grub.cfg.tmp";
+static const TEXT grub_config_path[] = "SYS:Arch/pc/grub/grub.cfg";
+static const TEXT grub_config_path_tmp[] = "SYS:Arch/pc/grub/grub.cfg.tmp";
 static const TEXT accept_nums[] = "0123456789";
 static CONST_STRPTR ata_buses_list[5] = {NULL};
 static CONST_STRPTR debug_output_list[4] = {NULL};
