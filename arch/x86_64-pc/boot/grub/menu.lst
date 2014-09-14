@@ -56,7 +56,7 @@ title AROS64 with VESA Gfx @ 1280x1024-32bpp
 title AROS64 with VESA Gfx @ 32bpp and legacy drivers)
     kernel @module.bootstrap@ vesa=32bit ATA=32bit nomonitors
 @modules.default@
-    module /boot/pc/aros-legacy.pkg.gz
+    module /Arch/pc/aros-legacy.pkg.gz
 
 title AROS64 with VGA @ 640x480-4bpp
     kernel @module.bootstrap@ ATA=32bit nomonitors
