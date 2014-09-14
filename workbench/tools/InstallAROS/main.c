@@ -64,7 +64,7 @@
 #define inputFile_path          "Prefs/Input\""
 #define prefssrc_path           "ENV:SYS"
 #define prefs_path              "Prefs/Env-Archive/SYS"
-#define ARCH_PATH               "boot/pc"
+#define ARCH_PATH               "Arch/pc"
 #define GRUB_PATH               "grub"
 
 #define locale_prfs_file        "locale.prefs"  /* please note the suffixed \" */
@@ -2008,7 +2008,7 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
         TEXT tmp[100];
         BOOL success = FALSE;
         CONST_STRPTR core_dirs[] = {
-            "boot", "boot",
+            "Arch", "Arch",
             "C", "C",
             "Classes", "Classes",
             "Devs", "Devs",
