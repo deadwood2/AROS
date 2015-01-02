@@ -88,6 +88,7 @@ static void process_cmdline(int *argc, char *args, char *argv[]);
     }
     else
     {
+        __args = NULL;
         __argmax = 1;
         __argc = 1;
         if (!(__argv = AllocMem (sizeof (char *)*2, MEMF_CLEAR | MEMF_ANY)))
