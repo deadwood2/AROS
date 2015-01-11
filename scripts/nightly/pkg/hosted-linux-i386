@@ -3,8 +3,5 @@
 
 BUILDCPU=i386
 BUILDTARGET=linux-$BUILDCPU
-TESTEXE=boot/linux/AROSBootstrap
-TESTARGS="mungwall"
-TESTTIMEOUT=5m
 
 source $SP/pkg/hosted
