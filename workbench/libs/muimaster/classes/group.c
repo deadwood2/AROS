@@ -841,6 +841,8 @@ IPTR Group__MUIM_ExitChange(struct IClass *cl, Object *obj,
         if ((_flags(obj) & MADF_SETUP) && _win(obj))
         {
             Object *win = _win(obj);
+#if 0
+            /* ABI_V0 compatibility */
             Object *parent = obj;
 
             /* CHECKME: Don't call RecalcDisplay if one of our parents is
@@ -863,6 +865,7 @@ IPTR Group__MUIM_ExitChange(struct IClass *cl, Object *obj,
                 }
 
             }
+#endif
 
             DoMethod(win, MUIM_Window_RecalcDisplay, (IPTR) obj);
         }
@@ -887,6 +890,8 @@ IPTR Group__MUIM_ExitChange2(struct IClass *cl, Object *obj,
         if ((_flags(obj) & MADF_SETUP) && _win(obj))
         {
             Object *win = _win(obj);
+#if 0
+            /* ABI_V0 compatibility */
             Object *parent = obj;
 
             /* CHECKME: Don't call RecalcDisplay if one of our parents is
@@ -909,6 +914,7 @@ IPTR Group__MUIM_ExitChange2(struct IClass *cl, Object *obj,
                 }
 
             }
+#endif
 
             DoMethod(win, MUIM_Window_RecalcDisplay, (IPTR) obj);
         }
