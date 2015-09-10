@@ -862,6 +862,14 @@ IPTR Group__MUIM_InitChange(struct IClass *cl, Object *obj,
     return TRUE;
 }
 
+/* ABI_V0 compatibility */
+#define MUIA_Application_ABIv0_Quirks (MUIB_Application | 0x00000010)
+
+struct MUI_ABIv0_Quirks
+{
+    BOOL aq_GroupExitChangeV0;
+};
+ /* ABI_V0 compatibility */
 
 /*
  * Will recalculate display after dynamic adding/removing
@@ -885,6 +893,14 @@ IPTR Group__MUIM_ExitChange(struct IClass *cl, Object *obj,
         if ((_flags(obj) & MADF_SETUP) && _win(obj))
         {
             Object *win = _win(obj);
+            Object *app = _app(obj);
+            struct MUI_ABIv0_Quirks *quirks;
+            get(app, MUIA_Application_ABIv0_Quirks, &quirks);
+
+if (quirks->aq_GroupExitChangeV0);
+else
+{
+            /* ABI_V0 compatibility */
             Object *parent = obj;
 
             /* CHECKME: Don't call RecalcDisplay if one of our parents is
@@ -907,6 +923,7 @@ IPTR Group__MUIM_ExitChange(struct IClass *cl, Object *obj,
                 }
 
             }
+}
 
             DoMethod(win, MUIM_Window_RecalcDisplay, (IPTR) obj);
         }
@@ -931,6 +948,14 @@ IPTR Group__MUIM_ExitChange2(struct IClass *cl, Object *obj,
         if ((_flags(obj) & MADF_SETUP) && _win(obj))
         {
             Object *win = _win(obj);
+            Object *app = _app(obj);
+            struct MUI_ABIv0_Quirks *quirks;
+            get(app, MUIA_Application_ABIv0_Quirks, &quirks);
+
+if (quirks->aq_GroupExitChangeV0);
+else
+{
+            /* ABI_V0 compatibility */
             Object *parent = obj;
 
             /* CHECKME: Don't call RecalcDisplay if one of our parents is
@@ -953,6 +978,7 @@ IPTR Group__MUIM_ExitChange2(struct IClass *cl, Object *obj,
                 }
 
             }
+}
 
             DoMethod(win, MUIM_Window_RecalcDisplay, (IPTR) obj);
         }
