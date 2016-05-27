@@ -24,7 +24,7 @@
         AROS_LHA(APTR, notify, A0),
 
 /*  LOCATION */
-        struct IntuitionBase *, IntuitionBase, 155, Intuition)
+        struct IntuitionBase *, IntuitionBase, 162, Intuition)
 
 /*  FUNCTION
         Remove a Screen Notification from Intuition.
