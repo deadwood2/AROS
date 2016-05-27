@@ -1,0 +1,9 @@
+# $Id$
+#
+include $(TOP)/config/make.cfg
+
+%build_archspecific \
+  mainmmake=compiler-arosm-legacy \
+  maindir=compiler/clib/mlib \
+  arch=i386 \
+  files="fenv infinity"
