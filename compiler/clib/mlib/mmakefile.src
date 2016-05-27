@@ -1,0 +1,206 @@
+# $Id$
+#
+include $(TOP)/config/make.cfg
+
+STDC_MATH_PATH = $(SRCDIR)/compiler/stdc/math/
+
+STDC_MATH_FILES = \
+    e_acos \
+    e_acosf \
+    e_acosh \
+    e_acoshf \
+    e_asin \
+    e_asinf \
+    e_atan2 \
+    e_atan2f \
+    e_atanh \
+    e_atanhf \
+    e_cosh \
+    e_coshf \
+    e_exp \
+    e_expf \
+    e_fmod \
+    e_fmodf \
+    e_gammaf_r \
+    e_gamma_r \
+    e_hypot \
+    e_hypotf \
+    e_j0 \
+    e_j0f \
+    e_j1 \
+    e_j1f \
+    e_jn \
+    e_jnf \
+    e_lgammaf_r \
+    e_lgamma_r \
+    e_log10 \
+    e_log10f \
+    e_log \
+    e_logf \
+    e_pow \
+    e_powf \
+    e_remainder \
+    e_remainderf \
+    e_scalb \
+    e_scalbf \
+    e_sinh \
+    e_sinhf \
+    e_sqrt \
+    e_sqrtf \
+    k_cos \
+    k_rem_pio2 \
+    k_rem_pio2f \
+    k_sin \
+    k_tan \
+    s_asinh \
+    s_asinhf \
+    s_atan \
+    s_atanf \
+    s_cbrt \
+    s_cbrtf \
+    s_ceil \
+    s_ceilf \
+    s_ceill \
+    s_cimag \
+    s_cimagf \
+    s_cimagl \
+    s_conj \
+    s_conjf \
+    s_conjl \
+    s_copysign \
+    s_copysignf \
+    s_copysignl \
+    s_cos \
+    s_cosf \
+    s_creal \
+    s_crealf \
+    s_creall \
+    s_erf \
+    s_erff \
+    s_exp2 \
+    s_exp2f \
+    s_expm1 \
+    s_expm1f \
+    s_fabs \
+    s_fabsf \
+    s_fabsl \
+    s_fdim \
+    s_floor \
+    s_floorf \
+    s_floorl \
+    s_fma \
+    s_fmaf \
+    s_fmax \
+    s_fmaxf \
+    s_fmaxl \
+    s_fmin \
+    s_fminf \
+    s_fminl \
+    s_frexp \
+    s_frexpf \
+    s_ilogb \
+    s_ilogbf \
+    s_ilogbl \
+    s_isfinite \
+    s_isinf \
+    s_isnan \
+    s_isnormal \
+    s_llrint \
+    s_llrintf \
+    s_llround \
+    s_llroundf \
+    s_llroundl \
+    s_log1p \
+    s_log1pf \
+    s_logb \
+    s_logbf \
+    s_lrintf \
+    s_lroundf \
+    s_lroundl \
+    s_modf \
+    s_modff \
+    s_modfl \
+    s_nearbyint \
+    s_nextafter \
+    s_nextafterf \
+    s_nexttowardf \
+    s_remquo \
+    s_remquof \
+    s_rint \
+    s_rintf \
+    s_round \
+    s_roundf \
+    s_roundl \
+    s_scalbln \
+    s_scalbn \
+    s_scalbnf \
+    s_signbit \
+    s_significand \
+    s_significandf \
+    s_sin \
+    s_sinf \
+    s_tan \
+    s_tanf \
+    s_tanh \
+    s_tanhf \
+    s_trunc \
+    s_truncf \
+    s_truncl \
+    sincos \
+    sincosf \
+    sincosl \
+    w_cabs \
+    w_cabsf \
+
+# If long double != double use these; otherwise, we alias the double versions
+# These are architectures that have LDBL_MANT_DIG == 53 in float.h
+# XXX use configure to determine this
+ifneq ($(AROS_TARGET_CPU), ppc)
+ifneq ($(AROS_TARGET_CPU), arm)
+ifneq ($(AROS_TARGET_CPU), m68k)
+STDC_MATH_FILES += s_fmal s_frexpl s_nextafterl s_nexttoward s_scalbnl
+endif
+endif
+endif
+
+FILES := \
+    e_gamma \
+    e_gammaf \
+    e_lgamma \
+    e_lgammaf \
+    e_rem_pio2 \
+    e_rem_pio2f \
+    fenv \
+    infinity \
+    k_cosf \
+    k_sinf \
+    k_tanf \
+    nan \
+    s_finite \
+    s_finitef \
+    s_lrint \
+    s_lround \
+    s_signgam \
+    w_drem \
+    w_dremf \
+    $(addprefix $(STDC_MATH_PATH),$(STDC_MATH_FILES))
+
+#MM compiler-arosm-legacy : includes
+
+# Define lint to get rid of the warnings about rcsid[]
+
+USER_CFLAGS := -D_IEEE_LIBM -Dlint '-D__FBSDID(x)=' \
+    -Wno-uninitialized -Wno-parentheses
+
+# For pulling source files from stdc/math, each dummy source file
+# needs to have #include "stdc/math/..." so that direct includes in
+# the target file like #include "math.h" don't resolved to code in
+# stdc/math but to $(SRCDIR)/$(CURDIR)
+
+CFLAGS_IQUOTE := -L
+USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -I $(SRCDIR)/compiler
+
+%build_linklib mmake=compiler-arosm-legacy libname=arosm files=$(FILES) \
+    libdir=$(OBJDIR)/../
+
+%common
