@@ -12,10 +12,13 @@
     NAME */
 #include <proto/dos.h>
 
-	BPTR SelectErrorOutput(
+	AROS_LH1(BPTR, SelectErrorOutput,
 
 /*  SYNOPSIS */
-	BPTR fh)
+	AROS_LHA(BPTR, fh, D1),
+
+/*  LOCATION */
+	struct DosLibrary *, DOSBase, 144, Dos)
 
 /*  FUNCTION
 	Sets the current error stream returned by ErrorOutput() to a new
@@ -29,7 +32,7 @@
 
     NOTES
 	This function is source-compatible with AmigaOS v4.
-	
+
     EXAMPLE
 
     BUGS
@@ -40,6 +43,8 @@
 
 *****************************************************************************/
 {
+    AROS_LIBFUNC_INIT
+
     BPTR old;
     /* Get pointer to process structure */
     struct Process *me = (struct Process *)FindTask(NULL);
@@ -49,4 +54,6 @@
     me->pr_CES = fh;
 
     return old;
+
+    AROS_LIBFUNC_EXIT
 }

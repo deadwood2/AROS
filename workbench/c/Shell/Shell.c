@@ -24,12 +24,6 @@
 
 #include "Shell.h"
 
-/* Prevent inclusion of the ErrorOutput() linklib
- * routine from -lamiga, so that we don't need a global
- * SysBase
- */
-#define ErrorOutput()  (((struct Process *)FindTask(NULL))->pr_CES)
-
 #define IS_SYSTEM ((ss->flags & (FNF_VALIDFLAGS | FNF_SYSTEM)) == (FNF_VALIDFLAGS | FNF_SYSTEM))
 #define IS_SCRIPT (cli->cli_CurrentInput != cli->cli_StandardInput)
 
