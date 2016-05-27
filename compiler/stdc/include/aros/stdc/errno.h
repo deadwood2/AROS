@@ -7,8 +7,6 @@
 
     C99 header file errno.h
 
-    On AROS we take the NetBSD errno numbering as reference for backwards
-    compatibility with the errno numbering used in the bsdsocket.library.
 */
 
 /*
@@ -48,9 +46,12 @@
  */
 #include <aros/system.h>
 
+/* ABI_V0 compatibility */
+/* Error codes reverted to ABI V0 values */
+
 /* C99 required error codes */
 #define	EDOM		33		/* Numerical argument out of domain */
-#define	EILSEQ		85		/* Illegal byte sequence */
+#define	EILSEQ		84		/* Illegal byte sequence */
 #define	EINVAL		22		/* Invalid argument */
 #define	ERANGE		34		/* Result too large */
 
@@ -61,7 +62,7 @@
 #define	EBUSY		16		/* Device busy */
 #define	EEXIST		17		/* File exists */
 #define	EINTR		4		/* Interrupted system call */
-#define	ENOBUFS		55		/* No buffer space available */
+#define	ENOBUFS		105		/* No buffer space available */
 #define	ENOENT		2		/* No such file or directory */
 #define	ENOEXEC		8		/* Exec format error */
 #define	ENOMEM		12		/* Cannot allocate memory */
@@ -74,7 +75,7 @@
 #define MAX_ERRNO	1000  		/* Numbers should never be bigger than this value */
 
 /* __STDC_ELAST gives the highest value of errno used by stdc.library */
-#define __STDC_ELAST EILSEQ
+#define __STDC_ELAST ENOBUFS
 
 __BEGIN_DECLS
 
