@@ -1,19 +1,20 @@
 /*
-    Copyright © 1995-2007, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2011, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc:
     Lang: english
 */
+
+#include <dos/dosextens.h>
 #include <proto/exec.h>
-#include "dos_intern.h"
 
 /*****************************************************************************
 
     NAME */
 #include <proto/dos.h>
 
-	AROS_LH0(BPTR, Error,
+	AROS_LH0(BPTR, ErrorOutput,
 
 /*  SYNOPSIS */
 
@@ -30,7 +31,7 @@
 	Error stream handle.
 
     NOTES
-	This function is AROS specific
+	This function is source-compatible with AmigaOS v4.
 
     EXAMPLE
 
@@ -49,5 +50,6 @@
 
     /* Nothing spectacular */
     return me->pr_CES;
+
     AROS_LIBFUNC_EXIT
-} /* Input */
+}
