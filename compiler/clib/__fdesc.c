@@ -396,6 +396,8 @@ static void stderrlogic(struct Process *me, fcb *fcb)
         fcb->handle = Open("NIL:", MODE_OLDFILE);
         fcb->privflags &= ~_FCB_DONTCLOSE_FH;
     }
+    /* stderr is expected to be unbuffered for POSIX. */
+    SetVBuf(fcb->handle, NULL, BUF_NONE, -1);
 }
 
 /* FIXME: perhaps this has to be handled in a different way...  */
