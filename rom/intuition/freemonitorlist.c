@@ -21,7 +21,7 @@
         AROS_LHA(Object **, list, A1),
 
 /*  LOCATION */
-        struct IntuitionBase *, IntuitionBase, 162, Intuition)
+        struct IntuitionBase *, IntuitionBase, 164, Intuition)
 
 /*  FUNCTION
 	Frees an array of monitor class objects obtained using
