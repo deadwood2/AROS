@@ -409,6 +409,11 @@ static void parent_enterpretendchild(struct vfork_data *udata)
 
     /* Remember and switch malloc mempool */
     udata->parent_mempool = aroscbase->acb_mempool;
+
+    /* Existing perl binary allocates memory between vfork and exec and
+     * then tries to free it as parent. The quirk is added to handle
+     * the binary until new port can be made. */
+    if (strstr(FindTask(NULL)->tc_Node.ln_Name, "perl") == NULL)
     aroscbase->acb_mempool = udata->child_aroscbase->acb_mempool;
 
     /* Remember and switch env var list */
