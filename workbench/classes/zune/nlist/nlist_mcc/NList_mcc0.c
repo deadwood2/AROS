@@ -461,6 +461,12 @@ static IPTR mNL_List_Construct( struct IClass *cl, Object *obj, struct MUIP_NLis
 {
     APTR entry = msg->entry;
 
+    /* Existing WookieChat binary wrongly passes entry object and crashes
+     * later in construct hook. This quirk needs to be in place until
+     * new version of WookieChat can be produced.
+     */
+    if( entry == (APTR)0x20202020 ) return (IPTR)NULL;
+
     if( entry )
     {
         struct NLData   *data   = INST_DATA( cl, obj );
