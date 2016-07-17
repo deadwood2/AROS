@@ -1,0 +1,12 @@
+#   $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+#MM workbench-libs-mesa-legacy : workbench-libs-gl-linklib
+
+%build_module mmake=workbench-libs-mesa-legacy \
+    modname=mesa modtype=library conffile=arosmesa.conf \
+    files="arosmesa_library_api arosmesa_extensions" \
+    uselibs="GL"
+
+%common
