@@ -51,7 +51,8 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-lcms2 \
 #MM     workbench-libs-gallium \
 #MM     workbench-libs-vega \
-#MM     workbench-libs-egl
+#MM     workbench-libs-egl \
+#MM     workbench-libs-mesa-legacy
 
 #MM- includes-generate : \
 #MM     workbench-libs-amigaguide-includes \
