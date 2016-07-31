@@ -382,6 +382,21 @@ void __free_fdesc(fdesc *desc)
     FreePooled(aroscbase->acb_internalpool, desc, sizeof(fdesc));
 }
 
+/* ABI_V0 compatibility */
+/* The stdiowin startup logic was not duplicating filehandles. Example: Mathomatic */
+static void abiv0_stdiowin_startup_logic()
+{
+    if ((Input() == Output()) && (Output() == ErrorOutput()))
+    {
+        /* This code causes the stderr to be redirected to NIL. If there
+         * is a case where stderr is needed, duplicate the Output() stream
+         * here and assign the copy to ErrorOutput(). Remember to close
+         * the clone in __exit_fd.
+         */
+        SelectErrorOutput(BNULL);
+    }
+}
+
 static void stderrlogic(struct Process *me, fcb *fcb)
 {
     if ((fcb->handle != BNULL) && !(fcb->privflags & _FCB_DONTCLOSE_FH))
@@ -457,6 +472,7 @@ int __init_stdfiles(struct aroscbase *aroscbase)
     ));
 
     errfcb->privflags = 0;
+    abiv0_stdiowin_startup_logic();
     stderrlogic(me, errfcb);
     errfcb->flags = O_WRONLY | O_APPEND;
     errfcb->opencount = 1;
