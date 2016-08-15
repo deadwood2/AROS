@@ -169,7 +169,6 @@ POSIXC_SHARED_SOURCES = \
     getcwd \
     getenv \
     getfsstat \
-    geteuid \
     getgid \
     getegid \
     getgrent \
@@ -181,10 +180,8 @@ POSIXC_SHARED_SOURCES = \
     getpgrp \
     getpwent \
     getpwnam \
-    getpwuid \
     getrlimit \
     gettimeofday \
-    getuid \
     ioctl \
     jrand48 \
     kill \
@@ -216,7 +213,6 @@ POSIXC_SHARED_SOURCES = \
     setlinebuf \
     setpwent \
     setrlimit \
-    setuid \
     sigaction \
     sigaddset \
     sigdelset \
@@ -317,9 +313,12 @@ SHARED    := \
     free \
     getc \
     getchar \
+    geteuid \
     getpid \
     getppid \
+    getpwuid \
     gets \
+    getuid \
     getw \
     gmtime \
     locale/mbrtowc \
@@ -344,6 +343,7 @@ SHARED    := \
     rename \
     rmdir \
     scanf \
+    setuid \
     sharecontextwithchild \
     spawnv \
     spawnvp \
