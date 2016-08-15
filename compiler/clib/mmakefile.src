@@ -169,9 +169,6 @@ POSIXC_SHARED_SOURCES = \
     getcwd \
     getenv \
     getfsstat \
-    geteuid \
-    getgid \
-    getegid \
     getgrent \
     getgrgid \
     getgroups \
@@ -181,10 +178,7 @@ POSIXC_SHARED_SOURCES = \
     getpgrp \
     getpwent \
     getpwnam \
-    getpwuid \
     getrlimit \
-    gettimeofday \
-    getuid \
     ioctl \
     jrand48 \
     kill \
@@ -211,12 +205,10 @@ POSIXC_SHARED_SOURCES = \
     seed48 \
     setbuf \
     setenv \
-    setgid \
     setgrent \
     setlinebuf \
     setpwent \
     setrlimit \
-    setuid \
     sigaction \
     sigaddset \
     sigdelset \
@@ -317,9 +309,15 @@ SHARED    := \
     free \
     getc \
     getchar \
+    getegid \
+    geteuid \
+    getgid \
     getpid \
     getppid \
+    getpwuid \
     gets \
+    gettimeofday \
+    getuid \
     getw \
     gmtime \
     locale/mbrtowc \
@@ -344,6 +342,8 @@ SHARED    := \
     rename \
     rmdir \
     scanf \
+    setgid \
+    setuid \
     sharecontextwithchild \
     spawnv \
     spawnvp \
@@ -542,8 +542,10 @@ MLIB := \
 
 # This makes sure that code takes from posixc and stdc searches for includes in clib
 
+FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
+
 CFLAGS_IQUOTE := -L
-USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/posixc/regex
+USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/posixc/regex -iquote $(FMTPRINTFDIR)
 
 %build_linklib mmake=compiler-arosccommon-legacy \
     libname=arosccommon files="$(COMMON_SOURCES)" \
