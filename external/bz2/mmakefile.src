@@ -5,17 +5,16 @@ include $(SRCDIR)/config/aros.cfg
 #MM external-bz2-includes : \
 #MM     kernel-exec-includes includes-copy
 
-#MM- external-bz2 : external-bz2-lib external-bz2-bzip2
+#MM- external-bz2 : external-bz2-bzip2
 
 ###################################################################################
-
-#MM- external-bz2-lib : linklibs
 
 FILES := blocksort huffman crctable randtable  \
          compress decompress bzlib
 
-%build_module mmake=external-bz2-lib \
-    modname=bz2 modtype=library files="$(FILES)"
+#MM- linklibs: linklibs-bz2
+
+%build_linklib mmake=linklibs-bz2 libname=bz2 files="$(FILES)"
 
 ###################################################################################
 
@@ -50,7 +49,7 @@ MAN_DIR := $(AROS_DEVELOPMENT)/man/man1
 #MM     external-bz2-bzip2-install-man \
 #MM     external-bz2-bzip2-install-man-cpy
 
-#MM  external-bz2-bzip2-bin : external-bz2-lib
+#MM  external-bz2-bzip2-bin : linklibs-bz2
 
 #MM  external-bz2-bzip2-install-man-cpy : external-bz2-bzip2-install-man
 

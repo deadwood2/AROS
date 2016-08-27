@@ -108,18 +108,22 @@ struct DiskImagePlugin daa_plugin = {
 	NULL
 };
 
-struct Library *SysBase;
+struct ExecBase *SysBase;
 struct Library *DOSBase;
 static struct Library *UtilityBase;
 static struct DIPluginIFace *IPlugin;
 #ifndef __AROS__
 #define ZBase image->zbase
 #else
+THIS_PROGRAM_HANDLES_SYMBOLSET(PROGRAM_ENTRIES)
+DECLARESET(PROGRAM_ENTRIES)
+THIS_PROGRAM_HANDLES_SYMBOLSET(LIBS)
+DECLARESET(LIBS)
 struct Library *Z1Base;
 #endif
 
 BOOL DAA_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
-	SysBase = data->SysBase;
+	SysBase = (struct ExecBase *)data->SysBase;
 	DOSBase = data->DOSBase;
 	UtilityBase = data->UtilityBase;
 	IPlugin = data->IPlugin;
@@ -244,11 +248,11 @@ APTR DAA_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_ST
 	}
 
 #ifdef __AROS__
-	image->zbase = OpenLibrary("z1.library", 1);
+	image->zbase = NULL;
 	Z1Base = image->zbase;
+	set_open_libraries();
 #else
 	image->zbase = OpenLibrary("z.library", 1);
-#endif
 	if (!image->zbase || !CheckLib(image->zbase, 1, 6)) {
 		error = ERROR_OBJECT_NOT_FOUND;
 		error_string = MSG_REQVER;
@@ -257,6 +261,7 @@ APTR DAA_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_ST
 		error_args[2] = 6;
 		goto error;
 	}
+#endif
 
 	if (multi || fn->size != rle64(&daa.filesize)) {
 		CONST_STRPTR p;
@@ -402,6 +407,7 @@ void DAA_CloseImage (struct DiskImagePlugin *Self, APTR image_ptr) {
 			Close(fn->file);
 			FreeVec(fn);
 		}
+		set_close_libraries();
 		FreeVec(image->data);
 		FreeVec(image);
 	}

@@ -68,7 +68,7 @@ TARGETDIR := $(AROS_DEVS)/DiskImage
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no
 
 %build_prog mmake=workbench-devs-diskimage-ciso progname=CISO files="stub_aros ciso" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdc" usestartup=no
 
 %build_prog mmake=workbench-devs-diskimage-cpc progname=CPC files="stub_aros cpc" \
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no
@@ -81,15 +81,15 @@ CFILES := cue/cue cue/flac cue/wavpack audio/aiff audio/flac \
     targetdir=$(TARGETDIR) uselibs="mpg123 FLAC wavpack vorbisfile vorbis ogg diskimagesupport" usestartup=no
 
 %build_prog mmake=workbench-devs-diskimage-daa progname=DAA files="stub_aros daa" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdc" usestartup=no
 
 %build_prog mmake=workbench-devs-diskimage-dax progname=DAX files="stub_aros dax" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdc" usestartup=no
 
 CFILES := dmg/dmg dmg/base64 dmg/adc
 
-%build_prog mmake=workbench-devs-diskimage-dmg progname=DMG files="stub_aros $(CFILES)" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z bz2 expat" usestartup=no
+#%build_prog mmake=workbench-devs-diskimage-dmg progname=DMG files="stub_aros $(CFILES)" \
+#    targetdir=$(TARGETDIR) uselibs="diskimagesupport z bz2 expat" usestartup=no
 
 CFILES := ../dms/crc_csum ../dms/getbits ../dms/tables ../dms/maketbl ../dms/u_init \
 	../dms/u_deep ../dms/u_heavy ../dms/u_medium ../dms/u_quick ../dms/u_rle
@@ -110,7 +110,7 @@ CFILES := ../dms/crc_csum ../dms/getbits ../dms/tables ../dms/maketbl ../dms/u_i
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no
 
 %build_prog mmake=workbench-devs-diskimage-uif progname=UIF files="stub_aros uif" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdc" usestartup=no
 
 %build_prog mmake=workbench-devs-diskimage-xad progname=XAD files="stub_aros xad" \
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no

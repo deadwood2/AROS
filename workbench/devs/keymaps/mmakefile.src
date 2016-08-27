@@ -21,7 +21,7 @@ workbench-devs-keymaps-quick : workbench-devs-keymaps
 OBJDIR := $(GENDIR)/$(CURDIR)
 
 $(AROS_DEVS)/Keymaps/% : $(OBJDIR)/%.o
-	%link_q opt="$(LDFLAGS) $(NOSTARTUP_LDFLAGS)"
+	%link_q opt="$(LDFLAGS) $(NOSTARTUP_LDFLAGS) -newclib"
 
 $(OBJDIR)/%.o : $(SRCDIR)/$(CURDIR)/%.c
 	%compile_q cmd="$(TARGET_CC) $(TARGET_SYSROOT)"

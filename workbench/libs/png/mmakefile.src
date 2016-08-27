@@ -16,7 +16,7 @@ USER_CFLAGS := $(NOWARN_FLAGS)
 
 %build_module mmake=workbench-libs-png \
     modname=png modtype=library \
-    files="$(FILES)" linklibname="png"
+    files="$(FILES)" linklibname="png" uselibs="z"
 
 #MM- linklibs: linklibs-png-nostdio
 

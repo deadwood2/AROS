@@ -91,17 +91,21 @@ struct DiskImagePlugin ciso_plugin = {
 	NULL
 };
 
-struct Library *SysBase;
+struct ExecBase *SysBase;
 struct Library *DOSBase;
 static struct DIPluginIFace *IPlugin;
 #ifndef __AROS__
 #define ZBase image->zbase
 #else
+THIS_PROGRAM_HANDLES_SYMBOLSET(PROGRAM_ENTRIES)
+DECLARESET(PROGRAM_ENTRIES)
+THIS_PROGRAM_HANDLES_SYMBOLSET(LIBS)
+DECLARESET(LIBS)
 struct Library *Z1Base;
 #endif
 
 BOOL CISO_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
-	SysBase = data->SysBase;
+	SysBase = (struct ExecBase *)data->SysBase;
 	DOSBase = data->DOSBase;
 	IPlugin = data->IPlugin;
 	return TRUE;
@@ -166,11 +170,11 @@ APTR CISO_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_S
 	image->align = ciso.align;
 
 #ifdef __AROS__
-	image->zbase = OpenLibrary("z1.library", 1);
+	image->zbase = NULL;
 	Z1Base = image->zbase;
+	set_open_libraries();
 #else
 	image->zbase = OpenLibrary("z.library", 1);
-#endif
 	if (!image->zbase || !CheckLib(image->zbase, 1, 6)) {
 		error = ERROR_OBJECT_NOT_FOUND;
 		error_string = MSG_REQVER;
@@ -179,6 +183,7 @@ APTR CISO_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_S
 		error_args[2] = 6;
 		goto error;
 	}
+#endif
 
 	image->index_buf = AllocVec(index_size, MEMF_ANY);
 	image->block_buf = AllocVec(block_size << 1, MEMF_ANY);
@@ -228,6 +233,7 @@ void CISO_CloseImage (struct DiskImagePlugin *Self, APTR image_ptr) {
 			if (CheckLib(image->zbase, 1, 6)) InflateEnd(&image->zs);
 			CloseLibrary(image->zbase);
 		}
+		set_close_libraries();
 		FreeVec(image->block_buf);
 		FreeVec(image->index_buf);
 		Close(image->file);

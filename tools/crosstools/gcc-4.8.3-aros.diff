@@ -88,6 +88,17 @@ diff -ruN gcc-4.8.3/fixincludes/configure.ac gcc-4.8.3.aros/fixincludes/configur
  	i?86-*-msdosdjgpp* | \
  	i?86-*-mingw32* | \
  	x86_64-*-mingw32* | \
+diff -ruN gcc-4.8.3/gcc/c-family/c-opts.c gcc-4.8.3.aros/gcc/c-family/c-opts.c
+--- gcc-4.8.3/gcc/c-family/c-opts.c	2014-05-06 12:48:55.000000000 +0200
++++ gcc-4.8.3.new/gcc/c-family/c-opts.c	2014-11-10 10:59:06.698397353 +0100
+@@ -305,7 +305,6 @@
+ 	    error ("-I- specified twice");
+ 	  quote_chain_split = true;
+ 	  split_quote_chain ();
+-	  inform (input_location, "obsolete option -I- used, please use -iquote instead");
+ 	}
+       break;
+
 diff -ruN gcc-4.8.3/gcc/config/arm/aros.h gcc-4.8.3.aros/gcc/config/arm/aros.h
 --- gcc-4.8.3/gcc/config/arm/aros.h	1970-01-01 01:00:00.000000000 +0100
 +++ gcc-4.8.3.aros/gcc/config/arm/aros.h	2015-02-26 16:39:08.879698333 +0000
@@ -159,7 +170,7 @@ diff -ruN gcc-4.8.3/gcc/config/arm/aros.h gcc-4.8.3.aros/gcc/config/arm/aros.h
 +#endif
 +
 +#undef SUBTARGET_CPP_SPEC
-+#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:-isystem %R/include%{!nostdc:%{!noposixc: -isystem %R/include/aros/posixc} -isystem %R/include/aros/stdc}}"
++#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:%{!nostdc:%{!noposixc:-isystem %R/include/aros/posixc} -isystem %R/include/aros/stdc} -isystem %R/include}"
 +
 +#undef  SUBTARGET_EXTRA_LINK_SPEC
 +#define SUBTARGET_EXTRA_LINK_SPEC " -m " TARGET_LINKER_EMULATION
@@ -302,7 +313,7 @@ diff -ruN gcc-4.8.3/gcc/config/aros.h gcc-4.8.3.aros/gcc/config/aros.h
 +
 +#undef	LIB_SPEC
 +#define LIB_SPEC \
-+  "--start-group -lmui -larossupport -lamiga %{!nostartfiles:%{!static:%{!nostdc:%{!noposixc:-lposixc} -lstdcio -lstdc}}%{static:%{!nostdc:-lstdc.static}}} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop %{!nosysbase:-lexec} -lautoinit -llibinit %{nostartfiles:%{static:-lstdc.static}} --end-group"
++  "--start-group -lmui -larossupport -lamiga %{!nostartfiles:%{!static:%{newclib:%{!nostdc:%{!noposixc:-lposixc} -lstdcio -lstdc}} %{!newclib:%{!nostdc:-larosc}}} %{static:%{!nostdc:-lstdc.static}}} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop %{!nosysbase:-lexec} -lautoinit -llibinit %{nostartfiles:%{static:-lstdc.static}} --end-group"
 +
 +#undef	LIBSTDCXX_STATIC
 +#define LIBSTDCXX_STATIC "pthread"
@@ -319,7 +330,7 @@ diff -ruN gcc-4.8.3/gcc/config/aros.h gcc-4.8.3.aros/gcc/config/aros.h
 diff -ruN gcc-4.8.3/gcc/config/aros.opt gcc-4.8.3.aros/gcc/config/aros.opt
 --- gcc-4.8.3/gcc/config/aros.opt	1970-01-01 01:00:00.000000000 +0100
 +++ gcc-4.8.3.aros/gcc/config/aros.opt	2015-02-26 16:39:08.879698333 +0000
-@@ -0,0 +1,35 @@
+@@ -0,0 +1,39 @@
 +; Processor-independent options for AROS.
 +
 +; Copyright (C) 2015 Free Software Foundation, Inc.
@@ -353,6 +364,10 @@ diff -ruN gcc-4.8.3/gcc/config/aros.opt gcc-4.8.3.aros/gcc/config/aros.opt
 +Driver
 +
 +nix
++Driver
++
++
++newclib
 +Driver
 +
 diff -ruN gcc-4.8.3/gcc/config/i386/aros64.h gcc-4.8.3.aros/gcc/config/i386/aros64.h

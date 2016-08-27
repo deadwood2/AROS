@@ -34,7 +34,7 @@ static void restore_vars(struct MinList *old_vars);
 static void free_vars(struct MinList *vars);
 static void update_PATH(void);
 
-int __arosc_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[])
+int __posixc_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[])
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase(), *paroscbase;
     int *errorptr = __arosc_get_errorptr();
@@ -292,7 +292,7 @@ AROS_LH3(int, __arosc_nixmain_abiv0,
 {
     AROS_LIBFUNC_INIT
 
-    return __arosc_nixmain(main, argc, argv);
+    return __posixc_nixmain(main, argc, argv);
 
     AROS_LIBFUNC_EXIT
 }
