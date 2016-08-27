@@ -1178,7 +1178,7 @@ else
                     -L/usr/lib $(addprefix -l,%(usehostlibs))
 endif 
 %(module) : %(objs) %(endobj) $(%(mmake)_DEPLIBS) $(USER_DEPLIBS)
-	%link_module_q cmd="%(cmd)" err=$(ERR) endtag=$(ENDTAG) objs=$(OBJS) libs=$(LIBS) objdir=$(OBJDIR) ldflags=$(LDFLAGS)
+	%link_module_q cmd="%(cmd)" err=$(ERR) endtag=$(ENDTAG) objs=$(OBJS) libs=$(LIBS) objdir=$(OBJDIR) ldflags="$(LDFLAGS) -newclib"
 
 %end
 #------------------------------------------------------------------------------
@@ -1502,7 +1502,7 @@ BDID := $(BDTARGETID)
     objcfiles= \
     asmfiles= objdir=$(GENDIR)/$(CURDIR) targetdir=$(AROSDIR)/$(CURDIR) \
     cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= cxxflags=$(CXXFLAGS) dxxflags= ldflags=$(LDFLAGS) \
-    aflags=$(AFLAGS) uselibs= usehostlibs= usestartup=yes detach=no nix=no \
+    aflags=$(AFLAGS) uselibs= usehostlibs= usestartup=yes detach=no nix=no nonewclib=no \
     includedir= libdir= \
     compiler=target linker= \
     coverageinstr=$(TARGET_COVERAGEINSTR) funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO)
@@ -1586,6 +1586,11 @@ endif
 %(mmake)_LDFLAGS   := %(ldflags)
 ifneq (%(libdir),)
 %(mmake)_LDFLAGS   += -L%(libdir)
+endif
+ifneq (%(nonewclib), yes)
+ifeq (%(compiler),target)
+%(mmake)_LDFLAGS   += -newclib
+endif
 endif
 
 #MM
@@ -1690,6 +1695,9 @@ endif
 %(mmake)_LDFLAGS   := %(ldflags)
 ifneq (%(libdir),)
     %(mmake)_LDFLAGS += -L%(libdir)
+endif
+ifeq (%(compiler),target)
+    %(mmake)_LDFLAGS += -newclib
 endif
 
 #MM
@@ -3300,7 +3308,7 @@ ifeq (%(compiler),target)
 ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS="$(strip $(BASE_CPPFLAGS) $(USER_CPPFLAGS) %(extracppflags))"
 endif
-    %(mmake)-cfg-env += LDFLAGS="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))"
+    %(mmake)-cfg-env += LDFLAGS="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) -newclib $(%(mmake)-nix) $(%(mmake)-s_flag))"
 ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS_FOR_BUILD="$(HOST_CPPFLAGS)"
 endif
@@ -3314,20 +3322,20 @@ ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS_FOR_HOST="$(strip $(BASE_CPPFLAGS) $(USER_CPPFLAGS) %(extracppflags))"
 endif
     %(mmake)-cfg-env += CC_FOR_HOST="$(strip $(TARGET_CC) $(TARGET_SYSROOT))" \
-        CFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CFLAGS) $(USER_CFLAGS) -L$(AROS_DEVELOPER)/lib %(extracflags) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
+        CFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CFLAGS) $(USER_CFLAGS) -L$(AROS_DEVELOPER)/lib %(extracflags) newclib $(%(mmake)-nix) $(%(mmake)-s_flag))" \
         CXX_FOR_HOST="$(strip $(TARGET_CXX) $(TARGET_SYSROOT))" \
-        CXXFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CXXFLAGS) $(USER_CXXFLAGS) -L$(AROS_DEVELOPER)/lib %(extracxxflags) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
+        CXXFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CXXFLAGS) $(USER_CXXFLAGS) -L$(AROS_DEVELOPER)/lib %(extracxxflags) newclib $(%(mmake)-nix) $(%(mmake)-s_flag))" \
         LD_FOR_HOST="$(strip $(TARGET_LD))" \
         LDFLAGS_FOR_HOST="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))"
 ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS_FOR_TARGET="$(strip $(BASE_CPPFLAGS) $(USER_CPPFLAGS) %(extracppflags))"
 endif
     %(mmake)-cfg-env += CC_FOR_TARGET="$(strip $(TARGET_CC) $(TARGET_SYSROOT))" \
-        CFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CFLAGS) -L$(AROS_DEVELOPER)/lib %(extracflags))" \
+        CFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CFLAGS) -L$(AROS_DEVELOPER)/lib %(extracflags)) -newclib" \
         CXX_FOR_TARGET="$(strip $(TARGET_CXX) $(TARGET_SYSROOT))" \
-        CXXFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CXXFLAGS) -L$(AROS_DEVELOPER)/lib %(extracxxflags))" \
+        CXXFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CXXFLAGS) -L$(AROS_DEVELOPER)/lib %(extracxxflags)) -newclib" \
         LD_FOR_TARGET="$(strip $(TARGET_LD))" \
-        LDFLAGS_FOR_TARGET="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
+        LDFLAGS_FOR_TARGET="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) -newclib $(%(mmake)-nix) $(%(mmake)-s_flag))" \
         AR="$(strip $(AR_PLAIN))" \
         AS="$(strip $(TARGET_AS))" \
         OBJCOPY="$(strip $(OBJCOPY))" \
@@ -4162,7 +4170,7 @@ endif
 
 %(file): KOBJS    := $(KOBJS)
 %(file): LDFLAGS  := $(TMP_LDFLAGS) $(NOSTARTUP_LDFLAGS) \
-                    -static -nosysbase -Wl,-Ur
+                    -static -nosysbase -newclib -Wl,-Ur
 %(file): LDLIBS   := $(addprefix -l, %(uselibs))
 %(file): $(KOBJS) $(DEPLIBS) | $(TMP_DIRS)
 	$(Q)$(ECHO) "Kickstart  $(subst $(TARGETDIR)/,,$@)..."
