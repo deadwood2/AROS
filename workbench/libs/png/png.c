@@ -668,7 +668,7 @@ png_get_io_ptr(png_const_structrp png_ptr)
  * function of your own because "FILE *" isn't necessarily available.
  */
 void PNGAPI
-png_init_io(png_structrp png_ptr, png_FILE_p fp)
+__png_init_io(png_structp png_ptr, png_FILE_p fp, png_rw_ptr read_data_fn, png_rw_ptr write_data_fn, png_flush_ptr output_flush_fn)
 {
    png_debug(1, "in png_init_io");
 
@@ -676,6 +676,10 @@ png_init_io(png_structrp png_ptr, png_FILE_p fp)
       return;
 
    png_ptr->io_ptr = (png_voidp)fp;
+   if (png_ptr->mode & PNG_IS_READ_STRUCT)
+      png_set_read_fn(png_ptr, fp, read_data_fn);
+   else
+      png_set_write_fn(png_ptr, fp, write_data_fn, output_flush_fn);
 }
 #  endif
 
