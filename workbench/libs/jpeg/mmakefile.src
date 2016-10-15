@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM workbench-libs-jpeg-includes : \
+#MM- workbench-libs-jpeg-includes : \
 #MM     kernel-exec-includes \
 #MM     kernel-dos-includes \
 #MM     includes-copy
@@ -22,9 +22,7 @@ USER_CFLAGS := $(NOWARN_FLAGS) -DNO_GETENV
 
 #MM- core-linklibs : linklibs-jpeg
 
-%build_module mmake=workbench-libs-jpeg \
-  modname=jfif modtype=library \
-  files="$(FILES) stdcio_startup" linklibname=jpeg
+%build_linklib mmake=linklibs-jpeg libname=jpeg files="$(FILES)"
 
 
 INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h

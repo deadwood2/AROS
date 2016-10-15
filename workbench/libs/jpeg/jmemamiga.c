@@ -124,5 +124,5 @@ static void JPEG_Expunge(struct Library * base)
     _mempool = NULL;
 }
 
-ADD2INITLIB(JPEG_Init, 0);
-ADD2EXPUNGELIB(JPEG_Expunge, 0)
+ADD2INIT(JPEG_Init, 0);
+ADD2EXIT(JPEG_Expunge, 0)
