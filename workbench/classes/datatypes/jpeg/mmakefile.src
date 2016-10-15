@@ -13,7 +13,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=workbench-datatypes-jpeg \
     modname=jpeg modtype=datatype \
-    files=$(FILES)
+    files=$(FILES) uselibs="jpeg"
 
 $(MOD_DIR)/jpeg.readme : jpeg.readme
 	@$(CP) $< $@
