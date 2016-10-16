@@ -47,9 +47,15 @@
 
 	The software interrupt is called with the following prototype:
 
-    AROS_INTC1(YourIntCode, APTR, interruptData)
+	AROS_UFH3(void, YourIntCode,
+	    AROS_UFHA(APTR, interruptData, A1),
+	    AROS_UFHA(APTR, interruptCode, A5),
+	    AROS_UFHA(struct ExecBase *, SysBase, A6))
 
-	The interruptData is the value of the is_Data field.
+	The interruptData is the value of the is_Data field, interruptCode
+	is the value of the is_Code field - it is included for historical
+	and compatibility reasons. You can ignore the value of interruptCode,
+	but you must declare it.
 
     INPUTS
 	softint     -   The interrupt you wish to schedule. When setting up
@@ -167,7 +173,11 @@ AROS_INTH0(SoftIntDispatch)
                     KrnSti();
 
                     /* Call the software interrupt. */
-                    AROS_INTC1(intr->is_Code, intr->is_Data);
+                    /* ABI_V0 compatibility */
+                    AROS_UFC3(void, intr->is_Code,
+                              AROS_UFCA(APTR, intr->is_Data, A1),
+                              AROS_UFCA(APTR, intr->is_Code, A5),
+                              AROS_UFCA(struct ExecBase *, SysBase, A6));
 
                     /* Get out and start loop *all* over again *from scratch*! */
                     break;

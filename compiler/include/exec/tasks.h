@@ -174,6 +174,7 @@ struct ETask
     ULONG	    et_Result1;	    /* First result			*/
     APTR	    et_Result2;	    /* Result data pointer (AllocVec)	*/
     struct MsgPort  et_TaskMsgPort;
+    APTR	    et_Compatibility[4]; /* ABI_V0 compatibility: Reserve this space for compiled software to access iet_startup and iet_acpd */
     void	   *et_MemPool;	    /* Task's private memory pool	*/
 #ifdef __AROS__
     IPTR	    et_Reserved[1]; /* MorphOS Private                  */

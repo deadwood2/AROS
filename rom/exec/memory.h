@@ -20,7 +20,11 @@
  *
  * Many m68k programs assume forbid state won't get broken.
  */
-#ifndef __mc68000
+/* ABI_V0 compatibility:
+ * Some existing software (i.e. packet.handler) allocate memory from within soft int handler. It is not allowed
+ * to work with semaphores in Supervisor mode as it may lead to deadlock.
+ */
+#if 0 //ndef __mc68000
 #define MEM_LOCK        ObtainSemaphore(&PrivExecBase(SysBase)->MemListSem)
 #define MEM_LOCK_SHARED ObtainSemaphoreShared(&PrivExecBase(SysBase)->MemListSem)
 #define MEM_UNLOCK      ReleaseSemaphore(&PrivExecBase(SysBase)->MemListSem)

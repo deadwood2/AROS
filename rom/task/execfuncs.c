@@ -33,7 +33,7 @@ AROS_LH4(APTR, NewAddTask,
         AROS_LHA(APTR,              initialPC, A2),
         AROS_LHA(APTR,              finalPC,   A3),
         AROS_LHA(struct TagItem *,  tagList,   A4),
-        struct ExecBase *, SysBase, 176, Task)
+        struct ExecBase *, SysBase, 152, Task)
 {
     AROS_LIBFUNC_INIT
 

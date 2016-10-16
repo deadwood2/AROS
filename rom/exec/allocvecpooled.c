@@ -21,7 +21,7 @@
         AROS_LHA(IPTR, memSize, D0),
 
 /*  LOCATION */
-        struct ExecBase *, SysBase, 169, Exec)
+        struct ExecBase *, SysBase, 149, Exec)
 
 /*  FUNCTION
         Allocate memory out of a private memory pool and remember the size.

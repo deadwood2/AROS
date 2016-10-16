@@ -17,7 +17,7 @@
 
 #include "taskres_intern.h"
 
-extern APTR AROS_SLIB_ENTRY(NewAddTask, Task, 176)();
+extern APTR AROS_SLIB_ENTRY(NewAddTask, Task, 152)();
 extern void AROS_SLIB_ENTRY(RemTask, Task, 48)();
 
 static LONG taskres_Init(struct TaskResBase *TaskResBase)
@@ -43,7 +43,7 @@ static LONG taskres_Init(struct TaskResBase *TaskResBase)
     SysBase->lb_TaskResBase = (struct Library *)TaskResBase;
 
     TaskResBase->trb_RemTask = SetFunction((struct Library *)SysBase, -48*LIB_VECTSIZE, AROS_SLIB_ENTRY(RemTask, Task, 48));
-    TaskResBase->trb_NewAddTask = SetFunction((struct Library *)SysBase, -176*LIB_VECTSIZE, AROS_SLIB_ENTRY(NewAddTask, Task, 176));
+    TaskResBase->trb_NewAddTask = SetFunction((struct Library *)SysBase, -152*LIB_VECTSIZE, AROS_SLIB_ENTRY(NewAddTask, Task, 152));
 
     InitSemaphore(&TaskResBase->trb_Sem);
 
@@ -129,7 +129,7 @@ static LONG taskres_Init(struct TaskResBase *TaskResBase)
 
 static LONG taskres_Exit(struct TaskResBase *TaskResBase)
 {
-    SetFunction((struct Library *)SysBase, -176*LIB_VECTSIZE, TaskResBase->trb_NewAddTask);
+    SetFunction((struct Library *)SysBase, -152*LIB_VECTSIZE, TaskResBase->trb_NewAddTask);
     SetFunction((struct Library *)SysBase, -48*LIB_VECTSIZE, TaskResBase->trb_RemTask);
 
     CloseLibrary(TaskResBase->trb_UtilityBase);

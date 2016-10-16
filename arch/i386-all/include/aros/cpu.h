@@ -110,7 +110,13 @@ extern void aros_not_implemented ();
 
 #define AROS_STACKSIZE  40960
 
+#if 0
+/*
+ * ABI_V0 compatibility:
+ * Use original call macros
+ */
 /* Some defines to set the cpu specific libcall.h interface */
 #define __AROS_LIBCALL_H_FILE "aros/i386/libcall.h"
+#endif
 
 #endif /* AROS_I386_CPU_H */

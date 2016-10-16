@@ -105,7 +105,10 @@ typedef unsigned int (*ULONG_FUNC)();
 #define __AROS_LH_BASE(basetype,basename)   basetype basename
 #endif
 #ifndef __AROS_LP_BASE
-#define __AROS_LP_BASE(basetype,basename)   basetype
+/*
+ * ABI_V0 compatibility
+ */
+#define __AROS_LP_BASE(basetype,basename)   void *
 #endif
 #ifndef __AROS_LC_BASE
 #define __AROS_LC_BASE(basetype,basename)   basename

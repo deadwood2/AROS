@@ -35,7 +35,7 @@
         AROS_LHA(struct TagItem *,  tagList,   A4),
 
 /*  LOCATION */
-        struct ExecBase *, SysBase, 176, Exec)
+        struct ExecBase *, SysBase, 152, Exec)
 
 /*  FUNCTION
         Add a new task to the system. If the new task has the highest
