@@ -33,7 +33,7 @@
 	AROS_LHA(ULONG *, return_flags, A1),
 
 /*  LOCATION */
-	struct ExecBase *, SysBase, 174, Exec)
+	struct ExecBase *, SysBase, 151, Exec)
 
 /*  FUNCTION
 	Allocate a number of memory blocks through a MemList structure.
