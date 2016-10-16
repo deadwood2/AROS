@@ -29,6 +29,13 @@ AROS_LH3(IPTR, NewStackSwap,
     IPTR ret;
     BYTE i;
 
+    /*
+     * In order to be able to restore the stack after calling the function
+     * we'll need to store original SP on the new stack. So we reserve a
+     * location for it.
+     */
+    _PUSH(sp, 0);
+
     /* Put arguments on stack in appropriate order */
     if (args != NULL)
     {
@@ -40,13 +47,12 @@ AROS_LH3(IPTR, NewStackSwap,
         }
     }
 
-    if (t->tc_Flags & TF_STACKCHK)
-    {
-    	volatile UBYTE* startfill = sss->stk_Lower;
+#if AROS_STACK_DEBUG
+    UBYTE* startfill = sss->stk_Lower;
 
-    	while (startfill < (UBYTE *)sp)
-	    *startfill++ = 0xE1;
-    }
+    while (startfill < (UBYTE *)sp)
+	*startfill++ = 0xE1;
+#endif
 
     /*
      * We need to Disable() before changing limits and SP, otherwise
@@ -60,36 +66,34 @@ AROS_LH3(IPTR, NewStackSwap,
     t->tc_SPLower = sss->stk_Lower;
     t->tc_SPUpper = sss->stk_Upper;
 
-    asm volatile
-    (
-    /* Save original ESP by setting up a new stack frame */
-    "	push	%%ebp\n"
-    "	movl	%%esp, %%ebp\n"
+    asm volatile(
+    /* Save original ESP to the location reserved before */
+    "movl %%esp, 32(%2)\n\t"
     /* Actually change the stack */
-    "	movl	%2, %%esp\n\t"
+    "movl %2, %%esp\n\t"
 
-    /* Enable(). Pass SysBase in %eax, We don't need %eax afterwards */
-    "	call	*-84(%0)\n"
+    /* Enable(). It preserves all registers by convention, so no EAX save/restore.
+       Note also that we use global SysBase here  because we are running on the new
+       stack and SysBase is lost. */
+    "movl SysBase, %%ebx\n\t"
+    "push %%ebx\n\t"
+    "call *-84(%%ebx)\n\t"
+    "pop %%ebx\n\t"
 
     /* Call our function */
-    "	call	*%1\n"
+    "call *%1\n\t"
 
-    /*
-     * Disable().
-     * Remember %eax (e.g. %0) and put local SysBase of this function in it.
-     * %3 was clobbered by the called function.
-     */ 
-    "	push	%0\n"
-    "	movl	SysBase, %0\n"
-    "	call	*-80(%0)\n"
-    "	pop	%0\n"
+    /* Disable(). Also preserves registers. */
+    "movl SysBase, %%ebx\n\t"
+    "push %%ebx\n\t"
+    "call *-80(%%ebx)\n\t"
+    "pop %%ebx\n\t"
 
     /* Restore original ESP. Function's return value is in EAX. */
-    "	movl	%%ebp, %%esp\n"
-    "	pop	%%ebp\n"
+    "movl 32(%%esp), %%esp\n\t"
     : "=a"(ret)
-    : "r"(entry), "r"(sp), "a"(SysBase)
-    : "ecx", "edx", "cc");
+    : "r"(entry), "r"(sp)
+    : "ebx", "ecx", "edx", "cc");
 
     /* Change limits back and return */
     t->tc_SPReg = spreg;
