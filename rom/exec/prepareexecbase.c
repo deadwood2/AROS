@@ -8,6 +8,7 @@
 
 #define DEBUG 0
 
+#include <aros/config.h>
 #include <aros/asmcall.h>
 #include <aros/debug.h>
 #include <aros/kernel.h>
@@ -371,6 +372,11 @@ struct ExecBase *PrepareExecBase(struct MemHeader *mh, struct TagItem *msg)
 #endif
 
     D(bug("[Exec] %s: Preperation complete.\n"));
+
+#if (AROS_FLAVOUR & AROS_FLAVOUR_STANDALONE)
+    /* ABI_V0 compatibility */
+    *(struct ExecBase**)4UL = SysBase;
+#endif
 
     return SysBase;
 }
