@@ -6,6 +6,7 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 ANY KIND, either express or implied. See the License for the specific language governing rights and
 limitations under the License.
 
+(C) Copyright 2017 The AROS Dev Team.
 (C) Copyright xxxx-2009 Davy Wentzler.
 (C) Copyright 2009-2010 Stephen Jones.
 
@@ -243,28 +244,66 @@ void FreeDriverData(struct HDAudioChip* card, struct DriverBase*  AHIsubBase)
     }
 }
 
+
 #define CNT_VEN_ID_ATI_SB       0x437B1002
 #define CNT_VEN_ID_ATI_SB2      0x43831002
 #define CNT_VEN_ID_ATI_HUDSON   0x780D1022
 #define CNT_VEN_ID_NVIDIA       0x10DE
+
+static const UWORD intel_no_snoop_list[] =
+{
+    0x2668,
+    0x27d8,
+    0x269a,
+    0x284b,
+    0x293e,
+    0x293f,
+    0x3a3e,
+    0x3a6e,
+    0
+};
+
 
 /* This is the controller specific portion, for fixes to southbridge */
 static void perform_controller_specific_settings(struct HDAudioChip *card)
 {
     ULONG data, subsystem;
     ULONG mask = (1 << 16) - 1;
+    UWORD i, vendor_id, product_id;
+    BOOL snoop = TRUE;
 
     /* Get vendor/product/subsystem IDs */
     data = inl_config(0x0, card->pci_dev);
+    vendor_id = inw_config(0x0, card->pci_dev);
+    product_id = inw_config(0x2, card->pci_dev);
     D(bug("DEBUG: Controller Vendor ID: %x\n", data));
     subsystem = inl_config(0x2C, card->pci_dev);
 
-    /* NVidia is for all nvidia MCP chipsets, create mask to get rid of device ID */
+    /* Check for Intel controllers that need snoop */
+    if (vendor_id == 0x8086)
+    {
+        D(bug("[HDAudio] Intel controller detected, checking if snooping needed\n"));
+        for (i = 0; intel_no_snoop_list[i] != 0; i++)
+        {
+            if (intel_no_snoop_list[i] == product_id)
+            {
+                snoop = FALSE;
+            }
+        }
+
+        if (snoop)
+        {
+            D(bug("[HDAudio] Enabling snooping\n"));
+            data = inw_config(0x78, card->pci_dev);
+            data &= ~0x800;
+            outw_config(0x78, data, card->pci_dev);
+        }
+    }
 
     /* Check for ATI Southbridge or AMD Hudson controller */
     if (data == CNT_VEN_ID_ATI_SB || data == CNT_VEN_ID_ATI_SB2 || data == CNT_VEN_ID_ATI_HUDSON)
     {
-        D(bug("[HDAudio] ATI SB/AMD Hudson scontroller detected, setting snoop to on.\n"));
+        D(bug("[HDAudio] ATI SB/AMD Hudson controller detected, setting snoop to on.\n"));
         data = inb_config(0x42, card->pci_dev);
         data &= ~0x07;
         data |= 0x02;
@@ -297,6 +336,7 @@ static void perform_controller_specific_settings(struct HDAudioChip *card)
             outb_config(0x3C, 11, card->pci_dev);
     }
 }
+
 
 int card_init(struct HDAudioChip *card)
 {
@@ -1492,6 +1532,7 @@ static BOOL interrogate_unknown_chip(struct HDAudioChip *card)
             VERB_GET_CONNECTION_LIST_ENTRY, 0, card);
         if (nid != dac)
         {
+            D(bug("[HDAudio] Widget before headphone port is not the DAC\n"));
             connections = get_parameter(nid, 0xE, card);
             for (i = 0; i < connections; i++)
                 send_command_4(card->codecnr, nid, VERB_SET_AMP_GAIN,
