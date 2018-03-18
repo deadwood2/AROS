@@ -39,7 +39,8 @@ extern const void * const SETNAME(set)[] __attribute__((weak));
 const void * const SETNAME(set)[] __attribute__((weak))={0,0};
 
 #define ADD2SET(symbol, _set, pri)\
-	static const void * const __aros_set_##_set##_##symbol __attribute__((__section__(".aros.set." #_set "." #pri))) __used = (void *)&symbol;
+    static const struct Node __aros_set_##_set##_##symbol##_Node __used = {NULL, NULL, 166, pri, (char *)&symbol}; \
+    static const void * const __aros_set_##_set##_##symbol __attribute__((__section__(".aros.set." #_set))) __used = (void *)&__aros_set_##_set##_##symbol##_Node;
 
 #define SETELEM(symbol, _set)                        \
 ({                                                   \
