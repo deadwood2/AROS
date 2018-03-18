@@ -32,5 +32,11 @@ SECTIONS
     KEEP (*(.aros.set.OPENLIB*))
     QUAD(0)
     __OPENLIB_END__ = .;
+    __CLASSESINIT_LIST__ = .;
+    QUAD((__CLASSESINIT_END__ - __CLASSESINIT_LIST__) / 8 - 2)
+    KEEP (*(SORT_BY_INIT_PRIORITY(.aros.set.CLASSESINIT.*)))
+    KEEP (*(.aros.set.CLASSESINIT*))
+    QUAD(0)
+    __CLASSESINIT_END__ = .;
   }
 }
