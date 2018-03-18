@@ -25,12 +25,14 @@ AROS_EXPORT_ASM_SYM(__includelibrarieshandling);
 int _set_open_libraries_list(const void * const list[], struct ExecBase *SysBase)
 {
     int pos;
+    struct Node *n;
     struct libraryset *set;
 
     D(bug("[Autoinit] Opening libraries...\n"));
 
-    ForeachElementInSet(list, 1, pos, set)
+    ForeachElementInSet(list, 1, pos, n)
     {
+        set = (struct libraryset *)n->ln_Name;
         LONG version = *set->versionptr;
         BOOL do_not_fail = 0;
         
@@ -59,10 +61,12 @@ int _set_open_libraries_list(const void * const list[], struct ExecBase *SysBase
 void _set_close_libraries_list(const void * const list[], struct ExecBase *SysBase)
 {
     int pos;
+    struct Node *n;
     struct libraryset *set;
-    
-    ForeachElementInSet(list, 1, pos, set)
+
+    ForeachElementInSet(list, 1, pos, n)
     {
+        set = (struct libraryset *)n->ln_Name;
         if (*set->baseptr)
         {
             CloseLibrary(*set->baseptr);
@@ -79,12 +83,14 @@ AROS_EXPORT_ASM_SYM(__includerellibrarieshandling);
 int _set_open_rellibraries_list(APTR base, const void * const list[], struct ExecBase *SysBase)
 {
     int pos;
+    struct Node *n;
     struct rellibraryset *set;
 
     D(bug("[Autoinit] Opening relative libraries for %s @ 0x%p...\n", ((struct Node *)base)->ln_Name, base));
 
-    ForeachElementInSet(list, 1, pos, set)
+    ForeachElementInSet(list, 1, pos, n)
     {
+        set = (struct rellibraryset *)n->ln_Name;
         LONG version = *set->versionptr;
         BOOL do_not_fail = 0;
         void **baseptr = (void **)((char *)base + *set->baseoffsetptr);
@@ -114,11 +120,13 @@ int _set_open_rellibraries_list(APTR base, const void * const list[], struct Exe
 void _set_close_rellibraries_list(APTR base, const void * const list[], struct ExecBase *SysBase)
 {
     int pos;
+    struct Node *n;
     struct rellibraryset *set;
     struct Library **baseptr;
-    
-    ForeachElementInSet(list, 1, pos, set)
+
+    ForeachElementInSet(list, 1, pos, n)
     {
+        set = (struct rellibraryset *)n->ln_Name;
         baseptr = (struct Library **)((char *)base + *set->baseoffsetptr);
         
         if (*baseptr)
