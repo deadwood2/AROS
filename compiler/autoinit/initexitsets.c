@@ -12,7 +12,6 @@
 #include <aros/debug.h>
 
 int __noinitexitsets __attribute__((weak)) = 0;
-extern void *__eh_frame_start;
 
 /*
  * These two functions could have been overriden by libgcc's Dwarf2 unwinder code.
@@ -56,7 +55,6 @@ static void __startup_initexit(struct ExecBase *SysBase)
 
     if (set_open_libraries())
     {
-        __register_frame(&__eh_frame_start);
 
         if (set_call_funcs(SETNAME(INIT), 1, 1))
         {
@@ -73,7 +71,6 @@ static void __startup_initexit(struct ExecBase *SysBase)
         }
         set_call_funcs(SETNAME(EXIT), -1, 0);
 
-        __deregister_frame(&__eh_frame_start);
     }
     set_close_libraries();
     
