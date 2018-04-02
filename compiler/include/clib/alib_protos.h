@@ -247,7 +247,7 @@ void GetDataStreamFromFormat(CONST_STRPTR format, va_list args,
                              ULONG *indexStream, ULONG *indexSize);
 
 #ifdef AROS_SLOWSTACKFORMAT
-#include <aros/posixc/alloca.h>
+#include <alloca.h>
 
 #   define AROS_SLOWSTACKFORMAT_PRE_USING(last, format) {                            \
     va_list _args;                      	                                     \
