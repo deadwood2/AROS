@@ -98,16 +98,28 @@ int set_call_devfuncs
 )
 {
     int pos;
+    struct Node *n;
 
     if (!set)
             return TRUE;
 
+    int size = (IPTR)set[0];
+    struct Node funcs[size];
+
+    ForeachElementInSet(set, 1, pos, n)
+    {
+        funcs[pos - 1] = *n;
+    }
+
+    sort(funcs, size, order);
+
     if (order>=0)
     {
         int (*func)(APTR, APTR, IPTR, ULONG);
-        
-        ForeachElementInSet(set, order, pos, func)
+
+        for(pos = 0; pos < size; pos++)
         {
+            func = (int (*)(APTR, APTR, IPTR, ULONG))(funcs[pos].ln_Name);
             if (test_fail)
             {
                 if (!(*func)(libbase, ioreq, unitnum, flags))
@@ -122,9 +134,10 @@ int set_call_devfuncs
     else
     {
         int (*func)(APTR, APTR);
-        
-        ForeachElementInSet(set, order, pos, func)
+
+        for(pos = 0; pos < size; pos++)
         {
+            func = (int (*)(APTR, APTR))(funcs[pos].ln_Name);
             if (test_fail)
             {
                 if (!(*func)(libbase, ioreq))
