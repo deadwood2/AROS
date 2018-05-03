@@ -2,6 +2,7 @@ SECTIONS
 {
   .rodata :
   {
+    . = ALIGN(8);
     __LIBS_LIST__ = .;
     QUAD((__LIBS_END__ - __LIBS_LIST__) / 8 - 2)
     KEEP(*(.aros.set.LIBS))
