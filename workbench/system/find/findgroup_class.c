@@ -1,5 +1,5 @@
 /*
-    Copyright © 2016, The AROS Development Team. All rights reserved.
+    Copyright © 2016-2018, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -87,53 +87,58 @@ static BOOL checkfile(Object *app, struct AnchorPath *anchorpath, STRPTR pattern
             TEXT *text, *oldtext;
             LONG i;
 
-            fh = Open(anchorpath->ap_Buf, MODE_OLDFILE);
-            if (fh)
+            if (textlen != 0)
             {
-                text = oldtext = AllocVec(textlen, MEMF_ANY);
-                if (text)
+                fh = Open(anchorpath->ap_Buf, MODE_OLDFILE);
+                if (fh)
                 {
-                    if (Read(fh, text, textlen) == textlen)
+                    text = oldtext = AllocVec(textlen, MEMF_ANY);
+                    if (text)
                     {
-                        textlen -= searchlen;
-                        while (textlen >= 0)
+                        if (Read(fh, text, textlen) == textlen)
                         {
-                            for(i = 0; i < searchlen; i++)
+                            textlen -= searchlen;
+                            while (textlen >= 0)
                             {
-                                if (ToUpper(text[i]) != ToUpper(content[i]))
+                                for(i = 0; i < searchlen; i++)
                                 {
+                                    if (ToUpper(text[i]) !=
+                                        ToUpper(content[i]))
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                if (i == searchlen)
+                                {
+                                    retval = TRUE;
                                     break;
                                 }
+                                text++;
+                                textlen--;
                             }
-
-                            if (i == searchlen)
-                            {
-                                retval = TRUE;
-                                break;
-                            }
-                            text++;
-                            textlen--;
                         }
+                        else
+                        {
+                            // Read() failed
+                            // app must be NULL to avoid deadlocks
+                            display_doserror(NULL, IoErr());
+                        }
+                        FreeVec(oldtext);
                     }
                     else
                     {
-                        // Read() failed
-                        // app must be NULL to avoid deadlocks
-                        display_doserror(NULL, IoErr());
+                        MUI_Request(NULL, NULL, 0, _(MSG_APP_TITLE),
+                            _(MSG_OK), _(MSG_ERR_NO_MEM));
                     }
-                    FreeVec(oldtext);
+                    Close(fh);
                 }
                 else
                 {
-                    MUI_Request(NULL, NULL, 0, _(MSG_APP_TITLE), _(MSG_OK), _(MSG_ERR_NO_MEM));
+                    // Open() failed
+                    // app must be NULL to avoid deadlocks
+                    display_doserror(NULL, IoErr());
                 }
-                Close(fh);
-            }
-            else
-            {
-                // Open() failed
-                // app must be NULL to avoid deadlocks
-                display_doserror(NULL, IoErr());
             }
         }
         else
@@ -581,6 +586,8 @@ Object *FindGroup__OM_NEW(Class *CLASS, Object *self, struct opSet *message)
         data->activeentry_hook.h_Entry = (HOOKFUNC)activeentry_func;
         data->activeentry_hook.h_Data = data;
 
+        SET(data->btn_stop, MUIA_Disabled, TRUE);
+
         SET(data->btn_open, MUIA_Disabled, TRUE);
         SET(data->btn_view, MUIA_Disabled, TRUE);
         SET(data->btn_parent, MUIA_Disabled, TRUE);
@@ -749,6 +756,10 @@ IPTR FindGroup__MUIM_Process_Process(Class *CLASS, Object *self, struct MUIP_Pro
     DoMethod(_app(self), MUIM_Application_UnpushMethod, self, methodid1, 0);
     DoMethod(_app(self), MUIM_Application_UnpushMethod, self, methodid2, 0);
 
+    // Allow another start
+    SET(data->btn_start, MUIA_Disabled, FALSE);
+    SET(data->btn_stop, MUIA_Disabled, TRUE);
+
     return 0;
 }
 
@@ -758,6 +769,8 @@ IPTR FindGroup__MUIM_FindGroup_Start(Class *CLASS, Object *self, Msg msg)
 {
     struct FindGroup_DATA *data = INST_DATA(CLASS, self);
 
+    SET(data->btn_start, MUIA_Disabled, TRUE);
+    SET(data->btn_stop, MUIA_Disabled, FALSE);
     DoMethod(data->scanproc, MUIM_Process_Launch);
 
     return 0;
@@ -770,6 +783,8 @@ IPTR FindGroup__MUIM_FindGroup_Stop(Class *CLASS, Object *self, Msg msg)
     struct FindGroup_DATA *data = INST_DATA(CLASS, self);
 
     DoMethod(data->scanproc, MUIM_Process_Kill, 4);
+    SET(data->btn_start, MUIA_Disabled, FALSE);
+    SET(data->btn_stop, MUIA_Disabled, TRUE);
 
     return 0;
 }
