@@ -361,7 +361,7 @@ ULONG _AHIsub_Start(ULONG flags,
         send_command_12(card->codecnr, card->adc_nid, VERB_SET_CONVERTER_STREAM_CHANNEL, (input_stream->tag << 4), card);
 
         D(bug("[HDAudio] RECORD\n"));
-
+            
         card->current_record_bytesize = dma_buffer_size;
         card->current_record_buffer = card->record_buffer1;
         card->recflip = 1;
