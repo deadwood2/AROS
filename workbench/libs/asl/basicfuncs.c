@@ -1,5 +1,5 @@
 /*
-    Copyright © 1995-2015, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2017, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc: Basic helpfuncs for Asl.
@@ -657,14 +657,18 @@ BOOL GetRequesterFont(struct LayoutData *ld, struct AslBase_intern *AslBase)
 BOOL HandleEvents(struct LayoutData *ld, struct AslReqInfo *reqinfo, struct AslBase_intern *AslBase)
 {
     struct IntReq       *intreq = ld->ld_IntReq;
+    struct IntFileReq   *ifreq = (struct IntFileReq *)ld->ld_IntReq;
     APTR                req = ld->ld_Req;
     struct IntuiMessage *imsg;
     struct MsgPort      *port;
     BOOL                success = TRUE;
     BOOL                terminated = FALSE;
-
+    
     EnterFunc(bug("HandleEvents(ld=%p, reqinfo=%p)\n", ld, reqinfo));
     port = ld->ld_Window->UserPort;
+    
+    if (!port)
+        port = ld->ld_Window->WindowPort;
 
     while (!terminated)
     {
@@ -726,6 +730,10 @@ BOOL HandleEvents(struct LayoutData *ld, struct AslReqInfo *reqinfo, struct AslB
 #else
                 CallHookPkt(intreq->ir_IntuiMsgFunc, req, imsg);
 #endif
+            }
+            else if ((intreq->ir_ReqType == ASL_FileRequest) && ifreq->ifr_HookFunc && (ifreq->ifr_Flags1 & FRF_INTUIFUNC))
+            {
+                ifreq->ifr_HookFunc(FRF_INTUIFUNC, imsg, req);
             }
             ReplyMsg((struct Message *)imsg);
 
