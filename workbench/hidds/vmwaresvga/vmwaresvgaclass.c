@@ -1,5 +1,5 @@
 /*
-    Copyright © 1995-2015, The AROS Development Team. All rights reserved.
+    Copyright ï¿½ 1995-2015, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc: Class for VMWare.
@@ -90,7 +90,7 @@ OOP_Object *VMWareSVGA__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New
         {TAG_DONE,                      0UL     }
     };
     /* TODO: Probe available sync modes */
-#define VMWARESVGA_SYNCMODES   5
+#define VMWARESVGA_SYNCMODES   8
     sync_modes = VMWARESVGA_SYNCMODES;
     sync_count = sync_modes * XSD(cl)->data.displaycount;
 
@@ -130,6 +130,18 @@ D(bug("[VMWareSVGA] %s: Setting Sync Mode %d for Display %d\n", __PRETTY_FUNCTIO
             case 4:
                 sync_Width =1600;
                 sync_Height=1200;
+                break;
+            case 5:
+                sync_Width =1920;
+                sync_Height=1080;
+                break;
+            case 6:
+                sync_Width =2560;
+                sync_Height=1600;
+                break;
+            case 7:
+                sync_Width =3840;
+                sync_Height=2160;
                 break;
             default:
                 sync_Width =640;
