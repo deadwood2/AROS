@@ -19,8 +19,8 @@
  * Memory and port addresses and fundamental constants
  */
 
-#define SVGA_MAX_WIDTH			2360
-#define SVGA_MAX_HEIGHT			1770
+#define SVGA_MAX_WIDTH			3840
+#define SVGA_MAX_HEIGHT			2160
 
 #define SVGA_MAX_BITS_PER_PIXEL		32
 #if SVGA_MAX_WIDTH * SVGA_MAX_HEIGHT * SVGA_MAX_BITS_PER_PIXEL / 8 > \
