@@ -42,10 +42,6 @@ struct HWRegs {
 	UBYTE clt[768];
 };
 
-/* Only include vmwaresvgahardware.h now so that struct Box is known */
-
-#include "vmwaresvgahardware.h"
-
 struct BitmapData {
 	struct HWRegs       regs;
 	struct HWData       *data;
@@ -58,5 +54,9 @@ struct BitmapData {
 	BYTE                disp;                   /* !=0 - displayable */
 	struct MouseData    *mouse;
 };
+
+/* Only include vmwaresvgahardware.h now so that struct Box is known */
+
+#include "vmwaresvgahardware.h"
 
 #endif /* _VMWARESVGA_BITMAP_H */
