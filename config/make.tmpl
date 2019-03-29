@@ -2325,19 +2325,19 @@ $(%(mmake)%(flavour)_LINKLIBOBJS) $(%(mmake)%(flavour)_RELLINKLIBOBJS) : | $(%(m
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames=$(%(mmake)%(flavour)_CCFILES) targetdir="$(%(mmake)%(flavour)_OBJDIR)" \
-    cppflags=$(%(mmake)%(flavour)_CPPFLAGS) cflags="$(%(mmake)%(flavour)_CFLAGS) -fPIC" dflags=$(%(mmake)%(flavour)_DFLAGS) \
+    cppflags=$(%(mmake)%(flavour)_CPPFLAGS) cflags="$(%(mmake)%(flavour)_CFLAGS) -fPIC -fvisibility=hidden" dflags=$(%(mmake)%(flavour)_DFLAGS) \
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames=$(%(mmake)%(flavour)_TARGETCCFILES) targetdir="$(%(mmake)%(flavour)_OBJDIR)" \
-    cppflags="$(%(mmake)%(flavour)_CPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_CFLAGS) -fPIC" dflags=$(%(mmake)%(flavour)_DFLAGS) \
+    cppflags="$(%(mmake)%(flavour)_CPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_CFLAGS) -fPIC -fvisibility=hidden" dflags=$(%(mmake)%(flavour)_DFLAGS) \
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames=$(%(mmake)%(flavour)_NLIBARCHFILES) targetdir="$(%(mmake)%(flavour)_OBJDIR)/linklib" \
-    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS) -D__AROS__" cflags=$(%(mmake)%(flavour)_LINKLIBCFLAGS) dflags=$(%(mmake)%(flavour)_LINKLIBDFLAGS) \
+    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_LINKLIBCFLAGS) -fvisibility=hidden" dflags=$(%(mmake)%(flavour)_LINKLIBDFLAGS) \
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames=$(%(mmake)%(flavour)_LINKLIBCCGENFILES) srcdir="$(%(mmake)%(flavour)_OBJDIR)/linklib" targetdir="$(%(mmake)%(flavour)_OBJDIR)/linklib" \
-    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS) -D__AROS__" cflags=$(%(mmake)%(flavour)_LINKLIBCFLAGS) dflags=$(%(mmake)%(flavour)_LINKLIBDFLAGS) \
+    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_LINKLIBCFLAGS) -fvisibility=hidden" dflags=$(%(mmake)%(flavour)_LINKLIBDFLAGS) \
     compiler="%(compiler)"
 
 ifneq ($(%(mmake)%(flavour)_LINKLIBAFILES),)
@@ -2901,7 +2901,7 @@ $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=%(cflags)
 ifeq (%(compiler),target)
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CMD:=$(strip $(TARGET_CC) $(TARGET_SYSROOT))
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS)
-$(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=$(strip $(TMP_CFLAGS) $(SAFETY_CFLAGS)) -fPIC
+$(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=$(strip $(TMP_CFLAGS) $(SAFETY_CFLAGS)) -fPIC -fvisibility=hidden
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_IQUOTE:=$(CFLAGS_IQUOTE)
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_IQUOTE_END:=$(CFLAGS_IQUOTE_END)
 endif
