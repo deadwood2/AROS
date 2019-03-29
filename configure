@@ -9629,6 +9629,34 @@ fi
         esac
         ;;
 
+    runtime*)
+        aros_target_family="runtime"
+        aros_flavour="emulation"
+        PLATFORM_EXECSMP="#define __AROSPLATFORM_SMP__"
+        ENABLE_EXECSMP="#define __AROSEXEC_SMP__"
+        case "$target_os" in
+            runtimelinux)
+                aros_target_arch="runtimelinux"
+                case "$target_cpu" in
+                    *x86_64*)
+                    aros_target_cpu="x86_64"
+                    aros_object_format="elf_x86_64"
+                    aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dx86_64 -D__linux__"
+                    aros_isa_flags="$aros_isa_flags -mcmodel=large -mno-red-zone"
+                    aros_config_cflags="$aros_config_cflags -fno-omit-frame-pointer"
+                    aros_config_cxxflags="$aros_config_cxxflags -fno-omit-frame-pointer"
+                    ;;
+                    *)
+                        as_fn_error $? "Uknown CPU for Runtime(Linux) -- $target_cpu" "$LINENO" 5
+                    ;;
+                esac
+            ;;
+            *)
+                as_fn_error $? "Unsupported host os for runtime target $target" "$LINENO" 5
+            ;;
+        esac
+        ;;
+
     *)
         as_fn_error $? "Unsupported target architecture $target" "$LINENO" 5
         ;;
@@ -9638,6 +9666,10 @@ esac
 crosstools_guess="yes"
 aros_target_toolchain="no"
 aros_kernel_sysroot=""
+
+if test "${aros_target_family}" = "runtime"; then
+  crosstools_guess="no"
+fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking Kernel toolchain prefix" >&5
 $as_echo_n "checking Kernel toolchain prefix... " >&6; }
@@ -10168,7 +10200,9 @@ fi
 
 if test "x-$aros_flavour" = "x-emulation" -o "x-$aros_flavour" = "x-emulcompat" ; then
                                     if test "$aros_host_arch" != "$aros_target_arch" ; then
+        if test "${aros_target_family}" != "runtime"; then
         cross_compiling=yes
+        fi
     fi
 else
                     cross_compiling=yes
@@ -14906,6 +14940,22 @@ else
 fi
 aros_plain_nm="${prefix}${toolchain_nm}"
 aros_plain_ar="${prefix}${toolchain_ar}"
+
+# Target tools for runtime
+if test "$aros_target_family" = "runtime"; then
+aros_target_cpp="${aros_kernel_cpp}"
+aros_target_cc="${aros_kernel_cc}"
+aros_target_cxx="${aros_kernel_cxx}"
+aros_target_as="${aros_kernel_as}"
+aros_target_ar="${aros_kernel_ar}"
+aros_target_objcopy="${aros_kernel_objcopy}"
+aros_target_objdump="${aros_kernel_objdump}"
+aros_target_ranlib="${aros_kernel_ranlib} $aros_target_ranlib_flags"
+aros_target_nm="${aros_kernel_nm} $aros_target_nm_flags"
+aros_target_strip="${aros_kernel_strip}"
+aros_plain_nm="${aros_kernel_nm}"
+aros_plain_ar="${aros_kernel_ar}"
+fi
 
 # Check whether --enable-includes was given.
 if test "${enable_includes+set}" = set; then :
