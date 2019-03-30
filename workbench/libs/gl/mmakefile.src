@@ -6,7 +6,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM- workbench-libs-complete : workbench-libs-gl
 
 #MM workbench-libs-gl : includes workbench-libs-gl-gen-includes
-#MM- core-linklibs : linklibs-gl
+##MM- core-linklibs : linklibs-gl
 
 #MM- linklibs-gl : workbench-libs-gl-linklib workbench-libs-gl-linklib-rel
 #MM workbench-libs-gl-linklib : workbench-libs-gl-includes workbench-libs-gl-gen-stubs 

@@ -54,8 +54,8 @@ FILES :=  \
     x11gfx_fullscreen \
     x11gfx_bitmapclass
 
-#MM hosted-X11-x11gfx : x11keymaptable hosted-X11-monitor
-#MM hosted-X11-x11gfx-kobj : x11keymaptable hosted-X11-monitor
+#MM hosted-X11-x11gfx : x11keymaptable
+#MM hosted-X11-x11gfx-kobj : x11keymaptable
 
 %build_module mmake=hosted-X11-x11gfx \
   modname=x11gfx modtype=hidd version=$(AROS_TARGET_PLATFORM) \
