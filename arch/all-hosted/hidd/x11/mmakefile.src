@@ -15,7 +15,7 @@ DISK_EXEDIR := $(AROS_DEVS)/Monitors
     progname=X11 targetdir=$(DISK_EXEDIR) \
     files=$(DISK_FILES) uselibs="oop" usesdks="private"
 
-USER_CPPFLAGS := -DHOST_OS_$(ARCH)
+USER_CPPFLAGS := -DHOST_OS_linux
 USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 USER_CFLAGS := $(HOST_X11_CFLAGS)
 ## The '-Wno-attributes' is here due to a gcc 4.5.x bug

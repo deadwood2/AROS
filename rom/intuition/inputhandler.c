@@ -40,6 +40,7 @@
 #include "inputhandler_actions.h"
 #include "menus.h"
 #include "monitorclass_private.h"
+#include "intuition_x.h"
 
 #ifdef SKINS
 #   include "smallmenu.h"
@@ -149,6 +150,8 @@ struct Interrupt *InitIIH(struct IntuitionBase *IntuitionBase)
 
                         GetPrivIBase(IntuitionBase)->IntuiReplyPort = iihdata->IntuiReplyPort;
                         GetPrivIBase(IntuitionBase)->IntuiActionQueue = &iihdata->IntuiActionQueue;
+
+                        StartupIntuitionX(IntuitionBase);
 
                         ReturnPtr ("InitIIH", struct Interrupt *, iihandler);
                     } /* f (iihdata->MasterDragGadget && iihdata->MasterSizeGadget) */
@@ -435,7 +438,7 @@ struct Window *GetToolBoxWindow(struct InputEvent *ie, struct Screen *scr, struc
         /* What layer ? */
         LockLayerInfo(&scr->LayerInfo);
 
-        l = WhichLayer(&scr->LayerInfo, scr->MouseX, scr->MouseY);
+        l = WhichLayer_X11(&scr->LayerInfo, scr->MouseX, scr->MouseY, IntuitionBase);
 
         UnlockLayerInfo(&scr->LayerInfo);
 
@@ -1914,6 +1917,9 @@ AROS_UFH2(struct InputEvent *, IntuiInputHandler,
        by the apps */
 
     HandleIntuiReplyPort(iihdata, IntuitionBase);
+
+    /* Handle FromX11 messages */
+    HandleFromX11(IntuitionBase);
 
     /* Handle action messages */
 
