@@ -19,7 +19,7 @@
 	AROS_LH1(void, GetUpTime,
 
 /*  SYNOPSIS */
-	AROS_LHA(struct timeval *, dest, A0),
+	AROS_LHA(struct Timeval *, dest, A0),
 
 /*  LOCATION */
 	struct Device *, TimerBase, 12, Timer)

@@ -83,7 +83,7 @@ IPTR Calendar__OM_NEW(Class *cl, Object *obj, struct opSet *msg)
     }
     else
     {
-    	struct timeval tv;
+    	struct Timeval tv;
 	
     	GetSysTime(&tv);
 	Amiga2Date(tv.tv_secs, &data->clockdata);

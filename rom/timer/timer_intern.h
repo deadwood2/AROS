@@ -45,8 +45,8 @@ struct TimerBase
     APTR		 tb_KernelBase;		/* kernel.resource base					*/
 
     /* Time counters */
-    struct timeval	 tb_CurrentTime;	/* Absolute system time. Can be set by TR_SETSYSTIME.	*/
-    struct timeval	 tb_Elapsed;		/* Relative system time. Used for measuring intervals.	*/
+    struct Timeval	 tb_CurrentTime;	/* Absolute system time. Can be set by TR_SETSYSTIME.	*/
+    struct Timeval	 tb_Elapsed;		/* Relative system time. Used for measuring intervals.	*/
 
     /* This is required for hardware-specific code */
     APTR		 tb_TimerIRQHandle;	/* Timer IRQ handle					*/

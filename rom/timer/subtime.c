@@ -19,8 +19,8 @@
 	AROS_LH2(void, SubTime,
 
 /*  SYNOPSIS */
-	AROS_LHA(struct timeval *, dest, A0),
-	AROS_LHA(struct timeval *, src, A1),
+	AROS_LHA(struct Timeval *, dest, A0),
+	AROS_LHA(struct Timeval *, src, A1),
 
 /*  LOCATION */
 	struct Device *, TimerBase, 8, Timer)

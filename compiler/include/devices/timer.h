@@ -31,7 +31,11 @@
 #define TR_GETSYSTIME (CMD_NONSTD+1)
 #define TR_SETSYSTIME (CMD_NONSTD+2)
 
-#include <aros/types/timeval_s.h> /* get struct timeval */
+struct Timeval
+{
+    unsigned AROS_32BIT_TYPE tv_secs;   /* AROS field */
+    unsigned AROS_32BIT_TYPE tv_micro;  /* AROS field */
+};
 
 struct EClockVal
 {
@@ -42,7 +46,7 @@ struct EClockVal
 struct timerequest
 {
     struct IORequest tr_node;
-    struct timeval   tr_time;
+    struct Timeval   tr_time;
 };
 
 #endif /* DEVICES_TIMER_H */

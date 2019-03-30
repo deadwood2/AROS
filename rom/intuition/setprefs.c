@@ -103,7 +103,7 @@ static void SetColors(UWORD *p, UBYTE first, UBYTE cnt, struct IntuitionBase *In
             struct timerequest req =
             {
                 {{{0}, 0}, 0},
-                {{0}}
+                {0}
             };
 
             if (size > offsetof(struct Preferences, KeyRptDelay))

@@ -59,7 +59,7 @@
     AROS_LIBFUNC_INIT
 
     /* We get the date from the timer.device before splitting it up */
-    struct timeval tv;
+    struct Timeval tv;
     GetSysTime(&tv);
 
     date->ds_Days = tv.tv_secs / SECONDS_PER_DAY;
