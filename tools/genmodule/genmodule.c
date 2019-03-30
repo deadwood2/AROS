@@ -14,6 +14,7 @@ int main(int argc, char **argv)
     {
     case FILES:
         writestart(cfg);
+        writegetresident(cfg);
         writeend(cfg);
         if (cfg->options & OPTION_AUTOINIT)
         {
