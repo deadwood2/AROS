@@ -10,7 +10,6 @@ USER_CFLAGS :=
 USER_CPPFLAGS := -D__AROS_GIMME_DEPRECATED_STACKSWAP__
 
 EXECPUBLICFILES :=		\
-    alert		\
     allocmem		\
     allocxxx        \
     childstatus		\
@@ -28,7 +27,6 @@ EXECPUBLICFILES :=		\
     makelib		\
     pool		\
     rawdofmt		\
-    semaphoretest	\
     semtorture		\
     stackswap 		\
     signaltest		\
@@ -46,13 +44,12 @@ CUNITEXECTESTFILES := \
 #MM- test-cunit : test-exec-cunit
 #MM- test-cunit-quick : test-exec-cunit-quick
 
-#MM- test-exec : test-exec-public test-exec-public-posixc test-exec-private test-exec-cunit
-#MM- test-exec-quick : test-exec-public-quick test-exec-public-posixc-quick test-exec-private-quick test-exec-cunit-quick
+#MM- test-exec : test-exec-public test-exec-public-posixc test-exec-cunit
+#MM- test-exec-quick : test-exec-public-quick test-exec-public-posixc-quick test-exec-cunit-quick
 
 #MM- test-exec-deps : includes includes-copy linklibs kernel
 #MM test-exec-public : test-exec-deps
 #MM test-exec-public-posixc : test-exec-deps
-#MM test-exec-private : test-exec-deps
 #MM test-exec-cunit : test-exec-deps linklibs-cunit
 
 %build_progs mmake=test-exec-public \
