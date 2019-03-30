@@ -40,7 +40,7 @@
     (dest)->tv_micro -= (src)->tv_micro;	\
     (dest)->tv_secs  -= (src)->tv_secs;
 
-static inline LONG CMPTIME(struct timeval *dest, struct timeval *src)
+static inline LONG CMPTIME(struct Timeval *dest, struct Timeval *src)
 {
     LONG diff;
 

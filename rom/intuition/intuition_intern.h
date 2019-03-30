@@ -985,8 +985,8 @@ struct IntWindow
     struct Layer           *wlayer;
     struct Layer           *borderlayer;
 
-    struct timeval          lastmsgsent;
-    struct timeval          lastmsgreplied;
+    struct Timeval          lastmsgsent;
+    struct Timeval          lastmsgreplied;
 
 #ifdef TIMEVALWINDOWACTIVATION
     struct timeval          activationtime;

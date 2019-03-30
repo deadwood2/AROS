@@ -66,7 +66,7 @@ struct InstanceData
 	UBYTE			 SampleType;
 	ULONG			 Panning;
 	/* v44 tags */
-	struct timeval	 ReplayPeriod;
+	struct Timeval	 ReplayPeriod;
 	BOOL			 LeftSample; // SDTA_Sample is SDTA_LeftSample?
 	UWORD			 pad_word2;
 	BYTE			*RightSample;
@@ -83,7 +83,7 @@ struct InstanceData
 	struct Process	*PlayerProc;
 	struct MsgPort	*PlayerPort;
 	/* for STM_STOP (doubleclick) */
-	struct timeval		LastClick;
+	struct Timeval		LastClick;
 	/* DTM_SELECT */
 	WORD			MinX;
 	WORD			MaxX;

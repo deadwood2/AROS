@@ -43,8 +43,8 @@
   AROS_LIBFUNC_INIT
 
     struct Library *TimerBase = LowLevelBase->ll_TimerBase;
-    struct timeval *tlast = (struct timeval *)context;
-    struct timeval a, b;
+    struct Timeval *tlast = (struct Timeval *)context;
+    struct Timeval a, b;
 
     GetSysTime(&a);
     b = a;

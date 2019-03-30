@@ -118,7 +118,7 @@ struct PrinterData
     UBYTE                     pd_Flags1;
     UBYTE                     pd_Stk[P_STKSIZE];
     struct PrinterUnit       *pd_PUnit;
-    LONG                    (*pd_PRead)(char * buffer, LONG *length, struct timeval *tv);
+    LONG                    (*pd_PRead)(char * buffer, LONG *length, struct Timeval *tv);
     LONG                    (*pd_CallErrHook)(struct Hook *hook, union printerIO *ior, struct PrtErrMsg *pem);
     ULONG                     pd_UnitNumber;
     STRPTR                    pd_DriverName;

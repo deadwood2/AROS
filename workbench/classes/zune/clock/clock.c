@@ -62,7 +62,7 @@ IPTR Clock__OM_NEW(Class *cl, Object *obj, struct opSet *msg)
     }
     else
     {
-    	struct timeval tv;
+    	struct Timeval tv;
 	
     	GetSysTime(&tv);
 	Amiga2Date(tv.tv_secs, &data->clockdata);
@@ -521,7 +521,7 @@ IPTR Clock__MUIM_Clock_Timer(Class *cl, Object *obj, Msg msg)
 {
     struct Clock_DATA *data;
     struct ClockData 	  cd;
-    struct timeval  	  tv;
+    struct Timeval  	  tv;
     
     data = INST_DATA(cl, obj);
     

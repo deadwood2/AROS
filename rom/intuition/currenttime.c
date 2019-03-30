@@ -55,7 +55,7 @@
     AROS_LIBFUNC_INIT
 
     struct Library *TimerBase = GetPrivIBase(IntuitionBase)->TimerBase;
-    struct timeval tv;
+    struct Timeval tv;
 
     GetSysTime(&tv);
 

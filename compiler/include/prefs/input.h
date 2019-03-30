@@ -26,9 +26,9 @@
 struct InputPrefs {
     char           ip_Keymap[16];
     UWORD          ip_PointerTicks;
-    struct timeval ip_DoubleClick;
-    struct timeval ip_KeyRptDelay;
-    struct timeval ip_KeyRptSpeed;
+    struct Timeval ip_DoubleClick;
+    struct Timeval ip_KeyRptDelay;
+    struct Timeval ip_KeyRptSpeed;
     WORD           ip_MouseAccel;
 
     /* The following fields are compatible with AmigaOS v4 */

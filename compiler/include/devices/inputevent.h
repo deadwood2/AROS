@@ -47,7 +47,7 @@ struct InputEvent
         } ie_dead;
     } ie_position;
 
-    struct timeval      ie_TimeStamp;
+    struct Timeval      ie_TimeStamp;
 };
 #define ie_X             ie_position.ie_xy.ie_x
 #define ie_Y             ie_position.ie_xy.ie_y
