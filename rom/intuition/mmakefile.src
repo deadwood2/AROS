@@ -2,7 +2,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 INTUITION_BUILDDIR := $(GENDIR)/$(CURDIR)/intuition
-USER_INCLUDES := -I$(INTUITION_BUILDDIR)
+USER_INCLUDES := -I$(INTUITION_BUILDDIR) -I$(SRCDIR)/arch/all-runtimelinux/intuition
 USER_CFLAGS :=  $(AROSROM_MODULE_CFLAGS)
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
@@ -26,7 +26,8 @@ FILES := boolgadgets boopsigadgets buttongclass frameiclass frbuttonclass \
          menus barlabelclass fillrectclass groupgclass wbtasktalk \
          rootclass icclass modelclass itexticlass misc sysiclass menutask \
 	 windecorclass scrdecorclass menudecorclass monitorclass screennotifytask \
-	 screenclass decoration sysrequest_intern shutdownscreen
+	 screenclass decoration sysrequest_intern shutdownscreen \
+	 $(SRCDIR)/arch/all-runtimelinux/intuition/intuition_x
 
 FUNCS := \
 	activategadget \
@@ -190,7 +191,7 @@ FUNCS := \
 
 %build_module mmake=kernel-intuition \
   modname=intuition modtype=library \
-  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config" uselibs="stdc.static"
+  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config" uselibs="X11"
 
 $(INTUITION_BUILDDIR)/shutdownscreen.d : $(INTUITION_BUILDDIR)/shutdown_image.h
 
