@@ -15,6 +15,9 @@
 #include "x11.h"
 #include "x11_hostlib.h"
 #include "x11gfx_fullscreen.h"
+#include "../../../all-runtime/hidd/x11/x11_intui_bridge.h"
+
+extern struct intuixchng intuixchng;
 
 VOID X11BM_ExposeFB(APTR data, WORD x, WORD y, WORD width, WORD height);
 
@@ -371,6 +374,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
     ULONG hostclipboardmask;
     struct KeyReleaseInfo kri;
     kri.f12_down = FALSE;
+    BOOL readxevents = TRUE;
 
     /* copy needed parameter's because they are allocated on the parent's stack */
 
@@ -590,6 +594,14 @@ VOID x11task_entry(struct x11task_params *xtpparam)
 
                         break;
                     }
+                case 5:
+                    x11task_process_xevent(xsd, &xwindowlist, (XEvent *)nmsg->bmobj, &kri, &nmsg_list);
+                    ReplyMsg((struct Message *) nmsg);
+                    break;
+                case 6: /* Intuition window manager will be reading XEvents and forwarding when needed */
+                    readxevents = FALSE;
+                    ReplyMsg((struct Message *) nmsg);
+                    break;
                 } /* switch() */
             } /* while () */
             //continue;
@@ -600,6 +612,8 @@ VOID x11task_entry(struct x11task_params *xtpparam)
             x11clipboard_handle_commands(xsd);
         }
 
+        if (readxevents)
+        {
         for (;;)
         {
             struct xwinnode *node;
@@ -668,6 +682,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
             x11task_process_xevent(xsd, &xwindowlist, &event, &kri, &nmsg_list);
 
         } /* while (events from X)  */
+        } /* if (readxevents) */
 
     } /* Forever */
 

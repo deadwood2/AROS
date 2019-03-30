@@ -39,6 +39,7 @@
 #include "inputhandler_actions.h"
 #include "inputhandler_support.h"
 #include "menus.h"
+#include "intuition_x.h"
 
 #ifdef SKINS
 #   include "mosmisc.h"
@@ -1517,7 +1518,7 @@ struct Window *FindActiveWindow(struct InputEvent *ie, struct Screen *scr, ULONG
         /* What layer ? */
         LockLayerInfo(&scr->LayerInfo);
 
-        l = WhichLayer(&scr->LayerInfo, scr->MouseX, scr->MouseY);
+        l = WhichLayer_X11(&scr->LayerInfo, scr->MouseX, scr->MouseY, IntuitionBase);
 
         UnlockLayerInfo(&scr->LayerInfo);
 
