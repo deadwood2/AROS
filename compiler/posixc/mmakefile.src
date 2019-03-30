@@ -1,6 +1,6 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-posixc
+##MM- AROS : compiler-posixc
 
 POSIXC := \
     __env \
@@ -227,7 +227,7 @@ POSIXC_LINKLIB := \
 POSIXC_COMMON := \
     __posixc_stdstreams
 
-#MM- core-linklibs : linklibs-posixc
+##MM- core-linklibs : linklibs-posixc
 
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS)

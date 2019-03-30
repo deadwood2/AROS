@@ -3,7 +3,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM AROS : clean-errors AROS-$(ARCH)-$(CPU)-$(AROS_TARGET_VARIANT) AROS-$(ARCH)-$(CPU) test
+#MM AROS : clean-errors
 AROS : checkerr
 	@$(NOP)
 

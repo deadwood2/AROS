@@ -5,7 +5,7 @@ include $(SRCDIR)/config/aros.cfg
 # The workbench target points back to config/$(ARCH)/mmakefile:
 #MM- workbench : workbench-$(ARCH)-$(CPU)
 
-#MM- AROS : workbench-complete
+##MM- AROS : workbench-complete
 
 #MM- workbench-complete : \
 #MM	    workbench-directories \

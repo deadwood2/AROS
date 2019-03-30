@@ -50,7 +50,7 @@ FILES :=  \
     x11gfx_fullscreen \
     x11gfx_bitmapclass
 
-#MM kernel-x11gfx : x11keymaptable devs-monitors-x11
+#MM kernel-x11gfx : x11keymaptable
 #MM kernel-x11gfx-kobj : x11keymaptable devs-monitors-x11
 
 %build_module mmake=kernel-x11gfx \

@@ -1,6 +1,6 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-stdc compiler-stdcio
+##MM- AROS : compiler-stdc compiler-stdcio
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/$(CURDIR)/math -iquote $(FMTPRINTFDIR)
@@ -524,22 +524,22 @@ STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
     $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
 
-USER_CFLAGS := $(NOWARN_FLAGS) -noposixc $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS := -nostdc -noposixc
-USER_CPPFLAGS := -Dlint '-D__FBSDID(x)=' 
+#USER_CFLAGS := $(NOWARN_FLAGS) -noposixc $(CFLAGS_NO_BUILTIN)
+#USER_LDFLAGS := -nostdc -noposixc
+#USER_CPPFLAGS := -Dlint '-D__FBSDID(x)=' 
 
-%build_module mmake=compiler-stdc \
-    modname=stdc modtype=library \
-    files="$(STDC) $(STDC_COMMON)" \
-    linklibfiles=$(STDC_LINKLIB) linklibobjs=$(STDC_LINKOBJS)
+#%build_module mmake=compiler-stdc \
+#    modname=stdc modtype=library \
+#    files="$(STDC) $(STDC_COMMON)" \
+#    linklibfiles=$(STDC_LINKLIB) linklibobjs=$(STDC_LINKOBJS)
 
 STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notdir $(STDCIO_COMMON))))
 
-%build_module mmake=compiler-stdcio \
-    modname=stdcio modtype=library \
-    files="$(STDCIO) $(STDCIO_COMMON)" \
-    linklibobjs=$(STDCIO_LINKOBJS) \
-    uselibs="stdc_rel"
+#%build_module mmake=compiler-stdcio \
+#    modname=stdcio modtype=library \
+#    files="$(STDCIO) $(STDCIO_COMMON)" \
+#    linklibobjs=$(STDCIO_LINKOBJS) \
+#    uselibs="stdc_rel"
 
 STDC_MATH_STATIC := \
     math/e_log \
@@ -624,29 +624,30 @@ STDC_STATIC := \
 USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
 USER_CPPFLAGS := -DSTDC_STATIC -Dlint
 
-#MM- core-linklibs : linklibs-stdc-static
-%build_linklib mmake=linklibs-stdc-static libname=stdc.static \
-    files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
+##MM- core-linklibs : linklibs-stdc-static
+#%build_linklib mmake=linklibs-stdc-static libname=stdc.static \
+#    files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
-#MM- linklibs-romhack : compiler-stdc
+##MM- linklibs-romhack : compiler-stdc
 # FIXME: The next romhack linklib is a temporary hack and has to be
 # excommunicated in the future !
 # setjmp()/longjmp() is used in dos.library so make it available.
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
-%build_linklib mmake=linklibs-romhack \
-    objdir=$(GENDIR)/$(CURDIR)/stdc libname=romhack files="setjmp longjmp"
+#%build_linklib mmake=linklibs-romhack \
+#    objdir=$(GENDIR)/$(CURDIR)/stdc libname=romhack files="setjmp longjmp"
 
 # A dummy libm.a is provided so that -lm link option does not produce an error
 # objdir is provided to avoid that arch specific files end up in libm.a
-%build_linklib mmake=linklibs-libm \
-    libname=m files=empty objdir=$(GENDIR)/$(CURDIR)/libm
+#%build_linklib mmake=linklibs-libm \
+#    libname=m files=empty objdir=$(GENDIR)/$(CURDIR)/libm
 
 # pc-x86_64 needs a 32bit version stdc.static
-ifeq ($(AROS_TARGET_CPU),x86_64)
-    ISA_FLAGS := $(ISA_X86_FLAGS)
-endif
-USER_CPPFLAGS +=  -DSTDC_LIB32
+#ifeq ($(AROS_TARGET_CPU),x86_64)
+#    ISA_FLAGS := $(ISA_X86_FLAGS)
+#endif
+#USER_CPPFLAGS +=  -DSTDC_LIB32
 
-%build_linklib mmake=linklibs-stdc-static32 \
-    libname=stdc.static files="$(STDC_STATIC)" objs=$(ROM_COMMON_OBJ32) \
-    objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32
+#%build_linklib mmake=linklibs-stdc-static32 \
+#    libname=stdc.static files="$(STDC_STATIC)" objs=$(ROM_COMMON_OBJ32) \
+#    objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32
+

@@ -2,8 +2,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM workbench-libs-png : workbench-libs-z
-#MM- workbench-libs-png-includes : workbench-libs-png-generated
+##MM workbench-libs-png : workbench-libs-z
+##MM- workbench-libs-png-includes : workbench-libs-png-generated
 
 FILES := png pngerror \
 	pngget pngmem pngpread pngread pngrio pngrtran pngrutil \
@@ -12,12 +12,12 @@ FILES := png pngerror \
 NOWARN_FLAGS := $(NOWARN_DEPRECATED_DECLARATIONS) $(NOWARN_IMPLICIT_FUNCTION_DECL)
 USER_CFLAGS := $(NOWARN_FLAGS)
 
-#MM- core-linklibs : linklibs-png
-#MM- linklibs-png : workbench-libs-png-pkgconfig
+##MM- core-linklibs : linklibs-png
+##MM- linklibs-png : workbench-libs-png-pkgconfig
 
-%build_module mmake=workbench-libs-png \
-    modname=png modtype=library \
-    files="$(FILES) posixc_startup" linklibname="png"
+#%build_module mmake=workbench-libs-png \
+#    modname=png modtype=library \
+#    files="$(FILES) posixc_startup" linklibname="png"
 
 #MM- linklibs: linklibs-png-nostdio
 #MM linklibs-png-nostdio : workbench-libs-png-generated

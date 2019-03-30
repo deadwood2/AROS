@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS     : compiler-setup
+##MM- AROS     : compiler-setup
 
 #MM- compiler : includes linklibs
 

@@ -96,5 +96,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-gallium-includes \
 #MM     workbench-libs-vega-includes \
 #MM     workbench-libs-mesa-includes \
-#MM     workbench-libs-glu-includes \
 #MM     workbench-libs-egl-includes
+
+##MM     workbench-libs-glu-includes \
+

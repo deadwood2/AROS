@@ -1,12 +1,12 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : linklibs-pthread
-#MM linklibs-pthreads : includes
+##MM- core-linklibs : linklibs-pthread
+##MM linklibs-pthreads : includes
 
-#MM- includes-copy : pthread-includes-copy
-#MM- compiler-includes : pthread-includes-copy
+##MM- includes-copy : pthread-includes-copy
+##MM- compiler-includes : pthread-includes-copy
 
-%copy_includes mmake=pthread-includes-copy includes="pthread.h sched.h semaphore.h"
+#%copy_includes mmake=pthread-includes-copy includes="pthread.h sched.h semaphore.h"
 
 LINKLIBFILES := pthread sched semaphore
 LIBRARYFILES := 
@@ -48,6 +48,6 @@ PTHREADFUNCS :=  \
 #    files="$(LIBRARYFILES) $(PTHREADFUNCS)" \
 #    linklibfiles=$(LINKLIBFILES)
 
-%build_linklib mmake=linklibs-pthread \
-    libname=pthread \
-    files="$(LINKLIBFILES) $(PTHREADFUNCS)"
+#%build_linklib mmake=linklibs-pthread \
+#    libname=pthread \
+#    files="$(LINKLIBFILES) $(PTHREADFUNCS)"
