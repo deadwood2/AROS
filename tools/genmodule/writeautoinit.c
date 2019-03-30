@@ -46,6 +46,11 @@ void writeautoinit(struct config *cfg, int is_rel)
     );
 
     fprintf(out,
+            "const LONG __aros_libreq_%s = 0L;\n",
+            cfg->libbase
+    );
+
+    fprintf(out,
             "AROS_IMPORT_ASM_SYM(int, dummy, __include%slibrarieshandling);\n",
             is_rel ? "rel" : ""
     );
