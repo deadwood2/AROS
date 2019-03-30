@@ -601,6 +601,7 @@ D(bug("[Wanderer] %s: ICONWINDOW_ACTION_OPEN: offset = %d, buf = %s\n", __PRETTY
         struct IconList_Drop_Event      *dropevent = (struct IconList_Drop_Event *)msg->drop;
 
         {
+asm("int3");
             wandererCopyProcess = CreateNewProcTags(
                                 NP_Entry,       (IPTR)Wanderer__Func_CopyDropEntries,
                                 NP_Name,        (IPTR)wand_copyprocnamestr,
@@ -3464,7 +3465,7 @@ D(bug("[Wanderer] %s() ##\n[Wanderer] %s: Creating 'Workbench' Window..\n", __PR
     {
 D(bug("[Wanderer] %s: Workbench Window Obj @ %x\n", __PRETTY_FUNCTION__, data->wd_WorkbenchWindow));
 
-        Detach();
+//        Detach();
 
 D(bug("[Wanderer] %s: Really handing control to Zune ..\n", __PRETTY_FUNCTION__));
 
@@ -3882,7 +3883,7 @@ D(bug("[Wanderer]: %s()\n", __PRETTY_FUNCTION__));
 
     if ((isWorkbenchWindow = (message->drawer == NULL ? TRUE : FALSE)))
     {
-        useBackdrop = data->wd_Option_BackDropMode;
+//        useBackdrop = data->wd_Option_BackDropMode; //temporarily disable to get window name
     }
 
     TAG_IconWindow_Drawer = isWorkbenchWindow ? TAG_IGNORE : MUIA_IconWindow_Location;
