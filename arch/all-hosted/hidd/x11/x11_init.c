@@ -120,6 +120,7 @@ int X11_Init(struct x11_staticdata *xsd)
 
     /* Do not need to single-thread this since no other tasks are using X
        currently */
+    XCALL(XInitThreads);
 
     xsd->display = XCALL(XOpenDisplay, NULL);
     D(bug("[X11] %s: X display @ 0x%p\n", __PRETTY_FUNCTION__, xsd->display));

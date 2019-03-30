@@ -121,12 +121,13 @@ static const char *x11_func_names[] = {
 #if DEBUG_X11_SYNCHRON
     , "XSynchronize"
 #endif
+    ,"XInitThreads"
 };
 
 #if DEBUG_X11_SYNCHRON
-#define X11_NUM_FUNCS (83)
+#define X11_NUM_FUNCS (84)
 #else
-#define X11_NUM_FUNCS (82)
+#define X11_NUM_FUNCS (83)
 #endif
 
 
