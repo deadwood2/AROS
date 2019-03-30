@@ -127,9 +127,9 @@ VOID X11Mouse__Hidd_Mouse_X11__HandleEvent(OOP_Class *cl, OOP_Object *o, struct 
     DB2(bug("[X11Mouse] HandleEvent()\n"));
     XButtonEvent *xb = &(msg->event->xbutton);
     
-    e.x = xb->x;
-    e.y = xb->y;
-   
+    e.x = xb->x_root;
+    e.y = xb->y_root;
+
     if (msg->event->type == ButtonRelease)
     {
         switch(xb->button)
