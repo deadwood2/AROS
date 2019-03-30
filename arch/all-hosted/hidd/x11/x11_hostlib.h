@@ -104,6 +104,7 @@ struct x11_func {
 #if DEBUG_X11_SYNCHRON
     void (*XSynchronize)(Display *, Bool );
 #endif
+    Status (*XInitThreads)();
 };
 
 #ifndef HAVE_XF86VMODE_H
