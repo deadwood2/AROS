@@ -73,7 +73,7 @@
         }
 
 #if defined(__AROSEXEC_SMP__)
-        EXEC_SPINLOCK_LOCK(&et->et_TaskMsgPort.mp_SpinLock, NULL, SPINLOCK_MODE_READ);
+        EXEC_SPINLOCK_LOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private, NULL, SPINLOCK_MODE_READ);
 #endif
         ForeachNode(&et->et_TaskMsgPort.mp_MsgList, child)
         {
@@ -84,7 +84,7 @@
         }
         }
 #if defined(__AROSEXEC_SMP__)
-        EXEC_SPINLOCK_UNLOCK(&et->et_TaskMsgPort.mp_SpinLock);
+        EXEC_SPINLOCK_UNLOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private);
 #endif
         Permit();
     }

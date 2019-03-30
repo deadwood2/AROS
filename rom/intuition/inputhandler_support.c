@@ -1340,7 +1340,7 @@ void WindowNeedsRefresh(struct Window * w,
             /* Can use Forbid() for this */
             Forbid();
 #if defined(__AROSEXEC_SMP__)
-            if (ExecLockBase) ObtainLock(&w->UserPort->mp_SpinLock, SPINLOCK_MODE_READ, 0);
+            if (ExecLockBase) ObtainLock(&w->UserPort->mp_Private, LOCK_MODE_READ, 0);
 #endif
             IM = (struct IntuiMessage *)w->UserPort->mp_MsgList.lh_Head;
 
@@ -1357,7 +1357,7 @@ void WindowNeedsRefresh(struct Window * w,
                 }
             }
 #if defined(__AROSEXEC_SMP__)
-            if (ExecLockBase) ReleaseLock(&w->UserPort->mp_SpinLock, 0);
+            if (ExecLockBase) ReleaseLock(&w->UserPort->mp_Private, 0);
 #endif
             Permit();
 

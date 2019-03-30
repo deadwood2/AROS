@@ -64,12 +64,12 @@
     /* Is messageport empty? */
 #if defined(__AROSEXEC_SMP__)
     Disable();
-    EXEC_SPINLOCK_LOCK(&port->mp_SpinLock, NULL, SPINLOCK_MODE_READ);
+    EXEC_SPINLOCK_LOCK((spinlock_t *)&port->mp_Private, NULL, SPINLOCK_MODE_READ);
 #endif
     while (IsListEmpty(&port->mp_MsgList))
     {
 #if defined(__AROSEXEC_SMP__)
-        EXEC_SPINLOCK_UNLOCK(&port->mp_SpinLock);
+        EXEC_SPINLOCK_UNLOCK((spinlock_t *)&port->mp_Private);
         Enable();
 #endif
         D(bug("[Exec] WaitPort: Msg list empty, waiting for activity...\n");)
@@ -83,11 +83,11 @@
         D(bug("[Exec] WaitPort: Msgport signal received ...\n");)
 #if defined(__AROSEXEC_SMP__)
         Disable();
-        EXEC_SPINLOCK_LOCK(&port->mp_SpinLock, NULL, SPINLOCK_MODE_READ);
+        EXEC_SPINLOCK_LOCK((spinlock_t *)&port->mp_Private, NULL, SPINLOCK_MODE_READ);
 #endif
     }
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_UNLOCK(&port->mp_SpinLock);
+    EXEC_SPINLOCK_UNLOCK((spinlock_t *)&port->mp_Private);
     Enable();
 #endif
 

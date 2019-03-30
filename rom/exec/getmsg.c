@@ -65,11 +65,11 @@
      */
     Disable();
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_LOCK(&port->mp_SpinLock, NULL, SPINLOCK_MODE_WRITE);
+    EXEC_SPINLOCK_LOCK((spinlock_t *)&port->mp_Private, NULL, SPINLOCK_MODE_WRITE);
 #endif
     msg=(struct Message *)RemHead(&port->mp_MsgList);
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_UNLOCK(&port->mp_SpinLock);
+    EXEC_SPINLOCK_UNLOCK((spinlock_t *)&port->mp_Private);
 #endif
     Enable();
 

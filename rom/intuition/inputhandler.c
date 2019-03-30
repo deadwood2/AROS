@@ -1767,7 +1767,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
             struct IntuiMessage *im;
 #if defined(__AROSEXEC_SMP__)
             struct ExecLockBase *ExecLockBase = GetPrivIBase(IntuitionBase)->ExecLockBase;
-            if (ExecLockBase) ObtainLock(&w->UserPort->mp_SpinLock, SPINLOCK_MODE_READ, 0);
+            if (ExecLockBase) ObtainLock(&w->UserPort->mp_Private, LOCK_MODE_READ, 0);
 #endif
             for (im = (struct IntuiMessage *)w->UserPort->mp_MsgList.lh_TailPred;
             im->ExecMessage.mn_Node.ln_Pred;
@@ -1795,7 +1795,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
                 }
             }
 #if defined(__AROSEXEC_SMP__)
-            if (ExecLockBase) ReleaseLock(&w->UserPort->mp_SpinLock, 0);
+            if (ExecLockBase) ReleaseLock(&w->UserPort->mp_Private, 0);
 #endif
         } /* if (w->UserPort) */
         Permit();

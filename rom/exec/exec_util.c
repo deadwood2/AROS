@@ -82,7 +82,7 @@
         if (!retVal)
         {
 #if defined(__AROSEXEC_SMP__)
-            EXEC_SPINLOCK_LOCK(&thisET->et_TaskMsgPort.mp_SpinLock, NULL, SPINLOCK_MODE_READ);
+            EXEC_SPINLOCK_LOCK((spinlock_t *)&thisET->et_TaskMsgPort.mp_Private, NULL, SPINLOCK_MODE_READ);
 #endif
             ForeachNode(&thisET->et_TaskMsgPort.mp_MsgList, et)
             {
@@ -93,7 +93,7 @@
                 }
             }
 #if defined(__AROSEXEC_SMP__)
-            EXEC_SPINLOCK_UNLOCK(&thisET->et_TaskMsgPort.mp_SpinLock);
+            EXEC_SPINLOCK_UNLOCK((spinlock_t *)&thisET->et_TaskMsgPort.mp_Private);
 #endif
         }
     }
@@ -230,7 +230,7 @@ Exec_CleanupETask(struct Task *task, struct ExecBase *SysBase)
 #endif
 
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_LOCK(&et->et_TaskMsgPort.mp_SpinLock, NULL, SPINLOCK_MODE_WRITE);
+    EXEC_SPINLOCK_LOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private, NULL, SPINLOCK_MODE_WRITE);
 #endif
     /* Clean up after all the children that the task didn't do itself. */
     ForeachNodeSafe(&et->et_TaskMsgPort.mp_MsgList, child, tmpNode)
@@ -238,7 +238,7 @@ Exec_CleanupETask(struct Task *task, struct ExecBase *SysBase)
         ExpungeETask(child);
     }
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_UNLOCK(&et->et_TaskMsgPort.mp_SpinLock);
+    EXEC_SPINLOCK_UNLOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private);
 #endif
     /* If we have an ETask parent, tell it we have exited. */
     if(et->et_Parent != NULL)

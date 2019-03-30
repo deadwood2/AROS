@@ -91,7 +91,7 @@
     for (;;)
     {
 #if defined(__AROSEXEC_SMP__)
-        EXEC_SPINLOCK_LOCK(&et->et_TaskMsgPort.mp_SpinLock, NULL, SPINLOCK_MODE_READ);
+        EXEC_SPINLOCK_LOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private, NULL, SPINLOCK_MODE_READ);
 #endif
 	/* Check if it has returned already. This will also take the first. */
 	ForeachNode(&et->et_TaskMsgPort.mp_MsgList, child)
@@ -99,14 +99,14 @@
 	    if (tid == 0 || child->et_UniqueID == tid)
             {
 #if defined(__AROSEXEC_SMP__)
-                EXEC_SPINLOCK_UNLOCK(&et->et_TaskMsgPort.mp_SpinLock);
+                EXEC_SPINLOCK_UNLOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private);
 #endif
 		goto child_exited;
             }
 	}
 
 #if defined(__AROSEXEC_SMP__)
-        EXEC_SPINLOCK_UNLOCK(&et->et_TaskMsgPort.mp_SpinLock);
+        EXEC_SPINLOCK_UNLOCK((spinlock_t *)&et->et_TaskMsgPort.mp_Private);
 #endif
 	/* No matching children, we have to wait */
 	SetSignal(0, SIGF_CHILD);

@@ -11,4 +11,7 @@
 #define LOCKF_DISABLE   (1 << LOCKB_DISABLE)
 #define LOCKF_FORBID    (1 << LOCKB_FORBID)
 
+#define LOCK_MODE_READ  0
+#define LOCK_MODE_WRITE 1
+
 #endif /* !RESOURCES_EXECLOCK_H */

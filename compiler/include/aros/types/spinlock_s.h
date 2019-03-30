@@ -20,7 +20,7 @@ typedef struct {
     // The field s_Owner is set either to task owning the lock,
     // or NULL if the lock is free/read mode or was acquired in interrupt/supervisor mode
     void * s_Owner;
-} __attribute__((__aligned__(128))) spinlock_t;
+} spinlock_t;
 
 #define SPINLOCK_UNLOCKED               0
 #define SPINLOCKB_WRITE                 27

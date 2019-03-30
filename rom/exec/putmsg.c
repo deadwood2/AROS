@@ -84,12 +84,12 @@ void InternalPutMsg(struct MsgPort *port, struct Message *message, struct ExecBa
 
     Disable();
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_LOCK(&port->mp_SpinLock, NULL, SPINLOCK_MODE_WRITE);
+    EXEC_SPINLOCK_LOCK((spinlock_t *)&port->mp_Private, NULL, SPINLOCK_MODE_WRITE);
 #endif
     AddTail(&port->mp_MsgList, &message->mn_Node);
     D(bug("[EXEC] PutMsg: Port MsgList->lh_TailPred =  0x%p\n", port->mp_MsgList.lh_TailPred);)
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_UNLOCK(&port->mp_SpinLock);
+    EXEC_SPINLOCK_UNLOCK((spinlock_t *)&port->mp_Private);
 #endif
     Enable();
 

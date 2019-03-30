@@ -58,7 +58,7 @@
 
     /* Clear the list of messages */
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_INIT(&port->mp_SpinLock);
+    EXEC_SPINLOCK_INIT((spinlock_t *)&port->mp_Private);
 #endif
     NEWLIST(&port->mp_MsgList);
 #if defined(__AROSEXEC_SMP__)

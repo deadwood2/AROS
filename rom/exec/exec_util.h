@@ -133,7 +133,7 @@ static inline void InitMsgPort(struct MsgPort *ret)
     /* Set port to type MsgPort */
     ret->mp_Node.ln_Type = NT_MSGPORT;
 #if defined(__AROSEXEC_SMP__)
-    EXEC_SPINLOCK_INIT(&ret->mp_SpinLock);
+    EXEC_SPINLOCK_INIT((spinlock_t *)&ret->mp_Private);
 #endif
     /* Clear the list of messages */
     NEWLIST(&ret->mp_MsgList);
