@@ -17,6 +17,9 @@
 #include LC_LIBDEFS_FILE
 #include "x11_hostlib.h"
 #include "x11gfx_fullscreen.h"
+#include "../../../all-runtime/hidd/x11/x11_intui_bridge.h"
+
+struct intuixchng intuixchng;
 
 /****************************************************************************************/
 
@@ -123,6 +126,7 @@ int X11_Init(struct x11_staticdata *xsd)
 
     /* Do not need to single-thread this since no other tasks are using X
        currently */
+    XCALL(XInitThreads);
 
     xsd->display = XCALL(XOpenDisplay, NULL);
     D(bug("[X11] %s: X display @ 0x%p\n", __func__, xsd->display));
@@ -216,6 +220,10 @@ int X11_Init(struct x11_staticdata *xsd)
         D(bug("[X11] %s: xtd @ 0x%p (* @ 0x%p)\n", __func__, xsd->xtd, &xsd->xtd);)
         if ((x11task = create_x11task(&xtp)))
         {
+            intuixchng.xdisplay = xsd->display; // get display to intuition so it uses the same display
+            intuixchng.x11task_notify_port = xsd->x11task_notify_port;
+            x11task->tc_UserData = &intuixchng;
+
             if (initclasses(xsd))
             {
                 D(bug("[X11] %s: task & classes initialized\n", __func__));
