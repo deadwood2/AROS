@@ -130,25 +130,6 @@ static int poll_fd(int fd, int req_mode, struct unixio_base *ud)
     return mode;
 }
 
-static void SigIO_IntServer(struct unixio_base *ud, void *unused)
-{
-    struct uioInterrupt *intnode;
-
-    /* Walk through the list of installed handlers and de-multiplex our SIGIO */
-    for (intnode = (struct uioInterrupt *)ud->intList.mlh_Head; intnode->Node.mln_Succ;
-    	 intnode = (struct uioInterrupt *)intnode->Node.mln_Succ)
-    {
- 	int mode = poll_fd(intnode->fd, intnode->mode, ud);
-
-	if (mode > 0)
-	{
-	    D(bug("[UnixIO] Events 0x%02X for fd %d\n", mode, intnode->fd));
-
-	    intnode->handler(intnode->fd, mode, intnode->handlerData);
-	}
-    }
-}
-
 static void WaitIntHandler(int fd, int mode, void *data)
 {
     struct UnixIO_Waiter *w = data;
@@ -950,7 +931,7 @@ void UXIO__Hidd_UnixIO__RemInterrupt(OOP_Class *cl, OOP_Object *o, struct pHidd_
 ULONG UXIO__Hidd_UnixIO__Poll(OOP_Class *cl, OOP_Object *o, struct pHidd_UnixIO_Poll *msg)
 {
     struct unixio_base *data = UD(cl);
-    int user = !KrnIsSuper();
+    int user = 1;
     int ret;
  
     if (user)
@@ -1122,19 +1103,8 @@ static int UXIO_Init(LIBBASETYPEPTR LIBBASE)
 
     D(bug("[UnixIO] Init\n"));
 
-    KernelBase = OpenResource("kernel.resource");
-    if (!KernelBase)
-	return FALSE;
-
     HostLibBase = OpenResource("hostlib.resource");
     if (!HostLibBase)
-    	return FALSE;
-
-    LIBBASE->SystemArch = (STRPTR)KrnGetSystemAttr(KATTR_Architecture);
-    if (!LIBBASE->SystemArch)
-    	return FALSE;
-
-    if (!CheckArch(LIBBASE, "unixio.hidd", AROS_ARCHITECTURE))
     	return FALSE;
 
     LIBBASE->UnixIOAB = OOP_ObtainAttrBase(IID_Hidd_UnixIO);
@@ -1148,10 +1118,6 @@ static int UXIO_Init(LIBBASETYPEPTR LIBBASE)
     LIBBASE->SysIFace = (struct LibCInterface *)HostLib_GetInterface(LIBBASE->uio_Public.uio_LibcHandle, libc_symbols, &i);
     if ((!LIBBASE->SysIFace) || i)
 	return FALSE;
-
-    LIBBASE->irqHandle = KrnAddIRQHandler(SIGIO, SigIO_IntServer, LIBBASE, NULL);
-    if (!LIBBASE->irqHandle)
-    	return FALSE;
 
     NewList((struct List *)&LIBBASE->intList);
     InitSemaphore(&LIBBASE->lock);

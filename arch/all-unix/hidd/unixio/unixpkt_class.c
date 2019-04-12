@@ -109,7 +109,7 @@ struct uioPacket {
 *****************************************************************************************/
 
 #ifdef HOST_OS_linux
-#include <net/if.h>
+#include <linux/../net/if.h>
 #include <linux/if_ether.h>
 #include <linux/if_packet.h>
 #include <stdio.h> // for snprintf
