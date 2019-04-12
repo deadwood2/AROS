@@ -5,7 +5,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM kernel-unixio : kernel-kernel-includes hidd-unixio-stubs
 #MM kernel-unixio-kobj : kernel-kernel-includes hidd-unixio-stubs
 
-USER_CPPFLAGS := -DHOST_OS_$(ARCH) -DHOST_OS_$(AROS_TARGET_VARIANT)
+USER_CPPFLAGS := -DHOST_OS_linux -DHOST_OS_$(AROS_TARGET_VARIANT)
 USER_INCLUDES := -DAROS_ARCHITECTURE="\"$(AROS_TARGET_PLATFORM)\"" \
 	       -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 
