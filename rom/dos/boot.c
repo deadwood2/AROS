@@ -67,6 +67,31 @@ static void load_system_configuration(struct DosLibrary *DOSBase)
 
 extern void BCPL_cliInit(void);
 
+struct ARPSMsg
+{
+    struct Message  arps_Msg;
+    VOID            (*arps_Target)(APTR, APTR);
+    STRPTR          arps_ArgStr;
+    LONG            arps_ArgSize;
+    /* Private fields follow */
+};
+
+static VOID __program_trampoline()
+{
+    struct MsgPort *startup = CreateMsgPort();
+    startup->mp_Node.ln_Name = "ARPS"; /* AxRuntime Program Startup */
+    AddPort(startup);
+
+    WaitPort(startup);
+
+    struct ARPSMsg *msg = (struct ARPSMsg *)GetMsg(startup);
+    struct Process *me = (struct Process *)FindTask(NULL);
+    me->pr_Arguments = msg->arps_ArgStr;
+    vbuf_inject(me->pr_CIS, me->pr_Arguments, msg->arps_ArgSize);
+
+    msg->arps_Target(SysBase, msg);
+}
+
 void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
 {
     BPTR cis = BNULL;
@@ -196,4 +221,10 @@ void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
         D(bug("[DOS] %s:  .. failed!\n", __func__);)
         Alert(AN_NoWindow);
     }
+
+    CreateNewProcTags(
+                        NP_Entry,       (IPTR)__program_trampoline,
+                        NP_Cli,         TRUE,
+                        TAG_DONE);
+
 }
