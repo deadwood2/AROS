@@ -1,0 +1,21 @@
+#   $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+MAINDIR := arch/all-hosted/filesys/emul_handler
+
+USER_CFLAGS := -DHOST_OS_linux \
+	       -I$(SRCDIR)/$(CURDIR) \
+	       -I$(SRCDIR)/$(MAINDIR) \
+	       -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
+
+ifeq ($(ARCH),darwin)
+USER_CFLAGS += -D_FORTIFY_SOURCE=0
+endif
+
+FILES := emul_host_unix emul_host emul_dir
+
+%build_archspecific mainmmake=kernel-fs-emul \
+  maindir=$(MAINDIR) arch=runtimelinux files="$(FILES)"
+
+%common
