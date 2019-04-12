@@ -18,6 +18,8 @@
 #include "dos_intern.h"
 #include "../expansion/expansion_intern.h"
 
+#include <stdlib.h>
+
 #ifdef DEBUG_DOSTYPE
 
 static void PRINT_DOSTYPE(ULONG dt)
@@ -551,6 +553,18 @@ static LONG internalBootCliHandler(void)
     DOSBase->dl_Root->rn_BootProc = ((struct FileLock*)BADDR(lock))->fl_Task;
     SetFileSysTask(DOSBase->dl_Root->rn_BootProc);
 
+    STRPTR axrtsys = getenv("AXRTSYS");
+    lock = Lock(axrtsys, SHARED_LOCK);
+    AssignLock("AXRTSYS", lock);
+    lock = Lock("AXRTSYS:", SHARED_LOCK);
+    if (lock == BNULL)
+    {
+        D(bug("DOS/CliInit: Impossible! The AXRTSYS: assign failed!\n"));
+        Alert(AT_DeadEnd | AG_BadParm | AN_DOSLib);
+    }
+
+    STRPTR usersys = getenv("USERSYS");
+    lock = Lock(usersys, SHARED_LOCK);
     AssignLock("SYS", lock);
     lock = Lock("SYS:", SHARED_LOCK);
     if (lock == BNULL)
@@ -565,6 +579,13 @@ static LONG internalBootCliHandler(void)
     AddBootAssign("SYS:L",                "L", DOSBase);
     AddBootAssign("SYS:S",                "S", DOSBase);
     AddBootAssign("SYS:Fonts",            "FONTS", DOSBase);
+
+    if ((lock = Lock("AXRTSYS:C", SHARED_LOCK)) != BNULL)       AssignAdd("C", lock);
+    if ((lock = Lock("AXRTSYS:Libs", SHARED_LOCK)) != BNULL)    AssignAdd("LIBS", lock);
+    if ((lock = Lock("AXRTSYS:Devs", SHARED_LOCK)) != BNULL)    AssignAdd("DEVS", lock);
+    if ((lock = Lock("AXRTSYS:L", SHARED_LOCK)) != BNULL)       AssignAdd("L", lock);
+    if ((lock = Lock("AXRTSYS:S", SHARED_LOCK)) != BNULL)       AssignAdd("S", lock);
+    /* FONTS is SYS-only */
 
     /* Let hidds in DRIVERS: directory be found by OpenLibrary */
     if ((lock = Lock("DEVS:Drivers", SHARED_LOCK)) != BNULL) {
@@ -583,6 +604,10 @@ static LONG internalBootCliHandler(void)
     AssignLate("ENV", "SYS:Prefs/Env-Archive");
 #endif
     AssignLate("ENVARC", "SYS:Prefs/Env-Archive");
+
+    STRPTR userhome = getenv("USERHOME");
+    lock = Lock(userhome, SHARED_LOCK);
+    AssignLock("HOME", lock);
 
     /*
      * At this point we have only SYS:, nothing more. Mount the rest.
