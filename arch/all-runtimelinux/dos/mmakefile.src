@@ -1,0 +1,14 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES := boot cliinit exit isbootable loadseg
+
+USER_INCLUDES := -I$(SRCDIR)/rom/dos \
+		    -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
+
+%build_archspecific \
+  mainmmake=kernel-dos maindir=rom/dos \
+  arch=runtimelinux files=$(FILES)
+
+%common
