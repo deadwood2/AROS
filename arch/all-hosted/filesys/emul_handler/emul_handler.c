@@ -558,8 +558,8 @@ static LONG disk_info(struct emulbase *emulbase, struct filehandle *fh, struct I
 
 /*********************************************************************************************/
 
-#define VOLNAME	    "System"
-#define VOLNAME_LEN  6
+#define VOLNAME     "ROOT"
+#define VOLNAME_LEN 4
 
 static struct filehandle *new_volume(struct emulbase *emulbase, const char *path, struct MsgPort *mp, struct DosLibrary *DOSBase)
 {
@@ -616,7 +616,9 @@ static struct filehandle *new_volume(struct emulbase *emulbase, const char *path
         if (!unixpath)
             return NULL;
 
-        res = GetCurrentDir(emulbase, unixpath, PATH_MAX);
+        strncpy(unixpath, "/", PATH_MAX);
+        res = TRUE;
+
         DMOUNT(bug("[emul] GetCurrentDir() returned %d\n", res));
         if(!res)
         {
