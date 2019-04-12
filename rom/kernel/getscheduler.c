@@ -41,7 +41,7 @@
 {
     AROS_LIBFUNC_INIT
     
-    return SCHED_RR;
+    return KRN_SCHED_RR;
     
     AROS_LIBFUNC_EXIT
 }

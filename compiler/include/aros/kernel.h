@@ -15,7 +15,7 @@
 /* Type of scheduler. See KrnGetScheduler()/KrnSetScheduler() functions. */
 typedef enum
 {
-    SCHED_RR = 1	/* Old good round robin scheduler */
+    KRN_SCHED_RR = 1	/* Old good round robin scheduler */
 } KRN_SchedType;
 
 /* Flags for KrnMapGlobal */
