@@ -65,28 +65,7 @@ static AROS_UFH3(void, FreeFunc,
 *****************************************************************************/
 {
     AROS_LIBFUNC_INIT
-    BOOL success = FALSE;
-
-    if (seglist)
-    {
-        success = InternalUnLoadSeg(seglist, FreeFunc);
-        if (success)
-        {
-            struct Node *segnode, *tmp;
-            ObtainSemaphore(&((struct IntDosBase *)DOSBase)->segsem);
-            ForeachNodeSafe(&((struct IntDosBase *)DOSBase)->segdata, segnode, tmp)
-            {
-                if (segnode->ln_Name == (char *)seglist)
-                {
-                    D(bug("[DOS] %s: freeing seglist info @ 0x%p\n", __func__, segnode);)
-                    Remove(segnode);
-                    FreeVec(segnode);
-                    break;
-                }
-            }
-            ReleaseSemaphore(&((struct IntDosBase *)DOSBase)->segsem);
-        }
-    }
+    BOOL success = TRUE;
 
     return success;
 

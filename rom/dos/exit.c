@@ -126,8 +126,16 @@ ULONG CallEntry(STRPTR argptr, ULONG argsize, LONG_FUNC entry, struct Process *m
         return ss.retval;
     }
     else
+    {
+        /* Can't execute code from data section (see __AROS_SET_FULLJMP), get the pointer */
+        /* Eh, sometimes this is trampoline, sometimes real code to be executed... */
+        struct FullJumpVec *fmj = (struct FullJumpVec*)entry;
+        if (fmj->movabsq == 0xBB49)
+            entry = (LONG_FUNC)((struct FullJumpVec*)entry)->vec;
+
         return AROS_UFC3(ULONG, entry,
                          AROS_UFCA(STRPTR, argptr, A0),
                          AROS_UFCA(ULONG, argsize, D0),
                          AROS_UFCA(struct ExecBase *, SysBase, A6));
+    }
 }

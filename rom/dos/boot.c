@@ -67,6 +67,24 @@ static void load_system_configuration(struct DosLibrary *DOSBase)
 
 extern void BCPL_cliInit(void);
 
+struct ARPSMsg
+{
+    struct Message arps_Msg;
+    VOID (*arps_Target)(APTR, APTR);
+    /* Private fields follow */
+};
+
+static VOID __program_trampoline()
+{
+    struct MsgPort *startup = CreateMsgPort();
+    startup->mp_Node.ln_Name = "ARPS"; /* AxRuntime Program Startup */
+    AddPort(startup);
+
+    WaitPort(startup);
+    struct ARPSMsg *msg = (struct ARPSMsg *)GetMsg(startup);
+    msg->arps_Target(SysBase, msg);
+}
+
 void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
 {
     BPTR cis = BNULL;
@@ -138,62 +156,10 @@ void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
         cis = Open("ECON:", MODE_OLDFILE);
     }
 
-    if (cis == BNULL)
-        cis = Open("CON:////AROS/AUTO/CLOSE/SMART/BOOT", MODE_OLDFILE);
+    (VOID)cis;
+    CreateNewProcTags(
+                        NP_Entry,       (IPTR)__program_trampoline,
+                        NP_Cli,         TRUE,
+                        TAG_DONE);
 
-    if (cis) {
-        BPTR cos = OpenFromLock(DupLockFromFH(cis));
-        BYTE *C = generate_banner();
-
-        D(bug("[DOS] %s:  handle @ 0x%p (0x%p)\n", __func__, cis, cos);)
-
-        if (cos) {
-            BPTR cas = BNULL;
-
-            if (!(BootFlags & BF_NO_STARTUP_SEQUENCE))
-                cas = Open("S:Startup-Sequence", MODE_OLDFILE);
-
-            /* Inject the banner */
-            if (Flags & EBF_SILENTSTART) {
-                if (SetVBuf(cos, NULL, BUF_FULL, sizeof(C)) == 0) {
-                    FPuts(cos, C);
-                    SetVBuf(cos, NULL, BUF_LINE, -1);
-                }
-            } else {
-                FPuts(cos, C);
-            }
-
-            D(bug("[DOS] %s: initialising CLI\n", __func__);)
-
-            if (SystemTags(NULL,
-                           NP_Name, "Initial CLI",
-                           SYS_Background, FALSE,
-                           SYS_Asynch, FALSE,
-                           SYS_Input, cis,
-                           SYS_Output, cos,
-                           SYS_ScriptInput, cas,
-                           TAG_END) == -1) {
-                D(bug("[DOS] %s:  .. failed!\n", __func__);)
-                Alert(AT_DeadEnd | AN_BootStrap);
-            }
-
-            Close(cis);
-#if (1)
-            /* Do not flush cos (show banner) if we got this far, we don't want to
-             * see shell window quickly opening and then immediately closing at
-             * the end of startup-sequence.
-             *
-             * There has to be less hacky way..
-             */
-            struct FileHandle *fh = ((struct FileHandle*)BADDR(cos));
-            fh->fh_Flags &= ~0x80000000;
-#endif
-            Close(cos);
-            /* NOTE: 'cas' will already have been closed by the Shell */
-        }
-        FreeVec(C);
-    } else {
-        D(bug("[DOS] %s:  .. failed!\n", __func__);)
-        Alert(AN_NoWindow);
-    }
 }
