@@ -13,11 +13,6 @@
 
 #include "dos_intern.h"
 
-/* Signature file, contains (for example) 'pc-i386' */
-#define AROS_BOOT_CHECKSIG ":AROS.boot"
-/* Alternate variant: check if Shell is loadable
-#define AROS_BOOT_CHECKEXEC ":C/Shell" */
-
 BOOL __dos_IsBootable(struct DosLibrary * DOSBase, BPTR lock)
 {
 #if defined(AROS_BOOT_CHECKSIG)
