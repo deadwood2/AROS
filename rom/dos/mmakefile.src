@@ -79,7 +79,7 @@ USER_CPPFLAGS += -DAROS_CPU="\"$(AROS_TARGET_CPU)\""
 
 %build_module mmake=kernel-dos \
   modname=dos modtype=library \
-  files="dos_init $(FUNCTIONS) $(FILES) $(LOADSEG_FILES)" uselibs="romhack"
+  files="dos_init $(FUNCTIONS) $(FILES) $(LOADSEG_FILES)" uselibs="dl" archspecific=yes
 
 $(GENDIR)/$(CURDIR)/dos/errorlist.d : $(GENDIR)/$(CURDIR)/dos/errorlist.h
 
