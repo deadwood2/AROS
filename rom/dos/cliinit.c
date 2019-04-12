@@ -18,6 +18,8 @@
 #include "dos_intern.h"
 #include "../expansion/expansion_intern.h"
 
+#include <stdlib.h>
+
 #ifdef DEBUG_DOSTYPE
 
 static void PRINT_DOSTYPE(ULONG dt)
@@ -550,6 +552,8 @@ static LONG internalBootCliHandler(void)
     /* We're now at the point of no return. */
     DOSBase->dl_Root->rn_BootProc = ((struct FileLock*)BADDR(lock))->fl_Task;
     SetFileSysTask(DOSBase->dl_Root->rn_BootProc);
+    STRPTR axrtsys = getenv("AXRTSYS");
+    lock = Lock(axrtsys, SHARED_LOCK);
 
     AssignLock("SYS", lock);
     lock = Lock("SYS:", SHARED_LOCK);
@@ -582,7 +586,14 @@ static LONG internalBootCliHandler(void)
      */
     AssignLate("ENV", "SYS:Prefs/Env-Archive");
 #endif
-    AssignLate("ENVARC", "SYS:Prefs/Env-Archive");
+    STRPTR usersys = getenv("USERSYS");
+    lock = Lock(usersys, SHARED_LOCK);
+    AssignLock("USERSYS", lock);
+    AssignLate("ENVARC", "USERSYS:Prefs/Env-Archive");
+
+    STRPTR userhome = getenv("USERHOME");
+    lock = Lock(userhome, SHARED_LOCK);
+    AssignLock("HOME", lock);
 
     /*
      * At this point we have only SYS:, nothing more. Mount the rest.
