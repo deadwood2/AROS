@@ -1,5 +1,6 @@
 #include <exec/lists.h>
 #include <dos/bptr.h>
+#include <hidd/hidd.h>
 
 struct kbd_data
 {

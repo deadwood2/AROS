@@ -1,6 +1,7 @@
 #include <exec/lists.h>
 #include <exec/semaphores.h>
 #include <dos/bptr.h>
+#include <hidd/hidd.h>
 
 struct mouse_data
 {
