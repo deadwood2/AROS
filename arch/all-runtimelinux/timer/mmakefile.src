@@ -1,0 +1,18 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+USER_INCLUDES := -I$(SRCDIR)/$(CURDIR) -I$(SRCDIR)/rom/timer \
+		 -isystem $(GENINCDIR) $(KERNEL_INCLUDES) \
+		 -DHOST_OS_linux
+
+ifneq ("","$(strip $(WARN_ERROR))")
+CONFIG_CFLAGS := $(subst $(WARN_ERROR),,$(CONFIG_CFLAGS))
+endif
+
+%build_archspecific \
+  mainmmake=kernel-timer maindir=rom/timer \
+  arch=runtimelinux modulename=timer \
+  files="timer_init"
+
+%common
