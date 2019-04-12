@@ -2,13 +2,8 @@
     Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 */
 
-#include "unix_hints.h"
-
 #include <sys/time.h>
 #include <sys/types.h>
-
-/* This prevents redefinition of struct timeval */
-#define NO_AROS_TIMEVAL
 
 #include <aros/debug.h>
 

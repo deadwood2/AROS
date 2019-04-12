@@ -2,7 +2,8 @@
     Copyright (C) 1995-2015, The AROS Development Team. All rights reserved.
 */
 
-#include "unix_hints.h"
+#define UNIX2003_SUFFIX
+#define INODE64_SUFFIX
 
 #ifdef HOST_LONG_ALIGNED
 #pragma pack(4)
@@ -15,9 +16,6 @@
 #include <sys/types.h>
 
 #pragma pack()
-
-/* This prevents redefinition of struct timeval */
-#define NO_AROS_TIMEVAL
 
 #include <aros/debug.h>
 #include <aros/symbolsets.h>
@@ -89,6 +87,15 @@ static const char *libcSymbols[] =
     "getpwent",
     "endpwent",
 #endif
+#ifdef HOST_OS_linux
+    "__errno_location",
+#else
+#ifdef HOST_OS_android
+    "__errno",
+#else
+    "__error",
+#endif
+#endif
     NULL
 };
 
@@ -144,9 +151,6 @@ static int host_startup(struct emulbase *emulbase)
         CloseLibrary(UtilityBase);
         return FALSE;
     }
-
-    /* Cache errno pointer for faster access */
-    emulbase->pdata.errnoPtr = emulbase->pdata.em_UnixIOBase->uio_ErrnoPtr;
 
     /* Create handles for emergency console */
     emulbase->eb_stdin  = CreateStdHandle(STDIN_FILENO);
