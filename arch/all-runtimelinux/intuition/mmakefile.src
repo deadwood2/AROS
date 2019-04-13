@@ -1,0 +1,14 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES := closewindow inputhandler inputhandler_support openwindow openworkbench zipwindow
+
+USER_INCLUDES := -I$(SRCDIR)/rom/intuition \
+		    -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
+
+%build_archspecific \
+  mainmmake=kernel-intuition maindir=rom/intuition \
+  arch=runtimelinux files=$(FILES)
+
+%common
