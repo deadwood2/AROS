@@ -40,7 +40,7 @@
 
 #include "methods.h"
 
-ADD2LIBS("SYS:Classes/datatypes/picture.datatype", 0, struct Library *, PictureBase);
+ADD2LIBS("datatypes/picture.datatype", 0, struct Library *, PictureBase);
 
 /**************************************************************************************************/
 
