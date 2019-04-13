@@ -184,6 +184,8 @@ static BPTR LDLoad(struct IntLDDemonBase *ldBase, struct Process *caller, STRPTR
     return seglist;
 }
 
+#include <dlfcn.h>
+
 /*
   Library *LDInit(seglist, DOSBase)
     Initialise the library.
@@ -193,56 +195,19 @@ static struct Library *LDInit(BPTR seglist, struct List *list, STRPTR resname, s
     struct Node *node = NULL;
     BPTR seg = seglist;
 
-    /* we may not have any extension fields */ 
-    const int sizeofresident = offsetof(struct Resident, rt_Init) + sizeof(APTR);
+    struct Resident *res;
+    void *(*__get_resident)();
 
-    while(seg)
+    __get_resident = (void *(*)())dlsym((APTR)seg, "__get_resident");
+    res = (struct Resident *)(__get_resident)();
+
+    if (res)
     {
-        STRPTR addr = (STRPTR)((IPTR)BADDR(seg) - sizeof(ULONG));
-        ULONG size = *(ULONG *)addr;
-
-        for(
-            addr += sizeof(BPTR) + sizeof(ULONG),
-                size -= sizeof(BPTR) + sizeof(ULONG);
-            size >= sizeofresident;
-            size -= 2, addr += 2
-//	    size -= AROS_PTRALIGN, addr += AROS_PTRALIGN
-        )
-        {
-            struct Resident *res = (struct Resident *)addr;
-            if(    res->rt_MatchWord == RTC_MATCHWORD
-                && res->rt_MatchTag == res )
-            {
-                D(bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
-                /* AOS compatibility requirement. 
-                 * Ramlib ignores InitResident() return code.
-                 * After InitResident() it checks if lib/dev appeared
-                 * in Exec lib/dev list via FindName().
-                 *
-                 * Evidently InitResident()'s return code was not
-                 * reliable for some early AOS libraries.
-                 */
-                Forbid();
-                InitResident(res, seglist);
-                node = FindName(list, res->rt_Name);
-                Permit();
-                D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), node));
-
-                return (struct Library*)node;
-            }
-        }
-        seg = *(BPTR *)BADDR(seg);
+        Forbid();
+        InitResident(res, seglist);
+        node = FindName(list, res->rt_Name);
+        Permit();
     }
-    D(bug("[LDInit] Couldn't find Resident for %p\n", seglist));
-#ifdef __mc68000
-    /* If struct Resident was not found, just run the code. SegList in A0.
-     * Required to load WB1.x devs:narrator.device. */
-    Forbid();
-    AROS_UFC1NR(void, BADDR(seglist) + sizeof(ULONG), AROS_UFCA(BPTR, seglist, A0));
-    node = FindName(list, resname);
-    Permit();
-    D(bug("[LDInit] Done direct calling %s, seg %p, node %p\n", resname, BADDR(seglist), node));
-#endif
     return (struct Library*)node;
 }
 

@@ -9,6 +9,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-lddemon \
   modname=lddemon modtype=resource \
-  files="lddemon" 
+  files="lddemon" uselibs="dl"
 
 %copy_includes dir=include path=resources
+
