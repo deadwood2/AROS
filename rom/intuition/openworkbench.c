@@ -12,6 +12,9 @@
 
 #include "intuition_intern.h"
 
+#include <X11/Xlib.h>
+#include "../../arch/all-runtime/hidd/x11/x11_intui_bridge.h"
+
 static ULONG FindMode(ULONG width, ULONG height, ULONG depth, struct IntuitionBase *IntuitionBase)
 {
     struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
@@ -133,6 +136,13 @@ static ULONG FindMode(ULONG width, ULONG height, ULONG depth, struct IntuitionBa
         height = GetPrivIBase(IntuitionBase)->ScreenModePrefs->smp_Height;
         depth  = GetPrivIBase(IntuitionBase)->ScreenModePrefs->smp_Depth;
 	modeid = GetPrivIBase(IntuitionBase)->ScreenModePrefs->smp_DisplayID;
+
+        {
+            Display *xd;
+            xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+            width = WidthOfScreen(DefaultScreenOfDisplay(xd));
+            height = HeightOfScreen(DefaultScreenOfDisplay(xd));
+        }
         
 	D(bug("[OpenWorkbench] Requested size: %dx%d, depth: %d, ModeID: 0x%08lX\n", width, height, depth, modeid));
 

@@ -80,7 +80,7 @@ static VOID int_zipwindow(struct ZipWindowActionMsg *msg,
     struct Window   	*window = msg->window;
     struct IntWindow 	*w = (struct IntWindow *)window;
     LONG    	    	 NewLeftEdge, NewTopEdge, NewWidth, NewHeight;
-
+return; // FIXME: disable for now until window resizing works
     if (!ResourceExisting(window, RESOURCE_WINDOW, IntuitionBase)) return;
     
     NewLeftEdge = window->LeftEdge;

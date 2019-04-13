@@ -637,6 +637,7 @@ struct IntIntuitionBase
 #if defined(__AROSEXEC_SMP__)
     void *                       ExecLockBase;
 #endif
+    APTR                intuixchng;
 };
 
 struct SharedPointer
@@ -1001,6 +1002,8 @@ struct IntWindow
     struct Region          *OutlineShape;
     ULONG                   DecorUserBufferSize;
     IPTR                    DecorUserBuffer;
+
+    IPTR                    XWindow;
 };
 
 #define SPFLAG_ICONIFIED    	1

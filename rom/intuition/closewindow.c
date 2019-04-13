@@ -456,7 +456,9 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
 void intui_CloseWindow (struct Window * w,
                         struct IntuitionBase * IntuitionBase)
 {
+    struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
     struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
+    struct BitMap *bm = w->WLayer->rp->BitMap;
     KillWinSysGadgets(w, IntuitionBase);
 
     if (0 == (w->Flags & WFLG_GIMMEZEROZERO))
@@ -478,6 +480,9 @@ void intui_CloseWindow (struct Window * w,
         if (NULL != BLAYER(w))
             DeleteLayer(0, BLAYER(w));
     }
+
+    /* Freeing allocated BitMap will also close the window in x11gfx.hidd */
+    FreeBitMap(bm);
 
     if (IW(w)->free_pointer)
         DisposeObject(IW(w)->pointer);

@@ -250,6 +250,7 @@ BOOL InitDefaultMenuHandler(struct IntuitionBase *IntuitionBase)
 
 
 /**************************************************************************************************/
+struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase);
 
 static void HandleMouseMove(struct MenuHandlerData *mhd, struct IntuitionBase *IntuitionBase)
 {
@@ -266,7 +267,7 @@ static void HandleMouseMove(struct MenuHandlerData *mhd, struct IntuitionBase *I
     mhd->scrmousey = mhd->scr->MouseY;
 
     LockLayerInfo(&mhd->scr->LayerInfo);
-    lay = WhichLayer(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey);
+    lay = WhichLayer_X11(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey, IntuitionBase);
     UnlockLayerInfo(&mhd->scr->LayerInfo);
 
     if (lay)
@@ -389,7 +390,7 @@ static void HandleSelection(struct MenuHandlerData *mhd, struct IntuitionBase *I
     struct Layer *lay;
 
     LockLayerInfo(&mhd->scr->LayerInfo);
-    lay = WhichLayer(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey);
+    lay = WhichLayer_X11(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey, IntuitionBase);
     UnlockLayerInfo(&mhd->scr->LayerInfo);
 
     if (lay)
