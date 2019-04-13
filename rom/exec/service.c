@@ -15,6 +15,7 @@
 #include "exec_intern.h"
 #include "exec_util.h"
 #include "exec_debug.h"
+#include "etask.h"
 
 void ServiceTask(struct ExecBase *SysBase)
 {
