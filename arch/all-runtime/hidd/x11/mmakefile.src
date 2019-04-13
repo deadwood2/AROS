@@ -1,0 +1,14 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES := x11 x11gfx_bitmapclass x11gfx_offbitmap x11_init x11_mouseclass
+
+USER_INCLUDES := -I$(SRCDIR)/arch/all-hosted/hidd/x11 \
+		    -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
+
+%build_archspecific \
+  mainmmake=kernel-x11gfx maindir=arch/all-hosted/hidd/x11 \
+  arch=runtimelinux files=$(FILES)
+
+%common
