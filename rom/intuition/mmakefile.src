@@ -188,7 +188,7 @@ USER_CPPFLAGS := -D__DOS_NOLIBBASE__ \
 
 %build_module mmake=kernel-intuition \
   modname=intuition modtype=library \
-  files="intuition_init $(FUNCS) $(FILES)"
+  files="intuition_init $(FUNCS) $(FILES)" uselibs="X11" archspecific=yes
 
 $(INTUITION_BUILDDIR)/shutdownscreen.d : $(INTUITION_BUILDDIR)/shutdown_image.h
 
