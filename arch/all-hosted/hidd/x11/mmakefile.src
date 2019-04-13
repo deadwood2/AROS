@@ -12,7 +12,7 @@ DISK_EXEDIR := $(AROS_DEVS)/Monitors
     progname=X11 targetdir=$(DISK_EXEDIR) \
     files=$(DISK_FILES)
 
-USER_CPPFLAGS := -DHOST_OS_$(ARCH)
+USER_CPPFLAGS := -DHOST_OS_linux
 USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 USER_CFLAGS := $(HOST_X11_CFLAGS)
 ## The '-Wno-attributes' is here due to a gcc 4.5.x bug
@@ -55,7 +55,7 @@ FILES :=  \
 
 %build_module mmake=kernel-x11gfx \
   modname=x11gfx modtype=hidd version=$(AROS_TARGET_PLATFORM) \
-  files=$(FILES) uselibs="hiddstubs"
+  files=$(FILES) uselibs="hiddstubs" archspecific=yes
 
 #MM x11keymaptable
 x11keymaptable : setup-x11keymaptable $(TOOLDIR)/makexkeytable $(X11KEYMAPTABLE_FILE) $(X11KEYMAPTABLE_ALT_FILE) $(X11KEYMAPTABLE_ALT_NB_FILE)
