@@ -15,6 +15,9 @@
 #include "x11.h"
 #include "x11_hostlib.h"
 #include "x11gfx_fullscreen.h"
+#include "../../../all-runtime/hidd/x11/x11_intui_bridge.h"
+
+extern struct intuixchng intuixchng;
 
 VOID X11BM_ExposeFB(APTR data, WORD x, WORD y, WORD width, WORD height);
 
@@ -173,9 +176,6 @@ VOID x11task_entry(struct x11task_params *xtpparam)
 
                         LOCK_X11
                         XCALL(XMapWindow, nmsg->xdisplay, nmsg->xwindow);
-#if ADJUST_XWIN_SIZE
-                        XCALL(XMapRaised, nmsg->xdisplay, nmsg->masterxwindow);
-#endif
                         UNLOCK_X11
 
                         AddTail((struct List *) &nmsg_list, (struct Node *) nmsg);
@@ -401,7 +401,11 @@ VOID x11task_entry(struct x11task_params *xtpparam)
             if ((event.type == ClientMessage) && (event.xclient.data.l[0] == xsd->delete_win_atom))
             {
                 D(bug("Shutting down AROS\n"));
-                CCALL(raise, SIGINT);
+//                CCALL(raise, SIGINT);
+                struct FromX11Msg *msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+                msg->type = FROMX11_CLOSEWINDOW;
+                msg->xwindow = event.xany.window;
+                PutMsg(intuixchng.intuition_port,(struct Message *)msg);
             }
 
             /* Redirect focus from outer window to inner window. This allows
@@ -482,6 +486,27 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                 }
 #endif
 
+                case ConfigureNotify:
+                {
+                    if (intuixchng.intuition_port)
+                    {
+                        XConfigureEvent *me;
+                        me = (XConfigureEvent *)&event;
+
+                        {
+//                            bug("ConfigureNotify (x,y,w,h) (%d, %d, %d, %d)\n", me->x, me->y, me->width, me->height);
+                            struct FromX11Msg *msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+                            msg->type = FROMX11_WINDOWPOS;
+                            msg->xwindow = me->window;
+                            msg->A = me->x;
+                            msg->B = me->y;
+                            PutMsg(intuixchng.intuition_port,(struct Message *)msg);
+                        }
+
+                    }
+
+                    break;
+                }
                 case ButtonPress:
                     xsd->x_time = event.xbutton.time;
                     D(bug("ButtonPress event\n"));
