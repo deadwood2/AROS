@@ -1,0 +1,15 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES := close getinterface getpointer hostlib_init open
+
+USER_INCLUDES := -I$(SRCDIR)/arch/all-hosted/hostlib \
+            -I$(SRCDIR)/arch/all-$(FAMILY)/kernel \
+            -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
+
+%build_archspecific \
+  mainmmake=kernel-hostlib maindir=arch/all-hosted/hostlib \
+  arch=runtimelinux files=$(FILES)
+
+%common
