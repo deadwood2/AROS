@@ -655,6 +655,8 @@ struct Gadget *HandleCustomGadgetRetVal(IPTR retval, struct GadgetInfo *gi, stru
                     (gi->gi_Window))
                 {
                     DEBUG_HANDLECUSTOMRETVAL(dprintf("HandleCustomGadgetRetVal: Send IDCMP_GADGETUP\n"));
+                    // FIXME: disable iconify for now, extremly lame, works with just default decoration!!!
+                    if (!((gadget->Width == 20) && (gadget->Height == 31)))
                     ih_fire_intuimessage(gi->gi_Window,
                                  IDCMP_GADGETUP,
                                  termination & 0x0000FFFF,
@@ -1489,6 +1491,47 @@ struct Screen *FindActiveScreen(struct IntuitionBase *IntuitionBase)
 }
 
 /****************************************************************************************/
+#include <X11/Xlib.h>
+#include "../../arch/all-runtime/hidd/x11/x11_intui_bridge.h"
+
+static struct Layer *SearchActiveScreen(Window w, struct IntuitionBase *IntuitionBase)
+{
+    struct Window *win;
+
+    for (win = IntuitionBase->ActiveScreen->FirstWindow; win; win = win->NextWindow)
+        if (((struct IntWindow *)win)->XWindow == w)
+            return win->WLayer;
+
+    return NULL;
+}
+
+struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase)
+{
+    struct Layer *l = NULL;
+    Display *xd;
+    Window root, child, parent;
+    Window *children;
+    int count, i;
+    int xt,yt,mask;
+
+    xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+
+    /* Find window under pointer: this is outer X11 window or the window in case of BORDERLESS */
+    XQueryPointer(xd, RootWindow(xd, DefaultScreen(xd)), &root, &child, &xt, &yt, &xt, &yt, &mask);
+    l = SearchActiveScreen(child, IntuitionBase);
+
+    /* Intuition window is most likely a child (inner X11 window) in case of not BORDERLESS */
+    XQueryTree(xd, child, &root, &parent, &children, &count);
+    for (i = count - 1; i >= 0; i--)
+    {
+        child = children[i];
+        l = SearchActiveScreen(child, IntuitionBase);
+    }
+
+    XFree(children);
+
+    return l;
+}
 
 struct Window *FindActiveWindow(struct InputEvent *ie, struct Screen *scr, ULONG *stitlebarhit,
                             struct IntuitionBase *IntuitionBase)
@@ -1517,7 +1560,7 @@ struct Window *FindActiveWindow(struct InputEvent *ie, struct Screen *scr, ULONG
         /* What layer ? */
         LockLayerInfo(&scr->LayerInfo);
 
-        l = WhichLayer(&scr->LayerInfo, scr->MouseX, scr->MouseY);
+        l = WhichLayer_X11(&scr->LayerInfo, scr->MouseX, scr->MouseY, IntuitionBase);
 
         UnlockLayerInfo(&scr->LayerInfo);
 

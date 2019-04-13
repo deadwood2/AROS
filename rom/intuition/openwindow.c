@@ -36,6 +36,13 @@
 #define DEBUG DEBUG_OpenWindow
 #   include <aros/debug.h>
 
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xatom.h>
+#include "../../arch/all-runtime/hidd/x11/x11_intui_bridge.h"
+#define X11_TYPES_H
+#include "../../arch/all-hosted/hidd/x11/x11.h"
+
 struct OpenWindowActionMsg
 {
     struct IntuiActionMsg    msg;
@@ -1227,7 +1234,88 @@ exit:
     AROS_LIBFUNC_EXIT
 } /* OpenWindow */
 
+static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
+        struct Layer_Info **layerInfo, struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase,
+        struct LayersBase * LayersBase)
+{
+    Display *xd;
+    Window xw;
+    int xs;
+    XSizeHints *hints;
+    struct MsgPort *port;
+    struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
 
+    xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
+
+    xs = DefaultScreen(xd);
+    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, w->TopEdge, w->Width, w->Height, 1,
+                            BlackPixel(xd, xs), WhitePixel(xd, xs));
+    if (w->Title)
+        XStoreName(xd, xw, w->Title);
+
+    XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
+            | KeyPressMask | KeyReleaseMask);
+    XSetWMProtocols(xd, xw, &((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->delete_win_atom, 1);
+
+    // FIXME: For now disable window size change because the initially created bitmap is not resizable and ConfigureEvent
+    // x,y positions are relative to border when re-sizing
+    // Need to think how to handle this? Whole screen bitmap for each window? ConfigureEvent remaping to root window coords?
+    // NOTE: Don't remove PPosition after fixing sizing!!!
+    hints = XAllocSizeHints();
+    hints->flags |= PMaxSize | PMinSize | PPosition;
+    hints->min_width = hints->max_width = w->Width;
+    hints->min_height = hints->max_height = w->Height;
+    XSetWMNormalHints(xd, xw, hints);
+    XFree(hints);
+
+    if (w->Flags & WFLG_BORDERLESS)
+    {
+        Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
+        long value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
+        XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value,1 );
+    }
+
+    /* Create bitmap using this window */
+    {
+        struct TagItem xwindowtags [] =
+        {
+            {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
+            {BMATags_Private1, (IPTR)xw },
+            {TAG_DONE}
+        };
+        (*windowBitMap) = AllocBitMap(w->Width, w->Height, w->WScreen->RastPort.BitMap->Depth,
+                BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
+    }
+
+    /*
+     * How this works:
+     * Previous call to AllocBitMap with BMATags_Private1 element got passed to x11gfx.hidd where
+     * this window became the backing buffer of bitmap. Window was also registered with
+     * NOTY_WINCREATE call (X11BM_InitPM->X11BM_NotifyFB). Sending the NOTY_MAPWINDOW message
+     * will map the window reply. We will only continue once window is mapped (WaitPort below)
+     * NOTE: this sequence requires OPTION_DELAYXWINMAPPING set in x11gfx.hidd.
+     */
+    {
+        port = CreateMsgPort();
+        struct notify_msg msg;
+
+        msg.notify_type = NOTY_MAPWINDOW;
+        msg.xdisplay = xd;
+        msg.xwindow = xw;
+        msg.execmsg.mn_ReplyPort = port;
+        PutMsg(intuixchng->x11task_notify_port, &msg.execmsg);
+        WaitPort(msg.execmsg.mn_ReplyPort);
+        GetMsg(msg.execmsg.mn_ReplyPort);
+        DeleteMsgPort(port);
+    }
+
+    IW(w)->XWindow = xw;
+
+    /* Create layer info */
+    (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
+    InitLayers(*layerInfo);
+
+}
 
 /**********************************************************************************/
 
@@ -1243,6 +1331,10 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
     struct Hook   * shapehook = msg->shapehook;
     struct Layer  * parent = msg->parentlayer;
     BOOL            invisible = msg->invisible;
+    struct BitMap * windowBitMap = NULL;
+    struct Layer_Info * layerInfo = NULL;
+    WORD leftEdge = 0;
+    WORD topEdge = 0;
 
 #ifdef SKINS
     BOOL            installtransphook = FALSE;
@@ -1288,6 +1380,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
     D(bug("Window dims: (%d, %d, %d, %d)\n",
           w->LeftEdge, w->TopEdge, w->Width, w->Height));
+
+    /* Workaround: It is possible to open 0x0 Intuition window, but not X11 window */
+    /* Problem triggered by MUIBase */
+    if (w->Width == 0) w->Width = 1;
+    if (w->Height == 0) w->Height = 1;
+
+    int_opennativewindow(w, &windowBitMap, &layerInfo, IntuitionBase, GfxBase, LayersBase);
 
 #ifdef SKINS
     //install transp layer hook!
@@ -1361,13 +1460,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
         /* First create outer window */
         struct Layer * L = CreateUpfrontLayerTagList(
-                                   &w->WScreen->LayerInfo
-                                   , w->WScreen->RastPort.BitMap
+                                   layerInfo
+                                   , windowBitMap
 #ifndef __MORPHOS
-                                   , w->RelLeftEdge
-                                   , w->RelTopEdge
-                                   , w->RelLeftEdge + w->Width - 1
-                                   , w->RelTopEdge  + w->Height - 1
+                                   , leftEdge
+                                   , topEdge
+                                   , leftEdge + w->Width - 1
+                                   , topEdge  + w->Height - 1
 #else
                                    , w->LeftEdge
                                    , w->TopEdge
@@ -1405,13 +1504,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
         }
 
         w->WLayer = CreateUpfrontLayerTagList(
-                &w->WScreen->LayerInfo
-                , w->WScreen->RastPort.BitMap
+                layerInfo
+                , windowBitMap
 #ifndef __MORPHOS__
-                , w->RelLeftEdge + w->BorderLeft
-                , w->RelTopEdge  + w->BorderTop
-                , w->RelLeftEdge + w->BorderLeft + w->GZZWidth - 1
-                , w->RelTopEdge  + w->BorderTop + w->GZZHeight - 1
+                , leftEdge + w->BorderLeft
+                , topEdge  + w->BorderTop
+                , leftEdge + w->BorderLeft + w->GZZWidth - 1
+                , topEdge  + w->BorderTop + w->GZZHeight - 1
 #else
                 , w->LeftEdge + w->BorderLeft
                 , w->TopEdge  + w->BorderTop
@@ -1464,13 +1563,14 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
         D(dprintf("CreateUpfrontLayerTagList(taglist 0x%lx)\n", &layertags));
 
-        w->WLayer = CreateUpfrontLayerTagList(      &w->WScreen->LayerInfo,
-                                w->WScreen->RastPort.BitMap,
+        w->WLayer = CreateUpfrontLayerTagList(
+                                layerInfo,
+                                windowBitMap,
 #ifndef __MORPHOS__
-                                w->RelLeftEdge,
-                                w->RelTopEdge,
-                                w->RelLeftEdge + w->Width - 1,
-                                w->RelTopEdge  + w->Height - 1,
+                                leftEdge,
+                                topEdge,
+                                leftEdge + w->Width - 1,
+                                topEdge  + w->Height - 1,
 #else
                                 w->LeftEdge,
                                 w->TopEdge,

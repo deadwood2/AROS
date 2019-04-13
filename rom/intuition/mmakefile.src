@@ -190,7 +190,7 @@ FUNCS := \
 
 %build_module mmake=kernel-intuition \
   modname=intuition modtype=library \
-  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config" uselibs="stdc.static"
+  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config" uselibs="X11"
 
 $(INTUITION_BUILDDIR)/shutdownscreen.d : $(INTUITION_BUILDDIR)/shutdown_image.h
 

@@ -150,6 +150,25 @@ struct Interrupt *InitIIH(struct IntuitionBase *IntuitionBase)
                         GetPrivIBase(IntuitionBase)->IntuiReplyPort = iihdata->IntuiReplyPort;
                         GetPrivIBase(IntuitionBase)->IntuiActionQueue = &iihdata->IntuiActionQueue;
 
+                        //////////
+                        {
+                            struct Task *x11task = NULL;
+                            struct _t
+                            {
+                                struct MsgPort *port;
+                            };
+
+                            while ((x11task = FindTask("x11hidd task")) == NULL); // FindTask does not seem to work correctly in SMP!!
+                            GetPrivIBase(IntuitionBase)->intuixchng = x11task->tc_UserData;
+                            struct MsgPort *port = CreateMsgPort();
+                            FreeSignal(port->mp_SigBit);
+                            port->mp_SigBit  = -1;
+                            port->mp_Flags   = PA_IGNORE;
+                            port->mp_SigTask = NULL;
+                            ((struct _t *)GetPrivIBase(IntuitionBase)->intuixchng)->port = port;
+                        }
+                        ///////
+
                         ReturnPtr ("InitIIH", struct Interrupt *, iihandler);
                     } /* f (iihdata->MasterDragGadget && iihdata->MasterSizeGadget) */
 
@@ -417,6 +436,7 @@ static void HandleIntuiReplyPort(struct IIHData *iihdata, struct IntuitionBase *
     } /* while ((im = (struct IntuiMessage *)GetMsg(iihdata->IntuiReplyPort))) */
 }
 /****************************************************************************************/
+struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase);
 
 struct Window *GetToolBoxWindow(struct InputEvent *ie, struct Screen *scr, struct IntuitionBase *IntuitionBase)
 {
@@ -435,7 +455,7 @@ struct Window *GetToolBoxWindow(struct InputEvent *ie, struct Screen *scr, struc
         /* What layer ? */
         LockLayerInfo(&scr->LayerInfo);
 
-        l = WhichLayer(&scr->LayerInfo, scr->MouseX, scr->MouseY);
+        l = WhichLayer_X11(&scr->LayerInfo, scr->MouseX, scr->MouseY, IntuitionBase);
 
         UnlockLayerInfo(&scr->LayerInfo);
 
@@ -686,6 +706,9 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
                          gadget,
                          IntuitionBase);
             }
+
+            is_sizegad = FALSE;// FIXME: Disable for now until sizing works
+            is_draggad = FALSE;// FIXME: Disable for now, will it ever be used?
 
             if (is_draggad || is_sizegad)
             {
@@ -1872,6 +1895,93 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
     return gadget;
 }
 
+ 
+#include <X11/Xlib.h>
+#include "../../arch/all-runtime/hidd/x11/x11_intui_bridge.h"
+
+static struct Window *FindWindow(struct IntuitionBase *IntuitionBase, Window xwindow)
+{
+    struct Window *win;
+
+    for (win = IntuitionBase->ActiveScreen->FirstWindow; win; win = win->NextWindow)
+    {
+        if (((struct IntWindow *)win)->XWindow == xwindow)
+            return win;
+    }
+
+    return NULL;
+}
+
+static void HandleFromX11(struct IntuitionBase *IntuitionBase)
+{
+    struct MsgPort *port = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->intuition_port;
+    struct FromX11Msg *msg;
+
+    while ((msg = (struct FromX11Msg *)GetMsg(port)))
+    {
+        struct Window *win = FindWindow(IntuitionBase, msg->xwindow);
+
+        switch(msg->type)
+        {
+        case(FROMX11_WINDOWPOS):
+        {
+            if (win)
+            {
+                win->LeftEdge   = msg->A;
+                win->TopEdge    = msg->B;
+            }
+            break;
+        }
+        case(FROMX11_CLOSEWINDOW):
+        {
+            if (win) ih_fire_intuimessage(win,
+                                 IDCMP_CLOSEWINDOW,
+                                 0,
+                                 win,
+                                 IntuitionBase);
+            break;
+        }
+        case(FROMX11_REFRESHWINDOW):
+        {
+            if (win)
+            {
+                struct Layer        *L = (BLAYER(win)) ? BLAYER(win) : WLAYER(win);
+                struct Rectangle    rect;
+                struct GfxBase      *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
+
+                /* Mark whole layer as damanged */
+                rect.MinX = 0;
+                rect.MinY = 0;
+                rect.MaxX = win->Width - 1;
+                rect.MaxY = win->Height - 1;
+
+                OrRectRegion(L->DamageList, &rect);
+                L->Flags |= LAYERREFRESH;
+
+                ih_fire_intuimessage(win,
+                             IDCMP_REFRESHWINDOW,
+                             0,
+                             win,
+                             IntuitionBase);
+                int_refreshwindowframe(win, REFRESHGAD_BORDER, 0, IntuitionBase);
+            }
+            break;
+        }
+        case(FROMX11_WINDOWSIZE):
+        {
+            if (win)
+            {
+                DoMoveSizeWindow(win, win->LeftEdge, win->TopEdge, msg->A, msg->B, TRUE, IntuitionBase);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+
+        FreeMem(msg, sizeof(struct FromX11Msg));
+    }
+}
 
 
 
@@ -1920,6 +2030,9 @@ AROS_UFH2(struct InputEvent *, IntuiInputHandler,
        by the apps */
 
     HandleIntuiReplyPort(iihdata, IntuitionBase);
+
+    /* Handle FromX11 messages */
+    HandleFromX11(IntuitionBase);
 
     /* Handle action messages */
 
