@@ -10,6 +10,7 @@
 #include <aros/debug.h>
 #include <graphics/monitor.h>
 #include <proto/oop.h>
+#include <clib/alib_protos.h>
 
 #include <stddef.h>
 
