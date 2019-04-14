@@ -56,7 +56,7 @@
     if(!memSize)
         return NULL;
 
-    if (IsManagedMem(mhe))
+    if (0 /* IsManagedMem(mhe) */)
     {
         ULONG poolrequirements = (ULONG)(IPTR)mhe->mhe_MemHeader.mh_First;
 
@@ -81,6 +81,5 @@
 
         return memory;
     }
-
     AROS_LIBFUNC_EXIT
 } /* AllocVecPooled() */

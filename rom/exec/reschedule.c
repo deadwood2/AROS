@@ -10,6 +10,7 @@
 #include <aros/libcall.h>
 #include <aros/atomic.h>
 #include <hardware/intbits.h>
+#include <sched.h>
 
 #include "chipset.h"
 #include "exec_intern.h"
@@ -62,7 +63,7 @@
         if (IDNESTCOUNT_GET < 0)             /* And interrupts enabled */
         {
             D(bug("[Reschedule] Calling scheduler, KernelBase 0x%p\n", KernelBase);)
-            KrnSchedule();                      /* Call scheduler */
+            sched_yield();                      /* Call scheduler */
         }
         else if (!switchpending)
         {
