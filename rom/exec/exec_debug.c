@@ -16,6 +16,7 @@
 #include <exec/execbase.h>
 #include <exec/rawfmt.h>
 #include <proto/exec.h>
+#include <clib/alib_protos.h>
 
 #include <ctype.h>
 #include <string.h>
@@ -25,7 +26,7 @@
 #if defined(__AROSEXEC_SMP__)
 #include <aros/atomic.h>
 #include <asm/cpu.h>
-extern volatile ULONG   safedebug;
+volatile ULONG safedebug = 1;
 #endif
 
 const char * const ExecFlagNames[] =
