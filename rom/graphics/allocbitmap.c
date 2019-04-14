@@ -196,6 +196,7 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
     struct monitor_driverdata *drv = NULL;
     ULONG clear = flags & BMF_CLEAR;
     BOOL alloc = TRUE;
+    APTR private1 = NULL;
 
     if (BITMAPFLAGS_ARE_EXTENDED(flags))
     {
@@ -232,6 +233,10 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
                 flags   |= BMF_REQUESTVMEM;
 
                 break;
+
+            case BMATags_Private1:
+                private1 = (APTR)tag->ti_Data;
+                break;
             }
         }
     }
@@ -251,7 +256,7 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
         (flags & BMF_SPECIALFMT) ||
         (flags & BMF_DISPLAYABLE))
     {
-        struct TagItem bm_tags[7];
+        struct TagItem bm_tags[8];
         HIDDT_StdPixFmt stdpf = vHidd_StdPixFmt_Unknown;
 
         D(bug("[AllocBitMap] Allocating HIDD bitmap\n"));
@@ -352,8 +357,9 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
         SET_BM_TAG(bm_tags, 5, Displayable, ((flags & BMF_REQUESTVMEM) == BMF_REQUESTVMEM) || ((flags & BMF_DISPLAYABLE) == BMF_DISPLAYABLE));
         D(bug("[AllocBitMap] Displayable: %d\n", bm_tags[5].ti_Data));
 
+        SET_BM_TAG(bm_tags, 6, Private1, private1);
         
-        SET_TAG(bm_tags, 6, TAG_DONE, 0);
+        SET_TAG(bm_tags, 7, TAG_DONE, 0);
 
         /* Allocate an extra planes for HIDD bitmap info */
         nbm = AllocMem (sizeof (struct BitMap) + sizeof(PLANEPTR) * HIDD_BM_EXTRAPLANES, MEMF_ANY|MEMF_CLEAR);
