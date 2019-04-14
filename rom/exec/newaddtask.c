@@ -11,6 +11,7 @@
 #include <proto/exec.h>
 #include <exec/rawfmt.h>
 
+#define _GNU_SOURCE
 #include <string.h>
 
 #include "etask.h"
@@ -25,22 +26,36 @@
 
 #define TASKTAG_PRELAUNCHHOOK   (TASKTAG_Dummy + 30)
 
+#include <pthread.h>
+#include <sched.h>
+#include "exec_locks.h"
+extern int pthread_setname_np (pthread_t __target_thread, const char *__name);
+struct TaskParameters
+{
+    struct Task     *tp_Task;
+    APTR            tp_InitialPC;
+    IPTR            tp_Arguments[8];
+    ULONG           tp_ArgumentCount;
+};
+static void __pthread_trampoline(void *ptr);
+static void process_tags(struct TagItem *tagList, struct TaskParameters *params);
+
+
 static void TaskLaunch(struct Task *parent, struct Task *task, struct Hook *plHook)
 {
-#if defined(__AROSEXEC_SMP__)
-    int cpunum = KrnGetCPUNumber();
-#else
-    Disable();
-#endif
+    struct IntETask *etask = GetIntETask(task);
 
     /* Add the new task to the ready list. */
-#if !defined(__AROSEXEC_SMP__)
     task->tc_State = TS_READY;
+    EXEC_LOCK_LIST_WRITE(&SysBase->TaskReady);
     Enqueue(&SysBase->TaskReady, &task->tc_Node);
-#else
-    task->tc_State = TS_INVALID;
-    krnSysCallReschedTask(task, TS_READY);
-#endif
+
+    /* Task is actually already running */
+    Remove(&task->tc_Node);
+    EXEC_UNLOCK_LIST(&SysBase->TaskReady);
+    task->tc_State = TS_RUN;
+    pthread_mutex_unlock(&etask->iet_StartupMutex);
+    Enable();
 
     /*
         Determine if a task switch is necessary. (If the new task has a
@@ -49,12 +64,6 @@ static void TaskLaunch(struct Task *parent, struct Task *task, struct Hook *plHo
         is already gone.
     */
     if (
-#if defined(__AROSEXEC_SMP__)
-        (!(PrivExecBase(SysBase)->IntFlags & EXECF_CPUAffinity) || (IntETask(task->tc_UnionETask.tc_ETask) && KrnCPUInMask(cpunum, IntETask(task->tc_UnionETask.tc_ETask)->iet_CpuAffinity))))
-    {
-        parent = GET_THIS_TASK;
-        if (
-#endif
         parent && task->tc_Node.ln_Pri > parent->tc_Node.ln_Pri &&
         parent->tc_State == TS_RUN)
     {
@@ -64,43 +73,14 @@ static void TaskLaunch(struct Task *parent, struct Task *task, struct Hook *plHo
             DADDTASK("TaskLaunch: Calling pre-launch hook\n");
             CALLHOOKPKT(plHook, task, 0);
         }
-        /* Reschedule() will take care about disabled task switching automatically */
-        Reschedule();
+
+        sched_yield();
     }
-#if defined(__AROSEXEC_SMP__)
-    }
-    else if (PrivExecBase(SysBase)->IntFlags & EXECF_CPUAffinity)
-    {
-        //bug("[Exec] AddTask: CPU #%d not in mask [%08x:%08x]\n", cpunum, KrnGetCPUMask(cpunum), IntETask(task->tc_UnionETask.tc_ETask)->iet_CpuAffinity);
-        DADDTASK("TaskLaunch: CPU #%d not in mask\n", cpunum);
-        if (IntETask(task->tc_UnionETask.tc_ETask))
-        {
-            if (plHook)
-            {
-                DADDTASK("TaskLaunch: Calling pre-launch hook\n");
-                CALLHOOKPKT(plHook, task, 0);
-            }
-            KrnScheduleCPU(IntETask(task->tc_UnionETask.tc_ETask)->iet_CpuAffinity);
-        }
-        
-    }
-    else
-    {
-       bug("[Exec] TaskLaunch: Unable to Launch on the selected CPU\n");
-        // TODO: Free up all the task data ..
-        krnSysCallReschedTask(task, TS_REMOVED);
-        if (GetETask(task))
-            KrnDeleteContext(GetETask(task)->et_RegFrame);
-        CleanupETask(task);
-        task = NULL;
-    }
-#else
     else if (plHook)
     {
         CALLHOOKPKT(plHook, task, 0);
     }
     Enable();
-#endif
 }
 
 /*****************************************************************************
@@ -279,11 +259,33 @@ static void TaskLaunch(struct Task *parent, struct Task *task, struct Hook *plHo
         finalPC = SysBase->TaskExitCode;
 
     /* Init new context. */
-    if (!PrepareContext(task, initialPC, finalPC, tagList, SysBase))
-    {
-        CleanupETask(task);
-        return NULL;
-    }
+    pthread_t taskThread;
+    pthread_attr_t sattr;
+    void *stackptr;
+    size_t stacksize;
+    TEXT pthreadName[16] = {0};
+    struct TaskParameters *params = AllocMem(sizeof(struct TaskParameters), MEMF_CLEAR);
+    struct IntETask *etask = GetIntETask(task);
+
+    strncpy(pthreadName, task->tc_Node.ln_Name, 15);
+
+    params->tp_InitialPC    = initialPC;
+    params->tp_Task         = task;
+    process_tags(tagList, params);
+
+    pthread_mutex_lock(&etask->iet_StartupMutex);
+    pthread_create(&taskThread, NULL, (APTR)__pthread_trampoline, params);
+    pthread_setname_np(taskThread, pthreadName);
+
+
+    /* Set correct values for tc_SPLower and tc_SPUpper for software reading these fields */
+    pthread_attr_init(&sattr);
+    pthread_getattr_np(taskThread, &sattr);
+    pthread_attr_getstack(&sattr, &stackptr, &stacksize);
+    pthread_attr_destroy(&sattr);
+
+    task->tc_SPLower = stackptr;
+    task->tc_SPUpper = (APTR)((IPTR)stackptr + stacksize);
 
     /* Set the task flags for switch and launch. */
     if(task->tc_Switch)
@@ -308,3 +310,52 @@ static void TaskLaunch(struct Task *parent, struct Task *task, struct Hook *plHo
 
     AROS_LIBFUNC_EXIT
 } /* NewAddTask */
+
+static void __pthread_trampoline(void *ptr)
+{
+    struct TaskParameters *params = (struct TaskParameters *)ptr;
+    struct IntETask *etask = GetIntETask(params->tp_Task);
+
+    /* Obtaining semaphore means that task setup in parent is complete */
+    pthread_mutex_lock(&etask->iet_StartupMutex);
+    SET_THIS_TASK(params->tp_Task);
+    switch (params->tp_ArgumentCount)
+    {
+    case (0):
+        ((void(*)(VOID))params->tp_InitialPC)();
+        break;
+    case (1):
+        ((void(*)(IPTR))params->tp_InitialPC)(params->tp_Arguments[0]);
+        break;
+    case (2):
+        ((void(*)(IPTR, IPTR))params->tp_InitialPC)(params->tp_Arguments[0], params->tp_Arguments[1]);
+        break;
+    default:
+        asm("int3");
+        break;
+    }
+
+    FreeMem(params, sizeof(struct TaskParameters));
+}
+
+static void process_tags(struct TagItem *tagList, struct TaskParameters *params)
+{
+    struct TagItem *tag, *tstate = tagList;
+    params->tp_ArgumentCount = 0;
+
+    while ((tag = LibNextTagItem(&tstate)))
+    {
+    switch (tag->ti_Tag)
+    {
+    case TASKTAG_ARG1:
+        params->tp_Arguments[0]     = tag->ti_Data;
+        if (params->tp_ArgumentCount < 1) params->tp_ArgumentCount = 1;
+        break;
+    case TASKTAG_ARG2:
+        params->tp_Arguments[1]     = tag->ti_Data;
+        if (params->tp_ArgumentCount < 2) params->tp_ArgumentCount = 2;
+        break;
+
+    }
+    }
+}

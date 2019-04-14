@@ -20,6 +20,7 @@
 #include <aros/arossupportbase.h>
 
 #include <string.h>
+#include <stdlib.h>
 
 #include <proto/alib.h>
 #include <proto/exec.h>
@@ -74,11 +75,11 @@ void _aros_not_implemented(char *X)
 #endif
 }
 
-struct Library *PrepareAROSSupportBase (struct MemHeader *mh)
+static struct Library *PrepareAROSSupportBase(struct MemHeader *mh)
 {
     struct AROSSupportBase *AROSSupportBase;
 
-    AROSSupportBase = Allocate(mh, sizeof(struct AROSSupportBase));
+    AROSSupportBase = calloc(sizeof(struct AROSSupportBase), 1);
 
     AROSSupportBase->kprintf = (void *)kprintf;
     AROSSupportBase->rkprintf = (void *)rkprintf;
@@ -125,19 +126,8 @@ static APTR allocmem(struct MemHeader *mh, ULONG size, ULONG attributes)
 {
     APTR ret;
 
-    if (IsManagedMem(mh))
-    {
-        struct MemHeaderExt *mhe = (struct MemHeaderExt *)mh;
-
-        if (mhe->mhe_Alloc)
-            ret = mhe->mhe_Alloc(mhe, size, &attributes);
-        else
-            ret = 0;
-    }
-    else
-    {
-        ret = stdAlloc(mh, NULL, size, attributes, NULL, NULL);
-    }
+    ret = malloc(size);
+    if (attributes & MEMF_CLEAR) memset(ret, 0x0, size);
 
     return ret;
 }
@@ -357,9 +347,6 @@ struct ExecBase *PrepareExecBase(struct MemHeader *mh, struct TagItem *msg)
     NEWLIST(&PrivExecBase(SysBase)->TaskStorageSlots);
 
     SetSysBaseChkSum();
-
-    /* Add our initial MemHeader */
-    ADDHEAD(&SysBase->MemList, &mh->mh_Node);
 
     /* Bring back saved values (or NULLs) */
     SysBase->ColdCapture  = ColdCapture;
