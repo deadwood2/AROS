@@ -10,7 +10,7 @@
 */
 
 #include <aros/config.h>
-#include <aros/types/timespec_s.h>
+#include <time.h>
 
 #include <exec/interrupts.h>
 #include <exec/tasks.h>
@@ -66,6 +66,9 @@ struct IntETask
 #ifdef DEBUG_ETASK
     STRPTR              iet_Me;
 #endif
+    pthread_mutex_t     iet_SignalMutex;
+    pthread_cond_t      iet_SignalCond;
+    pthread_mutex_t     iet_StartupMutex;       /* Synchronizes start of Task with other operations */
 };
 
 #define GetIntETask(task)   ((struct IntETask *)GetETask(task))

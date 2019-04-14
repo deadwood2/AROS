@@ -93,6 +93,8 @@ THIS_PROGRAM_HANDLES_SYMBOLSET(PREINITLIB)
 DEFINESET(INITLIB)
 DEFINESET(PREINITLIB)
 
+pthread_key_t KEY_THISTASK;
+
 AROS_UFH3S(struct ExecBase *, GM_UNIQUENAME(init),
     AROS_UFHA(struct MemHeader *, mh, D0),
     AROS_UFHA(struct TagItem *, tagList, A0),
@@ -172,12 +174,7 @@ AROS_UFH3S(struct ExecBase *, GM_UNIQUENAME(init),
 
     DINIT("Allocated Task structure and MemList");
 
-    ctx = KrnCreateContext();
-    if (!ctx)
-    {
-        DINIT("FATAL: Failed to create the first task context!");
-        goto execfatal;
-    }
+    ctx = NULL;
 
     DINIT("Bootstrap CPU context @ 0x%p\n", ctx);
 
@@ -212,6 +209,7 @@ AROS_UFH3S(struct ExecBase *, GM_UNIQUENAME(init),
     AddHead(&t->tc_MemEntry, &ml->ml_Node);
 
     /* Set the bootstrapping task incase errors occur... */
+    pthread_key_create(&KEY_THISTASK, NULL);
     DINIT("Preparing the Bootstrap task @ 0x%p", t);
     SET_THIS_TASK(t);
     DINIT("ThisTask is now 0x%p", GET_THIS_TASK);
@@ -367,3 +365,8 @@ AROS_PLH0(BPTR, close,
 }
 
 ADD2INITLIB(Exec_InitServices, -126)
+
+__attribute__((visibility("default"))) APTR __get_resident(struct ExecBase *sysBase)
+{
+    return (struct Resident *)&Exec_resident;
+}

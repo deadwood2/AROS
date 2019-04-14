@@ -58,6 +58,6 @@ RESIDENT_BEGIN := $(KICKSTART_BEGIN)
 
 %build_module mmake=kernel-exec \
   modname=exec modtype=library version=$(AROS_TARGET_PLATFORM) archspecific=yes \
-  linklibfiles=exec_autoinit files="$(INIT_FILES) $(ALL_FUNCTIONS) $(FILES)"
+  linklibfiles=exec_autoinit files="$(INIT_FILES) $(ALL_FUNCTIONS) $(FILES)" uselibs="pthread"
 
 %common
