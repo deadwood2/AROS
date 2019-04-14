@@ -224,7 +224,6 @@ int main(void) {
 
     asm volatile("\n.asciz \"/* jmp_buf */\"" ::);
     DEFINE(jmpbuf_SIZEOF, sizeof(jmp_buf));
-    DEFINE(retaddr, offsetof(struct __jmp_buf, retaddr));
 
     return 0;
 }
