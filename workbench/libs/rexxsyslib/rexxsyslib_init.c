@@ -16,6 +16,8 @@
 #include <aros/symbolsets.h>
 #include LC_LIBDEFS_FILE
 
+const LONG __aros_libreq_SysBase = 0L;
+
 static int InitData(struct RexxSysBase_intern *RSBI)
 {
    struct RxsLib *RexxSysBase = &RSBI->library;

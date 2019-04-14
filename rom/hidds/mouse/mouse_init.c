@@ -13,6 +13,8 @@
 
 #include "mouse.h"
 
+const LONG __aros_libreq_SysBase = 0L;
+
 /* Class initialization and destruction */
 #define SysBase LIBBASE->csd.cs_SysBase
 #define OOPBase LIBBASE->csd.cs_OOPBase

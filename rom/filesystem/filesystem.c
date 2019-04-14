@@ -10,6 +10,8 @@
 #include <proto/alib.h>
 #include <proto/exec.h>
 
+const LONG __aros_libreq_SysBase = 0L;
+
 static int FileSystemInit(struct FileSysResource *FileSystemBase)
 {
     FileSystemBase->fsr_Creator = "AROS Development Team";
