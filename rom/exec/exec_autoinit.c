@@ -19,7 +19,7 @@
  * the symbol is set appropriately.
  */
 struct ExecBase *SysBase;
-extern const LONG __aros_libreq_SysBase __attribute__((weak));
+const LONG __aros_libreq_SysBase = 0L;
 
 static int SysBase_autoinit(struct ExecBase *sysBase)
 {

@@ -110,7 +110,6 @@
             // We must cache the CPU number here for the Exec Service Task...
             task->tc_UserData = (APTR)IntETask(et)->iet_CpuNumber;
 #endif
-            KrnDeleteContext(et->et_RegFrame);
         }
 
         /* Uninitialize ETask structure */
@@ -150,7 +149,8 @@
             DREMTASK("Switching away..");
             /* It is  no longer a valid task.. */
             task->tc_State = TS_INVALID;
-            KrnDispatch();
+            Enable();
+            pthread_exit(NULL);
         }
         else
         {

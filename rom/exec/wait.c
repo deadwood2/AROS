@@ -16,6 +16,9 @@
 #include "etask.h"
 #endif
 
+#include <aros/atomic.h>
+#include "exec_locks.h"
+
 /*****************************************************************************
 
     NAME */
@@ -65,7 +68,8 @@
     ULONG rcvd;
 
     D(bug("[Exec] Wait(%08lX)\n", signalSet);)
-    Disable();
+    struct IntETask *etask = GetIntETask(thisTask);
+    pthread_mutex_lock(&etask->iet_SignalMutex);
 
     /* If at least one of the signals is already set do not wait. */
     while (!(thisTask->tc_SigRecvd & signalSet))
@@ -85,14 +89,18 @@
         TDNESTCOUNT_SET(-1);
 
         thisTask->tc_State = TS_WAIT;
-        // nb: on smp builds switch will move us.
-#if !defined(__AROSEXEC_SMP__)
-        /* Move current task to the waiting list. */
-        Enqueue(&SysBase->TaskWait, &thisTask->tc_Node);
-#endif
 
-        /* And switch to the next ready task. */
-        KrnSwitch();
+        EXEC_LOCK_LIST_WRITE(&SysBase->TaskWait);
+        Enqueue(&SysBase->TaskWait, &thisTask->tc_Node);
+        EXEC_UNLOCK_LIST(&SysBase->TaskWait);
+
+        pthread_cond_wait(&etask->iet_SignalCond, &etask->iet_SignalMutex);
+
+        /* Signal moved us to TS_READY, now moving to TS_RUN */
+        EXEC_LOCK_LIST_WRITE(&SysBase->TaskReady);
+        Remove(&thisTask->tc_Node);
+        EXEC_UNLOCK_LIST(&SysBase->TaskReady);
+        thisTask->tc_State = TS_RUN;
 
         /*
             OK. Somebody awakened us. This means that either the
@@ -113,7 +121,7 @@
 #else
     thisTask->tc_SigRecvd &= ~signalSet;
 #endif
-    Enable();
+    pthread_mutex_unlock(&etask->iet_SignalMutex);
 
     /* All done. */
     return rcvd;

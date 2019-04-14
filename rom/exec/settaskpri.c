@@ -61,7 +61,7 @@
     struct Task *thisTask = GET_THIS_TASK;
 #if defined(__AROSEXEC_SMP__)
     spinlock_t *task_listlock = NULL;
-    int cpunum = KrnGetCPUNumber();
+    int cpunum = 0;
 #endif
     BYTE old;
 

@@ -7,6 +7,7 @@
 #include <exec/memheaderext.h>
 
 #include "exec_intern.h"
+#include "memory.h"
 
 /*****************************************************************************
 
@@ -56,7 +57,7 @@
     if(!memory)
         return;
 
-    if (IsManagedMem(mhe))
+    if (0/* IsManagedMem(mhe) */)
     {
         if (mhe->mhe_FreeVec)
             mhe->mhe_FreeVec(mhe, memory);
