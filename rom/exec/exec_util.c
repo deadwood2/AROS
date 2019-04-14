@@ -127,15 +127,8 @@ Exec_InitETask(struct Task *task, struct Task *parent, struct ExecBase *SysBase)
     task->tc_Flags |= TF_ETASK;
 
 #if defined(__AROSEXEC_SMP__)
-    cpunum = KrnGetCPUNumber();
+    (void)cpunum;
     EXEC_SPINLOCK_INIT(&IntETask(et)->iet_TaskLock);
-    if (PrivExecBase(SysBase)->IntFlags & EXECF_CPUAffinity)
-    {
-        IntETask(et)->iet_CpuAffinity = KrnAllocCPUMask();
-        KrnGetCPUMask(cpunum, IntETask(et)->iet_CpuAffinity);
-
-        D(bug("[EXEC:ETask] Init: CPU #%d, mask %08x\n", cpunum, IntETask(et)->iet_CpuAffinity);)
-    }
 #endif
 
     et->et_Parent = parent;
@@ -151,6 +144,11 @@ Exec_InitETask(struct Task *task, struct Task *parent, struct ExecBase *SysBase)
     /* Initialise the trap fields */
     et->et_TrapAlloc = SysBase->TaskTrapAlloc;
     et->et_TrapAble = 0;
+
+    /* Initialize mutexes and conditionals */
+    pthread_cond_init(&IntETask(et)->iet_SignalCond, NULL);
+    pthread_mutex_init(&IntETask(et)->iet_SignalMutex, NULL);
+    pthread_mutex_init(&IntETask(et)->iet_StartupMutex, NULL);
 
 #ifdef DEBUG_ETASK
     {

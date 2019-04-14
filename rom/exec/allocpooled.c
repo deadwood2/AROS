@@ -69,31 +69,14 @@
 {
     AROS_LIBFUNC_INIT
 
-    struct MemHeaderExt *mhe = (struct MemHeaderExt *)poolHeader;
-
     /* 0-sized allocation results in returning NULL (API guarantee) */
     if(!memSize)
         return NULL;
 
-    if (IsManagedMem(mhe))
-    {
-        ULONG poolrequirements = (ULONG)(IPTR)mhe->mhe_MemHeader.mh_First;
-
-        if (mhe->mhe_Alloc)
-            return mhe->mhe_Alloc(mhe, memSize, &poolrequirements);
-        else
-            return NULL;
-    }
+    if (((struct ProtectedPool *)poolHeader)->pool.Requirements & MEMF_CLEAR)
+        return nommu_AllocMem(memSize, MEMF_CLEAR, NULL, NULL);
     else
-    {
-        struct TraceLocation tp = CURRENT_LOCATION("AllocPooled");
-        struct Pool *pool = poolHeader + MEMHEADER_TOTAL;
-
-        D(bug("AllocPooled 0x%p memsize %u by \"%s\"\n", poolHeader, memSize, GET_THIS_TASK->tc_Node.ln_Name);)
-
-        /* Allocate from the specified pool with flags stored in pool header */
-        return InternalAllocPooled(poolHeader, memSize, pool->Requirements, &tp, SysBase);
-    }
+        return nommu_AllocMem(memSize, 0, NULL, NULL);
 
     AROS_LIBFUNC_EXIT
     

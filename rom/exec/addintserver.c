@@ -69,6 +69,9 @@ static void krnIRQwrapper(void *data1, void *data2)
         return;
     }
 
+    if (intNumber != INTB_VERTB)
+        bug("AxRuntime does not support interrupts other than INTB_VERTB in AddIntServer\n");
+
     EXEC_LOCK_LIST_WRITE_AND_DISABLE(&SysBase->IntrList);
 
     Enqueue((struct List *)SysBase->IntVects[intNumber].iv_Data, &interrupt->is_Node);

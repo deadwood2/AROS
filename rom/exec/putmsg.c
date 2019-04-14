@@ -111,7 +111,7 @@ void InternalPutMsg(struct MsgPort *port, struct Message *message, struct ExecBa
 	    	D(bug("[EXEC] PutMsg: PA_SOFTINT -> Int %s\n", ((struct Interrupt *)port->mp_SoftInt)->is_Node.ln_Name);)
 
 		/* Raise a software interrupt */
-		Cause((struct Interrupt *)port->mp_SoftInt);
+		/* Cause((struct Interrupt *)port->mp_SoftInt); */
 		break;
 
 	    case PA_IGNORE:

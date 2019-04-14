@@ -22,13 +22,6 @@ AROS_INTH3(VBlankServer, struct List *, intList, intMask, custom)
 
     D(bug("[Exec] %s()\n", __func__));
 
-    /* First decrease Elapsed time for current task */
-    if (SCHEDELAPSED_GET && (--SCHEDELAPSED_GET == 0))
-    {
-        FLAG_SCHEDQUANTUM_SET;
-        FLAG_SCHEDSWITCH_SET;
-    }
-
     /* Chain to the generic routine */
     return AROS_INTC3(IntServer, intList, intMask, custom);
 

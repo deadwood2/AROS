@@ -50,10 +50,7 @@
 {
     AROS_LIBFUNC_INIT
 
-    struct MemHeader *mh = FindMem(address, SysBase);
-
-    /* We have either found the memory or not */
-    return mh ? mh->mh_Attributes : 0;
+    return MEMF_PUBLIC;
 
     AROS_LIBFUNC_EXIT
 } /* TypeOfMem */

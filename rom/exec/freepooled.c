@@ -61,17 +61,8 @@
     if(!memSize || !memory)
         return;
 
-    if (IsManagedMem(mhe))
-    {
-        if (mhe->mhe_Free)
-            mhe->mhe_Free(mhe, memory, memSize);
-    }
-    else
-    {
-        struct TraceLocation tp = CURRENT_LOCATION("FreePooled");
-
-        InternalFreePooled(poolHeader, memory, memSize, &tp, SysBase);
-    }
+    (void)mhe;
+    nommu_FreeMem(memory, 0, NULL, NULL);
 
     AROS_LIBFUNC_EXIT
 } /* FreePooled */

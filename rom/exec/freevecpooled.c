@@ -8,6 +8,7 @@
 #include <exec/memheaderext.h>
 
 #include "exec_intern.h"
+#include "memory.h"
 
 /*****************************************************************************
 
@@ -57,20 +58,8 @@
     if(!memory)
         return;
 
-    if (IsManagedMem(mhe))
-    {
-        if (mhe->mhe_FreeVec)
-            mhe->mhe_FreeVec(mhe, memory);
-    }
-    else
-    {
-        if (memory != NULL)
-        {
-            IPTR *real = (IPTR *) memory;
-            IPTR size  = *--real;
+    (void)mhe;
+    nommu_FreeMem(memory, 0, NULL, NULL);
 
-            FreePooled(poolHeader, real, size);
-        }
-    }
     AROS_LIBFUNC_EXIT
 } /* FreeVecPooled() */

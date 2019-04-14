@@ -15,6 +15,8 @@
 
 #define CHECK_TASK	0 /* it seems to be legal to call ObtainSemaphore in one task and ReleaseSemaphore in another */
 
+extern VOID __sem_global_lock();
+extern VOID __sem_global_unlock();
 /*****************************************************************************/
 #undef  Exec
 #ifdef UseExecstubs
@@ -74,7 +76,7 @@
         return;
 
     /* Protect the semaphore structure from multiple access. */
-    Forbid();
+    __sem_global_lock();
 
     /* Release one on the nest count */
     sigSem->ss_NestCount--;
@@ -201,7 +203,7 @@
     }
 
     /* All done. */
-    Permit();
+    __sem_global_unlock();
 
     AROS_LIBFUNC_EXIT
 } /* ReleaseSemaphore */

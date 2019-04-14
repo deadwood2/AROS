@@ -58,7 +58,8 @@
 {
     AROS_LIBFUNC_INIT
     BPTR seglist;
-
+if (library && library->lib_Node.ln_Name[0] != 'g' && library->lib_Node.ln_Name[0] != 'e' && library->lib_Node.ln_Name[0] != 'o')
+asm("int3");
     D(bug("CloseLibrary $%lx (\"%s\") by \"%s\"\n", library,
 	library ? library->lib_Node.ln_Name : "(null)",
 	GET_THIS_TASK->tc_Node.ln_Name));

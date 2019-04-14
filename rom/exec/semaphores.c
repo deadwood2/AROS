@@ -15,6 +15,18 @@
 #include "exec_util.h"
 #include "semaphores.h"
 
+#include <pthread.h>
+pthread_mutex_t semmutex = PTHREAD_MUTEX_INITIALIZER;
+
+VOID __sem_global_lock()
+{
+    pthread_mutex_lock(&semmutex);
+}
+VOID __sem_global_unlock()
+{
+    pthread_mutex_unlock(&semmutex);
+}
+
 BOOL CheckSemaphore(struct SignalSemaphore *sigSem, struct TraceLocation *caller, struct ExecBase *SysBase)
 {
     /* TODO: Introduce AlertContext for this */
@@ -74,7 +86,7 @@ void InternalObtainSemaphore(struct SignalSemaphore *sigSem, struct Task *owner,
      * Arbitrate for the semaphore structure.
      * TODO: SMP-aware versions of this code likely need to use spinlocks here
      */
-    Forbid();
+    __sem_global_lock();
 
     /*
      * ss_QueueCount == -1 indicates that the semaphore is
@@ -133,11 +145,13 @@ void InternalObtainSemaphore(struct SignalSemaphore *sigSem, struct Task *owner,
          * Finally, we simply wait, ReleaseSemaphore() will fill in
          * who owns the semaphore.
          */
+        __sem_global_unlock();
         Wait(SIGF_SINGLE);
+        __sem_global_lock();
     }
 
     /* All Done! */
-    Permit();
+    __sem_global_unlock();
 }
 
 ULONG InternalAttemptSemaphore(struct SignalSemaphore *sigSem, struct Task *owner, struct TraceLocation *caller, struct ExecBase *SysBase)
@@ -152,7 +166,7 @@ ULONG InternalAttemptSemaphore(struct SignalSemaphore *sigSem, struct Task *owne
      * Arbitrate for the semaphore structure.
      * TODO: SMP-aware versions of this code likely need to use spinlocks here
      */
-    Forbid();
+    __sem_global_lock();
 
     /* Increment the queue count */
     sigSem->ss_QueueCount++;
@@ -176,7 +190,7 @@ ULONG InternalAttemptSemaphore(struct SignalSemaphore *sigSem, struct Task *owne
     }
 
     /* All done. */
-    Permit();
+    __sem_global_unlock();
 
     return retval;
 }

@@ -61,8 +61,9 @@
 
     if (thisTask)
     {
+        struct IntETask *etask = GetIntETask(thisTask);
         /* Protect the signal mask against access by other tasks. */
-        Disable();
+        pthread_mutex_lock(&etask->iet_SignalMutex);
 
         /* Get address */
         sig = &thisTask->tc_SigRecvd;
@@ -71,7 +72,7 @@
         old = *sig;
         *sig = (old & ~signalSet) | (newSignals & signalSet);
 
-        Enable();
+        pthread_mutex_unlock(&etask->iet_SignalMutex);
     }
 
     return old;
