@@ -150,6 +150,8 @@ static int GfxOpen(struct GfxBase *LIBBASE)
     return TRUE;
 }
 
+const LONG __aros_libreq_SysBase = 0L;
+
 ADD2INITLIB(GfxInit, 0);
 ADD2OPENLIB(GfxOpen, 0);
 
