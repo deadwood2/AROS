@@ -68,7 +68,8 @@ extern void BCPL_cliInit(void);
 struct ARPSMsg
 {
     struct Message arps_Msg;
-    VOID (*arps_Main)(APTR);
+    VOID (*arps_Target)(APTR, APTR);
+    /* Private fields follow */
 };
 
 static VOID __program_trampoline()
@@ -79,7 +80,7 @@ static VOID __program_trampoline()
 
     WaitPort(startup);
     struct ARPSMsg *msg = (struct ARPSMsg *)GetMsg(startup);
-    msg->arps_Main(SysBase);
+    msg->arps_Target(SysBase, msg);
 }
 
 extern const struct Resident Dos_resident;
