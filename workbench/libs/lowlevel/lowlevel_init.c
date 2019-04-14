@@ -57,7 +57,7 @@ AROS_UFH2(struct InputEvent *, LowLevelInputHandler,
                 ForeachNode(&LowLevelBase->ll_KBInterrupts, kbInt)
                 {
                     kbInt->llkbi_KeyData = LowLevelBase->ll_LastKey;
-                    Cause(&kbInt->llkbi_Interrupt);
+//                    Cause(&kbInt->llkbi_Interrupt);
                 }
             }
             break;
