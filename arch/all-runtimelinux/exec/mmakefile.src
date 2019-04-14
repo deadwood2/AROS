@@ -1,0 +1,17 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES := addintserver allocabs allocate allocpooled allocvecpooled closelibrary createpool \
+        deallocate deletepool exec_debug exec_locks exec_util \
+        freepooled freevecpooled initkicktags intserver_vblank memory_nommu newaddtask putmsg \
+        rawputchar releasesemaphore remtask semaphores signal stackswap typeofmem wait
+
+USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
+		 -isystem $(GENINCDIR) $(KERNEL_INCLUDES) \
+
+%build_archspecific \
+  mainmmake=kernel-exec maindir=rom/exec \
+  arch=runtimelinux files=$(FILES)
+
+%common
