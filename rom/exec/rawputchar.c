@@ -6,6 +6,8 @@
 
 #include "exec_intern.h"
 
+#include <stdio.h>
+
 /*****i***********************************************************************
 
     NAME */
@@ -47,8 +49,7 @@
     AROS_LIBFUNC_INIT
 
     /* Don't write 0 bytes */
-    if (KernelBase && chr)
-        KrnPutChar(chr);
+    if (chr) putchar(chr);
 
     AROS_LIBFUNC_EXIT
 } /* RawPutChar */
