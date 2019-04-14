@@ -15,6 +15,3 @@ int __startup __kick_entry(void)
 {
     return -1;
 }
-
-asm(".globl SysBase\n"
-    ".set SysBase, 4");

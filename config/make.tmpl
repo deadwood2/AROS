@@ -96,18 +96,18 @@ endif
 		tee < $(GENDIR)/cerrors -a $(GENDIR)/errors 1>&2 ; \
 		exit 1 ; \
 	fi
-	%strip_q strip=%(strip) file=$(LINKTARGET)
-	$(Q)$(IF) $(TEST) "%(coverageinstr)" = "yes"; then \
-		LINKBASEFILES="$(strip $(notdir $(basename %(from))))" ; \
-		$(FOR) covext in $(TARGET_COVERAGEINSTR_EXTS) ; do \
-			$(FOR) file in $$LINKBASEFILES ; do \
-				COVERAGEFILE=`echo $$file$$covext` ; \
-				$(IF) $(TEST) -s %(objdir)/$$COVERAGEFILE ; then \
-					$(CP) %(objdir)/$$COVERAGEFILE $(dir $(LINKTARGET))$$COVERAGEFILE ; \
-				fi ; \
-			done ; \
-		done ; \
-	fi
+#	%strip_q strip=%(strip) file=$(LINKTARGET)
+#	$(Q)$(IF) $(TEST) "%(coverageinstr)" = "yes"; then \
+#		LINKBASEFILES="$(strip $(notdir $(basename %(from))))" ; \
+#		$(FOR) covext in $(TARGET_COVERAGEINSTR_EXTS) ; do \
+#			$(FOR) file in $$LINKBASEFILES ; do \
+#				COVERAGEFILE=`echo $$file$$covext` ; \
+#				$(IF) $(TEST) -s %(objdir)/$$COVERAGEFILE ; then \
+#					$(CP) %(objdir)/$$COVERAGEFILE $(dir $(LINKTARGET))$$COVERAGEFILE ; \
+#				fi ; \
+#			done ; \
+#		done ; \
+#	fi
 %end
 #------------------------------------------------------------------------------
 
@@ -129,8 +129,8 @@ endif
 		cat %(objdir)/%(err); \
 		exit 1; \
 	fi
-	$(Q)$(IF) $(TEST) ! -s %(objdir)/%(err) ; then $(RM) %(objdir)/%(err) ; fi
-        %strip_q strip=%(strip) file=$@
+#	$(Q)$(IF) $(TEST) ! -s %(objdir)/%(err) ; then $(RM) %(objdir)/%(err) ; fi
+#        %strip_q strip=%(strip) file=$@
 %end
 #------------------------------------------------------------------------------
 
