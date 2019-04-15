@@ -9,9 +9,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <dlfcn.h>
 #define __USE_GNU
 #include <pthread.h>
+#include <libgen.h>
+#include <pwd.h>
 
 int main_AddDataTypes();
 int main_Decoration();
@@ -214,4 +217,66 @@ __attribute__((visibility("default"))) void __kick_start(void *__main, void *__r
     while(1)
         sleep(1);
     asm("int3");
+}
+
+//#define PACKAGED_BUILD
+
+__attribute__((visibility("default"))) void __set_runtime_env()
+{
+    /* Paths needs to end with "/" */
+    STRPTR RUNTIME_ROOT = NULL, AROSSYS = NULL, USERSYS = NULL;
+
+    const int _size = 512;
+    char buff[_size];
+    RUNTIME_ROOT    = malloc(_size);
+    AROSSYS         = malloc(_size);
+    USERSYS         = malloc(_size);
+    getcwd(buff, _size);
+
+#if defined(PACKAGED_BUILD)
+    /* Paths are relative to executable directory */
+    strcat(RUNTIME_ROOT, buff);
+    strcat(RUNTIME_ROOT, "/SYS/");
+
+    strcat(AROSSYS, "ROOT:");
+    strcat(AROSSYS, buff + 1);
+    strcat(AROSSYS, "/SYS/");
+
+    strcat(USERSYS, "ROOT:");
+    strcat(USERSYS, buff + 1);
+    strcat(USERSYS, "/USERSYS/");
+#else
+    /* Paths using build system paths */
+    char *t;
+    struct passwd *pw;
+
+    t = dirname(strdup(buff));
+    strcpy(buff, t);
+    buff[strlen(t)] = 0;
+    t = dirname(strdup(buff));
+    strcpy(buff, t);
+    buff[strlen(t)] = 0;
+
+    /* Two directories up from Wanderer executable */
+    strcat(RUNTIME_ROOT, buff);
+    strcat(RUNTIME_ROOT, "/");
+
+    strcat(AROSSYS, "ROOT:");
+    strcat(AROSSYS, buff + 1);
+    strcat(AROSSYS, "/");
+
+    /* ~/.aros/ */
+    pw = getpwuid(getuid());
+    strcat(USERSYS, "ROOT:");
+    strcat(USERSYS, pw->pw_dir + 1);
+    strcat(USERSYS, "/.aros/");
+#endif
+
+    printf("RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
+    printf("AROSSYS     : %s\n", AROSSYS);
+    printf("USERSYS     : %s\n", USERSYS);
+
+    setenv("AROSRUNTIME_ROOT", RUNTIME_ROOT, 0);
+    setenv("AROSSYS", AROSSYS, 0);
+    setenv("USERSYS", USERSYS, 0);
 }
