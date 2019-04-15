@@ -3,7 +3,9 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-STARTUP_FILES := \
+#MM runtime-startup : runtime-startup-linklib
+
+MODULE_FILES := \
     Startup/AddDataTypes \
     Startup/decoration \
     Startup/config \
@@ -16,11 +18,14 @@ STARTUP_FILES := \
     Startup/iprefs/fontprefs \
     Startup/iprefs/vars \
     Startup/iprefs/misc \
+    startup_lib \
 
+LINKLIB_FILES := \
+    startup_linklib
 
-%build_module mmake=runtime-startup \
+%build_module_simple mmake=runtime-startup \
     modname=runtimestartup modtype=library \
-    files="startup_lib $(STARTUP_FILES)" linklibfiles="startup_linklib" \
-    uselibs="pthread"
+    files="$(MODULE_FILES)" uselibs="pthread"
 
-%common
+%build_linklib mmake=runtime-startup-linklib \
+    libname=runtimestartup files="$(LINKLIB_FILES)"
