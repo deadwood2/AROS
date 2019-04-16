@@ -30,7 +30,7 @@ static void __run_program_sets(struct ExecBase *SysBase)
     set_call_funcs(SETNAME(INIT_ARRAY), 1, 0);
 }
 
-#define RUNTIMESTARTUP  "runtimestartup.library"
+#define RUNTIMESTARTUP  "runtimestartup.so"
 
 void __start_program()
 {

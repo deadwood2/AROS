@@ -23,9 +23,58 @@ MODULE_FILES := \
 LINKLIB_FILES := \
     startup_linklib
 
-%build_module_simple mmake=runtime-startup \
-    modname=runtimestartup modtype=library \
-    files="$(MODULE_FILES)" uselibs="pthread"
-
 %build_linklib mmake=runtime-startup-linklib \
     libname=runtimestartup files="$(LINKLIB_FILES)"
+
+# Copied and modified from build_module_simple macro
+
+#MM runtime-startup : core-linklibs includes-generate-deps
+#MM runtime-startup-quick
+#MM runtime-startup-clean
+
+BD_ALLTARGETS := runtime-startup runtime-startup-clean runtime-startup-quick
+
+.PHONY : $(BD_ALLTARGETS)
+
+# Default values for variables and arguments
+BD_DEFDFLAGS := $(CFLAGS)
+OBJDIR ?= $(GENDIR)/$(CURDIR)
+BD_MODDIR := $(AROS_LIBRARIES)
+
+BD_ARCHOBJS   := $(wildcard $(OBJDIR)/arch/*.o)
+BD_ARCHFILES  := $(basename $(notdir $(BD_ARCHOBJS)))
+BD_NARCHFILES := $(filter-out $(BD_ARCHFILES),$(MODULE_FILES))
+
+%rule_compile_multi \
+    basenames=$(BD_NARCHFILES) targetdir="$(OBJDIR)" \
+    cflags="$(BD_DEFDFLAGS)" dflags="$(BD_DEFDFLAGS)" \
+    compiler=target
+
+BD_MODULE := $(BD_MODDIR)/runtimestartup.so
+
+runtime-startup-quick : runtime-startup
+runtime-startup       : $(BD_MODULE)
+
+# The module is linked from all the compiled .o files
+BD_OBJS       := $(BD_ARCHOBJS) $(addprefix $(OBJDIR)/, $(addsuffix .o,$(notdir $(BD_NARCHFILES))))
+
+BD_ERR := runtimestartup.so.err
+
+%rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(TOOLDIR)/runtime.ld" \
+		 endobj= err=$(BD_ERR) objdir="$(OBJDIR)" \
+		 ldflags="$(LDFLAGS)" uselibs="pthread" \
+
+## Dependency fine-tuning
+##
+BD_DEPS       := $(addprefix $(OBJDIR)/, $(addsuffix .d,$(MODULE_FILES)))
+%include_deps depstargets="runtime-startup runtime-startup-quick" deps=$(BD_DEPS)
+
+$(BD_OBJS) $(BD_DEPS) : | $(OBJDIR)
+$(BD_MODULE) : | $(BD_MODDIR)
+GLOB_MKDIRS += $(OBJDIR) $(BD_MODDIR)
+
+runtime-startup-clean : FILES := $(BD_OBJS) $(BD_MODULE) $(BD_DEPS)
+runtime-startup-clean ::
+	@$(ECHO) "Cleaning up for module runtimestartup.so"
+	@$(RM) $(FILES)
+
