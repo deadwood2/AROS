@@ -1,6 +1,6 @@
 SECTIONS
 {
-  .rodata :
+  .data :
   {
     . = ALIGN(8);
     __LIBS_LIST__ = .;
