@@ -246,18 +246,24 @@ __attribute__((visibility("default"))) void __set_runtime_env()
     strcat(USERSYS, buff + 1);
     strcat(USERSYS, "/USERSYS/");
 #else
-    /* Paths using build system paths */
+    /* Paths based on environment variable */
     char *t;
     struct passwd *pw;
 
-    t = dirname(strdup(buff));
-    strcpy(buff, t);
-    buff[strlen(t)] = 0;
-    t = dirname(strdup(buff));
-    strcpy(buff, t);
-    buff[strlen(t)] = 0;
+    t = getenv("AROSRUNTIME_ROOT");
+    if (t)
+    {
+        strcpy(buff, t);
+        int i = strlen(buff);
+        if (buff[i-1] == '/') buff[i-1] = 0;
+    }
+    else
+    {
+        printf("<<ERROR>>: AROSRUNTIME_ROOT environment variable not set.\n");
+        /* TODO: handle variable not set */
+    }
 
-    /* Two directories up from Wanderer executable */
+
     strcat(RUNTIME_ROOT, buff);
     strcat(RUNTIME_ROOT, "/");
 
@@ -276,7 +282,7 @@ __attribute__((visibility("default"))) void __set_runtime_env()
     printf("AROSSYS     : %s\n", AROSSYS);
     printf("USERSYS     : %s\n", USERSYS);
 
-    setenv("AROSRUNTIME_ROOT", RUNTIME_ROOT, 0);
-    setenv("AROSSYS", AROSSYS, 0);
-    setenv("USERSYS", USERSYS, 0);
+    setenv("AROSRUNTIME_ROOT", RUNTIME_ROOT, 1);
+    setenv("AROSSYS", AROSSYS, 1);
+    setenv("USERSYS", USERSYS, 1);
 }
