@@ -32,6 +32,18 @@ SECTIONS
     KEEP (*(.aros.set.OPENLIB*))
     QUAD(0)
     __OPENLIB_END__ = .;
+    __OPENDEV_LIST__ = .;
+    QUAD((__OPENDEV_END__ - __OPENDEV_LIST__) / 8 - 2)
+    KEEP (*(SORT_BY_INIT_PRIORITY(.aros.set.OPENDEV.*)))
+    KEEP (*(.aros.set.OPENDEV*))
+    QUAD(0)
+    __OPENDEV_END__ = .;
+    __CLOSEDEV_LIST__ = .;
+    QUAD((__CLOSEDEV_END__ - __CLOSEDEV_LIST__) / 8 - 2)
+    KEEP (*(SORT_BY_INIT_PRIORITY(.aros.set.CLOSEDEV.*)))
+    KEEP (*(.aros.set.CLOSEDEV*))
+    QUAD(0)
+    __CLOSEDEV_END__ = .;
     __CLASSESINIT_LIST__ = .;
     QUAD((__CLASSESINIT_END__ - __CLASSESINIT_LIST__) / 8 - 2)
     KEEP (*(SORT_BY_INIT_PRIORITY(.aros.set.CLASSESINIT.*)))
