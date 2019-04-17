@@ -39,9 +39,11 @@ $(COLLECT-AROS) : misc.h ldscript.h gensets.h docommand.h backend.h $(COLLECT-AR
 $(COLLECT-AROS) : $(COLLECT-AROS-FILES)
 	@$(MECHO) "Compiling $(notdir $@)..."
 	@$(HOST_CC) -o $@ $(COLLECT_CFLAGS) $(COLLECT-AROS-FILES) $(HOST_LDFLAGS) 
+	@$(CP) runtime.ld $(TOOLDIR)/runtime.ld
 
 
 clean :
 	@$(RM) $(COLLECT-AROS)
+	@$(RM) $(TOOLDIR)/runtime.ld $(TOOLDIR)
 
 .PHONY : all clean
