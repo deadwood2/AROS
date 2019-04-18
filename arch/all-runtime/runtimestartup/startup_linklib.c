@@ -30,7 +30,15 @@ static void __run_program_sets(struct ExecBase *SysBase)
     set_call_funcs(SETNAME(INIT_ARRAY), 1, 0);
 }
 
-#define RUNTIMESTARTUP  "runtimestartup.so"
+#define RUNTIMESTARTUP      "runtimestartup.so"
+#define FUNC_SETRUNTIMEENV  "__set_runtime_env"
+#define FUNC_KICKSTART      "__kick_start"
+
+static void __bye()
+{
+    printf("Exiting...\n");
+    exit(100);
+}
 
 void __init_runtime()
 {
@@ -47,12 +55,27 @@ void __init_runtime()
     if (__so_handle == NULL)
         __so_handle = dlopen(RUNTIMESTARTUP, RTLD_LAZY);
 
-    // TODO: error handling
+    if (__so_handle == NULL)
+    {
+        printf("<<ERROR>>Loader "RUNTIMESTARTUP" not fount at either ./ or /usr/lib\n");
+        __bye();
+    }
 
-    __set_runtime_env   = (void (*)())dlsym(__so_handle, "__set_runtime_env");
-    __kick_start        = (void (*)(void *, void *))dlsym(__so_handle, "__kick_start");
+    __set_runtime_env = (void (*)())dlsym(__so_handle, FUNC_SETRUNTIMEENV);
+    if (__set_runtime_env == NULL)
+    {
+        printf("<<ERROR>> Function "FUNC_SETRUNTIMEENV" not found in "RUNTIMESTARTUP"\n");
+        dlclose(__so_handle);
+        __bye();
+    }
 
-    // TODO: error handling
+    __kick_start = (void (*)(void *, void *))dlsym(__so_handle, FUNC_KICKSTART);
+    if (__kick_start == NULL)
+    {
+        printf("<<ERROR>> Function "FUNC_KICKSTART" not found in "RUNTIMESTARTUP"\n");
+        dlclose(__so_handle);
+        __bye();
+    }
 
     __set_runtime_env();
 

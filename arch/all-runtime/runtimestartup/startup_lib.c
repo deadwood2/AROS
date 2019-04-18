@@ -181,6 +181,12 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     asm("int3");
 }
 
+static void __bye()
+{
+    printf("Exiting...\n");
+    exit(100);
+}
+
 __attribute__((visibility("default"))) void __kick_start(void *__main, void *__run_program_sets)
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
@@ -260,7 +266,7 @@ __attribute__((visibility("default"))) void __set_runtime_env()
     else
     {
         printf("<<ERROR>>: AROSRUNTIME_ROOT environment variable not set.\n");
-        /* TODO: handle variable not set */
+        __bye();
     }
 
 
