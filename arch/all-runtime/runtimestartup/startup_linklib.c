@@ -32,7 +32,7 @@ static void __run_program_sets(struct ExecBase *SysBase)
 
 #define RUNTIMESTARTUP  "runtimestartup.so"
 
-void __start_program()
+void __init_runtime()
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
 

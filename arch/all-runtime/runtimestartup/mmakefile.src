@@ -78,3 +78,32 @@ runtime-startup-clean ::
 	@$(ECHO) "Cleaning up for module runtimestartup.so"
 	@$(RM) $(FILES)
 
+
+
+#MM runtime-startup : runtime-objects-startup
+#MM runtime-objects-startup : runtime-objects-startup-setup
+
+ROS_FILES := \
+	startup \
+
+ROS_OBJS  := $(addprefix $(AROS_LIB)/,$(addsuffix .o,$(ROS_FILES)))
+ROS_DEPS  := $(addprefix $(GENDIR)/$(CURDIR)/,$(addsuffix .d,$(ROS_FILES)))
+
+runtime-objects-startup: $(ROS_OBJS)
+
+#MM
+runtime-objects-startup-quick: $(ROS_OBJS)
+
+$(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
+	@$(CP) $< $@
+
+%rule_compile basename=% targetdir=$(GENDIR)/$(CURDIR)
+
+#MM runtime-objects-startup-setup
+%rule_makedirs dirs="$(GENDIR)/$(CURDIR) $(AROS_LIB)" setuptarget=runtime-objects-startup-setup
+
+.PHONY: runtime-objects-startup runtime-objects-startup-setup
+
+%include_deps depstargets="runtime-objects-startup" deps=$(ROS_DEPS)
+
+%common
