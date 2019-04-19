@@ -4,8 +4,8 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM-  boot-runtime : \
-#MM  workbench-libs-muimaster \
-#MM  workbench-libs-cgfx \
+#MM  workbench-libs-complete \
+#MM  workbench-classes-complete \
 #MM  kernel-graphics \
 #MM  kernel-oop \
 #MM  kernel-hidd-gfx \
@@ -15,15 +15,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM  kernel-keymap \
 #MM  kernel-dos \
 #MM  kernel-utility \
-#MM  workbench-libs-commodities \
-#MM  workbench-libs-diskfont \
-#MM  workbench-libs-asl \
-#MM  workbench-libs-workbench \
-#MM  workbench-libs-icon \
-#MM  workbench-libs-gadtools \
-#MM  workbench-libs-locale \
-#MM  workbench-libs-iffparse \
-#MM  workbench-libs-datatypes \
 #MM  kernel-aros \
 #MM  kernel-lddemon \
 #MM  kernel-expansion \
@@ -40,14 +31,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  kernel-input \
 #MM  kernel-keyboard \
 #MM  kernel-gameport \
-#MM  workbench-classes-zune-iconimage \
-#MM  workbench-datatypes-picture \
-#MM  workbench-datatypes-png \
-#MM  workbench-datatypes-text \
-#MM  workbench-datatypes-ascii \
-#MM  workbench-datatypes-binary \
 #MM  workbench-devs-datatypes \
-#MM  workbench-libs-freetype-module \
 #MM  runtime-startup
 
 %common
