@@ -43,5 +43,10 @@ SECTIONS
     KEEP (*(.aros.set.CLASSESINIT))
     QUAD(0)
     __CLASSESINIT_END__ = .;
+    __PROGRAM_ENTRIES_LIST__ = .;
+    QUAD((__PROGRAM_ENTRIES_END__ - __PROGRAM_ENTRIES_LIST__) / 8 - 2)
+    KEEP (*(.aros.set.PROGRAM_ENTRIES))
+    QUAD(0)
+    __PROGRAM_ENTRIES_END__ = .;
   }
 }
