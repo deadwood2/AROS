@@ -17,13 +17,13 @@ ARCHSRCDIR := $(PORTSDIR)/jpeg/$(ARCHDIR)
     archive=$(ARCHBASE) srcdir=$(ARCHDIR) suffixes=$(ARCHSUFFIX) \
     destination=$(PORTSDIR)/jpeg
 
-#MM- includes-copy : \
-#MM     jpeg-fetch
+##MM- includes-copy : \
+##MM     jpeg-fetch
 
-#MM workbench-libs-jpeg-includes : \
-#MM     kernel-exec-includes \
-#MM     kernel-dos-includes \
-#MM     includes-copy
+##MM workbench-libs-jpeg-includes : \
+##MM     kernel-exec-includes \
+##MM     kernel-dos-includes \
+##MM     includes-copy
 
 FILES := jaricom jcapimin jcapistd jcarith jccoefct jccolor \
         jcdctmgr jchuff jcinit jcmainct jcmarker jcmaster \
@@ -39,13 +39,13 @@ NOWARN_FLAGS := -Wno-main
 USER_CFLAGS := $(NOWARN_FLAGS)
 USER_CPPFLAGS := -DNO_GETENV
 
-#MM- core-linklibs : linklibs-jpeg
+##MM- core-linklibs : linklibs-jpeg
 
-%build_module mmake=workbench-libs-jpeg \
-  modname=jfif modtype=library uselibs="crtmod" \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=jpeg
+#%build_module mmake=workbench-libs-jpeg \
+#  modname=jfif modtype=library uselibs="crtmod" \
+#  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=jpeg
 
-INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h
-%copy_includes dir=$(ARCHSRCDIR)
+#INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h
+#%copy_includes dir=$(ARCHSRCDIR)
 
 %common
