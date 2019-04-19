@@ -2,12 +2,12 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM workbench-libs-z-includes : \
-#MM     kernel-exec-includes \
-#MM     kernel-dos-includes \
-#MM     includes-copy
+##MM workbench-libs-z-includes : \
+##MM     kernel-exec-includes \
+##MM     kernel-dos-includes \
+##MM     includes-copy
 
-#MM workbench-libs-z : workbench-libs-z-pc
+##MM workbench-libs-z : workbench-libs-z-pc
 
 FILES := adler32 crc32 deflate infback inffast inflate inftrees trees \
          zutil compress uncompr gzclose gzlib gzread gzwrite \
@@ -15,9 +15,9 @@ FILES := adler32 crc32 deflate infback inffast inflate inftrees trees \
 
 USER_CPPFLAGS := -DSTDC -DAMIGA -DZ_HAVE_UNISTD_H
 
-%build_module mmake=workbench-libs-z \
-  modname=z1 modtype=library \
-  files="$(FILES)" linklibname=z
+#%build_module mmake=workbench-libs-z \
+#  modname=z1 modtype=library \
+#  files="$(FILES)" linklibname=z
 
 
 #MM- linklibs: linklibs-z-static
@@ -27,8 +27,8 @@ USER_CPPFLAGS := -DSTDC -DAMIGA -DZ_HAVE_UNISTD_H -DNO_STRERROR
 %build_linklib mmake=linklibs-z-static libname=z.static files="$(FILES)"
 
 
-INCLUDE_FILES := zlib.h zconf.h
-%copy_includes
+#INCLUDE_FILES := zlib.h zconf.h
+#%copy_includes
 
 
 #MM

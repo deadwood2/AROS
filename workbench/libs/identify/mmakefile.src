@@ -14,14 +14,16 @@ FILES := library \
     locale
 
 #MM- workbench-libs-identify : \
-#MM     workbench-libs-identify-lib \
-#MM     workbench-libs-identify-test \
-#MM     workbench-libs-identify-tools
+#MM     workbench-libs-identify-lib
+
+##MM     workbench-libs-identify-test \
+##MM     workbench-libs-identify-tools
 
 #MM- workbench-libs-identify-quick : \
-#MM     workbench-libs-identify-lib-quick \
-#MM     workbench-libs-identify-test-quick \
-#MM     workbench-libs-identify-tools-quick
+#MM     workbench-libs-identify-lib-quick
+
+##MM     workbench-libs-identify-test-quick \
+##MM     workbench-libs-identify-tools-quick
 
 #MM- workbench-libs-identify-clean : \
 #MM     workbench-libs-identify-lib-clean \

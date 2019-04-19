@@ -11,24 +11,24 @@ include $(SRCDIR)/$(CURDIR)/mesa.cfg
 # common mesa3d fetch...
 #
 
-#MM- includes-copy : mesa3d-fetch
+##MM- includes-copy : mesa3d-fetch
 
-%fetch mmake=mesa3d-fetch archive=$(ARCHBASE) destination=$(PORTSDIR)/mesa \
-    location=$(PORTSSOURCEDIR) archive_origins=$(REPOSITORIES) suffixes="tar.gz" \
-    patches_specs=$(PATCHSPEC)
+#%fetch mmake=mesa3d-fetch archive=$(ARCHBASE) destination=$(PORTSDIR)/mesa \
+#    location=$(PORTSSOURCEDIR) archive_origins=$(REPOSITORIES) suffixes="tar.gz" \
+#    patches_specs=$(PATCHSPEC)
 
-%create_patch mmake=mesa3d-create-patch \
-    archive=$(ARCHBASE) suffixes="tar.gz" \
-    destination=$(PORTSDIR)/mesa
+#%create_patch mmake=mesa3d-create-patch \
+#    archive=$(ARCHBASE) suffixes="tar.gz" \
+#    destination=$(PORTSDIR)/mesa
 
 #
 # Real Mesa3DGL.library rules...
 #
 
-#MM- workbench-libs-complete : mesa3dgl-library-$(AROS_TARGET_TOOLCHAIN)
-#MM- mesa3dgl-library-yes : mesa3dgl-library
+##MM- workbench-libs-complete : mesa3dgl-library-$(AROS_TARGET_TOOLCHAIN)
+##MM- mesa3dgl-library-yes : mesa3dgl-library
 
-#MM mesa3dgl-library : includes workbench-libs-dxtn-includes linklibs-galliumauxiliary workbench-libs-gallium-linklib mesa3dgl-linklibs
+##MM mesa3dgl-library : includes workbench-libs-dxtn-includes linklibs-galliumauxiliary workbench-libs-gallium-linklib mesa3dgl-linklibs
 
 ##-include $(top_srcdir)/src/mesa/Makefile.sources
 ##-include $(top_srcdir)/src/compiler/glsl/Makefile.sources
@@ -91,32 +91,32 @@ USER_LDFLAGS := -static-libstdc++ \
 #USER_LDFLAGS += -Wl,--end-group
 #USER_CPPFLAGS += -DDEBUG=1
 
-%build_module_library mmake=mesa3dgl-library \
-  modname=mesa3dgl modtype=library \
-  conffile=$(SRCDIR)/workbench/libs/gl/gl.conf \
-  confoverride=mesa3dgl.conf \
-  files="$(MESAGL_LIBRARY_SOURCES_C)" \
-  cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
-  uselibs=""
+#%build_module_library mmake=mesa3dgl-library \
+#  modname=mesa3dgl modtype=library \
+#  conffile=$(SRCDIR)/workbench/libs/gl/gl.conf \
+#  confoverride=mesa3dgl.conf \
+#  files="$(MESAGL_LIBRARY_SOURCES_C)" \
+#  cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
+#  uselibs=""
 
 #
 # mesa3d includes...
 #
 
-GL_INCLUDE_FILES := gl.h glext.h
+#GL_INCLUDE_FILES := gl.h glext.h
 
-%copy_includes path=GL dir=$(top_srcdir)/include/GL includes=$(GL_INCLUDE_FILES)
+#%copy_includes path=GL dir=$(top_srcdir)/include/GL includes=$(GL_INCLUDE_FILES)
 
-KHR_INCLUDE_FILES := khrplatform.h
+#KHR_INCLUDE_FILES := khrplatform.h
 
-%copy_includes path=KHR dir=$(top_srcdir)/include/KHR includes=$(KHR_INCLUDE_FILES)
+#%copy_includes path=KHR dir=$(top_srcdir)/include/KHR includes=$(KHR_INCLUDE_FILES)
 
-GL_INCLUDE_FILES := egl.h eglext.h eglplatform.h eglmesaext.h eglextchromium.h
+#GL_INCLUDE_FILES := egl.h eglext.h eglplatform.h eglmesaext.h eglextchromium.h
 
-%copy_includes path=EGL dir=$(top_srcdir)/include/EGL includes=$(GL_INCLUDE_FILES)
+#%copy_includes path=EGL dir=$(top_srcdir)/include/EGL includes=$(GL_INCLUDE_FILES)
 
-VK_INCLUDE_FILES := vulkan.h vulkan_core.h vk_icd.h vk_platform.h
+#VK_INCLUDE_FILES := vulkan.h vulkan_core.h vk_icd.h vk_platform.h
 
-%copy_includes path=vulkan dir=$(top_srcdir)/include/vulkan includes=$(VK_INCLUDE_FILES)
+#%copy_includes path=vulkan dir=$(top_srcdir)/include/vulkan includes=$(VK_INCLUDE_FILES)
 
 %common
