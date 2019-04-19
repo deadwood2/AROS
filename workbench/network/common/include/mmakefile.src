@@ -15,7 +15,7 @@ DIRS          := $(AROS_INCLUDES) \
                  $(AROS_INCLUDES)/proto \
                  $(AROS_INCLUDES)/sys
 
-#MM- includes-copy : network-includes-copy
+##MM- includes-copy : network-includes-copy
 #MM network-includes-copy : network-includes-setup
 
 #MM
