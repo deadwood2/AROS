@@ -144,8 +144,7 @@ struct ARPSMsg
     VOID (*arps_Target)(APTR, APTR);
 
     /* Private fields */
-    void (*arps_ApplicationMain)();
-    void (*arps_RunProgramSets)(struct ExecBase *sysBase);
+    void (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
 };
 
 static VOID RunProgram(APTR sysbase, APTR _m)
@@ -174,8 +173,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_IPrefs();
     main_Decoration();
 
-    msg->arps_RunProgramSets(SysBase);
-    msg->arps_ApplicationMain();
+    msg->arps_RunProgramSets(NULL, 0, SysBase);
 
     /* TODO: what to do when process exits */
     asm("int3");
@@ -187,7 +185,7 @@ static void __bye()
     exit(100);
 }
 
-__attribute__((visibility("default"))) void __kick_start(void *__main, void *__run_program_sets)
+__attribute__((visibility("default"))) void __kick_start(void *__run_program_sets)
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
     pthread_t execbootstrap;
@@ -201,8 +199,8 @@ __attribute__((visibility("default"))) void __kick_start(void *__main, void *__r
     /* Sequence:
      *  DOS boot sequence creates "AROS Runtime Program" Process (ARPP)
      *  ARPP creates public port
-     *  This thread sends pointer to main() to the port
-     *  ARPP executes main()
+     *  This thread sends pointer to RunProgram to the port
+     *  ARPP executes RunProgram()
      *  This thread waits for finishing of execution and exits never reaching main (TODO)
      */
     struct MsgPort *startup = NULL;
@@ -213,7 +211,6 @@ __attribute__((visibility("default"))) void __kick_start(void *__main, void *__r
     msg.arps_Msg.mn_Length      = sizeof(struct ARPSMsg);
     msg.arps_Msg.mn_ReplyPort   = NULL;
     msg.arps_Target             = RunProgram;
-    msg.arps_ApplicationMain    = __main;
     msg.arps_RunProgramSets     = __run_program_sets;
 
     PutMsg(startup, (struct Message *)&msg);
