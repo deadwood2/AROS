@@ -11,6 +11,7 @@
 /* amigaos prototypes */
 #include <proto/exec.h>
 #include <proto/dos.h>
+#include <clib/alib_protos.h>
 
 /* ansi includes */
 #include <limits.h>
