@@ -145,6 +145,11 @@ Exec_InitETask(struct Task *task, struct Task *parent, struct ExecBase *SysBase)
     et->et_TrapAlloc = SysBase->TaskTrapAlloc;
     et->et_TrapAble = 0;
 
+    /* Initialize mutexes and conditionals */
+    pthread_cond_init(&IntETask(et)->iet_SignalCond, NULL);
+    pthread_mutex_init(&IntETask(et)->iet_SignalMutex, NULL);
+    pthread_mutex_init(&IntETask(et)->iet_StartupMutex, NULL);
+
 #ifdef DEBUG_ETASK
     {
 	int len = strlen(task->tc_Node.ln_Name) + 1;

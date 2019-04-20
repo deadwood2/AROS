@@ -211,9 +211,6 @@ static void process_tags(struct TagItem *tagList, struct TaskParameters *params)
     TEXT pthreadName[16] = {0};
     struct TaskParameters *params = AllocMem(sizeof(struct TaskParameters), MEMF_CLEAR);
     struct IntETask *etask = GetIntETask(task);
-    pthread_cond_init(&etask->iet_SignalCond, NULL);
-    pthread_mutex_init(&etask->iet_SignalMutex, NULL);
-    pthread_mutex_init(&etask->iet_StartupMutex, NULL);
 
     strncpy(pthreadName, task->tc_Node.ln_Name, 15);
 
