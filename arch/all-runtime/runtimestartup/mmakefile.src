@@ -3,6 +3,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
+#MM- core-linklibs : runtime-startup-linklibs-$(FAMILY)
+#MM- runtime-startup-linklibs-runtime : runtime-startup-linklib runtime-objects-startup
 #MM runtime-startup : runtime-startup-linklib
 
 MODULE_FILES := \
