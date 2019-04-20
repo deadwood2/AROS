@@ -15,6 +15,7 @@
 #include <pthread.h>
 #include <libgen.h>
 #include <pwd.h>
+#include <limits.h>
 
 int main_AddDataTypes();
 int main_Decoration();
@@ -145,6 +146,7 @@ struct ARPSMsg
 
     /* Private fields */
     void (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
+    STRPTR  arps_CurrentDir;
 };
 
 static VOID RunProgram(APTR sysbase, APTR _m)
@@ -166,7 +168,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     AssignPath("FONTS","USERSYS:Fonts");
 
     /* Set CurrentDir for process */
-    BPTR currdir = Lock(WANDERER_ROOT, SHARED_LOCK); // FIXME: remove hardcode for Wanderer!!!
+    BPTR currdir = Lock(msg->arps_CurrentDir, SHARED_LOCK);
     CurrentDir(currdir);
 
     main_AddDataTypes();
@@ -195,6 +197,9 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     pthread_join(execbootstrap, NULL);
     /* At this point Exec is up and running. DOS is waiting for booting. */
 
+    char _t[PATH_MAX];
+    getcwd(_t, PATH_MAX);
+
 #define SysBase local_SysBase
     /* Sequence:
      *  DOS boot sequence creates "AROS Runtime Program" Process (ARPP)
@@ -212,6 +217,11 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     msg.arps_Msg.mn_ReplyPort   = NULL;
     msg.arps_Target             = RunProgram;
     msg.arps_RunProgramSets     = __run_program_sets;
+    msg.arps_CurrentDir         = calloc(strlen(_t) + 6, 1);
+    strcat(msg.arps_CurrentDir, "ROOT:");
+    strcat(msg.arps_CurrentDir, _t + 1);
+    strcat(msg.arps_CurrentDir, "/");
+    printf("CURRENT_DIR : %s\n", msg.arps_CurrentDir);
 
     PutMsg(startup, (struct Message *)&msg);
 #undef SysBase
