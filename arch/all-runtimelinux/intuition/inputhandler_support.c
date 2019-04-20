@@ -658,11 +658,12 @@ struct Gadget *HandleCustomGadgetRetVal(IPTR retval, struct GadgetInfo *gi, stru
                     (gi->gi_Window))
                 {
                     DEBUG_HANDLECUSTOMRETVAL(dprintf("HandleCustomGadgetRetVal: Send IDCMP_GADGETUP\n"));
-                    ih_fire_intuimessage(gi->gi_Window,
-                                 IDCMP_GADGETUP,
-                                 termination & 0x0000FFFF,
-                                 gadget,
-                                 IntuitionBase);
+                    // FIXME: disable iconify for now
+//                    ih_fire_intuimessage(gi->gi_Window,
+//                                 IDCMP_GADGETUP,
+//                                 termination & 0x0000FFFF,
+//                                 gadget,
+//                                 IntuitionBase);
                 }
 
             } /* switch(gad->GadgetType & GTYP_SYSTYPEMASK) */
