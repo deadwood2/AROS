@@ -1064,11 +1064,13 @@ endif
 )
 
 %(prog) : OBJDIR := %(objdir)
-%(prog) : OBJS := %(objs)
+%(prog) : OBJS := %(objs) $(%(mmake)-link_DEPLIBS) $(TOOLDIR)/runtime.ld
 %(prog) : LDFLAGS := $(strip %(ldflags) $(%(mmake)-link_EXTRA_LDFLAGS))
-%(prog) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs))
+%(prog) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs)) \
+-L$(AROS_LIB) -lmui -lamiga -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lexec -lruntimestartup -llibinit -lautoinit -larossupport -lamiga -lexec -lstdc.static -lm -ldl
 %(prog) : %(objs) $(%(mmake)-link_DEPLIBS)
 	%link_q cmd="%(cmd)" strip="%(strip)" from=$(OBJS) opt=$(LDFLAGS) libs=$(LIBS) objdir=$(OBJDIR) coverageinstr=%(coverageinstr)
+
 %end
 #------------------------------------------------------------------------------
 
@@ -1111,8 +1113,9 @@ endif
 
 $(%(mmake)-link_PROGS) : OBJDIR := %(objdir)
 $(%(mmake)-link_PROGS) : LDFLAGS := $(strip %(ldflags) $(%(mmake)-link_EXTRA_LDFLAGS))
-$(%(mmake)-link_PROGS) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs))
-$(%(mmake)-link_PROGS) : %(targetdir)/% : %(objdir)/%.o $(%(mmake)-link_DEPLIBS)
+$(%(mmake)-link_PROGS) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs)) \
+-L$(AROS_LIB) -lmui -lamiga -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lexec -lruntimestartup -llibinit -lautoinit -larossupport -lamiga -lexec -lstdc.static -lm -ldl
+$(%(mmake)-link_PROGS) : %(targetdir)/% : %(objdir)/%.o $(%(mmake)-link_DEPLIBS) $(TOOLDIR)/runtime.ld
 	%link_q cmd="%(cmd)" strip="%(strip)" from=$< opt=$(LDFLAGS) libs=$(LIBS) objdir=$(OBJDIR) coverageinstr=%(coverageinstr)
 %end
 #------------------------------------------------------------------------------
