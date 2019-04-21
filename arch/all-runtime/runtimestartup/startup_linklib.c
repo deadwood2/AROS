@@ -121,7 +121,7 @@ void __runtimestartup()
 
     if (__so_handle == NULL)
     {
-        printf("<<ERROR>>Loader "RUNTIMESTARTUP" not fount at either ./ or /usr/lib\n");
+        printf("<<ERROR>>Loader "RUNTIMESTARTUP" not found at either ./ or /usr/lib\n");
         __bye();
     }
 

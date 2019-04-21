@@ -258,6 +258,7 @@ __attribute__((visibility("default"))) void __set_runtime_env()
     strcat(USERSYS, "ROOT:");
     strcat(USERSYS, buff + 1);
     strcat(USERSYS, "/USERSYS/");
+    (void)__bye;
 #else
     /* Paths based on environment variable */
     char *t;
