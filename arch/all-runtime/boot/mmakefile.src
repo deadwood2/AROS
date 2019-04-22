@@ -4,34 +4,17 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM-  boot-runtime : \
-#MM  workbench-libs-complete \
-#MM  workbench-classes-complete \
-#MM  kernel-graphics \
-#MM  kernel-oop \
-#MM  kernel-hidd-gfx \
-#MM  kernel-hidd \
-#MM  kernel-intuition \
-#MM  kernel-layers \
-#MM  kernel-keymap \
-#MM  kernel-dos \
-#MM  kernel-utility \
-#MM  kernel-aros \
-#MM  kernel-lddemon \
+#MM  kernel-objs \
+#MM  kernel-exec \
 #MM  kernel-expansion \
-#MM  kernel-dosboot \
+#MM  kernel-timer \
+#MM  runtime-startup \
 #MM  kernel-x11gfx \
 #MM  kernel-hostlib \
-#MM  kernel-hidd-kbd \
-#MM  kernel-hidd-mouse \
-#MM  kernel-filesystem \
 #MM  kernel-fs-emul \
 #MM  kernel-unixio \
-#MM  kernel-timer \
-#MM  kernel-exec \
-#MM  kernel-input \
-#MM  kernel-keyboard \
-#MM  kernel-gameport \
-#MM  workbench-devs-datatypes \
-#MM  runtime-startup
+#MM  workbench-libs-complete \
+#MM  workbench-classes-complete \
+#MM  workbench-devs-datatypes
 
 %common

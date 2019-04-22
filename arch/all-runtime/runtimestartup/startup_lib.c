@@ -51,8 +51,18 @@ static CONST_STRPTR Kickstart [] =
         "Devs/input.device",
         "Devs/keyboard.device",
         "Devs/gameport.device",
+        "L/ram-handler",
+        "Libs/debug.library",
+        "Devs/console.device",
+        "L/con-handler",
         NULL
 };
+
+static void __bye()
+{
+    printf("Exiting...\n");
+    exit(100);
+}
 
 static ULONG Kickstart_Count = (sizeof(Kickstart)/sizeof(Kickstart[0]));
 
@@ -113,6 +123,11 @@ static void InitKickstart(struct ExecBase *SysBase)
         strncat(path, Kickstart[i], strlen(Kickstart[i]));
 
         void *__so_handle = dlopen(path, RTLD_LAZY);
+        if (__so_handle == NULL)
+        {
+            printf("<<ERROR>>: Failed to load kickstart module %s\n", path);
+            __bye();
+        }
         __get_resident = (void *(*)())dlsym(__so_handle, "__get_resident");
         resList[i] = (struct Resident *)(__get_resident)();
 
@@ -174,17 +189,12 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_AddDataTypes();
     main_IPrefs();
     main_Decoration();
+    Close(Open("RAM:Welcome", MODE_NEWFILE));
 
     msg->arps_RunProgramSets(NULL, 0, SysBase);
 
     /* TODO: what to do when process exits */
     asm("int3");
-}
-
-static void __bye()
-{
-    printf("Exiting...\n");
-    exit(100);
 }
 
 __attribute__((visibility("default"))) void __kick_start(void *__run_program_sets)
