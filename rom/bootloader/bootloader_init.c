@@ -21,6 +21,7 @@
 #include <proto/bootloader.h>
 #include <proto/kernel.h>
 #include <proto/utility.h>
+#include <clib/alib_protos.h>
 
 #include <ctype.h>
 #include <string.h>
