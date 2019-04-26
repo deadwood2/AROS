@@ -1309,7 +1309,8 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
         xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, w->TopEdge, w->Width, w->Height, 1,
                                 BlackPixel(xd, xs), WhitePixel(xd, xs));
         XStoreName(xd, xw, w->Title);
-        XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask);
+        XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
+                | KeyPressMask | KeyReleaseMask);
         XSetWMProtocols(xd, xw, &((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->delete_win_atom, 1);
 
         // FIXME: For now disable window size change because the initially created bitmap is not resizable and ConfigureEvent
