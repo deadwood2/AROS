@@ -12,6 +12,9 @@
 
 #include "intuition_intern.h"
 
+#include <X11/Xlib.h>
+#include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
+
 static ULONG FindMode(ULONG width, ULONG height, ULONG depth, struct IntuitionBase *IntuitionBase)
 {
     struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
@@ -39,14 +42,6 @@ static ULONG FindMode(ULONG width, ULONG height, ULONG depth, struct IntuitionBa
 
     return modeid;
 }   
-
-#include <X11/Xlib.h>
-struct intuixchng
-{
-    struct MsgPort  *port;
-    Display         *xdisplay;
-    Atom            delete_win_atom;
-};
 
 /*****************************************************************************
 

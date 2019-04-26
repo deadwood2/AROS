@@ -17,6 +17,9 @@
 #include "x11.h"
 #include "x11_hostlib.h"
 #include "x11gfx_fullscreen.h"
+#include "x11_intui_bridge.h"
+
+extern struct intuixchng intuixchng;
 
 VOID X11BM_ExposeFB(APTR data, WORD x, WORD y, WORD width, WORD height);
 
@@ -407,7 +410,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                 struct FromX11Msg *msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
                 msg->type = FROMX11_CLOSEWINDOW;
                 msg->xwindow = event.xany.window;
-                PutMsg(xsd->intuixchng.port,(struct Message *)msg);
+                PutMsg(intuixchng.port,(struct Message *)msg);
             }
 
             /* Redirect focus from outer window to inner window. This allows
@@ -462,7 +465,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                         msg->xwindow = event.xany.window;
                         msg->A = 0;
                         msg->B = 0;
-                        PutMsg(xsd->intuixchng.port,(struct Message *)msg);
+                        PutMsg(intuixchng.port,(struct Message *)msg);
                     }
                     break;
 
@@ -499,7 +502,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
 
                 case ConfigureNotify:
                 {
-                    if (xsd->intuixchng.port)
+                    if (intuixchng.port)
                     {
                         XConfigureEvent *me;
                         me = (XConfigureEvent *)&event;
@@ -511,7 +514,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                             msg->xwindow = me->window;
                             msg->A = me->x;
                             msg->B = me->y;
-                            PutMsg(xsd->intuixchng.port,(struct Message *)msg);
+                            PutMsg(intuixchng.port,(struct Message *)msg);
                         }
 
                     }

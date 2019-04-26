@@ -38,6 +38,8 @@
 #   include <aros/debug.h>
 
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
 
 struct OpenWindowActionMsg
 {
@@ -1231,14 +1233,7 @@ exit:
 } /* OpenWindow */
 
 /**********************************************************************************/
-struct intuixchng
-{
-    struct MsgPort  *port;
-    Display         *xdisplay;
-    Atom            delete_win_atom;
-};
 
-#include <X11/Xutil.h>
 
 static VOID int_openwindow(struct OpenWindowActionMsg *msg,
                            struct IntuitionBase *IntuitionBase)

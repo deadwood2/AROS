@@ -18,6 +18,9 @@
 #include "x11.h"
 #include "x11_hostlib.h"
 #include "x11gfx_fullscreen.h"
+#include "x11_intui_bridge.h"
+
+struct intuixchng intuixchng;
 
 /****************************************************************************************/
 
@@ -212,9 +215,9 @@ int X11_Init(struct x11_staticdata *xsd)
 
         if ((x11task = create_x11task(&xtp)))
         {
-            xsd->intuixchng.xdisplay = xsd->display; // get display to intuition so it uses the same display
-            xsd->intuixchng.delete_win_atom = xsd->delete_win_atom;
-            x11task->tc_UserData = &xsd->intuixchng;
+            intuixchng.xdisplay = xsd->display; // get display to intuition so it uses the same display
+            intuixchng.delete_win_atom = xsd->delete_win_atom;
+            x11task->tc_UserData = &intuixchng;
 
             if (initclasses(xsd))
             {

@@ -1857,27 +1857,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
 }
 
 #include <X11/Xlib.h>
-
-struct intuixchng
-{
-    struct MsgPort  *port;
-    Display         *xdisplay;
-    Atom            delete_win_atom;
-};
-
-struct FromX11Msg
-{
-    struct Message  base;
-    ULONG           type;
-    Window          xwindow;
-    LONG            A;
-    LONG            B;
-};
-
-#define FROMX11_WINDOWPOS       (1)
-#define FROMX11_CLOSEWINDOW     (2)
-#define FROMX11_REFRESHWINDOW   (3)
-#define FROMX11_WINDOWSIZE      (4)
+#include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
 
 static struct Window *FindWindow(struct IntuitionBase *IntuitionBase, Window xwindow)
 {

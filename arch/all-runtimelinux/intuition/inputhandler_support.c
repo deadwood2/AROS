@@ -1494,13 +1494,7 @@ struct Screen *FindActiveScreen(struct IntuitionBase *IntuitionBase)
 
 /****************************************************************************************/
 #include <X11/Xlib.h>
-
-struct intuixchng
-{
-    struct MsgPort  *port;
-    Display         *xdisplay;
-    Atom            delete_win_atom;
-};
+#include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
 
 struct Window *FindActiveWindow(struct InputEvent *ie, struct Screen *scr, ULONG *stitlebarhit,
                             struct IntuitionBase *IntuitionBase)

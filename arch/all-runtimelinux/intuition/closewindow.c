@@ -449,18 +449,10 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
     UNLOCK_REFRESH(screen);
 } /* int_closewindow */
 
-
 /**********************************************************************************/
 
 #include <X11/Xlib.h>
-
-struct intuixchng
-{
-    struct MsgPort  *port;
-    Display         *xdisplay;
-    Atom            delete_win_atom;
-};
-
+#include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
 
 void intui_CloseWindow (struct Window * w,
                         struct IntuitionBase * IntuitionBase)
