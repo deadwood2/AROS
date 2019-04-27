@@ -1233,7 +1233,8 @@ exit:
 } /* OpenWindow */
 
 
-static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap, struct IntuitionBase *IntuitionBase)
+static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
+        struct Layer_Info **layerInfo, struct IntuitionBase *IntuitionBase)
 {
     Display *xd;
     Window xw;
@@ -1276,6 +1277,11 @@ static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
             BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
 
     IW(w)->XWindow = xw;
+
+    // create layer info
+    (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
+    InitLayers(*layerInfo);
+
 }
 
 /**********************************************************************************/
@@ -1292,10 +1298,10 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
     struct Hook   * shapehook = msg->shapehook;
     struct Layer  * parent = msg->parentlayer;
     BOOL            invisible = msg->invisible;
-    struct BitMap * windowBitMap = w->WScreen->RastPort.BitMap;
-    struct Layer_Info * layerInfo = &w->WScreen->LayerInfo;
-    WORD leftEdge = w->RelLeftEdge;
-    WORD topEdge = w->RelTopEdge;
+    struct BitMap * windowBitMap = NULL;
+    struct Layer_Info * layerInfo = NULL;
+    WORD leftEdge = 0;
+    WORD topEdge = 0;
 
 #ifdef SKINS
     BOOL            installtransphook = FALSE;
@@ -1343,16 +1349,7 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
           w->LeftEdge, w->TopEdge, w->Width, w->Height));
 
 
-    int_opennativewindow(w, &windowBitMap, IntuitionBase);
-
-    // create layer info
-    layerInfo = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
-    InitLayers(layerInfo);
-
-    // position of layer
-    leftEdge = 0;
-    topEdge = 0;
-
+    int_opennativewindow(w, &windowBitMap, &layerInfo, IntuitionBase);
 
 #ifdef SKINS
     //install transp layer hook!
@@ -1426,13 +1423,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
         /* First create outer window */
         struct Layer * L = CreateUpfrontLayerTagList(
-                                   &w->WScreen->LayerInfo
-                                   , w->WScreen->RastPort.BitMap
+                                   layerInfo
+                                   , windowBitMap
 #ifndef __MORPHOS
-                                   , w->RelLeftEdge
-                                   , w->RelTopEdge
-                                   , w->RelLeftEdge + w->Width - 1
-                                   , w->RelTopEdge  + w->Height - 1
+                                   , leftEdge
+                                   , topEdge
+                                   , leftEdge + w->Width - 1
+                                   , topEdge  + w->Height - 1
 #else
                                    , w->LeftEdge
                                    , w->TopEdge
@@ -1470,13 +1467,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
         }
 
         w->WLayer = CreateUpfrontLayerTagList(
-                &w->WScreen->LayerInfo
-                , w->WScreen->RastPort.BitMap
+                layerInfo
+                , windowBitMap
 #ifndef __MORPHOS__
-                , w->RelLeftEdge + w->BorderLeft
-                , w->RelTopEdge  + w->BorderTop
-                , w->RelLeftEdge + w->BorderLeft + w->GZZWidth - 1
-                , w->RelTopEdge  + w->BorderTop + w->GZZHeight - 1
+                , leftEdge + w->BorderLeft
+                , topEdge  + w->BorderTop
+                , leftEdge + w->BorderLeft + w->GZZWidth - 1
+                , topEdge  + w->BorderTop + w->GZZHeight - 1
 #else
                 , w->LeftEdge + w->BorderLeft
                 , w->TopEdge  + w->BorderTop
