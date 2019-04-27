@@ -1874,7 +1874,7 @@ static struct Window *FindWindow(struct IntuitionBase *IntuitionBase, Window xwi
 
 static void HandleFromX11(struct IntuitionBase *IntuitionBase)
 {
-    struct MsgPort *port = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->port;
+    struct MsgPort *port = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->intuition_port;
     struct FromX11Msg *msg;
 
     while ((msg = (struct FromX11Msg *)GetMsg(port)))

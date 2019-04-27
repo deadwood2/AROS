@@ -8,7 +8,7 @@
 
 struct intuixchng
 {
-    struct MsgPort  *port;
+    struct MsgPort  *intuition_port;
     Display         *xdisplay;
     Atom            delete_win_atom;
 };

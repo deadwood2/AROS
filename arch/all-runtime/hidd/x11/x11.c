@@ -410,7 +410,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                 struct FromX11Msg *msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
                 msg->type = FROMX11_CLOSEWINDOW;
                 msg->xwindow = event.xany.window;
-                PutMsg(intuixchng.port,(struct Message *)msg);
+                PutMsg(intuixchng.intuition_port,(struct Message *)msg);
             }
 
             /* Redirect focus from outer window to inner window. This allows
@@ -465,7 +465,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                         msg->xwindow = event.xany.window;
                         msg->A = 0;
                         msg->B = 0;
-                        PutMsg(intuixchng.port,(struct Message *)msg);
+                        PutMsg(intuixchng.intuition_port,(struct Message *)msg);
                     }
                     break;
 
@@ -502,7 +502,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
 
                 case ConfigureNotify:
                 {
-                    if (intuixchng.port)
+                    if (intuixchng.intuition_port)
                     {
                         XConfigureEvent *me;
                         me = (XConfigureEvent *)&event;
@@ -514,7 +514,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                             msg->xwindow = me->window;
                             msg->A = me->x;
                             msg->B = me->y;
-                            PutMsg(intuixchng.port,(struct Message *)msg);
+                            PutMsg(intuixchng.intuition_port,(struct Message *)msg);
                         }
 
                     }
