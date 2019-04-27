@@ -1232,8 +1232,53 @@ exit:
     AROS_LIBFUNC_EXIT
 } /* OpenWindow */
 
-/**********************************************************************************/
 
+static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap, struct IntuitionBase *IntuitionBase)
+{
+    Display *xd;
+    Window xw;
+    int xs;
+    XSizeHints *hints;
+
+    xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+
+    xs = DefaultScreen(xd);
+    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, w->TopEdge, w->Width, w->Height, 1,
+                            BlackPixel(xd, xs), WhitePixel(xd, xs));
+    XStoreName(xd, xw, w->Title);
+    XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
+            | KeyPressMask | KeyReleaseMask);
+    XSetWMProtocols(xd, xw, &((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->delete_win_atom, 1);
+
+    // FIXME: For now disable window size change because the initially created bitmap is not resizable and ConfigureEvent
+    // x,y positions are relative to border when re-sizing
+    // Need to think how to handle this? Whole screen bitmap for each window? ConfigureEvent remaping to root window coords?
+    // NOTE: Don't remove PPosition after fixing sizing!!!
+    hints = XAllocSizeHints();
+    hints->flags |= PMaxSize | PMinSize | PPosition;
+    hints->min_width = hints->max_width = w->Width;
+    hints->min_height = hints->max_height = w->Height;
+    XSetWMNormalHints(xd, xw, hints);
+    XFree(hints);
+
+    XMapWindow(xd, xw);
+
+    XFlush(xd);
+
+    // create bitmap using this window
+    struct TagItem xwindowtags [] =
+    {
+        {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
+        {BMATags_Private1, (IPTR)xw },
+        {TAG_DONE}
+    };
+    (*windowBitMap) = AllocBitMap(w->Width, w->Height, w->WScreen->RastPort.BitMap->Depth,
+            BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
+
+    IW(w)->XWindow = xw;
+}
+
+/**********************************************************************************/
 
 static VOID int_openwindow(struct OpenWindowActionMsg *msg,
                            struct IntuitionBase *IntuitionBase)
@@ -1297,59 +1342,16 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
     D(bug("Window dims: (%d, %d, %d, %d)\n",
           w->LeftEdge, w->TopEdge, w->Width, w->Height));
 
-    {
-        Display *xd;
-        Window xw;
-        int xs;
-        XSizeHints *hints;
 
-        xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    int_opennativewindow(w, &windowBitMap, IntuitionBase);
 
-        xs = DefaultScreen(xd);
-        xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, w->TopEdge, w->Width, w->Height, 1,
-                                BlackPixel(xd, xs), WhitePixel(xd, xs));
-        XStoreName(xd, xw, w->Title);
-        XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
-                | KeyPressMask | KeyReleaseMask);
-        XSetWMProtocols(xd, xw, &((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->delete_win_atom, 1);
+    // create layer info
+    layerInfo = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
+    InitLayers(layerInfo);
 
-        // FIXME: For now disable window size change because the initially created bitmap is not resizable and ConfigureEvent
-        // x,y positions are relative to border when re-sizing
-        // Need to think how to handle this? Whole screen bitmap for each window? ConfigureEvent remaping to root window coords?
-        // NOTE: Don't remove PPosition after fixing sizing!!!
-        hints = XAllocSizeHints();
-        hints->flags |= PMaxSize | PMinSize | PPosition;
-        hints->min_width = hints->max_width = w->Width;
-        hints->min_height = hints->max_height = w->Height;
-        XSetWMNormalHints(xd, xw, hints);
-        XFree(hints);
-
-        XMapWindow(xd, xw);
-
-        XFlush(xd);
-
-        // create bitmap using this window
-        struct TagItem xwindowtags [] =
-        {
-            {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
-            {BMATags_Private1, (IPTR)xw },
-            {TAG_DONE}
-        };
-        windowBitMap = AllocBitMap(w->Width, w->Height, w->WScreen->RastPort.BitMap->Depth,
-                BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
-
-        // create layer info
-        layerInfo = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
-        InitLayers(layerInfo);
-
-        // position of layer
-        leftEdge = 0;
-        topEdge = 0;
-
-        IW(w)->XWindow = xw;
-    }
-
-
+    // position of layer
+    leftEdge = 0;
+    topEdge = 0;
 
 
 #ifdef SKINS
