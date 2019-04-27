@@ -48,8 +48,6 @@ BOOL X11BM_InitPM(OOP_Class *cl, OOP_Object *o, struct TagItem *attrList)
 	friend_drawable = XSD(cl)->dummy_window_for_creating_pixmaps;
     }
 
-    private1 = GetTagData(aHidd_BitMap_Private1, 0, attrList);
-
     /* 
      * We must only create depths that are supported by the friend drawable
      * Currently we only support the default depth, and depth 1
@@ -68,19 +66,20 @@ BOOL X11BM_InitPM(OOP_Class *cl, OOP_Object *o, struct TagItem *attrList)
 
     HostLib_Lock();
 
-    if (private1 == 0)
-        DRAWABLE(data) = XCALL(XCreatePixmap, data->display, friend_drawable, data->width, data->height, depth);
-    else
-    {
-        DRAWABLE(data) = private1;
-        WINDRAWABLE(data) = private1; // needed for list of handled windows to work
-    }
+    DRAWABLE(data) = XCALL(XCreatePixmap, data->display, friend_drawable, data->width, data->height, depth);
 
     XCALL(XFlush, data->display);
 
     HostLib_Unlock();
 
-    if (private1 != 0) X11BM_NotifyFB(cl, o); // add window to list of handled windows
+    private1 = GetTagData(aHidd_BitMap_Private1, 0, attrList);
+
+    if (private1 != 0)
+    {
+        data->flags |= BMDF_FRAMEBUFFER;
+        WINDRAWABLE(data) = private1; // needed for list of handled windows to work
+        X11BM_NotifyFB(cl, o); // add window to list of handled windows
+    }
 
     return DRAWABLE(data) ? TRUE : FALSE;
 }

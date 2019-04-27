@@ -455,15 +455,6 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                     X11BM_ExposeFB(OOP_INST_DATA(OOP_OCLASS(node->bmobj), node->bmobj), event.xexpose.x,
                             event.xexpose.y, event.xexpose.width, event.xexpose.height);
                     UNLOCK_X11
-                    {
-//                        bug("Expose\n");
-                        struct FromX11Msg *msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
-                        msg->type = FROMX11_REFRESHWINDOW;
-                        msg->xwindow = event.xany.window;
-                        msg->A = 0;
-                        msg->B = 0;
-                        PutMsg(intuixchng.intuition_port,(struct Message *)msg);
-                    }
                     break;
 
                 case ConfigureRequest:
