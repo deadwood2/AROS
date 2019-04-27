@@ -37,8 +37,10 @@
 #define DEBUG DEBUG_OpenWindow
 #   include <aros/debug.h>
 
+#include <unistd.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/Xatom.h>
 #include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
 
 struct OpenWindowActionMsg
@@ -1232,7 +1234,6 @@ exit:
     AROS_LIBFUNC_EXIT
 } /* OpenWindow */
 
-
 static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
         struct Layer_Info **layerInfo, struct IntuitionBase *IntuitionBase)
 {
@@ -1262,11 +1263,22 @@ static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
     XSetWMNormalHints(xd, xw, hints);
     XFree(hints);
 
+    if (w->Flags & WFLG_BORDERLESS)
+    {
+        Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
+        long value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
+        XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value,1 );
+    }
+
     XMapWindow(xd, xw);
 
     XFlush(xd);
 
-    // create bitmap using this window
+    /* FIXME: this simulates delaying waiting for mapping */
+    if (w->Flags & WFLG_BORDERLESS)
+        usleep(8000);
+
+    /* Create bitmap using this window */
     struct TagItem xwindowtags [] =
     {
         {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
@@ -1278,7 +1290,7 @@ static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
 
     IW(w)->XWindow = xw;
 
-    // create layer info
+    /* Create layer info */
     (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
     InitLayers(*layerInfo);
 
