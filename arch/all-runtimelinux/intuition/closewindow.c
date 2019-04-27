@@ -449,15 +449,15 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
     UNLOCK_REFRESH(screen);
 } /* int_closewindow */
 
+
 /**********************************************************************************/
 
-#include <X11/Xlib.h>
-#include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
 
 void intui_CloseWindow (struct Window * w,
                         struct IntuitionBase * IntuitionBase)
 {
     struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
+    struct BitMap *bm = w->WLayer->rp->BitMap;
     KillWinSysGadgets(w, IntuitionBase);
 
     if (0 == (w->Flags & WFLG_GIMMEZEROZERO))
@@ -467,15 +467,6 @@ void intui_CloseWindow (struct Window * w,
             DeleteLayer(0, WLAYER(w));
         DeinitRastPort(w->BorderRPort);
         FreeMem(w->BorderRPort, sizeof(struct RastPort));
-
-        {
-            Display *xd;
-            xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-            XDestroyWindow(xd, IW(w)->XWindow);
-            //FIXME: X window is not removed from list of windows in x11gfx
-            // should not cause problem unless list gets too long and performance suffers
-        }
-
     }
     else
     {
@@ -488,6 +479,9 @@ void intui_CloseWindow (struct Window * w,
         if (NULL != BLAYER(w))
             DeleteLayer(0, BLAYER(w));
     }
+
+    /* Freeing allocated BitMap will also close the window in x11gfx.hidd */
+    FreeBitMap(bm);
 
     if (IW(w)->free_pointer)
         DisposeObject(IW(w)->pointer);
