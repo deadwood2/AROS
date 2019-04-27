@@ -37,11 +37,12 @@
 #define DEBUG DEBUG_OpenWindow
 #   include <aros/debug.h>
 
-#include <unistd.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
 #include "../../all-runtime/hidd/x11/x11_intui_bridge.h"
+#define X11_TYPES_H
+#include "../../all-hosted/hidd/x11/x11.h"
 
 struct OpenWindowActionMsg
 {
@@ -1241,8 +1242,10 @@ static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
     Window xw;
     int xs;
     XSizeHints *hints;
+    struct MsgPort *port;
+    struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
 
-    xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
 
     xs = DefaultScreen(xd);
     xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, w->TopEdge, w->Width, w->Height, 1,
@@ -1270,23 +1273,39 @@ static VOID int_opennativewindow(struct Window *w, struct BitMap **windowBitMap,
         XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value,1 );
     }
 
-    XMapWindow(xd, xw);
-
-    XFlush(xd);
-
-    /* FIXME: this simulates delaying waiting for mapping */
-    if (w->Flags & WFLG_BORDERLESS)
-        usleep(8000);
-
     /* Create bitmap using this window */
-    struct TagItem xwindowtags [] =
     {
-        {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
-        {BMATags_Private1, (IPTR)xw },
-        {TAG_DONE}
-    };
-    (*windowBitMap) = AllocBitMap(w->Width, w->Height, w->WScreen->RastPort.BitMap->Depth,
-            BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
+        struct TagItem xwindowtags [] =
+        {
+            {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
+            {BMATags_Private1, (IPTR)xw },
+            {TAG_DONE}
+        };
+        (*windowBitMap) = AllocBitMap(w->Width, w->Height, w->WScreen->RastPort.BitMap->Depth,
+                BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
+    }
+
+    /*
+     * How this works:
+     * Previous call to AllocBitMap with BMATags_Private1 element got passed to x11gfx.hidd where
+     * this window became the backing buffer of bitmap. Window was also registered with
+     * NOTY_WINCREATE call (X11BM_InitPM->X11BM_NotifyFB). Sending the NOTY_MAPWINDOW message
+     * will map the window reply. We will only continue once window is mapped (WaitPort below)
+     * NOTE: this sequence requires OPTION_DELAYXWINMAPPING set in x11gfx.hidd.
+     */
+    {
+        port = CreateMsgPort();
+        struct notify_msg msg;
+
+        msg.notify_type = NOTY_MAPWINDOW;
+        msg.xdisplay = xd;
+        msg.xwindow = xw;
+        msg.execmsg.mn_ReplyPort = port;
+        PutMsg(intuixchng->x11task_notify_port, &msg.execmsg);
+        WaitPort(msg.execmsg.mn_ReplyPort);
+        GetMsg(msg.execmsg.mn_ReplyPort);
+        DeleteMsgPort(port);
+    }
 
     IW(w)->XWindow = xw;
 

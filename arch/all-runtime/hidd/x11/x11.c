@@ -178,9 +178,6 @@ VOID x11task_entry(struct x11task_params *xtpparam)
 
                         LOCK_X11
                         XCALL(XMapWindow, nmsg->xdisplay, nmsg->xwindow);
-#if ADJUST_XWIN_SIZE
-                        XCALL(XMapRaised, nmsg->xdisplay, nmsg->masterxwindow);
-#endif
                         UNLOCK_X11
 
                         AddTail((struct List *) &nmsg_list, (struct Node *) nmsg);

@@ -11,6 +11,7 @@ struct intuixchng
     struct MsgPort  *intuition_port;
     Display         *xdisplay;
     Atom            delete_win_atom;
+    struct MsgPort  *x11task_notify_port;
 };
 
 struct FromX11Msg

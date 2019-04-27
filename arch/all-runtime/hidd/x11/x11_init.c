@@ -217,6 +217,7 @@ int X11_Init(struct x11_staticdata *xsd)
         {
             intuixchng.xdisplay = xsd->display; // get display to intuition so it uses the same display
             intuixchng.delete_win_atom = xsd->delete_win_atom;
+            intuixchng.x11task_notify_port = xsd->x11task_notify_port;
             x11task->tc_UserData = &intuixchng;
 
             if (initclasses(xsd))
