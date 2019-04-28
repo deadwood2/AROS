@@ -139,7 +139,7 @@ VOID X11Mouse__Hidd_Mouse_X11__HandleEvent(OOP_Class *cl, OOP_Object *o, struct 
 	{
 	    case Button1:
 	    case Button2:
-//	    case Button3: // FIXME: for now disable right mouse button not to have problems with menu
+	    case Button3:
     	    	e.button = xbutton2hidd(xb);
 	    	e.type   = vHidd_Mouse_Release;
 	    	data->mouse_callback(data->callbackdata, &e);
@@ -152,7 +152,7 @@ VOID X11Mouse__Hidd_Mouse_X11__HandleEvent(OOP_Class *cl, OOP_Object *o, struct 
 	{
 	    case Button1:
 	    case Button2:
-//	    case Button3: // FIXME: for now disable right mouse button not to have problems with menu
+	    case Button3:
     		e.button = xbutton2hidd(xb);
 		e.type   = vHidd_Mouse_Press;
         	data->mouse_callback(data->callbackdata, &e);
