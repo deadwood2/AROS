@@ -28,7 +28,7 @@ ACPICA_INCLUDES     := $(ACPICASRCDIR)/source/include
     destination=$(PORTSDIR)/acpica
 
 #MM kernel-pc-acpica : acpica-fetch
-#MM includes-copy :  acpica-fetch
+##MM includes-copy :  acpica-fetch
 
 ACPICA_BASESOURCES = \
        $(call WILDCARD, $(ACPICASRCDIR)/source/components/executer/*.c) \
@@ -75,13 +75,13 @@ USER_INCLUDES += \
 
 # Headers
 
-INCLUDE_FILES := $(call WILDCARD, include/*.h)
+#INCLUDE_FILES := $(call WILDCARD, include/*.h)
 
-%copy_includes path=libraries dir=include
+#%copy_includes path=libraries dir=include
 
-INCLUDE_FILES = $(call WILDCARD, $(ACPICA_INCLUDES)/*.h)
+#INCLUDE_FILES = $(call WILDCARD, $(ACPICA_INCLUDES)/*.h)
 
-%copy_includes path=acpica dir=$(ACPICA_INCLUDES)
+#%copy_includes path=acpica dir=$(ACPICA_INCLUDES)
 
 # Programs
 
