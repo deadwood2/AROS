@@ -439,6 +439,7 @@ static void HandleIntuiReplyPort(struct IIHData *iihdata, struct IntuitionBase *
     } /* while ((im = (struct IntuiMessage *)GetMsg(iihdata->IntuiReplyPort))) */
 }
 /****************************************************************************************/
+struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase);
 
 struct Window *GetToolBoxWindow(struct InputEvent *ie, struct Screen *scr, struct IntuitionBase *IntuitionBase)
 {
@@ -457,7 +458,7 @@ struct Window *GetToolBoxWindow(struct InputEvent *ie, struct Screen *scr, struc
         /* What layer ? */
         LockLayerInfo(&scr->LayerInfo);
 
-        l = WhichLayer(&scr->LayerInfo, scr->MouseX, scr->MouseY);
+        l = WhichLayer_X11(&scr->LayerInfo, scr->MouseX, scr->MouseY, IntuitionBase);
 
         UnlockLayerInfo(&scr->LayerInfo);
 
