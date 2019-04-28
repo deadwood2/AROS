@@ -1591,7 +1591,7 @@ static struct Gadget *Process_RawMouse(struct InputEvent *ie, struct IIHData *ii
     } else {
         IntuitionBase->MouseX = ie->ie_X;
         IntuitionBase->MouseY = ie->ie_Y;
-        bug("Mouse %d,%d\n", IntuitionBase->MouseX, IntuitionBase->MouseY);
+        D(bug("Mouse %d,%d\n", IntuitionBase->MouseX, IntuitionBase->MouseY));
     }
     notify_mousemove_screensandwindows(IntuitionBase);
 #if !SINGLE_SETPOINTERPOS_PER_EVENTLOOP
