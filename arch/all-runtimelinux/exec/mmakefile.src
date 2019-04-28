@@ -12,6 +12,6 @@ USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
 
 %build_archspecific \
   mainmmake=kernel-exec maindir=rom/exec \
-  arch=runtimelinux files=$(FILES)
+  arch=runtimelinux files=$(FILES) modname=exec
 
 %common

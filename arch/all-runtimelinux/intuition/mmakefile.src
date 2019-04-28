@@ -9,6 +9,6 @@ USER_INCLUDES := -I$(SRCDIR)/rom/intuition \
 
 %build_archspecific \
   mainmmake=kernel-intuition maindir=rom/intuition \
-  arch=runtimelinux files=$(FILES)
+  arch=runtimelinux files=$(FILES) modname=intuition
 
 %common

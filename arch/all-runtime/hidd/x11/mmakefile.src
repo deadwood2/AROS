@@ -9,6 +9,6 @@ USER_INCLUDES := -I$(SRCDIR)/arch/all-hosted/hidd/x11 \
 
 %build_archspecific \
   mainmmake=kernel-x11gfx maindir=arch/all-hosted/hidd/x11 \
-  arch=runtimelinux files=$(FILES)
+  arch=runtimelinux files=$(FILES) modname=x11gfx
 
 %common

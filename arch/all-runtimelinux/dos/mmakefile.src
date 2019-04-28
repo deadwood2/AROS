@@ -9,6 +9,6 @@ USER_INCLUDES := -I$(SRCDIR)/rom/dos \
 
 %build_archspecific \
   mainmmake=kernel-dos maindir=rom/dos \
-  arch=runtimelinux files=$(FILES)
+  arch=runtimelinux files=$(FILES) modname=dos
 
 %common

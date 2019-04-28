@@ -10,6 +10,6 @@ USER_INCLUDES := -I$(SRCDIR)/arch/all-hosted/hostlib \
 
 %build_archspecific \
   mainmmake=kernel-hostlib maindir=arch/all-hosted/hostlib \
-  arch=runtimelinux files=$(FILES)
+  arch=runtimelinux files=$(FILES) modname=hostlib
 
 %common
