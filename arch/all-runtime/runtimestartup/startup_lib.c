@@ -242,65 +242,65 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     asm("int3");
 }
 
-//#define PACKAGED_BUILD
-
 __attribute__((visibility("default"))) void __set_runtime_env()
 {
     /* Paths needs to end with "/" */
     STRPTR RUNTIME_ROOT = NULL, AROSSYS = NULL, USERSYS = NULL;
 
     const int _size = 512;
-    char buff[_size];
     RUNTIME_ROOT    = malloc(_size);
     AROSSYS         = malloc(_size);
     USERSYS         = malloc(_size);
-    getcwd(buff, _size);
 
-#if defined(PACKAGED_BUILD)
-    /* Paths are relative to executable directory */
-    strcat(RUNTIME_ROOT, buff);
-    strcat(RUNTIME_ROOT, "/SYS/");
 
-    strcat(AROSSYS, "ROOT:");
-    strcat(AROSSYS, buff + 1);
-    strcat(AROSSYS, "/SYS/");
-
-    strcat(USERSYS, "ROOT:");
-    strcat(USERSYS, buff + 1);
-    strcat(USERSYS, "/USERSYS/");
-    (void)__bye;
-#else
     /* Paths based on environment variable */
     char *t;
     struct passwd *pw;
 
     t = getenv("AROSRUNTIME_ROOT");
+
     if (t)
     {
+        char buff[_size];
+
+        printf("<<INFO>>: AROSRUNTIME_ROOT environment variable set, using absolute paths.\n");
+
         strcpy(buff, t);
         int i = strlen(buff);
         if (buff[i-1] == '/') buff[i-1] = 0;
+
+        strcat(RUNTIME_ROOT, buff);
+        strcat(RUNTIME_ROOT, "/");
+
+        strcat(AROSSYS, "ROOT:");
+        strcat(AROSSYS, buff + 1);
+        strcat(AROSSYS, "/");
+
+        /* ~/.aros/ */
+        pw = getpwuid(getuid());
+        strcat(USERSYS, "ROOT:");
+        strcat(USERSYS, pw->pw_dir + 1);
+        strcat(USERSYS, "/.aros/");
     }
     else
     {
-        printf("<<ERROR>>: AROSRUNTIME_ROOT environment variable not set.\n");
-        __bye();
+        char buff[_size];
+
+        printf("<<INFO>>: AROSRUNTIME_ROOT environment variable not set, using relative paths.\n");
+        getcwd(buff, _size);
+
+        /* Paths are relative to executable directory */
+        strcat(RUNTIME_ROOT, buff);
+        strcat(RUNTIME_ROOT, "/SYS/");
+
+        strcat(AROSSYS, "ROOT:");
+        strcat(AROSSYS, buff + 1);
+        strcat(AROSSYS, "/SYS/");
+
+        strcat(USERSYS, "ROOT:");
+        strcat(USERSYS, buff + 1);
+        strcat(USERSYS, "/USERSYS/");
     }
-
-
-    strcat(RUNTIME_ROOT, buff);
-    strcat(RUNTIME_ROOT, "/");
-
-    strcat(AROSSYS, "ROOT:");
-    strcat(AROSSYS, buff + 1);
-    strcat(AROSSYS, "/");
-
-    /* ~/.aros/ */
-    pw = getpwuid(getuid());
-    strcat(USERSYS, "ROOT:");
-    strcat(USERSYS, pw->pw_dir + 1);
-    strcat(USERSYS, "/.aros/");
-#endif
 
     printf("RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
     printf("AROSSYS     : %s\n", AROSSYS);
