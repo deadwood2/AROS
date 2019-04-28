@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-FILES := closewindow inputhandler inputhandler_support openwindow openworkbench zipwindow
+FILES := closewindow inputhandler inputhandler_support menutask openwindow openworkbench zipwindow
 
 USER_INCLUDES := -I$(SRCDIR)/rom/intuition \
 		    -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
