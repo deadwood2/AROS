@@ -445,10 +445,8 @@ IPTR Notify__OM_SET(struct IClass *cl, Object *obj, struct opSet *msg)
         return 0;
 
     tags = msg->ops_AttrList;
-    D(bug("[MUI:Notify] tags @ 0x%p\n", tags);)
     while ((tag = NextTagItem(&tags)))
     {
-        D(bug("[MUI:Notify]     tag @ 0x%p\n", tag);)
         ForeachNode (data->mnd_NotifyList, node)
         {
             check_notify((NNode) node, obj, tag);
