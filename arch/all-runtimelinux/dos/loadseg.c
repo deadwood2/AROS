@@ -90,6 +90,7 @@ static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
     strreplace(path, "libs:datatypes", "Classes/DataTypes");
     strreplace(path, "/libs/", "/Libs/");
     strreplace(path, "/datatypes/", "/DataTypes/");
+    strreplace(path, "/gadgets/","/Classes/Gadgets/");
     // TODO: rethink, should LoadSeg accept only AROS paths and convert them to ROOT: absolute paths via Lock/NameFromLock?
     // and then to Linux paths? This would remove needs to certain hacks on the path variable
     // above
