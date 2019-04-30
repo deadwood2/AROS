@@ -7,11 +7,11 @@ include $(SRCDIR)/config/aros.cfg
 MESA3DGL_DIRECTORY :=$(SRCDIR)/workbench/libs/mesa
 include $(MESA3DGL_DIRECTORY)/mesa.cfg
 
-#MM- workbench-libs-complete : workbench-libs-hostgl-$(OPT_HOST_X11_HOSTGL)
+##MM- workbench-libs-complete : workbench-libs-hostgl-$(OPT_HOST_X11_HOSTGL)
 
-#MM- workbench-libs-hostgl-yes : workbench-libs-hostgl
+##MM- workbench-libs-hostgl-yes : workbench-libs-hostgl
 
-#MM workbench-libs-hostgl : includes
+##MM workbench-libs-hostgl : includes
 
 MESA_DIRECTORY := $(top_srcdir)/src/mesa
 MESA_GALLIUM_DIRECTORY := $(top_srcdir)/src/gallium
