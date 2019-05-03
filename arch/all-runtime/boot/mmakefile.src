@@ -9,6 +9,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  kernel-expansion \
 #MM  kernel-timer \
 #MM  runtime-startup \
+#MM  runtime-clibs \
 #MM  kernel-x11gfx \
 #MM  kernel-hostlib \
 #MM  kernel-fs-emul \
