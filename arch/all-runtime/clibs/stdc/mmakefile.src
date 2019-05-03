@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdc-linklib
-#MM- runtime-clibs : runtime-clibs-stdc
+#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdc-linklib $(FAMILY)-clibs-stdcio-linklib
+#MM- runtime-clibs : runtime-clibs-stdc runtime-clibs-stdcio
 
 STDC_PATH = $(SRCDIR)/compiler/stdc/
 
@@ -23,6 +23,29 @@ USER_CPPFLAGS := -Dlint '-D__FBSDID(x)='
 
 %build_linklib mmake=runtime-clibs-stdc-linklib libname=stdc \
     files="" objdir=$(GENDIR)/$(CURDIR)/linklib
+
+
+
+STDCIO_SOURCES :=
+
+RUNTIME_STDCIO = \
+    $(addprefix $(STDC_PATH),$(STDCIO_SOURCES)) \
+
+USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
+USER_LDFLAGS :=
+USER_CPPFLAGS := -Dlint '-D__FBSDID(x)='
+
+# build_module_library is used instead of build_module so that linklibs-stdc target is not created
+# this target would interfere with standard build
+
+%build_module_library mmake=runtime-clibs-stdcio \
+    modname=stdcio modtype=library \
+    files="$(RUNTIME_STDCIO)"
+
+%build_linklib mmake=runtime-clibs-stdcio-linklib libname=stdcio \
+    files="" objdir=$(GENDIR)/$(CURDIR)/linklib
+
+
 
 STDC_STATIC_SOURCES := \
     stpblk \
