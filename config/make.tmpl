@@ -2629,8 +2629,8 @@ endif
 ifneq (%(includedir),)
     %(mmake)_CPPFLAGS      += -I%(includedir)
 endif
-%(mmake)_CFLAGS            := %(cflags)
-%(mmake)_CXXFLAGS          := %(cxxflags)
+%(mmake)_CFLAGS            := %(cflags) -fvisibility=hidden
+%(mmake)_CXXFLAGS          := %(cxxflags) -fvisibility=hidden
 ifeq (%(lto),yes)
 ifeq (%(compiler),target)
         %(mmake)_CFLAGS    := $(strip $(LTO_CFLAGS) $(%(mmake)_CFLAGS))
