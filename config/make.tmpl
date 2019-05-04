@@ -1067,7 +1067,7 @@ endif
 %(prog) : OBJS := %(objs) $(%(mmake)-link_DEPLIBS) $(TOOLDIR)/runtime.ld
 %(prog) : LDFLAGS := $(strip %(ldflags) $(%(mmake)-link_EXTRA_LDFLAGS))
 %(prog) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs)) \
--L$(AROS_LIB) -lmui -lamiga -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lexec -lruntimestartup -llibinit -lautoinit -larossupport -lamiga -lexec -lstdc.static -lm -ldl
+-L$(AROS_LIB) -lmui -lamiga -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lexec -lruntimestartup -lstdc.static -lstdc -llibinit -lautoinit -larossupport -lamiga -lexec -lm -ldl
 %(prog) : %(objs) $(%(mmake)-link_DEPLIBS)
 	%link_q cmd="%(cmd)" strip="%(strip)" from=$(OBJS) opt=$(LDFLAGS) libs=$(LIBS) objdir=$(OBJDIR) coverageinstr=%(coverageinstr)
 
@@ -1114,7 +1114,7 @@ endif
 $(%(mmake)-link_PROGS) : OBJDIR := %(objdir)
 $(%(mmake)-link_PROGS) : LDFLAGS := $(strip %(ldflags) $(%(mmake)-link_EXTRA_LDFLAGS))
 $(%(mmake)-link_PROGS) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs)) \
--L$(AROS_LIB) -lmui -lamiga -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lexec -lruntimestartup -llibinit -lautoinit -larossupport -lamiga -lexec -lstdc.static -lm -ldl
+-L$(AROS_LIB) -lmui -lamiga -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lexec -lruntimestartup -lstdc.static -lstdc -llibinit -lautoinit -larossupport -lamiga -lexec -lm -ldl
 $(%(mmake)-link_PROGS) : %(targetdir)/% : %(objdir)/%.o $(%(mmake)-link_DEPLIBS) $(TOOLDIR)/runtime.ld
 	%link_q cmd="%(cmd)" strip="%(strip)" from=$< opt=$(LDFLAGS) libs=$(LIBS) objdir=$(OBJDIR) coverageinstr=%(coverageinstr)
 %end
@@ -1174,7 +1174,7 @@ endif
 %(module) : LDFLAGS := $(%(mmake)_LDFLAGS) -shared -Wl,--unresolved-symbols=ignore-in-shared-libs
 ifeq (%(usehostlibs),)
 %(module) : LIBS := $(addprefix -l,$(LIB_NAMES)) \
-					-L$(AROS_LIB) -lexec -lmui -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -llibinit -lautoinit -lamiga -larossupport -lamiga -lstdc.static -lm -ldl
+					-L$(AROS_LIB) -lexec -lmui -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility -loop -lstdc.static -lstdc -llibinit -lautoinit -lamiga -larossupport -lamiga -lm -ldl
 else
 # Warning: the -L/usr/lib here can result in modules
 # linking against host libs instead of AROS libs (e.g stdc++) !!
