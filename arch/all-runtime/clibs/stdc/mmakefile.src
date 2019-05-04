@@ -5,7 +5,11 @@ include $(SRCDIR)/config/aros.cfg
 
 STDC_PATH = $(SRCDIR)/compiler/stdc/
 
-STDC_SOURCES :=
+STDC_SOURCES := \
+    stpblk \
+    strlcpy \
+    strlcat \
+    stcd_l
 
 RUNTIME_STDC = \
     $(addprefix $(STDC_PATH),$(STDC_SOURCES)) \
@@ -100,8 +104,6 @@ RUNTIME_STDCIO_LINKLIB := \
 STDC_STATIC_SOURCES := \
     stpblk \
     strlcpy \
-    strlcat \
-    stcd_l
 
 RUNTIME_STDC_STATIC = \
     $(addprefix $(STDC_PATH),$(STDC_STATIC_SOURCES)) \
