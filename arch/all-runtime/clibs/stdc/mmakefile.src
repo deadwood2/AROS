@@ -24,7 +24,7 @@ USER_CPPFLAGS := -Dlint '-D__FBSDID(x)='
 %build_linklib mmake=runtime-clibs-stdc-linklib libname=stdc \
     files="" objdir=$(GENDIR)/$(CURDIR)/linklib
 
-
+#==============================================================================
 
 STDCIO_SOURCES :=
 
@@ -35,17 +35,42 @@ USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
 USER_LDFLAGS :=
 USER_CPPFLAGS := -Dlint '-D__FBSDID(x)='
 
-# build_module_library is used instead of build_module so that linklibs-stdc target is not created
+# build_module_library is used instead of build_module so that linklibs-stdcio target is not created
 # this target would interfere with standard build
 
 %build_module_library mmake=runtime-clibs-stdcio \
     modname=stdcio modtype=library \
     files="$(RUNTIME_STDCIO)"
 
+#==============================================================================
+
+# Generate stub files and compile linklib in separate directory not to cause
+# conflicts with build_module_library(stdcio) above.
+
+STDCIOLINKLIB_OBJDIR := $(GENDIR)/$(CURDIR)/stdcio-linklib
+STDCIOLINKLIB-makefile := $(STDCIOLINKLIB_OBJDIR)/Makefile.stdciolibrary
+STDCIOLINKLIB_GENFILEFLAG := $(STDCIOLINKLIB_OBJDIR)/.stdcio.library-genfiles
+
+#MM
+runtime-clibs-stdcio-linklib-gen : $(STDCIOLINKLIB-makefile) $(STDCIOLINKLIB_GENFILEFLAG)
+
+$(STDCIOLINKLIB-makefile) : runtime-clibs-stdcio-linklib-makedirs
+
+%rule_makedirs dirs="$(STDCIOLINKLIB_OBJDIR) $(STDCIOLINKLIB_OBJDIR)/linklib" setuptarget=runtime-clibs-stdcio-linklib-makedirs
+
+%rule_genmodule_makefile modname=stdcio modtype=library targetdir="$(STDCIOLINKLIB_OBJDIR)"
+
+%rule_genmodule_files modname=stdcio modtype=library targetdir="$(STDCIOLINKLIB_OBJDIR)" stubdir="$(STDCIOLINKLIB_OBJDIR)/linklib"
+
+RUNTIME_STDCIO_LINKLIB := \
+    $(basename $(call WILDCARD, $(STDCIOLINKLIB_OBJDIR)/linklib/*.c))
+
+#MM runtime-clibs-stdcio-linklib : runtime-clibs-stdcio-linklib-gen
+
 %build_linklib mmake=runtime-clibs-stdcio-linklib libname=stdcio \
-    files="" objdir=$(GENDIR)/$(CURDIR)/linklib
+    files="$(RUNTIME_STDCIO_LINKLIB)" objdir="$(STDCIOLINKLIB_OBJDIR)/linklib"
 
-
+#==============================================================================
 
 STDC_STATIC_SOURCES := \
     stpblk \
@@ -62,3 +87,4 @@ USER_CPPFLAGS := -DSTDC_STATIC -Dlint
 %build_linklib mmake=runtime-clibs-stdc-static libname=stdc.static \
     files="$(RUNTIME_STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
+%common
