@@ -23,10 +23,13 @@ ifneq ($(AROS_TARGET_VARIANT),)
 endif
 
 TASKRES_FUNCS :=		\
-	    LockTaskList	\
-	    UnLockTaskList	\
-	    NextTaskEntry	\
-	    QueryTaskTagList
+	    LockTaskList        \
+	    UnLockTaskList      \
+	    NextTaskEntry       \
+	    QueryTaskTagList    \
+	    InitTaskHooks       \
+	    AddTaskHook         \
+	    RunTaskHooks
 
 TASKRES_FILES :=		\
 	    task_init		\

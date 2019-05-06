@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2015-2017, The AROS Development Team. All rights reserved.
+    Copyright (C) 2015-2019, The AROS Development Team. All rights reserved.
 */
 
 #ifndef TASKRES_INTERN_H
@@ -57,6 +57,17 @@ struct TaskListEntry
     struct List                 tle_HookTypes;
 };
 
+struct TaskListHookEntry
+{
+    struct Node                 tlhe_Node;
+    struct List                 tlhe_Hooks;
+};
+
+struct TaskListHookNode
+{
+    struct Hook                 *tln_Hook;
+};
+
 #ifdef TASKRES_ENABLE
 struct TaskListPrivate
 {
@@ -82,5 +93,7 @@ struct TaskListPrivate
 #define TASKTAG_PRELAUNCHHOOK   (TASKTAG_Dummy + 30)
 
 void task_CleanList(struct Task * task, struct TaskResBase *TaskResBase);
+struct TaskListHookEntry *GetHookTypeEntry(struct List *htList, ULONG thType, BOOL create);
+struct TaskListEntry *GetTaskEntry(struct Task *thisTask, struct TaskResBase *TaskResBase);
 
 #endif /* TASKRES_INTERN_H */
