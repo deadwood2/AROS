@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdc-linklib $(FAMILY)-clibs-stdcio-linklib
-#MM- runtime-clibs : runtime-clibs-stdc runtime-clibs-stdcio
+#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdc-linklib
+#MM- runtime-clibs : runtime-clibs-stdc
 
 STDC_PATH = $(SRCDIR)/compiler/stdc/
 
