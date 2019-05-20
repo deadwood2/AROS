@@ -29,6 +29,7 @@
     { \
         asm volatile( \
             ".weak " #fname "\n" \
+            ".hidden " #fname "\n" \
             "\tnop\n"               \
             "\tnop\n"               \
             "\tnop\n"               \
@@ -57,6 +58,7 @@
     { \
         asm volatile( \
             ".weak " #fname "\n"    \
+            ".hidden " #fname "\n"  \
             "\tnop\n"               \
             "\tnop\n"               \
             "\tnop\n"               \
@@ -127,6 +129,7 @@
     { \
         asm volatile( \
             ".weak " #fname "\n" \
+            ".hidden " #fname "\n" \
             "\tnop\n"               \
             "\tnop\n"               \
             "\tnop\n"               \
@@ -166,6 +169,7 @@
     { \
         asm volatile( \
             ".weak " #fname "\n"    \
+            ".hidden " #fname "\n"  \
             "\tnop\n"               \
             "\tnop\n"               \
             "\tnop\n"               \
