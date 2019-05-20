@@ -28,6 +28,7 @@
     { \
         asm volatile( \
             ".weak " #fname "\n" \
+            ".hidden " #fname "\n" \
             #fname " :\n" \
             "\tmovabsq $" #libbasename ", %%r11\n" \
             "\tmovq (%%r11),%%r11\n" \
@@ -47,6 +48,7 @@
     { \
         asm volatile( \
             ".weak " #fname "\n" \
+            ".hidden " #fname "\n" \
             "\t" #fname " :\n"   \
             "\tpushq %%rax\n"     \
             "\tpushq %%rdi\n"     \
