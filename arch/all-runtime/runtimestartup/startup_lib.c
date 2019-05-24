@@ -182,9 +182,10 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     AssignPath("THEME", "USERSYS:System/Themes/pixblue");
     AssignPath("FONTS","USERSYS:Fonts");
 
-    /* Set CurrentDir for process */
+    /* Set CurrentDir/HomeDir for process */
     BPTR currdir = Lock(msg->arps_CurrentDir, SHARED_LOCK);
     CurrentDir(currdir);
+    SetProgramDir(DupLock(currdir));
 
     main_AddDataTypes();
     main_IPrefs();
