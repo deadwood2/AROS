@@ -144,6 +144,11 @@ static void InitKickstart(struct ExecBase *SysBase)
 
 static struct ExecBase * local_SysBase = NULL;
 
+__attribute__((visibility("default"))) APTR __get_sysbase()
+{
+    return local_SysBase;
+}
+
 static VOID * InitRuntime(VOID *ptr)
 {
     /* Two pass initialization of exec.library */

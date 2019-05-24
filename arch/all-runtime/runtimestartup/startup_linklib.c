@@ -115,9 +115,9 @@ void __runtimestartup()
 
     void *__so_handle = NULL;
 
-    __so_handle = dlopen("./"RUNTIMESTARTUP, RTLD_LAZY);
+    __so_handle = dlopen("./"RUNTIMESTARTUP, RTLD_GLOBAL | RTLD_LAZY);
     if (__so_handle == NULL)
-        __so_handle = dlopen(RUNTIMESTARTUP, RTLD_LAZY);
+        __so_handle = dlopen(RUNTIMESTARTUP, RTLD_GLOBAL | RTLD_LAZY);
 
     if (__so_handle == NULL)
     {
