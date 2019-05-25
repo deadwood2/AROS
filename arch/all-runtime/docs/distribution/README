@@ -1,7 +1,7 @@
 =================================Introduction==================================
 
 AROS Runtime is a product for application developers who enjoy creating their
-applications using Amiga APIs. 
+applications using Amiga APIs.
 
 The runtime allows developers to continue developing Amiga applications in
 unmodified way while at the same time being able to utilize modern development
@@ -21,7 +21,7 @@ application.
 
 1) What is available is current version?
 
-    Current version is version V1.
+    Current version is version V2.
 
     This is an early preview version allowing application developers to test
     compilation and execution of their applications against the runtime. This
@@ -43,14 +43,13 @@ application.
 
 2) How do I install and use the runtime?
 
-    Runtime is composed of three modules: runtimestartup.so and SYS and USERSYS
+    Runtime is composed of three modules: libaxrt.so and SYS and USERSYS
     directories. Those modules need to be placed in the same directory as the
     application binary.
 
-    Application first loads runtimestartup.so from current directory. Then
-    runtimestartup.so searches for installation of runtime. Current it also
-    searches this in current directory, looking for SYS and USERSYS
-    directories.
+    Application first loads libaxrt.so from its directory. Then libaxrt.so
+    searches for installation of runtime. Current it also searches this in
+    current directory, looking for SYS and USERSYS directories.
 
 3) How do I install and use the SDK?
 
@@ -73,10 +72,10 @@ application.
 
 4.3) Detailed - Linking
 
-    Add path to linker libraries and at least -lruntimestartup with
-    dependencies, example:
+    Add path to linker libraries and at least -laxrt with dependencies,
+    example:
 
-    LDFLAGS = -L$(RUNTIME_SDK)/lib -lruntimestartup -llibinit -ldl -lautoinit -lamiga
+    LDFLAGS = -L$(RUNTIME_SDK)/lib -Wl,-rpath,'$$ORIGIN' -llibinit -lautoinit -lamiga -laxrt
 
     Add additional linker libraries to resolve symbols.
 
@@ -129,14 +128,4 @@ application.
 
    This version is being considered and it will be made if there is strong
    need expressed by developers community.
-
-6) Where can I find Intuition menu bar?
-
-   In this version Intuition menu bar is hidden and you cannot access. This
-   will be solved in future version.
-
-7) Keyboard input does not seem to work?
-
-   Correct. In this version mouse is working, but keyboard is not yet
-   supported.
 
