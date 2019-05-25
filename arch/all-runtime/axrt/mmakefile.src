@@ -3,19 +3,35 @@
 
 include $(SRCDIR)/config/aros.cfg
 
+#MM- core-linklibs : runtime-axrt-linklibs-$(FAMILY)
+#MM- runtime-axrt-linklibs-runtime : runtime-objects-startup
+
 #MM runtime-axrt-so : core-linklibs includes-generate-deps
 #MM runtime-axrt-so-quick
 #MM runtime-axrt-so-clean
 
 MODULE_FILES := \
-    fopen
+    startup/AddDataTypes \
+    startup/decoration \
+    startup/config \
+    startup/drawfuncs \
+    startup/menudecorclass \
+    startup/newimagefuncs \
+    startup/screendecorclass \
+    startup/windowdecorclass \
+    startup/iprefs/main_iprefs \
+    startup/iprefs/fontprefs \
+    startup/iprefs/vars \
+    startup/iprefs/misc \
+    startup/startup_lib \
+    shims/libc/fopen
 
 BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 
 .PHONY : $(BD_ALLTARGETS)
 
 # Default values for variables and arguments
-BD_DEFDFLAGS := $(CFLAGS)
+BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden
 OBJDIR ?= $(GENDIR)/$(CURDIR)
 BD_MODDIR := $(AROS_LIB)
 
@@ -40,7 +56,7 @@ BD_ERR := libaxrt.so.err
 
 %rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(TOOLDIR)/runtime.ld" \
 		 endobj= err=$(BD_ERR) objdir="$(OBJDIR)" \
-		 ldflags="$(LDFLAGS)"
+		 ldflags="$(LDFLAGS)" uselibs="pthread"
 
 ## Dependency fine-tuning
 ##
@@ -55,5 +71,33 @@ runtime-axrt-so-clean : FILES := $(BD_OBJS) $(BD_MODULE) $(BD_DEPS)
 runtime-axrt-so-clean ::
 	@$(ECHO) "Cleaning up for module libaxrt.so"
 	@$(RM) $(FILES)
+
+
+
+#MM runtime-axrt-so : runtime-objects-startup
+#MM runtime-objects-startup : runtime-objects-startup-setup
+
+ROS_FILES := \
+	startup/startup \
+
+ROS_OBJS  := $(addprefix $(AROS_LIB)/,$(addsuffix .o, $(notdir $(ROS_FILES))))
+ROS_DEPS  := $(addprefix $(GENDIR)/$(CURDIR)/,$(addsuffix .d,$(ROS_FILES)))
+
+runtime-objects-startup: $(ROS_OBJS)
+
+#MM
+runtime-objects-startup-quick: $(ROS_OBJS)
+
+$(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
+	@$(CP) $< $@
+
+%rule_compile basename=% targetdir=$(GENDIR)/$(CURDIR)
+
+#MM runtime-objects-startup-setup
+%rule_makedirs dirs="$(GENDIR)/$(CURDIR) $(AROS_LIB)" setuptarget=runtime-objects-startup-setup
+
+.PHONY: runtime-objects-startup runtime-objects-startup-setup
+
+%include_deps depstargets="runtime-objects-startup" deps=$(ROS_DEPS)
 
 %common

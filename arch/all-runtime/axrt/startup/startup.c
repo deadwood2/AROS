@@ -91,18 +91,13 @@ static void __startup_main(struct ExecBase *SysBase)
 ADD2SET(__startup_main, PROGRAM_ENTRIES, 127);
 /*****************************************************************************/
 
-void (*__kick_start)(void *);
-void (*__set_runtime_env)(void);
+void __runtimestartup();
+const void * const __init_runtime_symbol __attribute__((__section__(".init_array"))) __attribute__((used)) = (void *)&__runtimestartup;
 
-#define RUNTIMESTARTUP      "runtimestartup.so"
-#define FUNC_SETRUNTIMEENV  "__set_runtime_env"
-#define FUNC_KICKSTART      "__kick_start"
+void __kick_start(void *, int);
+void __set_runtime_env(int);
 
-static void __bye()
-{
-    printf("Exiting...\n");
-    exit(100);
-}
+#define STARTUP_VERSION (3)
 
 void __runtimestartup()
 {
@@ -113,39 +108,11 @@ void __runtimestartup()
      * guarantee this.
      */
 
-    void *__so_handle = NULL;
-
-    __so_handle = dlopen("./"RUNTIMESTARTUP, RTLD_GLOBAL | RTLD_LAZY);
-    if (__so_handle == NULL)
-        __so_handle = dlopen(RUNTIMESTARTUP, RTLD_GLOBAL | RTLD_LAZY);
-
-    if (__so_handle == NULL)
-    {
-        printf("<<ERROR>>Loader "RUNTIMESTARTUP" not found at either ./ or /usr/lib\n");
-        __bye();
-    }
-
-    __set_runtime_env = (void (*)())dlsym(__so_handle, FUNC_SETRUNTIMEENV);
-    if (__set_runtime_env == NULL)
-    {
-        printf("<<ERROR>> Function "FUNC_SETRUNTIMEENV" not found in "RUNTIMESTARTUP"\n");
-        dlclose(__so_handle);
-        __bye();
-    }
-
-    __kick_start = (void (*)(void *))dlsym(__so_handle, FUNC_KICKSTART);
-    if (__kick_start == NULL)
-    {
-        printf("<<ERROR>> Function "FUNC_KICKSTART" not found in "RUNTIMESTARTUP"\n");
-        dlclose(__so_handle);
-        __bye();
-    }
-
-    __set_runtime_env();
+    __set_runtime_env(STARTUP_VERSION);
 
     // TODO: error handling
 
-    __kick_start(__startup_entry);
+    __kick_start(__startup_entry, STARTUP_VERSION);
 
     // TODO: error handling
 }

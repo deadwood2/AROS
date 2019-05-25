@@ -50,21 +50,14 @@ static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
     }
 }
 
+APTR __get_sysbase();
+
 static void init()
 {
     if (inited)
         return;
 
-    APTR (*fun)();
-    fun = dlsym(RTLD_DEFAULT, "__get_sysbase");
-
-    if (!fun)
-    {
-        printf("__get_sysbase not located\n");
-        return;
-    }
-
-    AA.sysBase = (struct ExecBase *)fun();
+    AA.sysBase = (struct ExecBase *)__get_sysbase();
 
     if (!AA.sysBase)
     {
@@ -85,7 +78,7 @@ static void init()
 
 }
 
-FILE * fopen (const char * restrict pathname, const char * restrict mode)
+__attribute__((visibility("default"))) FILE * fopen (const char * restrict pathname, const char * restrict mode)
 {
     FILE *_return = NULL;
     FILE *(*fun)(const char * restrict pathname, const char * restrict mode);

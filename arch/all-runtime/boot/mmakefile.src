@@ -8,7 +8,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM  kernel-exec \
 #MM  kernel-expansion \
 #MM  kernel-timer \
-#MM  runtime-startup \
 #MM  runtime-axrt-so \
 #MM  runtime-clibs \
 #MM  kernel-x11gfx \

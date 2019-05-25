@@ -144,7 +144,7 @@ static void InitKickstart(struct ExecBase *SysBase)
 
 static struct ExecBase * local_SysBase = NULL;
 
-__attribute__((visibility("default"))) APTR __get_sysbase()
+APTR __get_sysbase()
 {
     return local_SysBase;
 }
@@ -203,7 +203,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     asm("int3");
 }
 
-__attribute__((visibility("default"))) void __kick_start(void *__run_program_sets)
+__attribute__((visibility("default"))) void __kick_start(void *__run_program_sets, int __version)
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
     pthread_t execbootstrap;
@@ -248,7 +248,7 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     asm("int3");
 }
 
-__attribute__((visibility("default"))) void __set_runtime_env()
+__attribute__((visibility("default"))) void __set_runtime_env(int __version)
 {
     /* Paths needs to end with "/" */
     STRPTR RUNTIME_ROOT = NULL, AROSSYS = NULL, USERSYS = NULL;
