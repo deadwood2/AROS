@@ -87,6 +87,11 @@ application.
 
     This is not yet possible in this version.
 
+6) How do I distribute my application?
+
+    Copy SYS, USERSYS and libaxrt.so to you application directory and
+    and distribute such boundle.
+
 ======================================FAQ======================================
 
 1) Do I need to use special compiler and linker?
