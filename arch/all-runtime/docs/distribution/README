@@ -131,6 +131,11 @@ application.
 
 5) Will AROS Runtime work under PPC Linux?
 
-   This version is being considered and it will be made if there is strong
-   need expressed by developers community.
+    This version is being considered and it will be made if there is strong
+    need expressed by developers community.
+
+6) Will AROS Runtime be available as packages that I can install on my
+   Linux distribution from package manager?
+
+    It is planned to build packages for Debian/Ubuntu family of distributions.
 
