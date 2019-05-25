@@ -34,7 +34,7 @@ APTR nommu_AllocMem(IPTR byteSize, ULONG flags, struct TraceLocation *loc, struc
 
 APTR nommu_AllocAbs(APTR location, IPTR byteSize, struct ExecBase *SysBase)
 {
-    bug("AROS RUNTIME does not support AllocAbs(nommu_AllocAbs)\n");
+    bug("AxRuntime does not support AllocAbs(nommu_AllocAbs)\n");
     return NULL;
 }
 

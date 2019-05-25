@@ -1,7 +1,7 @@
 =================================Introduction==================================
 
-AROS Runtime is a product for application developers who enjoy creating their
-applications using Amiga APIs.
+AxRuntime (AxRT) is a product for application developers who enjoy creating
+their applications using Amiga APIs.
 
 The runtime allows developers to continue developing Amiga applications in
 unmodified way while at the same time being able to utilize modern development
@@ -12,7 +12,7 @@ Linux binaries. Once the features are implemented, tested and optimized using
 the runtime on Linux, developers re-compile their applications for their
 Amiga-like system of choice and perform final quality checking.
 
-Applications created with AROS Runtime can be distributed to the Linux
+Applications created with AxRuntime can be distributed to the Linux
 community giving developers a much broader user base and a possibility to
 invite developers from outside general Amiga community to contribute to the
 application.
@@ -27,8 +27,8 @@ application.
     compilation and execution of their applications against the runtime. This
     version is mainly aimed at gathering feedback on directions in which
     runtime should evolve, however simple applications will already be fully
-    supported and usable. This version uses Wanderer, AROS Workbench
-    replacement program, as a demo tool.
+    supported and usable. This version uses Wanderer, a Workbench replacement
+    program, as a demo tool.
 
     With Wanderer available in this version, you can navigate Linux file system
     starting with "ROOT". Wanderer windows are integrated with Linux desktop.
@@ -39,7 +39,6 @@ application.
     - This version was developed and tested under Ubuntu 18.04 64-bit.
       Compatibility with other Linux distributions may vary. Ubuntu-based
       distribution like Linux Mint are supported.
-
 
 2) How do I install and use the runtime?
 
@@ -90,7 +89,7 @@ application.
 6) How do I distribute my application?
 
     Copy SYS, USERSYS and libaxrt.so to you application directory and
-    and distribute such boundle.
+    and distribute complete boundle.
 
 ======================================FAQ======================================
 
@@ -103,17 +102,17 @@ application.
 
     At this point in time send an email to: deadwood@onet.pl
 
-3) Will AROS Runtime work under Window, BSD, MacOS in future?
+3) Will AxRuntime work under Window, BSD, MacOS in future?
 
     Yes, support for other platforms is planned.
 
-4) What does it mean that AROS Runtime supports SMP (Symmetric Multiprocessing)?
+4) What does it mean that AxRuntime supports SMP (Symmetric Multiprocessing)?
 
-    Unlike current Amiga-like platforms, Tasks and Processes in AROS Runtime
+    Unlike current Amiga-like platforms, Tasks and Processes in AxRuntime
     are distributed across different CPU cores. This means they execute in real
     parallel conditions.
 
-    AROS Runtime enables SMP in "forward-compatible" way. This means any
+    AxRuntime enables SMP in "forward-compatible" way. This means any
     application that has multiple tasks and is working correctly under the
     runtime, is guaranteed to be working correctly under the native platform.
 
@@ -129,13 +128,14 @@ application.
 
         SOLUTION: Use semaphores to serialize access and execution.
 
-5) Will AROS Runtime work under PPC Linux?
+5) Will AxRuntime work under PPC Linux?
 
     This version is being considered and it will be made if there is strong
     need expressed by developers community.
 
-6) Will AROS Runtime be available as packages that I can install on my
+6) Will AxRuntime be available as packages that I can install on my
    Linux distribution from package manager?
 
-    It is planned to build packages for Debian/Ubuntu family of distributions.
+    It is planned to build packages for Debian/Ubuntu family of distributions
+    and make them available via ppa repository.
 

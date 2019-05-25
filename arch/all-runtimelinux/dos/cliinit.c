@@ -553,8 +553,8 @@ static LONG internalBootCliHandler(void)
     /* We're now at the point of no return. */
     DOSBase->dl_Root->rn_BootProc = ((struct FileLock*)BADDR(lock))->fl_Task;
     SetFileSysTask(DOSBase->dl_Root->rn_BootProc);
-    STRPTR arossys = getenv("AROSSYS");
-    lock = Lock(arossys, SHARED_LOCK);
+    STRPTR axrtsys = getenv("AXRTSYS");
+    lock = Lock(axrtsys, SHARED_LOCK);
 
     AssignLock("SYS", lock);
     lock = Lock("SYS:", SHARED_LOCK);

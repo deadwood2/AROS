@@ -67,7 +67,7 @@
 {
     AROS_LIBFUNC_INIT
 
-    bug("AROS RUNTIME does not support AllocAbs\n");
+    bug("AxRuntime does not support AllocAbs\n");
     return NULL;
 
     AROS_LIBFUNC_EXIT

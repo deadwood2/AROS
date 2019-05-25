@@ -64,6 +64,8 @@ static void __bye()
     exit(100);
 }
 
+#define ENV_AXRT_ROOT   "AXRT_ROOT"
+
 static ULONG Kickstart_Count = (sizeof(Kickstart)/sizeof(Kickstart[0]));
 
 static void _sort(struct Resident **RomTag, ULONG num)
@@ -92,7 +94,7 @@ static void _sort(struct Resident **RomTag, ULONG num)
 
 static struct ExecBase * EarlyExecInit()
 {
-    STRPTR root = getenv("AROSRUNTIME_ROOT");
+    STRPTR root = getenv(ENV_AXRT_ROOT);
     void *(*__get_resident)();
     TEXT path[512] = { 0 };
 
@@ -113,7 +115,7 @@ static void InitKickstart(struct ExecBase *SysBase)
 {
     LONG i = 0;
     struct Resident ** resList = AllocMem(sizeof(struct Resident *) * Kickstart_Count, MEMF_PUBLIC | MEMF_CLEAR);
-    STRPTR root = getenv("AROSRUNTIME_ROOT");
+    STRPTR root = getenv(ENV_AXRT_ROOT);
     void *(*__get_resident)();
 
     while (Kickstart[i] != NULL)
@@ -171,7 +173,7 @@ struct ARPSMsg
 
 static VOID RunProgram(APTR sysbase, APTR _m)
 {
-    /* This trampoline is executed by "AROS Runtime Program" process */
+    /* This trampoline is executed by "AxRuntime Program" process */
     struct ARPSMsg *msg;
 
     /* This library was never properly loaded by Exec. Do manul initialization */
@@ -205,7 +207,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
 
 __attribute__((visibility("default"))) void __kick_start(void *__run_program_sets, int __version)
 {
-    /* This thread is not an AROS Process/Task. Restrictions apply. */
+    /* This thread is not a Process/Task. Restrictions apply. */
     pthread_t execbootstrap;
     pthread_create(&execbootstrap, NULL, &InitRuntime, NULL);
     pthread_setname_np(execbootstrap, "Exec bootstrap");
@@ -218,7 +220,7 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
 
 #define SysBase local_SysBase
     /* Sequence:
-     *  DOS boot sequence creates "AROS Runtime Program" Process (ARPP)
+     *  DOS boot sequence creates "AxRuntime Program" Process (ARPP)
      *  ARPP creates public port
      *  This thread sends pointer to RunProgram to the port
      *  ARPP executes RunProgram()
@@ -251,11 +253,11 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
 __attribute__((visibility("default"))) void __set_runtime_env(int __version)
 {
     /* Paths needs to end with "/" */
-    STRPTR RUNTIME_ROOT = NULL, AROSSYS = NULL, USERSYS = NULL;
+    STRPTR RUNTIME_ROOT = NULL, AXRTSYS = NULL, USERSYS = NULL;
 
     const int _size = 512;
     RUNTIME_ROOT    = malloc(_size);
-    AROSSYS         = malloc(_size);
+    AXRTSYS         = malloc(_size);
     USERSYS         = malloc(_size);
 
 
@@ -263,13 +265,13 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     char *t;
     struct passwd *pw;
 
-    t = getenv("AROSRUNTIME_ROOT");
+    t = getenv(ENV_AXRT_ROOT);
 
     if (t)
     {
         char buff[_size];
 
-        printf("<<INFO>>: AROSRUNTIME_ROOT environment variable set, using absolute paths.\n");
+        printf("<<INFO>>: "ENV_AXRT_ROOT" environment variable set, using absolute paths.\n");
 
         strcpy(buff, t);
         int i = strlen(buff);
@@ -278,9 +280,9 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
         strcat(RUNTIME_ROOT, buff);
         strcat(RUNTIME_ROOT, "/");
 
-        strcat(AROSSYS, "ROOT:");
-        strcat(AROSSYS, buff + 1);
-        strcat(AROSSYS, "/");
+        strcat(AXRTSYS, "ROOT:");
+        strcat(AXRTSYS, buff + 1);
+        strcat(AXRTSYS, "/");
 
         /* ~/.aros/ */
         pw = getpwuid(getuid());
@@ -292,16 +294,16 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     {
         char buff[_size];
 
-        printf("<<INFO>>: AROSRUNTIME_ROOT environment variable not set, using relative paths.\n");
+        printf("<<INFO>>: "ENV_AXRT_ROOT" environment variable not set, using relative paths.\n");
         getcwd(buff, _size);
 
         /* Paths are relative to executable directory */
         strcat(RUNTIME_ROOT, buff);
         strcat(RUNTIME_ROOT, "/SYS/");
 
-        strcat(AROSSYS, "ROOT:");
-        strcat(AROSSYS, buff + 1);
-        strcat(AROSSYS, "/SYS/");
+        strcat(AXRTSYS, "ROOT:");
+        strcat(AXRTSYS, buff + 1);
+        strcat(AXRTSYS, "/SYS/");
 
         strcat(USERSYS, "ROOT:");
         strcat(USERSYS, buff + 1);
@@ -309,10 +311,10 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     }
 
     printf("RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
-    printf("AROSSYS     : %s\n", AROSSYS);
+    printf("AXRTSYS     : %s\n", AXRTSYS);
     printf("USERSYS     : %s\n", USERSYS);
 
-    setenv("AROSRUNTIME_ROOT", RUNTIME_ROOT, 1);
-    setenv("AROSSYS", AROSSYS, 1);
+    setenv(ENV_AXRT_ROOT, RUNTIME_ROOT, 1);
+    setenv("AXRTSYS", AXRTSYS, 1);
     setenv("USERSYS", USERSYS, 1);
 }

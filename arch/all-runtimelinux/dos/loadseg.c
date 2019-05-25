@@ -83,7 +83,7 @@ static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
     AROS_LIBFUNC_INIT
 
     TEXT path[512] = {0};
-    STRPTR root = getenv("AROSRUNTIME_ROOT");
+    STRPTR root = getenv("AXRT_ROOT");
     if (root) strncat(path, root, strlen(root));
     strncat(path, name, strlen(name));
     strreplace(path, "SYS:", "");
@@ -91,7 +91,7 @@ static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
     strreplace(path, "/libs/", "/Libs/");
     strreplace(path, "/datatypes/", "/DataTypes/");
     strreplace(path, "/gadgets/","/Classes/Gadgets/");
-    // TODO: rethink, should LoadSeg accept only AROS paths and convert them to ROOT: absolute paths via Lock/NameFromLock?
+    // TODO: rethink, should LoadSeg accept only Amiga paths and convert them to ROOT: absolute paths via Lock/NameFromLock?
     // and then to Linux paths? This would remove needs to certain hacks on the path variable
     // above
     void *__so_handle = dlopen(path, RTLD_LAZY);

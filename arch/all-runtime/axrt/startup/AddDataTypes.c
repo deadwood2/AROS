@@ -294,8 +294,8 @@ int main_AddDataTypes(void)
 	    }
 	    else
 	    {
-	        AA.aa_Refresh = 1; // AROS_RUNTIME
-	        AA.aa_Quiet = 1;// AROS_RUNTIME
+	        AA.aa_Refresh = 1; // AxRuntime
+	        AA.aa_Quiet = 1;// AxRuntime
 		if(AA.aa_Refresh)
 		{
 		    if(DateScan(sv))
@@ -891,7 +891,7 @@ struct CompoundDataType *CreateDataType(struct StackVars *sv,
 
 		} /* if((prop = FindProp(iff, ID_DTYP, ID_DTCD))) */
 #else
-//                AROS_RUNTIME
+//                AxRuntime
 //                TEXT CDname[256];
                 (void)SegList;
 

@@ -84,7 +84,7 @@
 {
     AROS_LIBFUNC_INIT
 
-    bug("AROS RUNTIME does not support Allocate\n");
+    bug("AxRuntime does not support Allocate\n");
     return NULL;
 
     AROS_LIBFUNC_EXIT

@@ -58,7 +58,7 @@
 {
     AROS_LIBFUNC_INIT
 
-    bug("AROS RUNTIME does not support Deallocate\n");
+    bug("AxRuntime does not support Deallocate\n");
 
     AROS_LIBFUNC_EXIT
 } /* Deallocate */

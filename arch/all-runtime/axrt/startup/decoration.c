@@ -244,7 +244,7 @@ int main_Decoration(void)
                     D(bug("Before Detach()\n"));
 
 //                    Detach();
-                    return 0; // AROS_RUNTIME
+                    return 0; // AxRuntime
 
                     D(bug("After Detach()\n"));
 

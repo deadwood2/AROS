@@ -75,7 +75,7 @@ struct ARPSMsg
 static VOID __program_trampoline()
 {
     struct MsgPort *startup = CreateMsgPort();
-    startup->mp_Node.ln_Name = "ARPS"; /* AROS Runtime Program Startup */
+    startup->mp_Node.ln_Name = "ARPS"; /* AxRuntime Program Startup */
     AddPort(startup);
 
     WaitPort(startup);
@@ -163,7 +163,7 @@ void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
     (VOID)cis;
     CreateNewProcTags(
                         NP_Entry,       (IPTR)__program_trampoline,
-                        NP_Name,        (IPTR)"AROS Runtime Program",
+                        NP_Name,        (IPTR)"AxRuntime Program",
                         TAG_DONE);
 
 }

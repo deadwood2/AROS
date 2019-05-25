@@ -70,7 +70,7 @@ static void krnIRQwrapper(void *data1, void *data2)
     }
 
     if (intNumber != INTB_VERTB)
-        bug("AROS RUNTIME does not support interrupts other than INTB_VERTB in AddIntServer\n");
+        bug("AxRuntime does not support interrupts other than INTB_VERTB in AddIntServer\n");
 
     EXEC_LOCK_LIST_WRITE_AND_DISABLE(&SysBase->IntrList);
 
