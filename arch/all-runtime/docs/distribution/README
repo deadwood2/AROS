@@ -1,0 +1,142 @@
+=================================Introduction==================================
+
+AROS Runtime is a product for application developers who enjoy creating their
+applications using Amiga APIs. 
+
+The runtime allows developers to continue developing Amiga applications in
+unmodified way while at the same time being able to utilize modern development
+tools available on Linux like IDEs, debuggers, profilers, etc.
+
+This solution lets developers compile their Amiga API-based applications as
+Linux binaries. Once the features are implemented, tested and optimized using
+the runtime on Linux, developers re-compile their applications for their
+Amiga-like system of choice and perform final quality checking.
+
+Applications created with AROS Runtime can be distributed to the Linux
+community giving developers a much broader user base and a possibility to
+invite developers from outside general Amiga community to contribute to the
+application.
+
+=================================Current Version===============================
+
+1) What is available is current version?
+
+    Current version is version V1.
+
+    This is an early preview version allowing application developers to test
+    compilation and execution of their applications against the runtime. This
+    version is mainly aimed at gathering feedback on directions in which
+    runtime should evolve, however simple applications will already be fully
+    supported and usable. This version uses Wanderer, AROS Workbench
+    replacement program, as a demo tool.
+
+    With Wanderer available in this version, you can navigate Linux file system
+    starting with "ROOT". Wanderer windows are integrated with Linux desktop.
+
+    Notes:
+    - In case of issues, please make sure you have only one monitor connected
+      to your Linux when running this preview.
+    - This version was developed and tested under Ubuntu 18.04 64-bit.
+      Compatibility with other Linux distributions may vary. Ubuntu-based
+      distribution like Linux Mint are supported.
+
+
+2) How do I install and use the runtime?
+
+    Runtime is composed of three modules: runtimestartup.so and SYS and USERSYS
+    directories. Those modules need to be placed in the same directory as the
+    application binary.
+
+    Application first loads runtimestartup.so from current directory. Then
+    runtimestartup.so searches for installation of runtime. Current it also
+    searches this in current directory, looking for SYS and USERSYS
+    directories.
+
+3) How do I install and use the SDK?
+
+    Place the SDK directory in any directory you like. You will reference that
+    directory from in your make files.
+
+4) How do I build an application using runtime?
+
+4.1) Easy start
+
+    In the SDK directory you will find example directory which contains a
+    Makefile configured to build with the SDK. Add your source files to SRC
+    variable and issue make command in Linux console.
+
+4.2) Detailed - Compilation
+
+    Add __AROS__ define and path to header files, example:
+
+    CFLAGS = -D__AROS__ -I$(RUNTIME_SDK)/include
+
+4.3) Detailed - Linking
+
+    Add path to linker libraries and at least -lruntimestartup with
+    dependencies, example:
+
+    LDFLAGS = -L$(RUNTIME_SDK)/lib -lruntimestartup -llibinit -ldl -lautoinit -lamiga
+
+    Add additional linker libraries to resolve symbols.
+
+    Add startup.o and runtime.ld to objects being linked, example:
+
+    OBJ += $(RUNTIME_SDK)/lib/startup.o $(RUNTIME_SDK)/lib/runtime.ld
+
+5) How do I compile a module (library, class) for the runtime?
+
+    This is not yet possible in this version.
+
+======================================FAQ======================================
+
+1) Do I need to use special compiler and linker?
+
+    No. Any compiler available on your Linux setup is usable out of
+    the box.
+
+2) How to get in contact with development team?
+
+    At this point in time send an email to: deadwood@onet.pl
+
+3) Will AROS Runtime work under Window, BSD, MacOS in future?
+
+    Yes, support for other platforms is planned.
+
+4) What does it mean that AROS Runtime supports SMP (Symmetric Multiprocessing)?
+
+    Unlike current Amiga-like platforms, Tasks and Processes in AROS Runtime
+    are distributed across different CPU cores. This means they execute in real
+    parallel conditions.
+
+    AROS Runtime enables SMP in "forward-compatible" way. This means any
+    application that has multiple tasks and is working correctly under the
+    runtime, is guaranteed to be working correctly under the native platform.
+
+    The original source code though might sometimes need modifications to work
+    correctly under platform. This includes:
+
+    1) SysBase->ThisTask is removed.
+
+        SOLUTION: Use FindTask(NULL).
+
+    2) It is not guaranteed that newly created Task with higher priority than
+    current Task will be executed before current Task continues.
+
+        SOLUTION: Use semaphores to serialize access and execution.
+
+5) Will AROS Runtime work under PPC Linux?
+
+   This version is being considered and it will be made if there is strong
+   need expressed by developers community.
+
+6) Where can I find Intuition menu bar?
+
+   In this version Intuition menu bar is hidden and you cannot access. This
+   will be solved in future version.
+
+7) Keyboard input does not seem to work?
+
+   Correct. In this version mouse is working, but keyboard is not yet
+   supported.
+
