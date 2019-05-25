@@ -60,22 +60,14 @@ static void init()
     AA.sysBase = (struct ExecBase *)__get_sysbase();
 
     if (!AA.sysBase)
-    {
-        printf("SysBase not acquired\n");
         return;
-    }
 
     AA.dosBase = OpenLibrary("dos.library", 0L);
 
     if (!AA.dosBase)
-    {
-        printf("DOSBase not acquired\n");
         return;
-    }
 
     inited = TRUE;
-    printf("Init completed\n");
-
 }
 
 __attribute__((visibility("default"))) FILE * fopen (const char * restrict pathname, const char * restrict mode)
@@ -103,7 +95,6 @@ __attribute__((visibility("default"))) FILE * fopen (const char * restrict pathn
 
     /* Convert path to Linux */
     strreplace(lpathname, "ROOT:","/");
-    printf("path: %s\n", lpathname);
 
     fun = dlsym(RTLD_NEXT, "fopen");
     _return = fun(lpathname, mode);
