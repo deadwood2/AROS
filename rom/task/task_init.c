@@ -110,24 +110,24 @@ static LONG taskres_Init(struct TaskResBase *TaskResBase)
     // TODO : list TaskSpinning tasks..
 #else
     Disable();
-    if (SysBase->ThisTask)
+    if (GET_THIS_TASK)
     {
-        if (SysBase->ThisTask->tc_State & TS_RUN)
+        if (GET_THIS_TASK->tc_State & TS_RUN)
         {
             if ((taskEntry = AllocMem(sizeof(struct TaskListEntry), MEMF_CLEAR)) != NULL)
             {
-                D(bug("[TaskRes] 0x%p [R--] 00 %s\n", SysBase->ThisTask, SysBase->ThisTask->tc_Node.ln_Name));
-                taskEntry->tle_Task = SysBase->ThisTask;
+                D(bug("[TaskRes] 0x%p [R--] 00 %s\n", GET_THIS_TASK, GET_THIS_TASK->tc_Node.ln_Name));
+                taskEntry->tle_Task = GET_THIS_TASK;
                 AddTail(&TaskResBase->trb_TaskList, &taskEntry->tle_Node);
             }
             else
             {
-                bug("[TaskRes] Failed to allocate storage for task @  0x%p!!\n", SysBase->ThisTask);
+                bug("[TaskRes] Failed to allocate storage for task @  0x%p!!\n", GET_THIS_TASK);
             }
         }
         else
         {
-            bug("[TaskRes] Invalid Task State %08x for task @ 0x%p\n", SysBase->ThisTask->tc_State, curTask);
+            bug("[TaskRes] Invalid Task State %08x for task @ 0x%p\n", GET_THIS_TASK->tc_State, curTask);
         }
     }
 #endif
