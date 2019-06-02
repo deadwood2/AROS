@@ -85,8 +85,8 @@ compiler-includes : setup $(DEST_INCLUDES) $(GEN_INCLUDES) includes-execbase_h
 $(GENINCDIR)/exec/execbase.h : $(SRCDIR)/$(CURDIR)/exec/execbase.inc
 	@$(ECHO) "Copying    C   includes to $(GENINCDIR)..."
 	@$(CP) $< $@
-ifneq ($(strip $(EXECSMP)),"")
-	$(SED) -i -e 's/.*ThisTask;.*/    IPTR         SMPPrivate1;/' -e 's/.*Quantum;.*/    WORD         SMPPrivate2;/' -e 's/.*Elapsed;.*/    WORD         SMPPrivate3;/' -e 's/.*IDNestCnt;.*/    UBYTE        SMPPrivate4;/' -e 's/.*TDNestCnt;.*/    UBYTE        SMPPrivate5;/' $@
+ifneq ($(strip $(SMPREADY)),"")
+	$(SED) -i -e 's/.*ThisTask;.*/    IPTR         Private1;/' -e 's/.*Quantum;.*/    WORD         Private2;/' -e 's/.*Elapsed;.*/    WORD         Private3;/' -e 's/.*IDNestCnt;.*/    UBYTE        Private4;/' -e 's/.*TDNestCnt;.*/    UBYTE        Private5;/' $@
 endif
 
 $(AROS_INCLUDES)/exec/execbase.h : $(GENINCDIR)/exec/execbase.h

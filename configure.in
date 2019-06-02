@@ -1190,6 +1190,7 @@ case "$target_os" in
                 android_ndk_arch="x86"
                 ;;
             *x86_64*)
+                PLATFORM_EXECSMP="#define __AROSPLATFORM_SMP__"
                 aros_target_cpu="x86_64"
                 aros_object_format="elf_x86_64"
                 aros_flavour="emulation"
