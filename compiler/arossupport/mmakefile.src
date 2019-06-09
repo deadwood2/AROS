@@ -20,7 +20,6 @@ FILES	:= \
     kprintf \
     rkprintf \
     nastyfreemem \
-    purify \
     libfindtagitem \
     libgettagdata \
     libnexttagitem \
@@ -33,10 +32,6 @@ FILES	:= \
     readstruct \
     readword \
     removeslist \
-    rt \
-    rt_dos \
-    rt_exec \
-    rt_intuition \
     writebyte \
     writedouble \
     writefloat \
