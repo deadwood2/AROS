@@ -29,7 +29,7 @@
         struct ExecBase *, SysBase, 21, Exec)
 
 /*  FUNCTION
-        This function will allow interrupts to occur (*) after they have
+        This function will allow interrupts to occur after they have
         been disabled by Disable().
 
         Note that calls to Disable() nest, and for every call to
@@ -59,10 +59,6 @@
         As the schedulers pre-emption is interrupt driven,
         this function has the side effect of disabling
         multitasking.
-
-        (*) On EXECSMP builds, Enable() only applies to the processor
-            it is called from. Data which needs to be protected from
-            parallel access will also require a spinlock.            
 
     EXAMPLE
         In most userspace code, you will not want to use this function.

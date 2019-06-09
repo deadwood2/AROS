@@ -28,7 +28,7 @@
 	struct ExecBase *, SysBase, 20, Exec)
 
 /*  FUNCTION
-	This function will prevent interrupts from occuring (*). You can
+	This function will prevent interrupts from occuring. You can
 	start the interrupts again with a call to Enable().
 
 	Note that calls to Disable() nest, and for every call to
@@ -56,11 +56,6 @@
 	As the schedulers pre-emption is interrupt driven,
 	this function has the side effect of disabling
 	multitasking.
-
-	(*) On EXECSMP builds, Disable() only aplies to the processor
-	    it is called from (and needs to be re-enabled there also)
-	    Data which needs to be protected from parallel access will
-	    also require a spinlock.            
 
     EXAMPLE
 	In most userspace code, you will not want to use this function.
