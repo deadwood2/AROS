@@ -196,7 +196,6 @@ struct HIDDBitMapData
 {
     struct _hidd_bitmap_protected prot;
 
-    struct BitMap          *bmstruct;
     UWORD                  width;         /* width of the bitmap in pixel                  */
     UWORD                  height;        /* height of the bitmap in pixel                 */
     UWORD                  align;         /* Default alignment                             */

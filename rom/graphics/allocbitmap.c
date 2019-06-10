@@ -251,7 +251,7 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
         (flags & BMF_SPECIALFMT) ||
         (flags & BMF_DISPLAYABLE))
     {
-        struct TagItem bm_tags[8];
+        struct TagItem bm_tags[7];
         HIDDT_StdPixFmt stdpf = vHidd_StdPixFmt_Unknown;
 
         D(bug("[AllocBitMap] Allocating HIDD bitmap\n"));
@@ -353,7 +353,7 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
         D(bug("[AllocBitMap] Displayable: %d\n", bm_tags[5].ti_Data));
 
         
-        SET_TAG(bm_tags, 7, TAG_DONE, 0);
+        SET_TAG(bm_tags, 6, TAG_DONE, 0);
 
         /* Allocate an extra planes for HIDD bitmap info */
         nbm = AllocMem (sizeof (struct BitMap) + sizeof(PLANEPTR) * HIDD_BM_EXTRAPLANES, MEMF_ANY|MEMF_CLEAR);
@@ -364,8 +364,6 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
             OOP_Object *bm_obj = NULL;
             BOOL ok = TRUE;
 
-            SET_BM_TAG(bm_tags, 6, BMStruct, nbm);
- 
             /* Use the memory driver if we didn't get another object in any way */
             if (!drv)
                 drv = (struct monitor_driverdata *)CDD(GfxBase);
