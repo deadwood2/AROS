@@ -168,11 +168,6 @@ struct config
     unsigned int majorversion, minorversion;
     char *addromtag;
 
-    /* In forcelist a list of basenames is present that need to be present in the
-     * static link library so that certain libraries are opened by a program
-     */
-    struct stringlist *forcelist;
-
     /* Code to add to the generated files */
     struct stringlist *cdeflines, *cdefprivatelines, *stubprivatelines, *startuplines;
 

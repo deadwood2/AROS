@@ -17,7 +17,7 @@ USER_CFLAGS := $(NOWARN_FLAGS)
 
 %build_module mmake=workbench-libs-png \
     modname=png modtype=library \
-    files="$(FILES)" linklibname="png"
+    files="$(FILES) posixc_startup" linklibname="png"
 
 #MM- linklibs: linklibs-png-nostdio
 #MM linklibs-png-nostdio : workbench-libs-png-generated
