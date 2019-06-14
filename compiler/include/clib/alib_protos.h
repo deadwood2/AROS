@@ -48,6 +48,8 @@ void DeleteStdIO (struct IOStdReq * ioreq);
 struct Task * CreateTask (STRPTR name, LONG pri, APTR initpc, ULONG stacksize);
 void DeleteTask (struct Task * task);
 void NewList (struct List *);
+struct MsgPort * CreatePort (STRPTR name, LONG pri);
+void DeletePort (struct MsgPort * mp);
 
 /* Extra */
 extern ULONG RangeSeed;
