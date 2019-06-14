@@ -10,7 +10,7 @@
 
 #include <proto/stdc.h>
 #include <proto/stdcio.h>
-#include <proto/posixc.h>
+#include <libraries/posixc.h>
 
 static int __posixc_startup(void)
 {
