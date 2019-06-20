@@ -592,6 +592,8 @@ static LONG internalBootCliHandler(void)
     AssignLock("USERSYS", lock);
     AssignLate("ENVARC", "USERSYS:Prefs/Env-Archive");
     AssignLate("ENV", "USERSYS:Prefs/Env-Archive");
+    lock = Lock("SYS:Classes", SHARED_LOCK);
+    AssignAdd("LIBS", lock);
 
     /*
      * At this point we have only SYS:, nothing more. Mount the rest.
