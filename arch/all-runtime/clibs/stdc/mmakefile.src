@@ -9,7 +9,9 @@ STDC_SOURCES := \
     stpblk \
     strlcpy \
     strlcat \
-    stcd_l
+    stcl_d \
+    stcd_l \
+    strlwr
 
 RUNTIME_STDC = \
     $(addprefix $(STDC_PATH),$(STDC_SOURCES)) \
