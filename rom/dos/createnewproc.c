@@ -182,17 +182,6 @@ void internal_ChildFree(APTR tid, struct DosLibrary * DOSBase);
             return NULL;
     } */
 
-    /*
-     * We allocate from the 31bit area because SDL's thread
-     * support requires that the thread ID be 32 bit.
-     * !!! URGENT FIXME !!! SDL MUST BE FIXED!!! Consider using ETask->et_UniqueID for this.
-     * Some architectures (Darwin 64-bit hosted) do not have MEMF_31BIT memory at all.
-     * Additionally, it's horribly bad practice to support broken software this way.
-     */
-#if __WORDSIZE > 32
-    process = AllocMem(sizeof(struct Process), MEMF_PUBLIC | MEMF_31BIT | MEMF_CLEAR);
-    if (!process)
-#endif
     process = AllocMem(sizeof(struct Process), MEMF_PUBLIC | MEMF_CLEAR);
     ENOMEM_IF(process == NULL);
 
