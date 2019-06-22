@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-FILES := boot cliinit exit isbootable loadseg
+FILES := boot cliinit exit internalloadseg_elf isbootable
 
 USER_INCLUDES := -I$(SRCDIR)/rom/dos \
 		    -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
