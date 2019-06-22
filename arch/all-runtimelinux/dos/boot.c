@@ -163,7 +163,7 @@ void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
     (VOID)cis;
     CreateNewProcTags(
                         NP_Entry,       (IPTR)__program_trampoline,
-                        NP_Name,        (IPTR)"AxRuntime Program",
+                        NP_Cli,         TRUE,
                         TAG_DONE);
 
 }
