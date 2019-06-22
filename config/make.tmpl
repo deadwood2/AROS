@@ -2004,7 +2004,7 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
 #M%(build_abi)- linklibs-%(modname)_rel : %(mmake)-linklib
 #M%(build_abi)- includes-%(modname): %(mmake)-includes
 #M%(build_abi)- includes-%(modname)_rel : %(mmake)-includes
-#M%(build_abi)- %(mmake) : %(mmake)-includes core-linklibs linklibs-%(uselibs)
+#M%(build_abi)- %(mmake) : %(mmake)-includes core-linklibs
 #M%(build_abi) %(mmake)-linklib : %(mmake)-includes includes-%(uselibs)
 #M%(build_abi)- %(mmake)-quick : %(mmake)-includes-quick
 #M%(build_abi) %(mmake)-includes : %(mmake)-makefile %(mmake)-includes-dirs \
@@ -2014,11 +2014,11 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
 #M%(build_abi) %(mmake)-fd
 
 # Library targets
-#%(build_library)M %(mmake)-kobj : core-linklibs linklibs-%(uselibs)
+#%(build_library)M %(mmake)-kobj : core-linklibs
 #%(build_library)M %(mmake)-kobj-quick : 
 
 # Library with ABI targets:
-#%(build_library)%(build_abi) %(mmake)-kobj : %(mmake)-includes core-linklibs linklibs-%(uselibs)
+#%(build_library)%(build_abi) %(mmake)-kobj : %(mmake)-includes core-linklibs
 #%(build_library)%(build_abi) %(mmake)-kobj-quick : %(mmake)-includes-quick
 
 # All MetaMake targets defined by this macro
