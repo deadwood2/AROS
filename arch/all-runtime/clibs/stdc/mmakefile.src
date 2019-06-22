@@ -10,6 +10,7 @@ STDC_SOURCES := \
     stpblk \
     strlcpy \
     strlcat \
+    stccpy \
     stcl_d \
     stcd_l \
     strlwr
