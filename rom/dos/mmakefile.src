@@ -64,8 +64,8 @@ FUNCTIONS := abortpkt addbuffers adddosentry addpart addsegment \
 	     vprintf waitforchar waitpkt write writechars runhandler
 
 #MM kernel-dos-linklib : workbench-libs-dos-catalogs
-#MM kernel-dos-kobj : workbench-libs-dos-catalogs
-#MM kernel-dos : workbench-libs-dos-catalogs
+#MM kernel-dos-kobj : workbench-libs-dos-catalogs linklibs-romhack
+#MM kernel-dos : workbench-libs-dos-catalogs linklibs-romhack
 
 #MM kernel-dos-includes : \
 #MM     kernel-utility-includes \
