@@ -1,0 +1,8 @@
+include $(SRCDIR)/config/aros.cfg
+
+INCLUDES := $(call WILDCARD, *.h)
+
+#MM- includes-copy : $(FAMILY)-clibs-stdc-includes-extra
+
+%copy_includes mmake=runtime-clibs-stdc-includes-extra \
+    includes=$(INCLUDES)
