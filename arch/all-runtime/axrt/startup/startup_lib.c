@@ -169,6 +169,8 @@ struct ARPSMsg
     /* Private fields */
     void (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
     STRPTR  arps_CurrentDir;
+    STRPTR  arps_ProgramName;
+    STRPTR  arps_ProgramDir;
 };
 
 static VOID RunProgram(APTR sysbase, APTR _m)
@@ -176,7 +178,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     /* This trampoline is executed by "AxRuntime Program" process */
     struct ARPSMsg *msg;
 
-    /* This library was never properly loaded by Exec. Do manul initialization */
+    /* This library was never properly loaded by Exec. Do manual initialization */
     SysBase = (struct ExecBase *)sysbase;
     if (!set_open_libraries()) asm("int3");
 
@@ -189,10 +191,21 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     AssignPath("THEME", "USERSYS:System/Themes/pixblue");
     AssignPath("FONTS","USERSYS:Fonts");
 
+    /*
+     * FIXME: Maybe these should be passed to CreateNewProc instead of being
+     * set manually here?
+     */
     /* Set CurrentDir/HomeDir for process */
     BPTR currdir = Lock(msg->arps_CurrentDir, SHARED_LOCK);
     CurrentDir(currdir);
-    SetProgramDir(DupLock(currdir));
+    BPTR progdir = Lock(msg->arps_ProgramDir, SHARED_LOCK);
+    SetProgramDir(progdir);
+
+    /* Set correct Task name */
+    struct Task *me = FindTask(NULL);
+    me->tc_Node.ln_Name = AllocMem(strlen(msg->arps_ProgramName) + 1, MEMF_PUBLIC);
+    CopyMem(msg->arps_ProgramName, me->tc_Node.ln_Name, strlen(msg->arps_ProgramName));
+    // FIXME: this does not change linux-side name!!!
 
     main_AddDataTypes();
     main_IPrefs();
@@ -216,7 +229,8 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     /* At this point Exec is up and running. DOS is waiting for booting. */
 
     char _t[PATH_MAX];
-    getcwd(_t, PATH_MAX);
+    STRPTR _p = NULL;
+    int ret = 0;
 
 #define SysBase local_SysBase
     /* Sequence:
@@ -235,12 +249,32 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     msg.arps_Msg.mn_ReplyPort   = NULL;
     msg.arps_Target             = RunProgram;
     msg.arps_RunProgramSets     = __run_program_sets;
+
+    /* Current directory */
+    getcwd(_t, PATH_MAX);
     msg.arps_CurrentDir         = calloc(strlen(_t) + 6, 1);
     strcat(msg.arps_CurrentDir, "ROOT:");
     strcat(msg.arps_CurrentDir, _t + 1);
     strcat(msg.arps_CurrentDir, "/");
     printf("CURRENT_DIR : %s\n", msg.arps_CurrentDir);
 
+    /* Program directory and executable name */
+    ret = readlink("/proc/self/exe", _t, PATH_MAX);
+    _t[ret] = 0;
+    msg.arps_ProgramDir         = calloc(strlen(_t) + 6, 1);
+    strcat(msg.arps_ProgramDir, "ROOT:");
+    strcat(msg.arps_ProgramDir, _t + 1);
+    _p = strrchr(msg.arps_ProgramDir, '/');
+    *(_p + 1) = 0;
+    printf("PROGRAM DIR : %s\n", msg.arps_ProgramDir);
+
+    _p = strrchr(_t, '/');
+    msg.arps_ProgramName        = calloc(strlen(_p) + 1, 1);
+    strcat(msg.arps_ProgramName, _p + 1);
+    printf("PROGRAM NAME: %s\n", msg.arps_ProgramName);
+
+
+    /* Done, send message */
     PutMsg(startup, (struct Message *)&msg);
 #undef SysBase
 
