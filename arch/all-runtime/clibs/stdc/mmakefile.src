@@ -1,6 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdc-linklib
+#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdc-linklib \
+#MM $(FAMILY)-clibs-stdcio-linklib $(FAMILY)-clibs-posixc-linklib
 #MM- runtime-clibs : runtime-clibs-stdc
 
 STDC_PATH = $(SRCDIR)/compiler/stdc/
@@ -69,5 +70,15 @@ USER_CPPFLAGS := -DSTDC_STATIC -Dlint
 
 %build_linklib mmake=runtime-clibs-stdc-static libname=stdc.static \
     files="$(RUNTIME_STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
+
+#==============================================================================
+
+%build_linklib mmake=runtime-clibs-stdcio-linklib libname=stdcio \
+    files="" objdir="$(STDCLINKLIB_OBJDIR)/linklib"
+
+#==============================================================================
+
+%build_linklib mmake=runtime-clibs-posixc-linklib libname=posixc \
+    files="" objdir="$(STDCLINKLIB_OBJDIR)/linklib"
 
 %common
