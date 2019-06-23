@@ -56,7 +56,7 @@ BD_ERR := libaxrt.so.err
 
 %rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(TOOLDIR)/runtime.ld" \
 		 endobj= err=$(BD_ERR) objdir="$(OBJDIR)" \
-		 ldflags="$(LDFLAGS)" uselibs="pthread"
+		 ldflags="$(LDFLAGS)" uselibs="pthread dl"
 
 ## Dependency fine-tuning
 ##
