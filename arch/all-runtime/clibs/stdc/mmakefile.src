@@ -7,13 +7,22 @@ include $(SRCDIR)/config/aros.cfg
 STDC_PATH = $(SRCDIR)/compiler/stdc/
 
 STDC_SOURCES := \
+    stccpy \
+    stcd_l \
+    stch_l \
+    stcl_d \
+    stcl_h \
+    stcl_o \
+    stco_l \
+    stcu_d \
     stpblk \
+    stpsym \
     strlcpy \
     strlcat \
-    stccpy \
-    stcl_d \
-    stcd_l \
-    strlwr
+    strlwr \
+    strrev \
+    strsep \
+    strupr
 
 RUNTIME_STDC = \
     $(addprefix $(STDC_PATH),$(STDC_SOURCES)) \
