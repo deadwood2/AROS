@@ -1132,7 +1132,11 @@ elf_tool_prefix="${target_cpu}-elf-"
 case "$target_cpu" in
     *aarch64*)
         ;;
+    *armeb*)
+        arm_isa_extra="ISA_ARM_FLAGS                = -marm -mfloat-abi=hard -mbig-endian"
+        ;;
     *arm*)
+        arm_isa_extra="ISA_ARM_FLAGS                = -marm -mfloat-abi=hard"
         ;;
     *m68k*)
         m68k_isa_extra="ISA_MC68000_FLAGS             = -march=68000"
@@ -1726,7 +1730,7 @@ case "$target_os" in
                 gcc_default_cpu="armv6zk"
                 gcc_default_cpu_tune="arm1176jzf-s"
                 aros_object_format="armelf_aros"
-                aros_isa_flags="$aros_isa_flags -marm"
+                aros_isa_flags="$""(ISA_ARM_FLAGS)"
                 aros_config_cflags="$aros_config_cflags"
                 aros_config_cxxflags="$aros_config_cxxflags"
                 aros_config_aflags="$aros_config_aflags -marm"
@@ -1741,7 +1745,7 @@ case "$target_os" in
                 gcc_default_cpu="armv7ve"
                 gcc_default_cpu_tune="cortex-a7"
                 aros_object_format="armelfb_aros"
-                aros_isa_flags="$aros_isa_flags -marm -mfloat-abi=hard"
+                aros_isa_flags="$""(ISA_ARM_FLAGS)"
                 aros_config_cflags="$aros_config_cflags"
                 aros_config_cxxflags="$aros_config_cxxflags"
                 aros_config_aflags="$aros_config_aflags -marm"
@@ -1754,7 +1758,7 @@ case "$target_os" in
                 gcc_default_cpu="armv6zk"
                 gcc_default_cpu_tune="arm1176jzf-s"
                 aros_object_format="armelf_aros"
-                aros_isa_flags="$aros_isa_flags -marm"
+                aros_isa_flags="$""(ISA_ARM_FLAGS)"
                 aros_config_cflags="$aros_config_cflags"
                 aros_config_cxxflags="$aros_config_cxxflags"
                 aros_config_aflags="$aros_config_aflags -marm"
@@ -2166,6 +2170,7 @@ case "$aros_target_cpu" in
         ;;
     arm*)
         dnl ARM defaults are: armv6 + vfp (unless overriden in per-target section above)
+        aros_isa_extra="$export_newline$arm_isa_extra$export_newline"
         if test "$gcc_default_cpu" = ""; then
             gcc_default_cpu="armv6"
         fi
