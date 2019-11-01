@@ -1,0 +1,16 @@
+show_selection ()
+{
+    printf "    1) alt-runtimelinux-x86_64 (DEBUG)\n"
+}
+
+process_selection ()
+{
+    case $1 in
+        1)
+        TOOLCHAIN_DIR=$(pwd)/dummy
+        BUILD_DIR=$(pwd)/alt-runtimelinux-x86_64-d
+        CONFIGURE_TARGET=runtimelinux-x86_64
+        CONFIGURE_OPTS="--enable-debug"
+        ;;
+    esac
+}
