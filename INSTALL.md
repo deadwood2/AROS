@@ -9,27 +9,18 @@ Please install these packages before moving to next step. Below is a reference l
     $ mkdir myrepo
     $ cd myrepo
     $ git clone https://github.com/deadw00d/AROS.git AROS
+    $ cd AROS
+    $ git checkout alt-runtime
+    $ cd ..
     $ cp ./AROS/scripts/rebuild.sh .
     $ ./rebuild.sh
 
 Proceed to build selection below
 
-### Linux-x86_64
+### Runtimelinux-x86_64
 
-1. Select toolchain-core-x86_64
-2. Select core-linux-x86_64 (DEBUG)
+1. Select alt-runtimelinux-x86_64 (DEBUG)
 
-Start AROS by:
+Runtime binaries available in
 
-    $ cd core-linux-x86_64-d/bin/linux-x86_64/AROS
-    $ ./boot/linux/AROSBootstrap
-
-
-### Amiga-m68k
-
-1. Select toolchain-core-m68k
-2. Select core-amiga-m68k
-
-Kickstart images available in
-
-    core-amiga-m68k/bin/amiga-m68k/AROS/boot/amiga
+    alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
