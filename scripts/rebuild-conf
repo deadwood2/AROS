@@ -1,0 +1,33 @@
+show_selection ()
+{
+    printf "    1) toolchain-alt-abiv0-i386\n"
+    printf "    2) alt-abiv0-pc-i386\n"
+    printf "    3) alt-abiv0-linux-i386 (DEBUG)\n"
+}
+
+process_selection ()
+{
+    case $1 in
+        1)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
+        BUILD_DIR=$(pwd)/toolchain-alt-abiv0-i386-build
+        TOOLCHAIN_BUILD=yes
+        CONFIGURE_TARGET=linux-i386
+        MAKE_TARGET="-s crosstools"
+        ;;
+        2)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
+        BUILD_DIR=$(pwd)/alt-abiv0-pc-i386
+        CONFIGURE_TARGET=pc-i386
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        MAKE_TARGET="bootiso"
+        ;;
+        3)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
+        BUILD_DIR=$(pwd)/alt-abiv0-linux-i386
+        CONFIGURE_TARGET=linux-i386
+        CONFIGURE_OPTS="--with-aros-toolchain=yes --enable-debug"
+        ;;
+    esac
+}
+
