@@ -2,10 +2,12 @@
 #include <dos/bptr.h>
 #include <hidd/hidd.h>
 
+#include <hidd/keyboard.h>
+
 struct kbd_data
 {
     struct MinNode node;
-    void (*callback)(APTR data, UWORD keyCode);
+    KbdIrqCallBack_t callback;
     APTR callbackdata;
 };
 
