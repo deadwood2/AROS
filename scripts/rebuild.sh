@@ -7,7 +7,8 @@
 # CONFIGURE_OPTS    -> additional options passed to "configure"
 # CONFIGURE_TARGET  -> AROS build system style target
 # BUILD_DIR         -> directory where build output will be placed
-# MAKE_TARGET       -> "make" targets to build
+# MAKE_TARGET       -> "make" target to build
+# MAKE_TARGET_2     -> second "make" target to build
 
 # Note: each valid selection has to set TOOLCHAIN_DIR, BUILD_DIR and
 # CONFIGURE_TARGET at minimum in process_selection()
@@ -29,7 +30,7 @@ source $(pwd)/AROS/scripts/rebuild-conf
 
 check_location
 
-printf "rebuild.sh v1.1, select an option:\n"
+printf "rebuild.sh v1.2, select an option:\n"
 printf "    0) exit\n"
 
 show_selection
@@ -70,6 +71,10 @@ fi
 cd $BUILD_DIR
 ../AROS/configure --target=$CONFIGURE_TARGET --with-aros-toolchain-install=$TOOLCHAIN_DIR --with-portssources=$PORTS_DIR $CONFIGURE_OPTS
 make $MAKE_TARGET -j 3
+if [[ -n $MAKE_TARGET_2 ]]
+then
+    make $MAKE_TARGET_2 -j 3
+fi
 cd ..
 
 # Delete build directory if toolchain is being build
