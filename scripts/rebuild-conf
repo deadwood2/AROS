@@ -20,7 +20,7 @@ process_selection ()
         BUILD_DIR=$(pwd)/alt-abiv0-pc-i386
         CONFIGURE_TARGET=pc-i386
         CONFIGURE_OPTS="--with-aros-toolchain=yes"
-        MAKE_TARGET="bootiso"
+        MAKE_TARGET_2="bootiso"
         ;;
         3)
         TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
