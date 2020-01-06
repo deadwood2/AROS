@@ -1891,7 +1891,7 @@ endif
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake) \
     basenames=$(%(mmake)_C_NARCHFILES) targetdir="%(objdir)" \
-    cppflags="%(cppflags)" cflags="$(%(mmake)_CFLAGS)" dflags="$(%(mmake)_DFLAGS)" \
+    cppflags="%(cppflags) -D__AROS__" cflags="$(%(mmake)_CFLAGS) -fPIC -fvisibility=hidden" dflags="$(%(mmake)_DFLAGS)" \
     compiler="%(compiler)"
 
 # Handlers use dash instead of dot in their names
