@@ -2061,7 +2061,7 @@ endif
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake) \
     basenames="$(%(mmake)_C_NARCHFILES)" targetdir="%(objdir)" \
-    cppflags="%(cppflags)" cflags="$(%(mmake)_CFLAGS)" dflags="$(%(mmake)_DFLAGS)" \
+    cppflags="%(cppflags)" cflags="$(%(mmake)_CFLAGS) -fPIC" dflags="$(%(mmake)_DFLAGS)" \
     compiler="%(compiler)"
 
 # Handlers use dash instead of dot in their names
@@ -2096,7 +2096,7 @@ ifneq (%(usesdks),)
 %(mmake)_LDFLAGS += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
 endif
 
-%rule_linkmodule module="$(%(mmake)_MODULE)" objs="$(%(mmake)_OBJS)" \
+%rule_linkmodule module="$(%(mmake)_MODULE)" objs="$(%(mmake)_OBJS) $(AROS_LIB)/axrt.ld" \
     endobj= err="$(%(mmake)_ERR)" objdir="%(objdir)" \
     cmd="$(%(mmake)_LINK)" ldopts="$(%(mmake)_LD_OPTS)" ldflags="$(strip $(LDFLAGS) $(%(mmake)_LDFLAGS) $(%(modname)_LDFLAGS))" \
     uselibs="%(uselibs) $(%(modname)_LIBS)" usehostlibs="%(usehostlibs)" stripdebug="%(stripdebug)"
