@@ -361,6 +361,18 @@ diff -ruN freetype-2.10.0/builds/aros/src/base/ftsystem.c freetype-2.10.0.aros/b
 +
 +
 +/* END */
+diff -ruN freetype-2.10.0/include/freetype/config/ftconfig.h freetype-2.10.0.aros/include/freetype/config/ftconfig.h
+--- freetype-2.10.0/include/freetype/config/ftconfig.h	2019-02-23 10:06:06.000000000 +0100
++++ freetype-2.10.0.aros/include/freetype/config/ftconfig.h	2020-01-06 17:36:26.695475526 +0100
+@@ -461,6 +461,8 @@
+ 
+ #if defined( _WIN32 ) && defined( DLL_EXPORT )
+ #define FT_EXPORT( x )  __declspec( dllexport )  x
++#elif defined(__AROS__)
++#define FT_EXPORT( x )  x
+ #elif defined( __GNUC__ ) && __GNUC__ >= 4
+ #define FT_EXPORT( x )  __attribute__(( visibility( "default" ) ))  x
+ #elif defined( __SUNPRO_C ) && __SUNPRO_C >= 0x550
 diff -ruN freetype-2.10.0/src/autofit/afcjk.c freetype-2.10.0.aros/src/autofit/afcjk.c
 --- freetype-2.10.0/src/autofit/afcjk.c	2019-02-23 10:06:07.000000000 +0100
 +++ freetype-2.10.0.aros/src/autofit/afcjk.c	2019-04-11 14:31:46.282454489 +0200
