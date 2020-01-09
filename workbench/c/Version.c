@@ -66,6 +66,7 @@
 #include <ctype.h>
 
 #include <proto/exec.h>
+#include <proto/utility.h>
 #include <exec/execbase.h>
 #include <exec/libraries.h>
 #include <exec/memory.h>
@@ -660,7 +661,7 @@ int findinfile(BPTR file, CONST_STRPTR string, STRPTR buffer, int *lenptr, unsig
 
     if (args.arg_md5sum)
     {
-        memset(digest, 0, 16);
+        SetMem(digest, 0, 16);
         MD5Final(digest, &md5ctx);
     }
 
