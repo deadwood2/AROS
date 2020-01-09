@@ -29,6 +29,7 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "intern.h"
 
 /*****************************************************************************
 
@@ -56,7 +57,6 @@
     EXAMPLE
 
     BUGS
-        TODO: replace strlen by Strlen
 
     SEE ALSO
 
@@ -80,7 +80,7 @@
     n = size - dlen;
 
     if (n == 0)
-        return dlen + strlen(s);
+        return dlen + Strlen(s);
 
     while (*s != '\0')
     {
