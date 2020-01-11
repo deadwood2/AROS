@@ -269,7 +269,7 @@
 #if !defined AROS_IMPORT_ASM_SYM 
 #    define AROS_IMPORT_ASM_SYM(type, csym, asym)     \
          extern type csym asm(__AROS_STR(asym));      \
-         asm("\n.globl " __AROS_STR(asym) "\n") 
+         asm("\n.globl " __AROS_STR(asym) "\n.hidden " __AROS_STR(asym) "\n")
 #endif
 
 /* Make sure other compilation units can see the symbol 'asym' created with AROS_MAKE_ASM_SYM.
@@ -281,7 +281,7 @@
 	 {                                                               \
 	     int a[sizeof(__CONCAT(__you_must_first_make_asym_, asym))]; \
 	 };                                                              \
-         asm("\n.globl " __AROS_STR(asym) "\n")
+         asm("\n.globl " __AROS_STR(asym) "\n.hidden " __AROS_STR(asym) "\n")
 #endif
 
 #endif /* AROS_SYSTEM_H */
