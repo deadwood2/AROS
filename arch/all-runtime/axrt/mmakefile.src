@@ -4,7 +4,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM- core-linklibs : runtime-axrt-linklibs-$(FAMILY)
-#MM- runtime-axrt-linklibs-runtime : runtime-objects-startup
+#MM- runtime-axrt-linklibs-runtime : runtime-objects-startup runtime-compiler-files
 
 #MM runtime-axrt-so : core-linklibs includes-generate-deps
 #MM runtime-axrt-so-quick
@@ -54,7 +54,7 @@ BD_OBJS       := $(BD_ARCHOBJS) $(addprefix $(OBJDIR)/, $(addsuffix .o,$(notdir 
 
 BD_ERR := libaxrt.so.err
 
-%rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(TOOLDIR)/runtime.ld" \
+%rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(AROS_LIB)/axrt.ld" \
 		 endobj= err=$(BD_ERR) objdir="$(OBJDIR)" \
 		 ldflags="$(LDFLAGS)" uselibs="pthread dl"
 
@@ -99,5 +99,11 @@ $(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
 .PHONY: runtime-objects-startup runtime-objects-startup-setup
 
 %include_deps depstargets="runtime-objects-startup" deps=$(ROS_DEPS)
+
+COMPILER_FILES := \
+    axrt.specs \
+    axrt.ld
+
+%copy_files_q mmake=runtime-compiler-files files=$(COMPILER_FILES) src=compiler dst=$(AROS_LIB)
 
 %common
