@@ -767,6 +767,7 @@ aros_toolchain_ld
 aros_target_toolchain
 aros_flavour_uc
 aros_flavour
+aros_gcc_cpu
 aros_cpu
 aros_arch
 SDL_LIBS
@@ -16061,6 +16062,7 @@ aros_kernel_objdump=$aros_kernel_objdump
 aros_kernel_ranlib=$aros_kernel_ranlib
 
 # Generic
+
 
 
 
