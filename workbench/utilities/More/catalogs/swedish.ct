@@ -3,19 +3,19 @@
 ## language svenska
 ;
 MSG_CANT_OPEN_LIB 
-Kan inte Ã¶ppna %s V%ld!
+Kan inte öppna %s V%ld!
 ;
 MSG_NO_MEM 
-Slut pÃ¥ minne!
+Slut på minne!
 ;
 MSG_CANT_LOCK_SCR 
-Kan inte lÃ¥sa allmÃ¤n skÃ¤rm!
+Kan inte låsa allmän skärm!
 ;
 MSG_CANT_GET_DRI 
-Kan inte lÃ¤sa DrawInfo! 
+Kan inte läsa DrawInfo! 
 ;
 MSG_CANT_GET_VI 
-Kan inte lÃ¤sa VisualInfo!
+Kan inte läsa VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE 
 Kan inte skapa SYSICLASS-bilder!
@@ -27,13 +27,13 @@ MSG_CANT_CREATE_MENUS
 Kan inte skapa menyer!
 ;
 MSG_CANT_CREATE_WIN 
-Kan inte skapa fÃ¶nster!
+Kan inte skapa fönster!
 ;
 MSG_MEN_PROJECT 
 Projekt
 ;
 MSG_MEN_PROJECT_OPEN 
-O\0Ã–ppna...
+O\0Öppna...
 ;
 MSG_MEN_PROJECT_SAVEAS 
 A\0Spara som...
@@ -48,40 +48,40 @@ MSG_MEN_PROJECT_QUIT
 Q\0Avsluta
 ;
 MSG_MEN_NAVIGATION 
-FÃ¶rflyttning
+Förflyttning
 ;
 MSG_MEN_NAVIGATION_FIND 
 F\0Hitta...
 ;
 MSG_MEN_NAVIGATION_FIND_NEXT
-.\0Hitta nÃ¤sta
+.\0Hitta nästa
 ;
 MSG_MEN_NAVIGATION_FIND_PREV 
-,\0Hitta fÃ¶regÃ¥ende
+,\0Hitta föregående
 ;
 MSG_MEN_NAVIGATION_JUMP 
 J\0Hoppa...
 ;
 MSG_ASL_OPEN_TITLE 
-VÃ¤lj fil att Ã¶ppna
+Välj fil att öppna
 ;
 MSG_ASL_SAVE_TITLE 
-VÃ¤lj fil att spara till
+Välj fil att spara till
 ;
 MSG_ABOUT 
-More V%ld.%ld\n (%s)\nCopyright Â© %s av %s
+More V%ld.%ld\n (%s)\nCopyright © %s av %s
 ;
 MSG_ABOUT_TITLE 
 More
 ;
 MSG_CONTINUE
-FortsÃ¤tt
+Fortsätt
 ;
 MSG_JUMP_TITLE
-GÃ¥ till rad...
+Gå till rad...
 ;
 MSG_FIND_TITLE 
-SÃ¶k
+Sök
 ;
 MSG_OK 
 OK

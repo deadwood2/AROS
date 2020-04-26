@@ -8,11 +8,11 @@ Ustawienia BoingIconBar
 ; BIBPrefs
 ;
 MSG_DESCRIPTION
-Ustawienia paska narzÄ™dzi
+Ustawienia paska narzêdzi
 ; BoingIconBar Preferences
 ;
 MSG_TITLE
-Ustawienia paska narzÄ™dzi
+Ustawienia paska narzêdzi
 ; BoingIconBar Preferences
 ;
 MSG_DOCK
@@ -24,7 +24,7 @@ Dodaj
 ; Add
 ;
 MSG_DEL_DOCK
-UsuÅ„
+Usuñ
 ; Delete
 ;
 MSG_SAVE
@@ -40,7 +40,7 @@ Dodaj program
 ; Add program
 ;
 MSG_DEL_P
-UsuÅ„ program
+Usuñ program
 ; Del program
 ;
 MSG_OK

@@ -5,6 +5,6 @@
 ; Initial Danish translation by Kristian Poul Herkild
 ;
 MSG_ERROR_OPEN_LIBRARY
-Kunne ikke Ã¥bne biblioteket %s.
+Kunne ikke åbne biblioteket %s.
 ; Couldn't open library %s.
 ;

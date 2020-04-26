@@ -3,7 +3,7 @@
 ;
 ## version $VER: JanoEditor.catalog 1.1 (20.05.2019).
 ## codeset 0
-## language norsk
+## language norwegian
 ;
 MSG_PROJECTTITLE
 Prosjekt
@@ -12,7 +12,7 @@ MSG_NEWEMPTYFILE
 Ny
 ;
 MSG_OPENNEWFILE
-Ã…pne fil...
+Åpne fil...
 ;
 MSG_LOADINPRJ
 Hent fil...
@@ -63,7 +63,7 @@ MSG_DELLINE
 Slett linje
 ;
 MSG_SUBTOOLS
-VerktÃ¸y
+Verktøy
 ;
 MSG_INDENT
 Innrykk
@@ -75,10 +75,10 @@ MSG_UPPERCASE
 Store bokstaver
 ;
 MSG_LOWERCASE
-SmÃ¥ bokstaver
+Små bokstaver
 ;
 MSG_TOGGLECASE
-Veksle store/smÃ¥ bokstaver
+Veksle store/små bokstaver
 ;
 MSG_INSERTFILE
 Sett inn fil...
@@ -87,19 +87,19 @@ MSG_UNDO
 Angre
 ;
 MSG_REDO
-GjÃ¸r om
+Gjør om
 ;
 MSG_SEARCHTITLE
-SÃ¸k
+Søk
 ;
 MSG_FIND
-SÃ¸k...
+Søk...
 ;
 MSG_REPLACE
 Erstatt...
 ;
 MSG_SUBFIND
-SÃ¸k
+Søk
 ;
 MSG_NEXTFIND
 Neste
@@ -117,7 +117,7 @@ MSG_NEXTPAGE
 Neste side
 ;
 MSG_GOTOLINE
-GÃ¥ til linje...
+Gå til linje...
 ;
 MSG_FINDBRACKET
 Matchende parenteser
@@ -126,10 +126,10 @@ MSG_LASTMODIF
 Siste modifikasjon
 ;
 MSG_BEGOFLINE
-Start pÃ¥ linje
+Start på linje
 ;
 MSG_ENDOFLINE
-Slutt pÃ¥ linje
+Slutt på linje
 ;
 ; Macro Menu
 ;
@@ -154,7 +154,7 @@ MSG_ENVTITLE
 Innstillinger
 ;
 MSG_SCRMODE
-OpplÃ¸sning...
+Oppløsning...
 ;
 MSG_FONTS
 Skrifttyper...
@@ -172,16 +172,16 @@ MSG_SAVEPREFSAS
 Lagre innstillinger som...
 ;
 ERR_BADOS
-Krever OS v2.0 eller hÃ¸yere.
+Krever OS v2.0 eller høyere.
 ;
 ERR_NOASLREQ
-Kan ikke Ã¥pne ASL-anmoder!
+Kan ikke åpne ASL-anmoder!
 ;
 ERR_NOMEM
 Ikke nok minne!
 ;
 ERR_NOGUI
-Klarte ikke Ã¥pne brukergrensesnittet!
+Klarte ikke åpne brukergrensesnittet!
 ;
 ERR_NONAME
 Uten navn
@@ -190,10 +190,10 @@ ERR_WRITECLIP
 Klarte ikke skrive til utklippstavle!
 ;
 ERR_OPENCLIP
-Klarte ikke Ã¥pne utklippstavle!
+Klarte ikke åpne utklippstavle!
 ;
 ERR_LOADFILE
-Klarte ikke Ã¥pne fil!
+Klarte ikke åpne fil!
 ;
 ERR_NOTXTINCLIP
 Utklippstavlen inneholder ingen tekst
@@ -202,31 +202,31 @@ ERR_WRONG_TYPE
 Objektet er av feil type!
 ;
 ERR_READCLIP
-Klarte ikke lese fil pÃ¥ grunn av for lite minne!
+Klarte ikke lese fil på grunn av for lite minne!
 ;
 ERR_NOBRACKET
-Ingen parentes under markÃ¸ren!
+Ingen parentes under markøren!
 ;
 ERR_NOT_FOUND
-Klarte ikke finne mÃ¸nsteret '%s'
+Klarte ikke finne mønsteret '%s'
 ;
 ERR_LOADFONT
-Klarte ikke Ã¥pne skrifttypen!
+Klarte ikke åpne skrifttypen!
 ;
 ERR_NOPREFEDITOR
 Klarte ikke finne innstillingseditoren!
 ;
 ERR_BADPREFSFILE
-Feil filformat pÃ¥ innstillingsfilen.
+Feil filformat på innstillingsfilen.
 ;
 ERR_FILEMODIFIED
-%s er endret.\nEr du sikker pÃ¥ at du vil lukke?
+%s er endret.\nEr du sikker på at du vil lukke?
 ;
 ERR_SLC
 Lagre|Lukk|Avbryt
 ;
 ERR_NOSEARCHTEXT
-Ingen tekst Ã¥ sÃ¸ke etter!
+Ingen tekst å søke etter!
 ;
 ERR_FILEEXISTS
 Filen finnes allerede. Overskrive?
@@ -275,19 +275,19 @@ Linjer
 ; *************************
 ;
 MSG_SEARCHWINDOW
-SÃ¸k etter
+Søk etter
 ;
 MSG_REPLACEWINDOW
-SÃ¸k og erstatt
+Søk og erstatt
 ;
 MSG_SEARCHSTRING
-SÃ¸k:
+Søk:
 ;
 MSG_REPLACESTRING
 Er_statt:
 ;
 MSG_OPTCASE
-Store/smÃ¥ bokstaver
+Store/små bokstaver
 ;
 MSG_OPTWORDS
 Hele ord
@@ -299,7 +299,7 @@ MSG_BUTTONREPALL
 Erstatt _alle
 ;
 MSG_BUTTONSEARCH
-SÃ¸_k
+Sø_k
 ;
 MSG_NEXTSEARCH
 Forrige

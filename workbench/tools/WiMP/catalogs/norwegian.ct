@@ -36,11 +36,11 @@ WiMP - Informasjonsvindu
 ; WiMP - InfoWindow
 ;
 MSG_CLOSE_SCREEN
-Ã˜nsker du virkelig Ã¥ lukke valgt skjerm?
+Ønsker du virkelig å lukke valgt skjerm?
 ; Do you really want to Close the selected Screen?
 ;
 MSG_CLOSE_WINDOW
-Ã˜nsker du virkelig Ã¥ lukke valgt vindu?
+Ønsker du virkelig å lukke valgt vindu?
 ; Do you really want to Close the selected Window?
 ;
 MSG_YES_NO
@@ -196,7 +196,7 @@ Adresse
 ; Address
 ;
 MSG_ARRAY_2_SIZE
-StÃ¸rrelse
+Størrelse
 ; Size
 ;
 MSG_ARRAY_3_POSITION
@@ -224,7 +224,7 @@ Kant venstre
 ; LeftEdge
 ;
 MSG_COL_SCR_TOPEDGE
-Kant Ã¸verst
+Kant øverst
 ; TopEdge
 ;
 MSG_COL_SCR_WIDTH
@@ -232,7 +232,7 @@ Bredde
 ; Width
 ;
 MSG_COL_SCR_HEIGHT
-HÃ¸yde
+Høyde
 ; Height
 ;
 MSG_COL_SCR_FLAGS
@@ -248,7 +248,7 @@ Standardtittel
 ; DefaultTitle
 ;
 MSG_COL_SCR_FRSTWIN
-FÃ¸rste vindu
+Første vindu
 ; FirstWindow
 ;
 MSG_COL_WIDOW
@@ -268,7 +268,7 @@ Venstre kant
 ; LeftEdge
 ;
 MSG_COL_WIN_TOPEDGE
-Kant Ã¸verst
+Kant øverst
 ; TopEdge
 ;
 MSG_COL_WIN_WIDTH
@@ -276,7 +276,7 @@ Bredde
 ; Width
 ;
 MSG_COL_WIN_HEIGHT
-HÃ¸yde
+Høyde
 ; Height
 ;
 MSG_COL_WIN_MINWIDTH
@@ -284,7 +284,7 @@ Minimum bredde
 ; MinWidth
 ;
 MSG_COL_WIN_MINHEIGHT
-Mininum hÃ¸yde
+Mininum høyde
 ; MinHeight
 ;
 MSG_COL_WIN_MAXWIDTH
@@ -292,7 +292,7 @@ Maks bredde
 ; MaxWidth
 ;
 MSG_COL_WIN_MAXHEIGHT
-Maks hÃ¸yde
+Maks høyde
 ; MaxHeight
 ;
 MSG_COL_WIN_FLAGS
@@ -320,11 +320,11 @@ Kant venstre
 ; BorderLeft
 ;
 MSG_COL_WIN_BORDERTOP
-Kant Ã¸verst
+Kant øverst
 ; BorderTop
 ;
 MSG_COL_WIN_BORDERRIGHT
-Kant hÃ¸yre
+Kant høyre
 ; BorderRight
 ;
 MSG_COL_WIN_BORDERBOTTOM
@@ -336,7 +336,7 @@ Opphavsvindu
 ; Parent Window
 ;
 MSG_COL_WIN_FIRSTCHILD
-FÃ¸rste underelement
+Første underelement
 ; First Child
 ;
 MSG_COL_WIN_PARENT

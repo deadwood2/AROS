@@ -1,4 +1,4 @@
-## version $VER: ReqTools.catalog 3.2 (11.01.2020)
+## version $VER: ReqTools.catalog 3.1 (30.6.2017)
 ## language polski
 ## codeset 0
 ;
@@ -11,11 +11,11 @@ Podstawowe
 ; General
 ;
 MSG_FILEREQUESTER
-Okno wyboru plik贸w
+Okno wyboru plik體
 ; File Requester
 ;
 MSG_SIZE
-Wielko艣膰 (% wysoko艣ci ekranu):
+Wielko舵 (% wysoko禼i ekranu):
 ; Size (% of visible height):
 ;
 MSG_OK
@@ -23,7 +23,7 @@ Ok
 ;  Ok
 ;
 MSG_POPSCREEN
-Umie艣膰 ekran na wierzchu
+Umie舵 ekran na wierzchu
 ; Pop screen to front
 ;
 MSG_IMMEDIATESORT
@@ -31,7 +31,7 @@ Sortuj natychmiast
 ; Immediate sort
 ;
 MSG_DRAWERSFIRST
-Wy艣wietl katalogi na pocz膮tku
+Wy秝ietl katalogi na pocz眛ku
 ; Display drawers first
 ;
 MSG_DRAWERSMIXED
@@ -39,39 +39,39 @@ Pliki i katalogi wymieszane
 ; Mix files and drawers
 ;
 MSG_LED
-Wska藕nik aktywno艣ci dysku
+Wska糿ik aktywno禼i dysku
 ; Disk activity LED
 ;
 MSG_DEFAULTFONT
-U偶yj czcionki systemowej
+U縴j czcionki systemowej
 ; Use system default font
 ;
 MSG_FKEYS
-U偶yj klawiszy funkcyjnych
+U縴j klawiszy funkcyjnych
 ; Use function keys
 ;
 MSG_DOWHEEL
-Ko艂o barw:
+Ko硂 kolor體:
 ; Color wheel:
 ;
 MSG_WHEEL_NONE
-呕adne
+Wy潮czony
 ; None
 ;
 MSG_WHEEL_SIMPLE
-Proste
+proste
 ; Simple
 ;
 MSG_WHEEL_FANCY
-Wyszukane
+wybajerzone
 ; Fancy
 ;
 MSG_MMB_PARENT
-艢rodkowy przycisk myszki = nadrz臋dny
+odkowy przycisk myszki = nadrz阣ny
 ; MMB gives parent
 ;
 MSG_DEFAULTS
-Ustawienia domy艣lne
+Ustawienie
 ; Defaults
 ;
 MSG_REQUESTER
@@ -79,27 +79,27 @@ MSG_REQUESTER
 ; \33bRequester:
 ;
 MSG_FILEREQ
-Plik贸w
+Plik
 ; File
 ;
 MSG_FONTREQ
-Czcionki
+Czcionka
 ; Font
 ;
 MSG_PALETTEREQ
-Palety
+Palety kolor體
 ; Palette
 ;
 MSG_SCRMODEREQ
-Tryb贸w ekranu
+Tryb體 ekranu
 ; Screen Mode
 ;
 MSG_VOLUMEREQ
-Medi贸w
+Wolumen體
 ; Volume
 ;
 MSG_OTHERREQ
-Pozosta艂ych
+pozosta硑ch
 ; Other
 ;
 MSG_POSITION
@@ -107,31 +107,31 @@ Pozycja:
 ; Position:
 ;
 MSG_POINTER
-w/g wska藕nika myszki
+w/g wska糿ika myszki
 ; Mouse pointer
 ;
 MSG_CENTERWIN
-艢rodek okna
+秗odek okna
 ; Center in window
 ;
 MSG_CENTERSCR
-艢rodek ekranu
+秗odek ekranu
 ; Center on screen
 ;
 MSG_TOPLEFTWIN
-Lewy g贸rny r贸g okna
+lewy g髍ny r骻 okna
 ; Top left of window
 ;
 MSG_TOPLEFTSCR
-Lewy g贸rny r贸g ekranu
+lewy g髍ny r骻 ekranu
 ; Top left of screen
 ;
 MSG_OFFSET
-\33bPrzesuni臋cie
+\33bPrzesuni阠ie
 ; \33bOffset
 ;
 MSG_NR_OF_ENTRIES
-\33bLiczba widocznych element贸w
+\33bLiczba widocznych element體
 ; \33bNumber of visible entries
 ;
 MSG_MIN

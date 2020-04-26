@@ -4,35 +4,35 @@
 ;
 ;
 MSG_CANT_OPEN_LIB
-Nelze otevÅ™Ã­t knihovnu %s V%ld!\n
+Nelze otevøít knihovnu %s V%ld!\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_LOCK_SCR
-Nelze zamknout veÅ™ejnou obrazovku!
+Nelze zamknout veøejnou obrazovku!
 ; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
-Nelze naÄÃ­st strukturu DrawInfo!
+Nelze naèíst strukturu DrawInfo!
 ; Can't get DrawInfo!
 ;
 MSG_CANT_GET_VI
-Nelze naÄÃ­st strukturu VisualInfo!
+Nelze naèíst strukturu VisualInfo!
 ; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_GADGET
-Nelze vytvoÅ™it tlaÄÃ­tka!
+Nelze vytvoøit tlaèítka!
 ; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
-Nelze vytvoÅ™it menu!
+Nelze vytvoøit menu!
 ; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
-Nelze vytvoÅ™it okno!
+Nelze vytvoøit okno!
 ; Can't create window!
 ;
 MSG_WINTITLE
-NÃ¡rodnÃ­ prostÅ™edÃ­ (editor Locale)
+Národní prostøedí (editor Locale)
 ; Locale Preferences
 ;
 MSG_MEN_PROJECT
@@ -40,47 +40,47 @@ Projekt
 ; Project
 ;
 MSG_MEN_PROJECT_OPEN
-O\0OtevÅ™Ã­t...
+O\0Otevøít...
 ; O\0Open...
 ;
 MSG_MEN_PROJECT_SAVEAS
-A\0UloÅ¾it jako...
+A\0Ulo¾it jako...
 ; A\0Save As...
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0UkonÄit
+Q\0Ukonèit
 ; Q\0Quit
 ;
 MSG_MEN_EDIT
-Ãšpravy
+Úpravy
 ; Edit
 ;
 MSG_MEN_EDIT_DEFAULT
-D\0Obnovit vÃ½chozÃ­
+D\0Obnovit vıchozí
 ; D\0Reset to Defaults
 ;
 MSG_MEN_EDIT_LASTSAVED
-L\0Naposledy uloÅ¾enÃ©
+L\0Naposledy ulo¾ené
 ; L\0Last Saved
 ;
 MSG_MEN_EDIT_RESTORE
-R\0Obnovit pÅ™edchozÃ­
+R\0Obnovit pøedchozí
 ; R\0Restore
 ;
 MSG_MEN_SETTINGS
-NastavenÃ­
+Nastavení
 ; Settings
 ;
 MSG_MEN_SETTINGS_CREATEICONS
-I\0VytvÃ¡Å™et ikony?
+I\0Vytváøet ikony?
 ; I\0Create Icons?
 ;
 MSG_ASL_OPEN_TITLE
-NaÄtenÃ­ nastavenÃ­
+Naètení nastavení
 ; Load Locale Preferences
 ;
 MSG_ASL_SAVE_TITLE
-UloÅ¾enÃ­ nastavenÃ­
+Ulo¾ení nastavení
 ; Save Locale Preferences
 ;
 MSG_OK
@@ -88,27 +88,27 @@ OK
 ; Ok
 ;
 MSG_GAD_AVAIL_LANGUAGES
-PÅ™ehled jazykÅ¯
+Pøehled jazykù
 ; Available Languages
 ;
 MSG_GAD_PREF_LANGUAGES
-VybranÃ© jazyky
+Vybrané jazyky
 ; Preferred Languages
 ;
 MSG_GAD_CLEAR_LANGUAGES
-VÃ½chozÃ­ stav
+Vıchozí stav
 ; Clear Languages
 ;
 MSG_GAD_SAVE
-UloÅ¾it
+Ulo¾it
 ; Save
 ;
 MSG_GAD_USE
-PouÅ¾Ã­t
+Pou¾ít
 ; Use
 ;
 MSG_GAD_CANCEL
-ZruÅ¡it
+Zru¹it
 ; Cancel
 ;
 MSG_GAD_TAB_LANGUAGE
@@ -116,34 +116,34 @@ Jazyky
 ; Language
 ;
 MSG_GAD_TAB_REGION
-ZemÄ›
+Zemì
 ; Country
 ;
 MSG_GAD_TAB_TIMEZONE
-ÄŒasovÃ© pÃ¡smo
+Èasové pásmo
 ; Time Zone
 ;
 MSG_TIMEZONE_1HOUR
-ÄŒasovÃ© pÃ¡smo: 1 hod. od UTC
+Èasové pásmo: 1 hod. od UTC
 ; Time Zone: 1 Hour from UTC
 ;
 MSG_TIMEZONE_HOURS
-ÄŒasovÃ© pÃ¡smo: %ld hod. od UTC
+Èasové pásmo: %ld hod. od UTC
 ; Time Zone: %ld Hours from UTC
 ;
 MSG_TIMEZONE_HOURSMINS
-ÄŒasovÃ© pÃ¡smo: %ld hod., %ld min. od UTC
+Èasové pásmo: %ld hod., %ld min. od UTC
 ; Time Zone: %ld Hours, %ld Minutes from UTC
 ;
 MSG_CHARACTER_SET
-VÃ½chozÃ­ kÃ³dovÃ¡nÃ­
+Vıchozí kódování
 ; Default character set
 ;
 MSG_NOT_SPECIFIED
-nenÃ­ urÄeno
+není urèeno
 ; Not specified
 ;
 MSG_GMT_CLOCK
-PouÅ¾Ã­t univerzÃ¡lnÃ­ Äas
+Pou¾ít univerzální èas
 ; Hardware clock stores GMT
 ;

@@ -1,33 +1,33 @@
-## version $VER: screenmode.catalog 2.2 (11.01.2020)
+## version $VER: screenmode.catalog 2.1 (03.01.2020)
 ## codeset 5
 ## language polski
 ;
 MSG_NAME
-Ustawienia rozdzielczoÅ›ci ekranu
+Ustawienia rozdzielczosci ekranu
 ; ScreenMode Preferences
 ;
 MSG_WIDTH
-\33lSzerokoÅ›Ä‡:
+\33lSzeroko¶æ:
 ; \33lWidth:
 ;
 MSG_DEFAULT
-\33l_domyÅ›lna
+\33l_domy¶lna
 ; \33l_default
 ;
 MSG_HEIGHT
-\33lWysokoÅ›Ä‡:
+\33lWysoko¶æ:
 ; \33lHeight:
 ;
 MSG_DEPTH
-\33lGÅ‚Ä™bia:
+\33lG³êbia:
 ; \33lDepth:
 ;
 MSG_AUTOSCROLL
-\33lAuto przewijanie
+\33lAutomatyczne przewijanie
 ; \33lAutoscroll
 ;
 MSG_DISPLAY_MODE
-Tryb wyÅ›wietlania
+Tryb wy¶wietlania
 ; Display Mode
 ;
 MSG_MODE_ID
@@ -43,23 +43,23 @@ Informacje o trybie
 ; Mode Attributes
 ;
 MSG_VISIBLE_SIZE
-WielkoÅ›Ä‡ widoczna
+Wielko¶æ widoczna
 ; Visible Size
 ;
 MSG_MINIMUM_SIZE
-WielkoÅ›Ä‡ minimalna
+Wielko¶æ minimalna
 ; Minimum Size
 ;
 MSG_MAXIMUM_SIZE
-WielkoÅ›Ä‡ maksymalna
+Wielko¶æ maksymalna
 ; Maximum Size
 ;
 MSG_MAXIMUM_COLORS
-IloÅ›Ä‡ barw
+Maksymalna g³êbia barw
 ; Maximum Colors
 ;
 MSG_FREQUENCY
-CzÄ™stotliwoÅ›Ä‡
+Czêstotliwo¶æ
 ; Frequency
 ;
 MSG_INTERLACED
@@ -75,18 +75,18 @@ Dual Playfields
 ; Dual playfields\n
 ;
 MSG_GENLOCK
-ObsÅ‚uguje genlock\n
+Obs³uguje Genlock\n
 ; Supports genlock\n
 ;
 MSG_DRAGGABLE
-PrzeciÄ…galny\n
+Przeci±galny\n
 ; Draggable\n
 ;
 MSG_PANELLED
-Dzielony dla konwersji skanÃ³w\n
+Dzielony dla konwersji skanów\n
 ; Panelled for scan conversion\n
 ;
 MSG_BEAM_SYNC
-ObsÅ‚uguje synchronizacjÄ™ wiÄ…zki\n
+Obs³uguje synchronizacjê wi±zki\n
 ; Supports beam synchronization\n
 ;

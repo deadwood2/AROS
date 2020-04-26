@@ -16,7 +16,7 @@ Informacije o zaslonu
 ; Screen info
 ;
 MSG_SIZE
-Veliƒçina
+VeliËina
 ; Size
 ;
 MSG_TITLE
@@ -32,7 +32,7 @@ Opcije
 ; Grabbing options
 ;
 MSG_DELAY
-Ka≈°njenje (s)
+Kaπnjenje (s)
 ; Delay (s)
 ;
 MSG_HIDE
@@ -56,11 +56,11 @@ MSG_SCREEN_PARM
 ; %d x %d, depth=%d
 ;
 MSG_OVERWRITE
-Datoteka '%s' veƒç postoji.\n≈Ωelite li ju prepisati?
+Datoteka '%s' veË postoji.\nÆelite li ju prepisati?
 ; File '%s' already exists.\nDo you really want to overwrite it?
 ;
 MSG_ERROR_TITLE
-Screengrabber Gre≈°ka
+Screengrabber Greπka
 ; Screengrabber Error
 ;
 MSG_GAD_OK
@@ -80,7 +80,7 @@ Nedovoljno memorije!
 ; Can't allocate RAM!
 ;
 MSG_ERR_DATATYPEIO
-Zapisivanje '%s' neuspjelo sa IO pogre≈°kom %ld!
+Zapisivanje '%s' neuspjelo sa IO pogreπkom %ld!
 ; Writing of '%s' failed with IO Error %ld!
 ;
 MSG_ERR_OPENFILE

@@ -1,6 +1,6 @@
 ## version $VER: JanoEditor.catalog 1.0 (04.01.2018).
 ## codeset 0
-## language franÃ§ais
+## language français
 ;
 ;
 ; *****************************
@@ -45,7 +45,7 @@ Quitter
 ; Edit Menu
 ;
 MSG_EDITTITLE
-Ã‰dition
+Édition
 ;
 MSG_CUT
 Couper
@@ -63,7 +63,7 @@ MSG_MARKCOLUMN
 Marquer en colonne
 ;
 MSG_SELECTALL
-Tout sÃ©lectionner
+Tout sélectionner
 ;
 MSG_DELLINE
 Effacer la ligne
@@ -87,7 +87,7 @@ MSG_TOGGLECASE
 Intervertir casse
 ;
 MSG_INSERTFILE
-InsÃ©rer...
+Insérer...
 ;
 MSG_UNDO
 Annuler
@@ -113,28 +113,28 @@ MSG_NEXTFIND
 Suivant
 ;
 MSG_PREVFIND
-PrÃ©cÃ©dent
+Précédent
 ;
 MSG_NEXTREPLACE
 Remplacer
 ;
 MSG_PREVPAGE
-Page prÃ©cÃ©dente
+Page précédente
 ;
 MSG_NEXTPAGE
 Page suivante
 ;
 MSG_GOTOLINE
-Aller Ã  la ligne...
+Aller à la ligne...
 ;
 MSG_FINDBRACKET
-VÃ©rifier les parenthÃ¨ses
+Vérifier les parenthèses
 ;
 MSG_LASTMODIF
-DerniÃ¨re modification
+Dernière modification
 ;
 MSG_BEGOFLINE
-DÃ©but de ligne
+Début de ligne
 ;
 MSG_ENDOFLINE
 Fin de ligne
@@ -145,39 +145,39 @@ MSG_MACROTITLE
 Macro
 ;
 MSG_STARTRECORD
-DÃ©but de l'enregistrement
+Début de l'enregistrement
 ;
 MSG_STOPRECORD
 Fin de l'enregistrement
 ;
 MSG_PLAYMACRO
-ExÃ©cuter la macro
+Exécuter la macro
 ;
 MSG_REPEATMACRO
-RÃ©pÃ©ter la macro...
+Répéter la macro...
 ;
 ; Environment Menu
 ;
 MSG_ENVTITLE
-ParamÃ©trage
+Paramétrage
 ;
 MSG_SCRMODE
-Mode d'Ã©cran...
+Mode d'écran...
 ;
 MSG_FONTS
 Police...
 ;
 MSG_PREFS
-PrÃ©fÃ©rences...
+Préférences...
 ;
 MSG_LOADPREFS
-Charger paramÃ¨trages...
+Charger paramètrages...
 ;
 MSG_SAVEPREFS
-Sauver paramÃ¨tres
+Sauver paramètres
 ;
 MSG_SAVEPREFSAS
-Sauver paramÃ¨tres en...
+Sauver paramètres en...
 ;
 ;
 ;
@@ -186,13 +186,13 @@ Sauver paramÃ¨tres en...
 ; *****************************
 ;
 ERR_BADOS
-SystÃ¨me obsolÃ¨te. Installez la version 2.0 ou mieux
+Système obsolète. Installez la version 2.0 ou mieux
 ;
 ERR_NOASLREQ
-Impossible d'ouvrir le sÃ©lecteur de fichier!
+Impossible d'ouvrir le sélecteur de fichier!
 ;
 ERR_NOMEM
-Plus assez de mÃ©moire!
+Plus assez de mémoire!
 ;
 ERR_NOGUI
 Impossible d'ouvrir l'interface principale!
@@ -202,25 +202,25 @@ Sans titre
 ; Not really an error but simplify translation
 ;
 ERR_WRITECLIP
-Erreur d'Ã©criture dans le presse-papier
+Erreur d'écriture dans le presse-papier
 ;
 ERR_OPENCLIP
 Impossible d'ouvrir le presse-papier!
 ;
 ERR_LOADFILE
-Impossible d'ouvrir le fichier demandÃ©!
+Impossible d'ouvrir le fichier demandé!
 ;
 ERR_NOTXTINCLIP
 Aucun texte dans le presse-papier
 ;
 ERR_WRONG_TYPE
-L'objet est un rÃ©pertoire!
+L'objet est un répertoire!
 ;
 ERR_READCLIP
-Lecture incomplÃ¨te du presse-papier. Probablement par manque de mÃ©moire.
+Lecture incomplète du presse-papier. Probablement par manque de mémoire.
 ;
 ERR_NOBRACKET
-Aucune parenthÃ¨se sous le curseur!
+Aucune parenthèse sous le curseur!
 ;
 ERR_NOT_FOUND
 Texte `%s' introuvable.
@@ -229,22 +229,22 @@ ERR_LOADFONT
 Impossible d'ouvrir la police voulue!
 ;
 ERR_NOPREFEDITOR
-Impossible de trouver l'Ã©diteur de prÃ©fÃ©rences!
+Impossible de trouver l'éditeur de préférences!
 ;
 ERR_BADPREFSFILE
-Mauvais format du fichier de prÃ©fÃ©rence.
+Mauvais format du fichier de préférence.
 ;
 ERR_FILEMODIFIED
-%s a Ã©tÃ© modifiÃ©.\nVoulez-vous vraiment fermer ce document?
+%s a été modifié.\nVoulez-vous vraiment fermer ce document?
 ;
 ERR_SLC
 Sauver|Fermer|Annuler
 ;
 ERR_NOSEARCHTEXT
-Aucun texte Ã  rechercher!
+Aucun texte à rechercher!
 ;
 ERR_FILEEXISTS
-Le fichier existe dÃ©jÃ .\nVoulez-vous l'Ã©craser?
+Le fichier existe déjà.\nVoulez-vous l'écraser?
 ;
 ERR_OC
 Oui|Non!
@@ -253,7 +253,7 @@ WARN_RECORD
 Enregistrement de la macro en cours
 ;
 WARN_RECORDED
-Macro enregistrÃ©e
+Macro enregistrée
 ;
 WARN_REC
 [ENR]
@@ -267,16 +267,16 @@ MSG_ABOUT
 Informations
 ;
 MSG_FORMATINFO
-%s\nConÃ§u par T.Pierron et C.Guillaume Â© 2000\n\nProjet en cours: %s\nLongueur: %iu %s, %iu %s.
+%s\nConçu par T.Pierron et C.Guillaume © 2000\n\nProjet en cours: %s\nLongueur: %iu %s, %iu %s.
 ;
 MSG_CONTINUE
 Continuer
 ;
 MSG_BYTE
-caractÃ¨re
+caractère
 ;
 MSG_BYTES
-caractÃ¨res
+caractères
 ;
 MSG_LINE
 ligne
@@ -317,7 +317,7 @@ MSG_BUTTONSEARCH
 Chercher
 ;
 MSG_NEXTSEARCH
-_PrÃ©cÃ©dent
+_Précédent
 ;
 MSG_USESEARCH
 _Utiliser

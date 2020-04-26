@@ -23,11 +23,11 @@ Ny
 ; New
 ;
 MSG_OPENNEWFILE
-Ã…bn fil...
+Åbn fil...
 ; Open file...
 ;
 MSG_LOADINPRJ
-IndlÃ¦s fil...
+Indlæs fil...
 ; Load file...
 ;
 MSG_SAVEFILE
@@ -39,7 +39,7 @@ Gem som...
 ; Save as...
 ;
 MSG_SAVECHANGES
-Gem Ã¦ndringer
+Gem ændringer
 ; Save changes
 ;
 MSG_PRINTFILE
@@ -61,7 +61,7 @@ Afslut
 ; Edit Menu
 ;
 MSG_EDITTITLE
-RedigÃ©r
+Redigér
 ; Edit
 ;
 MSG_CUT
@@ -69,23 +69,23 @@ Klip
 ; Cut
 ;
 MSG_COPY
-KopiÃ©r
+Kopiér
 ; Copy
 ;
 MSG_PASTE
-IndsÃ¦t
+Indsæt
 ; Paste
 ;
 MSG_MARK
-MarkÃ©r
+Markér
 ; Mark
 ;
 MSG_MARKCOLUMN
-MarkÃ©r kolonne
+Markér kolonne
 ; Mark column
 ;
 MSG_SELECTALL
-VÃ¦lg alle
+Vælg alle
 ; Select all
 ;
 MSG_DELLINE
@@ -93,7 +93,7 @@ Slet linie
 ; Delete line
 ;
 MSG_SUBTOOLS
-VÃ¦rktÃ¸jer
+Værktøjer
 ; Tools
 ;
 MSG_INDENT
@@ -101,7 +101,7 @@ Indryk
 ; Indent
 ;
 MSG_UNINDENT
-OphÃ¦v indrykning
+Ophæv indrykning
 ; Unindent
 ;
 MSG_UPPERCASE
@@ -109,15 +109,15 @@ Store bogstaver
 ; Upper case
 ;
 MSG_LOWERCASE
-SmÃ¥ bogstaver
+Små bogstaver
 ; Lower case
 ;
 MSG_TOGGLECASE
-Skift mellem store og smÃ¥ bogstaver
+Skift mellem store og små bogstaver
 ; Toggle case
 ;
 MSG_INSERTFILE
-IndsÃ¦t fil...
+Indsæt fil...
 ; Insert file...
 ;
 MSG_UNDO
@@ -131,7 +131,7 @@ Redo
 ; Search Menu
 ;
 MSG_SEARCHTITLE
-SÃ¸g
+Søg
 ; Search
 ;
 MSG_FIND
@@ -147,7 +147,7 @@ Find
 ; Find
 ;
 MSG_NEXTFIND
-NÃ¦ste
+Næste
 ; Next
 ;
 MSG_PREVFIND
@@ -163,11 +163,11 @@ Forrige side
 ; Previous page
 ;
 MSG_NEXTPAGE
-NÃ¦ste side
+Næste side
 ; Next page
 ;
 MSG_GOTOLINE
-GÃ¥ til linie...
+Gå til linie...
 ; Goto line...
 ;
 MSG_FINDBRACKET
@@ -175,15 +175,15 @@ Find modsvarende kantet parentes
 ; Matching bracket
 ;
 MSG_LASTMODIF
-Sidste Ã¦ndring
+Sidste ændring
 ; Last modification
 ;
 MSG_BEGOFLINE
-Begyndelse pÃ¥ linie
+Begyndelse på linie
 ; Start of line
 ;
 MSG_ENDOFLINE
-Slutning pÃ¥ linie
+Slutning på linie
 ; End of line
 ;
 ; Macro Menu
@@ -201,7 +201,7 @@ Stop optagelse
 ; Stop recording
 ;
 MSG_PLAYMACRO
-UdfÃ¸r makro
+Udfør makro
 ; Execute macro
 ;
 MSG_REPEATMACRO
@@ -211,11 +211,11 @@ Gentag makro...
 ; Environment Menu
 ;
 MSG_ENVTITLE
-MiljÃ¸
+Miljø
 ; Environment
 ;
 MSG_SCRMODE
-SkÃ¦rmtilstand...
+Skærmtilstand...
 ; Screen mode...
 ;
 MSG_FONTS
@@ -227,7 +227,7 @@ Generelle indstillinger...
 ; General preferences...
 ;
 MSG_LOADPREFS
-IndlÃ¦s indstillinger...
+Indlæs indstillinger...
 ; Load preferences..
 ;
 MSG_SAVEPREFS
@@ -245,7 +245,7 @@ Gem indstillinger som...
 ; *****************************
 ;
 ERR_BADOS
-ForÃ¦ldet styresystem. InstallÃ©r version 2.0 eller nyere.
+Forældet styresystem. Installér version 2.0 eller nyere.
 ; Obsolete OS. Install v2.0 or better.
 ;
 ERR_NOASLREQ
@@ -257,7 +257,7 @@ For lidt hukommelse!
 ; Out of memory!
 ;
 ERR_NOGUI
-Ã…bning af hovedinterface mislykkedes!
+Åbning af hovedinterface mislykkedes!
 ; Main interface failed to open!
 ;
 ERR_NONAME
@@ -270,11 +270,11 @@ Skriv fejl til klippebordet
 ; Write error into clipboard device
 ;
 ERR_OPENCLIP
-Kan ikke Ã¥bne klippebord!
+Kan ikke åbne klippebord!
 ; Unable to open clipboard!
 ;
 ERR_LOADFILE
-Kan ikke indlÃ¦se Ã¸nsket fil
+Kan ikke indlæse ønsket fil
 ; Unable to load requested file
 ;
 ERR_NOTXTINCLIP
@@ -286,19 +286,19 @@ Objektet er et katalog!
 ; Object is a directory!
 ;
 ERR_READCLIP
-LÃ¦sehandling ufuldstÃ¦ndig
+Læsehandling ufuldstændig
 ; Read operation incomplete
 ;
 ERR_NOBRACKET
-Ingen paranteser under markÃ¸r!
+Ingen paranteser under markør!
 ; No parenthesis under cursor!
 ;
 ERR_NOT_FOUND
-MÃ¸nstret `%s' kunne ikke findes
+Mønstret `%s' kunne ikke findes
 ; Pattern `%s' not found
 ;
 ERR_LOADFONT
-Kan ikke Ã¥bne den Ã¸nskede skrifttype!
+Kan ikke åbne den ønskede skrifttype!
 ; Can't open desired font!
 ;
 ERR_NOPREFEDITOR
@@ -310,7 +310,7 @@ Ugyldigt indstillingsfilformat.
 ; Bad preference file format.
 ;
 ERR_FILEMODIFIED
-%s er blevet Ã¦ndret.\nEr du sikker pÃ¥, at du vil lukke den?
+%s er blevet ændret.\nEr du sikker på, at du vil lukke den?
 ; %s has been modified.\nAre you sure want to close it?
 ;
 ERR_SLC
@@ -318,11 +318,11 @@ Gem|Luk|Afbryd
 ; Save|Close|Cancel
 ;
 ERR_NOSEARCHTEXT
-Ingen tekst at sÃ¸ge pÃ¥!
+Ingen tekst at søge på!
 ; No text to search for!
 ;
 ERR_FILEEXISTS
-Filen findes allerede. Ã˜nsker du at overskrive den?
+Filen findes allerede. Ønsker du at overskrive den?
 ; This file already exists. Overwrite it?
 ;
 ERR_OC
@@ -351,11 +351,11 @@ Information
 ; Information
 ;
 MSG_FORMATINFO
-%s\nDesigned by T.Pierron and C.Guillaume Â© 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
-; %s\nDesigned by T.Pierron and C.Guillaume Â© 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
+%s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
+; %s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
 ;
 MSG_CONTINUE
-FortsÃ¦t
+Fortsæt
 ; Continue
 ;
 MSG_BYTE
@@ -380,11 +380,11 @@ linier
 ; *************************
 ;
 MSG_SEARCHWINDOW
-SÃ¸gemÃ¸nster
+Søgemønster
 ; Search pattern
 ;
 MSG_REPLACEWINDOW
-SÃ¸g & erstat
+Søg & erstat
 ; Search & Replace
 ;
 MSG_SEARCHSTRING
@@ -396,7 +396,7 @@ Erstat:
 ; Replace:
 ;
 MSG_OPTCASE
-Afstem med store/smÃ¥ bogstaver
+Afstem med store/små bogstaver
 ; Match case
 ;
 MSG_OPTWORDS
@@ -412,7 +412,7 @@ Erstat a_lle
 ; Replace _All
 ;
 MSG_BUTTONSEARCH
-SÃ¸g
+Søg
 ; Search
 ;
 MSG_NEXTSEARCH

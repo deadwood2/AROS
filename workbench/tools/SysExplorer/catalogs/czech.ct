@@ -4,15 +4,15 @@
 ;
 ;
 MSG_TITLE
-SystÃ©movÃ½ prÅ¯zkumnÃ­k
+Systémovı prùzkumník
 ; System Explorer
 ;
 MSG_WINTITLE
-PrÅ¯zkumnÃ­k zaÅ™Ã­zenÃ­
+Prùzkumník zaøízení
 ; System Explorer
 ;
 MSG_DESCRIPTION
-Informace o zaÅ™Ã­zenÃ­ a sytÃ©mu
+Informace o zaøízení a sytému
 ; System and hardware information tool
 ;
 MSG_MENU_PROJECT
@@ -20,19 +20,19 @@ Projekt
 ; Project
 ;
 MSG_MENU_PROPERTIES
-Podrobnosti o zaÅ™Ã­zenÃ­
+Podrobnosti o zaøízení
 ; Properties
 ;
 MSG_MENU_EXPANDALL
-Rozvinout poloÅ¾ky
+Rozvinout polo¾ky
 ; Expand All
 ;
 MSG_MENU_COLLAPSEALL
-Zavinout poloÅ¾ky
+Zavinout polo¾ky
 ; Collapse All
 ;
 MSG_MENU_QUIT
-UkonÄit
+Ukonèit
 ; Quit
 ;
 MSG_HIDD_TREE
@@ -44,19 +44,19 @@ Informace
 ; Properties
 ;
 MSG_LABEL_DRIVER
-JmÃ©no zaÅ™Ã­zenÃ­
+Jméno zaøízení
 ; Driver instance name
 ;
 MSG_LABEL_HW_DESCRIPTION
-Popis zaÅ™Ã­zenÃ­
+Popis zaøízení
 ; Hardware description
 ;
 MSG_LABEL_VENDOR
-Informace o vÃ½robci
+Informace o vırobci
 ; Vendor information
 ;
 MSG_SYSTEM_PROPERTIES
-Informace o systÃ©mu
+Informace o systému
 ; System properties
 ;
 MSG_VERSION
@@ -72,19 +72,19 @@ HPET
 ; HPET
 ;
 MSG_RAM
-PamÄ›Å¥
+Pamì»
 ; Memory
 ;
 MSG_BOOTLOADER
-ZavadÄ›Ä
+Zavadìè
 ; Boot loader
 ;
 MSG_ARGUMENTS
-Argumenty zavadÄ›Äe
+Argumenty zavadìèe
 ; Boot Arguments
 ;
 MSG_AVAILABLE
-Lze pouÅ¾Ã­t
+Lze pou¾ít
 ; Available for use
 ;
 MSG_GENERAL
@@ -92,11 +92,11 @@ Informace
 ; General
 ;
 MSG_NAME
-JmÃ©no
+Jméno
 ; Name
 ;
 MSG_HARDWARE_NAME
-NÃ¡zev zaÅ™Ã­zenÃ­
+Název zaøízení
 ; Hardware Name
 ;
 MSG_PRODUCT_ID
@@ -104,19 +104,19 @@ Produkt ID
 ; Product ID
 ;
 MSG_PRODUCER_NAME
-JmÃ©no vÃ½robce
+Jméno vırobce
 ; Vendor Name
 ;
 MSG_PRODUCER_ID
-ID vÃ½robce
+ID vırobce
 ; Vendor ID
 ;
 MSG_DEVICE_PROPERTIES
-Podrobnosti o zaÅ™Ã­zenÃ­
+Podrobnosti o zaøízení
 ; Device properties
 ;
 MSG_ATA_PROPERTIES
-Informace o IDE sbÄ›rnici
+Informace o IDE sbìrnici
 ; IDE bus properties
 ;
 MSG_ATA
@@ -124,7 +124,7 @@ IDE
 ; IDE
 ;
 MSG_USE_IOALT
-Podpora alternativnÃ­h registrÅ¯
+Podpora alternativníh registrù
 ; Supports alternate registers
 ;
 MSG_USE_32BIT
@@ -136,15 +136,15 @@ Podpora DMA
 ; Supports DMA
 ;
 MSG_USE_80WIRE
-80 Å¾Ã­lovÃ½ kabel
+80 ¾ílovı kabel
 ; 80-wire cable
 ;
 MSG_ATA_UNIT_PROPERTIES
-Vlastnosti IDE zaÅ™Ã­zenÃ­
+Vlastnosti IDE zaøízení
 ; IDE device properties
 ;
 MSG_UNIT_NUMBER
-ÄŒÃ­slo zaÅ™Ã­zenÃ­
+Èíslo zaøízení
 ; Unit number
 ;
 MSG_MODEL
@@ -160,11 +160,11 @@ Serial
 ; Serial
 ;
 MSG_TRANSFER_MODES
-PodporovanÃ© mÃ³dy
+Podporované módy
 ; Supported modes
 ;
 MSG_MULTISECTOR
-MultisektorovÃ½ limit
+Multisektorovı limit
 ; Multisector limit
 ;
 MSG_REMOVABLE
@@ -172,6 +172,6 @@ Odebrat
 ; Removable
 ;
 MSG_CONFIG_MODES
-KonfigurovanÃ© mÃ³dy
+Konfigurované módy
 ; Configured modes
 ;

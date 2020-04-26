@@ -13,11 +13,11 @@ System Monitor
 ; System Monitor
 ;
 MSG_WINDOW_TITLE
-Syst√©mov√Ω monitor
+SystÈmov˝ monitor
 ; System Monitor
 ;
 MSG_USAGE
-Vyu≈æit√≠
+VyuæitÌ
 ; Usage
 ;
 MSG_FREQUENCY
@@ -25,7 +25,7 @@ Frekvence
 ; Frequency
 ;
 MSG_TAB_TASKS
-√ölohy
+⁄lohy
 ; Tasks
 ;
 MSG_TAB_CPU
@@ -33,7 +33,7 @@ Procesor(y)
 ; Processors
 ;
 MSG_SIMULATED_CPU
-Simulovan√Ω AROS procesor
+Simulovan˝ AROS procesor
 ; Simulated AROS processor
 ;
 MSG_PROCESSOR
@@ -41,7 +41,7 @@ Procesor #%id: %s
 ; Processor #%id: %s
 ;
 MSG_TASK
-√öloha
+⁄loha
 ; Task
 ;
 MSG_PROCESS
@@ -49,7 +49,7 @@ Proces
 ; Process
 ;
 MSG_TASK_NAME
-Jm√©no
+JmÈno
 ; Name
 ;
 MSG_TASK_PRIORITY
@@ -61,35 +61,35 @@ Typ
 ; Type
 ;
 MSG_TASK_READY_WAIT_INIT
-- p≈ôipraven√Ωch, - ƒçekaj√≠c√≠ch
+- p¯ipraven˝ch, - ËekajÌcÌch
 ; - ready, - waiting
 ;
 MSG_TASK_READY_WAIT
-%ld p≈ôipraven√Ωch, %ld ƒçekaj√≠c√≠ch
+%ld p¯ipraven˝ch, %ld ËekajÌcÌch
 ; %ld ready, %ld waiting
 ;
 MSG_TAB_SYSTEM
-Syst√©m
+SystÈm
 ; System
 ;
 MSG_MEMORY_SIZE
-Syst√©mov√° pamƒõ≈•
+SystÈmov· pamÏª
 ; Memory Size
 ;
 MSG_MEMORY_FREE
-Voln√° pamƒõ≈•
+Voln· pamÏª
 ; Memory Free
 ;
 MSG_VIDEO_SIZE
-Grafick√° karta
+Grafick· karta
 ; Video Size
 ;
 MSG_VIDEO_FREE
-Voln√° pamƒõ≈•
+Voln· pamÏª
 ; Video Free
 ;
 MSG_TOTAL_RAM
-Celkov√° RAM
+Celkov· RAM
 ; Total Memory
 ;
 MSG_CHIP_RAM
@@ -101,7 +101,7 @@ Fast RAM
 ; Fast Memory
 ;
 MSG_VIDEO_RAM
-Video pamƒõ≈•
+Video pamÏª
 ; Video Memory
 ;
 MSG_VIDEO_WINDOW_TMPL
@@ -109,7 +109,7 @@ MSG_VIDEO_WINDOW_TMPL
 ; %s Window
 ;
 MSG_CANT_OPEN_TASK_RESOURCE
-Nelze otev≈ô√≠t soubor task.resource\n
+Nelze otev¯Ìt soubor task.resource\n
 ; Can't open task.resource\n
 ;
 MSG_PROJECT
@@ -117,7 +117,7 @@ Projekt
 ; Project
 ;
 MSG_REFRESH_SPEED
-Obnovovac√≠ Rychlost
+ObnovovacÌ Rychlost
 ; Refresh Speed
 ;
 MSG_FAST
@@ -125,19 +125,19 @@ Rychle
 ; Fast
 ;
 MSG_NORMAL
-Norm√°ln√≠
+Norm·lnÌ
 ; Normal
 ;
 MSG_SLOW
-Pomal√Ω
+Pomal˝
 ; Slow
 ;
 MSG_TASK_TOMBSTONE
-<mrtv√≠>
+<mrtvÌ>
 ; <tombstone>
 ;
 MSG_TASK_UNKNOWN
-<nezn√°m√Ω>
+<nezn·m˝>
 ; <unknown>
 ;
 MSG_WINDOW_GART

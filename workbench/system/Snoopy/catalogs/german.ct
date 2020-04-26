@@ -8,7 +8,7 @@ Snoopy
 ; Snoopy
 ;
 MSG_COPYRIGHT
-Â© 2006, The AROS Development Team
+© 2006, The AROS Development Team
 ; \xa9 2006-2008, The AROS Development Team
 ;
 MSG_AUTHOR
@@ -68,7 +68,7 @@ Speichern
 ; Save
 ;
 MSG_OPEN
-Ã–ffnen
+Öffnen
 ; Open
 ;
 MSG_USE
@@ -76,11 +76,11 @@ Verwenden
 ; Use
 ;
 MSG_UNDO
-RÃ¼ckgÃ¤ngig
+Rückgängig
 ; Undo
 ;
 MSG_RESET
-ZurÃ¼cksetzen
+Zurücksetzen
 ; Reset
 ;
 MSG_CANCEL
@@ -124,11 +124,11 @@ Ein Fehler passierte beim Laden von %s
 ; An error happened when loading from %s
 ;
 MSG_RESET_PATCHES
-Patche zurÃ¼cksetzen|Abbrechen
+Patche zurücksetzen|Abbrechen
 ; Reset Patches|Cancel
 ;
 MSG_ASK_RESET
-MÃ¶chtest Du wirklich alle Patche auf ihre Originalfunktionen zurÃ¼cksetzen?
+Möchtest Du wirklich alle Patche auf ihre Originalfunktionen zurücksetzen?
 ; Do you really want to reset the patches to their original functions?
 ;
 MSG_REMOVE_SNOOP
@@ -136,8 +136,8 @@ Entfernen|Beibehalten
 ; Remove|Keep
 ;
 MSG_ASK_REMOVE
-MÃ¶chtest Du den Snoopy-Prozess wirklich entfernen?\n\
-Dies kann ziemlich gefÃ¤hrlich sein, wenn ein anderer Task Snoopys Patche gepatcht hat.
+Möchtest Du den Snoopy-Prozess wirklich entfernen?\n\
+Dies kann ziemlich gefährlich sein, wenn ein anderer Task Snoopys Patche gepatcht hat.
 ; Do you really want to remove the Snoopy process?\n\
 ; This can be quite dangerous when another task has patched Snoopy's patches.
 ;
@@ -174,7 +174,7 @@ Lesen???
 ; Read???
 ;
 MSG_MODIFY
-Ã„ndern
+Ändern
 ; Modify
 ;
 MSG_VERSION
@@ -182,6 +182,6 @@ Version %ld
 ; Version %ld
 ;
 MSG_SIZE
-GrÃ¶ÃŸe %d
+Größe %d
 ; Size %d
 ;

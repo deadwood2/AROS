@@ -2,13 +2,13 @@
 ;
 ;   ReqTools V38
 ;
-;   EspaÃ±ol
+;   Español
 ;
 ;******************
 ;
 ## version $VER: reqtools.catalog 39 (31.03.2016)
 ## codeset 0
-## language espaÃ±ol
+## language español
 ;
 ; *** General ***
 ;
@@ -28,10 +28,10 @@ MSG_LAST_BAR_CANCEL
 _Anterior|_Cancelar
 ;
 MSG_REQUEST
-PeticiÃ³n
+Petición
 ;
 MSG_INFORMATION
-InformaciÃ³n
+Información
 ;
 ; *** GetLong Requester ***
 ;
@@ -46,10 +46,10 @@ MSG_MIN_MAX_FMT
  Min: %ld, Max: %ld
 ;
 MSG_TOO_SMALL
-Â¡Muy pequeÃ±o!!
+¡Muy pequeño!!
 ;
 MSG_TOO_BIG
-Â¡Muy grande!
+¡Muy grande!
 ;
 ; *** Palette Requester ***
 ;
@@ -94,37 +94,37 @@ Distribuir en...
 ; *** File Requester ***
 ;
 MSG_CREATE_DRAWER
-No existe el directorio %s\nÂ¿Quiere crearlo?
+No existe el directorio %s\n¿Quiere crearlo?
 ;
 MSG_DIR_ERROR
-Â¡Directorio errÃ³neo!
+¡Directorio erróneo!
 ;
 MSG_MATCH_WINTITLE
-PatrÃ³n...
+Patrón...
 ;
 MSG_DRAWER
 Directorio
 ;
 MSG_ASSIGN
-AsignaciÃ³n
+Asignación
 ;
 MSG_ALL
 To_do
 ;
 MSG_MATCH
-_PatrÃ³n...
+_Patrón...
 ;
 MSG_CLEAR
 _Borrar
 ;
 MSG_VOLUMES
-_VolÃºmenes
+_Volúmenes
 ;
 MSG_PARENT
 _Anterior
 ;
 MSG_PATTERN
-Pat_rÃ³n:
+Pat_rón:
 ;
 MSG_GET
 _Tomar
@@ -141,13 +141,13 @@ MSG_FULL
 ; *** Font Requester ***
 ;
 MSG_COULDNT_OPEN_FONT
-Â¡No puedo abrir fuente!
+¡No puedo abrir fuente!
 ;
 MSG_BOLD
 _Negrita
 ;
 MSG_ITALIC
-_ItÃ¡lica
+_Itálica
 ;
 MSG_UNDERLINE
 _Subrayada
@@ -164,16 +164,16 @@ MSG_DASH_EHB
 -EHB
 ;
 MSG_REGULAR_SIZE
-TamaÃ±o Normal
+Tamaño Normal
 ;
 MSG_TEXT_SIZE
-TamaÃ±o Texto
+Tamaño Texto
 ;
 MSG_GFX_SIZE
-TamaÃ±o GrÃ¡fico
+Tamaño Gráfico
 ;
 MSG_MAX_SIZE
-TamaÃ±o MÃ¡ximo
+Tamaño Máximo
 ;
 MSG_OVERSCAN
 O_verscan:

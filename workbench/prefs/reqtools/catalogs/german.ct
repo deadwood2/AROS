@@ -13,7 +13,7 @@ MSG_FILEREQUESTER
 Datei-Auswahlfenster
 ;
 MSG_SIZE
-GrÃ¶ÃŸe (% der sichtbaren HÃ¶he):
+Größe (% der sichtbaren Höhe):
 ;
 MSG_OK
 Ok
@@ -52,7 +52,7 @@ MSG_WHEEL_FANCY
 Aufwendiges
 ;
 MSG_MMB_PARENT
-Mittlere Maustaste fÃ¼r Ã¼bergeordnete Schublade
+Mittlere Maustaste für übergeordnete Schublade
 ;
 MSG_DEFAULTS
 Vorgaben
@@ -73,7 +73,7 @@ MSG_SCRMODEREQ
 Schirmmodus
 ;
 MSG_VOLUMEREQ
-DatentrÃ¤ger
+Datenträger
 ;
 MSG_OTHERREQ
 Andere
@@ -100,7 +100,7 @@ MSG_OFFSET
 \33bAbstand
 ;
 MSG_NR_OF_ENTRIES
-\33bAnzahl sichtbarer EintrÃ¤ge
+\33bAnzahl sichtbarer Einträge
 ;
 MSG_MIN
 Minimum:

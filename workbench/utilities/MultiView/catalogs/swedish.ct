@@ -3,19 +3,19 @@
 ## language svenska
 ;
 MSG_CANT_OPEN_LIB
-Kunde inte Ã¶ppna %s V%ld!\n
+Kunde inte öppna %s V%ld!\n
 ;
 MSG_CANT_CREATE_IC 
 Kunde inte skapa sammankopplingsobjekt!
 ;
 MSG_CANT_LOCK_SCR
-Kunde inte lÃ¥se den publika skÃ¤rmen!
+Kunde inte låse den publika skärmen!
 ;
 MSG_CANT_GET_DRI
-Kunde inte fÃ¥ DrawInfo!
+Kunde inte få DrawInfo!
 ;
 MSG_CANT_GET_VI
-Kunde inte fÃ¥ VisualInfo!
+Kunde inte få VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE 
 Kunde inte skapa SYSICLASS bilder!
@@ -27,15 +27,15 @@ MSG_CANT_CREATE_MENUS
 Kunde inte skapa menyerna!
 ;
 MSG_CANT_CREATE_WIN 
-Kunde inte Ã¶ppna fÃ¶nstret!
+Kunde inte öppna fönstret!
 ;
 MSG_MEN_PROJECT 
 Arkiv
 ;
 MSG_MEN_PROJECT_OPEN 
-O\0Ã–ppna...
+O\0Öppna...
 ;
-MSG_MEN_PROJECT_SAVEAS
+MSG_MEN_PROJECT_EXPORT
 A\0Spara som...
 ;
 MSG_MEN_PROJECT_PRINT 
@@ -57,16 +57,16 @@ MSG_MEN_EDIT_COPY
 C\0Kopiera
 ;
 MSG_MEN_EDIT_SELECTALL 
-[\0VÃ¤lj allt
+[\0Välj allt
 ;
 MSG_MEN_EDIT_CLEARSELECTED
-]\0VÃ¤lj bort
+]\0Välj bort
 ;
 MSG_MEN_WINDOW 
-FÃ¶nster
+Fönster
 ;
 MSG_MEN_WINDOW_SEPSCREEN
- \0AnvÃ¤nd separat skÃ¤rm?
+ \0Använd separat skärm?
 ;
 MSG_MEN_WINDOW_MINIMIZE
  \0Minimera
@@ -78,16 +78,16 @@ MSG_MEN_WINDOW_MAXIMIZE
  \0Maximera
 ;
 MSG_MEN_SETTINGS 
-InstÃ¤llningar
+Inställningar
 ;
 MSG_MEN_SETTINGS_SAVEDEF 
 D\0Spara som standard
 ;
 MSG_ASL_OPEN_TITLE 
-VÃ¤lj fil att Ã¶ppna
+Välj fil att öppna
 ;
 MSG_ASL_SAVE_TITLE
-VÃ¤lj fil att spara till
+Välj fil att spara till
 ;
 MSG_ABOUT 
 MultiView %ld.%ld (%s)\ndatatypes.library %s\n\n%s %s
@@ -96,7 +96,7 @@ MSG_ABOUT_TITLE
 MultiView
 ;
 MSG_CONTINUE 
-FortsÃ¤tt
+Fortsätt
 ;
 MSG_OK 
 OK

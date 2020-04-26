@@ -1,12 +1,12 @@
 ## version $VER: Zune.catalog 2.1 (23.12.2019)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;=============================
 ; buttonsp.c
 ;-----------
 MSG_GENERAL
-GÃ©nÃ©ral
+Général
 ;General
 ;
 MSG_BACKGROUND_COLON
@@ -14,7 +14,7 @@ Fond :
 ;Background:
 ;
 MSG_BACKGROUND_PRESSED
-Fond sÃ©lectionnÃ©
+Fond sélectionné
 ;Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
@@ -81,7 +81,7 @@ dessous
 ;below
 ;
 MSG_ON_ACTIVE
-sur la sÃ©lection
+sur la sélection
 ;on active
 ;
 MSG_CYCLE_GADGET_DESIGN
@@ -93,7 +93,7 @@ Cycle
 ;Cycle
 ;
 MSG_POPUP_MENU_CONTROL
-ContrÃ´le de menu contextuel
+Contrôle de menu contextuel
 ;Popup Menu Control
 ;
 MSG_POSITION
@@ -117,15 +117,15 @@ Cadre
 ;Frame
 ;
 MSG_ADJUST_BACKGROUND
-Ajuster l'arriÃ¨re plan
+Ajuster l'arrière plan
 ;Adjust Background
 ;
 MSG_BACKGROUND
-ArriÃ¨re plan
+Arrière plan
 ;Background
 ;
 MSG_RECESSED_ENTRIES
-EncastrÃ© :
+Encastré :
 ;Recessed Entries:
 ;
 ;=============================
@@ -136,7 +136,7 @@ dessus
 ;above
 ;
 MSG_CENTERED
-centrÃ©
+centré
 ;centered
 ;
 MSG_STANDARD
@@ -144,7 +144,7 @@ normal
 ;standard
 ;
 MSG_HILITE
-surlignÃ©
+surligné
 ;hilite
 ;
 MSG_3D
@@ -152,7 +152,7 @@ MSG_3D
 ;3d
 ;
 MSG_OUTLINE
-dÃ©tourÃ©
+détouré
 ;outline
 ;
 MSG_TITLE
@@ -188,7 +188,7 @@ Virtuel
 ;Virtual
 ;
 MSG_FRAMED
-EncadrÃ©
+Encadré
 ;Framed
 ;
 MSG_PAGE
@@ -199,7 +199,7 @@ Page
 ; listviewsp.c
 ;-------------
 MSG_SHIFTED
-dÃ©calÃ©
+décalé
 ;shifted
 ;
 MSG_ALWAYS
@@ -207,15 +207,15 @@ toujours
 ;always
 ;
 MSG_LINEAR
-linÃ©aire
+linéaire
 ;linear
 ;
 MSG_MIXED
-mÃ©langÃ©
+mélangé
 ;mixed
 ;
 MSG_CONTROL
-ContrÃ´le
+Contrôle
 ;Control
 ;
 MSG_MULTI
@@ -223,7 +223,7 @@ Multi :
 ;Multi:
 ;
 MSG_REFRESH
-RafraÃ®chissement :
+Rafraîchissement :
 ;Refresh:
 ;
 MSG_SMOOTH
@@ -239,11 +239,11 @@ Normal :
 ;Normal:
 ;
 MSG_FIXED
-FixÃ© :
+Fixé :
 ;Fixed:
 ;
 MSG_LEADING
-En tÃªte
+En tête
 ;Leading
 ;
 MSG_DESIGN
@@ -267,11 +267,11 @@ Actif :
 ;Active:
 ;
 MSG_ACTIVE_SELECTED
-Actif et\nSelectionnÃ© :
+Actif et\nSelectionné :
 ;Active &\nSelected:
 ;
 MSG_SELECTED
-SelectionnÃ© :
+Selectionné :
 ;Selected:
 ;
 ;=============================
@@ -282,15 +282,15 @@ toujours solide
 ;always solid
 ;
 MSG_GHOSTED_ON_BOX
-floutÃ© au dessus
+flouté au dessus
 ;ghosted on box
 ;
 MSG_GHOSTED_OUTSIDE_BOX
-floutÃ© en dehors
+flouté en dehors
 ;ghosted outside box
 ;
 MSG_ALWAYS_GHOSTED
-toujours floutÃ©
+toujours flouté
 ;always ghosted
 ;
 MSG_SHOW_FRAMES
@@ -306,7 +306,7 @@ Presser :
 ;Press:
 ;
 MSG_KL_TOGGLE
-Ã‰changer:
+Échanger:
 ;Toggle:
 ;
 MSG_KL_UP
@@ -318,7 +318,7 @@ Bas :
 ;Down:
 ;
 MSG_KL_PAGE_UP
-Page prÃ©cÃ©dente :
+Page précédente :
 ;Page up:
 ;
 MSG_KL_PAGE_DOWN
@@ -326,7 +326,7 @@ Page suivante :
 ;Page down:
 ;
 MSG_KL_TOP
-DÃ©but :
+Début :
 ;Top:
 ;
 MSG_KL_BOTTOM
@@ -350,7 +350,7 @@ Droite du mot:
 ;Word right:
 ;
 MSG_KL_LINE_START
-DÃ©but de ligne :
+Début de ligne :
 ;Line start:
 ;
 MSG_KL_LINE_END
@@ -370,15 +370,15 @@ Pas de gadget :
 ;Gadget off:
 ;
 MSG_KL_CLOSE_WINDOW
-Fermer la fenÃªtre :
+Fermer la fenêtre :
 ;Close window:
 ;
 MSG_KL_NEXT_WINDOW
-FenÃªtre suivante :
+Fenêtre suivante :
 ;Next window:
 ;
 MSG_KL_PREV_WINDOW
-FenÃªtre prÃ©cÃ©dente :
+Fenêtre précédente :
 ;Prev. window:
 ;
 MSG_KL_HELP
@@ -390,7 +390,7 @@ Menu contextuel :
 ;Popup:
 ;
 MSG_DRAG_DROP
-Glisser & DÃ©poser
+Glisser & Déposer
 ;Drag & Drop
 ;
 MSG_LEFT_BUTTON
@@ -402,7 +402,7 @@ Bouton central:
 ;Middle Button:
 ;
 MSG_AUTOSTART
-DÃ©marrage automatique :
+Démarrage automatique :
 ;Autostart:
 ;
 MSG_PIXEL
@@ -410,7 +410,7 @@ MSG_PIXEL
 ;%ld pixel
 ;
 MSG_BALANCING_GROUPS
-Groupes balancÃ©s
+Groupes balancés
 ;Balancing Groups
 ;
 MSG_EXAMPLE
@@ -422,7 +422,7 @@ Essayer avec
 ;Try with
 ;
 MSG_SHIFT
-dÃ©calage
+décalage
 ;shift
 ;
 MSG_TOO
@@ -442,11 +442,11 @@ nouvelle apparence
 ;newlook
 ;
 MSG_CUSTOM
-personnalisÃ©
+personnalisé
 ;custom
 ;
 MSG_ARROWS
-FlÃªches
+Flêches
 ;Arrows
 ;
 MSG_UP
@@ -454,11 +454,11 @@ haut
 ;up
 ;
 MSG_ARROW_UP
-FlÃªche haut
+Flêche haut
 ;Arrow up
 ;
 MSG_ARROW_DOWN
-FlÃªche bas
+Flêche bas
 ;Arrow down
 ;
 MSG_DOWN
@@ -470,11 +470,11 @@ gauche
 ;left
 ;
 MSG_ARROW_LEFT
-FlÃªche gauche
+Flêche gauche
 ;Arrow left
 ;
 MSG_ARROW_RIGHT
-FlÃªche droite
+Flêche droite
 ;Arrow right
 ;
 MSG_RIGHT
@@ -494,7 +494,7 @@ Ascenseur
 ;Scroller
 ;
 MSG_KNOB
-PoignÃ©e
+Poignée
 ;Knob
 ;
 MSG_ARRANGEMENT
@@ -509,7 +509,7 @@ Apparence du conteneur
 ;Container Design
 ;
 MSG_KNOB_DESIGN
-Apparence de la PoignÃ©e
+Apparence de la Poignée
 ;Knob Design
 ;
 MSG_EXAMPLE_SLIDERS
@@ -532,11 +532,11 @@ Barre de progression
 ;Progress Indicator
 ;
 MSG_DEVICE_IMAGES
-Images du pÃ©riphÃ©rique
+Images du périphérique
 ;Device Images
 ;
 MSG_DRAWER
-RÃ©pertoire
+Répertoire
 ;Drawer
 ;
 MSG_HARDDISK
@@ -556,7 +556,7 @@ Volume
 ;Volume
 ;
 MSG_NETWORK
-RÃ©seau
+Réseau
 ;Network
 ;
 MSG_ASSIGN
@@ -588,7 +588,7 @@ enregistrer
 ;Tape record
 ;
 MSG_TAPE_UP
-arriÃ¨re
+arrière
 ;Tape up
 ;
 MSG_TAPE_DOWN
@@ -603,7 +603,7 @@ Cadre
 ;String Frame
 ;
 MSG_SPECIAL_POPUP_BUTTONS
-Boutons spÃ©ciaux
+Boutons spéciaux
 ;Special Popup Buttons
 ;
 MSG_POPUP
@@ -611,7 +611,7 @@ Bouton contextuel
 ;Popup
 ;
 MSG_DEFAULT
-Par dÃ©faut
+Par défaut
 ;Default
 ;
 MSG_FILE
@@ -619,11 +619,11 @@ Fichier
 ;File
 ;
 MSG_POPUP_FILE
-Bouton spÃ©ciaux fichier
+Bouton spéciaux fichier
 ;Popup file
 ;
 MSG_POPUP_DRAWER
-Bouton spÃ©ciaux rÃ©pertoire
+Bouton spéciaux répertoire
 ;Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
@@ -639,7 +639,7 @@ Couleurs actives
 ;Active String Colors
 ;
 MSG_MARKED_STRING_COLORS
-Couleurs sÃ©lectionnÃ©es
+Couleurs sélectionnées
 ;Marked String Colors
 ;
 MSG_EXAMPLE_STRING_GADGET
@@ -694,11 +694,11 @@ Grand :
 ;Big:
 ;
 MSG_WINDOW
-FenÃªtre
+Fenêtre
 ;Window
 ;
 MSG_REQUESTER
-RequÃªte
+Requête
 ;Requester
 ;
 MSG_L
@@ -725,11 +725,11 @@ Boutons
 ; zune.c
 ;-------
 MSG_WINTITLE1
-Zune - PrÃ©fÃ©rences gÃ©nÃ©rales
+Zune - Préférences générales
 ;Zune - Global Prefs
 ;
 MSG_WINTITLE2
-Zune - PrÃ©fÃ©rences pour : %s
+Zune - Préférences pour : %s
 ;Zune - Prefs for : %s
 ;
 MSG_MEN_PROJECT
@@ -745,7 +745,7 @@ O
 ;O
 ;
 MSG_MEN_APPEND
-Ajouter Ã  ...
+Ajouter à ...
 ;Append ...
 ;
 MSG_MEN_SAVEAS
@@ -757,7 +757,7 @@ A
 ;A
 ;
 MSG_MEN_ABOUT
-Ã€ propos de Zune ...
+À propos de Zune ...
 ;About Zune ...
 ;
 MSG_MEN_ABOUT_SC
@@ -797,11 +797,11 @@ A_nnuler
 ;_Cancel
 ;
 MSG_DSC_SYSTEM
-SystÃ¨me
+Système
 ;System
 ;
 MSG_DSC_WINDOWS
-FenÃªtres
+Fenêtres
 ;Windows
 ;
 MSG_DSC_GROUPS
@@ -817,7 +817,7 @@ Cycles
 ;Cycles
 ;
 MSG_DSC_SLIDERS
-GlissiÃ¨res
+Glissières
 ;Sliders
 ;
 MSG_DSC_SCROLLBARS
@@ -837,7 +837,7 @@ Navigation
 ;Navigation
 ;
 MSG_DSC_SPECIAL
-SpÃ©cial
+Spécial
 ;Special
 ;
 MSG_DSC_FRAMES
@@ -855,7 +855,7 @@ Ajuster le crayon
 ; framesp.c
 ;----------
 MSG_CUSTOMFRAMES
-Cadres personnalisÃ©s
+Cadres personnalisés
 ;Customframes
 ;
 ;=============================
@@ -874,7 +874,7 @@ Inspecteur d'appel
 ;Call Inspector
 ;
 MSG_POP_TO_FRONT
-Placer Ã  l'avant plan :
+Placer à l'avant plan :
 ;Pop to front:
 ;
 MSG_ICONIFICATION
@@ -890,7 +890,7 @@ Afficher :
 ;Show:
 ;
 MSG_ICON
-IcÃ´ne
+Icône
 ;Icon
 ;
 MSG_MENU
@@ -898,7 +898,7 @@ Menu
 ;Menu
 ;
 MSG_ON_STARTUP
-Au dÃ©marrage:
+Au démarrage:
 ;On Startup:
 ;
 MSG_INTERFACES
@@ -914,7 +914,7 @@ Bulle d'aide
 ;Bubble Help
 ;
 MSG_FIRST_BUBBLE
-PremiÃ¨re bulle :
+Première bulle :
 ;First Bubble:
 ;
 MSG_NEXT_BUBBLE

@@ -11,7 +11,7 @@ Anuluj
 ; _Cancel
 ;
 MSG_PASSWORD_REQ
-Wpisz hasÅ‚o:
+Wpisz has³o:
 ; Enter password:
 ;
 MSG_NOZLIB
@@ -19,7 +19,7 @@ Wymagana biblioteka z.library
 ; z.library required
 ;
 MSG_NOCAPSDEV
-Wymagane urzÄ…dzenie capsimage.device
+Wymagane urz±dzenie capsimage.device
 ; capsimage.device required
 ;
 MSG_CANCELED
@@ -27,35 +27,35 @@ Operacja anulowana
 ; operation canceled
 ;
 MSG_NOPASSWD
-Wymagane hasÅ‚o
+Wymagane has³o
 ; password required
 ;
 MSG_WRONGPASSWD
-NieprawidÅ‚owe hasÅ‚o
+Nieprawid³owe has³o
 ; wrong password
 ;
 MSG_ZLIBERR
-BÅ‚Ä…d biblioteki z.library
+B³±d biblioteki z.library
 ; z.library error
 ;
 MSG_CAPSERR
-BÅ‚Ä…d urzÄ…dzenia capsimage.device
+B³±d urz±dzenia capsimage.device
 ; capsimage.device error
 ;
 MSG_XPKERR
-BÅ‚Ä…d biblioteki xpkmaster.library
+B³±d biblioteki xpkmaster.library
 ; xpkmaster.library error
 ;
 MSG_XADERR
-BÅ‚Ä…d biblioteki xadmaster.library
+B³±d biblioteki xadmaster.library
 ; xadmaster.library error
 ;
 MSG_UNKNDISKIMGTYPE
-NieobsÅ‚ugiwany typ/format obrazu dysku
+Nieobs³ugiwany typ/format obrazu dysku
 ; unsupported disk image type/format
 ;
 MSG_UNKNCOMPMETHOD
-NieobsÅ‚ugiwana metoda kompresji
+Nieobs³ugiwana metoda kompresji
 ; unsupported compression method
 ;
 MSG_EOF
@@ -63,15 +63,15 @@ Nieoczekiwany koniec pliku
 ; unexpected end of file
 ;
 MSG_BADDATA
-Plik zawiera nieprawidÅ‚owe dane
+Plik zawiera nieprawid³owe dane
 ; file contains bad data
 ;
 MSG_BADCRC
-BÅ‚Ä…d CRC
+B³±d CRC
 ; CRC check on file data failed
 ;
 MSG_BADCHECKSUM
-BÅ‚Ä…d sumy kontrolnej
+B³±d sumy kontrolnej
 ; checksum error
 ;
 MSG_REQ
@@ -83,18 +83,18 @@ MSG_REQVER
 ; %s v%ld or newer required
 ;
 MSG_WRONGDAA
-nieprawidÅ‚owy plik DAA
+nieprawid³owy plik DAA
 ; wrong DAA file (multi-file DAA)
 ;
 MSG_EXPATERR
-BÅ‚Ä…d biblioteki expat.library
+B³±d biblioteki expat.library
 ; expat.library error
 ;
 MSG_BZLIBERR
-BÅ‚Ä…d biblioteki bz2.library
+B³±d biblioteki bz2.library
 ; bz2.library error
 ;
 MSG_UNKNENCRMETHOD
-NieobsÅ‚ugiwana metoda szyfrowania
+Nieobs³ugiwana metoda szyfrowania
 ; unsupported encryption method
 ;

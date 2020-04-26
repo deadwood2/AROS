@@ -4,15 +4,15 @@
 ;
 ;
 MSG_ERROR_CANT_CREATE_APPLICATION
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РѕР±СЉРµРєС‚ РїСЂРёР»РѕР¶РµРЅРёСЏ
+Не могу создать объект приложения
 ; Error: Can't create application object.
 ;
 MSG_WINDOW_TITLE
-Р§Р°СЃС‹
+Часы
 ; Clock
 ;
 MSG_DESCRIPTION
-Р§Р°СЃС‹ Wanderer
+Часы Wanderer
 ; Wanderer Clock
 ;
 MSG_OK
@@ -20,6 +20,6 @@ Ok
 ; Ok
 ;
 MSG_ERROR_DISKOBJECT
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РґРёСЃРєРѕРІС‹Р№ РѕР±СЉРµРєС‚
+Не могу создать дисковый объект
 ; Error: Can't create diskobject
 ;

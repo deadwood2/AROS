@@ -1,5 +1,5 @@
 ## version $VER: Locale.catalog 2.0 (03.01.2018)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
@@ -8,7 +8,7 @@ Impossible d'ouvrir %s V%ld !\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_LOCK_SCR
-Impossible de verrouiller l'Ã©cran public !
+Impossible de verrouiller l'écran public !
 ; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
@@ -20,19 +20,19 @@ Impossible d'ouvrir la structure VisualInfo !
 ; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_GADGET
-Impossible de crÃ©er les Gadgets !
+Impossible de créer les Gadgets !
 ; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
-Impossible de crÃ©er les Menus !
+Impossible de créer les Menus !
 ; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
-Impossible d'ouvrir la fenÃªtre !
+Impossible d'ouvrir la fenêtre !
 ; Can't create window!
 ;
 MSG_WINTITLE
-PrÃ©fÃ©rences de langage
+Préférences de langage
 ; Locale Preferences
 ;
 MSG_MEN_PROJECT
@@ -56,31 +56,31 @@ Modifier
 ; Edit
 ;
 MSG_MEN_EDIT_DEFAULT
-D\0Configuration par dÃ©faut
+D\0Configuration par défaut
 ; D\0Reset to Defaults
 ;
 MSG_MEN_EDIT_LASTSAVED
-L\0DerniÃ¨re sauvegarde
+L\0Dernière sauvegarde
 ; L\0Last Saved
 ;
 MSG_MEN_EDIT_RESTORE
-R\0Revenir Ã  l'initial
+R\0Revenir à l'initial
 ; R\0Restore
 ;
 MSG_MEN_SETTINGS
-PrÃ©fÃ©rences
+Préférences
 ; Settings
 ;
 MSG_MEN_SETTINGS_CREATEICONS
-I\0CrÃ©er des icÃ´nes ?
+I\0Créer des icônes ?
 ; I\0Create Icons?
 ;
 MSG_ASL_OPEN_TITLE
-Charger les prÃ©fÃ©rences
+Charger les préférences
 ; Load Locale Preferences
 ;
 MSG_ASL_SAVE_TITLE
-Sauver les prÃ©fÃ©rences
+Sauver les préférences
 ; Save Locale Preferences
 ;
 MSG_OK
@@ -92,7 +92,7 @@ Langages disponibles
 ; Available Languages
 ;
 MSG_GAD_PREF_LANGUAGES
-Langages prÃ©fÃ©rÃ©s
+Langages préférés
 ; Preferred Languages
 ;
 MSG_GAD_CLEAR_LANGUAGES
@@ -116,7 +116,7 @@ Langue
 ; Language
 ;
 MSG_GAD_TAB_REGION
-RÃ©gion
+Région
 ; Country
 ;
 MSG_GAD_TAB_TIMEZONE
@@ -136,14 +136,14 @@ Fuseau horaire : %ld Heures %ld Minutes de UTC
 ; Time Zone: %ld Hours, %ld Minutes from UTC
 ;
 MSG_CHARACTER_SET
-Jeu de caractÃ¨res standard
+Jeu de caractères standard
 ; Default character set
 ;
 MSG_NOT_SPECIFIED
-Non spÃ©cifiÃ©
+Non spécifié
 ; Not specified
 ;
 MSG_GMT_CLOCK
-L'horloge matÃ©rielle enregistre UTC
+L'horloge matérielle enregistre UTC
 ; Hardware clock stores UTC
 ;

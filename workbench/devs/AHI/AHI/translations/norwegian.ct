@@ -1,5 +1,5 @@
 ## version $VER: ahiprefs.catalog 4.6 (4.8.2004)
-## language norsk
+## language norwegian
 ## codeset 0
 ;
 ## chunk AUTH Translated by Eivind Olsen/ATO <eivindo@bgnett.no>
@@ -182,7 +182,7 @@ Globale valg
 ; Global options
 ;
 msgGlobOptDebugLevel
-FeilsÃ¸kingsnivÃ¥
+Feilsøkingsnivå
 ; _Debug level
 ;
 msgGlobOptEcho
@@ -208,7 +208,7 @@ Lav
 ; Low
 ;
 msgDebugHigh
-HÃ¸y
+Høy
 ; High
 ;
 msgDebugFull
@@ -218,7 +218,7 @@ Full
 ; *** Echo ***
 ;
 msgEchoEnabled
-PÃ¥
+På
 ; Enabled
 ;
 msgEchoFast
@@ -232,7 +232,7 @@ Av
 ; *** Surround ***
 ;
 msgSurroundEnabled
-PÃ¥
+På
 ; Enabled
 ;
 msgSurroundDisabled
@@ -269,11 +269,11 @@ msgTextCopyright
 ; %s%s\nCopyright @%s
 ;
 msgTextNoWindow
-Klarte ikke Ã¥pne vindu.
+Klarte ikke åpne vinduet.
 ; Unable to open window.
 ;
 msgTextNoFileRequester
-Klarte ikke allokere filforespÃ¸rsel.
+Klarte ikke allokere filforespørsel.
 ; Unable to allocate file requester.
 ;
 msgTextNoFind
@@ -281,7 +281,7 @@ Klarte ikke finne `%s'!
 ; Unable to find `%s'!
 ;
 msgTextNoOpen
-Klarte ikke Ã¥pne `%s' versjon %ld.
+Klarte ikke åpne `%s' versjon %ld.
 ; Unable to open `%s' version %ld.
 ;
 ; *** Additions

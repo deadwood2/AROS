@@ -13,11 +13,11 @@
 ; Edit Menu
 ;
 MSG_RESETDEFAULT
-Obnovit v√Ωchoz√≠
+Obnovit v˝chozÌ
 ; Default values
 ;
 MSG_LASTSAVED
-Naposledy ulo≈æen√©
+Naposledy uloæenÈ
 ; Last saved values
 ;
 ; *******************
@@ -25,59 +25,59 @@ Naposledy ulo≈æen√©
 ; *******************
 ;
 MSG_TITLEWIN
-Nastaven√≠ editoru
+NastavenÌ editoru
 ; Main setup
 ;
 MSG_TAB
-Tabul√°tor:
+Tabul·tor:
 ; Tabulation:
 ;
 MSG_SEPARATORS
-Oddƒõlovaƒçe:
+OddÏlovaËe:
 ; Separators:
 ;
 MSG_TXTFONT
-P√≠smo pro text:
+PÌsmo pro text:
 ; Text font:
 ;
 MSG_SCRFONT
-P√≠smo pro obrazovku:
+PÌsmo pro obrazovku:
 ; Screen font:
 ;
 MSG_PUBSCREEN
-Rozli≈°en√≠ obrazovky:
+RozliπenÌ obrazovky:
 ; Screen mode:
 ;
 MSG_BACKDROP
-Pozad√≠
+PozadÌ
 ; Backdrop
 ;
 MSG_LEFTMARGIN
-Lev√Ω okraj
+Lev˝ okraj
 ; Left margin
 ;
 MSG_AUTOINDENT
-Automatick√© odsazen√≠
+AutomatickÈ odsazenÌ
 ; Auto indent
 ;
 MSG_EXTEND
-Vylep≈°en√Ω numerick√Ω blok
+Vylepπen˝ numerick˝ blok
 ; Extended numeric pad
 ;
 MSG_PREFSSAVE
-Ulo≈æit
+Uloæit
 ; Save
 ;
 MSG_USEPREFS
-Pou≈æ√≠t
+PouæÌt
 ; Use
 ;
 MSG_DISCARDPREFS
-Zru≈°it
+Zruπit
 ; Cancel
 ;
 MSG_USEDEF
-V√Ωchoz√≠
+V˝chozÌ
 ; Use Default
 ;
 MSG_CHOOSEIT
@@ -85,15 +85,15 @@ Vybrat...
 ; Choose one...
 ;
 MSG_CLONEPARENT
-Dle nad≈ôazen√©
+Dle nad¯azenÈ
 ; Clone parent
 ;
 MSG_COLOR_BACK
-Barva pozad√≠
+Barva pozadÌ
 ; Background
 ;
 MSG_COLOR_TEXT
-Bƒõ≈æn√Ω text
+BÏæn˝ text
 ; Standard text
 ;
 MSG_COLOR_FILLTXT
@@ -101,7 +101,7 @@ Selected fill text??
 ; Selected fill text
 ;
 MSG_COLOR_FILLSEL
-Oznaƒçen√Ω text
+OznaËen˝ text
 ; Selected text
 ;
 MSG_COLOR_MARGINBACK
@@ -121,7 +121,7 @@ Panel shade??
 ; Panel shade
 ;
 MSG_COLOR_PANELBACK
-Pozad√≠ panelu
+PozadÌ panelu
 ; Panel back
 ;
 MSG_COLOR_PANELTEXT
@@ -133,6 +133,6 @@ Symbol panelu
 ; Panel glyph
 ;
 MSG_COLOR_MARKEDLINES
-Aktivn√≠ panel
+AktivnÌ panel
 ; Active panel
 ;

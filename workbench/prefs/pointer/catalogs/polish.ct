@@ -3,7 +3,7 @@
 ## codeset 5
 ;
 MSG_WINTITLE
-Ustawienia wskaÂŒnika
+Ustawienia wskaŒnika
 ; Pointer Preferences
 ;
 MSG_OK
@@ -15,7 +15,7 @@ Hot spot
 ;  Hotspot
 ;
 MSG_ALPHA
-PrzezroczystoÅ›Ä‡
+Przezroczysto¶æ
 ; Alpha
 ;
 MSG_FILENAME
@@ -27,14 +27,14 @@ Typ
 ; Type
 ;
 MSG_TYPE_NORMAL
-ZwykÅ‚y
+Zwyk³y
 ; Normal
 ;
 MSG_TYPE_BUSY
-ZajÄ™ty
+Zajêty
 ; Busy
 ;
 MSG_SETVIEW
-Ustaw / PokaÅ¼
+Ustaw / Poka¿
 ; Set / View
 ;

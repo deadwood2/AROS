@@ -1,5 +1,5 @@
 ## version $VER: wanderer.catalog 1.0 (23.09.2007)
-## language espa帽ol
+## language espa駉l
 ## codeset 0
 ;
 ; Translated by ahg
@@ -30,7 +30,7 @@ Elija el Fondo para el Workbench
 ;Select Workbench Background
 ;
 MSG_SELECT_DRAWER_BACKGROUND
-Elija el Fondo para el Caj贸n
+Elija el Fondo para el Caj髇
 ;Select Drawer Background
 ;
 MSG_GENERAL
@@ -45,7 +45,7 @@ Barra de Herramientas
 ;Toolbar
 ;
 MSG_CLASSIC
-Cl谩sico
+Cl醩ico
 ;Classic
 ;
 MSG_ENHANCED
@@ -53,11 +53,11 @@ Mejorado
 ;Enhanced
 ;
 MSG_NAVIGATION
-Navegaci贸n
+Navegaci髇
 ;Navigation
 ;
 MSG_METHOD
-M茅todo
+M閠odo
 ;Method
 ;
 MSG_OBJECTS
@@ -73,7 +73,7 @@ Barra habilitada
 ;Toolbar Enabled
 ;
 MSG_ICONSPREFS
-Aspecto y sensaci贸n de los 铆conos
+Aspecto y sensaci髇 de los 韈onos
 ;Icons look and feel
 ;
 MSG_ICONLISTMODE
@@ -87,7 +87,7 @@ Vertical
 ;
 MSG_ICONLISTMODE_GRID
 Rectangular
-;En cuadr铆cula
+;En cuadr韈ula
 ;List icons by grid
 ;
 MSG_ICONTEXTMODE
@@ -105,16 +105,16 @@ Normal
 ;Plain
 ;
 MSG_ICONTEXTLENGTH
-Largo m谩ximo
-;Longitud m谩xima del texto
+Largo m醲imo
+;Longitud m醲ima del texto
 ;Max icon textlength
 ;
 MSG_DOUBLEBUFFERED
-con doble b煤fer
+con doble b鷉er
 ;double buffering
 ;
 MSG_MISC
-miscel谩neo
+miscel醤eo
 ;misc
 ;
 MSG_BUBBLESCREENTITLE 
@@ -124,8 +124,8 @@ MSG_BUBBLESCREENTITLE
 %PC = Ram de Chip\n\
 %PF = Ram Fast\n\
 %PT = Ram Total\n\
-%os = Versi贸n de AROS\n\
-%wb = Versi贸n del Wanderer\n\
-%ov = Versi贸n exacta de AROS\n\
-%wv = Versi贸n exacta de workbench.library
+%os = Versi髇 de AROS\n\
+%wb = Versi髇 del Wanderer\n\
+%ov = Versi髇 exacta de AROS\n\
+%wv = Versi髇 exacta de workbench.library
 ;

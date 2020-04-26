@@ -8,11 +8,11 @@ Ruutukaappari
 ; ScreenGrabber
 ;
 MSG_REFRESH
-PÃ¤ivitÃ¤ lista
+Päivitä lista
 ; Refresh list
 ;
 MSG_SCREEN_INFO
-NÃ¤yttÃ¶tiedot
+Näyttötiedot
 ; Screen info
 ;
 MSG_SIZE
@@ -48,7 +48,7 @@ Tallenna tiedosto
 ; Save file
 ;
 MSG_SCREENSHOT
-Kaappaa nÃ¤yttÃ¶
+Kaappaa näyttö
 ; Screenshot
 ;
 MSG_SCREEN_PARM

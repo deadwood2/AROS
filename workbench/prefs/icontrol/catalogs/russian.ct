@@ -3,67 +3,67 @@
 ## language russian
 ;
 MSG_CANT_OPEN_LIB
-РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ %s V%ld !\n
+Ошибка открытия %s V%ld !\n
 ;
 ;
 MSG_CANT_CREATE_APP
-РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚Р° РїСЂРёР»РѕР¶РµРЅРёСЏ !
+Невозможно создание объекта приложения !
 ;
 ;
 MSG_CANT_CREATE_CUSTOM_CLASS
-РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РєР»Р°СЃСЃР° preferenceswindow
+Ошибка создания класса preferenceswindow
 ;Can't create custom preferenceswindow class
 ;
 MSG_WINTITLE
-РќР°СЃС‚СЂРѕР№РєРё IControl
+Настройки IControl
 ;
 ;
 MSG_MEN_PROJECT
-РџСЂРѕРµРєС‚
+Проект
 ;
 ;
 MSG_MEN_PROJECT_OPEN
-O\0РћС‚РєСЂС‹С‚СЊ..
+O\0Открыть..
 ;
 ;
 MSG_MEN_PROJECT_SAVEAS
-A\0РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє...
+A\0Сохранить как...
 ;
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0Р’С‹С…РѕРґ
+Q\0Выход
 ;
 ;
 MSG_MEN_EDIT
-РџСЂР°РІРєР°
+Правка
 ;
 ;
 MSG_MEN_EDIT_DEFAULT
-D\0РЎР±СЂРѕСЃ РЅР° СѓРјРѕР»С‡Р°РЅРёСЏ
+D\0Сброс на умолчания
 ;
 ;
 MSG_MEN_EDIT_LASTSAVED
-L\0РџРѕСЃР»РµРґРЅРµРµ СЃРѕС…СЂР°РЅРµРЅРЅРѕРµ
+L\0Последнее сохраненное
 ;
 ;
 MSG_MEN_EDIT_RESTORE
-R\0Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ
+R\0Восстановить
 ;
 ;
 MSG_MEN_SETTINGS
-РќР°СЃС‚СЂРѕР№РєРё
+Настройки
 ;
 ;
 MSG_MEN_SETTINGS_CREATEICONS
-I\0РЎРѕР·РґР°РІР°С‚СЊ РёРєРѕРЅРєРё?
+I\0Создавать иконки?
 ;
 ;
 MSG_ASL_OPEN_TITLE
-Р—Р°РіСЂСѓР·РёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё IControl
+Загрузить настройки IControl
 ;
 ;
 MSG_ASL_SAVE_TITLE
-РЎРѕС…СЂР°РЅРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё IControl
+Сохранить настройки IControl
 ;
 ;
 MSG_OK
@@ -71,27 +71,27 @@ Ok
 ;
 ;
 MSG_MENUS_GROUP
-РњРµРЅСЋ
+Меню
 ; Menus
 ;
 MSG_MENUS_TYPE
-РўРёРї
+Тип
 ; Type
 ;
 MSG_MENUS_TYPE_PULLDOWN
-Р’С‹РїР°РґР°СЋС‰РёРµ
+Выпадающие
 ; Pull-Down
 ;
 MSG_MENUS_TYPE_POPUP
-Р’СЃРїР»С‹РІР°СЋС‰РёРµ
+Всплывающие
 ; Pop-Up
 ;
 MSG_MENUS_LOOK
-Р’РёРґ
+Вид
 ; Look
 ;
 MSG_MENUS_LOOK_CLASSIC
-РљР»Р°СЃСЃРёС‡РµСЃРєРёР№
+Классический
 ; Classic
 ;
 MSG_MENUS_LOOK_3D
@@ -99,45 +99,45 @@ MSG_MENUS_LOOK_3D
 ; 3D
 ;
 MSG_WINDOWS
-РћРєРЅР°
+Окна
 ;
 MSG_OFFSCREEN_MOVE
-РџРµСЂРµРјРµС‰РµРЅРёРµ Р·Р° СЌРєСЂР°РЅ:
+Перемещение за экран:
 ;
 MSG_SCREENS
-Р­РєСЂР°РЅС‹
+Экраны
 ;
 MSG_FRONTMOST_DEFAULT
 Frontmost set as DefaultPubScreen:
 ;Frontmost set as DefaultPubScreen:
 ;
 MSG_OFFSCREEN_DESC
-Р”РѕРїСѓСЃРєР°С‚СЊ РїРµСЂРµРјРµС‰РµРЅРёРµ РѕРєРѕРЅ\nР·Р° РїСЂРµРґРµР»С‹ РІРёРґРёРјРѕР№ С‡Р°СЃС‚Рё
+Допускать перемещение окон\nза пределы видимой части
 ;Allow windows to be moved out of\nthe visible area
 ;
 MSG_FRONTMOST_DEFAULT_DESC
-РЎР°РјС‹Р№ РІРµСЂС…РЅРёР№ РѕР±С‰РёР№ СЌРєСЂР°РЅ\nСЃС‚Р°РЅРѕРІРёС‚СЃСЏ РѕР±С‰РёРј СЌРєСЂР°РЅРѕРј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+Самый верхний общий экран\nстановится общим экраном по умолчанию
 ;Make the frontmost public screen\nthe default public screen
 ;
 MSG_BACKWARDS_DRAG
-Р—Р°РїСЂРµС‚РёС‚СЊ РїСЂРѕС‚Р°СЃРєРёРІР°РЅРёРµ РІРІРµСЂС… Рё РІР»РµРІРѕ
+Запретить протаскивание вверх и влево
 ;Disable drag in top-left direction
 ;
 MSG_BOUND_LEFT_DRAG
-РћРіСЂР°РЅРёС‡РёС‚СЊ РїСЂРѕС‚Р°СЃРєРёРІР°РЅРёРµ РІР»РµРІРѕ
+Ограничить протаскивание влево
 ;
 MSG_BOUND_RIGHT_DRAG
-РћРіСЂР°РЅРёС‡РёС‚СЊ РїСЂРѕС‚Р°СЃРєРёРІР°РЅРёРµ РІРїСЂР°РІРѕ
+Ограничить протаскивание вправо
 ;
 MSG_BOUND_TOP_DRAG
-РћРіСЂР°РЅРёС‡РёС‚СЊ РїСЂРѕС‚Р°СЃРєРёРІР°РЅРёРµ РІРІРµСЂС…
+Ограничить протаскивание вверх
 ;
 MSG_BOUND_BOTTOM_DRAG
-РћРіСЂР°РЅРёС‡РёС‚СЊ РїСЂРѕС‚Р°СЃРєРёРІР°РЅРёРµ РІРЅРёР·
+Ограничить протаскивание вниз
 ;
 MSG_META_DRAG
-РљР»Р°РІРёС€Рё РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ
+Клавиши перетаскивания
 ;
 MSG_MENUS_STICKY
-Р—Р°Р»РёРїР°РЅРёРµ
+Залипание
 ;

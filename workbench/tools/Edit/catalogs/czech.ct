@@ -18,27 +18,27 @@ Projekt
 ; Project
 ;
 MSG_NEWEMPTYFILE
-NovÃ½
+Novı
 ; New
 ;
 MSG_OPENNEWFILE
-OtevÅ™Ã­t...
+Otevøít...
 ; Open file...
 ;
 MSG_LOADINPRJ
-PÅ™ipojit...
+Pøipojit...
 ; Load file...
 ;
 MSG_SAVEFILE
-UloÅ¾it
+Ulo¾it
 ; Save
 ;
 MSG_SAVEFILEAS
-UloÅ¾it jako...
+Ulo¾it jako...
 ; Save as...
 ;
 MSG_SAVECHANGES
-UloÅ¾it zmÄ›ny
+Ulo¾it zmìny
 ; Save changes
 ;
 MSG_PRINTFILE
@@ -50,17 +50,17 @@ Informace...
 ; Information...
 ;
 MSG_CLOSE
-ZavÅ™Ã­t
+Zavøít
 ; Close
 ;
 MSG_QUIT
-UkonÄit
+Ukonèit
 ; Quit
 ;
 ; Edit Menu
 ;
 MSG_EDITTITLE
-Ãšpravy
+Úpravy
 ; Edit
 ;
 MSG_CUT
@@ -68,31 +68,31 @@ Vyjmout
 ; Cut
 ;
 MSG_COPY
-ZkopÃ­rovat
+Zkopírovat
 ; Copy
 ;
 MSG_PASTE
-VloÅ¾it
+Vlo¾it
 ; Paste
 ;
 MSG_MARK
-OznaÄit
+Oznaèit
 ; Mark
 ;
 MSG_MARKCOLUMN
-OznaÄit sloupec
+Oznaèit sloupec
 ; Mark column
 ;
 MSG_SELECTALL
-OznaÄit vÅ¡e
+Oznaèit v¹e
 ; Select all
 ;
 MSG_DELLINE
-Smazat Å™Ã¡dek
+Smazat øádek
 ; Delete line
 ;
 MSG_SUBTOOLS
-NÃ¡stroje
+Nástroje
 ; Tools
 ;
 MSG_INDENT
@@ -100,41 +100,41 @@ Odsadit
 ; Indent
 ;
 MSG_UNINDENT
-ZruÅ¡it odsazenÃ­
+Zru¹it odsazení
 ; Unindent
 ;
 MSG_UPPERCASE
-PÅ™evÃ©st na VELKÃ pÃ­smena
+Pøevést na VELKÁ písmena
 ; Upper case
 ;
 MSG_LOWERCASE
-PÅ™evÃ©st na malÃ¡ pÃ­smena
+Pøevést na malá písmena
 ; Lower case
 ;
 MSG_TOGGLECASE
-Prohodit malÃ¡ a VELKÃ
+Prohodit malá a VELKÁ
 ; Toggle case
 ;
 MSG_INSERTFILE
-VloÅ¾it soubor...
+Vlo¾it soubor...
 ; Insert file...
 ;
 MSG_UNDO
-ZpÄ›t
+Zpìt
 ; Undo
 ;
 MSG_REDO
-Odvolat zpÄ›t
+Odvolat zpìt
 ; Redo
 ;
 ; Search Menu
 ;
 MSG_SEARCHTITLE
-HledÃ¡nÃ­
+Hledání
 ; Search
 ;
 MSG_FIND
-NajÃ­t...
+Najít...
 ; Find...
 ;
 MSG_REPLACE
@@ -142,15 +142,15 @@ Nahradit...
 ; Replace...
 ;
 MSG_SUBFIND
-NajÃ­t
+Najít
 ; Find
 ;
 MSG_NEXTFIND
-DalÅ¡Ã­
+Dal¹í
 ; Next
 ;
 MSG_PREVFIND
-PÅ™edchozÃ­
+Pøedchozí
 ; Previous
 ;
 MSG_NEXTREPLACE
@@ -158,31 +158,31 @@ Nahradit
 ; Replace
 ;
 MSG_PREVPAGE
-PÅ™edchozÃ­ strana
+Pøedchozí strana
 ; Previous page
 ;
 MSG_NEXTPAGE
-DalÅ¡Ã­ strana
+Dal¹í strana
 ; Next page
 ;
 MSG_GOTOLINE
-PÅ™ejÃ­t na Å™Ã¡dek...
+Pøejít na øádek...
 ; Goto line...
 ;
 MSG_FINDBRACKET
-OdpovÃ­dajÃ­cÃ­ zÃ¡vorka
+Odpovídající závorka
 ; Matching bracket
 ;
 MSG_LASTMODIF
-PoslednÃ­ zmÄ›na
+Poslední zmìna
 ; Last modification
 ;
 MSG_BEGOFLINE
-ZaÄÃ¡tek Å™Ã¡dku
+Zaèátek øádku
 ; Start of line
 ;
 MSG_ENDOFLINE
-Konec Å™Ã¡dku
+Konec øádku
 ; End of line
 ;
 ; Macro Menu
@@ -192,11 +192,11 @@ Makro
 ; Macro
 ;
 MSG_STARTRECORD
-ZaÄÃ­t nahrÃ¡vÃ¡nÃ­
+Zaèít nahrávání
 ; Start recording
 ;
 MSG_STOPRECORD
-Zastavit nahrÃ¡vÃ¡nÃ­
+Zastavit nahrávání
 ; Stop recording
 ;
 MSG_PLAYMACRO
@@ -210,31 +210,31 @@ Opakovat makro...
 ; Environment Menu
 ;
 MSG_ENVTITLE
-NastavenÃ­
+Nastavení
 ; Environment
 ;
 MSG_SCRMODE
-RozliÅ¡enÃ­...
+Rozli¹ení...
 ; Screen mode...
 ;
 MSG_FONTS
-PÃ­sma...
+Písma...
 ; Fonts...
 ;
 MSG_PREFS
-MoÅ¾nosti...
+Mo¾nosti...
 ; General preferences...
 ;
 MSG_LOADPREFS
-NaÄÃ­st...
+Naèíst...
 ; Load preferences..
 ;
 MSG_SAVEPREFS
-UloÅ¾it
+Ulo¾it
 ; Save preferences
 ;
 MSG_SAVEPREFSAS
-UloÅ¾it jako...
+Ulo¾it jako...
 ; Save preferences as...
 ;
 ;
@@ -244,84 +244,84 @@ UloÅ¾it jako...
 ; *****************************
 ;
 ERR_BADOS
-Tento program vyÅ¾aduje AmigaOS 2.0 nebo novÄ›jÅ¡Ã­.
+Tento program vy¾aduje AmigaOS 2.0 nebo novìj¹í.
 ; Obsolete OS. Install v2.0 or better.
 ;
 ERR_NOASLREQ
-Nelze otevÅ™Ã­t dialogovÃ© okno ASL!
+Nelze otevøít dialogové okno ASL!
 ; Cannot alloc ASL requester!
 ;
 ERR_NOMEM
-NenÃ­ dostatek volnÃ© pamÄ›ti!
+Není dostatek volné pamìti!
 ; Out of memory!
 ;
 ERR_NOGUI
-Nelze otevÅ™Ã­t uÅ¾ivatelskÃ© rozhranÃ­ programu!
+Nelze otevøít u¾ivatelské rozhraní programu!
 ; Main interface failed to open!
 ;
 ERR_NONAME
-bez nÃ¡zvu
+bez názvu
 ; No title
 ; Not really an error but simplify translation
 ;
 ERR_WRITECLIP
-Chyba pÅ™i zÃ¡pisu do schrÃ¡nky.
+Chyba pøi zápisu do schránky.
 ; Write error into clipboard device
 ;
 ERR_OPENCLIP
-Nelze otevÅ™Ã­t zaÅ™Ã­zenÃ­ clipboard.device!
+Nelze otevøít zaøízení clipboard.device!
 ; Unable to open clipboard!
 ;
 ERR_LOADFILE
-PoÅ¾adovanÃ½ soubor nelze naÄÃ­st.
+Po¾adovanı soubor nelze naèíst.
 ; Unable to load requested file
 ;
 ERR_NOTXTINCLIP
-SchrÃ¡nka neobsahuje text.
+Schránka neobsahuje text.
 ; No text in clipboard
 ;
 ERR_WRONG_TYPE
-VybranÃ½ objekt je adresÃ¡Å™!
+Vybranı objekt je adresáø!
 ; Object is a directory!
 ;
 ERR_READCLIP
-PoÅ¾adovanou operaci nelze dokonÄit pro nedostatek volnÃ© pamÄ›ti.
+Po¾adovanou operaci nelze dokonèit pro nedostatek volné pamìti.
 ; Read operation incomplete
 ;
 ERR_NOBRACKET
-Na pozici kurzoru se nenachÃ¡zÃ­ zÃ¡vorka!
+Na pozici kurzoru se nenachází závorka!
 ; No parenthesis under cursor!
 ;
 ERR_NOT_FOUND
-Text dle zadanÃ© masky "%s" nelze najÃ­t.
+Text dle zadané masky "%s" nelze najít.
 ; Pattern `%s' not found
 ;
 ERR_LOADFONT
-PoÅ¾adovanÃ© pÃ­smo nelze otevÅ™Ã­t!
+Po¾adované písmo nelze otevøít!
 ; Can't open desired font!
 ;
 ERR_NOPREFEDITOR
-Nelze najÃ­t editor nastavenÃ­ programu!
+Nelze najít editor nastavení programu!
 ; Can't find preference editor!
 ;
 ERR_BADPREFSFILE
-FormÃ¡t konfiguraÄnÃ­ho souboru je neplatnÃ½.
+Formát konfiguraèního souboru je neplatnı.
 ; Bad preference file format.
 ;
 ERR_FILEMODIFIED
-Obsah souboru %s byl zmÄ›nÄ›n.\nOpravdu chcete tento soubor zavÅ™Ã­t?
+Obsah souboru %s byl zmìnìn.\nOpravdu chcete tento soubor zavøít?
 ; %s has been modified.\nAre you sure want to close it?
 ;
 ERR_SLC
-UloÅ¾it|ZavÅ™Ã­t|ZruÅ¡it
+Ulo¾it|Zavøít|Zru¹it
 ; Save|Close|Cancel
 ;
 ERR_NOSEARCHTEXT
-Zadejte prosÃ­m poÅ¾adovanÃ½ text!
+Zadejte prosím po¾adovanı text!
 ; No text to search for!
 ;
 ERR_FILEEXISTS
-Tento soubor jiÅ¾ existuje. Opravdu ho chcete pÅ™epsat?
+Tento soubor ji¾ existuje. Opravdu ho chcete pøepsat?
 ; This file already exists. Overwrite it?
 ;
 ERR_OC
@@ -329,11 +329,11 @@ Ano|Ne
 ; Yes|No!
 ;
 WARN_RECORD
-ZaÄÃ¡tek zÃ¡znamu makra
+Zaèátek záznamu makra
 ; Start recording macro
 ;
 WARN_RECORDED
-ZÃ¡znam makra byl dokonÄen
+Záznam makra byl dokonèen
 ; Macro recorded
 ;
 WARN_REC
@@ -350,8 +350,8 @@ Informace
 ; Information
 ;
 MSG_FORMATINFO
-%s\nAutoÅ™i: T.Pierron a C.Guillaume\nCopyright (C) 2000\n\nOtevÅ™enÃ½ soubor: %s\nStatistika: %iu %s, %iu %s.
-; %s\nDesigned by T.Pierron and C.Guillaume Å  2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
+%s\nAutoøi: T.Pierron a C.Guillaume\nCopyright (C) 2000\n\nOtevøenı soubor: %s\nStatistika: %iu %s, %iu %s.
+; %s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
 ;
 MSG_CONTINUE
 OK
@@ -362,15 +362,15 @@ bajt
 ; byte
 ;
 MSG_BYTES
-bajtÅ¯
+bajtù
 ; bytes
 ;
 MSG_LINE
-Å™Ã¡dek
+øádek
 ; line
 ;
 MSG_LINES
-Å™Ã¡dkÅ¯
+øádkù
 ; lines
 ;
 ;
@@ -379,15 +379,15 @@ MSG_LINES
 ; *************************
 ;
 MSG_SEARCHWINDOW
-HledÃ¡nÃ­ textu
+Hledání textu
 ; Search pattern
 ;
 MSG_REPLACEWINDOW
-NahrazenÃ­ textu
+Nahrazení textu
 ; Search & Replace
 ;
 MSG_SEARCHSTRING
-NajÃ­t:
+Najít:
 ; Locate:
 ;
 MSG_REPLACESTRING
@@ -395,11 +395,11 @@ Nahradit:
 ; Replace:
 ;
 MSG_OPTCASE
-RozliÅ¡ovat malÃ¡/VELKÃ
+Rozli¹ovat malá/VELKÁ
 ; Match case
 ;
 MSG_OPTWORDS
-CelÃ¡ slova
+Celá slova
 ; Whole words
 ;
 MSG_BUTTONREPLACE
@@ -407,23 +407,23 @@ Nah_radit
 ; _Replace
 ;
 MSG_BUTTONREPALL
-N_ahradit vÅ¡e
+N_ahradit v¹e
 ; Replace _All
 ;
 MSG_BUTTONSEARCH
-NajÃ­t
+Najít
 ; Search
 ;
 MSG_NEXTSEARCH
-_PÅ™edchozÃ­
+_Pøedchozí
 ; _Previous
 ;
 MSG_USESEARCH
-Po_uÅ¾Ã­t
+Po_u¾ít
 ; _Use
 ;
 MSG_CANCELSEARCH
-_ZruÅ¡it
+_Zru¹it
 ; _Cancel
 ;
 MSG_REPLACEALL
@@ -431,10 +431,10 @@ Nahrazeno %iu %s textu "%s".
 ; %iu %s of `%s' replaced
 ;
 MSG_OCCURENCY
-poloÅ¾ka
+polo¾ka
 ; occurency
 ;
 MSG_OCCURENCIES
-poloÅ¾ek
+polo¾ek
 ; occurencies
 ;

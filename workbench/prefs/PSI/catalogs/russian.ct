@@ -2,52 +2,52 @@
 ## codeset 2104
 ## language russian
 MSG_MENU_PROJECT
-РџСЂРѕРµРєС‚
+Проект
 ;Project
 MSG_MENU_PROJECT_OPEN
-РћС‚РєСЂС‹С‚СЊ...
+Открыть...
 ;Open...
 MSG_MENU_PROJECT_APPEND
-Р”РѕР±Р°РІРёС‚СЊ...
+Добавить...
 ;Append...
 MSG_MENU_PROJECT_SAVEAS
-РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє...
+Сохранить как...
 ;Save As...
 MSG_MENU_PROJECT_ABOUT
-Рћ РїСЂРѕРµРєС‚Рµ...
+О проекте...
 ;About...
 MSG_MENU_PROJECT_QUIT
-Р’С‹С…РѕРґ
+Выход
 ;Quit
 MSG_MENU_EDIT
-РџСЂР°РІРєР°
+Правка
 ;Edit
 MSG_MENU_EDIT_LASTSAVED
-РџРѕСЃР»РµРґРЅРµРµ СЃРѕС…СЂР°РЅРµРЅРёРµ
+Последнее сохранение
 ;Last Saved
 MSG_MENU_EDIT_RESTORE
-Р’РѕСЃСЃС‚Р°РЅРѕРІС‚СЊ
+Восстановть
 ;Restore
 MSG_MENU_SETTINGS
-РќР°СЃС‚СЂРѕР№РєРё
+Настройки
 ;Settings
 MSG_MENU_SETTINGS_MUI
-РќР°СЃС‚СЂРѕР№РєРё MUI...
+Настройки MUI...
 ;MUI...
 MSG_MENU_COLORS
-Р¦РІРµС‚Р°
+Цвета
 ;Colors
 MSG_MENU_COLORS_PRESETS
-Р¦РІРµС‚РѕРІС‹Рµ С€Р°Р±Р»РѕРЅС‹
+Цветовые шаблоны
 ;Presets
 MSG_MENU_COLORS_PRESETS_2COL
-РњРѕРЅРѕС…СЂРѕРјРЅС‹Рµ
+Монохромные
 ;Monochrome Settings
 MSG_MENU_COLORS_PRESETS_4COL
-4С…-С†РІРµС‚РЅС‹Рµ
+4х-цветные
 ;4-Color Settings
 MSG_MENU_COLORS_PRESETS_8COL
-РќР°СЃС‚СЂРѕР№РєРё MagicWB
+Настройки MagicWB
 ;MagicWB Settings
 MSG_BUTTON_OK
 _OK

@@ -4,7 +4,7 @@
 ;
 ;
 MSG_CANT_OPEN_STREAM
-РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚РёРµ РїРѕС‚РѕРєР° IFF!
+Невозможно открытие потока IFF!
 ; Can't open IFF stream!
 ;
 MSG_CANT_ALLOCATE_IFFPTR
@@ -12,7 +12,7 @@ Can't allocate IFF handle!
 ; Can't allocate IFF handle!
 ;
 MSG_NAME
-РќР°СЃС‚СЂРѕР№РєРё С€СЂРёС„С‚РѕРІ
+Настройки шрифтов
 ; Font Preferences
 ;
 MSG_OK
@@ -20,14 +20,14 @@ Ok
 ; Ok
 ;
 MSG_ICONS
-РРєРѕРЅРєРё :
+Иконки :
 ; Icons:
 ;
 MSG_SYSTEM
-РЎРёСЃС‚РµРјР°:
+Система:
 ; System:
 ;
 MSG_SCREEN
-Р­РєСЂР°РЅ:
+Экран:
 ; Screen:
 ;

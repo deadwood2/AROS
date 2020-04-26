@@ -1,14 +1,14 @@
 ## version $VER: networkprefs.catalog 4.2 (31.3.2019)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
 MSG_NAME
-PrÃ©fÃ©rences RÃ©seau
+Préférences Réseau
 ; Network Preferences
 ;
 MSG_DESCRIPTION
-PrÃ©fÃ©rences du rÃ©seau TCP/IP
+Préférences du réseau TCP/IP
 ; TCP/IP Network preferences
 ;
 MSG_IFNAME
@@ -18,11 +18,11 @@ MSG_UP
 Actif
 ;
 MSG_DEVICE
-PÃ©riphÃ©rique
+Périphérique
 ; Device
 ;
 MSG_UNIT
-UnitÃ©
+Unité
 ;
 MSG_IP_MODE
 Mode IP
@@ -49,11 +49,11 @@ DNS secondaire
 ; Secondary DNS
 ;
 MSG_HOST_NAME
-Nom d'hÃ´te
+Nom d'hôte
 ; Host Name
 ;
 MSG_HOST_NAMES
-Noms des hÃ´tes
+Noms des hôtes
 ; Host Names
 ;
 MSG_DOMAIN_NAME
@@ -61,10 +61,10 @@ Nom de domaine
 ; Domain Name
 ;
 MSG_SERIAL_DEVICE
-PÃ©riphÃ©rique
+Périphérique
 ;
 MSG_UNIT_NUMBER
-UnitÃ©
+Unité
 ;
 MSG_IP_MODE_MANUAL
 Adresse saisie manuellement
@@ -84,25 +84,25 @@ MSG_ENC_WPA
 WPA
 ;
 MSG_KEY_TEXT
-AlphanumÃ©rique
+Alphanumérique
 ;
 MSG_KEY_HEX
-HexadÃ©cimale
+Hexadécimale
 ;
 MSG_SSID
-RÃ©seau
+Réseau
 ;
 MSG_ENCTYPE
-Protocole de sÃ©curitÃ©
+Protocole de sécurité
 ;
 MSG_KEYTYPE
-Type de clÃ©
+Type de clé
 ;
 MSG_KEY
-ClÃ©
+Clé
 ;
 MSG_HIDDEN
-CachÃ©
+Caché
 ;
 MSG_ADHOC
 Ad-hoc
@@ -116,7 +116,7 @@ Noms des ordinateurs
 ; Computer Names
 ;
 MSG_TAB_WIRELESS
-RÃ©seaux sans fil
+Réseaux sans fil
 ;
 MSG_TAB_MOBILE
 Mobile
@@ -125,7 +125,7 @@ MSG_TAB_SERVERS
 Serveurs de fichiers
 ;
 MSG_AUTOSTART_STACK
-DÃ©marrage automatique
+Démarrage automatique
 ; Autostart
 ;
 MSG_ERR_UNKNOWN_ERROR
@@ -133,15 +133,15 @@ Erreur inconnue
 ; Unknown error
 ;
 MSG_ERR_NOT_RESTARTED_STACK
-La pile rÃ©seau n'a pu redÃ©marrer.
+La pile réseau n'a pu redémarrer.
 ; Failed to restart network stack
 ;
 MSG_ERR_NOT_RESTARTED_WIRELESS
-Ã‰chec du redÃ©marrage du rÃ©seau sans fil
+Échec du redémarrage du réseau sans fil
 ;Failed to restart wireless networking
 ;
 MSG_ERR_NOT_RESTARTED_MOBILE
-Ã‰chec du redÃ©marrage de ModemManager
+Échec du redémarrage de ModemManager
 ;Failed to restart ModemManager
 ;
 MSG_BUTTON_OK
@@ -172,15 +172,15 @@ Attention !
 ;Warning
 ;
 MSG_ERR_NOT_SAVED_PREFS
-Les prÃ©fÃ©rences rÃ©seau n'ont pas Ã©tÃ© sauvegardÃ©es sur %s.
+Les préférences réseau n'ont pas été sauvegardées sur %s.
 ; Network preferences not saved to %s
 ;
 MSG_ERR_NOT_COPIED_FILES
-Les fichiers additionnels n'ont pas Ã©tÃ© copiÃ©s vers %s.
+Les fichiers additionnels n'ont pas été copiés vers %s.
 ; Additional files not copied to %s
 ;
 MSG_WARN_MULTIPLE_IFACES
-Le protocole DHCP n'est pas fiable quand plusieurs interfaces sont configurÃ©es
+Le protocole DHCP n'est pas fiable quand plusieurs interfaces sont configurées
 ;DHCP does not work reliably when multiple interfaces are configured
 ;
 MSG_INFO_TITLE
@@ -188,17 +188,17 @@ Information
 ; Information
 ;
 MSG_PREFS_SAVED_RESTART
-Les prÃ©fÃ©rences ont Ã©tÃ© sauvegardÃ©es vers %s. \nRedÃ©marrer AROS pour que les modifications prennent effet.
+Les préférences ont été sauvegardées vers %s. \nRedémarrer AROS pour que les modifications prennent effet.
 ; Preferences have been saved to %s.\nRestart AROS for them to take effect.
 ;
 MSG_IFWINDOW_TITLE
 Interface
 ;
 MSG_HOSTWINDOW_TITLE
-HÃ´te
+Hôte
 ;
 MSG_NETWINDOW_TITLE
-RÃ©seau sans fil
+Réseau sans fil
 ;Wireless Network
 ;
 MSG_SERVERWINDOW_TITLE

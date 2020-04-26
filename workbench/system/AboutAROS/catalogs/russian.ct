@@ -4,37 +4,37 @@
 ;
 ;
 MSG_TITLE
-РЎРІРµРґРµРЅРёСЏ Рѕ AROS
+Сведения о AROS
 ; About AROS
 ;
 MSG_PERSONAL_BUILD
-Р›РёС‡РЅР°СЏ %s СЃР±РѕСЂРєР°
+Личная %s сборка
 ; Personal Build
 ; FIXME: shall I translate this?
 ;
 MSG_NIGHTLY_BUILD
-"РќРѕС‡РЅР°СЏ" %s СЃР±РѕСЂРєР°
+"Ночная" %s сборка
 ; Nightly Build
 ; FIXME: shall I translate this?
 ;
 MSG_SNAPSHOT
-РЎРЅРёРјРѕРє
+Снимок
 ; Snapshot
 ;
 MSG_MILESTONE
-Р’РµС…Р°
+Веха
 ; Milestone
 ;
 MSG_RELEASE
-Р РµР»РёР·
+Релиз
 ; Release
 ;
 MSG_COPYRIGHT
-Copyright В© 1995-2020, The AROS Development Team. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.
-; Copyright В© 1995-2020, The AROS Development Team. All rights reserved.
+Copyright © 1995-2020, The AROS Development Team. Все права защищены.
+; Copyright © 1995-2020, The AROS Development Team. All rights reserved.
 ;
 MSG_LICENSE_1
-Р’С‹РїСѓС‰РµРЅРѕ РЅР° СѓСЃР»РѕРІРёСЏС…
+Выпущено на условиях
 ; Released under the terms of the
 ;
 MSG_LICENSE_2
@@ -42,35 +42,35 @@ AROS Public License
 ; AROS Public License
 ;
 MSG_LICENSE_3
-, Р’РµСЂСЃРёСЏ 1.1.
+, Версия 1.1.
 ; , version 1.1.
 ;
 MSG_MORE_INFORMATION
-Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СЃРІРµРґРµРЅРёСЏ РёС‰РёС‚Рµ РЅР° http://www.aros.org/ru/ .
+Дополнительные сведения ищите на http://www.aros.org/ru/ .
 ; Please visit http://www.aros.org for more information.
 ;
 MSG_PAGE_AUTHORS
-РђРІС‚РѕСЂС‹
+Авторы
 ; Authors
 ;
 MSG_PAGE_SPONSORS
-РЎРїРѕРЅСЃРѕСЂС‹
+Спонсоры
 ; Sponsors
 ;
 MSG_PAGE_ACKNOWLEDGEMENTS
-Р‘Р»Р°РіРѕРґР°СЂРЅРѕСЃС‚Рё
+Благодарности
 ; Acknowledgements
 ;
 MSG_SECTION_COORDINATION
-РљРѕРѕСЂРґРёРЅР°С‚РѕСЂС‹
+Координаторы
 ; Coordination
 ;
 MSG_SECTION_EVANGELISM
-"Р”СѓС…РѕРІРµРЅСЃС‚РІРѕ"
+"Духовенство"
 ; Evangelism
 ;
 MSG_SECTION_HIDD
-РџРѕРґСЃРёСЃС‚РµРјР° HIDD
+Подсистема HIDD
 ; HIDD subsystem
 ;
 MSG_SECTION_INTUITION
@@ -78,11 +78,11 @@ Intuition
 ; Intuition
 ;
 MSG_SECTION_GRAPHICS
-Р“СЂР°С„РёРєР°
+Графика
 ; Graphics
 ;
 MSG_SECTION_SHELL_COMMANDS
-РљРѕРјР°РЅРґС‹ РѕР±РѕР»РѕС‡РєРё
+Команды оболочки
 ; Shell Commands
 ;
 MSG_SECTION_WORKBENCH
@@ -90,11 +90,11 @@ Workbench
 ; Workbench
 ;
 MSG_SECTION_TOOLS
-РРЅСЃС‚СЂСѓРјРµРЅС‚С‹
+Инструменты
 ; Tools
 ;
 MSG_SECTION_PREFERENCES
-РќР°СЃС‚СЂРѕР№РєРё
+Настройки
 ; Preferences
 ;
 MSG_SECTION_BGUI
@@ -106,7 +106,7 @@ Zune
 ; Zune
 ;
 MSG_SECTION_KERNEL
-РЇРґСЂРѕ
+Ядро
 ; Kernel
 ;
 MSG_SECTION_DOS
@@ -114,27 +114,27 @@ DOS
 ; DOS
 ;
 MSG_SECTION_NETWORK
-РЎРµС‚РµРІС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹
+Сетевые компоненты
 ;Networking Components
 ;
 MSG_SECTION_LIBC_POSIX
-Р‘РёР±Р»РёРѕС‚РµРєРё C Рё POSIX Layer
+Библиотеки C и POSIX Layer
 ; C link library and POSIX layer
 ;
 MSG_SECTION_DOCUMENTATION
-Р”РѕРєСѓРјРµРЅС‚Р°С†РёСЏ
+Документация
 ; Documentation
 ;
 MSG_SECTION_TRANSLATION
-РџРµСЂРµРІРѕРґ Рё Р»РѕРєР°Р»РёР·Р°С†РёСЏ
+Перевод и локализация
 ; Translation
 ;
 MSG_SECTION_ARTISTRY
-РҐСѓРґРѕР¶РµСЃС‚РІРµРЅРЅРѕРµ РѕС„РѕСЂРјР»РµРЅРёРµ
+Художественное оформление
 ; Artistry
 ;
 MSG_SECTION_WEBSITE
-Р’РµР±-СЃР°Р№С‚
+Веб-сайт
 ; Website
 ;
 MSG_SECTION_DATATYPES

@@ -3,39 +3,39 @@
 ## codeset 5
 ;
 MSG_ERROR_NO_FREE_STORE
-zbyt maÅ‚o dostÄ™pnej pamiÄ™ci
+zbyt ma³o dostêpnej pamiêci
 ; not enough memory available
 ;
 MSG_ERROR_TASK_TABLE_FULL
-tablica procesÃ³w zapeÅ‚niona
+tablica procesów zape³niona
 ; process table full
 ;
 MSG_ERROR_BAD_TEMPLATE
-bÅ‚Ä™dny wzorzec
+b³êdny wzorzec
 ; bad template
 ;
 MSG_ERROR_BAD_NUMBER
-zÅ‚a wartoÅ›Ä‡ numeryczna
+z³a warto¶æ numeryczna
 ; bad number
 ;
 MSG_ERROR_REQUIRED_ARG_MISSING
-niezbÄ™dny argument nie znaleziony
+niezbêdny argument nie znaleziony
 ; required argument missing
 ;
 MSG_ERROR_KEY_NEEDS_ARG
-brak wartoÅ›ci po sÅ‚owie kluczowym
+brak warto¶ci po s³owie kluczowym
 ; value after keyword missing
 ;
 MSG_ERROR_TOO_MANY_ARGS
-zÅ‚a liczba argumentÃ³w
+z³a liczba argumentów
 ; wrong number of arguments
 ;
 MSG_ERROR_UNMATCHED_QUOTES
-niezamkniÄ™te nawiasy
+niezamkniête nawiasy
 ; unmatched quotes
 ;
 MSG_ERROR_LINE_TOO_LONG
-linia argumentÃ³w bÅ‚Ä™dna bÄ…dÅº zbyt dÅ‚uga
+linia argumentów b³êdna b±d¼ zbyt d³uga
 ; argument line invalid or too long
 ;
 MSG_ERROR_FILE_NOT_OBJECT
@@ -43,19 +43,19 @@ plik nie jest programem
 ; file is not executable
 ;
 MSG_ERROR_INVALID_RESIDENT_LIBRARY
-biblioteka rezydentna nie jest wÅ‚aÅ›ciwa
+biblioteka rezydentna nie jest w³a¶ciwa
 ; invalid resident library
 ;
 MSG_ERROR_NO_DEFAULT_DIR
-brak domyÅ›lnego katalogu
+brak domy¶lnego katalogu
 ; no default directory
 ;
 MSG_ERROR_OBJECT_IN_USE
-obiekt w uÅ¼yciu
+obiekt w u¿yciu
 ; object is in use
 ;
 MSG_ERROR_OBJECT_EXISTS
-obiekt juÅ¼ istnieje
+obiekt ju¿ istnieje
 ; object already exists
 ;
 MSG_ERROR_DIR_NOT_FOUND
@@ -67,11 +67,11 @@ obiekt nie znaleziony
 ; object not found
 ;
 MSG_ERROR_BAD_STREAM_NAME
-bÅ‚Ä™dny opis okna
+b³êdny opis okna
 ; invalid window description
 ;
 MSG_ERROR_OBJECT_TOO_LARGE
-obiekt zbyt duÅ¼y
+obiekt zbyt du¿y
 ; object too large
 ;
 MSG_ERROR_ACTION_NOT_KNOWN
@@ -83,7 +83,7 @@ niepoprawna nazwa obiektu
 ; object name invalid
 ;
 MSG_ERROR_INVALID_LOCK
-niewÅ‚aÅ›ciwa blokada obiektu
+niew³a¶ciwa blokada obiektu
 ; invalid object lock
 ;
 MSG_ERROR_OBJECT_WRONG_TYPE
@@ -99,7 +99,7 @@ dysk jest zabezpieczony przed zapisem
 ; disk is write-protected
 ;
 MSG_ERROR_RENAME_ACROSS_DEVICES
-usiÅ‚owano zmieniÄ‡ nazwÄ™ pomiÄ™dzy urzÄ…dzeniami
+usi³owano zmieniæ nazwê pomiêdzy urz±dzeniami
 ; rename across devices attempted
 ;
 MSG_ERROR_DIRECTORY_NOT_EMPTY
@@ -107,23 +107,23 @@ katalog nie jest pusty
 ; directory not empty
 ;
 MSG_ERROR_TOO_MANY_LEVELS
-zbyt duÅ¼o poziomÃ³w
+zbyt du¿o poziomów
 ; too many levels
 ;
 MSG_ERROR_DEVICE_NOT_MOUNTED
-urzÄ…dzenie (lub wolumen) nie jest zamontowane
+urz±dzenie (lub wolumen) nie jest zamontowane
 ; device (or volume) is not mounted
 ;
 MSG_ERROR_SEEK_ERROR
-bÅ‚Ä…d podczas przeszukiwania pliku
+b³±d podczas przeszukiwania pliku
 ; seek failure
 ;
 MSG_ERROR_COMMENT_TOO_BIG
-komentarz zbyt dÅ‚ugi
+komentarz zbyt d³ugi
 ; comment is too long
 ;
 MSG_ERROR_DISK_FULL
-dysk jest peÅ‚en
+dysk jest pe³en
 ; disk is full
 ;
 MSG_ERROR_DELETE_PROTECTED
@@ -143,23 +143,23 @@ to nie jest dysk w formacie DOS-u
 ; not a valid DOS disk
 ;
 MSG_ERROR_NO_DISK
-brak dysku w napÄ™dzie
+brak dysku w napêdzie
 ; no disk in drive
 ;
 MSG_ERROR_NO_MORE_ENTRIES
-nie ma wiÄ™cej pozycji w katalogu
+nie ma wiêcej pozycji w katalogu
 ; no more entries in directory
 ;
 MSG_ERROR_IS_SOFT_LINK
-obiekt jest odnoÅ›nikiem (softlink)
+obiekt jest odno¶nikiem (softlink)
 ; object is soft link
 ;
 MSG_ERROR_OBJECT_LINKED
-obiekt jest odnoÅ›nikiem (hardlink)
+obiekt jest odno¶nikiem (hardlink)
 ; object is linked
 ;
 MSG_ERROR_BAD_HUNK
-bÅ‚Ä™dny hunk wczytywanego pliku
+b³êdny hunk wczytywanego pliku
 ; bad loadfile hunk
 ;
 MSG_ERROR_NOT_IMPLEMENTED
@@ -171,7 +171,7 @@ rekord nie jest zablokowany
 ; record not locked
 ;
 MSG_ERROR_LOCK_COLLISION
-nie mogÄ™ zablokowaÄ‡ rekordu
+nie mogê zablokowaæ rekordu
 ; record lock collision
 ;
 MSG_ERROR_LOCK_TIMEOUT
@@ -179,11 +179,11 @@ przekroczony czas oczekiwania na zablokowanie rekordu
 ; record lock timeout
 ;
 MSG_ERROR_UNLOCK_ERROR
-bÅ‚Ä…d odblokowywania obiektu
+b³±d odblokowywania obiektu
 ; record unlock error
 ;
 MSG_ERROR_BUFFER_OVERFLOW
-bufor przepeÅ‚niony
+bufor przepe³niony
 ; buffer overflow
 ;
 MSG_ERROR_BREAK
@@ -203,19 +203,19 @@ Wolumen \"%s\' jest zabezpieczony przed zapisem
 ; Volume "%s" is write protected
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_INSERT
-ProszÄ™ wÅ‚oÅ¼yÄ‡ wolumen \"%s\" do dowolnego napÄ™du
+Proszê w³o¿yæ wolumen \"%s\" do dowolnego napêdu
 ; Please insert volume "%s" in any drive
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE
-ProszÄ™ wymieniÄ‡ wolumen \"%s\" w dowolnym napÄ™dzie
+Proszê wymieniæ wolumen \"%s\" w dowolnym napêdzie
 ; Please replace volume "%s" in any drive
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE_TARGET
-ProszÄ™ wymieniÄ‡ wolumen \"%s\" w \"%s\"
+Proszê wymieniæ wolumen \"%s\" w \"%s\"
 ; Please replace volume "%s" in "%s"
 ;
 MSG_STRING_DISK_FULL
-Wolumen \"%s\" jest peÅ‚en
+Wolumen \"%s\" jest pe³en
 ; Volume "%s" is full
 ;
 MSG_STRING_NOT_A_DOS_DISK
@@ -227,15 +227,15 @@ Brak dysku w \"%s\"
 ; No disk present in "%s"
 ;
 MSG_STRING_ABORT_BUSY
-Musisz wymieniÄ‡ wolumen \"%s\" w \"%s\"!
+Musisz wymieniæ wolumen \"%s\" w \"%s\"!
 ; You MUST replace volume "%s" in "%s"!
 ;
 MSG_STRING_ABORT_DISK_ERROR
-Wolumen \"%s\" ma bÅ‚Ä™dy zapisu/odczytu
+Wolumen \"%s\" ma b³êdy zapisu/odczytu
 ; Volume "%s" has a read/write error
 ;
 MSG_STRING_RETRY
-PonÃ³w
+Ponów
 ; Retry
 ;
 MSG_STRING_CANCEL
@@ -247,14 +247,14 @@ Komunikat systemowy
 ; System requester
 ;
 MSG_ERROR_NO_MATCHING_ELSEENDIF
-brak pasujÄ…cych poleceÅ„ Else lub Endif
+brak pasuj±cych poleceñ Else lub Endif
 ; no matching Else or EndIf
 ;
 MSG_ERROR_SCRIPT_ONLY
-to polecenie jest przeznaczone do uÅ¼ywania jedynie w plikach poleceÅ„
+to polecenie jest przeznaczone do u¿ywania jedynie w plikach poleceñ
 ; this command is supposed to be used in command files only
 ;
 MSG_ERROR_UNKNOWN
-nieokreÅ›lony bÅ‚Ä…d
+nieokre¶lony b³±d
 ; undefined error
 ;

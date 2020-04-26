@@ -8,7 +8,7 @@
 ;
 ## version $VER: reqtools.catalog 39 (31.03.2016)
 ## codeset 0
-## language norsk
+## language norwegian
 ;
 ; av Kim Roar Utsi
 ; (updated by Daniel Holmen)
@@ -30,7 +30,7 @@ MSG_LAST_BAR_CANCEL
 _Forrige|_Avbryt
 ;
 MSG_REQUEST
-ForespÃ¸rsel
+Forespørsel
 ;
 MSG_INFORMATION
 Informasjon
@@ -59,13 +59,13 @@ MSG_PALETTE_COLORS
 _Farger:
 ;
 MSG_RED
-_RÃ¸d:
+_Rød:
 ;
 MSG_GREEN
-_GrÃ¸nn:
+_Grønn:
 ;
 MSG_BLUE
-_BlÃ¥:
+_Blå:
 ;
 MSG_COPY
 _Kopier
@@ -123,7 +123,7 @@ MSG_PARENT
 _Forrige
 ;
 MSG_PATTERN
-MÃ¸ns_ter:
+Møns_ter:
 ;
 MSG_GET
 _Hent
@@ -140,7 +140,7 @@ MSG_FULL
 ; *** Font Requester ***
 ;
 MSG_COULDNT_OPEN_FONT
-Kunne ikke Ã¥pne skrifttypen!
+Kunne ikke åpne skrifttypen!
 ;
 MSG_BOLD
 _Uthevet
@@ -163,16 +163,16 @@ MSG_DASH_EHB
 -EHB
 ;
 MSG_REGULAR_SIZE
-Vanlig stÃ¸rrelse
+Vanlig størrelse
 ;
 MSG_TEXT_SIZE
-TekststÃ¸rrelse
+Tekststørrelse
 ;
 MSG_GFX_SIZE
-GrafikkstÃ¸rrelse
+Grafikkstørrelse
 ;
 MSG_MAX_SIZE
-Maksimal stÃ¸rrelse
+Maksimal størrelse
 ;
 MSG_OVERSCAN
 O_verscan:
@@ -181,7 +181,7 @@ MSG_WIDTH
 _Bredde:
 ;
 MSG_HEIGHT
-_HÃ¸yde:
+_Høyde:
 ;
 ;
 MSG_DEFAULT

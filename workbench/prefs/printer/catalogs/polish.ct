@@ -36,7 +36,7 @@ Jednostka:
 ; Unit:
 ;
 MSG_PRINTER_CUSTOM_DEVICE
-WÅ‚asne urzÄ…dzenie:
+W³asne urz±dzenie:
 ; Custom device:
 ;
 MSG_PRINTER_DEVICE_UNIT
@@ -44,7 +44,7 @@ Jednostka %d
 ; Unit %d
 ;
 MSG_PRINTER_PARALLEL
-Port rÃ³wnolegÅ‚y
+Port równoleg³y
 ; Parallel
 ;
 MSG_PRINTER_SERIAL
@@ -60,19 +60,19 @@ Drukarka USB
 ; USB Printer
 ;
 MSG_TISK_PAPER_TYPE
-Rodzaj papÃ­eru:
+Rodzaj papíeru:
 ; Paper Type:
 ;
 MSG_TISK_PAPER_SIZE
-RozmÄ›ar papÃ­eru:
+Rozmìar papíeru:
 ; Paper Size:
 ;
 MSG_TISK_QUALITY
-JakoÅ›Ä‡:
+Jako¶æ:
 ; Quality:
 ;
 MSG_TISK_PITCH
-IntensywnoÅ›Ä‡:
+Intensywno¶æ:
 ; Pitch:
 ;
 MSG_TISK_SPACING
@@ -88,11 +88,11 @@ Prawy margines:
 ; Right Margin:
 ;
 MSG_TISK_LINE_PER_PAGE
-IloÅ›Ä‡ wierszy na stronie:
+Ilo¶æ wierszy na stronie:
 ; Lines per Page:
 ;
 MSG_TISK_DENSITY
-ZwartoÅ›Ä‡:
+Zwarto¶æ:
 ; Density:
 ;
 MSG_TISK_ASPECT
@@ -100,7 +100,7 @@ Aspekt:
 ; Aspect:
 ;
 MSG_TISK_SHADE
-OdcieÅ„:
+Odcieñ:
 ; Shade:
 ;
 MSG_TISK_IMAGE
@@ -108,7 +108,7 @@ Grafika:
 ; Image:
 ;
 MSG_TISK_TRESHOLD
-PrÃ³g:
+Próg:
 ; Threshold:
 ;
 MSG_TISK_DITHERING
@@ -120,15 +120,15 @@ Rozmiar stron:
 ; Dimensions:
 ;
 MSG_TISK_PAPER_OFFSET
-PrzesuniÄ™cie (
+Przesuniêcie (
 ; Offset (
 ;
 MSG_TISK_CENTER_IMAGE
-PoÅ›rodkowanie:
+Po¶rodkowanie:
 ; Center Image:
 ;
 MSG_TISK_ANTIALIAS
-WygÅ‚adzanie:
+Wyg³adzanie:
 ; AntiAlias:
 ;
 MSG_TISK_INTEGER_SCALING
@@ -136,7 +136,7 @@ Skalowanie:
 ; Integer Scaling:
 ;
 MSG_TISK_FANFOLD
-SkÅ‚adana
+Sk³adana
 ; Fanfold
 ;
 MSG_TISK_SINGLE
@@ -156,15 +156,15 @@ Portret
 ; Portrait
 ;
 MSG_TISK_LANDSCAPE
-PejzaÅ¼
+Pejza¿
 ; Landscape
 ;
 MSG_TISK_BW
-Czarno-biaÅ‚a
+Czarno-bia³a
 ; Black & White
 ;
 MSG_TISK_GRAY
-Stopnie szaroÅ›ci
+Stopnie szaro¶ci
 ; Greyscape
 ;
 MSG_TISK_COLOR
@@ -172,7 +172,7 @@ Barwy
 ; Color
 ;
 MSG_TISK_GRAY2
-Stopnie szaroÅ›ci 2
+Stopnie szaro¶ci 2
 ; Greyscape 2
 ;
 MSG_TISK_POSITIVE
@@ -208,7 +208,7 @@ Uporzadkowana
 ; Ordered
 ;
 MSG_TISK_HALFTONE
-PÃ³Å‚tonowa
+Pó³tonowa
 ; Halftone
 ;
 MSG_TISK_FLOYDSTEINBERG

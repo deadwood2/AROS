@@ -1,10 +1,10 @@
 ## version $VER: palette.catalog 2.0 (04.11.2011)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
 MSG_WINTITLE
-PrÃ©fÃ©rences de palette
+Préférences de palette
 ;
 MSG_OK
 Ok

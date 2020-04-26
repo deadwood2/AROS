@@ -105,7 +105,7 @@ Nuovo :
 ; Level:
 ;
 MSG_SPEED
-VelocitÃ  :
+Velocità :
 ; Speed:
 ;
 MSG_POPUP_MENU_DESIGN
@@ -458,11 +458,11 @@ Freccia su
 ; Arrow up
 ;
 MSG_ARROW_DOWN
-Freccia giÃ¹
+Freccia giù
 ; Arrow down
 ;
 MSG_DOWN
-giÃ¹
+giù
 ; down
 ;
 MSG_LEFT

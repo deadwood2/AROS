@@ -1,44 +1,44 @@
 ## version $VER: multiview.catalog 2.1 (31.3.2019)
 ## codeset 0
-## language franÃ§ais
+## language français
 ;
 MSG_CANT_OPEN_LIB
 Impossible d'ouvrir %s V%ld !\n
 ;
 MSG_CANT_CREATE_IC
-Impossible de crÃ©er les objets d'interconnexion !
+Impossible de créer les objets d'interconnexion !
 ;
 MSG_CANT_LOCK_SCR
-Impossible de verrouiller l'Ã©cran public !
+Impossible de verrouiller l'écran public !
 ;
 MSG_CANT_GET_DRI
 Impossible d'obtenir la structure DrawInfo !
 ;
 MSG_CANT_GET_VI
-Impossible de crÃ©er la structure VisualInfo !
+Impossible de créer la structure VisualInfo !
 ;
 MSG_CANT_CREATE_SYSIMAGE
-Impossible de crÃ©er les images SYSICLASS !
+Impossible de créer les images SYSICLASS !
 ;
 MSG_CANT_CREATE_GADGET
-Impossible de crÃ©er les gadgets !
+Impossible de créer les gadgets !
 ;
 MSG_CANT_CREATE_MENUS
-Impossible de crÃ©er les menus !
+Impossible de créer les menus !
 ;
 MSG_CANT_CREATE_WIN
-Impossible de crÃ©er une fenÃªtre !
+Impossible de créer une fenêtre !
 ;
 MSG_CANT_CREATE_MSGPORT
-Impossible de crÃ©er le port de messages !
+Impossible de créer le port de messages !
 ;Can't create message port!
 ;
 MSG_CANT_ADD_APPWINDOW
-Impossible de promouvoir la fenÃªtre en AppWindow !
+Impossible de promouvoir la fenêtre en AppWindow !
 ;Can't promote window as an AppWindow!
 ;
 MSG_SAVE_FAILED
-La sauvegarde a Ã©chouÃ© !
+La sauvegarde a échoué !
 ;
 MSG_MEN_PROJECT
 Projet
@@ -46,7 +46,7 @@ Projet
 MSG_MEN_PROJECT_OPEN
 O\0Ouvrir...
 ;
-MSG_MEN_PROJECT_SAVEAS
+MSG_MEN_PROJECT_EXPORT
 S\0Sauver sous...
 ;
 MSG_MEN_PROJECT_SAVEAS_IFF
@@ -56,13 +56,13 @@ MSG_MEN_PROJECT_PRINT
 P\0Imprimer
 ;
 MSG_MEN_PROJECT_ABOUT
-?\0Ã€ propos...
+?\0À propos...
 ;
 MSG_MEN_PROJECT_QUIT
 Q\0Quitter
 ;
 MSG_MEN_EDIT
-Ã‰dition
+Édition
 ;
 MSG_MEN_EDIT_MARK
 B\0Marquer
@@ -71,16 +71,16 @@ MSG_MEN_EDIT_COPY
 C\0Copier
 ;
 MSG_MEN_EDIT_SELECTALL
-A\0Tout sÃ©lectionner
+A\0Tout sélectionner
 ;
 MSG_MEN_EDIT_CLEARSELECTED
-H\0Annuler la sÃ©lection
+H\0Annuler la sélection
 ;
 MSG_MEN_WINDOW
-FenÃªtre
+Fenêtre
 ;
 MSG_MEN_WINDOW_SEPSCREEN
-F\0Plein Ã©cran
+F\0Plein écran
 ;
 MSG_MEN_WINDOW_MINIMIZE
 I\0Diminuer
@@ -95,7 +95,7 @@ MSG_MEN_SETTINGS
 Configuration
 ;
 MSG_MEN_SETTINGS_SAVEDEF
-D\0Sauver comme configuration par dÃ©faut
+D\0Sauver comme configuration par défaut
 ;
 MSG_MEN_PICT
 Image
@@ -107,10 +107,10 @@ MSG_MEN_PICT_ZOOM_OUT
 -\0Zoom -
 ;
 MSG_MEN_PICT_RESET
-Z\0Taille par dÃ©faut
+Z\0Taille par défaut
 ;
 MSG_MEN_PICT_FIT_WIN
-T\0Correspondre Ã  la fenÃªtre
+T\0Correspondre à la fenêtre
 ;
 MSG_MEN_PICT_KEEP_ASPECT
 E\0Conserver l'aspect
@@ -125,13 +125,13 @@ MSG_MEN_TEXT
 Texte
 ;
 MSG_MEN_TEXT_WORDWRAP
-W\0RÃ©arranger
+W\0Réarranger
 ;
 MSG_MEN_TEXT_SEARCH
 S\0Chercher...
 ;
 MSG_MEN_TEXT_SEARCH_PREV
-H\0Chercher prÃ©cÃ©dent
+H\0Chercher précédent
 ;
 MSG_MEN_TEXT_SEARCH_NEXT
 J\0Chercher suivant

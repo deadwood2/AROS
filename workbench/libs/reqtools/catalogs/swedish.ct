@@ -29,8 +29,8 @@ MSG_LAST_BAR_CANCEL
 _Sista|_Avbryt
 ;
 MSG_REQUEST
-FÃ¶rfrÃ¥gan
-;BegÃ¤ran, AnhÃ¥llan, EfterfrÃ¥gan
+Förfrågan
+;Begäran, Anhållan, Efterfrågan
 ;
 MSG_INFORMATION
 Information
@@ -51,24 +51,24 @@ MSG_MIN_MAX_FMT
 
 ;
 MSG_TOO_SMALL
-FÃ¶r litet!
+För litet!
 ;
 MSG_TOO_BIG
-FÃ¶r stort!
+För stort!
 ;
 ; *** Palette Requester ***
 ;
 MSG_PALETTE_COLORS
-_FÃ¤rginstÃ¤llningar:
+_Färginställningar:
 ;
 MSG_RED
-_RÃ¶tt:
+_Rött:
 ;
 MSG_GREEN
-_GrÃ¶nt:
+_Grönt:
 ;
 MSG_BLUE
-_BlÃ¥tt:
+_Blått:
 ;
 MSG_COPY
 _Kopiera
@@ -80,7 +80,7 @@ MSG_SPREAD
 _Sprid
 ;
 MSG_UNDO
-Ã…_ngra
+Å_ngra
 ;
 ; ** 2.5 **
 ;
@@ -99,16 +99,16 @@ Sprid till...
 ; *** File Requester ***
 ;
 MSG_CREATE_DRAWER
-LÃ¥dan "%s" finns\ninte. Skall den skapas?
+Lådan "%s" finns\ninte. Skall den skapas?
 ;
 MSG_DIR_ERROR
-LÃ¥dfel!
+Lådfel!
 ;
 MSG_MATCH_WINTITLE
 Motsvara...
 ;
 MSG_DRAWER
-LÃ¥da
+Låda
 ;
 MSG_ASSIGN
 Tilldelning
@@ -129,10 +129,10 @@ MSG_PARENT
 _Moder
 ;
 MSG_PATTERN
-MÃ¶ns_ter:
+Möns_ter:
 ;
 MSG_GET
-_HÃ¤mta
+_Hämta
 ;
 MSG_DOT_INFO
 ._info
@@ -146,7 +146,7 @@ MSG_FULL
 ; *** Font Requester ***
 ;
 MSG_COULDNT_OPEN_FONT
-Kunde inte Ã¶ppna teckensnittet!
+Kunde inte öppna teckensnittet!
 ;
 MSG_BOLD
 _Fet
@@ -187,14 +187,14 @@ MSG_WIDTH
 _Bredd:
 ;
 MSG_HEIGHT
-_HÃ¶jd:
+_Höjd:
 ;
 ;
 MSG_DEFAULT
-FÃ¶rinstÃ¤llt
+Förinställt
 ;
 MSG_COLORS
-_FÃ¤rger:
+_Färger:
 ;
 MSG_MAX
 Max:

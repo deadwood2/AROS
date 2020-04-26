@@ -1,5 +1,5 @@
 ## version $VER: wbrename.catalog 0.1 (12.09.2006)
-## language espaÃ±ol
+## language español
 ## codeset 0
 ;
 ;
@@ -12,8 +12,8 @@ Rinomina file e cartelle
 ; Renames files and drawers
 ;
 MSG_COPYRIGHT
-Â©2006, AROS Dev Team
-; Â©2006, AROS Dev Team
+©2006, AROS Dev Team
+; ©2006, AROS Dev Team
 ;
 MSG_WINDOW_TITLE
 Rinomina
@@ -40,11 +40,11 @@ Rinomina: Errore
 ; Error
 ;
 MSG_ALREADY_EXIST
-'%s' esiste giÃ !
+'%s' esiste già!
 ; '%s' already exists!
 ;
 MSG_FAILED
-L'operazione su '%s' Ã¨ fallita con l'errore:\n'%s'!
+L'operazione su '%s' è fallita con l'errore:\n'%s'!
 ; Rename of '%s' failed with error:\n'%s'!
 ;
 MSG_ILLEGAL_CHARS

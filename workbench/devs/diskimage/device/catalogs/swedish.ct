@@ -12,27 +12,27 @@ _Avsluta
 ;_Cancel
 ;
 MSG_PASSWORD_REQ
-Ange lÃ¶senord
+Ange lösenord
 ;Enter password:
 ;
 MSG_NOZLIB
-z.library behÃ¶vs
+z.library behövs
 ;z.library required
 ;
 MSG_NOCAPSDEV
-capsimage.device behÃ¶vs
+capsimage.device behövs
 ;capsimage.device required
 ;
 MSG_CANCELED
-Operationen avbrÃ¶ts
+Operationen avbröts
 ;operation canceled
 ;
 MSG_NOPASSWD
-LÃ¶senord krÃ¤vs
+Lösenord krävs
 ;password required
 ;
 MSG_WRONGPASSWD
-Fel lÃ¶senord
+Fel lösenord
 ;wrong password
 ;
 MSG_ZLIBERR
@@ -52,7 +52,7 @@ xadmaster.library fel
 ;xadmaster.library error
 ;
 MSG_UNKNDISKIMGTYPE
-Ej support pÃ¥ denna datatyp
+Ej support på denna datatyp
 ;unsupported disk image type/format
 ;
 MSG_UNKNCOMPMETHOD
@@ -60,11 +60,11 @@ Ej supportad kompressmetod
 ;unsupported compression method
 ;
 MSG_EOF
-OvÃ¤ntad filÃ¤ndelse
+Oväntad filändelse
 ;unexpected end of file
 ;
 MSG_BADDATA
-Filen har dÃ¥lig data
+Filen har dålig data
 ;file contains bad data
 ;
 MSG_BADCRC
@@ -76,11 +76,11 @@ Checksum fel
 ;checksum error
 ;
 MSG_REQ
-%s Ã¤r kravet
+%s är kravet
 ;%s required
 ;
 MSG_REQVER
-%s v%ld eller nyare Ã¤r kravet
+%s v%ld eller nyare är kravet
 ;%s v%ld or newer required
 ;
 MSG_WRONGDAA

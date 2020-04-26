@@ -4,31 +4,31 @@
 ;
 ;
 MSG_CANT_OPEN_LIB
-Nelze otev≈ô√≠t knihovnu %s V%ld!\n
+Nelze otev¯Ìt knihovnu %s V%ld!\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_OPEN_INPUTDEVICE
-Nelze otev≈ô√≠t za≈ô√≠zen√≠ input.device.
+Nelze otev¯Ìt za¯ÌzenÌ input.device.
 ; Can't open 'input.device'
 ;
 MSG_CANT_OPEN_CLIPDEVICE
-Nelze otev≈ô√≠t za≈ô√≠zen√≠ clipboard.device.
+Nelze otev¯Ìt za¯ÌzenÌ clipboard.device.
 ; Can't open 'clipboard.device'
 ;
 MSG_CANT_LOCK_SCR
-Nelze zamknout ve≈ôejnou obrazovku!\n
+Nelze zamknout ve¯ejnou obrazovku!\n
 ; Can't lock public screen!\n
 ;
 MSG_CANT_GET_VI
-Nelze naƒç√≠st strukturu VisualInfo!\n
+Nelze naËÌst strukturu VisualInfo!\n
 ; Can't get VisualInfo!\n
 ;
 MSG_CANT_CREATE_GADGET
-Nelze vytvo≈ôit tlaƒç√≠tka!\n
+Nelze vytvo¯it tlaËÌtka!\n
 ; Can't create gadgets!\n
 ;
 MSG_CANT_CREATE_MENUS
-Nelze vytvo≈ôit menu!\n
+Nelze vytvo¯it menu!\n
 ; Can't create menus!\n
 ;
 MSG_CANT_LAYOUT_MENUS
@@ -36,27 +36,27 @@ Nelze sestavit menu!\n
 ; Can't layout menus!\n
 ;
 MSG_CANT_CREATE_WIN
-Nelze vytvo≈ôit okno!\n
+Nelze vytvo¯it okno!\n
 ; Can't create window!\n
 ;
 MSG_CANT_ALLOCATE_MEM
-Nen√≠ dostatek voln√© pamƒõti!\n
+NenÌ dostatek volnÈ pamÏti!\n
 ; Can't allocate application memory!\n
 ;
 MSG_CANT_CREATE_MSGPORT
-Nelze vytvo≈ôit message port!\n
+Nelze vytvo¯it message port!\n
 ; Can't create message port!\n
 ;
 MSG_CANT_ALLOCATE_SIGNAL
-Nelze alokovat po≈æadovan√Ω sign√°l!\n
+Nelze alokovat poæadovan˝ sign·l!\n
 ; Can't allocate signal!\n
 ;
 MSG_CANT_CREATE_BROKER
-Nelze vytvo≈ôit objekt CxBroker!\n
+Nelze vytvo¯it objekt CxBroker!\n
 ; Can't create CxBroker object!\n
 ;
 MSG_CANT_CREATE_CUSTOM
-Nelze vytvo≈ôit objekt CxCustom!\n
+Nelze vytvo¯it objekt CxCustom!\n
 ; Can't create CxCustom object!\n
 ;
 MSG_OK
@@ -68,7 +68,7 @@ Projekt
 ; Project
 ;
 MSG_MEN_PROJECT_HIDE
-H\0Skr√Ωt
+H\0Skr˝t
 ; H\0Hide
 ;
 MSG_MEN_PROJECT_ICONIFY
@@ -76,7 +76,7 @@ I\0Ikonifikovat
 ; I\0Iconify
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0Ukonƒçit
+Q\0UkonËit
 ; Q\0Quit
 ;
 ; ===============================================
@@ -87,19 +87,19 @@ Exchange
 ; Exchange
 ;
 MSG_EXCHANGE_CXTITLE
-Spr√°vce komodit
+Spr·vce komodit
 ; Commodities Exchange
 ;
 MSG_EXCHANGE_CXDESCR
-Spr√°vce program≈Ø typu komodita
+Spr·vce program˘ typu komodita
 ; Controls system commodities
 ;
 MSG_EXCHANGE_WINTITLE
-Exchange: kl√°vesov√° zkratka = <%s>
+Exchange: kl·vesov· zkratka = <%s>
 ; Exchange: Hot Key = <%s>
 ;
 MSG_EXCHANGE_LISTVIEW
-P≈ôehled spu≈°tƒõn√Ωch komodit
+P¯ehled spuπtÏn˝ch komodit
 ; Available commodities
 ;
 MSG_EXCHANGE_INFO
@@ -111,7 +111,7 @@ Zobrazit
 ; Show
 ;
 MSG_EXCHANGE_GAD_HIDE
-Skr√Ωt
+Skr˝t
 ; Hide
 ;
 MSG_EXCHANGE_GAD_REMOVE
@@ -119,11 +119,11 @@ Odstranit
 ; Remove
 ;
 MSG_EXCHANGE_CYCLE_ACTIVE
-Aktivn√≠
+AktivnÌ
 ; Active
 ;
 MSG_EXCHANGE_CYCLE_INACTIVE
-Neaktivn√≠
+NeaktivnÌ
 ; Inactive
 ;
 ; ===============================================
@@ -134,11 +134,11 @@ Blanker
 ; Blanker
 ;
 MSG_BLANKER_CXTITLE
-≈†et≈ôiƒç obrazovky
+©et¯iË obrazovky
 ; System Screen Blanker
 ;
 MSG_BLANKER_CXDESCR
-Spust√≠ standardn√≠ ≈°et≈ôiƒç obrazovky
+SpustÌ standardnÌ πet¯iË obrazovky
 ; Blanks screen when system inactive
 ;
 ; ===============================================
@@ -149,11 +149,11 @@ ClickToFront
 ; ClickToFront
 ;
 MSG_CLICK2FNT_CXTITLE
-P≈ôesun oken do pop≈ôed√≠
+P¯esun oken do pop¯edÌ
 ; Click To Front Utility
 ;
 MSG_CLICK2FNT_CXDESCR
-Umo≈æn√≠ p≈ôen√©st okno do pop≈ôed√≠
+UmoænÌ p¯enÈst okno do pop¯edÌ
 ; Click windows to front
 ;
 ; ===============================================
@@ -164,11 +164,11 @@ Opaque
 ; Opaque
 ;
 MSG_OPAQUE_CXTITLE
-P≈ôesun oken s obsahem
+P¯esun oken s obsahem
 ; Solid Windows
 ;
 MSG_OPAQUE_CXDESCR
-Umo≈æn√≠ p≈ôesouvat okna i s obsahem
+UmoænÌ p¯esouvat okna i s obsahem
 ; Realtime moving of windows
 ;
 ; ===============================================
@@ -179,11 +179,11 @@ AutoPoint
 ; AutoPoint
 ;
 MSG_AUTOPOINT_CXTITLE
-Automatick√° aktivace oken
+Automatick· aktivace oken
 ; Autopointer
 ;
 MSG_AUTOPOINT_CXDESCR
-Aktivuje okno pod ≈°ipkou my≈°i
+Aktivuje okno pod πipkou myπi
 ; Activates the window under the mouse
 ;
 ; ===============================================
@@ -194,11 +194,11 @@ StartMenu
 ; StartMenu
 ;
 MSG_STARTMENU_CXTITLE
-Spou≈°tƒõc√≠ menu
+SpouπtÏcÌ menu
 ; System Program Starter
 ;
 MSG_STARTMENU_CXDESCR
-Umo≈æn√≠ pohodln√© spou≈°tƒõn√≠ program≈Ø
+UmoænÌ pohodlnÈ spouπtÏnÌ program˘
 ; Program launch commodity
 ;
 ; ===============================================
@@ -209,23 +209,23 @@ FKey
 ; FKey
 ;
 MSG_FKEY_CXTITLE
-Kl√°vesov√© zkratky
+Kl·vesovÈ zkratky
 ; Function To Keys:
 ;
 MSG_FKEY_CXDESCR
-Umo≈æn√≠ kl√°ves√°m p≈ôi≈ôadit r≈Øzn√© funkce
+UmoænÌ kl·ves·m p¯i¯adit r˘znÈ funkce
 ; Attach special functions to keys
 ;
 MSG_FKEY_WINTITLE
-FKey: kl√°vesov√° zkratka = <%s>
+FKey: kl·vesov· zkratka = <%s>
 ; FKey: Hot Key = <%s>
 ;
 MSG_FKEY_DEFINED_KEYS
-P≈ôehled definovan√Ωch zkratek
+P¯ehled definovan˝ch zkratek
 ; Defined Keys
 ;
 MSG_FKEY_NEW_KEY
-P≈ôid_at
+P¯id_at
 ; _New Key
 ;
 MSG_FKEY_DELETE_KEY
@@ -233,43 +233,43 @@ Odeb_rat
 ; _Delete Key
 ;
 MSG_FKEY_SAVE_KEY
-Ulo≈æit
+Uloæit
 ; Save Defined Keys
 ;
 MSG_FKEY_COMMAND
-P≈ô√≠kaz
+P¯Ìkaz
 ; Command
 ;
 MSG_FKEY_COMMAND_PARAMS
-Argumenty p≈ô√≠kazu
+Argumenty p¯Ìkazu
 ; Command Parameters
 ;
 MSG_FKEY_CMD_CYCLE_WIN
-Proch√°zet okny
+Proch·zet okny
 ; Cycle Windows
 ;
 MSG_FKEY_CMD_CYCLE_SCR
-Proch√°zet obrazovky
+Proch·zet obrazovky
 ; Cycle Screens
 ;
 MSG_FKEY_CMD_ENLARGE_WIN
-Zvƒõt≈°it okno
+ZvÏtπit okno
 ; Enlarge Window
 ;
 MSG_FKEY_CMD_SHRINK_WIN
-Zmen≈°it okno
+Zmenπit okno
 ; Shrink Window
 ;
 MSG_FKEY_CMD_TOGGLE_WIN_SIZE
-P≈ôepnout velikost okna
+P¯epnout velikost okna
 ; Toggle Window Size
 ;
 MSG_FKEY_CMD_RESCUE_WIN
-Vr√°tit okno na plochu
+Vr·tit okno na plochu
 ; Rescue Window
 ;
 MSG_FKEY_CMD_INSERT_TEXT
-Vlo≈æit text
+Vloæit text
 ; Insert Text
 ;
 MSG_FKEY_CMD_RUN_PROG
@@ -281,7 +281,7 @@ Spustit skript (Arexx)
 ; Run Arexx Script
 ;
 MSG_FKEY_MEN_PROJECT_SAVE
-S\0Ulo≈æit
+S\0Uloæit
 ; S\0Save Defined Keys
 ;
 ; ===============================================
@@ -292,11 +292,11 @@ NoCapsLock
 ; NoCapsLock
 ;
 MSG_NOCAPSLOCK_CXTITLE
-CapsLock? U≈æ ne!
+CapsLock? Uæ ne!
 ; NoCapsLock:
 ;
 MSG_NOCAPSLOCK_CXDESCR
-Vyp√≠n√° funkci kl√°vesy Caps Lock
+VypÌn· funkci kl·vesy Caps Lock
 ; Renders the CAPS LOCK key ineffective
 ;
 ; ===============================================
@@ -311,7 +311,7 @@ Seznam oken a obrazovek
 ; DepthMenu:
 ;
 MSG_DEPTHMENU_CXDESCR
-P≈ôesune okno nebo obrazovku do pop≈ôed√≠
+P¯esune okno nebo obrazovku do pop¯edÌ
 ; Popup menu for depth gadgets
 ;
 ; ===============================================
@@ -326,7 +326,7 @@ AltKeyQ
 ; Character input by number
 ;
 MSG_ALTKEYQ_CXDESCR
-Zad√°n√≠ po≈æadovan√©ho znaku jeho ƒç√≠slem
+Zad·nÌ poæadovanÈho znaku jeho ËÌslem
 ; MS-DOS Style Alt key usage
 ;
 ; ===============================================
@@ -341,15 +341,15 @@ Tabulka ASCII
 ; ASCIITable:
 ;
 MSG_ASCIITABLE_CXDESCR
-V√Ωbƒõr po≈æadovan√©ho znaku z tabulky
+V˝bÏr poæadovanÈho znaku z tabulky
 ; Select keys from a GUI
 ;
 MSG_ASCIITABLE_WINTITLE
-ASCIITable: kl√°vesov√° zkratka = <%s>
+ASCIITable: kl·vesov· zkratka = <%s>
 ; ASCIITable: Hot Key = <%s>
 ;
 MSG_ASCIITABLE_GAD_COPY
-Zkop√≠rovat
+ZkopÌrovat
 ; Copy
 ;
 MSG_ASCIITABLE_GAD_CLEAR

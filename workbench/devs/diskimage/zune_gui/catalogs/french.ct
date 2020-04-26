@@ -1,13 +1,13 @@
 ## version $VER: diskimagegui.catalog 1.1 (08.03.2019)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 MSG_UNIT_LBL
-UnitÃ©
+Unité
 ; Unit
 ;
 MSG_DEVICE_LBL
-PÃ©riphÃ©rique
+Périphérique
 ; Device
 ;
 MSG_FILENAME_LBL
@@ -67,15 +67,15 @@ Quitter
 ; Quit
 ;
 MSG_SETTINGS_MENU
-PrÃ©fÃ©rences
+Préférences
 ; Settings
 ;
 MSG_SETTINGS_CHANGETEMPDIR
-Changer le rÃ©pertoire temp...
+Changer le répertoire temp...
 ; Change temp directory...
 ;
 MSG_SETTINGS_SAVE
-Sauver les prÃ©fÃ©rences
+Sauver les préférences
 ; Save settings
 ;
 MSG_SETTINGS_PLUGINS
@@ -93,12 +93,12 @@ Ok
 MSG_ABOUT_REQ
 %s version %ld.%ld\n\
 %s version %ld.%ld\n\n\
-Copyright Â© 2007-2010 Fredrik Wikstrom\n\
+Copyright © 2007-2010 Fredrik Wikstrom\n\
 Site Web : http://a500.org\n\
 E-mail : fredrik@a500.org
 ; %s version %ld.%ld\n\
 ; %s version %ld.%ld\n\n\
-; Copyright Â© 2007-2010 Fredrik Wikstrom\n\
+; Copyright © 2007-2010 Fredrik Wikstrom\n\
 ; Website: http://a500.org\n\
 ; E-mail: fredrik@a500.org
 ;
@@ -107,8 +107,8 @@ Erreur
 ; Error
 ;
 MSG_NOAISS_REQ
-AISS Assignation non trouvÃ©e.\n\n\
-TÃ©lÃ©charger et installer la derniÃ¨re version\n\
+AISS Assignation non trouvée.\n\n\
+Télécharger et installer la dernière version\n\
 depuis ici : http://masonicons.de
 ; AISS assign not found.\n\n\
 ; Download and install the latest version\n\
@@ -116,14 +116,14 @@ depuis ici : http://masonicons.de
 ;
 MSG_OLDAISS_REQ
 AISS v%ld.%ld ou sup. requise.\n\n\
-TÃ©lÃ©charger et installer la derniÃ¨re version\n\
+Télécharger et installer la dernière version\n\
 depuis ici : http://masonicons.de
 ; AISS v%ld.%ld or newer required.\n\n\
 ; Download and install the latest version\n\
 ; from here: http://masonicons.de
 ;
 MSG_IMAGENOTFOUND_REQ
-Fichier image '%s' non trouvÃ©
+Fichier image '%s' non trouvé
 ; Image file '%s' not found.
 ;
 MSG_CANCEL_GAD
@@ -139,7 +139,7 @@ _Utiliser
 ; _Use
 ;
 MSG_INSERT_GAD
-InsÃ©rer
+Insérer
 ; Insert
 ;
 MSG_EJECT_GAD
@@ -147,11 +147,11 @@ Ejecter
 ; Eject
 ;
 MSG_WRITEPROTECT_GAD
-Prot. en Ã©criture
+Prot. en écriture
 ; Write Protect
 ;
 MSG_REFRESH_GAD
-RafraÃ®chir
+Rafraîchir
 ; Refresh
 ;
 MSG_PLUGINS_WND
@@ -171,19 +171,19 @@ Erreur - %s
 ; Error - %s
 ;
 MSG_SETDEVICETYPE_GAD
-Choisir le type de pÃ©riph.
+Choisir le type de périph.
 ; Set Device Type
 ;
 MSG_SETDEVICETYPE_WND
-UnitÃ© : %ld - Type de pÃ©riph.
+Unité : %ld - Type de périph.
 ; Unit: %ld - Device Type
 ;
 MSG_DEVICETYPE_GAD
-Type de pÃ©riphÃ©rique
+Type de périphérique
 ; Device Type
 ;
 MSG_DEVICETYPE_DIRECT_ACCESS
-Direct Access (paramÃ¨tre par dÃ©faut)
+Direct Access (paramètre par défaut)
 ; Direct Access (Default setting)
 ;
 MSG_DEVICETYPE_CDROM

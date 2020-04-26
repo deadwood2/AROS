@@ -6,39 +6,39 @@
 ; buttonsp.c
 ;-----------
 MSG_GENERAL
-ObecnÃ©
+Obecné
 ; General
 ;
 MSG_BACKGROUND_COLON
-PozadÃ­\nnormÃ¡lnÃ­:
+Pozadí\nnormální:
 ; Background:
 ;
 MSG_BACKGROUND_PRESSED
-PozadÃ­\npÅ™i zmÃ¡ÄknutÃ­:
+Pozadí\npøi zmáèknutí:
 ; Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
-TextovÃ¡ tlaÄÃ­tka
+Textová tlaèítka
 ; Text Buttons
 ;
 MSG_FRAME_COLON
-RÃ¡meÄek:
+Rámeèek:
 ; Frame:
 ;
 MSG_FONT
-PÃ­smo:
+Písmo:
 ; Font:
 ;
 MSG_IMAGE_BUTTONS
-GrafickÃ© symboly
+Grafické symboly
 ; Image Buttons
 ;
 MSG_ADJUST_FRAME
-Upravit rÃ¡meÄek
+Upravit rámeèek
 ; Adjust Frame
 ;
 MSG_CHECKMARKS
-ZatrÅ¾enÃ­
+Zatr¾ení
 ; Checkmarks
 ;
 MSG_LOOK_COLON
@@ -46,15 +46,15 @@ Vzhled:
 ; Look:
 ;
 MSG_CHECKMARK
-ZatrÅ¾enÃ­
+Zatr¾ení
 ; Checkmark
 ;
 MSG_RADIO_BUTTONS
-PÅ™epÃ­naÄe
+Pøepínaèe
 ; Radio Buttons
 ;
 MSG_RADIOBUTTON
-PÅ™epÃ­naÄ
+Pøepínaè
 ; Radiobutton
 ;
 MSG_LOOK
@@ -77,19 +77,19 @@ Rozestup
 ; cyclesp.c
 ;----------
 MSG_BELOW
-Rozbalit smÄ›rem dolÅ¯
+Rozbalit smìrem dolù
 ; below
 ;
 MSG_ON_ACTIVE
-Rozbalit na aktivnÃ­
+Rozbalit na aktivní
 ; on active
 ;
 MSG_CYCLE_GADGET_DESIGN
-Vzhled tlaÄÃ­tka
+Vzhled tlaèítka
 ; Cycle Gadget Design
 ;
 MSG_CYCLE
-CyklovacÃ­ tlaÄÃ­tko
+Cyklovací tlaèítko
 ; Cycle
 ;
 MSG_POPUP_MENU_CONTROL
@@ -101,7 +101,7 @@ Metoda:
 ; Position:
 ;
 MSG_LEVEL
-ÃšroveÅˆ:
+Úroveò:
 ; Level:
 ;
 MSG_SPEED
@@ -113,50 +113,50 @@ Vzhled menu
 ; Popup Menu Design
 ;
 MSG_FRAME
-RÃ¡meÄek
+Rámeèek
 ; Frame
 ;
 MSG_ADJUST_BACKGROUND
-Definice pozadÃ­
+Definice pozadí
 ; Adjust Background
 ;
 MSG_BACKGROUND
-PozadÃ­
+Pozadí
 ; Background
 ;
 MSG_RECESSED_ENTRIES
-VybranÃ© poloÅ¾ky:
+Vybrané polo¾ky:
 ; Recessed Entries:
 ;
 ;=============================
 ; groupsp.c
 ;__________
 MSG_ABOVE
-Nad Å™Ã¡dkem
+Nad øádkem
 ; above
 ;
 MSG_CENTERED
-VystÅ™edÄ›nÃ½
+Vystøedìnı
 ; centered
 ;
 MSG_STANDARD
-StandardnÃ­
+Standardní
 ; standard
 ;
 MSG_HILITE
-ZvÃ½raznÄ›nÃ½
+Zvıraznìnı
 ; hilite
 ;
 MSG_3D
-ProstorovÃ½
+Prostorovı
 ; 3d
 ;
 MSG_OUTLINE
-ObrysovÃ½
+Obrysovı
 ; outline
 ;
 MSG_TITLE
-Text zÃ¡hlavÃ­
+Text záhlaví
 ; Title
 ;
 MSG_COLOR
@@ -164,7 +164,7 @@ Barva:
 ; Color:
 ;
 MSG_HORIZONTAL
-VodorovnÄ›:
+Vodorovnì:
 ; Horizontal:
 ;
 MSG_VERTICAL
@@ -172,46 +172,46 @@ Svisle:
 ; Vertical:
 ;
 MSG_REGISTER
-ZÃ¡loÅ¾ka
+Zálo¾ka
 ; Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-Zkracovat text v zÃ¡hlavÃ­
+Zkracovat text v záhlaví
 ; Default size truncate titles
 ;
 MSG_NORMAL
-NormÃ¡lnÃ­
+Normální
 ; Normal
 ;
 MSG_VIRTUAL
-VnoÅ™enÃ½
+Vnoøenı
 ; Virtual
 ;
 MSG_FRAMED
-RÃ¡meÄek
+Rámeèek
 ; Framed
 ;
 MSG_PAGE
-StrÃ¡nka
+Stránka
 ; Page
 ;
 ;=============================
 ; listviewsp.c
 ;-------------
 MSG_SHIFTED
-PomocÃ­ Shift
+Pomocí Shift
 ; shifted
 ;
 MSG_ALWAYS
-StandardnÄ›
+Standardnì
 ; always
 ;
 MSG_LINEAR
-LineÃ¡rnÃ­
+Lineární
 ; linear
 ;
 MSG_MIXED
-KombinovanÃ©
+Kombinované
 ; mixed
 ;
 MSG_CONTROL
@@ -219,11 +219,11 @@ Funkce
 ; Control
 ;
 MSG_MULTI
-VÃ­ce poloÅ¾ek:
+Více polo¾ek:
 ; Multi:
 ;
 MSG_REFRESH
-ObnovenÃ­:
+Obnovení:
 ; Refresh:
 ;
 MSG_SMOOTH
@@ -231,15 +231,15 @@ Plynulost:
 ; Smooth:
 ;
 MSG_FONTS
-PÃ­sma
+Písma
 ; Fonts
 ;
 MSG_NORMAL_COLON
-NormÃ¡lnÃ­:
+Normální:
 ; Normal:
 ;
 MSG_FIXED
-FixnÃ­:
+Fixní:
 ; Fixed:
 ;
 MSG_LEADING
@@ -251,11 +251,11 @@ Vzhled
 ; Design
 ;
 MSG_INPUT_LISTS
-K zadÃ¡nÃ­\nÃºdajÅ¯:
+K zadání\núdajù:
 ; Input \nLists:
 ;
 MSG_READONLY_LISTS
-K vÃ½pisu\nÃºdajÅ¯:
+K vıpisu\núdajù:
 ; Readonly \nLists:
 ;
 MSG_CURSOR
@@ -263,38 +263,38 @@ Kurzor
 ; Cursor
 ;
 MSG_ACTIVE
-AktivnÃ­:
+Aktivní:
 ; Active:
 ;
 MSG_ACTIVE_SELECTED
-AktivnÃ­ a\nvybranÃ¡:
+Aktivní a\nvybraná:
 ; Active &\nSelected:
 ;
 MSG_SELECTED
-VybranÃ¡:
+Vybraná:
 ; Selected:
 ;
 ;=============================
 ; navigationp.c
 ;______________
 MSG_ALWAYS_SOLID
-NemÄ›nit vzhled tÃ¡hnutÃ©ho objektu
+Nemìnit vzhled táhnutého objektu
 ; always solid
 ;
 MSG_GHOSTED_ON_BOX
-ZeÅ¡ednout nad cÃ­lovou oblastÃ­
+Ze¹ednout nad cílovou oblastí
 ; ghosted on box
 ;
 MSG_GHOSTED_OUTSIDE_BOX
-ZeÅ¡ednout mimo cÃ­lovou oblast
+Ze¹ednout mimo cílovou oblast
 ; ghosted outside box
 ;
 MSG_ALWAYS_GHOSTED
-ZeÅ¡ednout na celou dobu tÃ¡hnutÃ­
+Ze¹ednout na celou dobu táhnutí
 ; always ghosted
 ;
 MSG_SHOW_FRAMES
-Zobrazit rÃ¡meÄky
+Zobrazit rámeèky
 ; show frames
 ;
 MSG_SHOW_OBJECTS
@@ -302,11 +302,11 @@ Zobrazit objekty
 ; show objects
 ;
 MSG_KL_PRESS
-ZmÃ¡ÄknutÃ­:
+Zmáèknutí:
 ; Press:
 ;
 MSG_KL_TOGGLE
-PÅ™epnutÃ­:
+Pøepnutí:
 ; Toggle:
 ;
 MSG_KL_UP
@@ -314,7 +314,7 @@ Nahoru:
 ; Up:
 ;
 MSG_KL_DOWN
-DolÅ¯:
+Dolù:
 ; Down:
 ;
 MSG_KL_PAGE_UP
@@ -322,15 +322,15 @@ O stranu nahoru:
 ; Page up:
 ;
 MSG_KL_PAGE_DOWN
-O stranu dolÅ¯:
+O stranu dolù:
 ; Page down:
 ;
 MSG_KL_TOP
-PrvnÃ­ poloÅ¾ka:
+První polo¾ka:
 ; Top:
 ;
 MSG_KL_BOTTOM
-PoslednÃ­ poloÅ¾ka:
+Poslední polo¾ka:
 ; Bottom:
 ;
 MSG_KL_LEFT
@@ -350,19 +350,19 @@ O slovo doprava:
 ; Word right:
 ;
 MSG_KL_LINE_START
-ZaÄÃ¡tek Å™Ã¡dku:
+Zaèátek øádku:
 ; Line start:
 ;
 MSG_KL_LINE_END
-Konec Å™Ã¡dku:
+Konec øádku:
 ; Line end:
 ;
 MSG_KL_NEXT_GADGET
-DalÅ¡Ã­ objekt:
+Dal¹í objekt:
 ; Next gadget:
 ;
 MSG_KL_PREV_GADGET
-PÅ™edch. objekt:
+Pøedch. objekt:
 ; Prev. gadget:
 ;
 MSG_KL_GADGET_OFF
@@ -370,35 +370,35 @@ Deaktivace:
 ; Gadget off:
 ;
 MSG_KL_CLOSE_WINDOW
-ZavÅ™enÃ­ okna:
+Zavøení okna:
 ; Close window:
 ;
 MSG_KL_NEXT_WINDOW
-DalÅ¡Ã­ okno:
+Dal¹í okno:
 ; Next window:
 ;
 MSG_KL_PREV_WINDOW
-PÅ™edch. okno:
+Pøedch. okno:
 ; Prev. window:
 ;
 MSG_KL_HELP
-NÃ¡povÄ›da:
+Nápovìda:
 ; Help:
 ;
 MSG_KL_POPUP
-VÃ½bÄ›r objektu:
+Vıbìr objektu:
 ; Popup:
 ;
 MSG_DRAG_DROP
-TÃ¡hnout a pustit
+Táhnout a pustit
 ; Drag & Drop
 ;
 MSG_LEFT_BUTTON
-LevÃ© tlaÄÃ­tko:
+Levé tlaèítko:
 ; Left Button:
 ;
 MSG_MIDDLE_BUTTON
-StÅ™ednÃ­ tlaÄÃ­tko:
+Støední tlaèítko:
 ; Middle Button:
 ;
 MSG_AUTOSTART
@@ -410,11 +410,11 @@ MSG_PIXEL
 ; %ld pixel
 ;
 MSG_BALANCING_GROUPS
-VyvÃ¡Å¾enÃ­ skupin
+Vyvá¾ení skupin
 ; Balancing Groups
 ;
 MSG_EXAMPLE
-UkÃ¡zka:
+Ukázka:
 ; Example:
 ;
 MSG_TRY_WITH
@@ -422,7 +422,7 @@ Zkuste i
 ; Try with
 ;
 MSG_SHIFT
-s klÃ¡vesou
+s klávesou
 ; shift
 ;
 MSG_TOO
@@ -430,11 +430,11 @@ Shift!
 ; too!
 ;
 MSG_KEYBOARD_CONTROL
-OvlÃ¡dÃ¡nÃ­ z klÃ¡vesnice
+Ovládání z klávesnice
 ; Keyboard Control
 ;
 MSG_COLOR_ACTIVE_OBJ
-Barva aktivnÃ­ho objektu:
+Barva aktivního objektu:
 ; Color of active object:
 ;
 MSG_NEWLOOK
@@ -442,11 +442,11 @@ Typ Newlook
 ; newlook
 ;
 MSG_CUSTOM
-VlastnÃ­
+Vlastní
 ; custom
 ;
 MSG_ARROWS
-Å ipky
+©ipky
 ; Arrows
 ;
 MSG_UP
@@ -454,15 +454,15 @@ Nahoru
 ; up
 ;
 MSG_ARROW_UP
-Å ipka nahoru
+©ipka nahoru
 ; Arrow up
 ;
 MSG_ARROW_DOWN
-Å ipka dolÅ¯
+©ipka dolù
 ; Arrow down
 ;
 MSG_DOWN
-DolÅ¯
+Dolù
 ; down
 ;
 MSG_LEFT
@@ -470,11 +470,11 @@ Vlevo
 ; left
 ;
 MSG_ARROW_LEFT
-Å ipka vlevo
+©ipka vlevo
 ; Arrow left
 ;
 MSG_ARROW_RIGHT
-Å ipka vpravo
+©ipka vpravo
 ; Arrow right
 ;
 MSG_RIGHT
@@ -482,7 +482,7 @@ Vpravo
 ; right
 ;
 MSG_BAR
-LiÅ¡ta
+Li¹ta
 ; Bar
 ;
 MSG_GADGET_TYPE
@@ -490,57 +490,57 @@ Druh objektu:
 ; Gadget Type:
 ;
 MSG_SCROLLER
-PosuvnÃ­k
+Posuvník
 ; Scroller
 ;
 MSG_KNOB
-KnoflÃ­k
+Knoflík
 ; Knob
 ;
 MSG_ARRANGEMENT
-UmÃ­stÄ›nÃ­
+Umístìní
 ; Arrangement
 ;
 ;=============================
 ; slidersp.c
 ;-----------
 MSG_CONTAINER_DESIGN
-Vzhled vnitÅ™nÃ­ ÄÃ¡sti
+Vzhled vnitøní èásti
 ; Container Design
 ;
 MSG_KNOB_DESIGN
-Vzhled knoflÃ­ku
+Vzhled knoflíku
 ; Knob Design
 ;
 MSG_EXAMPLE_SLIDERS
-UkÃ¡zka
+Ukázka
 ; Example Sliders
 ;
 ;=============================
 ; specialp.c
 ;-----------
 MSG_TEXT_FIELDS
-TextovÃ¡ pole
+Textová pole
 ; Text fields
 ;
 MSG_EXAMPLE_TEXTFIELD
-UkÃ¡zka textovÃ©ho pole
+Ukázka textového pole
 ; Example Textfield
 ;
 MSG_PROGRESS_INDICATOR
-Ukazatel prÅ¯bÄ›hu
+Ukazatel prùbìhu
 ; Progress Indicator
 ;
 MSG_DEVICE_IMAGES
-Symboly zaÅ™Ã­zenÃ­
+Symboly zaøízení
 ; Device Images
 ;
 MSG_DRAWER
-AdresÃ¡Å™
+Adresáø
 ; Drawer
 ;
 MSG_HARDDISK
-PevnÃ½ disk
+Pevnı disk
 ; Harddisk
 ;
 MSG_DISK
@@ -548,31 +548,31 @@ Disk
 ; Disk
 ;
 MSG_RAM
-PamÄ›Å¥
+Pamì»
 ; RAM
 ;
 MSG_VOLUME
-MÃ©dium
+Médium
 ; Volume
 ;
 MSG_NETWORK
-SÃ­Å¥ovÃ© zaÅ™Ã­zenÃ­
+Sí»ové zaøízení
 ; Network
 ;
 MSG_ASSIGN
-PÅ™iÅ™azenÃ­
+Pøiøazení
 ; Assign
 ;
 MSG_TAPE_IMAGES
-Symboly pro pÅ™ehrÃ¡vaÄ
+Symboly pro pøehrávaè
 ; Tape Images
 ;
 MSG_TAPE_PLAY
-PÅ™ehrÃ¡t
+Pøehrát
 ; Tape play
 ;
 MSG_TAPE_PLAYBACK
-PÅ™ehrÃ¡t pozpÃ¡tku
+Pøehrát pozpátku
 ; Tape playback
 ;
 MSG_TAPE_PAUSE
@@ -584,34 +584,34 @@ Zastavit
 ; Tape stop
 ;
 MSG_TAPE_RECORD
-NahrÃ¡vat
+Nahrávat
 ; Tape record
 ;
 MSG_TAPE_UP
-Vysunout mÃ©dium
+Vysunout médium
 ; Tape up
 ;
 MSG_TAPE_DOWN
-VloÅ¾it mÃ©dium
+Vlo¾it médium
 ; Tape down
 ;
 ;=============================
 ; stringsp.c
 ;-----------
 MSG_STRING_FRAME
-RÃ¡meÄek textovÃ©ho pole
+Rámeèek textového pole
 ; String Frame
 ;
 MSG_SPECIAL_POPUP_BUTTONS
-SpeciÃ¡lnÃ­ symboly
+Speciální symboly
 ; Special Popup Buttons
 ;
 MSG_POPUP
-VÃ½bÄ›r objektu
+Vıbìr objektu
 ; Popup
 ;
 MSG_DEFAULT
-VÃ½chozÃ­
+Vıchozí
 ; Default
 ;
 MSG_FILE
@@ -623,11 +623,11 @@ Symbol pro soubor
 ; Popup file
 ;
 MSG_POPUP_DRAWER
-Symbol pro adresÃ¡Å™
+Symbol pro adresáø
 ; Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
-Barvy pro neaktivnÃ­ pole
+Barvy pro neaktivní pole
 ; Inactive String Colors
 ;
 MSG_TEXT
@@ -635,62 +635,62 @@ Text
 ; Text
 ;
 MSG_ACTIVE_STRING_COLORS
-Barvy pro aktivnÃ­ pole
+Barvy pro aktivní pole
 ; Active String Colors
 ;
 MSG_MARKED_STRING_COLORS
-Barvy pro oznaÄenÃ½ text
+Barvy pro oznaèenı text
 ; Marked String Colors
 ;
 MSG_EXAMPLE_STRING_GADGET
-UkÃ¡zka textovÃ©ho pole
+Ukázka textového pole
 ; Example String Gadget
 ;
 ;=============================
 ; windowp.c
 ;----------
 MSG_FORGET_ON_EXIT
-VÅ¯bec neuklÃ¡dat
+Vùbec neukládat
 ; forget on exit
 ;
 MSG_REMEMBER_ON_EXIT
-UloÅ¾it doÄasnÄ› (do restartu)
+Ulo¾it doèasnì (do restartu)
 ; remember on exit
 ;
 MSG_SAVE_ON_EXIT
-UloÅ¾it trvale
+Ulo¾it trvale
 ; save on exit
 ;
 MSG_SMART
-VylepÅ¡enÃ©
+Vylep¹ené
 ; smart
 ;
 MSG_SIMPLE
-JednoduchÃ©
+Jednoduché
 ; simple
 ;
 MSG_WITHOUT_CLEAR
-PomalÃ©
+Pomalé
 ; without clear
 ;
 MSG_WITH_CLEAR
-RychlÃ©
+Rychlé
 ; with clear
 ;
 MSG_POSITIONS
-UmÃ­stÄ›nÃ­:
+Umístìní:
 ; Positions:
 ;
 MSG_REDRAW
-PÅ™ekreslenÃ­:
+Pøekreslení:
 ; Redraw:
 ;
 MSG_TINY
-MalÃ©:
+Malé:
 ; Tiny:
 ;
 MSG_BIG
-VelkÃ©:
+Velké:
 ; Big:
 ;
 MSG_WINDOW
@@ -718,18 +718,18 @@ B
 ; B
 ;
 MSG_BUTTONS
-TlaÄÃ­tka
+Tlaèítka
 ; Buttons
 ;
 ;=============================
 ; zune.c
 ;-------
 MSG_WINTITLE1
-GlobÃ¡lnÃ­ nastavenÃ­ Zune
+Globální nastavení Zune
 ; Zune - Global Prefs
 ;
 MSG_WINTITLE2
-NastavenÃ­ Zune pro %s
+Nastavení Zune pro %s
 ; Zune - Prefs for : %s
 ;
 MSG_MEN_PROJECT
@@ -737,7 +737,7 @@ Projekt
 ; Project
 ;
 MSG_MEN_OPEN
-OtevÅ™Ã­t...
+Otevøít...
 ; Open ...
 ;
 MSG_MEN_OPEN_SC
@@ -745,11 +745,11 @@ O
 ; O
 ;
 MSG_MEN_APPEND
-PÅ™ipojit...
+Pøipojit...
 ; Append ...
 ;
 MSG_MEN_SAVEAS
-UloÅ¾it jako...
+Ulo¾it jako...
 ; Save As ...
 ;
 MSG_MEN_SAVEAS_SC
@@ -765,7 +765,7 @@ MSG_MEN_ABOUT_SC
 ; ?
 ;
 MSG_MEN_QUIT
-UkonÄit
+Ukonèit
 ; Quit
 ;
 MSG_MEN_QUIT_SC
@@ -773,11 +773,11 @@ Q
 ; Q
 ;
 MSG_FRAME_CLIPBOARD
-VÃ½bÄ›r rÃ¡meÄku
+Vıbìr rámeèku
 ; Frame Clipboard
 ;
 MSG_IMAGE_CLIPBOARD
-VÃ½bÄ›r obrÃ¡zku
+Vıbìr obrázku
 ; Image Clipboard
 ;
 MSG_GAD_TEST
@@ -785,19 +785,19 @@ Zkusi_t
 ; _Test
 ;
 MSG_GAD_SAVE
-_UloÅ¾it
+_Ulo¾it
 ; _Save
 ;
 MSG_GAD_USE
-_PouÅ¾Ã­t
+_Pou¾ít
 ; _Use
 ;
 MSG_GAD_CANCEL
-_ZruÅ¡it
+_Zru¹it
 ; _Cancel
 ;
 MSG_DSC_SYSTEM
-SystÃ©m
+Systém
 ; System
 ;
 MSG_DSC_WINDOWS
@@ -809,19 +809,19 @@ Skupiny
 ; Groups
 ;
 MSG_DSC_BUTTONS
-TlaÄÃ­tka
+Tlaèítka
 ; Buttons
 ;
 MSG_DSC_CYCLES
-CyklickÃ¡
+Cyklická
 ; Cycles
 ;
 MSG_DSC_SLIDERS
-Å oupÃ¡tka
+©oupátka
 ; Sliders
 ;
 MSG_DSC_SCROLLBARS
-PosuvnÃ­ky
+Posuvníky
 ; Scrollbars
 ;
 MSG_DSC_LISTVIEWS
@@ -833,15 +833,15 @@ Texty
 ; Strings
 ;
 MSG_DSC_NAVIGATION
-OvlÃ¡dÃ¡nÃ­
+Ovládání
 ; Navigation
 ;
 MSG_DSC_SPECIAL
-OstatnÃ­
+Ostatní
 ; Special
 ;
 MSG_DSC_FRAMES
-RÃ¡meÄky
+Rámeèky
 ; Frames
 ;
 ;=============================
@@ -855,26 +855,26 @@ Definice barvy
 ; framesp.c
 ;----------
 MSG_CUSTOMFRAMES
-SpeciÃ¡lnÃ­ rÃ¡meÄky
+Speciální rámeèky
 ; Customframes
 ;
 ;=============================
 ; systemp.c
 ;----------
 MSG_PUBLIC_SCREEN
-VeÅ™ejnÃ¡ obrazovka
+Veøejná obrazovka
 ; Public Screen
 ;
 MSG_NAME
-NÃ¡zev:
+Název:
 ; Name:
 ;
 MSG_CALL_INSPECTOR
-Spustit sprÃ¡vce
+Spustit správce
 ; Call Inspector
 ;
 MSG_POP_TO_FRONT
-PÅ™esunout do popÅ™edÃ­:
+Pøesunout do popøedí:
 ; Pop to front:
 ;
 MSG_ICONIFICATION
@@ -882,7 +882,7 @@ Ikonifikace
 ; Iconification
 ;
 MSG_HOTKEY
-KlÃ¡vesovÃ¡ zkratka:
+Klávesová zkratka:
 ; Hotkey:
 ;
 MSG_SHOW
@@ -890,34 +890,34 @@ Zobrazit:
 ; Show:
 ;
 MSG_ICON
-Ikonu na ploÅ¡e
+Ikonu na plo¹e
 ; Icon
 ;
 MSG_MENU
-V menu 'NÃ¡stroje'
+V menu 'Nástroje'
 ; Menu
 ;
 MSG_ON_STARTUP
-Po spuÅ¡tÄ›nÃ­:
+Po spu¹tìní:
 ; On Startup:
 ;
 MSG_INTERFACES
-RozhranÃ­
+Rozhraní
 ; Interfaces
 ;
 MSG_AREXX
-Povolit rozhranÃ­ ARexx:
+Povolit rozhraní ARexx:
 ; ARexx:
 ;
 MSG_BUBBLE_HELP
-BublinovÃ¡ nÃ¡povÄ›da
+Bublinová nápovìda
 ; Bubble Help
 ;
 MSG_FIRST_BUBBLE
-PrvnÃ­ bublina:
+První bublina:
 ; First Bubble:
 ;
 MSG_NEXT_BUBBLE
-DalÅ¡Ã­ bublina:
+Dal¹í bublina:
 ; Next Bubble:
 ;

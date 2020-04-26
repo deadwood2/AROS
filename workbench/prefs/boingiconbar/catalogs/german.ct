@@ -20,7 +20,7 @@ MSG_DOCK
 ; \33cDock
 ;
 MSG_ADD_DOCK
-HinzufÃ¼gen
+Hinzufügen
 ; Add
 ;
 MSG_DEL_DOCK
@@ -36,7 +36,7 @@ Programme
 ; \33cPrograms
 ;
 MSG_ADD_P
-Programm hinzufÃ¼gen
+Programm hinzufügen
 ; Add program
 ;
 MSG_DEL_P

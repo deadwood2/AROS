@@ -12,7 +12,7 @@ Ok
 ; Ok
 ;
 MSG_MENUS_GROUP
-MenÃ¼s
+Menüs
 ; Menus
 ;
 MSG_MENUS_TYPE
@@ -44,7 +44,7 @@ Fenster
 ; Windows
 ;
 MSG_OFFSCREEN_MOVE
-Verschieben Ã¼ber den Bildschirmrand ermÃ¶glichen:
+Verschieben über den Bildschirmrand ermöglichen:
 ; Offscreen move:
 ;
 MSG_SCREENS
@@ -52,7 +52,7 @@ Bildschirme
 ; Screens
 ;
 MSG_PUBLIC_SCREENS
-Ã–ffentlicher Bildschirm
+Öffentlicher Bildschirm
 ; Public Screens
 ;
 MSG_FRONTMOST_DEFAULT
@@ -60,11 +60,11 @@ Vorderster als voreingesteller
 ; Set Frontmost as default
 ;
 MSG_OFFSCREEN_DESC
-ErmÃ¶glicht das Verschieben von Fenstern\nauÃŸerhalb des sichtbaren Bereichs
+Ermöglicht das Verschieben von Fenstern\naußerhalb des sichtbaren Bereichs
 ; Allow windows to be moved out of\nthe visible area
 ;
 MSG_FRONTMOST_DEFAULT_DESC
-Macht den vordersten Ã¶ffentlichen Bildschirm\nzum voreingestellten Ã¶ffentlichen Bildschirm
+Macht den vordersten öffentlichen Bildschirm\nzum voreingestellten öffentlichen Bildschirm
 ; Make the frontmost public screen\nthe default public screen
 ;
 MSG_DRAG
@@ -100,6 +100,6 @@ Klebend
 ; Sticky
 ;
 MSG_MENUS_TITLEPOPUP
-Pull-Down Ã¼ber Bildschirmtitel
+Pull-Down über Bildschirmtitel
 ; Pull-Down on Screen Title
 ;

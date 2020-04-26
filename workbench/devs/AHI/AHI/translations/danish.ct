@@ -31,7 +31,7 @@ msgMenuProject
 ; \000Project
 ;
 msgItemOpen
-Ã…\000Ã…bne...
+Å\000Åbne...
 ; O\000Open...
 ;
 msgItemSaveAs
@@ -71,11 +71,11 @@ L\000Lave ikoner?
 ; I\000Create Icons?
 ;
 msgMenuHelp
-\000HjÃ¦lp
+\000Hjælp
 ; \000Help
 ;
 msgItemHelp
-HELP\000HjÃ¦lp...
+HELP\000Hjælp...
 ; Help\000Help...
 ;
 msgItemUsersGuide
@@ -109,7 +109,7 @@ Musik enhed
 ; *** Properties box ***
 ;
 msgProperties
-Modus-ID\nOptager\nProgrammÃ¸r\nCopyright\nDrivprogram\nVersion\nAnnotation
+Modus-ID\nOptager\nProgrammør\nCopyright\nDrivprogram\nVersion\nAnnotation
 ; Mode ID\nRecording\nAuthor\nCopyright\nDriver\nVersion\nAnnotation
 ;
 msgPropRecordFull
@@ -194,7 +194,7 @@ Surround i "_Hurtig"-modus
 ; Surround in "_Fast" modes
 ;
 msgGlobOptCPULimit
-_CPU-begrÃ¦nsning
+_CPU-begrænsning
 ; CPU usage _limit
 ;
 ; *** Debug levels ***
@@ -208,7 +208,7 @@ Lav
 ; Low
 ;
 msgDebugHigh
-HÃ¸j
+Høj
 ; High
 ;
 msgDebugFull
@@ -263,17 +263,17 @@ msgTextProgramName
 AHI-indstillinger
 ; AHI preferences
 ;
-;You can use something like "%s%s\nCopyright Â©%s\nEnglish translation by Your Name" here...
+;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
-%s%s\nCopyright Â©%s
-; %s%s\nCopyright Â©%s
+%s%s\nCopyright ©%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
-Ikke i stand til at Ã¥bne vindue.
+Ikke i stand til at åbne vindue.
 ; Unable to open window.
 ;
 msgTextNoFileRequester
-Ikke i stand til at allokere filvÃ¦lger
+Ikke i stand til at allokere filvælger
 ; Unable to allocate file requester.
 ;
 msgTextNoFind
@@ -281,8 +281,8 @@ Kan ikke finde '%s'!
 ; Unable to find `%s'!
 ;
 msgTextNoOpen
-Kan ikke Ã¥bne '%s' version %ld.
-; Unable to open `%sÂ´ version %ld.
+Kan ikke åbne '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

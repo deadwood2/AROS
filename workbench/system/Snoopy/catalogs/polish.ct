@@ -8,7 +8,7 @@ Snoopy
 ;
 MSG_COPYRIGHT
 (c) 2006-2010, The AROS Development Team
-; Å  2006-2008, The AROS Development Team
+; © 2006-2008, The AROS Development Team
 ;
 MSG_AUTHOR
 The AROS Development Team
@@ -35,11 +35,11 @@ Pokazuj numery CLI
 ; Show CLI number
 ;
 MSG_FULL_PATH
-Pokazuj peÅ‚ne Å›cieÅ¼ki dostÄ™pu
+Pokazuj pe³ne ¶cie¿ki dostêpu
 ; Show full paths
 ;
 MSG_DEVICE
-UÅ¼ywaj nazw urzÄ…dzeÅ„
+U¿ywaj nazw urz±dzeñ
 ; Use device names
 ;
 MSG_IGNORE_WB
@@ -47,11 +47,11 @@ Ignoruj Workbencha/Shella
 ; Ignore Workbench/Shell
 ;
 MSG_BREAKPOINT
-Ustaw punkty przerwaÅ„
+Ustaw punkty przerwañ
 ; Set breakpoint
 ;
 MSG_MATCH
-PasujÄ…ce nazwy
+Pasuj±ce nazwy
 ; Match name
 ;
 MSG_SYSTEM_FUNC
@@ -67,11 +67,11 @@ Zapisz
 ; Save
 ;
 MSG_OPEN
-OtwÃ³rz
+Otwórz
 ; Open
 ;
 MSG_USE
-UÅ¼yj
+U¿yj
 ; Use
 ;
 MSG_UNDO
@@ -87,7 +87,7 @@ Poniechaj
 ; Cancel
 ;
 MSG_OUTPUT_FIELD
-SzerokoÅ›Ä‡ pola wyjÅ›ciowego
+Szeroko¶æ pola wyj¶ciowego
 ; Output Field Width
 ;
 MSG_NAME
@@ -95,7 +95,7 @@ Nazwa
 ; Name
 ;
 MSG_ACTION
-DziaÅ‚anie
+Dzia³anie
 ; Action
 ;
 MSG_TARGET
@@ -115,28 +115,28 @@ Niepowodzenie
 ; Fail
 ;
 MSG_ERROR_SAVE
-Podczas zapisywania %s wystÄ…piÅ‚ bÅ‚Ä…d.
+Podczas zapisywania %s wyst±pi³ b³±d.
 ; An error happened when saving to %s
 ;
 MSG_ERROR_LOAD
-Podczas wczytywania %s wystÄ…piÅ‚ bÅ‚Ä…d.
+Podczas wczytywania %s wyst±pi³ b³±d.
 ; An error happened when loading from %s
 ;
 MSG_RESET_PATCHES
-Wyzeruj Å‚atki|Poniechaj
+Wyzeruj ³atki|Poniechaj
 ; Reset Patches|Cancel
 ;
 MSG_ASK_RESET
-Czy na pewno chcesz wyzerowaÄ‡ Å‚atki do ich oryginalnych funkcji?
+Czy na pewno chcesz wyzerowaæ ³atki do ich oryginalnych funkcji?
 ; Do you really want to reset the patches to their original functions?
 ;
 MSG_REMOVE_SNOOP
-UsuÅ„|Zachowaj
+Usuñ|Zachowaj
 ; Remove|Keep
 ;
 MSG_ASK_REMOVE
-Czy na pewno chcesz usunÄ…Ä‡ proces programu SNoppy?\n\
-MoÅ¼e to byÄ‡ niebezpieczne, jeÅ›li inne zadanie zaÅ‚ataÅ‚o Å‚atki Snoppy'ego.
+Czy na pewno chcesz usun±æ proces programu SNoppy?\n\
+Mo¿e to byæ niebezpieczne, je¶li inne zadanie za³ata³o ³atki Snoppy'ego.
 ; Do you really want to remove the Snoopy process?\n\
 ; This can be quite dangerous when another task has patched Snoopy's patches.
 ;
@@ -181,6 +181,6 @@ Wersja %ld
 ; Version %ld
 ;
 MSG_SIZE
-WielkoÅ›Ä‡ %d
+Wielko¶æ %d
 ; Size %d
 ;

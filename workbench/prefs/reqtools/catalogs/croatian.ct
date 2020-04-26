@@ -7,15 +7,15 @@ ReqTools Postavke
 ; ReqTools Preferences
 ;
 MSG_GENERAL
-Opƒáenito
+OpÊenito
 ; General
 ;
 MSG_FILEREQUESTER
-Biraƒç Datoteka
+BiraË Datoteka
 ; File Requester
 ;
 MSG_SIZE
-Veliƒçina (% of vidljive visine)
+VeliËina (% of vidljive visine)
 ; Size (% of visible height):
 ;
 MSG_OK
@@ -27,15 +27,15 @@ Izbaci zaslon naprijed
 ; Pop screen to front
 ;
 MSG_IMMEDIATESORT
-Odmah poslo≈æi
+Odmah posloæi
 ; Immediate sort
 ;
 MSG_DRAWERSFIRST
-Prika≈æi mape prvo
+Prikaæi mape prvo
 ; Display drawers first
 ;
 MSG_DRAWERSMIXED
-Pomje≈°aj datoteke i mape
+Pomjeπaj datoteke i mape
 ; Mix files and drawers
 ;
 MSG_LED
@@ -47,7 +47,7 @@ Koristi slovo sustava
 ; Use system default font
 ;
 MSG_FKEYS
-Koristi funkcijske kljuƒçeve
+Koristi funkcijske kljuËeve
 ; Use function keys
 ;
 MSG_DOWHEEL
@@ -55,7 +55,7 @@ Kolo boja:
 ; Color wheel:
 ;
 MSG_WHEEL_NONE
-Iskljuƒçen
+IskljuËen
 ; None
 ;
 MSG_WHEEL_SIMPLE
@@ -63,7 +63,7 @@ Jednostavno
 ; Simple
 ;
 MSG_WHEEL_FANCY
-Ukra≈°eno
+Ukraπeno
 ; Fancy
 ;
 MSG_MMB_PARENT
@@ -71,11 +71,11 @@ MMB daje osnovno
 ; MMB gives parent
 ;
 MSG_DEFAULTS
-Predlo≈æak
+Predloæak
 ; Defaults
 ;
 MSG_REQUESTER
-\33bBiraƒç:
+\33bBiraË:
 ; \33bRequester:
 ;
 MSG_FILEREQ
@@ -95,7 +95,7 @@ Rezolucije Zaslona
 ; Screen Mode
 ;
 MSG_VOLUMEREQ
-Pode≈°avanje Glasnoƒçe
+Podeπavanje GlasnoËe
 ; Volume
 ;
 MSG_OTHERREQ
@@ -107,7 +107,7 @@ Pozicija:
 ; Position:
 ;
 MSG_POINTER
-Pokazivaƒç mi≈°a
+PokazivaË miπa
 ; Mouse pointer
 ;
 MSG_CENTERWIN

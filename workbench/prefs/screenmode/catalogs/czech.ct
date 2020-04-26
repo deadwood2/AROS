@@ -4,19 +4,19 @@
 ;
 ;
 MSG_NAME
-Zobrazen√≠ (editor Screenmode)
+ZobrazenÌ (editor Screenmode)
 ; ScreenMode Preferences
 ; 
 MSG_WIDTH
-\33l≈†√≠≈ôka:
+\33l©Ì¯ka:
 ; \33lWidth:
 ;
 MSG_DEFAULT
-\33l_V√Ωchoz√≠
+\33l_V˝chozÌ
 ; \33l_default
 ;
 MSG_HEIGHT
-\33lV√Ω≈°ka:
+\33lV˝πka:
 ; \33lHeight:
 ;
 MSG_DEPTH
@@ -24,15 +24,15 @@ MSG_DEPTH
 ; \33lDepth:
 ;
 MSG_AUTOSCROLL
-\33lRolov√°n√≠
+\33lRolov·nÌ
 ; \33lAutoscroll
 ;
 MSG_DISPLAY_MODE
-Seznam zobrazovac√≠ch m√≥d≈Ø
+Seznam zobrazovacÌch mÛd˘
 ; Display Mode
 ;
 MSG_MODE_ID
-Identifik√°tor
+Identifik·tor
 ; Mode ID
 ;
 MSG_DESCRIPTION
@@ -40,22 +40,22 @@ Popis
 ; Description
 ;
 MSG_MODE_ATTRIBUTES
-Informace o m√≥du
+Informace o mÛdu
 ; Mode Attributes
 ;
 MSG_VISIBLE_SIZE
-Viditeln√° velikost:
+Viditeln· velikost:
 ; Visible Size:
 ;
 MSG_MINIMUM_SIZE
-Minim√°ln√≠ velikost:
+Minim·lnÌ velikost:
 ; Minimum Size:
 ;
 MSG_MAXIMUM_SIZE
-Maxim√°ln√≠ velikost:
+Maxim·lnÌ velikost:
 ; Maximum Size:
 ;
 MSG_MAXIMUM_COLORS
-Maxim√°ln√≠ poƒçet barev:
+Maxim·lnÌ poËet barev:
 ; Maximum Colors:
 ;

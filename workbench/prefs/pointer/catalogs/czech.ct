@@ -3,7 +3,7 @@
 ## codeset 5
 ;
 MSG_WINTITLE
-NastavenÃ­ ukazatele myÅ¡i
+Nastavení ukazatele my¹i
 ; Pointer Preferences
 ;
 MSG_OK
@@ -15,7 +15,7 @@ Vrchol
 ;  Hotspot
 ;
 MSG_ALPHA
-PrÅ¯hlednost
+Prùhlednost
 ; Alpha
 ;
 MSG_FILENAME
@@ -27,14 +27,14 @@ Typ
 ; Type
 ;
 MSG_TYPE_NORMAL
-StandardnÃ­
+Standardní
 ; Normal
 ;
 MSG_TYPE_BUSY
-ZaneprÃ¡zdnÄ›nÃ½
+Zaneprázdnìný
 ; Busy
 ;
 MSG_SETVIEW
-Nastavit / ukÃ¡zat
+Nastavit / ukázat
 ; Set / View
 ;

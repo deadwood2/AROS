@@ -1,10 +1,10 @@
 ## version $VER: pointer.catalog 2.0 (30.03.2016)
 ## codeset 0
-## language franÃ§ais
+## language français
 ;
 ;
 MSG_WINTITLE
-PrÃ©fÃ©rences du pointeur
+Préférences du pointeur
 ; Pointer Preferences
 ;
 MSG_OK
@@ -32,7 +32,7 @@ Normal
 ; Normal
 ;
 MSG_TYPE_BUSY
-OccupÃ©
+Occupé
 ; Busy
 ;
 MSG_SETVIEW

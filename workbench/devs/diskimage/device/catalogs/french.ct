@@ -1,6 +1,6 @@
 ## version $VER: diskimagedevice.catalog 1.00 (13.06.2012)
 ## codeset 0
-## language franÃ§ais
+## language français
 ;
 MSG_OK_GAD
 D'acc_ord
@@ -15,24 +15,24 @@ Donnez le mot de passe :
 ; Donnez le mot de passe :
 ;
 MSG_NOZLIB
-La z.library doit Ãªtre installÃ©e
-; La z.library doit Ãªtre installÃ©e
+La z.library doit être installée
+; La z.library doit être installée
 ;
 MSG_NOCAPSDEV
-Le capsimage.device doit Ãªtre installÃ©
-; Le capsimage.device doit Ãªtre installÃ©
+Le capsimage.device doit être installé
+; Le capsimage.device doit être installé
 ;
 MSG_CANCELED
-opÃ©ration annulÃ©e
-; opÃ©ration annulÃ©e
+opération annulée
+; opération annulée
 ;
 MSG_NOPASSWD
-mot de passe nÃ©cessaire
-; mot de passe nÃ©cessaire
+mot de passe nécessaire
+; mot de passe nécessaire
 ;
 MSG_WRONGPASSWD
-mot de passe erronÃ©
-; mot de passe erronÃ©
+mot de passe erroné
+; mot de passe erroné
 ;
 MSG_ZLIBERR
 erreur de la z.library
@@ -51,36 +51,36 @@ erreur de la xadmaster.library
 ; erreur de la xadmaster.library
 ;
 MSG_UNKNDISKIMGTYPE
-type/format d'image disque non supportÃ©
-; type/format d'image disque non supportÃ©
+type/format d'image disque non supporté
+; type/format d'image disque non supporté
 ;
 MSG_UNKNCOMPMETHOD
-mÃ©thode de compression non supportÃ©e
-; mÃ©thode de compression non supportÃ©e
+méthode de compression non supportée
+; méthode de compression non supportée
 ;
 MSG_EOF
 fin de fichier inattendue
 ; fin de fichier inattendue
 ;
 MSG_BADDATA
-le fichier contient des donnÃ©es corrompues
-; le fichier contient des donnÃ©es corrompues
+le fichier contient des données corrompues
+; le fichier contient des données corrompues
 ;
 MSG_BADCRC
-Ã©chec de la vÃ©rification CRC des donnÃ©es du fichier
-; Ã©chec de la vÃ©rification CRC des donnÃ©es du fichier
+échec de la vérification CRC des données du fichier
+; échec de la vérification CRC des données du fichier
 ;
 MSG_BADCHECKSUM
 erreur de checksum
 ; erreur de checksum
 ;
 MSG_REQ
-%s demandÃ©
-; %s demandÃ©
+%s demandé
+; %s demandé
 ;
 MSG_REQVER
-%s v%ld ou plus rÃ©cente demandÃ©e
-; %s v%ld ou plus rÃ©cente demandÃ©e
+%s v%ld ou plus récente demandée
+; %s v%ld ou plus récente demandée
 ;
 MSG_WRONGDAA
 mauvais fichier DAA (fichier multiple DAA)
@@ -95,6 +95,6 @@ erreur de la bz2.library
 ; erreur de la bz2.library
 ;
 MSG_UNKNENCRMETHOD
-mÃ©thode de cryptage inconnue
-; mÃ©thode de cryptage inconnue
+méthode de cryptage inconnue
+; méthode de cryptage inconnue
 ;

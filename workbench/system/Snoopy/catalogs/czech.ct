@@ -9,7 +9,7 @@ Snoopy
 ;
 MSG_COPYRIGHT
 Copyright (C) 2006-2008, The AROS Development Team
-; Å  2006-2008, The AROS Development Team
+; © 2006-2008, The AROS Development Team
 ;
 MSG_AUTHOR
 The AROS Development Team
@@ -20,11 +20,11 @@ SNOOPY
 ; SNOOPY
 ;
 MSG_DESCRIPTION
-JednoduchÃ½ monitor systÃ©mu
+Jednoduchı monitor systému
 ; Simple system monitor
 ;
 MSG_SETTINGS
-NastavenÃ­
+Nastavení
 ; Settings
 ;
 MSG_SHOW_FAILS
@@ -32,15 +32,15 @@ Zobrazit pouze chyby
 ; Only show fails
 ;
 MSG_CLI_NUMBER
-Zobrazit ÄÃ­slo CLI
+Zobrazit èíslo CLI
 ; Show CLI number
 ;
 MSG_FULL_PATH
-Zobrazit Ãºplnou cestu
+Zobrazit úplnou cestu
 ; Show full paths
 ;
 MSG_DEVICE
-Zobrazit nÃ¡zev zaÅ™Ã­zenÃ­
+Zobrazit název zaøízení
 ; Use device names
 ;
 MSG_IGNORE_WB
@@ -48,51 +48,51 @@ Ignorovat Wanderer/Shell
 ; Ignore Workbench/Shell
 ;
 MSG_BREAKPOINT
-Zadat bod pÅ™eruÅ¡enÃ­
+Zadat bod pøeru¹ení
 ; Set breakpoint
 ;
 MSG_MATCH
-Zadat nÃ¡zev
+Zadat název
 ; Match name
 ;
 MSG_SYSTEM_FUNC
-SystÃ©movÃ© funkce
+Systémové funkce
 ; System Functions
 ;
 MSG_DOS_FUNC
-DosovÃ© funkce
+Dosové funkce
 ; AmigaDOS Functions
 ;
 MSG_SAVE
-UloÅ¾it
+Ulo¾it
 ; Save
 ;
 MSG_OPEN
-OtevÅ™Ã­t
+Otevøít
 ; Open
 ;
 MSG_USE
-PouÅ¾Ã­t
+Pou¾ít
 ; Use
 ;
 MSG_UNDO
-ZpÄ›t
+Zpìt
 ; Undo
 ;
 MSG_RESET
-VÃ½chozÃ­ stav
+Vıchozí stav
 ; Reset
 ;
 MSG_CANCEL
-ZruÅ¡it
+Zru¹it
 ; Cancel
 ;
 MSG_OUTPUT_FIELD
-Å Ã­Å™ka vÃ½stupnÃ­ho okna
+©íøka vıstupního okna
 ; Output Field Width
 ;
 MSG_NAME
-NÃ¡zev
+Název
 ; Name
 ;
 MSG_ACTION
@@ -100,11 +100,11 @@ Operace
 ; Action
 ;
 MSG_TARGET
-CÃ­l
+Cíl
 ; Target
 ;
 MSG_OPTION
-VÃ½sledek
+Vısledek
 ; Option
 ;
 MSG_OK
@@ -116,19 +116,19 @@ Chyba
 ; Fail
 ;
 MSG_ERROR_SAVE
-Chyba pÅ™i uklÃ¡dÃ¡nÃ­ do souboru %s
+Chyba pøi ukládání do souboru %s
 ; An error happened when saving to %s
 ;
 MSG_ERROR_LOAD
-Chyba pÅ™i naÄÃ­tÃ¡nÃ­ ze souboru %s
+Chyba pøi naèítání ze souboru %s
 ; An error happened when loading from %s
 ;
 MSG_RESET_PATCHES
-PÅ™estat|ZruÅ¡it
+Pøestat|Zru¹it
 ; Reset Patches|Cancel
 ;
 MSG_ASK_RESET
-Opravdu chcete pÅ™estat s monitorovÃ¡nÃ­m systÃ©mu?
+Opravdu chcete pøestat s monitorováním systému?
 ; Do you really want to reset the patches to their original functions?
 ;
 MSG_REMOVE_SNOOP
@@ -136,19 +136,19 @@ Odstranit|Ponechat
 ; Remove|Keep
 ;
 MSG_ASK_REMOVE
-UpozornÄ›nÃ­: Tato akce mÅ¯Å¾e skonÄit pÃ¡dem systÃ©mu,\n\
-protoÅ¾e jinÃ½ program uÅ¾ mezitÃ­m zmÄ›nil Ãºpravy\n\
-systÃ©mu zavedenÃ© programem Snoopy.\n\n\
+Upozornìní: Tato akce mù¾e skonèit pádem systému,\n\
+proto¾e jinı program u¾ mezitím zmìnil úpravy\n\
+systému zavedené programem Snoopy.\n\n\
 Opravdu chcete odstranit program Snoopy?
 ; Do you really want to remove the Snoopy process?\n\
 ; This can be quite dangerous when another task has patched Snoopy's patches.
 ;
 MSG_GLOBAL
-globÃ¡lnÃ­
+globální
 ; Global
 ;
 MSG_LOCAL
-lokÃ¡lnÃ­
+lokální
 ; Local
 ;
 MSG_ALIAS
@@ -156,7 +156,7 @@ alias
 ; Alias
 ;
 MSG_UNKNOWN
-neznÃ¡mÃ½
+neznámı
 ; Unknown
 ;
 MSG_ANY
@@ -164,19 +164,19 @@ cokoli
 ; Any
 ;
 MSG_READ
-ÄtenÃ­
+ètení
 ; Read
 ;
 MSG_WRITE
-zÃ¡pis
+zápis
 ; Write
 ;
 MSG_READ_ASK
-ÄtenÃ­???
+ètení???
 ; Read???
 ;
 MSG_MODIFY
-zmÄ›na
+zmìna
 ; Modify
 ;
 MSG_VERSION

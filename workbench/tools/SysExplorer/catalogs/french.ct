@@ -1,16 +1,16 @@
 ## version $VER: SysExplorer.catalog 2.0 (03.01.2018)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
 MSG_TITLE
-Explorateur systÃ¨me
+Explorateur système
 ;
 MSG_WINTITLE
-Explorateur systÃ¨me
+Explorateur système
 ;
 MSG_DESCRIPTION
-Outil d'information matÃ©riel et systÃ¨me
+Outil d'information matériel et système
 ;System and hardware information tool
 ;
 MSG_MENU_PROJECT
@@ -18,15 +18,15 @@ Projet
 ;Project
 ;
 MSG_MENU_PROPERTIES
-PropriÃ©tÃ©s
+Propriétés
 ;Properties
 ;
 MSG_MENU_EXPANDALL
-Tout dÃ©velopper
+Tout développer
 ;Expand All
 ;
 MSG_MENU_COLLAPSEALL
-Tout rÃ©duire
+Tout réduire
 ;Collapse All
 ;
 MSG_MENU_QUIT
@@ -38,7 +38,7 @@ Arborescence des pilotes
 ;HIDD Tree
 ;
 MSG_PROPERTIES
-PropriÃ©tÃ©s
+Propriétés
 ;Properties
 ;
 MSG_LABEL_DRIVER
@@ -46,7 +46,7 @@ Nom du pilote
 ;Driver instance name
 ;
 MSG_LABEL_HW_DESCRIPTION
-Description du matÃ©riel
+Description du matériel
 ;Hardware description
 ;
 MSG_LABEL_VENDOR
@@ -54,7 +54,7 @@ Information Distributeur
 ;Vendor information
 ;
 MSG_SYSTEM_PROPERTIES
-PropriÃ©tÃ©s SystÃ¨me
+Propriétés Système
 ;System properties
 ;
 MSG_VERSION
@@ -70,15 +70,15 @@ HPET
 ;HPET
 ;
 MSG_RAM
-MÃ©moire
+Mémoire
 ;Memory
 ;
 MSG_BOOTLOADER
-Chargeur de dÃ©marrage
+Chargeur de démarrage
 ;Boot loader
 ;
 MSG_ARGUMENTS
-Arguments du chargeur de dÃ©marrage
+Arguments du chargeur de démarrage
 ;Arguments
 ;
 MSG_AVAILABLE
@@ -86,7 +86,7 @@ Disponible
 ;Available for use
 ;
 MSG_GENERAL
-GÃ©nÃ©ral
+Général
 ;General
 ;
 MSG_NAME
@@ -94,7 +94,7 @@ Nom
 ;Name
 ;
 MSG_HARDWARE_NAME
-Nom matÃ©riel
+Nom matériel
 ;Hardware Name
 ;
 MSG_PRODUCT_ID
@@ -110,11 +110,11 @@ ID du constructeur
 ;Vendor ID
 ;
 MSG_DEVICE_PROPERTIES
-PropriÃ©tÃ©s du pÃ©riphÃ©rique
+Propriétés du périphérique
 ;Device properties
 ;
 MSG_ATA_PROPERTIES
-PropriÃ©tÃ©s du bus IDE
+Propriétés du bus IDE
 ;IDE bus properties
 ;
 MSG_ATA
@@ -122,7 +122,7 @@ IDE
 ;IDE
 ;
 MSG_USE_IOALT
-Supporte les registres Ã©tendus
+Supporte les registres étendus
 ;Supports alternate registers
 ;
 MSG_USE_32BIT
@@ -134,31 +134,31 @@ Supporte le DMA
 ;Supports DMA
 ;
 MSG_USE_80WIRE
-CÃ¢ble 80 fils
+Câble 80 fils
 ;80-wire cable
 ;
 MSG_ATA_UNIT_PROPERTIES
-PropriÃ©tÃ©s du pÃ©riphÃ©rique IDE
+Propriétés du périphérique IDE
 ;IDE device properties
 ;
 MSG_UNIT_NUMBER
-NumÃ©ro de l'unitÃ©
+Numéro de l'unité
 ;Unit number
 ;
 MSG_MODEL
-ModÃ¨le
+Modèle
 ;Model
 ;
 MSG_REVISION
-RÃ©vision
+Révision
 ;Revision
 ;
 MSG_SERIAL
-NumÃ©ro de sÃ©rie
+Numéro de série
 ;Serial
 ;
 MSG_TRANSFER_MODES
-Modes supportÃ©s
+Modes supportés
 ;Supported modes
 ;
 MSG_MULTISECTOR
@@ -166,10 +166,10 @@ Limite secteurs multiples
 ;Multisector limit
 ;
 MSG_REMOVABLE
-Ã‰jectable
+Éjectable
 ;Removable
 ;
 MSG_CONFIG_MODES
-Modes configurÃ©s
+Modes configurés
 ;Configured modes
 ;

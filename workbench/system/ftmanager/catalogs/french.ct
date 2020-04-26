@@ -1,5 +1,5 @@
 ## version $VER: FTManager.catalog 1.0 (08.01.2011)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
@@ -47,16 +47,16 @@ MSG_WEIGHT_THIN
 fine
 ;
 MSG_WEIGHT_EXTRALIGHT
-extra lÃ©gÃ¨re
+extra légère
 ;
 MSG_WEIGHT_LIGHT
-lÃ©gÃ¨re
+légère
 ;
 MSG_WEIGHT_DEMILIGHT
-demi lÃ©gÃ¨re
+demi légère
 ;
 MSG_WEIGHT_SEMILIGHT
-semi lÃ©gÃ¨re
+semi légère
 ;
 MSG_WEIGHT_BOOK
 normale
@@ -86,7 +86,7 @@ MSG_WEIGHT_ULTRABLACK
 ultra noire
 ;
 MSG_WEIGHT_CUSTOM
-personnalisÃ©e
+personnalisée
 ;
 MSG_STYLE_UPRIGHT
 droite
@@ -107,22 +107,22 @@ MSG_HSTYLE_COMPRESSED
 dense
 ;
 MSG_HSTYLE_CONDENSED
-condensÃ©e
+condensée
 ;
 MSG_HSTYLE_NORMAL
-rÃ©guliere
+réguliere
 ;
 MSG_HSTYLE_SEMIEXPANDED
-semi Ã©tendue
+semi étendue
 ;
 MSG_HSTYLE_EXPANDED
-Ã©tendue
+étendue
 ;
 MSG_HSTYLE_EXTRAEXPANDED
-extra Ã©tendue
+extra étendue
 ;
 MSG_HSTYLE_CUSTOM
-personnalisÃ©e
+personnalisée
 ;
 MSG_METRIC_GLOBALBOUNDINGBOX
 globale
@@ -131,7 +131,7 @@ MSG_METRIC_RAWFONTMETRIC
 brute
 ;
 MSG_METRIC_ASCENDER
-bloquÃ©e
+bloquée
 ;
 MSG_METRIC_TYPOASCENDER
 typo
@@ -140,7 +140,7 @@ MSG_METRIC_USWINASCENDER
 USWin
 ;
 MSG_METRIC_CUSTOMBOUNDINGBOX
-personnalisÃ©e
+personnalisée
 ;
 MSG_LABEL_EXTRAFILE
 Fichier
@@ -167,7 +167,7 @@ MSG_LABEL_YMAX
 yMax
 ;
 MSG_LABEL_SIZEFACTOR
-Ã‰chelle
+Échelle
 ;
 MSG_LABEL_SPACEWIDTH
 Largeur
@@ -188,14 +188,14 @@ MSG_LABEL_HORIZSTYLE
 Chasse
 ;
 MSG_FRAME_PREVIEW
-PrÃ©visualisation
+Prévisualisation
 ;
 MSG_PREVIEW_STRING
-MaÃ®tre Corbeau, sur un arbre perchÃ©, tenait en son bec un fromage
+Maître Corbeau, sur un arbre perché, tenait en son bec un fromage
 ;
 MSG_LABEL_SIZE
 Corps
 ;
 MSG_LABEL_ANTIALIASING
-Anti-crÃ©nelage
+Anti-crénelage
 ;

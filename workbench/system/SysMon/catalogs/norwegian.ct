@@ -56,13 +56,13 @@ MSG_TAB_SYSTEM
 System
 ;
 MSG_MEMORY_SIZE
-MinnestÃ¸rrelse
+Minnestørrelse
 ;
 MSG_MEMORY_FREE
 Ledig minne
 ;
 MSG_VIDEO_SIZE
-GrafikkminnestÃ¸rrelse
+Grafikkminnestørrelse
 ;
 MSG_VIDEO_FREE
 Ledig grafikkminne
@@ -83,7 +83,7 @@ MSG_VIDEO_WINDOW_TMPL
 %s
 ;
 MSG_CANT_OPEN_TASK_RESOURCE
- task.resource\n
+Klarte ikke åpne task.resource\n
 ;
 MSG_PROJECT
 Prosjekt
@@ -101,7 +101,7 @@ MSG_SLOW
 Sakte
 ;
 MSG_TASK_TOMBSTONE
-<dÃ¸d>
+<død>
 ;
 MSG_TASK_UNKNOWN
 <ukjent>

@@ -7,7 +7,7 @@ Ustawienia sieciowe
 ; Network Preferences
 ;
 MSG_DESCRIPTION
-Ustawienia protokoÅ‚u TCP/IP
+Ustawienia protoko³u TCP/IP
 ; Network preferences
 ;
 MSG_IFNAME
@@ -19,7 +19,7 @@ Aktywne
 ; Active
 ;
 MSG_DEVICE
-UrzÄ…dzenie
+Urz±dzenie
 ; Device
 ;
 MSG_UNIT
@@ -43,7 +43,7 @@ Brama
 ; Gateway
 ;
 MSG_DNS1
-GÅ‚Ã³wny DNS
+G³ówny DNS
 ; Primary DNS
 ;
 MSG_DNS2
@@ -51,11 +51,11 @@ Pomocniczy DNS
 ; Secondary DNS
 ;
 MSG_HOST_NAME
-Nazwa wÄ™zÅ‚a
+Nazwa wêz³a
 ; Host Name
 ;
 MSG_HOST_NAMES
-Nazwy wÄ™zÅ‚Ã³w
+Nazwy wêz³ów
 ; Host Name and Aliases
 ;
 MSG_DOMAIN_NAME
@@ -63,7 +63,7 @@ Domena
 ; Domain Name
 ;
 MSG_SERIAL_DEVICE
-UrzÄ…dzenie
+Urz±dzenie
 ; Serial Device
 ;
 MSG_UNIT_NUMBER
@@ -71,7 +71,7 @@ Jednostka
 ; Unit
 ;
 MSG_IP_MODE_MANUAL
-rÄ™czne
+rêczne
 ; Manual
 ;
 MSG_IP_MODE_DHCP
@@ -91,7 +91,7 @@ WPA
 ; WPA
 ;
 MSG_KEY_TEXT
-HasÅ‚o
+Has³o
 ; Passphrase
 ;
 MSG_KEY_HEX
@@ -131,7 +131,7 @@ Nazwa komputera
 ; Computer Name
 ;
 MSG_TAB_WIRELESS
-SieÄ‡ bezprzewodowa
+Sieæ bezprzewodowa
 ; Wireless
 ;
 MSG_TAB_MOBILE
@@ -139,27 +139,27 @@ GSM
 ; Mobile Broadband
 ;
 MSG_TAB_SERVERS
-ZaÅ‚oÅ¼one udziaÅ‚y
+Za³o¿one udzia³y
 ; Mounted Shares
 ;
 MSG_AUTOSTART_STACK
-WÅ‚Ä…czaj sieÄ‡ podczas wczytywania systemu.
+W³±czaj sieæ podczas wczytywania systemu.
 ; Start networking during system boot
 ;
 MSG_ERR_UNKNOWN_ERROR
-Nieznany bÅ‚Ä…d
+Nieznany b³±d
 ; Unknown error
 ;
 MSG_ERR_NOT_RESTARTED_STACK
-Uruchomienie sieci nie powiodÅ‚o siÄ™.
+Uruchomienie sieci nie powiod³o siê.
 ; Failed to restart network stack
 ;
 MSG_ERR_NOT_RESTARTED_WIRELESS
-Uruchomienie sieci bezprzewodowej nie powiodÅ‚o siÄ™.
+Uruchomienie sieci bezprzewodowej nie powiod³o siê.
 ; Failed to restart wireless networking
 ;
 MSG_ERR_NOT_RESTARTED_MOBILE
-Uruchomienie modemu nie powiodÅ‚o siÄ™.
+Uruchomienie modemu nie powiod³o siê.
 ; Failed to restart ModemManager
 ;
 MSG_BUTTON_OK
@@ -175,7 +175,7 @@ Edytuj
 ; Edit
 ;
 MSG_BUTTON_REMOVE
-UsuÅ„
+Usuñ
 ; Remove
 ;
 MSG_BUTTON_APPLY
@@ -187,23 +187,23 @@ Zamknij
 ; Close
 ;
 MSG_ERROR_TITLE
-BÅ‚Ä…d
+B³±d
 ; Error
 ;
 MSG_WARNING_TITLE
-OstrzeÅ¼enie
+Ostrze¿enie
 ; Warning
 ;
 MSG_ERR_NOT_SAVED_PREFS
-Zapisywanie ustawieÅ„ w %s zakoÅ„czone niepowodzeniem.
+Zapisywanie ustawieñ w %s zakoñczone niepowodzeniem.
 ; Network preferences not saved to %s
 ;
 MSG_ERR_NOT_COPIED_FILES
-Kopiowanie dodatkowych plikÃ³w do %s zakoÅ„czone niepowodzeniem.
+Kopiowanie dodatkowych plików do %s zakoñczone niepowodzeniem.
 ; Additional files not copied to %s
 ;
 MSG_WARN_MULTIPLE_IFACES
-DHCP nie dziaÅ‚a niezawodnie, jeÅ¼eli zdefiniowano kilka interfejsÃ³w
+DHCP nie dzia³a niezawodnie, je¿eli zdefiniowano kilka interfejsów
 ; DHCP does not work reliably when multiple interfaces are configured
 ;
 MSG_INFO_TITLE
@@ -211,7 +211,7 @@ Informacja
 ; Information
 ;
 MSG_PREFS_SAVED_RESTART
-Ustawienia zapisano w %s.\nAby ich uÅ¼yÄ‡ uruchom ponownie system.
+Ustawienia zapisano w %s.\nAby ich u¿yæ uruchom ponownie system.
 ; Preferences have been saved to %s.\nRestart AROS for them to take effect.
 ;
 MSG_IFWINDOW_TITLE
@@ -219,31 +219,31 @@ Interfejs
 ; Interface
 ;
 MSG_HOSTWINDOW_TITLE
-Nazwy hostÃ³w
+Nazwy hostów
 ; Host Name(s)
 ;
 MSG_NETWINDOW_TITLE
-SieÄ‡ bezprzewodowa
+Sieæ bezprzewodowa
 ; Wireless Network
 ;
 MSG_SERVERWINDOW_TITLE
-ZaÅ‚Ã³Å¼ udziaÅ‚
+Za³ó¿ udzia³
 ; Mount Share
 ;
 MSG_USERNAME
-UÅ¼ytkownik
+U¿ytkownik
 ; Username
 ;
 MSG_PASSWORD
-HasÅ‚o
+Has³o
 ; Password
 ;
 MSG_WORKGROUP
-Domena/ZespÃ³Å‚
+Domena/Zespó³
 ; Domain/Workgroup
 ;
 MSG_SERVICE
-Nazwa udziaÅ‚u
+Nazwa udzia³u
 ; Share Name
 ;
 MSG_SERVICE_TYPES

@@ -44,7 +44,7 @@ W
 ; B
 ;
 MSG_MEN_EXECUTE
-UtfÃ¸r kommando...
+Utfør kommando...
 ; Execute...
 ;
 MSG_MEN_SC_EXECUTE
@@ -52,7 +52,7 @@ U
 ; E
 ;
 MSG_MEN_SHELL
-Ã…pne shell
+Åpne shell
 ; Shell
 ;
 MSG_MEN_SC_SHELL
@@ -88,7 +88,7 @@ S
 ; N
 ;
 MSG_MEN_OPENPAR
-Ã…pne skuffen over
+Åpne skuffen over
 ; Open parent
 ;
 MSG_MEN_CLOSE
@@ -164,7 +164,7 @@ etter dato
 ; By date
 ;
 MSG_MEN_BYSIZE
-etter stÃ¸rrelse
+etter størrelse
 ; By size
 ;
 MSG_MEN_BYTYPE
@@ -176,7 +176,7 @@ Reverser
 ; Reverse
 ;
 MSG_MEN_DRWFRST
-Skuffer fÃ¸rst
+Skuffer først
 ; Drawers first
 ;
 MSG_MEN_ICON
@@ -184,7 +184,7 @@ Ikon
 ; Icon
 ;
 MSG_MEN_FIND
-SÃ¸k...
+Søk...
 ; Find...
 ;
 MSG_MEN_SC_FIND
@@ -192,11 +192,11 @@ F
 ; F
 ;
 MSG_MEN_OPEN
-Ã…pne
+Åpne
 ; Open
 ;
 MSG_MEN_SC_OPEN
-Ã…
+Å
 ; O
 ;
 MSG_MEN_RENAME
@@ -220,7 +220,7 @@ Slett ...
 ; Delete...
 ;
 MSG_MEN_TOOLS
-VerktÃ¸y
+Verktøy
 ; Tools
 ;
 MSG_MEN_ICONSORTING
@@ -236,7 +236,7 @@ Lukk
 ; Close
 ;
 MSG_REALLYQUIT
-Ã˜nsker du virkelig Ã¥ avlutten Wanderer?
+Ønsker du virkelig Ã¥ avlutten Wanderer?
 ; Do you really want to quit Wanderer?
 ;
 MSG_YESNO
@@ -256,23 +256,23 @@ Formater disk ...
 ; Format disk...
 ;
 MSG_MEN_SHUTDOWN
-SlÃ¥ av ...
+Slå av ...
 ; Shut down...
 ;
 MSG_SHUTDOWN_TITLE
-SlÃ¥ av maskinen
+Slå av maskinen
 ; System shutdown
 ;
 MSG_SHUTDOWN_BODY
-Hva Ã¸nsker du Ã¥ gjÃ¸re?
+Hva ønsker du å gjøre?
 ; What would you like to do?
 ;
 MSG_SHUTDOWN_BUTTONS
-Skru av maskinen|Start maskinen pÃ¥ nytt|Start AROS pÃ¥ nytt|*Avbryte
+Skru av maskinen|Start maskinen på nytt|Start AROS på nytt|*Avbryte
 ; Power Off|Restart Computer|Restart AROS|*Cancel
 ;
 MSG_ACTION_NOT_SUPPORTED
-Valgt handling er ikke stÃ¸ttet av din maskin
+Valgt handling er ikke støttet av din maskin
 ; The selected action is not supported by your system.
 ;
 MSG_OK
@@ -280,7 +280,7 @@ MSG_OK
 ; *OK
 ;
 MSG_EMPTY_TRASH
-TÃ¸m sÃ¸ppelkassen
+Tæm søppelkassen
 ; Empty trash
 ;
 MSG_MEN_PUT_AWAY
@@ -324,7 +324,7 @@ _Ja|Ja, _alle|_nein|Nei _til alle
 ; _Yes|Yes to _all|_No|No _to all
 ;
 MSG_REQU_DELETE_DRAWER_S
-Ã˜nsker du virkelig Ã¥ slette skuffen
+Ønsker du virkelig å slette skuffen
 ; Really delete drawer
 ;
 MSG_REQU_DELETE_DRAWER_E
@@ -332,7 +332,7 @@ MSG_REQU_DELETE_DRAWER_E
 ; ?
 ;
 MSG_REQU_DELETE_FILE_S
-Ã˜nsker du virkelig Ã¥ slette filen
+Ønsker du virkelig å slette filen
 ; Really delete file
 ;
 MSG_REQU_DELETE_FILE_M
@@ -348,7 +348,7 @@ Overskriv fil ...
 ; Overwrite file...
 ;
 MSG_REQU_OVERWRITE_S
-Ã˜nsker du virkelig Ã¥ overskrive filen
+Ønsker du virkelig å overskrive filen
 ; Really overwrite file
 ;
 MSG_REQU_OVERWRITE_M
@@ -376,7 +376,7 @@ _Fjern beskyttelse|Fjern beskyttelse fra _alle|_Nei|Nein _til alle
 ; _Unprotect|Unprotect _All|_No|No _to ALL
 ;
 MSG_REQU_PROTECTION_UNPROTECTDRAWER_S
-Ã˜nsker du virkelig Ã¥ fjerne skrivebeskyttelsen av skuffen
+Ønsker du virkelig å fjerne skrivebeskyttelsen av skuffen
 ; Do you wish to unprotect drawer
 ;
 MSG_REQU_PROTECTION_UNPROTECTDRAWER_E
@@ -404,7 +404,7 @@ ingen tilgang til skuffen
 ;  
 ;
 MSG_REQU_FILEUNPROTECT_S
-Ã˜nsker du virkelig Ã¥ fjerne filbeskyttelsen av filen
+Ønsker du virkelig å fjerne filbeskyttelsen av filen
 ; Do you wish to unprotect file
 ;
 MSG_REQU_FILEUNPROTECT_M
@@ -448,7 +448,7 @@ Fil
 ; File
 ;
 MSG_WANDERER_FILEACCESS_TRAFFIC
-OverfÃ¸ringshastighet
+Overføringshastighet
 ; Data transfer rate
 ;
 MSG_WANDERER_FILEACCESS_DELETEFROM
@@ -464,10 +464,10 @@ Prosesserte filer:
 ; Processed files:
 ;
 MSG_WANDERER_FILEACCESS_ACTUAL
-StÃ¸rrelse pÃ¥ gjeldende fil:
+Størrelse på gjeldende fil:
 ; Size of current file:
 ;
 MSG_WANDERER_FILEACCESS_TOTAL
-TotalstÃ¸rrelse:
+Totalstørrelse:
 ; Overall size:
 ;

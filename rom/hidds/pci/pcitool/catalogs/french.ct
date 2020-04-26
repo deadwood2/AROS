@@ -1,5 +1,5 @@
 ## version $VER: pcitool.catalog 1.1 (6.2.2004)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
@@ -40,11 +40,11 @@ Bus direct :
 ;Direct bus:
 ;
 MSG_HARDWARE_INFO
-Info matÃ©riel :
+Info matériel :
 ;Hardware info:
 ;
 MSG_PCI_DEVICE_INFO
-Info du pÃ©riphÃ©rique PCI
+Info du périphérique PCI
 ;PCI device info
 ;
 MSG_DEVICE_DESCRIPTION
@@ -60,19 +60,19 @@ Nom du produit :
 ;ProductID:
 ;
 MSG_SUBSYSTEM
-Sous-systÃ¨me :
+Sous-système :
 ;Subsystem:
 ;
 MSG_VENDORID
-nÂ° constructeur :
+n° constructeur :
 ;VendorID:
 ;
 MSG_PRODUCTID
-nÂ° de produit :
+n° de produit :
 ;ProductID:
 ;
 MSG_REVISIONID
-nÂ° de version :
+n° de version :
 ;RevisionID:
 ;
 MSG_INTERFACE
@@ -100,23 +100,23 @@ Taille de la ROM :
 ;ROM Size:
 ;
 MSG_BRIDGE
-Ce pont gÃ¨re le bus %d (ISA%s permis, VGA%s permis)
+Ce pont gère le bus %d (ISA%s permis, VGA%s permis)
 ;Bridge handles bus %d (ISA %senabled, VGA %senabled)
 ;
 MSG_MEMORY_RANGE
-L'espace mÃ©moire va de %08x Ã  %08x
+L'espace mémoire va de %08x à %08x
 ;Memory ranges from %08x to %08x
 ;
 MSG_PREFETCHABLE_MEMORY
-MÃ©moire en prÃ©lecture de %08x Ã  %08x
+Mémoire en prélecture de %08x à %08x
 ;Prefetchable ranges memory from %08x to %08x
 ;
 MSG_IO_RANGE
-E/S de %04x Ã  %04x
+E/S de %04x à %04x
 ;IO ranges from %04x to %04x
 ;
 MSG_IO_MSG
-E/S : %s, MEM : %s, MaÃ®tre: %s, PaletteSnoop: %s, Capable de 66MHz: %s
+E/S : %s, MEM : %s, Maître: %s, PaletteSnoop: %s, Capable de 66MHz: %s
 ;IO: %s, MEM: %s, Master: %s, PaletteSnoop: %s, 66MHz capable: %s
 ;
 MSG_IO
@@ -124,11 +124,11 @@ E/S
 ;I/O
 ;
 MSG_MEMORY
-MÃ©moire
+Mémoire
 ;Memory
 ;
 MSG_PREFETCHABLE
-MÃ©moire en prÃ©lecture
+Mémoire en prélecture
 ;Prefetchable
 ;
 MSG_YES
@@ -148,14 +148,14 @@ MSG_NOT
 ;not
 ;
 MSG_SIZE4
-%s%s Ã  0x04x (taille 0x%04x)
+%s%s à 0x04x (taille 0x%04x)
 ;%s%s at 0x%04x (size 0x%04x)
 ;
 MSG_SIZE8
-%s%s Ã  0x08x (taille 0x%08x)
+%s%s à 0x08x (taille 0x%08x)
 ;%s%s at 0x%08x (size 0x%08x)
 ;
 MSG_UNUSED
-inutilisÃ©
+inutilisé
 ;--unused--
 ;

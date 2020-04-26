@@ -3,109 +3,109 @@
 ## language russian
 ;
 MSG_CANT_OPEN_LIB
-РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ %s V%ld 
+Не могу открыть %s V%ld 
 ;
 MSG_CANT_CREATE_IC
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РѕР±СЉРµРєС‚С‹ СЃРІСЏР·Рё!
+Не могу создать объекты связи!
 ;
 MSG_CANT_LOCK_SCR
-РќРµ РјРѕРіСѓ Р·Р°РЅСЏС‚СЊ РѕР±С‰РёР№ СЌРєСЂР°РЅ!
+Не могу занять общий экран!
 ;
 MSG_CANT_GET_DRI
-РќРµ РјРѕРіСѓ РїРѕР»СѓС‡РёС‚СЊ DrawInfo!
+Не могу получить DrawInfo!
 ;
 MSG_CANT_GET_VI
-РќРµ РјРѕРіСѓ РїРѕР»СѓС‡РёС‚СЊ VisualInfo!
+Не могу получить VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ SYSICLASS!
+Не могу создать изображения SYSICLASS!
 ;
 MSG_CANT_CREATE_GADGET
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РіСЂ. СЌР»РµРјРµРЅС‚С‹!
+Не могу создать гр. элементы!
 ;
 MSG_CANT_CREATE_MENUS
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РјРµРЅСЋ!
+Не могу создать меню!
 ;
 MSG_CANT_CREATE_WIN
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РѕРєРЅРѕ!
+Не могу создать окно!
 ;
 MSG_SAVE_FAILED
-РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ С„Р°Р№Р»!
+Ошибка сохранения в файл!
 ;
 MSG_MEN_PROJECT
-РџСЂРѕРµРєС‚
+Проект
 ;
 MSG_MEN_PROJECT_OPEN
-O\0РћС‚РєСЂС‹С‚СЊ ...
+O\0Открыть ...
 ;
-MSG_MEN_PROJECT_SAVEAS
-A\0РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє ...
+MSG_MEN_PROJECT_EXPORT
+A\0Сохранить как ...
 ;
 MSG_MEN_PROJECT_SAVEAS_IFF
-I\0РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє IFF...
+I\0Сохранить как IFF...
 ;
 MSG_MEN_PROJECT_PRINT
-P\0РџРµС‡Р°С‚СЊ
+P\0Печать
 ;
 MSG_MEN_PROJECT_ABOUT
-?\0Рћ РїСЂРѕРіСЂР°РјРјРµ ...
+?\0О программе ...
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0Р’С‹С…РѕРґ
+Q\0Выход
 ;
 MSG_MEN_EDIT
-РџСЂР°РІРєР°
+Правка
 ;
 MSG_MEN_EDIT_MARK
-B\0РћС‚РјРµС‚РёС‚СЊ
+B\0Отметить
 ;
 MSG_MEN_EDIT_COPY
-C\0РљРѕРїРёСЂРѕРІР°С‚СЊ
+C\0Копировать
 ;
 MSG_MEN_EDIT_SELECTALL
-L\0РћС‚РјРµС‚РёС‚СЊ РІСЃС‘
+L\0Отметить всё
 ;
 MSG_MEN_EDIT_CLEARSELECTED
-H\0РћС‡РёСЃС‚РёС‚СЊ РІС‹РґРµР»РµРЅРёРµ
+H\0Очистить выделение
 ;
 MSG_MEN_WINDOW
-РћРєРЅРѕ
+Окно
 ;
 MSG_MEN_WINDOW_SEPSCREEN
- \0Р Р°Р·РґРµР»РёС‚СЊ СЌРєСЂР°РЅ
+ \0Разделить экран
 ;
 MSG_MEN_WINDOW_MINIMIZE
- \0РњРёРЅРёРјСѓРј
+ \0Минимум
 ;
 MSG_MEN_WINDOW_NORMAL
- \0РќРѕСЂРјР°
+ \0Норма
 ;
 MSG_MEN_WINDOW_MAXIMIZE
- \0РњР°РєСЃРёРјСѓРј
+ \0Максимум
 ;
 MSG_MEN_SETTINGS
-РќР°СЃС‚СЂРѕР№РєРё
+Настройки
 ;
 MSG_MEN_SETTINGS_SAVEDEF
-D\0РЎРѕС…СЂР°РЅРёС‚СЊ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+D\0Сохранить по умолчанию
 ;
 MSG_MEN_PICT
-РР·РѕР±СЂР°Р¶РµРЅРёРµ
+Изображение
 ;
 MSG_MEN_PICT_ZOOM_IN
-Z\0РЈРІРµР»РёС‡РёС‚СЊ
+Z\0Увеличить
 ;
 MSG_MEN_PICT_ZOOM_OUT
- \0РЈРјРµРЅСЊС€РёС‚СЊ
+ \0Уменьшить
 ;
 MSG_MEN_PICT_RESET
- \0РР·РЅР°С‡Р°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ
+ \0Изначальный размер
 ;
 MSG_MEN_PICT_FIT_WIN
- \0РџРѕ СЂР°Р·РјРµСЂСѓ РѕРєРЅР°
+ \0По размеру окна
 ;
 MSG_MEN_PICT_KEEP_ASPECT
- \0РЎРѕС…СЂР°РЅСЏС‚СЊ РїСЂРѕРїРѕСЂС†РёРё
+ \0Сохранять пропорции
 ;
 MSG_MEN_PICT_FORCE_MAP
  \0Force Palette mapping
@@ -114,34 +114,34 @@ MSG_MEN_PICT_DITHER
  \0Dithering
 ;
 MSG_MEN_TEXT
-РўРµРєСЃС‚
+Текст
 ;
 MSG_MEN_TEXT_WORDWRAP
- \0РџРµСЂРµРЅРѕСЃ СЃС‚СЂРѕРє
+ \0Перенос строк
 ;
 MSG_MEN_TEXT_SEARCH
- \0РџРѕРёСЃРє ...
+ \0Поиск ...
 ;
 MSG_MEN_TEXT_SEARCH_PREV
- \0РСЃРєР°С‚СЊ СЂР°РЅРµРµ
+ \0Искать ранее
 ;
 MSG_MEN_TEXT_SEARCH_NEXT
- \0РСЃРєР°С‚СЊ РґР°Р»РµРµ
+ \0Искать далее
 ;
 MSG_ASL_OPEN_TITLE
-Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ
+Выберите файл для открытия
 ;
 MSG_ASL_SAVE_TITLE
-Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ
+Выберите файл для сохранения
 ;
 MSG_ABOUT
 MultiView %ld.%ld (%s)\ndatatypes.library %s\n\n%s %s
 ;
 MSG_ABOUT_TITLE
-MultiView - РЈРЅРёРІРµСЂСЃР°Р»СЊРЅС‹Р№ РїСЂРѕСЃРјРѕС‚СЂС‰РёРє
+MultiView - Универсальный просмотрщик
 ;
 MSG_CONTINUE
-Р”Р°Р»РµРµ
+Далее
 ;
 MSG_OK
 Ok

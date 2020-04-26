@@ -1,11 +1,11 @@
 ## version $VER: ScreenGrabber.catalog 2.0 (30.03.2016)
-## language portuguÃªs
+## language português
 ## codeset 0
 ;
-; Translated by JoÃ£o Ralha
+; Translated by João Ralha
 ;
 MSG_WINDOW_TITLE
-Capturador de Ã‰cran
+Capturador de Écran
 ;ScreenGrabber
 ;
 MSG_REFRESH
@@ -13,7 +13,7 @@ Actualizar lista
 ;Refresh list
 ;
 MSG_SCREEN_INFO
-InformaÃ§Ã£o de Ã©cran
+Informação de écran
 ;Info. de la pantalla
 ;Screen info
 ;
@@ -24,16 +24,16 @@ Tamanho
 ;Size
 ;
 MSG_TITLE
-TÃ­tulo
+Título
 ;Title
 ;
 MSG_DEFAULT_TITLE
-TÃ­tulo por defeito
-;TÃ­tulo predefinido
+Título por defeito
+;Título predefinido
 ;Default title
 ;
 MSG_GRABBING_OPTIONS
-OpÃ§Ãµes de captura
+Opções de captura
 ;Grabbing options
 ;
 MSG_DELAY
@@ -46,7 +46,7 @@ Ocultar a janela do capturador
 ;Hide the grabber window
 ;
 MSG_SAVE_OPTIONS
-Guardas as opÃ§Ãµes
+Guardas as opções
 ;Save options
 ;
 MSG_SAVE_FILE
@@ -54,18 +54,18 @@ Guardar em ficheiro
 ;Save file
 ;
 MSG_SCREENSHOT
-Capturar Ã©cran
+Capturar écran
 ;Screenshot
 ;
 MSG_SCREEN_PARM
 %d x %d, depth=%d
 ;
 MSG_OVERWRITE
-O ficheiro '%s' jÃ¡ existe.\nQuer substituÃ­-lo?
+O ficheiro '%s' já existe.\nQuer substituí-lo?
 ;File '%s' already exists.\nDo you really want to overwrite it?
 ;
 MSG_ERROR_TITLE
-Erro: Capturador Ã©cran
+Erro: Capturador écran
 ;Error del Screengrabber
 ;Screengrabber Error
 ;
@@ -74,15 +74,15 @@ _Aceitar
 ;_OK
 ;
 MSG_GAD_YESNO
-SIM|NÃƒO
+SIM|NÃO
 ;YES|NO
 ;
 MSG_ERR_DATATYPE
-NÃ£o foi possÃ­vel criar o objeto datatype!
+Não foi possível criar o objeto datatype!
 ;Can't create datatype object!
 ;
 MSG_NORAM
-NÃ£o foi possÃ­vel disponibilizar RAM!
+Não foi possível disponibilizar RAM!
 ;Can't allocate RAM!
 ;
 MSG_ERR_DATATYPEIO
@@ -91,10 +91,10 @@ o erro de I/O %ld!
 ;Writing of '%s' failed with IO Error %ld!
 ;
 MSG_ERR_OPENFILE
-NÃ£o pode escrever para o ficheiro '%s'!
+Não pode escrever para o ficheiro '%s'!
 ;Can't open file '%s' for output!
 ;
 MSG_ERR_APP
-NÃ£o foi possÃ­vel criar a aplicaÃ§Ã£o!
+Não foi possível criar a aplicação!
 ;Can't create application object!
 ;

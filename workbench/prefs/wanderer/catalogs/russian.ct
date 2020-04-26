@@ -5,11 +5,11 @@
 ; TODO: update me and set version to 2
 ;
 MSG_NAME
-РќР°СЃС‚СЂРѕР№РєРё Wanderer
+Настройки Wanderer
 ; Wanderer Preferences
 ;
 MSG_BACKGROUNDS
-Р¤РѕРЅ
+Фон
 ; Backgrounds
 ;
 MSG_BACKGROUND_WORKBENCH
@@ -17,85 +17,85 @@ Workbench
 ; Workbench
 ;
 MSG_BACKGROUND_DRAWERS
-РџР°РїРєРё
+Папки
 ; Drawers
 ;
 MSG_SELECT_WORKBENCH_BACKGROUND
-Р’С‹Р±РµСЂРёС‚Рµ С„РѕРЅ Workbench
+Выберите фон Workbench
 ; Select Workbench Background
 ;
 MSG_SELECT_DRAWER_BACKGROUND
-Р’С‹Р±РµСЂРёС‚Рµ С„РѕРЅ РїР°РїРєРё
+Выберите фон папки
 ; Select Drawer Background
 ;
 MSG_GENERAL
-РћР±С‰РёРµ
+Общие
 ;
 MSG_APPEARANCE
-Р’РёРґ
+Вид
 ;
 MSG_TOOLBAR
-РРЅСЃС‚СЂСѓРјРµРЅС‚Р°СЂРёР№
+Инструментарий
 ;
 MSG_CLASSIC
-РћР±С‹С‡РЅС‹Р№
+Обычный
 ;
 MSG_ENHANCED
-Р Р°СЃС€РёСЂРµРЅРЅС‹Р№
+Расширенный
 ;
 MSG_NAVIGATION
-РќР°РІРёРіР°С†РёСЏ
+Навигация
 ;
 MSG_METHOD
-РњРµС‚РѕРґ
+Метод
 ;
 MSG_OBJECTS
-РћР±СЉРµРєС‚С‹
+Объекты
 ;
 MSG_PREVIEW
-РџСЂРѕСЃРјРѕС‚СЂ
+Просмотр
 ;
 MSG_TOOLBAR_ENABLED
-Р’РєР»СЋС‡РёС‚СЊ РРЅСЃС‚СЂСѓРјРµРЅС‚Р°СЂРёР№
+Включить Инструментарий
 ;
 MSG_ICONSPREFS
-Р’РёРґ РёРєРѕРЅРѕРє
+Вид иконок
 ;
 MSG_ICONLISTMODE
-Р Р°СЃСЃС‚Р°РЅРѕРІРєР° РёРєРѕРЅРѕРє
+Расстановка иконок
 ;
 MSG_ICONLISTMODE_PLAIN
-Р Р°СЃСЃС‚Р°РІРёС‚СЊ РІ СЂСЏРґ
+Расставить в ряд
 ;
 MSG_ICONLISTMODE_GRID
-Р Р°СЃСЃС‚Р°РІРёС‚СЊ РїРѕ СЃРµС‚РєРµ
+Расставить по сетке
 ;
 MSG_ICONTEXTMODE
-Р’РёРґ С‚РµРєСЃС‚Р° РёРєРѕРЅРѕРє
+Вид текста иконок
 ;
 MSG_ICONTEXTMODE_OUTLINE
-РЎ РѕР±РІРѕРґРєРѕР№
+С обводкой
 ;
 MSG_ICONTEXTMODE_PLAIN
-РџСЂРѕСЃС‚РѕР№
+Простой
 ;
 MSG_ICONTEXTLENGTH
-РњР°РєСЃ. РґР»РёРЅР° С‚РµРєСЃС‚Р° РёРєРѕРЅРѕРє
+Макс. длина текста иконок
 ;
 MSG_DOUBLEBUFFERED
-Р”РІРѕР№РЅР°СЏ Р±СѓС„РµСЂРёР·Р°С†РёСЏ
+Двойная буферизация
 ;
 MSG_MISC
-РџСЂРѕС‡РµРµ
+Прочее
 ;
 MSG_BUBBLESCREENTITLE
 %pc = Chip Ram free\n\
 %pf = Fast Ram free\n\
-%pt = РџР°РјСЏС‚Рё СЃРІРѕР±РѕРґРЅРѕ\n\
+%pt = Памяти свободно\n\
 %PC = Chip Ram\n\
 %PF = Fast Ram\n\
-%PT = Р’СЃРµРіРѕ РїР°РјСЏС‚Рё\n\
-%os = Р’РµСЂСЃРёСЏ AROS\n\
-%wb = Р’РµСЂСЃРёСЏ Wanderer\n\
-%ov = РўРѕС‡РЅР°СЏ РІРµСЂСЃРёСЏ AROS\n\
-%wv = РўРѕС‡РЅР°СЏ РІРµСЂСЃРёСЏ workbench.library
+%PT = Всего памяти\n\
+%os = Версия AROS\n\
+%wb = Версия Wanderer\n\
+%ov = Точная версия AROS\n\
+%wv = Точная версия workbench.library

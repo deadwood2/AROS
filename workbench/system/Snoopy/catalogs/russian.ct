@@ -9,8 +9,8 @@ Snoopy
 ; Snoopy
 ;
 MSG_COPYRIGHT
-Р№ 2006, The AROS Development Team
-; В© 2006, The AROS Development Team
+й 2006, The AROS Development Team
+; © 2006, The AROS Development Team
 ;
 MSG_AUTHOR
 The AROS Development Team
@@ -21,83 +21,83 @@ SNOOPY
 ; SNOOPY
 ;
 MSG_DESCRIPTION
-РџСЂРѕСЃС‚РѕР№ СЃРёСЃС‚РµРјРЅС‹Р№ РјРѕРЅРёС‚РѕСЂ
+Простой системный монитор
 ; Simple system monitor
 ;
 MSG_SETTINGS
-РќР°СЃС‚СЂРѕР№РєРё
+Настройки
 ; Settings
 ;
 MSG_SHOW_FAILS
-РџРѕРєР°Р·С‹РІР°С‚СЊ С‚РѕР»СЊРєРѕ СЃР±РѕРё
+Показывать только сбои
 ; Only show fails
 ;
 MSG_CLI_NUMBER
-РџРѕРєР°Р·Р°С‚СЊ РЅРѕРјРµСЂ CLI
+Показать номер CLI
 ; Show CLI number
 ;
 MSG_FULL_PATH
-РџРѕРєР°Р·С‹РІР°С‚СЊ РїСѓС‚Рё РїРѕР»РЅРѕСЃС‚СЊСЋ
+Показывать пути полностью
 ; Show full paths
 ;
 MSG_DEVICE
-РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РёРјРµРЅР° СѓСЃС‚СЂРѕР№СЃС‚РІ
+Использовать имена устройств
 ; Use device names
 ;
 MSG_IGNORE_WB
-РљСЂРѕРјРµ Workbench/Shell
+Кроме Workbench/Shell
 ; Ignore Workbench/Shell
 ;
 MSG_SYSTEM_FUNC
-РЎРёСЃС‚РµРјРЅС‹Рµ С„СѓРЅРєС†РёРё
+Системные функции
 ; System Functions
 ;
 MSG_DOS_FUNC
-Р¤СѓРЅРєС†. AmigaDOS
+Функц. AmigaDOS
 ; AmigaDOS Functions
 ;
 MSG_SAVE
-РЎРѕС…СЂР°РЅРёС‚СЊ
+Сохранить
 ; Save
 ;
 MSG_OPEN
-РћС‚РєСЂС‹С‚СЊ
+Открыть
 ; Open
 ;
 MSG_USE
-РџСЂРёРјРµРЅРёС‚СЊ
+Применить
 ; Use
 ;
 MSG_UNDO
-РћС‚РјРµРЅРёС‚СЊ
+Отменить
 ; Undo
 ;
 MSG_RESET
-РљР°Рє Р±С‹Р»Рѕ
+Как было
 ; Reset
 ;
 MSG_CANCEL
-РћС‚РјРµРЅР°
+Отмена
 ; Cancel
 ;
 MSG_OUTPUT_FIELD
-РЁРёСЂРёРЅР° РїРѕР»СЏ РІС‹РІРѕРґР°
+Ширина поля вывода
 ; Output Field Width
 ;
 MSG_NAME
-РРјСЏ
+Имя
 ; Name
 ;
 MSG_ACTION
-Р”РµР№СЃС‚РІРёРµ
+Действие
 ; Action
 ;
 MSG_TARGET
-Р¦РµР»СЊ
+Цель
 ; Target
 ;
 MSG_OPTION
-РћРїС†РёСЏ
+Опция
 ; Option
 ;
 MSG_OK
@@ -105,31 +105,31 @@ OK
 ; OK
 ;
 MSG_FAIL
-РЎР±РѕР№
+Сбой
 ; Fail
 ;
 MSG_ERROR_SAVE
-РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё С„Р°Р№Р»Р° %s
+Ошибка при записи файла %s
 ; An error happened when saving to %s
 ;
 MSG_ERROR_LOAD
-РћС€РёР±РєР° РїСЂРё С‡С‚РµРЅРёРё РёР· С„Р°Р№Р»Р° %s
+Ошибка при чтении из файла %s
 ; An error happened when loading from %s
 ;
 MSG_RESET_PATCHES
-Р’РµСЂРЅСѓС‚СЊ|РћС‚РјРµРЅРёС‚СЊ
+Вернуть|Отменить
 ; Reset Patches|Cancel
 ;
 MSG_ASK_RESET
-Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РІРµСЂРЅСѓС‚СЊ РІСЃРµ РїР°С‚С‡Рё Рє РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Рј С„СѓРЅРєС†РёСЏРј?
+Вы действительно хотите вернуть все патчи к оригинальным функциям?
 ; Do you really want to reset the patches to their original functions?
 ;
 MSG_REMOVE_SNOOP
-РћСЃС‚Р°РЅРѕРІРёС‚СЊ|РќР°Р·Р°Рґ
+Остановить|Назад
 ; Remove|Keep
 ;
 MSG_ASK_REMOVE
-Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РѕСЃС‚Р°РЅРѕРІРёС‚СЊ РїСЂРѕС†РµСЃСЃ Snoopy?\nР­С‚Рѕ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕРїР°СЃРЅРѕ, РµСЃР»Рё РґСЂСѓРіР°СЏ Р·Р°РґР°С‡Р° РёР·РјРµРЅРёР»Р° РЅР°Р»РѕР¶РµРЅРЅС‹Рµ РёРј РїР°С‚С‡Рё.
+Вы действительно хотите остановить процесс Snoopy?\nЭто может быть опасно, если другая задача изменила наложенные им патчи.
 ; Do you really want to remove the Snoopy process?\nThis can be quite dangerous when another task has patched Snoopy's patches.
 ;
 MSG_GLOBAL
@@ -145,34 +145,34 @@ Alias
 ; Alias
 ;
 MSG_UNKNOWN
-РќРµРёР·РІРµСЃС‚РЅРѕ
+Неизвестно
 ; Unknown
 ;
 MSG_ANY
-Р›СЋР±РѕР№
+Любой
 ; Any
 ;
 MSG_READ
-Р§С‚РµРЅРёРµ
+Чтение
 ; Read
 ;
 MSG_WRITE
-Р—Р°РїРёСЃСЊ
+Запись
 ; Write
 ;
 MSG_READ_ASK
-Р§РёС‚Р°С‚СЊ???
+Читать???
 ; Read???
 ;
 MSG_MODIFY
-РР·РјРµРЅРёС‚СЊ
+Изменить
 ; Modify
 ;
 MSG_VERSION
-Р’РµСЂСЃРёСЏ %ld
+Версия %ld
 ; Version %ld
 ;
 MSG_SIZE
-Р Р°Р·РјРµСЂ %d
+Размер %d
 ; Size %d
 ;

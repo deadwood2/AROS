@@ -4,15 +4,15 @@
 ;
 ;
 MSG_NAME
-SprÃ¡vce souborÅ¯ (editor Wanderer)
+Správce souborù (editor Wanderer)
 ; Wanderer Prefs
 ;
 MSG_DESCRIPTION
-NastavenÃ­ systÃ©mu Wanderer
+Nastavení systému Wanderer
 ; Wanderer preferences
 ;
 MSG_BACKGROUNDS
-PozadÃ­
+Pozadí
 ; Backgrounds
 ;
 MSG_BACKGROUND_WORKBENCH
@@ -20,19 +20,19 @@ Plocha
 ; Workbench
 ;
 MSG_BACKGROUND_DRAWERS
-AdresÃ¡Å™e
+Adresáøe
 ; Drawers
 ;
 MSG_SELECT_WORKBENCH_BACKGROUND
-VÃ½bÄ›r pozadÃ­ plochy
+Vıbìr pozadí plochy
 ; Select Workbench Background
 ;
 MSG_SELECT_DRAWER_BACKGROUND
-VÃ½bÄ›r pozadÃ­ adresÃ¡Å™Å¯
+Vıbìr pozadí adresáøù
 ; Select Drawer Background
 ;
 MSG_GENERAL
-ObecnÃ©
+Obecné
 ; General
 ;
 MSG_APPEARANCE
@@ -40,19 +40,19 @@ Vzhled
 ; Appearance
 ;
 MSG_TOOLBAR
-LiÅ¡ta
+Li¹ta
 ; Toolbar
 ;
 MSG_CLASSIC
-KlasickÃ¡
+Klasická
 ; Classic
 ;
 MSG_ENHANCED
-VylepÅ¡enÃ¡
+Vylep¹ená
 ; Enhanced
 ;
 MSG_NAVIGATION
-OvlÃ¡dÃ¡nÃ­
+Ovládání
 ; Navigation
 ;
 MSG_METHOD
@@ -64,27 +64,27 @@ Objekty
 ; Objects
 ;
 MSG_PREVIEW
-NÃ¡hled
+Náhled
 ; Preview
 ;
 MSG_TOOLBAR_ENABLED
-Zapnout hornÃ­ liÅ¡tu
+Zapnout horní li¹tu
 ; Toolbar Enabled
 ;
 MSG_ICONSPREFS
-Vzhled a chovÃ¡nÃ­ ikon
+Vzhled a chování ikon
 ; Icons look and feel
 ;
 MSG_ICONLISTMODE
-ReÅ¾im zobrazenÃ­
+Re¾im zobrazení
 ; Icon listmode
 ;
 MSG_ICONLISTMODE_PLAIN
-UmÃ­stit ikony volnÄ›
+Umístit ikony volnì
 ; List icons plainly
 ;
 MSG_ICONLISTMODE_GRID
-UmÃ­stit ikony do mÅ™Ã­Å¾ky
+Umístit ikony do møí¾ky
 ; List icons by grid
 ;
 MSG_ICONTEXTMODE
@@ -92,40 +92,40 @@ Text s popisem ikon
 ; Icons text drawmode
 ;
 MSG_ICONTEXTMODE_OUTLINE
-ObrysovÃ½
+Obrysovı
 ; Outline
 ;
 MSG_ICONTEXTMODE_PLAIN
-StandardnÃ­
+Standardní
 ; Plain
 ;
 MSG_ICONTEXTMODE_SHADOW
-StÃ­novanÃ½
+Stínovanı
 ; Drop shadow
 ;
 MSG_ICONTEXTLENGTH
-Max. dÃ©lka textu
+Max. délka textu
 ; Max icon textlength
 ;
 MSG_DOUBLEBUFFERED
-ZrychlenÃ©
+Zrychlené
 ; double buffering
 ;
 MSG_MISC
-OstatnÃ­
+Ostatní
 ; misc
 ;
 MSG_BUBBLESCREENTITLE
-%pc = grafickÃ¡ pamÄ›Å¥, aktuÃ¡lnÄ›\n\
-%pf = ostatnÃ­ pamÄ›Å¥, aktuÃ¡lnÄ›\n\
-%pt = veÅ¡kerÃ¡ pamÄ›Å¥, aktuÃ¡lnÄ›\n\
-%PC = grafickÃ¡ pamÄ›Å¥, celkem\n\
-%PF = ostatnÃ­ pamÄ›Å¥, celkem\n\
-%PT = veÅ¡kerÃ¡ pamÄ›Å¥, celkem\n\
+%pc = grafická pamì», aktuálnì\n\
+%pf = ostatní pamì», aktuálnì\n\
+%pt = ve¹kerá pamì», aktuálnì\n\
+%PC = grafická pamì», celkem\n\
+%PF = ostatní pamì», celkem\n\
+%PT = ve¹kerá pamì», celkem\n\
 %os = AROS, verze\n\
 %wb = Wanderer, verze\n\
-%ov = AROS, internÃ­ verze\n\
-%wv = workbench.library, internÃ­ verze
+%ov = AROS, interní verze\n\
+%wv = workbench.library, interní verze
 ; %pc = Chip Ram free\n\
 ; %pf = Fast Ram free\n\
 ; %pt = Total Ram free\n\
@@ -138,11 +138,11 @@ MSG_BUBBLESCREENTITLE
 ; %wv = Exact workbench.library version
 ;
 MSG_TILEMODE
-ZpÅ¯sob umÃ­stÄ›nÃ­:
+Zpùsob umístìní:
 ; Tile mode :
 ;
 MSG_XOFFSET
-Odstup vodorovnÄ›:
+Odstup vodorovnì:
 ; X Offset :
 ;
 MSG_YOFFSET
@@ -150,15 +150,15 @@ Odstup svisle:
 ; Y Offset :
 ;
 MSG_ICONLABELFONT
-PÃ­smo pro popis...
+Písmo pro popis...
 ; Icon Label Font...
 ;
 MSG_ICONINFOFONT
-PÃ­smo pro informace...
+Písmo pro informace...
 ; Icon Info Font...
 ;
 MSG_HORIZSPACINGICON
-Odstup mezi ikonami, vodorovnÄ›:
+Odstup mezi ikonami, vodorovnì:
 ; Horizontal spacing between icons
 ;
 MSG_VERTSPACINGICON
@@ -170,83 +170,83 @@ Odstup mezi ikonou a popisem
 ; Padding between Icon Image and Label
 ;
 MSG_HORIZPADDINGLABELTEXT
-Odstup mezi okrajem rÃ¡meÄku a textem, vodorovnÄ›
+Odstup mezi okrajem rámeèku a textem, vodorovnì
 ; Horizontal Padding between Label Frame and Text
 ;
 MSG_VERTPADDINGLABELTEXT
-Odstup mezi okrajem rÃ¡meÄku a textem, svisle
+Odstup mezi okrajem rámeèku a textem, svisle
 ; Vertical Padding between Label Frame and Text
 ;
 MSG_FRAMEWIDTH
-Å Ã­Å™ka rÃ¡meÄku pro popis
+©íøka rámeèku pro popis
 ; Label Frame Width
 ;
 MSG_FRAMEHEIGHT
-VÃ½Å¡ka rÃ¡meÄku pro popis
+Vı¹ka rámeèku pro popis
 ; Label Frame Height
 ;
 MSG_TILED
-UmÃ­stit vedle sebe
+Umístit vedle sebe
 ; Tiled
 ;
 MSG_SCALED
-PÅ™izpÅ¯sobit velikost
+Pøizpùsobit velikost
 ; Scaled
 ;
 MSG_FLOATING
-PlovoucÃ­
+Plovoucí
 ; Floating
 ;
 MSG_FIXED
-PevnÃ½
+Pevnı
 ; Fixed
 ;
 MSG_LABELLINELENGTH
-Max. dÃ©lka popisu...
+Max. délka popisu...
 ; Max. Label line length...
 ;
 MSG_USEMULTILINELABELS
-PouÅ¾Ã­t vÃ­ceÅ™Ã¡dkovÃ½ popis
+Pou¾ít víceøádkovı popis
 ; Use MultiLine Labels
 ;
 MSG_SHOWFOCUSEDICON
-Zobrazit pouze vybranÃ©
+Zobrazit pouze vybrané
 ; Only show for Focus(ed) Icon
 ;
 MSG_NDISPLAYLINES
-PoÄet zobrazenÃ½ch Å™Ã¡dkÅ¯...
+Poèet zobrazenıch øádkù...
 ; No. of lines to display...
 ;
 MSG_TILEMODEOPTIONS
-MoÅ¾nosti...
+Mo¾nosti...
 ; Tile Mode Options...
 ;
 MSG_SCALEMODEOPTIONS
-MoÅ¾nosti...
+Mo¾nosti...
 ; Scale Mode Options...
 ;
 MSG_ADVANCEDOPTIONS
-PÅ™ehled vlastnostÃ­...
+Pøehled vlastností...
 ; Advanced Options...
 ;
 MSG_BACKGROUNDOPTIONS
-PozadÃ­ na ploÅ¡e...
+Pozadí na plo¹e...
 ; Background Options...
 ;
 MSG_DRAWMODE
-ZpÅ¯sob vykreslenÃ­:
+Zpùsob vykreslení:
 ; Draw mode :
 ;
 MSG_USERFILEONWB
-Povolit skuteÄnÃ¡ data na pracovnÃ­ ploÅ¡e
+Povolit skuteèná data na pracovní plo¹e
 ; User Files Folder on Workbench
 ;
 MSG_NETWORKONWB
-UmoÅ¾nit prochÃ¡zenÃ­ sÃ­tÄ› z pracovnÃ­ plochy
+Umo¾nit procházení sítì z pracovní plochy
 ; Network Browser on Workbench
 ;
 MSG_VIEWSETTINGS
-MoÅ¾nosti zobrazenÃ­
+Mo¾nosti zobrazení
 ; View Settings
 ;
 MSG_WANDERERSCREENTITLE
@@ -258,11 +258,11 @@ Vlastnosti
 ; Advanced
 ;
 MSG_USE
-_PouÅ¾Ã­t
+_Pou¾ít
 ; _Use
 ;
 MSG_CANCEL
-_ZruÅ¡it
+_Zru¹it
 ; C_ancel
 ;
 MSG_LABELSPREFS
@@ -270,7 +270,7 @@ Vzhled popisu
 ; Labels look and feel
 ;
 MSG_ADVANCEDBACKGROUND
-PozadÃ­
+Pozadí
 ; Background
 ;
 MSG_ADVANCEDICONS
@@ -282,7 +282,7 @@ Popisy
 ; Labels
 ;
 MSG_ICONSORTMODE_BYNAME
-Dle nÃ¡zvu
+Dle názvu
 ; By name
 ;
 MSG_ICONSORTMODE_BYDATE
@@ -294,23 +294,23 @@ Dle velikosti
 ; By size
 ;
 MSG_DEFAULT_ICONSORTMODE
-VÃ½chozÃ­ Å™azenÃ­
+Vıchozí øazení
 ; Default sort order
 ;
 MSG_ICON_AUTOSORT_ENABLED
-AutomatickÃ© Å™azenÃ­
+Automatické øazení
 ; Autosorting enabled
 ;
 MSG_ICON_DRAG_TRANSPARENT
-PÅ™i pÅ™esouvÃ¡nÃ­ pouÅ¾Ã­t prÅ¯hlednost
+Pøi pøesouvání pou¾ít prùhlednost
 ; Use transparency when draging icons
 ;
 MSG_DEFAULT_ICONVIEWMODE
-VÃ½chozÃ­ pohled
+Vıchozí pohled
 ; Default view mode
 ;
 MSG_ICONVIEWMODE_ALL
-VÅ¡echny soubory
+V¹echny soubory
 ; All files
 ;
 MSG_ICONVIEWMODE_ICONS

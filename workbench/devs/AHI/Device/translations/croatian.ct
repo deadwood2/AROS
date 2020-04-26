@@ -2,7 +2,7 @@
 ## language hrvatski
 ## codeset 5
 ;
-## chunk AUTH Translated by SiniÅ¡a LoliÄ‡ <vegi@usa.net>
+## chunk AUTH Translated by Sini¹a Loliæ <vegi@usa.net>
 ;#language english
 ;#version 4
 ;
@@ -36,11 +36,11 @@ msgMenuControl
 ; \000\000Control
 ;
 msgMenuLastMode
-P\000Prethodni naÄin
+P\000Prethodni naèin
 ; L\000Last Mode
 ;
 msgMenuNextMode
-S\000SlijedeÄ‡i naÄin
+S\000Slijedeæi naèin
 ; N\000Next Mode
 ;
 msgMenuPropertyList
@@ -82,17 +82,17 @@ Frekvencija
 ; Name of default mode in requester
 ;
 msgDefaultMode
-Osnovni audio naÄin
+Osnovni audio naèin
 ; Default audio mode
 ;
 ; The requester's info-winodow
 ;
 msgReqInfoTitle
-Osobine naÄina
+Osobine naèina
 ; Mode Properties
 ;
 msgReqInfoAudioID
-ID audio naÄina: 0x%08lx
+ID audio naèina: 0x%08lx
 ; Audio mode ID: 0x%08lx
 ;
 msgReqInfoResolution

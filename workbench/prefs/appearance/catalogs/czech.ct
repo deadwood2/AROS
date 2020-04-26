@@ -4,7 +4,7 @@
 ;
 ;
 MSG_WINTITLE
-NastavenÃ­ vzhledu (theme setting)
+Nastavení vzhledu (theme setting)
 ; Appearance Preferences
 ;
 MSG_OK
@@ -12,54 +12,54 @@ Ok
 ; Ok
 ;
 MSG_ENABLETHEMES
-Zapnout pouÅ¾itÃ­ tÃ©mat
+Zapnout pou¾ití témat
 ; Enable Theme'ing?
 ;
 MSG_PREVIEW
-NÃ¡hled
+Náhled
 ; Preview
 ;
 MSG_NOPREVIEW
--NÃ¡hled je nedostupnÃ½-
+-Náhled je nedostupný-
 ; -Preview Unavailable-
 ;
 MSG_SELECTEDTHEME
-PouÅ¾Ã­t tÃ©ma:
+Pou¾ít téma:
 ; Theme
 ;
 MSG_ENABLEZUNEPREFS
-PÅ™evzÃ­t Zune nastavenÃ­?
+Pøevzít Zune nastavení?
 ; Inherit Zune Configuration?
 ;
 MSG_ENABLEWANDPREFS
-PÅ™evzÃ­t Wanderer nastavenÃ­?
+Pøevzít Wanderer nastavení?
 ; Inherit Wanderer Configuration?
 ;
 MSG_SEC_THEMING
-TÃ©mata
+Témata
 ; Theming
 ;
 MSG_SEC_COMPOSITING
-KompozitnÃ­ vÃ½stup
+Kompozitní výstup
 ; Compositing
 ;
 MSG_ENABLE_SCREEN_COMPOSITION
-Zapnout kompozitnÃ­ obraz
+Zapnout kompozitní obraz
 ; Enable Screen Composition
 ;
 MSG_COMPOSITE_BELOW
-SklÃ¡dat dole
+Skládat dole
 ; Composite Below
 ;
 MSG_COMPOSITE_LEFT
-SklÃ¡dat vlevo
+Skládat vlevo
 ; Composite Left
 ;
 MSG_COMPOSITE_RIGHT
-SklÃ¡dat vpravo
+Skládat vpravo
 ; Composite Right
 ;
 MSG_ENABLE_COMPOSITE_WITH_ALPHA
-Zapnout kompozici s prÅ¯hlednostÃ­
+Zapnout kompozici s prùhledností
 ; Enable Compositing with Alpha
 ;

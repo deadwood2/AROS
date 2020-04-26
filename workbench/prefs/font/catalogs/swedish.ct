@@ -4,7 +4,7 @@
 ;
 ;
 MSG_CANT_OPEN_STREAM
-Kan inte Ã¶ppna IFF-strÃ¶m!
+Kan inte öppna IFF-ström!
 ; Can't open IFF stream!
 ;
 MSG_CANT_ALLOCATE_IFFPTR
@@ -12,7 +12,7 @@ Kan inte allokera IFF-pekare!
 ; Can't allocate IFF handle!
 ;
 MSG_NAME
-TypsnittsinstÃ¤llningar
+Typsnittsinställningar
 ; Font Preferences
 ;
 MSG_OK
@@ -28,6 +28,6 @@ System:
 ; System:
 ;
 MSG_SCREEN
-SkÃ¤rm:
+Skärm:
 ; Screen:
 ;

@@ -1,5 +1,5 @@
 ## version $VER: Font.catalog 3.1 (11.6.2017)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
@@ -12,7 +12,7 @@ Impossible d'allouer un gestionnaire IFF !
 ; Can't allocate IFF handle!
 ;
 MSG_NAME
-PrÃ©fÃ©rences des fontes
+Préférences des fontes
 ; Font Preferences
 ;
 MSG_OK
@@ -20,14 +20,14 @@ Ok
 ; Ok
 ;
 MSG_ICONS
-IcÃ´nes :
+Icônes :
 ; Icons:
 ;
 MSG_SYSTEM
-SystÃ¨me :
+Système :
 ; System:
 ;
 MSG_SCREEN
-Ã‰cran :
+Écran :
 ; Screen:
 ;

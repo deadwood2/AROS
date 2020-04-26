@@ -5,51 +5,51 @@
 ; FIXME: This file requires updating. When done, bump version to 3
 ;
 MSG_CANT_OPEN_LIB
-РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ %s V%ld!\n
+Не могу открыть %s V%ld!\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_OPEN_INPUTDEVICE
-РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ 'input.device'
+Не могу открыть 'input.device'
 ; Can't open 'input.device'
 ;
 MSG_CANT_LOCK_SCR
-РќРµ РјРѕРіСѓ Р·Р°РЅСЏС‚СЊ РѕР±С‰РёР№ СЌРєСЂР°РЅ!\n
+Не могу занять общий экран!\n
 ; Can't lock public screen!\n
 ;
 MSG_CANT_GET_VI
-РќРµ РјРѕРіСѓ РїРѕР»СѓС‡РёС‚СЊ VisualInfo!\n
+Не могу получить VisualInfo!\n
 ; Can't get VisualInfo!\n
 ;
 MSG_CANT_CREATE_GADGET
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РіСЂ. СЌР»РµРјРµРЅС‚С‹!\n
+Не могу создать гр. элементы!\n
 ; Can't create gadgets!\n
 ;
 MSG_CANT_CREATE_MENUS
-РќРµ РјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РјРµРЅСЋ!\n
+Не могу создать меню!\n
 ; Can't create menus!\n
 ;
 MSG_CANT_LAYOUT_MENUS
-РќРµ РјРѕРіСѓ Р·Р°РїРѕР»РЅРёС‚СЊ РјРµРЅСЋ!\n
+Не могу заполнить меню!\n
 ; Can't layout menus!\n
 ;
 MSG_CANT_CREATE_WIN
-РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ РѕРєРЅР°!\n
+Ошибка создания окна!\n
 ; Can't create window!\n
 ;
 MSG_CANT_ALLOCATE_MEM
-РќРµ РјРѕРіСѓ РІС‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ РїРѕРґ РїСЂРёР»РѕР¶РµРЅРёРµ!\n
+Не могу выделить память под приложение!\n
 ; Can't allocate application memory!\n
 ;
 MSG_CANT_CREATE_MSGPORT
-РћС€РёР±РєР° РїРµСЂРµРґР°С‡Рё СЃРѕРѕР±С‰РµРЅРёСЏ!\n
+Ошибка передачи сообщения!\n
 ; Can't create message port!\n
 ;
 MSG_CANT_CREATE_BROKER
-РћР±СЉРµРєС‚ CxBroker РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРѕР·РґР°РЅ!\n
+Объект CxBroker не может быть создан!\n
 ; Can't create CxBroker object!\n
 ;
 MSG_CANT_CREATE_CUSTOM
-РћР±СЉРµРєС‚ CxCustom РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРѕР·РґР°РЅ!\n
+Объект CxCustom не может быть создан!\n
 ; Can't create CxCustom object!\n
 ;
 MSG_OK
@@ -57,19 +57,19 @@ OK
 ; Ok
 ;
 MSG_MEN_PROJECT
-РџСЂРѕРµРєС‚
+Проект
 ; Project
 ;
 MSG_MEN_PROJECT_HIDE
-C\0РЎРїСЂСЏС‚Р°С‚СЊ
+C\0Спрятать
 ; H\0Hide
 ;
 MSG_MEN_PROJECT_ICONIFY
-Р\0Р’ РРєРѕРЅРєСѓ
+И\0В Иконку
 ; I\0Iconify
 ;
 MSG_MEN_PROJECT_QUIT
-Р’\0Р’С‹С…РѕРґ
+В\0Выход
 ; Q\0Quit
 ;
 ; ===============================================
@@ -84,7 +84,7 @@ Commodities Exchange
 ; Commodities Exchange
 ;
 MSG_EXCHANGE_CXDESCR
-РЈРїСЂР°РІР»СЏРµС‚ РЈРґРѕР±СЃС‚РІР°РјРё СЃРёСЃС‚РµРјС‹
+Управляет Удобствами системы
 ; Controls system commodities
 ;
 MSG_EXCHANGE_WINTITLE
@@ -92,31 +92,31 @@ Exchange: Hot Key = <%s>
 ; Exchange: Hot Key = <%s>
 ;
 MSG_EXCHANGE_LISTVIEW
-Р”РѕСЃС‚СѓРїРЅС‹Рµ РЈРґРѕР±СЃС‚РІР°
+Доступные Удобства
 ; Available commodities
 ;
 MSG_EXCHANGE_INFO
-РРЅС„РѕСЂРјР°С†РёСЏ
+Информация
 ; Information
 ;
 MSG_EXCHANGE_GAD_SHOW
-РџРѕРєР°Р·Р°С‚СЊ
+Показать
 ; Show
 ;
 MSG_EXCHANGE_GAD_HIDE
-РЎРїСЂСЏС‚Р°С‚СЊ
+Спрятать
 ; Hide
 ;
 MSG_EXCHANGE_GAD_REMOVE
-РЈР±СЂР°С‚СЊ
+Убрать
 ; Remove
 ;
 MSG_EXCHANGE_CYCLE_ACTIVE
-РІРєР»СЋС‡РµРЅРѕ
+включено
 ; Active
 ;
 MSG_EXCHANGE_CYCLE_INACTIVE
-РІС‹РєР»СЋС‡РµРЅРѕ
+выключено
 ; Inactive
 ;
 ; ===============================================
@@ -127,11 +127,11 @@ Blanker
 ; Blanker
 ;
 MSG_BLANKER_CXTITLE
-РҐСЂР°РЅРёС‚РµР»СЊ СЌРєСЂР°РЅР°
+Хранитель экрана
 ; System Screen Blanker
 ;
 MSG_BLANKER_CXDESCR
-РћС‡РёС‰Р°РµС‚ СЌРєСЂР°РЅ РїСЂРё РЅРµР°РєС‚РёРІРЅРѕСЃС‚Рё СЃРёСЃС‚РµРјС‹
+Очищает экран при неактивности системы
 ; Blanks screen when system inactive
 ;
 ; ===============================================
@@ -146,7 +146,7 @@ Click To Front Utility
 ; Click To Front Utility
 ;
 MSG_CLICK2FNT_CXDESCR
-Р”РІРѕР№РЅРѕР№ С‰РµР»С‡РѕРє, Рё РѕРєРЅРѕ РЅР° РїРµСЂРµРґРЅРµРј РїР»Р°РЅРµ
+Двойной щелчок, и окно на переднем плане
 ; Click windows to front
 ;
 ; ===============================================
@@ -157,11 +157,11 @@ Opaque
 ; Opaque
 ;
 MSG_OPAQUE_CXTITLE
-РќР•РїСЂРѕР·СЂР°С‡РЅС‹Рµ РѕРєРЅР°
+НЕпрозрачные окна
 ; Solid Windows
 ;
 MSG_OPAQUE_CXDESCR
-Р”РІРёРіР°Р№С‚Рµ РѕРєРЅР° СЃ РїРѕРєР°Р·РѕРј СЃРѕРґРµСЂР¶РёРјРѕРіРѕ
+Двигайте окна с показом содержимого
 ; Realtime moving of windows
 ;
 ; ===============================================
@@ -172,11 +172,11 @@ AutoPoint
 ; AutoPoint
 ;
 MSG_AUTOPOINT_CXTITLE
-РђРІС‚РѕС„РѕРєСѓСЃ РѕРєРѕРЅ
+Автофокус окон
 ; Autopointer
 ;
 MSG_AUTOPOINT_CXDESCR
-РџСЂРё РЅР°РІРµРґРµРЅРёРё РєСѓСЂСЃРѕСЂР° РјС‹С€Рё РЅР° РѕРєРЅРѕ РґРµР»Р°РµС‚ РµРіРѕ Р°РєС‚РёРІРЅС‹Рј
+При наведении курсора мыши на окно делает его активным
 ; Activates the window under the mouse
 ;
 ; ===============================================
@@ -187,11 +187,11 @@ StartMenu
 ; StartMenu
 ;
 MSG_STARTMENU_CXTITLE
-Р—Р°РїСѓСЃРє РїСЂРѕРіСЂР°РјРј
+Запуск программ
 ; System Program Starter
 ;
 MSG_STARTMENU_CXDESCR
-РЈРґРѕР±СЃС‚РІРѕ РґР»СЏ РїСЂРѕСЃС‚РѕРіРѕ Р·Р°РїСѓСЃРєР° РїСЂРѕРіСЂР°РјРј
+Удобство для простого запуска программ
 ; Program launch commodity
 ;
 ; ===============================================
@@ -202,11 +202,11 @@ FKey
 ; FKey
 ;
 MSG_FKEY_CXTITLE
-РќР°Р·РЅР°С‡РµРЅРёРµ С„СѓРЅРєС†РёР№ РєР»Р°РІРёС€Р°Рј
+Назначение функций клавишам
 ; Function To Keys:
 ;
 MSG_FKEY_CXDESCR
-РќР°Р·РЅР°С‡Р°РµС‚ РєР»Р°РІРёС€Р°Рј СЃРїРµС†РёР°Р»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё (СЃРј. РџРѕРєР°Р·Р°С‚СЊ)
+Назначает клавишам специальные функции (см. Показать)
 ; Attach special functions to keys
 ;
 MSG_FKEY_WINTITLE
@@ -214,67 +214,67 @@ FKey: Hot Key = <%s>
 ; FKey: Hot Key = <%s>
 ;
 MSG_FKEY_DEFINED_KEYS
-РќР°Р·РЅР°С‡РµРЅРЅС‹Рµ СЃРѕС‡РµС‚Р°РЅРёСЏ
+Назначенные сочетания
 ; Defined Keys
 ;
 MSG_FKEY_NEW_KEY
-_РќРѕРІРѕРµ
+_Новое
 ; _New Key
 ;
 MSG_FKEY_DELETE_KEY
-_РЈРґР°Р»РёС‚СЊ
-; _РЈРґР°Р»РёС‚СЊ
+_Удалить
+; _Удалить
 ;
 MSG_FKEY_SAVE_KEY
-РЎРѕС…СЂР°РЅРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєРё
+Сохранить настройки
 ; Save Defined Keys
 ;
 MSG_FKEY_COMMAND
-РљРѕРјР°РЅРґР°
+Команда
 ; Command
 ;
 MSG_FKEY_COMMAND_PARAMS
-РџР°СЂР°РјРµС‚СЂС‹ РєРѕРјР°РЅРґС‹
+Параметры команды
 ; Command Parameters
 ;
 MSG_FKEY_CMD_CYCLE_WIN
-РџРµСЂРµРєР»СЋС‡РµРЅРёРµ РѕРєРѕРЅ
+Переключение окон
 ; Cycle Windows
 ;
 MSG_FKEY_CMD_CYCLE_SCR
-РџРµСЂРµРєР»СЋС‡РµРЅРёРµ СЌРєСЂР°РЅРѕРІ
+Переключение экранов
 ; Cycle Screens
 ;
 MSG_FKEY_CMD_ENLARGE_WIN
-Р Р°Р·РІРµСЂРЅСѓС‚СЊ РѕРєРЅРѕ
+Развернуть окно
 ; Enlarge Window
 ;
 MSG_FKEY_CMD_SHRINK_WIN
-РЎРІРµСЂРЅСѓС‚СЊ РѕРєРЅРѕ
+Свернуть окно
 ; Shrink Window
 ;
 MSG_FKEY_CMD_TOGGLE_WIN_SIZE
-РџРµСЂРµРєР»СЋС‡РёС‚СЊ СЂР°Р·РјРµСЂ РѕРєРЅР°
+Переключить размер окна
 ; Toggle Window Size
 ;
 MSG_FKEY_CMD_RESCUE_WIN
-РџРѕРґР»РѕР¶РёС‚СЊ РѕРєРЅРѕ
+Подложить окно
 ; Rescue Window
 ;
 MSG_FKEY_CMD_INSERT_TEXT
-Р’СЃС‚Р°РІРёС‚СЊ С‚РµРєСЃС‚
+Вставить текст
 ; Insert Text
 ;
 MSG_FKEY_CMD_RUN_PROG
-Р—Р°РїСѓСЃС‚РёС‚СЊ РїСЂРѕРіСЂР°РјРјСѓ
+Запустить программу
 ; Run Program
 ;
 MSG_FKEY_CMD_RUN_AREXX
-Р—Р°РїСѓСЃС‚РёС‚СЊ СЃРєСЂРёРїС‚ ARexx
+Запустить скрипт ARexx
 ; Run Arexx Script
 ;
 MSG_FKEY_MEN_PROJECT_SAVE
-РЎ\0РЎРѕС…СЂР°РЅРёС‚СЊ РєР»Р°РІРёС€Рё
+С\0Сохранить клавиши
 ; S\0Save Defined Keys
 ;
 ; ===============================================
@@ -285,11 +285,11 @@ NoCapsLock
 ; NoCapsLock
 ;
 MSG_NOCAPSLOCK_CXTITLE
-РћС‚РєР»СЋС‡РµРЅРёРµ CapsLock
+Отключение CapsLock
 ; NoCapsLock:
 ;
 MSG_NOCAPSLOCK_CXDESCR
-РћС‚РєР»СЋС‡Р°РµС‚ РєР»Р°РІРёС€Сѓ CAPS LOCK
+Отключает клавишу CAPS LOCK
 ; Renders the CAPS LOCK key ineffective
 ;
 ; ===============================================
@@ -300,11 +300,11 @@ DepthMenu
 ; DepthMenu
 ;
 MSG_DEPTHMENU_CXTITLE
-РЎРїРёСЃРѕРє РѕС‚РєСЂС‹С‚С‹С… РѕРєРѕРЅ
+Список открытых окон
 ; DepthMenu:
 ;
 MSG_DEPTHMENU_CXDESCR
-Р’СЃРїР»С‹РІР°СЋС‰РёР№ (РїРѕ RMB) СЃРїРёСЃРѕРє РѕС‚РєСЂС‹С‚С‹С… РѕРєРѕРЅ РґР»СЏ Р±С‹СЃС‚СЂРѕРіРѕ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ
+Всплывающий (по RMB) список открытых окон для быстрого переключения
 ; Popup menu for depth gadgets
 ;
 ;
@@ -315,10 +315,10 @@ MSG_ALTKEYQ_CXNAME
 AltKeyQ
 ;AltKeyQ
 MSG_ALTKEYQ_CXTITLE
-Р’РІРѕРґ СЃРёРјРІРѕР»РѕРІ РїРѕ РЅРѕРјРµСЂСѓ
+Ввод символов по номеру
 ;Character input by number
 MSG_ALTKEYQ_CXDESCR
-РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєР»Р°РІРёС€Рё ALT РІ СЃС‚РёР»Рµ MS-DOS РґР»СЏ РІРІРѕРґР° СЃРёРјРІРѕР»РѕРІ
+Использование клавиши ALT в стиле MS-DOS для ввода символов
 ;MS-DOS Style Alt key usage
 ; ===============================================
 ; ASCIITable
@@ -330,15 +330,15 @@ MSG_ASCIITABLE_CXTITLE
 ASCIITable:
 ;
 MSG_ASCIITABLE_CXDESCR
-Р’С‹Р±РѕСЂ СЃРёРјРІРѕР»РѕРІ РёР· С‚Р°Р±Р»РёС†С‹
+Выбор символов из таблицы
 ;Select keys from a GUI
 MSG_ASCIITABLE_WINTITLE
-ASCIITable: Р’С‹Р·РѕРІ = <%s>
+ASCIITable: Вызов = <%s>
 ;ASCIITable: Hot Key = <%s>
 MSG_ASCIITABLE_GAD_COPY
-РљРѕРїРёСЂРѕРІР°С‚СЊ
+Копировать
 ;Copy
 MSG_ASCIITABLE_GAD_CLEAR
-РћС‡РёСЃС‚РёС‚СЊ
+Очистить
 ;Clear
 ;

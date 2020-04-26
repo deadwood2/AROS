@@ -8,7 +8,7 @@ Aktiv
 ; Active
 ;
 WORD_AddEntry
-HinzufÃ¼gen
+Hinzufügen
 ; Add Entry
 ;
 WORD_All
@@ -20,11 +20,11 @@ Autoanmelden
 ; Automount
 ;
 WORD_Bootable
-BootfÃ¤hig
+Bootfähig
 ; Bootable
 ;
 WORD_BootPri
-BootprioritÃ¤t
+Bootpriorität
 ; Boot Priority
 ;
 WORD_Cancel
@@ -32,11 +32,11 @@ Abbrechen
 ; Cancel
 ;
 WORD_Changed
-GeÃ¤ndert
+Geändert
 ; Changed
 ;
 WORD_Change_Type
-Typ Ã¤ndern
+Typ ändern
 ; Change Type
 ;
 WORD_Create_Table
@@ -44,7 +44,7 @@ Tabelle erstellen
 ; Create Table
 ;
 WORD_Devices
-GerÃ¤te
+Geräte
 ; Devices
 ;
 WORD_DosEnvec
@@ -96,19 +96,19 @@ Entfernen
 ; Remove Entry
 ;
 WORD_Rename
-Namen Ã¤ndern
+Namen ändern
 ; Rename
 ;
 WORD_Resize_Move
-GrÃ¶ÃŸe Ã¤ndern/Verschieben
+Größe ändern/Verschieben
 ; Resize/Move
 ;
 WORD_Save_Changes
-Ã„nderungnen speichern
+Änderungnen speichern
 ; Save Changes
 ;
 WORD_Size
-GrÃ¶ÃŸe
+Größe
 ; Size
 ;
 WORD_Unit
@@ -128,7 +128,7 @@ Projekt
 ; Project
 ;
 WORD_MENU_About
-Ãœber
+Über
 ; About
 ;
 WORD_MENU_Quit
@@ -136,7 +136,7 @@ Beenden
 ; Quit
 ;
 MSG_ASK_SAVE
-Alle Daten auf modifizierten Partitionen werden zerstÃ¶rt!\nBist du dir sicher die Ã„nderungen der Partitionstabelle '%s' zu speichern?
+Alle Daten auf modifizierten Partitionen werden zerstört!\nBist du dir sicher die Änderungen der Partitionstabelle '%s' zu speichern?
 ; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
 ;
 MSG_NO_MEMORY
@@ -148,11 +148,11 @@ Partitionstabelle voll
 ; Partition table full
 ;
 MSG_Select_Empty_Area
-WÃ¤hle eine freien Bereich
+Wähle eine freien Bereich
 ; Select empty area
 ;
 MSG_Select_Partition_Resize_Move
-WÃ¤hle eine Partition und Ã¤ndere die GrÃ¶ÃŸe bzw. bewege sie
+Wähle eine Partition und ändere die Größe bzw. bewege sie
 ; Select a partition and resize/move it
 ;
 MSG_Welcome

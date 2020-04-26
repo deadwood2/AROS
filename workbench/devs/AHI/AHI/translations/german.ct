@@ -31,7 +31,7 @@ msgMenuProject
 ; \000Project
 ;
 msgItemOpen
-O\000Ã–ffnen
+O\000Öffnen
 ; O\000Open...
 ;
 msgItemSaveAs
@@ -39,7 +39,7 @@ A\000Speichern als...
 ; A\000Save As...
 ;
 msgItemAbout
-?\000Ãœber...
+?\000Über...
 ; ?\000About...
 ;
 msgItemQuit
@@ -51,7 +51,7 @@ msgMenuEdit
 ; \000Edit
 ;
 msgItemDefaults
-D\000auf Vorgaben zurÃ¼cksetzen
+D\000auf Vorgaben zurücksetzen
 ; D\000Reset To Defaults
 ;
 msgItemLastSaved
@@ -121,7 +121,7 @@ Halbduplex
 ; Half duplex
 ;
 msgPropRecordNone
-Nicht mÃ¶glich
+Nicht möglich
 ; Nope
 ;
 ; *** Options ***
@@ -135,15 +135,15 @@ _Frequenz
 ; _Frequency
 ;
 msgOptChannels
-_KanÃ¤le
+_Kanäle
 ; C_hannels
 ;
 msgOptNoChannels
-SelbsttÃ¤tig
+Selbsttätig
 ;Automatic 
 ;
 msgOptVolume
-_LautstÃ¤rke
+_Lautstärke
 ; _Volume
 ;
 msgOptMonitor
@@ -151,7 +151,7 @@ _Monitor
 ; _Monitor
 ;
 msgOptGain
-_VerstÃ¤rkung
+_Verstärkung
 ; _Gain
 ;
 msgOptMuted
@@ -163,7 +163,7 @@ _Eingang
 ; _Input
 ;
 msgOptNoInputs
-Keine EingÃ¤nge
+Keine Eingänge
 ; No inputs
 ;
 msgOptOutput
@@ -171,7 +171,7 @@ _Ausgang
 ; _Output
 ;
 msgOptNoOutputs
-Keine AusgÃ¤nge
+Keine Ausgänge
 ; No outputs
 ;
 ;
@@ -212,7 +212,7 @@ Hoch
 ; High
 ;
 msgDebugFull
-VollstÃ¤ndig
+Vollständig
 ; Full
 ;
 ; *** Echo ***
@@ -263,17 +263,17 @@ msgTextProgramName
 AHI-Einstellungen
 ; AHI preferences
 ;
-;You can use something like "%s%s\nCopyright Â©%s\nEnglish translation by Your Name" here...
+;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
-%s%s\nCopyright Â©%s\nDeutsche Ãœbersetzung von Uwe Bojartschuk
-; %s%s\nCopyright Â©%s
+%s%s\nCopyright ©%s\nDeutsche Übersetzung von Uwe Bojartschuk
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
-Kann Fenster nicht Ã¶ffnen.
+Kann Fenster nicht öffnen.
 ; Unable to open window.
 ;
 msgTextNoFileRequester
-Kann Datei-Requester nicht Ã¶ffnen.
+Kann Datei-Requester nicht öffnen.
 ; Unable to allocate file requester.
 ;
 msgTextNoFind
@@ -281,13 +281,13 @@ Kann `%s' nicht finden!
 ; Unable to find `%s'!
 ;
 msgTextNoOpen
-Kann `%s' Version %ld nicht Ã¶ffnen.
+Kann `%s' Version %ld nicht öffnen.
 ; Unable to open `%s' version %ld.
 ;
 ; *** Additions
 ;
 msgGlobOptMasterVol
-_HauptlautstÃ¤rke
+_Hauptlautstärke
 ; _Master volume
 ;
 msgMVNoClip
@@ -303,11 +303,11 @@ Vorgabe der Anti-Click Zeit
 ; Default anti-click time
 ;
 msgButtonPlay
-Spiele einen _PrÃ¼fton
+Spiele einen _Prüfton
 ; _Play a test sound
 ;
 msgOptScalemode
-LautstÃ¤rke Einteilung
+Lautstärke Einteilung
 ; Volume sc_aling
 ;
 msgSMFixedSafe
@@ -319,7 +319,7 @@ Sicher, anpassend
 ; Safe, dynamic
 ;
 msgSM0dB
-Volle LautstÃ¤rke
+Volle Lautstärke
 ; Full volume
 ;
 msgSM3dB

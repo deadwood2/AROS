@@ -4,7 +4,7 @@
 ;
 ;
 MSG_WINTITLE
-Nastaven√≠ mo≈ænost√≠ tisku
+NastavenÌ moænostÌ tisku
 ; Printer Preferences
 ;
 MSG_OK
@@ -12,7 +12,7 @@ Ok
 ; Ok
 ;
 MSG_PRINTER_DRIVER
-Vlastnosti za≈ô√≠zen√≠
+Vlastnosti za¯ÌzenÌ
 ; Driver
 ;
 MSG_PRINTER_SETTINGS
@@ -20,15 +20,15 @@ Vlastnosti tisku
 ; Settings
 ;
 MSG_PRINTER_SELECT_DRIVER
-Ovladaƒç:
+OvladaË:
 ; Select Driver:
 ;
 MSG_PRINTER_NAME
-N√°zev:
+N·zev:
 ; Name:
 ;
 MSG_PRINTER_UNIT
-Za≈ô√≠zen√≠:
+Za¯ÌzenÌ:
 ; Printer Unit:
 ;
 MSG_PRINTER_PS_UNIT
@@ -36,7 +36,7 @@ Jednotka:
 ; Unit:
 ;
 MSG_PRINTER_CUSTOM_DEVICE
-Vlastn√≠ za≈ô√≠zen√≠:
+VlastnÌ za¯ÌzenÌ:
 ; Custom device:
 ;
 MSG_PRINTER_DEVICE_UNIT
@@ -44,11 +44,11 @@ Jednotka %d
 ; Unit %d
 ;
 MSG_PRINTER_PARALLEL
-Paraleln√≠ port
+ParalelnÌ port
 ; Parallel
 ;
 MSG_PRINTER_SERIAL
-S√©riov√Ω port
+SÈriov˝ port
 ; Serial
 ;
 MSG_PRINTER_TO_FILE
@@ -60,11 +60,11 @@ USB port
 ; USB Printer
 ;
 MSG_TISK_PAPER_TYPE
-Typ pap√≠ru:
+Typ papÌru:
 ; Paper Type:
 ;
 MSG_TISK_PAPER_SIZE
-Rozmƒõr pap√≠ru:
+RozmÏr papÌru:
 ; Paper Size:
 ;
 MSG_TISK_QUALITY
@@ -76,19 +76,19 @@ Intenzita:
 ; Pitch:
 ;
 MSG_TISK_SPACING
-Odsazen√≠:
+OdsazenÌ:
 ; Spacing:
 ;
 MSG_TISK_LEFT_MARGIN
-Lev√Ω okraj:
+Lev˝ okraj:
 ; Left Margin:
 ;
 MSG_TISK_RIGHT_MARGIN
-Prav√Ω okraj:
+Prav˝ okraj:
 ; Right Margin:
 ;
 MSG_TISK_LINE_PER_PAGE
-≈ò√°dk≈Ø na str√°nce:
+ÿ·dk˘ na str·nce:
 ; Lines per Page:
 ;
 MSG_TISK_DENSITY
@@ -96,7 +96,7 @@ Sytost:
 ; Density:
 ;
 MSG_TISK_ASPECT
-Portr√©t:
+PortrÈt:
 ; Aspect:
 ;
 MSG_TISK_SHADE
@@ -108,19 +108,19 @@ Tisk:
 ; Image:
 ;
 MSG_TISK_TRESHOLD
-Pr√°h:
+Pr·h:
 ; Threshold:
 ;
 MSG_TISK_DITHERING
-Rastrov√°n√≠:
+Rastrov·nÌ:
 ; Dithering:
 ;
 MSG_TISK_DIMENSION
-Pomƒõr stran:
+PomÏr stran:
 ; Dimensions:
 ;
 MSG_TISK_PAPER_OFFSET
-Odsazen√≠ (
+OdsazenÌ (
 ; Offset (
 ;
 MSG_TISK_CENTER_IMAGE
@@ -132,67 +132,67 @@ Vyhladit okraje:
 ; AntiAlias:
 ;
 MSG_TISK_INTEGER_SCALING
-Zvƒõt≈°it na str√°nku:
+ZvÏtπit na str·nku:
 ; Integer Scaling:
 ;
 MSG_TISK_FANFOLD
-Tabelaƒçn√≠ (traktorov√Ω)
+TabelaËnÌ (traktorov˝)
 ; Fanfold
 ;
 MSG_TISK_SINGLE
-Jednoduch√Ω  list
+Jednoduch˝  list
 ; Single
 ;
 MSG_TISK_DRAFT
-N√°hledov√° (72 dpi)
+N·hledov· (72 dpi)
 ; Draft (72 dpi)
 ;
 MSG_TISK_LETTER
-Dopisov√° (240 dpi)
+Dopisov· (240 dpi)
 ; Letter (240 dpi)
 ;
 MSG_TISK_PORTRAIT
-Na v√Ω≈°ku
+Na v˝πku
 ; Portrait
 ;
 MSG_TISK_LANDSCAPE
-Na ≈°√≠≈ôku
+Na πÌ¯ku
 ; Landscape
 ;
 MSG_TISK_BW
-ƒåernob√≠l√°
+»ernobÌl·
 ; Black & White
 ;
 MSG_TISK_GRAY
-Stupnƒõ ≈°edi
+StupnÏ πedi
 ; Greyscape
 ;
 MSG_TISK_COLOR
-Barevn√°
+Barevn·
 ; Color
 ;
 MSG_TISK_GRAY2
-Stupnƒõ ≈°edi 2
+StupnÏ πedi 2
 ; Greyscape 2
 ;
 MSG_TISK_POSITIVE
-Pozitivn√≠
+PozitivnÌ
 ; Positive
 ;
 MSG_TISK_NEGATIVE
-Negativn√≠
+NegativnÌ
 ; Negative
 ;
 MSG_TISK_IGNORE
-≈Ω√°dn√Ω
+Æ·dn˝
 ; Ignore
 ;
 MSG_TISK_BOUNDED
-Omezen√Ω
+Omezen˝
 ; Bounded
 ;
 MSG_TISK_ABSOLUTE
-Absolutn√≠
+AbsolutnÌ
 ; Absolute
 ;
 MSG_TISK_PIXEL
@@ -200,15 +200,15 @@ Pixel
 ; Pixel
 ;
 MSG_TISK_MULTIPLY
-N√°sobn√Ω
+N·sobn˝
 ; Multiply
 ;
 MSG_TISK_ORDERED
-Standardn√≠
+StandardnÌ
 ; Ordered
 ;
 MSG_TISK_HALFTONE
-Polot√≥nov√Ω
+PolotÛnov˝
 ; Halftone
 ;
 MSG_TISK_FLOYDSTEINBERG

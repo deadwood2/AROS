@@ -4,31 +4,31 @@
 ;
 ;
 MSG_CANT_OPEN_LIB
-РќРµ РјРѕРіСѓ РѕС‚РєСЂС‹С‚СЊ %s V%ld !\n
+Не могу открыть %s V%ld !\n
 ;Can't open %s V%ld!\n
 ;
 MSG_CANT_CREATE_APP
-РќРµРјРѕРіСѓ СЃРѕР·РґР°С‚СЊ РѕР±СЉРµРєС‚ РїСЂРёР»РѕР¶РµРЅРёСЏ!
+Немогу создать объект приложения!
 ;Can't create application object!
 ;
 MSG_WINTITLE
-РќР°СЃС‚СЂРѕР№РєР° С‡Р°СЃРѕРІ
+Настройка часов
 ;Time Preferences
 ;
 MSG_MEN_PROJECT
-РџСЂРѕРµРєС‚
+Проект
 ;Project
 ;
 MSG_MEN_PROJECT_QUIT
-Р’\0Р’С‹С…РѕРґ
+В\0Выход
 ;Q\0Quit
 ;
 MSG_MEN_EDIT
-РџСЂР°РІРєР°
+Правка
 ;Edit
 ;
 MSG_MEN_EDIT_RESTORE
-Р’\0Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ
+В\0Восстановить
 ;R\0Restore
 ;
 MSG_OK
@@ -36,14 +36,14 @@ Ok
 ;Ok
 ;
 MSG_GAD_SAVE
-РЎРѕС…СЂР°РЅРёС‚СЊ
+Сохранить
 ;Save
 ;
 MSG_GAD_USE
-РџСЂРёРјРµРЅРёС‚СЊ
+Применить
 ;Use
 ;
 MSG_GAD_CANCEL
-РћС‚РјРµРЅРёС‚СЊ
+Отменить
 ;Cancel
 ;

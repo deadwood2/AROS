@@ -4,15 +4,15 @@
 ;
 ;
 MSG_TITLE
-Przegląd Systemu
+Przegl±d Systemu
 ; System Explorer
 ;
 MSG_WINTITLE
-Przegląd Systemu
+Przegl±d Systemu
 ; System Explorer
 ;
 MSG_DESCRIPTION
-Informacje o systemie i sprzęcie
+Informacje o systemie i sprzêcie
 ; System and hardware information tool
 ;
 MSG_MENU_PROJECT
@@ -24,15 +24,15 @@ Cechy
 ; Properties
 ;
 MSG_MENU_EXPANDALL
-Rozwiń wszystko
+Rozwiñ wszystko
 ; Expand All
 ;
 MSG_MENU_COLLAPSEALL
-Zwiń wszystko
+Zwiñ wszystko
 ; Collapse All
 ;
 MSG_MENU_QUIT
-Skończ
+Skoñcz
 ; Quit
 ;
 MSG_HIDD_TREE
@@ -48,7 +48,7 @@ Nazwa jednostki sterownika
 ; Driver instance name
 ;
 MSG_LABEL_HW_DESCRIPTION
-Opis sprzętu
+Opis sprzêtu
 ; Hardware description
 ;
 MSG_LABEL_VENDOR
@@ -72,7 +72,7 @@ HPET
 ; HPET
 ;
 MSG_RAM
-Pamięć
+Pamiêæ
 ; Memory
 ;
 MSG_BOOTLOADER
@@ -84,7 +84,7 @@ Argumenty rozruchu
 ; Boot Arguments
 ;
 MSG_AVAILABLE
-Dostępny do użytku
+Dostêpny do u¿ytku
 ; Available for use
 ;
 MSG_GENERAL
@@ -96,7 +96,7 @@ Nazwa
 ; Name
 ;
 MSG_HARDWARE_NAME
-Nazwa sprzętu
+Nazwa sprzêtu
 ; Hardware Name
 ;
 MSG_PRODUCT_ID
@@ -112,7 +112,7 @@ ID producenta
 ; Vendor ID
 ;
 MSG_DEVICE_PROPERTIES
-Cechy urządzenia
+Cechy urz±dzenia
 ; Device properties
 ;
 MSG_ATA_PROPERTIES
@@ -136,7 +136,7 @@ Wsparcie DMA
 ; Supports DMA
 ;
 MSG_USE_80WIRE
-Kabel 80cio-żylowy 
+Kabel 80cio-¿ylowy 
 ; 80-wire cable
 ;
 MSG_ATA_UNIT_PROPERTIES
@@ -168,7 +168,7 @@ Limit wielosektorowy
 ; Multisector limit
 ;
 MSG_REMOVABLE
-Urządzenie wymienne
+Urz±dzenie wymienne
 ; Removable
 ;
 MSG_CONFIG_MODES

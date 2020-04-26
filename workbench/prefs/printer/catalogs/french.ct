@@ -1,10 +1,10 @@
 ## version $VER: Printer.catalog 2.0 (03.01.2018)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
 MSG_WINTITLE
-PrÃ©fÃ©rences d'impression
+Préférences d'impression
 ;Printer Preferences
 ;
 MSG_OK
@@ -16,11 +16,11 @@ Pilote
 ; Driver
 ;
 MSG_PRINTER_SETTINGS
-ParamÃ¨tres
+Paramètres
 ; Settings
 ;
 MSG_PRINTER_SELECT_DRIVER
-SÃ©lectionnez le pilote:
+Sélectionnez le pilote:
 ; Select Driver:
 ;
 MSG_PRINTER_NAME
@@ -32,23 +32,23 @@ Imprimante:
 ; Printer Unit:
 ;
 MSG_PRINTER_PS_UNIT
-UnitÃ©:
+Unité:
 ; Unit:
 ;
 MSG_PRINTER_CUSTOM_DEVICE
-MatÃ©riel personnalisÃ©:
+Matériel personnalisé:
 ; Custom device:
 ;
 MSG_PRINTER_DEVICE_UNIT
-UnitÃ© %d
+Unité %d
 ; Unit %d
 ;
 MSG_PRINTER_PARALLEL
-Port parallÃ¨le
+Port parallèle
 ; Parallel
 ;
 MSG_PRINTER_SERIAL
-Port sÃ©rie
+Port série
 ; Serial
 ;
 MSG_PRINTER_TO_FILE
@@ -68,7 +68,7 @@ Taille du papier:
 ; Paper Size:
 ;
 MSG_TISK_QUALITY
-QualitÃ©:
+Qualité:
 ; Quality:
 ;
 MSG_TISK_PITCH
@@ -92,7 +92,7 @@ Lignes par page:
 ; Lines per Page:
 ;
 MSG_TISK_DENSITY
-DensitÃ©:
+Densité:
 ; Density:
 ;
 MSG_TISK_ASPECT
@@ -120,7 +120,7 @@ Dimensions:
 ; Dimensions:
 ;
 MSG_TISK_PAPER_OFFSET
-DÃ©calage (
+Décalage (
 ; Offset (
 ;
 MSG_TISK_CENTER_IMAGE
@@ -128,15 +128,15 @@ Centre l'image:
 ; Center Image:
 ;
 MSG_TISK_ANTIALIAS
-Anti crÃ©nelage:
+Anti crénelage:
 ; AntiAlias:
 ;
 MSG_TISK_INTEGER_SCALING
-Mise Ã  l'Ã©chelle des entiers:
+Mise à l'échelle des entiers:
 ; Integer Scaling:
 ;
 MSG_TISK_FANFOLD
-AccordÃ©on
+Accordéon
 ; Fanfold
 ;
 MSG_TISK_SINGLE
@@ -180,7 +180,7 @@ Positive
 ; Positive
 ;
 MSG_TISK_NEGATIVE
-NÃ©gative
+Négative
 ; Negative
 ;
 MSG_TISK_IGNORE
@@ -188,7 +188,7 @@ Ignore
 ; Ignore
 ;
 MSG_TISK_BOUNDED
-DÃ©limitÃ©
+Délimité
 ; Bounded
 ;
 MSG_TISK_ABSOLUTE
@@ -204,7 +204,7 @@ Multiple
 ; Multiply
 ;
 MSG_TISK_ORDERED
-OrdonnÃ©
+Ordonné
 ; Ordered
 ;
 MSG_TISK_HALFTONE

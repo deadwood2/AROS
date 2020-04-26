@@ -1,5 +1,5 @@
 ## version $VER: Zune.catalog 0.2 (23.12.2019)
-## language espaÃ±ol
+## language español
 ## codeset 0
 ;
 ; Translated by ahg
@@ -22,7 +22,7 @@ es apretado:
 ;Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
-Texto del botÃ³n
+Texto del botón
 ;Text Buttons
 ;
 MSG_FRAME_COLON
@@ -34,7 +34,7 @@ Fuente:
 ;Font:
 ;
 MSG_IMAGE_BUTTONS
-Imagen del botÃ³n
+Imagen del botón
 ;Image Buttons
 ;
 MSG_ADJUST_FRAME
@@ -54,11 +54,11 @@ Casilla de verific.
 Checkmark
 ;
 MSG_RADIO_BUTTONS
-Botones de opciÃ³n
+Botones de opción
 ;Radio Buttons
 ;
 MSG_RADIOBUTTON
-BotÃ³n de opciÃ³n
+Botón de opción
 ;Radiobutton
 ;
 MSG_LOOK
@@ -95,11 +95,11 @@ Ciclo
 ;Cycle
 ;
 MSG_POPUP_MENU_CONTROL
-Control de menÃº emergente
+Control de menú emergente
 ;Popup Menu Control
 ;
 MSG_POSITION
-PosiciÃ³n:
+Posición:
 ;Position:
 ;
 MSG_LEVEL
@@ -111,7 +111,7 @@ Velocidad:
 ;Speed:
 ;
 MSG_POPUP_MENU_DESIGN
-DiseÃ±o del menÃº emergente
+Diseño del menú emergente
 ;Popup Menu Design
 ;
 MSG_FRAME
@@ -156,7 +156,7 @@ contorno
 ;outline
 ;
 MSG_TITLE
-TÃ­tulo
+Título
 ;Title
 ;
 MSG_COLOR
@@ -173,7 +173,7 @@ Registro
 ;Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-TamaÃ±o predeterminado\npara truncar los tÃ­tulos
+Tamaño predeterminado\npara truncar los títulos
 ;Default size truncate titles
 ;
 MSG_NORMAL
@@ -187,7 +187,7 @@ Enmarcado
 ;Framed
 ;
 MSG_PAGE
-PÃ¡gina
+Página
 ;Page
 ;
 ;=============================
@@ -239,7 +239,7 @@ Al inicio
 ;Leading
 ;
 MSG_DESIGN
-DiseÃ±o
+Diseño
 ;Design
 ;
 MSG_INPUT_LISTS
@@ -273,17 +273,17 @@ siempre lleno
 ;always solid
 ;
 MSG_GHOSTED_ON_BOX
-translÃºcido en la caja
+translúcido en la caja
 ;fantasmal en la caja
 ;ghosted on box
 ;
 MSG_GHOSTED_OUTSIDE_BOX
-translÃºcido fuera de la caja
+translúcido fuera de la caja
 ;fantasmal afuera de la caja
 ;ghosted outside box
 ;
 MSG_ALWAYS_GHOSTED
-siempre translÃºcido
+siempre translúcido
 ;siempre fantasmal
 ;always ghosted
 ;
@@ -312,11 +312,11 @@ Abajo:
 ;Down:
 ;
 MSG_KL_PAGE_UP
-PÃ¡g. ant.:
+Pág. ant.:
 ;Page up:
 ;
 MSG_KL_PAGE_DOWN
-PÃ¡g. sig.:
+Pág. sig.:
 ;Page down:
 ;
 MSG_KL_TOP
@@ -344,11 +344,11 @@ A la der. de la palabra
 ;Word right:
 ;
 MSG_KL_LINE_START
-Inicio del renglÃ³n:
+Inicio del renglón:
 ;Line start:
 ;
 MSG_KL_LINE_END
-Final del renglÃ³n:
+Final del renglón:
 ;Line end:
 ;
 MSG_KL_NEXT_GADGET
@@ -388,15 +388,15 @@ Arrastrar y Soltar
 ;Drag & Drop
 ;
 MSG_LEFT_BUTTON
-BotÃ³n izq.:
+Botón izq.:
 ;Left Button:
 ;
 MSG_MIDDLE_BUTTON
-BotÃ³n del medio:
+Botón del medio:
 ;Middle Button:
 ;
 MSG_AUTOSTART
-Inicio automÃ¡tico:
+Inicio automático:
 ;Autostart:
 ;
 MSG_PIXEL
@@ -419,7 +419,7 @@ desplazar
 ;shift
 ;
 MSG_TOO
-tambiÃ©n!
+también!
 ;too!
 ;
 MSG_KEYBOARD_CONTROL
@@ -488,14 +488,14 @@ MSG_KNOB
 Knob
 ;
 MSG_ARRANGEMENT
-DisposiciÃ³n
+Disposición
 ;Arrangement
 ;
 ;=============================
 ; slidersp.c
 ;-----------
 MSG_CONTAINER_DESIGN
-DiseÃ±o del contenedor
+Diseño del contenedor
 ;Container Design
 ;
 MSG_KNOB_DESIGN
@@ -521,11 +521,11 @@ Indicador de progreso
 ;Progress Indicator
 ;
 MSG_DEVICE_IMAGES
-ImÃ¡genes de dispositivos
+Imágenes de dispositivos
 ;Device Images
 ;
 MSG_DRAWER
-CajÃ³n
+Cajón
 ;Drawer
 ;
 MSG_HARDDISK
@@ -540,7 +540,7 @@ MSG_RAM
 RAM
 ;
 MSG_VOLUME
-VolÃºmen
+Volúmen
 ;Volume
 ;
 MSG_NETWORK
@@ -548,11 +548,11 @@ Red
 ;Network
 ;
 MSG_ASSIGN
-AsignaciÃ³n
+Asignación
 ;Assign
 ;
 MSG_TAPE_IMAGES
-ImÃ¡genes de cintas
+Imágenes de cintas
 ;Tape Images
 ;
 MSG_TAPE_PLAY
@@ -611,7 +611,7 @@ Archivo emergente
 ;Popup file
 ;
 MSG_POPUP_DRAWER
-CajÃ³n emergente
+Cajón emergente
 ;Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
@@ -673,7 +673,7 @@ Dibujar de nuevo:
 ;Redraw:
 ;
 MSG_TINY
-PequeÃ±o:
+Pequeño:
 ;Tiny:
 ;
 MSG_BIG
@@ -807,7 +807,7 @@ Cadenas
 ;Strings
 ;
 MSG_DSC_NAVIGATION
-NavegaciÃ³n
+Navegación
 ;Navigation
 ;
 MSG_DSC_SPECIAL

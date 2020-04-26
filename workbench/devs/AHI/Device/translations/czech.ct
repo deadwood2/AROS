@@ -26,7 +26,7 @@
 ; Input and Output connector name
 ;
 msgDefault
-V√Ωchoz√≠
+V˝chozÌ
 ; Default
 ;
 ; The requesters menu
@@ -35,19 +35,19 @@ msgMenuControl
 ; \000\000Control
 ;
 msgMenuLastMode
-L\000P≈ôedchoz√≠ re≈æim
+L\000P¯edchozÌ reæim
 ; L\000Last Mode
 ;
 msgMenuNextMode
-N\000N√°sleduj√≠c√≠ re≈æim
+N\000N·sledujÌcÌ reæim
 ; N\000Next Mode
 ;
 msgMenuPropertyList
-?\000Seznam vlastnost√≠...
+?\000Seznam vlastnostÌ...
 ; ?\000Property List...
 ;
 msgMenuRestore
-R\000Obnovit p≈ôedchoz√≠
+R\000Obnovit p¯edchozÌ
 ; R\000Restore
 ;
 msgMenuOK
@@ -55,13 +55,13 @@ O\000OK
 ; O\000OK
 ;
 msgMenuCancel
-C\000Zru≈°it
+C\000Zruπit
 ; C\000Cancel
 ;
 ; Mode name in requester whose driver cannot be opened
 ;
 msgUnknown
-NEZN√ÅM√ù:Audio ID 0x%08lx
+NEZN¡M›:Audio ID 0x%08lx
 ; UNKNOWN:Audio ID 0x%08lx
 ;
 ; The requester gadgets
@@ -71,7 +71,7 @@ OK
 ; OK
 ;
 msgReqCancel
-Zru≈°it
+Zruπit
 ; Cancel
 ;
 msgReqFrequency
@@ -81,21 +81,21 @@ Frekvence
 ; Name of default mode in requester
 ;
 msgDefaultMode
-V√Ωchoz√≠ re≈æim
+V˝chozÌ reæim
 ; Default audio mode
 ;
 ; The requester's info-winodow
 ;
 msgReqInfoTitle
-Vlastnosti re≈æimu
+Vlastnosti reæimu
 ; Mode Properties
 ;
 msgReqInfoAudioID
-ƒå√≠slo re≈æimu: 0x%08lx
+»Ìslo reæimu: 0x%08lx
 ; Audio mode ID: 0x%08lx
 ;
 msgReqInfoResolution
-Rozli≈°en√≠: %ld bit≈Ø %s
+RozliπenÌ: %ld bit˘ %s
 ; Resolution: %ld bit %s
 ;
 msgReqInfoMono
@@ -107,31 +107,31 @@ stereo
 ; stereo
 ;
 msgReqInfoStereoPan
-roz≈°√≠≈ôen√© stereo
+rozπÌ¯enÈ stereo
 ; stereo with panning
 ;
 msgReqInfoChannels
-Poƒçet kan√°l≈Ø: %ld
+PoËet kan·l˘: %ld
 ; Channels: %ld
 ;
 msgReqInfoMixrate
-Mixovac√≠ frekvence: %ld-%ld Hz
+MixovacÌ frekvence: %ld-%ld Hz
 ; Mixing rates: %ld-%ld Hz
 ;
 msgReqInfoHiFi
-HiFi mixov√°n√≠
+HiFi mixov·nÌ
 ; HiFi mixing
 ;
 msgReqInfoRecordHalf
-Poloduplexn√≠ z√°znam
+PoloduplexnÌ z·znam
 ; Record in half duplex
 ;
 msgReqInfoRecordFull
-Plnƒõ duplexn√≠ z√°znam
+PlnÏ duplexnÌ z·znam
 ; Record in full duplex
 ;
 msgReqInfoMultiChannel
-V√≠cekan√°lov√Ω re≈æim (7.1)
+VÌcekan·lov˝ reæim (7.1)
 ; 7.1 multichannel
 ;
 msgFreqFmt

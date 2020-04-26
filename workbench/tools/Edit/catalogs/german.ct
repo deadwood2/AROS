@@ -22,7 +22,7 @@ Neu
 ; New
 ;
 MSG_OPENNEWFILE
-Ã–ffnen...
+Öffnen...
 ; Open file...
 ;
 MSG_LOADINPRJ
@@ -38,7 +38,7 @@ Speichern als...
 ; Save as...
 ;
 MSG_SAVECHANGES
-Ã„nderungen speichern
+Änderungen speichern
 ; Save changes
 ;
 MSG_PRINTFILE
@@ -50,7 +50,7 @@ Information...
 ; Information...
 ;
 MSG_CLOSE
-SchlieÃŸen
+Schließen
 ; Close
 ;
 MSG_QUIT
@@ -72,7 +72,7 @@ Kopieren
 ; Copy
 ;
 MSG_PASTE
-EinfÃ¼gen
+Einfügen
 ; Paste
 ;
 MSG_MARK
@@ -84,11 +84,11 @@ Spalte markieren
 ; Mark column
 ;
 MSG_SELECTALL
-Alles auswÃ¤hlen
+Alles auswählen
 ; Select all
 ;
 MSG_DELLINE
-Zeile lÃ¶schen
+Zeile löschen
 ; Delete line
 ;
 MSG_SUBTOOLS
@@ -96,15 +96,15 @@ Werkzeuge
 ; Tools
 ;
 MSG_INDENT
-EinrÃ¼cken
+Einrücken
 ; Indent
 ;
 MSG_UNINDENT
-AusrÃ¼cken
+Ausrücken
 ; Unindent
 ;
 MSG_UPPERCASE
-GroÃŸschreibung
+Großschreibung
 ; Upper case
 ;
 MSG_LOWERCASE
@@ -116,11 +116,11 @@ Schreibung umkehren
 ; Toggle case
 ;
 MSG_INSERTFILE
-Datei einfÃ¼gen...
+Datei einfügen...
 ; Insert file...
 ;
 MSG_UNDO
-RÃ¼ckgÃ¤ngig
+Rückgängig
 ; Undo
 ;
 MSG_REDO
@@ -146,7 +146,7 @@ Suche
 ; Find
 ;
 MSG_NEXTFIND
-NÃ¤chstes
+Nächstes
 ; Next
 ;
 MSG_PREVFIND
@@ -162,7 +162,7 @@ Vorherige Seite
 ; Previous page
 ;
 MSG_NEXTPAGE
-NÃ¤chste Seite
+Nächste Seite
 ; Next page
 ;
 MSG_GOTOLINE
@@ -174,7 +174,7 @@ Passende Klammer
 ; Matching bracket
 ;
 MSG_LASTMODIF
-Letzte Ã„nderung
+Letzte Änderung
 ; Last modification
 ;
 MSG_BEGOFLINE
@@ -244,11 +244,11 @@ Einstellungen speichern als...
 ; *****************************
 ;
 ERR_BADOS
-AmigaOS v2.0 oder neuer wird benÃ¶tigt.
+AmigaOS v2.0 oder neuer wird benötigt.
 ; Obsolete OS. Install v2.0 or better.
 ;
 ERR_NOASLREQ
-Kann ASL-Requester nicht Ã¶ffnen!
+Kann ASL-Requester nicht öffnen!
 ; Cannot alloc ASL requester!
 ;
 ERR_NOMEM
@@ -256,7 +256,7 @@ Speichermangel!
 ; Out of memory!
 ;
 ERR_NOGUI
-Hauptfenster konnte nicht geÃ¶ffnet werden!
+Hauptfenster konnte nicht geöffnet werden!
 ; Main interface failed to open!
 ;
 ERR_NONAME
@@ -269,15 +269,15 @@ Fehler beim Schreiben in die Zwischenablage!
 ; Write error into clipboard device
 ;
 ERR_OPENCLIP
-Zwischenablage konnte nicht geÃ¶ffnet werden!
+Zwischenablage konnte nicht geöffnet werden!
 ; Unable to open clipboard!
 ;
 ERR_LOADFILE
-Datei konnte nicht geÃ¶ffnet werden!
+Datei konnte nicht geöffnet werden!
 ; Unable to load requested file
 ;
 ERR_NOTXTINCLIP
-Zwischenablage enthÃ¤lt keinen Text!
+Zwischenablage enthält keinen Text!
 ; No text in clipboard
 ;
 ERR_WRONG_TYPE
@@ -297,7 +297,7 @@ Muster '%s' nicht gefunden
 ; Pattern `%s' not found
 ;
 ERR_LOADFONT
-GewÃ¤hlter Zeichensatz konnte nicht geÃ¶ffnet werden!
+Gewählter Zeichensatz konnte nicht geöffnet werden!
 ; Can't open desired font!
 ;
 ERR_NOPREFEDITOR
@@ -305,15 +305,15 @@ Voreinstellungsprogramm konnte nicht gefunden werden!
 ; Can't find preference editor!
 ;
 ERR_BADPREFSFILE
-Einstellungsdatei hat ein ungÃ¼ltiges Format.
+Einstellungsdatei hat ein ungültiges Format.
 ; Bad preference file format.
 ;
 ERR_FILEMODIFIED
-%s wurde geÃ¤ndert.\nSoll die Datei wirklich geschlossen werden?
+%s wurde geändert.\nSoll die Datei wirklich geschlossen werden?
 ; %s has been modified.\nAre you sure want to close it?
 ;
 ERR_SLC
-Speichern|SchlieÃŸen|Abbrechen
+Speichern|Schließen|Abbrechen
 ; Save|Close|Cancel
 ;
 ERR_NOSEARCHTEXT
@@ -321,7 +321,7 @@ Kein Suchtext angegeben!
 ; No text to search for!
 ;
 ERR_FILEEXISTS
-Diese Datei existiert bereits. Soll sie Ã¼berschrieben werden?
+Diese Datei existiert bereits. Soll sie überschrieben werden?
 ; This file already exists. Overwrite it?
 ;
 ERR_OC
@@ -350,8 +350,8 @@ Information
 ; Information
 ;
 MSG_FORMATINFO
-%s\nProgramm von T.Pierron und C.Guillaume Â© 2000\n\nDatei: %s\nLÃ¤nge: %iu %s, %iu %s.\n
-; %s\nDesigned by T.Pierron and C.Guillaume Â© 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
+%s\nProgramm von T.Pierron und C.Guillaume © 2000\n\nDatei: %s\nLänge: %iu %s, %iu %s.\n
+; %s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
 ;
 MSG_CONTINUE
 Weiter
@@ -395,11 +395,11 @@ Er_setzen:
 ; Replace:
 ;
 MSG_OPTCASE
-GroÃŸ-/Kleinschreibung beachten
+Groß-/Kleinschreibung beachten
 ; Match case
 ;
 MSG_OPTWORDS
-Ganze WÃ¶rter
+Ganze Wörter
 ; Whole words
 ;
 MSG_BUTTONREPLACE

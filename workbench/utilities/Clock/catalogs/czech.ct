@@ -4,7 +4,7 @@
 ;
 ;
 MSG_ERROR_CANT_CREATE_APPLICATION
-Nelze vytvoÅ™it objekt application.
+Nelze vytvoøit objekt application.
 ; Error: Can't create application object.
 ;
 MSG_WINDOW_TITLE
@@ -20,6 +20,6 @@ OK
 ; Ok
 ;
 MSG_ERROR_DISKOBJECT
-Nelze vytvoÅ™it objekt disk.
+Nelze vytvoøit objekt disk.
 ; Error: Can't create diskobject
 ;

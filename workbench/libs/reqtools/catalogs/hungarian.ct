@@ -1,7 +1,7 @@
 ## version $VER: reqtools.catalog 39 (31.03.2016)
 ## codeset 0
 ## language magyar
-; kÃ©szÃ­tette: Kertai GÃ¡bor
+; készítette: Kertai Gábor
 ;
 ;******************
 ;
@@ -26,15 +26,15 @@ _Rendben|_Felejtsd el
 ;  _Ok |_Cancel
 ;
 MSG_LAST_BAR_CANCEL
-_UtolsÃ³|_Felejtsd el
+_Utolsó|_Felejtsd el
 ; _Last|_Cancel
 ;
 MSG_REQUEST
-KÃ©rdÃ©s
+Kérdés
 ; Request
 ;
 MSG_INFORMATION
-InformÃ¡ciÃ³
+Információ
 ; Information
 ;
 ; ENDF
@@ -55,42 +55,42 @@ MSG_MIN_MAX_FMT
 ;  Min: %ld, Max: %ld
 ;
 MSG_TOO_SMALL
-Ez tÃºl kicsi!
+Ez túl kicsi!
 ; Too small!
 ;
 MSG_TOO_BIG
-Ez tÃºl nagy!
+Ez túl nagy!
 ; Too big!
 ;
 ; ENDF
 ; FOLD *** Palette Requester ***
 ;
 MSG_PALETTE_COLORS
-A _paletta szÃ­nei:
+A _paletta színei:
 ; _Palette Colors:
 ;
 MSG_RED
-VÃ¶rÃ¶_s:
+Vörö_s:
 ; _Red:
 ;
 MSG_GREEN
-_ZÃ¶ld:
+_Zöld:
 ; _Green:
 ;
 MSG_BLUE
-_KÃ©k:
+_Kék:
 ; _Blue:
 ;
 MSG_COPY
-_MÃ¡sol
+_Másol
 ; Cop_y
 ;
 MSG_SWAP
-_CserÃ©l
+_Cserél
 ; _Swap
 ;
 MSG_SPREAD
-SzÃ­_nsor
+Szí_nsor
 ; Spr_ead
 ;
 MSG_UNDO
@@ -112,12 +112,12 @@ Spread to...
 ; FOLD *** File Requester ***
 ;
 MSG_CREATE_DRAWER
-A(z) '%s' nevÅ± fiÃ³k\n\
-nem lÃ©tezik. LÃ©trehozzam?
+A(z) '%s' nevû fiók\n\
+nem létezik. Létrehozzam?
 ; Drawer '%s' does\nnot exist. Create it?
 ;
 MSG_DIR_ERROR
-KÃ¶nyvtÃ¡rhiba!
+Könyvtárhiba!
 ; Directory error!
 ;
 MSG_MATCH_WINTITLE
@@ -125,7 +125,7 @@ Minta...
 ; Match...
 ;
 MSG_DRAWER
-FiÃ³k
+Fiók
 ; Drawer
 ;
 MSG_ASSIGN
@@ -137,7 +137,7 @@ _Mind
 ; _All
 ;
 MSG_MATCH
-Je_lÃ¶l...
+Je_löl...
 ; _Match..
 ;
 MSG_CLEAR
@@ -145,11 +145,11 @@ S_emmi
 ; C_lear
 ;
 MSG_VOLUMES
-E_gysÃ©gek
+E_gységek
 ; _Volumes
 ;
 MSG_PARENT
-_SzÃ¼lÅ‘
+_Szülõ
 ; _Parent
 ;
 MSG_PATTERN
@@ -157,7 +157,7 @@ Mint_a:
 ; Pa_ttern:
 ;
 MSG_GET
-Ãš_jra
+Ú_jra
 ; _Get
 ;
 MSG_DOT_INFO
@@ -165,7 +165,7 @@ MSG_DOT_INFO
 ; ._info
 ;
 MSG_SELECTED
-KijelÃ¶lve:
+Kijelölve:
 ; Selected:
 ;
 MSG_FULL
@@ -176,26 +176,26 @@ MSG_FULL
 ; FOLD *** Font Requester ***
 ;
 MSG_COULDNT_OPEN_FONT
-Nem sikerÃ¼lt megnyitni a karakterkÃ©szletet!
+Nem sikerült megnyitni a karakterkészletet!
 ; Couldn't open font!
 ;
 MSG_BOLD
-_KÃ¶vÃ©r
+_Kövér
 ; _Bold
 ;
 MSG_ITALIC
-_DÅ‘lt
+_Dõlt
 ; _Italic
 ;
 MSG_UNDERLINE
-_AlÃ¡hÃºzott
+_Aláhúzott
 ; _Underline
 ;
 ; ENDF
 ; FOLD *** ScreenMode Requester ***
 ;
 MSG_DASH_INTERLACED
--fÅ±zÃ¶tt
+-fûzött
 ; -Interlaced
 ;
 MSG_DASH_HAM
@@ -207,39 +207,39 @@ MSG_DASH_EHB
 ; -EHB
 ;
 MSG_REGULAR_SIZE
-SzokÃ¡sos mÃ©ret
+Szokásos méret
 ; Regular Size
 ;
 MSG_TEXT_SIZE
-SzÃ¶veges mÃ©ret
+Szöveges méret
 ; Text Size
 ;
 MSG_GFX_SIZE
-Grafikus mÃ©ret
+Grafikus méret
 ; Graphics Size
 ;
 MSG_MAX_SIZE
-ExtrÃ©m mÃ©ret
+Extrém méret
 ; Maximum Size
 ;
 MSG_OVERSCAN
-_KÃ©pmezÅ‘:
+_Képmezõ:
 ; O_verscan:
 ;
 MSG_WIDTH
-_SzÃ©lessÃ©g:
+_Szélesség:
 ; _Width:
 ;
 MSG_HEIGHT
-_MagassÃ¡g:
+_Magasság:
 ; _Height:
 ;
 MSG_DEFAULT
-AlapÃ©rtÃ©k
+Alapérték
 ; Default
 ;
 MSG_COLORS
-SzÃ­_nek:
+Szí_nek:
 ; Co_lors:
 ;
 MSG_MAX
@@ -247,7 +247,7 @@ Max.:
 ; Max:
 ;
 MSG_AUTOSCROLL
-_GÃ¶rgetÃ©s:
+_Görgetés:
 ; _AutoScroll:
 ;
 ; ENDF

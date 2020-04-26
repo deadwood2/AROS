@@ -6,145 +6,145 @@
 ; buttonsp.c
 ;-----------
 MSG_GENERAL
-РћСЃРЅРѕРІРЅС‹Рµ
+Основные
 ; General
 ;
 MSG_BACKGROUND_COLON
-Р¤РѕРЅ РєРЅРѕРїРєРё
+Фон кнопки
 ; Background:
 ;
 MSG_BACKGROUND_PRESSED
-Р¤РѕРЅ\nРЅР°Р¶Р°С‚РѕР№ РєРЅРѕРїРєРё:
+Фон\nнажатой кнопки:
 ; Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
-РўРµРєСЃС‚ РєРЅРѕРїРѕРє
+Текст кнопок
 ; Text Buttons
 ;
 MSG_FRAME_COLON
-Р Р°РјРєР°
+Рамка
 ; Frame:
 ;
 MSG_FONT
-РЁСЂРёС„С‚
+Шрифт
 ; Font:
 ;
 MSG_IMAGE_BUTTONS
-РљРЅРѕРїРєРё СЃ РёРєРѕРЅРєР°РјРё
+Кнопки с иконками
 ; Image Buttons
 ;
 MSG_ADJUST_FRAME
-РР·РјРµРЅРёС‚СЊ СЂР°РјРєСѓ
+Изменить рамку
 ; Adjust Frame
 ;
 MSG_CHECKMARKS
-РћС‚РјРµС‚РєРё
+Отметки
 ; Checkmarks
 ;
 MSG_LOOK_COLON
-Р’РёРґ:
+Вид:
 ; Look:
 ;
 MSG_CHECKMARK
-РћС‚РјРµС‚РєРё
+Отметки
 ; Checkmark
 ;
 MSG_RADIO_BUTTONS
-Р Р°РґРёРѕ-РєРЅРѕРїРєРё
+Радио-кнопки
 ; Radio Buttons
 ;
 MSG_RADIOBUTTON
-Р Р°РґРёРѕ-РєРЅРѕРїРєР°
+Радио-кнопка
 ; Radiobutton
 ;
 MSG_LOOK
-Р’РёРґ
+Вид
 ; Look
 ;
 MSG_H
-Р“РѕСЂ.
+Гор.
 ; H
 ;
 MSG_V
-Р’РµСЂС‚.
+Верт.
 ; V
 ;
 MSG_SPACING
-Р Р°СЃСЃС‚РѕСЏРЅРёРµ
+Расстояние
 ; Spacing
 ;
 ;=============================
 ; cyclesp.c
 ;----------
 MSG_BELOW
-РЅРёР¶Рµ
+ниже
 ; below
 ;
 MSG_ON_ACTIVE
-РїРѕРІРµСЂС…
+поверх
 ; on active
 ;
 MSG_CYCLE_GADGET_DESIGN
-Р’РёРґ РєРЅРѕРїРєРё-РїРµСЂРµРєР»СЋС‡Р°С‚РµР»СЏ
+Вид кнопки-переключателя
 ; Cycle Gadget Design
 ;
 MSG_CYCLE
-Р¦РёСЂРєСѓР»СЏСЂ
+Циркуляр
 ; Cycle
 ;
 MSG_POPUP_MENU_CONTROL
-РЈРїСЂР°РІР»РµРЅРёРµ СЃРїРёСЃРєРѕРј
+Управление списком
 ; Popup Menu Control
 ;
 MSG_POSITION
-РџРѕР»РѕР¶РµРЅРёРµ:
+Положение:
 ; Position:
 ;
 MSG_LEVEL
-РџРѕСЂРѕРі:
+Порог:
 ; Level:
 ;
 MSG_SPEED
-РЎРєРѕСЂРѕСЃС‚СЊ:
+Скорость:
 ; Speed:
 ;
 MSG_POPUP_MENU_DESIGN
-Р’РёРґ РІС‹РїР°РґР°СЋС‰РµРіРѕ РјРµРЅСЋ
+Вид выпадающего меню
 ; Popup Menu Design
 ;
 MSG_FRAME
-Р Р°РјРєР°
+Рамка
 ; Frame
 ;
 MSG_ADJUST_BACKGROUND
-РР·РјРµРЅРёС‚СЊ С„РѕРЅ
+Изменить фон
 ; Adjust Background
 ;
 MSG_BACKGROUND
-Р¤РѕРЅ
+Фон
 ; Background
 ;
 MSG_RECESSED_ENTRIES
-Р’С‹РµРјРєРё:
+Выемки:
 ; Recessed Entries:
 ;
 ;=============================
 ; groupsp.c
 ;__________
 MSG_ABOVE
-СЃРІРµСЂС…Сѓ
+сверху
 ; above
 ;
 MSG_CENTERED
-РІ С†РµРЅС‚СЂРµ
+в центре
 ; centered
 ;
 MSG_STANDARD
-СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№
+стандартный
 ; standard
 ;
 MSG_HILITE
-РїРѕРґСЃРІРµС‡РµРЅРЅС‹Р№
+подсвеченный
 ; hilite
 ;
 MSG_3D
@@ -152,47 +152,47 @@ MSG_3D
 ; 3d
 ;
 MSG_OUTLINE
-РѕР±РІРµРґРµРЅРЅС‹Р№
+обведенный
 ; outline
 ;
 MSG_TITLE
-Р—Р°РіРѕР»РѕРІРѕРє
+Заголовок
 ; Title
 ;
 MSG_COLOR
-Р¦РІРµС‚:
+Цвет:
 ; Color:
 ;
 MSG_HORIZONTAL
-РџРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё:
+По горизонтали:
 ; Horizontal:
 ;
 MSG_VERTICAL
-Р’РµСЂС‚РёРєР°Р»СЊРЅРѕРµ:
+Вертикальное:
 ; Vertical:
 ;
 MSG_REGISTER
-Р—Р°РєР»Р°РґРєР°
+Закладка
 ; Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-РћР±СЂРµР·РєР° Р·Р°РіРѕР»РѕРІРєРѕРІ РїРѕ СЂР°Р·РјРµСЂСѓ
+Обрезка заголовков по размеру
 ; Default size truncate titles
 ;
 MSG_NORMAL
-РћР±С‹С‡РЅС‹Рµ
+Обычные
 ; Normal
 ;
 MSG_VIRTUAL
-Р’РёСЂС‚СѓР°Р»СЊРЅС‹Рµ
+Виртуальные
 ; Virtual
 ;
 MSG_FRAMED
-Р’РЅСѓС‚СЂРё
+Внутри
 ; Framed
 ;
 MSG_PAGE
-Р’РѕРєСЂСѓРі
+Вокруг
 ; Page
 ;
 ;=============================
@@ -215,7 +215,7 @@ mixed
 ; mixed
 ;
 MSG_CONTROL
-РЈРїСЂР°РІР»РµРЅРёРµ
+Управление
 ; Control
 ;
 MSG_MULTI
@@ -227,19 +227,19 @@ Refresh:
 ; Refresh:
 ;
 MSG_SMOOTH
-РЎРіР»Р°РґРёС‚СЊ:
+Сгладить:
 ; Smooth:
 ;
 MSG_FONTS
-РЁСЂРёС„С‚С‹
+Шрифты
 ; Fonts
 ;
 MSG_NORMAL_COLON
-РћР±С‹С‡РЅС‹Р№:
+Обычный:
 ; Normal:
 ;
 MSG_FIXED
-РњРѕРЅРѕС€РёСЂРёРЅРЅС‹Р№:
+Моноширинный:
 ; Fixed:
 ;
 MSG_LEADING
@@ -251,177 +251,177 @@ Design
 ; Design
 ;
 MSG_INPUT_LISTS
-РЎРїРёСЃРєРё\nРІРІРѕРґР°:
+Списки\nввода:
 ; Input \nLists:
 ;
 MSG_READONLY_LISTS
-РќРµРёР·РјРµРЅСЏРµРјС‹Рµ\nСЃРїРёСЃРєРё
+Неизменяемые\nсписки
 ; Readonly \nLists:
 ;
 MSG_CURSOR
-РљСѓСЂСЃРѕСЂ
+Курсор
 ; Cursor
 ;
 MSG_ACTIVE
-РђРєС‚РёРІРЅС‹Р№:
+Активный:
 ; Active:
 ;
 MSG_ACTIVE_SELECTED
-РђРєС‚РёРІРЅС‹Р№ Рё\nРІС‹Р±СЂР°РЅРЅС‹Р№:
+Активный и\nвыбранный:
 ; Active &\nSelected:
 ;
 MSG_SELECTED
-Р’С‹Р±СЂР°РЅРЅС‹Р№:
+Выбранный:
 ; Selected:
 ;
 ;=============================
 ; navigationp.c
 ;______________
 MSG_ALWAYS_SOLID
-Р±РµР· С‚РµРЅРё
+без тени
 ; always solid
 ;
 MSG_GHOSTED_ON_BOX
-С‚РµРЅСЊ РЅР° СЂР°РјРєРµ
+тень на рамке
 ; ghosted on box
 ;
 MSG_GHOSTED_OUTSIDE_BOX
-С‚РµРЅСЊ Р·Р° СЂР°РјРєРѕР№
+тень за рамкой
 ; ghosted outside box
 ;
 MSG_ALWAYS_GHOSTED
-СѓС‚РѕРїР»РµРЅРЅС‹Р№
+утопленный
 ; always ghosted
 ;
 MSG_SHOW_FRAMES
-Р Р°РјРєР°РјРё
+Рамками
 ; show frames
 ;
 MSG_SHOW_OBJECTS
-РћР±СЉРµРєС‚Р°РјРё
+Объектами
 ; show objects
 ;
 MSG_KL_PRESS
-Р’РІРѕРґ:
+Ввод:
 ; Press:
 ;
 MSG_KL_TOGGLE
-РџРµСЂРµРєР»СЋС‡РµРЅРёРµ:
+Переключение:
 ; Toggle:
 ;
 MSG_KL_UP
-Р’РІРµСЂС…:
+Вверх:
 ; Up:
 ;
 MSG_KL_DOWN
-Р’РЅРёР·:
+Вниз:
 ; Down:
 ;
 MSG_KL_PAGE_UP
-РЎС‚СЂР°РЅРёС†РµР№ РІРІРµСЂС…:
+Страницей вверх:
 ; Page up:
 ;
 MSG_KL_PAGE_DOWN
-РЎС‚СЂР°РЅРёС†РµР№ РІРЅРёР·:
+Страницей вниз:
 ; Page down:
 ;
 MSG_KL_TOP
-Р’ РЅР°С‡Р°Р»Рѕ:
+В начало:
 ; Top:
 ;
 MSG_KL_BOTTOM
-Р’ РєРѕРЅРµС†:
+В конец:
 ; Bottom:
 ;
 MSG_KL_LEFT
-Р’Р»РµРІРѕ:
+Влево:
 ; Left:
 ;
 MSG_KL_RIGHT
-Р’РїСЂР°РІРѕ:
+Вправо:
 ; Right:
 ;
 MSG_KL_WORD_LEFT
-РЎР»РѕРІРѕРј Р»РµРІРµРµ:
+Словом левее:
 ; Word left:
 ;
 MSG_KL_WORD_RIGHT
-РЎР»РѕРІРѕРј РїСЂР°РІРµРµ:
+Словом правее:
 ; Word right:
 ;
 MSG_KL_LINE_START
-РќР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё:
+Начало строки:
 ; Line start:
 ;
 MSG_KL_LINE_END
-РљРѕРЅРµС† СЃС‚СЂРѕРєРё:
+Конец строки:
 ; Line end:
 ;
 MSG_KL_NEXT_GADGET
-РЎР»РµРґ. СЌР»РµРјРµРЅС‚:
+След. элемент:
 ; Next gadget:
 ;
 MSG_KL_PREV_GADGET
-РџСЂРµРґ. СЌР»РµРјРµРЅС‚:
+Пред. элемент:
 ; Prev. gadget:
 ;
 MSG_KL_GADGET_OFF
-РћС‚ СЌР»РµРјРµРЅС‚Р°:
+От элемента:
 ; Gadget off:
 ;
 MSG_KL_CLOSE_WINDOW
-Р—Р°РєСЂС‹С‚СЊ РѕРєРЅРѕ:
+Закрыть окно:
 ; Close window:
 ;
 MSG_KL_NEXT_WINDOW
-РЎР»РµРґ. РѕРєРЅРѕ:
+След. окно:
 ; Next window:
 ;
 MSG_KL_PREV_WINDOW
-РџСЂРµРґ. РѕРєРЅРѕ:
+Пред. окно:
 ; Prev. window:
 ;
 MSG_KL_HELP
-РџРѕРјРѕС‰СЊ:
+Помощь:
 ; Help:
 ;
 MSG_KL_POPUP
-РџРѕРґСЃРєР°Р·РєР°:
+Подсказка:
 ; Popup:
 ;
 MSG_DRAG_DROP
 Drag & Drop
 ; Drag & Drop
 MSG_LEFT_BUTTON
-Р›РµРІР°СЏ РєРЅРѕРїРєР°:
+Левая кнопка:
 ; Left Button:
 ;
 MSG_MIDDLE_BUTTON
-РЎСЂРµРґРЅСЏСЏ РєРЅРѕРїРєР°:
+Средняя кнопка:
 ; Middle Button:
 ;
 MSG_AUTOSTART
-РђРІС‚РѕСЃС‚Р°СЂС‚:
+Автостарт:
 ; Autostart:
 ;
 MSG_PIXEL
-%ld РїРёРєСЃ.
+%ld пикс.
 ; %ld pixel
 ;
 MSG_BALANCING_GROUPS
-Р Р°Р·РґРІРёР¶РЅС‹Рµ СЃРїРёСЃРєРё
+Раздвижные списки
 ; Balancing Groups
 ;
 MSG_EXAMPLE
-РџСЂРёРјРµСЂ:
+Пример:
 ; Example:
 ;
 MSG_TRY_WITH
-РџРѕРїСЂРѕР±СѓР№
+Попробуй
 ; Try with
 ;
 MSG_SHIFT
-РїСЂРёР¶Р°С‚СЊ
+прижать
 ; shift
 ;
 MSG_TOO
@@ -429,121 +429,121 @@ Shift!
 ; too!
 ;
 MSG_KEYBOARD_CONTROL
-РЈРїСЂР°РІР»РµРЅРёРµ РєР»Р°РІРёР°С‚СѓСЂРѕР№
+Управление клавиатурой
 ; Keyboard Control
 ;
 MSG_COLOR_ACTIVE_OBJ
-Р¦РІРµС‚ Р°РєС‚РёРІРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°
+Цвет активного объекта
 ; Color of active object:
 ;
 MSG_NEWLOOK
-РЅРѕРІС‹Р№
+новый
 ; newlook
 ;
 MSG_CUSTOM
-РїРѕ РІС‹Р±РѕСЂСѓ
+по выбору
 ; custom
 ;
 MSG_ARROWS
-РЎС‚СЂРµР»РєРё
+Стрелки
 ; Arrows
 ;
 MSG_UP
-РІРІРµСЂС…
+вверх
 ; up
 ;
 MSG_ARROW_UP
-РЎС‚СЂРµР»РєР° РІРІРµСЂС…
+Стрелка вверх
 ; Arrow up
 ;
 MSG_ARROW_DOWN
-РЎС‚СЂРµР»РєР° РІРЅРёР·
+Стрелка вниз
 ; Arrow down
 ;
 MSG_DOWN
-РІРЅРёР·
+вниз
 ; down
 ;
 MSG_LEFT
-РІР»РµРІРѕ
+влево
 ; left
 ;
 MSG_ARROW_LEFT
-РЎС‚СЂРµР»РєР° РІР»РµРІРѕ
+Стрелка влево
 ; Arrow left
 ;
 MSG_ARROW_RIGHT
-РЎС‚СЂРµР»РєР° РІРїСЂР°РІРѕ
+Стрелка вправо
 ; Arrow right
 ;
 MSG_RIGHT
-РІРїСЂР°РІРѕ
+вправо
 ; right
 ;
 MSG_BAR
-РџРѕР»РѕСЃРєР°
+Полоска
 ; Bar
 ;
 MSG_GADGET_TYPE
-РўРёРї СЌР»РµРјРµРЅС‚Р°:
+Тип элемента:
 ; Gadget Type:
 ;
 MSG_SCROLLER
-Р‘РµРіСѓРЅРѕРє
+Бегунок
 ; Scroller
 ;
 MSG_KNOB
-РљРЅРѕРїРєР°
+Кнопка
 ; Knob
 ;
 MSG_ARRANGEMENT
-РџРѕР»РѕР¶РµРЅРёРµ
+Положение
 ; Arrangement
 ;
 ;=============================
 ; slidersp.c
 ;-----------
 MSG_CONTAINER_DESIGN
-Р’РёРґ РїРѕР»РѕСЃРєРё
+Вид полоски
 ; Container Design
 ;
 MSG_KNOB_DESIGN
-Р’РёРґ Р±РµРіСѓРЅРєР°
+Вид бегунка
 ; Knob Design
 ;
 MSG_EXAMPLE_SLIDERS
-РџСЂРёРјРµСЂС‹ Р±РµРіСѓРЅРєРѕРІ
+Примеры бегунков
 ; Example Sliders
 ;
 ;=============================
 ; specialp.c
 ;-----------
 MSG_TEXT_FIELDS
-РўРµРєСЃС‚РѕРІС‹Рµ РїРѕР»СЏ
+Текстовые поля
 ; Text fields
 ;
 MSG_EXAMPLE_TEXTFIELD
-РџСЂРёРјРµСЂ РїРѕР»СЏ
+Пример поля
 ; Example Textfield
 ;
 MSG_PROGRESS_INDICATOR
-РРЅРґРёРєР°С‚РѕСЂ РїСЂРѕРіСЂРµСЃСЃР°
+Индикатор прогресса
 ; Progress Indicator
 ;
 MSG_DEVICE_IMAGES
-РРєРѕРЅРєРё СѓСЃС‚СЂРѕР№СЃС‚РІ
+Иконки устройств
 ; Device Images
 ;
 MSG_DRAWER
-РџР°РїРєР°
+Папка
 ; Drawer
 ;
 MSG_HARDDISK
-Р–С‘СЃС‚РєРёР№ РґРёСЃРє
+Жёсткий диск
 ; Harddisk
 ;
 MSG_DISK
-Р”РёСЃРєРµС‚Р°
+Дискета
 ; Disk
 ;
 MSG_RAM
@@ -551,11 +551,11 @@ RAM
 ; RAM
 ;
 MSG_VOLUME
-РўРѕРј
+Том
 ; Volume
 ;
 MSG_NETWORK
-РЎРµС‚СЊ
+Сеть
 ; Network
 ;
 MSG_ASSIGN
@@ -563,176 +563,176 @@ Assign
 ; Assign
 ;
 MSG_TAPE_IMAGES
-РЈРїСЂР°РІР»РµРЅРёРµ
+Управление
 ; Tape Images
 ;
 MSG_TAPE_PLAY
-Р’РѕРїСЂРѕРёР·РІРµРґРµРЅРёРµ
+Вопроизведение
 ; Tape play
 ;
 MSG_TAPE_PLAYBACK
-Р РµРІРµСЂСЃ
+Реверс
 ; Tape playback
 ;
 MSG_TAPE_PAUSE
-РџР°СѓР·Р°
+Пауза
 ; Tape pause
 ;
 MSG_TAPE_STOP
-РЎС‚РѕРї
+Стоп
 ; Tape stop
 ;
 MSG_TAPE_RECORD
-Р—Р°РїРёСЃСЊ
+Запись
 ; Tape record
 ;
 MSG_TAPE_UP
-РќР° Р·Р°РїРёСЃСЊСЋ РІРІРµСЂС…
+На записью вверх
 ; Tape up
 ;
 MSG_TAPE_DOWN
-РќР° Р·Р°РїРёСЃСЊ РІРЅРёР·
+На запись вниз
 ; Tape down
 ;
 ;=============================
 ; stringsp.c
 ;-----------
 MSG_STRING_FRAME
-Р Р°РјРєР° СЃС‚СЂРѕС‡РєРё
+Рамка строчки
 ; String Frame
 ;
 MSG_SPECIAL_POPUP_BUTTONS
-РћСЃРѕР±С‹Рµ РєРЅРѕРїРєРё РІС‹Р·РѕРІР°
+Особые кнопки вызова
 ; Special Popup Buttons
 ;
 MSG_POPUP
-Р’С‹Р·РѕРІ
+Вызов
 ; Popup
 ;
 MSG_DEFAULT
-РћСЃРЅРѕРІРЅР°СЏ
+Основная
 ; Default
 ;
 MSG_FILE
-Р¤Р°Р№Р»
+Файл
 ; File
 ;
 MSG_POPUP_FILE
-Р—Р°РїСЂРѕСЃ С„Р°Р№Р»Р°
+Запрос файла
 ; Popup file
 ;
 MSG_POPUP_DRAWER
-Р—Р°РїСЂРѕСЃ РїР°РїРєРё
+Запрос папки
 ; Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
-Р¦РІРµС‚ РЅРµР°РєС‚РёРІРЅРѕР№ СЃС‚СЂРѕРєРё
+Цвет неактивной строки
 ; Inactive String Colors
 ;
 MSG_TEXT
-РўРµРєСЃС‚
+Текст
 ; Text
 ;
 MSG_ACTIVE_STRING_COLORS
-Р¦РІРµС‚ Р°РєС‚РёРІРЅРѕР№ СЃС‚СЂРѕРєРё
+Цвет активной строки
 ; Active String Colors
 ;
 MSG_MARKED_STRING_COLORS
-Р¦РІРµС‚ РѕС‚РјРµС‡РµРЅРЅРѕР№ СЃС‚СЂРѕРєРё
+Цвет отмеченной строки
 ; Marked String Colors
 ;
 MSG_EXAMPLE_STRING_GADGET
-РџСЂРёРјРµСЂ СЃС‚СЂРѕС‡РЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
+Пример строчного элемента
 ; Example String Gadget
 ;
 ;=============================
 ; windowp.c
 ;----------
 MSG_FORGET_ON_EXIT
-СЃР±СЂРѕСЃ РїСЂРё РІС‹С…РѕРґРµ
+сброс при выходе
 ; forget on exit
 ;
 MSG_REMEMBER_ON_EXIT
-Р·Р°РїРѕРјРЅРёС‚СЊ РїСЂРё РІС‹С…РѕРґРµ
+запомнить при выходе
 ; remember on exit
 ;
 MSG_SAVE_ON_EXIT
-СЃРѕС…СЂР°РЅРёС‚СЊ РїСЂРё РІС‹С…РѕРґРµ
+сохранить при выходе
 ; save on exit
 ;
 MSG_SMART
-Р°РєРєСѓСЂР°С‚РЅРѕРµ
+аккуратное
 ; smart
 ;
 MSG_SIMPLE
-РїСЂРѕСЃС‚РѕРµ
+простое
 ; simple
 ;
 MSG_WITHOUT_CLEAR
-Р±РµР· РѕС‡РёСЃС‚РєРё
+без очистки
 ; without clear
 ;
 MSG_WITH_CLEAR
-СЃ РѕС‡РёСЃС‚РєРѕР№
+с очисткой
 ; with clear
 ;
 MSG_POSITIONS
-РџРѕР»РѕР¶РµРЅРёСЏ:
+Положения:
 ; Positions:
 ;
 MSG_REDRAW
-РћР±РЅРѕРІР»РµРЅРёРµ:
+Обновление:
 ; Redraw:
 ;
 MSG_TINY
-РњР°Р»С‹Р№:
+Малый:
 ; Tiny:
 ;
 MSG_BIG
-Р‘РѕР»СЊС€РѕР№:
+Большой:
 ; Big:
 ;
 MSG_WINDOW
-РћРєРЅРѕ
+Окно
 ; Window
 ;
 MSG_REQUESTER
-Р”РёР°Р»РѕРі Р·Р°РїСЂРѕСЃР°
+Диалог запроса
 ; Requester
 ;
 MSG_L
-Р›
+Л
 ; L
 ;
 MSG_T
-Р’
+В
 ; T
 ;
 MSG_R
-Рџ
+П
 ; R
 ;
 MSG_B
-Рќ
+Н
 ; B
 ;
 ;=============================
 ; zune.c
 ;-------
 MSG_WINTITLE1
-Zune - РіР»РѕР±Р°Р»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹
+Zune - глобальные параметры
 ; Zune - Global Prefs
 ;
 MSG_WINTITLE2
-Zune - РЅР°СЃС‚СЂРѕР№РєРё : %s
+Zune - настройки : %s
 ; Zune - Prefs for : %s
 ;
 MSG_MEN_PROJECT
-РџСЂРѕРµРєС‚
+Проект
 ; Project
 ;
 MSG_MEN_OPEN
-РћС‚РєСЂС‹С‚СЊ ...
+Открыть ...
 ; Open ...
 ;
 MSG_MEN_OPEN_SC
@@ -740,11 +740,11 @@ O
 ; O
 ;
 MSG_MEN_APPEND
-Р”РѕР±Р°РІРёС‚СЊ ...
+Добавить ...
 ; Append ...
 ;
 MSG_MEN_SAVEAS
-РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє ...
+Сохранить как ...
 ; Save As ...
 ;
 MSG_MEN_SAVEAS_SC
@@ -752,7 +752,7 @@ A
 ; A
 ;
 MSG_MEN_ABOUT
-Рћ Zune ...
+О Zune ...
 ; About Zune ...
 ;
 MSG_MEN_ABOUT_SC
@@ -760,7 +760,7 @@ MSG_MEN_ABOUT_SC
 ; ?
 ;
 MSG_MEN_QUIT
-Р’С‹С…РѕРґ
+Выход
 ; Quit
 ;
 MSG_MEN_QUIT_SC
@@ -768,67 +768,67 @@ Q
 ; Q
 ;
 MSG_FRAME_CLIPBOARD
-РџР°Р»РёС‚СЂР° СЂР°РјРѕРє
+Палитра рамок
 ; Frame Clipboard
 ;
 MSG_IMAGE_CLIPBOARD
-РџР°Р»РёС‚СЂР° РіСЂР°С„РёРєРё
+Палитра графики
 ; Image Clipboard
 ;
 MSG_GAD_TEST
-_РўРµСЃС‚
+_Тест
 ; _Test
 ;
 MSG_GAD_SAVE
-_РЎРѕС…СЂР°РЅРёС‚СЊ
+_Сохранить
 ; _Save
 ;
 MSG_GAD_USE
-_РџСЂРёРјРµРЅРёС‚СЊ
+_Применить
 ; _Use
 ;
 MSG_GAD_CANCEL
-_РћС‚РјРµРЅР°
+_Отмена
 ; _Cancel
 ;
 MSG_DSC_WINDOWS
-РћРєРЅР°
+Окна
 ; Windows
 ;
 MSG_DSC_GROUPS
-Р“СЂСѓРїРїС‹
+Группы
 ; Groups
 ;
 MSG_DSC_BUTTONS
-РљРЅРѕРїРєРё
+Кнопки
 ; Buttons
 ;
 MSG_DSC_CYCLES
-РџРµСЂРµРєР»СЋРєРё
+Переклюки
 ; Cycles
 ;
 MSG_DSC_SLIDERS
-Р‘РµРіСѓРЅРєРё
+Бегунки
 ; Sliders
 ;
 MSG_DSC_SCROLLBARS
-РџСЂРѕРєСЂСѓС‚РєР°
+Прокрутка
 ; Scrollbars
 ;
 MSG_DSC_LISTVIEWS
-РЎРїРёСЃРєРё
+Списки
 ; Listviews
 ;
 MSG_DSC_STRINGS
-РЎС‚СЂРѕРєРё
+Строки
 ; Strings
 ;
 MSG_DSC_NAVIGATION
-РќР°РІРёРіР°С†РёСЏ
+Навигация
 ; Navigation
 ;
 MSG_DSC_SPECIAL
-РЎРїРµС†РёР°Р»СЊРЅС‹Рµ
+Специальные
 ; Special
 ;
 MSG_DSC_FRAMES
@@ -838,7 +838,7 @@ Frames
 ; zunestuff.c
 ;------------
 MSG_ADJUST_PEN
-Р РµРіСѓР»РёСЂРѕРІРєР° РїРµСЂР°
+Регулировка пера
 ; Adjust Pen
 ;
 ;=============================

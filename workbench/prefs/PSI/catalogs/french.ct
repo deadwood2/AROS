@@ -1,5 +1,5 @@
 ## version $VER: PSI.catalog 19.1 (28.04.2010)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 MSG_MENU_PROJECT
@@ -31,7 +31,7 @@ Editer
 ; Edit
 ;
 MSG_MENU_EDIT_LASTSAVED
-DerniÃ¨re sauvegarde
+Dernière sauvegarde
 ; Last Saved
 ;
 MSG_MENU_EDIT_RESTORE
@@ -39,7 +39,7 @@ Restaurer
 ; Restore
 ;
 MSG_MENU_SETTINGS
-RÃ©glages
+Réglages
 ; Settings
 ;
 MSG_MENU_SETTINGS_MUI
@@ -51,19 +51,19 @@ Couleurs
 ; Colors
 ;
 MSG_MENU_COLORS_PRESETS
-PrÃ©rÃ©glages
+Préréglages
 ; Presets
 ;
 MSG_MENU_COLORS_PRESETS_2COL
-RÃ©glage monochrome
+Réglage monochrome
 ; Monochrome Settings
 ;
 MSG_MENU_COLORS_PRESETS_4COL
-RÃ©glage 4-couleurs
+Réglage 4-couleurs
 ; 4-Color Settings
 ;
 MSG_MENU_COLORS_PRESETS_8COL
-RÃ©glage MagicWB
+Réglage MagicWB
 ; MagicWB Settings
 ;
 MSG_BUTTON_OK
@@ -115,19 +115,19 @@ Tuer
 ; Kill
 ;
 MSG_TITLE_PUBSCREENWINDOW
-Editer l'Ã©cran
+Editer l'écran
 ; Edit Screen:
 ;
 MSG_TITLE_SAVE
-Sauver le fichier Ã©cran public
+Sauver le fichier écran public
 ; Save PublicScreen File
 ;
 MSG_TITLE_OPEN
-Charger le fichier Ã©cran public
+Charger le fichier écran public
 ; Load PublicScreen File
 ;
 MSG_TITLE_APPEND
-Ajouter le fichier Ã©cran public
+Ajouter le fichier écran public
 ; Append PublicScreen File
 ;
 MSG_LIST_SCREENNAME
@@ -143,7 +143,7 @@ MSG_LIST_UNKNOWNMODE
 ; (unknown)
 ;
 MSG_LIST_FOREIGNSCREEN
-(Ã©tranger)
+(étranger)
 ; (foreign)
 ;
 MSG_LABEL_PUBLICNAME
@@ -151,7 +151,7 @@ No_m public :
 ; Public _Name:
 ;
 MSG_LABEL_SCREENTITLE
-_Titre de l'Ã©cran :
+_Titre de l'écran :
 ; Screen _Title:
 ;
 MSG_LABEL_DISPLAYMODE
@@ -159,11 +159,11 @@ Mo_de d'affichage :
 ; _Display Mode:
 ;
 MSG_LABEL_DEFAULTFONT
-Police par dÃ©_faut :
+Police par dé_faut :
 ; Default _Font:
 ;
 MSG_LABEL_BACKGROUND
-ArriÃ¨re _plan :
+Arrière _plan :
 ; _Background:
 ;
 MSG_LABEL_PUBLICFLAGS
@@ -171,11 +171,11 @@ Drapeaux :
 ; Flags:
 ;
 MSG_LABEL_AUTOSCROLL
-DÃ©filement au_tomatique
+Défilement au_tomatique
 ; _Autoscroll
 ;
 MSG_LABEL_NODRAG
-Pas de dÃ©placement
+Pas de déplacement
 ; No D_rag
 ;
 MSG_LABEL_EXCLUSIVE
@@ -183,15 +183,15 @@ _Exclusif
 ; _Exclusive
 ;
 MSG_LABEL_INTERLEAVED
-_EntrelacÃ©
+_Entrelacé
 ; _Interleaved
 ;
 MSG_LABEL_OPENBEHIND
-Ouvrir derriÃ¨re
+Ouvrir derrière
 ; Open Be_hind
 ;
 MSG_LABEL_SYSTEMDEFAULT
-RÃ©glage s_ystÃ¨me par dÃ©faut
+Réglage s_ystème par défaut
 ; S_ystem Default
 ;
 MSG_LABEL_AUTOCLOSE
@@ -247,15 +247,15 @@ Ecran ouvert (0).\n
 ; Screen opened (0).\n
 ;
 MSG_CLI_SCREENOPENFAILED
-Impossible d'ouvrir l'Ã©cran (5).\n
+Impossible d'ouvrir l'écran (5).\n
 ; Failed to open screen (5).\n
 ;
 MSG_CLI_SCREENCLOSED
-Ecran fermÃ© (0).\n
+Ecran fermé (0).\n
 ; Screen closed (0).\n
 ;
 MSG_CLI_SCREENCLOSEFAILED
-Impossible de fermer l'Ã©cran (5).\n
+Impossible de fermer l'écran (5).\n
 ; Failed to close screen (5).\n
 ;
 MSG_CLI_SYNTAXERROR
@@ -263,23 +263,23 @@ Erreur de syntaxe dans la ligne de commande (10).\n
 ; Syntax Error in command line (10).\n
 ;
 MSG_CLI_SCREENNOTFOUND
-Ecran non trouvÃ© (5).\n
+Ecran non trouvé (5).\n
 ; Screen not found (5).\n
 ;
 MSG_CLI_OUTOFMEMORY
-Plus de mÃ©moire (20).\n
+Plus de mémoire (20).\n
 ; Out of memory (20).\n
 ;
 MSG_CLI_NOAPPLICATION
-Impossible de crÃ©er l'application (20).\n
+Impossible de créer l'application (20).\n
 ; Failed to create application (20).\n
 ;
 MSG_CLI_NOMUIMASTER
-Impossible d'ouvrir la bibliothÃ¨que muimaster.library V11 (20).\n
+Impossible d'ouvrir la bibliothèque muimaster.library V11 (20).\n
 ; Failed to open muimaster.library V11 (20).\n
 ;
 MSG_ABOUT_NUMBEROFSCREENS
-Nombre d'Ã©crans :
+Nombre d'écrans :
 ; Number of screens:
 ;
 MSG_TEXT_UNKNOWNMODE
@@ -287,7 +287,7 @@ Mode d'affichage inconnu
 ; Unknown Display Mode
 ;
 MSG_TEXT_FOREIGNSCREEN
-Ecran public Ã©tranger
+Ecran public étranger
 ; Foreign public screen
 ;
 MSG_PALETTE_TITLE
@@ -295,19 +295,19 @@ Palette
 ; Palette
 ;
 MSG_PALETTE_FIRST
-4 premiÃ¨res couleurs
+4 premières couleurs
 ; First 4 colors
 ;
 MSG_PALETTE_LAST
-4 derniÃ¨res couleurs
+4 dernières couleurs
 ; Last 4 colors
 ;
 MSG_SYSPENS_TITLE
-Stylo systÃ¨me
+Stylo système
 ; System Pens
 ;
 MSG_SYSPEN_DETAIL
-DÃ©tail
+Détail
 ; Detail
 ;
 MSG_SYSPEN_BLOCK
@@ -339,23 +339,23 @@ Fond
 ; Background
 ;
 MSG_SYSPEN_HIGHLIGHT
-Mettre en Ã©vidence
+Mettre en évidence
 ; Highlight
 ;
 MSG_SYSPEN_BARDETAIL
-DÃ©tail des barres
+Détail des barres
 ; Bardetail
 ;
 MSG_SYSPEN_BARBLOCK
-DÃ©tail des blocs
+Détail des blocs
 ; Barblock
 ;
 MSG_SYSPEN_BARTRIM
-DÃ©tail des barres
+Détail des barres
 ; Bartrim
 ;
 MSG_PALPRES_TITLE
-RÃ©glage par dÃ©faut des couleurs
+Réglage par défaut des couleurs
 ; Color Presets
 ;
 MSG_PALPRES_STANDARD
@@ -411,7 +411,7 @@ Graphique
 ; Graphics
 ;
 MSG_OVERSCAN_EXTREME
-ExtrÃ¨me
+Extrème
 ; Extreme
 ;
 MSG_OVERSCAN_MAXIMUM
@@ -435,55 +435,55 @@ Ajuster les couleurs pour\nle groupe de stylos.
 ; Adjust color for\ngroup of pens.
 ;
 MSG_HELP_INFO
-Information Ã  propos\ndu mode et de la taille.
+Information à propos\ndu mode et de la taille.
 ; Information about\nmode & size.
 ;
 MSG_HELP_NAME
-Nom de l'Ã©cran public.\nWildcards autorisÃ©s pour les Ã©crans Ã©trangers.
+Nom de l'écran public.\nWildcards autorisés pour les écrans étrangers.
 ; Name of Public Screen.\nWildcards allowed for\nforeign screens.
 ;
 MSG_HELP_TITLE
-Texte affichÃ© dans la barre\n de titre de l'Ã©cran.
+Texte affiché dans la barre\n de titre de l'écran.
 ; Text that appears in\nthe screen's title bar.
 ;
 MSG_HELP_FONT
-Police par dÃ©faut\nde l'Ã©cran.
+Police par défaut\nde l'écran.
 ; Default font\nfor the screen.
 ;
 MSG_HELP_BACKGROUND
-Image utilisÃ©e comme\nmotif de fond.
+Image utilisée comme\nmotif de fond.
 ; Datatype picture used\nas background pattern.
 ;
 MSG_HELP_AUTOSCROLL
-L'Ã©cran dÃ©file quand la souris\ntouche les bords.
+L'écran défile quand la souris\ntouche les bords.
 ; The screen scrolls when\nthe mouse hits its borders.
 ;
 MSG_HELP_NODRAG
-L'Ã©cran est indÃ©plaÃ§able.
+L'écran est indéplaçable.
 ; The screen\nis undraggable.
 ;
 MSG_HELP_EXCLUSIVE
-L'Ã©cran ne peut partager son\naffichage avec les autres.
+L'écran ne peut partager son\naffichage avec les autres.
 ; The screen cannot share\nits display with others.
 ;
 MSG_HELP_INTERLEAVED
-Le bitmap de l'Ã©cran est\nallouÃ© en mode entrelacÃ©.
+Le bitmap de l'écran est\nalloué en mode entrelacé.
 ; The screen's bitmap is allocated\nin interleaved mode.
 ;
 MSG_HELP_BEHIND
-L'Ã©cran est ouvert derriÃ¨re\ntous les autres.
+L'écran est ouvert derrière\ntous les autres.
 ; The screen opens behind\nall other screens.
 ;
 MSG_HELP_SYSTEMDEFAULT
-L'Ã©cran devient l'Ã©cran\nsystÃ¨me par dÃ©faut.
+L'écran devient l'écran\nsystème par défaut.
 ; The screen becomes the\nsystem's default screen.
 ;
 MSG_HELP_AUTOCLOSE
-L'Ã©cran se ferme quand la\nderniÃ¨re fenÃªtre est fermÃ©e.
+L'écran se ferme quand la\ndernière fenêtre est fermée.
 ; The screen closes when\nthe last window is closed.
 ;
 MSG_HELP_CLOSEGADGET
-L'Ã©cran possÃ¨de un gadget\nde fermeture.
+L'écran possède un gadget\nde fermeture.
 ; The screen gets\na close gadget.
 ;
 MSG_HELP_MODELIST
@@ -491,7 +491,7 @@ Liste des modes d'affichage\ndisponibles.
 ; List of available\ndisplay modes.
 ;
 MSG_HELP_MODEINFO
-Information Ã  propos du\nmode d'affichage actuel.
+Information à propos du\nmode d'affichage actuel.
 ; Information about the\ncurrent display mode.
 ;
 MSG_HELP_OVERSCAN
@@ -499,19 +499,19 @@ Ajustement du suraffichage.
 ; Overscan size adjustment.
 ;
 MSG_HELP_WIDTH
-Largeur de l'Ã©cran\nmesurÃ© en pixels.
+Largeur de l'écran\nmesuré en pixels.
 ; Width of screen,\nmeasured in pixels.
 ;
 MSG_HELP_HEIGHT
-Hauteur de l'Ã©cran\nmesurÃ© en pixels.
+Hauteur de l'écran\nmesuré en pixels.
 ; Height of screen,\nmeasured in pixels.
 ;
 MSG_HELP_DEPTH
-Profondeur de l'Ã©cran\mesurÃ© en plans.
+Profondeur de l'écran\mesuré en plans.
 ; Depth of screen,\nmeasured in planes.
 ;
 MSG_HELP_PENLIST
-Stylos systÃ¨me, dÃ©plaÃ§able vers\ndes pots de couleurs diffÃ©rents.
+Stylos système, déplaçable vers\ndes pots de couleurs différents.
 ; System pens, draggable\nto different color pot.
 ;
 MSG_HELP_COLORFIELD
@@ -523,47 +523,47 @@ Retirer la couleur\nde ce groupe.
 ; Remove this color\nfrom the group.
 ;
 MSG_HELP_NEWCOLOR
-Ajouter une couleur\nÃ  ce groupe.
+Ajouter une couleur\nà ce groupe.
 ; Add a new color\nto the group.
 ;
 MSG_HELP_EDITOK
-Sortir et se rappeler\n les modifications pour cet Ã©cran.
+Sortir et se rappeler\n les modifications pour cet écran.
 ; Exit and remember\nchanges for this screen.
 ;
 MSG_HELP_EDITCANCEL
-Sortir et \33bsupprimer\33n\nles modifications pour cet Ã©cran.
+Sortir et \33bsupprimer\33n\nles modifications pour cet écran.
 ; Exit and \33bdiscard\33n\nchanges for this screen.
 ;
 MSG_HELP_SCREENLIST
-Liste des Ã©crans publics dÃ©finis.
+Liste des écrans publics définis.
 ; List of defined\npublic screens.
 ;
 MSG_HELP_NEWSCREEN
-CrÃ©er un nouvel\nÃ©cran public.
+Créer un nouvel\nécran public.
 ; Create a new\npublic screen.
 ;
 MSG_HELP_COPYSCREEN
-CrÃ©er une copie de\nl'Ã©cran actuel.
+Créer une copie de\nl'écran actuel.
 ; Create a copy\nof current screen.
 ;
 MSG_HELP_DELETESCREEN
-Supprimer l'Ã©cran\npublic actuel.
+Supprimer l'écran\npublic actuel.
 ; Delete current\npublic screen.
 ;
 MSG_HELP_EDITSCREEN
-Editer l'Ã©cran\npublic actuel.
+Editer l'écran\npublic actuel.
 ; Edit current\npublic screen.
 ;
 MSG_HELP_OPENSCREEN
-Ouvrir l'Ã©cran\npublic actuel.
+Ouvrir l'écran\npublic actuel.
 ; Open current\npublic screen.
 ;
 MSG_HELP_CLOSESCREEN
-Fermer l'Ã©cran\npublic actuel.
+Fermer l'écran\npublic actuel.
 ; Close current\npublic screen.
 ;
 MSG_HELP_JUMPSCREEN
-Sauter vers l'Ã©cran\npublic actuel.
+Sauter vers l'écran\npublic actuel.
 ; Jump to current\npublic screen.
 ;
 MSG_HELP_SAVE

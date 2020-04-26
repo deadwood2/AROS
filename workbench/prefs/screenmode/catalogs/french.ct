@@ -1,17 +1,17 @@
 ## version $VER: ScreenMode.catalog 2.0 (30.03.2016)
-## language franÃ§ais
+## language français
 ## codeset 0
 ;
 ;
 MSG_NAME
-PrÃ©fÃ©rences de l'Ã©cran
+Préférences de l'écran
 ; ScreenMode Preferences
 ;
 MSG_WIDTH
 \33lLargeur :
 ;
 MSG_DEFAULT
-\33l_dÃ©faut
+\33l_défaut
 ;
 MSG_HEIGHT
 \33lHauteur :
@@ -20,7 +20,7 @@ MSG_DEPTH
 \33lProfondeur :
 ;
 MSG_AUTOSCROLL
-\33lDÃ©filement Auto.
+\33lDéfilement Auto.
 ;
 MSG_DISPLAY_MODE
 Mode d'affichage

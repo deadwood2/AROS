@@ -3,19 +3,19 @@
 ## codeset 5
 ;
 MSG_NAME
-NastavenÃ­ vlastnostÃ­ startu (Boot setting)
+Nastavení vlastností startu (Boot setting)
 ; Boot Preferences
 ;
 MSG_DESCRIPTION
-NastavenÃ­ vlastnostÃ­ startu
+Nastavení vlastností startu
 ; Boot preferences
 ;
 MSG_GFX
-GrafickÃ½ reÅ¾im
+Grafickı re¾im
 ; Graphics
 ;
 MSG_GFX_COMPOSITION
-Zapnout kompozitnÃ­ mÃ³d
+Zapnout kompozitní mód
 ; Enable composition
 ;
 MSG_GFX_TYPE
@@ -23,11 +23,11 @@ Typ:
 ; Type:
 ;
 MSG_GFX_TYPE_AUTO
-AutomatickÃ½
+Automatickı
 ; Automatic
 ;
 MSG_GFX_TYPE_NATIVE
-NativnÃ­
+Nativní
 ; Native
 ;
 MSG_GFX_TYPE_VESA
@@ -39,27 +39,27 @@ VGA
 ; VGA
 ;
 MSG_GFX_VESAMODE
-VESA mÃ³d
+VESA mód
 ; VESA Mode
 ;
 MSG_GFX_WIDTH
-Å Ã­Å™ka:
+©íøka:
 ; Width:
 ;
 MSG_GFX_HEIGHT
-VÃ½Å¡ka:
+Vı¹ka:
 ; Height:
 ;
 MSG_GFX_DEPTH
-BarevnÃ¡ hloubka:
+Barevná hloubka:
 ; Colour Depth:
 ;
 MSG_GFX_DEPTH_TRUE
-MiliÃ³ny barev
+Milióny barev
 ; True Colour
 ;
 MSG_GFX_DEPTH_HIGH
-TisÃ­ce barev
+Tisíce barev
 ; High Colour
 ;
 MSG_GFX_DEPTH_LOW
@@ -67,7 +67,7 @@ MSG_GFX_DEPTH_LOW
 ; 256 Colours
 ;
 MSG_GFX_REFRESH
-ObnovovacÃ­ frekvence:
+Obnovovací frekvence:
 ; Refresh Rate:
 ;
 MSG_GFX_HERTZ
@@ -75,11 +75,11 @@ Hz
 ; Hz
 ;
 MSG_GFX_DEFAULTREFRESH
-PouÅ¾Ã­t obvyklou obnovovacÃ­ frekvenci
+Pou¾ít obvyklou obnovovací frekvenci
 ; Use Default Refresh Rate
 ;
 MSG_GFX_BESTRES
-PouÅ¾Ã­t nejvyÅ¡Å¡Ã­ dostupnÃ© rozliÅ¡enÃ­
+Pou¾ít nejvy¹¹í dostupné rozli¹ení
 ; Use Highest Available Resolution
 ;
 MSG_ATA
@@ -87,7 +87,7 @@ ATA
 ; ATA
 ;
 MSG_ATA_BUSES
-Zapnout sbÄ›rnici:
+Zapnout sbìrnici:
 ; Enabled Buses:
 ;
 MSG_ATA_BUS_PCI
@@ -95,56 +95,56 @@ PCI
 ; PCI
 ;
 MSG_ATA_BUS_LEGACY
-StarÅ¡Ã­
+Star¹í
 ; Legacy
 ;
 MSG_ATA_BUS_ALL
-VÅ¡echny
+V¹echny
 ; All
 ;
 MSG_ATA_BUS_NONE
-Å½Ã¡dnÃ©
+®ádné
 ; None
 ;
 MSG_ATA_DMA
-Zapnout DMA pÅ™enos dat
+Zapnout DMA pøenos dat
 ; Enable DMA Data Transfers
 ;
 MSG_ATA_32BIT
-Zapnout 32-bitovÃ½ pÅ™enos dat
+Zapnout 32-bitovı pøenos dat
 ; Enable 32-bit Data Transfers
 ;
 MSG_ATA_POLL
-Zjistit konec zaneprÃ¡dnÄ›nÃ­
-;PouÅ¾Ã­t dotaz k detekci konce zaneprÃ¡zdnÄ›nÃ­
+Zjistit konec zaneprádnìní
+;Pou¾ít dotaz k detekci konce zaneprázdnìní
 ; Use Polling to Detect End of Busy State
 ;
 MSG_ATA_MULTI
-Zapnout multisektorovÃ½ pÅ™enos dat
+Zapnout multisektorovı pøenos dat
 ; Enable Multisector Data Transfers
 ;
 MSG_ATA_AHCI
-Zapnout nativnÃ­ AHCI
+Zapnout nativní AHCI
 ; Enable Native AHCI
 ;
 MSG_DEBUG
-LadÃ­cÃ­ prostÅ™edky
+Ladící prostøedky
 ; Debugging
 ;
 MSG_DEBUG_OUTPUT
-VÃ½stup:
+Vıstup:
 ; Output:
 ;
 MSG_DEBUG_OUTPUT_NONE
-Å½Ã¡dnÃ½
+®ádnı
 ; None
 ;
 MSG_DEBUG_OUTPUT_MEMORY
-PamÄ›Å¥ovÃ½ buffer
+Pamì»ovı buffer
 ; Memory Buffer
 ;
 MSG_DEBUG_OUTPUT_SERIAL
-SÃ©riovÃ½ port
+Sériovı port
 ; Serial Port
 ;
 MSG_DEBUG_MUNGWALL
@@ -156,7 +156,7 @@ Debug USB
 ; Debug USB
 ;
 MSG_MISC
-RÅ¯znÃ©
+Rùzné
 ; Miscellaneous
 ;
 MSG_USB_ENABLE
@@ -172,27 +172,27 @@ Zapnout disketovou jednotku
 ; Enable Floppy Disk Drive
 ;
 MSG_DEVICE
-Boot zaÅ™Ã­zenÃ­
+Boot zaøízení
 ; Boot Device
 ;
 MSG_DEVICE_NAME
-DOS zaÅ™Ã­zenÃ­:
+DOS zaøízení:
 ; DOS Device:
 ;
 MSG_DEVICE_DELAY
-ZpoÅ¾dÄ›nÃ­ pro Boot
+Zpo¾dìní pro Boot
 ; Boot Delay:
 ;
 MSG_DEVICE_SECONDS
-vteÅ™iny
+vteøiny
 ; seconds
 ;
 MSG_DEVICE_DEFAULTDELAY
-PouÅ¾Ã­t obvyklÃ½ Äas pro Boot
+Pou¾ít obvyklı èas pro Boot
 ; Use Default Boot Delay
 ;
 MSG_OPTIONS
-MoÅ¾nosti
+Mo¾nosti
 ;Options
 ;
 MSG_MODULES
@@ -200,7 +200,7 @@ Moduly
 ;Modules
 ;
 MSG_ACTIVE
-AktivnÃ­
+Aktivní
 ;Active
 ;
 MSG_PATH
@@ -208,7 +208,7 @@ Cesta
 ;Path
 ;
 MSG_ADD
-PÅ™idat
+Pøidat
 ;Add
 ;
 MSG_REMOVE
@@ -220,10 +220,10 @@ OK
 ;OK
 ;
 MSG_CANCEL
-ZpÄ›t
+Zpìt
 ;Cancel
 ;
 MSG_BAD_MODULE
-ChybnÃ¡ cesta k modulu "%s"
+Chybná cesta k modulu "%s"
 ;Bad module path "%s"
 ;

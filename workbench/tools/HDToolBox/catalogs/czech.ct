@@ -4,23 +4,23 @@
 ;
 ;
 WORD_Active
-AktivnÃ­
+Aktivní
 ; Active
 ;
 WORD_AddEntry
-PÅ™idat
+Pøidat
 ; Add Entry
 ;
 WORD_All
-VÅ¡e
+V¹e
 ; All
 ;
 WORD_Automount
-Autom. pÅ™ipojit
+Autom. pøipojit
 ; Automount
 ;
 WORD_Bootable
-SpustitelnÃ½
+Spustitelnı
 ; Bootable
 ;
 WORD_BootPri
@@ -28,23 +28,23 @@ Priorita
 ; Boot Priority
 ;
 WORD_Cancel
-ZruÅ¡it
+Zru¹it
 ; Cancel
 ;
 WORD_Changed
-ZmÄ›nÄ›nÃ½
+Zmìnìnı
 ; Changed
 ;
 WORD_Change_Type
-Druh zmÄ›ny
+Druh zmìny
 ; Change Type
 ;
 WORD_Create_Table
-VytvoÅ™it tabulku
+Vytvoøit tabulku
 ; Create Table
 ;
 WORD_Devices
-ZaÅ™Ã­zenÃ­
+Zaøízení
 ; Devices
 ;
 WORD_DosEnvec
@@ -52,7 +52,7 @@ DosEnvec
 ; DosEnvec
 ;
 WORD_Exit
-UkonÄit
+Ukonèit
 ; Exit
 ;
 WORD_Geometry
@@ -60,11 +60,11 @@ Geometrie
 ; Geometry
 ;
 WORD_Name
-NÃ¡zev
+Název
 ; Name
 ;
 WORD_Switches
-PÅ™Ã­znaky
+Pøíznaky
 ; Switches
 ;
 WORD_Ok
@@ -72,23 +72,23 @@ OK
 ; Ok
 ;
 WORD_Parent
-VyÅ¡Å¡Ã­
+Vy¹¹í
 ; Parent
 ;
 WORD_Partitions
-OddÃ­ly
+Oddíly
 ; Partitions
 ;
 WORD_Partition_Table
-Seznam oddÃ­lÅ¯
+Seznam oddílù
 ; Partition Table
 ;
 WORD_Partition_Table_Type
-Druh tabulky s oddÃ­ly
+Druh tabulky s oddíly
 ; Partition Table Type
 ;
 WORD_Partition_Type
-Druh oddÃ­lu
+Druh oddílu
 ; Partition Type
 ;
 WORD_RemoveEntry
@@ -96,15 +96,15 @@ Odebrat
 ; Remove Entry
 ;
 WORD_Rename
-PÅ™ejmenovat
+Pøejmenovat
 ; Rename
 ;
 WORD_Resize_Move
-ZmÄ›nit velikost/PÅ™esunout
+Zmìnit velikost/Pøesunout
 ; Resize/Move
 ;
 WORD_Save_Changes
-UloÅ¾it zmÄ›ny
+Ulo¾it zmìny
 ; Save Changes
 ;
 WORD_Size
@@ -120,7 +120,7 @@ Jednotky
 ; Units
 ;
 WORD_Unknown
-neznÃ¡mÃ½
+neznámı
 ; Unknown
 ;
 WORD_MENU_Project
@@ -132,46 +132,46 @@ O programu
 ; About
 ;
 WORD_MENU_Quit
-UkonÄit
+Ukonèit
 ; Quit
 ;
 MSG_ASK_SAVE
-VeÅ¡kerÃ¡ data na zmÄ›nÄ›nÃ½ch oddÃ­lech budou ztracena!\nOpravdu chcete zapsat provedenÃ© zmÄ›ny do tabulky "%s"?
+Ve¹kerá data na zmìnìnıch oddílech budou ztracena!\nOpravdu chcete zapsat provedené zmìny do tabulky "%s"?
 ; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
 ;
 MSG_NO_MEMORY
-NenÃ­ dostatek volnÃ© pamÄ›ti!
+Není dostatek volné pamìti!
 ; Not enough memory
 ;
 MSG_PARTITION_TABLE_FULL
-Tabulka se seznamem oddÃ­lÅ¯ je zaplnÄ›na!
+Tabulka se seznamem oddílù je zaplnìna!
 ; Partition table full
 ;
 MSG_Select_Empty_Area
-Vyberte prÃ¡zdnou oblast
+Vyberte prázdnou oblast
 ; Select empty area
 ;
 MSG_Select_Partition_Resize_Move
-Vyberte oddÃ­l a zmÄ›Åˆte jeho velikost, pÅ™Ã­p. pÅ™esuÅˆte
+Vyberte oddíl a zmìòte jeho velikost, pøíp. pøesuòte
 ; Select a partition and resize/move it
 ;
 MSG_Welcome
-VÃ­tejte v programu pro pÅ™Ã­pravu pevnÃ©ho disku
+Vítejte v programu pro pøípravu pevného disku
 ; Welcome to the partitioning tool
 ;
 MSG_WriteTableError
-Chyba pÅ™i zÃ¡pisu do tabulky se seznamem oddÃ­lÅ¯.
+Chyba pøi zápisu do tabulky se seznamem oddílù.
 ; Error while writing partition table
 ;
 MSG_CreateTableError
-Chyba pÅ™i vytvÃ¡Å™enÃ­ tabulky se seznamem oddÃ­lÅ¯.
+Chyba pøi vytváøení tabulky se seznamem oddílù.
 ; Error while creating partition table
 ;
 WORD_MENU_Partition
-OddÃ­l
+Oddíl
 ; Partition
 ;
 WORD_MENU_CreateMountlist
-VytvoÅ™it popis...
+Vytvoøit popis...
 ; Create mountlist...
 ;

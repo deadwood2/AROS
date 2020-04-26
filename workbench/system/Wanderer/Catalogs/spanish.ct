@@ -1,5 +1,5 @@
 ## version $VER: wanderer.catalog 1.0 (30.09.2007)
-## language espaÃ±ol
+## language español
 ## codeset 0
 ;
 ; Translated by ahg
@@ -12,7 +12,7 @@ Administrador de Archivos
 ; File Manager
 ;
 MSG_SCREENTITLE
-Wanderer: Memoria GrÃ¡fica %s | Otra Memoria %s
+Wanderer: Memoria Gráfica %s | Otra Memoria %s
 ; Wanderer %s graphics mem %s other mem
 ;
 MSG_MEM_B
@@ -31,7 +31,7 @@ MSG_MEN_WANDERER
 Wanderer
 ;
 MSG_MEN_BACKDROP
-TelÃ³n de fondo
+Telón de fondo
 ; Backdrop
 ;
 MSG_MEN_SC_BACKDROP
@@ -70,7 +70,7 @@ Ventana
 ; Window
 ;
 MSG_MEN_NEWDRAW
-Nuevo CajÃ³n...
+Nuevo Cajón...
 ; New Drawer...
 ;
 MSG_MEN_SC_NEWDRAW
@@ -99,14 +99,14 @@ MSG_MEN_SC_CONTENTS
 A
 ;
 MSG_MEN_CLRSEL
-Borrar la elecciÃ³n
+Borrar la elección
 ; Clear selection
 ;
 MSG_MEN_SC_CLRSEL
 Z
 ;
 MSG_MEN_SNAPSHT
-InstantÃ¡nea
+Instantánea
 ; Snapshot
 ;
 MSG_MEN_ALL
@@ -118,8 +118,8 @@ Ver
 ; View
 ;
 MSG_MEN_ICVIEW
-Ver como Ã­conos
-; Vista con Ã­conos
+Ver como íconos
+; Vista con íconos
 ;Icon view
 ;
 MSG_MEN_DCVIEW
@@ -152,7 +152,7 @@ Por fecha
 ; By Date
 ;
 MSG_MEN_BYSIZE
-Por tamaÃ±o
+Por tamaño
 ; By size
 ;
 MSG_MEN_REVERSE
@@ -164,7 +164,7 @@ Primero los cajones
 ; Drawers first
 ;
 MSG_MEN_ICON
-Ãcono
+Ícono
 ; Icon
 ;
 MSG_MEN_FIND
@@ -190,7 +190,7 @@ MSG_MEN_SC_RENAME
 R
 ;
 MSG_MEN_INFO
-InformaciÃ³n...
+Información...
 ; Information...
 ;
 MSG_MEN_SC_INFO
@@ -205,17 +205,17 @@ Herramientas
 ; Tools
 ;
 MSG_REALLYQUIT
-Â¿Quieres salir del Wanderer?
+¿Quieres salir del Wanderer?
 ; Do you really want to quit Wanderer?
 ;
 MSG_YESNO
-*SÃ­|No
+*Sí|No
 ; *Yes|No
 ;
 MSG_DUMMY
 DUMMY
 ; DUMMY :)
 MSG_USERSCREENTITLE
-Wanderer: Memoria GrÃ¡fica %pc - Otra memoria %f
+Wanderer: Memoria Gráfica %pc - Otra memoria %f
 ; Wanderer %pc graphics mem %pf other mem
 ;

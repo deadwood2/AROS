@@ -3,235 +3,235 @@
 ## codeset 5
 ;
 MSG_ERROR_NO_FREE_STORE
-nenÃ­ dostatek volnÃ© pamÄ›ti
+není dostatek volné pamìti
 ; not enough memory available
 ;
 MSG_ERROR_TASK_TABLE_FULL
-pÅ™ekroÄen povolenÃ½ poÄet procesÅ¯
+pøekroèen povolenı poèet procesù
 ; process table full
 ;
 MSG_ERROR_BAD_TEMPLATE
-neplatnÃ¡ Å¡ablona
+neplatná ¹ablona
 ; bad template
 ;
 MSG_ERROR_BAD_NUMBER
-neplatnÃ© ÄÃ­slo
+neplatné èíslo
 ; bad number
 ;
 MSG_ERROR_REQUIRED_ARG_MISSING
-chybÃ­ poÅ¾adovanÃ½ argument
+chybí po¾adovanı argument
 ; required argument missing
 ;
 MSG_ERROR_KEY_NEEDS_ARG
-chybÃ­ hodnota za klÃ­ÄovÃ½m slovem
+chybí hodnota za klíèovım slovem
 ; value after keyword missing
 ;
 MSG_ERROR_TOO_MANY_ARGS
-neplatnÃ½ poÄet argumentÅ¯
+neplatnı poèet argumentù
 ; wrong number of arguments
 ;
 MSG_ERROR_UNMATCHED_QUOTES
-neodpovÃ­dÃ¡ poÄet zÃ¡vorek
+neodpovídá poèet závorek
 ; unmatched quotes
 ;
 MSG_ERROR_LINE_TOO_LONG
-neplatnÃ© nebo pÅ™Ã­liÅ¡ mnoho argumentÅ¯
+neplatné nebo pøíli¹ mnoho argumentù
 ; argument line invalid or too long
 ;
 MSG_ERROR_FILE_NOT_OBJECT
-soubor nenÃ­ spustitelnÃ½
+soubor není spustitelnı
 ; file is not executable
 ;
 MSG_ERROR_INVALID_RESIDENT_LIBRARY
-chyba rezidentnÃ­ knihovny
+chyba rezidentní knihovny
 ; invalid resident library
 ;
 MSG_ERROR_NO_DEFAULT_DIR
-neplatnÃ½ vÃ½chozÃ­ adresÃ¡Å™
+neplatnı vıchozí adresáø
 ; no default directory
 ;
 MSG_ERROR_OBJECT_IN_USE
-objekt je jiÅ¾ pouÅ¾Ã­vÃ¡n
+objekt je ji¾ pou¾íván
 ; object is in use
 ;
 MSG_ERROR_OBJECT_EXISTS
-objekt jiÅ¾ existuje
+objekt ji¾ existuje
 ; object already exists
 ;
 MSG_ERROR_DIR_NOT_FOUND
-adresÃ¡Å™ nelze najÃ­t
+adresáø nelze najít
 ; directory not found
 ;
 MSG_ERROR_OBJECT_NOT_FOUND
-objekt nelze najÃ­t
+objekt nelze najít
 ; object not found
 ;
 MSG_ERROR_BAD_STREAM_NAME
-neplatnÃ½ popis okna
+neplatnı popis okna
 ; invalid window description
 ;
 MSG_ERROR_OBJECT_TOO_LARGE
-objekt je pÅ™Ã­liÅ¡ velkÃ½
+objekt je pøíli¹ velkı
 ; object too large
 ;
 MSG_ERROR_ACTION_NOT_KNOWN
-neznÃ¡mÃ½ druh poÅ¾adavku na souborovÃ½ systÃ©m
+neznámı druh po¾adavku na souborovı systém
 ; filesystem action type unknown
 ;
 MSG_ERROR_INVALID_COMPONENT_NAME
-neplatnÃ½ nÃ¡zev objektu
+neplatnı název objektu
 ; object name invalid
 ;
 MSG_ERROR_INVALID_LOCK
-neplatnÃ© zamknutÃ­ objektu
+neplatné zamknutí objektu
 ; invalid object lock
 ;
 MSG_ERROR_OBJECT_WRONG_TYPE
-objekt nenÃ­ poÅ¾adovanÃ©ho typu
+objekt není po¾adovaného typu
 ; object is not of required type
 ;
 MSG_ERROR_DISK_NOT_VALIDATED
-neplatnÃ½ stav disku
+neplatnı stav disku
 ; disk not validated
 ;
 MSG_ERROR_DISK_WRITE_PROTECTED
-disk je chrÃ¡nÄ›nÃ½ proti zÃ¡pisu
+disk je chránìnı proti zápisu
 ; disk is write-protected
 ;
 MSG_ERROR_RENAME_ACROSS_DEVICES
-pÅ™ejmenovÃ¡nÃ­ do jinÃ©ho zaÅ™Ã­zenÃ­ nenÃ­ povoleno
+pøejmenování do jiného zaøízení není povoleno
 ; rename across devices attempted
 ;
 MSG_ERROR_DIRECTORY_NOT_EMPTY
-adresÃ¡Å™ nenÃ­ prÃ¡zdnÃ½
+adresáø není prázdnı
 ; directory not empty
 ;
 MSG_ERROR_TOO_MANY_LEVELS
-pÅ™Ã­liÅ¡ mnoho zanoÅ™enÃ­
+pøíli¹ mnoho zanoøení
 ; too many levels
 ;
 MSG_ERROR_DEVICE_NOT_MOUNTED
-zaÅ™Ã­zenÃ­ (pÅ™Ã­p. disk) nenÃ­ pÅ™ipojeno
+zaøízení (pøíp. disk) není pøipojeno
 ; device (or volume) is not mounted
 ;
 MSG_ERROR_SEEK_ERROR
-chyba pÅ™i prohledÃ¡vÃ¡nÃ­
+chyba pøi prohledávání
 ; seek failure
 ;
 MSG_ERROR_COMMENT_TOO_BIG
-komentÃ¡Å™ je pÅ™Ã­liÅ¡ dlouhÃ½
+komentáø je pøíli¹ dlouhı
 ; comment is too long
 ;
 MSG_ERROR_DISK_FULL
-disk je zaplnÄ›nÃ½
+disk je zaplnìnı
 ; disk is full
 ;
 MSG_ERROR_DELETE_PROTECTED
-objekt je chrÃ¡nÄ›nÃ½ proti smazÃ¡nÃ­
+objekt je chránìnı proti smazání
 ; object is protected from deletion
 ;
 MSG_ERROR_WRITE_PROTECTED
-soubor je chrÃ¡nÄ›nÃ½ proti zÃ¡pisu
+soubor je chránìnı proti zápisu
 ; file is write protected
 ;
 MSG_ERROR_READ_PROTECTED
-soubor je chrÃ¡nÄ›nÃ½ proti ÄtenÃ­
+soubor je chránìnı proti ètení
 ; file is read protected
 ;
 MSG_ERROR_NOT_A_DOS_DISK
-neplatnÃ½ disk
+neplatnı disk
 ; not a valid DOS disk
 ;
 MSG_ERROR_NO_DISK
-v zaÅ™Ã­zenÃ­ nenÃ­ disk
+v zaøízení není disk
 ; no disk in drive
 ;
 MSG_ERROR_NO_MORE_ENTRIES
-adresÃ¡Å™ neobsahuje dalÅ¡Ã­ poloÅ¾ky
+adresáø neobsahuje dal¹í polo¾ky
 ; no more entries in directory
 ;
 MSG_ERROR_IS_SOFT_LINK
-objekt je odkaz na jinÃ½ objekt
+objekt je odkaz na jinı objekt
 ; object is soft link
 ;
 MSG_ERROR_OBJECT_LINKED
-objektu je pÅ™iÅ™azen odkaz
+objektu je pøiøazen odkaz
 ; object is linked
 ;
 MSG_ERROR_BAD_HUNK
-neplatnÃ½ blok souboru
+neplatnı blok souboru
 ; bad loadfile hunk
 ;
 MSG_ERROR_NOT_IMPLEMENTED
-funkce nenÃ­ naprogramovÃ¡na
+funkce není naprogramována
 ; function not implemented
 ;
 MSG_ERROR_RECORD_NOT_LOCKED
-zÃ¡znam nenÃ­ zamknutÃ½
+záznam není zamknutı
 ; record not locked
 ;
 MSG_ERROR_LOCK_COLLISION
-pokus o dvojÃ­ zamknutÃ­
+pokus o dvojí zamknutí
 ; record lock collision
 ;
 MSG_ERROR_LOCK_TIMEOUT
-pÅ™ekroÄenÃ­ povolenÃ© doby zamknutÃ­
+pøekroèení povolené doby zamknutí
 ; record lock timeout
 ;
 MSG_ERROR_UNLOCK_ERROR
-chyba pÅ™i odemykÃ¡nÃ­ zÃ¡znamu
+chyba pøi odemykání záznamu
 ; record unlock error
 ;
 MSG_ERROR_BUFFER_OVERFLOW
-pÅ™eteÄenÃ­ vyrovnÃ¡vacÃ­ pamÄ›ti
+pøeteèení vyrovnávací pamìti
 ; buffer overflow
 ;
 MSG_ERROR_BREAK
-***PÅ™eruÅ¡eno
+***Pøeru¹eno
 ; ***Break
 ;
 MSG_ERROR_NOT_EXECUTABLE
-soubor nenÃ­ spustitelnÃ½
+soubor není spustitelnı
 ; file not executable
 ;
 MSG_STRING_DISK_NOT_VALIDATED
-Disk "%s" nenÃ­ zvalidovanÃ½.
+Disk "%s" není zvalidovanı.
 ; Volume "%s" is not validated
 ;
 MSG_STRING_DISK_WRITE_PROTECTED
-Disk "%s" je chrÃ¡nÄ›nÃ½ proti zÃ¡pisu.
+Disk "%s" je chránìnı proti zápisu.
 ; Volume "%s" is write protected
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_INSERT
-VloÅ¾te disk "%s" do libovolnÃ©ho zaÅ™Ã­zenÃ­.
+Vlo¾te disk "%s" do libovolného zaøízení.
 ; Please insert volume "%s" in any drive
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE
-VloÅ¾te disk "%s" do libovolnÃ©ho zaÅ™Ã­zenÃ­.
+Vlo¾te disk "%s" do libovolného zaøízení.
 ; Please replace volume "%s" in any drive
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE_TARGET
-VloÅ¾te disk "%s" zpÄ›t do zaÅ™Ã­zenÃ­ "%s".
+Vlo¾te disk "%s" zpìt do zaøízení "%s".
 ; Please replace volume "%s" in "%s"
 ;
 MSG_STRING_DISK_FULL
-Disk "%s" je zaplnÄ›nÃ½.
+Disk "%s" je zaplnìnı.
 ; Volume "%s" is full
 ;
 MSG_STRING_NOT_A_DOS_DISK
-V zaÅ™Ã­zenÃ­ %s je vloÅ¾en neplatnÃ½ disk.
+V zaøízení %s je vlo¾en neplatnı disk.
 ; Not a DOS disk in "%s"
 ;
 MSG_STRING_NO_DISK
-V zaÅ™Ã­zenÃ­ %s nenÃ­ vloÅ¾en disk.
+V zaøízení %s není vlo¾en disk.
 ; No disk present in "%s"
 ;
 MSG_STRING_ABORT_BUSY
-VraÅ¥te disk "%s" zpÄ›t do zaÅ™Ã­zenÃ­ %s.
+Vra»te disk "%s" zpìt do zaøízení %s.
 ; You MUST replace volume "%s" in "%s"!
 ;
 MSG_STRING_ABORT_DISK_ERROR
-Z disku "%s" nelze ÄÃ­st nebo na nÄ›j zapsat.
+Z disku "%s" nelze èíst nebo na nìj zapsat.
 ; Volume "%s" has a read/write error
 ;
 MSG_STRING_RETRY
@@ -239,22 +239,22 @@ Opakovat
 ; Retry
 ;
 MSG_STRING_CANCEL
-ZruÅ¡it
+Zru¹it
 ; Cancel
 ;
 MSG_STRING_REQUESTTITLE
-PoÅ¾adavek systÃ©mu
+Po¾adavek systému
 ; System requester
 ;
 MSG_ERROR_NO_MATCHING_ELSEENDIF
-chybÃ­ odpovÃ­dajÃ­cÃ­ Else nebo EndIf
+chybí odpovídající Else nebo EndIf
 ; no matching Else or EndIf
 ;
 MSG_ERROR_SCRIPT_ONLY
-tento pÅ™Ã­kaz lze pouÅ¾Ã­t jen ve skriptech
+tento pøíkaz lze pou¾ít jen ve skriptech
 ; this command is supposed to be used in command files only
 ;
 MSG_ERROR_UNKNOWN
-nedefinovanÃ¡ chyba
+nedefinovaná chyba
 ; undefined error
 ;

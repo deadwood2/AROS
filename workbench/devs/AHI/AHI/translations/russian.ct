@@ -27,121 +27,121 @@
 ; *** Menus ***
 ;
 msgMenuProject
-\0РџСЂРѕРµРєС‚
+\0Проект
 ; \000Project
 ;
 msgItemOpen
-O\0РћС‚РєСЂС‹С‚СЊ...
+O\0Открыть...
 ; O\000Open...
 ;
 msgItemSaveAs
-A\0РЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє...
+A\0Сохранить как...
 ; A\000Save As...
 ;
 msgItemAbout
-?\0Рћ РїСЂРѕРіСЂР°РјРјРµ...
+?\0О программе...
 ; ?\000About...
 ;
 msgItemQuit
-Q\0Р’С‹С…РѕРґ
+Q\0Выход
 ; Q\000Quit
 ;
 msgMenuEdit
-\0Р РµРґР°РєС‚РѕСЂ
+\0Редактор
 ; \000Edit
 ;
 msgItemDefaults
-D\0РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+D\0По умолчанию
 ; D\000Reset To Defaults
 ;
 msgItemLastSaved
-L\0РџРѕСЃР»РµРґРЅСЏСЏ Р·Р°РїРёСЃСЊ
+L\0Последняя запись
 ; L\000Last Saved
 ;
 msgItemRestore
-R\0Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ
+R\0Восстановить
 ; R\000Restore
 ;
 msgMenuSettings
-\0РќР°СЃС‚СЂРѕР№РєРё
+\0Настройки
 ; \000Settings
 ;
 msgItemCreateIcons
-I\0РЎРѕР·РґР°РІР°С‚СЊ РёРєРѕРЅРєРё?
+I\0Создавать иконки?
 ; I\000Create Icons?
 ;
 msgMenuHelp
-\0РџРѕРјРѕС‰СЊ
+\0Помощь
 ; \000Help
 ;
 msgItemHelp
-Help\0РџРѕРјРѕС‰СЊ...
+Help\0Помощь...
 ; Help\000Help...
 ;
 msgItemUsersGuide
-H\0Р СѓРєРѕРІРѕРґСЃС‚РІРѕ РїРѕ AHI...
+H\0Руководство по AHI...
 ; H\000AHI User's guide...
 ;
 msgItemConceptIndex
-\0РРЅРґРµРєСЃ...
+\0Индекс...
 ; \000Concept Index...
 ;
 ; *** The pages ***
 ;
 msgPageMode
-РќР°СЃС‚СЂРѕР№РєРё СЂРµР¶РёРјР°
+Настройки режима
 ; Mode settings
 ;
 msgPageAdvanced
-Р Р°СЃС€РёСЂРµРЅРЅС‹e РЅР°СЃС‚СЂРѕР№РєРё
+Расширенныe настройки
 ; Advanced settings
 ;
 ; *** The units ***
 ;
 msgUnitDevice
-РЈСЃС‚СЂРѕР№СЃС‚РІРѕ %ld
+Устройство %ld
 ; Unit %ld
 ;
 msgUnitMusic
-РњСѓР·С‹РєР°Р»СЊРЅРѕРµ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ
+Музыкальное устройство
 ; Music unit
 ;
 ; *** Properties box ***
 ;
 msgProperties
-Р РµР¶РёРј ID\n\
-Р—Р°РїРёСЃСЊ\n\
-РђРІС‚РѕСЂ\n\
-РђРІС‚РѕСЂСЃС‚РІРѕ\n\
-Р”СЂР°Р№РІРµСЂ\n\
-Р’РµСЂСЃРёСЏ\n\
-РџСЂРёРјРµС‡Р°РЅРёРµ
+Режим ID\n\
+Запись\n\
+Автор\n\
+Авторство\n\
+Драйвер\n\
+Версия\n\
+Примечание
 ; Mode ID\nRecording\nAuthor\nCopyright\nDriver\nVersion\nAnnotation
 ;
 msgPropRecordFull
-РџРѕР»РЅС‹Р№ РґСѓРїР»РµРєСЃ
+Полный дуплекс
 ; Full duplex
 ;
 msgPropRecordHalf
-РџРѕР»СѓРґСѓРїР»РµРєСЃ
+Полудуплекс
 ; Half duplex
 ;
 msgPropRecordNone
-РќРµС‚
+Нет
 ; Nope
 ;
 ; *** Options ***
 ;
 msgOptions
-РќР°СЃС‚СЂРѕР№РєРё
+Настройки
 ; Options
 ;
 msgOptFrequency
-_Р§Р°СЃС‚РѕС‚Р°
+_Частота
 ; _Frequency
 ;
 msgOptChannels
-_РљР°РЅР°Р»С‹
+_Каналы
 ; C_hannels
 ;
 msgOptNoChannels
@@ -149,197 +149,197 @@ msgOptNoChannels
 ; 
 ;
 msgOptVolume
-_Р“СЂРѕРјРєРѕСЃС‚СЊ
+_Громкость
 ; _Volume
 ;
 msgOptMonitor
-_РњРѕРЅРёС‚РѕСЂ
+_Монитор
 ; _Monitor
 ;
 msgOptGain
-_РЈСЃРёР»РµРЅРёРµ
+_Усиление
 ; _Gain
 ;
 msgOptMuted
-РќРµРјРѕР№
+Немой
 ; Muted
 ;
 msgOptInput
-_Р’РІРѕРґ
+_Ввод
 ; _Input
 ;
 msgOptNoInputs
-РќРµ РІРІРѕРґРёС‚СЊ
+Не вводить
 ; No inputs
 ;
 msgOptOutput
-Р’_С‹РІРѕРґ
+В_ывод
 ; _Output
 ;
 msgOptNoOutputs
-РќРµ РІС‹РІРѕРґРёС‚СЊ
+Не выводить
 ; No outputs
 ;
 ;
 ; *** Global Options ***
 ;
 msgGlobalOptions
-РћСЃРЅРѕРІРЅС‹Рµ СѓСЃС‚Р°РЅРѕРІРєРё
+Основные установки
 ; Global options
 ;
 msgGlobOptDebugLevel
-РЈ_СЂРѕРІРµРЅСЊ РѕС‚Р»Р°РґРєРё
+У_ровень отладки
 ; _Debug level
 ;
 msgGlobOptEcho
-_Р­С…Рѕ
+_Эхо
 ; _Echo
 ;
 msgGlobOptSurround
-Р­_С„С„РµРєС‚ РїСЂРёСЃСѓС‚СЃС‚РІРёСЏ РІ СЂРµР¶РёРјР°С… "Fast"
+Э_ффект присутствия в режимах "Fast"
 ; Surround in "_Fast" modes
 ;
 msgGlobOptCPULimit
-РћРіСЂР°РЅРёС‡РµРЅРёРµ _Р·Р°РіСЂСѓР·РєРё Р¦Рџ
+Ограничение _загрузки ЦП
 ; CPU usage _limit
 ;
 ; *** Debug levels ***
 ;
 msgDebugNone
-РќРµС‚
+Нет
 ; None
 ;
 msgDebugLow
-РќРёР·РєРёР№
+Низкий
 ; Low
 ;
 msgDebugHigh
-Р’С‹СЃРѕРєРёР№
+Высокий
 ; High
 ;
 msgDebugFull
-РџРѕР»РЅС‹Р№
+Полный
 ; Full
 ;
 ; *** Echo ***
 ;
 msgEchoEnabled
-Р’РєР»СЋС‡РµРЅРѕ
+Включено
 ; Enabled
 ;
 msgEchoFast
-Р‘С‹СЃС‚СЂРѕРµ
+Быстрое
 ; Fast
 ;
 msgEchoDisabled
-Р’С‹РєР»СЋС‡РµРЅРѕ
+Выключено
 ; Disabled
 ;
 ; *** Surround ***
 ;
 msgSurroundEnabled
-Р’РєР»СЋС‡РµРЅРѕ
+Включено
 ; Enabled
 ;
 msgSurroundDisabled
-Р’С‹РєР»СЋС‡РµРЅРѕ
+Выключено
 ; Disabled
 ;
 ; *** Buttons ***
 ;
 msgButtonSave
-_РЎРѕС…СЂР°РЅРёС‚СЊ
+_Сохранить
 ; _Save
 ;
 msgButtonUse
-РџСЂ_РёРЅСЏС‚СЊ
+Пр_инять
 ; _Use
 ;
 msgButtonCancel
-_РћС‚РјРµРЅРёС‚СЊ
+_Отменить
 ; _Cancel
 ;
 msgButtonOK
-РџСЂРёРЅСЏС‚СЊ
+Принять
 ; OK
 ;
 ; *** Texts ***
 ;
 msgTextProgramName
-РќР°СЃС‚СЂРѕР№РєРё AHI
+Настройки AHI
 ; AHI preferences
 ;
-;You can use something like "%s%s\nCopyright В©%s\nEnglish translation by Your Name" here...
+;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\n\
-РђРІС‚РѕСЂСЃС‚РІРѕ (c) %s\n\
-Р СѓСЃСЃРєРёР№ РїРµСЂРµРІРѕРґ: РњРёС…Р°РёР» РњР°Р»С‹С€РµРІ
-; %s%s\nCopyright В©%s
+Авторство (c) %s\n\
+Русский перевод: Михаил Малышев
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
-РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ РѕРєРЅРѕ.
+Невозможно открыть окно.
 ; Unable to open window.
 ;
 msgTextNoFileRequester
-РќРµРґРѕСЃС‚СѓРїРµРЅ Р·Р°РїСЂРѕСЃРЅРёРє С„Р°Р№Р»РѕРІ.
+Недоступен запросник файлов.
 ; Unable to allocate file requester.
 ;
 msgTextNoFind
-РќРµРІРѕР·РјРѕР¶РЅРѕ РЅР°Р№С‚Рё "%s"!
+Невозможно найти "%s"!
 ; Unable to find `%s'!
 ;
 msgTextNoOpen
-РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ "%s" РІРµСЂСЃРёРё %ld.
-; Unable to open `%sТ‘ version %ld.
+Невозможно открыть "%s" версии %ld.
+; Unable to open `%sґ version %ld.
 ;
 ; *** Additions
 ;
 msgGlobOptMasterVol
-_Р“СЂРѕРјРєРѕСЃС‚СЊ
+_Громкость
 ; _Master volume
 ;
 msgMVNoClip
-Р‘РµР· СЃСЂРµР·Р°
+Без среза
 ; Without clipping
 ;
 msgMVClip
-РЎРѕ СЃСЂРµР·РѕРј
+Со срезом
 ; With clipping
 ;
 msgGlobOptACTime
-Р—Р°С‰РёС‚РЅРѕРµ РІСЂРµРјСЏ Р±Р»РѕРєРёСЂРѕРІРєРё С‰РµР»С‡РєРѕРІ
+Защитное время блокировки щелчков
 ; Default anti-click time
 ;
 msgButtonPlay
-РџСЂРѕРёРіСЂР°С‚СЊ _С‚РµСЃС‚РѕРІС‹Р№ Р·РІСѓРє
+Проиграть _тестовый звук
 ; _Play a test sound
 ;
 msgOptScalemode
-РЈ_СЂРѕРІРµРЅСЊ
+У_ровень
 ; Volume sc_aling
 ;
 msgSMFixedSafe
-Р‘РµР·РѕРїР°СЃРЅС‹Р№
+Безопасный
 ; Safe
 ;
 msgSMDynSafe
-Р‘РµР·РѕРїР°СЃРЅС‹Р№, РґРёРЅР°РјРёС‡РµСЃРєРёР№
+Безопасный, динамический
 ; Safe, dynamic
 ;
 msgSM0dB
-РџРѕР»РЅР°СЏ РіСЂРѕРјРєРѕСЃС‚СЊ
+Полная громкость
 ; Full volume
 ;
 msgSM3dB
--3 РґР‘
+-3 дБ
 ; -3 dB
 ;
 msgSM6dB
--6 РґР‘
+-6 дБ
 ; -6 dB
 ;
 msgFreqFmt
-%ld Р“С†
+%ld Гц
 ; %ld Hz
 ;
 msgChanFmt
@@ -347,11 +347,11 @@ msgChanFmt
 ; %ld
 ;
 msgVolFmt
-%+4.1f РґР‘
+%+4.1f дБ
 ; %+4.1f dB
 ;
 msgACTimeFmt
-%ld РјСЃ
+%ld мс
 ; %ld ms
 ;
 msgPercentFmt

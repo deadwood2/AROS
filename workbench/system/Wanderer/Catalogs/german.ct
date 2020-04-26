@@ -44,7 +44,7 @@ B
 ; B
 ;
 MSG_MEN_EXECUTE
-Befehl ausfÃ¼hren ...
+Befehl ausführen ...
 ; Execute...
 ;
 MSG_MEN_SC_EXECUTE
@@ -52,7 +52,7 @@ E
 ; E
 ;
 MSG_MEN_SHELL
-Shell Ã¶ffnen
+Shell öffnen
 ; Shell
 ;
 MSG_MEN_SC_SHELL
@@ -60,11 +60,11 @@ W
 ; W
 ;
 MSG_MEN_GUISET
-BenutzeroberflÃ¤che einstellen ...
+Benutzeroberfläche einstellen ...
 ; GUI settings...
 ;
 MSG_MEN_ABOUT
-Ãœber ...
+Über ...
 ; About...
 ;
 MSG_MEN_QUIT
@@ -88,11 +88,11 @@ N
 ; N
 ;
 MSG_MEN_OPENPAR
-Ãœbergeordnete Schublade Ã¶ffnen
+Übergeordnete Schublade öffnen
 ; Open parent
 ;
 MSG_MEN_CLOSE
-SchlieÃŸen
+Schließen
 ; Close
 ;
 MSG_MEN_SC_CLOSE
@@ -104,7 +104,7 @@ Aktualisieren
 ; Update
 ;
 MSG_MEN_CONTENTS
-Alles auswÃ¤hlen
+Alles auswählen
 ; Select contents
 ;
 MSG_MEN_SC_CONTENTS
@@ -112,7 +112,7 @@ A
 ; A
 ;
 MSG_MEN_CLRSEL
-Markierung lÃ¶schen
+Markierung löschen
 ; Clear selection
 ;
 MSG_MEN_SC_CLRSEL
@@ -148,7 +148,7 @@ Inhalt auflisten
 ; Sort
 ;
 MSG_MEN_CLNUP
-AufrÃ¤umen
+Aufräumen
 ; Clean up
 ;
 MSG_MEN_SC_CLNUP
@@ -164,7 +164,7 @@ nach Datum
 ; By date
 ;
 MSG_MEN_BYSIZE
-nach GrÃ¶ÃŸe
+nach Größe
 ; By size
 ;
 MSG_MEN_BYTYPE
@@ -192,7 +192,7 @@ F
 ; F
 ;
 MSG_MEN_OPEN
-Ã–ffnen
+Öffnen
 ; Open
 ;
 MSG_MEN_SC_OPEN
@@ -216,7 +216,7 @@ I
 ; I
 ;
 MSG_MEN_DELETE
-LÃ¶schen ...
+Löschen ...
 ; Delete...
 ;
 MSG_MEN_TOOLS
@@ -232,11 +232,11 @@ Piktogramme gruppieren
 ; Group Icons
 ;
 MSG_MEN_ICONSCLOSE
-SchlieÃŸen
+Schließen
 ; Close
 ;
 MSG_REALLYQUIT
-MÃ¶chten Sie Wanderer wirklich beenden?
+Möchten Sie Wanderer wirklich beenden?
 ; Do you really want to quit Wanderer?
 ;
 MSG_YESNO
@@ -264,7 +264,7 @@ System herunterfahren
 ; System shutdown
 ;
 MSG_SHUTDOWN_BODY
-Was mÃ¶chten Sie tun?
+Was möchten Sie tun?
 ; What would you like to do?
 ;
 MSG_SHUTDOWN_BUTTONS
@@ -272,7 +272,7 @@ Abschalten|Rechner neustarten|AROS neustarten|*Abbrechen
 ; Power Off|Restart Computer|Restart AROS|*Cancel
 ;
 MSG_ACTION_NOT_SUPPORTED
-Die gewÃ¤hlte Funktion wird von Ihrem System nicht unterstÃ¼tzt
+Die gewählte Funktion wird von Ihrem System nicht unterstützt
 ; The selected action is not supported by your system.
 ;
 MSG_OK
@@ -284,7 +284,7 @@ Papierkorb leeren
 ; Empty trash
 ;
 MSG_MEN_PUT_AWAY
-ZurÃ¼cklegen
+Zurücklegen
 ; Put away
 ;
 MSG_MEN_SC_PUT_AWAY
@@ -316,7 +316,7 @@ S
 ; S
 ;
 MSG_REQU_DELETE
-Datei LÃ¶schen ...
+Datei Löschen ...
 ; Delete file...
 ;
 MSG_REQU_DELETE_YESNO
@@ -328,7 +328,7 @@ Schublade
 ; Really delete drawer
 ;
 MSG_REQU_DELETE_DRAWER_E
-wirklich lÃ¶schen?
+wirklich löschen?
 ; ?
 ;
 MSG_REQU_DELETE_FILE_S
@@ -340,11 +340,11 @@ in Schublade
 ; located in
 ;
 MSG_REQU_DELETE_FILE_E
-wirklich gelÃ¶scht werden?
+wirklich gelöscht werden?
 ; ?
 ;
 MSG_REQU_OVERWRITE
-Datei Ã¼berschreiben ...
+Datei überschreiben ...
 ; Overwrite file...
 ;
 MSG_REQU_OVERWRITE_S
@@ -356,15 +356,15 @@ in Schublade
 ; located in
 ;
 MSG_REQU_OVERWRITE_E
-wirklich Ã¼berschrieben werden?
+wirklich überschrieben werden?
 ; ?
 ;
 MSG_REQU_OVERWRITE_YESNO
-_Ãœberschreiben|_Alles Ã¼berschreiben|_Nein|Nein, alles _behalten
+_Überschreiben|_Alles überschreiben|_Nein|Nein, alles _behalten
 ; _Overwrite|Overwrite _all|_No|No _to all
 ;
 MSG_REQU_OVERWRITE_SKIPABORT
-_Ãœberspringen|_Abbrechen
+_Überspringen|_Abbrechen
 ; _Skip|_Abort
 ;
 MSG_REQU_PROTECTION
@@ -452,11 +452,11 @@ Datenrate
 ; Data transfer rate
 ;
 MSG_WANDERER_FILEACCESS_DELETEFROM
-LÃ¶sche aus Schublade
+Lösche aus Schublade
 ; Delete from drawer
 ;
 MSG_WANDERER_FILEACCESS_FILETODELETE
-Zu lÃ¶schende Datei
+Zu löschende Datei
 ; File to delete
 ;
 MSG_WANDERER_FILEACCESS_NOOFFILES
@@ -464,10 +464,10 @@ Bearbeitete Dateien:
 ; Processed files:
 ;
 MSG_WANDERER_FILEACCESS_ACTUAL
-GrÃ¶ÃŸe der aktuellen Datei:
+Größe der aktuellen Datei:
 ; Size of current file:
 ;
 MSG_WANDERER_FILEACCESS_TOTAL
-GesamtgrÃ¶ÃŸe:
+Gesamtgröße:
 ; Overall size:
 ;

@@ -4,22 +4,22 @@
 ; Translated by Sergey Mineychev aka Keen
 ;
 MSG_TEST
-РўРµСЃС‚
+Тест
 ; Test
 ;
 MSG_REVERT
-РћС‚РјРµРЅР°
+Отмена
 ; Revert
 ;
 MSG_SAVE
-РЎРѕС…СЂР°РЅРёС‚СЊ
+Сохранить
 ;
 ; Save
 MSG_USE
-РџСЂРёРјРµРЅРёС‚СЊ
+Применить
 ; Use
 ;
 MSG_CANCEL
-РћС‚РјРµРЅР°
+Отмена
 ; Cancel
 ;

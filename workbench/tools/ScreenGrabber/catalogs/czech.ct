@@ -20,35 +20,35 @@ Velikost:
 ; Size
 ;
 MSG_TITLE
-Text zÃ¡hlavÃ­:
+Text záhlaví:
 ; Title
 ;
 MSG_DEFAULT_TITLE
-VÃ½chozÃ­ text:
+Výchozí text:
 ; Default title
 ;
 MSG_GRABBING_OPTIONS
-MoÅ¾nosti snÃ­mÃ¡nÃ­
+Mo¾nosti snímání
 ; Grabbing options
 ;
 MSG_DELAY
-ZpoÅ¾dÄ›nÃ­ (sek.):
+Zpo¾dìní (sek.):
 ; Delay (s)
 ;
 MSG_HIDE
-PÅ™i snÃ­mÃ¡nÃ­ skrÃ½t okno programu
+Pøi snímání skrýt okno programu
 ; Hide the grabber window
 ;
 MSG_SAVE_OPTIONS
-MoÅ¾nosti uklÃ¡dÃ¡nÃ­
+Mo¾nosti ukládání
 ; Save options
 ;
 MSG_SAVE_FILE
-UloÅ¾it do souboru
+Ulo¾it do souboru
 ; Save file
 ;
 MSG_SCREENSHOT
-PoÅ™Ã­dit snÃ­mek
+Poøídit snímek
 ; Screenshot
 ;
 MSG_SCREEN_PARM
@@ -56,7 +56,7 @@ MSG_SCREEN_PARM
 ; %d x %d, depth=%d
 ;
 MSG_OVERWRITE
-Soubor "%s" jiÅ¾ existuje.\nOpravdu chcete tento soubor pÅ™epsat?
+Soubor "%s" ji¾ existuje.\nOpravdu chcete tento soubor pøepsat?
 ; File '%s' already exists.\nDo you really want to overwrite it?
 ;
 MSG_ERROR_TITLE
@@ -72,15 +72,15 @@ Ano|Ne
 ; YES|NO
 ;
 MSG_ERR_DATATYPE
-Nelze vytvoÅ™it poÅ¾adovanÃ½ objekt!
+Nelze vytvoøit po¾adovaný objekt!
 ; Can't create datatype object!
 ;
 MSG_NORAM
-NenÃ­ dostatek volnÃ© pamÄ›ti!
+Není dostatek volné pamìti!
 ; Can't allocate RAM!
 ;
 MSG_ERR_DATATYPEIO
-Chyba pÅ™i zÃ¡pisu do souboru "%s"!\nÄŒÃ­slo chyby: %ld.
+Chyba pøi zápisu do souboru "%s"!\nÈíslo chyby: %ld.
 ; Writing of '%s' failed with IO Error %ld!
 ;
 MSG_ERR_OPENFILE
@@ -88,6 +88,6 @@ Nelze zapsat do souboru "%s"!
 ; Can't open file '%s' for output!
 ;
 MSG_ERR_APP
-Nelze vytvoÅ™it objekt application!
+Nelze vytvoøit objekt application!
 ; Can't create application object!
 ;

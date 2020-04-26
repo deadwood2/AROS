@@ -3,19 +3,19 @@
 ## codeset 5
 ;
 MSG_WINDOW_TITLE
-NastavenÃ­ ReqTools
+Nastavení ReqTools
 ; ReqTools Preferences
 ;
 MSG_GENERAL
-ObecnÃ©
+Obecné
 ; General
 ;
 MSG_FILEREQUESTER
-SouborovÃ½ dialog
+Souborovı dialog
 ; File Requester
 ;
 MSG_SIZE
-Velikost (v % viditelnÃ© vÃ½Å¡ky):
+Velikost (v % viditelné vı¹ky):
 ; Size (% of visible height):
 ;
 MSG_OK
@@ -23,35 +23,35 @@ OK
 ;  Ok
 ;
 MSG_POPSCREEN
-Obrazovka do popÅ™edÃ­
+Obrazovka do popøedí
 ; Pop screen to front
 ;
 MSG_IMMEDIATESORT
-SeÅ™adit poloÅ¾ky ihned
+Seøadit polo¾ky ihned
 ; Immediate sort
 ;
 MSG_DRAWERSFIRST
-AdresÃ¡Å™e jako prvnÃ­
+Adresáøe jako první
 ; Display drawers first
 ;
 MSG_DRAWERSMIXED
-AdresÃ¡Å™e i soubory dohromady
+Adresáøe i soubory dohromady
 ; Mix files and drawers
 ;
 MSG_LED
-Indikovat Äinnost disku
+Indikovat èinnost disku
 ; Disk activity LED
 ;
 MSG_DEFAULTFONT
-PouÅ¾Ã­t systÃ©movÃ© pÃ­smo
+Pou¾ít systémové písmo
 ; Use system default font
 ;
 MSG_FKEYS
-PouÅ¾Ã­t funkÄnÃ­ klÃ¡vesy
+Pou¾ít funkèní klávesy
 ; Use function keys
 ;
 MSG_DOWHEEL
-BarevnÃ½ kruh:
+Barevnı kruh:
 ; Color wheel:
 ;
 MSG_WHEEL_NONE
@@ -67,23 +67,23 @@ Plno
 ; Fancy color wheel
 ;
 MSG_MMB_PARENT
-StÅ™ednÃ­ tlaÄÃ­tko = VyÅ¡Å¡Ã­
+Støední tlaèítko = Vy¹¹í
 ; MMB gives parent
 ;
 MSG_DEFAULTS
-MoÅ¾nosti
+Mo¾nosti
 ; Defaults
 ;
 MSG_REQUESTER
-\33bvÃ½bÄ›r:
+\33bvıbìr:
 ; \33bRequester:
 ;
 MSG_FILEREQ
-souborÅ¯
+souborù
 ; File Requester
 ;
 MSG_FONTREQ
-pÃ­sem
+písem
 ; Font Requester
 ;
 MSG_PALETTEREQ
@@ -91,39 +91,39 @@ barev
 ; Palette Requester
 ;
 MSG_SCRMODEREQ
-rozliÅ¡enÃ­
+rozli¹ení
 ; Screen Mode Requester
 ;
 MSG_VOLUMEREQ
-zaÅ™Ã­zenÃ­
+zaøízení
 ; Volume Requester
 ;
 MSG_OTHERREQ
-ostatnÃ­
+ostatní
 ; Other
 ;
 MSG_POSITION
-UmÃ­stÄ›nÃ­:
+Umístìní:
 ; Position:
 ;
 MSG_POINTER
-Pod Å¡ipkou myÅ¡i
+Pod ¹ipkou my¹i
 ; Mouse pointer
 ;
 MSG_CENTERWIN
-VystÅ™edÄ›nÃ© v oknÄ›
+Vystøedìné v oknì
 ; Center in window
 ;
 MSG_CENTERSCR
-VystÅ™edÄ›nÃ© na obrazovce
+Vystøedìné na obrazovce
 ; Center on screen
 ;
 MSG_TOPLEFTWIN
-HornÃ­ levÃ½ roh okna
+Horní levı roh okna
 ; Top left of window
 ;
 MSG_TOPLEFTSCR
-HornÃ­ levÃ½ roh obrazovky
+Horní levı roh obrazovky
 ; Top left of screen
 ;
 MSG_OFFSET
@@ -131,7 +131,7 @@ MSG_OFFSET
 ; \33bOffset
 ;
 MSG_NR_OF_ENTRIES
-\33bPoÄet viditelnÃ½ch poloÅ¾ek
+\33bPoèet viditelnıch polo¾ek
 ; \33bNumber of visible entries
 ;
 MSG_MIN

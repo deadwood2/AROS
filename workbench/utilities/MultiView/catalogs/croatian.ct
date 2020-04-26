@@ -8,11 +8,11 @@ Ne mogu otvoriti %s V%ld!\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_CREATE_IC
-Ne mogu otvoriti objekte meƒëupovezivanja!
+Ne mogu otvoriti objekte meupovezivanja!
 ; Can't create interconnection objects!
 ;
 MSG_CANT_LOCK_SCR
-Ne mogu zakljuƒçati javni ekran!
+Ne mogu zakljuËati javni ekran!
 ; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
@@ -59,7 +59,7 @@ MSG_MEN_PROJECT_OPEN
 O\0Otvori...
 ; O\0Open...
 ;
-MSG_MEN_PROJECT_SAVEAS
+MSG_MEN_PROJECT_EXPORT
 A\0Spremi kao...
 ; A\0Save as...
 ;
@@ -84,7 +84,7 @@ Uredi
 ; Edit
 ;
 MSG_MEN_EDIT_MARK
-B\0Oznaƒçi
+B\0OznaËi
 ; B\0Mark
 ;
 MSG_MEN_EDIT_COPY
@@ -116,7 +116,7 @@ MSG_MEN_WINDOW_NORMAL
 ;  \0Normal
 ;
 MSG_MEN_WINDOW_MAXIMIZE
- \0Poveƒçaj
+ \0PoveËaj
 ;  \0Maximize
 ;
 MSG_MEN_SETTINGS
@@ -132,7 +132,7 @@ Slika
 ; Picture
 ;
 MSG_MEN_PICT_ZOOM_IN
- \0Poveƒçaj
+ \0PoveËaj
 ;  \0Zoom in
 ;
 MSG_MEN_PICT_ZOOM_OUT
@@ -140,7 +140,7 @@ MSG_MEN_PICT_ZOOM_OUT
 ;  \0Zoom out
 ;
 MSG_MEN_PICT_RESET
- \0 Vrati u Poƒçetnu Veliƒçinu
+ \0 Vrati u PoËetnu VeliËinu
 ;  \0Reset Size
 ;
 MSG_MEN_PICT_FIT_WIN
@@ -148,7 +148,7 @@ MSG_MEN_PICT_FIT_WIN
 ;  \0Fit to Window
 ;
 MSG_MEN_PICT_KEEP_ASPECT
- \0Zadr≈æi Omjer ≈†irine i Visine
+ \0Zadræi Omjer ©irine i Visine
 ;  \0Keep Aspect Ratio
 ;
 MSG_MEN_PICT_FORCE_MAP
@@ -164,27 +164,27 @@ Tekst
 ; Text
 ;
 MSG_MEN_TEXT_WORDWRAP
- \0Omoguƒçi Word Wrap
+ \0OmoguËi Word Wrap
 ;  \0Enable Word Wrap
 ;
 MSG_MEN_TEXT_SEARCH
- \0Tra≈æi...
+ \0Traæi...
 ;  \0Search for...
 ;
 MSG_MEN_TEXT_SEARCH_PREV
- \0Tra≈æi nazad
+ \0Traæi nazad
 ;  \0Search for previous
 ;
 MSG_MEN_TEXT_SEARCH_NEXT
- \0Tra≈æi naprijed
+ \0Traæi naprijed
 ;  \0Search for next
 ;
 MSG_ASL_OPEN_TITLE
-Izaberite Datoteku koju ≈Ωelite Otvoriti
+Izaberite Datoteku koju Æelite Otvoriti
 ; Select File to Open
 ;
 MSG_ASL_SAVE_TITLE
-Izaberite Datoteku u koju ≈Ωelite Spremiti
+Izaberite Datoteku u koju Æelite Spremiti
 ; Select File to Save to
 ;
 MSG_ABOUT

@@ -6,60 +6,79 @@
 ;
 MSG_TITLE
 Outil ACPI
+;ACPI Tool
 ;
 MSG_WINTITLE
 Outil ACPI
+;ACPI Tool
 ;
 MSG_DESCRIPTION
 Interrogation et gestion de l'ACPI
+;ACPI querying and managment
 ;
 MSG_ERROR_LOCALE
 Impossible d'ouvrir locale
+;Can't open locale
 ;
 MSG_ERROR_OK
 Ok
+;Ok
 ;
 MSG_ERROR_HEADER
 ERREUR
+;ERROR
 ;
 MSG_ERROR_NO_ACPI
 Cette machine n'a pas d'ACPI, ou le support de l'ACPI est désactivé
+;This machine has no ACPI, or ACPI support has been disabled
 ;
 MSG_UNKNOWN
 Inconnu
+;Unknown
 ;
 MSG_TABLE_SIGNATURE
 Signature de table
+;Table signature
 ;
 MSG_REVISION
 Révision
+;Revision
 ;
 MSG_OEM_ID
 Revendeur
+;OEM ID
 ;
 MSG_OEM_TABLE_ID
 Table revendeur
+;OEM Table ID
 ;
 MSG_CREATOR_ID
 Constructeur
+;Creator ID
 ;
 MSG_PM_PROFILE
 Profil système préféré
+;Preferred system profile
 ;
 MSG_SCI_INT
 Interruption de contrôle du système (SCI)
+;SCI interrupt
 ;
 MSG_SMI_CMD
 Registre de commande SMI (interruptions de gestion du système)
+;SMI command register
 ;
 MSG_ACPI_ENABLE
 Commande d'activation ACPI
+;ACPI Enable command
 ;
 MSG_ACPI_DISABLE
 Commande de désactivation ACPI
+;ACPI Disable command
 ;
 MSG_S4BIOS
 Commande d'entrée dans l'état S4BIOS
+;Enter S4BIOS state command
 ;
 MSG_PSTATE
 Commande d'état des performances du processeur
@@ -135,6 +154,7 @@ Non
 ;
 MSG_PC_FLAGS
 Drapeaux architecture PC
+;PC Architecture flags
 ;
 MSG_FF_FLAGS
 Drapeaux fonctionnalités fixes
@@ -170,9 +190,11 @@ APIC E/S
 ;
 MSG_ID
 ID
+;ID
 ;
 MSG_ADDRESS
 Adresse
+;Address
 ;
 MSG_IRQ_BASE
 Base d'interruptions matérielles (IRQ) globale du système
@@ -184,30 +206,39 @@ Consigne de la source d'interruptions
 ;
 MSG_BUS
   Bus
+;  Bus
 ;
 MSG_BUS_IRQ
 Bus d'interruptions matérielles (IRQ)
+;Bus IRQ
 ;
 MSG_GLOBAL_IRQ
 Interruption matérielle (IRQ) système globale
+;Global system IRQ
 ;
 MSG_POLARITY
   Polarité
+;  Polarity
 ;
 MSG_TRIGGER
   Bascule
+;  Trigger
 ;
 MSG_NMI_SRC
 Source d'interruptions non masquables (NMI)
+;NMI source
 ;
 MSG_LAPIC_NMI
 NMI APIC locale
+;Local APIC NMI
 ;
 MSG_DEST_ID
 Identificateur ACPI du processeur destination
+;Destination processor ACPI ID
 ;
 MSG_ALL
 Tout
+;All
 ;
 MSG_LINT
 Entrée d'interruption locale
@@ -223,12 +254,15 @@ SAPIC E/S
 ;
 MSG_LSAPIC
 SAPIC locale
+;Local SAPIC
 ;
 MSG_LSAPIC_ID
 ID SAPIC locale
+;Local SAPIC ID
 ;
 MSG_LSAPIC_EID
 EID SAPIC locale
+;Local SAPIC EID
 ;
 MSG_PLAT_INT_SRC
 Source d'interruptions de plateforme
@@ -276,6 +310,7 @@ Entrée inconnue (%u), %u octets
 ;
 MSG_RSDP_ADDR
 Adresse RSDP
+;RSDP address
 ;
 MSG_SYSTEM_OEM_ID
 ID système revendeur
@@ -299,7 +334,7 @@ Compteur 64 bits
 ;
 MSG_LEGACY_REPLACEMENT
 Compatibilité ascendante
-;Capable d'héritage
+;Legacy replacement capable
 ;
 MSG_PCI_VENDOR
 ID PCI Vendeur
@@ -339,6 +374,7 @@ Projet
 ;
 MSG_MENU_QUIT
 Quitter
+;Quit
 ;
 MSG_MENU_DUMP
 Copie complète
@@ -366,6 +402,7 @@ Niveau critique
 ;
 MSG_MWH
 mWh
+;mWh
 ;
 MSG_CMD_REG
 Registre de commande, d'état

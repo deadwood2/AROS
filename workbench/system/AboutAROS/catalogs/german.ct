@@ -1,10 +1,10 @@
-## version $VER: About.catalog 2.0 (30.03.2016)
+## version $VER: About.catalog 2.1 (18.01.2020)
 ## language deutsch
 ## codeset 0
 ;
 ;
 MSG_TITLE
-Ãœber AROS
+Über AROS
 ; About AROS
 ;
 MSG_PERSONAL_BUILD
@@ -28,11 +28,11 @@ Ausgabe
 ; Release
 ;
 MSG_COPYRIGHT
-Copyright Â© 1995-2020, The AROS Development Team. Alle Rechte vorbehalten.
+Copyright © 1995-2020, The AROS Development Team. Alle Rechte vorbehalten.
 ; Copyright \xa9 1995-2020, The AROS Development Team. All rights reserved.
 ;
 MSG_LICENSE_1
-VerÃ¶ffentlicht gemÃ¤ÃŸ den Richtlinien der
+Veröffentlicht gemäß den Richtlinien der
 ; Released under the terms of the
 ;
 MSG_LICENSE_2
@@ -44,7 +44,7 @@ MSG_LICENSE_3
 ; , version 1.1.
 ;
 MSG_MORE_INFORMATION
-Besuchen Sie http://www.aros.org/de/ fÃ¼r mehr Informationen.
+Besuchen Sie http://www.aros.org/de/ für mehr Informationen.
 ; Please visit http://www.aros.org for more information.
 ;
 MSG_PAGE_AUTHORS
@@ -124,11 +124,11 @@ Dokumentation
 ; Documentation
 ;
 MSG_SECTION_TRANSLATION
-Ãœbersetzung
+Übersetzung
 ; Translation
 ;
 MSG_SECTION_ARTISTRY
-KÃ¼nstlerische Gestaltung
+Künstlerische Gestaltung
 ; Artistry
 ;
 MSG_SECTION_WEBSITE
@@ -142,4 +142,8 @@ Datatypes
 MSG_SECTION_TESTING
 Testen
 ; Testing
+;
+MSG_BUILD_CPU
+Diese Version von AROS wurde für %s-Prozessoren gebaut.
+; This version of AROS has been built for %s processors.
 ;

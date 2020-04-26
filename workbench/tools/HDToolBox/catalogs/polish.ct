@@ -15,7 +15,7 @@ Wszystkie
 ; All
 ;
 WORD_Automount
-PrzyÅ‚Ä…czana automatycznie
+Przy³±czana automatycznie
 ; Automount
 ;
 WORD_Bootable
@@ -39,11 +39,11 @@ Rodzaj zmiany
 ; Change Type
 ;
 WORD_Create_Table
-UtwÃ³rz tabelÄ™
+Utwórz tabelê
 ; Create Table
 ;
 WORD_Devices
-UrzÄ…dzenia
+Urz±dzenia
 ; Devices
 ;
 WORD_DosEnvec
@@ -51,7 +51,7 @@ DosEnvec
 ; DosEnvec
 ;
 WORD_Exit
-WyjÅ›cie
+Wyj¶cie
 ; Exit
 ;
 WORD_Geometry
@@ -63,7 +63,7 @@ Nazwa
 ; Name
 ;
 WORD_Switches
-PrzeÅ‚Ä…czniki
+Prze³±czniki
 ; Switches
 ;
 WORD_Ok
@@ -71,7 +71,7 @@ OK
 ; Ok
 ;
 WORD_Parent
-NadrzÄ™dny
+Nadrzêdny
 ; Parent
 ;
 WORD_Partitions
@@ -91,15 +91,15 @@ Typ partycji
 ; Partition Type
 ;
 WORD_RemoveEntry
-UsuÅ„ wpis
+Usuñ wpis
 ; Remove Entry
 ;
 WORD_Rename
-ZmieÅ„ nazwÄ™
+Zmieñ nazwê
 ; Rename
 ;
 WORD_Resize_Move
-ZmieÅ„ wielkoÅ›Ä‡/pzrenieÅ›
+Zmieñ wielko¶æ/pzrenie¶
 ; Resize/Move
 ;
 WORD_Save_Changes
@@ -107,7 +107,7 @@ Zapisz zmiany
 ; Save Changes
 ;
 WORD_Size
-WielkoÅ›Ä‡
+Wielko¶æ
 ; Size
 ;
 WORD_Unit
@@ -131,20 +131,20 @@ O programie
 ; About
 ;
 WORD_MENU_Quit
-SkoÅ„cz
+Skoñcz
 ; Quit
 ;
 MSG_ASK_SAVE
-Wszystkie dane na modyfikowanych parycjach zostanÄ… usuniÄ™te!\n\
-Czy na pewno zapisaÄ‡ zmiany w tabeli partycji \"%s\"?
+Wszystkie dane na modyfikowanych parycjach zostan± usuniête!\n\
+Czy na pewno zapisaæ zmiany w tabeli partycji \"%s\"?
 ; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
 ;
 MSG_NO_MEMORY
-Brak pamiÄ™ci
+Brak pamiêci
 ; Not enough memory
 ;
 MSG_PARTITION_TABLE_FULL
-Tabela partycji peÅ‚na
+Tabela partycji pe³na
 ; Partition table full
 ;
 MSG_Select_Empty_Area
@@ -152,7 +152,7 @@ Wybierz pusty obszar
 ; Select empty area
 ;
 MSG_Select_Partition_Resize_Move
-Wybierz partycjÄ™ i zmieÅ„ jej rozmiar/przenieÅ› jÄ…
+Wybierz partycjê i zmieñ jej rozmiar/przenie¶ j±
 ; Select a partition and resize/move it
 ;
 MSG_Welcome
@@ -160,10 +160,10 @@ Witamy w programie do partycjonowania
 ; Welcome to the partitioning tool
 ;
 MSG_WriteTableError
-BÅ‚Ä…d podczas odczytu tabeli partycji
+B³±d podczas odczytu tabeli partycji
 ; Error while writing partition table
 ;
 MSG_CreateTableError
-BÅ‚Ä…d podczas tworzenia tabeli partycji
+B³±d podczas tworzenia tabeli partycji
 ; Error while creating partition table
 ;

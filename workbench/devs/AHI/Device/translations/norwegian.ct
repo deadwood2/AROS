@@ -1,5 +1,5 @@
 ## version $VER: ahi.catalog 4.2 (22.4.97)
-## language norsk
+## language norwegian
 ## codeset 0
 ;
 ## chunk AUTH Translated by Eivind Olsen <eivindo@bgnett.no>
@@ -96,7 +96,7 @@ Audio modus ID: 0x%08lx
 ; Audio mode ID: 0x%08lx
 ;
 msgReqInfoResolution
-OpplÃ¸sning: %ld biter %s
+Oppløsning: %ld bit %s
 ; Resolution: %ld bit %s
 ;
 msgReqInfoMono
@@ -132,10 +132,10 @@ Ta opp i full dupleks
 ; Record in full duplex
 ;
 msgReqInfoMultiChannel
-
+7.1 multikanal
 ; 7.1 multichannel
 ;
 msgFreqFmt
-
+%lu Hz
 ; %lu Hz
 ;
