@@ -8,7 +8,7 @@ Please install these packages before moving to next step. Below is a reference l
 
     $ mkdir myrepo
     $ cd myrepo
-    $ git clone https://github.com/deadw00d/AROS.git AROS
+    $ git clone --recurse-submodules https://github.com/deadw00d/AROS.git AROS
     $ cp ./AROS/scripts/rebuild.sh .
     $ ./rebuild.sh
 
