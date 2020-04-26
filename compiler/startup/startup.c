@@ -1,6 +1,6 @@
 
 /*
-    Copyright © 1995-2017, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc: Common startup code
@@ -19,7 +19,7 @@
 #include <aros/symbolsets.h>
 #include <aros/startup.h>
 
-struct DosLibrary *DOSBase;
+struct DosLibrary *DOSBase __attribute__((weak));
 extern const LONG __aros_libreq_DOSBase __attribute__((weak));
 
 THIS_PROGRAM_HANDLES_SYMBOLSET(PROGRAM_ENTRIES)
