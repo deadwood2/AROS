@@ -6,6 +6,7 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 
+#include <sys/stat.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -290,26 +291,43 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     STRPTR RUNTIME_ROOT = NULL, AXRTSYS = NULL, USERSYS = NULL;
 
     const int _size = 512;
+    char tstbuff[_size];
+
     RUNTIME_ROOT    = malloc(_size);
     AXRTSYS         = malloc(_size);
     USERSYS         = malloc(_size);
 
 
-    /* Paths based on environment variable */
-    char *t;
-    struct passwd *pw;
+    /* First priority, local sub-directories */
+    getcwd(tstbuff, _size);
+    strcat(tstbuff, "/AXRTSYS/");
 
-    t = getenv(ENV_AXRT_ROOT);
+    struct stat s;
+    int err = stat(tstbuff, &s);
 
-    if (t)
+    if ((err == -1) || (!S_ISDIR(s.st_mode)))
     {
+        /* Second priority, absolute */
+        char *t;
+        struct passwd *pw;
         char buff[_size];
 
-        printf("<<INFO>>: "ENV_AXRT_ROOT" environment variable set, using absolute paths.\n");
+        printf("<<INFO>>: Using absolute paths.\n");
 
-        strcpy(buff, t);
-        int i = strlen(buff);
-        if (buff[i-1] == '/') buff[i-1] = 0;
+        t = getenv(ENV_AXRT_ROOT);
+
+        if (t)
+        {
+            printf("<<INFO>>: "ENV_AXRT_ROOT" environment variable set\n");
+
+            strcpy(buff, t);
+            int i = strlen(buff);
+            if (buff[i-1] == '/') buff[i-1] = 0;
+        }
+        else
+        {
+            strcpy(buff, "/usr/lib/axrt/2.0");
+        }
 
         strcat(RUNTIME_ROOT, buff);
         strcat(RUNTIME_ROOT, "/");
@@ -318,22 +336,23 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
         strcat(AXRTSYS, buff + 1);
         strcat(AXRTSYS, "/");
 
-        /* ~/.aros/ */
+        /* ~/.axrt/ */
         pw = getpwuid(getuid());
         strcat(USERSYS, "ROOT:");
         strcat(USERSYS, pw->pw_dir + 1);
-        strcat(USERSYS, "/.aros/");
+        strcat(USERSYS, "/.axrt/");
+
     }
     else
     {
         char buff[_size];
 
-        printf("<<INFO>>: "ENV_AXRT_ROOT" environment variable not set, using relative paths.\n");
-        getcwd(buff, _size);
-
         /* Paths are relative to executable directory */
+        printf("<<INFO>>: Using relative paths.\n");
+
+        getcwd(buff, _size);
         strcat(RUNTIME_ROOT, buff);
-        strcat(RUNTIME_ROOT, "/SYS/");
+        strcat(RUNTIME_ROOT, "/AXRTSYS/");
 
         strcat(AXRTSYS, "ROOT:");
         strcat(AXRTSYS, buff + 1);
@@ -344,6 +363,8 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
         strcat(USERSYS, "/USERSYS/");
     }
 
+
+    /* Summary */
     printf("RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
     printf("AXRTSYS     : %s\n", AXRTSYS);
     printf("USERSYS     : %s\n", USERSYS);
