@@ -1,0 +1,7 @@
+Package: libaxrt-2.0
+Version: 40.0-1
+Architecture: amd64
+Maintainer: deadwood <deadwood@uknown>
+Priority: optional
+Homepage: http://www.axrt.org/
+Description: AxRuntime
