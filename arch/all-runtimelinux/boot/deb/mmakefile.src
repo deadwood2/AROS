@@ -278,6 +278,7 @@ runtime-setup-package-deb :
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
 	%mkdirs_q $(AXRT_DEST_DIR)
+	@$(CP) $(AROSDIR)/Developer/lib/libaxrt.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
 
 runtime-package-deb : runtime-package-deb-build
 
