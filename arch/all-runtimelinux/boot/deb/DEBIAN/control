@@ -5,3 +5,4 @@ Maintainer: deadwood <deadwood@uknown>
 Priority: optional
 Homepage: http://www.axrt.org/
 Description: AxRuntime
+Multi-Arch: same
