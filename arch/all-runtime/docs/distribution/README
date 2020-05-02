@@ -44,8 +44,8 @@ application.
 
     Runtime is composed of three modules: libaxrt.so and AXRTSYS and USERSYS
     directories. Application first loads libaxrt.so from current directory.
-    If not found, application tries to load libaxrt.so from /usr/lib. Then
-    libaxrt.so searches for installation of runtime.
+    If not found, application tries to load libaxrt.so from standard library
+    location. Then libaxrt.so searches for installation of runtime.
 
     If application's directory contains AXRTSYS and USERSYS sub-directories
     they will be used as first priority.
@@ -53,8 +53,8 @@ application.
     If this is not the case, then USESSYS is set to ~/.axrt. AXRT_ROOT
     environment variable is checked and if it set then its value indicated
     the absolute location of AXRTSYS. If AXRT_ROOT is not set, AXRTSYS is set
-    to /usr/lib/axrt/2.0 which is expected location of system-wide runtime
-    installation.
+    to /usr/lib/<triplet>/axrt/2.0 which is expected location of system-wide
+    runtime installation.
 
 3) How do I install and use the SDK?
 

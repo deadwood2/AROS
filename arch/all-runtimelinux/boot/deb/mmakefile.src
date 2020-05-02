@@ -264,7 +264,7 @@ AXRT_FILES := \
 
 AXRT_SRC_DIR := $(AROSDIR)
 DEST_ROOT_DIR := $(GENDIR)/boot/axrt-deb
-AXRT_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/axrt/2.0
+AXRT_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu/axrt/2.0
 
 AXRT_DEST_FILES := $(foreach f, $(AXRT_FILES), $(AXRT_DEST_DIR)/$(f))
 
