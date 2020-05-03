@@ -16,6 +16,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  kernel-unixio \
 #MM  workbench-libs-complete \
 #MM  workbench-classes-complete \
-#MM  workbench-devs-datatypes
+#MM  workbench-devs-datatypes \
+#MM  workbench-fonts
 
 %common
