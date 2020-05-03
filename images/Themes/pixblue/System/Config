@@ -1,0 +1,104 @@
+/* Drea, Aros custom theme */
+
+NoInactiveSelected  = No
+OverrideTexture     = Yes
+ForceBorderless     = No
+
+SBarGadgetAutoSize  = Yes
+WBarGadgetAutoSize  = Yes
+ArrowGadgetAutoSize = Yes
+SizeGadgetAutoSize  = Yes
+
+WindowTitleColors =  0x00000000
+ScreenTitleColors = 0x00000000
+
+
+RightBorderGads = 24
+BottomBorderGads = 24
+
+BaseColors =  0x005b7fa1 0x00cfcfcf
+
+ContainerTop = 0 5
+ContainerVertTile = 15 100
+ContainerBottom = 135 5
+
+ContainerLeft = 0 5
+ContainerHorTile = 4 100
+ContainerRight = 135 5
+
+
+KnobTop = 0 5
+KnobTileTop = 10 40
+KnobVertGripper = 62 14
+KnobTileBottom = 80 40
+KnobBottom = 135 5 
+
+KnobLeft = 0 5
+KnobTileLeft = 10 40
+KnobHorGripper = 62 14
+KnobTileRight = 86 40
+KnobRight = 135 5 
+
+
+AddUpDown = 0 0 /* distanza up and down images */
+AddLeftRight = 0 0
+
+/* =================================================================== */
+
+UseGradients = No
+ActivatedGradient = 0x6587a8 0x5b7fa1 0
+DeactivatedGradient = 0xcfcfcf 0xcfcfcf 0
+
+NoInactiveSelected = No   /* Window border gadgets have only 3 states? */
+OverrideTextures   = Yes  /* Textures in bitmap set override gui.prefs? */
+ForceBorderless    = Yes  /* Fully borderless system gadgets? */
+
+SBarGadgetFullExtent  = Yes  /* Render all pixels in the gadget box? */
+WBarGadgetFullExtent  = Yes
+ArrowGadgetFullExtent = Yes
+SizeGadgetFullExtent  = Yes
+
+CloseRight = No
+
+/* =================================================================== */
+
+SBarHeight = 33
+LogoOffset = 0
+TitleOffset = 80
+
+/* =================================================================== */
+
+BarHeight    = 31        /* Height of titlebar */
+
+BarLayout    = Vertical  /* Horizontal (default) or Vertical */
+BarEdges     = No        /* Draw bright/dark/flat edges around titlebar? */
+BarRounded   = Yes       /* Titlebar corners should be rounded? */
+BarMasking   = Yes        /* Picture mask defines titlebar shape? */
+/* BarBlending  = Yes */
+BarNarrow = No 
+
+/* =================================================================== */
+
+BarPre         =    0   9  /*   Left end of titlebar if no gadgets follow */
+BarPreGadget   =    0   9  /* Left end of titlebar if some gadgets follow */
+BarLGadgetFill =    10 10  /*  Tileable background for left-side gadgets */
+BarJoinGB      =    35  5  /* Join between gadgets and left part of dragbar */
+BarLFill       =    60 10  /*  Tileable background for left part of dragbar */
+BarJoinBT      =    45  2  /* Join between left part of dragbar and title */
+BarTitleFill   =    50 10  /* Tileable background for title */
+BarJoinTB      =    85  5  /*  Join between title and right part of dragbar */
+BarRFill       =   100 10  /* Tileable background for right part of dragbar */
+BarJoinBG      =   200  3  /* Join between right part of dragbar and gadgets */
+BarRGadgetFill =   220 10  /* Tileable background for right-side gadgets */
+BarPostGadget  =   277  9  /* right end of titlebar if some gadgets precede */
+BarPost        =   277  9  /* right end of titlebar if no gadgets precede
+
+/* =================================================================== */
+
+BarSideJoinLeft   = 0  /* Width of join below left side of titlebar */
+BarSideJoinRight  = 0  /* Width of join below right side of titlebar */
+BarSideJoinHeight = 0  /* Height of joins below titlebar sides */
+
+LeftBorder = 5
+RightBorder = 5
+BottomBorder = 5
