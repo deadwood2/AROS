@@ -1,5 +1,5 @@
 /*
-    Copyright © 2019, The AROS Development Team. All rights reserved.
+    Copyright © 2019-2020, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
+
+#include "rt_version.h"
 
 /*****************************************************************************/
 /* Code copied from compiler/startup/startup.c                               */
@@ -97,8 +99,6 @@ const void * const __init_runtime_symbol __attribute__((__section__(".init_array
 void __kick_start(void *, int);
 void __set_runtime_env(int);
 
-#define STARTUP_VERSION (3)
-
 void __runtimestartup()
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
@@ -108,11 +108,11 @@ void __runtimestartup()
      * guarantee this.
      */
 
-    __set_runtime_env(STARTUP_VERSION);
+    __set_runtime_env(RT_VER);
 
     // TODO: error handling
 
-    __kick_start(__startup_entry, STARTUP_VERSION);
+    __kick_start(__startup_entry, RT_VER);
 
     // TODO: error handling
 }

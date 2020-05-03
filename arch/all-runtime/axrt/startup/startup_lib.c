@@ -1,5 +1,5 @@
 /*
-    Copyright © 2019, The AROS Development Team. All rights reserved.
+    Copyright © 2019-2020, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -17,6 +17,8 @@
 #include <libgen.h>
 #include <pwd.h>
 #include <limits.h>
+
+#include "rt_version.h"
 
 int main_AddDataTypes();
 int main_Decoration();
@@ -288,7 +290,7 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
 __attribute__((visibility("default"))) void __set_runtime_env(int __version)
 {
     /* Paths needs to end with "/" */
-    STRPTR RUNTIME_ROOT = NULL, AXRTSYS = NULL, USERSYS = NULL;
+    char *RUNTIME_ROOT = NULL, *AXRTSYS = NULL, *USERSYS = NULL;
 
     const int _size = 512;
     char tstbuff[_size];
@@ -297,6 +299,7 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     AXRTSYS         = malloc(_size);
     USERSYS         = malloc(_size);
 
+    printf("<<INFO>>: AxRT %d.%d\n", RT_GET_VERSION(RT_VER), RT_GET_REVISION(RT_VER));
 
     /* First priority, local sub-directories */
     getcwd(tstbuff, _size);
