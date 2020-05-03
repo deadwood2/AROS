@@ -3,7 +3,11 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM runtime-package-deb : \
-#MM     runtime-setup-package-deb
+#MM     runtime-setup-package-deb \
+#MM     runtime-package-deb-usersys-theme \
+#MM     runtime-package-deb-usersys \
+#MM     runtime-package-deb-usersys-fonts-truetype \
+#MM     runtime-package-deb-usersys-fonts-ttcourier
 
 # Files are explicitly listed to have fine grained control over release process
 
@@ -265,6 +269,7 @@ AXRT_FILES := \
 AXRT_SRC_DIR := $(AROSDIR)
 DEST_ROOT_DIR := $(GENDIR)/boot/axrt-deb
 AXRT_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu/axrt/2.0
+USERSYS_DEST_DIR := $(AXRT_DEST_DIR)/UserSYS
 
 AXRT_DEST_FILES := $(foreach f, $(AXRT_FILES), $(AXRT_DEST_DIR)/$(f))
 
@@ -277,8 +282,14 @@ runtime-setup-package-deb :
 	-$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
-	%mkdirs_q $(AXRT_DEST_DIR)
+	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
 	@$(CP) $(AROSDIR)/Developer/lib/libaxrt.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
+
+%copy_dir_recursive mmake=runtime-package-deb-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
+%copy_dir_recursive mmake=runtime-package-deb-usersys src=$(SRCDIR)/$(CURDIR)/UserSYS dst=$(USERSYS_DEST_DIR)
+%copy_dir_recursive mmake=runtime-package-deb-usersys-fonts-truetype src=$(AROSDIR)/Fonts/TrueType dst=$(USERSYS_DEST_DIR)/Fonts/TrueType
+%copy_dir_recursive mmake=runtime-package-deb-usersys-fonts-ttcourier src=$(AROSDIR)/Fonts/ttcourier dst=$(USERSYS_DEST_DIR)/Fonts/ttcourier
+
 
 runtime-package-deb : runtime-package-deb-build
 
