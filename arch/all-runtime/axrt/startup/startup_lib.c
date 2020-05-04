@@ -287,6 +287,26 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     asm("int3");
 }
 
+static void check_install_usersys(const char *runtimeroot, const char *usersys)
+{
+    struct stat s;
+    int err = stat(usersys, &s);
+
+    /* If does not exist, copy it from runtime root */
+    if ((err == -1) || (!S_ISDIR(s.st_mode)))
+    {
+        char command[1024];
+        strcpy(command, "cp -r ");
+        strcat(command, runtimeroot);
+        strcat(command, "/UserSYS/ ");
+        strcat(command, usersys);
+
+        printf("<<INFO>>: Installing USERSYS at %s\n", usersys);
+
+        system(command);
+    }
+}
+
 __attribute__((visibility("default"))) void __set_runtime_env(int __version)
 {
     /* Paths needs to end with "/" */
@@ -294,6 +314,7 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
 
     const int _size = 512;
     char tstbuff[_size];
+    char __usersys[_size];
 
     RUNTIME_ROOT    = malloc(_size);
     AXRTSYS         = malloc(_size);
@@ -332,19 +353,13 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
             strcpy(buff, "/usr/lib/x86_64-linux-gnu/axrt/2.0");
         }
 
-        strcat(RUNTIME_ROOT, buff);
+        strcpy(RUNTIME_ROOT, buff);
         strcat(RUNTIME_ROOT, "/");
-
-        strcat(AXRTSYS, "ROOT:");
-        strcat(AXRTSYS, buff + 1);
-        strcat(AXRTSYS, "/");
 
         /* ~/.axrt/ */
         pw = getpwuid(getuid());
-        strcat(USERSYS, "ROOT:");
-        strcat(USERSYS, pw->pw_dir + 1);
-        strcat(USERSYS, "/.axrt/");
-
+        strcpy(__usersys, pw->pw_dir);
+        strcat(__usersys, "/.axrt/");
     }
     else
     {
@@ -354,18 +369,19 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
         printf("<<INFO>>: Using relative paths.\n");
 
         getcwd(buff, _size);
-        strcat(RUNTIME_ROOT, buff);
+        strcpy(RUNTIME_ROOT, buff);
         strcat(RUNTIME_ROOT, "/AXRTSYS/");
-
-        strcat(AXRTSYS, "ROOT:");
-        strcat(AXRTSYS, buff + 1);
-        strcat(AXRTSYS, "/SYS/");
-
-        strcat(USERSYS, "ROOT:");
-        strcat(USERSYS, buff + 1);
-        strcat(USERSYS, "/USERSYS/");
+        strcpy(__usersys, buff);
+        strcat(__usersys, "/USERSYS/");
     }
 
+    strcpy(AXRTSYS, "ROOT:");
+    strcat(AXRTSYS, RUNTIME_ROOT + 1);
+    strcpy(USERSYS, "ROOT:");
+    strcat(USERSYS, __usersys + 1);
+
+    /* Check & Install USERSYS */
+    check_install_usersys(RUNTIME_ROOT, __usersys);
 
     /* Summary */
     printf("RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
