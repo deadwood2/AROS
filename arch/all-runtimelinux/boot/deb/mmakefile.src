@@ -267,11 +267,15 @@ AXRT_FILES := \
     $(AXRT_DEVS) \
 
 AXRT_SRC_DIR := $(AROSDIR)
-DEST_ROOT_DIR := $(GENDIR)/boot/axrt-deb
+DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0
 AXRT_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu/axrt/2.0
 USERSYS_DEST_DIR := $(AXRT_DEST_DIR)/UserSYS
 
 AXRT_DEST_FILES := $(foreach f, $(AXRT_FILES), $(AXRT_DEST_DIR)/$(f))
+
+# Extract version information
+RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
 
 # Create directories
 AXRT_DEST_DIRS := $(dir $(AXRT_DEST_FILES))
@@ -279,11 +283,15 @@ GLOB_MKDIRS += $(AXRT_DEST_DIRS) $(DISTDIR) $(GENDIR)/boot
 
 #MM
 runtime-setup-package-deb :
-	-$(RM) $(DEST_ROOT_DIR)
+	@$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
-	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
+	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
+	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
+	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
 	@$(CP) $(AROSDIR)/Developer/lib/libaxrt.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
+	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
+	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
 
 %copy_dir_recursive mmake=runtime-package-deb-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
 %copy_dir_recursive mmake=runtime-package-deb-usersys src=$(SRCDIR)/$(CURDIR)/UserSYS dst=$(USERSYS_DEST_DIR)
