@@ -191,7 +191,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     /* Make WANDERER assign */
     BPTR lck = Lock(WANDERER_ROOT, SHARED_LOCK);
     AssignLock("WANDERER", lck);
-    AssignPath("THEME", "USERSYS:System/Themes/pixblue");
+    AssignPath("THEME", "USERSYS:Prefs/Presets/Themes/pixblue");
     AssignPath("FONTS","USERSYS:Fonts");
 
     /*
