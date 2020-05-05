@@ -3,12 +3,14 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM runtime-package-deb-libaxrt-2.0-dev : \
-#MM     runtime-setup-package-deb-libaxrt-2.0-dev
+#MM     runtime-setup-package-deb-libaxrt-2.0-dev \
+#MM     runtime-package-deb-libaxrt-2.0-dev-includes \
+#MM     runtime-package-deb-libaxrt-2.0-dev-lib
 
-AXRT_SRC_DIR := $(AROSDIR)
+SDK_SRC_DIR := $(AROSDIR)/Developer
 DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0-dev
 LIB_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
-INC_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/include
+INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/include/axrt
 
 # Extract version information
 RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
@@ -20,7 +22,132 @@ runtime-setup-package-deb-libaxrt-2.0-dev :
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
-	%mkdirs_q $(LIB_DEST_DIR) $(INC_DEST_DIR)
+	%mkdirs_q $(LIB_DEST_DIR) $(INCLUDE_DEST_DIR)
+
+INCLUDE_DIRS := \
+    aros \
+    asm \
+    boost \
+    bsdsocket \
+    clib \
+    cybergraphx \
+    datatypes \
+    defines \
+    devices \
+    diskfont \
+    dos \
+    exec \
+    freetype \
+    gadgets \
+    graphics \
+    hardware \
+    hidd \
+    inline \
+    interface \
+    intuition \
+    libraries \
+    midi \
+    mui \
+    oop \
+    pragmas \
+    prefs \
+    proto \
+    resources \
+    rexx \
+    SDI \
+    utility \
+    workbench \
+    zune
+
+INCLUDE_DEST_DIRS := $(foreach d, $(INCLUDE_DIRS), $(INCLUDE_DEST_DIR)/$(d))
+
+INCLUDE_FILES := \
+    ft2build.h \
+    string.h
+
+INCLUDE_DEST_FILES := $(foreach f, $(INCLUDE_FILES), $(INCLUDE_DEST_DIR)/$(f))
+
+#MM
+runtime-package-deb-libaxrt-2.0-dev-includes : $(INCLUDE_DEST_FILES) $(INCLUDE_DEST_DIRS)
+
+$(INCLUDE_DEST_DIR)/% : $(SDK_SRC_DIR)/include/%
+	@$(CP) -r $< $@
+
+
+
+LIB_FILES := \
+    axrt.ld \
+    axrt.specs \
+    libamiga.a \
+    libamigaguide.a \
+    libaros.a \
+    libarossupport.a \
+    libasl.a \
+    libautoinit.a \
+    libcamd.a \
+    libcodesets.a \
+    libcommodities.a \
+    libcoolimages.a \
+    libcoolimagesstatic.a \
+    libcybergraphics.a \
+    libdatatypes.a \
+    libdebug.a \
+    libdiskfont.a \
+    libdos.a \
+    libexec.a \
+    libexpansion.a \
+    libfreetype2.a \
+    libfreetype2.static.a \
+    libgadtools.a \
+    libgraphics.a \
+    libhiddstubs.a \
+    libicon.a \
+    libidentify.a \
+    libiffparse.a \
+    libintuition.a \
+    libkeymap.a \
+    liblayers.a \
+    liblibinit.a \
+    liblocale.a \
+    liblowlevel.a \
+    libmathffp.a \
+    libmathieeedoubbas.a \
+    libmathieeedoubtrans.a \
+    libmathieeesingbas.a \
+    libmathieeesingtrans.a \
+    libmathtrans.a \
+    libmui.a \
+    libmuimaster.a \
+    libmuiscreen.a \
+    libnonvolatile.a \
+    libnvdisk.a \
+    liboop.a \
+    libopenurl.a \
+    libpartition.a \
+    libpng_nostdio.a \
+    libpopupmenu.a \
+    libpopupmenu-shared.a \
+    librealtime.a \
+    libreqtools.a \
+    libreqtoolsstubs.a \
+    librexxsupport.a \
+    librexxsyslib.a \
+    libstdc.a \
+    libstdc.static.a \
+    libtimer.device.a \
+    libutility.a \
+    libversion.a \
+    libworkbench.a \
+    libz.static.a \
+    startup.o
+
+LIB_DEST_FILES := $(foreach f, $(LIB_FILES), $(LIB_DEST_DIR)/$(f))
+
+#MM
+runtime-package-deb-libaxrt-2.0-dev-lib : $(LIB_DEST_FILES)
+
+$(LIB_DEST_DIR)/% : $(SDK_SRC_DIR)/lib/%
+	@$(CP) $< $@
 
 runtime-package-deb-libaxrt-2.0-dev : runtime-package-deb-libaxrt-2.0-dev-build
 
