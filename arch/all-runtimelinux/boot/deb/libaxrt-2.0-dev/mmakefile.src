@@ -1,0 +1,31 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+#MM runtime-package-deb-libaxrt-2.0-dev : \
+#MM     runtime-setup-package-deb-libaxrt-2.0-dev
+
+AXRT_SRC_DIR := $(AROSDIR)
+DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0-dev
+LIB_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
+INC_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/include
+
+# Extract version information
+RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+
+#MM
+runtime-setup-package-deb-libaxrt-2.0-dev :
+	@$(RM) $(DEST_ROOT_DIR)
+	%mkdirs_q $(DEST_ROOT_DIR)
+	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
+	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
+	%mkdirs_q $(LIB_DEST_DIR) $(INC_DEST_DIR)
+
+runtime-package-deb-libaxrt-2.0-dev : runtime-package-deb-libaxrt-2.0-dev-build
+
+runtime-package-deb-libaxrt-2.0-dev-build:
+	@$(MKDIR) -p "$(DISTDIR)"
+	dpkg-deb --build $(DEST_ROOT_DIR) $(DISTDIR)
+
+%common
