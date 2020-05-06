@@ -10,7 +10,7 @@ include $(SRCDIR)/config/aros.cfg
 SDK_SRC_DIR := $(AROSDIR)/Developer
 DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0-dev
 LIB_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
-INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/include/axrt
+INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/usr/include/axrt
 
 # Extract version information
 RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
