@@ -17,7 +17,16 @@ community giving developers a much broader user base and a possibility to
 invite developers from outside general Amiga community to contribute to the
 application.
 
-=================================Current Version===============================
+https://www.axrt.org/
+https://github.com/deadw00d/AROS/tree/alt-runtime
+
+================================Acknowledgement================================
+
+AxRuntime is based on work of AROS projects, which is an open source
+re-implementation of AmigaOS 3.1 API. More information on AROS is available
+at: http://www.aros.org/
+
+================================Current Version================================
 
 1) What is available is current version?
 
@@ -27,11 +36,7 @@ application.
     compilation and execution of their applications against the runtime. This
     version is mainly aimed at gathering feedback on directions in which
     runtime should evolve, however simple applications will already be fully
-    supported and usable. This version uses Wanderer, a Workbench replacement
-    program, as a demo tool.
-
-    With Wanderer available in this version, you can navigate Linux file system
-    starting with "ROOT". Wanderer windows are integrated with Linux desktop.
+    supported and usable.
 
     Notes:
     - In case of issues, please make sure you have only one monitor connected
@@ -43,59 +48,86 @@ application.
 2) How do I install and use the runtime?
 
     Runtime is composed of three modules: libaxrt.so and AXRTSYS and USERSYS
-    directories. Application first loads libaxrt.so from current directory.
-    If not found, application tries to load libaxrt.so from standard library
-    location. Then libaxrt.so searches for installation of runtime.
+    directories. Application loads libaxrt.so, which then in turn initializes
+    the runtime and user settings.
 
-    If application's directory contains AXRTSYS and USERSYS sub-directories
-    they will be used as first priority.
-
-    If this is not the case, then USESSYS is set to ~/.axrt. AXRT_ROOT
-    environment variable is checked and if it set then its value indicated
-    the absolute location of AXRTSYS. If AXRT_ROOT is not set, AXRTSYS is set
-    to /usr/lib/<triplet>/axrt/2.0 which is expected location of system-wide
-    runtime installation.
+    Runtime is distributed as .deb package which can be downloaded from
+    https://www.axrt.org/download. Package name is libaxrt-2.0. The package
+    installs into /usr/lib/x86_64-linux-gnu/axrt/2.0
 
 3) How do I install and use the SDK?
 
-    Place the SDK directory in any directory you like. You will reference that
-    directory from in your make files.
+    Runtime SDK is distributed as .deb package which can be downloaded from
+    https://www.axrt.org/download. Package name is libaxrt-2.0-dev. The package
+    installs into /usr/lib/x86_64-linux-gnu/ and /usr/include/axrt
 
 4) How do I build an application using runtime?
 
 4.1) Easy start
 
-    In the SDK directory you will find example directory which contains a
-    Makefile configured to build with the SDK. Add your source files to SRC
-    variable and issue make command in Linux console.
+    The 'example' directory which contains a Makefile configured to build with
+    the SDK. Add your source files to SRC variable and issue make command in
+    Linux console.
 
 4.2) Detailed - Compilation
 
     Add __AROS__ define and path to header files, example:
 
-    CFLAGS = -D__AROS__ -I$(RUNTIME_SDK)/include
+    CFLAGS = -D__AROS__ -I/usr/include/axrt
 
 4.3) Detailed - Linking
 
-    Add path to linker libraries and at least -laxrt with dependencies,
-    example:
+    i.) Add startup.o and axrt.ld to objects being linked, example:
 
-    LDFLAGS = -L$(RUNTIME_SDK)/lib -Wl,-rpath,'$$ORIGIN' -llibinit -lautoinit -lamiga -laxrt
+    OBJ += /usr/lib/x86_64-linux-gnu/startup.o /usr/lib/x86_64-linux-gnu/axrt.ld
 
-    Add additional linker libraries to resolve symbols.
+    ii.) Select axrt.specs linker specs file, example:
 
-    Add startup.o and runtime.ld to objects being linked, example:
+    LDFLAGS = -specs=/usr/lib/x86_64-linux-gnu/axrt.specs
 
-    OBJ += $(RUNTIME_SDK)/lib/startup.o $(RUNTIME_SDK)/lib/runtime.ld
+    iii.) Add additional linker libraries to resolve symbols, example:
+
+    -lmui -lamiga -lstdc.static -lstdc -lcodesets -lkeymap -lexpansion -lcommodities
+    -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon
+    -lintuition -lgadtools -llayers -liffparse -lgraphics -llocale -ldos
+    -lutility -lexec -lm
+
+4.4) Detailed - Running
+
+    Execute the binary resulting from the build.
 
 5) How do I compile a module (library, class) for the runtime?
 
     This is not yet possible in this version.
 
-6) How do I distribute my application?
+6) How do I distribute my application as self-contained boundle?
 
-    Copy SYS, USERSYS and libaxrt.so to you application directory and
-    and distribute complete boundle.
+    AxRuntime supports also boundling so that users of application don't have
+    to install the runtime system-wide from a package.
+
+    In order to build such boundle:
+    - Copy /usr/lib/x86_64-linux-gnu/libaxrt.so to applications directory
+    - Copy contents of /usr/lib/x86_64-linux-gnu/axrt/2.0 directory to
+      AXRTSYS subdirectory in application directory
+
+    <Application Directory>
+    ├── <Application Executable>
+    ├── AXRTSYS
+    ├── libaxrt.so
+
+    If you are getting the following error when running the application:
+
+    'error while loading shared libraries: libaxrt.so: cannot open shared
+     object file: No such file or directory'
+
+    then most likely setting 'rpath' to $ORIGIN failed during linking. You can
+    check this by invoking:
+
+    $readelf <executable> -d | grep path
+    0x000000000000000f (RPATH)              Library rpath: [$ORIGIN]
+
+    If the string does not read $ORIGIN, then inspect and fix the axrt.specs
+    file.
 
 ======================================FAQ======================================
 
@@ -108,7 +140,7 @@ application.
 
     At this point in time send an email to: deadwood@onet.pl
 
-3) Will AxRuntime work under Window, BSD, MacOS in future?
+3) Will AxRuntime work under Windows, BSD, MacOS in future?
 
     Yes, support for other platforms is planned.
 
@@ -137,11 +169,9 @@ application.
 5) Will AxRuntime work under PPC Linux?
 
     This version is being considered and it will be made if there is strong
-    need expressed by developers community.
+    need expressed by developer community.
 
-6) Will AxRuntime be available as packages that I can install on my
-   Linux distribution from package manager?
+6) Will AxRuntime packages be available via ppa repository?
 
-    It is planned to build packages for Debian/Ubuntu family of distributions
-    and make them available via ppa repository.
+    Yes, it is planned to provide such repository at some point.
 
