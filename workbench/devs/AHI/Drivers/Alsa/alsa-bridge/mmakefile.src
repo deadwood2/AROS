@@ -4,6 +4,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM- AHI-alsa-bridge-linux : AHI-linklibs-alsa-bridge
+#MM- AHI-alsa-bridge-runtimelinux : AHI-linklibs-alsa-bridge
 
 USER_CFLAGS = -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 
