@@ -25,6 +25,7 @@ MODULE_FILES := \
     startup/iprefs/misc \
     startup/startup_lib \
     shims/libc/fopen \
+    shims/libc/libc_init \
     shims/libc/mkdir \
     shims/libc/open \
     shims/libc/stat \
@@ -34,6 +35,8 @@ MODULE_FILES := \
 BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 
 .PHONY : $(BD_ALLTARGETS)
+
+# NOTE: dep files don't seem to work here, do -clean + -quick for best effect
 
 # Default values for variables and arguments
 BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden $(WARN_ERROR) -I$(SRCDIR)/$(CURDIR)/shims

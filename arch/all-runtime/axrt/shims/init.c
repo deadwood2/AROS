@@ -4,11 +4,6 @@
 */
 
 
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <dlfcn.h>
-#include <string.h>
-
 #include <proto/exec.h>
 
 #include "shimsinit.h"
@@ -37,3 +32,9 @@ void __shims_init_internals()
     inited = TRUE;
 }
 
+VOID __shims_libc_init_jumptables();
+
+VOID __shims_init_jumptables()
+{
+    __shims_libc_init_jumptables();
+}

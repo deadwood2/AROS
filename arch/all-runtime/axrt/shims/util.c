@@ -4,9 +4,6 @@
 */
 
 
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <dlfcn.h>
 #include <string.h>
 
 #include <proto/dos.h>
@@ -45,7 +42,6 @@ LONG __shims_amiga2host(const char *amigapath, char *hostpath)
 
     if (DOSBase) /* PROGDIR resolution works only when dos.library is up */
     {
-printf("!Y!\n");
         /* Get to path starting from ROOT: */
         if (strstr(hostpath, "PROGDIR:") != NULL)
         {
@@ -55,7 +51,6 @@ printf("!Y!\n");
             strreplace(hostpath, "PROGDIR:", progdir);
         }
     }
-    else printf("!N!\n");
 
     /* Convert path to Linux */
     strreplace(hostpath, "ROOT:","/");

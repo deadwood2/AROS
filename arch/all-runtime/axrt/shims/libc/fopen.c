@@ -3,24 +3,17 @@
     $Id$
 */
 
-
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <dlfcn.h>
-#include <string.h>
-
 #include "internal.h"
+#include "libc_funcs.h"
 
 __attribute__((visibility("default"))) FILE * fopen64 (const char * restrict path, const char * restrict mode)
 {
     FILE *_return = NULL;
-    FILE *(*fun)(const char * restrict path, const char * restrict mode);
     char lpathname[1024];
 
     __shims_amiga2host(path, lpathname);
 
-    fun = dlsym(RTLD_NEXT, "fopen64");
-    _return = fun(lpathname, mode);
+    _return = __libcfuncs.fopen64(lpathname, mode);
 
     return _return;
 }
