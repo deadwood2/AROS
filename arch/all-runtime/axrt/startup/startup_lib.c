@@ -320,6 +320,8 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     char tstbuff[_size];
     char __usersys[_size];
 
+    __shims_init_jumptables();
+
     RUNTIME_ROOT    = malloc(_size);
     AXRTSYS         = malloc(_size);
     USERSYS         = malloc(_size);

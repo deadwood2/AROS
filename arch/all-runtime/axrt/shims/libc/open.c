@@ -3,26 +3,19 @@
     $Id$
 */
 
-
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <dlfcn.h>
-#include <string.h>
-
 #include "internal.h"
+#include "libc_funcs.h"
 
-/* open64() defined in startup.o */ 
+/* open64() defined in startup.o */
 
 __attribute__((visibility("default"))) int __shims_libc_open64(const char * pathname, int oflag, ...)
 {
     int _return = 0;
-    int (*fun)(const char * pathname, int oflag);
     char lpathname[1024];
 
     __shims_amiga2host(pathname, lpathname);
 
-    fun = dlsym(RTLD_NEXT, "open64");
-    _return = fun(lpathname, oflag);
+    _return = __libcfuncs.open64(lpathname, oflag);
 
     return _return;
 }

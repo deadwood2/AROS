@@ -9,7 +9,7 @@
 #include <exec/types.h>
 
 VOID __shims_init_internals();
-
+VOID __shims_init_jumptables();
 
 
 #endif
