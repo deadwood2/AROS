@@ -1,5 +1,5 @@
 /*
-    Copyright © 2019, The AROS Development Team. All rights reserved.
+    Copyright © 2019-2020, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -9,95 +9,24 @@
 #include <dlfcn.h>
 #include <string.h>
 
-#include <proto/exec.h>
-#include <proto/dos.h>
+#include "internal.h"
 
-struct aa
-{
-    struct ExecBase *sysBase;
-    struct Library *dosBase;
-};
-
-struct aa AA;
-
-#define SysBase AA.sysBase
-#define DOSBase AA.dosBase
-
-BOOL inited = FALSE;
-
-static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
-{
-    STRPTR pos = strstr(target, from);
-    if (pos != NULL)
-    {
-        TEXT buff[512] = {0};
-        ULONG targetlen = strlen(target);
-        ULONG headlen = pos - target;
-        ULONG taillen = targetlen - strlen(from) - headlen;
-
-        // add head
-        strncat(buff, target, headlen);
-
-        // add to
-        strncat(buff, to, strlen(to));
-
-        // add tail
-        strncat(buff, pos + strlen(from), taillen);
-
-        // copy back
-        strncpy(target, buff, strlen(buff));
-        target[strlen(buff)] = 0;
-    }
-}
-
-APTR __get_sysbase();
-
-static void init()
-{
-    if (inited)
-        return;
-
-    AA.sysBase = (struct ExecBase *)__get_sysbase();
-
-    if (!AA.sysBase)
-        return;
-
-    AA.dosBase = OpenLibrary("dos.library", 0L);
-
-    if (!AA.dosBase)
-        return;
-
-    inited = TRUE;
-}
-
-__attribute__((visibility("default"))) FILE * fopen (const char * restrict pathname, const char * restrict mode)
+__attribute__((visibility("default"))) FILE * fopen64 (const char * restrict path, const char * restrict mode)
 {
     FILE *_return = NULL;
-    FILE *(*fun)(const char * restrict pathname, const char * restrict mode);
+    FILE *(*fun)(const char * restrict path, const char * restrict mode);
     char lpathname[1024];
 
-    init();
+    __shims_amiga2host(path, lpathname);
 
-    /* Make copy */
-    strcpy(lpathname, pathname);
-
-    if (inited)
-    {
-        /* Get to path starting from ROOT: */
-        if (strstr(lpathname, "PROGDIR:") != NULL)
-        {
-            char progdir[1024];
-            NameFromLock(GetProgramDir(), progdir, 1024);
-            strcat(progdir, "/");
-            strreplace(lpathname, "PROGDIR:", progdir);
-        }
-    }
-
-    /* Convert path to Linux */
-    strreplace(lpathname, "ROOT:","/");
-
-    fun = dlsym(RTLD_NEXT, "fopen");
+    fun = dlsym(RTLD_NEXT, "fopen64");
     _return = fun(lpathname, mode);
 
     return _return;
 }
+
+__attribute__((visibility("default"))) FILE * fopen (const char * restrict path, const char * restrict mode)
+{
+    return fopen64(path, mode);
+}
+

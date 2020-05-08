@@ -24,14 +24,20 @@ MODULE_FILES := \
     startup/iprefs/vars \
     startup/iprefs/misc \
     startup/startup_lib \
-    shims/libc/fopen
+    shims/libc/fopen \
+    shims/libc/mkdir \
+    shims/libc/open \
+    shims/libc/stat \
+    shims/init \
+    shims/util
 
 BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 
 .PHONY : $(BD_ALLTARGETS)
 
 # Default values for variables and arguments
-BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden
+BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden $(WARN_ERROR) -I$(SRCDIR)/$(CURDIR)/shims
+CFLAGS += -I$(SRCDIR)/$(CURDIR)/shims # Needed to resolve error with mkdepend_q
 OBJDIR ?= $(GENDIR)/$(CURDIR)
 BD_MODDIR := $(AROS_LIB)
 
@@ -41,7 +47,7 @@ BD_NARCHFILES := $(filter-out $(BD_ARCHFILES),$(MODULE_FILES))
 
 %rule_compile_multi \
     basenames=$(BD_NARCHFILES) targetdir="$(OBJDIR)" \
-    cflags="$(BD_DEFDFLAGS)" dflags="$(BD_DEFDFLAGS)" \
+    cflags="$(BD_DEFDFLAGS)" \
     compiler=target
 
 BD_MODULE := $(BD_MODDIR)/libaxrt.so
