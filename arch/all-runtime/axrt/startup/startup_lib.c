@@ -19,6 +19,7 @@
 #include <limits.h>
 
 #include "rt_version.h"
+#include "shimsinit.h"
 
 int main_AddDataTypes();
 int main_Decoration();
@@ -234,6 +235,9 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     char _t[PATH_MAX];
     STRPTR _p = NULL;
     int ret = 0;
+
+    /* Initialize internals of shims */
+    __shims_init_internals();
 
 #define SysBase local_SysBase
     /* Sequence:

@@ -1,0 +1,12 @@
+Why shims and not proxy functions in AxRT libraries?
+
+Let's take fopen as example. fopen can receive and Amiga-like path and has
+to translate it to host system path. This can be done by exposing fopen
+in stdc.library, having it do the translation, having it dlopen libc.so
+and making a call to host fopen. This will work for all AxRT side code as
+stdc.library will generate a linklib which will provide fopen stub for
+all AxRT binaries. This will however not work for any host-side libraries
+that are used by the AxRT binary, for example libpng.so.
+
+Having a shim which overwrites the GOT/PLT fopen entry works for both
+AxRT-side and host-side libraries.

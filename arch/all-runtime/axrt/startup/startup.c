@@ -116,3 +116,12 @@ void __runtimestartup()
 
     // TODO: error handling
 }
+
+/* These functions need to be complied into application to properly proxy
+   to the shims in runtime. */
+int __shims_libc_open64(const char *, int);
+
+__attribute__((visibility("default"))) int open64(const char * pathname, int oflag)
+{
+    return __shims_libc_open64(pathname, oflag);
+}
