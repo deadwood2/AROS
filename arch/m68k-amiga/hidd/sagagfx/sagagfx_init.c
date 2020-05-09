@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
 
     Desc: SAGA Gfx Hidd for V4 AROS
 */
@@ -22,7 +22,7 @@
 #include <aros/symbolsets.h>
 
 #include "sagagfx_hidd.h"
-#include "sagagfx_hw_v2.h"
+#include "sagagfx_hw.h"
 
 #include LC_LIBDEFS_FILE
 
@@ -80,7 +80,7 @@ static int SAGAGfx_Init(LIBBASETYPEPTR LIBBASE)
 
     D(bug("[SAGA] SAGAGfx_Init() called\n"));
 
-    /* Check if Vampire V4 is detected */
+    /* Check if Vampire is detected */
     if (SAGA_Init() == FALSE)
         return FALSE;
 
