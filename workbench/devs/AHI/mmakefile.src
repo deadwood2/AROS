@@ -17,8 +17,9 @@ include $(SRCDIR)/config/aros.cfg
 EXEDIR := $(AROSDIR)
 
 NOWARN_FLAGS := $(NOWARN_POINTER_SIGN)
-USER_CPPFLAGS := $(NOWARN_FLAGS)
+USER_CPPFLAGS := $(NOWARN_FLAGS) -D__AROS__
 AHI_OPTIONS=--with-os-includedir=$(AROS_INCLUDES)
+USER_LDFLAGS := -specs=$(AROS_LIB)/axrt.specs
 
 # AHI's configure script will not set the needed preprocessor
 # flags if cppflags is already defined, so we disable its use in

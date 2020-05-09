@@ -44,7 +44,7 @@ VPATH		= @srcdir@
 # Files
 ########################################
 
-OBJECTS		= ahi.o support.o ahiprefs_Cat.o
+OBJECTS		= ahi.o support.o ahiprefs_Cat.o $(PREFIX)/Developer/lib/startup.o $(PREFIX)/Developer/lib/axrt.ld
 OBJECTS_BGUI	= gui_bgui.o
 OBJECTS_CA	= gui_ca.o
 OBJECTS_MUI	= gui_mui.o

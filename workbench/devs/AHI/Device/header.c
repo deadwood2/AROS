@@ -29,9 +29,6 @@
 #include <proto/gadtools.h>
 #include <proto/graphics.h>
 #include <proto/iffparse.h>
-#if defined(__AROS__)
-#include <proto/stdc.h>
-#endif
 
 #include "ahi_def.h"
 #include "debug.h"
