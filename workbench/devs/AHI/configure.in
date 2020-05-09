@@ -105,7 +105,7 @@ top_builddir=$(pwd)
 : ${CPPFLAGS="-DCPU=\"\\\"${CPU}\\\"\" -I. -I${srcdir} -I${top_builddir} -I${top_builddir}/Include/gcc ${os_includedir}"}
 : ${LDFLAGS="${linkerflags}"}
 : ${ASFLAGS="${asflags}"}
-: ${ARFLAGS="-ru"}
+: ${ARFLAGS=""}
 : ${STRIPFLAGS="${stripflag}"}
 
 : ${CFLAG_RESIDENT="${resident}"}
@@ -170,6 +170,10 @@ case $host in
  i?86be-pc-amithlon)
   : ${CPU="i686"}
   LIBS="-lm $LIBS" dnl *** AC_CHECK_LIBS doesn't work with -r ...?
+ ;;
+ x86_64-*-aros)
+  : ${CPU="x86_64"}
+  LIBS="-lintuition -lmui -licon -liffparse -lutility -ldos -lm $LIBS"
  ;;
 esac
 

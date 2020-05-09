@@ -17,8 +17,9 @@ include $(SRCDIR)/config/aros.cfg
 EXEDIR := $(AROSDIR)
 
 NOWARN_FLAGS := $(NOWARN_POINTER_SIGN)
-AHI_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN_FLOOR) $(OPTIMIZATION_CFLAGS)
+AHI_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN_FLOOR) $(OPTIMIZATION_CFLAGS) -D__AROS__
 AHI_OPTIONS=--with-os-includedir=$(AROS_INCLUDES)
+USER_LDFLAGS := -specs=$(AROS_LIB)/axrt.specs
 
 # AHI's configure will not set its needed preprocessor flags if we already provide them (even if empty)
 # so we disable their use in build_with_configure.

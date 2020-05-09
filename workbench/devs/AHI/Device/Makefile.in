@@ -30,12 +30,9 @@ RANLIB          = @RANLIB@
 STRIP		= @STRIP@ @STRIPFLAGS@
 
 CPPFLAGS	= @CPPFLAGS@ -I${top_srcdir} -I${srcdir}
-CFLAGS		= @CFLAGS@
+CFLAGS		= @CFLAGS@ -fPIC -fvisibility=hidden
 ASFLAGS		= @ASFLAGS@
-LDFLAGS		= @LDFLAGS@ -nostartfiles
-ifeq (@host_os@,aros)
-LDFLAGS		+= -static
-endif
+LDFLAGS		= @LDFLAGS@ -shared -Wl,--unresolved-symbols=ignore-in-shared-libs -noaxrtloader -nostartfiles
 ARFLAGS         = @ARFLAGS@
 
 LIBS		= -lamiga
