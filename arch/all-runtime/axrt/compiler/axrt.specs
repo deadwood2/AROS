@@ -2,7 +2,7 @@
 %rename link    default_link
 
 *lib:
---start-group -larossupport -lautoinit -lamiga -llibinit %{!noaxrtloader:-laxrt} --end-group %(default_lib)
+--start-group -lexec -larossupport -lautoinit -lamiga -llibinit %{!noaxrtloader:-laxrt} --end-group %(default_lib)
 
 *link:
 %(default_link) -rpath=$ORIGIN
