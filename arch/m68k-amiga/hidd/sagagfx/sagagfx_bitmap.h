@@ -10,7 +10,7 @@
 */
 
 #include "sagagfx_hidd.h"
-#include "sagagfx_hw.h"
+#include "sagagfx_hw_v2.h"
 
 #include <hidd/gfx.h>
 

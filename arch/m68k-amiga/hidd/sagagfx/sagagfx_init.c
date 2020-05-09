@@ -22,7 +22,7 @@
 #include <aros/symbolsets.h>
 
 #include "sagagfx_hidd.h"
-#include "sagagfx_hw.h"
+#include "sagagfx_hw_v2.h"
 
 #include LC_LIBDEFS_FILE
 

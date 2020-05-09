@@ -29,7 +29,7 @@
 
 #include "sagagfx_hidd.h"
 #include "sagagfx_bitmap.h"
-#include "sagagfx_hw.h"
+#include "sagagfx_hw_v2.h"
 
 #define MAKE_SYNC(name,clock,hdisp,hstart,hend,htotal,vdisp,vstart,vend,vtotal,flags,descr)   \
     struct TagItem sync_ ## name[]={            \
@@ -705,10 +705,10 @@ OOP_Object *METHOD(SAGAGfx, Hidd_Gfx, Show)
                     switch (XSD(cl)->cursor_clut[y*16 + x])
                     {
                         case 1:
-                            val |= pix & 0xffff;
+                            val |= pix & 0xffff0000;
                             break;
                         case 2:
-                            val |= pix & 0xffff0000;
+                            val |= pix & 0x0000ffff;
                             break;
                         case 3:
                             val |= pix;
