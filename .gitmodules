@@ -1,3 +1,0 @@
-[submodule "developer/debug/test/crt/posixc/posix.1"]
-	path = developer/debug/test/crt/posixc/posix.1
-	url = https://github.com/agordon/posix-libc-examples.git
