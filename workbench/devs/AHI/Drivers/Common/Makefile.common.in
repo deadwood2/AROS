@@ -29,12 +29,9 @@ OBJCOPY		= @OBJCOPY@
 
 CPPFLAGS	= @CPPFLAGS@ -I${top_srcdir} -I${common_srcdir} -I${srcdir} \
 		  -DDRIVER="\"${DRIVER}\""
-CFLAGS		= @CFLAGS@
+CFLAGS		= @CFLAGS@ -fPIC -fvisibility=hidden
 ASFLAGS		= @ASFLAGS@
-LDFLAGS		= @LDFLAGS@ -nostartfiles
-ifeq (@host_os@,aros)
-LDFLAGS		+=
-endif
+LDFLAGS		= @LDFLAGS@ -shared -sharedmodule -nostartfiles
 ARFLAGS         = @ARFLAGS@
 
 SFDC		= @SFDC@
