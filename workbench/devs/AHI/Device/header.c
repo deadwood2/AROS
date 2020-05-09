@@ -29,9 +29,6 @@
 #include <proto/gadtools.h>
 #include <proto/graphics.h>
 #include <proto/iffparse.h>
-#if defined(__AROS__)
-#include <libraries/stdlib.h>
-#endif
 
 #include "ahi_def.h"
 #include "debug.h"
@@ -152,9 +149,6 @@ struct IntuitionBase      *IntuitionBase  = NULL;
 struct LocaleBase         *LocaleBase     = NULL;
 struct Device             *TimerBase      = NULL;
 struct UtilityBase        *UtilityBase    = NULL;
-#if defined (__AROS__)
-struct StdlibBase         *StdlibBase       = NULL;
-#endif
 
 #if defined( __AMIGAOS4__ )
 struct ExecIFace          *IExec          = NULL;
@@ -631,18 +625,6 @@ OpenLibs ( void )
     return FALSE;
   }
 
-#if defined(__AROS__)
-  /* Stdlib library */
-
-  StdlibBase = (struct StdlibBase *) OpenLibrary( "stdlib.library", 0 );
-
-  if( StdlibBase == NULL)
-  {
-    Req( "Unable to open 'stdlib.library'." );
-    return FALSE;
-  }
-#endif
-
 #ifdef __AMIGAOS4__
   if ((IIntuition = (struct IntuitionIFace *) GetInterface((struct Library *) IntuitionBase, "main", 1, NULL)) == NULL)
   {
@@ -920,9 +902,6 @@ CloseLibs ( void )
   DropInterface((struct Interface *) IAHI );
 #endif
 
-#if defined(__AROS__)
-  CloseLibrary( (struct Library *) StdlibBase );
-#endif
   CloseLibrary( (struct Library *) UtilityBase );
 
   if( TimerIO != NULL )
