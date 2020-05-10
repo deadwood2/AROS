@@ -10,7 +10,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  kernel-timer \
 #MM  runtime-axrt-so \
 #MM  runtime-clibs \
-#MM  kernel-x11gfx \
+#MM  hosted-X11-x11gfx \
 #MM  kernel-hostlib \
 #MM  kernel-fs-emul \
 #MM  kernel-unixio \
