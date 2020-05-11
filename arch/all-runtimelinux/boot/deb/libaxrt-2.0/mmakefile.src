@@ -47,7 +47,6 @@ AXRT_KICKSTART := \
 AXRT_LIBS := \
     Libs/amigaguide.library \
     Libs/asl.library \
-    Libs/asyncio.library \
     Libs/camd.library \
     Libs/codesets.library \
     Libs/commodities.library \
