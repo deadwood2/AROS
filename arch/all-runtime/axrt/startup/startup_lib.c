@@ -64,7 +64,7 @@ static CONST_STRPTR Kickstart [] =
 
 static void __bye()
 {
-    printf("Exiting...\n");
+    printf("<<INFO>>: Exiting...\n");
     exit(100);
 }
 
@@ -269,7 +269,7 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     strcat(msg.arps_CurrentDir, "ROOT:");
     strcat(msg.arps_CurrentDir, _t + 1);
     strcat(msg.arps_CurrentDir, "/");
-    printf("CURRENT_DIR : %s\n", msg.arps_CurrentDir);
+    printf("<<INFO>>: CURRENT_DIR : %s\n", msg.arps_CurrentDir);
 
     /* Program directory and executable name */
     ret = readlink("/proc/self/exe", _t, PATH_MAX);
@@ -279,12 +279,12 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     strcat(msg.arps_ProgramDir, _t + 1);
     _p = strrchr(msg.arps_ProgramDir, '/');
     *(_p + 1) = 0;
-    printf("PROGRAM DIR : %s\n", msg.arps_ProgramDir);
+    printf("<<INFO>>: PROGRAM DIR : %s\n", msg.arps_ProgramDir);
 
     _p = strrchr(_t, '/');
     msg.arps_ProgramName        = calloc(strlen(_p) + 1, 1);
     strcat(msg.arps_ProgramName, _p + 1);
-    printf("PROGRAM NAME: %s\n", msg.arps_ProgramName);
+    printf("<<INFO>>: PROGRAM NAME: %s\n", msg.arps_ProgramName);
 
 
     /* Done, send message */
@@ -396,9 +396,9 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     check_install_usersys(RUNTIME_ROOT, __usersys);
 
     /* Summary */
-    printf("RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
-    printf("AXRTSYS     : %s\n", AXRTSYS);
-    printf("USERSYS     : %s\n", USERSYS);
+    printf("<<INFO>>: RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
+    printf("<<INFO>>: AXRTSYS     : %s\n", AXRTSYS);
+    printf("<<INFO>>: USERSYS     : %s\n", USERSYS);
 
     setenv(ENV_AXRT_ROOT, RUNTIME_ROOT, 1);
     setenv("AXRTSYS", AXRTSYS, 1);
