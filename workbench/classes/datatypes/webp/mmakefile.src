@@ -15,7 +15,7 @@ CLASSFILES := webpclass
 #MM datatypes-webp-linklibs-webputils
 
 USER_CPPFLAGS   := -DEMSCRIPTEN
-USER_CFLAGS := -noposixc
+USER_CFLAGS :=
 
 WEBPDSPFILES := \
         src/dsp/alpha_processing \
@@ -103,7 +103,7 @@ WEBPUTILSFILES += \
     libname=webputils files="$(WEBPUTILSFILES)" \
     objdir=$(GENDIR)/$(CURDIR)/webputils libdir=$(GENDIR)/$(CURDIR)/lib
 
-USER_LDFLAGS := -L$(GENDIR)/$(CURDIR)/lib -lwebpencode -lwebpdecode -lwebpdsp -lwebputils -lstdc_rel
+USER_LDFLAGS := -L$(GENDIR)/$(CURDIR)/lib -lwebpencode -lwebpdecode -lwebpdsp -lwebputils -lm
 
 WEBPFILES := webpclass
 
