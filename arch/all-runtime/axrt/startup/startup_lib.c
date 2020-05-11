@@ -135,6 +135,12 @@ static void InitKickstart(struct ExecBase *SysBase)
             __bye();
         }
         __get_resident = (void *(*)())dlsym(__so_handle, "__get_resident");
+        if (__get_resident == NULL)
+        {
+            printf("<<ERROR>>: Failed to get Resident from module %s\n", path);
+            __bye();
+        }
+
         resList[i] = (struct Resident *)(__get_resident)();
 
         i++;
