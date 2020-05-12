@@ -652,7 +652,6 @@ static char *readsections(struct config *cfg, struct classinfo *cl, struct inter
             case USBCLASS:
                 cfg->options |= (
                     (cfg->funclist != NULL)
-                    || (cfg->cdeflines != NULL)
                 ) ? OPTION_INCLUDES : OPTION_NOINCLUDES;
                 break;
 
