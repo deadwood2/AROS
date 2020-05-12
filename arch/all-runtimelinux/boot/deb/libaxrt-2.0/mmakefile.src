@@ -2,12 +2,12 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM runtime-package-deb : \
-#MM     runtime-setup-package-deb \
-#MM     runtime-package-deb-usersys-theme \
-#MM     runtime-package-deb-usersys \
-#MM     runtime-package-deb-usersys-fonts-truetype \
-#MM     runtime-package-deb-usersys-fonts-ttcourier
+#MM runtime-package-deb-libaxrt-2.0 : \
+#MM     runtime-setup-package-deb-libaxrt-2.0 \
+#MM     runtime-package-deb-libaxrt-2.0-usersys-theme \
+#MM     runtime-package-deb-libaxrt-2.0-usersys \
+#MM     runtime-package-deb-libaxrt-2.0-usersys-fonts-truetype \
+#MM     runtime-package-deb-libaxrt-2.0-usersys-fonts-ttcourier
 
 # Files are explicitly listed to have fine grained control over release process
 
@@ -285,7 +285,7 @@ AXRT_DEST_DIRS := $(dir $(AXRT_DEST_FILES))
 GLOB_MKDIRS += $(AXRT_DEST_DIRS) $(DISTDIR) $(GENDIR)/boot
 
 #MM
-runtime-setup-package-deb :
+runtime-setup-package-deb-libaxrt-2.0 :
 	@$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
@@ -296,15 +296,29 @@ runtime-setup-package-deb :
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
 
-%copy_dir_recursive mmake=runtime-package-deb-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
-%copy_dir_recursive mmake=runtime-package-deb-usersys src=$(SRCDIR)/$(CURDIR)/UserSYS dst=$(USERSYS_DEST_DIR)
-%copy_dir_recursive mmake=runtime-package-deb-usersys-fonts-truetype src=$(AROSDIR)/Fonts/TrueType dst=$(USERSYS_DEST_DIR)/Fonts/TrueType
-%copy_dir_recursive mmake=runtime-package-deb-usersys-fonts-ttcourier src=$(AROSDIR)/Fonts/ttcourier dst=$(USERSYS_DEST_DIR)/Fonts/ttcourier
+%copy_dir_recursive mmake=runtime-package-deb-libaxrt-2.0-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
+%copy_dir_recursive mmake=runtime-package-deb-libaxrt-2.0-usersys src=$(SRCDIR)/$(CURDIR)/UserSYS dst=$(USERSYS_DEST_DIR)
+%copy_dir_recursive mmake=runtime-package-deb-libaxrt-2.0-usersys-fonts-ttcourier src=$(AROSDIR)/Fonts/ttcourier dst=$(USERSYS_DEST_DIR)/Fonts/ttcourier
 
 
-runtime-package-deb : runtime-package-deb-build
+TRUETYPE_FILES := \
+    VeraMono.ttf \
+    VeraMonoBold.ttf \
+    VeraMonoBoldItalic.ttf \
+    VeraMonoItalic.ttf \
+    VeraSans.ttf \
+    VeraSansBold.ttf \
+    VeraSansBoldItalic.ttf \
+    VeraSansItalic.ttf \
+    VeraSerif.ttf \
+    VeraSerifBold.ttf \
 
-runtime-package-deb-build: $(AXRT_DEST_FILES)
+%copy_files_q mmake=runtime-package-deb-libaxrt-2.0-usersys-fonts-truetype src=$(AROSDIR)/Fonts/TrueType dst=$(USERSYS_DEST_DIR)/Fonts/TrueType files=$(TRUETYPE_FILES)
+
+
+runtime-package-deb-libaxrt-2.0 : runtime-package-deb-libaxrt-2.0-build
+
+runtime-package-deb-libaxrt-2.0-build: $(AXRT_DEST_FILES)
 	@$(MKDIR) -p "$(DISTDIR)"
 	dpkg-deb --build $(DEST_ROOT_DIR) $(DISTDIR)
 
