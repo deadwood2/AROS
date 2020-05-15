@@ -18,6 +18,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  workbench-classes-complete \
 #MM  workbench-devs-datatypes \
 #MM  workbench-fonts \
-#MM  workbench-devs-AHI
+#MM  workbench-devs-AHI \
+#MM  runtime-bsdsocket
 
 %common
