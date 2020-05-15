@@ -1,0 +1,17 @@
+#   $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+#MM runtime-bsdsocket : runtime-bsdsocket-includes-copy
+
+FILES := \
+    closesocket \
+    notimplemented \
+    obtainsocket \
+    releasecopyofsocket \
+    socketbasetaglist \
+
+%build_module_library mmake=runtime-bsdsocket modname=bsdsocket \
+  modtype=library files="$(FILES)"
+
+%common

@@ -1,0 +1,24 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+INCLUDES      := $(call WILDCARD, bsdsocket/*.h clib/*.h defines/*.h libraries/*.h proto/*.h)
+DEST_INCLUDES := $(foreach f,$(INCLUDES),$(AROS_INCLUDES)/$(f))
+DIRS          := $(AROS_INCLUDES) \
+                 $(AROS_INCLUDES)/bsdsocket \
+                 $(AROS_INCLUDES)/clib \
+                 $(AROS_INCLUDES)/defines \
+                 $(AROS_INCLUDES)/libraries \
+                 $(AROS_INCLUDES)/proto
+
+#MM runtime-bsdsocket-includes-copy : runtime-bsdsocket-includes-setup
+
+#MM
+runtime-bsdsocket-includes-copy : $(DEST_INCLUDES)
+
+#MM
+runtime-bsdsocket-includes-setup :
+	%mkdirs_q $(DIRS)
+
+$(DEST_INCLUDES) : $(AROS_INCLUDES)/% : $(SRCDIR)/$(CURDIR)/%
+	@$(CP) $< $@
