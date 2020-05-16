@@ -1,0 +1,7 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+
+#MM- runtime-package-deb : runtime-package-deb-libaxrt-2.0 runtime-package-deb-libaxrt-2.0-dev
+
+%common
