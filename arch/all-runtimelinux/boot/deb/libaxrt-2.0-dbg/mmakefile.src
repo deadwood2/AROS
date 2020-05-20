@@ -1,0 +1,48 @@
+# $Id$
+
+include $(SRCDIR)/config/aros.cfg
+include $(SRCDIR)/$(CURDIR)/../libaxrt-2.0/filelist.cfg
+
+#MM runtime-package-deb-libaxrt-2.0-dbg : \
+#MM     runtime-setup-package-deb-libaxrt-2.0-dbg
+
+# Files are explicitly listed to have fine grained control over release process
+
+AXRT_FILES := \
+    $(AXRT_KICKSTART) \
+    $(AXRT_LIBS) \
+    $(AXRT_CLASSES) \
+    $(AXRT_DEVS) \
+
+AXRT_SRC_DIR := $(AROSDIR)
+DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0-dbg
+AXRT_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/debug/usr/lib/x86_64-linux-gnu/axrt/2.0
+
+AXRT_DEST_FILES := $(foreach f, $(AXRT_FILES), $(AXRT_DEST_DIR)/$(f).dbg)
+
+# Extract version information
+RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+
+# Create directories
+AXRT_DEST_DIRS := $(dir $(AXRT_DEST_FILES))
+GLOB_MKDIRS += $(AXRT_DEST_DIRS) $(DISTDIR) $(GENDIR)/boot
+
+#MM
+runtime-setup-package-deb-libaxrt-2.0-dbg :
+	@$(RM) $(DEST_ROOT_DIR)
+	%mkdirs_q $(DEST_ROOT_DIR)
+	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
+	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
+	%mkdirs_q $(AXRT_DEST_DIR) 
+
+runtime-package-deb-libaxrt-2.0-dbg : runtime-package-deb-libaxrt-2.0-dbg-build
+
+runtime-package-deb-libaxrt-2.0-dbg-build: $(AXRT_DEST_FILES)
+	@$(MKDIR) -p "$(DISTDIR)"
+	dpkg-deb --build $(DEST_ROOT_DIR) $(DISTDIR)
+
+$(AXRT_DEST_DIR)/% : $(AXRT_SRC_DIR)/% | $(AXRT_DEST_DIRS)
+	@$(CP) $< $@
+
+%common

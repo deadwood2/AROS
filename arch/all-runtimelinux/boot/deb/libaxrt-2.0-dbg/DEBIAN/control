@@ -1,0 +1,10 @@
+Package: libaxrt-2.0-dbg
+Version: {RTVER}-1
+Architecture: amd64
+Maintainer: deadwood <deadwood@uknown>
+Depends: libaxrt-2.0 (= {RTVER}-1)
+Homepage: http://www.axrt.org/
+Description: AxRuntime debug symbols
+Section: debug
+Priority: extra
+Multi-Arch: same
