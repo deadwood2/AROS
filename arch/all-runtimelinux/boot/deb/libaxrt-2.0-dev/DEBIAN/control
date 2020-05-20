@@ -4,6 +4,7 @@ Architecture: amd64
 Maintainer: deadwood <deadwood@uknown>
 Priority: optional
 Homepage: http://www.axrt.org/
+Depends: libaxrt-2.0 (= {RTVER}-1)
 Multi-Arch: same
 Description: development files for AxRuntime
 
