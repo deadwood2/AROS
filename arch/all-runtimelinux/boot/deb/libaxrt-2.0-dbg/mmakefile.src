@@ -34,7 +34,8 @@ runtime-setup-package-deb-libaxrt-2.0-dbg :
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
-	%mkdirs_q $(AXRT_DEST_DIR) 
+	%mkdirs_q $(AXRT_DEST_DIR)
+	@$(CP) $(AROSDIR)/Developer/lib/libaxrt.so.dbg $(DEST_ROOT_DIR)/usr/lib/debug/usr/lib/x86_64-linux-gnu
 
 runtime-package-deb-libaxrt-2.0-dbg : runtime-package-deb-libaxrt-2.0-dbg-build
 
