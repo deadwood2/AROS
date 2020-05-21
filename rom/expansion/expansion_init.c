@@ -223,3 +223,8 @@ AROS_LH0(BPTR, CloseLib,
 
     AROS_LIBFUNC_EXIT
 }
+
+__attribute__((visibility("default"))) APTR __get_resident()
+{
+    return (struct Resident *)&GM_UNIQUENAME(ROMTag);
+}

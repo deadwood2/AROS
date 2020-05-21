@@ -365,3 +365,8 @@ AROS_PLH0(BPTR, close,
 }
 
 ADD2INITLIB(Exec_InitServices, -126)
+
+__attribute__((visibility("default"))) APTR __get_resident(struct ExecBase *sysBase)
+{
+    return (struct Resident *)&Exec_resident;
+}

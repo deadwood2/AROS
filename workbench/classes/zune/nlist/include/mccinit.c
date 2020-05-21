@@ -1323,3 +1323,8 @@ STATIC IPTR LIBFUNC MCC_Query(REG(d0, LONG which))
 #ifdef __cplusplus
 }
 #endif
+
+__attribute__((visibility("default"))) APTR __get_resident()
+{
+    return (struct Resident *)&ROMTag;
+}

@@ -85,6 +85,12 @@ static VOID __program_trampoline()
     msg->arps_Target(SysBase, msg);
 }
 
+extern const struct Resident Dos_resident;
+__attribute__((visibility("default"))) APTR __get_resident()
+{
+    return (struct Resident *)&Dos_resident;
+}
+
 void __dos_Boot(struct DosLibrary *DOSBase, ULONG BootFlags, UBYTE Flags)
 {
     BPTR cis = BNULL;
