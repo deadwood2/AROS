@@ -586,3 +586,8 @@ _LibNull( struct DriverBase* AHIsubBase )
 {
   return 0;
 }
+
+__attribute__((visibility("default"))) APTR __get_resident()
+{
+    return (struct Resident *)&RomTag;
+}

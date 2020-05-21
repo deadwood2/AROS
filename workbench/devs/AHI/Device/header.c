@@ -921,3 +921,8 @@ CloseLibs ( void )
   CloseLibrary( (struct Library *) DOSBase );
   CloseLibrary( (struct Library *) IntuitionBase );
 }
+
+__attribute__((visibility("default"))) APTR __get_resident()
+{
+    return (struct Resident *)&RomTag;
+}
