@@ -801,3 +801,8 @@ static BPTR LIBFUNC LibClose(REG(a6, struct LibraryHeader *base))
 }
 
 /****************************************************************************/
+
+__attribute__((visibility("default"))) APTR __get_resident()
+{
+    return (struct Resident *)&ROMTag;
+}
