@@ -15,6 +15,11 @@
 #include <proto/hostlib.h>
 #include <proto/kernel.h>
 
+#if defined(__AROSEXEC_SMP__)
+#include <proto/execlock.h>
+#include <resources/execlock.h>
+#endif
+
 #include "timer_intern.h"
 #include "timer_macros.h"
 
@@ -66,7 +71,19 @@ static void TimerTick(struct TimerBase *TimerBase, struct ExecBase *SysBase)
     TimerBase->tb_Platform.tb_TimerCount++;
     if (TimerBase->tb_Platform.tb_TimerCount == TimerBase->tb_Platform.tb_VBlankTicks)
     {
-        vblank_Cause(SysBase);
+#if defined(__AROSEXEC_SMP__)
+        struct ExecLockBase *ExecLockBase = TimerBase->tb_ExecLockBase;
+        if (ExecLockBase) ObtainSystemLock(&SysBase->IntrList, SPINLOCK_MODE_READ, LOCKF_DISABLE);
+#endif
+        /* vblank_Cuase */
+        struct IntVector *iv = &SysBase->IntVects[INTB_VERTB];
+
+        if (iv->iv_Code)
+            AROS_INTC2(iv->iv_Code, iv->iv_Data, INTF_VERTB);
+#if defined(__AROSEXEC_SMP__)
+        if (ExecLockBase) ReleaseSystemLock(&SysBase->IntrList, LOCKF_DISABLE);
+#endif
+
         handleVBlank(TimerBase, SysBase);
 
         TimerBase->tb_Platform.tb_TimerCount = 0;
@@ -87,6 +104,15 @@ static int Timer_Init(struct TimerBase *TimerBase)
     APTR BootLoaderBase;
     struct itimerval interval;
     int ret;
+
+#if defined(__AROSEXEC_SMP__)
+    struct ExecLockBase *ExecLockBase;
+    if ((ExecLockBase = OpenResource("execlock.resource")) != NULL)
+    {
+        TimerBase->tb_ExecLockBase = ExecLockBase;
+        TimerBase->tb_ListLock = AllocLock();
+    }
+#endif
 
     HostLibBase = OpenResource("hostlib.resource");
     if (!HostLibBase)
