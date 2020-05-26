@@ -177,7 +177,7 @@ struct ARPSMsg
     VOID (*arps_Target)(APTR, APTR);
 
     /* Private fields */
-    void (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
+    int (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
     STRPTR  arps_CurrentDir;
     STRPTR  arps_ProgramName;
     STRPTR  arps_ProgramDir;
@@ -187,6 +187,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
 {
     /* This trampoline is executed by "AxRuntime Program" process */
     struct ARPSMsg *msg;
+    int __startup_error = 0;
 
     /* This library was never properly loaded by Exec. Do manual initialization */
     SysBase = (struct ExecBase *)sysbase;
@@ -222,10 +223,9 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_Decoration();
     Close(Open("RAM:Welcome", MODE_NEWFILE));
 
-    msg->arps_RunProgramSets(NULL, 0, SysBase);
+    __startup_error = msg->arps_RunProgramSets(NULL, 0, SysBase);
 
-    /* TODO: what to do when process exits */
-    asm("int3");
+    exit(__startup_error);
 }
 
 __attribute__((visibility("default"))) void __kick_start(void *__run_program_sets, int __version)
