@@ -10,6 +10,8 @@ FILES := \
     obtainsocket \
     releasecopyofsocket \
     socketbasetaglist \
+    waitselect \
+    init
 
 %build_module_library mmake=runtime-bsdsocket modname=bsdsocket \
   modtype=library files="$(FILES)"

@@ -18,23 +18,6 @@ AROS_LH3(int, IoctlSocket,
     AROS_LIBFUNC_EXIT
 }
 
-AROS_LH6(int, WaitSelect,
-         AROS_LHA(int, nfds, D0),
-         AROS_LHA(fd_set *, readfds, A0),
-         AROS_LHA(fd_set *, writefds, A1),
-         AROS_LHA(fd_set *, exceptfds, A2),
-         AROS_LHA(struct timeval *, timeout, A3),
-         AROS_LHA(ULONG *, sigmask, D1),
-         struct Library *, SocketBase, 21, BSDSocket)
-{
-    AROS_LIBFUNC_INIT
-
-    NOT_IMPL
-    return 0;
-
-    AROS_LIBFUNC_EXIT
-}
-
 AROS_LH3(void, SetSocketSignals,
          AROS_LHA(ULONG, intrmask, D0),
          AROS_LHA(ULONG, iomask, D1),
