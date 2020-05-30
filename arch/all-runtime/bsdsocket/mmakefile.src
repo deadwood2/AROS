@@ -6,6 +6,7 @@ include $(SRCDIR)/config/aros.cfg
 
 FILES := \
     closesocket \
+    ioctlsocket \
     notimplemented \
     obtainsocket \
     releasecopyofsocket \

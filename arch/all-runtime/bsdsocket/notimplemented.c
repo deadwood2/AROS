@@ -4,20 +4,6 @@
 
 #define NOT_IMPL (bug("<<WARN>>: %s is not implemented. Please submit issuet at https://github.com/deadw00d/AROS/issues.\n", __FUNCTION__));
 
-AROS_LH3(int, IoctlSocket,
-         AROS_LHA(int, s, D0),
-         AROS_LHA(unsigned long, request, D1),
-         AROS_LHA(char *, argp, A0),
-         struct Library *, SocketBase, 19, BSDSocket)
-{
-    AROS_LIBFUNC_INIT
-
-    NOT_IMPL
-    return 0;
-
-    AROS_LIBFUNC_EXIT
-}
-
 AROS_LH3(void, SetSocketSignals,
          AROS_LHA(ULONG, intrmask, D0),
          AROS_LHA(ULONG, iomask, D1),
