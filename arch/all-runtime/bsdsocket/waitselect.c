@@ -54,6 +54,7 @@
     ULONG rcvd = 0;
     int __selectresult = 0;
     struct timeval _t = {0, 20}; /* do pooling with some small sleep*/
+    ULONG _tsmask = sigmask ? *sigmask : 0;
 
     if (timeout)
     {
@@ -64,12 +65,11 @@
 
     do
     {
-        rcvd = CheckSignal(*sigmask);
+        rcvd = CheckSignal(_tsmask);
         __selectresult = select(nfds, readfds, writefds, exceptfds, &_t);
 
-        if (rcvd != 0)
+        if (rcvd != 0 || __selectresult != 0)
         {
-            *sigmask = rcvd;
             cont = FALSE;
             /* 
              * If select timeouts, __selectresult = 0, if found FDs, __selectresult is > 0
@@ -77,10 +77,10 @@
              */
         }
 
-        if (__selectresult != 0)
-            cont = FALSE;
-
     }while (cont);
+
+    if (__selectresult >= 0 && sigmask)
+        *sigmask &= rcvd;
 
     return __selectresult;
 
