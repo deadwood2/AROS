@@ -65,7 +65,7 @@
 
     do
     {
-        rcvd = CheckSignal(_tsmask);
+        rcvd = SetSignal(0L, _tsmask);
         __selectresult = select(nfds, readfds, writefds, exceptfds, &_t);
 
         if (rcvd != 0 || __selectresult != 0)
