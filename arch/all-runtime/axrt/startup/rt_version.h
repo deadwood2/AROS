@@ -9,7 +9,7 @@
 #define RT_STARTUP  (3)
 #define RT_ABI      (2)
 #define RT_VERSION  (40)
-#define RT_REVISION (1)
+#define RT_REVISION (2)
 
 #define RT_VER      ((RT_STARTUP<<28)|(RT_ABI<<24)|(RT_VERSION<<8)|(RT_REVISION<<0))
 
