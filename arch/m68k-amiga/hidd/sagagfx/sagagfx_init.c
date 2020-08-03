@@ -8,10 +8,9 @@
 #define __OOP_NOATTRBASES__
 
 #undef DEBUG
-#define DEBUG 1
+#define DEBUG 0
 
 #include <aros/debug.h>
-
 #include <proto/exec.h>
 #include <proto/graphics.h>
 #include <proto/input.h>
