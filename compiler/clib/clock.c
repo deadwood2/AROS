@@ -47,13 +47,32 @@
 ******************************************************************************/
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
+    struct DateStamp 	t;
+    clock_t		retval;
 
-    return (clock_t)time(NULL) - aroscbase->acb_starttime;
+    DateStamp(&t); /* Get timestamp */
+
+    /* Day difference */
+    retval =  (t.ds_Days - aroscbase->acb_starttime.ds_Days);
+
+    /* Convert into minutes */
+    retval *= (24 * 60);
+
+    /* Minute difference */
+    retval += (t.ds_Minute - aroscbase->acb_starttime.ds_Minute);
+
+    /* Convert into CLOCKS_PER_SEC (which is the same as TICKS_PER_SECOND) units */
+    retval *= (60 * TICKS_PER_SECOND);
+
+    /* Add tick difference */
+    retval += (t.ds_Tick - aroscbase->acb_starttime.ds_Tick);
+
+    return retval;
 } /* clock */
 
 int __init_clock(struct aroscbase *aroscbase)
 {
-    aroscbase->acb_starttime = (clock_t)time(NULL);
+    DateStamp(&aroscbase->acb_starttime);
 
     return 1;
 }
