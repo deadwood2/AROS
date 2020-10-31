@@ -31,6 +31,9 @@ struct aroscbase
        arosc_privdata can also grow at please, but it has no restrictions
        on the way things are modified in it, as long as arosc_userdata
        is always kept at its beginning.  */
+    /* Last sentence is not true. acb_environptr is exposed in
+       __arosc_environ.c which is part of libarosc.a, so fields need
+       to be added at end */
 
     /* common */
     int acb_flags;
@@ -46,7 +49,7 @@ struct aroscbase
     struct MinList acb_stdio_files;
 
     /* clock.c */
-    clock_t acb_starttime;
+    clock_t compatibility_1; /* to keep binary compatibility, as acb_environptr is accessed in linklib codes */
 
     /* __open.c */
     int acb_numslots;
@@ -109,6 +112,9 @@ struct aroscbase
 
     /* Used for thread safety */
     struct SignalSemaphore acb_lock;
+
+    /* clock */
+    struct DateStamp acb_starttime;
 };
 
 /* acb_flags */
