@@ -10,6 +10,7 @@ CLIBTESTFILES := \
         chdir \
         chmod \
         chown \
+        clock \
         ctype \
         environ \
         execl \
