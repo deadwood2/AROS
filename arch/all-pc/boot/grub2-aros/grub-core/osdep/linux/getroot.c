@@ -38,6 +38,7 @@
 #include <grub/types.h>
 #include <sys/ioctl.h>         /* ioctl */
 #include <sys/mount.h>
+#include <sys/sysmacros.h>
 
 #include <grub/util/misc.h>
 
