@@ -45,6 +45,7 @@
 #ifdef __linux__
 #include <sys/ioctl.h>         /* ioctl */
 #include <sys/mount.h>
+#include <sys/sysmacros.h>
 #ifndef MAJOR
 # ifndef MINORBITS
 #  define MINORBITS	8
