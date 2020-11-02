@@ -350,3 +350,36 @@ Size of current file:
 MSG_WANDERER_FILEACCESS_TOTAL (//)
 Overall size:
 ;
+MSG_WANDERER_ERROR_FILE_OPERATION (//)
+Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY (//)
+Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE (//)
+Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE (//)
+Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK (//)
+Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY (//)
+Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE (//)
+Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH (//)
+Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT (//)
+Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE (//)
+Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR (//)
+Errormessage
+;

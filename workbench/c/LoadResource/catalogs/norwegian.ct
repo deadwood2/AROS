@@ -1,0 +1,13 @@
+## version $VER: loadresource.catalog 2.0 (09.5.2020)
+## language norwegian
+## codeset 0
+;
+;
+MSG_ERROR_OPEN_LIBRARY
+Klarte ikke åpne bibiloteket %s.
+; Couldn't open library %s.
+;
+MSG_ERROR_OPEN_DEVICE
+Klarte ikke åpne enheten %s.
+; Couldn't open device %s.
+;

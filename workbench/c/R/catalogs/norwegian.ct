@@ -1,0 +1,64 @@
+## version $VER: R.catalog 2.0 (10.05.2020)
+## language norwegian
+## codeset 0
+;
+MSG_APP_TITLE
+R
+; R
+;
+MSG_APP_DESCRIPTION
+GUI-Generator
+; GUI Generator
+;
+MSG_WIN_TITLE
+R: %s
+; R : %s
+;
+MSG_OK
+OK
+; OK
+;
+MSG_CANCEL
+Avbryt
+; Cancel
+;
+MSG_ERROR_ALLOCATE
+Klarte ikke allokere Req structen\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_RETURN
+\"%s\" feilet, Returkode %ld\n
+; \"%s\" failed, return code %ld\n
+;
+MSG_ERROR_POOL
+Klarte ikke opprette minnepoolen\n
+; Can't create poolmem\n
+;
+MSG_ERROR_STRUCT
+Feilet under allokering av Req structen\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_ARGS
+Klarte ikke å parse argumentene\n
+; Failed to parse arguments\n
+;
+MSG_ERROR_NOTFOUND
+Kommandonen ble ikke funnet\n
+; Command not found\n
+;
+MSG_ERROR_TMPLT_GET
+Klarte ikke hente malen\n
+; Failed to get template\n
+;
+MSG_ERROR_TMPLT_PARSE
+Klarte ikke parse malen\n
+; Failed to parse the template\n
+;
+MSG_ERROR_GUI
+Klarte ikke å opprette applikasjonsobjektet\n
+; Failed to create application object\n
+;
+MSG_ERROR_DEFAULTS
+Klarte ikke sette standardverdier
+; Failed to set the default values\n
+;

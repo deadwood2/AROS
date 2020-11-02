@@ -471,3 +471,36 @@ MSG_WANDERER_FILEACCESS_TOTAL
 Totalstørrelse:
 ; Overall size:
 ;
+MSG_WANDERER_ERROR_FILE_OPERATION
+En feil oppstod under en filoperasjon
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Klarte ikke allokere nok minne (%d byte) 
+;
+MSG_FAILED_TO_READ_FILE
+En feil oppstod under lesing av filen: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+En feil oppstod under skriving til filen: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Klarte ikke lese file info blocken for filen: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Klarte ikke opprette katalogen: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Klarte ikke slette filen: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Klarte ikke opprette fillås for: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+En feil oppstod under lesing av innholdet i katalogen: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+En feil oppstod under flytting av filen: %s\n
+;
+MSG_FAILED_ERROR
+Feilmelding
+;

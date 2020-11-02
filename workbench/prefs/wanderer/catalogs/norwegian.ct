@@ -306,7 +306,7 @@ Benytt transparens under forflytting av ikoner
 ; Use transparency when draging icons
 ;
 MSG_DEFAULT_ICONVIEWMODE
-Standard visningsmodus
+Standard visningsmodu
 ; Default view mode
 ;
 MSG_ICONVIEWMODE_ALL
@@ -316,4 +316,13 @@ Alle filer
 MSG_ICONVIEWMODE_ICONS
 Kun ikoner
 ; Icons only
+;
+MSG_ICONDROPMODE
+Kopier eller flytt filer plassert på samme enhet
+;
+MSG_ICONDROPMODE_MOVE
+Flytt
+;
+MSG_ICONDROPMODE_COPY
+Kopier
 ;

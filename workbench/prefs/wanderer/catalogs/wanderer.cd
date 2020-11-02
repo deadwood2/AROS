@@ -230,3 +230,12 @@ All files
 MSG_ICONVIEWMODE_ICONS (//)
 Icons only
 ;
+MSG_ICONDROPMODE (//)
+Copy of move files placed on same device
+;
+MSG_ICONDROPMODE_MOVE (//)
+Move
+;
+MSG_ICONDROPMODE_COPY (//)
+Copy
+;

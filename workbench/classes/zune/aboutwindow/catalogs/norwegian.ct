@@ -1,0 +1,25 @@
+## version $VER: AboutWindow.catalog 1.0 (10.05.2020)
+## language norwegian
+## codeset 0
+;
+;
+MSG_ABOUT
+Om
+; About
+;
+MSG_AUTHORS
+Forfattere
+; Authors
+;
+MSG_SPONSORS
+Sponsorer
+; Sponsors
+;
+MSG_SECTION_PROGRAMMING
+Programmering
+; Programming
+;
+MSG_SECTION_TRANSLATING
+Oversettelser
+; Translating
+;

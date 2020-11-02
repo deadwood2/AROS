@@ -17,7 +17,7 @@ Avbryt
 ;
 MSG_INSERT_DISK
 Sett inn disken som skal formateres i enhet %s\n\
-Tryk ENTER for Ã¥ begynne formateringen eller CTRL-C for Ã¥ avbryte:
+Tryk ENTER for å begynne formateringen eller CTRL-C for å avbryte:
 ; Insert disk to be formatted in device %s\n\
 ; Press RETURN to begin formatting or CTRL-C to abort: 
 ;
@@ -63,7 +63,7 @@ Formater|Avbryt
 MSG_FORMAT_REQUEST_TEXT
 OK å formatere volume %s?\n\n\
 ADVARSEL!\n\n\
-Alle data vil gÃ¥ tapt!\n\
+Alle data vil gå tapt!\n\
 (%s)
 ; OK to format volume\n\
 ; %s?\n\n\
