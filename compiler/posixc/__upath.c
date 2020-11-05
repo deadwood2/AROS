@@ -80,8 +80,14 @@ static void  __path_normalstuff_u2a(const char *path, char *buf);
     */
     if (!strncmp(upath, "/.attbin", 8))
     {
-	errno = ENOENT;
-	return NULL;
+        errno = ENOENT;
+        return NULL;
+    }
+
+    if (!strncmp(upath, "/dev/urandom", 12))
+    {
+        errno = ENOENT;
+        return NULL;
     }
 
     /*
