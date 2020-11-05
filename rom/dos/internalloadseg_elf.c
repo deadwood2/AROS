@@ -350,7 +350,7 @@ static int relocate
 
         else {
             if (symtab_shndx == NULL) {
-                D(bug("[ELF Loader] got symbol with shndx 0xfff, but there's no symtab shndx table\n"));
+                bug("[ELF Loader] got symbol with shndx 0xfff, but there's no symtab shndx table\n");
                 SetIoErr(ERROR_BAD_HUNK);
                 return 0;
             }
@@ -363,8 +363,8 @@ static int relocate
         {
 
             case SHN_COMMON:
-                D(bug("[ELF Loader] COMMON symbol '%s'\n",
-                      (STRPTR)sh[shsymtab->link].addr + sym->name));
+                bug("[ELF Loader] COMMON symbol '%s'\n",
+                      (STRPTR)sh[shsymtab->link].addr + sym->name);
                       SetIoErr(ERROR_BAD_HUNK);
 
                 return 0;
@@ -375,8 +375,8 @@ static int relocate
 
             case SHN_UNDEF:
                 if (ELF_R_TYPE(rel->info) != 0) {
-                    D(bug("[ELF Loader] Undefined symbol '%s'\n",
-                      (STRPTR)sh[shsymtab->link].addr + sym->name));
+                    bug("[ELF Loader] Undefined symbol '%s'\n",
+                      (STRPTR)sh[shsymtab->link].addr + sym->name);
                     SetIoErr(ERROR_BAD_HUNK);
                     return 0;
                 }
