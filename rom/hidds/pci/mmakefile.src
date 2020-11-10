@@ -15,6 +15,9 @@ FILES	:= pci_init pcidriverclass pcideviceclass pciclass pciutil
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
 %copy_includes path=hidd dir=include sdk=private
 
+INCLUDE_FILES := $(call WILDCARD, include/hardware/*.h)
+%copy_includes path=hardware dir=include/hardware
+
 %fetch mmake=kernel-hidd-pci-ids-fetch \
     archive_origins="http://pciids.sourceforge.net/v2.2/ https://pci-ids.ucw.cz/v2.2/" \
     archive="pci.ids" suffixes="" location=$(GENDIR)/$(CURDIR)
