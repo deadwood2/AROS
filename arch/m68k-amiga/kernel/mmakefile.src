@@ -19,11 +19,11 @@ FILES := \
 AFILES=
 
 USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
-	       -I$(GENINCDIR) -I$(AROS_DEVELOPER)/include
+	       -I$(GENINCDIR) -I$(AROS_DEVELOPMENT)/include
 USER_CPPFLAGS := -DPARANOIA_STACK
 
 USER_AFLAGS := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
-	       -I$(GENINCDIR) -I$(AROS_DEVELOPER)/include
+	       -I$(GENINCDIR) -I$(AROS_DEVELOPMENT)/include
 
 %build_archspecific \
   mainmmake=kernel-kernel modname=kernel maindir=rom/kernel arch=m68k \

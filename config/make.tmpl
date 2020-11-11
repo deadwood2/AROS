@@ -510,7 +510,7 @@ endif
 # Adjust compiler flags to suit ObjC
 %(mmake)_OBJC_CPPFLAGS :=  %(cppflags)
 %(mmake)_OBJCFLAGS := %(cflags)
-%(mmake)_OBJCFLAGS := $(%(mmake)_OBJCFLAGS) -isystem $(AROS_DEVELOPER)/include
+%(mmake)_OBJCFLAGS := $(%(mmake)_OBJCFLAGS) -isystem $(AROS_DEVELOPMENT)/include
 %(mmake)_OBJCFLAGS := $(subst -Wno-pointer-sign,, $(subst -Werror-implicit-function-declaration,, $(%(mmake)_OBJCFLAGS)))
 ifeq (%(dflags),)
   %(mmake)_OBJCDFLAGS := %(cflags)
@@ -872,7 +872,7 @@ endif
 # Adjust compiler flags to suit ObjC
 %(mmake)_MOBJC_CPPFLAGS := %(cppflags)
 %(mmake)_OBJCFLAGS := %(cflags)
-%(mmake)_OBJCFLAGS := $(%(mmake)_OBJCFLAGS) -isystem $(AROS_DEVELOPER)/include
+%(mmake)_OBJCFLAGS := $(%(mmake)_OBJCFLAGS) -isystem $(AROS_DEVELOPMENT)/include
 %(mmake)_OBJCFLAGS := $(subst -Wno-pointer-sign,, $(subst -Werror-implicit-function-declaration,, $(%(mmake)_OBJCFLAGS)))
 ifeq (%(dflags),)
   %(mmake)_OBJCDFLAGS := %(cflags)
@@ -3474,7 +3474,7 @@ endif
 endif
 ifeq (%(compiler),target)
     %(mmake)-cfg-env := %(config_env_extra) \
-        PKG_CONFIG_LIBDIR="$(AROS_DEVELOPER)/lib/pkgconfig" \
+        PKG_CONFIG_LIBDIR="$(AROS_DEVELOPMENT)/lib/pkgconfig" \
         PKG_CONFIG_SYSROOT_DIR="$(AROSDIR)"
     %(mmake)-cfg-env += CPP="$(strip $(TARGET_CPP) $(TARGET_SYSROOT))" \
         CXXCPP="$(strip $(TARGET_CPP) $(TARGET_SYSROOT))" \
@@ -3486,7 +3486,7 @@ ifeq (%(compiler),target)
 ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS="$(strip $(BASE_CPPFLAGS) $(USER_CPPFLAGS) %(extracppflags))"
 endif
-    %(mmake)-cfg-env += LDFLAGS="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))"
+    %(mmake)-cfg-env += LDFLAGS="$(strip -L$(AROS_DEVELOPMENT)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))"
 ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS_FOR_BUILD="$(HOST_CPPFLAGS)"
 endif
@@ -3500,20 +3500,20 @@ ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS_FOR_HOST="$(strip $(BASE_CPPFLAGS) $(USER_CPPFLAGS) %(extracppflags))"
 endif
     %(mmake)-cfg-env += CC_FOR_HOST="$(strip $(TARGET_CC) $(TARGET_SYSROOT))" \
-        CFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CFLAGS) $(USER_CFLAGS) -L$(AROS_DEVELOPER)/lib %(extracflags) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
+        CFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CFLAGS) $(USER_CFLAGS) -L$(AROS_DEVELOPMENT)/lib %(extracflags) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
         CXX_FOR_HOST="$(strip $(TARGET_CXX) $(TARGET_SYSROOT))" \
-        CXXFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CXXFLAGS) $(USER_CXXFLAGS) -L$(AROS_DEVELOPER)/lib %(extracxxflags) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
+        CXXFLAGS_FOR_HOST="$(strip %(hostisaflags) $(USER_INCLUDES) $(BASE_CXXFLAGS) $(USER_CXXFLAGS) -L$(AROS_DEVELOPMENT)/lib %(extracxxflags) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
         LD_FOR_HOST="$(strip $(TARGET_LD))" \
-        LDFLAGS_FOR_HOST="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))"
+        LDFLAGS_FOR_HOST="$(strip -L$(AROS_DEVELOPMENT)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))"
 ifeq (%(usecppflags),yes)
     %(mmake)-cfg-env += CPPFLAGS_FOR_TARGET="$(strip $(BASE_CPPFLAGS) $(USER_CPPFLAGS) %(extracppflags))"
 endif
     %(mmake)-cfg-env += CC_FOR_TARGET="$(strip $(TARGET_CC) $(TARGET_SYSROOT))" \
-        CFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CFLAGS) -L$(AROS_DEVELOPER)/lib %(extracflags))" \
+        CFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CFLAGS) -L$(AROS_DEVELOPMENT)/lib %(extracflags))" \
         CXX_FOR_TARGET="$(strip $(TARGET_CXX) $(TARGET_SYSROOT))" \
-        CXXFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CXXFLAGS) -L$(AROS_DEVELOPER)/lib %(extracxxflags))" \
+        CXXFLAGS_FOR_TARGET="$(strip $(%(mmake)-TARGET_CXXFLAGS) -L$(AROS_DEVELOPMENT)/lib %(extracxxflags))" \
         LD_FOR_TARGET="$(strip $(TARGET_LD))" \
-        LDFLAGS_FOR_TARGET="$(strip -L$(AROS_DEVELOPER)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
+        LDFLAGS_FOR_TARGET="$(strip -L$(AROS_DEVELOPMENT)/lib $(USER_LDFLAGS) $(%(mmake)-nix) $(%(mmake)-s_flag))" \
         AR="$(strip $(AR_PLAIN))" \
         AS="$(strip $(TARGET_AS))" \
         OBJCOPY="$(strip $(OBJCOPY))" \
@@ -4220,7 +4220,7 @@ GNU_REPOSITORY := gnu://
 #------------------------------------------------------------------------------
 # Same job as the one of %fetch_and_build_gnu, except that this one assumes
 # that the package is a "Developer" package, and as such it needs to be placed
-# under the $(AROS_DEVELOPER) directory, as a default. 
+# under the $(AROS_DEVELOPMENT) directory, as a default. 
 #
 # All the arguments have the same meaning as the ones of the %fetch_and_build_gnu 
 # macro, but notice that %fetch_and_build_gnu_development *doesn't* have a
@@ -4229,7 +4229,7 @@ GNU_REPOSITORY := gnu://
 #     #MM- development-%(package)
 
 %define fetch_and_build_gnu_development package=/A subpackage= version=/A  crossbuild=no suffixes="tar.bz2 tar.gz" \
-    srcdir= package_repo= patch=no patch_repo= prefix=$(AROS_DEVELOPER) \
+    srcdir= package_repo= patch=no patch_repo= prefix=$(AROS_DEVELOPMENT) \
     aros_prefix=/Developer config_env_extra= preconfigure= postconfigure= postinstall= \
     extraoptions= \
     usecppflags=yes extracppflags= \

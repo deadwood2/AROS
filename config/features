@@ -6639,7 +6639,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 #
 # Now check what we need to use with the toolchain
 
-cat >$AROS_DEVELOPER/include/__testsincdir.h <<_ACEOF
+cat >$AROS_DEVELOPMENT/include/__testsincdir.h <<_ACEOF
 /* Copyright (c) The AROS Dev Team  */
 #define _TESTINCFOUND
 _ACEOF
@@ -6672,7 +6672,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 $as_echo "$toolchain_needs_sysroot" >&6; }
 
 if test "$toolchain_needs_sysroot" = "yes" ; then
-    aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPER)"
+    aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"
 fi
 
 #AC_MSG_CHECKING([if we need to use --isysroot])
@@ -6691,7 +6691,7 @@ fi
 #    aros_toolchain_isysroot="-isysroot $""(AROS_SDK)"
 #    aros_toolchain_iarchdir="-I $""(AROS_SDK)/$""(AROS_TARGET_CPU)-aros/include"
 #fi
-rm -f $AROS_DEVELOPER/include/__testsincdir.h
+rm -f $AROS_DEVELOPMENT/include/__testsincdir.h
 
 #
 # export the feature flags...

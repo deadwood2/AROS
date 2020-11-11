@@ -266,7 +266,7 @@ AHI beállítások
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Nem tudok ablakot nyitni.
@@ -282,7 +282,7 @@ Nem találom: '%s'!
 ;
 msgTextNoOpen
 Nem tudom megnyitni: '%s' %ld verzió.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

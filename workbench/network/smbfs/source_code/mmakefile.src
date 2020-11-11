@@ -14,7 +14,7 @@ FILES = \
     utf-8-iso-8859-1-conversion \
     dump_smb
 
-USER_INCLUDES := -I$(AROS_DEVELOPER)/netinclude -I$(SRCDIR)/$(CURDIR)/include
+USER_INCLUDES := -I$(AROS_DEVELOPMENT)/netinclude -I$(SRCDIR)/$(CURDIR)/include
 NOWARN_FLAGS := $(NOWARN_UNINITIALIZED) $(NOWARN_PARENTHESES)
 USER_CFLAGS := $(NOWARN_FLAGS)
 USER_CPPFLAGS := \

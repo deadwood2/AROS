@@ -266,7 +266,7 @@ msgTextProgramName
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s\nTradução para Português por Frederico Borges & Rúben Alvim / ATO
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Não foi possível abrir a janela.
@@ -282,7 +282,7 @@ Não foi possível encontrar o `%s'!
 ;
 msgTextNoOpen
 Não foi possível abrir a `%s´ versão %ld.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

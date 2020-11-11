@@ -275,7 +275,7 @@ msgTextCopyright
 Polska wersja jêzykowa\n\
 Marcin Or³owski\n\
 <carlos@inet.com.pl>
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Nie mogê otworzyæ okna.
@@ -291,7 +291,7 @@ Nie mogê znale¼æ \"%s\"!
 ;
 msgTextNoOpen
 Nie mogê otworzyæ \"%s\" w wersji %ld.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

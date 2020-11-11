@@ -274,7 +274,7 @@ msgTextCopyright
 %s%s\n\
 Авторство (c) %s\n\
 Русский перевод: Михаил Малышев
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Невозможно открыть окно.
@@ -290,7 +290,7 @@ msgTextNoFind
 ;
 msgTextNoOpen
 Невозможно открыть "%s" версии %ld.
-; Unable to open `%sґ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

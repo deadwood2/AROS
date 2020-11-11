@@ -1,6 +1,6 @@
 /****************************************************************
-   This file was created automatically by `FlexCat 2.4'
-   from "/cygdrive/e/Private/Projects/AROS-Win32/contrib/necessary/AHI/AHI/ahiprefs.cd".
+   This file was created automatically by `FlexCat 2.19'
+   from "/ssd/deadwood/repo-github-dd-core/AROS/workbench/devs/AHI/AHI/ahiprefs.cd".
 
    Do NOT edit by hand!
 ****************************************************************/
@@ -86,11 +86,11 @@ struct FC_String ahiprefs_Strings[75] = {
     { (STRPTR) "_Cancel", 51 },
     { (STRPTR) "OK", 52 },
     { (STRPTR) "AHI preferences", 53 },
-    { (STRPTR) "%s%s\nCopyright ©%s", 54 },
+    { (STRPTR) "%s%s\nCopyright (C)%s", 54 },
     { (STRPTR) "Unable to open window.", 55 },
     { (STRPTR) "Unable to allocate file requester.", 56 },
     { (STRPTR) "Unable to find `%s'!", 57 },
-    { (STRPTR) "Unable to open `%s´ version %ld.", 58 },
+    { (STRPTR) "Unable to open '%s' version %ld.", 58 },
     { (STRPTR) "_Master volume", 59 },
     { (STRPTR) "Without clipping", 60 },
     { (STRPTR) "With clipping", 61 },

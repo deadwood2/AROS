@@ -13,7 +13,7 @@ ifeq ($(AROS_TARGET_CPU),x86_64)
     ARCH_DEFS := -DMULTIBOOT_64BIT
     ARCH_LIBS := -L$(GENDIR)/lib32 -nostdlib
 else
-    ARCH_LIBS := -L$(AROS_DEVELOPER)/lib -L$(GENDIR)/lib
+    ARCH_LIBS := -L$(AROS_DEVELOPMENT)/lib -L$(GENDIR)/lib
 endif
 
 USER_CFLAGS  := -Wl,--oformat,elf_i386

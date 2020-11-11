@@ -12,7 +12,7 @@ ADDITIONALICONS := Include Lib
 #MM- iconset-GorillaSmall-additional-icons-aros : iconset-GorillaSmall-additional-icons-aros-developer
 
 %build_icons mmake=iconset-GorillaSmall-wbench-icons-aros-developer icons=$(BASEICONS) \
-             dir=$(AROS_DEVELOPER)
+             dir=$(AROS_DEVELOPMENT)
 
 %build_icons mmake=iconset-GorillaSmall-additional-icons-aros-developer icons=$(ADDITIONALICONS) \
-             dir=$(AROS_DEVELOPER)
+             dir=$(AROS_DEVELOPMENT)

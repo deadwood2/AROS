@@ -267,7 +267,7 @@ AHI postavke
 msgTextCopyright
 %s%s\n\
 Autorsko pravo ©%s\nPreveo na hrvatski Sini¹a Loliæ
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Ne mogu otvoriti prozor
@@ -283,7 +283,7 @@ Ne mogu naæi `%s'!
 ;
 msgTextNoOpen
 Ne mogu otvoriti `%s´ verziju %ld.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

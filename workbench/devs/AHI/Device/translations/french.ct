@@ -2,6 +2,9 @@
 ## language français
 ## codeset 0
 ;
+;#language english
+;#version 4
+;
 ;    AHI - Hardware independent audio subsystem
 ;    Copyright (C) 1996-2005 Martin Blom <martin@blom.org>
 ;     
@@ -81,7 +84,7 @@ msgDefaultMode
 Mode audio par défaut
 ; Default audio mode
 ;
-; The requester's info-window
+; The requester's info-winodow
 ;
 msgReqInfoTitle
 Mode propriétés
