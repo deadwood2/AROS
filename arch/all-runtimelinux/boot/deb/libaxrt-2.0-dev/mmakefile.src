@@ -7,7 +7,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM     runtime-package-deb-libaxrt-2.0-dev-includes \
 #MM     runtime-package-deb-libaxrt-2.0-dev-lib
 
-SDK_SRC_DIR := $(AROSDIR)/Developer
+SDK_SRC_DIR := $(AROS_DEVELOPMENT)
 DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0-dev
 LIB_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
 INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/usr/include/axrt

@@ -32,7 +32,7 @@ void PACKAGES_AddCoreSkipPaths(struct List *SkipList)
 
 #if (1) // Hard coded for now ...
     strcpy(skipPath, source_Path);
-    AddPart(skipPath, "Prefs/Env-Archive/SYS/Packages/Developer", skipPathLen);
+    AddPart(skipPath, "Prefs/Env-Archive/SYS/Packages/Development", skipPathLen);
     AddSkipListEntry(SkipList, skipPath);
 #endif
     // TODO: remove core package dirs .. 

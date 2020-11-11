@@ -5,7 +5,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 ICONS     := Debug
-ICONDIR   := $(AROSDIR)/Developer
+ICONDIR   := $(AROS_DEVELOPMENT)
 
 #MM- iconset-Mason-wbench-icons-aros : iconset-Mason-wbench-icons-aros-developer
 

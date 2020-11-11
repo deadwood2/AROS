@@ -1589,7 +1589,7 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
                 developerpath);
 
             /* Set Developer package var */
-            create_environment_variable(data->install_SysTarget, "SYS/Packages/Developer",
+            create_environment_variable(data->install_SysTarget, "SYS/Packages/Development",
                 developerpath);
 
             /* Restore undo state */

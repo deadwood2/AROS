@@ -5,7 +5,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 ICONS     := Sashimi
-ICONDIR   := $(AROSDIR)/Developer/Debug
+ICONDIR   := $(AROS_DEVELOPMENT)/Debug
 
 #MM- iconset-Mason-wbench-icons-aros : iconset-Mason-wbench-icons-aros-debug
 

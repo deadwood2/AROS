@@ -146,7 +146,7 @@ runtime-setup-package-deb-libaxrt-2.0 :
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
 	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
-	@$(CP) $(AROSDIR)/Developer/lib/libaxrt.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
+	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
 
