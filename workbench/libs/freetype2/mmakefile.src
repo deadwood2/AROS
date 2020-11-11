@@ -126,7 +126,7 @@ $(AROS_LIB)/pkgconfig/freetype2.pc : $(FT2SRCDIR)/builds/unix/freetype2.in
 	       -e 's|%ft_version%|2.5.0|' \
 	       -e 's|%includedir%|$${prefix}/include|' \
 	       -e 's|%libdir%|$(AROS_LIB)|' \
-	       -e 's|%prefix%|/Developer|' \
+	       -e 's|%prefix%|/Development|' \
 	       $< >$@
 
 FT2_INCLUDE_FILES := $(notdir $(call WILDCARD, $(FT2SRCDIR)/include/*.h))

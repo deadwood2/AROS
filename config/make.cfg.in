@@ -80,7 +80,7 @@ AROS_DIR_SYSTEM               := System
 AROS_DIR_TOOLS                := Tools
 AROS_DIR_UTILITIES            := Utilities
 
-AROS_DIR_DEVELOPER            := Developer
+AROS_DIR_DEVELOPER            := Development
 AROS_DIR_BIN                  := bin
 AROS_DIR_SDK                  := SDK
 AROS_DIR_FD                   := fd
