@@ -80,7 +80,7 @@ AROS_DIR_SYSTEM               := System
 AROS_DIR_TOOLS                := Tools
 AROS_DIR_UTILITIES            := Utilities
 
-AROS_DIR_DEVELOPER            := Development
+AROS_DIR_DEVELOPMENT          := Development
 AROS_DIR_BIN                  := bin
 AROS_DIR_SDK                  := SDK
 AROS_DIR_FD                   := fd
@@ -125,7 +125,7 @@ AROS_UTILITIES                := $(AROSDIR)/$(AROS_DIR_UTILITIES)
 AROS_CONTRIB                  := $(AROSDIR)/$(AROS_DIR_CONTRIB)
 
 # Absolute paths for developer directories
-AROS_DEVELOPER                := $(AROSDIR)/$(AROS_DIR_DEVELOPER)
+AROS_DEVELOPER                := $(AROSDIR)/$(AROS_DIR_DEVELOPMENT)
 AROS_SDK                      ?= $(AROS_DEVELOPER)/$(AROS_DIR_SDK)
 AROS_ARCH_SDK                 ?= $(AROS_SDK)/$(AROS_TARGET_CPU)-$(AROS_TARGET_ARCH)$(AROS_TARGET_SUFFIX)-aros
 AROS_DEV_ARCH_BINS            := $(AROS_DEVELOPER)/$(AROS_TARGET_CPU)-aros/$(AROS_DIR_BIN)
@@ -140,7 +140,7 @@ AROS_ARCH_LIB                 = $(AROS_ARCH_SDK)/$(AROS_DIR_LIB)
 AROS_LIB                      := $(AROS_DEVELOPER)/$(AROS_DIR_LIB)
 #AROS_LIB                     := $(AROS_SDK)/$(AROS_DIR_LIB)
 
-AROS_CONTRIB_DEVELOPER        := $(AROS_CONTRIB)/$(AROS_DIR_DEVELOPER)
+AROS_CONTRIB_DEVELOPER        := $(AROS_CONTRIB)/$(AROS_DIR_DEVELOPMENT)
 AROS_CONTRIB_SDK              := $(AROS_SDK)/$(AROS_DIR_CONTRIB)
 AROS_CONTRIB_ARCH_INCLUDES    := $(AROS_ARCH_SDK)/$(AROS_DIR_CONTRIB)/$(AROS_DIR_INCLUDE)
 AROS_CONTRIB_INCLUDES         := $(AROS_CONTRIB_SDK)/$(AROS_DIR_INCLUDE)

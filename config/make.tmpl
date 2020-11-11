@@ -2173,7 +2173,7 @@ endif
 ifneq (%(includedir),)
 %(mmake)%(flavour)_INCDIR           := %(includedir)
 else
-%(mmake)%(flavour)_INCDIR           := %(prefix)/$(AROS_DIR_DEVELOPER)/$(AROS_DIR_INCLUDE)
+%(mmake)%(flavour)_INCDIR           := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
 endif
 %(mmake)%(flavour)_LIBDEFSINC       := $(%(mmake)%(flavour)_OBJDIR)/include/$(%(mmake)%(flavour)_DEFNAME)_libdefs.h
 %(mmake)%(flavour)_DEFLIBDEFSINC    := $(%(mmake)%(flavour)_OBJDIR)/include/$(%(mmake)%(flavour)_DEFNAME)_deflibdefs.h
@@ -2234,7 +2234,7 @@ $(%(mmake)-genmodfiles_GENFILEFLAG) : $(%(mmake)%(flavour)_DEFLIBDEFSINC) $(%(mm
 ifeq (%(build_abi),M)
 ## Create FD file
 ifeq (%(includedir),)
-%(mmake)%(flavour)_FDDIR            := %(prefix)/$(AROS_DIR_DEVELOPER)/$(AROS_DIR_SDK)/$(AROS_DIR_FD)
+%(mmake)%(flavour)_FDDIR            := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_SDK)/$(AROS_DIR_FD)
 else
 %(mmake)%(flavour)_FDDIR            := %(includedir)/../$(AROS_DIR_FD)
 endif
@@ -2314,7 +2314,7 @@ else
 endif
 
 ifeq (%(libdir),)
-%(mmake)%(flavour)_LIBDIR           := %(prefix)/$(AROS_DIR_DEVELOPER)/$(AROS_DIR_LIB)
+%(mmake)%(flavour)_LIBDIR           := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_LIB)
 else
 %(mmake)%(flavour)_LIBDIR           := %(libdir)
 endif
