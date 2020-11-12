@@ -175,8 +175,8 @@ CONFIGBUILDARCHFILES += $(TOP)/config/features.status
 features: crosstools-toolchain $(TOP)/config/features.status
 	@$(NOP)
 
-NATIVEBUILDFILES = $(addprefix $(AROS_SDK)/,$(notdir $(CONFIGBUILDFILES)))
-NATIVEBUILDARCHFILES = $(addprefix $(AROS_ARCH_SDK)/config/,$(notdir $(CONFIGBUILDARCHFILES)))
+NATIVEBUILDFILES = $(addprefix $(AROS_DEVELOPMENT)/,$(notdir $(CONFIGBUILDFILES)))
+NATIVEBUILDARCHFILES = $(addprefix $(AROS_ARCH_DEVELOPMENT)/config/,$(notdir $(CONFIGBUILDARCHFILES)))
 
 $(NATIVEBUILDFILES) $(NATIVEBUILDARCHFILES) : $(CONFIGBUILDFILES) $(CONFIGBUILDARCHFILES)
 	@$(ECHO) "Generating " $(subst $(TOP)/,,$@)

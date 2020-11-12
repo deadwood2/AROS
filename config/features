@@ -6675,22 +6675,6 @@ if test "$toolchain_needs_sysroot" = "yes" ; then
     aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"
 fi
 
-#AC_MSG_CHECKING([if we need to use --isysroot])
-#AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
-#     [[
-#     (#include <__testsincdir.h>
-#     #ifndef _TESTINCFOUND
-#      error: Couldnt find include!
-#     #endif
-#     ]])],
-#     [toolchain_needs_isysroot=no],
-#     [toolchain_needs_isysroot=yes])
-#AC_MSG_RESULT($toolchain_needs_isysroot)
-#
-#if test "$toolchain_needs_isysroot" = "yes" ; then
-#    aros_toolchain_isysroot="-isysroot $""(AROS_SDK)"
-#    aros_toolchain_iarchdir="-I $""(AROS_SDK)/$""(AROS_TARGET_CPU)-aros/include"
-#fi
 rm -f $AROS_DEVELOPMENT/include/__testsincdir.h
 
 #
