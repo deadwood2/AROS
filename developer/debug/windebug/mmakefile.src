@@ -13,6 +13,6 @@ USER_CFLAGS := $(NOWARN_FLAGS) \
 
 %build_prog mmake=debug-tools-windebug \
     progname=WinDebug targetdir=$(AROS_DEBUG) \
-    files=windebug
+    files=windebug usesdk=private
 
 %common

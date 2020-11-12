@@ -20,6 +20,6 @@ USER_LDFLAGS  := $(TARGET_CXX_LDFLAGS)
 
 %build_prog mmake=test-smp-smp-smallpt \
     files=$(FILES) cxxfiles=$(CXXFILES) targetdir=$(EXEDIR) \
-    uselibs="" progname=SMP-SmallPT
+    uselibs="" progname=SMP-SmallPT usesdk=private
 
 %common

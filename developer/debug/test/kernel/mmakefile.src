@@ -11,6 +11,6 @@ EXEDIR := $(AROS_TESTS)/kernel
 #MM test-kernel : includes includes-copy linklibs includes-kernel
 
 %build_progs mmake=test-kernel \
-    files=$(FILES) targetdir=$(EXEDIR)
+    files=$(FILES) targetdir=$(EXEDIR) usesdk=private
 
 %common

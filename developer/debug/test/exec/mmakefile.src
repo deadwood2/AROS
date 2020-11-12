@@ -28,7 +28,6 @@ EXECPUBLICFILES :=		\
     semtorture		\
     stackswap 		\
     signaltest		\
-    supertest		\
     tasklist		\
     taskstorage \
     tasktest		\
@@ -52,11 +51,12 @@ USER_CFLAGS := -D__AROS_GIMME_DEPRECATED_STACKSWAP__
     files=$(EXECPUBLICFILES) targetdir=$(EXEDIR)
 
 EXECPRIVATEFILES :=		\
+    supertest \
     tasktest2
 
 USER_INCLUDES += $(PRIV_EXEC_INCLUDES)
 
 %build_progs mmake=test-exec-private \
-    files=$(EXECPRIVATEFILES) targetdir=$(EXEDIR)
+    files=$(EXECPRIVATEFILES) targetdir=$(EXEDIR) usesdk=private
     
 %common

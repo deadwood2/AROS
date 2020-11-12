@@ -131,7 +131,7 @@ USER_INCLUDES := $(SYSEXPCOMMON_INCLUDES)
 USER_LDFLAGS :=
 %build_prog mmake=workbench-tools-sysexplorer-app \
     progname=SysExplorer targetdir=$(EXEDIR) \
-    files=$(FILES)
+    files=$(FILES) usesdk=private
 
 
 %common

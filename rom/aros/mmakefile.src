@@ -19,7 +19,7 @@ USER_CPPFLAGS := \
 
 %build_module mmake=kernel-aros \
   modname=aros modtype=library \
-  files="aros_init arosinquirea"
+  files="aros_init arosinquirea" usesdk=private
 
 #MM
 kernel-aros-create-abi-file :
