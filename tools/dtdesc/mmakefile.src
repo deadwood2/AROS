@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM tools-dtdesc : includes linklibs
 
 FILES  := createdtdesc examinedtdesc
-EXEDIR := $(AROS_CONTRIB_DEVELOPER)/Build
+EXEDIR := $(AROS_CONTRIB_DEVELOPMENT)/Build
 USER_CFLAGS :=
 
 %build_progs mmake=tools-dtdesc \
