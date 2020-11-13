@@ -141,6 +141,9 @@ AROS_CONTRIB_DEVELOPMENT      := $(AROS_CONTRIB)/$(AROS_DIR_DEVELOPMENT)
 AROS_CONTRIB_INCLUDES         := $(AROS_CONTRIB_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
 AROS_CONTRIB_LIB              := $(AROS_CONTRIB_DEVELOPMENT)/$(AROS_DIR_LIB)
 
+# Non public SDKs which are accessible only during build
+AROS_BUILD_SDKS               := $(GENDIR)/buildsdks
+
 # The generated files all go under the GENDIR path
 SCRIPTDIR                     := $(GENDIR)/scripts
 
