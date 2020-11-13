@@ -39,7 +39,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-oop \
   modname=oop modtype=library \
-  files="oop_init $(FUNCS) $(FILES)"
+  files="oop_init $(FUNCS) $(FILES)" sdk=private
 
 #MM includes-copy
 
