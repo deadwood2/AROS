@@ -8,6 +8,6 @@ USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 
 %build_module mmake=kernel-hidd-linuxinput \
   modname=linuxinput modtype=hidd \
-  files=$(FILES) archspecific=yes
+  files=$(FILES) archspecific=yes uselibs="oop" usesdk=private
 
 %common

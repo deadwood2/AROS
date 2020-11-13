@@ -13,7 +13,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-gameport \
   modname=gameport modtype=device \
-  files=gameport
+  files=gameport usesdk=private
 
 #MM includes-copy
 

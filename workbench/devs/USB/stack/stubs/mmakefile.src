@@ -10,6 +10,6 @@ USER_CFLAGS :=  -DAROS_USE_OOP -I$(SRCDIR)/$(CURDIR)
 FILES       :=
 STUBS       := $(MODNAME)_stubs
 
-%make_hidd_stubs hidd=usb
+%make_hidd_stubs hidd=usb usesdk=private
 
 %common

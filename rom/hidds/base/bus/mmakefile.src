@@ -16,7 +16,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-bus \
     modname=bus modtype=hidd \
-    files="$(FILES)"
+    files="$(FILES)" usesdk=private
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 

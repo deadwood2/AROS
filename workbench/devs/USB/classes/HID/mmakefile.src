@@ -12,6 +12,6 @@ STUBS := hid_stubs
   files="$(FILES)" moduledir=Classes/USB \
   uselibs="hiddstubs"
 
-%make_hidd_stubs hidd=hid
+%make_hidd_stubs hidd=hid usesdk=private
 
 %common

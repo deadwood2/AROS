@@ -30,7 +30,7 @@ TARGET_ISA_AFLAGS:=$(ISA_MC68060_FLAGS)
   mainmmake=kernel-exec modname=exec maindir=rom/exec \
   asmfiles="$(AFILES)" \
   files="$(FILES)" \
-  arch=m68k
+  arch=m68k usesdk=private
 
 #MM kernel-exec-m68k : includes-asm_h-m68k
 

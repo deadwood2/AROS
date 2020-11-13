@@ -8,6 +8,6 @@ EXEDIR := $(AROS_DEVS)/Midi
 
 %build_prog mmake=workbench-devs-hostmidi-unix \
     progname=hostmidi targetdir=$(EXEDIR) \
-    files=hostmidi usestartup=no
+    files=hostmidi usestartup=no usesdk=private
 
 %common

@@ -23,7 +23,8 @@ AHI_OPTIONS=--with-os-includedir=$(AROS_INCLUDES)
 # AHI's configure script will not set the needed preprocessor
 # flags if cppflags is already defined, so we disable its use in
 # build_with_configure, and append the flags to the CFLAGS directly.
-USER_CFLAGS := $(CFLAGS_NO_BUILTIN_FLOOR) $(TARGET_CPPFLAGS)
+USER_CFLAGS := $(CFLAGS_NO_BUILTIN_FLOOR) $(TARGET_CPPFLAGS) -I$(AROS_BUILD_SDKS)/private/$(AROS_DIR_INCLUDE)
+USER_LDFLAGS := -L$(AROS_BUILD_SDKS)/private/$(AROS_DIR_LIB)
 
 %build_with_configure mmake=workbench-devs-AHI-subsystem prefix=$(EXEDIR) \
     extraoptions="$(AHI_OPTIONS)" usecppflags=no gnuflags=no

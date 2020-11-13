@@ -27,7 +27,7 @@ LIB_GALLIUM_SOURCES = \
    modname=gallium modtype=library \
    libdir=$(GENDIR)/lib/mesa linklibname=gallium \
    files="$(LIB_GALLIUM_SOURCES)" \
-   uselibs="stdc"
+   uselibs="stdc oop" usesdk=private
 
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
 

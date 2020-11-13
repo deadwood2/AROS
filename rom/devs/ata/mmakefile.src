@@ -38,4 +38,4 @@ ATA_CLASSFILES := \
 
 %build_module mmake=kernel-ata \
   modname=ata modtype=device version=$(AROS_TARGET_PLATFORM) \
-  files="$(ATA_DEVICEFILES) $(ATA_CLASSFILES)"
+  files="$(ATA_DEVICEFILES) $(ATA_CLASSFILES)" usesdk=private

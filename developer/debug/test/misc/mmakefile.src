@@ -48,12 +48,12 @@ EXEDIR := $(AROS_TESTS)/misc
     files=$(FILES) targetdir=$(EXEDIR) uselibs="pthread"
 
 %build_progs mmake=test-misc-unix \
-    files=$(UNIXFILES) targetdir=$(EXEDIR) uselibs="pthread"
+    files=$(UNIXFILES) targetdir=$(EXEDIR) uselibs="pthread" usesdk=private
 
 USER_CPPFLAGS += -DADATE="\"$(shell date '+%d.%m.%Y')\""
 
 %build_progs mmake=test-sh \
     files=$(SHTESTFILES) targetdir=$(EXEDIR) \
-    usestartup=no
+    usestartup=no usesdk=private
 
 %common

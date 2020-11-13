@@ -6,6 +6,6 @@ USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 %build_module mmake=workbench-devs-tap-unix \
     modname=tap modtype=device version=$(AROS_TARGET_PLATFORM) \
     moduledir=Devs/Networks \
-    files="init command iotask" uselibs=stdc
+    files="init command iotask" uselibs="stdc oop" usesdk=private
 
 %common

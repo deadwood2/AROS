@@ -78,7 +78,7 @@ USER_LDFLAGS := -static
 %build_module mmake=workbench-tools-sysexplorer-module-storage \
     modname=storage modtype=library modsuffix=sysexp \
     files="$(STORAGEFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
-    uselibs="amiga" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(STORAGEMODDIR)/storage.conf
+    uselibs="amiga oop" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(STORAGEMODDIR)/storage.conf usesdk=private
 
 #MM workbench-tools-sysexplorer-module-ata : workbench-tools-sysexplorer-includes workbench-tools-sysexplorer-module-storage-includes kernel-ata-includes
 #MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-ata
@@ -89,7 +89,7 @@ USER_LDFLAGS := -static
 %build_module mmake=workbench-tools-sysexplorer-module-ata \
     modname=ata modtype=library modsuffix=sysexp \
     files="$(ATAFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
-    uselibs="amiga" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(ATAMODDIR)/ata.conf
+    uselibs="amiga oop" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(ATAMODDIR)/ata.conf usesdk=private
 
 #MM workbench-tools-sysexplorer-module-ahci : workbench-tools-sysexplorer-includes workbench-tools-sysexplorer-module-storage-includes kernel-ahci-includes
 #MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-ahci
@@ -100,7 +100,7 @@ USER_LDFLAGS := -static
 %build_module mmake=workbench-tools-sysexplorer-module-ahci \
     modname=ahci modtype=library modsuffix=sysexp \
     files="$(AHCIFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
-    uselibs="amiga" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(AHCIMODDIR)/ahci.conf
+    uselibs="amiga oop" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(AHCIMODDIR)/ahci.conf usesdk=private
 
 #MM workbench-tools-sysexplorer-gen-includes : workbench-tools-sysexplorer-gen-setup
 #MM- workbench-tools-sysexplorer-includes : workbench-tools-sysexplorer-gen-includes
@@ -131,7 +131,7 @@ USER_INCLUDES := $(SYSEXPCOMMON_INCLUDES)
 USER_LDFLAGS :=
 %build_prog mmake=workbench-tools-sysexplorer-app \
     progname=SysExplorer targetdir=$(EXEDIR) \
-    files=$(FILES) usesdk=private
+    files=$(FILES) uselibs="oop" usesdk=private
 
 
 %common

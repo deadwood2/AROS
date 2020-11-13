@@ -12,6 +12,6 @@ EXEDIR      := $(AROS_TESTS)/benchmarks/graphics
 #MM test-benchmarks-graphics : includes linklibs
 
 %build_progs mmake=test-benchmarks-graphics \
-    files=$(FILES) targetdir=$(EXEDIR)
+    files=$(FILES) targetdir=$(EXEDIR) usesdk=private
 
 %common

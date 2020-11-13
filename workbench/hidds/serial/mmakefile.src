@@ -16,7 +16,7 @@ INCLUDE_FILES := $(call WILDCARD, include/*.h)
 # When there is actually a hidd.serial class for here, generate the whole
 # lot.
 
-%make_hidd_stubs hidd=serial
+%make_hidd_stubs hidd=serial usesdk=private
 
 #MM includes-copy
 %copy_includes path=hidd dir=include

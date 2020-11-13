@@ -16,6 +16,6 @@ TARGET_ISA_AFLAGS := $(ISA_MC68060_FLAGS)
 %build_archspecific \
   mainmmake=kernel-graphics maindir=rom/graphics arch=amiga-m68k \
   files="$(CFILES)" asmfiles="$(AFILES)" \
-  modname=graphics
+  modname=graphics usesdk=private
 
 %common

@@ -13,7 +13,7 @@ EXEDIR = $(AROS_DEBUG)/Hardware
 
 %build_prog mmake=debug-tools-pcitool \
     progname=PCITool targetdir=$(EXEDIR) \
-    files=$(FILES) uselibs="hiddstubs"
+    files=$(FILES) uselibs="hiddstubs" usesdk=private
 
 %common
 

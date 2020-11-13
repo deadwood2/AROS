@@ -31,7 +31,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-gfx \
   modname=gfx modtype=hidd \
-  files="$(FILES) $(COLORCONVFILES)"
+  files="$(FILES) $(COLORCONVFILES)" usesdk=private
 
 LIBNAME     := gfx
 
