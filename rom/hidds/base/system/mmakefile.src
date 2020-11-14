@@ -22,13 +22,13 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-system \
   modname=system modtype=hidd \
-  files="$(FILES)" usesdk=private
+  files="$(FILES)" sdk=private usesdk=private
 
 LIBNAME     := system
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 #MM
 clean ::

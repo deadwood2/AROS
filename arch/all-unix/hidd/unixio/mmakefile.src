@@ -24,7 +24,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-unixio \
     modname=unixio modtype=hidd version=$(AROS_TARGET_PLATFORM) \
-    files="unixio_class unixpkt_class" archspecific=yes uselibs="oop" usesdk=private
+    files="unixio_class unixpkt_class" archspecific=yes uselibs="oop" sdk=private usesdk=private
 
 MY_INCLS := $(call WILDCARD, include/*.h)
 DEST_INC := $(foreach f,$(MY_INCLS), $(AROS_INCLUDES)/hidd/$(notdir $f))
@@ -32,6 +32,6 @@ GEN_INC	 := $(foreach f,$(MY_INCLS), $(GENINCDIR)/hidd/$(notdir $f))
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 %common

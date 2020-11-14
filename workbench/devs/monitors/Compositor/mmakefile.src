@@ -16,6 +16,6 @@ USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/include
 
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
 
-%copy_includes mmake=includes-compositor-copy path=hidd dir=include
+%copy_includes mmake=includes-compositor-copy path=hidd dir=include sdk=private
 
 %common

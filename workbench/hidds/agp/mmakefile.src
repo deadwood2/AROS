@@ -17,11 +17,11 @@ FILES := init agpclass genericbridgedeviceclass agp3bridgedeviceclass \
             i965bridgedeviceclass g33bridgedeviceclass
 
 #MM includes-copy
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 #MM hidd-agp : includes
 
 %build_module mmake=hidd-agp modname=agp modtype=hidd \
-    files="$(FILES)"
+    files="$(FILES)" sdk=private usesdk=private
 
 %common

@@ -15,7 +15,7 @@ INCLUDE_FILES := $(call WILDCARD, include/hardware/*.h)
 %copy_includes path=hardware dir=include/hardware
 
 INCLUDE_FILES := $(call WILDCARD, include/hidd/*.h)
-%copy_includes path=hidd dir=include/hidd
+%copy_includes path=hidd dir=include/hidd sdk=private
 
 USER_LDFLAGS := -static
 
@@ -38,4 +38,4 @@ ATA_CLASSFILES := \
 
 %build_module mmake=kernel-ata \
   modname=ata modtype=device version=$(AROS_TARGET_PLATFORM) \
-  files="$(ATA_DEVICEFILES) $(ATA_CLASSFILES)" usesdk=private
+  files="$(ATA_DEVICEFILES) $(ATA_CLASSFILES)" sdk=private usesdk=private

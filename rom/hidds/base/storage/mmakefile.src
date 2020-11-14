@@ -26,13 +26,13 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-storage \
   modname=storage modtype=hidd \
-  files="$(FILES)" usesdk=private
+  files="$(FILES)" sdk=private usesdk=private
 
 LIBNAME     := storage
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 #MM
 clean ::

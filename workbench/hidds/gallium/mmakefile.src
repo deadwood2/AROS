@@ -12,7 +12,7 @@ USER_LDFLAGS := -static
 HIDD_GALLIUM_FILES := gallium_init gallium_class
 
 #MM includes-copy
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 #MM- workbench-hidds: hidd-gallium
 #MM hidd-gallium : includes mesa3dgl-linklibs
@@ -24,6 +24,6 @@ USER_INCLUDES += \
             -iquote $(SRCDIR)/$(CURDIR)
 
 %build_module mmake=hidd-gallium modname=gallium modtype=hidd \
-   files="$(HIDD_GALLIUM_FILES)" uselibs="oop" usesdk=private
+   files="$(HIDD_GALLIUM_FILES)" uselibs="oop" sdk=private usesdk=private
 
 %common

@@ -11,8 +11,8 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd \
   modname=hiddclass modtype=hidd \
-  files="initcode $(CLASSES)" usesdk=private
+  files="initcode $(CLASSES)" sdk=private usesdk=private
 
 INCLUDE_FILES   :=  $(call WILDCARD, include/*.h)
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 

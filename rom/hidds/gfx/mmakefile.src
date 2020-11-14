@@ -31,13 +31,13 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-gfx \
   modname=gfx modtype=hidd \
-  files="$(FILES) $(COLORCONVFILES)" usesdk=private
+  files="$(FILES) $(COLORCONVFILES)" sdk=private usesdk=private
 
 LIBNAME     := gfx
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 #MM
 clean ::

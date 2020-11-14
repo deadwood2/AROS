@@ -18,7 +18,7 @@ INCLUDE_FILES := $(call WILDCARD, include/*.h)
 %make_hidd_stubs hidd=parallel usesdk=private
 
 #MM includes-copy
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 %include_deps
 %common

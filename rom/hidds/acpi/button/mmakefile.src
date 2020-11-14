@@ -15,13 +15,13 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-acpibutton \
   modname=acpibutton modtype=hidd \
-  files="$(FILES)" uselibs=acpica
+  files="$(FILES)" uselibs=acpica sdk=private usesdk=private
 
 LIBNAME     := acpibutton
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 #MM
 clean ::

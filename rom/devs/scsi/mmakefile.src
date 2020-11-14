@@ -12,7 +12,7 @@ INCLUDE_FILES := $(call WILDCARD, include/hardware/*.h)
 %copy_includes path=hardware dir=include/hardware
 
 INCLUDE_FILES := $(call WILDCARD, include/hidd/*.h)
-%copy_includes path=hidd dir=include/hidd
+%copy_includes path=hidd dir=include/hidd sdk=private
 
 USER_LDFLAGS := -static
 
@@ -32,4 +32,4 @@ SCSI_CLASSFILES :=              \
 
 %build_module mmake=kernel-scsi \
   modname=scsi modtype=device version=$(AROS_TARGET_PLATFORM) \
-  files="$(SCSI_DEVICEFILES) $(SCSI_CLASSFILES)"
+  files="$(SCSI_DEVICEFILES) $(SCSI_CLASSFILES)" sdk=private usesdk=private

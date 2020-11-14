@@ -3253,7 +3253,9 @@ STUBS_SRC := $(addprefix $(SRCDIR)/$(CURDIR)/,$(addsuffix .c,$(STUBS)))
 STUBS_MEM := $(addsuffix .o,$(STUBS))
 STUBS_OBJ := $(addprefix $(OBJDIR)/,$(STUBS_MEM))
 STUBS_DEP := $(addprefix $(OBJDIR)/,$(addsuffix .d,$(STUBS)))
-HIDD_LIB := $(AROS_LIB)/libhiddstubs.a
+
+HIDD_LIB_DIR := $(AROS_BUILD_SDKS)/private/$(AROS_DIR_LIB)
+HIDD_LIB     := $(HIDD_LIB_DIR)/libhiddstubs.a
 
 #MM- linklibs : hidd-%(hidd)-stubs
 #MM- %(parenttarget): hidd-%(hidd)-stubs
@@ -3275,7 +3277,7 @@ $(STUBS_DEP) : $(STUBS_SRC)
 	%mkdepend_q flags="$(strip %(dflags) %(cppflags))"
 
 setup ::
-	%mkdirs_q $(OBJDIR) $(AROS_LIB)
+	%mkdirs_q $(OBJDIR) $(HIDD_LIB_DIR)
 
 #MM
 clean ::

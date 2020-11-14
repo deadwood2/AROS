@@ -39,9 +39,9 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-oop \
   modname=oop modtype=library \
-  files="oop_init $(FUNCS) $(FILES)" sdk=private
+  files="oop_init $(FUNCS) $(FILES)" sdk=private usesdk=private
 
 #MM includes-copy
 
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
-%copy_includes path=oop dir=include
+%copy_includes path=oop dir=include sdk=private

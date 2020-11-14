@@ -8,7 +8,7 @@ INCLUDE_FILES := $(call WILDCARD, include/devices/*.h)
 %copy_includes path=devices dir=include/devices
 
 INCLUDE_FILES := $(call WILDCARD, include/hidd/*.h)
-%copy_includes path=hidd dir=include/hidd
+%copy_includes path=hidd dir=include/hidd sdk=private
 
 AHCIDEVICEFILES :=  \
         ahci_init \
@@ -45,6 +45,6 @@ USER_LDFLAGS := -static
 %build_module mmake=kernel-ahci \
   modname=ahci modtype=device \
   files="$(AHCIDEVICEFILES) $(AHCICLASSFILES)" \
-  uselibs="hiddstubs"
+  uselibs="hiddstubs" sdk=private usesdk=private
 
 %common
