@@ -135,7 +135,7 @@ endif
 
 $(OBJDIR)/asm.s : $(SRCDIR)/$(CURDIR)/asm.c | $(OBJDIR)
 	@$(ECHO) "Compiling  $<..."
-	@$(TARGET_CC) $(TARGET_SYSROOT) $(CFLAGS) $(PRIV_EXEC_INCLUDES) $(PRIV_KERNEL_INCLUDES) -I$(AROS_BUILD_SDKS)/private/$(AROS_DIR_INCLUDE) -S $< -o $@
+	@$(TARGET_CC) $(TARGET_SYSROOT) $(CFLAGS) $(PRIV_EXEC_INCLUDES) $(PRIV_KERNEL_INCLUDES) -I$(AROS_PRIVATE_INCLUDES) -S $< -o $@
 
 $(GENINCDIR)/aros/$(CPU)/asm.h : $(OBJDIR)/asm.s | $(GENINCDIR)/aros/$(AROS_TARGET_CPU)
 	@$(ECHO) Generating $@...
