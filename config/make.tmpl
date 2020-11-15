@@ -2644,15 +2644,21 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
 # - cflags are the flags to compile the source (default $(CFLAGS))
 # - dflags are the flags used during makedepend (default equal to cflags)
 # - aflags are the flags used during assembling (default $(AFLAGS))
+# - sdk when provided, redirects linklib to a build sdk directory called %(sdk)
 %define build_linklib mmake=/A libname=/A files= objcfiles= cxxfiles= \
   asmfiles= objs= objdir=$(GENDIR)/$(CURDIR) libdir=$(AROS_LIB) \
-  srcdir= \
+  srcdir= sdk=public \
   cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= cxxflags=$(CXXFLAGS) dxxflags= \
   aflags=$(AFLAGS) compiler=target lto=$(TARGET_LTO) usetree=no
 
 # assign and generate the local variables used in this macro
 %(mmake)_LIBNAME           := %(libname)
-%(mmake)_LINKLIB           := %(libdir)/lib%(libname).a
+ifeq (%(sdk), public)
+%(mmake)_LINKLIB_DIR       := %(libdir)
+else
+%(mmake)_LINKLIB_DIR       := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_LIB)
+endif
+%(mmake)_LINKLIB           := $(%(mmake)_LINKLIB_DIR)/lib%(libname).a
 
 %(mmake)_FILES             ?= %(files)
 %(mmake)_ASMFILES          := %(asmfiles)
@@ -2730,13 +2736,13 @@ ifneq ($(filter $(TARGET),%(mmake) %(mmake)-quick),)
     cmd=$(%(mmake)_ASSEMBLER) basenames=$(%(mmake)_ASMFILES) targetdir="$(%(mmake)_OBJDIR)" \
     cppflags=$(%(mmake)_CPPFLAGS) aflags=$(%(mmake)_AFLAGS)
 
-%rule_link_linklib mmake=%(mmake) libname="%(libname)" objs=$(%(mmake)_OBJS) libdir="%(libdir)" linker="%(compiler)"
+%rule_link_linklib mmake=%(mmake) libname="%(libname)" objs=$(%(mmake)_OBJS) libdir="$(%(mmake)_LINKLIB_DIR)" linker="%(compiler)"
 endif
 
 %include_deps depstargets="%(mmake) %(mmake)-quick" deps=$(%(mmake)_DEPS)
 
 
-%rule_makedirs dirs="$(%(mmake)_OBJDIR) %(libdir)" setuptarget="$(%(mmake)_OBJS) $(%(mmake)_DEPS) $(%(mmake)_LINKLIB)"
+%rule_makedirs dirs="$(%(mmake)_OBJDIR) $(%(mmake)_LINKLIB_DIR)" setuptarget="$(%(mmake)_OBJS) $(%(mmake)_DEPS) $(%(mmake)_LINKLIB)"
 
 %(mmake)-clean : FILES := $(%(mmake)_OBJS) $(%(mmake)_LINKLIB) $(%(mmake)_DEPS)
 #MM
