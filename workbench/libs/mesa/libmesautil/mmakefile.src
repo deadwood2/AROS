@@ -54,6 +54,6 @@ mesa3d-linklib-mesautil-generated : $(MESA3DGL_MESAUTIL_GENERATED_C_SOURCES)
 
 #MM mesa3d-linklib-mesautil : mesa3d-linklib-mesautil-generated
 
-%build_linklib mmake=mesa3d-linklib-mesautil libname=mesautil libdir=$(top_libdir) objdir=$(top_builddir)/$(CUR_MESADIR) files="$(MESA3DGL_MESAUTIL_SOURCES_C)" cxxfiles="$(MESA3DGL_MESAUTIL_SOURCES_CXX)"
+%build_linklib mmake=mesa3d-linklib-mesautil libname=mesautil sdk=mesa objdir=$(top_builddir)/$(CUR_MESADIR) files="$(MESA3DGL_MESAUTIL_SOURCES_C)" cxxfiles="$(MESA3DGL_MESAUTIL_SOURCES_CXX)"
 
 %common

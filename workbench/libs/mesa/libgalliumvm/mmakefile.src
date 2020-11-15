@@ -34,7 +34,7 @@ USER_CXXFLAGS += $(MESA_NOWARNFLAGS)
 ##USER_CPPFLAGS += -DHAVE_LLVM=0x0209 -D__STDC_CONSTANT_MACROS
 
 %build_linklib mmake=mesa3d-linklib-galliumvm libname=galliumvm \
-   libdir=$(top_libdir) objdir=$(top_builddir)/$(CUR_MESADIR) \
+   sdk=mesa objdir=$(top_builddir)/$(CUR_MESADIR) \
    files="$(GALLIVM_SOURCES_C)" cxxfiles="$(GALLIVM_SOURCES_CXX)"
 
 %common

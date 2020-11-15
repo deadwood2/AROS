@@ -76,7 +76,6 @@ MESA_COMPILEOPTIONS += $(CFLAGS_FUNCTION_SECTIONS)
 endif
 
 USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
-  -L$(top_libdir) \
   -Wl,--start-group -lglapi -lmesa -lcompiler -lgalliumauxiliary -lgallium -lmesautil \
   -lpthread $(MESA_ZLIB) -lposixc_rel -lstdcio_rel -lstdc_rel
 

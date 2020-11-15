@@ -226,6 +226,6 @@ mesa3d-linklib-mesa-generated : $(MESA3DGL_MESA_GENERATED_C_HEADERS) $(MESA3DGL_
 
 #MM mesa3d-linklib-mesa : mesa3d-linklib-mesa-generated mesa3d-linklib-compiler-generated
 
-%build_linklib mmake=mesa3d-linklib-mesa libname=mesa libdir="$(top_libdir)" objdir="$(top_builddir)/$(CUR_MESADIR)" files="$(MESA3DGL_MESA_SOURCES_C)" cxxfiles="$(MESA3DGL_MESA_SOURCES_CXX)" asmfiles="$(MESA3DGL_MESA_SOURCES_ASM)"
+%build_linklib mmake=mesa3d-linklib-mesa libname=mesa sdk=mesa objdir="$(top_builddir)/$(CUR_MESADIR)" files="$(MESA3DGL_MESA_SOURCES_C)" cxxfiles="$(MESA3DGL_MESA_SOURCES_CXX)" asmfiles="$(MESA3DGL_MESA_SOURCES_ASM)"
 
 %common

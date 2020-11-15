@@ -31,7 +31,6 @@ USER_INCLUDES += \
             -iquote $(GALLIUM_PATH)/auxiliary
 
 USER_LDFLAGS := $(TARGET_CXX_LDFLAGS) \
-  -L$(top_libdir) \
   -lgallium_i915 -lgalliumauxiliary -lmesautil \
   -lhiddstubs -lpthread -lstdcio -lstdc
 

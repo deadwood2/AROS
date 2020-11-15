@@ -25,6 +25,6 @@ USER_INCLUDES := \
 NOWARN_FLAGS := -Wno-unused-value -Wno-unused-variable -Wno-strict-aliasing
 USER_CFLAGS += $(NOWARN_FLAGS)
 
-%build_linklib mmake=intelgma-linklibs-gallium_i915 libname=gallium_i915 libdir=$(top_libdir) objdir=$(top_builddir)/$(CUR_MESADIR)/$(CUR_GALLIUMDIR) files="$(I915_SOURCES)"
+%build_linklib mmake=intelgma-linklibs-gallium_i915 libname=gallium_i915 sdk=mesa objdir=$(top_builddir)/$(CUR_MESADIR)/$(CUR_GALLIUMDIR) files="$(I915_SOURCES)"
 
 %common

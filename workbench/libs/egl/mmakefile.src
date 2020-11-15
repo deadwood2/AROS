@@ -34,7 +34,6 @@ USER_CPPFLAGS :=  -DFEATURE_GL=1 \
                 -DHAVE_AROS_BACKEND
 
 USER_LDFLAGS := \
-  -L$(top_libdir) \
   -lcompiler -lgalliumauxiliary -lmesautil \
   -lpthread -lposixc -lstdcio -lstdc
 ifneq ($(TARGET_LIBATOMIC),)

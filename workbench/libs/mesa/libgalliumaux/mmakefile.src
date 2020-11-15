@@ -71,7 +71,7 @@ mesa3d-linklib-galliumauxiliary-generated : $(addprefix $(top_builddir)/$(CUR_ME
 # with the same name...
 mesa3d-linklib-galliumauxiliary_C_FILES := $(MESA3DGL_GALLIUM_AUXILIARY_SOURCES_C)
 %build_linklib mmake=mesa3d-linklib-galliumauxiliary libname=galliumauxiliary \
-    libdir=$(top_libdir) objdir=$(top_builddir)/$(CUR_MESADIR) srcdir=$(top_srcdir)/$(CUR_MESADIR) \
+    sdk=mesa objdir=$(top_builddir)/$(CUR_MESADIR) srcdir=$(top_srcdir)/$(CUR_MESADIR) \
     files="$(MESA3DGL_GALLIUM_AUXILIARY_C_SOURCES:.c=)" objs="$(addprefix $(top_builddir)/$(CUR_MESADIR)/,$(GALLIUM_AUXILIARY_GENERATED_SOURCES:.c=.o))" usetree=yes
 
 %rule_compile_multi mmake=mesa3d-linklib-galliumauxiliary-genobs \

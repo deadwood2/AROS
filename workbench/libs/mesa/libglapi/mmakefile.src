@@ -89,6 +89,6 @@ mesa3d-linklib-glapi-generate : $(GLAPI_GEN_FILES)
 
 #MM mesa3d-linklib-glapi : mesa3d-fetch mesa3d-linklib-glapi-generate
 
-%build_linklib mmake=mesa3d-linklib-glapi libname=glapi libdir=$(top_libdir) objdir=$(top_builddir)/$(CUR_MESADIR) files="$(MESA3DGL_GLAPI_SOURCES_C)" asmfiles="$(MESA3DGL_GLAPI_SOURCES_ASM)"
+%build_linklib mmake=mesa3d-linklib-glapi libname=glapi sdk=mesa objdir=$(top_builddir)/$(CUR_MESADIR) files="$(MESA3DGL_GLAPI_SOURCES_C)" asmfiles="$(MESA3DGL_GLAPI_SOURCES_ASM)"
 
 %common
