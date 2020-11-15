@@ -44,7 +44,7 @@ USER_CFLAGS += $(NOWARN_FLAGS)
 
 %build_prog mmake=devs-monitors-intelgma \
            progname=IntelGMA targetdir=$(EXEDIR) \
-           files=$(IGMA_HIDD_SOURCES) uselibs="" usesdk=private
+           files=$(IGMA_HIDD_SOURCES) uselibs="" usesdks="private"
 
 
 %common

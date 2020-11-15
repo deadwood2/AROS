@@ -19,4 +19,4 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-fs-con \
     conffile=con_handler.conf modname=con modtype=handler \
-    files="$(FILES)" usesdk=private
+    files="$(FILES)" usesdks="private"

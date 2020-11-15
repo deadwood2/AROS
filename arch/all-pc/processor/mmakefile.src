@@ -15,6 +15,6 @@ FILES := \
 #MM- kernel-processor-i386 : includes
 
 %build_archspecific mainmmake=kernel-processor modname=processor maindir=rom/processor \
-    arch=i386 files=$(FILES) usesdk=private
+    arch=i386 files=$(FILES) usesdks="private"
 
 %common

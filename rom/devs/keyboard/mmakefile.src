@@ -13,4 +13,4 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-keyboard \
   modname=keyboard modtype=device \
-  files=keyboard usesdk=private
+  files=keyboard usesdks="private"

@@ -45,6 +45,6 @@ USER_LDFLAGS := -static
 %build_module mmake=kernel-ahci \
   modname=ahci modtype=device \
   files="$(AHCIDEVICEFILES) $(AHCICLASSFILES)" \
-  uselibs="hiddstubs" sdk=private usesdk=private
+  uselibs="hiddstubs" sdk=private usesdks="private"
 
 %common

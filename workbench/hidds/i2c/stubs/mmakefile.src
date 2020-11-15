@@ -10,6 +10,6 @@ USER_CFLAGS :=	-DAROS_USE_OOP -I.
 FILES       :=
 STUBS	    := $(MODNAME)_stubs
 
-%make_hidd_stubs hidd=i2c usesdk=private
+%make_hidd_stubs hidd=i2c usesdks="private"
 
 %common

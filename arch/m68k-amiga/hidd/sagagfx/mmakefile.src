@@ -16,4 +16,4 @@ SAGA_HIDD_SOURCES := \
 
 %build_module mmake=hidd-m68k-sagagfx \
   modname=sagagfx modtype=hidd \
-  files=$(SAGA_HIDD_SOURCES) uselibs="oop" usesdk=private
+  files=$(SAGA_HIDD_SOURCES) uselibs="oop" usesdks="private"

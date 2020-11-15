@@ -13,4 +13,4 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-bootloader \
     modname=bootloader modtype=resource \
-    files="bootloader_init getbootinfo" usesdk=private
+    files="bootloader_init getbootinfo" usesdks="private"

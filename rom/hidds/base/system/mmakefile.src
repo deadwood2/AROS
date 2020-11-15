@@ -22,7 +22,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-system \
   modname=system modtype=hidd \
-  files="$(FILES)" sdk=private usesdk=private
+  files="$(FILES)" sdk=private usesdks="private"
 
 LIBNAME     := system
 

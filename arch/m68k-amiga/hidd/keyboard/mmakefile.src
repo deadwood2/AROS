@@ -10,4 +10,4 @@ USER_CPPFLAGS += \
 
 %build_module mmake=kernel-amiga-m68k-kbd \
     modname=amigakbd modtype=hidd \
-    files="kbd_init kbdclass" uselibs="hiddstubs" usesdk=private
+    files="kbd_init kbdclass" uselibs="hiddstubs" usesdks="private"

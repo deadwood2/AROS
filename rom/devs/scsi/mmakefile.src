@@ -32,4 +32,4 @@ SCSI_CLASSFILES :=              \
 
 %build_module mmake=kernel-scsi \
   modname=scsi modtype=device version=$(AROS_TARGET_PLATFORM) \
-  files="$(SCSI_DEVICEFILES) $(SCSI_CLASSFILES)" sdk=private usesdk=private
+  files="$(SCSI_DEVICEFILES) $(SCSI_CLASSFILES)" sdk=private usesdks="private"

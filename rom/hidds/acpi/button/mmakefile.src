@@ -15,7 +15,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-acpibutton \
   modname=acpibutton modtype=hidd \
-  files="$(FILES)" uselibs=acpica sdk=private usesdk=private
+  files="$(FILES)" uselibs=acpica sdk=private usesdks="private"
 
 LIBNAME     := acpibutton
 

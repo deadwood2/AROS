@@ -18,7 +18,7 @@ SUPPORTFILES := kernel_cpusupport
 
 %build_archspecific \
   mainmmake=kernel-kernel maindir=rom/kernel \
-  arch=unix-support files="$(SUPPORTFILES)" modname=kernel usesdk=private
+  arch=unix-support files="$(SUPPORTFILES)" modname=kernel usesdks="private"
 
 #MM kernel-kernel-unix : kernel-kernel-unix-support
 
@@ -27,7 +27,7 @@ USER_INCLUDES += -I$(GENDIR)/$(MAINDIR)/include \
 
 %build_archspecific \
   mainmmake=kernel-kernel maindir=rom/kernel \
-  arch=unix files="$(FILES) $(FUNCS)" modname=kernel usesdk=private
+  arch=unix files="$(FILES) $(FUNCS)" modname=kernel usesdks="private"
 
 TESTS		:= coretest
 

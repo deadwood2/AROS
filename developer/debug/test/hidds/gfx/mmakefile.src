@@ -14,6 +14,6 @@ FILES := \
 
 %build_progs mmake=test-hidd-gfx \
     files=$(FILES) targetdir=$(EXEDIR) \
-    uselibs="hiddstubs oop" usesdk=private
+    uselibs="hiddstubs oop" usesdks="private"
 	
 %common

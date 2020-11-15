@@ -18,4 +18,4 @@ FILES	:= i2c_init i2cdeviceclass i2cclass
 
 %build_module mmake=hidd-i2c \
     modname=i2c modtype=hidd \
-    files="$(FILES)" uselibs="oop" sdk=private usesdk=private
+    files="$(FILES)" uselibs="oop" sdk=private usesdks="private"

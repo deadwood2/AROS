@@ -13,6 +13,6 @@ USER_CFLAGS := $(PARANOIA_CFLAGS)
 
 %build_prog mmake=test-smp-smp \
     files=$(FILES) targetdir=$(EXEDIR) \
-    progname=SMP-Test usesdk=private
+    progname=SMP-Test usesdks="private"
 
 %common

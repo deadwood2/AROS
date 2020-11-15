@@ -14,7 +14,7 @@ DISK_EXEDIR := $(AROS_DEVS)/Monitors
 
 %build_prog mmake=hosted-X11-monitor \
     progname=X11 targetdir=$(DISK_EXEDIR) \
-    files=$(DISK_FILES) uselibs="oop" usesdk=private
+    files=$(DISK_FILES) uselibs="oop" usesdks="private"
 
 USER_CPPFLAGS := -DHOST_OS_$(ARCH)
 USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
@@ -59,7 +59,7 @@ FILES :=  \
 
 %build_module mmake=hosted-X11-x11gfx \
   modname=x11gfx modtype=hidd version=$(AROS_TARGET_PLATFORM) \
-  files=$(FILES) uselibs="hiddstubs" uselibs="oop" usesdk=private
+  files=$(FILES) uselibs="hiddstubs" uselibs="oop" usesdks="private"
 
 #MM x11keymaptable
 x11keymaptable : setup-x11keymaptable $(TOOLDIR)/makexkeytable $(X11KEYMAPTABLE_FILE) $(X11KEYMAPTABLE_ALT_FILE) $(X11KEYMAPTABLE_ALT_NB_FILE)

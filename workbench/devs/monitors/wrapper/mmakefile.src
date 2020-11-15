@@ -21,7 +21,7 @@ endif
 
 %build_prog mmake=devs-monitors-wrapper \
     progname=Wrapper targetdir=$(STORAGEDIR) \
-    files=$(FILES) uselibs="oop" usesdk=private
+    files=$(FILES) uselibs="oop" usesdks="private"
 
 #MM
 devs-monitors-wrapper-copy: $(PCDEVSDIR)/ATI \

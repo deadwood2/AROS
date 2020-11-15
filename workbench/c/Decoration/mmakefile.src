@@ -21,6 +21,6 @@ EXEDIR := $(AROS_C)
 
 %build_prog mmake=workbench-c-decoration \
     progname=Decoration targetdir=$(EXEDIR) \
-    files=$(FILES) detach=yes usesdk=private
+    files=$(FILES) detach=yes usesdks="private"
 
 %common

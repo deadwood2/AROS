@@ -21,4 +21,4 @@ USER_CPPFLAGS += \
 
 %build_module mmake=kernel-amiga-m68k-amigavideo \
     modname=amigavideo modtype=hidd \
-    files="$(AMIGAVIDEO_C_SOURCES)" uselibs="hiddstubs" usesdk=private
+    files="$(AMIGAVIDEO_C_SOURCES)" uselibs="hiddstubs" usesdks="private"

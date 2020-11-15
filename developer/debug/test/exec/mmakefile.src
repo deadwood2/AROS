@@ -57,6 +57,6 @@ EXECPRIVATEFILES :=		\
 USER_INCLUDES += $(PRIV_EXEC_INCLUDES)
 
 %build_progs mmake=test-exec-private \
-    files=$(EXECPRIVATEFILES) targetdir=$(EXEDIR) usesdk=private
+    files=$(EXECPRIVATEFILES) targetdir=$(EXEDIR) usesdks="private"
     
 %common

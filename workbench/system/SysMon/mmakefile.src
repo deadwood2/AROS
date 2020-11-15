@@ -15,6 +15,6 @@ USER_CFLAGS :=
 
 %build_prog mmake=workbench-system-sysmon \
     files=$(FILES) targetdir=$(EXEDIR) \
-    progname=SysMon usesdk=private
+    progname=SysMon usesdks="private"
 
 %common

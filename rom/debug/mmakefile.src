@@ -13,6 +13,6 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-debug \
   modname=debug modtype=library \
-  files="$(FILES) $(FUNCS)" linklibfiles=$(STATICFUNCS) usesdk=private
+  files="$(FILES) $(FUNCS)" linklibfiles=$(STATICFUNCS) usesdks="private"
 
 %common

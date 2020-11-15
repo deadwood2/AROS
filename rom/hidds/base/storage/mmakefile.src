@@ -26,7 +26,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-storage \
   modname=storage modtype=hidd \
-  files="$(FILES)" sdk=private usesdk=private
+  files="$(FILES)" sdk=private usesdks="private"
 
 LIBNAME     := storage
 
