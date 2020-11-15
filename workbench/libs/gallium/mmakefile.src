@@ -25,13 +25,12 @@ LIB_GALLIUM_SOURCES = \
 
 %build_module mmake=workbench-libs-gallium \
    modname=gallium modtype=library \
-   libdir=$(GENDIR)/lib/mesa linklibname=gallium \
    files="$(LIB_GALLIUM_SOURCES)" \
-   uselibs="stdc oop" usesdks="private"
+   uselibs="stdc oop" sdk=mesa usesdks="private mesa"
 
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
 
 #MM includes-copy
-%copy_includes path=gallium dir=include
+%copy_includes path=gallium dir=include sdk=mesa
 
 %common

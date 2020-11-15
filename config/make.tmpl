@@ -1535,7 +1535,6 @@ BDID := $(BDTARGETID)
     asmfiles= objdir=$(GENDIR)/$(CURDIR) targetdir=$(AROSDIR)/$(CURDIR) \
     cppflags=$(CPPFLAGS) cflags= dflags= cxxflags= dxxflags= ldflags= \
     aflags=$(AFLAGS) uselibs= usehostlibs= usestartup=yes detach=no nix=no \
-    includedir= libdir= \
     compiler=target linker= \
     coverageinstr=$(TARGET_COVERAGEINSTR) funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) \
     usesdks=
@@ -1575,9 +1574,6 @@ TMP_FILES := $(%(mmake)_C_NARCHFILES) $(%(mmake)_CXX_NARCHFILES) $(%(mmake)_ASMF
 %(mmake)_DEPS := $(addsuffix .d,$(addprefix $(%(mmake)_OBJDIR)/,$(notdir $(TMP_FILES))))
 
 %(mmake)_CPPFLAGS :=  %(cppflags)
-ifneq (%(includedir),)
-%(mmake)_CPPFLAGS    += -I%(includedir)
-endif
 ifneq (%(usesdks),)
 %(mmake)_CPPFLAGS    += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
@@ -1669,9 +1665,6 @@ endif
 ifeq (%(compiler),kernel)
 %(mmake)_LDFLAGS           := $(%(mmake)_LDFLAGS) $(KERNEL_ISA_OBJCFLAGS)
 endif
-ifneq (%(libdir),)
-%(mmake)_LDFLAGS   += -L%(libdir)
-endif
 ifneq (%(usesdks),)
 %(mmake)_LDFLAGS   += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
 endif
@@ -1727,7 +1720,6 @@ endif
 %define build_progs mmake=/A files=/A nix=no \
     objdir=$(GENDIR)/$(CURDIR) targetdir=$(AROSDIR)/$(CURDIR) \
     cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= ldflags=$(LDFLAGS) \
-    includedir= libdir= \
     compiler=target \
     uselibs= usehostlibs= usestartup=yes detach=no \
     coverageinstr=$(TARGET_COVERAGEINSTR) funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) \
@@ -1745,9 +1737,6 @@ endif
 %(mmake)_EXES      := $(addprefix $(%(mmake)_TARGETDIR)/,$(%(mmake)_FILES))
 
 %(mmake)_CPPFLAGS := %(cppflags)
-ifneq (%(includedir),)
-    %(mmake)_CPPFLAGS += -I%(includedir)
-endif
 ifneq (%(usesdks),)
     %(mmake)_CPPFLAGS += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
@@ -1787,9 +1776,6 @@ ifeq (%(compiler),host)
 endif
 ifeq (%(compiler),kernel)
 %(mmake)_LDFLAGS           := %(ldflags) $(KERNEL_ISA_OBJCFLAGS)
-endif
-ifneq (%(libdir),)
-    %(mmake)_LDFLAGS += -L%(libdir)
 endif
 ifneq (%(usesdks),)
     %(mmake)_LDFLAGS += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
@@ -2032,7 +2018,7 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
     objdir= moduledir= prefix=$(AROSDIR) \
     linklibname= uselibs= usehostlibs= \
     compiler=target funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) nostartup=yes archspecific=no \
-    include_set=includes-all includedir= libdir= \
+    include_set=includes-all \
     build_abi= build_library= sdk=public usesdks=
 
 # We will employ a terrifying, but unavoidable, hack here.
@@ -2117,8 +2103,8 @@ else
     %(mmake)%(flavour)_LINKLIBNAME  = $(%(mmake)%(flavour)_DEFLINKLIBNAME)
 endif
 %(mmake)%(flavour)_DEFCPPFLAGS      := %(cppflags)
-ifneq (%(includedir),)
-    %(mmake)%(flavour)_DEFCPPFLAGS  += -I%(includedir)
+ifneq (%(usesdks),)
+    %(mmake)%(flavour)_DEFCPPFLAGS  += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 %(mmake)%(flavour)_DEFDFLAGS        := %(cflags)
 ifneq (%(dflags),)
@@ -2187,14 +2173,10 @@ endif
 
 ## include files generation
 ##
-ifneq (%(includedir),)
-%(mmake)%(flavour)_INCDIR           := %(includedir)
-else
 ifeq (%(sdk),public)
 %(mmake)%(flavour)_INCDIR           := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
 else
 %(mmake)%(flavour)_INCDIR           := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_INCLUDE)
-endif
 endif
 %(mmake)%(flavour)_LIBDEFSINC       := $(%(mmake)%(flavour)_OBJDIR)/include/$(%(mmake)%(flavour)_DEFNAME)_libdefs.h
 %(mmake)%(flavour)_DEFLIBDEFSINC    := $(%(mmake)%(flavour)_OBJDIR)/include/$(%(mmake)%(flavour)_DEFNAME)_deflibdefs.h
@@ -2254,14 +2236,10 @@ $(%(mmake)-genmodfiles_GENFILEFLAG) : $(%(mmake)%(flavour)_DEFLIBDEFSINC) $(%(mm
 
 ifeq (%(build_abi),M)
 ## Create FD file
-ifeq (%(includedir),)
 ifeq (%(sdk),public)
 %(mmake)%(flavour)_FDDIR            := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_FD)
 else
 %(mmake)%(flavour)_FDDIR            := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_FD)
-endif
-else
-%(mmake)%(flavour)_FDDIR            := %(includedir)/../$(AROS_DIR_FD)
 endif
 %(mmake)-fd : $(%(mmake)%(flavour)_FDDIR)/%(modname)_lib.fd
 
@@ -2301,9 +2279,6 @@ endif
 %(mmake)%(flavour)_ARCHNLIBFILES    := $(call %(mmake)%(flavour)_FILTERARCH,$(%(mmake)%(flavour)_LIBFILES),$(%(mmake)%(flavour)_LIBARCHFILES))
 
 %(mmake)%(flavour)_CPPFLAGS         := $(strip %(cppflags) -I$(%(mmake)%(flavour)_OBJDIR)/include -include $(%(mmake)%(flavour)_DEFLIBDEFSINC))
-ifneq (%(includedir),)
-%(mmake)%(flavour)_CPPFLAGS         += -I%(includedir)
-endif
 ifneq (%(usesdks),)
 %(mmake)%(flavour)_CPPFLAGS         += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
@@ -2341,14 +2316,10 @@ else
     %(mmake)%(flavour)_LIBSUFFIX    := .%(modtype)
 endif
 
-ifeq (%(libdir),)
 ifeq (%(sdk),public)
 %(mmake)%(flavour)_LIBDIR           := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_LIB)
 else
 %(mmake)%(flavour)_LIBDIR           := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_LIB)
-endif
-else
-%(mmake)%(flavour)_LIBDIR           := %(libdir)
 endif
 
 ifeq (%(build_abi),M)
@@ -2581,7 +2552,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir= moduledir= prefix=$(AROSDIR) \
   linklibname= uselibs= usehostlibs= \
   compiler=target funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) nostartup=yes archspecific=no \
-  include_set=includes-all includedir= libdir= sdk=public usesdks=
+  include_set=includes-all sdk=public usesdks=
 
 %build_module_core mmake="%(mmake)" modname="%(modname)" modtype="%(modtype)" \
    modsuffix="%(modsuffix)" version="%(version)" flavour="%(flavour)" conffile="%(conffile)" confoverride="%(confoverride)" \
@@ -2592,7 +2563,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
    objdir="%(objdir)" moduledir="%(moduledir)" prefix="%(prefix)" \
    uselibs="%(uselibs)" usehostlibs="%(usehostlibs)" compiler="%(compiler)" funcinstr=%(funcinstr) lto=%(lto) \
    nostartup="%(nostartup)" archspecific="%(archspecific)" \
-   include_set=%(include_set) includedir="%(includedir)" libdir="%(libdir)" \
+   include_set=%(include_set) \
    build_abi=M build_library=M sdk="%(sdk)" usesdks="%(usesdks)"
 
 %end
@@ -2610,7 +2581,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir= moduledir= prefix=$(AROSDIR) \
   linklibname= uselibs= usehostlibs= \
   compiler=target nostartup=yes archspecific=no \
-  include_set=includes-all includedir= libdir=
+  include_set=includes-all
 
 %build_module_core mmake="%(mmake)" modname="%(modname)" modtype="%(modtype)" \
   modsuffix="%(modsuffix)" version="%(version)" flavour="%(flavour)" conffile="%(conffile)" confoverride="%(confoverride)" \
@@ -2620,7 +2591,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir="%(objdir)" moduledir="%(moduledir)" prefix="%(prefix)" \
   uselibs="%(uselibs)" usehostlibs="%(usehostlibs)" compiler="%(compiler)" lto=%(lto) \
   nostartup="%(nostartup)" archspecific="%(archspecific)" \
-  include_set=%(include_set) includedir="%(includedir)" libdir="%(libdir)" \
+  include_set=%(include_set) \
   build_abi=M build_library=
 
 %end
@@ -2638,7 +2609,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir= moduledir= prefix=$(AROSDIR) \
   uselibs= usehostlibs= \
   compiler=target lto=$(TARGET_LTO) nostartup=yes archspecific=no \
-  include_set=includes-all includedir= libdir= usesdks=
+  include_set=includes-all usesdks=
 
 %build_module_core mmake="%(mmake)" modname="%(modname)" modtype="%(modtype)" \
    modsuffix="%(modsuffix)" version="%(version)" flavour="%(flavour)" \
@@ -2648,7 +2619,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
    objdir="%(objdir)" moduledir="%(moduledir)" prefix="%(prefix)" \
    uselibs="%(uselibs)" usehostlibs="%(usehostlibs)" compiler="%(compiler)" lto=%(lto) \
    nostartup="%(nostartup)" archspecific="%(archspecific)" \
-   include_set=%(include_set) includedir="%(includedir)" libdir="%(libdir)" \
+   include_set=%(include_set) \
    build_abi= build_library=M usesdks="%(usesdks)"
 
 %end
@@ -2675,7 +2646,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
 # - aflags are the flags used during assembling (default $(AFLAGS))
 %define build_linklib mmake=/A libname=/A files= objcfiles= cxxfiles= \
   asmfiles= objs= objdir=$(GENDIR)/$(CURDIR) libdir=$(AROS_LIB) \
-  includedir= srcdir= \
+  srcdir= \
   cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= cxxflags=$(CXXFLAGS) dxxflags= \
   aflags=$(AFLAGS) compiler=target lto=$(TARGET_LTO) usetree=no
 
@@ -2711,9 +2682,6 @@ endif
 %(mmake)_DEPS              := $(patsubst %.o,%.d,$(%(mmake)_OBJS))
 
 %(mmake)_CPPFLAGS          := %(cppflags)
-ifneq (%(includedir),)
-    %(mmake)_CPPFLAGS      += -I%(includedir)
-endif
 %(mmake)_CFLAGS            := %(cflags)
 %(mmake)_CXXFLAGS          := %(cxxflags)
 ifeq (%(lto),yes)
@@ -3187,7 +3155,7 @@ endif
 #   library header files.
 #
 %define copy_includes mmake=includes-copy includes=$(INCLUDE_FILES) path=. \
-    dir= compiler=target includedir= sdk=public
+    dir= compiler=target sdk=public
 
 ifeq ($(findstring %(compiler),host kernel target),)
 $(error %copy_includes: compiler argument (%(compiler)) has to be host, kernel or target)
@@ -3214,14 +3182,10 @@ $(BD_INCL_FILES) : $(GENINCDIR)/%(path)/% : $(BD_INC_PATH)%
 
 ifeq (%(compiler),target)
 
-ifneq (%(includedir),)
-BD_DST_DIR             := %(includedir)
-else
 ifeq (%(sdk),public)
 BD_DST_DIR             := $(AROS_INCLUDES)
 else
 BD_DST_DIR             := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_INCLUDE)
-endif
 endif
 
 ifneq (%(dir),)

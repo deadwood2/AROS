@@ -89,7 +89,7 @@ USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
   confoverride=mesa3dgl.conf \
   files="$(MESAGL_LIBRARY_SOURCES_C)" \
   cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
-  uselibs=""
+  uselibs="" usesdks="mesa"
 
 #
 # mesa3d includes...
