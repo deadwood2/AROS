@@ -1538,7 +1538,7 @@ BDID := $(BDTARGETID)
     includedir= libdir= \
     compiler=target linker= \
     coverageinstr=$(TARGET_COVERAGEINSTR) funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) \
-    usesdk=
+    usesdks=
 
 .PHONY : %(mmake)
 
@@ -1578,8 +1578,8 @@ TMP_FILES := $(%(mmake)_C_NARCHFILES) $(%(mmake)_CXX_NARCHFILES) $(%(mmake)_ASMF
 ifneq (%(includedir),)
 %(mmake)_CPPFLAGS    += -I%(includedir)
 endif
-ifneq (%(usesdk),)
-%(mmake)_CPPFLAGS    += -I$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_INCLUDE)
+ifneq (%(usesdks),)
+%(mmake)_CPPFLAGS    += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 
 ifeq ("%(cflags)","")
@@ -1672,8 +1672,8 @@ endif
 ifneq (%(libdir),)
 %(mmake)_LDFLAGS   += -L%(libdir)
 endif
-ifneq (%(usesdk),)
-%(mmake)_LDFLAGS   += -L$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_LIB)
+ifneq (%(usesdks),)
+%(mmake)_LDFLAGS   += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
 endif
 
 #MM
@@ -1731,7 +1731,7 @@ endif
     compiler=target \
     uselibs= usehostlibs= usestartup=yes detach=no \
     coverageinstr=$(TARGET_COVERAGEINSTR) funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) \
-    usesdk=
+    usesdks=
 
 .PHONY : %(mmake)
 
@@ -1748,8 +1748,8 @@ endif
 ifneq (%(includedir),)
     %(mmake)_CPPFLAGS += -I%(includedir)
 endif
-ifneq (%(usesdk),)
-    %(mmake)_CPPFLAGS += -I$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_INCLUDE)
+ifneq (%(usesdks),)
+    %(mmake)_CPPFLAGS += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 %(mmake)_CFLAGS    := %(cflags)
 %(mmake)_COVERAGE := no
@@ -1791,8 +1791,8 @@ endif
 ifneq (%(libdir),)
     %(mmake)_LDFLAGS += -L%(libdir)
 endif
-ifneq (%(usesdk),)
-    %(mmake)_LDFLAGS += -L$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_LIB)
+ifneq (%(usesdks),)
+    %(mmake)_LDFLAGS += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
 endif
 
 #MM
@@ -2019,7 +2019,7 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
 # Explanation of this macro is done in the developer's manual
 #  'sdk' when provided, redirects module's includes and linklibs to a build sdk
 #        directory called %(sdk) accessible on to build system
-#  'usesdk' when provided use selected build sdks in addition to public one
+#  'usesdks' when provided use selected build sdks in addition to public one
 %define build_module_core mmake=/A modname=/A modtype=/A modsuffix= version= flavour= \
     conffile=  confoverride= \
     files="$(basename $(call WILDCARD, *.c))" \
@@ -2033,7 +2033,7 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
     linklibname= uselibs= usehostlibs= \
     compiler=target funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) nostartup=yes archspecific=no \
     include_set=includes-all includedir= libdir= \
-    build_abi= build_library= sdk=public usesdk=
+    build_abi= build_library= sdk=public usesdks=
 
 # We will employ a terrifying, but unavoidable, hack here.
 # genmf has no concept of conditionals (ie %ifeq), and MetaMake
@@ -2304,8 +2304,8 @@ endif
 ifneq (%(includedir),)
 %(mmake)%(flavour)_CPPFLAGS         += -I%(includedir)
 endif
-ifneq (%(usesdk),)
-%(mmake)%(flavour)_CPPFLAGS         += -I$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_INCLUDE)
+ifneq (%(usesdks),)
+%(mmake)%(flavour)_CPPFLAGS         += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 %(mmake)%(flavour)_LINKLIBCPPFLAGS  := $(%(mmake)%(flavour)_CPPFLAGS)
 %(mmake)%(flavour)_CPPFLAGS         += $(strip $($(%(mmake)%(flavour)_DEFNAME)_CPPFLAGS))
@@ -2481,8 +2481,8 @@ endif
 
 ifeq (%(build_library),M)
 # The module is linked from all the compiled .o files
-ifneq (%(usesdk),)
-$(%(mmake)%(flavour)_DEFNAME)_LDFLAGS += -L$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_LIB)
+ifneq (%(usesdks),)
+$(%(mmake)%(flavour)_DEFNAME)_LDFLAGS += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
 endif
 %rule_linkmodule module=$(%(mmake)%(flavour)_MODULE) objs="$(%(mmake)%(flavour)_STARTOBJS) $(%(mmake)%(flavour)_OBJS) $(USER_OBJS)" \
 		 endobj=$(%(mmake)%(flavour)_ENDOBJS) err=$(%(mmake)%(flavour)_ERR) objdir="$(%(mmake)%(flavour)_OBJDIR)" \
@@ -2581,7 +2581,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir= moduledir= prefix=$(AROSDIR) \
   linklibname= uselibs= usehostlibs= \
   compiler=target funcinstr=$(TARGET_FUNCINSTR) lto=$(TARGET_LTO) nostartup=yes archspecific=no \
-  include_set=includes-all includedir= libdir= sdk=public usesdk=
+  include_set=includes-all includedir= libdir= sdk=public usesdks=
 
 %build_module_core mmake="%(mmake)" modname="%(modname)" modtype="%(modtype)" \
    modsuffix="%(modsuffix)" version="%(version)" flavour="%(flavour)" conffile="%(conffile)" confoverride="%(confoverride)" \
@@ -2593,7 +2593,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
    uselibs="%(uselibs)" usehostlibs="%(usehostlibs)" compiler="%(compiler)" funcinstr=%(funcinstr) lto=%(lto) \
    nostartup="%(nostartup)" archspecific="%(archspecific)" \
    include_set=%(include_set) includedir="%(includedir)" libdir="%(libdir)" \
-   build_abi=M build_library=M sdk="%(sdk)" usesdk="%(usesdk)"
+   build_abi=M build_library=M sdk="%(sdk)" usesdks="%(usesdks)"
 
 %end
 #------------------------------------------------------------------------------
@@ -2638,7 +2638,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir= moduledir= prefix=$(AROSDIR) \
   uselibs= usehostlibs= \
   compiler=target lto=$(TARGET_LTO) nostartup=yes archspecific=no \
-  include_set=includes-all includedir= libdir= usesdk=
+  include_set=includes-all includedir= libdir= usesdks=
 
 %build_module_core mmake="%(mmake)" modname="%(modname)" modtype="%(modtype)" \
    modsuffix="%(modsuffix)" version="%(version)" flavour="%(flavour)" \
@@ -2649,7 +2649,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
    uselibs="%(uselibs)" usehostlibs="%(usehostlibs)" compiler="%(compiler)" lto=%(lto) \
    nostartup="%(nostartup)" archspecific="%(archspecific)" \
    include_set=%(include_set) includedir="%(includedir)" libdir="%(libdir)" \
-   build_abi= build_library=M usesdk="%(usesdk)"
+   build_abi= build_library=M usesdks="%(usesdks)"
 
 %end
 #------------------------------------------------------------------------------
@@ -2966,7 +2966,7 @@ BD_OBJ := $(addprefix  %(dir)/, $(addsuffix .info,%(icon)))
 #   specify the name here matching the original module. this insures multiple modules
 #   built from the same makefile will not pollute each other.
 %define build_archspecific files= cxxfiles= asmfiles= linklibfiles= linklibobjs= mainmmake=/A maindir=/A arch=/A \
- cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= aflags=$(AFLAGS) compiler=target objdir= modname= usesdk=
+ cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= aflags=$(AFLAGS) compiler=target objdir= modname= usesdks=
 
 ifeq (%(files) %(linklibfiles) %(linklibobjs) %(asmfiles),)
     $(error no files or asmfiles given)
@@ -3070,8 +3070,8 @@ else
 $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=%(cppflags)
 endif
 $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=%(cflags)
-ifneq (%(usesdk),)
-$(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) -I$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_INCLUDE)
+ifneq (%(usesdks),)
+$(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 ifeq (%(compiler),target)
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CMD:=$(strip $(TARGET_CC) $(TARGET_SYSROOT))
@@ -3248,7 +3248,7 @@ endif
 
 
 #------------------------------------------------------------------------------
-%define make_hidd_stubs hidd=/A cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags=$(CFLAGS) parenttarget=linklibs usesdk=
+%define make_hidd_stubs hidd=/A cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags=$(CFLAGS) parenttarget=linklibs usesdks=
 STUBS_SRC := $(addprefix $(SRCDIR)/$(CURDIR)/,$(addsuffix .c,$(STUBS)))
 STUBS_MEM := $(addsuffix .o,$(STUBS))
 STUBS_OBJ := $(addprefix $(OBJDIR)/,$(STUBS_MEM))
@@ -3263,8 +3263,8 @@ HIDD_LIB     := $(HIDD_LIB_DIR)/libhiddstubs.a
 hidd-%(hidd)-stubs : setup $(HIDD_LIB)($(STUBS_MEM))
 
 TMP_CPPFLAGS := %(cppflags)
-ifneq (%(usesdk),)
-TMP_CPPFLAGS += -I$(AROS_BUILD_SDKS)/%(usesdk)/$(AROS_DIR_INCLUDE)
+ifneq (%(usesdks),)
+TMP_CPPFLAGS += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 
 $(HIDD_LIB)($(STUBS_MEM)) : $(STUBS_OBJ)
