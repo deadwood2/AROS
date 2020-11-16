@@ -1981,7 +1981,7 @@ $(%(mmake)_KOBJ) : FILTBASES:=$(addprefix -L ,$(%(mmake)_SYMBOLS))
 $(%(mmake)_KOBJ) : USER_LDFLAGS := $(USER_LDFLAGS)
 $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
 	$(Q)$(ECHO) "Linking    $(subst $(TARGETDIR)/,,$@)"
-	$(Q)$(AROS_LD) -Ur -o $@ $^ $(USER_LDFLAGS) -L$(AROS_LIB) -L$(AROS_PRIVATE_LIB) $(addprefix -l,$(LINKLIBS))
+	$(Q)$(AROS_LD) -Ur -o $@ $^ $(USER_LDFLAGS) -L$(AROS_LIB) -L$(AROS_PRIVATE_LIB) -L$(AROS_REL_LIB) $(addprefix -l,$(LINKLIBS))
 	$(Q)$(OBJCOPY) $@ $(FILTBASES) `$(NM_PLAIN) $@ | $(AWK) '($$3 ~ /^__.*_(LIST|END)__\r?$$/) || ($$3 ~ /^__aros_lib.*\r?$$/) {print "-L " $$3;}'`
 
 
@@ -2322,6 +2322,16 @@ else
 %(mmake)%(flavour)_LIBDIR           := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_LIB)
 endif
 
+ifneq (%(prefix),$(AROSDIR))
+%(mmake)%(flavour)_RELLIBDIR        := %(prefix)/$(AROS_DIR_DEVELOPMENT)/$(AROS_DIR_LIB)
+else
+ifeq (%(sdk),public)
+%(mmake)%(flavour)_RELLIBDIR        := $(AROS_REL_LIB)
+else
+%(mmake)%(flavour)_RELLIBDIR        := $(AROS_BUILD_SDKS)/%(sdk)/$(AROS_DIR_LIB)
+endif
+endif
+
 ifeq (%(build_abi),M)
 %(mmake)%(flavour)_LINKLIBCFILES    := $(addprefix $(%(mmake)%(flavour)_OBJDIR)/linklib/,$($(%(mmake)%(flavour)_DEFNAME)_LINKLIBFILES))
 %(mmake)%(flavour)_LINKLIBAFILES    := $(addprefix $(%(mmake)%(flavour)_OBJDIR)/linklib/,$($(%(mmake)%(flavour)_DEFNAME)_LINKLIBAFILES))
@@ -2340,9 +2350,9 @@ endif
 ifeq ($(strip $($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBFILES) $($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBAFILES) %(linklibfiles) $(%(mmake)%(flavour)_ARCHNLIBFILES)),)
     %(mmake)%(flavour)_RELLINKLIB   :=
 else
-    %(mmake)%(flavour)_RELLINKLIB   := $(%(mmake)%(flavour)_LIBDIR)/lib$(%(mmake)%(flavour)_DEFNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX).a
+    %(mmake)%(flavour)_RELLINKLIB   := $(%(mmake)%(flavour)_RELLIBDIR)/lib$(%(mmake)%(flavour)_DEFNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX).a
     ifneq (%(modname),$(%(mmake)%(flavour)_LINKLIBNAME))
-        %(mmake)%(flavour)_RELLINKLIB += $(%(mmake)%(flavour)_LIBDIR)/lib$(%(mmake)%(flavour)_LINKLIBNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX).a
+        %(mmake)%(flavour)_RELLINKLIB += $(%(mmake)%(flavour)_RELLIBDIR)/lib$(%(mmake)%(flavour)_LINKLIBNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX).a
     endif
 endif
 %(mmake)%(flavour)_RELLINKLIBFILES  := $(%(mmake)%(flavour)_RELLINKLIBCFILES) $(%(mmake)%(flavour)_RELLINKLIBAFILES)
@@ -2475,12 +2485,12 @@ endif
 endif
 
 ifneq ($(%(mmake)%(flavour)_RELLINKLIB),)
-%rule_link_linklib mmake=%(mmake) libname="$(%(mmake)%(flavour)_LINKLIBNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX)" objs=$(%(mmake)%(flavour)_RELLINKLIBOBJS) libdir="$(%(mmake)%(flavour)_LIBDIR)"
+%rule_link_linklib mmake=%(mmake) libname="$(%(mmake)%(flavour)_LINKLIBNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX)" objs=$(%(mmake)%(flavour)_RELLINKLIBOBJS) libdir="$(%(mmake)%(flavour)_RELLIBDIR)"
 ifneq ($(%(mmake)%(flavour)_LC_MODNAME),$(%(mmake)%(flavour)_LC_LINKLIBNAME))
-%rule_link_linklib mmake=%(mmake) libname="$(%(mmake)%(flavour)_DEFNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX)" objs=$(%(mmake)%(flavour)_RELLINKLIBOBJS) libdir="$(%(mmake)%(flavour)_LIBDIR)"
+%rule_link_linklib mmake=%(mmake) libname="$(%(mmake)%(flavour)_DEFNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX)" objs=$(%(mmake)%(flavour)_RELLINKLIBOBJS) libdir="$(%(mmake)%(flavour)_RELLIBDIR)"
 endif
 
-%rule_makedirs dirs="$(%(mmake)%(flavour)_LIBDIR)" setuptarget=$(%(mmake)%(flavour)_RELLINKLIB)
+%rule_makedirs dirs="$(%(mmake)%(flavour)_RELLIBDIR)" setuptarget=$(%(mmake)%(flavour)_RELLINKLIB)
 endif
 endif
 
@@ -2501,7 +2511,7 @@ $(%(mmake)%(flavour)_KOBJ) : FILTBASES:=$(addprefix -L ,$(%(mmake)%(flavour)_SYM
 $(%(mmake)%(flavour)_KOBJ) : USER_LDFLAGS:=$(USER_LDFLAGS)
 $(%(mmake)%(flavour)_KOBJ) : $(%(mmake)%(flavour)_OBJS) $(USER_OBJS) $(%(mmake)%(flavour)_ENDOBJS)
 	$(Q)$(ECHO) "Linking    $(subst $(TARGETDIR)/,,$@)"
-	$(Q)$(AROS_LD) -Ur -o $@ $^ $(USER_LDFLAGS) -L$(AROS_LIB) -L$(AROS_PRIVATE_LIB) $(addprefix -l,$(LINKLIBS))
+	$(Q)$(AROS_LD) -Ur -o $@ $^ $(USER_LDFLAGS) -L$(AROS_LIB) -L$(AROS_PRIVATE_LIB) -L$(AROS_REL_LIB) $(addprefix -l,$(LINKLIBS))
 	$(Q)$(OBJCOPY) $@ $(FILTBASES) `$(NM_PLAIN) $@ | $(AWK) '($$3 ~ /^__.*_(LIST|END)__\r?$$/) || ($$3 ~ /^__aros_lib.*\r?$$/) {print "-L " $$3;}'`
 endif
 
