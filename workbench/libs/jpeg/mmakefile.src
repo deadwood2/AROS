@@ -25,7 +25,7 @@ USER_CPPFLAGS := -DNO_GETENV
 
 %build_module mmake=workbench-libs-jpeg \
   modname=jfif modtype=library \
-  files="$(FILES) stdcio_startup" linklibname=jpeg
+  files="$(FILES) stdcio_startup" linklibname=jpeg usesdks="rel"
 
 
 INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h

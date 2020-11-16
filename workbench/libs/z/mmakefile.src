@@ -35,7 +35,7 @@ USER_CPPFLAGS := $(LIBZ_CPPFLAGS)
 
 %build_module mmake=workbench-libs-z \
   modname=z1 modtype=library \
-  files="$(FILES)" linklibname=z
+  files="$(FILES)" linklibname=z usesdks="rel"
 
 #MM- linklibs: linklibs-z-static
 

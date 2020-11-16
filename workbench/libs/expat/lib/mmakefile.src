@@ -24,7 +24,7 @@ include $(SRCDIR)/config/aros.cfg
 CFILES := xmlparse xmlrole xmltok
 
 %build_module mmake=workbench-libs-expat-lib modname=expat modtype=library \
-    files="$(CFILES)"  linklibname=expat
+    files="$(CFILES)"  linklibname=expat usesdks="rel"
 
 
 INCLUDE_FILES := expat.h expat_external.h

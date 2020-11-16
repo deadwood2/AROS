@@ -109,4 +109,4 @@ WEBPFILES := webpclass
 
 %build_module mmake=workbench-datatypes-webp \
     modname=webp modtype=datatype \
-    files=$(WEBPFILES)
+    files=$(WEBPFILES) usesdks="rel"

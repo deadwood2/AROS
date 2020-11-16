@@ -539,7 +539,7 @@ STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notd
     modname=stdcio modtype=library \
     files="$(STDCIO) $(STDCIO_COMMON)" \
     linklibobjs=$(STDCIO_LINKOBJS) \
-    uselibs="stdc_rel"
+    uselibs="stdc_rel" usesdks="rel"
 
 STDC_MATH_STATIC := \
     math/e_log \

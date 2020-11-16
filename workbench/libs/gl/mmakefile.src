@@ -51,7 +51,7 @@ GL_RELLIB_SOURCES := \
             $(wildcard $(GENDIR)/$(CURDIR)/*_relautoinit.c) \
             $(wildcard $(GENDIR)/$(CURDIR)/*_relgetlibbase.c)
 
-%build_linklib mmake=workbench-libs-gl-linklib-rel libname=GL_rel files=$(GL_RELLIB_SOURCES:.c=)
+%build_linklib mmake=workbench-libs-gl-linklib-rel libname=GL_rel sdk=rel files=$(GL_RELLIB_SOURCES:.c=)
 
 #MM
 workbench-libs-gl-gen-stubs: $(GENDIR)/$(CURDIR)/.stubs-generated
