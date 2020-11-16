@@ -28,7 +28,6 @@ EXECPUBLICFILES :=		\
     semtorture		\
     stackswap 		\
     signaltest		\
-    tasklist		\
     taskstorage \
     tasktest		\
     timeport \
@@ -52,6 +51,7 @@ USER_CFLAGS := -D__AROS_GIMME_DEPRECATED_STACKSWAP__
 
 EXECPRIVATEFILES :=		\
     supertest \
+    tasklist \
     tasktest2
 
 USER_INCLUDES += $(PRIV_EXEC_INCLUDES)

@@ -93,7 +93,7 @@ include $(SRCDIR)/config/aros.cfg
 OPTIMIZATION_CFLAGS := -Os
 
 USELIBS := amiga arossupport autoinit libinit stdc.static
-LIBS    := -L$(GENDIR)/lib -lloadseg $(addprefix -l,$(USELIBS))
+LIBS    := -L$(AROS_PRIVATE_LIB) -lloadseg $(addprefix -l,$(USELIBS))
 DEPLIBS := $(addprefix $(AROS_LIB)/lib,$(addsuffix .a,$(USELIBS)))
 
 # Force rebuilding, so that we always get new date strings

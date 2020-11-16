@@ -50,17 +50,17 @@ FILES := gdbstop
 CFILES := SetPatchAROS
 AFILES := newstackswap
 USER_INCLUDES += -isystem $(SRCDIR)/rom/dos/include
-USER_LDFLAGS  := -L$(GENDIR)/lib -static
+USER_LDFLAGS  := -static
 
 %build_prog mmake=workbench-c-m68k-setpatcharos progname=SetPatchAROS \
     files=$(CFILES) asmfiles=$(AFILES) targetdir=$(AROSARCHDIR) \
-    uselibs="loadseg" coverageinstr=no
+    uselibs="loadseg" coverageinstr=no usesdks="private"
 
 CFILES	      := AROSBootstrap
 
 %build_prog mmake=workbench-c-m68k-arosbootstrap progname=AROSBootstrap \
     files=$(CFILES) targetdir=$(AROSARCHDIR) \
-    usestartup=no uselibs="loadseg z.static" lto=no
+    usestartup=no uselibs="loadseg z.static" lto=no usesdks="private"
 
 CFILES	      := mmudump
 

@@ -26,6 +26,6 @@ TASKRES_FILES :=		\
 	    $(TASKRES_FUNCS)
 
 %build_module mmake=kernel-task modname=task modtype=resource \
-    files="$(TASKRES_FILES)" usesdks="private"
+    files="$(TASKRES_FILES)" sdk="private" usesdks="private"
 
-%copy_includes path=resources
+%copy_includes path=resources sdk="private"

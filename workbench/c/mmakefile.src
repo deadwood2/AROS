@@ -47,7 +47,6 @@ FILES := \
     Sort \
     StackSnoop \
     SymbolDump \
-    TaskList \
     Touch \
     Type \
     UUIDGen \
@@ -82,7 +81,7 @@ USER_CFLAGS     := -DADATE="\"$(shell date "+%d.%m.%Y")\"" -I$(OBJDIR)
 #     is deleted or badly Assign(ed).
 USER_LDFLAGS    := -static
 
-#MM- workbench : workbench-c
+#MM- workbench : workbench-c workbench-c-private
 #MM- workbench-quick : workbench-c-quick
 
 #MM workbench-c : \
@@ -119,6 +118,10 @@ $(OBJDIR)/evalParser.tab.c : evalParser.y
 %build_progs mmake=workbench-c \
     files="$(FILES)" targetdir=$(AROS_C) \
     uselibs="uuid debug" coverageinstr=no
+
+%build_progs mmake=workbench-c-private \
+    files="TaskList" targetdir=$(AROS_C) \
+    uselibs="" usesdks="private"
 
 $(workbench-c_DEPS) : $(OBJDIR)/evalParser.tab.c
 
