@@ -1,9 +1,10 @@
 show_selection ()
 {
-    printf "    1) toolchain-core-x86_64\n"
-    printf "    2) core-linux-x86_64 (DEBUG)\n"
-    printf "    3) toolchain-core-m68k\n"
-    printf "    4) core-amiga-m68k\n"
+    printf "    1)  toolchain-core-x86_64\n"
+    printf "    2)  core-linux-x86_64 (DEBUG)\n"
+    printf "    3)  core-pc-x86_64\n"
+    printf "    10) toolchain-core-m68k\n"
+    printf "    11) core-amiga-m68k\n"
 }
 
 process_selection ()
@@ -23,13 +24,20 @@ process_selection ()
         CONFIGURE_OPTS="--with-aros-toolchain=yes --enable-debug"
         ;;
         3)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-x86_64
+        BUILD_DIR=$(pwd)/core-pc-x86_64
+        CONFIGURE_TARGET=pc-x86_64
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        MAKE_TARGET_2="bootiso"
+        ;;
+        10)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
         BUILD_DIR=$(pwd)/toolchain-core-m68k-build
         TOOLCHAIN_BUILD=yes
         CONFIGURE_TARGET=amiga-m68k
         MAKE_TARGET="-s crosstools"
         ;;
-        4)
+        11)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
         BUILD_DIR=$(pwd)/core-amiga-m68k
         CONFIGURE_TARGET=amiga-m68k

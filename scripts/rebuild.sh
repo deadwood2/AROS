@@ -30,8 +30,8 @@ source $(pwd)/AROS/scripts/rebuild-conf
 
 check_location
 
-printf "rebuild.sh v1.2, select an option:\n"
-printf "    0) exit\n"
+printf "rebuild.sh v1.3, select an option:\n"
+printf "    0)  exit\n"
 
 show_selection
 
