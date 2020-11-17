@@ -62,6 +62,6 @@ USER_INCLUDES  := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
 
 %build_archspecific \
   mainmmake=kernel-kernel modname=kernel maindir=$(MAINDIR) \
-  arch=pc files="$(FILES) $(FUNCS)" asmfiles=$(ASMFILES)
+  arch=pc files="$(FILES) $(FUNCS)" asmfiles=$(ASMFILES) usesdks="private"
 
 %common

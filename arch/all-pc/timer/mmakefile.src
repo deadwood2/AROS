@@ -9,6 +9,6 @@ include $(SRCDIR)/$(CURDIR)/make.opts
 %build_archspecific \
   mainmmake=kernel-timer maindir=rom/timer \
   arch=pc modname=timer \
-  files="timer_init beginio ticks"
+  files="timer_init beginio ticks" usesdks="private"
 
 %common

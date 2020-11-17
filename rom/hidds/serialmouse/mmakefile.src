@@ -9,4 +9,4 @@ USER_LDFLAGS := -static
 %build_module mmake=kernel-hidd-serialmouse \
   modname=serialmouse modtype=hidd \
   files=$(FILES) \
-  uselibs="hiddstubs"
+  uselibs="hiddstubs oop" usesdks="private"

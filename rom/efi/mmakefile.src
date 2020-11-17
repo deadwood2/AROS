@@ -8,6 +8,6 @@ FUNCS := findconfigtable
 USER_LDFLAGS := -static
 
 %build_module mmake=kernel-efi modname=efi modtype=resource \
-  files="$(FILES) $(FUNCS)" 
+  files="$(FILES) $(FUNCS)" usesdks="private"
 
 %common

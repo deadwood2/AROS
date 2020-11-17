@@ -13,4 +13,4 @@ USER_LDFLAGS := -static
 %build_module mmake=kernel-devs-trackdisk \
   modname=trackdisk modtype=device \
   files="trackdisk_device trackdisk_hw" \
-  uselibs="hiddstubs"
+  uselibs="hiddstubs oop" usesdks="private"

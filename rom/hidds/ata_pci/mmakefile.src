@@ -10,6 +10,6 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-hidd-pciata \
     modname=ata_pci modtype=hidd \
-    files="$(FILES)"
+    files="$(FILES)" usesdks="private"
 
 %common

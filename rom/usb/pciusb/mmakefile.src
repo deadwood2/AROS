@@ -24,6 +24,6 @@ endif
     modname=pciusb modtype=device \
     moduledir=Devs/USBHardware \
     files="$(FILES)" \
-    uselibs="hiddstubs debug"
+    uselibs="hiddstubs debug oop" usesdks="private"
 
 %common

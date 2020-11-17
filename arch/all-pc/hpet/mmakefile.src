@@ -13,6 +13,6 @@ USER_CPPFLAGS += -DDEBUG=1
   modname=hpet modtype=resource \
   conffile=$(SRCDIR)/rom/kernel/clocksource.conf \
   confoverride=hpet.conf \
-  files="$(FILES) $(FUNCS)" uselibs=acpica
+  files="$(FILES) $(FUNCS)" uselibs=acpica usesdks="private"
 
 %common

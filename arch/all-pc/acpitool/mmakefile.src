@@ -13,6 +13,6 @@ EXEDIR      := $(AROS_DEBUG)/Hardware
 
 %build_prog mmake=debug-tools-acpitool \
     progname=ACPITool targetdir=$(EXEDIR) \
-    files=$(FILES) uselibs=acpica
+    files=$(FILES) uselibs="acpica oop" usesdks="private"
 
 %common
