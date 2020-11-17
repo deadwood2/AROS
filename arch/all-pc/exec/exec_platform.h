@@ -27,6 +27,14 @@
 
 #include "kernel_base.h"
 
+#if defined(__AROSPLATFORM_SMP__)
+
+/*
+ * __AROSPLATFORM_SMP__     changes externally exposed data structures for SMP
+ * __AROSEXEC_SMP__         enables SMP in Exec
+ */
+
+
 #if defined(__AROSEXEC_SMP__)
 #include "kernel_intern.h"
 #include <aros/types/spinlock_s.h>
@@ -289,7 +297,55 @@ extern void Kernel_53_KrnSpinUnLock(spinlock_t *, void *);
         } \
     })
 
-#else /* !__AROSEXEC_SMP__ */
+#else /* __AROSEXEC_SMP__ */
+
+struct Exec_PlatformData
+{
+    /* No platform-specific data on plain x86 builds */
+};
+
+#ifdef AROS_NO_ATOMIC_OPERATIONS
+#define IDNESTCOUNT_INC                 SysBase->Private4++
+#define IDNESTCOUNT_DEC                 SysBase->Private4--
+#define TDNESTCOUNT_INC                 SysBase->Private5++
+#define TDNESTCOUNT_DEC                 SysBase->Private5--
+#define FLAG_SCHEDQUANTUM_CLEAR         SysBase->SysFlags &= ~SFF_QuantumOver
+#define FLAG_SCHEDQUANTUM_SET           SysBase->SysFlags |= SFF_QuantumOver
+#define FLAG_SCHEDSWITCH_CLEAR          SysBase->AttnResched &= ~ARF_AttnSwitch
+#define FLAG_SCHEDSWITCH_SET            SysBase->AttnResched |= ARF_AttnSwitch
+#define FLAG_SCHEDDISPATCH_CLEAR        SysBase->AttnResched &= ~ARF_AttnDispatch
+#define FLAG_SCHEDDISPATCH_SET          SysBase->AttnResched |= ARF_AttnDispatch
+#else
+#define IDNESTCOUNT_INC                 AROS_ATOMIC_INC(SysBase->Private4)
+#define IDNESTCOUNT_DEC                 AROS_ATOMIC_DEC(SysBase->Private4)
+#define TDNESTCOUNT_INC                 AROS_ATOMIC_INC(SysBase->Private5)
+#define TDNESTCOUNT_DEC                 AROS_ATOMIC_DEC(SysBase->Private5)
+#define FLAG_SCHEDQUANTUM_CLEAR         AROS_ATOMIC_AND(SysBase->SysFlags, ~SFF_QuantumOver)
+#define FLAG_SCHEDQUANTUM_SET           AROS_ATOMIC_OR(SysBase->SysFlags, SFF_QuantumOver)
+#define FLAG_SCHEDSWITCH_CLEAR          AROS_ATOMIC_AND(SysBase->AttnResched, ~ARF_AttnSwitch)
+#define FLAG_SCHEDSWITCH_SET            AROS_ATOMIC_OR(SysBase->AttnResched, ARF_AttnSwitch)
+#define FLAG_SCHEDDISPATCH_CLEAR        AROS_ATOMIC_AND(SysBase->AttnResched, ~ARF_AttnDispatch)
+#define FLAG_SCHEDDISPATCH_SET          AROS_ATOMIC_OR(SysBase->AttnResched, ARF_AttnDispatch)
+#endif
+#define SCHEDQUANTUM_SET(val)           (SysBase->Private2=(val))
+#define SCHEDQUANTUM_GET                (SysBase->Private2)
+#define SCHEDELAPSED_SET(val)           (SysBase->Private3=(val))
+#define SCHEDELAPSED_GET                (SysBase->Private3)
+#define IDNESTCOUNT_GET                 (SysBase->Private4)
+#define IDNESTCOUNT_SET(val)            (SysBase->Private4=(val))
+#define TDNESTCOUNT_GET                 (SysBase->Private5)
+#define TDNESTCOUNT_SET(val)            (SysBase->Private5=(val))
+#define FLAG_SCHEDQUANTUM_ISSET         (SysBase->SysFlags & SFF_QuantumOver)
+#define FLAG_SCHEDSWITCH_ISSET          (SysBase->AttnResched & ARF_AttnSwitch)
+#define FLAG_SCHEDDISPATCH_ISSET        (SysBase->AttnResched & ARF_AttnDispatch)
+
+#define GET_THIS_TASK                   ((struct Task *)(SysBase->Private1))
+#define SET_THIS_TASK(x)                (SysBase->Private1=(IPTR)(x))
+
+
+#endif
+
+#else /* __AROSPLATFORM_SMP__ */
 
 struct Exec_PlatformData
 {
