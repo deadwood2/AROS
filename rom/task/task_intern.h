@@ -55,6 +55,7 @@ struct TaskListEntry
 {
     struct Node                 tle_Node;
     struct Task                 *tle_Task;
+    struct List                 tle_HookTypes;
 };
 
 #ifdef TASKRES_ENABLE
