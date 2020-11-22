@@ -11,6 +11,6 @@ USER_CFLAGS := $(NOWARN_FLAGS)
 %build_prog mmake=workbench-devs-networks-atheros5000 \
     progname="atheros5000.device" \
     files="startup aros_device device request unit encryption pci prometheus halsupport" \
-    targetdir="$(AROSDIR)/Devs/Networks" uselibs="athhal"
+    targetdir="$(AROSDIR)/Devs/Networks" uselibs="athhal" usesdks="misc"
 
 %common
