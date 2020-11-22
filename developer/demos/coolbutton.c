@@ -8,7 +8,7 @@
 /* Look in this file (compiler/coolimages/include/coolimages.h) to
    see which images are available in coolimages lib. */
    
-#include <linklibs/coolimages.h>
+#include <coolimages.h>
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -30,7 +30,7 @@
 #   include <cybergraphx/cybergraphics.h>
 #endif
 #ifndef LINKLIBS_COOLIMAGES_H
-#   include <linklibs/coolimages.h>
+#   include <coolimages.h>
 #endif
 #ifndef LIBRARIES_COOLIMAGES_H
 #   include <libraries/coolimages.h>

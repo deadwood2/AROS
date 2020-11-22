@@ -12,7 +12,7 @@
 #define SHARED_COOLIMAGES_LIBRARY 1
 
 #ifndef LINKLIBS_COOLIMAGES_H
-#include <linklibs/coolimages.h>
+#include <coolimages.h>
 #endif
 
 #define COOL_SAVEIMAGE_ID       0

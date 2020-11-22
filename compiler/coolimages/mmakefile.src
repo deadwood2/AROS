@@ -32,7 +32,7 @@ USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/include
 #MM linklibs-coolimagesstatic : includes
 #MM includes-copy
 
-%copy_includes path=linklibs dir=include
+%copy_includes dir=include
 
 %build_linklib mmake=linklibs-coolimagesstatic libname=coolimagesstatic \
     files=$(FILES)
