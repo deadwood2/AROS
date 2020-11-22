@@ -2655,9 +2655,10 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
 # - dflags are the flags used during makedepend (default equal to cflags)
 # - aflags are the flags used during assembling (default $(AFLAGS))
 # - sdk when provided, redirects linklib to a build sdk directory called %(sdk)
+# - usesdks when provided use selected build sdks in addition to public one
 %define build_linklib mmake=/A libname=/A files= objcfiles= cxxfiles= \
   asmfiles= objs= objdir=$(GENDIR)/$(CURDIR) libdir=$(AROS_LIB) \
-  srcdir= sdk=public \
+  srcdir= sdk=public usesdks= \
   cppflags=$(CPPFLAGS) cflags=$(CFLAGS) dflags= cxxflags=$(CXXFLAGS) dxxflags= \
   aflags=$(AFLAGS) compiler=target lto=$(TARGET_LTO) usetree=no
 
@@ -2698,6 +2699,9 @@ endif
 %(mmake)_DEPS              := $(patsubst %.o,%.d,$(%(mmake)_OBJS))
 
 %(mmake)_CPPFLAGS          := %(cppflags)
+ifneq (%(usesdks),)
+%(mmake)_CPPFLAGS          += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
+endif
 %(mmake)_CFLAGS            := %(cflags)
 %(mmake)_CXXFLAGS          := %(cxxflags)
 ifeq (%(lto),yes)
