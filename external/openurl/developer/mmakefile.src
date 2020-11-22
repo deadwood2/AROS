@@ -7,8 +7,23 @@ include $(SRCDIR)/config/aros.cfg
 #MM     kernel-dos-includes \
 #MM     kernel-utility-includes
 
-%copy_dir_recursive mmake=external-openurl-includes \
-    src=$(SRCDIR)/$(CURDIR)/C/include dst=$(AROS_INCLUDES)/
+INCLUDE_FILES := $(call WILDCARD, C/include/clib/*.h)
+%copy_includes mmake=external-openurl-includes path=clib dir="C/include/clib"
+
+INCLUDE_FILES := $(call WILDCARD, C/include/defines/*.h)
+%copy_includes mmake=external-openurl-includes path=defines dir="C/include/defines"
+
+INCLUDE_FILES := $(call WILDCARD, C/include/inline/*.h)
+%copy_includes mmake=external-openurl-includes path=inline dir="C/include/inline"
+
+INCLUDE_FILES := $(call WILDCARD, C/include/libraries/*.h)
+%copy_includes mmake=external-openurl-includes path=libraries dir="C/include/libraries"
+
+INCLUDE_FILES := $(call WILDCARD, C/include/pragmas/*.h)
+%copy_includes mmake=external-openurl-includes path=pragmas dir="C/include/pragmas"
+
+INCLUDE_FILES := $(call WILDCARD, C/include/proto/*.h)
+%copy_includes mmake=external-openurl-includes path=proto dir="C/include/proto"
 
 %copy_files_q mmake=external-openurl-fd files=openurl_lib.fd \
     src=fd dst=$(AROS_FD)
