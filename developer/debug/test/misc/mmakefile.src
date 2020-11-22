@@ -14,7 +14,6 @@ FILES := \
  getcpuinfo \
  helloworld \
  hostcb \
- hostlib \
  iffparsewrite \
  ilbmtoc \
  inquire \
@@ -26,6 +25,7 @@ FILES := \
  versionlib
 
 UNIXFILES := \
+ hostlib \
  unixio
 
 SHTESTFILES=\
