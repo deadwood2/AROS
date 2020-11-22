@@ -102,12 +102,12 @@ KHR_INCLUDE_FILES := khrplatform.h
 
 %copy_includes path=KHR dir=$(top_srcdir)/include/KHR includes=$(KHR_INCLUDE_FILES)
 
-GL_INCLUDE_FILES := egl.h eglext.h eglplatform.h eglmesaext.h eglextchromium.h
-
-%copy_includes path=EGL dir=$(top_srcdir)/include/EGL includes=$(GL_INCLUDE_FILES)
-
+#EGL_INCLUDE_FILES := egl.h eglext.h eglplatform.h eglmesaext.h eglextchromium.h
+#
+#%copy_includes path=EGL dir=$(top_srcdir)/include/EGL includes=$(EGL_INCLUDE_FILES)
+#
 VK_INCLUDE_FILES := vulkan.h vulkan_core.h vk_icd.h vk_platform.h
 
-%copy_includes path=vulkan dir=$(top_srcdir)/include/vulkan includes=$(VK_INCLUDE_FILES)
+%copy_includes path=vulkan dir=$(top_srcdir)/include/vulkan includes=$(VK_INCLUDE_FILES) sdk="mesa"
 
 %common
