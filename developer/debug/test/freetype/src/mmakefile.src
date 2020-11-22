@@ -31,13 +31,13 @@ FREETYPETEST_COMMON := \
 %build_prog mmake=test-freetype-ftstring \
     progname=ftstring targetdir=$(EXEDIR) \
     files="ftstring $(FREETYPETEST_COMMON)" \
-    uselibs="freetype2.static graph"
+    uselibs="freetype2.static graph" usesdks="misc"
 
 USER_CPPFLAGS += -DFT2_BUILD_LIBRARY
 
 %build_prog mmake=test-freetype-ftview \
     progname=ftview targetdir=$(EXEDIR) \
     files="ftview $(FREETYPETEST_COMMON)" \
-    uselibs="freetype2.static graph"
+    uselibs="freetype2.static graph" usesdks="misc"
 
 %common
