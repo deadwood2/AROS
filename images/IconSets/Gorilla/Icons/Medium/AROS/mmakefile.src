@@ -3,7 +3,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-BASEICONS := Developer Devs Fonts \
+BASEICONS := Development Devs Fonts \
          Locale Prefs System \
          Tools Utilities
 ADDITIONALICONS := Demos \
