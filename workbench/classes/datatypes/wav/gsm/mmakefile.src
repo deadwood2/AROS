@@ -26,6 +26,6 @@ FILES := \
 
 USER_CFLAGS := -DHAVE_UNISTD_H
 
-%build_linklib mmake=linklibs-gsm libname=gsm files=$(FILES)
+%build_linklib mmake=linklibs-gsm libname=gsm files=$(FILES) sdk="datatypes"
 
 %common

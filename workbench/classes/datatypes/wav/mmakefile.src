@@ -37,4 +37,4 @@ USER_LDFLAGS := -static
 
 %build_module mmake=workbench-datatypes-wave \
     modname=wave modtype=datatype \
-    files=$(FILES) uselibs="gsm"
+    files=$(FILES) uselibs="gsm" usesdks="datatypes"

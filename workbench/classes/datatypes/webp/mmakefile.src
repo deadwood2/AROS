@@ -36,7 +36,7 @@ WEBPDSPFILES += \
 
 %build_linklib mmake=datatypes-webp-linklibs-webpdsp \
     libname=webpdsp files="$(WEBPDSPFILES)" \
-    objdir=$(GENDIR)/$(CURDIR)/webpdsp libdir=$(GENDIR)/$(CURDIR)/lib
+    objdir=$(GENDIR)/$(CURDIR)/webpdsp sdk="datatypes"
 
 WEBPDECODEFILES := \
         src/dec/alpha_dec \
@@ -52,7 +52,7 @@ WEBPDECODEFILES := \
 
 %build_linklib mmake=datatypes-webp-linklibs-webpdecode \
     libname=webpdecode files="$(WEBPDECODEFILES)" \
-    objdir=$(GENDIR)/$(CURDIR)/webpdecode libdir=$(GENDIR)/$(CURDIR)/lib
+    objdir=$(GENDIR)/$(CURDIR)/webpdecode sdk="datatypes"
 
 WEBPENCODEFILES := \
         src/enc/alpha_enc \
@@ -81,7 +81,7 @@ WEBPENCODEFILES := \
 
 %build_linklib mmake=datatypes-webp-linklibs-webpencode \
     libname=webpencode files="$(WEBPENCODEFILES)" \
-    objdir=$(GENDIR)/$(CURDIR)/webpencode libdir=$(GENDIR)/$(CURDIR)/lib
+    objdir=$(GENDIR)/$(CURDIR)/webpencode sdk="datatypes"
 
 WEBPUTILSFILES := \
         src/utils/bit_reader_utils \
@@ -101,12 +101,12 @@ WEBPUTILSFILES += \
 
 %build_linklib mmake=datatypes-webp-linklibs-webputils \
     libname=webputils files="$(WEBPUTILSFILES)" \
-    objdir=$(GENDIR)/$(CURDIR)/webputils libdir=$(GENDIR)/$(CURDIR)/lib
+    objdir=$(GENDIR)/$(CURDIR)/webputils sdk="datatypes"
 
-USER_LDFLAGS := -L$(GENDIR)/$(CURDIR)/lib -lwebpencode -lwebpdecode -lwebpdsp -lwebputils -lstdc_rel
+USER_LDFLAGS := -lwebpencode -lwebpdecode -lwebpdsp -lwebputils -lstdc_rel
 
 WEBPFILES := webpclass
 
 %build_module mmake=workbench-datatypes-webp \
     modname=webp modtype=datatype \
-    files=$(WEBPFILES) usesdks="rel"
+    files=$(WEBPFILES) usesdks="rel datatypes"
