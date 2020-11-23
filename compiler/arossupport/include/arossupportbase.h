@@ -14,11 +14,10 @@
 
 struct AROSSupportBase
 {
-    void    	    * StdOut;
+    IPTR    	    _pad;
     int     	    (*kprintf)(const char *, ...);
     int     	    (*rkprintf)(const char *, const char *, int, const char *, ...);
     int     	    (*vkprintf)(const char *, va_list);
-    void    	    * DebugConfig;    
 };
 
 #endif /* AROS_AROSSUPPORTBASE_H */
