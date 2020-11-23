@@ -45,7 +45,7 @@ endif
 
 %build_module mmake=kernel-kernel \
   modname=kernel modtype=resource version=$(AROS_TARGET_PLATFORM) \
-  files="$(FILES) $(FUNCS)" nostartup=no archspecific=yes sdk=private
+  files="$(FILES) $(FUNCS)" nostartup=no archspecific=yes sdk=private usesdks="private"
 
 #
 # use genmodule to generate the clocksource resource API headers
@@ -62,7 +62,7 @@ $(GENDIR)/$(CURDIR)/.includes-generated : $(GENMODULE)
 	@$(GENMODULE) -c $(SRCDIR)/$(CURDIR)/clocksource.conf -d $(GENDIR)/$(CURDIR)/include writeincludes clocksource resource
 	@$(GENMODULE) -c $(SRCDIR)/$(CURDIR)/clocksource.conf -d $(GENDIR)/$(CURDIR)/include writelibdefs clocksource resource
 	@$(GENMODULE) -c $(SRCDIR)/$(CURDIR)/clocksource.conf -d $(GENDIR)/include writeincludes clocksource resource
-	@$(GENMODULE) -c $(SRCDIR)/$(CURDIR)/clocksource.conf -d $(AROS_INCLUDES) writeincludes clocksource resource
+	@$(GENMODULE) -c $(SRCDIR)/$(CURDIR)/clocksource.conf -d $(AROS_PRIVATE_INCLUDES) writeincludes clocksource resource
 	@$(TOUCH) $@
 
 #MM
