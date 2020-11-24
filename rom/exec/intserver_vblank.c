@@ -4,6 +4,7 @@
 */
 
 #define DEBUG 0
+#include <aros/config.h>
 #include <aros/debug.h>
 
 #include <aros/asmcall.h>

@@ -9,7 +9,7 @@
 #define __EXEC_INTERN_H__
 
 /* This is a short file that contains a few things every Exec function needs */
-
+#include <aros/config.h>
 #include <aros/debug.h> /* Needed for aros_print_not_implemented macro */
 #include <aros/system.h>
 #include <aros/libcall.h>

@@ -9,8 +9,6 @@
     Lang: english
 */
 
-#include <aros/config.h>
-
 #ifndef EXEC_LISTS_H
 #    include <exec/lists.h>
 #endif

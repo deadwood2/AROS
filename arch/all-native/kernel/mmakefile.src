@@ -9,6 +9,6 @@ USER_INCLUDES  := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES)
 
 %build_archspecific \
   mainmmake=kernel-kernel modname=kernel maindir=$(MAINDIR) \
-  arch=native files="$(FILES)"
+  arch=native files="$(FILES)" usesdks="private config"
 
 %common

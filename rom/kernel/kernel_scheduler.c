@@ -5,6 +5,7 @@
     Desc:
 */
 
+#include <aros/config.h>
 #include <exec/alerts.h>
 #include <exec/execbase.h>
 #include <proto/exec.h>

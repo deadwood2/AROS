@@ -32,5 +32,5 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-expansion \
   modname=expansion modtype=library version=$(VERSION) \
-  files="expansion_init $(FUNCS)" archspecific=yes
+  files="expansion_init $(FUNCS)" archspecific=yes usesdks="config"
 

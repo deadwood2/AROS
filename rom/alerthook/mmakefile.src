@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_CPPFLAGS := -DADATE="\"$(shell date '+%d.%m.%Y')\""
+USER_CPPFLAGS := -DADATE="\"$(shell date '+%d.%m.%Y')\"" -I$(AROS_CONFIG_INCLUDES)
 
 #MM- kernel-alerthook : includes linklibs kernel-bootloader-includes
 

@@ -3,6 +3,7 @@
     $Id$
 */
 
+#include <aros/config.h>
 #include <proto/exec.h>
 #include <exec/execbase.h>
 #include <exec/memory.h>

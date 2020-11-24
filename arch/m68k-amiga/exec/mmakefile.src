@@ -17,6 +17,6 @@ OPTIMIZATION_CFLAGS := -Os
 
 %build_archspecific \
   mainmmake=kernel-exec maindir=rom/exec arch=amiga-m68k \
-  files=$(CFILES) asmfiles=$(AFILES) modname=exec usesdks="private"
+  files=$(CFILES) asmfiles=$(AFILES) modname=exec usesdks="private config"
 
 TARGETDIR = $(BD_OBJDIR$(BDID))

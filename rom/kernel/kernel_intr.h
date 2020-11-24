@@ -8,6 +8,7 @@
     Desc:
 */
 
+#include <aros/config.h>
 #include <proto/exec.h>
 
 #include "exec_platform.h"

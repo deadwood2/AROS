@@ -190,7 +190,7 @@ USER_CPPFLAGS := \
 
 %build_module mmake=kernel-intuition \
   modname=intuition modtype=library \
-  files="intuition_init $(FUNCS) $(FILES)" usesdks="private"
+  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config"
 
 $(INTUITION_BUILDDIR)/shutdownscreen.d : $(INTUITION_BUILDDIR)/shutdown_image.h
 

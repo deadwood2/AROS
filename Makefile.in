@@ -75,11 +75,11 @@ $(TOP)/compiler/include/geninc.cfg: $(SRCDIR)/compiler/include/geninc.cfg.in $(T
 
 CONFIGUREFILES += $(TOP)/compiler/include/geninc.cfg
 
-$(AROS_INCLUDES)/aros/config.h: $(SRCDIR)/config/config.h.in $(TOP)/config.status
+$(GENDIR)/buildsdks/config/include/aros/config.h: $(SRCDIR)/config/config.h.in $(TOP)/config.status
 	@+$(ECHO) "Regenerating " $(subst $(TOP)/,,$@); \
 	@$(TOP)/config.status --silent --file=$@:$<
 
-CONFIGUREFILES += $(AROS_INCLUDES)/aros/config.h
+CONFIGUREFILES += $(GENDIR)/buildsdks/config/include/aros/config.h
 
 $(GENINCDIR)/aros/config.h: $(SRCDIR)/config/config.h.in $(TOP)/config.status
 	@+$(ECHO) "Regenerating " $(subst $(TOP)/,,$@); \
@@ -277,7 +277,7 @@ clean:
 	@$(CALL) $(MAKE) $(MKARGS) -C $(SRCDIR)/tools/setrev clean SRCDIR=$(SRCDIR) TOP=$(TOP)
 	-@$(RM) $(ARCHDIR) Makefile config.cache config.status config.log \
 		mmake.cache mmake.config rom/mmakefile config/make.cfg \
-		$(AROS_DEVELOPMENT)/include/aros/config.h \
+		$(GENDIR)/buildsdks/config/include/aros/config.h \
 		$(GENDIR)/include/aros/config.h $(HOSTGENDIR)/config/host.cfg \
 		$(GENDIR)/config/target.cfg $(GENDIR)/config/make.defaults \
 		$(GENDIR)/config/specs \

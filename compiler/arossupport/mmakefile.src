@@ -48,7 +48,7 @@ FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES := -I$(SRCDIR)/rom/exec -iquote $(FMTPRINTFDIR)
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 
-%build_linklib mmake=linklibs-arossupport libname=arossupport files=$(FILES)
+%build_linklib mmake=linklibs-arossupport libname=arossupport files=$(FILES) usesdks="config"
 
 INCLUDE_FILES	    := $(call WILDCARD, include/*.h)
 %copy_includes mmake=compiler-includes path=aros dir=include

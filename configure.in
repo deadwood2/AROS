@@ -2661,7 +2661,7 @@ aros_kernel_ar="$aros_kernel_ar $aros_kernel_ar_flags"
 
 aros_hostcfg_dir="bin/${aros_host_arch}-${aros_host_cpu}/gen/host/config"
 aros_targetcfg_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen/config"
-aros_inc_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/AROS/Development/include/aros"
+aros_cnfginc_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen/buildsdks/config/include/aros"
 aros_gendir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen"
 aros_geninc_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen/include/aros"
 aros_tools_dir="bin/${aros_host_arch}-${aros_host_cpu}/tools"
@@ -3534,8 +3534,8 @@ ppcnative)      aros_flavour_uc="(AROS_FLAVOUR_STANDALONE|AROS_FLAVOUR_BINCOMPAT
                 aros_flavour="ppcnative" ;;
 esac
 
-if test ! -d ${aros_inc_dir} ; then
-    ${MKDIR} ${aros_inc_dir}
+if test ! -d ${aros_cnfginc_dir} ; then
+    ${MKDIR} ${aros_cnfginc_dir}
 fi
 if test ! -d ${aros_geninc_dir} ; then
     ${MKDIR} ${aros_geninc_dir}
@@ -3569,7 +3569,7 @@ AC_CONFIG_COMMANDS([genmf-executable-support],
 AC_CONFIG_FILES(
     Makefile
     config/make.cfg
-    ${aros_inc_dir}/config.h:config/config.h.in
+    ${aros_cnfginc_dir}/config.h:config/config.h.in
     ${aros_geninc_dir}/config.h:config/config.h.in
     ${aros_hostcfg_dir}/host.cfg:config/host.cfg.in
     ${aros_targetcfg_dir}/target.cfg:config/target.cfg.in

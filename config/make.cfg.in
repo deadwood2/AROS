@@ -152,6 +152,9 @@ AROS_PRIVATE_LIB              := $(AROS_PRIVATE_DEVELOPMENT)/$(AROS_DIR_LIB)
 # Build SDK for relative link libraries
 AROS_REL_LIB                  := $(AROS_BUILD_SDKS)/rel/$(AROS_DIR_LIB)
 
+# Build SDK for config.h
+AROS_CONFIG_INCLUDES          := $(AROS_BUILD_SDKS)/config/$(AROS_DIR_INCLUDE)
+
 
 # The generated files all go under the GENDIR path
 SCRIPTDIR                     := $(GENDIR)/scripts

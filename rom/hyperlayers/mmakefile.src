@@ -66,4 +66,4 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-layers \
   modname=layers modtype=library \
-  files="layers_init $(FUNCS) $(FILES)"
+  files="layers_init $(FUNCS) $(FILES)" usesdks="config"

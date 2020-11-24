@@ -14828,7 +14828,7 @@ aros_kernel_ar="$aros_kernel_ar $aros_kernel_ar_flags"
 
 aros_hostcfg_dir="bin/${aros_host_arch}-${aros_host_cpu}/gen/host/config"
 aros_targetcfg_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen/config"
-aros_inc_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/AROS/Development/include/aros"
+aros_cnfginc_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen/buildsdks/config/include/aros"
 aros_gendir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen"
 aros_geninc_dir="bin/${aros_target_arch}-${aros_target_cpu}${aros_target_suffix}/gen/include/aros"
 aros_tools_dir="bin/${aros_host_arch}-${aros_host_cpu}/tools"
@@ -16184,8 +16184,8 @@ aros_kernel_ranlib=$aros_kernel_ranlib
 
 
 
-# Target Related #########################
 
+# Target Related #########################
 
 
 
@@ -16385,8 +16385,8 @@ ppcnative)      aros_flavour_uc="(AROS_FLAVOUR_STANDALONE|AROS_FLAVOUR_BINCOMPAT
                 aros_flavour="ppcnative" ;;
 esac
 
-if test ! -d ${aros_inc_dir} ; then
-    ${MKDIR} ${aros_inc_dir}
+if test ! -d ${aros_cnfginc_dir} ; then
+    ${MKDIR} ${aros_cnfginc_dir}
 fi
 if test ! -d ${aros_geninc_dir} ; then
     ${MKDIR} ${aros_geninc_dir}
@@ -16410,7 +16410,7 @@ ac_config_headers="$ac_config_headers ${aros_geninc_dir}/host-conf.h:config/host
 # Generic build tools (metamake, etc)
 ac_config_commands="$ac_config_commands genmf-executable-support"
 
-ac_config_files="$ac_config_files Makefile config/make.cfg ${aros_inc_dir}/config.h:config/config.h.in ${aros_geninc_dir}/config.h:config/config.h.in ${aros_hostcfg_dir}/host.cfg:config/host.cfg.in ${aros_targetcfg_dir}/target.cfg:config/target.cfg.in ${aros_targetcfg_dir}/build.cfg:config/build.cfg.in mmake.config compiler/include/geninc.cfg:compiler/include/geninc.cfg.in ${aros_targetcfg_dir}/make.defaults:config/make.defaults.in ${aros_tools_dir}/genmf.py:tools/genmf/genmf.py ${AROS_CROSSTOOLSDIR}/${aros_target_cpu}-aros-uname:scripts/uname.in tools/collect-aros/env.h"
+ac_config_files="$ac_config_files Makefile config/make.cfg ${aros_cnfginc_dir}/config.h:config/config.h.in ${aros_geninc_dir}/config.h:config/config.h.in ${aros_hostcfg_dir}/host.cfg:config/host.cfg.in ${aros_targetcfg_dir}/target.cfg:config/target.cfg.in ${aros_targetcfg_dir}/build.cfg:config/build.cfg.in mmake.config compiler/include/geninc.cfg:compiler/include/geninc.cfg.in ${aros_targetcfg_dir}/make.defaults:config/make.defaults.in ${aros_tools_dir}/genmf.py:tools/genmf/genmf.py ${AROS_CROSSTOOLSDIR}/${aros_target_cpu}-aros-uname:scripts/uname.in tools/collect-aros/env.h"
 
 
 # Binutils
@@ -17185,7 +17185,7 @@ do
     "genmf-executable-support") CONFIG_COMMANDS="$CONFIG_COMMANDS genmf-executable-support" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "config/make.cfg") CONFIG_FILES="$CONFIG_FILES config/make.cfg" ;;
-    "${aros_inc_dir}/config.h") CONFIG_FILES="$CONFIG_FILES ${aros_inc_dir}/config.h:config/config.h.in" ;;
+    "${aros_cnfginc_dir}/config.h") CONFIG_FILES="$CONFIG_FILES ${aros_cnfginc_dir}/config.h:config/config.h.in" ;;
     "${aros_geninc_dir}/config.h") CONFIG_FILES="$CONFIG_FILES ${aros_geninc_dir}/config.h:config/config.h.in" ;;
     "${aros_hostcfg_dir}/host.cfg") CONFIG_FILES="$CONFIG_FILES ${aros_hostcfg_dir}/host.cfg:config/host.cfg.in" ;;
     "${aros_targetcfg_dir}/target.cfg") CONFIG_FILES="$CONFIG_FILES ${aros_targetcfg_dir}/target.cfg:config/target.cfg.in" ;;

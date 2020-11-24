@@ -5,6 +5,7 @@
     Desc: Exception - Perform a task exception.
     Lang: english
 */
+#include <aros/config.h>
 #include <exec/execbase.h>
 #include <aros/asmcall.h>
 #include <exec_platform.h>

@@ -9,8 +9,6 @@
     Lang: english
 */
 
-#include <aros/config.h>
-
 #ifndef EXEC_NODES_H
 #   include "exec/nodes.h"
 #endif
