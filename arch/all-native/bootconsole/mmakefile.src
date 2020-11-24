@@ -18,7 +18,7 @@ FILES := common clear init_multiboot init_multiboot2 init_taglist \
 
 USER_INCLUDES := -isystem $(SRCDIR)/$(CURDIR)/include
 
-%build_linklib mmake=linklibs-bootconsole libname=bootconsole files="$(FILES)" libdir=$(GENDIR)/lib
+%build_linklib mmake=linklibs-bootconsole libname=bootconsole files="$(FILES)" libdir=$(GENDIR)/lib usesdks="private"
 
 # pc-x86_64 needs a 32bit version of bootconsole.a
 ifeq ($(AROS_TARGET_CPU),x86_64)
@@ -26,6 +26,6 @@ ifeq ($(AROS_TARGET_CPU),x86_64)
 endif
 
 %build_linklib mmake=linklibs-bootconsole32 libname=bootconsole files="$(FILES)" \
-	       objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32
+	       objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32 usesdks="private"
 
 %common
