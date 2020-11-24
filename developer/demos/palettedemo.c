@@ -6,8 +6,6 @@
     Lang: english
 */
 
-#include <aros/config.h>
-
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/graphics.h>

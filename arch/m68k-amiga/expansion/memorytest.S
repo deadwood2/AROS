@@ -8,8 +8,6 @@
  * $Id$
  */
 
-#include <aros/config.h>
-
 	.text
 	.chip 68000
 	.align 4 

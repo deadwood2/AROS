@@ -6,7 +6,6 @@
     Lang: english
 */
 
-#include <aros/config.h>
 #include <proto/exec.h>
 
 /*****************************************************************************

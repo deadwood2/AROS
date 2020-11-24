@@ -5,7 +5,6 @@
     Desc: m68k SegTracker emulation.
 */
 
-#include <aros/config.h>
 #include <aros/debug.h>
 #include <libraries/debug.h>
 #include <proto/exec.h>

@@ -30,7 +30,6 @@
 */
 #define DEBUG 0
 
-#include <aros/config.h>
 #include <dos/dos.h>
 #include <dos/stdio.h>
 #include <proto/exec.h>

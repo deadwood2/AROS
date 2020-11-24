@@ -8,7 +8,6 @@
 */
 #define DEBUG 0
 
-#include <aros/config.h>
 #include <dos/dos.h>
 #include <exec/memory.h>
 #include <workbench/startup.h>

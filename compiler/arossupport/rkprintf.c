@@ -6,7 +6,6 @@
     Lang: english
 */
 
-#include <aros/config.h>
 #include <aros/arossupportbase.h>
 #include <stdarg.h>
 #include <aros/system.h>
