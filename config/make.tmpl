@@ -3095,6 +3095,9 @@ else
 $(BD_DEPS$(BDID)) : TMP_CPPFLAGS:=%(cppflags)
 $(BD_DEPS$(BDID)) : TMP_DFLAGS:=%(dflags)
 endif
+ifneq (%(usesdks),)
+$(BD_DEPS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
+endif
 ifeq ($(TARGET),$(BD_TARGET))
 $(BD_LIBOBJDIR$(BDID))/%.d : $(SRCDIR)/$(CURDIR)/%.c
 	%mkdepend_q cc=$(TMP_CMD) flags="$(strip $(TMP_DFLAGS) $(TMP_CPPFLAGS))"
@@ -3258,7 +3261,7 @@ $(STUBS_OBJ) : $(STUBS_SRC)
 	%compile_q cmd="$(strip $(TARGET_CC) $(TARGET_SYSROOT))" opt="$(strip %(cflags) $(TMP_CPPFLAGS))" iquote=$(CFLAGS_IQUOTE) iquote_end=$(CFLAGS_IQUOTE_END)
 
 $(STUBS_DEP) : $(STUBS_SRC)
-	%mkdepend_q flags="$(strip %(dflags) %(cppflags))"
+	%mkdepend_q flags="$(strip %(dflags) $(TMP_CPPFLAGS))"
 
 setup ::
 	%mkdirs_q $(OBJDIR) $(HIDD_LIB_DIR)
