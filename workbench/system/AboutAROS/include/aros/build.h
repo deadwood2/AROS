@@ -14,6 +14,6 @@
 
 #ifndef AROS_BUILD_TYPE
 #   define AROS_BUILD_TYPE AROS_BUILD_TYPE_PERSONAL
-#endif 
+#endif
 
 #endif /* AROS_BUILD_H */
