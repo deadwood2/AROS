@@ -30,7 +30,7 @@
 	const STRPTR mainSystem,
 	const STRPTR subSystem,
 	int level,
-	const UBYTE * fmt,
+	const char * fmt,
 	...)
 
 /*  FUNCTION
