@@ -9,13 +9,13 @@
 /Classes/USB/hid.class
 /Classes/USB/massstorage.class
 /Devs/Drivers/hiddclass.hidd
-/Devs/Drivers/graphics.hidd
+/Devs/Drivers/gfx.hidd
 /Devs/Drivers/keyboard.hidd
 /Devs/Drivers/mouse.hidd
 /Devs/Drivers/ata_pci.hidd
 /Devs/Drivers/i8042.hidd
 /Devs/Drivers/vesagfx.hidd
-/Devs/Drivers/vgah.hidd
+/Devs/Drivers/vgagfx.hidd
 /Devs/Drivers/pci.hidd
 /Devs/Drivers/pcipc.hidd
 /Devs/Drivers/serial.hidd
