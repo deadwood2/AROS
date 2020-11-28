@@ -43,31 +43,6 @@ void writeincdefines(struct config *cfg)
             "\n",
             cfg->includenameupper, cfg->includenameupper, banner, cfg->modulename
     );
-    if ((cfg->options & OPTION_RELLINKLIB) || (cfg->options & OPTION_DUPBASE))
-    {
-        fprintf(out,
-                "#if !defined(__%s_LIBBASE)\n"
-                "#  if !defined(__NOLIBBASE__) && !defined(__%s_NOLIBBASE__)\n"
-                "#    define __%s_LIBBASE __aros_getbase_%s()\n"
-                "#  else\n"
-                "#    define __%s_LIBBASE %s\n"
-                "#  endif\n"
-                "#endif\n"
-                "\n",
-                cfg->includenameupper, cfg->includenameupper,
-                cfg->includenameupper, cfg->libbase,
-                cfg->includenameupper, cfg->libbase
-        );
-    }
-    else
-        fprintf(out,
-                "#if !defined(__%s_LIBBASE)\n"
-                "#    define __%s_LIBBASE %s\n"
-                "#endif\n"
-                "\n",
-                cfg->includenameupper,
-                cfg->includenameupper, cfg->libbase
-        );
     fprintf(out,
             "__BEGIN_DECLS\n"
             "\n"
@@ -308,8 +283,8 @@ writedefineregister(FILE *out, struct functionhead *funclistit, struct config *c
             fprintf(out, ", ");
         fprintf(out, "arg%d", count);
     }
-    fprintf(out, ") \\\n    __%s_WB(__%s_LIBBASE",
-            funclistit->name, cfg->includenameupper
+    fprintf(out, ") \\\n    __%s_WB(__aros_getbase_%s()",
+            funclistit->name, cfg->libbase
     );
     for (arglistit = funclistit->arguments, count = 1;
          arglistit != NULL;
@@ -445,9 +420,9 @@ writedefinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
                 "...) __%s_WB(",
                 varargname
         );
-        fprintf(out, "(%s)__%s_LIBBASE, ",
+        fprintf(out, "(%s)__aros_getbase_%s(), ",
                 cfg->libbasetypeptrextern,
-                cfg->includenameupper);
+                cfg->libbase);
         for (arglistit = funclistit->arguments, count = 1;
              arglistit != NULL && arglistit->next != NULL && arglistit->next->next != NULL;
              arglistit = arglistit->next, count++
@@ -525,9 +500,9 @@ writedefinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
                 "    __inline_%s_%s(",
                 cfg->basename, varargname
         );
-        fprintf(out, "(%s)__%s_LIBBASE, ",
+        fprintf(out, "(%s)__aros_getbase_%s(), ",
                 cfg->libbasetypeptrextern,
-                cfg->includenameupper);
+                cfg->libbase);
         for (arglistit = funclistit->arguments, count = 1;
              arglistit != NULL && arglistit->next != NULL && arglistit->next->next != NULL;
              arglistit = arglistit->next, count++
