@@ -1,20 +1,20 @@
-Assign EXISTS "Developer:" >NIL:
+Assign EXISTS "Development:" >NIL:
 If WARN
     If EXISTS "$DEVELPATH"
-        Assign "Developer:" "$DEVELPATH"
+        Assign "Development:" "$DEVELPATH"
     EndIf
 Endif
-Assign EXISTS "Developer:" >NIL:
+Assign EXISTS "Development:" >NIL:
 If WARN
-    Assign "Developer:" "SYS:Developer" >NIL:
+    Assign "Development:" "SYS:Development" >NIL:
 EndIf
 
-Assign INCLUDE: Developer:include
-Assign LIB: Developer:lib
-Assign USR: Developer:
+Assign INCLUDE: Development:include
+Assign LIB: Development:lib
+Assign USR: Development:
 Assign TMP: T:
-Assign ETC: Developer:etc
+Assign ETC: Development:etc
 Stack 262144
 
-Assign BIN: Developer:bin
-Path ADD Developer:bin
+Assign BIN: Development:bin
+Path ADD Development:bin
