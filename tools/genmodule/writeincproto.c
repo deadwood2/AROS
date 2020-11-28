@@ -55,10 +55,10 @@ void writeincproto(struct config *cfg)
             "    extern %s%s;\n"
             "   #endif\n"
             "  #endif\n"
-            "   #ifndef __aros_getbase_%s\n"
-            "    #define __aros_getbase_%s() (%s)\n"
-            "   #endif\n"
-            " #endif /* defined(__NOLIBBASE__) || defined(__DUMMY_NOLIBBASE__) */\n"
+            " #endif\n"
+            " #ifndef __aros_getbase_%s\n"
+            "  #define __aros_getbase_%s() (%s)\n"
+            " #endif\n"
             "#else /* __%s_RELLIBASE__ */\n"
             " extern const IPTR __aros_rellib_offset_%s;\n"
             " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
@@ -69,10 +69,6 @@ void writeincproto(struct config *cfg)
             "  #endif\n"
             "  #define __aros_getbase_%s() (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
             " #endif\n"
-            "#endif\n"
-            "\n"
-            "#ifndef __aros_getbase_%s\n"
-            "extern %s__aros_getbase_%s(void);\n"
             "#endif\n"
             "\n",
             cfg->includenameupper,
@@ -88,7 +84,6 @@ void writeincproto(struct config *cfg)
             cfg->includenameupper, cfg->libbase,
             cfg->includenameupper, cfg->libbase,
             cfg->libbase,
-            cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase,
             cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase
     );
 
