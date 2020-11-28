@@ -13,6 +13,7 @@
 #include <clib/alib_protos.h>
 
 #include <stddef.h>
+#include <string.h>
 
 #include "graphics_intern.h"
 #include "dispinfo.h"
