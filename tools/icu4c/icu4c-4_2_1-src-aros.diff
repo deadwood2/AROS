@@ -2129,6 +2129,18 @@ diff -ruN icu/source/tools/gentest/Makefile.in icu.aros/source/tools/gentest/Mak
  	$(LINK.cc) $(OUTOPT)$@ $^ $(LIBS) 
  	$(POST_BUILD_STEP)
  
+diff -ruN icu/source/tools/genuca/genuca.cpp icu.aros/source/tools/genuca/genuca.cpp
+--- icu/source/tools/genuca/genuca.cpp	2009-07-01 19:50:40.000000000 +0100
++++ icu.aros/source/tools/genuca/genuca.cpp	2017-04-01 04:52:05.278859744 +0100
+@@ -891,7 +891,7 @@
+ struct {
+       UChar32 start;
+       UChar32 end;
+-      int32_t value;
++      uint32_t value;
+     } ranges[] =
+     {
+ #if 0
 diff -ruN icu/source/tools/genuca/Makefile.in icu.aros/source/tools/genuca/Makefile.in
 --- icu/source/tools/genuca/Makefile.in	2009-07-01 19:50:40.000000000 +0100
 +++ icu.aros/source/tools/genuca/Makefile.in	2013-04-09 21:16:37.138738371 +0100
