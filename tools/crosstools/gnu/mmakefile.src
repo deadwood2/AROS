@@ -256,7 +256,8 @@ HOST_CFLAGS := $(HOST_CFLAGS) $(HOST_GNU89_INLINE)
 #MM
 tools-crosstools-gcc :
 	@$(IF) ! $(TEST) -f $(gcc-installflag) ; then \
-	    $(MAKE) -C $(HOSTGENDIR)/$(CURDIR)/gcc all-gcc \
+	    $(MKDIR) -p $(AROS_INCLUDES) \
+	    && $(MAKE) -C $(HOSTGENDIR)/$(CURDIR)/gcc all-gcc \
 	    && $(MAKE) -j1 -C $(HOSTGENDIR)/$(CURDIR)/gcc install-gcc \
 	    && $(TOUCH) $(gcc-installflag) ; \
 	fi
