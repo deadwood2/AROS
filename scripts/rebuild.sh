@@ -30,7 +30,7 @@ source $(pwd)/AROS/scripts/rebuild-conf
 
 check_location
 
-printf "rebuild.sh v1.5, select an option:\n"
+printf "rebuild.sh v1.6, select an option:\n"
 printf "    0)  exit\n"
 
 show_selection
@@ -70,14 +70,14 @@ fi
 cd $BUILD_DIR
 ../AROS/configure --target=$CONFIGURE_TARGET --with-aros-toolchain-install=$TOOLCHAIN_DIR --with-portssources=$PORTS_DIR $CONFIGURE_OPTS
 make $MAKE_TARGET -j 3
-MAKESTATUS:=$?
-if [[ $MAKESTATUS = 0 ]] && [[ -n $MAKE_TARGET_2 ]]; then
+MAKE_STATUS=$?
+if [[ $MAKE_STATUS = 0 ]] && [[ -n $MAKE_TARGET_2 ]]; then
     make $MAKE_TARGET_2 -j 3
-    MAKESTATUS:=$?
+    MAKE_STATUS=$?
 fi
 cd ..
 
 # Delete build directory if toolchain is being build and there were no errors
-if [[ $MAKESTATUS = 0 ]] && [[ $TOOLCHAIN_BUILD = yes ]]; then
+if [[ $MAKE_STATUS = 0 ]] && [[ $TOOLCHAIN_BUILD = yes ]]; then
     rm -rf $BUILD_DIR
 fi
