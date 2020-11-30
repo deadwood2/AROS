@@ -30,7 +30,7 @@ source $(pwd)/AROS/scripts/rebuild-conf
 
 check_location
 
-printf "rebuild.sh v1.4, select an option:\n"
+printf "rebuild.sh v1.5, select an option:\n"
 printf "    0)  exit\n"
 
 show_selection
@@ -42,8 +42,7 @@ fi
 
 process_selection $input
 
-if [ -z $TOOLCHAIN_DIR ]
-then
+if [ -z $TOOLCHAIN_DIR ]; then
     printf "Toolchain directory not set. Exiting\n"
     exit 0
 fi
@@ -71,13 +70,14 @@ fi
 cd $BUILD_DIR
 ../AROS/configure --target=$CONFIGURE_TARGET --with-aros-toolchain-install=$TOOLCHAIN_DIR --with-portssources=$PORTS_DIR $CONFIGURE_OPTS
 make $MAKE_TARGET -j 3
-if [[ $? -eq 0 ]] && [[ -n $MAKE_TARGET_2 ]]
-then
+MAKESTATUS:=$?
+if [[ $MAKESTATUS = 0 ]] && [[ -n $MAKE_TARGET_2 ]]; then
     make $MAKE_TARGET_2 -j 3
+    MAKESTATUS:=$?
 fi
 cd ..
 
-# Delete build directory if toolchain is being build
-if [ $TOOLCHAIN_BUILD = yes ]; then
+# Delete build directory if toolchain is being build and there were no errors
+if [[ $MAKESTATUS = 0 ]] && [[ $TOOLCHAIN_BUILD = yes ]]; then
     rm -rf $BUILD_DIR
 fi
