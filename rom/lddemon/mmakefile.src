@@ -11,6 +11,6 @@ USER_LDFLAGS := -static
 
 %build_module mmake=kernel-lddemon \
   modname=lddemon modtype=resource \
-  files="lddemon" sdk=private usesdks="config"
+  files="lddemon" sdk=private usesdks="private config"
 
 %copy_includes dir=include path=resources sdk=private
