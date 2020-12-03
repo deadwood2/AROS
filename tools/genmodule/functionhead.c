@@ -28,6 +28,7 @@ struct functionhead *newfunctionhead(const char *name, enum libcall libcall)
         funchead->novararg = 0;
         funchead->priv= 0;
         funchead->unusedlibbase = 0;
+        funchead->deprecated = 0;
     }
     else
     {
@@ -264,6 +265,13 @@ void writefuncprotos(FILE *out, struct config *cfg, struct functionhead *funclis
                     cfg->includenameupper
             );
 
+            if (funclistit->deprecated) {
+                fprintf(out,
+                        "\n"
+                        "#if defined(__AROS_GIMME_DEPRECATED__)"
+                        "\n");
+            }
+
             switch (funclistit->libcall)
             {
             case STACK:
@@ -365,6 +373,13 @@ void writefuncprotos(FILE *out, struct config *cfg, struct functionhead *funclis
                     " unhandled libcall in writefuncprotos\n");
                 exit(20);
                 break;
+            }
+
+            if (funclistit->deprecated) {
+                fprintf(out,
+                        "\n"
+                        "#endif /* defined(__AROS_GIMME_DEPRECATED__) */"
+                        "\n");
             }
 
             fprintf(out,

@@ -38,6 +38,7 @@ struct functionhead {
     int novararg : 1; /* Are varargs allowed for this function ? */
     int priv     : 1; /* Is function private */
     int unusedlibbase : 1; /* Libbase must no be made available internally */
+    int deprecated : 1; /* Should function be avoided due to deprecation */
 };
 
 struct functionhead *newfunctionhead(const char *name, enum libcall libcall);

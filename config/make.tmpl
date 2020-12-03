@@ -1577,6 +1577,7 @@ TMP_FILES := $(%(mmake)_C_NARCHFILES) $(%(mmake)_CXX_NARCHFILES) $(%(mmake)_ASMF
 ifneq (%(usesdks),)
 %(mmake)_CPPFLAGS    += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+%(mmake)_CPPFLAGS += -D__AROS_GIMME_DEPRECATED__
 
 ifeq ("%(cflags)","")
 ifeq (%(compiler),target)
@@ -1740,6 +1741,7 @@ endif
 ifneq (%(usesdks),)
     %(mmake)_CPPFLAGS += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+%(mmake)_CPPFLAGS += -D__AROS_GIMME_DEPRECATED__
 %(mmake)_CFLAGS    := %(cflags)
 %(mmake)_COVERAGE := no
 ifeq (%(compiler),target)
@@ -2106,6 +2108,7 @@ endif
 ifneq (%(usesdks),)
     %(mmake)%(flavour)_DEFCPPFLAGS  += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+%(mmake)%(flavour)_DEFCPPFLAGS      += -D__AROS_GIMME_DEPRECATED__
 %(mmake)%(flavour)_DEFDFLAGS        := %(cflags)
 ifneq (%(dflags),)
     %(mmake)%(flavour)_DFLAGS       := %(dflags)
@@ -2282,6 +2285,7 @@ endif
 ifneq (%(usesdks),)
 %(mmake)%(flavour)_CPPFLAGS         += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+%(mmake)%(flavour)_CPPFLAGS         += -D__AROS_GIMME_DEPRECATED__
 %(mmake)%(flavour)_LINKLIBCPPFLAGS  := $(%(mmake)%(flavour)_CPPFLAGS)
 %(mmake)%(flavour)_CPPFLAGS         += $(strip $($(%(mmake)%(flavour)_DEFNAME)_CPPFLAGS))
 %(mmake)%(flavour)_LINKLIBCPPFLAGS  += $(strip $($(%(mmake)%(flavour)_DEFNAME)_LINKLIBCPPFLAGS))
@@ -2702,6 +2706,7 @@ endif
 ifneq (%(usesdks),)
 %(mmake)_CPPFLAGS          += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+%(mmake)_CPPFLAGS          += -D__AROS_GIMME_DEPRECATED__
 %(mmake)_CFLAGS            := %(cflags)
 %(mmake)_CXXFLAGS          := %(cxxflags)
 ifeq (%(lto),yes)
@@ -3061,6 +3066,7 @@ $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=%(cflags)
 ifneq (%(usesdks),)
 $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+$(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) -D__AROS_GIMME_DEPRECATED__
 ifeq (%(compiler),target)
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CMD:=$(strip $(TARGET_CC) $(TARGET_SYSROOT))
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS)
@@ -3098,6 +3104,7 @@ endif
 ifneq (%(usesdks),)
 $(BD_DEPS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+$(BD_DEPS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) -D__AROS_GIMME_DEPRECATED__
 ifeq ($(TARGET),$(BD_TARGET))
 $(BD_LIBOBJDIR$(BDID))/%.d : $(SRCDIR)/$(CURDIR)/%.c
 	%mkdepend_q cc=$(TMP_CMD) flags="$(strip $(TMP_DFLAGS) $(TMP_CPPFLAGS))"
@@ -3253,6 +3260,7 @@ TMP_CPPFLAGS := %(cppflags)
 ifneq (%(usesdks),)
 TMP_CPPFLAGS += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
+TMP_CPPFLAGS += -D__AROS_GIMME_DEPRECATED__
 
 $(HIDD_LIB)($(STUBS_MEM)) : $(STUBS_OBJ)
 	%mklib_q from=$^

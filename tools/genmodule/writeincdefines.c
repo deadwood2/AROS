@@ -64,6 +64,14 @@ void writeincdefines(struct config *cfg)
                     cfg->includenameupper
             );
 
+            if (funclistit->deprecated)
+            {
+                fprintf(out,
+                        "\n"
+                        "#if defined(__AROS_GIMME_DEPRECATED__)"
+                        "\n");
+            }
+
             if ((!funclistit->novararg) && (funclistit->arguments))
             {
                 struct functionarg *arglistit = funclistit->arguments;
@@ -146,6 +154,14 @@ void writeincdefines(struct config *cfg)
                 free(varargname);
             }
             writealiases(out, funclistit, cfg);
+
+            if (funclistit->deprecated)
+            {
+                fprintf(out,
+                        "\n"
+                        "#endif /* defined(__AROS_GIMME_DEPRECATED__) */"
+                        "\n");
+            }
 
             fprintf(out,
                     "\n"
