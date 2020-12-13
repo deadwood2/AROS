@@ -24,7 +24,7 @@ process_selection ()
         ;;
         3)
         TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
-        BUILD_DIR=$(pwd)/alt-abiv0-linux-i386
+        BUILD_DIR=$(pwd)/alt-abiv0-linux-i386-d
         CONFIGURE_TARGET=linux-i386
         CONFIGURE_OPTS="--with-aros-toolchain=yes --enable-debug"
         ;;
