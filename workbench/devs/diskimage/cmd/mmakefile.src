@@ -11,9 +11,9 @@ USER_INCLUDES := -I$(AROS_INCLUDES)/SDI \
                  -I$(SRCDIR)/$(CURDIR)/../include
 
 %build_prog mmake=workbench-devs-diskimage-mountdiskimage progname=MountDiskImage files="mountdiskimage" \
-    targetdir=$(AROS_C) uselibs="diskimagesupport"
+    targetdir=$(AROS_C) uselibs="diskimagesupport" usesdks="diskimage"
 
 %build_prog mmake=workbench-devs-diskimage-mounthdf progname=MountHDF files="mounthdf" \
-    targetdir=$(AROS_C) uselibs="diskimagesupport"
+    targetdir=$(AROS_C) uselibs="diskimagesupport" usesdks="diskimage"
 
 %common

@@ -16,6 +16,6 @@ USER_INCLUDES := -I$(AROS_INCLUDES)/SDI \
                  -I$(SRCDIR)/$(CURDIR)/../include 
 
 %build_linklib mmake=workbench-devs-diskimage-support libname=diskimagesupport \
-  files=$(CFILES)
+  files=$(CFILES) sdk=diskimage
 
 %common

@@ -16,7 +16,7 @@ USER_INCLUDES := -I$(AROS_INCLUDES)/SDI \
                  -I$(SRCDIR)/$(CURDIR)/../include
 
 %build_prog mmake=workbench-devs-diskimage-gui progname=DiskImageGUI files=$(CFILES) \
-    targetdir=$(AROS_SYSTEM) uselibs="diskimagesupport"
+    targetdir=$(AROS_SYSTEM) uselibs="diskimagesupport" usesdks="diskimage"
 
 %copy_dir_recursive mmake=workbench-devs-diskimage-gfx \
 	src=$(DIGFX) dst=$(AROS_IMAGES)/$(DIGFX)
