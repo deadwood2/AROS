@@ -2920,7 +2920,7 @@ static VOID UnitTask(struct ExecBase *sys_base)
 
    /* Get parameters */
 
-   task = FindTask(NULL);
+   task = AbsExecBase->ThisTask;
    unit = task->tc_UserData;
    base = unit->device;
 
