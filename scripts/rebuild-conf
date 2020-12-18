@@ -3,6 +3,8 @@ show_selection ()
     printf "    1) toolchain-alt-abiv0-i386\n"
     printf "    2) alt-abiv0-pc-i386\n"
     printf "    3) alt-abiv0-linux-i386 (DEBUG)\n"
+    printf "    4) alt-abiv0-linux-i386\n"
+    printf "    5) alt-abiv0-mingw32-i386\n"
 }
 
 process_selection ()
@@ -27,6 +29,18 @@ process_selection ()
         BUILD_DIR=$(pwd)/alt-abiv0-linux-i386-d
         CONFIGURE_TARGET=linux-i386
         CONFIGURE_OPTS="--with-aros-toolchain=yes --enable-debug"
+        ;;
+        4)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
+        BUILD_DIR=$(pwd)/alt-abiv0-linux-i386
+        CONFIGURE_TARGET=linux-i386
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        ;;
+        5)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
+        BUILD_DIR=$(pwd)/alt-abiv0-mingw32-i386
+        CONFIGURE_TARGET=mingw32-i386
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
         ;;
     esac
 }
