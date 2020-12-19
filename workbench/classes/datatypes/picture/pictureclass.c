@@ -1644,7 +1644,7 @@ LONG WriteBytes(BPTR file, char *data, LONG offset, LONG length)
 
 IPTR DT_Write(struct IClass *cl, Object *o, struct dtWrite *msg)
 {
-    bug("picture.datatype/DTM_Write fh %d mode %d\n", msg->dtw_FileHandle, msg->dtw_Mode);
+    bug("picture.datatype/DTM_Write fh %p mode %d\n", msg->dtw_FileHandle, msg->dtw_Mode);
     if (msg->dtw_FileHandle == BNULL)
     {
         // Multiview calls DTM_Write with NULL filehandle to check
