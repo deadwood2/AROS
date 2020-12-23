@@ -1344,11 +1344,39 @@ if test "$toolchain_needs_sysroot" = "yes" ; then
     aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"
 fi
 
+if test "$AROS_TARGET_CPU" = "arm"; then
+    AC_MSG_CHECKING([if we need to comment out the compilers section attributes])
+    AC_LINK_IFELSE([AC_LANG_PROGRAM([[asm("\t.section\t.aros.startup,\"ax\"\n\t.globl\tstart\n\t.type\tstart,%function\n\t\tldr\tsp, section_ptr\n");
+static __used void * section_ptr __attribute__((used, section(".aros.startup")));]],[[]])],
+        [
+            aros_targetsection_needscomment=no
+        ],[
+            aros_targetsection_needscomment=yes
+        ])
+    AC_MSG_RESULT($aros_targetsection_needscomment)
+    if test "$aros_targetsection_needscomment" = "yes"; then
+        AC_MSG_CHECKING([which comment style to use])
+        AC_LINK_IFELSE([AC_LANG_PROGRAM([[asm("\t.section\t.aros.startup,\"ax\"\n\t.globl\tstart\n\t.type\tstart,%function\n\t\tldr\tsp, section_ptr\n");
+static __used void * section_ptr __attribute__((used, section(".aros.startup #")));]],[[]])],
+            [
+                aros_targetsection_hashcomment=yes
+                aros_targetsection_comment=\"#\"
+            ],[
+                aros_targetsection_hashcomment=no
+            ])
+        if test "$aros_targetsection_hashcomment" = "no"; then
+            aros_targetsection_comment=\"//\"
+        fi
+        AC_MSG_RESULT($aros_targetsection_comment)
+    fi
+fi
+
 rm -f $AROS_DEVELOPMENT/include/__testsincdir.h
 
 #
 # export the feature flags...
 #
+AC_SUBST(aros_targetsection_comment)
 AC_SUBST(aros_cflags_no_integrated_as)
 AC_SUBST(aros_cflags_exceptions)
 AC_SUBST(aros_cflags_noexceptions)
