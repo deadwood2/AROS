@@ -48,7 +48,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-z \
 #MM     workbench-libs-jpeg \
 #MM     workbench-libs-png \
-#MM     workbench-libs-lcms2 \
 #MM     workbench-libs-gallium \
 #MM     workbench-libs-vega \
 #MM     workbench-libs-egl
