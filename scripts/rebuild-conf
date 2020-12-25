@@ -5,6 +5,7 @@ show_selection ()
     printf "    3) alt-abiv0-linux-i386 (DEBUG)\n"
     printf "    4) alt-abiv0-linux-i386\n"
     printf "    5) alt-abiv0-mingw32-i386\n"
+    printf "    6) alt-abiv0-contrib-i386\n"
 }
 
 process_selection ()
@@ -42,6 +43,14 @@ process_selection ()
         CONFIGURE_TARGET=mingw32-i386
         CONFIGURE_OPTS="--with-aros-toolchain=yes"
         ;;
+        6)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-alt-abiv0-i386
+        BUILD_DIR=$(pwd)/alt-abiv0-contrib-i386
+        CONFIGURE_TARGET=linux-i386
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        MAKE_TARGET="tools"
+        MAKE_TARGET_2="mmake"
+        MAKE_TARGET_3="contrib"
     esac
 }
 
