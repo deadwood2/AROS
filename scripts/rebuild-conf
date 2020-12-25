@@ -3,6 +3,7 @@ show_selection ()
     printf "    1)  toolchain-core-x86_64\n"
     printf "    2)  core-linux-x86_64 (DEBUG)\n"
     printf "    3)  core-pc-x86_64\n"
+    printf "    4)  core-contrib-x86_64\n"
 }
 
 process_selection ()
@@ -27,6 +28,15 @@ process_selection ()
         CONFIGURE_TARGET=pc-x86_64
         CONFIGURE_OPTS="--with-aros-toolchain=yes"
         MAKE_TARGET_2="bootiso"
+        ;;
+        4)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-x86_64
+        BUILD_DIR=$(pwd)/core-contrib-x86_64
+        CONFIGURE_TARGET=linux-x86_64
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        MAKE_TARGET="tools"
+        MAKE_TARGET_2="mmake"
+        MAKE_TARGET_3="contrib"
         ;;
     esac
 }

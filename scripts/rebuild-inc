@@ -7,6 +7,7 @@
 # BUILD_DIR         -> directory where build output will be placed
 # MAKE_TARGET       -> "make" target to build
 # MAKE_TARGET_2     -> second "make" target to build
+# MAKE_TARGET_3     -> third "make" target to build
 
 # Note: each valid selection has to set TOOLCHAIN_DIR, BUILD_DIR and
 # CONFIGURE_TARGET at minimum in process_selection()
@@ -19,7 +20,7 @@ source $(pwd)/AROS/scripts/rebuild-conf
 
 main ()
 {
-    printf "rebuild v1.8, select an option:\n"
+    printf "rebuild v1.9, select an option:\n"
     printf "    0)  exit\n"
 
     show_selection
@@ -62,6 +63,10 @@ main ()
     local MAKE_STATUS=$?
     if [[ $MAKE_STATUS = 0 ]] && [[ -n $MAKE_TARGET_2 ]]; then
         make $MAKE_TARGET_2 -j 3
+        MAKE_STATUS=$?
+    fi
+    if [[ $MAKE_STATUS = 0 ]] && [[ -n $MAKE_TARGET_3 ]]; then
+        make $MAKE_TARGET_3 -j 3
         MAKE_STATUS=$?
     fi
     cd ..
