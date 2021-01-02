@@ -25,7 +25,7 @@
 #include "systemprefswindow.h"
 #include "systemprefswindow_private.h"
 
-#define CATALOG_VERSION (2)
+#include "catalogs/catalog_version.h"
 #define CATCOMP_ARRAY
 #include "strings.h"
 
