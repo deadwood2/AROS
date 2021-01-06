@@ -47,6 +47,7 @@ void testOPENW(void)
  */
 void testWRITE(void)
 {
+    CU_SKIP_IF(file == NULL);
     if (file)
     {
         CU_ASSERT(0 != Write(file,"() does not work!\n",18));
@@ -57,6 +58,7 @@ void testWRITE(void)
  */
 void testCLOSE(void)
 {
+    CU_SKIP_IF(file == NULL);
     if (file)
     {
         CU_ASSERT(0 != Close(file));
@@ -75,6 +77,7 @@ void testOPENR(void)
  */
 void testREAD(void)
 {
+    CU_SKIP_IF(file == NULL);
     if (file)
     {
         CU_ASSERT(7 == Read( file, buffer, 7 ));
@@ -85,6 +88,7 @@ void testREAD(void)
  */
 void testSEEK(void)
 {
+    CU_SKIP_IF(file == NULL);
     if (file)
     {
         /* Seek() */
