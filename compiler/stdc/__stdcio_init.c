@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2012-2018, The AROS Development Team. All rights reserved.
+    Copyright (C) 2012-2021, The AROS Development Team. All rights reserved.
 
     Initialisation code for stdcio.library
 */
