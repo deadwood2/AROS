@@ -76,8 +76,7 @@ MESA_COMPILEOPTIONS += $(CFLAGS_FUNCTION_SECTIONS)
 endif
 
 USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
-  -Wl,--start-group -lglapi -lmesa -lcompiler -lgalliumauxiliary -lgallium -lmesautil \
-  -lpthread $(MESA_ZLIB) -lposixc_rel -lstdcio_rel -lstdc_rel
+  -Wl,--start-group -lpthread
 
 #USER_LDFLAGS += -Wl,--end-group
 #USER_CPPFLAGS += -DDEBUG=1
@@ -88,7 +87,7 @@ USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
   confoverride=mesa3dgl.conf \
   files="$(MESAGL_LIBRARY_SOURCES_C)" \
   cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
-  alwayscxxlink=yes uselibs="" usesdks="mesa rel"
+  alwayscxxlink=yes uselibs="glapi mesa compiler galliumauxiliary gallium mesautil" usesdks="mesa rel"
 
 #
 # mesa3d includes...
