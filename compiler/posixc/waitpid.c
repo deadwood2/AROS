@@ -1,10 +1,9 @@
 /*
-    Copyright (C) 2004-2012, The AROS Development Team. All rights reserved.
+    Copyright (C) 2004-2021, The AROS Development Team. All rights reserved.
 */
 
-#define DEBUG 0
-
 #include <aros/debug.h>
+
 #include <proto/exec.h>
 #include <exec/lists.h>
 #include <exec/tasks.h>

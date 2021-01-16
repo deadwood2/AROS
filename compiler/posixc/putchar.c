@@ -1,13 +1,12 @@
 /*
-    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     C99 function putchar()
 */
 
-#include <libraries/posixc.h>
-
-#define DEBUG 0
 #include <aros/debug.h>
+
+#include <libraries/posixc.h>
 
 /*****************************************************************************
 

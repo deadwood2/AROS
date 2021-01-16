@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2012, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function unsetenv().
 */
@@ -11,7 +11,7 @@
     NAME */
 #include <stdlib.h>
 
-        void unsetenv (
+        int unsetenv (
 
 /*  SYNOPSIS */
         const char *name)

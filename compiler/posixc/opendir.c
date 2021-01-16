@@ -1,8 +1,10 @@
 /*
-    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function opendir().
 */
+
+#include <aros/debug.h>
 
 #include <dos/dos.h>
 #include <proto/dos.h>
@@ -19,9 +21,6 @@
 #include "__fdesc.h"
 #include "__upath.h"
 #include "__dirdesc.h"
-
-#define DEBUG 0
-#include <aros/debug.h>
 
 /*****************************************************************************
 

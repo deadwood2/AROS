@@ -1,17 +1,18 @@
 /*
-    Copyright (C) 2017, The AROS Development Team. All rights reserved.
+    Copyright (C) 2017-2021, The AROS Development Team. All rights reserved.
 */
 
-#include <errno.h>
+#include <aros/debug.h>
+
 #include <dos/dos.h>
 #include <dos/dosextens.h>
 #include <proto/exec.h>
 #include <proto/dos.h>
+
+#include <errno.h>
+
 #include "__fdesc.h"
 #include "__stdio.h"
-
-#define DEBUG 0
-#include <aros/debug.h>
 
 /*****************************************************************************
 

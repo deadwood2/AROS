@@ -1,18 +1,12 @@
 /*
-    Copyright (C) 1995-2015, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     File descriptor handling internals.
 */
 
+#include <aros/debug.h>
+
 #include LC_LIBDEFS_FILE
-
-#include <string.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-
-#define DEBUG 0
 
 #include <proto/exec.h>
 #include <proto/dos.h>
@@ -21,7 +15,13 @@
 #include <dos/dos.h>
 #include <dos/stdio.h>
 #include <aros/symbolsets.h>
-#include <aros/debug.h>
+
+#include <string.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+
 #include "__fdesc.h"
 #include "__upath.h"
 

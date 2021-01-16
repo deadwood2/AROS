@@ -1,10 +1,10 @@
 /*
-    Copyright (C) 2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2020-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function readdir64().
 */
 
-#include "__posixc_intbase.h"
+#include <aros/debug.h>
 
 #include <dos/dos.h>
 #include <proto/dos.h>
@@ -12,12 +12,11 @@
 #include <string.h>
 #include <errno.h>
 
+#include "__posixc_intbase.h"
+
 #include "__fdesc.h"
 #include "__upath.h"
 #include "__dirdesc.h"
-
-#define DEBUG 0
-#include <aros/debug.h>
 
 /*****************************************************************************
 

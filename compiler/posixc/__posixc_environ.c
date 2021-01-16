@@ -1,8 +1,10 @@
 /*
-    Copyright (C) 2012-2013, The AROS Development Team. All rights reserved.
+    Copyright (C) 2012-2021, The AROS Development Team. All rights reserved.
 
     Desc: AROS specific function for environ emulation handling
 */
+
+#include <aros/debug.h>
 
 #include <proto/exec.h>
 #include <proto/dos.h>
@@ -12,9 +14,6 @@
 #include "__env.h"
 
 #include <stdio.h>
-
-#define DEBUG 0
-#include <aros/debug.h>
 
 /*****************************************************************************
 
@@ -59,7 +58,10 @@
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     int len;
 
-    D(bug("Initializing POSIX environ emulation\n"));
+    D(
+        bug("[posixc] %s(0x%p)\n", __func__, environptr);
+        bug("[posixc] %s: Initializing POSIX environ emulation\n", __func__);
+    )
 
     PosixCBase->environptr = environptr;
 

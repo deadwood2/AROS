@@ -1,23 +1,23 @@
 /*
-    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function system().
 */
 
-#include "__posixc_intbase.h"
+#include <aros/debug.h>
 
 #include <dos/dos.h>
 #include <proto/dos.h>
+
+#include <sys/wait.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
-#include <sys/wait.h>
+
+#include "__posixc_intbase.h"
 
 #include "__fdesc.h"
 #include "__upath.h"
-
-#define DEBUG 0
-#include <aros/debug.h>
 
 static int system_sh(const char *string);
 static int system_no_sh(const char *string);

@@ -1,8 +1,9 @@
 /*
-    Copyright (C) 1995-2007, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
 */
 
-#include <string.h>
+#include <aros/debug.h>
+
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <dos/dos.h>
@@ -10,8 +11,7 @@
 #include <exec/types.h>
 #include <assert.h>
 
-#define DEBUG 0
-#include <aros/debug.h>
+#include <string.h>
 
 /*****************************************************************************
 

@@ -1,10 +1,9 @@
 /*
-    Copyright (C) 2008-2012, The AROS Development Team. All rights reserved.
+    Copyright (C) 2008-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function execve().
 */
 
-#define DEBUG 0
 #include <aros/debug.h>
 
 #include <assert.h>

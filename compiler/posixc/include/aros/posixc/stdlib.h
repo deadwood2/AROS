@@ -2,11 +2,13 @@
 #define _POSIXC_STDLIB_H_
 
 /*
-    Copyright © 1995-2012, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
     $Id$
 
     POSIX.1-2008 header file stdlib.h
 */
+
+#include <aros/features.h>
 
 /* C99 */
 #include <aros/stdc/stdlib.h>
@@ -44,7 +46,7 @@ char *setstate(char *);
 void srand48(long int);
 void srandom(unsigned);
 /* NOTIMPL int unlockpt(int); */
-void unsetenv(const char *);
+int unsetenv(const char *);
 
 /* The following are deprecated POSIX functions */
 char *mktemp(char *);

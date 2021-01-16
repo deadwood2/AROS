@@ -1,15 +1,14 @@
 /*
-    Copyright (C) 2004, The AROS Development Team. All rights reserved.
+    Copyright (C) 2004-2021, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function basename().
 */
 
-#include "__upath.h"
-
-#define DEBUG 0
 #include <aros/debug.h>
 
 #include <string.h>
+
+#include "__upath.h"
 
 /*****************************************************************************
 

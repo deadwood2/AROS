@@ -2,6 +2,8 @@
     Copyright (C) 2008-2021, The AROS Development Team. All rights reserved.
 */
 
+#include <aros/debug.h>
+
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <proto/stdc.h>
@@ -10,6 +12,7 @@
 #include <dos/dos.h>
 #include <libraries/stdc.h>
 #include <aros/cpu.h>
+#include <aros/startup.h>
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -24,10 +27,6 @@
 #include "__vfork.h"
 #include "__exec.h"
 
-#define DEBUG 0
-
-#include <aros/debug.h>
-#include <aros/startup.h>
 
 #define VFORK_USE_INLINECOPY
 #if defined(VFORK_USE_INLINECOPY)

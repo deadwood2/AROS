@@ -1,15 +1,15 @@
 /*
-    Copyright (C) 2008-2016, The AROS Development Team. All rights reserved.
+    Copyright (C) 2008-2021, The AROS Development Team. All rights reserved.
 
     4.4BSD function flock().
 */
 
-#define DEBUG 0
+#include <aros/debug.h>
+
 #include <proto/exec.h>
 #include <exec/exec.h>
 #include <proto/dos.h>
 #include <dos/dos.h>
-#include <aros/debug.h>
 #include <aros/symbolsets.h>
 
 #include <errno.h>
