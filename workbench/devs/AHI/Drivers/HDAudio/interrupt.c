@@ -57,7 +57,7 @@ CardInterrupt( struct HDAudioChip* card )
     intreq = pci_inl(HD_INTSTS, card);
 
     if (intreq & HD_INTCTL_GLOBAL)
-    {       
+    {
         if (intreq & 0x3fffffff) // stream interrupt
         {
 //            ULONG position;
@@ -82,13 +82,13 @@ CardInterrupt( struct HDAudioChip* card )
                     }
                 }
             }
-            
+
             pci_outb(0xFF, HD_INTSTS, card);
 
-            z++;            
-#ifdef TIME_LIMITED            
+            z++;
+#ifdef TIME_LIMITED
             timer++;
-            
+
             if (timer > TIME_LIMIT) // stop playback
             {
                 outb_clearbits(HD_SD_CONTROL_STREAM_RUN, card->streams[card->nr_of_input_streams].sd_reg_offset + HD_SD_OFFSET_CONTROL, card);
@@ -117,7 +117,7 @@ CardInterrupt( struct HDAudioChip* card )
                    {
                       D(bug("[HDAudio] Lost IRQ!\n"));
                    }
-                   
+
                    card->flip = 1;
                    card->current_buffer = card->playback_buffer2;
                 }
@@ -144,7 +144,7 @@ CardInterrupt( struct HDAudioChip* card )
                    {
                       D(bug("[HDAudio] Lost rec IRQ!\n"));
                    }
-                   
+
                    card->recflip = 1;
                    card->current_record_buffer = card->record_buffer2;
                 }
@@ -152,15 +152,15 @@ CardInterrupt( struct HDAudioChip* card )
                 Cause(&card->record_interrupt);
             }
         }
-        
+
         if (intreq & HD_INTCTL_CIE)
         {
             //D(bug("[HDAudio] CIE\n"));
             pci_outb(0x4, HD_INTSTS + 3, card); // only byte access allowed
-           
+
   //          if (card->is_playing)
     //            D(bug("[HDAudio] CIE irq! rirb is %x, STATESTS = %x\n", pci_inb(HD_RIRBSTS, card), pci_inw(HD_STATESTS, card)));
-        
+
             // check for RIRB status
             rirb_status = pci_inb(HD_RIRBSTS, card);
             if (rirb_status & 0x5)
@@ -169,22 +169,22 @@ CardInterrupt( struct HDAudioChip* card )
                 {
 //                    D(bug("[HDAudio] RIRB overrun!\n"));
                 }
-           
+
                 if (rirb_status & 0x1) // RINTFL
                 {
                     card->rirb_irq++;
-                    
+
                     /*if (card->rirb_irq > 1)
                     {
                        D(bug("[HDAudio] IRQ: rirb_irq = %d\n", card->rirb_irq));
                     }*/
                     //D(bug("[HDAudio] RIRB IRQ!\n"));
                 }
-           
+
                 pci_outb(0x5, HD_RIRBSTS, card);
             }
         }
-        
+
         handled = 1;
     }
 
@@ -215,7 +215,7 @@ PlaybackInterrupt( struct HDAudioChip* card )
         LONG* srclong, *dstlong;
         int frames = card->current_frames;
 
-        skip_mix = CallHookPkt(AudioCtrl->ahiac_PreTimerFunc, (Object*) AudioCtrl, 0);  
+        skip_mix = CallHookPkt(AudioCtrl->ahiac_PreTimerFunc, (Object*) AudioCtrl, 0);
         CallHookPkt(AudioCtrl->ahiac_PlayerFunc, (Object*) AudioCtrl, NULL);
 
         if (! skip_mix)
@@ -275,7 +275,7 @@ RecordInterrupt( struct HDAudioChip* card )
      WORD *src = card->current_record_buffer;
      WORD* dst = card->current_record_buffer;
 #endif
-    
+
     struct AHIRecordMessage rm =
     {
         AHIST_S16S,
@@ -287,7 +287,7 @@ RecordInterrupt( struct HDAudioChip* card )
      while( i < frames )
      {
        *dst = ( ( *src & 0x00FF ) << 8 ) | ( ( *src & 0xFF00 ) >> 8 );
-   
+
        ++i;
        ++src;
        ++dst;
@@ -296,7 +296,7 @@ RecordInterrupt( struct HDAudioChip* card )
      /*while( i < frames )
      {
        *dst = (*src);
-   
+
        ++i;
        ++src;
        ++dst;
