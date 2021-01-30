@@ -218,7 +218,7 @@ PlaybackInterrupt( struct HDAudioChip* card )
         skip_mix = CallHookPkt(AudioCtrl->ahiac_PreTimerFunc, (Object*) AudioCtrl, 0);
         CallHookPkt(AudioCtrl->ahiac_PlayerFunc, (Object*) AudioCtrl, NULL);
 
-        if (! skip_mix)
+        if (!skip_mix)
         {
             CallHookPkt(AudioCtrl->ahiac_MixerFunc, (Object*) AudioCtrl, card->mix_buffer);
         }
@@ -231,24 +231,34 @@ PlaybackInterrupt( struct HDAudioChip* card )
 
         if (AudioCtrl->ahiac_Flags & AHIACF_HIFI)
         {
-            while(i > 0)
+            if (card->bitsizes[card->selected_bitsize_index] == 24)
             {
-                *dstlong++ = *srclong++;
-                *dstlong++ = *srclong++;
+                /* 32-bit mixing buffer, 24-bit hardware format, stereo => frame size of 8 bytes */
+                while(i > 0)
+                {
+                    *dstlong++ = *srclong++;
+                    *dstlong++ = *srclong++;
 
-                --i;
+                    --i;
+                }
             }
         }
-        else
+
+        if (!(AudioCtrl->ahiac_Flags & AHIACF_HIFI))
         {
-            while(i > 0)
+            if (card->bitsizes[card->selected_bitsize_index] == 16)
             {
-                *dstlong++ = (*srclong & 0xFF00) >> 16; srclong++; // tbd
-                *dstlong++ = (*srclong & 0xFF000000) >> 16; srclong++;
+                /* 16-bit mixing buffer, 16-bit hardware format, stereo => frame size of 4 bytes */
+                while(i > 0)
+                {
+                    *dstlong++ = *srclong++;
 
-                --i;
+                    --i;
+                }
             }
         }
+
+        /* Note: other combinations of mixing buffer and hardware format are not supported at this moment */
 
         CallHookPkt(AudioCtrl->ahiac_PostTimerFunc, (Object*) AudioCtrl, 0);
     }
