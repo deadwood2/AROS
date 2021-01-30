@@ -72,6 +72,7 @@ static const char *Outputs[OUTPUTS] =
 
 #define uint32 unsigned int
 
+static const ULONG nr_of_playback_buffers = 2;
 
 /******************************************************************************
 ** AHIsub_AllocAudio **********************************************************
@@ -142,7 +143,7 @@ ULONG _AHIsub_AllocAudio(struct TagItem* taglist,
 
         //bug("card->selected_freq_index = %lu\n", card->selected_freq_index);
 
-        ret = AHISF_KNOWHIFI | AHISF_KNOWSTEREO | AHISF_MIXING | AHISF_TIMING;
+        ret = AHISF_KNOWSTEREO | AHISF_MIXING | AHISF_TIMING;
 
         for (i = 0; i < card->nr_of_frequencies; i++)
         {
@@ -152,6 +153,9 @@ ULONG _AHIsub_AllocAudio(struct TagItem* taglist,
                 break;
             }
         }
+
+        if (card->bitsizes[card->selected_bitsize_index] == 24)
+            ret |= AHISF_KNOWHIFI;
 
         return ret;
     }
@@ -226,7 +230,7 @@ ULONG _AHIsub_Start(ULONG flags,
 
     if (flags & AHISF_PLAY)
     {
-        ULONG dma_sample_frame_size;
+        ULONG dma_sample_frame_size = 2; /* 16-bit */
 
         detect_headphone_change(card);
 
@@ -238,20 +242,19 @@ ULONG _AHIsub_Start(ULONG flags,
             return AHIE_NOMEM;
         }
 
-        /* Allocate a buffer large enough for 32-bit double-buffered playback (mono or stereo) */
-        if (AudioCtrl->ahiac_Flags & AHIACF_STEREO)
-        {
-            dma_sample_frame_size = 4 * 2;
-            dma_buffer_size = AudioCtrl->ahiac_MaxBuffSamples * dma_sample_frame_size;
-        }
-        else
-        {
-            dma_sample_frame_size = 4;
-            dma_buffer_size = AudioCtrl->ahiac_MaxBuffSamples * dma_sample_frame_size;
-        }
+        /* Allocate a buffer large enough for 16-bit or 32-bit double-buffered playback (mono or stereo) */
+        if (card->bitsizes[card->selected_bitsize_index] == 24)
+            dma_sample_frame_size = 4; /* 32-bit */
 
-        //bug("dma_buffer_size = %ld, %lx, freq = %d\n", dma_buffer_size, dma_buffer_size, AudioCtrl->ahiac_MixFreq);
-        build_buffer_descriptor_list(card, 2, dma_buffer_size, output_stream);
+        if (AudioCtrl->ahiac_Flags & AHIACF_STEREO)
+            dma_sample_frame_size *= 2; /* STEREO */
+
+        dma_buffer_size = AudioCtrl->ahiac_MaxBuffSamples * dma_sample_frame_size;
+
+
+        D(bug("dma_sample_frame_size = %ld, dma_buffer_size = %ld, freq = %d\n",
+            dma_sample_frame_size, dma_buffer_size, AudioCtrl->ahiac_MixFreq));
+        build_buffer_descriptor_list(card, nr_of_playback_buffers, dma_buffer_size, output_stream);
 
 #if defined(__AROS__) && (__WORDSIZE==64)
         card->playback_buffer1 = (APTR)(((IPTR)output_stream->bdl[0].upper_address << 32) | output_stream->bdl[0].lower_address);
@@ -269,7 +272,7 @@ ULONG _AHIsub_Start(ULONG flags,
 
         // 4.5.3 Starting Streams
         outb_setbits((output_stream->tag << 4), output_stream->sd_reg_offset + HD_SD_OFFSET_CONTROL + 2, card); // set stream number
-        pci_outl(dma_buffer_size * 2, output_stream->sd_reg_offset + HD_SD_OFFSET_CYCLIC_BUFFER_LEN, card);
+        pci_outl(dma_buffer_size * nr_of_playback_buffers, output_stream->sd_reg_offset + HD_SD_OFFSET_CYCLIC_BUFFER_LEN, card);
         pci_outw(1, output_stream->sd_reg_offset + HD_SD_OFFSET_LAST_VALID_INDEX, card); // 2 buffers, last valid index = 1
 
         pci_outw(get_hda_format(card), output_stream->sd_reg_offset + HD_SD_OFFSET_FORMAT, card);
@@ -429,7 +432,7 @@ void _AHIsub_Stop(ULONG flags,
         }
         card->mix_buffer = NULL;
 
-        free_buffer_descriptor_list(card, 2, output_stream);
+        free_buffer_descriptor_list(card, nr_of_playback_buffers, output_stream);
 
         D(bug("[HDAudio] IRQ's received was %d\n", z));
     }
