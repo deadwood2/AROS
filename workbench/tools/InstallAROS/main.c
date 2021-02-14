@@ -2099,16 +2099,16 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
     if (option && (data->inst_success == MUIV_Inst_InProgress))
     {
         ULONG srcLen = strlen(source_Path);
-        ULONG developerDirLen = srcLen + strlen("Developer") + 2;
+        ULONG developerDirLen = srcLen + strlen("Development") + 2;
         TEXT developerDir[srcLen + developerDirLen];
 
         CopyMem(source_Path, &developerDir, srcLen + 1);
-        AddPart(developerDir, "Developer", srcLen + developerDirLen);
+        AddPart(developerDir, "Development", srcLen + developerDirLen);
 
         if ((lock = Lock(developerDir, SHARED_LOCK)) != NULL)
         {
             CONST_STRPTR developer_dirs[] = {
-                "Developer", "Developer",
+                "Development", "Development",
                 NULL
             };
             TEXT developmentpath[100];
@@ -2128,7 +2128,7 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
                 developer_dirs);
 
             /* Set DEVELPATH environment variable */
-            AddPart(developmentpath, "Developer", 100);
+            AddPart(developmentpath, "Development", 100);
             create_environment_variable(dest_Path, "DEVELPATH",
                 developmentpath);
 
@@ -2143,7 +2143,7 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
     {
         /* If not installing Development, delete the package file */
         TEXT packagePath[100];
-        sprintf(packagePath, "%s:Prefs/Env-Archive/SYS/Packages/Developer",
+        sprintf(packagePath, "%s:Prefs/Env-Archive/SYS/Packages/Development",
             dest_Path);
         D(bug("[INSTALLER] Deleting Developer Package...\n"));
         DeleteFile(packagePath);
