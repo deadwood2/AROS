@@ -339,7 +339,8 @@ void ehciHandleFinishedTDs(struct PCIController *hc) {
                     etd = eqh->eqh_FirstTD;
                     eqh->eqh_NextTD = etd->etd_Self;
                     SYNC;
-                    unit->hu_NakTimeoutFrame[devadrep] = (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<3) : 0;
+                    unit->hu_NakTimeoutFrame[devadrep] =
+                        (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<hc->hc_EhciTimeoutShift) : 0;
                 }
                 else
                 {
@@ -662,7 +663,8 @@ void ehciScheduleCtrlTDs(struct PCIController *hc) {
 
         // manage endpoint going busy
         unit->hu_DevBusyReq[devadrep] = ioreq;
-        unit->hu_NakTimeoutFrame[devadrep] = (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<3) : 0;
+        unit->hu_NakTimeoutFrame[devadrep] =
+            (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<hc->hc_EhciTimeoutShift) : 0;
 
         Disable();
         AddTail(&hc->hc_TDQueue, (struct Node *) ioreq);
@@ -883,7 +885,8 @@ void ehciScheduleIntTDs(struct PCIController *hc) {
 
         // manage endpoint going busy
         unit->hu_DevBusyReq[devadrep] = ioreq;
-        unit->hu_NakTimeoutFrame[devadrep] = (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<3) : 0;
+        unit->hu_NakTimeoutFrame[devadrep] =
+            (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<hc->hc_EhciTimeoutShift) : 0;
 
         Disable();
         AddTail(&hc->hc_PeriodicTDQueue, (struct Node *) ioreq);
@@ -1072,7 +1075,8 @@ void ehciScheduleBulkTDs(struct PCIController *hc) {
 
         // manage endpoint going busy
         unit->hu_DevBusyReq[devadrep] = ioreq;
-        unit->hu_NakTimeoutFrame[devadrep] = (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<3) : 0;
+        unit->hu_NakTimeoutFrame[devadrep] =
+            (ioreq->iouh_Flags & UHFF_NAKTIMEOUT) ? hc->hc_FrameCounter + (ioreq->iouh_NakTimeout<<hc->hc_EhciTimeoutShift) : 0;
 
         Disable();
         AddTail(&hc->hc_TDQueue, (struct Node *) ioreq);
@@ -1528,6 +1532,10 @@ BOOL ehciInit(struct PCIController *hc, struct PCIUnit *hu) {
                     (hccparams & EHCF_ASYNCSCHEDPARK) ? "Yes" : "No"));
 
         hc->hc_EhciUsbCmd = (1UL<<EHUS_INTTHRESHOLD);
+        hc->hc_EhciTimeoutShift = 3;
+        if (hc->hc_Quirks & HCQ_EHCI_VBOX_FRAMEROOLOVER) {
+            hc->hc_EhciTimeoutShift += 2;
+        }
 
         /* FIXME HERE: Process EHCF_64BITS flag and implement 64-bit addressing */
 
