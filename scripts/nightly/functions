@@ -52,7 +52,7 @@ archive()
     oldpwd=$(pwd)
     
     makedir $archdir
-    execute tar cjvf $1 --exclude=.svn $2
+    execute tar cjf $1 --exclude=.svn $2
     cd      $archdir
     echo    ">>> md5sum $archname >$archname.md5"
     md5sum  $archname >$archname.md5
