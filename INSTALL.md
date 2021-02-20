@@ -2,7 +2,7 @@
 
 Please install these packages before moving to next step. Below is a reference list for Debian-based distributions. Reference build system is Ubuntu 18.04/20.04 amd64.
 
-    subversion git-core gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python-mako libxcursor-dev cmake
+    subversion git-core gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python-mako libxcursor-dev cmake zsh mingw64
 
 
 ## Clone & build
