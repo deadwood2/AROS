@@ -168,8 +168,6 @@ POSIXC_SHARED_SOURCES = \
     getcwd \
     getenv \
     getfsstat \
-    getgid \
-    getegid \
     getgrent \
     getgrgid \
     getgroups \
@@ -207,7 +205,6 @@ POSIXC_SHARED_SOURCES = \
     seed48 \
     setbuf \
     setenv \
-    setgid \
     setgrent \
     setlinebuf \
     setpwent \
@@ -312,7 +309,9 @@ SHARED    := \
     free \
     getc \
     getchar \
+    getegid \
     geteuid \
+    getgid \
     getpid \
     getppid \
     getpwuid \
@@ -342,6 +341,7 @@ SHARED    := \
     rename \
     rmdir \
     scanf \
+    setgid \
     setuid \
     sharecontextwithchild \
     spawnv \
