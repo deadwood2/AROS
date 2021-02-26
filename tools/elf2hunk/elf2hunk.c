@@ -1071,8 +1071,8 @@ static int copy(const char *src, const char *dst, int flags);
 
 static BOOL valid_dir(const char *dir)
 {
-    /* Don't convert anything in a Developer directory */
-    if (strcasecmp(dir, "Developer") == 0)
+    /* Don't convert anything in a Development directory */
+    if (strcasecmp(dir, "Development") == 0)
             return FALSE;
     return TRUE;
 }
