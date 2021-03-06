@@ -70,11 +70,11 @@ BOOL HIDD_SerialUnit_Init(OOP_Object *obj, VOID * DataReceived, VOID * DataRecei
     
     if(!static_mid) static_mid = OOP_GetMethodID(IID_Hidd_SerialUnit, moHidd_SerialUnit_Init);
         
-    p.mID      			= static_mid;
-    p.DataReceived 		= DataReceived;
-    p.DataReceivedUserData 	= DataReceivedUserData;
-    p.WriteData    		= WriteData;
-    p.WriteDataUserData 	= WriteDataUserData;
+    p.mID                       = static_mid;
+    p.DataReceived              = DataReceived;
+    p.DataReceivedUserData      = DataReceivedUserData;
+    p.WriteData                 = WriteData;
+    p.WriteDataUserData         = WriteDataUserData;
     
     return((BOOL) OOP_DoMethod(obj, (OOP_Msg) msg));
 }
@@ -87,9 +87,9 @@ ULONG HIDD_SerialUnit_Write (OOP_Object *obj, UBYTE * data, ULONG length)
     
     if(!static_mid) static_mid = OOP_GetMethodID(IID_Hidd_SerialUnit, moHidd_SerialUnit_Write);
         
-    p.mID	= static_mid;
-    p.Length	= length;
-    p.Outbuffer	= data; 
+    p.mID       = static_mid;
+    p.Length    = length;
+    p.Outbuffer = data;
 
     return ((ULONG) OOP_DoMethod(obj, (OOP_Msg) msg));
 }
@@ -103,7 +103,7 @@ BOOL HIDD_SerialUnit_SetBaudrate(OOP_Object *obj, ULONG baudrate)
     
     if(!static_mid) static_mid = OOP_GetMethodID(IID_Hidd_SerialUnit, moHidd_SerialUnit_SetBaudrate);
         
-    p.mID	= static_mid;
+    p.mID       = static_mid;
     p.baudrate  = baudrate;
 
     return ((BOOL) OOP_DoMethod(obj, (OOP_Msg) msg));
@@ -118,7 +118,7 @@ BOOL HIDD_SerialUnit_SetParameters(OOP_Object *obj, struct TagItem * tags)
     
     if(!static_mid) static_mid = OOP_GetMethodID(IID_Hidd_SerialUnit, moHidd_SerialUnit_SetParameters);
         
-    p.mID	= static_mid;
+    p.mID       = static_mid;
     p.tags      = tags;
 
     return ((BOOL) OOP_DoMethod(obj, (OOP_Msg) msg));
@@ -133,7 +133,7 @@ BYTE HIDD_SerialUnit_SendBreak(OOP_Object *obj, int duration)
     
     if(!static_mid) static_mid = OOP_GetMethodID(IID_Hidd_SerialUnit, moHidd_SerialUnit_SendBreak);
         
-    p.mID	= static_mid;
+    p.mID       = static_mid;
     p.duration  = duration;
 
     return ((BYTE)OOP_DoMethod(obj, (OOP_Msg) msg));

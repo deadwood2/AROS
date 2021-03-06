@@ -35,8 +35,8 @@ CONST_STRPTR MSG(struct Catalog *catalog, ULONG id)
     if (catalog != NULL)
     {
         return GetCatalogStr(catalog, id, CatCompArray[id].cca_Str);
-    } 
-    else 
+    }
+    else
     {
         return CatCompArray[id].cca_Str;
     }
@@ -74,9 +74,9 @@ Object *PrefsWindow__OM_NEW
         
         WindowContents, (IPTR) VGroup,
             Child, (IPTR) contents,
-            Child, (IPTR) RectangleObject, 
-                MUIA_Rectangle_HBar, TRUE, 
-                MUIA_FixHeight,      2, 
+            Child, (IPTR) RectangleObject,
+                MUIA_Rectangle_HBar, TRUE,
+                MUIA_FixHeight,      2,
             End,
             Child, (IPTR) HGroup,
                 Child, (IPTR) HGroup,
@@ -124,34 +124,34 @@ Object *PrefsWindow__OM_NEW
        
         /*-- Setup notifications -------------------------------------------*/
         DoMethod
-        ( 
-            self, MUIM_Notify, MUIA_Window_CloseRequest, TRUE, 
-            (IPTR) self, 1, MUIM_PrefsWindow_Cancel 
+        (
+            self, MUIM_Notify, MUIA_Window_CloseRequest, TRUE,
+            (IPTR) self, 1, MUIM_PrefsWindow_Cancel
         );
         
         DoMethod
-        ( 
-            testButton, MUIM_Notify, MUIA_Pressed, FALSE, 
-            (IPTR) self, 1, MUIM_PrefsWindow_Test 
+        (
+            testButton, MUIM_Notify, MUIA_Pressed, FALSE,
+            (IPTR) self, 1, MUIM_PrefsWindow_Test
         );
         DoMethod
-        ( 
-            revertButton, MUIM_Notify, MUIA_Pressed, FALSE, 
+        (
+            revertButton, MUIM_Notify, MUIA_Pressed, FALSE,
             (IPTR) self, 1, MUIM_PrefsWindow_Revert
         );
         DoMethod
-        ( 
-            saveButton, MUIM_Notify, MUIA_Pressed, FALSE, 
+        (
+            saveButton, MUIM_Notify, MUIA_Pressed, FALSE,
             (IPTR) self, 1, MUIM_PrefsWindow_Save
         );
         DoMethod
-        ( 
-            useButton, MUIM_Notify, MUIA_Pressed, FALSE, 
+        (
+            useButton, MUIM_Notify, MUIA_Pressed, FALSE,
             (IPTR) self, 1, MUIM_PrefsWindow_Use
         );
         DoMethod
-        ( 
-            cancelButton, MUIM_Notify, MUIA_Pressed, FALSE, 
+        (
+            cancelButton, MUIM_Notify, MUIA_Pressed, FALSE,
             (IPTR) self, 1, MUIM_PrefsWindow_Cancel
         );
     }
@@ -165,7 +165,7 @@ Object *PrefsWindow__OM_NEW
 
 IPTR PrefsWindow__OM_DISPOSE
 (
-    Class *CLASS, Object *self, Msg message 
+    Class *CLASS, Object *self, Msg message
 )
 {
     struct PrefsWindow_DATA *data = INST_DATA(CLASS, self);

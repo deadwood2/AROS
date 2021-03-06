@@ -65,28 +65,28 @@ static jmp_buf exit_buf;
 
 enum
 {
-    ARG_FILE, 
+    ARG_FILE,
     NUM_ARGS
 };
 
 enum
 {
-    GAD_UPARROW, 
-    GAD_DOWNARROW, 
-    GAD_LEFTARROW, 
-    GAD_RIGHTARROW, 
-    GAD_VERTSCROLL, 
-    GAD_HORIZSCROLL, 
+    GAD_UPARROW,
+    GAD_DOWNARROW,
+    GAD_LEFTARROW,
+    GAD_RIGHTARROW,
+    GAD_VERTSCROLL,
+    GAD_HORIZSCROLL,
     NUM_GADGETS
 };
 
 enum
 {
-    IMG_UPARROW, 
-    IMG_DOWNARROW, 
-    IMG_LEFTARROW, 
-    IMG_RIGHTARROW, 
-    IMG_SIZE, 
+    IMG_UPARROW,
+    IMG_DOWNARROW,
+    IMG_LEFTARROW,
+    IMG_RIGHTARROW,
+    IMG_SIZE,
     NUM_IMAGES
 };
 
@@ -165,7 +165,7 @@ WORD ShowMessage(CONST_STRPTR title, CONST_STRPTR text, CONST_STRPTR gadtext)
     es.es_TextFormat   = text;
     es.es_GadgetFormat = gadtext;
    
-    return EasyRequestArgs(win, &es, NULL, NULL);  
+    return EasyRequestArgs(win, &es, NULL, NULL);
 }
 
 /****************************************************************************************/
@@ -293,21 +293,21 @@ static void OpenLibs(void)
 {
     if (!(IntuitionBase = (struct IntuitionBase *)OpenLibrary("intuition.library", 39)))
     {
-        __sprintf(s, MSG(MSG_CANT_OPEN_LIB), "intuition.library", 39);  
+        __sprintf(s, MSG(MSG_CANT_OPEN_LIB), "intuition.library", 39);
         Cleanup(s);
     }
 
     if (!(GfxBase = (struct GfxBase *)OpenLibrary("graphics.library", 39)))
     {
-        __sprintf(s, MSG(MSG_CANT_OPEN_LIB), "graphics.library", 39);   
+        __sprintf(s, MSG(MSG_CANT_OPEN_LIB), "graphics.library", 39);
         Cleanup(s);
-    }   
+    }
 
     if (!(GadToolsBase = OpenLibrary("gadtools.library", 39)))
     {
-        __sprintf(s, MSG(MSG_CANT_OPEN_LIB), "gadtools.library", 39);   
+        __sprintf(s, MSG(MSG_CANT_OPEN_LIB), "gadtools.library", 39);
         Cleanup(s);
-    }   
+    }
 }
 
 /****************************************************************************************/
@@ -478,10 +478,10 @@ static void MakeGadgets(void)
 {
     static WORD img2which[] =
     {
-        UPIMAGE, 
-        DOWNIMAGE, 
-        LEFTIMAGE, 
-        RIGHTIMAGE, 
+        UPIMAGE,
+        DOWNIMAGE,
+        LEFTIMAGE,
+        RIGHTIMAGE,
         SIZEIMAGE
     };
    
@@ -490,8 +490,8 @@ static void MakeGadgets(void)
 
     for(i = 0;i < NUM_IMAGES;i++)
     {
-        img[i] = NewObject(0, SYSICLASS, SYSIA_DrawInfo , (IPTR) dri, 
-                                         SYSIA_Which    , (IPTR) img2which[i], 
+        img[i] = NewObject(0, SYSICLASS, SYSIA_DrawInfo , (IPTR) dri,
+                                         SYSIA_Which    , (IPTR) img2which[i],
                                          TAG_DONE);
 
         if (!img[i]) Cleanup(MSG(MSG_CANT_CREATE_SYSIMAGE));
@@ -505,76 +505,76 @@ static void MakeGadgets(void)
     v_offset = imagew[IMG_DOWNARROW] / 4;
     h_offset = imageh[IMG_LEFTARROW] / 4;
 
-    firstgadget = 
-    gad[GAD_UPARROW] = NewObject(0, BUTTONGCLASS, GA_Image      , (IPTR)img[IMG_UPARROW]                                                 , 
-                                                  GA_RelRight   , -imagew[IMG_UPARROW] + 1                                              , 
-                                                  GA_RelBottom  , -imageh[IMG_DOWNARROW] - imageh[IMG_UPARROW] - imageh[IMG_SIZE] + 1   , 
-                                                  GA_ID         , GAD_UPARROW                                                           , 
-                                                  GA_RightBorder, TRUE                                                                  , 
+    firstgadget =
+    gad[GAD_UPARROW] = NewObject(0, BUTTONGCLASS, GA_Image      , (IPTR)img[IMG_UPARROW]                                                 ,
+                                                  GA_RelRight   , -imagew[IMG_UPARROW] + 1                                              ,
+                                                  GA_RelBottom  , -imageh[IMG_DOWNARROW] - imageh[IMG_UPARROW] - imageh[IMG_SIZE] + 1   ,
+                                                  GA_ID         , GAD_UPARROW                                                           ,
+                                                  GA_RightBorder, TRUE                                                                  ,
                                                   GA_Immediate  , TRUE                                                                  ,
-                                                  GA_RelVerify  , TRUE                                                                  , 
+                                                  GA_RelVerify  , TRUE                                                                  ,
                                                   TAG_DONE);
 
-    gad[GAD_DOWNARROW] = NewObject(0, BUTTONGCLASS, GA_Image            , (IPTR)img[IMG_DOWNARROW]                               , 
-                                                    GA_RelRight         , -imagew[IMG_UPARROW] + 1                      , 
-                                                    GA_RelBottom        , -imageh[IMG_UPARROW] - imageh[IMG_SIZE] + 1   , 
-                                                    GA_ID               , GAD_DOWNARROW                                 , 
-                                                    GA_RightBorder      , TRUE                                          , 
-                                                    GA_Previous         , (IPTR)gad[GAD_UPARROW]                         , 
+    gad[GAD_DOWNARROW] = NewObject(0, BUTTONGCLASS, GA_Image            , (IPTR)img[IMG_DOWNARROW]                               ,
+                                                    GA_RelRight         , -imagew[IMG_UPARROW] + 1                      ,
+                                                    GA_RelBottom        , -imageh[IMG_UPARROW] - imageh[IMG_SIZE] + 1   ,
+                                                    GA_ID               , GAD_DOWNARROW                                 ,
+                                                    GA_RightBorder      , TRUE                                          ,
+                                                    GA_Previous         , (IPTR)gad[GAD_UPARROW]                         ,
                                                     GA_Immediate        , TRUE                                          ,
-                                                    GA_RelVerify        , TRUE                                          , 
+                                                    GA_RelVerify        , TRUE                                          ,
                                                     TAG_DONE);
 
-    gad[GAD_VERTSCROLL] = NewObject(0, PROPGCLASS, GA_Top               , btop + 1                                                                      , 
-                                                   GA_RelRight          , -imagew[IMG_DOWNARROW] + v_offset + 1                                         , 
-                                                   GA_Width             , imagew[IMG_DOWNARROW] - v_offset * 2                                          , 
-                                                   GA_RelHeight         , -imageh[IMG_DOWNARROW] - imageh[IMG_UPARROW] - imageh[IMG_SIZE] - btop -2     , 
-                                                   GA_ID                , GAD_VERTSCROLL                                                                , 
-                                                   GA_Previous          , (IPTR)gad[GAD_DOWNARROW]                                                               , 
-                                                   GA_RightBorder       , TRUE                                                                          , 
-                                                   GA_RelVerify         , TRUE                                                                          , 
-                                                   GA_Immediate         , TRUE                                                                          , 
-                                                   PGA_NewLook          , TRUE                                                                          , 
-                                                   PGA_Borderless       , TRUE                                                                          , 
-                                                   PGA_Total            , 100                                                                           , 
-                                                   PGA_Visible          , 100                                                                           , 
-                                                   PGA_Freedom          , FREEVERT                                                                      , 
+    gad[GAD_VERTSCROLL] = NewObject(0, PROPGCLASS, GA_Top               , btop + 1                                                                      ,
+                                                   GA_RelRight          , -imagew[IMG_DOWNARROW] + v_offset + 1                                         ,
+                                                   GA_Width             , imagew[IMG_DOWNARROW] - v_offset * 2                                          ,
+                                                   GA_RelHeight         , -imageh[IMG_DOWNARROW] - imageh[IMG_UPARROW] - imageh[IMG_SIZE] - btop -2     ,
+                                                   GA_ID                , GAD_VERTSCROLL                                                                ,
+                                                   GA_Previous          , (IPTR)gad[GAD_DOWNARROW]                                                               ,
+                                                   GA_RightBorder       , TRUE                                                                          ,
+                                                   GA_RelVerify         , TRUE                                                                          ,
+                                                   GA_Immediate         , TRUE                                                                          ,
+                                                   PGA_NewLook          , TRUE                                                                          ,
+                                                   PGA_Borderless       , TRUE                                                                          ,
+                                                   PGA_Total            , 100                                                                           ,
+                                                   PGA_Visible          , 100                                                                           ,
+                                                   PGA_Freedom          , FREEVERT                                                                      ,
                                                    TAG_DONE);
 
-    gad[GAD_RIGHTARROW] = NewObject(0, BUTTONGCLASS, GA_Image           , (IPTR)img[IMG_RIGHTARROW]                              , 
-                                                     GA_RelRight        , -imagew[IMG_SIZE] - imagew[IMG_RIGHTARROW] + 1, 
-                                                     GA_RelBottom       , -imageh[IMG_RIGHTARROW] + 1                   , 
-                                                     GA_ID              , GAD_RIGHTARROW                                , 
-                                                     GA_BottomBorder    , TRUE                                          , 
-                                                     GA_Previous        , (IPTR)gad[GAD_VERTSCROLL]                              , 
-                                                     GA_Immediate       , TRUE                                          , 
+    gad[GAD_RIGHTARROW] = NewObject(0, BUTTONGCLASS, GA_Image           , (IPTR)img[IMG_RIGHTARROW]                              ,
+                                                     GA_RelRight        , -imagew[IMG_SIZE] - imagew[IMG_RIGHTARROW] + 1,
+                                                     GA_RelBottom       , -imageh[IMG_RIGHTARROW] + 1                   ,
+                                                     GA_ID              , GAD_RIGHTARROW                                ,
+                                                     GA_BottomBorder    , TRUE                                          ,
+                                                     GA_Previous        , (IPTR)gad[GAD_VERTSCROLL]                              ,
+                                                     GA_Immediate       , TRUE                                          ,
                                                      GA_RelVerify       , TRUE                                          ,
                                                      TAG_DONE);
 
-    gad[GAD_LEFTARROW] = NewObject(0, BUTTONGCLASS, GA_Image            , (IPTR)img[IMG_LEFTARROW]                                                       , 
-                                                    GA_RelRight         , -imagew[IMG_SIZE] - imagew[IMG_RIGHTARROW] - imagew[IMG_LEFTARROW] + 1, 
-                                                    GA_RelBottom        , -imageh[IMG_RIGHTARROW] + 1                                           , 
-                                                    GA_ID               , GAD_LEFTARROW                                                         , 
-                                                    GA_BottomBorder     , TRUE                                                                  , 
-                                                    GA_Previous         , (IPTR)gad[GAD_RIGHTARROW]                                                      , 
-                                                    GA_Immediate        , TRUE                                                                  , 
+    gad[GAD_LEFTARROW] = NewObject(0, BUTTONGCLASS, GA_Image            , (IPTR)img[IMG_LEFTARROW]                                                       ,
+                                                    GA_RelRight         , -imagew[IMG_SIZE] - imagew[IMG_RIGHTARROW] - imagew[IMG_LEFTARROW] + 1,
+                                                    GA_RelBottom        , -imageh[IMG_RIGHTARROW] + 1                                           ,
+                                                    GA_ID               , GAD_LEFTARROW                                                         ,
+                                                    GA_BottomBorder     , TRUE                                                                  ,
+                                                    GA_Previous         , (IPTR)gad[GAD_RIGHTARROW]                                                      ,
+                                                    GA_Immediate        , TRUE                                                                  ,
                                                     GA_RelVerify        , TRUE                                                                  ,
                                                     TAG_DONE);
 
-    gad[GAD_HORIZSCROLL] = NewObject(0, PROPGCLASS, GA_Left             , scr->WBorLeft, 
-                                                    GA_RelBottom        , -imageh[IMG_LEFTARROW] + h_offset + 1                                                  , 
-                                                    GA_RelWidth         , -imagew[IMG_LEFTARROW] - imagew[IMG_RIGHTARROW] - imagew[IMG_SIZE] - scr->WBorRight - 2, 
-                                                    GA_Height           , imageh[IMG_LEFTARROW] - (h_offset * 2)                                                 , 
-                                                    GA_ID               , GAD_HORIZSCROLL                                                                        , 
-                                                    GA_Previous         , (IPTR)gad[GAD_LEFTARROW]                                                                        , 
-                                                    GA_BottomBorder     , TRUE                                                                                   , 
-                                                    GA_RelVerify        , TRUE                                                                                   , 
-                                                    GA_Immediate        , TRUE                                                                                   , 
-                                                    PGA_NewLook         , TRUE                                                                                   , 
-                                                    PGA_Borderless      , TRUE                                                                                   , 
-                                                    PGA_Total           , 100                                                                                    , 
-                                                    PGA_Visible         , 100                                                                                    , 
-                                                    PGA_Freedom         , FREEHORIZ                                                                              , 
+    gad[GAD_HORIZSCROLL] = NewObject(0, PROPGCLASS, GA_Left             , scr->WBorLeft,
+                                                    GA_RelBottom        , -imageh[IMG_LEFTARROW] + h_offset + 1                                                  ,
+                                                    GA_RelWidth         , -imagew[IMG_LEFTARROW] - imagew[IMG_RIGHTARROW] - imagew[IMG_SIZE] - scr->WBorRight - 2,
+                                                    GA_Height           , imageh[IMG_LEFTARROW] - (h_offset * 2)                                                 ,
+                                                    GA_ID               , GAD_HORIZSCROLL                                                                        ,
+                                                    GA_Previous         , (IPTR)gad[GAD_LEFTARROW]                                                                        ,
+                                                    GA_BottomBorder     , TRUE                                                                                   ,
+                                                    GA_RelVerify        , TRUE                                                                                   ,
+                                                    GA_Immediate        , TRUE                                                                                   ,
+                                                    PGA_NewLook         , TRUE                                                                                   ,
+                                                    PGA_Borderless      , TRUE                                                                                   ,
+                                                    PGA_Total           , 100                                                                                    ,
+                                                    PGA_Visible         , 100                                                                                    ,
+                                                    PGA_Freedom         , FREEHORIZ                                                                              ,
                                                     TAG_DONE);
 
     for(i = 0;i < NUM_GADGETS;i++)
@@ -600,7 +600,7 @@ static void CalcVisible(void)
     textendy = textstarty + visibley * fontheight - 1;
 
     textwidth = textendx - textstartx + 1;
-    textheight = textendy - textstarty + 1;     
+    textheight = textendy - textstarty + 1;
 }
 
 /****************************************************************************************/
@@ -651,7 +651,7 @@ static void DrawTextLine(WORD viewline, WORD columns, BOOL clearright)
         clearright = FALSE; /* because already cleared by ScrollRaster */
     }
 
-    if ((viewline >= 0) && (viewline < visibley) && 
+    if ((viewline >= 0) && (viewline < visibley) &&
         (realline >= 0) && (realline < num_lines))
     {
         inverted = linearray[realline].invert;
@@ -700,10 +700,10 @@ static void DrawTextLine(WORD viewline, WORD columns, BOOL clearright)
                 MySetAPen(rp, textpen);
                 MySetBPen(rp, inverted ? shinepen : bgpen);
 
-                Move(rp, x, 
+                Move(rp, x,
                         textstarty + (viewline * fontheight) + fontbaseline);
 
-                Text(rp, stringpos, i); 
+                Text(rp, stringpos, i);
             }
         }
 
@@ -712,9 +712,9 @@ static void DrawTextLine(WORD viewline, WORD columns, BOOL clearright)
     if ((i < visiblex) && clearright)
     {
         MySetAPen(rp, bgpen);
-        RectFill(rp, textstartx + (i * fontwidth), 
-                     textstarty + (viewline * fontheight), 
-                     textendx, 
+        RectFill(rp, textstartx + (i * fontwidth),
+                     textstarty + (viewline * fontheight),
+                     textendx,
                      textstarty + (viewline * fontheight) + fontheight - 1);
     }
 }
@@ -778,40 +778,40 @@ static void HandleFileChange(void)
 /****************************************************************************************/
 
 static void MakeWin(void)
-{       
-    if (!(win = OpenWindowTags(NULL, WA_PubScreen       , (IPTR)scr             , 
-                                  WA_Left               , 0                     , 
-                                  WA_Top                , scr->BarHeight + 1    , 
-                                  WA_Width              , 640                   , 
-                                  WA_Height             , 480                   , 
+{
+    if (!(win = OpenWindowTags(NULL, WA_PubScreen       , (IPTR)scr             ,
+                                  WA_Left               , 0                     ,
+                                  WA_Top                , scr->BarHeight + 1    ,
+                                  WA_Width              , 640                   ,
+                                  WA_Height             , 480                   ,
                                   WA_AutoAdjust         , TRUE                  ,
-                                  USE_SIMPLEREFRESH ? 
+                                  USE_SIMPLEREFRESH ?
                                   WA_SimpleRefresh  :
-                                  TAG_IGNORE            , TRUE                  , 
-                                  WA_CloseGadget        , TRUE                  , 
-                                  WA_DepthGadget        , TRUE                  , 
-                                  WA_DragBar            , TRUE                  , 
-                                  WA_SizeGadget         , TRUE                  , 
-                                  WA_SizeBBottom        , TRUE                  , 
-                                  WA_SizeBRight         , TRUE                  , 
-                                  WA_Activate           , TRUE                  , 
-                                  WA_Gadgets            , (IPTR)firstgadget     , 
-                                  WA_MinWidth           , 100                   , 
-                                  WA_MinHeight          , 100                   , 
-                                  WA_MaxWidth           , scr->Width            , 
-                                  WA_MaxHeight          , scr->Height           , 
-                                  WA_ReportMouse        , TRUE                  , 
+                                  TAG_IGNORE            , TRUE                  ,
+                                  WA_CloseGadget        , TRUE                  ,
+                                  WA_DepthGadget        , TRUE                  ,
+                                  WA_DragBar            , TRUE                  ,
+                                  WA_SizeGadget         , TRUE                  ,
+                                  WA_SizeBBottom        , TRUE                  ,
+                                  WA_SizeBRight         , TRUE                  ,
+                                  WA_Activate           , TRUE                  ,
+                                  WA_Gadgets            , (IPTR)firstgadget     ,
+                                  WA_MinWidth           , 100                   ,
+                                  WA_MinHeight          , 100                   ,
+                                  WA_MaxWidth           , scr->Width            ,
+                                  WA_MaxHeight          , scr->Height           ,
+                                  WA_ReportMouse        , TRUE                  ,
                                   WA_NewLookMenus       , TRUE                  ,
                                   WA_IDCMP              , IDCMP_CLOSEWINDOW   |
                                                           IDCMP_NEWSIZE       |
-                                                          IDCMP_GADGETDOWN    | 
+                                                          IDCMP_GADGETDOWN    |
                                                           IDCMP_GADGETUP      |
                                                           IDCMP_MOUSEMOVE     |
                                                           IDCMP_VANILLAKEY    |
                                                           IDCMP_INTUITICKS    |
                                (USE_SIMPLEREFRESH != 0) * IDCMP_REFRESHWINDOW |
                                                           IDCMP_RAWKEY        |
-                                                          IDCMP_MENUPICK        , 
+                                                          IDCMP_MENUPICK        ,
                                   TAG_DONE)))
     {
         Cleanup(MSG(MSG_CANT_CREATE_WIN));
@@ -856,14 +856,14 @@ static void MakeWin(void)
 
     CalcVisible();
 
-    SetGadgetAttrs(gad[GAD_HORIZSCROLL], win, 0, PGA_Top        , 0             , 
-                                                 PGA_Total      , max_textlen   , 
-                                                 PGA_Visible    , visiblex      , 
+    SetGadgetAttrs(gad[GAD_HORIZSCROLL], win, 0, PGA_Top        , 0             ,
+                                                 PGA_Total      , max_textlen   ,
+                                                 PGA_Visible    , visiblex      ,
                                                  TAG_DONE);
 
-    SetGadgetAttrs(gad[GAD_VERTSCROLL], win, 0, PGA_Top         , 0             , 
-                                                PGA_Total       , num_lines     , 
-                                                PGA_Visible     , visibley      , 
+    SetGadgetAttrs(gad[GAD_VERTSCROLL], win, 0, PGA_Top         , 0             ,
+                                                PGA_Total       , num_lines     ,
+                                                PGA_Visible     , visibley      ,
                                                 TAG_DONE);
 
     DrawAllText();
@@ -894,29 +894,29 @@ static void NewWinSize(void)
         if (viewstarty < 0) viewstarty = 0;
     }
 
-    SetGadgetAttrs(gad[GAD_HORIZSCROLL], win, 0, PGA_Top        , viewstartx    , 
-                                                 PGA_Visible    , visiblex      , 
+    SetGadgetAttrs(gad[GAD_HORIZSCROLL], win, 0, PGA_Top        , viewstartx    ,
+                                                 PGA_Visible    , visiblex      ,
                                                  TAG_DONE);
 
-    SetGadgetAttrs(gad[GAD_VERTSCROLL], win, 0, PGA_Top         , viewstarty    , 
-                                                PGA_Visible     , visibley      , 
+    SetGadgetAttrs(gad[GAD_VERTSCROLL], win, 0, PGA_Top         , viewstarty    ,
+                                                PGA_Visible     , visibley      ,
                                                 TAG_DONE);
 
     if (new_winwidth < winwidth)
     {
         MySetAPen(rp, bgpen);
-        RectFill(rp, textendx + 1, 
-                     bordertop + INNER_SPACING_Y, 
-                     new_winwidth - borderright - 1, 
+        RectFill(rp, textendx + 1,
+                     bordertop + INNER_SPACING_Y,
+                     new_winwidth - borderright - 1,
                      new_winheight - borderbottom - 1);
     }
 
     if (new_winheight < winheight)
     {
         MySetAPen(rp, bgpen);
-        RectFill(rp, borderleft + INNER_SPACING_X, 
-                     textendy + 1, 
-                     new_winwidth - borderright - 1, 
+        RectFill(rp, borderleft + INNER_SPACING_X,
+                     textendy + 1,
+                     new_winwidth - borderright - 1,
                      new_winheight - borderbottom - 1);
     }
 
@@ -978,7 +978,7 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
 
                 if (refreshprop)
                 {
-                    SetGadgetAttrs(gad[gadid], win, 0, PGA_Top  , viewstarty, 
+                    SetGadgetAttrs(gad[gadid], win, 0, PGA_Top  , viewstarty,
                                                        TAG_DONE);
                 }
 
@@ -990,12 +990,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                     {
 
                     #ifdef USE_SIMPLEREFRESH
-                        ScrollRaster(rp, 
-                                     0, 
-                                     fontheight * dy, 
-                                     textstartx, 
-                                     textstarty, 
-                                     textendx, 
+                        ScrollRaster(rp,
+                                     0,
+                                     fontheight * dy,
+                                     textstartx,
+                                     textstarty,
+                                     textendx,
                                      textendy);
 
                         if (rp->Layer->Flags & LAYERREFRESH)
@@ -1003,12 +1003,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                             HandleRefresh();
                         }
                     #else
-                        ClipBlit(rp, textstartx, 
-                                     textstarty + dy * fontheight, 
-                                 rp, textstartx, 
-                                     textstarty, 
-                                     textwidth, 
-                                     textheight - dy * fontheight, 
+                        ClipBlit(rp, textstartx,
+                                     textstarty + dy * fontheight,
+                                 rp, textstartx,
+                                     textstarty,
+                                     textwidth,
+                                     textheight - dy * fontheight,
                                  192);
                     #endif
 
@@ -1020,12 +1020,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                         dy = -dy;
 
                     #ifdef USE_SIMPLEREFRESH
-                        ScrollRaster(rp, 
-                                     0, 
-                                     -fontheight * dy, 
-                                     textstartx, 
-                                     textstarty, 
-                                     textendx, 
+                        ScrollRaster(rp,
+                                     0,
+                                     -fontheight * dy,
+                                     textstartx,
+                                     textstarty,
+                                     textendx,
                                      textendy);
 
                         if (rp->Layer->Flags & LAYERREFRESH)
@@ -1034,12 +1034,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                         }
 
                     #else
-                        ClipBlit(rp, textstartx, 
-                                     textstarty, 
-                                 rp, textstartx, 
-                                     textstarty + dy * fontheight, 
-                                     textwidth, 
-                                     textheight - dy * fontheight, 
+                        ClipBlit(rp, textstartx,
+                                     textstarty,
+                                 rp, textstartx,
+                                     textstarty + dy * fontheight,
+                                     textwidth,
+                                     textheight - dy * fontheight,
                                  192);
                     #endif
                         for (y = 0;y < dy;y++)
@@ -1066,7 +1066,7 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
 
                 if (refreshprop)
                 {
-                    SetGadgetAttrs(gad[gadid], win, 0, PGA_Top  , viewstartx, 
+                    SetGadgetAttrs(gad[gadid], win, 0, PGA_Top  , viewstartx,
                                                        TAG_DONE);
                 }
 
@@ -1078,12 +1078,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                     {
 
                     #ifdef USE_SIMPLEREFRESH
-                        ScrollRaster(rp, 
-                                     fontwidth * dx, 
-                                     0, 
-                                     textstartx, 
-                                     textstarty, 
-                                     textendx, 
+                        ScrollRaster(rp,
+                                     fontwidth * dx,
+                                     0,
+                                     textstartx,
+                                     textstarty,
+                                     textendx,
                                      textendy);
 
                         if (rp->Layer->Flags & LAYERREFRESH)
@@ -1091,12 +1091,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                             HandleRefresh();
                         }
                     #else
-                        ClipBlit(rp, textstartx + dx * fontwidth, 
-                                     textstarty, 
-                                 rp, textstartx, 
-                                     textstarty, 
-                                     textwidth - dx * fontwidth, 
-                                     textheight, 
+                        ClipBlit(rp, textstartx + dx * fontwidth,
+                                     textstarty,
+                                 rp, textstartx,
+                                     textstarty,
+                                     textwidth - dx * fontwidth,
+                                     textheight,
                                  192);
                     #endif
                         for (y = 0;y < visibley;y++)
@@ -1108,12 +1108,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                         dx = -dx;
 
                     #ifdef USE_SIMPLEREFRESH
-                        ScrollRaster(rp, 
-                                     -fontwidth * dx, 
-                                     0, 
-                                     textstartx, 
-                                     textstarty, 
-                                     textendx, 
+                        ScrollRaster(rp,
+                                     -fontwidth * dx,
+                                     0,
+                                     textstartx,
+                                     textstarty,
+                                     textendx,
                                      textendy);
 
                         if (rp->Layer->Flags & LAYERREFRESH)
@@ -1122,12 +1122,12 @@ static void ScrollTo(WORD gadid, LONG top, BOOL refreshprop)
                         }
 
                     #else
-                        ClipBlit(rp, textstartx, 
-                                     textstarty, 
-                                 rp, textstartx + dx * fontwidth, 
-                                     textstarty, 
-                                     textwidth - dx * fontwidth, 
-                                     textheight, 
+                        ClipBlit(rp, textstartx,
+                                     textstarty,
+                                 rp, textstartx + dx * fontwidth,
+                                     textstarty,
+                                     textwidth - dx * fontwidth,
+                                     textheight,
                                  192);
                     #endif
                         for (y = 0;y < visibley;y++)
@@ -1481,26 +1481,26 @@ static BOOL HandleWin(void)
                 switch(code)
                 {
                     case CURSORUP:
-                        ScrollTo(GAD_VERTSCROLL, 
-                                 maxscroll ? 0 : viewstarty - (pagescroll ? visibley - 1 : delta), 
+                        ScrollTo(GAD_VERTSCROLL,
+                                 maxscroll ? 0 : viewstarty - (pagescroll ? visibley - 1 : delta),
                                  TRUE);
                         break;
 
                     case CURSORDOWN:
-                        ScrollTo(GAD_VERTSCROLL, 
-                                 maxscroll ? num_lines : viewstarty + (pagescroll ? visibley - 1 : delta), 
+                        ScrollTo(GAD_VERTSCROLL,
+                                 maxscroll ? num_lines : viewstarty + (pagescroll ? visibley - 1 : delta),
                                  TRUE);
                         break;
 
                     case CURSORLEFT:
-                        ScrollTo(GAD_HORIZSCROLL, 
-                                 maxscroll ? 0 : viewstartx - (pagescroll ? visiblex - 1 : delta), 
+                        ScrollTo(GAD_HORIZSCROLL,
+                                 maxscroll ? 0 : viewstartx - (pagescroll ? visiblex - 1 : delta),
                                  TRUE);
                         break;
 
                     case CURSORRIGHT:
-                        ScrollTo(GAD_HORIZSCROLL, 
-                                 maxscroll ? max_textlen : viewstartx + (pagescroll ? visiblex - 1 : delta), 
+                        ScrollTo(GAD_HORIZSCROLL,
+                                 maxscroll ? max_textlen : viewstartx + (pagescroll ? visiblex - 1 : delta),
                                  TRUE);
                         break;
                         
@@ -1521,10 +1521,10 @@ static BOOL HandleWin(void)
                         break;
                         
                 } /* switch(msg->Code) */
-                break;          
+                break;
 
             case IDCMP_MENUPICK:
-                men = msg->Code;                
+                men = msg->Code;
                 while(men != MENUNULL)
                 {
                     if ((item = ItemAddress(menus, men)))
@@ -1587,7 +1587,7 @@ static BOOL HandleWin(void)
                     }
 
                 } /* while(men != MENUNULL) */
-                break;  
+                break;
                                                 
         } /* switch(msg->Class) */
 

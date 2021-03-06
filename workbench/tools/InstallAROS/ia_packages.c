@@ -17,7 +17,7 @@ void PACKAGES_InitSupport(struct List *PACKAGELIST)
     D(bug("[InstallAROS] %s()\n", __func__));
 
     NEWLIST(PACKAGELIST);
-    // TODO: enumerate available packages .. 
+    // TODO: enumerate available packages ..
 }
 
 void PACKAGES_AddCoreSkipPaths(struct List *SkipList)

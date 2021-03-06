@@ -35,8 +35,8 @@ CONST_STRPTR MSG(struct Catalog *catalog, ULONG id)
     if (catalog != NULL)
     {
         return GetCatalogStr(catalog, id, CatCompArray[id].cca_Str);
-    } 
-    else 
+    }
+    else
     {
         return CatCompArray[id].cca_Str;
     }
@@ -89,7 +89,7 @@ BOOL NamesToList
                 
                 if (sectionName != NULL)
                 {
-                    sectionFirst 
+                    sectionFirst
                         ? sectionFirst = FALSE
                         : DoMethod(list, MUIM_List_InsertSingle, (IPTR) "");
                     
@@ -103,7 +103,7 @@ BOOL NamesToList
                         
                         DoMethod
                         (
-                            list, MUIM_List_InsertSingle, 
+                            list, MUIM_List_InsertSingle,
                             (IPTR) buffer, MUIV_List_Insert_Bottom
                         );
                     }
@@ -131,7 +131,7 @@ BOOL NamesToList
                     
                     DoMethod
                     (
-                        list, MUIM_List_InsertSingle, 
+                        list, MUIM_List_InsertSingle,
                         (IPTR) buffer, MUIV_List_Insert_Bottom
                     );
                 }
@@ -151,10 +151,10 @@ BOOL NamesToList
 /*** Methods ****************************************************************/
 Object *AboutWindow__OM_NEW
 (
-    Class *CLASS, Object *self, struct opSet *message 
+    Class *CLASS, Object *self, struct opSet *message
 )
 {
-    struct AboutWindow_DATA *data              = NULL; 
+    struct AboutWindow_DATA *data              = NULL;
     struct TagItem          *tag               = NULL,
                             *tstate            = message->ops_AttrList,
                             *authorsTags       = NULL,
@@ -178,7 +178,7 @@ Object *AboutWindow__OM_NEW
                              description       = NULL,
                              copyright         = NULL;
                              
-    CONST_STRPTR             pages[]           = { NULL, NULL, NULL }; 
+    CONST_STRPTR             pages[]           = { NULL, NULL, NULL };
     UBYTE                    nextPage          = 0;
     
     /* Allocate memory pool ------------------------------------------------*/
@@ -232,7 +232,7 @@ Object *AboutWindow__OM_NEW
             
             case MUIA_AboutWindow_Authors:
                 authorsTags = (struct TagItem *) tag->ti_Data;
-                break; 
+                break;
                 
             case MUIA_AboutWindow_Sponsors:
                 sponsorsTags = (struct TagItem *) tag->ti_Data;
@@ -324,7 +324,7 @@ Object *AboutWindow__OM_NEW
                         ReadListFrame,
                     End),
                 End,
-            End, 
+            End,
         End,
         
         TAG_MORE, (IPTR) message->ops_AttrList
@@ -354,8 +354,8 @@ Object *AboutWindow__OM_NEW
     
     /* Setup notifications */
     DoMethod
-    ( 
-        self, MUIM_Notify, MUIA_Window_CloseRequest, TRUE, 
+    (
+        self, MUIM_Notify, MUIA_Window_CloseRequest, TRUE,
         (IPTR) self, 2, MUIA_Window_Open, FALSE
     );
         
@@ -422,10 +422,10 @@ IPTR AboutWindow__MUIM_Window_Setup
         DoMethod(data->awd_RootGroup, OM_REMMEMBER, (IPTR) data->awd_ImageGroup);
     }
     
-    /*= Setup version ======================================================*/ 
-    /* 
+    /*= Setup version ======================================================*/
+    /*
         The version string will have the format:
-        MUIX_B"<title>"MUIX_N" <version> (<date>) [<extra>]" 
+        MUIX_B"<title>"MUIX_N" <version> (<date>) [<extra>]"
     */
     {
         STRPTR title         = data->awd_Title,
@@ -559,7 +559,7 @@ IPTR AboutWindow__MUIM_Window_Setup
     {
         SET
         (
-            data->awd_DescriptionObject, 
+            data->awd_DescriptionObject,
             MUIA_Text_Contents, data->awd_Description
         );
     }
@@ -584,12 +584,12 @@ IPTR AboutWindow__MUIM_Window_Setup
 
 IPTR AboutWindow__OM_DISPOSE
 (
-    Class *CLASS, Object *self, Msg message 
+    Class *CLASS, Object *self, Msg message
 )
 {
     struct AboutWindow_DATA *data   = INST_DATA(CLASS, self);
     UBYTE                    i;
-    APTR                     ptrs[] = 
+    APTR                     ptrs[] =
     {
         data->awd_Title, data->awd_VersionNumber, data->awd_VersionDate,
         data->awd_VersionExtra, data->awd_Copyright, data->awd_VersionExtra
