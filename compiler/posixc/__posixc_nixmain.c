@@ -1,13 +1,11 @@
 /* 
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
 
     Desc: special main function for code which has to use special *nix features.
           This function gets called from a function with a similar name statically
 	  linked with the program. This is so to make the program not depend on a
 	  particular libc version.
 
-    Lang: english
 */
 
 #include LC_LIBDEFS_FILE
