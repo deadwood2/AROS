@@ -16,20 +16,20 @@
     NAME */
 #include <libgen.h>
 
-	char *basename(
-	
+        char *basename(
+        
 /*  SYNOPSIS */
-	char *filename)
+        char *filename)
 
 /*  FUNCTION
-	Returns the part after the latest '/' of a path.
-	Trailing '/' are not counted as part of the path.
-	
+        Returns the part after the latest '/' of a path.
+        Trailing '/' are not counted as part of the path.
+        
     INPUTS
-	filename - Path which should be split.
+        filename - Path which should be split.
 
     RESULT
-	Rightmost part of the path.
+        Rightmost part of the path.
 
     NOTES
 
@@ -38,7 +38,7 @@
     BUGS
 
     SEE ALSO
-	dirname()
+        dirname()
 
     INTERNALS
 
@@ -49,7 +49,7 @@
 
     if (!filename || *filename == '\0')
     {
-	D(bug("basename()=.\n"));
+        D(bug("basename()=.\n"));
         return ".";
     }
 
@@ -59,8 +59,8 @@
 
     if (pos[0] == '/' && pos[1] == '\0')
     {
-	D(bug("basename(/)=/\n"));
-	return uname;
+        D(bug("basename(/)=/\n"));
+        return uname;
     }
 
     D(bug("basename(%s)=", filename));
@@ -68,16 +68,16 @@
     pos = uname + strlen(uname);
     while (pos[-1] == '/')
     {
-	--pos;
-	pos[0] = '\0';
+        --pos;
+        pos[0] = '\0';
     }
     while (--pos > uname)
     {
-	if (pos[0] == '/')
-	{
-	    uname = ++pos;
-	    break;
-	}
+        if (pos[0] == '/')
+        {
+            uname = ++pos;
+            break;
+        }
     }
 
     D(bug("%s\n", uname));

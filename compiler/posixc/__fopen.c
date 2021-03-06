@@ -13,27 +13,27 @@
 #include "__fdesc.h"
 
 FILE * __fopen (
-	const char * pathname,
-	const char * mode,
-	int    large)
+        const char * pathname,
+        const char * mode,
+        int    large)
 {
     int fd;
     int openmode = __smode2oflags(mode);
 
     if (pathname && (strlen(pathname) > 0) && openmode != -1)
     {
-	fdesc *fdesc;
+        fdesc *fdesc;
 
         fd = open(pathname, openmode, 644);
         if (fd == -1)
             return NULL;
 
-	fdesc = __getfdesc(fd);
+        fdesc = __getfdesc(fd);
 
-	if (large)
-	{
-	    fdesc->fcb->privflags |= _FCB_FH64;
-	}
+        if (large)
+        {
+            fdesc->fcb->privflags |= _FCB_FH64;
+        }
 
         return fdopen(fd, NULL);
     }

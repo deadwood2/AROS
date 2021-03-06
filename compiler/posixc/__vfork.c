@@ -46,10 +46,10 @@
     NAME
 #include <unistd.h>
 
-	pid_t vfork(
+        pid_t vfork(
 
     SYNOPSIS
-	void)
+        void)
 
     FUNCTION
         Function to create a subprocess of the current process.
@@ -79,10 +79,10 @@
         relied on for future compatibility.
 
     INPUTS
-	-
+        -
 
     RESULT
-	-1: error, no child is started; errno will be set.
+        -1: error, no child is started; errno will be set.
         0: Running in child
         >0: Running in parent, pid of child is return value.
 
@@ -98,7 +98,7 @@
     BUGS
 
     SEE ALSO
-	execl(), execve(), execlp(), execv(), execvp()
+        execl(), execve(), execlp(), execv(), execvp()
 
     INTERNALS
 
@@ -155,7 +155,7 @@ LONG launcher()
         }
     }
     if (!PosixCBase)
-    { 
+    {
         D(bug("launcher:Failed to open libraries!\n"));
         FreeSignal(child_signal);
         udata->child_errno = ENOMEM;
