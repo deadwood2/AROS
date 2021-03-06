@@ -35,26 +35,26 @@ static int IEEEDPT_Init(struct MathIeeeDoubTransBase *lh)
 {
     MathIeeeDoubBasBase = OpenLibrary("mathieeedoubbas.library", 39);
     if (!MathIeeeDoubBasBase)
-	return FALSE;
+        return FALSE;
 
     if (SysBase->AttnFlags & (AFF_68881 | AFF_68882 | AFF_FPU40)) {
-	SetFunc(5, ATan_6888x);
-	SetFunc(6, Sin_6888x);
-	SetFunc(7, Cos_6888x);
-	SetFunc(8, Tan_6888x);
-	SetFunc(9, Sincos_6888x);
-	SetFunc(10, Sinh_6888x);
-	SetFunc(11, Cosh_6888x);
-	SetFunc(12, Tanh_6888x);
-	SetFunc(13, Exp_6888x);
-	SetFunc(14, Log_6888x);
-	/* SetFunc(15, Pow_6888x); */
-	SetFunc(16, Sqrt_6888x);
-	SetFunc(17, Tieee_6888x);
-	SetFunc(18, Fieee_6888x);
-	SetFunc(19, Asin_6888x);
-	SetFunc(20, Acos_6888x);
-	SetFunc(21, Log10_6888x);
+        SetFunc(5, ATan_6888x);
+        SetFunc(6, Sin_6888x);
+        SetFunc(7, Cos_6888x);
+        SetFunc(8, Tan_6888x);
+        SetFunc(9, Sincos_6888x);
+        SetFunc(10, Sinh_6888x);
+        SetFunc(11, Cosh_6888x);
+        SetFunc(12, Tanh_6888x);
+        SetFunc(13, Exp_6888x);
+        SetFunc(14, Log_6888x);
+        /* SetFunc(15, Pow_6888x); */
+        SetFunc(16, Sqrt_6888x);
+        SetFunc(17, Tieee_6888x);
+        SetFunc(18, Fieee_6888x);
+        SetFunc(19, Asin_6888x);
+        SetFunc(20, Acos_6888x);
+        SetFunc(21, Log10_6888x);
     }
     return TRUE;
 }
@@ -62,7 +62,7 @@ static int IEEEDPT_Init(struct MathIeeeDoubTransBase *lh)
 static int IEEEDPT_Expunge(struct Library *lh)
 {
     if (MathIeeeDoubBasBase)
-	CloseLibrary (MathIeeeDoubBasBase);
+        CloseLibrary (MathIeeeDoubBasBase);
     return TRUE;
 }
 

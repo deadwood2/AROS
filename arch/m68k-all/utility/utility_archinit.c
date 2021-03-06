@@ -24,17 +24,17 @@ static int UtilityM68K_ArchInit(struct Library *UtilityBase)
     */
     if(SysBase->AttnFlags & AFF_68020)
     {
-	SetFunc(23, SMult32_020);
-	SetFunc(24, UMult32_020);
-	SetFunc(25, SDivMod32_020);
-	SetFunc(26, UDivMod32_020);
+        SetFunc(23, SMult32_020);
+        SetFunc(24, UMult32_020);
+        SetFunc(25, SDivMod32_020);
+        SetFunc(26, UDivMod32_020);
 
-	/* The 060 doesn't have some of the instructions I use... */
-	if((SysBase->AttnFlags & AFF_68060) == 0)
-	{
-	    SetFunc(33, SMult64_020);
-	    SetFunc(34, UMult64_020);
-	}
+        /* The 060 doesn't have some of the instructions I use... */
+        if((SysBase->AttnFlags & AFF_68060) == 0)
+        {
+            SetFunc(33, SMult64_020);
+            SetFunc(34, UMult64_020);
+        }
     }
 
     return TRUE;
