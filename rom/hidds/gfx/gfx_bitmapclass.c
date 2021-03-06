@@ -1046,7 +1046,7 @@ OOP_Object *BM__Root__New(OOP_Class *cl, OOP_Object *obj, struct pRoot_New *msg)
             /* Cache default GC */
             OOP_GetAttr(data->gfxhidd, aHidd_Gfx_DefaultGC, (IPTR *)&data->gc);
 
-            /* 
+            /*
              * Initialize the direct method calling.
              * We don't check against errors because our base class contains all
              * these functions.
@@ -1602,7 +1602,7 @@ VOID BM__Hidd_BitMap__DrawLine
         /*
             Horizontal line drawing code.
         */
-        y = y1; 
+        y = y1;
         
         /* Don't swap coordinates if x2 < x1! Because of linepattern! */
         
@@ -1618,7 +1618,7 @@ VOID BM__Hidd_BitMap__DrawLine
         }
         
         for(i = x1; i != x2; i += dx)
-        {    
+        {
             /* Pixel inside ? */
 
             if (!doclip || !POINT_OUTSIDE_CLIP(gc, i, y ))
@@ -1636,7 +1636,7 @@ VOID BM__Hidd_BitMap__DrawLine
             }
             
             maskLine = maskLine >> 1;
-            if (!maskLine) maskLine = 1L << 15;     
+            if (!maskLine) maskLine = 1L << 15;
         }
     }
     else if (x1 == x2)
@@ -1660,7 +1660,7 @@ VOID BM__Hidd_BitMap__DrawLine
         }
         
         for(i = y1; i != y2; i += dy)
-        {    
+        {
             /* Pixel inside ? */
             if (!doclip || !POINT_OUTSIDE_CLIP(gc, x, i ))
             {
@@ -1677,7 +1677,7 @@ VOID BM__Hidd_BitMap__DrawLine
             }
             
             maskLine = maskLine >> 1;
-            if (!maskLine) maskLine = 1L << 15;     
+            if (!maskLine) maskLine = 1L << 15;
             
         }
     }
@@ -1715,7 +1715,7 @@ VOID BM__Hidd_BitMap__DrawLine
         x = x1; y = y1;
         
         for(i = 0; i <= dx; i++)
-        {    
+        {
             /* Pixel inside ? */
             if (!doclip || !POINT_OUTSIDE_CLIP(gc, x, y ))
             {
@@ -1752,7 +1752,7 @@ VOID BM__Hidd_BitMap__DrawLine
             }
 
             maskLine = maskLine >> 1;
-            if (!maskLine) maskLine = 1L << 15;     
+            if (!maskLine) maskLine = 1L << 15;
 
         }
     }
@@ -2917,15 +2917,15 @@ VOID BM__Hidd_BitMap__PutImage(OOP_Class *cl, OOP_Object *o,
 /****************************************************************************************/
 
 #if defined(EXACT_ALPHA)
-int static inline 
-__attribute__((always_inline, const)) do_alpha(int a, int f, int b) 
+int static inline
+__attribute__((always_inline, const)) do_alpha(int a, int f, int b)
 {
     int tmp = ((f)*(a) + (b)*(255 - (a)) + 128);
     return ((tmp + (tmp >> 8)) >> 8);
 }
 #else
-int static inline 
-__attribute__((always_inline, const)) do_alpha(int a, int f, int b) 
+int static inline
+__attribute__((always_inline, const)) do_alpha(int a, int f, int b)
 {
     int tmp  = (a*(f-b));
     return ((tmp<<8) + tmp + 32768)>>16;
@@ -3121,7 +3121,7 @@ VOID BM__Hidd_BitMap__PutAlphaImage(OOP_Class *cl, OOP_Object *o,
 
            data.pixels += msg->modulo;
 
-        } /* for(y = msg->y; y < msg->y + msg->height; y++) */        
+        } /* for(y = msg->y; y < msg->y + msg->height; y++) */
     }
     ReturnVoid("BitMap::PutAlphaImage");
 }
@@ -3402,7 +3402,7 @@ static void JAM1AlphaTemplateBuffered(ULONG *xbuf, UWORD starty, UWORD width, UW
         xbuf += width;
         data->pixarray += data->modulo;
     }
-}       
+}
 
 static void ComplementAlphaTemplateBuffered(ULONG *xbuf, UWORD starty, UWORD width, UWORD height, struct patb_data *data)
 {
@@ -3453,7 +3453,7 @@ static void JAM2AlphaTemplateBuffered(ULONG *xbuf, UWORD starty, UWORD width, UW
 
 VOID BM__Hidd_BitMap__PutAlphaTemplate(OOP_Class *cl, OOP_Object *o,
                                        struct pHidd_BitMap_PutAlphaTemplate *msg)
-{ 
+{
     OOP_Object *gc = msg->gc;
     BOOL get = TRUE;
     void (*op)(ULONG *, UWORD, UWORD, UWORD, struct patb_data *);
@@ -3612,7 +3612,7 @@ static void JAM1PatternBuffered(ULONG *xbuf, UWORD starty, UWORD width, UWORD he
             data->maskarray += data->maskmodulo;
 
     } /* for (y) */
-}       
+}
 
 static void ComplementPatternBuffered(ULONG *xbuf, UWORD starty, UWORD width, UWORD height, struct ppb_data *data)
 {
@@ -3732,7 +3732,7 @@ static void ColorPatternBuffered(ULONG *xbuf, UWORD starty, UWORD width, UWORD h
                     UWORD _patword = AROS_BE2WORD(*_parray);
 
                     if (_patword & pmask)
-                        pixel |= 1L << plane;                             
+                        pixel |= 1L << plane;
                 }
 
                 if (data->patternlut)
@@ -3763,7 +3763,7 @@ static void ColorPatternBuffered(ULONG *xbuf, UWORD starty, UWORD width, UWORD h
             data->maskarray += data->maskmodulo;
 
     } /* for (y) */
-} 
+}
 
 VOID BM__Hidd_BitMap__PutPattern(OOP_Class *cl, OOP_Object *o,
                                  struct pHidd_BitMap_PutPattern *msg)
@@ -4491,10 +4491,10 @@ IPTR BM__Root__Set(OOP_Class *cl, OOP_Object *obj, struct pRoot_Set *msg)
         {
             Hidd_BitMap_Switch(tag->ti_Tag, idx)
             {
-	    case aoHidd_BitMap_LeftEdge:
+            case aoHidd_BitMap_LeftEdge:
                 xoffset = tag->ti_Data;
                 /*
-                 * FIXME: 
+                 * FIXME:
                  * Our bitmap cannot be smaller than display size because of fakegfx.hidd
                  * limitations (it can't place cursor beyond bitmap edges). Otherwise Intuition
                  * will provide strange user experience (mouse cursor will disappear)
@@ -4518,7 +4518,7 @@ IPTR BM__Root__Set(OOP_Class *cl, OOP_Object *obj, struct pRoot_Set *msg)
                 yoffset = -yoffset;
                 D(bug("[BitMap] yoffset requested %ld, got %d\n", -tag->ti_Data, yoffset));
                 break;
-	    }
+            }
         }
 
         if ((xoffset != data->display.MinX) || (yoffset != data->display.MinY))
@@ -4633,7 +4633,7 @@ static ULONG colorDistance(HIDDT_Color *a, HIDDT_Color *b)
 {
 #define SQR(x) ((x) * (x))
     return SQR((int)a->red - (int)b->red) +
-           SQR((int)a->blue - (int)b->blue) + 
+           SQR((int)a->blue - (int)b->blue) +
            SQR((int)a->green - (int)b->green) +
            SQR((int)a->alpha - (int)b->alpha);
 #undef SQR
@@ -4982,7 +4982,7 @@ VOID BM__Hidd_BitMap__BitMapScale(OOP_Class * cl, OOP_Object *o,
 
         HIDDT_RGBConversionFunction
         HIDD_BM_SetRGBConversionFunction(OOP_Object *obj, HIDDT_StdPixFmt srcPixFmt,
-                                         HIDDT_StdPixFmt dstPixFmt, 
+                                         HIDDT_StdPixFmt dstPixFmt,
                                          HIDDT_RGBConversionFunction function);
 
     LOCATION

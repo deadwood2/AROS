@@ -24,52 +24,52 @@
 /*  NAME */
 #include <proto/exec.h>
 
-	AROS_LH0(void, Forbid,
+        AROS_LH0(void, Forbid,
 
 /*  LOCATION */
-	struct ExecBase *, SysBase, 22, Exec)
+        struct ExecBase *, SysBase, 22, Exec)
 
 /*  FUNCTION
-	Forbid any further taskswitches until a matching call to Permit().
-	Naturally disabling taskswitches means:
+        Forbid any further taskswitches until a matching call to Permit().
+        Naturally disabling taskswitches means:
 
-	THIS CALL IS DANGEROUS
+        THIS CALL IS DANGEROUS
 
-	Do not use it without thinking very well about it or better
-	do not use it at all. Most of the time you can live without
-	it by using semaphores or similar.
+        Do not use it without thinking very well about it or better
+        do not use it at all. Most of the time you can live without
+        it by using semaphores or similar.
 
-	Calls to Forbid() nest, i.e. for each call to Forbid() you
-	need one call to Permit().
+        Calls to Forbid() nest, i.e. for each call to Forbid() you
+        need one call to Permit().
 
     INPUTS
-	None.
+        None.
 
     RESULT
-	The multitasking state will be disabled AFTER this function
-	returns to the caller.
+        The multitasking state will be disabled AFTER this function
+        returns to the caller.
 
     NOTES
-	This function preserves all registers.
+        This function preserves all registers.
 
-	To prevent deadlocks calling Wait() in forbidden state breaks
-	the forbid - thus taskswitches may happen again.
+        To prevent deadlocks calling Wait() in forbidden state breaks
+        the forbid - thus taskswitches may happen again.
 
     EXAMPLE
-	It is generally not necessary/desirable to use Forbid()/Permit()
-	in most userspace code.
+        It is generally not necessary/desirable to use Forbid()/Permit()
+        in most userspace code.
 
     BUGS
-	The only architecture that you can rely on the registers being
-	saved is on the Motorola mc68000 family.
+        The only architecture that you can rely on the registers being
+        saved is on the Motorola mc68000 family.
 
     SEE ALSO
-	Permit(), Disable(), Enable(), Wait()
+        Permit(), Disable(), Enable(), Wait()
 
     INTERNALS
-	If you want to preserve all the registers, replace this function
-	in your $(KERNEL) directory. Otherwise this function is
-	satisfactory.
+        If you want to preserve all the registers, replace this function
+        in your $(KERNEL) directory. Otherwise this function is
+        satisfactory.
 
 ******************************************************************************/
 {
