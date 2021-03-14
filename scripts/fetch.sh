@@ -26,7 +26,7 @@ fetch_mirrored()
                 break;
         fi
     done
-    
+
     $ret
 }
 
@@ -280,6 +280,9 @@ unpack()
         *.tar.xz)
 	    if ! tar xfJ "$archivepath/$archive"; then ret=false; fi
 	    ;;
+        *.lha)
+            if ! lha x "$archivepath/$archive"; then ret=false; fi
+            ;;
 	*)
 	    echo "Unknown archive format for \`$archive'."
 	    ret=false
