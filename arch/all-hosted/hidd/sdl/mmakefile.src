@@ -18,4 +18,4 @@ EXEDIR := $(AROSDIR)/Storage/Monitors
 %build_prog mmake=kernel-hidd-sdl \
   progname=SDL targetdir=$(EXEDIR) \
   files=$(FILES) cflags="$(CFLAGS) $(HOST_SDL_CFLAGS)" \
-  uselibs="hiddstubs"
+  uselibs="hiddstubs" usesdks="private"
