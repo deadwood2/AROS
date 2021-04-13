@@ -8,4 +8,4 @@ ADDITIONALICONS := PCITool
 #MM- iconset-Gorilla-additional-icons-aros-clean : iconset-Gorilla-additional-icons-aros-debug-hardware-clean
 #MM- iconset-Gorilla-additional-icons-aros-debug : iconset-Gorilla-additional-icons-aros-debug-hardware
 %build_icons mmake=iconset-Gorilla-additional-icons-aros-debug-hardware icons=$(ADDITIONALICONS) \
-             dir=$(AROS_DEBUG)/Hardware
+             dir=$(AROSDIR)/Tools
