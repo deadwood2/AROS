@@ -1,5 +1,5 @@
 /*
-    Copyright © 1995-2014, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc:
@@ -30,7 +30,7 @@
 
 #define AROS_VERSION_MAJOR      1
 #define AROS_VERSION_MINOR      12
-#define AROS_ABI_VERSION_MAJOR  1       /* Change only value, name is used in external script */
+#define AROS_ABI_VERSION_MAJOR  11      /* Change only value, name is used in external script */
 #define AROS_RELEASE_DATE       7560    /* in days since 1978-01-01 */
 
 #if (AROS_FLAVOUR & AROS_FLAVOUR_NATIVE)
