@@ -69,7 +69,7 @@ static LONG InternalOpen(CONST_STRPTR name, LONG accessMode,
     LONG error;
 
     /* Sanity check */
-    if (name == NULL) return BNULL;
+    if (name == NULL || *((char*)name)==0 ) return BNULL;
 
     /* Create filehandle */
     ret = (struct FileHandle *)AllocDosObject(DOS_FILEHANDLE,NULL);
