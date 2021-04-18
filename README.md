@@ -3,6 +3,7 @@
 branch | target | description | how to build | download
 -------|--------|-------------|------------- |---------
 [master](https://github.com/deadw00d/AROS/tree/master) | linux-x86_64 | Stable and always backwards compatible hosted version | [Core](https://github.com/deadw00d/AROS/blob/master/INSTALL.md) | [Core](https://vps691225.ovh.net/download/builds/AROS/)
+[master](https://github.com/deadw00d/AROS/tree/master) | amiga-m68k | Amiga replacement ROM and system software | [Core](https://github.com/deadw00d/AROS/blob/master/INSTALL.md) | [Core](https://vps691225.ovh.net/download/builds/AROS/)
 
 ### Backwards compatibility
 
@@ -21,7 +22,6 @@ branch | target | description | how to build | download
 -------|--------|-------------|--------------|---------
 [alt-runtime](https://github.com/deadw00d/AROS/tree/alt-runtime) | runtimelinux-x86_64 | AxRuntime for Linux x86_64 | [AxRuntime](https://github.com/deadw00d/AROS/blob/alt-runtime/INSTALL.md) | [AxRuntime](https://vps691225.ovh.net/download/builds/AxRuntime/)
 [alt-abiv0](https://github.com/deadw00d/AROS/tree/alt-abiv0) | pc-i386 | ABI_V0 version of native 32-bit AROS | [ABIv0](https://github.com/deadw00d/AROS/blob/alt-abiv0/INSTALL.md) | [ABIv0](https://vps691225.ovh.net/download/builds/AROS-ABIV0/)
-[alt-bincompat](https://github.com/deadw00d/AROS/tree/alt-bincompat) | amiga-m68k | Amiga replacement ROM and system software | [Amiga](https://github.com/deadw00d/AROS/blob/alt-bincompat/INSTALL.md) | [Amiga](https://vps691225.ovh.net/download/builds/AROS/)
 
 ## Relation between Core and Alternatives
 

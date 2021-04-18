@@ -4,6 +4,8 @@ show_selection ()
     printf "    2)  core-linux-x86_64 (DEBUG)\n"
     printf "    3)  core-pc-x86_64\n"
     printf "    4)  core-contrib-x86_64\n"
+    printf "    10) toolchain-core-m68k\n"
+    printf "    11) core-amiga-m68k\n"
 }
 
 process_selection ()
@@ -37,6 +39,19 @@ process_selection ()
         MAKE_TARGET="tools"
         MAKE_TARGET_2="mmake"
         MAKE_TARGET_3="contrib"
+        ;;
+        10)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
+        BUILD_DIR=$(pwd)/toolchain-core-m68k-build
+        TOOLCHAIN_BUILD=yes
+        CONFIGURE_TARGET=amiga-m68k
+        MAKE_TARGET="-s crosstools"
+        ;;
+        11)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
+        BUILD_DIR=$(pwd)/core-amiga-m68k
+        CONFIGURE_TARGET=amiga-m68k
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
         ;;
     esac
 }
