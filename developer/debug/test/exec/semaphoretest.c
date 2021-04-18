@@ -10,18 +10,6 @@
 #include <clib/exec_protos.h>
 #include <stdio.h>
 
-AROS_LP2(ULONG, Procure,
-         AROS_LPA(struct SignalSemaphore *, sigSem, A0),
-         AROS_LPA(struct SemaphoreMessage *, bidMsg, A1),
-         LIBBASETYPEPTR, SysBase, 90, Exec
-);
-
-AROS_LP2(void, Vacate,
-         AROS_LPA(struct SignalSemaphore *, sigSem, A0),
-         AROS_LPA(struct SemaphoreMessage *, bidMsg, A1),
-         LIBBASETYPEPTR, SysBase, 91, Exec
-);
-
 struct SignalSemaphore *ss;
 int u[3];
 
