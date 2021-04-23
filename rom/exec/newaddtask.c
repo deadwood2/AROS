@@ -23,6 +23,8 @@
 #include <proto/kernel.h>
 #endif
 
+#define TASKTAG_PRELAUNCHHOOK   (TASKTAG_Dummy + 30)
+
 static void TaskLaunch(struct Task *parent, struct Task *task, struct Hook *plHook)
 {
 #if defined(__AROSEXEC_SMP__)

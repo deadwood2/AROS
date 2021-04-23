@@ -80,6 +80,8 @@ struct TaskListPrivate
 
 #define KernelBase TaskResBase->trb_KernelBase
 
+#define TASKTAG_PRELAUNCHHOOK   (TASKTAG_Dummy + 30)
+
 void task_CleanList(struct Task * task, struct TaskResBase *TaskResBase);
 
 #endif /* TASKRES_INTERN_H */
