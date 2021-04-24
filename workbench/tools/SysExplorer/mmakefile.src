@@ -74,7 +74,7 @@ USER_LDFLAGS := -static
 %build_module mmake=workbench-tools-sysexplorer-module-pci \
     modname=pci modtype=library modsuffix=sysexp \
     files="$(PCIFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
-    uselibs="amiga oop" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(PCIMODDIR)/pci.conf sdk=sysexplorer usesdks="private sysexplorer"
+    uselibs="amiga oop" conffile=$(SRCDIR)/$(CURDIR)/$(PCIMODDIR)/pci.conf sdk=sysexplorer usesdks="private sysexplorer"
 
 ##MM workbench-tools-sysexplorer-module-gfx : workbench-tools-sysexplorer-includes
 ##MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-gfx

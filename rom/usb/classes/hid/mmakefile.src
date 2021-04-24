@@ -13,6 +13,6 @@ USER_LDFLAGS := -static
 
 %build_module_library mmake=kernel-usb-classes-hid \
     modname=hid modtype=usbclass modsuffix="class" \
-    files="$(FILES)"
+    files="$(FILES)" uselibs="oop" usesdks="private"
 
 %common

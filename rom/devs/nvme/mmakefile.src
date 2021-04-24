@@ -33,6 +33,6 @@ USER_LDFLAGS := -static
 %build_module mmake=kernel-nvme \
   modname=nvme modtype=device \
   files="$(NVMEDEVICEFILES) $(NVMECLASSFILES)" \
-  uselibs="hiddstubs"
+  uselibs="hiddstubs" usesdks="private"
 
 %common
