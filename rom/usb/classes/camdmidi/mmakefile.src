@@ -17,6 +17,6 @@ FILES := camdusbmidi.class debug
 
 %build_module mmake=kernel-usb-classes-camd-usbmidi \
      modname=camdusbmidi modtype=usbclass modsuffix="class" \
-     files="$(FILES)" includedir="$(GENDIR)/$(CURDIR)/include"
+     files="$(FILES)"
 
 %common

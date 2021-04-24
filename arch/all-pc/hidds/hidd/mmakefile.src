@@ -14,4 +14,4 @@ USER_INCLUDES := -I$(SRCDIR)/$(CURDIR) -I$(SRCDIR)/$(HIDDDIR)
 %build_archspecific \
   mainmmake=kernel-hidd maindir=$(HIDDDIR) \
   arch=pc modname=hiddclass \
-  files="$(PCCLASSES)"
+  files="$(PCCLASSES)" usesdks="private"

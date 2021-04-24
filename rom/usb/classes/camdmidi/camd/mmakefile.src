@@ -18,8 +18,8 @@ $(OBJDIR)/%.o : $(SRCDIR)/$(CURDIR)/%.c | $(OBJDIR)
 
 %rule_link_binary file=$(CAMDOBJDIR)/$(SRCFILE).bin.o name=$(SRCFILE) objs=$(OBJDIR)/$(SRCFILE).o ldflags=$(LDFLAGS)
 
-##MM
-#kernel-usb-classes-camdusbmidi-object : $(CAMDOBJDIR)/$(SRCFILE).bin.o
+#MM
+kernel-usb-classes-camdusbmidi-object : $(CAMDOBJDIR)/$(SRCFILE).bin.o
 
 GLOB_MKDIRS += $(OBJDIR)
 
