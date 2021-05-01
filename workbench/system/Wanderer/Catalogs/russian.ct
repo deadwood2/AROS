@@ -1,6 +1,6 @@
-## version $VER: wanderer.catalog 1.3 (24.02.2009)
+## version $VER: wanderer.catalog 4.0 (17.02.2021)
 ## language russian
-## codeset 0
+## codeset 2104
 ;
 ;
 MSG_TITLE
@@ -12,7 +12,7 @@ MSG_DESCRIPTION
 ; File manager
 ;
 MSG_SCREENTITLE
-Wanderer %s - Графическая память %s - прочая память
+Wanderer %s графической памяти, %s прочей памяти
 ; Wanderer %s graphics mem %s other mem
 ;
 MSG_MEM_B
@@ -36,7 +36,7 @@ Wanderer
 ; Wanderer
 ;
 MSG_MEN_BACKDROP
-Развернуть
+Подложка
 ; Backdrop
 ;
 MSG_MEN_SC_BACKDROP
@@ -44,7 +44,7 @@ B
 ; B
 ;
 MSG_MEN_EXECUTE
-Выполнить ...
+Выполнить...
 ; Execute...
 ;
 MSG_MEN_SC_EXECUTE
@@ -60,15 +60,15 @@ W
 ; W
 ;
 MSG_MEN_GUISET
-Настройки интерфейса ...
+Настройки интерфейса...
 ; GUI settings...
 ;
 MSG_MEN_ABOUT
-О системе
+О системе...
 ; About...
 ;
 MSG_MEN_QUIT
-Выход ...
+Выход...
 ; Quit...
 ;
 MSG_MEN_SC_QUIT
@@ -80,7 +80,7 @@ MSG_MEN_WINDOW
 ; Window
 ;
 MSG_MEN_NEWDRAW
-Новый каталог ...
+Новая директория...
 ; New drawer...
 ;
 MSG_MEN_SC_NEWDRAW
@@ -124,7 +124,7 @@ MSG_MEN_SNAPSHT
 ; Snapshot
 ;
 MSG_MEN_ALL
-Все
+Всё
 ; All
 ;
 MSG_MEN_VIEW
@@ -148,7 +148,7 @@ MSG_MEN_SORTIC
 ; Sort
 ;
 MSG_MEN_CLNUP
-Подчистить
+Упорядочить
 ; Clean up
 ;
 MSG_MEN_SC_CLNUP
@@ -168,17 +168,17 @@ MSG_MEN_BYSIZE
 ; By size
 ;
 MSG_MEN_BYTYPE
-
+По типу
 ; By type
 ;
 ; ***NEW***
 ;
 MSG_MEN_REVERSE
-Наоборот
+Обратный порядок
 ; Reverse
 ;
 MSG_MEN_DRWFRST
-Папки первыми
+Сначала директории
 ; Drawers first
 ;
 MSG_MEN_ICON
@@ -202,7 +202,7 @@ O
 ; O
 ;
 MSG_MEN_RENAME
-Переименовать ...
+Переименовать...
 ; Rename...
 ;
 MSG_MEN_SC_RENAME
@@ -210,7 +210,7 @@ R
 ; R
 ;
 MSG_MEN_INFO
-Сведения ...
+Свойства...
 ; Information...
 ;
 MSG_MEN_SC_INFO
@@ -218,13 +218,24 @@ I
 ; I
 ;
 MSG_MEN_DELETE
-Удалить ...
+Удалить...
 ; Delete...
 ;
 MSG_MEN_TOOLS
 Инструменты
 ; Tools
 ;
+MSG_MEN_ICONSORTING
+Автосортировка иконок
+;Enable Automatic Icon Sorting
+;
+MSG_MEN_GROUPICONS
+Иконки групп
+;Group Icons
+;
+MSG_MEN_ICONSCLOSE
+Закрыть
+; Close
 MSG_REALLYQUIT
 Выйти из Wanderer ?
 ; Do you really want to quit Wanderer?
@@ -246,7 +257,7 @@ MSG_MEN_FORMAT
 ; Format disk...
 ;
 MSG_MEN_SHUTDOWN
-Выключить...
+Выключение...
 ; Shut down...
 ;
 MSG_SHUTDOWN_TITLE
@@ -258,7 +269,7 @@ MSG_SHUTDOWN_BODY
 ; What would you like to do?
 ;
 MSG_SHUTDOWN_BUTTONS
-Выключить|Рестарт машины|Рестарт AROS|*Отменить
+Завершение работы|Перезагрузка ПК|Перезапуск AROS|*Отменить
 ; Power off|Restart computer|Restart AROS|*Cancel
 ;
 MSG_ACTION_NOT_SUPPORTED
@@ -274,21 +285,33 @@ MSG_EMPTY_TRASH
 ; Empty trash
 ;
 MSG_MEN_PUT_AWAY
-Отложить
+Вернуть
 ; Put away
 ;
+MSG_MEN_SC_PUT_AWAY
+P
+; P
 MSG_MEN_LEAVE_OUT
-Оставить
+Вытащить
 ; Leave out
 ;
+MSG_MEN_SC_LEAVE_OUT
+L
+; L
 MSG_MEN_UNSNAPSHOT
 Забыть
 ; Unsnapshot
 ;
+MSG_MEN_SC_UNSNAPSHOT
+U
+; U
 MSG_MEN_SNAPSHOT
-Запомнить
+Зафиксировать
 ; Snapshot
 ;
+MSG_MEN_SC_SNAPSHOT
+S
+; S
 MSG_REQU_DELETE
 Удалить файл...
 ; Delete file...
@@ -298,7 +321,7 @@ _Да|Да для _всех|_Нет|Нет для вс_ех
 ; _Yes|Yes to _all|_No|No _to all
 ;
 MSG_REQU_DELETE_DRAWER_S
-Вы действительно хотите удалить папку
+Вы действительно хотите удалить директорию
 ; Really delete drawer
 ;
 MSG_REQU_DELETE_DRAWER_E
@@ -334,7 +357,7 @@ MSG_REQU_OVERWRITE_E
 ; ?
 ;
 MSG_REQU_OVERWRITE_YESNO
-_Перезаписать|Перезаписать _все|_Нет|_Оставить все
+_Перезаписать|Перезаписать _всё|_Нет|_Оставить всё
 ; _Overwrite|Overwrite _all|_No|No _to all
 ;
 MSG_REQU_OVERWRITE_SKIPABORT
@@ -346,11 +369,11 @@ MSG_REQU_PROTECTION
 ; File Protection
 ;
 MSG_REQU_PROTECTION_UNPROTECT
-_Снять|Снять _все|_Нет|Нет _для ВСЕХ
+_Снять|Снять _всё|_Нет|Нет _для ВСЕХ
 ; _Unprotect|Unprotect _All|_No|No _to ALL
 ;
 MSG_REQU_PROTECTION_UNPROTECTDRAWER_S
-Снять защиту с папки
+Снять защиту с директории
 ; Do you wish to unprotect drawer
 ;
 MSG_REQU_PROTECTION_UNPROTECTDRAWER_E
@@ -370,7 +393,7 @@ MSG_NOFILEACCESS_E
 ;  
 ;
 MSG_NODRAWERACCESS_S
-Не могу получить доступ к папке
+Не могу получить доступ к директории
 ; Can't access drawer
 ;
 MSG_NODRAWERACCESS_E
@@ -390,7 +413,7 @@ MSG_REQU_FILEUNPROTECT_E
 ; ?
 ;
 MSG_WANDERER_FILEACCESS
-Wanderer: Операции с файлами 
+Wanderer: Операции с файлами
 ; Wanderer file access
 ;
 MSG_WANDERER_FILEACCESS_PROCESSING
@@ -426,12 +449,16 @@ MSG_WANDERER_FILEACCESS_TRAFFIC
 ; Data transfer rate
 ;
 MSG_WANDERER_FILEACCESS_DELETEFROM
-Удаляется из папки
+Удаление из директории
 ; Delete from drawer
 ;
 MSG_WANDERER_FILEACCESS_FILETODELETE
 Удаляемый файл
 ; File to delete
+;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Удаляется файл
+; Deleting file
 ;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Обработано файлов:
@@ -444,4 +471,48 @@ MSG_WANDERER_FILEACCESS_ACTUAL
 MSG_WANDERER_FILEACCESS_TOTAL
 Размер общий:
 ; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Ошибка при выполнении файловой операции
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Ошибка при выделении %d байт памяти
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Ошибка при чтении из файла: %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Ошибка при записи в файл: %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Ошибка чтения дескриптора файла: %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Ошибка при создании директории: %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Ошибка при удалении файла: %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Ошибка на заблокированном пути: %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Ошибка при чтении из директории: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Ошибка при перемещении файла: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+Сообщение об ошибке
+; Errormessage
 ;

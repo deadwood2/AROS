@@ -341,6 +341,9 @@ Delete from drawer
 MSG_WANDERER_FILEACCESS_FILETODELETE (//)
 File to delete
 ;
+MSG_WANDERER_FILEACCESS_DELETINGFILE (//)
+Deleting file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES (//)
 Processed files:
 ;

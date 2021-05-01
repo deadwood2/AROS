@@ -1,4 +1,4 @@
-## version $VER: wanderer.catalog 3.1 (30.03.2016)
+## version $VER: wanderer.catalog 4.0 (12.01.2021)
 ## language deutsch
 ## codeset 0
 ;
@@ -459,6 +459,10 @@ MSG_WANDERER_FILEACCESS_FILETODELETE
 Zu löschende Datei
 ; File to delete
 ;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Lösche Datei
+; Deleting file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Bearbeitete Dateien:
 ; Processed files:
@@ -470,4 +474,48 @@ Größe der aktuellen Datei:
 MSG_WANDERER_FILEACCESS_TOTAL
 Gesamtgröße:
 ; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Fehler beim Durchführen einer Dateioperation
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Fehler beim Anfordern von %d Bytes Speicher
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Fehler beim Lesen von Datei: %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Fehler beim Schreiben in Datei: %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Fehler beim Lesen des Datei-Infoblocks von Datei: %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Fehler beim Anlegen des Verzeichnisses: %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Fehler beim Löschen der Datei: %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Fehler beim Verriegeln des Pfads: %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Fehler beim Lesen des Verzeichnisses: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Fehler beim Verschieben der Datei: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+Fehlermeldung
+; Errormessage
 ;

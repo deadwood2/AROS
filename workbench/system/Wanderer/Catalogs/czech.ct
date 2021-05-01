@@ -1,4 +1,4 @@
-## version $VER: Wanderer.catalog 3.0 (26.8.2016)
+## version $VER: Wanderer.catalog 3.0 (26.02.2021)
 ## language czech
 ## codeset 5
 ;
@@ -392,7 +392,7 @@ umístìný v adresáøi
 ; located in
 ;
 MSG_NOFILEACCESS_E
-
+   
 ;  
 ;
 MSG_NODRAWERACCESS_S
@@ -400,7 +400,7 @@ Chyba pøi zamykání adresáøe
 ; Can't access drawer
 ;
 MSG_NODRAWERACCESS_E
-
+   
 ;  
 ;
 MSG_REQU_FILEUNPROTECT_S
@@ -470,4 +470,48 @@ Aktuální soubor:
 MSG_WANDERER_FILEACCESS_TOTAL
 Celková velikost:
 ; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Chyba pøi provádìní operace se souborem
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Nepodaøilo se pøidìlit %d bytù z pamìti
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Do¹lo k chybì pøi ètení ze souboru %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Do¹lo k chybì pøi zápisu do souboru %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Nepodaøilo se pøeèíst informaèní blok pro soubor %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Nepodaøilo se vytvoøit slo¾ku %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Do¹lo k chybì pøi mazání souboru %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Nepodaøilo se uzamknout cestu %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Do¹lo k chybì pøi ètení ze slo¾ky: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Do¹lo k chybì pøi pøesunu souboru: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+Chybová hlá¹ka
+; Errormessage
 ;

@@ -1,5 +1,5 @@
-## version $VER: wanderer.catalog 3.1 (07.10.2019)
-## language norwegian
+## version $VER: wanderer.catalog 4.0 (07.10.2019)
+## language norsk
 ## codeset 0
 ;
 ;
@@ -416,11 +416,11 @@ MSG_REQU_FILEUNPROTECT_E
 ; ?
 ;
 MSG_WANDERER_FILEACCESS
-Wanderer filrettigheter
+Wanderer filhåndtering
 ; Wanderer file access
 ;
 MSG_WANDERER_FILEACCESS_PROCESSING
-Prosesserer ...
+Prosesserer 
 ; Processing...
 ;
 MSG_WANDERER_FILEACCESS_STOP
@@ -458,6 +458,10 @@ Slett fra skuff
 MSG_WANDERER_FILEACCESS_FILETODELETE
 Fil som skal slettes
 ; File to delete
+;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Sletter fil
+; Deleting file
 ;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Prosesserte filer:
