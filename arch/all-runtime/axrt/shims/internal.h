@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team.
-    $Id$
+    Copyright (C) 2020, The AROS Development Team.
 */
 
 #ifndef SHIMS_INTERNAL_H

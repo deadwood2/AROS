@@ -1,6 +1,5 @@
 /*
-    Copyright © 2020, The AROS Development Team.
-    $Id$
+    Copyright (C) 2020, The AROS Development Team.
 */
 
 #ifndef LIBC_FUNCS_H

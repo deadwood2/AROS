@@ -1,4 +1,3 @@
-# $Id$
 
 include $(SRCDIR)/config/aros.cfg
 include $(SRCDIR)/$(CURDIR)/../libaxrt-2.0/filelist.cfg
