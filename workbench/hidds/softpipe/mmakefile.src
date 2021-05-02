@@ -31,7 +31,7 @@ USER_CFLAGS += $(NOWARN_CFLAGS)
 #USER_CPPFLAGS += -DDEBUG=1
 
 USER_LDFLAGS := \
-  -lcompiler -lgalliumauxiliary -lmesautil \
+  -Wl,--start-group -lcompiler -lgalliumauxiliary -lmesautil \
   -lpthread -lposixc -lstdcio -lstdc
 ifneq ($(TARGET_LIBATOMIC),)
 USER_LDFLAGS += $(TARGET_CXX_LIBS)
