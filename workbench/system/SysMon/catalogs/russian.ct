@@ -1,0 +1,88 @@
+## version $VER: SysMon.catalog 1.2 (13.12.2020)
+## language russian
+## codeset 2104
+;
+; Don’t pay attention to MSG_nonsene. In original sysmon.cd all enumerators are confused.
+; For the correct translation to be in place, consistency is important.
+;
+MSG_APP_NAME
+SysMon
+;
+MSG_APP_TITLE
+Системный монитор
+;
+MSG_WINDOW_TITLE
+Системный монитор
+;
+MSG_USAGE
+Обновить
+;
+MSG_FREQUENCY
+Автообновление (1 сек.)
+;
+MSG_TAB_TASKS
+Использование
+;
+MSG_TAB_CPU
+Процессор(ы)
+;
+MSG_SIMULATED_CPU
+Задачи
+;
+MSG_PROCESS
+Процессор #%id: %s
+;
+MSG_TASK
+Переведи_1
+;
+MSG_PROCESSOR
+Процессоры
+;
+MSG_TASK_NAME
+Задача
+;
+MSG_TASK_PRIORITY
+Процесс
+;
+MSG_TASK_TYPE
+Название
+;
+MSG_TASK_READY_WAIT_INIT
+Приоритет
+;
+MSG_TASK_READY_WAIT
+Тип
+;
+MSG_TAB_SYSTEM
+%ld готовы, %ld ожидают
+;
+MSG_MEMORY_SIZE
+Система
+;
+MSG_MEMORY_FREE
+Системная память
+;
+MSG_VIDEO_SIZE
+Свободно памяти
+;
+MSG_VIDEO_FREE
+Видеопамять
+;
+MSG_TOTAL_RAM
+Свободно видеопамяти
+;
+MSG_CHIP_RAM
+Всего
+;
+MSG_FAST_RAM
+Chip
+;
+MSG_VIDEO_RAM
+Fast
+;
+MSG_VIDEO_WINDOW_TMPL
+Всего
+;
+MSG_CANT_OPEN_TASK_RESOURCE
+Таблица GART
+;

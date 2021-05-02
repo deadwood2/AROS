@@ -1,21 +1,21 @@
-## version $VER: hdtoolbox.catalog 1.1 (24.11.2008)
+## version $VER: hdtoolbox.catalog 2.0 (17.12.2020)
 ## codeset 2104
 ## language russian
 ;
 WORD_Active
-Активный
+Активна
 ;
 WORD_AddEntry
 Добавить
 ;
 WORD_All
-Все
+Всё
 ;
 WORD_Automount
-Automount
+Автомонтируется
 ;
 WORD_Bootable
-Загрузочный
+Загружается
 ;
 WORD_BootPri
 Порядок загрузки
@@ -24,7 +24,7 @@ WORD_Cancel
 Отмена
 ;
 WORD_Changed
-Изменен
+Правка
 ;
 WORD_Change_Type
 Изменить тип
@@ -48,7 +48,7 @@ WORD_Name
 Имя
 ;
 WORD_Switches
-Установки
+Свойства
 ;
 WORD_Parent
 Выше
@@ -57,16 +57,16 @@ WORD_Ok
 Ok
 ;
 WORD_Partitions
-Разделы
+Партиций
 ;
 WORD_Partition_Table
-Таблица разделов
+Таблица партиций
 ;
 WORD_Partition_Table_Type
-Тип таблицы разделов
+Тип таблицы партиций
 ;
 WORD_Partition_Type
-Тип раздела
+Тип партиции
 ;
 WORD_RemoveEntry
 Удалить
@@ -102,7 +102,7 @@ WORD_MENU_Quit
 Выход
 ;
 MSG_ASK_SAVE
-Все данные на измененных разделах будут уничтожены!\n Вы уверены, что пора записать изменения таблицы разделов '%s' ?
+Все данные на изменённых партициях будут уничтожены!\n Вы уверены, что пора записать изменения таблицы партиций '%s' ?
 ; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
 ;
 MSG_NO_MEMORY
@@ -110,7 +110,7 @@ MSG_NO_MEMORY
 ; Not enough memory
 ;
 MSG_PARTITION_TABLE_FULL
-Таблица разделов заполнена
+Таблица партиций заполнена
 ; Partition table full
 ;
 MSG_Select_Empty_Area
@@ -118,18 +118,25 @@ MSG_Select_Empty_Area
 ; Select empty area
 ;
 MSG_Select_Partition_Resize_Move
-Выберите раздел для изменения размера или перемещения
+Выберите партицию для изменения размера или перемещения
 ; Select a partition and resize/move it
 ;
 MSG_Welcome
-Инструмент для управления разделами
+Инструмент для управления партициями
 ; Welcome to the partitioning tool
 ;
 MSG_WriteTableError
-Ошибка при записи таблицы разделов
+Ошибка при записи таблицы партиций
 ; Error while writing partition table
 ;
 MSG_CreateTableError
-Ошибка при создании таблицы разделов
+Ошибка при создании таблицы партиций
 ; Error while creating partition table
+;
+WORD_MENU_Partition
+Партиция
+; Partition
+;
+WORD_MENU_CreateMountlist
+Создать mountlist...
 ;

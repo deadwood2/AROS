@@ -1,0 +1,679 @@
+## version $VER: Identify.catalog 1.0 (23.12.2020)
+## language russian
+## codeset 2104
+;
+;
+;================================================================
+;       MISCELLANEOUS STRINGS (1..)
+;================================================================
+;
+MSG_BYTE
+%ld
+MSG_KBYTE
+%ld.%cКБ
+MSG_MBYTE
+%ld.%cМБ
+MSG_GBYTE
+%ld.%cГБ
+;
+;================================================================
+;       BOARD CLASSES (100..)
+;================================================================
+;
+MSG_EXP_UNKNOWN
+(неизвестен)
+MSG_EXP_MISC
+расширение
+;
+MSG_EXP_TURBO
+акселератор
+MSG_EXP_TURBORAM
+акселератор ОЗУ
+MSG_EXP_TURBOHD
+акселератор контроллера HD
+MSG_EXP_TURBOIDE
+акселератор контроллера IDE
+MSG_EXP_TURBOSCSIHD
+акселератор контроллера SCSI
+;
+MSG_EXP_NET
+сеть
+MSG_EXP_ARCNET
+ArcNet
+MSG_EXP_ETHERNET
+Ethernet
+;
+MSG_EXP_AUDIO
+аудио
+MSG_EXP_VIDEO
+видео
+MSG_EXP_MULTIMEDIA
+мультимедиа
+MSG_EXP_DSP
+DSP
+;
+MSG_EXP_BUSBRIDGE
+Мост шины ISA
+MSG_EXP_BRIDGE
+Мост PC
+;
+MSG_EXP_EMULATOR
+эмулятор
+MSG_EXP_MACEMU
+эмулятор Macintosh
+MSG_EXP_ATARIEMU
+эмулятор Atari
+;
+MSG_EXP_GFX
+графика
+MSG_EXP_GFXRAM
+граф. ОЗУ
+;
+MSG_EXP_HD
+контроллер дисков
+MSG_EXP_HDRAM
+ОЗУ контроллера диска
+MSG_EXP_IDEHD
+контроллер IDE
+MSG_EXP_IDEHDRAM
+ОЗУ контроллера IDE
+MSG_EXP_SCSIHD
+контроллер SCSI
+MSG_EXP_RAMSCSIHD
+ОЗУ контроллера SCSI
+MSG_EXP_CDROM
+интерфейс CD-ROM
+;
+MSG_EXP_MODEM
+встроенный модем
+MSG_EXP_ISDN
+внутренний ISDN
+;
+MSG_EXP_MULTIIO
+мульти ввод/вывод
+MSG_EXP_SERIAL
+мультисерийный
+MSG_EXP_PARALLEL
+многопараллельный
+MSG_EXP_SCANIF
+интерфейс сканера
+MSG_EXP_TABLET
+интерфейс граф.планшета
+;
+MSG_EXP_RAM
+расширение ОЗУ
+MSG_EXP_FLASHROM
+Флэш-память
+;
+MSG_EXP_SCSIIDE
+контроллер SCSI/IDE
+MSG_EXP_RAMFPU
+расширение ОЗУ и FPU
+;
+MSG_EXP_GUESS
+(предположение)
+MSG_EXP_KICKSTART
+KickStart
+;
+MSG_EXP_RAM32
+32-битное ОЗУ
+MSG_EXP_TURBOANDRAM
+акселератор / доп. ОЗУ
+MSG_EXP_ACCESS
+управление доступом
+MSG_EXP_INTERFACE
+интерфейс
+MSG_EXP_MFMHD
+контроллер дисков MFM
+MSG_EXP_FLOPPY
+дисковый интерфейс
+;
+;================================================================
+;       ALERT GENERAL ERROR (1024..)
+;================================================================
+;
+MSG_ALERT_RECOVERY
+Восстановление
+MSG_ALERT_DEADEND
+Без перспектив
+MSG_ALERT_UNKNOWN
+Неизвестно
+;
+MSG_AG_BADPARM
+Неверный параметр
+MSG_AG_CLOSEDEV
+Не закрыто устройство
+MSG_AG_CLOSELIB
+Не закрыта библиотека
+MSG_AG_GENERAL
+Общий сбой
+MSG_AG_IOERROR
+Ошибка ввода/вывода
+MSG_AG_MAKELIB
+Не создана библиотека
+MSG_AG_NOMEMORY
+Кончилась память
+MSG_AG_NOSIGNAL
+Не было сигнала
+MSG_AG_OPENDEV
+Не открыть устройство
+MSG_AG_OPENLIB
+Не открыть библиотеку
+MSG_AG_OPENRES
+Не открыть ресурс
+MSG_AG_PROCCREATE
+Сбой создания процесса
+;
+;================================================================
+;       ALERT ERROR (2048..)
+;================================================================
+;
+MSG_ACPU_ADDRESSERR
+Обращение к неверному адресу
+MSG_ACPU_AUTOVEC1
+AutoVector Level 1 ошибка прерывания
+MSG_ACPU_AUTOVEC2
+AutoVector Level 2 ошибка прерывания
+MSG_ACPU_AUTOVEC3
+AutoVector Level 3 ошибка прерывания
+MSG_ACPU_AUTOVEC4
+AutoVector Level 4 ошибка прерывания
+MSG_ACPU_AUTOVEC5
+AutoVector Level 5 ошибка прерывания
+MSG_ACPU_AUTOVEC6
+AutoVector Level 6 ошибка прерывания
+MSG_ACPU_AUTOVEC7
+AutoVector Level 7 ошибка прерывания
+MSG_ACPU_BUSERR
+Ошибка доступа к шине
+MSG_ACPU_CHK
+Ошибка теста инструкции
+MSG_ACPU_COPRVIOL
+Нарушение протокола сопроцессора
+MSG_ACPU_DIVZERO
+Деление на ноль
+MSG_ACPU_FORMAT
+Ошибка формата кадра стека
+MSG_ACPU_FPCPBRANCH
+FPCP ответвлён или несортирован
+MSG_ACPU_FPCPDIVZERO
+деление на ноль FPCP
+MSG_ACPU_FPCPINEXACT
+неточный результат FPCP
+MSG_ACPU_FPCPOPERROR
+ошибка операнда FPCP
+MSG_ACPU_FPCPOVER
+переполнение FPCP
+MSG_ACPU_FPCPUNDER
+без переполнения FPCP
+MSG_ACPU_UNIMPLDTYPE
+нереализованный тип данных FPCP
+MSG_ACPU_INSTERR
+Ошибочная инструкция
+MSG_ACPU_LINEA
+ошибка эмулятора по строке 1010
+MSG_ACPU_LINEF
+ошибка эмулятора по строке 1111
+MSG_ACPU_MMUACCVIOL
+Нарушен уровень доступа PMMU
+MSG_ACPU_MMUCONFIG
+конфигурация PMMU
+MSG_ACPU_MMUILLEGAL
+сбой конфигурации PMMU
+MSG_ACPU_NAN
+FPCP сигнализировал NAN
+MSG_ACPU_PRIVERR
+Ошибка прав доступа
+MSG_ACPU_SPURIOUS
+Ошибка ложного прерывания
+MSG_ACPU_TRACE
+Ошибка отладки
+MSG_ACPU_TRAPV
+Ошибка инструкции TrapV
+MSG_AN_ADDSWGADGET
+Добавлены SW-гаджеты, память кончилась
+MSG_AN_ASYNCPKT
+Получен неожиданный пакет
+MSG_AN_AUDIODEV
+Проблема с аудиоустройством
+MSG_AN_BADCHKSUM
+Неверная контрольная сумма
+MSG_AN_BADEXPANSIONFREE
+Попытка освободить свободный регион
+MSG_AN_BADFREEADDR
+Не найдено начало памяти
+MSG_AN_BADGADGET
+Восстановление AN_GadgetType
+MSG_AN_BADINITFUNC
+Ошибка инициализации CLI/Shell
+MSG_AN_BADMESSAGE
+получено ошибочное сообщение IDCMP
+MSG_AN_BADOVERLAY
+Оверлей повреждён
+MSG_AN_BADQUICKINT
+Быстрое прерывание без инициализации
+MSG_AN_BADSEGLIST
+Оверлеи недопустимы для сегментов библиотек
+MSG_AN_BADSEMAPHORE
+Попытка использования устаревшего семафора
+MSG_AN_BADSTATE
+Intuition стал нестабильным
+MSG_AN_BASECHKSUM
+Ошибка контрольной суммы Execbase
+MSG_AN_BITMAP
+Bitmap повреждён
+MSG_AN_BLTBITMAP
+BltBitMap, кончилась память
+MSG_AN_BOGUSEXCPT
+Возникло ошибочное исключение 68k
+MSG_AN_BOOTERROR
+Загрузочный код вернул ошибку
+MSG_AN_BOOTSTRAP
+Проблема загрузчика
+MSG_AN_CIARSRC
+проблема cia.resource
+MSG_AN_CONSOLEDEV
+проблема console.device
+MSG_AN_CREATEPORT
+Создан порт, кончилась память
+MSG_AN_DISKBLKSEQ
+Ошибка последовательности блока диска
+MSG_AN_DISKCOPY
+проблема DiskCopy
+MSG_AN_DISKERROR
+Ошибка диска
+MSG_AN_DISKFONTLIB
+проблема diskfont.library
+MSG_AN_DISKRSRC
+проблема disk.resource
+MSG_AN_DOSLIB
+проблема dos.library
+MSG_AN_DRHASDISK
+Получение unit: диск уже есть
+MSG_AN_DRINTNOACT
+Прерывание : нет активного unit
+MSG_AN_ENDTASK
+Ошибка EndTask
+MSG_AN_EXCPTVECT
+68000 контрольная сумма вектора исключения
+MSG_AN_EXECLIB
+проблема exec.library
+MSG_AN_EXPANSIONLIB
+проблема expansion.library
+MSG_AN_FILERECLOSED
+Дескриптор файла был закрыт несколько раз
+MSG_AN_FREETWICE
+Освобождение уже свободной памяти
+MSG_AN_FREEVEC
+Сбой Freevec
+MSG_AN_GADGETTYPE
+Неизвестный тип гаджета
+MSG_AN_GADTOOLS
+проблема gadtools.library
+MSG_AN_GAMEPORTDEV
+проблема gameport.device
+MSG_AN_GFXFREEERROR
+Ошибка освобождения графики
+MSG_AN_GFXNEWERROR
+Ошибка при создании графики
+MSG_AN_GFXNOLCM
+Недоступна энергонезависимая память
+MSG_AN_GFXNOMEM
+Графика вне адресного пространства
+MSG_AN_GFXNOMEMMSPC
+Захвачен MonitorSpec, память кончилась
+MSG_AN_GRAPHICSLIB
+проблема graphics.library
+MSG_AN_ICONLIB
+проблема icon.library
+MSG_AN_INITAPTR
+InitStruct() через APTR
+MSG_AN_INTRMEM
+Нет памяти для серверов прерываний
+MSG_AN_INTUITION
+проблема intuition.library
+MSG_AN_IOAFTERCLOSE
+Ввод/вывод при закрытом IORequest
+MSG_AN_IOUSEDTWICE
+Повторное использование активного IORequest
+MSG_AN_ISEMORDER
+Intuition : неверный порядок семафоров
+MSG_AN_ITEMALLOC
+Item plane захвачен, память кончилась
+MSG_AN_ITEMBOXTOP
+Item box top < RelZero
+MSG_AN_KEYBOARDDEV
+проблема keyboard.device
+MSG_AN_KEYFREE
+Код клавиши уже освобождён
+MSG_AN_KEYRANGE
+Код клавиши вне диапазона
+MSG_AN_LAYERSLIB
+проблема layers.library
+MSG_AN_LAYERSNOMEM
+Слои вне памяти
+MSG_AN_LIBCHKSUM
+Сбой контрольной суммы библиотеки
+MSG_AN_LONGFRAME
+Длинный фрейм, память кончилась
+MSG_AN_MAKEVPORT
+MakeVPort, память кончилась
+MSG_AN_MATHLIB
+проблема math.library
+MSG_AN_MEMCORRUPT
+В FreeMem найден список повреждённой памяти
+MSG_AN_MEMORYINSANE
+Ошибка тестирования памяти в списке
+MSG_AN_MISCRSRC
+проблема misc.resource
+MSG_AN_NOCONSOLE
+Не открыть устройство консоли
+MSG_AN_NOFONTS
+Нет доступных шрифтов
+MSG_AN_NOISEM
+Intuition пропустил получение семафора
+MSG_AN_NOWINDOW
+Консоль не может открыть окно
+MSG_AN_OBSOLETEFONT
+Использовано неподдерживаемое описание шрифта
+MSG_AN_OPENSCREEN
+Открыт экран, память кончилась
+MSG_AN_OPENSCRNRAST
+Открыт экран, raster выделен, память кончилась
+MSG_AN_OPENWINDOW
+Открыто окно, память кончилась
+MSG_AN_PLANEALLOC
+Выделен план, память кончилась
+MSG_AN_QPKTFAIL
+Сбой Qpkt
+MSG_AN_RAMLIB
+проблема ramlib
+MSG_AN_REGIONMEMORY
+Regions, память недоступна
+MSG_AN_SEMCORRUPT
+Семафор в недопустимом состоянии
+MSG_AN_SHORTFRAME
+Короткий фрейм, память кончилась
+MSG_AN_STACKPROBE
+Стек вылез за допустимый диапазон
+MSG_AN_STARTMEM
+Нет памяти для запуска
+MSG_AN_SUBALLOC
+Sub выделен, память кончилась
+MSG_AN_SYSSCRNTYPE
+Открытие системного экрана неизвестного типа
+MSG_AN_TDCALIBSEEK
+Калибровка: ошибка поиска
+MSG_AN_TDDELAY
+Задержка: ошибка таймера ожидания
+MSG_AN_TEXTTMPRAS
+Text, нет памяти для TmpRas
+MSG_AN_TIMERDEV
+проблема timer.device
+MSG_AN_TMBADREQ
+Ошибочный запрос
+MSG_AN_TMBADSUPPLY
+БП -- без тиков 50/60 Гц
+MSG_AN_TRACKDISKDEV
+проблема trackdisk.device
+MSG_AN_UTILITYLIB
+проблема utility.library
+MSG_AN_WBBADIOMSG
+Неверное сообщение ввода/вывода (код хакера?)
+MSG_AN_WBBADSTARTUPMSG2
+Неверное сообщение запуска 2
+MSG_AN_WBRELAYOUTTOOLMENU
+GadTools поломан ?
+MSG_AN_WEIRDECHO
+Странный вывод, вызывает непонимание
+MSG_AN_WORKBENCH
+проблема Workbench
+MSG_AN_LAWBREAKER
+Предупреждение для LawBreaker
+MSG_AN_AROS
+проблема AROS
+MSG_AN_OOP
+проблема ООП (кривые руки)
+MSG_AN_HIDD
+проблема HIDD
+MSG_AN_HIDDNOROOT
+Не создать устройство root
+MSG_AN_NOALERT
+Оповещений не было
+MSG_ACPU_EMUINTR
+Прерывание эмулятора
+MSG_ACPU_UNIMPLEA
+Нереализованный действующий адрес
+MSG_ACPU_UNIMPLII
+Нереализованная целочисленная инструкция
+;
+;================================================================
+;       HARDWARE STRINGS (4096..)
+;================================================================
+;
+MSG_HW_VERSION
+V%ld.%ld
+MSG_HW_NOVERSION
+Недоступно
+MSG_HW_NONE
+Нет
+MSG_HW_FOUND
+Есть
+;
+MSG_HW_AMIGA1000
+Amiga 1000
+MSG_HW_OCSAMIGA
+Amiga (OCS)
+MSG_HW_ECSAMIGA
+Amiga (ECS)
+MSG_HW_AMIGA500
+Amiga 500
+MSG_HW_AMIGA2000
+Amiga 2000
+MSG_HW_AMIGA3000
+Amiga 3000
+MSG_HW_CDTV
+CDTV
+MSG_HW_AMIGA600
+Amiga 600
+MSG_HW_CD32
+CD32
+MSG_HW_AMIGA1200
+Amiga 1200
+MSG_HW_AMIGA4000
+Amiga 4000
+MSG_HW_DRACO
+DraCo
+MSG_HW_UAE
+UAE
+MSG_HW_AMIGA4000T
+Amiga 4000 T
+MSG_HW_AMIGAXL
+AmigaXL
+;
+MSG_HW_68000
+68000
+MSG_HW_68010
+68010
+MSG_HW_68020
+68020
+MSG_HW_68030
+68030
+MSG_HW_68EC030
+68EC030
+MSG_HW_68040
+68040
+MSG_HW_68LC040
+68LC040
+MSG_HW_68060
+68060
+MSG_HW_68LC060
+68LC060
+;
+MSG_HW_68881
+68881
+MSG_HW_68882
+68882
+;
+MSG_HW_68851
+68851
+;
+MSG_HW_AMIGAOS
+AmigaOS
+MSG_HW_EGS
+EGS
+MSG_HW_RETINA
+Retina
+MSG_HW_GRAFFITI
+Graffiti
+MSG_HW_TIGA
+TIGA
+MSG_HW_PROBENCH
+ProBench
+MSG_HW_PICASSO
+Picasso
+MSG_HW_CYBERGRAPHX
+CyberGraphX
+MSG_HW_CGX3
+CyberGraphX 3
+MSG_HW_PICASSO96
+Picasso96
+MSG_HW_CGX4
+CyberGraphX 4
+;
+MSG_HW_AUDAMIGAOS
+AmigaOS
+MSG_HW_MAESTIX
+Maestix
+MSG_HW_TOCCATA
+Toccata
+MSG_HW_PRELUDE
+Prelude
+MSG_HW_AHI
+AHI
+MSG_HW_MACROAUDIO
+MacroAudio
+;
+MSG_HW_OS_UNKNOWN
+Неизвестная ОС
+MSG_HW_OS_36
+2.0
+MSG_HW_OS_37
+2.04
+MSG_HW_OS_38
+2.1
+MSG_HW_OS_39
+3.0
+MSG_HW_OS_40
+3.1
+MSG_HW_OS_44
+3.5
+MSG_HW_OS_45
+3.9
+;
+;GARY
+MSG_HW_NORMAL
+Обычный
+MSG_HW_ENHANCED
+Расширенный
+;
+;RAMSEY
+MSG_HW_REVD
+D
+MSG_HW_REVF
+F
+;
+MSG_HW_OCS
+OCS
+MSG_HW_ECS
+ECS
+MSG_HW_AGA
+AGA
+MSG_HW_ALTAIS
+Altais
+MSG_HW_NECS
+Ранний ECS
+;
+MSG_HW_PPCFOUND
+Есть
+MSG_HW_602
+602
+MSG_HW_603
+603
+MSG_HW_603E
+603e
+MSG_HW_603P
+603p
+MSG_HW_604
+604
+MSG_HW_604E
+604e
+MSG_HW_620
+620
+;
+MSG_HW_RAMCAS_NORMAL
+Обычный
+MSG_HW_RAMCAS_DOUBLE
+Двойной
+;
+MSG_HW_TCPIP_NONE
+Нет
+MSG_HW_TCPIP_AMITCP
+AmiTCP/IP
+MSG_HW_TCPIP_MIAMI
+Miami
+MSG_HW_TCPIP_TERMITE
+TermiteTCP
+MSG_HW_TCPIP_GENESIS
+GENESiS
+MSG_HW_TCPIP_MIAMIDX
+MiamiDx
+;
+MSG_HW_PPCOS_NONE
+Нет
+MSG_HW_PPCOS_POWERUP
+PowerUp
+MSG_HW_PPCOS_WARPOS
+WarpOS
+;
+MSG_HW_AGNUS_NONE
+Нет
+MSG_HW_AGNUS_UNKNOWN
+Неизвестно
+MSG_HW_AGNUS_8361
+Agnus 8361
+MSG_HW_AGNUS_8367
+Agnus 8367
+MSG_HW_AGNUS_8370
+Agnus 8370
+MSG_HW_AGNUS_8371
+Agnus 8371
+MSG_HW_AGNUS_8372_R4
+Agnus 8372 Rev. 1-4
+MSG_HW_AGNUS_8372_R5
+Agnus 8372 Rev. 5
+MSG_HW_AGNUS_8374_R2
+Alice 8374 Rev. 1-2
+MSG_HW_AGNUS_8374_R3
+Alice 8374 Rev. 3-4
+;
+MSG_HW_AMODE_NONE
+Нет
+MSG_HW_AMODE_NTSC
+NTSC
+MSG_HW_AMODE_PAL
+PAL
+;
+MSG_HW_DENISE_NONE
+Нет
+MSG_HW_DENISE_UNKNOWN
+Неизвестно
+MSG_HW_DENISE_8362
+Denise 8362
+MSG_HW_DENISE_8373
+Denise 8373
+MSG_HW_DENISE_8364
+Lisa 8364
+;
+;================================================================
+;

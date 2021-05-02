@@ -1,0 +1,243 @@
+## version $VER: IdentifyTools.catalog 1.0 (23.12.2020)
+## language russian
+## codeset 2104
+;
+;****************************************************************
+;*                                                              *
+;*          identify.library Tools    Catalog Descriptor        *
+;*                                                              *
+;****************************************************************
+;*
+;*      (C) 1996-97  Richard Kцrber  -- All Rights Reserved
+;*
+;****************************************************************
+;
+;   ** IMPORTANT NOTES FOR TRANSLATORS **
+;
+;       · Nr. 0 must always be preserved
+;       · Do NOT change the sequence of '%' parameters
+;       · Do NOT change the order of the entries
+;       · Obey the minimum and maximum length
+;       · Note that some lines have trailing spaces
+;
+;
+;================================================================
+;       COMMON STRINGS (1..)
+;================================================================
+;
+MSG_NOIDENTIFY
+Требуется identify.library V%ld или выше!\n\
+
+; Needs identify.library V%ld or higher!\n
+;
+;
+;
+;================================================================
+;       LISTEXP STRINGS (1000..)
+;================================================================
+;
+MSG_LISTEXP_HAIL
+-- ListExp V%s -- Ричард Кербер <%s>\n\
+ (ListExp часть пакета Identify, см. на aminet.net раздел util/libs)\n\n
+; -- ListExp V%s -- Richard Koerber <%s>\n\
+;  (ListExp is a part of the Identify package, see AmiNet util/libs)\n\n
+;
+MSG_LISTEXP_HELP
+Аргументы:\n\
+\n\
+  FULL/S\t\tсписок всех текущих расширений\n\
+  MID=MANUFID/K/N\tинформация о производителе\n\
+  PID=PRODID/K/N\tинформация о продукте\n\
+\n\
+Более подробно можно прочесть в документации.\n\
+
+; Template:\n\n\
+;   FULL/S\t\tlist all current commodities\n\
+;   MID=MANUFID/K/N\tinformation about manufacturer\n\
+;   PID=PRODID/K/N\tand it's product\n\n\
+; Please read the doc file for further details.\n
+;
+MSG_LISTEXP_OVERFLOW
+Выход за диапазон! (ManufID=0..65535 ProdID=0..255)\n\
+\n\
+
+; Bad range! (ManufID=0..65535 ProdID=0..255)\n\n
+;
+MSG_LISTEXP_SPECBOARD
+ Производитель: %s\n\
+ Продукт:       %s\n\
+ Класс:         %s\n\
+\n\
+
+;  Manufacturer: %s\n\
+;  Product:      %s\n\
+;  Class:        %s\n\n
+;
+MSG_LISTEXP_HARDWARE
+** ОБОРУДОВАНИЕ **\n\
+\n\
+Система:   %s\n\
+Процессор: CPU=%s/%s (Rev %s), FPU=%s/%s, MMU=%s\n\
+
+; ** HARDWARE **\n\
+; \n\
+; System:  %s\n\
+; CPU:     %s/%s (Rev %s), FPU=%s/%s, MMU=%s\n
+;
+MSG_LISTEXP_POWERPC
+PowerPC: %s/%s (запущено %s)\n\
+
+; PowerPC: %s/%s (running %s)\n
+;
+MSG_LISTEXP_HARDWARE2
+Чипсет:    %s (RAMSEY %s, GARY %s, CHUNKY %s) VBR=%s\n\
+Agnus:     %s (Modus: %s)\n\
+Denise:    %s (Rev: %s)\n\
+AmigaOS:   %s (%s, BoingBag %s, SetPatch %s)\n\
+           Exec %s   Workbench %s\n\
+Поддержка: GraphicOS: %s, AudioOS: %s, TCP/IP: %s\n\
+Часы:      Power %s, VBlank %s, E-Clock %s\n\
+ОЗУ:       Материнская плата %s бит, %s, %s CAS, %sx Bandbreite\n\
+\n\
+Память:\t\t  CHIP\t   FAST\t  TOTAL\tROM = %s\tSLOW = %s\n\
+\t  ОБЫЧНАЯ\t%7s\t%7s\t%7s\n\
+\tВИРТУАЛЬНАЯ\t%7s\t%7s\t%7s\n\
+\t  ВСЕГО\t%7s\t%7s\t%7s\n\n\n
+; Chipset: %s (RAMSEY %s, GARY %s, CHUNKY %s) VBR=%s\n\
+; Agnus:   %s (Mode: %s)\n\
+; Denise:  %s (Rev: %s)\n\
+; AmigaOS: %s (%s, BoingBag %s, SetPatch %s)\n\
+;          Exec %s   Workbench %s\n\
+; Support: GraphicOS: %s, AudioOS: %s, TCP/IP: %s\n\
+; Clock:   Power %s, VBlank %s, E-Clock %s\n\
+; RAM:     Motherboard %s bit, %s, %s CAS, %sx пропускная способность\n\
+; \n\
+; Memory:\t\t   CHIP\t   FAST\t  TOTAL\tROM = %s\tSLOW = %s\n\
+; \t  PLAIN\t%7s\t%7s\t%7s\n\
+; \tVIRTUAL\t%7s\t%7s\t%7s\n\
+; \t  TOTAL\t%7s\t%7s\t%7s\n\n\n
+;
+MSG_LISTEXP_LISTTITLE
+** УСТРОЙСТВА **\n\
+\n\
+№  ID      Адрес   Размер Производитель           Продукт\n\
+----------------------------------------------------------------------------\n\
+
+; ** EXPANSIONS **\n\n\
+; Nr ID      Address  Size Manufacturer         Product\n\
+; ----------------------------------------------------------------------------\n
+;
+MSG_LISTEXP_BOARDLINE
+%2ld %04lx.%02lx %08lx %3ld%lcB %-20s %s %s\n\
+
+; %2ld %04lx.%02lx %08lx %3ld%lc %-20s %s %s\n
+;
+MSG_LISTEXP_CXTITLE
+\n\
+\n\
+** РАСШИРЕНИЯ **\n\
+\n\
+Имя                     Заголовок\n\
+----------------------------------------------------------------------------\n\
+
+; \n\n** COMMODITIES **\n\n\
+; Name                     Title\n\
+; ----------------------------------------------------------------------------\n
+;
+MSG_LISTEXP_CXLINE
+%-24s %-40s\n
+; %-24s %-40s\n
+;
+MSG_LISTEXP_EMULATED
+         -- обнаружена эмуляция системы --\n\
+AmigaXL: Версия %s\n\
+Узел:    ОС: %s (версия %s), %s\n\
+         Процессор: %s/%s\n
+;          -- emulated system detected --\n\
+; AmigaXL: Version %s\n\
+; Host:    OS: %s (Version %s), %s\n\
+;          CPU: %s/%s\n
+;
+;
+;================================================================
+;       GURU STRINGS (2000..)
+;================================================================
+;
+MSG_GURU_HAIL
+-- Guru V%s -- Ричард Кербер <%s>\n\n
+; -- Guru V%s -- Richard Koerber <%s>\n\n
+;
+MSG_GURU_HELP
+Аргументы:\n\
+\n\
+  GURU\t\tкод сбоя для анализа\n\
+  LASTALERT/S\tанализ последнего сбоя системы\n\
+\n\
+Более подробно можно прочесть в документации.\n\
+
+; Template:\n\n\
+;   GURU\t\tguru code to be analyzed\n\
+;   LASTALERT/S\tanalyze last system alert\n\n\
+; Please read the doc file for further details.\n
+;
+MSG_GURU_BADCODE
+Был введён несуществующий код сбоя...\n\
+\n\
+
+; This is not a valid Guru code...\n\n
+;
+MSG_GURU_RESULT
+ Код сбоя:   %08lx\n\
+ Тип:        %s\n\
+ Подсистема: %s\n\
+ Описание:   %s\n\
+ Уточнение:  %s\n\
+\n\
+
+;  Alert Code: %08lx\n\
+;  Type:       %s\n\
+;  Subsystem:  %s\n\
+;  General:    %s\n\
+;  Specified:  %s\n\n
+;
+MSG_GURU_NOLAST
+Сбоев ещё не было...\n\
+\n\
+
+; No Guru occured yet...\n\n
+;
+;
+;
+;================================================================
+;       FUNC STRINGS (1000..)
+;================================================================
+;
+MSG_FUNC_HAIL
+-- Function V%s -- Ричар Кербер <%s>\n\\n
+; -- Function V%s -- Richard Koerber <%s>\n\n
+;
+MSG_FUNC_HELP
+Аргументы:\n\
+\n\
+  LN=LIBNAME/A\tимя библиотеки\n\
+  O=OFFSET/N/A\tсмещение для функции\n\
+\n\
+Более подробно можно прочесть в документации.\n\
+
+; Template:\n\n\
+;   LN=LIBNAME/A\tname of the library\n\
+;   O=OFFSET/N/A\toffset of the function\n\n\
+; Please read the doc file for further details.\n
+;
+MSG_FUNC_RESULT
+ Библиотека: %s\n\
+ Смещение:   %ld\n\
+ Функция:    %s\n\
+\n\
+
+;  Library:    %s\n\
+;  Offset:     %ld\n\
+;  Function:   %s\n\n
+;
+;================================================================
+;

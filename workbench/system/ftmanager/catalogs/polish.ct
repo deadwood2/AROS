@@ -8,13 +8,13 @@ MSG_APP_NAME
 FTManager
 ;
 MSG_APP_TITLE
-MenedÅ¼er czcionek FreeType
+Mened¿er czcionek FreeType
 ;
 MSG_WINDOW_TITLE
-MenedÅ¼er czcionek FreeType
+Mened¿er czcionek FreeType
 ; 
 MSG_LABEL_SOURCE
-Å¹rÃ³dÅ‚o
+¬ród³o
 ;
 MSG_ASL_FONTS_TRUETYPE
 Czcionki:TrueType
@@ -29,7 +29,7 @@ MSG_LABEL_CODEPAGE
 Strona kodowa
 ;
 MSG_QUIT
-PorzuÄ‡
+Porzuæ
 ;
 MSG_BUTTON_INSTALL
 _Instaluj
@@ -62,7 +62,7 @@ MSG_WEIGHT_BOOK
 Normalna
 ;
 MSG_WEIGHT_MEDIUM
-Åšrednia
+¦rednia
 ;
 MSG_WEIGHT_SEMIBOLD
 Semi pogrubiona
@@ -125,7 +125,7 @@ MSG_HSTYLE_CUSTOM
 Dostosowana
 ;
 MSG_METRIC_GLOBALBOUNDINGBOX
-ObwÃ³d globalny
+Obwód globalny
 ;
 MSG_METRIC_RAWFONTMETRIC
 Dane surowej czcionki
@@ -140,13 +140,13 @@ MSG_METRIC_USWINASCENDER
 USWin ascender
 ;
 MSG_METRIC_CUSTOMBOUNDINGBOX
-ObwÃ³d dostosowany
+Obwód dostosowany
 ;
 MSG_LABEL_EXTRAFILE
 Plik dodatkowy
 ;
 MSG_LABEL_FACENUM
-KrÃ³j
+Krój
 ;
 MSG_LABEL_NAME
 Nazwa
@@ -158,7 +158,7 @@ MSG_LABEL_METRIC
 Metryczny
 ;
 MSG_LABEL_BOUNDINGBOX
-ObwÃ³d
+Obwód
 ;
 MSG_LABEL_YMIN
 yMin
@@ -167,13 +167,13 @@ MSG_LABEL_YMAX
 yMax
 ;
 MSG_LABEL_SIZEFACTOR
-WielkoÅ›Ä‡
+Wielko¶æ
 ;
 MSG_LABEL_SPACEWIDTH
-SzerokoÅ›Ä‡ pauzy
+Szeroko¶æ pauzy
 ;
 MSG_LABEL_FIXEDWIDTH
-StaÅ‚a szerokoÅ›Ä‡
+Sta³a szeroko¶æ
 ;
 MSG_LABEL_SERIF
 Szeryfowa
@@ -182,20 +182,20 @@ MSG_LABEL_STEMWEIGHT
 Waga
 ;
 MSG_LABEL_SLANTSTYLE
-SkoÅ›ny styl
+Sko¶ny styl
 ;
 MSG_LABEL_HORIZSTYLE
 Poziomy styl
 ;
 MSG_FRAME_PREVIEW
-PodglÄ…d
+Podgl±d
 ;
 MSG_PREVIEW_STRING
-MÄ™Å¼ny bÄ…dÅº, chroÅ„ puÅ‚k twÃ³j i szeÅ›Ä‡ flag.
+Mê¿ny b±d¼, chroñ pu³k twój i sze¶æ flag.
 ;
 MSG_LABEL_SIZE
 Rozmiar
 ;
 MSG_LABEL_ANTIALIASING
-WygÅ‚adzanie krawÄ™dzi
+Wyg³adzanie krawêdzi
 ;

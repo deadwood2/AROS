@@ -1,0 +1,72 @@
+## version $VER: Appearance.catalog 2.2 (17.02.2021)
+## language russian
+## codeset 2104
+;
+;
+MSG_WINTITLE
+Настройки внешнего вида
+; Appearance Preferences
+;
+MSG_OK
+Ок
+; Ok
+;
+MSG_ENABLETHEMES
+Вкл. использование тем
+; Enable Theme'ing?
+;
+MSG_PREVIEW
+Предпросмотр
+; Preview
+;
+MSG_NOPREVIEW
+-Предпросмотр недоступен-
+; -Preview Unavailable-
+;
+MSG_SELECTEDTHEME
+Тема:
+; Theme:
+;
+MSG_ENABLEZUNEPREFS
+Перезапись настроек Zune
+;
+MSG_ENABLEWANDPREFS
+Перезапись настроек Wanderer
+;
+MSG_ENABLEPALETTEPREFS
+Перезапись настроек Palette
+;
+MSG_ENABLEFONTPREFS
+Перезапись настроек Font
+;
+MSG_ENABLEPOINTERPREFS
+Перезапись настроек Pointer
+;
+MSG_SEC_THEMING
+Темы
+; Theming
+;
+MSG_SEC_COMPOSITING
+Композитный менеджер
+; Compositing
+;
+MSG_ENABLE_SCREEN_COMPOSITION
+Вкл. композитное изображение
+; Enable Screen Composition
+;
+MSG_COMPOSITE_BELOW
+Композит снизу
+; Composite Below
+;
+MSG_COMPOSITE_LEFT
+Композит слева
+; Composite Left
+;
+MSG_COMPOSITE_RIGHT
+Композит справа
+; Composite Right
+;
+MSG_ENABLE_COMPOSITE_WITH_ALPHA
+Вкл. композит с альфа-каналом
+; Enable Compositing with Alpha
+;

@@ -1,0 +1,633 @@
+## version $VER: MUI.MiamiPanel.catalog 1.0 (29.01.2021)
+## language español
+## codeset 0
+;
+;
+; CATCOMP MUI.MiamiPanel.cd CFILE loc.h
+; CATCOMP MUI.MiamiPanel.cd CTFILE MUI.MiamiPanel.ct
+;
+MSG_Copyright
+Copyright 2001-2005 by Alfonso Ranieri
+; Copyright 2001-2005 by Alfonso Ranieri
+; Copyright message
+;
+MSG_Description
+MUI MiamiDx control panel.
+; MUI MiamiDx control panel.
+; Description message
+;
+MSG_Menu_Project
+Proyecto
+; Project
+;
+MSG_Menu_About
+?\0Sobre...
+; ?\0About...
+;
+MSG_Menu_AboutMUI
+!\0Sobre MUI...
+; !\0About MUI...
+;
+MSG_Menu_Hide
+H\0Ocultar
+; H\0Hide
+;
+MSG_Menu_Quit
+Q\0Salir
+; Q\0Quit
+;
+MSG_Menu_Miami
+MiamiDx
+; MiamiDx
+;
+MSG_Menu_Miami_Show
+W\0Mostrar...
+; W\0Show...
+; Use the same shortcut of MSG_Button_Show
+;
+MSG_Menu_Miami_Hide
+D\0Ocultar
+; D\0Hide
+; Use the same shortcut of MSG_Button_Hide
+;
+MSG_Menu_Miami_Quit
+T\0Salir
+; T\0Quit
+; Use the same shortcut of MSG_Button_Quit
+;
+MSG_Menu_Prefs
+Preferences
+; Preferences
+;
+MSG_Menu_Edit
+E\0Editar...
+; E\0Edit...
+;
+MSG_Menu_Save
+S\0Guardar
+; S\0Save
+;
+MSG_Menu_Use
+U\0Usar
+; U\0Use
+;
+MSG_Menu_Restore
+R\0Restaurar
+; R\0Restore
+;
+MSG_Menu_LastSaved
+L\0Último guardado
+; L\0Last saved
+;
+MSG_Menu_MUI
+M\0Config. MUI...
+; M\0MUI Settings...
+;
+MSG_Window_Title
+MUI.MiamiPanel
+; MUI.MiamiPanel
+;
+MSG_Button_Show
+Mostra_r
+; Sho_w
+; Use the same shortcut of MSG_Menu_Miami_Show
+;
+MSG_Button_Show_Help
+Mostrar pant. principal MiamiDx.
+; Show MiamiDx main window.
+;
+MSG_Button_Hide
+Ocu_ltar
+; Hi_de
+; Use the same shortcut of MSG_Menu_Miami_Hide
+;
+MSG_Button_Hide_Help
+Ocultar pant. principal MiamiDx.
+; Hide MiamiDx main window.
+;
+MSG_Button_Quit
+Sali_r
+; Qui_t
+; Use the same shortcut of MSG_Menu_Miami_Quit
+;
+MSG_Button_Quit_Help
+Salir de MiamiDx.
+; Quit MiamiDx.
+;
+MSG_IFGroup_Help
+Lista de Interfaces. Si escoges tener\n\
+el botón On/Offline, pulsándolo\n\
+pone On/Offline la interface.
+; Interfaces list. If you chose to have\n\
+; the On/Offline button, clicking it\n\
+; puts the interface On/Offline.
+;
+MSG_IFGroup_CItem_Online
+Online
+; Online
+; Don't use shortcut
+;
+MSG_IFGroup_CItem_Offline
+Offline
+; Offline
+; Don't use shortcut
+;
+MSG_IFGroup_CItem_Scale
+Scale
+; Scale
+;
+MSG_IFGroup_CItem_ScaleFmt
+%ldKb
+; %ldKb
+; This is the fmt to format scale values
+;
+MSG_IF_Title_Name
+Nombre:
+; Name:
+;
+MSG_IF_Title_State
+Estado:
+; State:
+;
+MSG_IF_Title_OnTime
+Ontime:
+; Ontime:
+;
+MSG_IF_Title_Rate
+Tasa:
+; Rate:
+;
+MSG_IF_Title_Speed
+Velocidad:
+; Speed:
+;
+MSG_IF_Title_Traffic
+Traffico:
+; Traffic:
+;
+MSG_IF_Button_Online
+Online
+; Online
+;
+MSG_IF_Button_Offline
+Offline
+; Offline
+;
+MSG_IF_Status_GoingOnline
+Pasando a online...
+; Going online...
+;
+MSG_IF_Status_GoingOffline
+PAsando a offline...
+; Going offline...
+;
+MSG_IF_Status_Suspending
+Suspendiendo...
+; Suspending...
+;
+MSG_IF_Status_Online
+Online
+; Online
+;
+MSG_IF_Status_Offline
+Offline
+; Offline
+;
+MSG_IF_Status_Suspended
+Suspendido
+; Suspended
+;
+MSG_Traffic_Byte
+byte
+; byte
+; Actually not used, it should be used for "1 byte"
+;
+MSG_Traffic_Bytes
+bytes
+; bytes
+; Actually not used, it should be used for "100 bytes"
+;
+MSG_Traffic_KB
+Kb
+; Kb
+; Short for "kilo bytes"
+;
+MSG_Traffic_MB
+Mb
+; Mb
+; Short for "mega bytes"
+;
+MSG_Rate_Bs
+bps
+; bps
+;
+MSG_Rate_KBs
+Kb/s
+; Kb/s
+; Short for "kilo bits per second"
+;
+MSG_Rate_MBs
+Mb/s
+; Mb/s
+; Short for "mega bits per second"
+;
+MSG_Prefs_WinTitle
+MUI.MiamiPanel Preferences
+; MUI.MiamiPanel Preferences
+;
+MSG_Prefs_Interfaces
+Interfaces
+; Interfaces
+;
+MSG_Prefs_MiamiCtrls
+Botones
+; Buttons
+;
+MSG_Prefs_Options
+Opciones
+; Options
+;
+MSG_Prefs_IF_Traffic_Format
+Formato de _Tráfico
+; T_raffic format
+;
+MSG_Prefs_IF_Traffic_Format_Help
+Formato Tráfico:\n\
+Largo - tráfico mostrado en bytes\n\
+Corto - tráfico mostrado en Kb/Mb
+; Traffic format:\n\
+; Long - traffic shown in bytes\n\
+; Short - traffic shown in Kb/Mb
+;
+MSG_Prefs_IF_Traffic_Format_Long
+Largo
+; Long
+;
+MSG_Prefs_IF_Traffic_Format_Short
+Corto
+; Short
+;
+MSG_Prefs_IF_Traffic_Grouping
+_Grupo
+; _Group
+;
+MSG_Prefs_IF_Traffic_Grouping_Help
+Seleccionado se agrupan\n\
+los digitos del tráfico.
+; If selected, traffic\n\
+; digits are grouped.
+;
+MSG_Prefs_IF_Rate_Format
+Formato de la t_asa
+; Rat_e format
+;
+MSG_Prefs_IF_Rate_Format_Help
+Formato de la tasa:\n\
+Grande  - tasa en bytes\n\
+Pequeño - tasa en Kb/Mb
+; Rate format:\n\
+; Long - rate shown in bytes\n\
+; Short - rate shown in Kb/Mb
+;
+MSG_Prefs_IF_Rate_Format_Long
+Largo
+; Long
+;
+MSG_Prefs_IF_Rate_Format_Short
+Corto
+; Short
+;
+MSG_Prefs_IF_Rate_Grouping
+Grup_o
+; Gr_oup
+;
+MSG_Prefs_IF_Rate_Grouping_Help
+Seleccionado se agrupan\n\
+los digitos de la tasa.
+; If selected, rate\n\
+; digits are grouped.
+;
+MSG_Prefs_Miami_Position
+_Posición
+; _Position
+;
+MSG_Prefs_Miami_Position_Help
+Ajustar la posición\n\
+de la barra de botones.
+; Adjust the position\n\
+; of the buttons bar.
+;
+MSG_Prefs_Miami_Position_Top
+Arriba
+; Top
+;
+MSG_Prefs_Miami_Position_Bottom
+Abajo
+; Bottom
+;
+MSG_Prefs_Miami_Position_Left
+Izquierda
+; Left
+;
+MSG_Prefs_Miami_Position_Right
+Derecha
+; Right
+;
+MSG_Prefs_Miami_ViewMode
+Apa_riencia
+; Appea_rance
+;
+MSG_Prefs_Miami_ViewMode_Help
+Ajustar la apariencia\n\
+de la barra de botones.
+; Adjust the appearance\n\
+; of the buttons bar.
+;
+MSG_Prefs_Miami_ViewMode_TextGfx
+Iconos y texto
+; Icons and text
+;
+MSG_Prefs_Miami_ViewMode_Gfx
+Solo Iconos
+; Icons only
+;
+MSG_Prefs_Miami_ViewMode_Text
+Solo Texto
+; Text only
+;
+MSG_Prefs_Miami_Borderless
+Sin _borde
+; _Borderless
+;
+MSG_Prefs_Miami_Borderless_Help
+Seleccionado los botones\n\
+no tienen bordes.
+; If selected, buttons\n\
+; are borderless.
+;
+MSG_Prefs_Miami_Sunny
+_Highlight
+; _Highlight
+;
+MSG_Prefs_Miami_Sunny_Help
+Seleccionado los botones\n\
+en blanco y negro se\n\
+colorean al pasar el \n\
+ratón sobre ellos.
+; If selected, buttons,\n\
+; rendered in black and\n\
+; white, are colored when\n\
+; the mouse is over them.
+;
+MSG_Prefs_Miami_Raised
+Rais_ed
+; Rais_ed
+;
+MSG_Prefs_Miami_Raised_Help
+Seleccionado se dibuja un\n\
+borde en los botones sin bordes\n\
+al pasar el raton.
+; If selected, a border is drawn\n\
+; around borderless buttons,\n\
+; when the mouse is over them.
+;
+MSG_Prefs_Miami_Scaled
+Scale_d
+; Scale_d
+;
+MSG_Prefs_Miami_Scaled_Help
+Seleccionado se escalan\n\
+los botones según las\n\
+preferencias en MUI/TheBar.
+; If selected, buttons are\n\
+; scaled, according to\n\
+; MUI/TheBar prefereces.
+;
+MSG_Prefs_Miami_LabelPosition
+_Posición de etiqueta
+; _Label position
+;
+MSG_Prefs_Miami_LabelPosition_Help
+Ajustar la posición del texto\n\
+en botones \"Icons and text\"\n\
+; Adjust the position of the\n\
+; text in \"Icons and text\"\n\
+; buttons.
+;
+MSG_Prefs_Miami_LabelPosition_Bottom
+Abajo
+; Bottom
+;
+MSG_Prefs_Miami_LabelPosition_Top
+Arriba
+; Top
+;
+MSG_Prefs_Miami_LabelPosition_Right
+Derecha
+; Right
+;
+MSG_Prefs_Miami_LabelPosition_Left
+Izquierda
+; Left
+;
+MSG_Prefs_Miami_BarLayout
+Posición _Interna
+; _Inner position
+;
+MSG_Prefs_Miami_BarLayout_Help
+Ajusta la posición de los\n\
+botones en la barra.
+; Adjust the position of the\n\
+; buttons in the bar.
+;
+MSG_Prefs_Miami_BarLayout_Left
+Izquierda/Arriba
+; Left/Up
+;
+MSG_Prefs_Miami_BarLayout_Center
+Centro
+; Center
+;
+MSG_Prefs_Miami_BarLayout_Right
+Derecha/abajo
+; Right/Down
+;
+MSG_Prefs_Miami_Underscore
+Usar ataj_os
+; Use sh_ort cuts
+;
+MSG_Prefs_Miami_Underscore_Help
+Seleccionado se usan los\n\
+atajos de los botones.
+; If selected, buttons text\n\
+; shortcuts are used.
+;
+MSG_Prefs_OnIconify
+Ic_onificar
+; _On iconify
+;
+MSG_Prefs_OnIconify_Help
+Acción al iconificar:\n\
+Salir - salir del panel\n\
+Ocltar - iconificar el panel
+; Action to take on iconify:\n\
+; Quit - quit the panel\n\
+; Hide - iconify the panel
+;
+MSG_Prefs_OI_Quit
+Salir
+; Quit
+;
+MSG_Prefs_OI_Hide
+Ocultar
+; Hide
+;
+MSG_Prefs_BWin
+Us_ar BWin
+; Us_e BWin
+;
+MSG_Prefs_BWin_Help
+Seleccionado el panel usa\n\
+BWin.mcc para su pantalla principal.
+; If selected, the panel uses\n\
+; BWin.mcc for its main window.
+;
+MSG_Prefs_BWinBorders
+Usar bordes _BWin
+; Use _BWin borders
+;
+MSG_Prefs_BWinBorders_Help
+Seleccionado BWin.mcc\n\
+usa bordes.
+; If selected, BWin.mcc\n\
+; uses borders.
+;
+MSG_Prefs_Save
+_Guardar
+; _Save
+;
+MSG_Prefs_Save_Help
+Guardar preferencias y salir.
+; Save preferences and exit.
+;
+MSG_Prefs_Use
+_Usar
+; _Use
+;
+MSG_Prefs_Use_Help
+Usar preferencias y salir.
+; Use preferences and exit.
+;
+MSG_Prefs_Apply
+_Aplicar
+; _Apply
+;
+MSG_Prefs_Apply_Help
+Aplicar preferencias y salir.
+; Apply preferences and exit.
+;
+MSG_Prefs_Test
+_Probar
+; _Test
+;
+MSG_Prefs_Test_Help
+Probar preferencias sin salir.\n\
+Las preferencias se restauran\n\
+antes de salir.
+; Test preferences without exit.\n\
+; Preferences are restored\n\
+; before exit.
+;
+MSG_Prefs_Cancel
+_Cancelar
+; _Cancel
+;
+MSG_Prefs_Cancel_Help
+Salir sin guardar
+; Exit without save.
+;
+MSG_Prefs_IF_UseBusyBar
+Usar _busy bar
+; Use _busy bar
+;
+MSG_Prefs_IF_UseBusyBar_Help
+Seleccionado aparece una barra\n\
+cuando una interface cambia su\n\
+estado.
+; If selected, a busy bar appears\n\
+; when an interface changes its\n\
+; state.
+;
+MSG_Prefs_Miami_Frame
+_Enmarcar
+; _Frame
+;
+MSG_Prefs_Miami_Frame_Help
+Saleccionado se enmarca\n\
+la barra de botones
+; If selected, buttons\n\
+; bar is framed.
+;
+MSG_Prefs_Miami_DragBar
+_Arrastrar barra
+; _Drag bar
+;
+MSG_Prefs_Miami_DragBar_Help
+Seleccionado, la barra de\n\
+botones es arrastrable.
+; If selected, buttons\n\
+; bar is draggable.
+;
+MSG_Prefs_UseTransparency
+Usar t_ransparencia
+; Use t_ransparency
+;
+MSG_Prefs_UseTransparency_Help
+Seleccionado el panel usa transparencia.
+; If selected, the panel uses transparency.
+;
+MSG_About_WinTitle
+Sobre MUI.MiamiPanel
+; About MUI.MiamiPanel
+;
+MSG_About_Information
+Información:
+; Information
+;
+MSG_About_Version
+Versión:
+; Version:
+;
+MSG_About_Author
+Autor:
+; Author:
+;
+MSG_About_Support
+Soporte:
+; Support:
+;
+MSG_About_MiamiSite
+Sitio MiamiDx:
+; MiamiDx site:
+;
+MSG_About_ThirdParts
+Terceras partes
+; Third parts
+;
+MSG_About_Lamp
+Lamp.mcc por
+; Lamp.mcc by
+;
+MSG_About_Busy
+Busy.mcc por
+; Busy.mcc by
+;
+MSG_About_OfCourse
+, desde luego!
+; , of course!
+;
+MSG_About_Translation
+
+; 
+; Put your language translation info here, something like "Japanes translation by Oko Hono"
+; Check it is not too long

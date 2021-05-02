@@ -1,10 +1,9 @@
-## version $VER: SystemPrefsWindow.catalog 1.0 (11.05.2006)
-## codeset 0
+## version $VER: SystemPrefsWindow.catalog 2.0 (23.12.2020)
+## codeset 2104
 ## language russian
 ;
-; TODO: update me and set version to 2
-;
 ; Translated by Sergey Mineychev aka Keen
+; Updated by Eugene aGGreSSor Sobolev
 ;
 MSG_MENU_PREFS
 Свойства
@@ -30,3 +29,18 @@ MSG_MENU_PREFS_USE
 MSG_MENU_PREFS_CANCEL
 О\0Отменить
 ;
+MSG_MENU_PREFS_EXPORT_WITH_ICON
+Экспорт с иконкой...
+; Export with Icon...
+;
+MSG_MENU_RESET_TO_DEFAULTS
+Вернуть по умолчанию
+; Reset to Defaults
+;
+MSG_FILEREQ_EXPORT_TITLE
+Экспорт
+; Export
+;
+MSG_FILEREQ_IMPORT_TITLE
+Импорт
+; Import

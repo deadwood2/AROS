@@ -1,6 +1,6 @@
-## version $VER: ahiprefs.ct 4.6 (4.8.2004)
+## version $VER: ahiprefs.catalog 4.6 (04.08.2004)
 ## language magyar
-## codeset 0
+## codeset 5
 ;
 ## chunk AUTH Dósa Márton (dm_@freemail.hu)
 ;#language english
@@ -266,7 +266,7 @@ AHI beállítások
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Nem tudok ablakot nyitni.
@@ -282,7 +282,7 @@ Nem találom: '%s'!
 ;
 msgTextNoOpen
 Nem tudom megnyitni: '%s' %ld verzió.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

@@ -1,138 +1,149 @@
-## version $VER: Locale.catalog 1.0 (30.09.2007)
-## codeset 0
+## version $VER: Locale.catalog 2.0 (30.09.2007)
 ## language español
+## codeset 0
 ;
-; Translated by ahg
 ;
 MSG_CANT_OPEN_LIB
 No se pudo abrir %s V%ld!\n
-;Can't open %s V%ld!\n
+; Can't open %s V%ld!\n
 ;
 MSG_CANT_LOCK_SCR
 No se pudo bloquer la pantalla pública!
-;Can't lock public screen!
+; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
-Can't get DrawInfo!
+No se pudo abrir DrawInfo!
+; Can't get DrawInfo!
 ;
 MSG_CANT_GET_VI
-Can't get VisualInfo!
+No se pudo abrir VisualInfo!
+; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_GADGET
 No se pudieron crear los gadgets!
-;Can't create gadgets!
+; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
 No se pudieron crear los menús!
-;Can't create menus!
+; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
 No se pudo crear la ventana!
-;Can't create window!
+; Can't create window!
 ;
 MSG_WINTITLE
 Preferencias para el Locale
-;Locale Preferences
+; Locale Preferences
 ;
 MSG_MEN_PROJECT
 Proyecto
-;Project
+; Project
 ;
 MSG_MEN_PROJECT_OPEN
 A\0Abrir...
-;O\0Open...
+; O\0Open...
 ;
 MSG_MEN_PROJECT_SAVEAS
 G\0Guardar como...
-;A\0Save As...
+; A\0Save As...
 ;
 MSG_MEN_PROJECT_QUIT
 S\0Salir
-;Q\0Quit
+; Q\0Quit
 ;
 MSG_MEN_EDIT
 Editar
-;Edit
+; Edit
 ;
 MSG_MEN_EDIT_DEFAULT
 D\0Valores de fábrica
-;E\0Restaurar valores
-;D\0Reset to Defaults
+; D\0Reset to Defaults
 ;
 MSG_MEN_EDIT_LASTSAVED
 L\0Valores previos
-;U\0Últimos guardados
-;L\0Last Saved
+; L\0Last Saved
 ;
 MSG_MEN_EDIT_RESTORE
 R\0Restaurar
-;R\0Restore
+; R\0Restore
 ;
 MSG_MEN_SETTINGS
 Configuraciones
-;Settings
+; Settings
 ;
 MSG_MEN_SETTINGS_CREATEICONS
 I\0Crear Íconos?
-;I\0Create Icons?
+; I\0Create Icons?
 ;
 MSG_ASL_OPEN_TITLE
 Cargar las Preferencias para el Locale
-;Load Locale Preferences
+; Load Locale Preferences
 ;
 MSG_ASL_SAVE_TITLE
 Guardar las Preferencias para el Locale
-;Save Locale Preferences
+; Save Locale Preferences
 ;
 MSG_OK
 Aceptar
-;Ok
+; Ok
 ;
 MSG_GAD_AVAIL_LANGUAGES
 Idiomas disponibles
-;Available Languages
+; Available Languages
 ;
 MSG_GAD_PREF_LANGUAGES
 Idiomas preferidos
-;Preferred Languages
+; Preferred Languages
 ;
 MSG_GAD_CLEAR_LANGUAGES
 Quitar Idiomas
-;Clear Languages
+; Clear Languages
 ;
 MSG_GAD_SAVE
 Guardar
-;Save
+; Save
 ;
 MSG_GAD_USE
 Usar
-;Use
+; Use
 ;
 MSG_GAD_CANCEL
 Cancelar
-;Cancel
+; Cancel
 ;
 MSG_GAD_TAB_LANGUAGE
 Idioma
-;Language
+; Language
 ;
 MSG_GAD_TAB_REGION
-País
-;Country
+Región
+; Region
 ;
 MSG_GAD_TAB_TIMEZONE
-Husos Horarios
-;Time Zone
+Uso Horario
+; Time Zone
 ;
 MSG_TIMEZONE_1HOUR
 Huso Horario: 1 Hora menos que UTC
-;Time Zone: 1 Hour from UTC
+; Time Zone: 1 Hour from UTC
 ;
 MSG_TIMEZONE_HOURS
 Huso Horario: %ld horas menos que UTC
-;Time Zone: %ld Hours from UTC
+; Time Zone: %ld Hours from UTC
 ;
 MSG_TIMEZONE_HOURSMINS
 Huso Horario: %ld horas, %ld minutos menos que UTC
-;Time Zone: %ld Hours, %ld Minutes from UTC
+; Time Zone: %ld Hours, %ld Minutes from UTC
+;
+MSG_CHARACTER_SET
+Juego de caracteres predeterminado
+; Default character set
+;
+MSG_NOT_SPECIFIED
+No especificado
+; Not specified
+;
+MSG_GMT_CLOCK
+UTC en reloj hardware
+; Hardware clock stores UTC
 ;

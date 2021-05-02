@@ -1,9 +1,6 @@
-## version $VER: ahi.catalog 4.3 (31.3.2019)
+## version $VER: ahi.catalog 4.3 (31.03.2019)
 ## language français
 ## codeset 0
-;
-;#language english
-;#version 4
 ;
 ;    AHI - Hardware independent audio subsystem
 ;    Copyright (C) 1996-2005 Martin Blom <martin@blom.org>
@@ -84,7 +81,7 @@ msgDefaultMode
 Mode audio par défaut
 ; Default audio mode
 ;
-; The requester's info-winodow
+; The requester's info-window
 ;
 msgReqInfoTitle
 Mode propriétés

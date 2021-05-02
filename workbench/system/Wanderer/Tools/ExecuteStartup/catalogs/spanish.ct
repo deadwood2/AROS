@@ -1,0 +1,51 @@
+## version $VER: executestartup.catalog 1.0 (04.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_ERROR
+Error
+;
+MSG_WARNING
+Advertencia
+;
+MSG_OK
+OK
+;
+MSG_ERROR_GETDISKOBJECT
+ExecuteStartup\nGetDiskObject ha fallado:\n%s
+; ExecuteStartup\nGetDiskObject failed for:\n%s
+;
+MSG_ERROR_INFONODE
+ExecuteStartup\nSin memoria libre para InfoNode
+; ExecuteStartup\nOut of memory for InfoNode
+;
+MSG_ERROR_LNNAME
+ExecuteStartup\nSin memoria libre para ln_Name
+; ExecuteStartup\nOut of memory for ln_Name
+;
+MSG_ERROR_SCANNING
+ExecuteStartup\nError %ld leyendo el directorio
+; ExecuteStartup\nError %ld occured while scanning directory
+;
+MSG_ERROR_ANCHORPATH
+ExecuteStartup\nSin memoria libre para AnchorPath
+; ExecuteStartup\nOut of memory for AnchorPath
+;
+MSG_ERROR_FILEINFOBLOCK
+ExecuteStartup\nSin memoria libre para FileInfoBlock
+; ExecuteStartup\nOut of memory for FileInfoBlock
+;
+MSG_ERROR_MEMORYPOOL
+ExecuteStartup\nImposible crear el pool de memoria
+; ExecuteStartup\nCouldn't create pool memory
+;
+MSG_ERROR_EXAMINE
+ExecuteStartup\nImposible leer 
+; ExecuteStartup\nCouldn't examine 
+;Note final space!
+;
+MSG_WARNING_OPENWBOBJECT
+ExecuteStartup\nOpenWorkbenchObject ha fallado:\n%s
+; ExecuteStartup\nOpenWorkbenchObject failed for:\n%s
+;

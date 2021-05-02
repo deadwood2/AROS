@@ -1,4 +1,4 @@
-## version $VER: About.catalog 1.0 (18.8.2008)
+## version $VER: About.catalog 1.0 (18.08.2008)
 ## language português
 ## codeset 0
 ;
@@ -29,8 +29,8 @@ MSG_SNAPSHOT
 ; Release
 ;
 MSG_COPYRIGHT
-Copyright © 1995-2020, The AROS Development Team. Todos direitos reservados.
-; Copyright © 1995-2020, The AROS Development Team. All rights reserved.
+Copyright © 1995-2021, The AROS Development Team. Todos direitos reservados.
+; Copyright © 1995-2021, The AROS Development Team. All rights reserved.
 ;
 MSG_LICENSE_1
 Disponibilizado sob os termos da

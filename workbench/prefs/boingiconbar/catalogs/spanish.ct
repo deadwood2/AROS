@@ -1,0 +1,49 @@
+## version $VER: BIBPrefs.catalog 2.0 (08.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_APP
+BIBPrefs
+; BIBPrefs
+;
+MSG_DESCRIPTION
+Preferencias de BoingIconBar
+; BoingIconBar Preferences
+;
+MSG_TITLE
+Preferencias de BoingIconBar
+; BoingIconBar Preferences
+;
+MSG_DOCK
+\33cDock
+; \33cDock
+;
+MSG_ADD_DOCK
+Añadir dock
+; Add
+;
+MSG_DEL_DOCK
+Eliminar dock
+; Delete
+;
+MSG_SAVE
+Guardar
+; Save
+;
+MSG_PROGRAMS
+\33cProgramas
+; \33cPrograms
+;
+MSG_ADD_P
+Añadir programa
+; Add program
+;
+MSG_DEL_P
+Eliminar programa
+; Del program
+;
+MSG_OK
+Ok
+; OK
+;

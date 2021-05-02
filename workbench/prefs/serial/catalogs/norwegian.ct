@@ -1,6 +1,6 @@
 ## version $VER: serialprefs.catalog 1.0 (20.05.2019)
 ## codeset 0
-## language norwegian
+## language norsk
 ;
 MSG_CANT_OPEN_LIB
 Klarte ikke åpne %s V%ld!\n

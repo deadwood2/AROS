@@ -1,0 +1,25 @@
+## version $VER: AboutWindow.catalog 1.0 (15.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_ABOUT
+Hakkýnda
+; About
+;
+MSG_AUTHORS
+Yazarlar
+; Authors
+;
+MSG_SPONSORS
+Sponsorlar
+; Sponsors
+;
+MSG_SECTION_PROGRAMMING
+Programlama
+; Programming
+;
+MSG_SECTION_TRANSLATING
+Çeviriler
+; Translating
+;

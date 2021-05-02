@@ -1,4 +1,4 @@
-## version $VER: Appearance.catalog 2.0 (06.09.2018)
+## version $VER: Appearance.catalog 2.1 (11.02.2021)
 ## language polski
 ## codeset 5
 ;
@@ -27,12 +27,22 @@ Motyw
 ; Theme
 ;
 MSG_ENABLEZUNEPREFS
-Przej±æ Ustawienia Zune?
-; Inherit Zune Configuration?
+Skopiuj Ustawienia Zune?
+;Replace current Zune configuration?
 ;
 MSG_ENABLEWANDPREFS
-Przej±æ Ustawienia Wanderera?
-; Inherit Wanderer Configuration?
+Skopiuj Ustawienia Wanderera?
+;Replace current Wanderer configuration?
+;
+MSG_ENABLEPALETTEPREFS
+Skopiuj Ustawienia Wanderera?
+;Replace current Palette configuration?
+;
+MSG_ENABLEFONTPREFS
+Replace current Font configuration?
+;
+MSG_ENABLEPOINTERPREFS
+Replace current Pointer configuration?
 ;
 MSG_SEC_THEMING
 Motywy

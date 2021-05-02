@@ -1,0 +1,40 @@
+## version $VER: pointer.catalog 2.0 (08.01.2021)
+## language español
+## codeset 0
+;
+MSG_WINTITLE
+Preferencias del puntero
+; Pointer Preferences
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_HOTSPOT
+Punto activo
+;  Hotspot
+;
+MSG_ALPHA
+Transparencia
+; Alpha
+;
+MSG_FILENAME
+Nombre del fichero
+; Filename
+;
+MSG_TYPE
+Tipo
+; Type
+;
+MSG_TYPE_NORMAL
+Normal
+; Normal
+;
+MSG_TYPE_BUSY
+Ocupado
+; Busy
+;
+MSG_SETVIEW
+Escoger / Ver
+; Set / View
+;

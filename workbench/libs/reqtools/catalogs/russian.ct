@@ -8,8 +8,8 @@
 ; Done by Oleg Sergeev (26.1.97)
 ; Done in cp1251 by Sergey Mineychev aka Keen
 ;
-## version $VER: reqtools.catalog 39 (31.03.2016)
-## codeset 0
+## version $VER: reqtools.catalog 39.0 (14.12.2020)
+## codeset 2104
 ## language russian
 ;
 ; *** General ***
@@ -63,7 +63,7 @@ MSG_RED
 Красный:
 ;
 MSG_GREEN
-Зеленый:
+Зелёный:
 ;
 MSG_BLUE
 Синий:
@@ -97,22 +97,22 @@ MSG_SPREAD_TITLE
 ; *** File Requester ***
 ;
 MSG_CREATE_DRAWER
-Каталог "%s" не существует.\nСоздать его?
+Директория "%s" не существует.\nСоздать её?
 ;
 MSG_DIR_ERROR
-Ошибка каталога!
+Ошибка директории!
 ;
 MSG_MATCH_WINTITLE
 Совпадение...
 ;
 MSG_DRAWER
-Каталог
+Директория
 ;
 MSG_ASSIGN
-Л. Имя
+Присвоение
 ;
 MSG_ALL
-Все
+Всё
 ;
 MSG_MATCH
 Совпадение...
@@ -144,7 +144,7 @@ MSG_FULL
 ; *** Font Requester ***
 ;
 MSG_COULDNT_OPEN_FONT
-не могу открыть шрифт!
+не открыется шрифт!
 ;
 MSG_BOLD
 Жирный

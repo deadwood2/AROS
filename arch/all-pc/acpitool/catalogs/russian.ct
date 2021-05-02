@@ -1,0 +1,441 @@
+## version $VER: acpitool.catalog 2.0 (28.02.2021)
+## codeset 2104
+## language russian
+;
+;
+MSG_TITLE
+ACPI Tool
+; ACPI Tool
+;
+MSG_WINTITLE
+ACPI Tool
+; ACPI Tool
+;
+MSG_DESCRIPTION
+Управления конфигурацией и питанием
+; ACPI querying and managment
+;
+MSG_ERROR_LOCALE
+Не удалось открыть локализацию
+; Can't open locale
+;
+MSG_ERROR_OK
+Ок
+; Ok
+;
+MSG_ERROR_HEADER
+ОШИБКА
+; ERROR
+;
+MSG_ERROR_NO_ACPI
+Этот компьютер не имеет ACPI, или поддержка ACPI была выключена
+; This machine has no ACPI, or ACPI support has been disabled
+;
+MSG_UNKNOWN
+Неизвестно
+; Unknown
+;
+MSG_TABLE_SIGNATURE
+Таблица сигнатур
+; Table signature
+;
+MSG_REVISION
+Редакция
+; Revision
+;
+MSG_OEM_ID
+ID OEM
+; OEM ID
+;
+MSG_OEM_TABLE_ID
+Таблица ID OEM
+; OEM Table ID
+;
+MSG_CREATOR_ID
+ID производителя
+; Creator ID
+;
+MSG_PM_PROFILE
+Предпочтительный профиль системы
+; Preferred system profile
+;
+MSG_SCI_INT
+Прерывание SCI
+; SCI interrupt
+;
+MSG_SMI_CMD
+Регистр команд SMI
+; SMI command register
+;
+MSG_ACPI_ENABLE
+Команда вкл. ACPI
+; ACPI Enable command
+;
+MSG_ACPI_DISABLE
+Команда выкл. ACPI
+; ACPI Disable command
+;
+MSG_S4BIOS
+Ввод команды состояния S4BIOS
+; Enter S4BIOS state command
+;
+MSG_PSTATE
+Команда состояния производительности CPU
+; Processor performance state command
+;
+MSG_FLUSH_SIZE
+Размер кэша CPU
+; CPU Cache flush size
+;
+MSG_FLUSH_STRIDE
+Шаг очистки кэша CPU
+; CPU Cache flush stride
+;
+MSG_RTC_DAY_ALARM
+Смещение дня автовкл. в RTC
+; RTC alarm day offset
+;
+MSG_RTC_MON_ALARM
+Смещение месяца автовкл. в RTC
+; RTC alarm month offset
+;
+MSG_RTC_CENTURY
+Смещение века в RTC
+; RTC century offset
+;
+MSG_RESET_REG
+Сброс адреса регистра
+; Reset register address
+;
+MSG_RESET_VAL
+Сброс значения
+; Reset value
+;
+MSG_UNKNOWN_SIZE
+Неизвестный размер
+; Unknown size
+;
+MSG_AT
+в
+; at
+;
+MSG_BITS
+бит
+; bits
+;
+MSG_SPACE_FIXED
+Фикс. оборудование
+; Fixed hardware
+;
+MSG_SPACE_OEM
+Пространство OEM
+; OEM space
+;
+MSG_SPACE_UNKNOWN
+Неясное пространство
+; Unknown space
+;
+MSG_FMT_UNKNOWN_SPACE
+в неясном пространстве (%u)
+;  in unknown space (%u)
+;
+MSG_FMT_KNOWN_SPACE
+в %s
+;  in %s
+;
+MSG_YES
+Да
+; Yes
+;
+MSG_NO
+Нет
+; No
+;
+MSG_PC_FLAGS
+Флаги PC-архитектуры
+; PC Architecture flags
+;
+MSG_FF_FLAGS
+Флаги фикс. функций
+; Fixed Feature flags
+;
+MSG_LAPIC_ADDR
+Локальный адрес APIC
+; Local APIC address
+;
+MSG_PCAT_COMPAT
+Имеет PC-AT PIC 8259
+; Has 8259 PC-AT PIC
+;
+MSG_LOCAL_APIC
+Локальный APIC
+; Local APIC
+;
+MSG_CPU_ID
+ID процессора в ACPI
+; ACPI Processor ID
+;
+MSG_LAPIC_ID
+Локальный APIC ID
+; Local APIC ID
+;
+MSG_ENABLED
+Вкл.
+; Enabled
+;
+MSG_IOAPIC
+ввод/вывод APIC
+; I/O APIC
+;
+MSG_ID
+ID
+; ID
+;
+MSG_ADDRESS
+Адрес
+; Address
+;
+MSG_IRQ_BASE
+База общей системы IRQ
+; Global system IRQ base
+;
+MSG_INT_SRC_OVR
+Откл. источник прерывания
+; Interrupt source override
+;
+MSG_BUS
+Шина
+;   Bus
+;
+MSG_BUS_IRQ
+Шина IRQ
+; Bus IRQ
+;
+MSG_GLOBAL_IRQ
+Общая система IRQ
+; Global system IRQ
+;
+MSG_POLARITY
+Полярность
+;   Polarity
+;
+MSG_TRIGGER
+Триггер
+;   Trigger
+;
+MSG_NMI_SRC
+Источник NMI
+; NMI source
+;
+MSG_LAPIC_NMI
+Локальный APIC NMI
+; Local APIC NMI
+;
+MSG_DEST_ID
+ACPI ID целевого процессора
+; Destination processor ACPI ID
+;
+MSG_ALL
+Все
+; All
+;
+MSG_LINT
+Локальное прерывание ввода
+; Local interrupt input
+;
+MSG_LAPIC_ADDR_OVR
+Переопределение локального адреса APIC
+; Local APIC address override
+;
+MSG_IOSAPIC
+Ввод/вывод SAPIC
+; I/O SAPIC
+;
+MSG_LSAPIC
+Локальный SAPIC
+; Local SAPIC
+;
+MSG_LSAPIC_ID
+Локальный SAPIC ID
+; Local SAPIC ID
+;
+MSG_LSAPIC_EID
+Локальный SAPIC EID
+; Local SAPIC EID
+;
+MSG_PLAT_INT_SRC
+Источник прерывания платформы
+; Platform interrupt source
+;
+MSG_PLAT_INT_TYPE
+Тип прерывания
+;   Interrupt type
+;
+MSG_DEST_LSAPIC_ID
+Целевой LSAPIC ID
+; Destination LSAPIC ID
+;
+MSG_DEST_EID
+Целевой LSAPIC EID
+; Destination LSAPIC EID
+;
+MSG_IOSAPIC_VECTOR
+Вектор ввода/вывода SAPIC
+; I/O SAPIC vector
+;
+MSG_CPEI_PROC_OVR
+Переопределение процессора прерываний CPE
+; CPE interrupt processor override
+;
+MSG_LOCAL_X2APIC
+Локальный X2APIC
+; Local X2APIC
+;
+MSG_X2APIC_ID
+Локальный X2APIC ID
+; Local X2APIC ID
+;
+MSG_CPU_UID
+ACPI UID процессора
+; ACPI Processor UID
+;
+MSG_X2APIC_NMI
+X2APIC NMI
+; X2APIC NMI
+;
+MSG_UNKNOWN_ENTRY
+Неясная запись (%u), %u байт
+; Unknown entry (%u), %u bytes
+;
+MSG_RSDP_ADDR
+Адрес RSDP
+; RSDP address
+;
+MSG_SYSTEM_OEM_ID
+OEM ID системы
+; System OEM ID
+;
+MSG_ACPI_REVISION
+Редакция ACPI
+; ACPI Revision
+;
+MSG_HW_REVISION
+Редакция оборудования
+; Hardware Revision
+;
+MSG_NUM_COMPARATORS
+Кол-во компараторов
+; Number of comparators
+;
+MSG_64BIT_COUNTER
+64-битный счётчик
+; 64-bit counter
+;
+MSG_LEGACY_REPLACEMENT
+Возможность замены
+; Legacy replacement capable
+;
+MSG_PCI_VENDOR
+ID PCI-производителя
+; PCI Vendor ID
+;
+MSG_BASE_ADDRESS
+Базовый адрес
+; Base address
+;
+MSG_NUMBER
+Число
+; Number
+;
+MSG_MIN_TICK
+Мин. тик часов
+; Minimum clock tick
+;
+MSG_PAGE_PROTECT
+Защита страницы
+; Page protection
+;
+MSG_OEM_ATTRS
+Атрибуты OEM
+; OEM Attributes
+;
+MSG_SHOW_MODE
+Показать:
+; Show:
+;
+MSG_SAVE_DATA
+Сохранить данные
+; Save data
+;
+MSG_MENU_PROJECT
+Проект
+; Project
+;
+MSG_MENU_QUIT
+Выход
+; Quit
+;
+MSG_MENU_DUMP
+Полный дамп
+; Full dump
+;
+MSG_MENU_DUMP_PARSED
+Разобранные данные
+; Parsed data
+;
+MSG_MENU_DUMP_RAW
+Сырой дамп
+; Raw dump
+;
+MSG_BATT_WARN
+Уровень тревожности
+; Warning level
+;
+MSG_BATT_LOW
+Низкий уровень
+; Low level
+;
+MSG_BATT_CRITICAL
+Критичный уровень
+; Critical level
+;
+MSG_MWH
+мВтч
+; mWh
+;
+MSG_CMD_REG
+Регистр команд/состояний
+; Command/status register
+;
+MSG_DATA_REG
+Регистр данных
+; Data register
+;
+MSG_UID
+Уникальный ID
+; Unique ID
+;
+MSG_SCI_GPE_BIT
+Бит SCI GPE
+; SCI GPE bit
+;
+MSG_NAMESPACE_ID
+ID пространства имён
+; Namespace ID
+;
+MSG_MCFG_BASE_ADDRESS
+Базовый адрес
+; Base address
+;
+MSG_MCFG_SEGMENT
+Номер группы сегмента PCI
+; PCI segment group number
+;
+MSG_MCFG_START_BUS_NUMBER
+Начальный номер шины PCI
+; Starting PCI Bus number
+;
+MSG_MCFG_END_BUS_NUMBER
+Конечный номер шины PCI
+; Final PCI Bus number
+;

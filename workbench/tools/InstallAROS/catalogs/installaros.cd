@@ -12,7 +12,7 @@ MSG_INSTALLOPTIONS (//)
 \nPlease choose your installation options.\n\n
 ;
 MSG_DESTOPTIONS (//)
-\nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults
+\nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults.
 ;
 MSG_ACCEPT (//)
 Accept License Agreement?
@@ -150,10 +150,10 @@ MSG_POSTINSTALL2 (//)
 Running the external post-install\nscript. Please wait.\n
 ;
 MSG_DONEREBOOT (//)
-AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application\n\nSelect Proceed to finish\n
+AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
 ;
 MSG_DONEUSB (//)
-AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application\n\nSelect Proceed to finish\n
+AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application.\n\nSelect Proceed to finish.n
 ;
 MSG_INSTALLING (//)
 Installing AROS...
@@ -162,13 +162,13 @@ MSG_INSTALLINGBOOT (//)
 Installing Bootloader...
 ;
 MSG_DONE (//)
-Congratulations, you now have AROS installed!\n\nTo boot AROS from the destination drive,\nremove the installation media and\nrestart your computer using the\npower switch or reset button.\n\nSelect Proceed to finish\n
+Congratulations, you now have AROS installed!\n\nTo boot AROS from the destination drive,\nremove the installation media and\nrestart your computer using the\npower switch or reset button.\n\nSelect Proceed to finish.\n
 ;
 MSG_CANCELOK (//)
 Are you sure you wish to cancel\nthis installation?\n
 ;
 MSG_CANCELDANGER (//)
-Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state\n\nAre you sure you wish to cancel\nthis installation?\n
+Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state.\n\nAre you sure you wish to cancel\nthis installation?\n
 ;
 MSG_BACK (//)
 << _Back...

@@ -1,6 +1,6 @@
-## version $VER: ahiprefs.catalog 4.8 (14.4.2010) C Marcin Or³owski <carlos@wfmh.man.szczecin.pl> mod. Tomasz Paul<forest@aros.org>
+## version $VER: ahiprefs.catalog 4.8 (14.04.2010) C Marcin Or³owski <carlos@wfmh.man.szczecin.pl> mod. Tomasz Paul<forest@aros.org>
 ## language polski
-## codeset 0
+## codeset 5
 ;
 ## chunk AUTH Translated by Marcin Or³owski <carlos@inet.com.pl>
 ;#language english
@@ -275,7 +275,7 @@ msgTextCopyright
 Polska wersja jêzykowa\n\
 Marcin Or³owski\n\
 <carlos@inet.com.pl>
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Nie mogê otworzyæ okna.
@@ -291,7 +291,7 @@ Nie mogê znale¼æ \"%s\"!
 ;
 msgTextNoOpen
 Nie mogê otworzyæ \"%s\" w wersji %ld.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

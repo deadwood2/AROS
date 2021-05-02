@@ -1,6 +1,6 @@
-## version $VER: dos.catalog 1.1 (30.07.2007)
+## version $VER: dos.catalog 1.1 (14.12.2020)
 ## language russian
-## codeset 0
+## codeset 2104
 ;
 MSG_ERROR_NO_FREE_STORE
 Недостаточно свободной памяти
@@ -19,11 +19,11 @@ MSG_ERROR_BAD_NUMBER
 ; bad number
 ;
 MSG_ERROR_REQUIRED_ARG_MISSING
-Отсутствует необходимый параметр
+Отсутствует необходимый аргумент
 ; required argument missing
 ;
 MSG_ERROR_KEY_NEEDS_ARG
-Отсутствует значение указанного параметра
+Отсутствует значение указанного аргумента
 ; value after keyword missing
 ;
 MSG_ERROR_TOO_MANY_ARGS
@@ -47,7 +47,7 @@ MSG_ERROR_INVALID_RESIDENT_LIBRARY
 ; invalid resident library
 ;
 MSG_ERROR_NO_DEFAULT_DIR
-Ошибка 201
+Нет директории по умолчанию
 ; no default directory
 ;
 MSG_ERROR_OBJECT_IN_USE
@@ -59,7 +59,7 @@ MSG_ERROR_OBJECT_EXISTS
 ; object already exists
 ;
 MSG_ERROR_DIR_NOT_FOUND
-Каталог не найден
+Директория не найдена
 ; directory not found
 ;
 MSG_ERROR_OBJECT_NOT_FOUND
@@ -103,7 +103,7 @@ MSG_ERROR_RENAME_ACROSS_DEVICES
 ; rename across devices attempted
 ;
 MSG_ERROR_DIRECTORY_NOT_EMPTY
-Каталог не пуст
+Директория не пуста
 ; directory not empty
 ;
 MSG_ERROR_TOO_MANY_LEVELS
@@ -135,7 +135,7 @@ MSG_ERROR_WRITE_PROTECTED
 ; file is write protected
 ;
 MSG_ERROR_READ_PROTECTED
-Файл защищен от чтения
+Файл защищён от чтения
 ; file is read protected
 ;
 MSG_ERROR_NOT_A_DOS_DISK
@@ -147,11 +147,11 @@ MSG_ERROR_NO_DISK
 ; no disk in drive
 ;
 MSG_ERROR_NO_MORE_ENTRIES
-Превышено число объектов в каталоге
+Превышено число объектов в директории
 ; no more entries in directory
 ;
 MSG_ERROR_IS_SOFT_LINK
-Объект является "мягкой" ссылкой
+Объект оказался символической ссылкой
 ; object is soft link
 ;
 MSG_ERROR_OBJECT_LINKED
@@ -175,7 +175,7 @@ MSG_ERROR_LOCK_COLLISION
 ; record lock collision
 ;
 MSG_ERROR_LOCK_TIMEOUT
-Истек срок защиты записи
+Истёк срок защиты записи
 ; record lock timeout
 ;
 MSG_ERROR_UNLOCK_ERROR
@@ -187,7 +187,7 @@ MSG_ERROR_BUFFER_OVERFLOW
 ; buffer overflow
 ;
 MSG_ERROR_BREAK
-*** Останов
+*** Прерывание
 ; ***Break
 ;
 MSG_ERROR_NOT_EXECUTABLE
@@ -251,7 +251,7 @@ MSG_ERROR_NO_MATCHING_ELSEENDIF
 ; no matching Else or EndIf
 ;
 MSG_ERROR_SCRIPT_ONLY
-Эта команда должна применяться только в скриптах
+Эта команда должна применяться только в сценариях
 ; this command is supposed to be used in command files only
 ;
 MSG_ERROR_UNKNOWN

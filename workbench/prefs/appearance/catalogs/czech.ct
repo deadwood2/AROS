@@ -1,4 +1,4 @@
-## version $VER: Appearance.catalog 2.1 (12.6.2017)
+## version $VER: Appearance.catalog 2.2 (11.02.2021)
 ## language czech
 ## codeset 5
 ;
@@ -28,12 +28,22 @@ Pou¾ít téma:
 ; Theme
 ;
 MSG_ENABLEZUNEPREFS
-Pøevzít Zune nastavení?
-; Inherit Zune Configuration?
+Nahradit Zune nastavení?
+;Replace current Zune configuration?
 ;
 MSG_ENABLEWANDPREFS
-Pøevzít Wanderer nastavení?
-; Inherit Wanderer Configuration?
+Nahradit  Wanderer nastavení?
+;Replace current Wanderer configuration?
+;
+MSG_ENABLEPALETTEPREFS
+Nahradit Paleta nastavení?
+;Replace current Palette configuration?
+;
+MSG_ENABLEFONTPREFS
+Replace current Font configuration?
+;
+MSG_ENABLEPOINTERPREFS
+Replace current Pointer configuration?
 ;
 MSG_SEC_THEMING
 Témata

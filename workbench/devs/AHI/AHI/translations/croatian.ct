@@ -1,6 +1,6 @@
-## version $VER: ahiprefs.catalog 4.6 (4.8.2004)
+## version $VER: ahiprefs.catalog 4.6 (04.08.2004)
 ## language hrvatski
-## codeset 0
+## codeset 5
 ;
 ## chunk AUTH Translated by Sini¹a Loliæ <vegi@usa.net>
 ;#language english
@@ -267,7 +267,7 @@ AHI postavke
 msgTextCopyright
 %s%s\n\
 Autorsko pravo ©%s\nPreveo na hrvatski Sini¹a Loliæ
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Ne mogu otvoriti prozor
@@ -283,7 +283,7 @@ Ne mogu naæi `%s'!
 ;
 msgTextNoOpen
 Ne mogu otvoriti `%s´ verziju %ld.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

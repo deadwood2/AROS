@@ -1,112 +1,148 @@
-## version $VER: Locale.catalog 2.0 (30.03.2016)
+## version $VER: Locale.catalog 2.0 (23.02.2021)
 ## codeset 2104
 ## language russian
 ;
 MSG_CANT_OPEN_LIB
-Не могу открыть %s V%ld!\n
+Не удалось открыть %s V%ld!\n
+; Can't open %s V%ld!\n
 ;
 MSG_CANT_LOCK_SCR
-Не могу занять общий дисплей!
+Не удалось занять общий экран!
+; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
-Не могу получить DrawInfo!
+Не удалось получить DrawInfo!
+; Can't get DrawInfo!
 ;
 MSG_CANT_GET_VI
-не могу получить VisualInfo!
+не удалось получить VisualInfo!
+; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_GADGET
-Не могу создать гр. элемент!
+Ошибка при отрисовке GUI!
+; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
-Ошибка создания меню!
+Ошибка при отрисовке меню!
+; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
-Не могу создать окно!
+Ошибка при открытии окна!
+; Can't create window!
 ;
 MSG_WINTITLE
-Параметры локали(Locale)
+Настройки локали
+; Locale Preferences
 ;
 MSG_MEN_PROJECT
 Проект
+; Project
 ;
 MSG_MEN_PROJECT_OPEN
 О\0Открыть...
+; O\0Open...
 ;
 MSG_MEN_PROJECT_SAVEAS
 С\0Сохранить как...
+; A\0Save As...
 ;
 MSG_MEN_PROJECT_QUIT
 В\0Выход
+; Q\0Quit
 ;
 MSG_MEN_EDIT
 Правка
+; Edit
 ;
 MSG_MEN_EDIT_DEFAULT
 Н\0Сброс настроек
+; D\0Reset to Defaults
 ;
 MSG_MEN_EDIT_LASTSAVED
 П\0Последние сохраненные
+; L\0Last Saved
 ;
 MSG_MEN_EDIT_RESTORE
-Т\0ВосстановиТь
+Т\0Восстановить
+; R\0Restore
 ;
 MSG_MEN_SETTINGS
 Настройки
+; Settings
 ;
 MSG_MEN_SETTINGS_CREATEICONS
 И\0Создать иконки?
+; I\0Create Icons?
 ;
 MSG_ASL_OPEN_TITLE
 Загрузить настройки локали
+; Load Locale Preferences
 ;
 MSG_ASL_SAVE_TITLE
 Сохранить настройки локали
+; Save Locale Preferences
 ;
 MSG_OK
-Ok
+Ок
+; Ok
 ;
 MSG_GAD_AVAIL_LANGUAGES
 Доступные языки
+; Available Languages
 ;
 MSG_GAD_PREF_LANGUAGES
 Выбранные языки
+; Preferred Languages
 ;
 MSG_GAD_CLEAR_LANGUAGES
 Очистить список
+; Clear Languages
 ;
 MSG_GAD_SAVE
 Сохранить
+; Save
 ;
 MSG_GAD_USE
 Применить
+; Use
 ;
 MSG_GAD_CANCEL
 Отменить
+; Cancel
 ;
 MSG_GAD_TAB_LANGUAGE
 Язык
+; Language
 ;
 MSG_GAD_TAB_REGION
 Страна
+; Region
 ;
 MSG_GAD_TAB_TIMEZONE
 Временная зона
+; Time Zone
 ;
 MSG_TIMEZONE_1HOUR
 Временная зона: 1 час от UTC
+; Time Zone: 1 Hour from UTC
 ;
 MSG_TIMEZONE_HOURS
 Временная зона: %ld часов от UTC
+; Time Zone: %ld Hours from UTC
 ;
 MSG_TIMEZONE_HOURSMINS
 Временная зона: %ld часов %ld минут от UTC
+; Time Zone: %ld Hours, %ld Minutes from UTC
 ;
 MSG_CHARACTER_SET
 Кодировка по умолчанию
+; Default character set
 ;
 MSG_NOT_SPECIFIED
-Не определена
+не определена
+; Not specified
 ;
 MSG_GMT_CLOCK
 Аппаратные часы установлены на UTC
+; Hardware clock stores UTC
 ;

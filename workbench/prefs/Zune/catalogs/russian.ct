@@ -1,4 +1,4 @@
-## version $VER: Zune.catalog 0.3 (23.12.2019)
+## version $VER: Zune.catalog 2.1 (31.12.2020)
 ## language russian
 ## codeset 2104
 ;
@@ -10,11 +10,11 @@ MSG_GENERAL
 ; General
 ;
 MSG_BACKGROUND_COLON
-Фон кнопки
+Заливка кнопки
 ; Background:
 ;
 MSG_BACKGROUND_PRESSED
-Фон\nнажатой кнопки:
+Заливка\nнажатой кнопки:
 ; Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
@@ -38,7 +38,7 @@ MSG_ADJUST_FRAME
 ; Adjust Frame
 ;
 MSG_CHECKMARKS
-Отметки
+Галочки
 ; Checkmarks
 ;
 MSG_LOOK_COLON
@@ -50,11 +50,11 @@ MSG_CHECKMARK
 ; Checkmark
 ;
 MSG_RADIO_BUTTONS
-Радио-кнопки
+Переключатели
 ; Radio Buttons
 ;
 MSG_RADIOBUTTON
-Радио-кнопка
+Переключатель
 ; Radiobutton
 ;
 MSG_LOOK
@@ -70,7 +70,7 @@ MSG_V
 ; V
 ;
 MSG_SPACING
-Расстояние
+Отступы
 ; Spacing
 ;
 ;=============================
@@ -117,11 +117,11 @@ MSG_FRAME
 ; Frame
 ;
 MSG_ADJUST_BACKGROUND
-Изменить фон
+Изменить заливку
 ; Adjust Background
 ;
 MSG_BACKGROUND
-Фон
+Заливка
 ; Background
 ;
 MSG_RECESSED_ENTRIES
@@ -136,23 +136,23 @@ MSG_ABOVE
 ; above
 ;
 MSG_CENTERED
-в центре
+по центру
 ; centered
 ;
 MSG_STANDARD
-стандартный
+обычный
 ; standard
 ;
 MSG_HILITE
-подсвеченный
+выделение
 ; hilite
 ;
 MSG_3D
-3D
+объёмный
 ; 3d
 ;
 MSG_OUTLINE
-обведенный
+контурный
 ; outline
 ;
 MSG_TITLE
@@ -160,7 +160,7 @@ MSG_TITLE
 ; Title
 ;
 MSG_COLOR
-Цвет:
+Вид заголовков:
 ; Color:
 ;
 MSG_HORIZONTAL
@@ -172,11 +172,11 @@ MSG_VERTICAL
 ; Vertical:
 ;
 MSG_REGISTER
-Закладка
+Вкладка
 ; Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-Обрезка заголовков по размеру
+Обрезать заголовки
 ; Default size truncate titles
 ;
 MSG_NORMAL
@@ -199,35 +199,35 @@ MSG_PAGE
 ; listviewsp.c
 ;-------------
 MSG_SHIFTED
-shifted
+со сдвигом
 ; shifted
 ;
 MSG_ALWAYS
-always
+как есть
 ; always
 ;
 MSG_LINEAR
-linear
+линейное
 ; linear
 ;
 MSG_MIXED
-mixed
+смешанное
 ; mixed
 ;
 MSG_CONTROL
-Управление
+Свойства
 ; Control
 ;
 MSG_MULTI
-Multi:
+Множество:
 ; Multi:
 ;
 MSG_REFRESH
-Refresh:
+Обновление:
 ; Refresh:
 ;
 MSG_SMOOTH
-Сгладить:
+Сглаживание:
 ; Smooth:
 ;
 MSG_FONTS
@@ -243,11 +243,11 @@ MSG_FIXED
 ; Fixed:
 ;
 MSG_LEADING
-Leading
+Интерлиньяж
 ; Leading
 ;
 MSG_DESIGN
-Design
+Вид списков
 ; Design
 ;
 MSG_INPUT_LISTS
@@ -421,11 +421,11 @@ MSG_TRY_WITH
 ; Try with
 ;
 MSG_SHIFT
-прижать
+двигать
 ; shift
 ;
 MSG_TOO
-Shift!
+это!
 ; too!
 ;
 MSG_KEYBOARD_CONTROL
@@ -497,7 +497,7 @@ MSG_KNOB
 ; Knob
 ;
 MSG_ARRANGEMENT
-Положение
+Вид
 ; Arrangement
 ;
 ;=============================
@@ -535,7 +535,7 @@ MSG_DEVICE_IMAGES
 ; Device Images
 ;
 MSG_DRAWER
-Папка
+Директория
 ; Drawer
 ;
 MSG_HARDDISK
@@ -559,11 +559,11 @@ MSG_NETWORK
 ; Network
 ;
 MSG_ASSIGN
-Assign
+Присвоение
 ; Assign
 ;
 MSG_TAPE_IMAGES
-Управление
+Иконки проигрывателя
 ; Tape Images
 ;
 MSG_TAPE_PLAY
@@ -587,7 +587,7 @@ MSG_TAPE_RECORD
 ; Tape record
 ;
 MSG_TAPE_UP
-На записью вверх
+На запись вверх
 ; Tape up
 ;
 MSG_TAPE_DOWN
@@ -622,7 +622,7 @@ MSG_POPUP_FILE
 ; Popup file
 ;
 MSG_POPUP_DRAWER
-Запрос папки
+Запрос директории
 ; Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
@@ -649,7 +649,7 @@ MSG_EXAMPLE_STRING_GADGET
 ; windowp.c
 ;----------
 MSG_FORGET_ON_EXIT
-сброс при выходе
+не запоминать
 ; forget on exit
 ;
 MSG_REMEMBER_ON_EXIT
@@ -669,27 +669,27 @@ MSG_SIMPLE
 ; simple
 ;
 MSG_WITHOUT_CLEAR
-без очистки
+не очищать окно
 ; without clear
 ;
 MSG_WITH_CLEAR
-с очисткой
+очищать окно
 ; with clear
 ;
 MSG_POSITIONS
-Положения:
+Положение:
 ; Positions:
 ;
 MSG_REDRAW
-Обновление:
+Перерисовка:
 ; Redraw:
 ;
 MSG_TINY
-Малый:
+Мелкий:
 ; Tiny:
 ;
 MSG_BIG
-Большой:
+Крупный:
 ; Big:
 ;
 MSG_WINDOW
@@ -716,11 +716,15 @@ MSG_B
 Н
 ; B
 ;
+MSG_BUTTONS
+Кнопки
+; Buttons
+;
 ;=============================
 ; zune.c
 ;-------
 MSG_WINTITLE1
-Zune - глобальные параметры
+Zune - глобальные настройки
 ; Zune - Global Prefs
 ;
 MSG_WINTITLE2
@@ -732,7 +736,7 @@ MSG_MEN_PROJECT
 ; Project
 ;
 MSG_MEN_OPEN
-Открыть ...
+Открыть...
 ; Open ...
 ;
 MSG_MEN_OPEN_SC
@@ -740,11 +744,11 @@ O
 ; O
 ;
 MSG_MEN_APPEND
-Добавить ...
+Добавить...
 ; Append ...
 ;
 MSG_MEN_SAVEAS
-Сохранить как ...
+Сохранить как...
 ; Save As ...
 ;
 MSG_MEN_SAVEAS_SC
@@ -752,7 +756,7 @@ A
 ; A
 ;
 MSG_MEN_ABOUT
-О Zune ...
+О Zune...
 ; About Zune ...
 ;
 MSG_MEN_ABOUT_SC
@@ -791,6 +795,10 @@ MSG_GAD_CANCEL
 _Отмена
 ; _Cancel
 ;
+MSG_DSC_SYSTEM
+Система
+; System
+;
 MSG_DSC_WINDOWS
 Окна
 ; Windows
@@ -804,7 +812,7 @@ MSG_DSC_BUTTONS
 ; Buttons
 ;
 MSG_DSC_CYCLES
-Переклюки
+Переключатели
 ; Cycles
 ;
 MSG_DSC_SLIDERS
@@ -832,18 +840,81 @@ MSG_DSC_SPECIAL
 ; Special
 ;
 MSG_DSC_FRAMES
-Frames
+Рамки
 ;
 ;=============================
 ; zunestuff.c
 ;------------
 MSG_ADJUST_PEN
-Регулировка пера
+Изменить тон
 ; Adjust Pen
 ;
 ;=============================
 ; framesp.c
 ;----------
 MSG_CUSTOMFRAMES
-Customframes
+Пользовательские рамки
+;
+;=============================
+; systemp.c
+;----------
+MSG_PUBLIC_SCREEN
+Общий экран
+; Public Screen
+;
+MSG_NAME
+Имя экрана:
+; Name:
+;
+MSG_CALL_INSPECTOR
+Настройка экранов
+; Call Inspector
+;
+MSG_POP_TO_FRONT
+Передний план:
+; Pop to front:
+;
+MSG_ICONIFICATION
+Иконификация
+; Iconification
+;
+MSG_HOTKEY
+Горячая клавиша:
+; Hotkey:
+;
+MSG_SHOW
+Отображение:
+; Show:
+;
+MSG_ICON
+Иконкой
+; Icon
+;
+MSG_MENU
+Меню
+; Menu
+;
+MSG_ON_STARTUP
+При старте:
+; On Startup:
+;
+MSG_INTERFACES
+Интерфейсы
+; Interfaces
+;
+MSG_AREXX
+Вкл. ARexx-порт:
+; ARexx:
+;
+MSG_BUBBLE_HELP
+Всплывающая подсказка
+; Bubble Help
+;
+MSG_FIRST_BUBBLE
+Первая подсказка:
+; First Bubble:
+;
+MSG_NEXT_BUBBLE
+След. подсказка:
+; Next Bubble:
 ;

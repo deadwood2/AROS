@@ -1,4 +1,4 @@
-## version $VER: PSI.catalog 1.0 (25.06.09)
+## version $VER: PSI.catalog 19.1 (29.12.2020)
 ## codeset 2104
 ## language russian
 MSG_MENU_PROJECT
@@ -20,13 +20,13 @@ MSG_MENU_PROJECT_QUIT
 Выход
 ;Quit
 MSG_MENU_EDIT
-Правка
+Редактор
 ;Edit
 MSG_MENU_EDIT_LASTSAVED
 Последнее сохранение
 ;Last Saved
 MSG_MENU_EDIT_RESTORE
-Восстановть
+Восстановить
 ;Restore
 MSG_MENU_SETTINGS
 Настройки
@@ -47,389 +47,389 @@ MSG_MENU_COLORS_PRESETS_4COL
 4х-цветные
 ;4-Color Settings
 MSG_MENU_COLORS_PRESETS_8COL
-Настройки MagicWB
+Стиль MagicWB
 ;MagicWB Settings
 MSG_BUTTON_OK
-_OK
+_ОК
 ;
 MSG_BUTTON_CANCEL
-Cancel
+Отмена
 ;
 MSG_BUTTON_SAVE
-Save
+Сохранить
 ;
 MSG_BUTTON_USE
-Use
+Принять
 ;
 MSG_BUTTON_NEW
-_New
+_Создать
 ;
 MSG_BUTTON_COPY
-_Copy
+_Дублировать
 ;
 MSG_BUTTON_DELETE
-_Delete
+_Удалить
 ;
 MSG_BUTTON_EDIT
-_Edit...
+_Редактор...
 ;
 MSG_BUTTON_OPEN
-_Open
+_Открыть
 ;
 MSG_BUTTON_CLOSE
-_Close
+_Закрыть
 ;
 MSG_BUTTON_JUMP
-_Jump
+_Перейти
 ;
 MSG_BUTTON_KILL
-Kill
+Убить
 ;
 MSG_TITLE_PUBSCREENWINDOW
-Edit Screen:
+Редактор экрана:
 ;
 MSG_TITLE_SAVE
-Save PublicScreen File
+Сохранить PSI-файл
 ;
 MSG_TITLE_OPEN
-Load PublicScreen File
+Загрузить PSI-файл
 ;
 MSG_TITLE_APPEND
-Append PublicScreen File
+Добавить PSI-файл
 ;
 MSG_LIST_SCREENNAME
-Name
+экран
 ;
 MSG_LIST_SCREENMODE
-Display Mode
+видеорежим
 ;
 MSG_LIST_UNKNOWNMODE
-(unknown)
+(неизвестно)
 ;
 MSG_LIST_FOREIGNSCREEN
-(foreign)
+(внешний)
 ;
 MSG_LABEL_PUBLICNAME
-Public _Name:
+_Имя:
 ;
 MSG_LABEL_SCREENTITLE
-Screen _Title:
+_Заголовок:
 ;
 MSG_LABEL_DISPLAYMODE
-_Display Mode:
+_Экранный режим:
 ;
 MSG_LABEL_DEFAULTFONT
-Default _Font:
+_Шрифт:
 ;
 MSG_LABEL_BACKGROUND
-_Background:
+_Фон:
 ;
 MSG_LABEL_PUBLICFLAGS
-Flags:
+Флаги:
 ;
 MSG_LABEL_AUTOSCROLL
-_Autoscroll
+_Автопрокрутка
 ;
 MSG_LABEL_NODRAG
-No D_rag
+Неподви_жный
 ;
 MSG_LABEL_EXCLUSIVE
-_Exclusive
+_Недоступный
 ;
 MSG_LABEL_INTERLEAVED
-_Interleaved
+_Чересстрочный
 ;
 MSG_LABEL_OPENBEHIND
-Open Be_hind
+По_зади других
 ;
 MSG_LABEL_SYSTEMDEFAULT
-S_ystem Default
+С_истемный
 ;
 MSG_LABEL_AUTOCLOSE
-Auto Close
+Автозакрытие
 ;
 MSG_LABEL_CLOSEGADGET
-Close Gadget
+Закрываемый
 ;
 MSG_LABEL_OVERSCAN
-O_verscan:
+Р_азвёртка:
 ;
 MSG_LABEL_SIZE
-_Size:
+_Разрешение:
 ;
 MSG_LABEL_CROSS
 _x
 ;
 MSG_LABEL_DEPTH
-_Depth:
+_Глубина:
 ;
 MSG_LABEL_VISIBLE
-Visible:
+Показано:
 ;
 MSG_LABEL_MINIMUM
-Minimum:
+Минимум:
 ;
 MSG_LABEL_MAXIMUM
-Maximum:
+Максимум:
 ;
 MSG_LABEL_BITSPERGUN
-Bits/Gun:
+Бит/пучок:
 ;
 MSG_LABEL_SCANRATE
-Scanrate:
+Частота развёртки:
 ;
 MSG_LABEL_SCANLINE
-Scanline:
+Частота строк:
 ;
 MSG_CLI_SCREENOPENED
-Screen opened (0).\n
+Экран открыт (0).\n
 ;
 MSG_CLI_SCREENOPENFAILED
-Failed to open screen (5).\n
+Не удалось открыть экран (5).\n
 ;
 MSG_CLI_SCREENCLOSED
-Screen closed (0).\n
+Экран закрыт (0).\n
 ;
 MSG_CLI_SCREENCLOSEFAILED
-Failed to close screen (5).\n
+Ошибка при закрытии экрана (5).\n
 ;
 MSG_CLI_SYNTAXERROR
-Syntax Error in command line (10).\n
+Синтаксическая ошибка в CLI (10).\n
 ;
 MSG_CLI_SCREENNOTFOUND
-Screen not found (5).\n
+Экран не существует (5).\n
 ;
 MSG_CLI_OUTOFMEMORY
-Out of memory (20).\n
+Не хватает памяти (20).\n
 ;
 MSG_CLI_NOAPPLICATION
-Failed to create application (20).\n
+Не удалось создать приложение (20).\n
 ;
 MSG_CLI_NOMUIMASTER
-Failed to open muimaster.library V11 (20).\n
+Не удалось открыть muimaster.library V11 (20).\n
 ;
 MSG_ABOUT_NUMBEROFSCREENS
-Number of screens:
+Всего экранов:
 ;
 MSG_TEXT_UNKNOWNMODE
-Unknown Display Mode
+Неизвестный экранный режим
 ;
 MSG_TEXT_FOREIGNSCREEN
-Foreign public screen
+Внешний общий экран
 ;
 MSG_PALETTE_TITLE
-Palette
+Палитра
 ;
 MSG_PALETTE_FIRST
-First 4 colors
+Первые 4 цвета
 ;
 MSG_PALETTE_LAST
-Last 4 colors
+Последние 4 цвета
 ;
 MSG_SYSPENS_TITLE
-System Pens
+Системная палитра
 ;
 MSG_SYSPEN_DETAIL
-Detail
+Выделение
 ;
 MSG_SYSPEN_BLOCK
-Block
+Рамка
 ;
 MSG_SYSPEN_TEXT
-Text
+Текст
 ;
 MSG_SYSPEN_SHINE
-Shine
+Яркость
 ;
 MSG_SYSPEN_SHADOW
-Shadow
+Тень
 ;
 MSG_SYSPEN_FILL
-Fill
+Заливка
 ;
 MSG_SYSPEN_FILLTEXT
-Filltext
+Заливка текста
 ;
 MSG_SYSPEN_BACKGROUND
-Background
+Фон
 ;
 MSG_SYSPEN_HIGHLIGHT
-Highlight
+Подсветка
 ;
 MSG_SYSPEN_BARDETAIL
-Bardetail
+Окантовка
 ;
 MSG_SYSPEN_BARBLOCK
-Barblock
+Полоса
 ;
 MSG_SYSPEN_BARTRIM
-Bartrim
+Выемка
 ;
 MSG_PALPRES_TITLE
-Color Presets
+Выбор палитры
 ;
 MSG_PALPRES_STANDARD
-0\0Standard
+0\0Стандарт
 ;
 MSG_PALPRES_TINT
-1\0Tint
+1\0Оттенки
 ;
 MSG_PALPRES_PHARAO
-2\0Pharao
+2\0Фараон
 ;
 MSG_PALPRES_SUNSET
-3\0Sunset
+3\0Закат
 ;
 MSG_PALPRES_OCEAN
-4\0Ocean
+4\0Океан
 ;
 MSG_PALPRES_STEEL
-5\0Steel
+5\0Сталь
 ;
 MSG_PALPRES_CHOCOLATE
-6\0Chocolate
+6\0Шоколад
 ;
 MSG_PALPRES_PEWTER
-7\0Pewter
+7\0Олово
 ;
 MSG_PALPRES_WINE
-8\0Wine
+8\0Вино
 ;
 MSG_PALPRES_MAGICWB
 9\0MagicWB
 ;
 MSG_PALPRES_CLONEWB
-Clone WB
+Рабочий стол
 ;
 MSG_OVERSCAN_TEXT
-Text
+Чёткий тип (текст)
 ;
 MSG_OVERSCAN_GRAPHICS
-Graphics
+Нечёткий тип (графика)
 ;
 MSG_OVERSCAN_EXTREME
-Extreme
+Запредельная
 ;
 MSG_OVERSCAN_MAXIMUM
-Maximum
+Максимально допустимая
 ;
 MSG_EDITPAGE_ATTRIBUTES
-Attributes
+Свойства
 ;
 MSG_EDITPAGE_DISPLAY
-Display
+Отображение
 ;
 MSG_EDITPAGE_COLORS
-Colors
+Цвета
 ;
 MSG_HELP_WHEEL
-Adjust color for\ngroup of pens.
+Настройка цвета в\nзаданной группе.
 ;
 MSG_HELP_INFO
-Information about\nmode & size.
+Название видеорежима,\nразрешение и глубина.
 ;
 MSG_HELP_NAME
-Name of Public Screen.\nWildcards allowed for\nforeign screens.
+Имя общего экрана.\nРазрешено использовать *\nдля внешних экранов.
 ;
 MSG_HELP_TITLE
-Text that appears in\nthe screen's title bar.
+Текст выводимый\nв заголовок экрана.
 ;
 MSG_HELP_FONT
-Default font\nfor the screen.
+Шрифт на экране\nпо умолчанию.
 ;
 MSG_HELP_BACKGROUND
-Datatype picture used\nas background pattern.
+Изображение используемое\nдля заливки фона экрана.
 ;
 MSG_HELP_AUTOSCROLL
-The screen scrolls when\nthe mouse hits its borders.
+Экран прокручивается когда курсор\nмыши касается нижней границы.
 ;
 MSG_HELP_NODRAG
-The screen\nis undraggable.
+Экран будет нельзя\nсдвигать вверх/вниз.
 ;
 MSG_HELP_EXCLUSIVE
-The screen cannot share\nits display with others.
+Экран не может выделяться\nдля отображения окон.
 ;
 MSG_HELP_INTERLEAVED
-The screen's bitmap is allocated\nin interleaved mode.
+Растровое изображение экрана\nвыделяется в чересстрочном режиме.
 ;
 MSG_HELP_BEHIND
-The screen opens behind\nall other screens.
+Экран открывается позади\nвсех других экранов.
 ;
 MSG_HELP_SYSTEMDEFAULT
-The screen becomes the\nsystem's default screen.
+Экран станет системным\nэкраном по умолчанию.
 ;
 MSG_HELP_AUTOCLOSE
-The screen closes when\nthe last window is closed.
+Экран закроется сам, как только\nна нём закроют последнее окно.
 ;
 MSG_HELP_CLOSEGADGET
-The screen gets\na close gadget.
+Экран будет иметь\nкнопку закрытия.
 ;
 MSG_HELP_MODELIST
-List of available\ndisplay modes.
+Список доступных\nвидеорежимов.
 ;
 MSG_HELP_MODEINFO
-Information about the\ncurrent display mode.
+Свойства выбранного\nэкранного режима.
 ;
 MSG_HELP_OVERSCAN
-Overscan size adjustment.
+Выбор типа развёртки.
 ;
 MSG_HELP_WIDTH
-Width of screen,\nmeasured in pixels.
+Ширина экрана,\nизмеряется в пикселях.
 ;
 MSG_HELP_HEIGHT
-Height of screen,\nmeasured in pixels.
+Высота экрана,\nизмеряется в пикселях.
 ;
 MSG_HELP_DEPTH
-Depth of screen,\nmeasured in planes.
+Глубина экрана,\nизмеряется в битпланах.
 ;
 MSG_HELP_PENLIST
-System pens, draggable\nto different color pot.
+Системные цвета, могут\nперетаскиваться друг на друга.
 ;
 MSG_HELP_COLORFIELD
-Current color, click\non field to change it.
+Текущий цвет, изменяется\nщелчком по его полю.
 ;
 MSG_HELP_KILLCOLOR
-Remove this color\nfrom the group.
+Удалить этот цвет\nиз группы.
 ;
 MSG_HELP_NEWCOLOR
-Add a new color\nto the group.
+Добавить новый цвет\nв группу.
 ;
 MSG_HELP_EDITOK
-Exit and remember\nchanges for this screen.
+Выйти и сохранить\nизменения для этого экрана.
 ;
 MSG_HELP_EDITCANCEL
-Exit and \33bdiscard\33n\nchanges for this screen.
+Выйти и \33bотменить\33n\nизменения для этого экрана.
 ;
 MSG_HELP_SCREENLIST
-List of defined\npublic screens.
+Список настроенных\nобщих экранов.
 ;
 MSG_HELP_NEWSCREEN
-Create a new\npublic screen.
+Создать новый\nобщий экран.
 ;
 MSG_HELP_COPYSCREEN
-Create a copy\nof current screen.
+Создать копию\nвыбранного экрана.
 ;
 MSG_HELP_DELETESCREEN
-Delete current\npublic screen.
+Удалить выбранный\nобщий экран.
 ;
 MSG_HELP_EDITSCREEN
-Edit current\npublic screen.
+Изменить выбранный\nобщий экран.
 ;
 MSG_HELP_OPENSCREEN
-Open current\npublic screen.
+Открыть выбранный\nобщий экран.
 ;
 MSG_HELP_CLOSESCREEN
-Close current\npublic screen.
+Закрыть выбранный\nобщий экран.
 ;
 MSG_HELP_JUMPSCREEN
-Jump to current\npublic screen.
+Перейти на выбранный\nобщий экран.
 ;
 MSG_HELP_SAVE
-Exit and save\nchanges to disk.
+Выйти и сохранить\nизменения на диск.
 ;
 MSG_HELP_USE
-Exit and save changes\nfor current session.
+Выйти и сохранить изменения\nдо перезагрузки.
 ;
 MSG_HELP_CANCEL
-Exit and\n\33bdiscard\33n changes.
+Выйти и\n\33bотменить\33n изменения.
 ;

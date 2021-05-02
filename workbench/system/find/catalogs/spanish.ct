@@ -1,0 +1,117 @@
+## version $VER: find.catalog 1.0 (05.01.2021)
+## language español
+## codeset 0
+;
+MSG_APP_TITLE
+Find
+; Find
+;
+MSG_APP_DESCRIPTION
+Herramienta de busqueda de ficheros
+; File search tool
+;
+MSG_APP_COPYRIGHT
+Copyright \xa9 2016 The AROS Development Team
+; Copyright \xa9 2016 The AROS Development Team
+;
+MSG_WI_TITLE
+Find
+; Find
+;
+MSG_OK
+OK
+; OK
+;
+MSG_LST_FULLPATH
+Ruta absoluta
+; Full Path
+;
+MSG_LST_SIZE
+Tamaño
+; Size
+;
+MSG_LST_ATTRIBUTES
+Atributos
+; Attributes
+;
+MSG_LST_DATE
+Fecha
+; Date
+;
+MSG_LST_TIME
+Tiempo
+; Time
+;
+MSG_LST_COMMENT
+Comentario
+; Comment
+;
+MSG_LBL_PATH
+Ruta
+; Path
+;
+MSG_LBL_PATTERN
+Patron
+; Pattern
+;
+MSG_LBL_CONTENTS
+Contiene
+; Contents
+;
+MSG_BTN_START
+Empezar
+; Start
+;
+MSG_BTN_STOP
+Cancelar
+; Stop
+;
+MSG_BTN_OPEN
+Abrir
+; Open
+;
+MSG_BTN_VIEW
+Ver
+; View
+;
+MSG_BTN_DRAWER
+Cajón
+; Drawer
+;
+; Error messages
+;
+MSG_ERR
+Error
+; Error
+;
+MSG_ERR_NO_APPLICATION
+No puedo crear la aplicacion
+; Can't create application.
+;
+MSG_ERR_READARGS
+No puedo leer los argumentos de la línea de comandos
+; Can't read commandline arguments.
+;
+MSG_ERR_NO_MEM
+Error:\nNo puedo asignar memoria.
+; Error:\nCan't allocate memory.
+;
+MSG_ERR_NO_WINDOW
+Error:\nNo puedo abrir la ventana.
+; Error:\nCan't open window.
+;
+MSG_ERR_DOS
+DOS Error:\n%s
+; DOS Error:\n%s
+;
+MSG_ERR_NO_FILE
+Error:\nNo puedo abrir el fichero\n\"%s\".
+; Error:\nCan't open file\n\"%s\".
+;
+MSG_ERR_NO_DIR
+Error:\nNo puedo abrir el directorio\n\"%s\".
+; Error:\nCan't open directory\n\"%s\".
+;
+MSG_ERR_PATTERN
+Error:\nNo puedo tratar el patron.
+; Error:\nCan't parse pattern.

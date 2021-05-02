@@ -1,0 +1,265 @@
+## version $VER: FTManager.catalog 1.0 (19.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_APP_NAME
+FTManager
+; FTManager
+;
+MSG_APP_TITLE
+Gestion de fuentes FreeType
+; FreeType font manager
+;
+MSG_WINDOW_TITLE
+Gestion de fuentes FreeType
+; FreeType font manager
+;
+MSG_LABEL_SOURCE
+Origen
+; Source
+;
+MSG_ASL_FONTS_TRUETYPE
+Fuentes:TrueType
+; Fonts:TrueType
+;
+MSG_LABEL_DESTINATION
+Destino
+; Destination
+;
+MSG_ASL_FONTS
+Fuentes:
+; Fonts:
+;
+MSG_LABEL_CODEPAGE
+Codepage
+; Codepage
+;
+MSG_QUIT
+_Salir
+; _Quit
+;
+MSG_BUTTON_INSTALL
+_Instalar
+; _Install
+;
+MSG_BUTTON_CLOSE
+_Cerrar
+; _Close
+;
+MSG_WEIGHT_ULTRATHIN
+Ultra fino
+; UltraThin
+;
+MSG_WEIGHT_EXTRATHIN
+Extra fino
+; ExtraThin
+;
+MSG_WEIGHT_THIN
+Fino
+; Thin
+;
+MSG_WEIGHT_EXTRALIGHT
+Extra ligero
+; ExtraLight
+;
+MSG_WEIGHT_LIGHT
+Ligero
+; Light
+;
+MSG_WEIGHT_DEMILIGHT
+Semi Ligero
+; DemiLight
+;
+MSG_WEIGHT_SEMILIGHT
+Semi Ligero
+; SemiLight
+;
+MSG_WEIGHT_BOOK
+Libro
+; Book
+;
+MSG_WEIGHT_MEDIUM
+Medio
+; Medium
+;
+MSG_WEIGHT_SEMIBOLD
+Semi negrita
+; SemiBold
+;
+MSG_WEIGHT_DEMIBOLD
+Semi negrita
+; DemiBold
+;
+MSG_WEIGHT_BOLD
+Negrita
+; Bold
+;
+MSG_WEIGHT_EXTRABOLD
+Extra negrita
+; ExtraBold
+;
+MSG_WEIGHT_BLACK
+Negra
+; Black
+;
+MSG_WEIGHT_EXTRABLACK
+Extra negra
+; ExtraBlack
+;
+MSG_WEIGHT_ULTRABLACK
+Ultra negra
+; UltraBlack
+;
+MSG_WEIGHT_CUSTOM
+Personalizada
+; Custom
+;
+MSG_STYLE_UPRIGHT
+Vetical
+; Upright
+;
+MSG_STYLE_ITALIC
+Itálica
+; Italic
+;
+MSG_STYLE_LEFTITALIC
+LeftItalic
+; LeftItalic
+;
+MSG_HSTYLE_ULTRACOMPRESSED
+Ultra comprimida
+; UltraCompressed
+;
+MSG_HSTYLE_EXTRACOMPRESSED
+Extra comprimida
+; ExtraCompressed
+;
+MSG_HSTYLE_COMPRESSED
+Comprimida
+; Compressed
+;
+MSG_HSTYLE_CONDENSED
+Condensada
+; Condensed
+;
+MSG_HSTYLE_NORMAL
+Normal
+; Normal
+;
+MSG_HSTYLE_SEMIEXPANDED
+Semi expandida
+; SemiExpanded
+;
+MSG_HSTYLE_EXPANDED
+Expandida
+; Expanded
+;
+MSG_HSTYLE_EXTRAEXPANDED
+Extra expandida
+; ExtraExpanded
+;
+MSG_HSTYLE_CUSTOM
+Personalizada
+; Custom
+;
+MSG_METRIC_GLOBALBOUNDINGBOX
+Global
+; Global bounding box
+;
+MSG_METRIC_RAWFONTMETRIC
+Bruto
+; Raw font metric
+;
+MSG_METRIC_ASCENDER
+Ascendente
+; Ascender
+;
+MSG_METRIC_TYPOASCENDER
+Ascendente
+; Typo ascender
+;
+MSG_METRIC_USWINASCENDER
+Ascendente USWin
+; USWin ascender
+;
+MSG_METRIC_CUSTOMBOUNDINGBOX
+Personalizado
+; Custom bounding box
+;
+MSG_LABEL_EXTRAFILE
+Fichero
+; Extra file
+;
+MSG_LABEL_FACENUM
+Facial
+; Face num
+;
+MSG_LABEL_NAME
+Nombre
+; Name
+;
+MSG_LABEL_FAMILY
+Família
+; Family
+;
+MSG_LABEL_METRIC
+Métrica
+; Metric
+;
+MSG_LABEL_BOUNDINGBOX
+Bounding box
+; Bounding box
+;
+MSG_LABEL_YMIN
+yMin
+; yMin
+;
+MSG_LABEL_YMAX
+yMax
+; yMax
+;
+MSG_LABEL_SIZEFACTOR
+Factor de tamaño
+; Size factor
+;
+MSG_LABEL_SPACEWIDTH
+Anchura de espacio
+; Space width
+;
+MSG_LABEL_FIXEDWIDTH
+Ancho fijo
+; Fixed width
+;
+MSG_LABEL_SERIF
+Serifa
+; Serif
+;
+MSG_LABEL_STEMWEIGHT
+Peso del asta
+; Stem weight
+;
+MSG_LABEL_SLANTSTYLE
+Estilo oblícuo
+; Slant style
+;
+MSG_LABEL_HORIZSTYLE
+Estilo horizontal
+; Horiz style
+;
+MSG_FRAME_PREVIEW
+Previsualización
+; Preview
+;
+MSG_PREVIEW_STRING
+Quiere la boca exhausta vid, kiwi, piña y fugaz jamón
+; The quick brown fox jumped over the lazy dog.
+;
+MSG_LABEL_SIZE
+Tamaño
+; Size
+;
+MSG_LABEL_ANTIALIASING
+Anti-aliasing
+; Anti-aliasing
+;

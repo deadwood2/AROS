@@ -1,0 +1,117 @@
+## version $VER: Find.catalog 1.0 (13.12.2020)
+## language russian
+## codeset 2104
+;
+MSG_APP_TITLE
+Find
+; Find
+;
+MSG_APP_DESCRIPTION
+Инструмент поиска
+; File search tool
+;
+MSG_APP_COPYRIGHT
+Copyright \xa9 2016 The AROS Development Team
+; Copyright \xa9 2016 The AROS Development Team
+;
+MSG_WI_TITLE
+Инструмент поиска
+; Find
+;
+MSG_OK
+OK
+; OK
+;
+MSG_LST_FULLPATH
+Полный путь
+; Full Path
+;
+MSG_LST_SIZE
+Размер
+; Size
+;
+MSG_LST_ATTRIBUTES
+Атрибуты
+; Attributes
+;
+MSG_LST_DATE
+Дата
+; Date
+;
+MSG_LST_TIME
+Время
+; Time
+;
+MSG_LST_COMMENT
+Комментарий
+; Comment
+;
+MSG_LBL_PATH
+Путь поиска:
+; Path
+;
+MSG_LBL_PATTERN
+Выражение:
+; Pattern
+;
+MSG_LBL_CONTENTS
+Содержание:
+; Contents
+;
+MSG_BTN_START
+Искать
+; Start
+;
+MSG_BTN_STOP
+Прекратить
+; Stop
+;
+MSG_BTN_OPEN
+Открыть
+; Open
+;
+MSG_BTN_VIEW
+Просмотр
+; View
+;
+MSG_BTN_DRAWER
+Расположение
+; Drawer
+;
+; Error messages
+;
+MSG_ERR
+Ошибка
+; Error
+;
+MSG_ERR_NO_APPLICATION
+Не создать приложение.
+; Can't create application.
+;
+MSG_ERR_READARGS
+Не прочитать аргументы CLI.
+; Can't read commandline arguments.
+;
+MSG_ERR_NO_MEM
+Ошибка:\nНе выделить память.
+; Error:\nCan't allocate memory.
+;
+MSG_ERR_NO_WINDOW
+Ошибка:\nНе открыть окно.
+; Error:\nCan't open window.
+;
+MSG_ERR_DOS
+Ошибка ДОС:\n%s
+; DOS Error:\n%s
+;
+MSG_ERR_NO_FILE
+Ошибка:\nНе открыть файл\n\"%s\".
+; Error:\nCan't open file\n\"%s\".
+;
+MSG_ERR_NO_DIR
+Ошибка:\nНе открыть директорию\n\"%s\".
+; Error:\nCan't open directory\n\"%s\".
+;
+MSG_ERR_PATTERN
+Ошибка:\nНе разобрать выражение.
+; Error:\nCan't parse pattern.

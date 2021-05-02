@@ -1,0 +1,201 @@
+## version $VER: FTManager.catalog 1.0 (11.12.2020)
+## language russian
+## codeset 2104
+;
+;
+;
+MSG_APP_NAME
+FTManager
+;
+MSG_APP_TITLE
+Менеджер шрифтов FreeType
+;
+MSG_WINDOW_TITLE
+Менеджер шрифтов FreeType
+; 
+MSG_LABEL_SOURCE
+Исходник
+;
+MSG_ASL_FONTS_TRUETYPE
+Fonts:TrueType
+;
+MSG_LABEL_DESTINATION
+Целевой
+;
+MSG_ASL_FONTS
+Fonts:
+;
+MSG_LABEL_CODEPAGE
+Кодировка
+;
+MSG_QUIT
+Выход
+;
+MSG_BUTTON_INSTALL
+_Установить
+;
+MSG_BUTTON_CLOSE
+Закрыть
+;
+MSG_WEIGHT_ULTRATHIN
+Мелкий
+;
+MSG_WEIGHT_EXTRATHIN
+Сверхтонкий
+;
+MSG_WEIGHT_THIN
+Тонкий
+;
+MSG_WEIGHT_EXTRALIGHT
+Сверхсветлый
+;
+MSG_WEIGHT_LIGHT
+Светлый
+;
+MSG_WEIGHT_DEMILIGHT
+Полусветлый насыщенный
+;
+MSG_WEIGHT_SEMILIGHT
+Полусветлый
+;
+MSG_WEIGHT_BOOK
+Обычный
+;
+MSG_WEIGHT_MEDIUM
+Средний
+;
+MSG_WEIGHT_SEMIBOLD
+Полужирный
+;
+MSG_WEIGHT_DEMIBOLD
+Полужирный насыщенный
+;
+MSG_WEIGHT_BOLD
+Жирный
+;
+MSG_WEIGHT_EXTRABOLD
+Сверхжирный
+;
+MSG_WEIGHT_BLACK
+Чёрный
+;
+MSG_WEIGHT_EXTRABLACK
+Сверхчёрный
+;
+MSG_WEIGHT_ULTRABLACK
+Абсолютно чёрный
+;
+MSG_WEIGHT_CUSTOM
+Индивидуально
+;
+MSG_STYLE_UPRIGHT
+Вертикальный
+;
+MSG_STYLE_ITALIC
+Курсив
+;
+MSG_STYLE_LEFTITALIC
+Курсив влево
+;
+MSG_HSTYLE_ULTRACOMPRESSED
+Абсолютно сжатая
+;
+MSG_HSTYLE_EXTRACOMPRESSED
+Сверхсжатая
+;
+MSG_HSTYLE_COMPRESSED
+Сжатая
+;
+MSG_HSTYLE_CONDENSED
+Конденсированная
+;
+MSG_HSTYLE_NORMAL
+Обычная ширина
+;
+MSG_HSTYLE_SEMIEXPANDED
+Полурасширенная
+;
+MSG_HSTYLE_EXPANDED
+Расширенная
+;
+MSG_HSTYLE_EXTRAEXPANDED
+Сверхрасширенная
+;
+MSG_HSTYLE_CUSTOM
+Индивидуально
+;
+MSG_METRIC_GLOBALBOUNDINGBOX
+Общая обрамляющая рамка
+;
+MSG_METRIC_RAWFONTMETRIC
+Исходные данные шрифта
+;
+MSG_METRIC_ASCENDER
+Восходящая (ascender)
+;
+MSG_METRIC_TYPOASCENDER
+Типографская восходящая (typo ascender)
+;
+MSG_METRIC_USWINASCENDER
+Восходящая Windows (USWin ascender)
+;
+MSG_METRIC_CUSTOMBOUNDINGBOX
+По настроенной схеме
+;
+MSG_LABEL_EXTRAFILE
+Доп.файл
+;
+MSG_LABEL_FACENUM
+Номер шрифта
+;
+MSG_LABEL_NAME
+Имя
+;
+MSG_LABEL_FAMILY
+Семейство
+;
+MSG_LABEL_METRIC
+Метрика
+;
+MSG_LABEL_BOUNDINGBOX
+Периметр
+;
+MSG_LABEL_YMIN
+yМин.
+;
+MSG_LABEL_YMAX
+yМакс.
+;
+MSG_LABEL_SIZEFACTOR
+Соотношение
+;
+MSG_LABEL_SPACEWIDTH
+Ширина пробела
+;
+MSG_LABEL_FIXEDWIDTH
+Фикс. ширина
+;
+MSG_LABEL_SERIF
+Засечки
+;
+MSG_LABEL_STEMWEIGHT
+Начертание
+;
+MSG_LABEL_SLANTSTYLE
+Наклон
+;
+MSG_LABEL_HORIZSTYLE
+Толщина
+;
+MSG_FRAME_PREVIEW
+Просмотреть
+;
+MSG_PREVIEW_STRING
+Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф.
+;
+MSG_LABEL_SIZE
+Кегль
+;
+MSG_LABEL_ANTIALIASING
+Сглаживание
+;

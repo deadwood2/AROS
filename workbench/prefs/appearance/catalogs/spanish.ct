@@ -1,0 +1,75 @@
+## version $VER: Appearance.catalog 2.1 (11.02.2021)
+## language español
+## codeset 0
+;
+;
+MSG_WINTITLE
+
+; Appearance Preferences
+;
+MSG_OK
+Ok
+; Ok
+;
+MSG_ENABLETHEMES
+Activar temas
+; Enable theming
+;
+MSG_PREVIEW
+Previsualización
+; Preview
+;
+MSG_NOPREVIEW
+Previsualizacion no disponible
+; -Preview Unavailable-
+;
+MSG_SELECTEDTHEME
+Tema:
+; Theme:
+;
+MSG_ENABLEZUNEPREFS
+Reemplazar la configuración de Zune
+;Replace current Zune configuration?
+;
+MSG_ENABLEWANDPREFS
+Reemplazar la configuración de Wanderer
+;Replace current Wanderer configuration?
+;
+MSG_ENABLEPALETTEPREFS
+Reemplazar la configuración de Paleta
+;Replace current Palette configuration?
+;
+MSG_ENABLEFONTPREFS
+Replace current Font configuration?
+;
+MSG_ENABLEPOINTERPREFS
+Replace current Pointer configuration?
+;
+MSG_SEC_THEMING
+Decoración
+; Theming
+;
+MSG_SEC_COMPOSITING
+Composición
+; Compositing
+;
+MSG_ENABLE_SCREEN_COMPOSITION
+Habilitar composición de pantalla
+; Enable screen composition
+;
+MSG_COMPOSITE_BELOW
+Composición abajo
+; Composite below
+;
+MSG_COMPOSITE_LEFT
+Composición a la izquierda
+; Composite left
+;
+MSG_COMPOSITE_RIGHT
+Composición a la derecha
+; Composite right
+;
+MSG_ENABLE_COMPOSITE_WITH_ALPHA
+Habilitar composición con alpha
+; Enable compositing with alpha
+;

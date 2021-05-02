@@ -1,0 +1,120 @@
+## version $VER: KeyShow.catalog 1.0 (21.12.2020)
+## language türkçe
+## codeset 12
+;
+MSG_AppDescription
+Klavye Düzenini Gösterir
+; Show Keyboard Layout
+;
+MSG_AppCopyright
+Telif Hakký \xa9 2012 AROS Geliþtirme Takýmý
+; Copyright \xa9 2012 The AROS Development Team
+;
+MSG_WI_TITLE
+KeyShow
+; KeyShow
+;
+MSG_OK
+_TAMAM
+; _OK
+;
+; Error messages
+;
+MSG_ERR
+Hata
+; Error
+;
+MSG_ERR_NO_APPLICATION
+Uygulama oluþturulamadý
+; Can't create application
+;
+MSG_ERR_NO_MEM
+Yetersiz bellek
+; Out of memory
+;
+; Key descriptions
+;
+MSG_KEY_SHIFT
+Shift
+; Shift
+;
+MSG_KEY_CTRL
+Ctrl
+; Ctrl
+;
+MSG_KEY_ALT
+Alt
+; Alt
+;
+MSG_KEY_LOCK
+Lock
+; Lock
+;
+MSG_KEY_HELP
+Help
+; Help
+;
+MSG_KEY_A
+A
+; A
+;
+MSG_KEY_INSERT
+Insert
+; Insert
+;
+MSG_KEY_HOME
+Home
+; Home
+;
+MSG_KEY_PAGEUP
+Page ^
+; Page ^
+;
+MSG_KEY_DELETE
+Delete
+; Delete
+;
+MSG_KEY_END
+End
+; End
+;
+MSG_KEY_PAGEDOWN
+Page v
+; Page v
+;
+MSG_KEY_NUM
+Num
+; Num
+;
+MSG_KEY_RETURN
+^M
+; ^M
+;
+MSG_KEY_BACKSP
+^H
+; ^H
+;
+MSG_KEY_TAB
+
+; ^I
+;
+MSG_KEY_ESC
+^[
+; ^[
+;
+MSG_KEY_NUM_ENTER
+^M
+; ^M
+;
+MSG_KEY_PRTSCREEN
+Print
+; Print
+;
+MSG_KEY_SCRLOCK
+ScrLock
+; ScrLock
+;
+MSG_KEY_PAUSE
+Pause
+; Pause
+;

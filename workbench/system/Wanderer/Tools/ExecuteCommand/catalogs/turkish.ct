@@ -1,0 +1,53 @@
+## version $VER: executecommand.catalog 2.0 (16.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_TITLE
+Çalýþtýr
+; Execute
+;
+MSG_DESCRIPTION
+Komut Çalýþtýr
+; Execute Command
+;
+MSG_LABEL_COMMANDLINE
+Komut ve argümanlar:
+; Command and arguments:
+;
+MSG_BUTTON_EXECUTE
+_Çalýþtýr
+; _Execute
+;
+MSG_BUTTON_CANCEL
+_Vazgeç
+; _Cancel
+;
+MSG_CONSOLE_TITLE
+Komut Çýktýsý
+; Command Output
+;
+MSG_ERROR_HEADER
+HATA
+; ERROR
+;
+MSG_ERROR_OK
+*TAMAM
+; *OK
+;
+MSG_ERROR_LOCALE
+Yerel ayar baþlatýlamýyor.
+; Can't initialize locale.
+;
+MSG_ERROR_CLASSES
+Özel sýnýflar baþlatýlamýyor.
+; Can't initialize custom classes.
+;
+MSG_ERROR_OPEN_CONSOLE
+Konsol penceresi açýlamýyor.
+; Can't open console window.
+;
+MSG_ERROR_EXECUTE
+Komut çalýþtýrýlamýyor.
+; Can't execute command.
+;

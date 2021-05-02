@@ -1,6 +1,6 @@
-## version $VER: <name>.catalog <ver>.0 (05.10.2010)Tomasz Paul
-## language Polski
-## codeset 0
+## version $VER: diskimagedevice.catalog 51.0 (05.10.2010)Tomasz Paul
+## language polski
+## codeset 5
 ;
 MSG_OK_GAD
 _OK

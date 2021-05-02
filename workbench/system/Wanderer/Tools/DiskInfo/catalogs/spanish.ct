@@ -1,48 +1,116 @@
-## version $VER: diskinfo.catalog 1.0 (30.09.2007)
+## version $VER: diskinfo.catalog 2.0 (03.01.2021)
 ## language español
 ## codeset 0
 ;
-; Translated by ahg
 ;
 MSG_TITLE
 Información del Disco
-;Info. del Disco
-;Disk Info
+; Disk Info
 ;
 MSG_ERROR_HEADER
 ERROR
+; ERROR
 ;
 MSG_ERROR_OK
 _Aceptar
-;_OK
+; _OK
 ;
 MSG_ERROR_LOCALE
 No se puede inicializar el locale.
-;Can't initialize locale.
+; Can't initialize locale.
 ;
 MSG_ERROR_CLASSES
 No se pueden inicializar las clases propias.
-;Can't initialize custom classes.
+; Can't initialize custom classes.
 ;
 MSG_DESCRIPTION
 Información del Disco
-;Disk Icon Informations
+; Disk Icon Informations
 ;
 MSG_PERCENTFULL
 %ld %% Lleno
-;%ld %% Full
+; %ld %% Full
 ;
 MSG_FORMAT
 Formatear
-;Format
+; Format
 ;
 MSG_UNKNOWN
 Desconocido
-;Unknown
+; Unknown
 ;
 MSG_AUTHOR
 Olivier Adam
+; Olivier Adam
 ;
 MSG_COPYRIGHT
 ©2006 AROS Dev Team
+; \xa92006-2009 AROS Dev Team
+;
+MSG_USED
+Espacio usado
+; Used space
+;
+MSG_FREE
+Espacio libre
+; Free space
+;
+MSG_SIZE
+Capacidad
+; Capacity
+MSG_BLOCK_SIZE
+Tamaño de bloque
+; Block size
+;
+MSG_BLOCKS
+bloques
+; blocks
+;
+MSG_BYTES
+bytes
+; bytes
+;
+MSG_STATUS
+Estado
+; Status
+;
+MSG_READABLE
+Leible
+; Readable
+;
+MSG_READABLE_WRITABLE
+Leíble/escribíble
+; Readable/writable
+;
+MSG_VALIDATING
+Validando
+; Validating
+;
+MSG_NAME
+Nombre del Volumen
+; Volume Name
+;
+MSG_UNIT
+unidad
+; unit
+;
+MSG_DOSDEVICE
+Periférico DOS:
+; DOS Device:
+;
+MSG_DEVICEINFO
+Conectado en:
+; Connected on:
+;
+MSG_FILESYSTEM
+Sistema de ficheros:
+; FileSystem:
+;
+MSG_PACKETDEVICE
+periferico tipo Paquete
+; Packet Style device
+;
+MSG_IOFSDEVICE
+Periferico tipo IOFS
+; IOFS Style device
 ;

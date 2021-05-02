@@ -1,0 +1,24 @@
+## version $VER: boingiconbar.catalog 2.0 (11.12.2020)
+## language russian
+## codeset 2104
+;
+MSG_CX_NAME
+BoingIconBar
+; BoingIconBar
+;
+MSG_CX_TITLE
+Иконка Toolbar
+; Icon Toolbar
+;
+MSG_CX_DESC
+Запуск приложения из Toolbar
+; Start Programs from Toolbar
+;
+MSG_MENU_SETTINGS
+Настройки
+; Settings
+;
+MSG_MENU_QUIT
+Выход
+; Quit
+;

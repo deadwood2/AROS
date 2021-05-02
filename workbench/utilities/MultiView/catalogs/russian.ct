@@ -1,33 +1,41 @@
-## version $VER: multiview.catalog 1.0 (13.08.2006)
+## version $VER: multiview.catalog 2.0 (20.12.2020)
 ## codeset 2104
 ## language russian
 ;
 MSG_CANT_OPEN_LIB
-Не могу открыть %s V%ld 
+Не удаётся открыть %s V%ld!
 ;
 MSG_CANT_CREATE_IC
-Не могу создать объекты связи!
+Не удаётся создать объекты IC!
 ;
 MSG_CANT_LOCK_SCR
-Не могу занять общий экран!
+Не удаётся занять общий экран!
 ;
 MSG_CANT_GET_DRI
-Не могу получить DrawInfo!
+Не получены данные DrawInfo!
 ;
 MSG_CANT_GET_VI
-Не могу получить VisualInfo!
+Не получены данные VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE
-Не могу создать изображения SYSICLASS!
+Не создаются изображения SYSICLASS!
 ;
 MSG_CANT_CREATE_GADGET
-Не могу создать гр. элементы!
+Не создаются элементы окна!
 ;
 MSG_CANT_CREATE_MENUS
-Не могу создать меню!
+Не удалось создать меню!
 ;
 MSG_CANT_CREATE_WIN
-Не могу создать окно!
+Не удалось открыть окно!
+;
+MSG_CANT_CREATE_MSGPORT
+Не создать порт сообщений!
+; Can't create message port!
+;
+MSG_CANT_ADD_APPWINDOW
+Не переключить окно в AppWindow!
+; Can't turn the window into an AppWindow!
 ;
 MSG_SAVE_FAILED
 Ошибка сохранения в файл!
@@ -36,10 +44,10 @@ MSG_MEN_PROJECT
 Проект
 ;
 MSG_MEN_PROJECT_OPEN
-O\0Открыть ...
+O\0Открыть...
 ;
 MSG_MEN_PROJECT_EXPORT
-A\0Сохранить как ...
+A\0Сохранить как...
 ;
 MSG_MEN_PROJECT_SAVEAS_IFF
 I\0Сохранить как IFF...
@@ -48,7 +56,7 @@ MSG_MEN_PROJECT_PRINT
 P\0Печать
 ;
 MSG_MEN_PROJECT_ABOUT
-?\0О программе ...
+?\0О программе...
 ;
 MSG_MEN_PROJECT_QUIT
 Q\0Выход
@@ -57,13 +65,13 @@ MSG_MEN_EDIT
 Правка
 ;
 MSG_MEN_EDIT_MARK
-B\0Отметить
+B\0Выделить
 ;
 MSG_MEN_EDIT_COPY
 C\0Копировать
 ;
 MSG_MEN_EDIT_SELECTALL
-L\0Отметить всё
+L\0Выделить всё
 ;
 MSG_MEN_EDIT_CLEARSELECTED
 H\0Очистить выделение
@@ -78,7 +86,7 @@ MSG_MEN_WINDOW_MINIMIZE
  \0Минимум
 ;
 MSG_MEN_WINDOW_NORMAL
- \0Норма
+ \0Обычное
 ;
 MSG_MEN_WINDOW_MAXIMIZE
  \0Максимум
@@ -108,10 +116,10 @@ MSG_MEN_PICT_KEEP_ASPECT
  \0Сохранять пропорции
 ;
 MSG_MEN_PICT_FORCE_MAP
- \0Force Palette mapping
+ \0Сопоставление палитры
 ;
 MSG_MEN_PICT_DITHER
- \0Dithering
+ \0Сглаживание
 ;
 MSG_MEN_TEXT
 Текст
@@ -120,7 +128,7 @@ MSG_MEN_TEXT_WORDWRAP
  \0Перенос строк
 ;
 MSG_MEN_TEXT_SEARCH
- \0Поиск ...
+ \0Поиск...
 ;
 MSG_MEN_TEXT_SEARCH_PREV
  \0Искать ранее
@@ -145,4 +153,7 @@ MSG_CONTINUE
 ;
 MSG_OK
 Ok
+;
+MSG_SHORTCUT_EDITOR
+E
 ;

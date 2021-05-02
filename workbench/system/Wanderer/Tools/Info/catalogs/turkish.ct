@@ -1,0 +1,189 @@
+## version $VER: info.catalog 1.4 (28.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_TITLE
+Bilgi
+; Information
+;
+MSG_DESCRIPTION
+Simge Bilgisini Görüntüler
+; Display Icon information
+;
+MSG_COPYRIGHT
+Simge Bilgisi \xa9 2003-2010, AROS Geliþtirme Takýmý
+; Icon information \xa9 2003-2010, The AROS Development Team
+;
+MSG_ICON
+Simge
+; Icon
+;
+MSG_NAME
+Adý
+; Name
+;
+MSG_COMMENT
+Açýklama
+; Comment
+;
+MSG_STACK
+Yýðýn
+; Stack
+;
+MSG_DEFTOOL
+Araç
+; Tool
+;
+MSG_ICONTYPE
+Simge türü
+; Icon type
+;
+MSG_DISK
+Disk
+; Disk
+;
+MSG_DRAWER
+Çekmece
+; Drawer
+;
+MSG_TOOL
+Araç
+; Tool
+;
+MSG_PROJECT
+Proje
+; Project
+;
+MSG_GARBAGE
+Çöp
+; Garbage
+;
+MSG_DEVICE
+Aygýt
+; Device
+;
+MSG_KICK
+Kick
+; Kick
+;
+MSG_APPICON
+Uygulama Simgesi
+; AppIcon
+;
+MSG_INFORMATION
+Bilgi
+; Information
+;
+MSG_PROTECTION
+Koruma
+; Protection
+;
+MSG_TOOLTYPES
+Araç türleri
+; Tooltypes
+;
+MSG_ERROR_SHELLSTART
+Hata: Shell'den baþlatýlamaz
+; Error: Cannot be started from shell
+;
+MSG_ABOUT
+Hakkýnda...
+; About...
+;
+MSG_QUIT
+Çýkýþ
+; Quit
+;
+MSG_READ
+Oku
+; Read
+;
+MSG_WRITE
+Yaz
+; Write
+;
+MSG_EXECUTE
+Çalýþtýr
+; Execute
+;
+MSG_DELETE
+Sil
+; Delete
+;
+MSG_SCRIPT
+Betik
+; Script
+;
+MSG_PURE
+Salt
+; Pure
+;
+MSG_ARCHIVED
+Arþivlenmiþ
+; Archived
+;
+MSG_STICKY
+Yapýþkan
+; Sticky
+;
+MSG_SIZE
+Boyut
+; Size
+;
+MSG_VERSION
+Sürüm
+; Version
+;
+MSG_OWNERID
+Sahip ID
+; Owner ID
+;
+MSG_GROUPID
+Gurup ID
+; Group ID
+;
+MSG_OWNERNAME
+Sahibi
+; Owner
+;
+MSG_GROUPNAME
+Gurup
+; Group
+;
+MSG_TYPE
+Tür
+; Type
+;
+MSG_DATE
+Tarih
+; Date
+;
+MSG_NEW_KEY
+Yeni anahtar
+; New key
+;
+MSG_DELETE_KEY
+Anahtarý sil
+; Delete key
+;
+MSG_SAVE
+_Kaydet
+; _Save
+;
+MSG_CANCEL
+_Vazgeç
+; _Cancel
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_PATH
+Yol
+; Path
+;
+MSG_BTNPATH
+Yolu aç...
+; Open path...
+;

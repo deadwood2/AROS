@@ -1,4 +1,4 @@
-## version $VER: ahiprefs.catalog 4.6 (2.2.2005)
+## version $VER: ahiprefs.catalog 4.6 (02.02.2005)
 ## language italiano
 ## codeset 0
 ;
@@ -266,7 +266,7 @@ Configurazione AHI
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s\nTraduzione italiana di Bernardo Innocenti\nRevisione di Paolo Besser
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Non posso aprire la finestra.
@@ -282,7 +282,7 @@ Non trovo `%s'!
 ;
 msgTextNoOpen
 Non posso aprire `%s' versione %ld.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

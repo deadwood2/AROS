@@ -1,0 +1,291 @@
+## version $VER: format.catalog 2.0 (02.02.2021)
+## language español
+## codeset 0
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_CANCEL
+Cancelar
+; Cancel
+;
+; ===========================================================
+; cli.c
+;
+MSG_INSERT_DISK
+Insertar el disco a formatear en el periférico %s\n\
+Pulsa RETURN para lanzar el formateo o CTRL+C para parar: 
+; Insert disk to be formatted in device %s\n\
+; Press RETURN to begin formatting or CTRL-C to abort: 
+;
+MSG_FORMATTING
+\rFormateo del cilindro %lu, %lu restantes 
+; \rFormatting cylinder %lu, %lu to go 
+;
+MSG_VERIFYING
+\rVerificación 
+; \rVerifying 
+;
+MSG_INITIALIZING
+Inicialización del disco...\n
+; Initializing disk...\n
+;
+; ===========================================================
+; gui.c
+;
+MSG_SELECTDEVICE
+Selecciona el periférico\na formatear
+; Select Device To Format
+;
+MSG_GUI_FORMATTING
+Formateando disco...
+; Formatting Disk...
+;
+MSG_GUI_INITIALIZING
+Inicializando disco...
+; Initializing Disk...
+;
+MSG_IN_DEVICE
+en la el periférico %s
+; in device %s
+;
+MSG_FORMAT_REQUEST_TITLE
+Solicitud de formateo
+; Format Request
+;
+MSG_FORMAT_REQUEST_GADGETS
+Formatear|Cancelar
+; Format|Cancel
+;
+MSG_FORMAT_REQUEST_TEXT
+Quieres realmente formatear el volumen %s?\nAtención!\nSe perderán los datos que contenga!\n\(%s)
+; OK to format volume\n\
+; %s?\n\n\
+; WARNING!\n\n\
+; All data will be lost!\n\
+; (%s)
+;
+MSG_UNITS
+KMGTPE
+; KMGTPE
+; Kilo, Mega ...
+;
+MSG_CAPACITY_USED
+Capacidad %lu%lc, %lu%% utilizado
+; %lu%lc capacity, %lu%% used
+;
+MSG_CAPACITY
+Capacidad %lu%lc
+; %lu%lc capacity
+;
+MSG_ERROR_WANDERER
+Se debe lanzar desde Wanderer seleccionando un icono\n
+; Must be started from Wanderer with a selected icon\n
+;
+MSG_WINDOW_TITLE
+Formatear - %s
+; Format - %s
+;
+MSG_DEVICE
+Periférico %s
+; Device '%s'
+;
+MSG_VOLUME
+Volumen '%b'
+; Volume '%b'
+;
+MSG_APPLICATION_TITLE
+Formatear
+; Format
+;
+MSG_DESCRIPTION
+Utilidad de formateo de disco
+; Disk Formatting Utility
+;
+MSG_COPYRIGHT
+Copyright © 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+; Copyright © 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+;
+MSG_AUTHOR
+Ben Hutchings, Pavel Fedin, The AROS Development Team
+; Ben Hutchings, Pavel Fedin, The AROS Development Team
+;
+MSG_LABEL_CURRENT_INFORMATION
+Información actual:
+; Current Information:
+;
+MSG_LABEL_NEW_VOLUME_NAME
+Nuevo nombre de volumen:
+; New Volume Name:
+;
+MSG_DEFAULT_VOLUME_NAME
+Vacio
+; Empty
+;
+MSG_LABEL_PUT_TRASHCAN
+Poner papelera:
+; Put Trashcan:
+;
+MSG_LABEL_FFS
+Fast File System :
+; Fast File System:
+;
+MSG_LABEL_INTL
+Modo internacional:
+; International Mode:
+;
+MSG_LABEL_CACHE
+Cache de directorio:
+; Directory Cache:
+;
+MSG_BTN_FORMAT
+Formatear
+; Format
+;
+MSG_BTN_QFORMAT
+Formato rapido
+; Quick Format
+;
+MSG_BTN_CANCEL
+Cancelar
+; Cancel
+;
+MSG_BTN_STOP
+Parar
+; Stop
+;
+MSG_ERROR_NO_APPLICATION
+Imposible crear la aplicación\n
+; Can't create application\n
+;
+MSG_ERROR_NO_WINDOW
+Imposible abrir la ventana\n
+; Can't open window\n
+;
+MSG_REQ_ERROR_TITLE
+Error
+; Error
+;
+; ===========================================================
+; main.c
+;
+MSG_ERRORS_WARNING
+Alerta
+; Warning
+;
+MSG_ERRORS_ERROR
+Error
+; Error
+;
+MSG_ERRORS_FAILURE
+Fallo
+; Failure
+;
+MSG_FORMAT
+Formato 
+; Format 
+;
+MSG_ERROR_INVALID_DOSTYPE
+Especificación DosType invalida
+; Invalid DosType specification
+;
+MSG_ERROR_TOO_LARGE_1
+El tamaño de este periférico es mayor a 4 Gb.\
+El sistema de ficheros no puede manejar una unidad tan grande.
+; This device is larger than 4 gigabytes in size. The\
+;  Amiga file-system cannot handle a device this large.
+;
+MSG_ERROR_TOO_LARGE_2
+Este periférico se extiende mas allá de los 4 Gb. del disco\
+en el que está. Para usarlo se debe instalar la versión 43\
+o superior del sistema de ficheros Amiga.
+; This device extends beyond the first 4 gigabytes of the\
+;  disk it is on.  In order to use it, you must install\
+;  version 43 or later of the Amiga file-system.
+;
+MSG_ERROR_TOO_LARGE_3
+Este periférico es de un tamaño superior a 2 Gb.\
+Para usarla se debe instalar la versión 40 o superior del\
+sistema de ficheros Amiga.
+; This device is larger than 2 gigabytes in size. In order to\
+;  use it, you must install version 40 or later of the Amiga\
+;  file-system.
+;
+MSG_ERROR_TOO_LARGE_4
+Este periférico está configurado para utilizar buffers de memoria\
+en memoria que no es de tipo \"pública"\. \
+Esto puede causar un fallo del sistema si se usa un sistema de \
+memoria virtual. Para evitar este comportamiento se debe añadir\
+1 al parámetro BufMemType.
+; This device is set to use buffers in memory that may not be\
+;  \"public\". This can cause your computer to crash if you use a\
+;  virtual memory system. You should add 1 to the BufMemType\
+;  setting for this device to avoid this.
+;
+MSG_ERROR_DEVICE
+La apertura del periférico ha devuelto el error %ld.
+; Device open returned error %ld
+;
+MSG_ERROR_IDE
+Este periférico parece ser un disco IDE usando\un driver IDE antiguo de Commodore.Este driver puede intentar realizar transferencias\de datos grandes que algunos discos IDE no soportan.\Para evitar posibles perdidas de datos se debe configurar\el parametro maxtransfert a 0x10000.
+; This device appears to be on an IDE drive\
+;  using an old Commodore IDE driver.  This driver may\
+;  attempt to perform long data transfers that some IDE\
+;  drives do not carry out correctly.  To avoid the risk\
+;  of data loss, you should change this device's\
+;  MaxTransfer setting to 0x10000.
+;
+MSG_ERROR_DEVICE_QUERY
+La consulta al periférico (NSCMD_DEVICEQUERY) ha devuelto el error %ld.
+; Device query (NSCMD_DEVICEQUERY) returned error %ld
+;
+MSG_ERROR_64BIT
+Este periférico se extiende mas allá de los 4 Gb. del disco\
+en el que está. Para usarlo se debe instalar un driver que\
+soporte comandos NSD de 64 bits o usar NSDPatch.
+; This device extends beyond the first 4 gigabytes of the disk.\
+;  In order to use this device, you must either use a driver\
+;  that supports the NSD 64-bit commands or install and run the\
+;  NSDPatch program.
+;
+MSG_ERROR_DEVICE_RETURN
+El periférico %s ha devuelto el error %ld.
+; Device %s returned error %ld
+;
+MSG_ERROR_FLUSH
+flush (CMD_UPDATE)
+; flush (CMD_UPATE)
+;
+MSG_ERROR_INVALIDATE
+invalidar (CMD_CLEAR)
+; invalidate (CMD_CLEAR)
+;
+MSG_ERROR_VERIFY
+Error de verificación
+; Verify error
+;
+MSG_COMMAND_FORMAT64
+formatear (NSCMD_TD_FORMAT64)
+; format (NSCMD_TD_FORMAT64)
+;
+MSG_COMMAND_FORMAT
+formatear (TD_FORMAT)
+; format (TD_FORMAT)
+;
+MSG_COMMAND_READ64
+leer (NSCMD_TD_READ64)
+; read (NSCMD_TD_READ64)
+;
+MSG_COMMAND_READ
+leer (CMD_READ)
+; read (CMD_READ)
+;
+MSG_ERROR_TRASHCAN
+No se puede crear la papelera\nen el volumen %s.
+; Couldn't create trashcan on volume\n%s
+;
+MSG_ERROR_ICON
+No se puede crear el icono del disco\nen el volumen %s.
+; Couldn't create disk icon on volume\n%s
+;

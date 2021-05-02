@@ -1,9 +1,6 @@
-## version $VER: ahiprefs.catalog 4.8 (31.3.2019)
+## version $VER: ahiprefs.catalog 4.8 (31.03.2019)
 ## language français
 ## codeset 0
-;
-;#language english
-;#version 4
 ;
 ;    AHI - Hardware independent audio subsystem
 ;    Copyright (C) 1996-2005 Martin Blom <martin@blom.org>
@@ -265,7 +262,7 @@ Préférences AHI
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Impossible d'ouvrir la fenêtre
@@ -281,7 +278,7 @@ Impossible de trouver `%s'!
 ;
 msgTextNoOpen
 Impossible d'ouvrir `%s´ version %ld.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

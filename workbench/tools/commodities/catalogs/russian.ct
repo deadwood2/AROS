@@ -1,35 +1,39 @@
-## version $VER: Commodities.catalog 3.0 (25.06.2009)
+## version $VER: Commodities.catalog 3.0 (16.12.2020)
 ## language russian
 ## codeset 2104
 ;
 ; FIXME: This file requires updating. When done, bump version to 3
 ;
 MSG_CANT_OPEN_LIB
-Не могу открыть %s V%ld!\n
+Не удалось открыть %s V%ld!\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_OPEN_INPUTDEVICE
-Не могу открыть 'input.device'
+Не удалось открыть 'input.device'
 ; Can't open 'input.device'
 ;
+MSG_CANT_OPEN_CLIPDEVICE
+Не удалось открыть 'clipboard.device'
+; Can't open 'clipboard.device'
+;
 MSG_CANT_LOCK_SCR
-Не могу занять общий экран!\n
+Не удалось занять общий экран!\n
 ; Can't lock public screen!\n
 ;
 MSG_CANT_GET_VI
-Не могу получить VisualInfo!\n
+Не удалось получить данные VisualInfo!\n
 ; Can't get VisualInfo!\n
 ;
 MSG_CANT_CREATE_GADGET
-Не могу создать гр. элементы!\n
+Не удалось создать гаджеты!\n
 ; Can't create gadgets!\n
 ;
 MSG_CANT_CREATE_MENUS
-Не могу создать меню!\n
+Не удалось создать меню!\n
 ; Can't create menus!\n
 ;
 MSG_CANT_LAYOUT_MENUS
-Не могу заполнить меню!\n
+Не удалось заполнить меню!\n
 ; Can't layout menus!\n
 ;
 MSG_CANT_CREATE_WIN
@@ -37,12 +41,16 @@ MSG_CANT_CREATE_WIN
 ; Can't create window!\n
 ;
 MSG_CANT_ALLOCATE_MEM
-Не могу выделить память под приложение!\n
+Не удалось выделить память для приложения!\n
 ; Can't allocate application memory!\n
 ;
 MSG_CANT_CREATE_MSGPORT
-Ошибка передачи сообщения!\n
+Не удалось создать порт сообщений!\n
 ; Can't create message port!\n
+;
+MSG_CANT_ALLOCATE_SIGNAL
+Не удалось выделить сигнал!\n
+; Can't allocate signal!\n
 ;
 MSG_CANT_CREATE_BROKER
 Объект CxBroker не может быть создан!\n
@@ -80,23 +88,23 @@ Exchange
 ; Exchange
 ;
 MSG_EXCHANGE_CXTITLE
-Commodities Exchange
+Панель управления
 ; Commodities Exchange
 ;
 MSG_EXCHANGE_CXDESCR
-Управляет Удобствами системы
+Управление расширениями
 ; Controls system commodities
 ;
 MSG_EXCHANGE_WINTITLE
-Exchange: Hot Key = <%s>
+Exchange: комбинация <%s>
 ; Exchange: Hot Key = <%s>
 ;
 MSG_EXCHANGE_LISTVIEW
-Доступные Удобства
+Доступно
 ; Available commodities
 ;
 MSG_EXCHANGE_INFO
-Информация
+Описание расширения
 ; Information
 ;
 MSG_EXCHANGE_GAD_SHOW
@@ -104,19 +112,19 @@ MSG_EXCHANGE_GAD_SHOW
 ; Show
 ;
 MSG_EXCHANGE_GAD_HIDE
-Спрятать
+Скрыть
 ; Hide
 ;
 MSG_EXCHANGE_GAD_REMOVE
-Убрать
+Удалить
 ; Remove
 ;
 MSG_EXCHANGE_CYCLE_ACTIVE
-включено
+Активно
 ; Active
 ;
 MSG_EXCHANGE_CYCLE_INACTIVE
-выключено
+Выключено
 ; Inactive
 ;
 ; ===============================================
@@ -131,7 +139,7 @@ MSG_BLANKER_CXTITLE
 ; System Screen Blanker
 ;
 MSG_BLANKER_CXDESCR
-Очищает экран при неактивности системы
+Заставка при неактивности
 ; Blanks screen when system inactive
 ;
 ; ===============================================
@@ -142,11 +150,11 @@ ClickToFront
 ; ClickToFront
 ;
 MSG_CLICK2FNT_CXTITLE
-Click To Front Utility
+Выдвижение окон
 ; Click To Front Utility
 ;
 MSG_CLICK2FNT_CXDESCR
-Двойной щелчок, и окно на переднем плане
+Фокус по двойному щелчку
 ; Click windows to front
 ;
 ; ===============================================
@@ -161,7 +169,7 @@ MSG_OPAQUE_CXTITLE
 ; Solid Windows
 ;
 MSG_OPAQUE_CXDESCR
-Двигайте окна с показом содержимого
+При перемещении окон
 ; Realtime moving of windows
 ;
 ; ===============================================
@@ -176,7 +184,7 @@ MSG_AUTOPOINT_CXTITLE
 ; Autopointer
 ;
 MSG_AUTOPOINT_CXDESCR
-При наведении курсора мыши на окно делает его активным
+Активация окон при наведении курсора
 ; Activates the window under the mouse
 ;
 ; ===============================================
@@ -187,11 +195,11 @@ StartMenu
 ; StartMenu
 ;
 MSG_STARTMENU_CXTITLE
-Запуск программ
+Кнопка "Пуск"
 ; System Program Starter
 ;
 MSG_STARTMENU_CXDESCR
-Удобство для простого запуска программ
+Запуск приложений из меню
 ; Program launch commodity
 ;
 ; ===============================================
@@ -202,23 +210,23 @@ FKey
 ; FKey
 ;
 MSG_FKEY_CXTITLE
-Назначение функций клавишам
+Назначение комбинаций
 ; Function To Keys:
 ;
 MSG_FKEY_CXDESCR
-Назначает клавишам специальные функции (см. Показать)
+Назначение комбинаций для функций
 ; Attach special functions to keys
 ;
 MSG_FKEY_WINTITLE
-FKey: Hot Key = <%s>
+FKey: комбинация <%s>
 ; FKey: Hot Key = <%s>
 ;
 MSG_FKEY_DEFINED_KEYS
-Назначенные сочетания
+Назначенные комбинации
 ; Defined Keys
 ;
 MSG_FKEY_NEW_KEY
-_Новое
+_Назначить
 ; _New Key
 ;
 MSG_FKEY_DELETE_KEY
@@ -234,7 +242,7 @@ MSG_FKEY_COMMAND
 ; Command
 ;
 MSG_FKEY_COMMAND_PARAMS
-Параметры команды
+Аргументы команды
 ; Command Parameters
 ;
 MSG_FKEY_CMD_CYCLE_WIN
@@ -258,7 +266,7 @@ MSG_FKEY_CMD_TOGGLE_WIN_SIZE
 ; Toggle Window Size
 ;
 MSG_FKEY_CMD_RESCUE_WIN
-Подложить окно
+Освободить окно
 ; Rescue Window
 ;
 MSG_FKEY_CMD_INSERT_TEXT
@@ -266,11 +274,11 @@ MSG_FKEY_CMD_INSERT_TEXT
 ; Insert Text
 ;
 MSG_FKEY_CMD_RUN_PROG
-Запустить программу
+Запустить приложение
 ; Run Program
 ;
 MSG_FKEY_CMD_RUN_AREXX
-Запустить скрипт ARexx
+Запустить ARexx-сценарий
 ; Run Arexx Script
 ;
 MSG_FKEY_MEN_PROJECT_SAVE
@@ -285,11 +293,11 @@ NoCapsLock
 ; NoCapsLock
 ;
 MSG_NOCAPSLOCK_CXTITLE
-Отключение CapsLock
+Отключение Caps Lock
 ; NoCapsLock:
 ;
 MSG_NOCAPSLOCK_CXDESCR
-Отключает клавишу CAPS LOCK
+Отключает клавишу C.LOCK
 ; Renders the CAPS LOCK key ineffective
 ;
 ; ===============================================
@@ -304,7 +312,7 @@ MSG_DEPTHMENU_CXTITLE
 ; DepthMenu:
 ;
 MSG_DEPTHMENU_CXDESCR
-Всплывающий (по RMB) список открытых окон для быстрого переключения
+Список всплывает по ПКМ
 ; Popup menu for depth gadgets
 ;
 ;
@@ -318,7 +326,7 @@ MSG_ALTKEYQ_CXTITLE
 Ввод символов по номеру
 ;Character input by number
 MSG_ALTKEYQ_CXDESCR
-Использование клавиши ALT в стиле MS-DOS для ввода символов
+Вместе с Alt для ввода
 ;MS-DOS Style Alt key usage
 ; ===============================================
 ; ASCIITable
@@ -327,13 +335,13 @@ MSG_ASCIITABLE_CXNAME
 ASCIITable
 ;
 MSG_ASCIITABLE_CXTITLE
-ASCIITable:
+Таблица ASCII-символов
 ;
 MSG_ASCIITABLE_CXDESCR
 Выбор символов из таблицы
 ;Select keys from a GUI
 MSG_ASCIITABLE_WINTITLE
-ASCIITable: Вызов = <%s>
+ASCIITable: комбинация <%s>
 ;ASCIITable: Hot Key = <%s>
 MSG_ASCIITABLE_GAD_COPY
 Копировать

@@ -1,40 +1,53 @@
-## version $VER: SystemPrefsWindow.catalog 1.0 (30.09.2007)
-## codeset 0
+## version $VER: SystemPrefsWindow.catalog 2.0 (08.01.2020)
 ## language español
+## codeset 0
 ;
-; TODO: update me and set version to 2
-;
-; Translated by ahg
 ;
 MSG_MENU_PREFS
 Preferencias
-;Preferences
+; Preferences
 ;
 MSG_MENU_PREFS_IMPORT
 I\0Importar...
-;I\0Import...
+; I\0Import...
 ;
 MSG_MENU_PREFS_EXPORT
 E\0Exportar...
-;E\0Export...
+; E\0Export...
 ;
 MSG_MENU_PREFS_TEST
 P\0Probar
-;T\0Test
+; T\0Test
 ;
 MSG_MENU_PREFS_REVERT
 A\0Anular
-;R\0Revert
+; R\0Revert
 ;
 MSG_MENU_PREFS_SAVE
 G\0Guardar
-;S\0Save
+; S\0Save
 ;
 MSG_MENU_PREFS_USE
 U\0Usar
-;U\0Use
+; U\0Use
 ;
 MSG_MENU_PREFS_CANCEL
 C\0Cancelar
-;C\0Cancel
+; C\0Cancel
+;
+MSG_MENU_PREFS_EXPORT_WITH_ICON
+Exportar con Icono...
+; Export with Icon...
+;
+MSG_MENU_RESET_TO_DEFAULTS
+Volver a valores predeterminados
+; Reset to Defaults
+;
+MSG_FILEREQ_EXPORT_TITLE
+Exportar
+; Export
+;
+MSG_FILEREQ_IMPORT_TITLE
+Importar
+; Import
 ;

@@ -1,0 +1,228 @@
+## version $VER: Boot.catalog 1.0 (19.01.2021)
+## language español
+## codeset 0
+;
+MSG_NAME
+Preferencias de inicio
+; Boot Preferences
+;
+MSG_DESCRIPTION
+Configurar preferencias de inicio
+; Manage boot preferences
+;
+MSG_GFX
+Gráficos
+; Graphics
+;
+MSG_GFX_COMPOSITION
+Habilitar composición
+; Enable composition
+;
+MSG_GFX_TYPE
+Tipo:
+; Type:
+;
+MSG_GFX_TYPE_AUTO
+Automatico
+; Automatic
+;
+MSG_GFX_TYPE_NATIVE
+Nativo
+; Native
+;
+MSG_GFX_TYPE_VESA
+VESA
+; VESA
+;
+MSG_GFX_TYPE_VGA
+VGA
+; VGA
+;
+MSG_GFX_VESAMODE
+Modo VESA
+; VESA Mode
+;
+MSG_GFX_WIDTH
+Ancho:
+; Width:
+;
+MSG_GFX_HEIGHT
+Alto:
+; Height:
+;
+MSG_GFX_DEPTH
+Profundidad de color:
+; Colour Depth:
+;
+MSG_GFX_DEPTH_TRUE
+Color verdadero
+; True Colour
+;
+MSG_GFX_DEPTH_HIGH
+ALta densidad
+; High Colour
+;
+MSG_GFX_DEPTH_LOW
+256 Colores
+; 256 Colours
+;
+MSG_GFX_REFRESH
+Tasa de refresco:
+; Refresh Rate:
+;
+MSG_GFX_HERTZ
+Hz
+; Hz
+;
+MSG_GFX_DEFAULTREFRESH
+Usar tasa de refresco por defecto
+; Use Default Refresh Rate
+;
+MSG_GFX_BESTRES
+Usar la resolución mas alta disponible
+; Use Highest Available Resolution
+;
+MSG_ATA
+ATA
+; ATA
+;
+MSG_ATA_BUSES
+Buses habilitados:
+; Enabled Buses:
+;
+MSG_ATA_BUS_PCI
+PCI
+; PCI
+;
+MSG_ATA_BUS_LEGACY
+Legacy
+; Legacy
+;
+MSG_ATA_BUS_ALL
+Todos
+; All
+;
+MSG_ATA_BUS_NONE
+Ninguno
+; None
+;
+MSG_ATA_DMA
+Habilitar transferencias DMA
+; Enable DMA Data Transfers
+;
+MSG_ATA_32BIT
+Habilitar tranferencias 32 bit
+; Enable 32-bit Data Transfers
+;
+MSG_ATA_POLL
+Detectar por encuesta el fin del estado ocupado  
+; Use Polling to Detect End of Busy State
+;
+MSG_ATA_MULTI
+Habilitar transferencias multisector
+; Enable Multisector Data Transfers
+;
+MSG_ATA_AHCI
+Habilitar AHCI nativo
+; Enable Native AHCI
+;
+MSG_DEBUG
+Debugging
+; Debugging
+;
+MSG_DEBUG_OUTPUT
+Salida:
+; Output:
+;
+MSG_DEBUG_OUTPUT_NONE
+Ninguna
+; None
+;
+MSG_DEBUG_OUTPUT_MEMORY
+Buffer de memoria
+; Memory Buffer
+;
+MSG_DEBUG_OUTPUT_SERIAL
+Puerto serie
+; Serial Port
+;
+MSG_DEBUG_MUNGWALL
+Habilitar Mungwall
+; Enable Mungwall
+;
+MSG_DEBUG_USB
+Debug USB
+; Debug USB
+;
+MSG_MISC
+Miscelanea
+; Miscellaneous
+;
+MSG_USB_ENABLE
+Habilitar USB
+; Enable USB
+;
+MSG_ACPI_ENABLE
+Habilitar ACPI
+; Enable ACPI
+;
+MSG_FLOPPY_ENABLE
+Habilitar disquetera
+; Enable Floppy Disk Drive
+;
+MSG_DEVICE
+Periferico de arranque
+; Boot Device
+;
+MSG_DEVICE_NAME
+Periferico DOS:
+; DOS Device:
+;
+MSG_DEVICE_DELAY
+Boot Delay: 
+; Boot Delay:
+;
+MSG_DEVICE_SECONDS
+segundos
+; seconds
+;
+MSG_DEVICE_DEFAULTDELAY
+Usar Boot Delay predeterminado
+; Use Default Boot Delay
+;
+MSG_OPTIONS
+Opciones
+; Options
+;
+MSG_MODULES
+Modulos
+; Modules
+;
+MSG_ACTIVE
+Activo
+; Active
+;
+MSG_PATH
+Ruta
+; Path
+;
+MSG_ADD
+Añadir
+; Add
+;
+MSG_REMOVE
+Quitar
+; Remove
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_CANCEL
+Cancelar
+; Cancel
+;
+MSG_BAD_MODULE
+Ruta de modulo incorrecta "%s"
+; Bad module path "%s"
+;

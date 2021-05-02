@@ -1,6 +1,6 @@
-##version $VER: JanoEditor.catalog 1.0 (13.05.2006).
-##codeset 2104
-##language russian
+## version $VER: EditorPrefs.catalog 1.3 (29.12.2020)
+## codeset 2104
+## language russian
 ;
 ; *****************************
 ;  NewMenu strings
@@ -12,14 +12,14 @@ MSG_RESETDEFAULT
 Значения по умолчанию
 ;
 MSG_LASTSAVED
-Последние сохраненные
+Последние сохранённые
 ;
 ; *******************
 ;  Preference window
 ; *******************
 ;
 MSG_TITLEWIN
-Главный setup
+Настройки редактора
 ;
 MSG_TAB
 Табуляция:
@@ -28,10 +28,10 @@ MSG_SEPARATORS
 Разделители:
 ;
 MSG_TXTFONT
-Шрифт для текста:
+Текст:
 ;
 MSG_SCRFONT
-Экранный шрифт:
+Приложение:
 ;
 MSG_PUBSCREEN
 Общий экран:
@@ -46,19 +46,19 @@ MSG_AUTOINDENT
 Автоотступ
 ;
 MSG_EXTEND
-Расширенная цифровая клавиатура
+Выкл. NumLock
 ;
 MSG_PREFSSAVE
 Сохранить
 ;
 MSG_USEPREFS
-Использовать
+Принять
 ;
 MSG_DISCARDPREFS
 Отмена
 ;
 MSG_USEDEF
-Использовать базовые
+Системный шрифт
 ;
 MSG_CHOOSEIT
 Выбрать...

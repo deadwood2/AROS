@@ -1,0 +1,53 @@
+## version $VER: executestartup.catalog 1.0 (28.12.2020)
+## language russian
+## codeset 2104
+;
+;
+MSG_ERROR
+Ошибка
+; Error
+;
+MSG_WARNING
+Предупреждение
+; Warning
+;
+MSG_OK
+OK
+; OK
+;
+MSG_ERROR_GETDISKOBJECT
+ExecuteStartup\nОшибка GetDiskObject в:\n%s
+; ExecuteStartup\nGetDiskObject failed for:\n%s
+;
+MSG_ERROR_INFONODE
+ExecuteStartup\nНе хватает памяти для InfoNode
+; ExecuteStartup\nOut of memory for InfoNode
+;
+MSG_ERROR_LNNAME
+ExecuteStartup\nНе хватает памяти для ln_Name
+; ExecuteStartup\nOut of memory for ln_Name
+;
+MSG_ERROR_SCANNING
+ExecuteStartup\nПри просмотре директории %ld произошла ошибка
+; ExecuteStartup\nError %ld occured while scanning directory
+;
+MSG_ERROR_ANCHORPATH
+ExecuteStartup\nНе хватает памяти для AnchorPath
+; ExecuteStartup\nOut of memory for AnchorPath
+;
+MSG_ERROR_FILEINFOBLOCK
+ExecuteStartup\nНе хватает памяти для FileInfoBlock
+; ExecuteStartup\nOut of memory for FileInfoBlock
+;
+MSG_ERROR_MEMORYPOOL
+ExecuteStartup\nНепрерывный блок памяти не м.б. создан
+; ExecuteStartup\nCouldn't create pool memory
+;
+MSG_ERROR_EXAMINE
+ExecuteStartup\nНе удаётся найти объект DOS 
+; ExecuteStartup\nCouldn't examine 
+;Note final space!
+MSG_WARNING_OPENWBOBJECT
+ExecuteStartup\nОшибка OpenWorkbenchObject в:\n%s
+; ExecuteStartup\nOpenWorkbenchObject failed for:\n%s
+;

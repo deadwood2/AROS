@@ -1,6 +1,6 @@
 ## version $VER: serial.catalog 1.0 (23.11.2007)
 ## language czech
-## codeset 0
+## codeset 5
 ;
 ;
 MSG_CANT_OPEN_LIB

@@ -1,0 +1,93 @@
+## version $VER: Input.catalog 3.1 (18.02.2021)
+## codeset 2104
+## language russian
+;
+;
+MSG_NAME
+Настройки ввода
+; Input Preferences
+;
+MSG_OK
+Ок
+; Ok
+;
+MSG_GAD_TAB_MOUSE
+Мышь
+; Mouse
+;
+MSG_GAD_TAB_KEYBOARD
+Клавиатура
+; Keyboard
+;
+MSG_GAD_MOUSE_SPEED
+Скорость курсора
+; Mouse Speed
+;
+MSG_GAD_MOUSE_ACCELERATED
+Ускорение
+; Accelerated
+;
+MSG_GAD_MOUSE_DOUBLE_CLICK_DELAY
+Задержка двойного щелчка
+; Double-Click Delay
+;
+MSG_GAD_KEY_REPEAT_DELAY
+Задержка повтора клавиш
+; Key Repeat Delay
+;
+MSG_GAD_KEY_REPEAT_RATE
+Частота повтора клавиш
+; Key Repeat Rate
+;
+MSG_GAD_KEY_TEST
+Проверка ввода
+; Test
+;
+MSG_GAD_KEY_TYPE
+Раскладка
+; Type
+;
+MSG_GAD_MOUSE_BUTTON_SETTINGS
+Кнопки мыши
+; Mouse buttons
+;
+MSG_GAD_LEFT_HANDED_MOUSE
+Поменять кнопки местами
+; Left-handed mouse
+;
+MSG_GAD_MOUSE_SPEED_SLOW
+медленный
+; Slow
+;
+MSG_GAD_MOUSE_SPEED_NORMAL
+обычный
+; Normal
+;
+MSG_GAD_MOUSE_SPEED_FAST
+быстрый
+; Fast
+;
+MSG_GAD_KEY_DEF
+1-я
+; Default
+;
+MSG_GAD_KEY_ALT
+2-я
+; Alternate
+;
+MSG_GAD_KEY_SET
+Изм.
+; Set
+;
+MSG_GAD_KEY_SWITCH
+Переключение раскладки
+; Layout switching
+;
+MSG_GAD_KEY_SWITCH_ENABLE
+Включить
+; Enabled
+;
+MSG_GAD_KEY_SWITCH_KEY
+Комбинация
+; Hotkey
+;

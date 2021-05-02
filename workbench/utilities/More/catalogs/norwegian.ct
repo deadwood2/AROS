@@ -1,6 +1,6 @@
 ## version $VER: more.catalog 1.0 (21.07.2019)
 ## codeset 0
-## language norwegian
+## language norsk
 ;
 MSG_CANT_OPEN_LIB
 Kan ikke åpne %s V%1d!

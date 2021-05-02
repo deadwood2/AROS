@@ -1,0 +1,227 @@
+## version $VER: muimaster.catalog 1.0 (25.01.2021)
+## language español
+## codeset 0
+; Generic
+;
+MSG_OK
+_Ok
+; _Ok
+;
+MSG_CANCEL
+_Cancelar
+; _Cancel
+;
+; -------------------------------------------------
+; Aboutmui class
+MSG_ABOUTMUI_WINDOW_TITLE
+Sobre Zune
+; About Zune
+;
+MSG_ABOUTMUI_STRING
+Zune, un clon de MUI\n\n\
+Compilado el %s\n\
+Copyright (C) 2002-2021, The AROS Development Team.
+; Zune, a MUI clone\n\n\
+; Compiled on %s\n\
+; Copyright (C) 2002-2021, The AROS Development Team.
+;
+; -------------------------------------------------
+; Coloradjust class
+MSG_COLORADJUST_RED
+Rojo:
+; Red:
+;
+; Coloradjust class
+MSG_COLORADJUST_GREEN
+Verde:
+; Green:
+;
+; Coloradjust class
+MSG_COLORADJUST_BLUE
+Azul:
+; Blue:
+;
+; -------------------------------------------------
+; Dirlist class
+MSG_DIRLIST_NAME
+Nombre
+; Name
+;
+MSG_DIRLIST_SIZE
+Tamaño
+; Size
+;
+MSG_DIRLIST_DATE
+Fecha
+; Date
+;
+MSG_DIRLIST_TIME
+Tiempo
+; Time
+;
+MSG_DIRLIST_FLAGS
+Flags
+; Flags
+;
+MSG_DIRLIST_COMMENT
+Comentario
+; Comment
+;
+; -------------------------------------------------
+; Frameadjust class
+MSG_FRAMEADJUST_INNER_SPACING
+Espaciado interno:
+; Inner Spacing:
+;
+MSG_FRAMEADJUST_LEFT
+Izquierda
+; Left
+;
+MSG_FRAMEADJUST_TOP
+Superior
+; Top
+;
+MSG_FRAMEADJUST_RIGHT
+Derecha
+; Right
+;
+MSG_FRAMEADJUST_BOTTOM
+Inferior
+; Bottom
+;
+; -------------------------------------------------
+; Imageadjust class
+MSG_IMAGEADJUST_PATTERN
+Patrón
+; Pattern
+;
+MSG_IMAGEADJUST_VECTOR
+Vector
+; Vector
+;
+MSG_IMAGEADJUST_COLOR
+Color
+; Color
+;
+MSG_IMAGEADJUST_EXTERNAL
+Externo
+; External
+;
+MSG_IMAGEADJUST_BITMAP
+Bitmap
+; Bitmap
+;
+MSG_IMAGEADJUST_GRADIENT
+Gradiente
+; Gradient
+;
+MSG_IMAGEADJUST_SCALED
+Escalado
+; Scaled
+;
+MSG_IMAGEADJUST_TILED
+Enlosado
+; Tiled
+;
+MSG_IMAGEADJUST_TYPE
+Tipo:
+; Type:
+;
+MSG_IMAGEADJUST_ANGLE
+Ángulo:
+; Angle:
+;
+MSG_IMAGEADJUST_VERTICAL
+Vertical
+; Vertical
+;
+MSG_IMAGEADJUST_HORIZONTAL
+Horizontal
+; Horizontal
+;
+MSG_IMAGEADJUST_COLORS
+Colores:
+; Colors:
+;
+MSG_IMAGEADJUST_START_PEN
+Inicio del lápiz
+; Start pen
+;
+MSG_IMAGEADJUST_END_PEN
+Fin del lápiz
+; End pen
+;
+MSG_IMAGEADJUST_PREVIEW
+Previsualizar:
+; Preview:
+;
+; -------------------------------------------------
+; Palette class
+MSG_PALETTE_COLOR
+Color %ld
+; Color %ld
+;
+; -------------------------------------------------
+; Penadjust class
+MSG_PENADJUST_MUI
+MUI
+; MUI
+;
+MSG_PENADJUST_COLORMAP
+Mapa de color
+; Colormap
+;
+MSG_PENADJUST_RGB
+RGB
+; RGB
+;
+MSG_PENADJUST_SHINE
+Brillo
+; Shine
+;
+MSG_PENADJUST_HALFSHINE
+Medio brillo
+; Halfshine
+;
+MSG_PENADJUST_BACKGROUND
+Fondo
+; Background
+;
+MSG_PENADJUST_HALFSHADOW
+Media sombra
+; Halfshadow
+;
+MSG_PENADJUST_SHADOW
+Sombra
+; Shadow
+;
+MSG_PENADJUST_TEXT
+Texto
+; Text
+;
+MSG_PENADJUST_FILL
+Relleno
+; Fill
+;
+MSG_PENADJUST_MARK
+Marca
+; Mark
+;
+; -------------------------------------------------
+; Volumelist class
+MSG_VOLUMELIST_NAME
+Nombre
+; Name
+;
+MSG_VOLUMELIST_FULL
+Lleno
+; Full
+;
+MSG_VOLUMELIST_FREE
+Libre
+; Free
+;
+MSG_VOLUMELIST_USED
+Usado
+; Used
+;

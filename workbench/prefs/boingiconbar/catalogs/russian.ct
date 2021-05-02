@@ -1,0 +1,49 @@
+## version $VER: BoingIconBar.catalog 2.0 (01.01.2021)
+## language russian
+## codeset 2104
+;
+;
+MSG_APP
+Настройки
+; BIBPrefs
+;
+MSG_DESCRIPTION
+Настройки BoingIconBar
+; BoingIconBar Preferences
+;
+MSG_TITLE
+Настройки BoingIconBar
+; BoingIconBar Preferences
+;
+MSG_DOCK
+\33cПанель
+; \33cDock
+;
+MSG_ADD_DOCK
+Добавить
+; Add
+;
+MSG_DEL_DOCK
+Удалить
+; Delete
+;
+MSG_SAVE
+Сохранить
+; Save
+;
+MSG_PROGRAMS
+\33cПриложения
+; \33cPrograms
+;
+MSG_ADD_P
++ приложение
+; Add program
+;
+MSG_DEL_P
+- приложение
+; Del program
+;
+MSG_OK
+Ок
+; OK
+;

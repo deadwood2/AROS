@@ -1,5 +1,5 @@
 ## version $VER: info.catalog 1.4 (08.10.2019)
-## language norwegian
+## language norsk
 ## codeset 0
 ;
 ;
@@ -12,8 +12,8 @@ Ikoninformasjon
 ; Icon informations
 ;
 MSG_COPYRIGHT
-Ikoninformasjon\nÂ© AROS Development Team
-; Icon informations\nÂ©AROS Dev Team
+Ikoninformasjon\n© AROS Development Team
+; Icon informations\n©AROS Dev Team
 ;
 MSG_ICON
 Ikon
@@ -48,7 +48,7 @@ Skuff
 ; Drawer
 ;
 MSG_TOOL
-VerktÃ¸y
+Verktøy
 ; Tool
 ;
 MSG_PROJECT
@@ -56,7 +56,7 @@ Prosjekt
 ; Project
 ;
 MSG_GARBAGE
-SÃ¸ppel
+Søppel
 ; Garbage
 ;
 MSG_DEVICE
@@ -82,7 +82,7 @@ Beskyttelse
 ; Protection
 ;
 MSG_TOOLTYPES
-VerktÃ¸ytype
+Verktøytype
 ; Tooltypes
 ;
 MSG_ERROR_SHELLSTART
@@ -106,7 +106,7 @@ Skrivbar
 ; Write
 ;
 MSG_EXECUTE
-UtfÃ¸r
+Utfør
 ; Execute
 ;
 MSG_DELETE
@@ -126,12 +126,12 @@ Arkivert
 ; Archived
 ;
 MSG_STICKY
-LÃ¥st fast
+Låst fast
 ; Sticky
 ; FIXME: ?bersetzung?
 ;
 MSG_SIZE
-StÃ¸rrelse
+Størrelse
 ; Size
 ;
 MSG_VERSION
@@ -163,7 +163,7 @@ Dato
 ; Date
 ;
 MSG_NEW_KEY
-Ny nÃ¸kkel
+Ny nøkkel
 ; New key
 ;
 MSG_DELETE_KEY
@@ -187,6 +187,6 @@ Filsti
 ; Path
 ;
 MSG_BTNPATH
-Ã…pne filsti...
+Åpne filsti...
 ; Open path...
 ;

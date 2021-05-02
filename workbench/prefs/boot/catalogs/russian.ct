@@ -1,0 +1,228 @@
+## version $VER: boot.catalog 1.1 (08.03.2019)
+## language russian
+## codeset 2104
+;
+MSG_NAME
+Настройки загрузчика
+; Boot Preferences
+;
+MSG_DESCRIPTION
+Настройки загрузчика
+; Boot preferences
+;
+MSG_GFX
+Графика
+; Graphics
+;
+MSG_GFX_COMPOSITION
+Вкл. композитный менеджер
+; Enable composition
+;
+MSG_GFX_TYPE
+Тип:
+; Type:
+;
+MSG_GFX_TYPE_AUTO
+Автоматизация
+; Automatic
+;
+MSG_GFX_TYPE_NATIVE
+Нативный
+; Native
+;
+MSG_GFX_TYPE_VESA
+VESA
+; VESA
+;
+MSG_GFX_TYPE_VGA
+VGA
+; VGA
+;
+MSG_GFX_VESAMODE
+Режим VESA
+; VESA Mode
+;
+MSG_GFX_WIDTH
+Ширина:
+; Width:
+;
+MSG_GFX_HEIGHT
+Высота:
+; Height:
+;
+MSG_GFX_DEPTH
+Глубина:
+; Colour Depth:
+;
+MSG_GFX_DEPTH_TRUE
+Миллионы цветов
+; True Colour
+;
+MSG_GFX_DEPTH_HIGH
+Тысячи цветов
+; High Colour
+;
+MSG_GFX_DEPTH_LOW
+256 цветов
+; 256 Colours
+;
+MSG_GFX_REFRESH
+Развёртка:
+; Refresh Rate:
+;
+MSG_GFX_HERTZ
+Гц
+; Hz
+;
+MSG_GFX_DEFAULTREFRESH
+Развёртка по умолчанию
+; Use Default Refresh Rate
+;
+MSG_GFX_BESTRES
+Максимально возможное разрешение
+; Use Highest Available Resolution
+;
+MSG_ATA
+ATA
+; ATA
+;
+MSG_ATA_BUSES
+Вкл. шины:
+; Enabled Buses:
+;
+MSG_ATA_BUS_PCI
+PCI
+; PCI
+;
+MSG_ATA_BUS_LEGACY
+Наследие
+; Legacy
+;
+MSG_ATA_BUS_ALL
+Всё
+; All
+;
+MSG_ATA_BUS_NONE
+Ничего
+; None
+;
+MSG_ATA_DMA
+Вкл. передачу данных по DMA
+; Enable DMA Data Transfers
+;
+MSG_ATA_32BIT
+Вкл. 32-битную передачу данных
+; Enable 32-bit Data Transfers
+;
+MSG_ATA_POLL
+Опрашивать устройства
+; Use Polling to Detect End of Busy State
+;
+MSG_ATA_MULTI
+Вкл. мультисекторную передачу данных
+; Enable Multisector Data Transfers
+;
+MSG_ATA_AHCI
+Вкл. нативный AHCI
+; Enable Native AHCI
+;
+MSG_DEBUG
+Отладка
+; Debugging
+;
+MSG_DEBUG_OUTPUT
+Вывод:
+; Output:
+;
+MSG_DEBUG_OUTPUT_NONE
+Ничего
+; None
+;
+MSG_DEBUG_OUTPUT_MEMORY
+Буфер памяти
+; Memory Buffer
+;
+MSG_DEBUG_OUTPUT_SERIAL
+Последовательный порт
+; Serial Port
+;
+MSG_DEBUG_MUNGWALL
+Вкл. Mungwall
+; Enable Mungwall
+;
+MSG_DEBUG_USB
+Отладка USB
+; Debug USB
+;
+MSG_MISC
+Разное
+; Miscellaneous
+;
+MSG_USB_ENABLE
+Вкл. USB
+; Enable USB
+;
+MSG_ACPI_ENABLE
+Вкл. ACPI
+; Enable ACPI
+;
+MSG_FLOPPY_ENABLE
+Вкл. НГМД
+; Enable Floppy Disk Drive
+;
+MSG_DEVICE
+Устройство загрузки
+; Boot Device
+;
+MSG_DEVICE_NAME
+Устройкство DOS:
+; DOS Device:
+;
+MSG_DEVICE_DELAY
+Задержка на старте:
+; Boot Delay:
+;
+MSG_DEVICE_SECONDS
+сек.
+; seconds
+;
+MSG_DEVICE_DEFAULTDELAY
+Задержка по умолчанию
+; Use Default Boot Delay
+;
+MSG_OPTIONS
+Опции
+;Options
+;
+MSG_MODULES
+Модули
+;Modules
+;
+MSG_ACTIVE
+Вкл.
+;Active
+;
+MSG_PATH
+Путь
+;Path
+;
+MSG_ADD
+Добавить
+;Add
+;
+MSG_REMOVE
+Удалить
+;Remove
+;
+MSG_OK
+ОК
+;OK
+;
+MSG_CANCEL
+Отмена
+;Cancel
+;
+MSG_BAD_MODULE
+Ошибка в пути модуля "%s"
+;Bad module path "%s"
+;

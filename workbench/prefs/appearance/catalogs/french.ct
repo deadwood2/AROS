@@ -1,5 +1,5 @@
-## version $VER: Appearance.catalog 2.1 (03.01.2018)
-## language franÃ§ais
+## version $VER: Appearance.catalog 2.2 (11.02.2021)
+## language français
 ## codeset 0
 ;
 ;
@@ -28,12 +28,22 @@ Thème
 ; Theme
 ;
 MSG_ENABLEZUNEPREFS
-Hériter de la configuration de Zune ?
-; Inherit Zune Configuration?
+Remplacez la configuration Zune ?
+;Replace current Zune configuration?
 ;
 MSG_ENABLEWANDPREFS
-Hériter de la configuration de Wanderer ?
-; Inherit Wanderer Configuration?
+Remplacez la configuration Wanderer ?
+;Replace current Wanderer configuration?
+;
+MSG_ENABLEPALETTEPREFS
+Remplacez la configuration Palette ?
+;Replace current Palette configuration?
+;
+MSG_ENABLEFONTPREFS
+Replace current Font configuration?
+;
+MSG_ENABLEPOINTERPREFS
+Replace current Pointer configuration?
 ;
 MSG_SEC_THEMING
 Décoration

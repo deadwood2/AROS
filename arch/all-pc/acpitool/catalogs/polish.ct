@@ -5,19 +5,19 @@
 ;
 ;
 MSG_TITLE
-NarzÄ™dzie ACPI
+Narzêdzie ACPI
 ;ACPI Tool
 ;
 MSG_WINTITLE
-NarzÄ™dzie ACPI
+Narzêdzie ACPI
 ;ACPI Tool
 ;
 MSG_DESCRIPTION
-Przeszukiwanie i zarzÄ…dzanie ACPI
+Przeszukiwanie i zarz±dzanie ACPI
 ;ACPI querying and managment
 ;
 MSG_ERROR_LOCALE
-Nie moÅ¼na otworzyc lokalizacji
+Nie mo¿na otworzyc lokalizacji
 ;Can't open locale
 ;
 MSG_ERROR_OK
@@ -25,11 +25,11 @@ Ok
 ;Ok
 ;
 MSG_ERROR_HEADER
-BÅ‚Ä…d
+B³±d
 ;ERROR
 ;
 MSG_ERROR_NO_ACPI
-Maszyna nie wyposaÅ¼ona w ACPI, lub wsparcie ACPI nie jest aktywne
+Maszyna nie wyposa¿ona w ACPI, lub wsparcie ACPI nie jest aktywne
 ;This machine has no ACPI, or ACPI support has been disabled
 ;
 MSG_UNKNOWN
@@ -65,23 +65,23 @@ Przerwanie SCI
 ;SCI interrupt
 ;
 MSG_SMI_CMD
-Rejestr poleceÅ„ SMI
+Rejestr poleceñ SMI
 ;SMI command register
 ;
 MSG_ACPI_ENABLE
-Polecenie wÅ‚Ä…czenia ACPI
+Polecenie w³±czenia ACPI
 ;ACPI Enable command
 ;
 MSG_ACPI_DISABLE
-Polecenie wyÅ‚Ä…czenia ACPI
+Polecenie wy³±czenia ACPI
 ;ACPI Disable command
 ;
 MSG_S4BIOS
-WprowadÅº polecenie stanu S4BIOS
+Wprowad¼ polecenie stanu S4BIOS
 ;Enter S4BIOS state command
 ;
 MSG_PSTATE
-Polecenie stanu wydajnoÅ›ci procesora
+Polecenie stanu wydajno¶ci procesora
 ;Processor performance state command
 ;
 MSG_FLUSH_SIZE
@@ -89,19 +89,19 @@ Taille du cache CPU
 ;CPU Cache flush size
 ;
 MSG_FLUSH_STRIDE
-Krok oprÃ³Å¼niania pamiÄ™ci podrÄ™cznej procesora
+Krok opró¿niania pamiêci podrêcznej procesora
 ;CPU Cache flush stride
 ;
 MSG_RTC_DAY_ALARM
-PrzesuniÄ™cie dnia alarmu RTC
+Przesuniêcie dnia alarmu RTC
 ;RTC alarm day offset
 ;
 MSG_RTC_MON_ALARM
-PrzesuniÄ™cie miesiÄ…ca alarmu RTC
+Przesuniêcie miesi±ca alarmu RTC
 ;RTC alarm month offset
 ;
 MSG_RTC_CENTURY
-PrzesuniÄ™cie RTC w ciÄ…gu wieku 
+Przesuniêcie RTC w ci±gu wieku 
 ;RTC century offset
 ;
 MSG_RESET_REG
@@ -109,7 +109,7 @@ Zresetuj adres rejestru
 ;Reset register address
 ;
 MSG_RESET_VAL
-Zresetuj wartoÅ›Ä‡
+Zresetuj warto¶æ
 ;Reset value
 ;
 MSG_UNKNOWN_SIZE
@@ -125,15 +125,15 @@ bitach
 ;bits
 ;
 MSG_SPACE_FIXED
-StaÅ‚y sprzÄ™t
+Sta³y sprzêt
 ;Fixed hardware
 ;
 MSG_SPACE_OEM
-PrzestrzeÅ„ dystrybutora
+Przestrzeñ dystrybutora
 ;OEM space
 ;
 MSG_SPACE_UNKNOWN
-Nieznana przestrzeÅ„
+Nieznana przestrzeñ
 ;Unknown space
 ;
 MSG_FMT_UNKNOWN_SPACE
@@ -157,7 +157,7 @@ Flagi architektury PC
 ;PC Architecture flags
 ;
 MSG_FF_FLAGS
-StaÅ‚e wÅ‚aÅ›ciwoÅ›ci 
+Sta³e w³a¶ciwo¶ci 
 ;Fixed Feature flags
 ;
 MSG_LAPIC_ADDR
@@ -181,7 +181,7 @@ Lokalny identyfikator APIC
 ;Local APIC ID
 ;
 MSG_ENABLED
-WÅ‚Ä…czony
+W³±czony
 ;Enabled
 ;
 MSG_IOAPIC
@@ -197,11 +197,11 @@ Adres
 ;Address
 ;
 MSG_IRQ_BASE
-Globalna baza przerwaÅ„ systemowych (IRQ)
+Globalna baza przerwañ systemowych (IRQ)
 ;Global system IRQ base
 ;
 MSG_INT_SRC_OVR
-ZastÄ…pienie ÅºrÃ³dÅ‚a przerwaÅ„
+Zast±pienie ¼ród³a przerwañ
 ;Interrupt source override
 ;
 MSG_BUS
@@ -209,7 +209,7 @@ MSG_BUS
 ;  Bus
 ;
 MSG_BUS_IRQ
-Magistrala przerwaÅ„ systemowych (IRQ)
+Magistrala przerwañ systemowych (IRQ)
 ;Bus IRQ
 ;
 MSG_GLOBAL_IRQ
@@ -225,7 +225,7 @@ MSG_TRIGGER
 ;  Trigger
 ;
 MSG_NMI_SRC
-Å¹rÃ³dÅ‚o NMI
+¬ród³o NMI
 ;NMI source
 ;
 MSG_LAPIC_NMI
@@ -241,11 +241,11 @@ Wszystko
 ;All
 ;
 MSG_LINT
-Lokalne wejÅ›cie przerwania
+Lokalne wej¶cie przerwania
 ;Local interrupt input
 ;
 MSG_LAPIC_ADDR_OVR
-Lokalne zastÄ…pienie adresu APIC
+Lokalne zast±pienie adresu APIC
 ;Local APIC address override
 ;
 MSG_IOSAPIC
@@ -265,7 +265,7 @@ Lokalny identyfikator EID SAPIC
 ;Local SAPIC EID
 ;
 MSG_PLAT_INT_SRC
-Å¹rÃ³dÅ‚o przerwania platformy
+¬ród³o przerwania platformy
 ;Platform interrupt source
 ;
 MSG_PLAT_INT_TYPE
@@ -285,7 +285,7 @@ Vektor SAPIC I/O
 ;I/O SAPIC vector
 ;
 MSG_CPEI_PROC_OVR
-Nadpisanie przerwaÅ„ procesora CPE
+Nadpisanie przerwañ procesora CPE
 ;CPE interrupt processor override
 ;
 MSG_LOCAL_X2APIC
@@ -305,7 +305,7 @@ NMI X2APIC
 ;X2APIC NMI
 ;
 MSG_UNKNOWN_ENTRY
-Nieznany wpis (%u), %u bajtÃ³w
+Nieznany wpis (%u), %u bajtów
 ;Unknown entry (%u), %u bytes
 ;
 MSG_RSDP_ADDR
@@ -321,11 +321,11 @@ Rewizja ACPI
 ;ACPI Revision
 ;
 MSG_HW_REVISION
-Wersja sprzÄ™tu
+Wersja sprzêtu
 ;Hardware Revision
 ;
 MSG_NUM_COMPARATORS
-Liczba komparatorÃ³w
+Liczba komparatorów
 ;Number of comparators
 ;
 MSG_64BIT_COUNTER
@@ -333,7 +333,7 @@ Licznik 64 bitowy
 ;64-bit counter
 ;
 MSG_LEGACY_REPLACEMENT
-KompatybilnoÅ›Ä‡ wsteczna
+Kompatybilno¶æ wsteczna
 ;Legacy replacement capable
 ;
 MSG_PCI_VENDOR
@@ -361,7 +361,7 @@ Atrybuty dystrybutora
 ;OEM Attributes
 ;
 MSG_SHOW_MODE
-PokaÅ¼ :
+Poka¿ :
 ;Show:
 ;
 MSG_SAVE_DATA
@@ -373,11 +373,11 @@ Projekt
 ;Project
 ;
 MSG_MENU_QUIT
-OpuÅ›Ä‡
+Opu¶æ
 ;Quit
 ;
 MSG_MENU_DUMP
-PeÅ‚ny zrzut
+Pe³ny zrzut
 ;Full dump
 ;
 MSG_MENU_DUMP_PARSED
@@ -405,7 +405,7 @@ mWh
 ;mWh
 ;
 MSG_CMD_REG
-Rejestr poleceÅ„/statusu
+Rejestr poleceñ/statusu
 ;Command/status register
 ;
 MSG_DATA_REG
@@ -429,14 +429,14 @@ Adres odniesienia
 ;Base address
 ;
 MSG_MCFG_SEGMENT
-Numer grupy segmentÃ³w PCI
+Numer grupy segmentów PCI
 ;PCI segment group number
 ;
 MSG_MCFG_START_BUS_NUMBER
-PoczÄ…tkowy numer magistrali PCI
+Pocz±tkowy numer magistrali PCI
 ;Starting PCI Bus number
 ;
 MSG_MCFG_END_BUS_NUMBER
-KoÅ„cowy numer magistrali PCI
+Koñcowy numer magistrali PCI
 ;Final PCI Bus number
 ;

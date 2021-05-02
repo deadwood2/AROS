@@ -1,0 +1,45 @@
+## version $VER: Trackdisk.catalog 1.0 (28.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_NAME
+Trackdisk
+; Trackdisk
+;
+MSG_TITLE
+Trackdisk tercihleri
+; Trackdisk prefs
+;
+MSG_SAVE
+Kaydet
+; Save
+;
+MSG_USE
+Kullan
+; Use
+;
+MSG_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_DESCRIPTION
+trackdisk.device tercihler editörü
+; trackdisk.device preferences editor
+;
+MSG_WINDOW_TITLE
+trackdisk.device tercihler
+; trackdisk.device preferences
+;
+MSG_DRIVE
+Sürücü %u
+; Drive %u
+;
+MSG_NOCLICK
+Týklama yok:
+; No click:
+;
+MSG_RETRIES
+Yeniden denemeler:
+; Retries:
+;

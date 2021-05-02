@@ -15,16 +15,16 @@ _Abbrechen
 ; -------------------------------------------------
 ; Aboutmui class
 MSG_ABOUTMUI_WINDOW_TITLE
-Ãœber Zune
+Über Zune
 ; About Zune
 ;
 MSG_ABOUTMUI_STRING
 Zune, ein MUI-Klon\n\n\
 Kompiliert am %s\n\
-Copyright (C) 2002-2020, The AROS Development Team.
+Copyright (C) 2002-2021, The AROS Development Team.
 ; Zune, a MUI clone\n\n\
 ; Compiled on %s\n\
-; Copyright (C) 2002-2020, The AROS Development Team.
+; Copyright (C) 2002-2021, The AROS Development Team.
 ;
 ; -------------------------------------------------
 ; Coloradjust class
@@ -34,7 +34,7 @@ Rot:
 ;
 ; Coloradjust class
 MSG_COLORADJUST_GREEN
-GrÃ¼n:
+Grün:
 ; Green:
 ;
 ; Coloradjust class
@@ -49,7 +49,7 @@ Name
 ; Name
 ;
 MSG_DIRLIST_SIZE
-GrÃ¶ÃŸe
+Größe
 ; Size
 ;
 MSG_DIRLIST_DATE
@@ -201,7 +201,7 @@ Text
 ; Text
 ;
 MSG_PENADJUST_FILL
-FÃ¼llen
+Füllen
 ; Fill
 ;
 MSG_PENADJUST_MARK

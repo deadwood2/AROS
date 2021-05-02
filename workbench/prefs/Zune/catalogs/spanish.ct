@@ -1,834 +1,924 @@
-## version $VER: Zune.catalog 0.2 (23.12.2019)
+## version $VER: Zune.catalog 2.0 (06.01.2021)
 ## language español
 ## codeset 0
 ;
-; Translated by ahg
 ;
-; FIXME: check and complete
-;
-;=================================================
 ; buttonsp.c
 ;-----------
 MSG_GENERAL
 General
+; General
 ;
 MSG_BACKGROUND_COLON
 Fondo:
-;Background:
+; Background:
 ;
 MSG_BACKGROUND_PRESSED
 Fondo cuando\n\
 es apretado:
-;Background in\npressed state:
+; Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
 Texto del botón
-;Text Buttons
+; Text Buttons
 ;
 MSG_FRAME_COLON
 Marco:
-;Frame:
+; Frame:
 ;
 MSG_FONT
 Fuente:
-;Font:
+; Font:
 ;
 MSG_IMAGE_BUTTONS
 Imagen del botón
-;Image Buttons
+; Image Buttons
 ;
 MSG_ADJUST_FRAME
 Ajustar al marco
-;Adjust Frame
+; Adjust Frame
 ;
 MSG_CHECKMARKS
 Casillas de verific.
-;Checkmarks
+; Checkmarks
 ;
 MSG_LOOK_COLON
 Aspecto
-;Look:
+; Look:
 ;
 MSG_CHECKMARK
 Casilla de verific.
-Checkmark
+; Checkmark
 ;
 MSG_RADIO_BUTTONS
 Botones de opción
-;Radio Buttons
+; Radio Buttons
 ;
 MSG_RADIOBUTTON
 Botón de opción
-;Radiobutton
+; Radiobutton
 ;
 MSG_LOOK
 Aspecto
-;Look
+; Look
 ;
 MSG_H
 H
+; H
 ;
 MSG_V
 V
+; V
 ;
 MSG_SPACING
 Espaciado
-;Spacing
+; Spacing
 ;
 ;=============================
 ; cyclesp.c
 ;----------
 MSG_BELOW
 Abajo
-;below
+; below
 ;
 MSG_ON_ACTIVE
 Activo
-;on active
+; on active
 ;
 MSG_CYCLE_GADGET_DESIGN
 Aspecto del Gadget Ciclo
-;Cycle Gadget Design
+; Cycle Gadget Design
 ;
 MSG_CYCLE
 Ciclo
-;Cycle
+; Cycle
 ;
 MSG_POPUP_MENU_CONTROL
 Control de menú emergente
-;Popup Menu Control
+; Popup Menu Control
 ;
 MSG_POSITION
 Posición:
-;Position:
+; Position:
 ;
 MSG_LEVEL
 Nivel:
-;Level:
+; Level:
 ;
 MSG_SPEED
 Velocidad:
-;Speed:
+; Speed:
 ;
 MSG_POPUP_MENU_DESIGN
 Diseño del menú emergente
-;Popup Menu Design
+; Popup Menu Design
 ;
 MSG_FRAME
 Marco
-;Frame
+; Frame
 ;
 MSG_ADJUST_BACKGROUND
 Ajustar el fondo
-;Adjust Background
+; Adjust Background
 ;
 MSG_BACKGROUND
 Fondo
-;Background
+; Background
 ;
 MSG_RECESSED_ENTRIES
 Encastrados:
-;Recessed Entries:
+; Recessed Entries:
 ;
 ;=============================
 ; groupsp.c
 ;__________
 MSG_ABOVE
 Arriba
-;above
+; above
 ;
 MSG_CENTERED
 centrado
-;centered
+; centered
 ;
 MSG_STANDARD
 normal
-;standard
+; standard
 ;
 MSG_HILITE
 hilite
+; hilite
 ;
 MSG_3D
 3d
+; 3d
 ;
 MSG_OUTLINE
 contorno
-;outline
+; outline
 ;
 MSG_TITLE
 Título
-;Title
+; Title
 ;
 MSG_COLOR
 Color:
+; Color:
 ;
 MSG_HORIZONTAL
 Horizontal:
+; Horizontal:
 ;
 MSG_VERTICAL
 Vertical:
+; Vertical:
 ;
 MSG_REGISTER
 Registro
-;Register
+; Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-Tamaño predeterminado\npara truncar los títulos
-;Default size truncate titles
+Tamaño para truncar los títulos:
+; Default size truncate titles:
 ;
 MSG_NORMAL
 Normal
+; Normal
 ;
 MSG_VIRTUAL
 Virtual
+; Virtual
 ;
 MSG_FRAMED
 Enmarcado
-;Framed
+; Framed
 ;
 MSG_PAGE
 Página
-;Page
+; Page
 ;
 ;=============================
 ; listviewsp.c
 ;-------------
 MSG_SHIFTED
 corrido
-;shifted
+; shifted
 ;
 MSG_ALWAYS
 siempre
-;always
+; always
 ;
 MSG_LINEAR
 lineal
-;linear
+; linear
 ;
 MSG_MIXED
 mezclado
-;mixed
+; mixed
 ;
 MSG_CONTROL
 Control
+; Control
 ;
 MSG_MULTI
 Multi:
+; Multi:
 ;
 MSG_REFRESH
 Refrescar:
-;Refresh:
+; Refresh:
 ;
 MSG_SMOOTH
 Suavizar:
-;Smooth:
+; Smooth:
 ;
 MSG_FONTS
 Fuentes
-;Fonts
+; Fonts
 ;
 MSG_NORMAL_COLON
 Normal:
+; Normal:
 ;
 MSG_FIXED
 Fijo:
-;Fixed:
+; Fixed:
 ;
 MSG_LEADING
 Al inicio
-;Leading
+; Leading
 ;
 MSG_DESIGN
 Diseño
-;Design
+; Design
 ;
 MSG_INPUT_LISTS
 Listas de\nEntrada:
-;Input \nLists:
+; Input \nLists:
 ;
 MSG_READONLY_LISTS
 Listas de\nsolo-lectura:
-;Readonly \nLists:
+; Readonly \nLists:
 ;
 MSG_CURSOR
 Cursor
+; Cursor
 ;
 MSG_ACTIVE
 Activo:
-;Active:
+; Active:
 ;
 MSG_ACTIVE_SELECTED
 Activo &\nSeleccionado:
-;Active &\nSelected:
+; Active &\nSelected:
 ;
 MSG_SELECTED
 Seleccionado:
-;Selected:
+; Selected:
 ;
 ;=============================
 ; navigationp.c
 ;______________
 MSG_ALWAYS_SOLID
 siempre lleno
-;always solid
+; always solid
 ;
 MSG_GHOSTED_ON_BOX
 translúcido en la caja
-;fantasmal en la caja
-;ghosted on box
+; ghosted on box
 ;
 MSG_GHOSTED_OUTSIDE_BOX
 translúcido fuera de la caja
-;fantasmal afuera de la caja
-;ghosted outside box
+; ghosted outside box
 ;
 MSG_ALWAYS_GHOSTED
 siempre translúcido
-;siempre fantasmal
-;always ghosted
+; always ghosted
 ;
 MSG_SHOW_FRAMES
 mostrar los marcos
-;show frames
+; show frames
 ;
 MSG_SHOW_OBJECTS
 mostrar los objetos
-;show objects
+; show objects
 ;
 MSG_KL_PRESS
 Apriete:
-;Press:
+; Press:
 ;
 MSG_KL_TOGGLE
 Intercambiar:
-;Toggle:
+; Toggle:
 ;
 MSG_KL_UP
 Arriba:
-;Up:
+; Up:
 ;
 MSG_KL_DOWN
 Abajo:
-;Down:
+; Down:
 ;
 MSG_KL_PAGE_UP
 Pág. ant.:
-;Page up:
+; Page up:
 ;
 MSG_KL_PAGE_DOWN
 Pág. sig.:
-;Page down:
+; Page down:
 ;
 MSG_KL_TOP
 Inicio
-;Top:
+; Top:
 ;
 MSG_KL_BOTTOM
 Final:
-;Bottom:
+; Bottom:
 ;
 MSG_KL_LEFT
 Izquierda:
-;Left:
+; Left:
 ;
 MSG_KL_RIGHT
 Derecha:
-;Right:
+; Right:
 ;
 MSG_KL_WORD_LEFT
 A la izq. de la palabra
-;Word left:
+; Word left:
 ;
 MSG_KL_WORD_RIGHT
 A la der. de la palabra
-;Word right:
+; Word right:
 ;
 MSG_KL_LINE_START
 Inicio del renglón:
-;Line start:
+; Line start:
 ;
 MSG_KL_LINE_END
 Final del renglón:
-;Line end:
+; Line end:
 ;
 MSG_KL_NEXT_GADGET
 El sig. gadget:
-;Next gadget:
+; Next gadget:
 ;
 MSG_KL_PREV_GADGET
 El ant. gadget:
-;Prev. gadget:
+; Prev. gadget:
 ;
 MSG_KL_GADGET_OFF
 Gadget desactivado
-;Gadget off:
+; Gadget off:
 ;
 MSG_KL_CLOSE_WINDOW
 Cerrar la ventana:
-;Close window:
+; Close window:
 ;
 MSG_KL_NEXT_WINDOW
 Sig. ventana:
-;Next window:
+; Next window:
 ;
 MSG_KL_PREV_WINDOW
 Ant. ventana:
-;Prev. window:
+; Prev. window:
 ;
 MSG_KL_HELP
 Ayuda:
-;Help:
+; Help:
 ;
 MSG_KL_POPUP
 Emergente:
-;Popup:
+; Popup:
 ;
 MSG_DRAG_DROP
 Arrastrar y Soltar
-;Drag & Drop
+; Drag & Drop
 ;
 MSG_LEFT_BUTTON
 Botón izq.:
-;Left Button:
+; Left Button:
 ;
 MSG_MIDDLE_BUTTON
 Botón del medio:
-;Middle Button:
+; Middle Button:
 ;
 MSG_AUTOSTART
 Inicio automático:
-;Autostart:
+; Autostart:
 ;
 MSG_PIXEL
 %ld pixel
+; %ld pixel
 ;
 MSG_BALANCING_GROUPS
 Equilibrar los Grupos
-;Balancing Groups
+; Balancing Groups
 ;
 MSG_EXAMPLE
 Ejemplo:
-;Example:
+; Example:
 ;
 MSG_TRY_WITH
 Probar con
-;Try with
+; Try with
 ;
 MSG_SHIFT
 desplazar
-;shift
+; shift
 ;
 MSG_TOO
 también!
-;too!
+; too!
 ;
 MSG_KEYBOARD_CONTROL
 Control del Teclado
-;Keyboard Control
+; Keyboard Control
 ;
 MSG_COLOR_ACTIVE_OBJ
 Color del objeto activo:
-;Color of active object:
+; Color of active object:
 ;
 MSG_NEWLOOK
 nuevo aspecto
-;newlook
+; newlook
 ;
 MSG_CUSTOM
 ;custom
+; custom
 ;
 MSG_ARROWS
 Flechas
-;Arrows
+; Arrows
 ;
 MSG_UP
 arriba
-;up
+; up
 ;
 MSG_ARROW_UP
 Flecha arriba
-;Arrow up
+; Arrow up
 ;
 MSG_ARROW_DOWN
 Flecha abajo
-;Arrow down
+; Arrow down
 ;
 MSG_DOWN
 abajo
-;down
+; down
 ;
 MSG_LEFT
 izq.
-;left
+; left
 ;
 MSG_ARROW_LEFT
 Flecha a la izq.
-;Arrow left
+; Arrow left
 ;
 MSG_ARROW_RIGHT
 Flecha a la der.
-;Arrow right
+; Arrow right
 ;
 MSG_RIGHT
 derecha
-;right
+; right
 ;
 MSG_BAR
 Barra
-;Bar
+; Bar
 ;
 MSG_GADGET_TYPE
 Tipo de Gadget:
-;Gadget Type:
+; Gadget Type:
 ;
 MSG_SCROLLER
 Scroller
+; Scroller
 ;
 MSG_KNOB
 Knob
+; Knob
 ;
 MSG_ARRANGEMENT
 Disposición
-;Arrangement
+; Arrangement
 ;
 ;=============================
 ; slidersp.c
 ;-----------
 MSG_CONTAINER_DESIGN
 Diseño del contenedor
-;Container Design
+; Container Design
 ;
 MSG_KNOB_DESIGN
 ;Knob Design
+; Knob Design
 ;
 MSG_EXAMPLE_SLIDERS
 Deslizadores de ejemplo
-;Example Sliders
+; Example Sliders
 ;
 ;=============================
 ; specialp.c
 ;-----------
 MSG_TEXT_FIELDS
 Campos de Texto
-;Text fields
+; Text fields
 ;
 MSG_EXAMPLE_TEXTFIELD
 Campo de Texto de ejemplo
-;Example Textfield
+; Example Textfield
 ;
 MSG_PROGRESS_INDICATOR
 Indicador de progreso
-;Progress Indicator
+; Progress Indicator
 ;
 MSG_DEVICE_IMAGES
 Imágenes de dispositivos
-;Device Images
+; Device Images
 ;
 MSG_DRAWER
 Cajón
-;Drawer
+; Drawer
 ;
 MSG_HARDDISK
 Disco Duro
-;Harddisk
+; Harddisk
 ;
 MSG_DISK
 Disco
-;Disk
+; Disk
 ;
 MSG_RAM
 RAM
+; RAM
 ;
 MSG_VOLUME
 Volúmen
-;Volume
+; Volume
 ;
 MSG_NETWORK
 Red
-;Network
+; Network
 ;
 MSG_ASSIGN
 Asignación
-;Assign
+; Assign
 ;
 MSG_TAPE_IMAGES
 Imágenes de cintas
-;Tape Images
+; Tape Images
 ;
 MSG_TAPE_PLAY
 Reproducir
-;Tape play
+; Tape play
 ;
 MSG_TAPE_PLAYBACK
 rebobinar
-;Tape playback
+; Tape playback
 ;
 MSG_TAPE_PAUSE
 Pausar
-;Tape pause
+; Tape pause
 ;
 MSG_TAPE_STOP
 Detener
-;Tape stop
+; Tape stop
 ;
 MSG_TAPE_RECORD
 Grabar
-;Tape record
+; Tape record
 ;
 MSG_TAPE_UP
 Al comienzo
-;Tape up
+; Tape up
 ;
 MSG_TAPE_DOWN
 Al final
-;Tape down
+; Tape down
 ;
 ;=============================
 ; stringsp.c
 ;-----------
 MSG_STRING_FRAME
 Marco de la Cadena
-;String Frame
+; String Frame
 ;
 MSG_SPECIAL_POPUP_BUTTONS
 Botones Especiales Emergentes
-;Special Popup Buttons
+; Special Popup Buttons
 ;
 MSG_POPUP
 Emergente
-;Popup
+; Popup
 ;
 MSG_DEFAULT
 Predeterminado
-;Default
+; Default
 ;
 MSG_FILE
 Archivo
-;File
+; File
 ;
 MSG_POPUP_FILE
 Archivo emergente
-;Popup file
+; Popup file
 ;
 MSG_POPUP_DRAWER
 Cajón emergente
-;Popup drawer
+; Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
 Colores de Cadena inactiva
-;Inactive String Colors
+; Inactive String Colors
 ;
 MSG_TEXT
 Texto
-;Text
+; Text
 ;
 MSG_ACTIVE_STRING_COLORS
 Colores de Cadena activa
-;Active String Colors
+; Active String Colors
 ;
 MSG_MARKED_STRING_COLORS
 Colores de Cadena marcada
-;Marked String Colors
+; Marked String Colors
 ;
 MSG_EXAMPLE_STRING_GADGET
 Ejemplo del Gadget Cadena
-;Example String Gadget
+; Example String Gadget
 ;
 ;=============================
 ; windowp.c
 ;----------
 MSG_FORGET_ON_EXIT
 olvidar al salir
-;forget on exit
+; forget on exit
 ;
 MSG_REMEMBER_ON_EXIT
 recordar al salir
-;remember on exit
+; remember on exit
 ;
 MSG_SAVE_ON_EXIT
 guardar al salir
-;save on exit
+; save on exit
 ;
 MSG_SMART
 inteligente
-;smart
+; smart
 ;
 MSG_SIMPLE
 simple
+; simple
 ;
 MSG_WITHOUT_CLEAR
 sin borrar
-;without clear
+; without clear
 ;
 MSG_WITH_CLEAR
 borrar
-;with clear
+; with clear
 ;
 MSG_POSITIONS
 Posiciones:
-;Positions:
+; Positions:
 ;
 MSG_REDRAW
 Dibujar de nuevo:
-;Redraw:
+; Redraw:
 ;
 MSG_TINY
 Pequeño:
-;Tiny:
+; Tiny:
 ;
 MSG_BIG
 Grande:
-;Big:
+; Big:
 ;
 MSG_WINDOW
 Ventana
-;Window
+; Window
 ;
 MSG_REQUESTER
 Requester
+; Requester
 ;
 MSG_L
 L
+; L
 ;
 MSG_T
 T
+; T
 ;
 MSG_R
 R
+; R
 ;
 MSG_B
 B
+; B
 ;
 MSG_BUTTONS
 Botones
-;Buttons
+; Buttons
 ;
 ;=============================
 ; zune.c
 ;-------
 MSG_WINTITLE1
 Zune - Prefs Globales
-;Zune - Global Prefs
+; Zune - Global Prefs
 ;
 MSG_WINTITLE2
 Zune - Prefs para: %s
-;Zune - Prefs for : %s
+; Zune - Prefs for : %s
 ;
 MSG_MEN_PROJECT
 Proyecto
-;Project
+; Project
 ;
 MSG_MEN_OPEN
 Abrir...
-;Open ...
+; Open ...
 ;
 MSG_MEN_OPEN_SC
 O
+; O
 ;
 MSG_MEN_APPEND
 Agregar...
-;Append ...
+; Append ...
 ;
 MSG_MEN_SAVEAS
 Guardar como...
-;Save As ...
+; Save As ...
 ;
 MSG_MEN_SAVEAS_SC
 A
+; A
 ;
 MSG_MEN_ABOUT
 Acerca de Zune...
-;About Zune ...
+; About Zune ...
 ;
 MSG_MEN_ABOUT_SC
 ?
+; ?
 ;
 MSG_MEN_QUIT
 Salir
-;Quit
+; Quit
 ;
 MSG_MEN_QUIT_SC
 Q
+; Q
 ;
 MSG_FRAME_CLIPBOARD
 Clipboard del marco
-;Frame Clipboard
+; Frame Clipboard
 ;
 MSG_IMAGE_CLIPBOARD
 Clipboard de la imagen
-;Image Clipboard
+; Image Clipboard
 ;
 MSG_GAD_TEST
 _Probar
-;_Test
+; _Test
 ;
 MSG_GAD_SAVE
 _Guardar
-;_Save
+; _Save
 ;
 MSG_GAD_USE
 _Usar
-;_Use
+; _Use
 ;
 MSG_GAD_CANCEL
 _Cancelar
-;_Cancel
+; _Cancel
+;
+MSG_DSC_SYSTEM
+Sistema
+; System
 ;
 MSG_DSC_WINDOWS
 Ventanas
-;Windows
+; Windows
 ;
 MSG_DSC_GROUPS
 Grupos
-;Groups
+; Groups
 ;
 MSG_DSC_BUTTONS
 Botones
-;Buttons
+; Buttons
 ;
 MSG_DSC_CYCLES
 Ciclos
-;Cycles
+; Cycles
 ;
 MSG_DSC_SLIDERS
 Deslizadores
-;Sliders
+; Sliders
 ;
 MSG_DSC_SCROLLBARS
 Barras de desplazamiento
-;Scrollbars
+; Scrollbars
 ;
 MSG_DSC_LISTVIEWS
 Vistas de lista
-;Listviews
+; Listviews
 ;
 MSG_DSC_STRINGS
 Cadenas
-;Strings
+; Strings
 ;
 MSG_DSC_NAVIGATION
 Navegación
-;Navigation
+; Navigation
 ;
 MSG_DSC_SPECIAL
 Especial
-;Special
+; Special
 ;
 MSG_DSC_FRAMES
 Marcos
-;Frames
+; Frames
 ;
 ;=============================
 ; zunestuff.c
 ;------------
 MSG_ADJUST_PEN
 Ajustar Pincel
-;Adjust Pen
+; Adjust Pen
 ;
 ;=============================
 ; framesp.c
 ;----------
 MSG_CUSTOMFRAMES
 Marcos personales
-;Customframes
+; Customframes
+;
+;=============================
+; systemp.c
+;----------
+MSG_PUBLIC_SCREEN
+Pantalla pública
+; Public Screen
+;
+MSG_NAME
+Nombre
+; Name:
+;
+MSG_CALL_INSPECTOR
+Llamar a Inspector
+; Call Inspector
+;
+MSG_POP_TO_FRONT
+Traer a primer plano
+; Pop to front:
+;
+MSG_ICONIFICATION
+Iconificar
+; Iconification
+;
+MSG_HOTKEY
+Atajo:
+; Hotkey:
+;
+MSG_SHOW
+Mostrar:
+; Show:
+;
+MSG_ICON
+Icono
+; Icon
+;
+MSG_MENU
+Menu
+; Menu
+;
+MSG_ON_STARTUP
+Al inicio:
+; On Startup:
+;
+MSG_INTERFACES
+Interfaces
+; Interfaces
+;
+MSG_AREXX
+Arexx:
+; ARexx:
+;
+MSG_BUBBLE_HELP
+Burbuja de ayuda
+; Bubble Help
+;
+MSG_FIRST_BUBBLE
+Primera burbuja:
+; First Bubble:
+;
+MSG_NEXT_BUBBLE
+Siguiente Burbuja
+; Next Bubble:
 ;

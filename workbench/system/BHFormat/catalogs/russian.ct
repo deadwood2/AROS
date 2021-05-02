@@ -1,6 +1,6 @@
-## version $VER: Format.catalog 1.0 (24.11.2008)
+## version $VER: Format.catalog 2.0 (13.12.2020)
 ## language russian
-## codeset 0
+## codeset 2104
 ;
 MSG_OK
 OK
@@ -27,6 +27,9 @@ MSG_INITIALIZING
 ; ===========================================================
 ; gui.c
 ;
+MSG_SELECTDEVICE
+\n  Выберите устройство ниже для  \n  последующего форматирования  \n
+;
 MSG_GUI_FORMATTING
 Форматирование диска...
 ;
@@ -50,7 +53,7 @@ MSG_FORMAT_REQUEST_TEXT
 (%s)
 ;
 MSG_UNITS
-KMGTPE
+КМГТПЭ
 ; Kilo, Mega ...
 ;
 MSG_CAPACITY_USED
@@ -63,13 +66,13 @@ MSG_ERROR_WANDERER
 Нужно запускать из меню Wanderer, выбрав иконку диска\n
 ;
 MSG_WINDOW_TITLE
-Форматирование - %s
+Новый формат %s
 ;
 MSG_DEVICE
-Устройство '%s'
+%s
 ;
 MSG_VOLUME
-Том '%b'
+%b
 ;
 MSG_APPLICATION_TITLE
 Форматирование
@@ -78,43 +81,43 @@ MSG_DESCRIPTION
 Утилита форматирования дисков
 ;
 MSG_COPYRIGHT
-Copyright © 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+Copyright © 1999 Бен Хатчингс, 2008 Павел Федин, 2008 The AROS Development Team
 ;
 MSG_AUTHOR
-Ben Hutchings, Pavel Fedin, The AROS Development Team
+Бен Хатчингс, Павел Федин, The AROS Development Team
 ;
 MSG_LABEL_CURRENT_INFORMATION
-Текущие данные:
+Устройство:
 ;
 MSG_LABEL_NEW_VOLUME_NAME
-Новая метка тома:
+Новое имя тома:
 ;
 MSG_DEFAULT_VOLUME_NAME
-Нет метки
+Безымянный
 ;
 MSG_LABEL_PUT_TRASHCAN
-Включить Корзину:
+Добавить корзину:
 ;
 MSG_LABEL_FFS
 Fast File System:
 ;
 MSG_LABEL_INTL
-International Mode:
+Международный режим:
 ;
 MSG_LABEL_CACHE
-Directory Cache:
+Кэшировать директории:
 ;
 MSG_BTN_FORMAT
-Обычное
+Обычное\nформатирование
 ;
 MSG_BTN_QFORMAT
-Быстрое
+Быстрое\nформатирование
 ;
 MSG_BTN_CANCEL
-Отмена
+Закрыть\nи выйти
 ;
 MSG_BTN_STOP
-Stop
+Остановить
 ;
 MSG_ERROR_NO_APPLICATION
 Ошибка создания приложения\n
@@ -135,40 +138,40 @@ MSG_ERRORS_ERROR
 Ошибка
 ;
 MSG_ERRORS_FAILURE
-Отказ
+Сбой
 ;
 MSG_FORMAT
-Format 
+Форматирование 
 ;
 MSG_ERROR_INVALID_DOSTYPE
 Неправильно указан DosType
 ;
 MSG_ERROR_TOO_LARGE_1
 Размер устройства превышает 4 ГБ. \
- ФС Amiga не поддерживает такие размеры томов.
+ Файловая система не поддерживает такие размеры томов.
 ;
 MSG_ERROR_TOO_LARGE_2
-Рамки тома выходят за первые 4 ГБ диска\
- где он расположен. Чтобы его использовать, установите\
- версию 43 или новее файловой системы Amiga.
+Размеры тома выходят за пределы первых 4 ГБ диска.\
+ Чтобы использовать его, потребуется установить\
+ более свежую файловую систему (версии 43 и выше).
 ;
 MSG_ERROR_TOO_LARGE_3
 Размер тома превышает 2 ГБ. Чтобы использовать его,\
- потребуется установить версию 40 или новее файловой\
- системы Amiga.
+ потребуется установить более свежую файловую систему\
+ (версии 40 и выше).
 ;
 MSG_ERROR_TOO_LARGE_4
-Устройство настроено для использования буфера в памяти, которая\
- не может быть \"public\". Это может вызвать отказ системы, если используется\
- виртуальная память. Во избежание этого следует установить значение 1\
- для BufMemTypesetting.
+Устройство настроено для использования буфера в памяти, но память\
+ не может иметь тип \"public\". Это вызвает сбой системы (при\
+ использовании виртуальной памяти). Во избежание проблем следует\
+ установить значение 1 для BufMemTypesetting.
 ;
 MSG_ERROR_DEVICE
 Ошибка открытия устройства %ld
 ;
 MSG_ERROR_IDE
 Возможно, устройство расположено на IDE-диске,\
- использующим старый драйвер IDE от Commodore. Данный драйвер\
+ использующем старый IDE-драйвер от Commodore. Драйвер\
  может попытаться выполнить передачу данных, которая не\
  поддерживается некоторыми дисками IDE. Во избежание\
  потери данных, следует установить значение 0x10000 для\
@@ -178,10 +181,10 @@ MSG_ERROR_DEVICE_QUERY
 Опрос устройства (NSCMD_DEVICEQUERY) вернул ошибку %ld
 ;
 MSG_ERROR_64BIT
-This device extends beyond the first 4 gigabytes of the disk.\
- In order to use this device, you must either use a driver\
- that supports the NSD 64-bit commands or install and run the\
- NSDPatch program.
+Это устройство выходит за пределы первых 4 гигабайт диска.\
+ Чтобы подключить это устройство, вы должны либо использовать\
+ драйвер который поддерживает 64-битные команды NSD, либо\
+ установить и запустить приложение NSDPatch.
 ;
 MSG_ERROR_DEVICE_RETURN
 Устройство %s вернуло ошибку %ld

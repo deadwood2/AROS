@@ -1,31 +1,93 @@
-## version $VER: ScreenMode.catalog 1.0 (13.05.2006)
-## language russian
+## version $VER: ScreenMode.catalog 2.1 (23.02.2021)
 ## codeset 2104
+## language russian
+;
 ;
 MSG_NAME
-Настройки видеорежима
-;
+Настройки экранного режима
+; ScreenMode Preferences
+; 
 MSG_WIDTH
 \33lШирина:
+; \33lWidth:
 ;
 MSG_DEFAULT
-\33l_По умолчанию
+\33l_по умолчанию
+; \33l_default
 ;
 MSG_HEIGHT
 \33lВысота:
+; \33lHeight:
 ;
 MSG_DEPTH
 \33lГлубина:
+; \33lDepth:
 ;
 MSG_AUTOSCROLL
 \33lАвтопрокрутка
+; \33lAutoscroll
 ;
 MSG_DISPLAY_MODE
 Видеорежим
+; Display Mode
 ;
 MSG_MODE_ID
 ID режима
+; Mode ID
 ;
 MSG_DESCRIPTION
 Описание
+; Description
+;
+MSG_MODE_ATTRIBUTES
+Отображение
+; Mode Attributes
+;
+MSG_VISIBLE_SIZE
+Показано:
+; Visible Size:
+;
+MSG_MINIMUM_SIZE
+Минимум:
+; Minimum Size:
+;
+MSG_MAXIMUM_SIZE
+Максимум:
+; Maximum Size:
+;
+MSG_MAXIMUM_COLORS
+Цветов:
+; Maximum Colors:
+;
+MSG_FREQUENCY
+Частота обновления:
+; Frequency
+;
+MSG_INTERLACED
+Чересстрочный\n
+; Interlaced\n
+;
+MSG_WANTS_ECS
+Требует ECS\n
+; Requires ECS\n
+;
+MSG_DUALP
+Двухплановый\n
+; Dual playfields\n
+;
+MSG_GENLOCK
+Поддерживает генлок\n
+; Supports genlock\n
+;
+MSG_DRAGGABLE
+Перетаскиваемый\n
+; Draggable\n
+;
+MSG_PANELLED
+Конверсия развёртки для панели\n
+; Panelled for scan conversion\n
+;
+MSG_BEAM_SYNC
+Поддерживает синхронизацию луча\n
+; Supports beam synchronization\n
 ;

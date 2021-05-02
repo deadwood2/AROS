@@ -1,0 +1,68 @@
+## version $VER: palette.catalog 2.0 (23.02.2021)
+## codeset 2104
+## language russian
+;
+MSG_WINTITLE
+Настройки палитры
+; Palette Preferences
+;
+MSG_OK
+Ок
+; Ok
+;
+MSG_PEN0
+Контур
+; Detail Pen
+;
+MSG_PEN1
+Область
+; Block Pen
+;
+MSG_PEN2
+Текст
+; Text Pen
+;
+MSG_PEN3
+Подсветка
+; Shine Pen
+;
+MSG_PEN4
+Тень
+; Shadow Pen
+;
+MSG_PEN5
+Заполнение
+; Fill Pen
+;
+MSG_PEN6
+Заполнение текста
+; Fill Text Pen
+;
+MSG_PEN7
+Фон
+; Background Pen
+;
+MSG_PEN8
+Выделение текста
+; Highlight Text Pen
+;
+MSG_PEN9
+Контур полосы
+; Bar Detail Pen
+;
+MSG_PEN10
+Область полосы
+; Bar Block Pen
+;
+MSG_PEN11
+Край полосы
+; Bar Trim Pen
+;
+MSG_4COLOR
+4-цветная настройка
+; 4 Color Settings
+;
+MSG_MULTICOLOR
+многоцветная настройка
+; Multicolor Settings
+;

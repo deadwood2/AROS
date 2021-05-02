@@ -1,0 +1,256 @@
+## version $VER: networkprefs.catalog 4.0 (20.01.2021)
+## language español
+## codeset 0
+;
+MSG_NAME
+Preferencias de red
+; Network Preferences
+;
+MSG_DESCRIPTION
+Preferencias de red
+; Network preferences
+;
+MSG_IFNAME
+Nombre
+; Name
+;
+MSG_UP
+Activo
+; Active
+;
+MSG_DEVICE
+Periferico
+; Device
+;
+MSG_UNIT
+Unidad
+; Unit
+;
+MSG_IP_MODE
+Modo IP
+; IP Mode
+;
+MSG_IP
+Dirección
+; Address
+;
+MSG_MASK
+Mascara de red
+; Net Mask
+;
+MSG_GATE
+Puerta de enlace
+; Gateway
+;
+MSG_DNS1
+DNS primario
+; Primary DNS
+;
+MSG_DNS2
+DNS secundario
+; Secondary DNS
+;
+MSG_HOST_NAME
+Nombre de host
+; Host Name
+;
+MSG_HOST_NAMES
+Nombre y aliases de host
+; Host Name and Aliases
+;
+MSG_DOMAIN_NAME
+Dominio/grupo de trabajo
+; Domain/Workgroup
+;
+MSG_SERIAL_DEVICE
+Periférico serie
+; Serial Device
+;
+MSG_UNIT_NUMBER
+Unidad
+; Unit
+;
+MSG_IP_MODE_MANUAL
+Manual
+; Manual
+;
+MSG_IP_MODE_DHCP
+Automática
+; Automatic
+;
+MSG_ENC_NONE
+Ninguna
+; None
+;
+MSG_ENC_WEP
+WEP
+; WEP
+;
+MSG_ENC_WPA
+WPA
+; WPA
+;
+MSG_KEY_TEXT
+Contraseña
+; Passphrase
+;
+MSG_KEY_HEX
+Hexadecimal
+; Hexadecimal
+;
+MSG_SSID
+Nombre de red
+; Network Name
+;
+MSG_ENCTYPE
+Encriptado
+; Encryption
+;
+MSG_KEYTYPE
+Tipo de clave
+; Key Type
+;
+MSG_KEY
+Clave
+; Key
+;
+MSG_HIDDEN
+Oculto
+; Hidden
+;
+MSG_ADHOC
+Ad-hoc
+; Ad-hoc
+;
+MSG_TAB_IP_CONFIGURATION
+Configuración IPv4
+; IPv4 Configuration
+;
+MSG_TAB_COMPUTER_NAMES
+Nombres de hosts
+; Local Host Entries
+;
+MSG_TAB_WIRELESS
+Redes inalámbricas
+; Wireless Networks
+;
+MSG_TAB_MOBILE
+Banda ancha movil
+; Mobile Broadband
+;
+MSG_TAB_SERVERS
+Servidores de ficheros
+; Mounted Shares
+;
+MSG_AUTOSTART_STACK
+Iniciar red al arrancar el sistema
+; Start networking during system boot
+;
+MSG_ERR_UNKNOWN_ERROR
+Error desconocido
+; Unknown error
+;
+MSG_ERR_NOT_RESTARTED_STACK
+Fallo al reiniciar la pila de red
+; Failed to restart network stack
+;
+MSG_ERR_NOT_RESTARTED_WIRELESS
+Fallo al reiniciar la red inalámbrica
+; Failed to restart wireless networking
+;
+MSG_ERR_NOT_RESTARTED_MOBILE
+Fallo al reiniciar ModemManager
+; Failed to restart ModemManager
+;
+MSG_BUTTON_OK
+Ok
+; Ok
+;
+MSG_BUTTON_ADD
+Añadir
+; Add
+;
+MSG_BUTTON_EDIT
+Editar
+; Edit
+;
+MSG_BUTTON_REMOVE
+Quitar
+; Remove
+;
+MSG_BUTTON_APPLY
+Aplicar
+; Apply
+;
+MSG_BUTTON_CLOSE
+Cerrar
+; Close
+;
+MSG_ERROR_TITLE
+Error
+; Error
+;
+MSG_WARNING_TITLE
+Advertencia
+; Warning
+;
+MSG_ERR_NOT_SAVED_PREFS
+Las preferencias de red no se han guardado en %s  
+; Network preferences not saved to %s
+;
+MSG_ERR_NOT_COPIED_FILES
+Ficheros adicionales no se han copiado a %s 
+; Additional files not copied to %s
+;
+MSG_WARN_MULTIPLE_IFACES
+DHCP no funciona correctamente con varias interfaces configuradas
+; DHCP does not work reliably when multiple interfaces are configured
+;
+MSG_INFO_TITLE
+Información
+; Information
+;
+MSG_PREFS_SAVED_RESTART
+Las preferencias guardadas en %s.\nReinicia AROS para que sean efectivas. 
+; Preferences have been saved to %s.\nRestart AROS for them to take effect.
+;
+MSG_IFWINDOW_TITLE
+Interfaz
+; Interface
+;
+MSG_HOSTWINDOW_TITLE
+Nombre de host(s)
+; Host Name(s)
+;
+MSG_NETWINDOW_TITLE
+Red Inalámbrica
+; Wireless Network
+;
+MSG_SERVERWINDOW_TITLE
+Servidor de ficheros
+; Mount Share
+;
+MSG_USERNAME
+Usuario
+; Username
+;
+MSG_PASSWORD
+Password
+; Password
+;
+MSG_WORKGROUP
+Dominio/grupo de trabajo
+; Domain/Workgroup
+;
+MSG_SERVICE
+Nombre de recurso compartido
+; Share Name
+;
+MSG_SERVICE_TYPES
+Tipo de servicio
+; Service Type
+;
+MSG_SERVICETYPE_CIFS
+CIFS/SMB
+; CIFS/SMB
+;

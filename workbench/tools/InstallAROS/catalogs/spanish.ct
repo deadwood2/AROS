@@ -1,0 +1,365 @@
+## version $VER: installaros.catalog 2.0 (25.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_TITLE
+Instalador Aros
+; AROS Installer
+;
+MSG_DESCRIPTION
+Instala AROS en una unidad.
+; Installs AROS on to a Drive.
+;
+MSG_WELCOME
+\033b\nBienvenido al instalador del AROS Research OS.\n\n\033nEste programa te permite instalar AROS\nen el disco duro de tu ordenador o en una unidad USB.\n\nTen en cuenta que la estabilidad de este software\nno puede ser garantizada.\nEs posible que suceda una \033pérdida de datos\033n\nen cualquier unidad de tu sistema, incluidos los\nusados por otro sistema operativo.\n
+; \033b\nWelcome to the AROS Research OS installer.\n\n\033nThis program allows you to install AROS\non your computer's hard disk or an attached USB drive.\n\nPlease be aware that the stability of this software\ncannot be guaranteed.\nIt is possible that \033bloss of data\033n may occur\non any drive in your system, including those\nused by other operating systems.\n
+;
+MSG_INSTALLOPTIONS
+\nPor favor, escoge las opciones de tu instalación.\n\n
+; \nPlease choose your installation options.\n\n
+;
+MSG_DESTOPTIONS
+\nPor favor, escoge donde instalar AROS.\n\nSi no estas seguro, selecciona el valor por defecto.
+; \nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults.
+;
+MSG_ACCEPT
+Acceptar el Acuerdo de Licencia?
+; Accept License Agreement?
+;
+MSG_DRIVE
+\033bUnidad:\033n
+; \033bDrive:\033n
+;
+MSG_TYPE
+Tipo:
+; Type:
+;
+MSG_DEVICE
+Periferico:
+; Device:
+;
+MSG_UNIT
+Unidad:
+; Unit:
+;
+MSG_NAME
+Nombre:
+; Name:
+;
+MSG_FILESYSTEM
+Sistema de ficheros:
+; Filesystem:
+;
+MSG_SIZE
+Tamaño:
+; Size:
+;
+MSG_MENUMODE
+Modo de menú:
+; Menu Mode:
+;
+MSG_CREATE
+Crear:
+; Create
+;
+MSG_SPECIFYSIZE
+Especificar tamaño
+; Specify Size
+;
+MSG_DESTVOLUME
+Partición destino
+; Destination Partition
+;
+MSG_WORKVOLUME
+Partición de trabajo
+; Work Partition
+;
+MSG_CHOOSELANG
+Escoger opciones de idioma
+; Choose Language Options
+;
+MSG_INSTALLCORE
+Instalar el sistema AROS básico
+; Install AROS Core System
+;
+MSG_INSTALLEXTRA
+Instalar software extra
+; Install Extra Software
+;
+MSG_INSTALLDEVEL
+Intalar herramientas de desarrollo y debug
+; Install Debugging tools and Developer Software
+;
+MSG_INSTALLBOOT
+Instalar Bootloader
+; Install Bootloader
+;
+MSG_FORMATPART
+Formatear partición
+; Format Partition
+;
+MSG_USEWORK
+Usar partición 'Work'
+; Use 'Work' Partition
+;
+MSG_USEWORKFOR
+Usar la partición 'Work' para Extras y Herramientas de desarrollo
+; Use 'Work' Partition for Extras and Developer Files
+;
+MSG_BEGINWITHPARTITION
+OK, estamos listos para comenzar.\n\nComo has escogido formatear al menos una partición,\nno podrás deshacer cambios\ntras este punto.\n\nPincha en Proceder para iniciar la instalación.
+; OK, we are ready to begin.\n\nSince you've chosen to format at least one partition,\nyou will no longer be able to undo changes\nafter this point.\n\nSelect Proceed to begin installation.
+;
+MSG_BEGINWITHOUTPARTITION
+OK, estamos listos para comenzar...\n\nHemos regogido suficiente información\npara iniciar la instalación en este ordenador.\n\n\nSelecciona Proceder para iniciar la instalación.
+; OK, we are ready to begin...\n\nWe have collected enough information\nto begin installation on this computer.\n\n\nSelect Proceed to begin installation.
+;
+MSG_PARTITIONOPTIONS
+Vamos a crear las particiones AROS en la unidad de destino.\n\nPor favor, selecciona como se debe proceder.\n
+; We will now create AROS partitions on the destination drive.\n\nPlease select how you would like to proceed.\n
+;
+MSG_DESTPARTITION
+\033bPartición del Sistema:\033n
+; \033bSystem Partition:\033n
+;
+MSG_WORKPARTITION
+\033bPartición Work:\033n
+; \033bWork Partition:\033n
+;
+MSG_USEFREE
+Usar solo espacio libre
+; Only use free space
+;
+MSG_WIPEDISK
+Borrar disco
+; Wipe disk
+;
+MSG_USEEXISTING
+Usar particiones AROS existentes (en cualquier unidad)
+; Use existing AROS partitions (on any drive)
+;
+MSG_PARTITIONTOOBIG
+; El tamaño de partición seleccionado es demasiado grande.\nEl tamaño máximo de una partición SFS es de %ld GB (%ld MB),\nmientras que el de una partición FFS es de %ld GB (%ld MB).\nPor favor, reduce el tamaño de las particiones afectadas.\n
+; The partition sizes you have requested are too large.\nThe maximum size of an SFS partition is %ld GB (%ld MB),\nwhile the maximum size of an FFS partition is %ld GB (%ld MB).\nPlease reduce the size of the affected partitions.\n
+;
+MSG_GRUBOPTIONS
+AROS usa el bootloader GRUB.\n\nEn la mayoría de casos, el bootblock de GRUB debe\nser instalado en la primera unidad de tu sistema.\nSi el instalador detecta una instalación de Microsoft Windows,\nserá incluida en el menu de GRUB.\n
+; AROS uses the GRUB bootloader.\n\nIn most cases, GRUB's bootblock should\nbe installed on the first drive in your system.\nIf the Installer detects a Microsoft Windows installation,\nit will be included as a choice in GRUB's boot menu.\n
+;
+MSG_GRUBDRIVE
+Unidad donde se instalará el bootblock del Bootloader:
+; Drive to install Bootloader's bootblock on:
+;
+MSG_GRUBGOPTIONS
+Configuración GRUB
+; GRUB Settings
+;
+MSG_GRUBGRUB
+Ruta a los ficheros GRUB:
+; Path to GRUB files:
+;
+MSG_NOGRUBDEVICE
+Por favor, introduce el periférico y numero de unidad\ndonde se intalará el bootblock del GRUB.\n
+; Please enter the device name and unit number for\nthe drive GRUB's bootblock should be installed on.\n
+;
+MSG_PARTITIONING
+Particionando las unidades...\n\n
+; Partitioning your drives...\n\n
+;
+MSG_FORMATTING
+Formateando '%s'...
+; Formatting '%s'...
+;
+MSG_INSTALL
+Copiando ficheros a la unidad de destino.\n\nEsto puede tomar algo de tiempo...\n
+; Copying files to the destination drive.\n\nThis may take some time...\n
+;
+MSG_COPYCORE
+Copiando ficheros básicos del sistema...
+; Copying Core System files...
+;
+MSG_COPYEXTRA
+Copiando Software Extra...
+; Copying Extra Software...
+;
+MSG_COPYDEVEL
+Copiando ficheros de Desarrollo...
+; Copying Developer Files...
+;
+MSG_COPYBOOT
+Copiando ficheros de BOOT...
+; Copying BOOT files...
+;
+MSG_BOOTLOADER
+Copiando el bootloader a la\nunidad de destino, e instalando...\n
+; Copying the bootloader to your\ndestination drive, and installing...\n
+;
+MSG_POSTINSTALL
+Ejecutando script post-instalación...
+; Running post-install script...
+;
+MSG_POSTINSTALL2
+Ejecutando el script post-instalación\nexterno. Por favor, espere.\n
+; Running the external post-install\nscript. Please wait.\n
+;
+MSG_DONEREBOOT
+Se han cerado las particiones AROS partitions!\nPAra continuar la instalación, debes\nreboot AROS, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
+; AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
+;
+MSG_DONEUSB
+Se han creado las particiones AROS!\nPara continuar la instalación, debes sacar\n, reintroducir tu unidad USB, y relanzar\nesta aplicación de instalador.\n\nSelecciona Proceder para terminar.
+; AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application.\n\nSelect Proceed to finish.n
+;
+MSG_INSTALLING
+Instalando AROS...
+; Installing AROS...
+;
+MSG_INSTALLINGBOOT
+Instalando el Bootloader...
+; Installing Bootloader...
+;
+MSG_DONE
+Felicidades, has instalado AROS!\n\nPara arrancar AROS desde la unidad de destino,\nsaca el disco de instalación y\nreinicia tu ordenador usando el\nbotón de encendido o el de reinicio.\n\nSelecciona Proceder para terminar.\n
+; Congratulations, you now have AROS installed!\n\nTo boot AROS from the destination drive,\nremove the installation media and\nrestart your computer using the\npower switch or reset button.\n\nSelect Proceed to finish.\n
+;
+MSG_CANCELOK
+Estas seguro de que quieres cancelar\nesta instalación?\n
+; Are you sure you wish to cancel\nthis installation?\n
+;
+MSG_CANCELDANGER
+Se han hecho cambios irreversibles a\ntu sistema.\n\nCancelar ahora puede dejar tu PC en un\nestado no arrancable.\n\nEstás seguro de que deseas cancelar\nesta instalación?\n
+; Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state.\n\nAre you sure you wish to cancel\nthis installation?\n
+;
+MSG_BACK
+<< _Atrás...
+; << _Back...
+;
+MSG_PROCEED
+_Proceder
+; _Proceed
+;
+MSG_NOTALLFILESCOPIED
+No todos los ficheros de '%s'\nse han copiado.\nSe debería continuar la instalación?\n
+; Not all files in '%s'\nwere copied.\nShould the installation continue?\n
+;
+MSG_PARTITIONINGFAILED
+El particionado de disco ha fallado. InstallAROS\nterminará ahora.
+; Partitioning of disk failed. InstallAROS\nwill now quit.
+;
+MSG_GRUBNONFFSWARNING
+Has seleccionado un sistema de ficheros diferente\ndel FFS-Intl para la partición del sistema. Como\nesta distribución de AROS es compilada con el\nbootloader GRUB original, no podrás iniciar\nel sistema tras la instalación.\n\nSe debería continuar con la instalación?\n
+; You have selected a filesystem different\nthan FFS-Intl for the system partition. Since\nthis distribution of AROS is compiled with the\noriginal GRUB bootloader, you will not be able to\nboot the system after installation.\n\nShould the partitioning continue?\n
+;
+MSG_CANCELINSTALL
+Cancelar Instalación...
+; Cancel Installation...
+;
+MSG_CONTINUECANCELINST
+*Continuar Instalacion|Cancelar Instalacion
+; *Continue Install|Cancel Install
+;
+MSG_CONTINUECANCELPART
+Continuar Particionado|*Cancelar Particionado
+; Continue Partitioning|*Cancel Partitionin
+;
+MSG_CONTINUEQUIT
+Continuar|*Salir
+; Continue|*Quit
+;
+MSG_EXISTSRETRY
+El fichero ya existe\nReemplazar %s?
+; File Already Exists\nReplace %s?
+;
+MSG_RETRY
+Reintentar
+; Retry
+;
+MSG_SCANRETRY
+Error leyendo %s\nReintentar?
+; Error scanning %s\nRetry?
+;
+MSG_FINDRETRY
+No puedo encontrar %s\nReintentar?
+; Could not find %s\nRetry?
+;
+MSG_COULDNTOPEN
+No puedo abrir %s
+; Couldn't Open %s
+;
+MSG_COULDNTWRITE
+No puedo escribir en %s
+; Couldn't Write to %s
+;
+MSG_DISKFULL
+No puedo escribir a %s\nDisco lleno!
+; Couldn't Write to %s\nDisk Full!
+;
+MSG_TEXT
+Texto
+; Text
+;
+MSG_GFX
+Gráficos
+; Graphics
+;
+MSG_YES
+Si
+; Yes
+;
+MSG_YESALWAYS
+No [Siempre]
+; Yes [Always]
+;
+MSG_NO
+No
+; No
+;
+MSG_SKIP
+Saltar
+; Skip
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_CANCEL
+Cancelar
+; Cancel
+;
+MSG_CANCEL2
+_Cancelar
+; _Cancel
+;
+MSG_QUIT
+Salir
+; Quit
+;
+MSG_QUIT2
+SALIR
+; QUIT
+;
+MSG_ERROR
+Error
+; Error
+;
+MSG_WARNING
+Advertencia
+; Warning
+;
+MSG_REBOOT
+Reiniciar AROS ahora
+; Reboot AROS now
+;
+MSG_IOERROR
+Ha sucedido un error E/S
+; IO Error has occured
+;
+MSG_NOTFILESYSTEM
+El periférico '%s' no tiene un sistema de ficheros\n
+; device '%s' doesn't contain a file system\n
+;
+MSG_NOTDEVICE
+'%s' no tiene un nombre de periférico\n
+; '%s' doesn't contain a device name\n
+;

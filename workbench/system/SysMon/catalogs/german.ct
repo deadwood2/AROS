@@ -53,7 +53,7 @@ Name
 ; Name
 ;
 MSG_TASK_PRIORITY
-PrioritÃ¤t
+Priorität
 ; Priority
 ;
 MSG_TASK_TYPE
@@ -73,7 +73,7 @@ System
 ; System
 ;
 MSG_MEMORY_SIZE
-SpeichergrÃ¶ÃŸe
+Speichergröße
 ; Memory Size
 ;
 MSG_MEMORY_FREE
@@ -81,7 +81,7 @@ Freier Speicher
 ; Memory Free
 ;
 MSG_VIDEO_SIZE
-VideogrÃ¶ÃŸe
+Videogröße
 ; Video Size
 ;
 MSG_VIDEO_FREE
@@ -109,7 +109,7 @@ MSG_VIDEO_WINDOW_TMPL
 ; %s Window
 ;
 MSG_CANT_OPEN_TASK_RESOURCE
-Kann 'task.resource' nicht Ã¶ffnen\n
+Kann 'task.resource' nicht öffnen\n
 ; Can't open task.resource\n
 ;
 MSG_PROJECT

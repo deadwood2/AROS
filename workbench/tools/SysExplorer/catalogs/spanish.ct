@@ -1,0 +1,177 @@
+## version $VER: SysExplorer.catalog 2.0 (18.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_TITLE
+Explorador del sistema
+; System Explorer
+;
+MSG_WINTITLE
+Explorador del sistema
+; System Explorer
+;
+MSG_DESCRIPTION
+Herramienta de informacion del sistema y hardware
+; System and hardware information tool
+;
+MSG_MENU_PROJECT
+Proyecto
+; Project
+;
+MSG_MENU_PROPERTIES
+Propiedades
+; Properties
+;
+MSG_MENU_EXPANDALL
+Expandir todo
+; Expand All
+;
+MSG_MENU_COLLAPSEALL
+Colapsar todo
+; Collapse All
+;
+MSG_MENU_QUIT
+Salir
+; Quit
+;
+MSG_HIDD_TREE
+Árbol HIDD
+; HIDD Tree
+;
+MSG_PROPERTIES
+Propiedades
+; Properties
+;
+MSG_LABEL_DRIVER
+Nombre de la instancia del driver
+; Driver instance name
+;
+MSG_LABEL_HW_DESCRIPTION
+Descripción del hardware
+; Hardware description
+;
+MSG_LABEL_VENDOR
+Información del distribuidor
+; Vendor information
+;
+MSG_SYSTEM_PROPERTIES
+Propiedades del sistema
+; System properties
+;
+MSG_VERSION
+Versión
+; Version
+;
+MSG_PROCESSORS
+Procesadores
+; Processors
+;
+MSG_HPET
+HPET
+; HPET
+;
+MSG_RAM
+Memoria
+; Memory
+;
+MSG_BOOTLOADER
+Boot loader
+; Boot loader
+;
+MSG_ARGUMENTS
+Parametros de inicio
+; Boot Arguments
+;
+MSG_AVAILABLE
+Disponible
+; Available for use
+;
+MSG_GENERAL
+General
+; General
+;
+MSG_NAME
+Nombre
+; Name
+;
+MSG_HARDWARE_NAME
+Nombre del Hardware
+; Hardware Name
+;
+MSG_PRODUCT_ID
+ID del producto
+; Product ID
+;
+MSG_PRODUCER_NAME
+Nombre distribuidor
+; Vendor Name
+;
+MSG_PRODUCER_ID
+ID distribuidor
+; Vendor ID
+;
+MSG_DEVICE_PROPERTIES
+Propiedades del periférico
+; Device properties
+;
+MSG_ATA_PROPERTIES
+Propiedades del bus IDE
+; IDE bus properties
+;
+MSG_ATA
+IDE
+; IDE
+;
+MSG_USE_IOALT
+Soporta registros alternos
+; Supports alternate registers
+;
+MSG_USE_32BIT
+Soporta PIO de 32 bits
+; Supports 32-bit PIO
+;
+MSG_USE_DMA
+Soporta DMA
+; Supports DMA
+;
+MSG_USE_80WIRE
+Cable 80 hilos
+; 80-wire cable
+;
+MSG_ATA_UNIT_PROPERTIES
+Popiedades periferico IDE
+; IDE device properties
+;
+MSG_UNIT_NUMBER
+Numero de unidad
+; Unit number
+;
+MSG_MODEL
+Modelo
+; Model
+;
+MSG_REVISION
+Revisión
+; Revision
+;
+MSG_SERIAL
+Serie
+; Serial
+;
+MSG_TRANSFER_MODES
+Modos soportados
+; Supported modes
+;
+MSG_MULTISECTOR
+Límite sector múltiple
+; Multisector limit
+;
+MSG_REMOVABLE
+Extraible
+; Removable
+;
+MSG_CONFIG_MODES
+Modos configurados
+; Configured modes
+;

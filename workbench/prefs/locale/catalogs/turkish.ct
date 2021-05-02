@@ -1,0 +1,149 @@
+## version $VER: Locale.catalog 2.0 (16.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_CANT_OPEN_LIB
+%s V%ld açýlamadý!\n
+; Can't open %s V%ld!\n
+;
+MSG_CANT_LOCK_SCR
+Genel ekran kilitlenemedi!
+; Can't lock public screen!
+;
+MSG_CANT_GET_DRI
+DrawInfo alýnamadý!
+; Can't get DrawInfo!
+;
+MSG_CANT_GET_VI
+VisualInfo alýnamadý!
+; Can't get VisualInfo!
+;
+MSG_CANT_CREATE_GADGET
+Araç takýmlarý oluþturulamadý!
+; Can't create gadgets!
+;
+MSG_CANT_CREATE_MENUS
+Menüler oluþturulamadý!
+; Can't create menus!
+;
+MSG_CANT_CREATE_WIN
+Pencere oluþturulamadý!
+; Can't create window!
+;
+MSG_WINTITLE
+Yerel Tercihler
+; Locale Preferences
+;
+MSG_MEN_PROJECT
+Proje
+; Project
+;
+MSG_MEN_PROJECT_OPEN
+O\0Aç...
+; O\0Open...
+;
+MSG_MEN_PROJECT_SAVEAS
+A\0Farklý kaydet...
+; A\0Save As...
+;
+MSG_MEN_PROJECT_QUIT
+Q\0Çýkýþ
+; Q\0Quit
+;
+MSG_MEN_EDIT
+Düzen
+; Edit
+;
+MSG_MEN_EDIT_DEFAULT
+D\0Varsayýlana Dön
+; D\0Reset to Defaults
+;
+MSG_MEN_EDIT_LASTSAVED
+L\0Son Kaydedilen
+; L\0Last Saved
+;
+MSG_MEN_EDIT_RESTORE
+R\0Kurtar
+; R\0Restore
+;
+MSG_MEN_SETTINGS
+Ayarlar
+; Settings
+;
+MSG_MEN_SETTINGS_CREATEICONS
+I\0Simge Oluþtur?
+; I\0Create Icons?
+;
+MSG_ASL_OPEN_TITLE
+Yerel Tercihleri Yükle
+; Load Locale Preferences
+;
+MSG_ASL_SAVE_TITLE
+Yerel Tercihleri Kaydet
+; Save Locale Preferences
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_GAD_AVAIL_LANGUAGES
+Mevcut Diller
+; Available Languages
+;
+MSG_GAD_PREF_LANGUAGES
+Tercih Edilen Diller
+; Preferred Languages
+;
+MSG_GAD_CLEAR_LANGUAGES
+Dilleri Temizle
+; Clear Languages
+;
+MSG_GAD_SAVE
+Kaydet
+; Save
+;
+MSG_GAD_USE
+Kullan
+; Use
+;
+MSG_GAD_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_GAD_TAB_LANGUAGE
+Dil
+; Language
+;
+MSG_GAD_TAB_REGION
+Bölge
+; Region
+;
+MSG_GAD_TAB_TIMEZONE
+Zaman Dilimi
+; Time Zone
+;
+MSG_TIMEZONE_1HOUR
+Zaman Dilimi: UTC'den 1 Saat
+; Time Zone: 1 Hour from UTC
+;
+MSG_TIMEZONE_HOURS
+Zaman Dilimi: %ld UTC'den itibaren saat
+; Time Zone: %ld Hours from UTC
+;
+MSG_TIMEZONE_HOURSMINS
+Zaman Dilimi: %ld Saat, %ld Dakika UTC'den
+; Time Zone: %ld Hours, %ld Minutes from UTC
+;
+MSG_CHARACTER_SET
+Varsayýlan karakter seti
+; Default character set
+;
+MSG_NOT_SPECIFIED
+Belirtilmemiþ
+; Not specified
+;
+MSG_GMT_CLOCK
+Donaným saati UTC depolar
+; Hardware clock stores UTC
+;

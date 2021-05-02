@@ -1,0 +1,228 @@
+## version $VER: muimaster.catalog 1.0 (14.12.2020)
+## language russian
+## codeset 2104
+;
+; Generic
+;
+MSG_OK
+_OK
+; _Ok
+;
+MSG_CANCEL
+Отме_на
+; _Cancel
+;
+; -------------------------------------------------
+; Aboutmui class
+MSG_ABOUTMUI_WINDOW_TITLE
+О Zune
+; About Zune
+;
+MSG_ABOUTMUI_STRING
+Zune, клон MUI\n\n\
+Сборка от %s\n\
+Copyright (C) 2002-2021, The AROS Development Team.
+; Zune, a MUI clone\n\n\
+; Compiled on %s\n\
+; Copyright (C) 2002-2021, The AROS Development Team.
+;
+; -------------------------------------------------
+; Coloradjust class
+MSG_COLORADJUST_RED
+Красный:
+; Red:
+;
+; Coloradjust class
+MSG_COLORADJUST_GREEN
+Зелёный:
+; Green:
+;
+; Coloradjust class
+MSG_COLORADJUST_BLUE
+Синий:
+; Blue:
+;
+; -------------------------------------------------
+; Dirlist class
+MSG_DIRLIST_NAME
+Имя
+; Name
+;
+MSG_DIRLIST_SIZE
+Размер
+; Size
+;
+MSG_DIRLIST_DATE
+Дата
+; Date
+;
+MSG_DIRLIST_TIME
+Время
+; Time
+;
+MSG_DIRLIST_FLAGS
+Флаги
+; Flags
+;
+MSG_DIRLIST_COMMENT
+Комментарий
+; Comment
+;
+; -------------------------------------------------
+; Frameadjust class
+MSG_FRAMEADJUST_INNER_SPACING
+Внутренний интервал:
+; Inner Spacing:
+;
+MSG_FRAMEADJUST_LEFT
+Слева
+; Left
+;
+MSG_FRAMEADJUST_TOP
+Сверху
+; Top
+;
+MSG_FRAMEADJUST_RIGHT
+Справа
+; Right
+;
+MSG_FRAMEADJUST_BOTTOM
+Снизу
+; Bottom
+;
+; -------------------------------------------------
+; Imageadjust class
+MSG_IMAGEADJUST_PATTERN
+Шаблон
+; Pattern
+;
+MSG_IMAGEADJUST_VECTOR
+Вектор
+; Vector
+;
+MSG_IMAGEADJUST_COLOR
+Цвет
+; Color
+;
+MSG_IMAGEADJUST_EXTERNAL
+Внешний
+; External
+;
+MSG_IMAGEADJUST_BITMAP
+Изображение
+; Bitmap
+;
+MSG_IMAGEADJUST_GRADIENT
+Градиент
+; Gradient
+;
+MSG_IMAGEADJUST_SCALED
+Масштабирование
+; Scaled
+;
+MSG_IMAGEADJUST_TILED
+Повторение
+; Tiled
+;
+MSG_IMAGEADJUST_TYPE
+Тип:
+; Type:
+;
+MSG_IMAGEADJUST_ANGLE
+Угол:
+; Angle:
+;
+MSG_IMAGEADJUST_VERTICAL
+Вертикально
+; Vertical
+;
+MSG_IMAGEADJUST_HORIZONTAL
+Горизонтально
+; Horizontal
+;
+MSG_IMAGEADJUST_COLORS
+Цвета:
+; Colors:
+;
+MSG_IMAGEADJUST_START_PEN
+Начальный цвет
+; Start pen
+;
+MSG_IMAGEADJUST_END_PEN
+Конечный цвет
+; End pen
+;
+MSG_IMAGEADJUST_PREVIEW
+Результат:
+; Preview:
+;
+; -------------------------------------------------
+; Palette class
+MSG_PALETTE_COLOR
+Цвет %ld
+; Color %ld
+;
+; -------------------------------------------------
+; Penadjust class
+MSG_PENADJUST_MUI
+MUI
+; MUI
+;
+MSG_PENADJUST_COLORMAP
+Карта
+; Colormap
+;
+MSG_PENADJUST_RGB
+RGB
+; RGB
+;
+MSG_PENADJUST_SHINE
+Свет
+; Shine
+;
+MSG_PENADJUST_HALFSHINE
+Полусвет
+; Halfshine
+;
+MSG_PENADJUST_BACKGROUND
+Фон
+; Background
+;
+MSG_PENADJUST_HALFSHADOW
+Полутень
+; Halfshadow
+;
+MSG_PENADJUST_SHADOW
+Тень
+; Shadow
+;
+MSG_PENADJUST_TEXT
+Текст
+; Text
+;
+MSG_PENADJUST_FILL
+Заливка
+; Fill
+;
+MSG_PENADJUST_MARK
+Отметка
+; Mark
+;
+; -------------------------------------------------
+; Volumelist class
+MSG_VOLUMELIST_NAME
+Имя
+; Name
+;
+MSG_VOLUMELIST_FULL
+Заполнено
+; Full
+;
+MSG_VOLUMELIST_FREE
+Свободно
+; Free
+;
+MSG_VOLUMELIST_USED
+Используется
+; Used
+;

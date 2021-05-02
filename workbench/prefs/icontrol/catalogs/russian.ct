@@ -1,74 +1,15 @@
-## version $VER: icontrolprefs.catalog 1.1 (13.08.2006)
+## version $VER: IControl.catalog 2.0 (15.02.2021)
 ## codeset 2104
 ## language russian
 ;
-MSG_CANT_OPEN_LIB
-Ошибка открытия %s V%ld !\n
-;
-;
-MSG_CANT_CREATE_APP
-Невозможно создание объекта приложения !
-;
-;
-MSG_CANT_CREATE_CUSTOM_CLASS
-Ошибка создания класса preferenceswindow
-;Can't create custom preferenceswindow class
 ;
 MSG_WINTITLE
 Настройки IControl
-;
-;
-MSG_MEN_PROJECT
-Проект
-;
-;
-MSG_MEN_PROJECT_OPEN
-O\0Открыть..
-;
-;
-MSG_MEN_PROJECT_SAVEAS
-A\0Сохранить как...
-;
-;
-MSG_MEN_PROJECT_QUIT
-Q\0Выход
-;
-;
-MSG_MEN_EDIT
-Правка
-;
-;
-MSG_MEN_EDIT_DEFAULT
-D\0Сброс на умолчания
-;
-;
-MSG_MEN_EDIT_LASTSAVED
-L\0Последнее сохраненное
-;
-;
-MSG_MEN_EDIT_RESTORE
-R\0Восстановить
-;
-;
-MSG_MEN_SETTINGS
-Настройки
-;
-;
-MSG_MEN_SETTINGS_CREATEICONS
-I\0Создавать иконки?
-;
-;
-MSG_ASL_OPEN_TITLE
-Загрузить настройки IControl
-;
-;
-MSG_ASL_SAVE_TITLE
-Сохранить настройки IControl
-;
+; IControl Preferences
 ;
 MSG_OK
-Ok
-;
+OK
+; Ok
 ;
 MSG_MENUS_GROUP
 Меню
@@ -91,7 +32,7 @@ MSG_MENUS_LOOK
 ; Look
 ;
 MSG_MENUS_LOOK_CLASSIC
-Классический
+Обычный
 ; Classic
 ;
 MSG_MENUS_LOOK_3D
@@ -100,44 +41,65 @@ MSG_MENUS_LOOK_3D
 ;
 MSG_WINDOWS
 Окна
+; Windows
 ;
 MSG_OFFSCREEN_MOVE
 Перемещение за экран:
+; Offscreen move:
 ;
 MSG_SCREENS
 Экраны
+; Screens
+;
+MSG_PUBLIC_SCREENS
+Общие экраны
+; Public Screens
 ;
 MSG_FRONTMOST_DEFAULT
-Frontmost set as DefaultPubScreen:
-;Frontmost set as DefaultPubScreen:
+Передний план по умолчанию:
+; Frontmost set as default public screen:
 ;
 MSG_OFFSCREEN_DESC
 Допускать перемещение окон\nза пределы видимой части
-;Allow windows to be moved out of\nthe visible area
+; Allow windows to be moved out of\nthe visible area
 ;
 MSG_FRONTMOST_DEFAULT_DESC
-Самый верхний общий экран\nстановится общим экраном по умолчанию
-;Make the frontmost public screen\nthe default public screen
+Экран на переднем плане становится\nобщим экраном по умолчанию
+; Make the frontmost public screen\nthe default public screen
 ;
-MSG_BACKWARDS_DRAG
-Запретить протаскивание вверх и влево
-;Disable drag in top-left direction
+MSG_DRAG
+Перетаскивание экрана
+; Screen Dragging
+;
+MSG_DRAG_BOUNDS
+Не таскать за границы монитора...
+; Limit dragging to Displays bounds...
 ;
 MSG_BOUND_LEFT_DRAG
-Ограничить протаскивание влево
+за левый край
+; Bound drag in left direction
 ;
 MSG_BOUND_RIGHT_DRAG
-Ограничить протаскивание вправо
+за правый край
+; Bound drag in right direction
 ;
 MSG_BOUND_TOP_DRAG
-Ограничить протаскивание вверх
+за верхний край
+; Bound drag in top direction
 ;
 MSG_BOUND_BOTTOM_DRAG
-Ограничить протаскивание вниз
+за нижний край
+; Bound drag in bottom direction
 ;
 MSG_META_DRAG
-Клавиши перетаскивания
+Комбинация клавиш
+; Drag keys
 ;
 MSG_MENUS_STICKY
 Залипание
+; Sticky
+;
+MSG_MENUS_TITLEPOPUP
+Выпадающее меню заголовка
+; Pull-Down on Screen Title
 ;

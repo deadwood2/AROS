@@ -1,4 +1,4 @@
-## version $VER: ahiprefs.catalog 4.6 (4.8.2004) por Samuel Aguilera <slyguy92@arrakis.es>
+## version $VER: ahiprefs.catalog 4.6 (04.08.2004) por Samuel Aguilera <slyguy92@arrakis.es>
 ## language español
 ## codeset 0
 ;
@@ -266,7 +266,7 @@ Preferencias AHI
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s\nTraducción al Español por:\nSamuel Aguilera <slyguy92@arrakis.es>
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Imposible abrir ventana.
@@ -282,7 +282,7 @@ msgTextNoFind
 ;
 msgTextNoOpen
 Imposible abrir `%s' versión %ld.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

@@ -1,18 +1,18 @@
-## version $VER: timeprefs.catalog 1.0 (12.08.2006)
+## version $VER: time.catalog 1.0 (17.02.2021)
 ## codeset 2104
 ## language russian
 ;
 ;
 MSG_CANT_OPEN_LIB
-Не могу открыть %s V%ld !\n
+Не удалось открыть %s V%ld !\n
 ;Can't open %s V%ld!\n
 ;
 MSG_CANT_CREATE_APP
-Немогу создать объект приложения!
+Не удалось создать объект приложения!
 ;Can't create application object!
 ;
 MSG_WINTITLE
-Настройка часов
+Настройки часов
 ;Time Preferences
 ;
 MSG_MEN_PROJECT
@@ -24,7 +24,7 @@ MSG_MEN_PROJECT_QUIT
 ;Q\0Quit
 ;
 MSG_MEN_EDIT
-Правка
+Редактор
 ;Edit
 ;
 MSG_MEN_EDIT_RESTORE
@@ -32,7 +32,7 @@ MSG_MEN_EDIT_RESTORE
 ;R\0Restore
 ;
 MSG_OK
-Ok
+Ок
 ;Ok
 ;
 MSG_GAD_SAVE

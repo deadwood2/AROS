@@ -1,6 +1,6 @@
-## version $VER: AHI.catalog 4.6 (4.8.2004)
+## version $VER: AHI.catalog 4.6 (04.08.2004)
 ## language srpski
-## codeset 0
+## codeset 8
 ;
 ## chunk AUTH Translated by Ljubomir Jankoviá <lurch@afrodita.rcub.bg.ac.yu>
 ;#language english
@@ -266,7 +266,7 @@ AHI podeçavanja
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nKopirajt ©%s
-; %s%s\nCopyright (C)%s
+; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
 Ne mogu da otvorim prozor.
@@ -282,7 +282,7 @@ Ne mogu da naÐem `%s'!
 ;
 msgTextNoOpen
 Ne mogu da otvorim `%s' verzija %ld.
-; Unable to open '%s' version %ld.
+; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;

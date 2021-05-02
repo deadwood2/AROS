@@ -1,6 +1,6 @@
 ## version $VER: serialprefs.catalog 1.0 (23.02.2001)
 ## codeset 0
-## language français
+## language italiano
 ;
 MSG_CANT_OPEN_LIB
 Impossibile aprire %s V%ld !\n

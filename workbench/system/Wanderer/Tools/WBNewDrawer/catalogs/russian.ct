@@ -1,30 +1,30 @@
-## version $VER: wbnewdrawer.catalog 1.1 (12.9.2006)
+## version $VER: wbnewdrawer.catalog 2.0 (28.12.2020)
 ## language russian
-## codeset 0
+## codeset 2104
 ;
 ;
 ;
 MSG_TITLE
-WBНовПапка
+Создатель директорий
 ;WBNewDrawer
 ;
 MSG_DESCRIPTION
-Создаёт новую папку
+Создаёт новые директории
 ;
 MSG_COPYRIGHT
-c2006, AROS Dev Team
+(с) 2006-2020, AROS Dev Team
 ;
 MSG_WINDOW_TITLE
-Создать новую папку
+Новая директория
 ;
 MSG_LINE
-Введите имя будущей папки
+Укажите имя и необходимость иконки
 ;
 MSG_NAME
-Имя новой папки :
+Имя:
 ;
 MSG_ICON
-Иконка :
+Иконка:
 ;
 MSG_OK
 _ОK
@@ -36,29 +36,32 @@ MSG_BASENAME
 Назови_Меня
 ;
 MSG_ERROR_TITLE
-WBNewDrawer: Ошибка
+Ошибка
 ;
 ;
 MSG_ALREADY_EXIST
 '%s' уже существует !
 ;
 MSG_CANT_CREATE
-Не могу создать '%s' !
+Не удалось создать '%s' !
 ;
 MSG_INFO_ALREADY
 Иконка '%s'.info уже существует
 ;
+MSG_ILLEGAL_CHARS
+'%s' содержит недопустимые символы!
+;
 MSG_NEEDS_MORE_ARGS
-Требуется 2 аргумента
+Требуется больше аргументов
 ;
 MSG_INVALID_LOCK
-Ошибка занятия директории
+Не удалось захватить директорию
 ;
 MSG_WB_ONLY
-Данное приложение не может быть запущено из командной строки\n
+Это приложение не работает в CLI\n
 ;
 MSG_FAILED_CREATE_APP
-Не могу создать приложение
+Не удалось создать приложение
 ;
 MSG_WRONG_ICON_TYPE
-Существующий файл иконки '%s'.info имеет тип, отличный от Drawer
+Файл иконки '%s'.info имеет неверный тип

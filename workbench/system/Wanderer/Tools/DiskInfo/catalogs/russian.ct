@@ -1,10 +1,10 @@
-## version $VER: diskinfo.catalog 2.0 (30.03.2016)
+## version $VER: diskinfo.catalog 2.0 (25.12.2020)
 ## language russian
-## codeset 1251
+## codeset 2104
 ;
 ;
 MSG_TITLE
-Сведения о диске
+Свойства диска
 ; Disk Info
 ;
 MSG_ERROR_HEADER
@@ -16,15 +16,15 @@ _OK
 ; _OK
 ;
 MSG_ERROR_LOCALE
-Невозможно инициализацировать локаль.
+Ошибка включения локализации.
 ; Can't initialize locale.
 ;
 MSG_ERROR_CLASSES
-Невозможно инициализировать специальные классы.
+Ошибка включения классов.
 ; Can't initialize custom classes.
 ;
 MSG_DESCRIPTION
-Сведения о диске
+Свойства диска
 ; Disk Icon Informations
 ;
 MSG_PERCENTFULL
@@ -40,7 +40,7 @@ MSG_UNKNOWN
 ; Unknown
 ;
 MSG_AUTHOR
-Olivier Adam
+Оливьер Адам
 ; Olivier Adam
 ;
 MSG_COPYRIGHT
@@ -72,7 +72,7 @@ MSG_BYTES
 ;bytes
 ;
 MSG_STATUS
-Состояние
+Права
 ;Status
 ;
 MSG_READABLE
@@ -80,7 +80,7 @@ MSG_READABLE
 ;Readable
 ;
 MSG_READABLE_WRITABLE
-Чтение/запись
+Чтение/Запись
 ;Readable/writable
 ;
 MSG_VALIDATING
@@ -92,15 +92,15 @@ MSG_NAME
 ;Volume Name
 ;
 MSG_UNIT
-Устройство
+; номер
 ;unit
 ;
 MSG_DOSDEVICE
-DOS имя:
+Устройство:
 ;DOS Device:
 ;
 MSG_DEVICEINFO
-Подключен к:
+Драйвер:
 ;Connected on:
 ;
 MSG_FILESYSTEM
@@ -108,10 +108,10 @@ MSG_FILESYSTEM
 ;FileSystem:
 ;
 MSG_PACKETDEVICE
-Packet-устройство
+Пакетное устройство
 ;Packet Style device
 ;
 MSG_IOFSDEVICE
-IOFS-устройство
+Устройство ввода/вывода
 ;IOFS Style device
 ;

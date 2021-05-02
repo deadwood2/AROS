@@ -1,0 +1,349 @@
+## version $VER: wimp.catalog 1.0 (11.12.2020)
+## language russian
+## codeset 2104
+;
+;
+MSG_APP_NAME
+WiMP
+; WiMP
+;
+MSG_APP_TITLE
+Window Manipulator
+; Window Manipulator
+;
+MSG_APP_ABOUT
+WiMP - Приложение для управления окнами\n\nCopyright \xa9 2000-2019 by The AROS Development Team
+; WiMP - The Window Manipulation Program\n\nCopyright \xa9 2000-2019 by The AROS Development Team
+;
+MSG_APP_COPYRIGHT
+Copyright \xa9 1995-2019, The AROS Development Team
+; Copyright \xa9 1995-2019, The AROS Development Team
+;
+MSG_APP_AUTOR
+The AROS Development Team
+; The AROS Development Team
+;
+MSG_APP_BASE
+WIMP
+; WIMP
+;
+MSG_WINDOW_TITLE
+WiMP - Приложение для управления окнами
+; WiMP - The Window Manipulation Program
+;
+MSG_INFO_TITLE
+WiMP - Информация
+; WiMP - InfoWindow
+;
+MSG_CLOSE_SCREEN
+Вы действительно хотите закрыть выбранный экран?
+; Do you really want to Close the selected Screen?
+;
+MSG_CLOSE_WINDOW
+Вы действительно хотите закрыть выбранное окно?
+; Do you really want to Close the selected Window?
+;
+MSG_YES_NO
+Да|Нет!
+; Yes.|No!
+;
+MSG_CONTINUE
+Продолжить
+; Continue
+;
+MSG_BTN_KILL
+\033i_Закрыть
+; \033iKill
+;
+MSG_BTN_FRONT
+_Вперёд
+; To _Front
+;
+MSG_BTN_BACK
+_Назад
+; To _Back
+;
+MSG_BTN_MOVE
+В _Угол
+; Move to _Origin
+;
+MSG_BTN_ACTIVATE
+_Фокус
+; _Activate
+;
+MSG_BTN_ZIP
+Свернуть
+; _Zip
+;
+MSG_BTN_HIDE
+_Скрыть
+; _Hide
+;
+MSG_BTN_SHOW
+_Показать
+; _Show
+;
+MSG_BTN_UPDATE_LIST
+_Обновить список
+; _Update List
+;
+MSG_BTN_RESCUE_ALL
+Отвязать окна
+; _Rescue all Windows
+;
+MSG_BTN_SHOW_ALL
+Показать все окна
+; Show all Windows
+;
+MSG_BTN_RETHING
+Обновить экран
+; Rethink Display
+;
+MSG_BTN_ABOUT
+О программе
+; About
+;
+MSG_SCREEN_WINDOW_LIST
+Список экранов/окон
+; Screen/Window List
+;
+MSG_MENU_PROJECT
+Проект
+; Project
+;
+MSG_MENU_ABOUT
+О программе...
+; About...
+;
+MSG_MENU_QUIT
+Выход
+; Quit
+;
+MSG_MENU_WIN_LIST
+Список окон
+; Window List
+;
+MSG_MENU_UPDATE_LIST
+Обновить список
+; Update List
+;
+MSG_MENU_KILL
+Закрыть
+; Kill
+;
+MSG_MENU_TO_FRONT
+Вперёд
+; To Front
+;
+MSG_MENU_TO_BACK
+Назад
+; To Back
+;
+MSG_MENU_TO_ORIGIN
+В угол
+; To Origin
+;
+MSG_MENU_ACTIVATE
+Фокус
+; Activate
+;
+MSG_MENU_ZIP
+Свернуть
+; Zip
+;
+MSG_MENU_HIDE
+Скрыть
+; Hide
+;
+MSG_MENU_SHOW
+Показать
+; Show
+;
+MSG_MENU_INFO
+Информация
+; Info
+;
+MSG_MENU_GENERIC
+Общее
+; Generic
+;
+MSG_MENU_RESCUE_ALL
+Отвязать всех
+; Rescue All
+;
+MSG_MENU_SHOW_ALL
+Показать всех
+; Show All
+;
+MSG_MENU_RETHINGDISPLAY
+Обновить экран
+; RethinkDisplay
+;
+MSG_ARRAY_WINDOW
+  \033bОкно
+;   \033bWindow
+;
+MSG_ARRAY_SCREEN
+\033b\033uЭкран
+; \033b\033uScreen
+;
+MSG_ARRAY_0_TYPE
+Тип
+; Type
+;
+MSG_ARRAY_1_ADDRESS
+Адрес
+; Address
+;
+MSG_ARRAY_2_SIZE
+Размер
+; Size
+;
+MSG_ARRAY_3_POSITION
+Координаты
+; Position
+;
+MSG_ARRAY_4_STATUS
+Состояние
+; Status
+;
+MSG_ARRAY_5_TITLE
+Заголовок
+; Title
+;
+MSG_COL_SCREEN
+Экран
+; Screen
+;
+MSG_COL_SCR_ADDRESS
+Адрес
+; Address
+;
+MSG_COL_SCR_LEFTEDGE
+Слева
+; LeftEdge
+;
+MSG_COL_SCR_TOPEDGE
+Сверху
+; TopEdge
+;
+MSG_COL_SCR_WIDTH
+Ширина
+; Width
+;
+MSG_COL_SCR_HEIGHT
+Высота
+; Height
+;
+MSG_COL_SCR_FLAGS
+Флаги
+; Flags
+;
+MSG_COL_SCR_TITLE
+Заголовок
+; Title
+;
+MSG_COL_SCR_DEFAULTIT
+Заголовок по умолчанию
+; DefaultTitle
+;
+MSG_COL_SCR_FRSTWIN
+Первое окно
+; FirstWindow
+;
+MSG_COL_WIDOW
+Окно
+; Window
+;
+MSG_COL_WIN_ADDRESS
+Адрес
+; Address
+;
+MSG_COL_WIN_NEXTWIN
+Следующее окно
+; NextWindow
+;
+MSG_COL_WIN_LEFTEDGE
+Слева
+; LeftEdge
+;
+MSG_COL_WIN_TOPEDGE
+Сверху
+; TopEdge
+;
+MSG_COL_WIN_WIDTH
+Ширина
+; Width
+;
+MSG_COL_WIN_HEIGHT
+Высота
+; Height
+;
+MSG_COL_WIN_MINWIDTH
+Мин. ширина
+; MinWidth
+;
+MSG_COL_WIN_MINHEIGHT
+Мин. высота
+; MinHeight
+;
+MSG_COL_WIN_MAXWIDTH
+Макс. ширина
+; MaxWidth
+;
+MSG_COL_WIN_MAXHEIGHT
+Макс. высота
+; MaxHeight
+;
+MSG_COL_WIN_FLAGS
+Флаги
+; Flags
+;
+MSG_COL_WIN_IDCMPFLAGS
+Флаги IDCMP
+; IDCMPFlags
+;
+MSG_COL_WIN_TITLE
+Заголовок
+; Title
+;
+MSG_COL_WIN_REQCOUNT
+ReqCount
+; ReqCount
+;
+MSG_COL_WIN_WSCREEN
+WScreen
+; WScreen
+;
+MSG_COL_WIN_BORDERLEFT
+Левая граница
+; BorderLeft
+;
+MSG_COL_WIN_BORDERTOP
+Верхняя граница
+; BorderTop
+;
+MSG_COL_WIN_BORDERRIGHT
+Правая граница
+; BorderRight
+;
+MSG_COL_WIN_BORDERBOTTOM
+Нижняя граница
+; BoderBottom
+;
+MSG_COL_WIN_PARENTWIN
+Исходное окно
+; Parent Window
+;
+MSG_COL_WIN_FIRSTCHILD
+Дочернее окно
+; First Child
+;
+MSG_COL_WIN_PARENT
+Родитель
+; Parent
+;
+MSG_COL_WIN_DESCENDANT
+Потомок
+; Descendant
+;

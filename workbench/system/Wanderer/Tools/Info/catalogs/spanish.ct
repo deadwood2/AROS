@@ -1,5 +1,5 @@
 ## version $VER: info.catalog 1.0 (30.09.2007)
-## language espaÃ±ol
+## language español
 ## codeset 0
 ;
 ; Translated by ahg
@@ -9,15 +9,15 @@ Informaciones
 ;Informations
 ;
 MSG_DESCRIPTION
-Informaciones del Ã­cono
+Informaciones del ícono
 ;Icon informations
 ;
 MSG_COPYRIGHT
-Info. del Ã­cono\nÂ©AROS Dev Team
-;Icon informations\nÂ©AROS Dev Team
+Info. del ícono\n©AROS Dev Team
+;Icon informations\n©AROS Dev Team
 ;
 MSG_ICON
-Ãcono
+Ícono
 ;Icon
 ;
 MSG_NAME
@@ -37,7 +37,7 @@ Herramienta
 ;Tool
 ;
 MSG_ICONTYPE
-Tipo del Ã­cono
+Tipo del ícono
 ;Icon type
 ;
 MSG_DISK
@@ -45,7 +45,7 @@ Disco
 ;Disk
 ;
 MSG_DRAWER
-CajÃ³n
+Cajón
 ;Drawer
 ;
 MSG_TOOL
@@ -71,11 +71,11 @@ MSG_APPICON
 AppIcon
 ;
 MSG_INFORMATION
-InformaciÃ³n
+Información
 ;Information
 ;
 MSG_PROTECTION
-ProtecciÃ³n
+Protección
 ;Protection
 ;
 MSG_TOOLTYPES
@@ -112,7 +112,7 @@ Borrar
 ;Delete
 ;
 MSG_SCRIPT
-GuiÃ³n
+Guión
 ;Script
 ;
 MSG_PURE
@@ -128,16 +128,16 @@ Adhesivo
 ;Sticky
 ;
 MSG_SIZE
-TamaÃ±o
+Tamaño
 ;Talla
 ;Size
 ;
 MSG_VERSION
-VersiÃ³n
+Versión
 ;Version
 ;
 MSG_OWNERID
-ID del dueÃ±o
+ID del dueño
 ;Owner ID
 ;
 MSG_GROUPID
@@ -145,7 +145,7 @@ ID del grupo
 ;Group ID
 ;
 MSG_OWNERNAME
-DueÃ±o
+Dueño
 ;Owner
 ;
 MSG_GROUPNAME

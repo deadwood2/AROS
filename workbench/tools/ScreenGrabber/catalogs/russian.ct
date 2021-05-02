@@ -1,4 +1,4 @@
-## version $VER: ScreenGrabber.catalog 2.0 (30.03.2016)
+## version $VER: ScreenGrabber.catalog 2.0 (15.12.2020)
 ## language russian
 ## codeset 2104
 ;
@@ -12,7 +12,7 @@ MSG_REFRESH
 ; Refresh list
 ;
 MSG_SCREEN_INFO
-Screen Info
+Информация об экране
 ; Screen info
 ;
 MSG_SIZE
@@ -24,15 +24,15 @@ MSG_TITLE
 ; Title
 ;
 MSG_DEFAULT_TITLE
-Заголовок по умолчанию
+По умолчанию
 ; Default title
 ;
 MSG_GRABBING_OPTIONS
-Настройки снимков
+Настройки снимка
 ; Grabbing options
 ;
 MSG_DELAY
-Задержка (с.) (s)
+Задержка (сек.)
 ; Delay (s)
 ;
 MSG_HIDE
@@ -48,11 +48,11 @@ MSG_SAVE_FILE
 ; Save file
 ;
 MSG_SCREENSHOT
-Снимок
+Сделать снимок
 ; Screenshot
 ;
 MSG_SCREEN_PARM
-%d x %d, Tiefe=%d
+%d x %d, %d бит
 ; %d x %d, depth=%d
 ;
 MSG_OVERWRITE
@@ -72,11 +72,11 @@ MSG_GAD_YESNO
 ; YES|NO
 ;
 MSG_ERR_DATATYPE
-Не могу создать объект данных!
+Не создать объект по типу данных!
 ; Can't create datatype object!
 ;
 MSG_NORAM
-Не могу выделить память!
+Не удалось выделить память!
 ; Can't allocate RAM!
 ;
 MSG_ERR_DATATYPEIO
@@ -84,7 +84,7 @@ MSG_ERR_DATATYPEIO
 ; Writing of '%s' failed with IO Error %ld!
 ;
 MSG_ERR_OPENFILE
-Не могу открыть файл  '%s' для записи!
+Не открыть файл  '%s' для записи!
 ; Can't open file '%s' for output!
 ;
 MSG_ERR_APP

@@ -1,0 +1,421 @@
+## version $VER: asl.catalog 1.0 (26.12.2020)
+## language türkçe
+## codeset 12
+;
+MSG_FILEREQ_TITLE
+Dosya Seç
+; Select File
+;
+MSG_FILEREQ_POSITIVE_GAD
+Tamam
+; Ok
+;
+MSG_FILEREQ_NEGATIVE_GAD
+Vazgeç
+; Cancel
+;
+MSG_FILEREQ_VOLUMES_GAD
+Veri Birimleri
+; Volumes
+;
+MSG_FILEREQ_PARENT_GAD
+Üst Dizin
+; Parent
+;
+MSG_FILEREQ_PATTERN_LABEL
+Desen
+; Pattern
+;
+MSG_FILEREQ_DRAWER_LABEL
+Çekmece
+; Drawer
+;
+MSG_FILEREQ_FILE_LABEL
+Dosya
+; File
+;
+MSG_FILEREQ_LV_DRAWER
+Çekmece
+; Drawer
+;
+MSG_FILEREQ_LV_ASSIGN
+Ata
+; Assign
+;
+MSG_FILEREQ_DELETE_TITLE
+Dosya Sil
+; Delete File
+;
+MSG_FILEREQ_DELETE_MSG
+Uyarý: Silinenleri geri alamazsýnýz!\n%s\n\ silinsin mi?
+; Warning: you cannot get back\nwhat you delete! Ok to delete\n\%s?
+;
+MSG_FILEREQ_DELETE_OKCANCEL
+Sil|Vazgeç
+; Delete|Cancel
+;
+MSG_FILEREQ_FOREIGNER_TITLE
+Simgeleri farklý çekmecelerden býrak
+; Icons dropped from different drawers
+;
+MSG_FILEREQ_FOREIGNER_MSG
+Uyarý: Býrakýlan simgelerin hepsi ayný çekmeceden gelmez.\n\
+Sistem istemi aþaðýdaki dosyalarý iþleyemedi:\n\
+%s
+; Warning: The icons that have just been dropped\n\
+; do not all come from the same drawer.\n\
+; The requester could not handle the following files:\n\
+; %s
+;
+MSG_FILEREQ_FOREIGNER_OK
+TAMAM
+; OK
+;
+MSG_FILEREQ_RENAME_TITLE
+Yeniden adlandýr
+; Rename
+;
+MSG_FILEREQ_RENAME_OK
+Yeniden adlandýr
+; Rename
+;
+MSG_FILEREQ_RENAME_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_FILEREQ_CREATEDRAWER_TITLE
+Çekmece Oluþtur
+; Create Drawer
+;
+MSG_FILEREQ_CREATEDRAWER_OK
+Oluþtur
+; Create
+;
+MSG_FILEREQ_CREATEDRAWER_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_FILEREQ_CREATEDRAWER_DEFNAME
+Beni yeniden adlandýr
+; Rename_Me
+;
+MSG_FILEREQ_SELECT_TITLE
+Desene göre seç
+; Select by pattern
+;
+MSG_FILEREQ_SELECT_OK
+Seç
+; Select
+;
+MSG_FILEREQ_SELECT_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_FILEREQ_MEN_CONTROL
+Kontrol
+; Control
+;
+MSG_FILEREQ_MEN_CONTROL_LASTNAME
+L\0Son Adý
+; L\0Last Name
+;
+MSG_FILEREQ_MEN_CONTROL_NEXTNAME
+N\0Sonraki Adý
+; N\0Next Name
+;
+MSG_FILEREQ_MEN_CONTROL_RESTORE
+R\0Kurtar
+; R\0Restore
+;
+MSG_FILEREQ_MEN_CONTROL_PARENT
+p\0Üst dizin
+; P\0Parent
+;
+MSG_FILEREQ_MEN_CONTROL_VOLUMES
+V\0Veri Birimleri
+; V\0Volumes
+;
+MSG_FILEREQ_MEN_CONTROL_UPDATE
+U\0Güncelle
+; U\0Update
+;
+MSG_FILEREQ_MEN_CONTROL_DELETE
+D\0Sil
+; D\0Delete
+;
+MSG_FILEREQ_MEN_CONTROL_CREATEDRAWER
+T\0Yeni çekmece oluþtur...
+; T\0Create new drawer...
+;
+MSG_FILEREQ_MEN_CONTROL_RENAME
+E\0Yeniden adlandýr...
+; E\0Rename...
+;
+MSG_FILEREQ_MEN_CONTROL_SELECT
+#\0Seç...
+; #\0Select...
+;
+MSG_FILEREQ_MEN_CONTROL_OK
+O\0Tamam
+; O\0Ok
+;
+MSG_FILEREQ_MEN_CONTROL_CANCEL
+C\0Vazgeç
+; C\0Cancel
+;
+MSG_FILEREQ_MEN_FILELIST
+Dosya listesi
+; File list
+;
+MSG_FILEREQ_MEN_FILELIST_SORTNAME
+1\0Adýna göre sýrala
+; 1\0Sort by name
+;
+MSG_FILEREQ_MEN_FILELIST_SORTDATE
+2\0Tarihe göre sýrala
+; 2\0Sort by date
+;
+MSG_FILEREQ_MEN_FILELIST_SORTSIZE
+3\0Boyutuna göre sýrala
+; 3\0Sort by size
+;
+MSG_FILEREQ_MEN_FILELIST_SORTUP
++\0Artalana göre sýrala
+; +\0Ascending order
+;
+MSG_FILEREQ_MEN_FILELIST_SORTDOWN
+-\0Azalana göre sýrala
+; -\0Descending order
+;
+MSG_FILEREQ_MEN_FILELIST_SORTDRAWERFIRST
+4\0Önce çekmeceleri göster
+; 4\0Show drawers first
+;
+MSG_FILEREQ_MEN_FILELIST_SORTDRAWERSAME
+5\0Dosyalar ve çekmeceleri birlikte göster
+; 5\0Show drawers with files
+;
+MSG_FILEREQ_MEN_FILELIST_SORTDRAWERLAST
+6\0Çekmeceleri sonra göster
+; 6\0Show drawers last
+;
+MSG_MODEREQ_TITLE
+Ekran Kipini Seç
+; Select Screen Mode
+;
+MSG_MODEREQ_POSITIVE_GAD
+TAMAM
+; Ok
+;
+MSG_MODEREQ_NEGATIVE_GAD
+Vazgeç
+; Cancel
+;
+MSG_MODEREQ_OVERSCAN_LABEL
+Overscan
+; Overscan
+;
+MSG_MODEREQ_OVERSCAN_TEXT
+Metin Boyutu
+; Text Size
+;
+MSG_MODEREQ_OVERSCAN_GRAPHICS
+Grafik Boyutu
+; Graphics Size
+;
+MSG_MODEREQ_OVERSCAN_EXTREME
+Sýnýr Boyutu
+; Extreme Size
+;
+MSG_MODEREQ_OVERSCAN_MAXIMUM
+Maksimum Boyut
+; Maximum Size
+;
+MSG_MODEREQ_WIDTH_LABEL
+Geniþlik
+; Width
+;
+MSG_MODEREQ_HEIGHT_LABEL
+Yükseklik
+; Height
+;
+MSG_MODEREQ_COLORS_LABEL
+Renkler
+; Colors
+;
+MSG_MODEREQ_AUTOSCROLL_LABEL
+Otomatik Kaydýr
+; AutoScroll
+;
+MSG_MODEREQ_AUTOSCROLL_OFF
+KAPALI
+; OFF
+;
+MSG_MODEREQ_AUTOSCROLL_ON
+AÇIK
+; ON
+;
+MSG_MODEREQ_PROPERTIES_TITLE
+Kip Özellikleri
+; Mode Properties
+;
+MSG_MODEREQ_PROPERTIES_NOTWB
+Workbench tarafýndan desteklenmez
+; Does not support Workbench
+;
+MSG_MODEREQ_PROPERTIES_NOTGENLOCK
+Genlock tarafýndan desteklenmez
+; Does not support genlock
+;
+MSG_MODEREQ_PROPERTIES_NOTDRAG
+Sürüklenemez
+; Not draggable
+;
+MSG_MODEREQ_PROPERTIES_HAM
+Tut & Deðiþtir
+; Hold & Modify
+;
+MSG_MODEREQ_PROPERTIES_EHB
+Ekstra-YarýParlak
+; Extra-HalfBright
+;
+MSG_MODEREQ_PROPERTIES_LACE
+Taramalý
+; Interlaced
+;
+MSG_MODEREQ_PROPERTIES_ECS
+ECS Gerektirir
+; Requires ECS
+;
+MSG_MODEREQ_PROPERTIES_WB
+Workbench Desteði
+; Supports Workbench
+;
+MSG_MODEREQ_PROPERTIES_GENLOCK
+Genlock Desteði
+; Supports genlock
+;
+MSG_MODEREQ_PROPERTIES_DRAG
+Sürüklenebilir
+; Draggable
+;
+MSG_MODEREQ_PROPERTIES_DPFPRI2
+Ýkili Alan Önceliði 2
+; DualPlayfield Priority 2
+;
+MSG_MODEREQ_PROPERTIES_REFRESHRATE
+%ldHz, %ld,%ldkHz
+; %ldHz, %ld,%ldkHz
+;
+MSG_MODEREQ_MEN_CONTROL
+Kontrol
+; Control
+;
+MSG_MODEREQ_MEN_CONTROL_LASTMODE
+L\0Son Kip
+; L\0Last Mode
+;
+MSG_MODEREQ_MEN_CONTROL_NEXTMODE
+N\0Sonraki Kip
+; N\0Next Mode
+;
+MSG_MODEREQ_MEN_CONTROL_PROPERTIES
+?\0Özellik Listesi...
+; ?\0Property List...
+;
+MSG_MODEREQ_MEN_CONTROL_RESTORE
+R\0Kurtar
+; R\0Restore
+;
+MSG_MODEREQ_MEN_CONTROL_OK
+O\0Tamam
+; O\0Ok
+;
+MSG_MODEREQ_MEN_CONTROL_CANCEL
+C\0Vazgeç
+; C\0Cancel
+;
+MSG_FONTREQ_TITLE
+Yazý tipi seç
+; Select Font
+;
+MSG_FONTREQ_POSITIVE_GAD
+Tamam
+; Ok
+;
+MSG_FONTREQ_NEGATIVE_GAD
+Vazgeç
+; Cancel
+;
+MSG_FONTREQ_MEN_CONTROL
+Kontrol
+; Control
+;
+MSG_FONTREQ_MEN_CONTROL_LASTFONT
+L\0 Son Yazý Tipi
+; L\0Last Font
+;
+MSG_FONTREQ_MEN_CONTROL_NEXTFONT
+N\0Sonraki Yazý Tipi
+; N\0Next Font
+;
+MSG_FONTREQ_MEN_CONTROL_RESTORE
+R\0Kurtar
+; R\0Restore
+;
+MSG_FONTREQ_MEN_CONTROL_RESCAN
+D\0Diski Tekrar Tara
+; D\0Rescan Disk
+;
+MSG_FONTREQ_MEN_CONTROL_OK
+O\0Tamam
+; O\0Ok
+;
+MSG_FONTREQ_MEN_CONTROL_CANCEL
+C\0Vazgeç
+; C\0Cancel
+;
+MSG_FONTREQ_MODE_LABEL
+Kip
+; Mode
+;
+MSG_FONTREQ_MODE_TEXT
+Metin
+; Text
+;
+MSG_FONTREQ_MODE_TEXTANDFIELD
+Metin+Alan
+; Text+Field
+;
+MSG_FONTREQ_MODE_COMPLEMENT
+Tamamlayýcý
+; Complement
+;
+MSG_FONTREQ_STYLE_LABEL
+Sitil
+; Style
+;
+MSG_FONTREQ_STYLE_BOLD
+B
+; B
+;
+MSG_FONTREQ_STYLE_ITALIC
+I
+; I
+;
+MSG_FONTREQ_STYLE_UNDERLINED
+U
+; U
+;
+MSG_FONTREQ_COLOR_LABEL_FG
+Renk
+; Color
+;
+MSG_FONTREQ_COLOR_LABEL_BG
+BG Renk
+; BG Color
+;
+MSG_FONTREQ_COLOR_LABEL_FGBG
+Renkler
+; Colors
+;

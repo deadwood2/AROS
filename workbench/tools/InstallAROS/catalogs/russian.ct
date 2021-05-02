@@ -1,0 +1,364 @@
+## version $VER: installaros.catalog 2.0 (17.02.2021)
+## codeset 2104
+## language russian
+;
+MSG_TITLE
+Установка AROS
+; AROS Installer
+;
+MSG_DESCRIPTION
+Установка AROS на компьютер.
+; Installs AROS on to a Drive.
+;
+MSG_WELCOME
+\033b\nДобро пожаловать в установку AROS Research OS.\n\n\033nЭта программа позволит вам установить AROS\nна жёсткий диск вашего компьютера или флеш-накопитель.\n\nИмейте в виду, что стабильность этого ПО\nничем не гарантирована.\nВозможно что \033bпотеря данных\033n произойдёт\nна любом накопителе вашего компьютера, не исключая\nиспользуемые для других ОС.\n
+; Welcome bla-bla-bla
+;
+MSG_INSTALLOPTIONS
+\nПожалуйста выберите условия установки.\n\n
+; \nPlease choose your installation options.\n\n
+;
+MSG_DESTOPTIONS
+\nУкажите куда устанавливать AROS.\n\nЕсли не знаете - используйте значения по умолчанию
+; \nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults
+;
+MSG_ACCEPT
+Подтверждаете лицензионное соглашение?
+; Accept License Agreement?
+;
+MSG_DRIVE
+\033bУстройство:\033n
+; \033bDrive:\033n
+;
+MSG_TYPE
+Тип:
+; Type:
+;
+MSG_DEVICE
+Устройство:
+; Device:
+;
+MSG_UNIT
+Unit:
+; Unit:
+;
+MSG_NAME
+Имя:
+; Name:
+;
+MSG_FILESYSTEM
+Файловая система:
+; Filesystem:
+;
+MSG_SIZE
+Размер:
+; Size:
+;
+MSG_MENUMODE
+Режим меню:
+; Menu Mode:
+;
+MSG_CREATE
+Создать
+; Create
+;
+MSG_SPECIFYSIZE
+Укажите размер
+; Specify Size
+;
+MSG_DESTVOLUME
+Целевая партиция
+; Destination Partition
+;
+MSG_WORKVOLUME
+Рабочая партиция
+; Work Partition
+;
+MSG_CHOOSELANG
+Выберите настройки языка
+; Choose Language Options
+;
+MSG_INSTALLCORE
+Установка ядра системы AROS
+; Install AROS Core System
+;
+MSG_INSTALLEXTRA
+Установка дополнительного ПО
+; Install Extra Software
+;
+MSG_INSTALLDEVEL
+Установка инструментария разработчика
+; Install Debugging tools and Developer Software
+;
+MSG_INSTALLBOOT
+Установка загрузчика
+; Install Bootloader
+;
+MSG_FORMATPART
+Форматирование партиции
+; Format Partition
+;
+MSG_USEWORK
+Создать партицию 'Work'
+; Use 'Work' Partition
+;
+MSG_USEWORKFOR
+Создать партицию 'Work' для доп. ПО и инструментов разработки
+; Use 'Work' Partition for Extras and Developer Files
+;
+MSG_BEGINWITHPARTITION
+Хорошо, можно начинать.\n\nПоскольку было выбрано форматирование как минимум одной партиции,\nвы уже не сможете отменить этот выбор\nпосле начала установки.\n\nВыберите 'Продолжить' для начала установки.
+; OK, we are ready to begin.\n\nSince you've chosen to format at least one partition,\nyou will no longer be able to undo changes\nafter this point.\n\nSelect Proceed to begin installation.
+;
+MSG_BEGINWITHOUTPARTITION
+Хорошо, можно начинать.\n\nМы собрали достаточно информации\nдля начала установки на этом компьютере\n\n\nВыберите 'Продолжить' для начала установки
+; OK, we are ready to begin...\n\nWe have collected enough information\nto begin installation on this computer.\n\n\nSelect Proceed to begin installation.
+;
+MSG_PARTITIONOPTIONS
+Теперь можно создать партиции AROS на целевом диске.\n\nВыберите, какие вы хотите создать и продолжим.\n
+; We will now create AROS partitions on the destination drive.\n\nPlease select how you would like to proceed.\n
+;
+MSG_DESTPARTITION
+\033bСистемная партиция:\033n
+; \033bSystem Partition:\033n
+;
+MSG_WORKPARTITION
+\033bРабочая партиция:\033n
+; \033bWork Partition:\033n
+;
+MSG_USEFREE
+Использовать только свободное пространство
+; Only use free space
+;
+MSG_WIPEDISK
+Очистить диск
+; Wipe disk
+;
+MSG_USEEXISTING
+Использовать существующие партиции AROS (на любом диске)
+; Use existing AROS partitions (on any drive)
+;
+MSG_PARTITIONTOOBIG
+Указанные размеры партиций слишком велики.\nМаксимальный размер партиции SFS м.б. %ld ГБ (%ld МБ),\nа макс. размер партиции FFS составляет %ld ГБ (%ld МБ).\nУменьшите размеры указанных вами партиций.\n
+; The partition sizes you have requested are too large.\nThe maximum size of an SFS partition is %ld GB (%ld MB),\nwhile the maximum size of an FFS partition is %ld GB (%ld MB).\nPlease reduce the size of the affected partitions.\n
+;
+MSG_GRUBOPTIONS
+AROS использует загрузчик GRUB.\n\nКак правило, загрузочный блок GRUB должен\nбыть установлен на первом диске вашей системы.\nЕсли установщик обнаружит установленную Microsoft Windows,\nона будет включена в меню выбора при загрузке GRUB.\n
+; AROS uses the GRUB bootloader.\n\nIn most cases, GRUB's bootblock should\nbe installed on the first drive in your system.\nIf the Installer detects a Microsoft Windows installation,\nit will be included as a choice in GRUB's boot menu.\n
+;
+MSG_GRUBDRIVE
+Блок загрузчика устанавливается на устройство:
+; Drive to install Bootloader's bootblock on:
+;
+MSG_GRUBGOPTIONS
+Настройки GRUB
+; GRUB Settings
+;
+MSG_GRUBGRUB
+Путь к файлам GRUB
+; Path to GRUB files:
+;
+MSG_NOGRUBDEVICE
+Введите имя устройства и его номер (unit) для диска\nна котором будет записан загрузочный блок GRUB.\n
+; Please enter the device name and unit number for\nthe drive GRUB's bootblock should be installed on.\n
+;
+MSG_PARTITIONING
+Создание партиций на устройстве...\n\n
+; Partitioning your drives...\n\n
+;
+MSG_FORMATTING
+Форматирование '%s'...
+; Formatting '%s'...
+;
+MSG_INSTALL
+Копирование файлов на целевое устройство.\n\nЭто займёт некоторое время...\n
+; Copying files to the destination drive.\n\nThis may take some time...\n
+;
+MSG_COPYCORE
+Копирование файлов ядра системы...
+; Copying Core System files...
+;
+MSG_COPYEXTRA
+Копирование дополнительного ПО...
+; Copying Extra Software...
+;
+MSG_COPYDEVEL
+Копирование инструментов разработчика...
+; Copying Developer Files...
+;
+MSG_COPYBOOT
+Копирование файлов загрузчика...
+; Copying BOOT files...
+;
+MSG_BOOTLOADER
+Копирование загрузчика на ваше\nцелевое устройство, и установка...\n
+; Copying the bootloader to your\ndestination drive, and installing...\n
+;
+MSG_POSTINSTALL
+Выполнение завершающих сценариев...
+; Running post-install script...
+;
+MSG_POSTINSTALL2
+Выполнение внешних завершающих\nсценариев. Пожалуйста ждите.\n
+; Running the external post-install\nscript. Please wait.\n
+;
+MSG_DONEREBOOT
+Партиции AROS были созданы!\nДля продолжения установки, вы должны\nперезагрузить AROS, и повторно\nзапустить установщик.\n\nНажмите 'Продолжить' для завершения.\n
+; AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application\n\nSelect Proceed to finish\n
+;
+MSG_DONEUSB
+Партиции AROS были созданы!\nДля продолжения установки, вы должны удалить или\nпереподключить USB-накопитель, и повторно\nзапустить установщик.\n\nНажмите 'Продолжить' для завершения.\n
+; AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application\n\nSelect Proceed to finish\n
+;
+MSG_INSTALLING
+Идёт установка AROS...
+; Installing AROS...
+;
+MSG_INSTALLINGBOOT
+Идёт установка загрузчика...
+; Installing Bootloader...
+;
+MSG_DONE
+Подравляем, теперь вы установили AROS!\n\nДля загрузки AROS с целевого устройства,\nизвлеките установочный носитель и\nперезагрузите компьютер.\n\nВыберите 'Продолжить' для завершения.\n
+; Congratulations, you now have AROS installed!\n\nTo boot AROS from the destination drive,\nremove the installation media and\nrestart your computer using the\npower switch or reset button.\n\nSelect Proceed to finish\n
+;
+MSG_CANCELOK
+Вы действительно хотите отменить\nэту установку?\n
+; Are you sure you wish to cancel\nthis installation?\n
+;
+MSG_CANCELDANGER
+В систему уже внесены необратимые изменения.\n\nОтмена сейчас скорей всего приведёт к тому,\nчто ваш компьютер не сможет загрузиться.\n\nВы уверены, что хотите отменить эту установку?\n
+; Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state\n\nAre you sure you wish to cancel\nthis installation?\n
+;
+MSG_BACK
+<< _Назад...
+; << _Back...
+;
+MSG_PROCEED
+_Продолжить
+; _Proceed
+;
+MSG_NOTALLFILESCOPIED
+Не все файлы в '%s'\nбыли скопированы.\nПродолжить установку?\n
+; Not all files in '%s'\nwere copied.\nShould the installation continue?\n
+;
+MSG_PARTITIONINGFAILED
+Не удалось разбить диск на партиции.\nУстановка AROS будет прекращена.
+; Partitioning of disk failed. InstallAROS\nwill now quit.
+;
+MSG_GRUBNONFFSWARNING
+Вы выбрали для системной партиции файловую систему\nотличную от FFS-Intl. Т.к. этот дистрибутив AROS\nсобран с загрузчиком GRUB,\nвозможно не удастся загрузиться после установки.\n\nПродолжить разбиение диска на партиции?\n
+; You have selected a filesystem different\nthan FFS-Intl for the system partition. Since\nthis distribution of AROS is compiled with the\noriginal GRUB bootloader, you will not be able to\nboot the system after installation.\n\nShould the partitioning continue?\n
+;
+MSG_CANCELINSTALL
+Прекращение установки...
+; Cancel Installation...
+;
+MSG_CONTINUECANCELINST
+*Продолжить установку|Прекратить установку
+; *Continue Install|Cancel Install
+;
+MSG_CONTINUECANCELPART
+Продолжить разбиение|*Прекратить разбиение
+; Continue Partitioning|*Cancel Partitionin
+;
+MSG_CONTINUEQUIT
+Продолжить|*Прекратить
+; Continue|*Quit
+;
+MSG_EXISTSRETRY
+Файл уже существует\nЗаменить %s?
+; File Already Exists\nReplace %s?
+;
+MSG_RETRY
+Повторить
+; Retry
+;
+MSG_SCANRETRY
+Ошибка сканирования %s\nПовторить?
+; Error scanning %s\nRetry?
+;
+MSG_FINDRETRY
+Не удалось найти %s\nПовторить?
+; Could not find %s\nRetry?
+;
+MSG_COULDNTOPEN
+Не удалось открыть %s
+; Couldn't Open %s
+;
+MSG_COULDNTWRITE
+Не удаётся запись %s
+; Couldn't Write to %s
+;
+MSG_DISKFULL
+Не удаётся запись %s\nДиск полон!
+; Couldn't Write to %s\nDisk Full!
+;
+MSG_TEXT
+Текст
+; Text
+;
+MSG_GFX
+Графика
+; Graphics
+;
+MSG_YES
+Да
+; Yes
+;
+MSG_YESALWAYS
+Да [Всегда]
+; Yes [Always]
+;
+MSG_NO
+Нет
+; No
+;
+MSG_SKIP
+Пропустить
+; Skip
+;
+MSG_OK
+OK
+; OK
+;
+MSG_CANCEL
+Отмена
+; Cancel
+;
+MSG_CANCEL2
+_Отмена
+; _Cancel
+;
+MSG_QUIT
+Выход
+; Quit
+;
+MSG_QUIT2
+ВЫХОД
+; QUIT
+;
+MSG_ERROR
+Ошибка
+; Error
+;
+MSG_WARNING
+Предупреждение
+; Warning
+;
+MSG_REBOOT
+Перегрузить AROS сейчас
+; Reboot AROS now
+;
+MSG_IOERROR
+Произошла ошибка ввода/вывода
+; IO Error has occured
+;
+MSG_NOTFILESYSTEM
+устройство '%s' не содержит файловой системы\n
+; device '%s' doesn't contain a file system\n
+;
+MSG_NOTDEVICE
+'%s' не является именем устройства\n
+; '%s' doesn't contain a device name\n
+;

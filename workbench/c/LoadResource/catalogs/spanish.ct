@@ -1,10 +1,13 @@
-## version $VER: loadresource.catalog 1.0 (03.10.2007)
+## version $VER: loadresource.catalog 2.0 (08.01.2020)
 ## language español
 ## codeset 0
 ;
-; Translated by ahg
 ;
 MSG_ERROR_OPEN_LIBRARY
 No se puede abrir la biblioteca %s.
-;Couldn't open library %s.
+; Couldn't open library %s.
+;
+MSG_ERROR_OPEN_DEVICE
+No se puede abrir el perifeco %s.
+; Couldn't open device %s.
 ;

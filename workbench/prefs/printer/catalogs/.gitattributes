@@ -41,7 +41,6 @@ polish.ct            text encoding=ISO-8859-2
 # ISO-8859-3
 #
 maltese.ct           text encoding=ISO-8859-3
-turkish.ct           text encoding=ISO-8859-3
 
 # ISO-8859-4
 #
@@ -55,6 +54,10 @@ bulgarian.ct         text encoding=ISO-8859-5
 macedonian.ct        text encoding=ISO-8859-5
 serbian.ct           text encoding=ISO-8859-5
 ukrainian.ct         text encoding=ISO-8859-5
+
+# ISO-8859-9
+#
+turkish.ct           text encoding=ISO-8859-9
 
 # Russian is stored as WINDOWS-1251 but used as Amiga-1251
 russian.ct           text encoding=WINDOWS-1251

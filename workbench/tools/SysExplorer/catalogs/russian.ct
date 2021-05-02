@@ -1,0 +1,177 @@
+## version $VER: SysExplorer.catalog 2.0 (16.12.2020)
+## language russian
+## codeset 2104
+;
+;
+MSG_TITLE
+System Explorer
+; System Explorer
+;
+MSG_WINTITLE
+Ваш компьютер
+; System Explorer
+;
+MSG_DESCRIPTION
+Сведения о системе и компьютере
+; System and hardware information tool
+;
+MSG_MENU_PROJECT
+Проект
+; Project
+;
+MSG_MENU_PROPERTIES
+Свойства
+; Properties
+;
+MSG_MENU_EXPANDALL
+Развернуть всё
+; Expand All
+;
+MSG_MENU_COLLAPSEALL
+Свернуть всё
+; Collapse All
+;
+MSG_MENU_QUIT
+Выход
+; Quit
+;
+MSG_HIDD_TREE
+Дерево HIDD
+; HIDD Tree
+;
+MSG_PROPERTIES
+Свойства
+; Properties
+;
+MSG_LABEL_DRIVER
+Название драйвера
+; Driver instance name
+;
+MSG_LABEL_HW_DESCRIPTION
+Описание оборудования
+; Hardware description
+;
+MSG_LABEL_VENDOR
+Данные о производителе
+; Vendor information
+;
+MSG_SYSTEM_PROPERTIES
+Свойства системы
+; System properties
+;
+MSG_VERSION
+Версия
+; Version
+;
+MSG_PROCESSORS
+Процессор(ы)
+; Processors
+;
+MSG_HPET
+HPET
+; HPET
+;
+MSG_RAM
+Память
+; Memory
+;
+MSG_BOOTLOADER
+Загрузчик
+; Boot loader
+;
+MSG_ARGUMENTS
+Параметры загрузки
+; Boot Arguments
+;
+MSG_AVAILABLE
+Доступно
+; Available for use
+;
+MSG_GENERAL
+Общее
+; General
+;
+MSG_NAME
+Устройство
+; Name
+;
+MSG_HARDWARE_NAME
+Описание
+; Hardware Name
+;
+MSG_PRODUCT_ID
+ID устройства
+; Product ID
+;
+MSG_PRODUCER_NAME
+Производитель
+; Vendor Name
+;
+MSG_PRODUCER_ID
+ID производителя
+; Vendor ID
+;
+MSG_DEVICE_PROPERTIES
+Свойства устройства
+; Device properties
+;
+MSG_ATA_PROPERTIES
+Свойства IDE-шины
+; IDE bus properties
+;
+MSG_ATA
+IDE
+; IDE
+;
+MSG_USE_IOALT
+Поддержка альтернативных регистров
+; Supports alternate registers
+;
+MSG_USE_32BIT
+Поддержка 32-Bit PIO
+; Supports 32-bit PIO
+;
+MSG_USE_DMA
+Поддержка DMA
+; Supports DMA
+;
+MSG_USE_80WIRE
+80-жильный кабель
+; 80-wire cable
+;
+MSG_ATA_UNIT_PROPERTIES
+Свойства IDE-устройства
+; IDE device properties
+;
+MSG_UNIT_NUMBER
+Номер устройства
+; Unit number
+;
+MSG_MODEL
+Модель
+; Model
+;
+MSG_REVISION
+Редакция
+; Revision
+;
+MSG_SERIAL
+Серийный номер
+; Serial
+;
+MSG_TRANSFER_MODES
+Поддерживаемые режимы
+; Supported modes
+;
+MSG_MULTISECTOR
+Ограничение мультисектора
+; Multisector limit
+;
+MSG_REMOVABLE
+Сменяемый
+; Removable
+;
+MSG_CONFIG_MODES
+Настроенные режимы
+; Configured modes
+;

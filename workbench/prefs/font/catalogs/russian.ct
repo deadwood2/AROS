@@ -1,14 +1,14 @@
-## version $VER: Font.catalog 3.1 (11.6.2017)
+## version $VER: Font.catalog 3.1 (02.01.2021)
 ## language russian
 ## codeset 2104
 ;
 ;
 MSG_CANT_OPEN_STREAM
-Невозможно открытие потока IFF!
+Не удалось открыть IFF-поток!
 ; Can't open IFF stream!
 ;
 MSG_CANT_ALLOCATE_IFFPTR
-Can't allocate IFF handle!
+Не удалось получить IFF-дескриптор!
 ; Can't allocate IFF handle!
 ;
 MSG_NAME
@@ -16,11 +16,11 @@ MSG_NAME
 ; Font Preferences
 ;
 MSG_OK
-Ok
+Ок
 ; Ok
 ;
 MSG_ICONS
-Иконки :
+Иконки:
 ; Icons:
 ;
 MSG_SYSTEM

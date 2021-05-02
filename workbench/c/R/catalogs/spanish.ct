@@ -1,0 +1,64 @@
+## version $VER: R.catalog 2.0 (29.01.2021)
+## language español
+## codeset 0
+;
+MSG_APP_TITLE
+R
+; R
+;
+MSG_APP_DESCRIPTION
+Generador GUI
+; GUI Generator
+;
+MSG_WIN_TITLE
+R : %s
+; R : %s
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_CANCEL
+Cancelar
+; Cancel
+;
+MSG_ERROR_ALLOCATE
+No puedo cargar el request\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_RETURN
+\"%s\" ha fallado con codigo de error %ld\n
+; \"%s\" failed, return code %ld\n
+;
+MSG_ERROR_POOL
+No puedo crear un pool de memoria\n
+; Can't create poolmem\n
+;
+MSG_ERROR_STRUCT
+No puedo cargar la estructura Req\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_ARGS
+No puedo parsear los argumentos\n
+; Failed to parse arguments\n
+;
+MSG_ERROR_NOTFOUND
+Comando no encontrado\n
+; Command not found\n
+;
+MSG_ERROR_TMPLT_GET
+Fallo al cargar la plantilla\n
+; Failed to get template\n
+;
+MSG_ERROR_TMPLT_PARSE
+Fallo al parsear la plantilla\n
+; Failed to parse the template\n
+;
+MSG_ERROR_GUI
+Fallo al crear el objero aplicacion\n
+; Failed to create application object\n
+;
+MSG_ERROR_DEFAULTS
+Fallo al asignar los valores predeterminados\n
+; Failed to set the default values\n
+;

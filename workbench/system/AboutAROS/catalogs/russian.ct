@@ -1,19 +1,18 @@
-## version $VER: About.catalog 1.3 (24.02.2009)
+## version $VER: About.catalog 2.0 (17.02.2021)
 ## language russian
-## codeset 0
-;
+## codeset 2104
 ;
 MSG_TITLE
-Сведения о AROS
+О системе AROS
 ; About AROS
 ;
 MSG_PERSONAL_BUILD
-Личная %s сборка
+Персональная сборка для %s,
 ; Personal Build
 ; FIXME: shall I translate this?
 ;
 MSG_NIGHTLY_BUILD
-"Ночная" %s сборка
+"Ночная" сборка для %s,
 ; Nightly Build
 ; FIXME: shall I translate this?
 ;
@@ -30,15 +29,15 @@ MSG_RELEASE
 ; Release
 ;
 MSG_COPYRIGHT
-Copyright © 1995-2020, The AROS Development Team. Все права защищены.
-; Copyright © 1995-2020, The AROS Development Team. All rights reserved.
+Copyright © 1995-2021, The AROS Development Team. Все права защищены.
+; Copyright © 1995-2021, The AROS Development Team. All rights reserved.
 ;
 MSG_LICENSE_1
-Выпущено на условиях
+Выпущено на условиях: 
 ; Released under the terms of the
 ;
 MSG_LICENSE_2
-AROS Public License
+Публичная лицензия AROS
 ; AROS Public License
 ;
 MSG_LICENSE_3
@@ -46,7 +45,7 @@ MSG_LICENSE_3
 ; , version 1.1.
 ;
 MSG_MORE_INFORMATION
-Дополнительные сведения ищите на http://www.aros.org/ru/ .
+Более подробное описание на http://www.aros.org/ru/
 ; Please visit http://www.aros.org for more information.
 ;
 MSG_PAGE_AUTHORS
@@ -66,7 +65,7 @@ MSG_SECTION_COORDINATION
 ; Coordination
 ;
 MSG_SECTION_EVANGELISM
-"Духовенство"
+Евангелисты
 ; Evangelism
 ;
 MSG_SECTION_HIDD
@@ -74,43 +73,43 @@ MSG_SECTION_HIDD
 ; HIDD subsystem
 ;
 MSG_SECTION_INTUITION
-Intuition
+Библиотека Intuition
 ; Intuition
 ;
 MSG_SECTION_GRAPHICS
-Графика
+Библиотека Graphics
 ; Graphics
 ;
 MSG_SECTION_SHELL_COMMANDS
-Команды оболочки
+Команды консоли
 ; Shell Commands
 ;
 MSG_SECTION_WORKBENCH
-Workbench
+Рабочий стол Workbench
 ; Workbench
 ;
 MSG_SECTION_TOOLS
-Инструменты
+Инструментарий
 ; Tools
 ;
 MSG_SECTION_PREFERENCES
-Настройки
+Приложения настроек
 ; Preferences
 ;
 MSG_SECTION_BGUI
-BGUI
+Интерфейс BGUI
 ; BGUI
 ;
 MSG_SECTION_ZUNE
-Zune
+Интерфейс Zune
 ; Zune
 ;
 MSG_SECTION_KERNEL
-Ядро
+Ядро системы
 ; Kernel
 ;
 MSG_SECTION_DOS
-DOS
+Дисковая подсистема
 ; DOS
 ;
 MSG_SECTION_NETWORK
@@ -118,7 +117,7 @@ MSG_SECTION_NETWORK
 ;Networking Components
 ;
 MSG_SECTION_LIBC_POSIX
-Библиотеки C и POSIX Layer
+Библиотеки Си и слой POSIX-совместимости
 ; C link library and POSIX layer
 ;
 MSG_SECTION_DOCUMENTATION
@@ -134,9 +133,16 @@ MSG_SECTION_ARTISTRY
 ; Artistry
 ;
 MSG_SECTION_WEBSITE
-Веб-сайт
+Web-сайт
 ; Website
 ;
 MSG_SECTION_DATATYPES
-Datatypes
+Поддержка типов данных
 ;Datatypes
+;
+MSG_SECTION_TESTING
+Тестирование
+; Testing
+MSG_BUILD_CPU
+Эта версия AROS собрана для процессоров %s.
+; This version of AROS has been built for %s processors.

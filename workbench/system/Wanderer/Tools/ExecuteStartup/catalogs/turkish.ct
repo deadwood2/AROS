@@ -1,0 +1,53 @@
+## version $VER: executestartup.catalog 1.0 (16.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_ERROR
+Hata
+; Error
+;
+MSG_WARNING
+Uyarý
+; Warning
+;
+MSG_OK
+TAMAM
+; OK
+;
+MSG_ERROR_GETDISKOBJECT
+ExecuteStartup\nDisk Nesnesini alma baþarýsýz oldu:\n%s
+; ExecuteStartup\nGetDiskObject failed for:\n%s
+;
+MSG_ERROR_INFONODE
+ExecuteStartup\nInfoNode için bellek yetersiz
+; ExecuteStartup\nOut of memory for InfoNode
+;
+MSG_ERROR_LNNAME
+ExecuteStartup\nln_Name için bellek yetersiz
+; ExecuteStartup\nOut of memory for ln_Name
+;
+MSG_ERROR_SCANNING
+ExecuteStartup\nDizini tararken %ld hatasý oluþtu
+; ExecuteStartup\nError %ld occured while scanning directory
+;
+MSG_ERROR_ANCHORPATH
+ExecuteStartup\nAnchorPath için bellek yetersiz
+; ExecuteStartup\nOut of memory for AnchorPath
+;
+MSG_ERROR_FILEINFOBLOCK
+ExecuteStartup\nFileInfoBlock için bellek yetersiz
+; ExecuteStartup\nOut of memory for FileInfoBlock
+;
+MSG_ERROR_MEMORYPOOL
+ExecuteStartup\nHavuz belleði oluþturulamadý
+; ExecuteStartup\nCouldn't create pool memory
+;
+MSG_ERROR_EXAMINE
+ExecuteStartup\nÝncelenemedi
+; ExecuteStartup\nCouldn't examine 
+;Note final space!
+MSG_WARNING_OPENWBOBJECT
+ExecuteStartup\nOpen Workbench Nesnesi þunun için baþarýsýz oldu:\n%s
+; ExecuteStartup\nOpenWorkbenchObject failed for:\n%s
+;

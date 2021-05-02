@@ -1,0 +1,40 @@
+## version $VER: pointer.catalog 2.0 (23.12.2020)
+## language türkçe
+## codeset 12
+;
+MSG_WINTITLE
+Ýþaretçi Terçihleri
+; Pointer Preferences
+;
+MSG_OK
+TAMAM
+; OK
+;
+MSG_HOTSPOT
+Hotspot
+;  Hotspot
+;
+MSG_ALPHA
+Alpha
+; Alpha
+;
+MSG_FILENAME
+Dosya adý
+; Filename
+;
+MSG_TYPE
+Tür
+; Type
+;
+MSG_TYPE_NORMAL
+Normal
+; Normal
+;
+MSG_TYPE_BUSY
+Meþkul
+; Busy
+;
+MSG_SETVIEW
+Ayarla / Göster
+; Set / View
+;

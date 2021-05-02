@@ -1,0 +1,218 @@
+## version $VER: Printer.catalog 2.1 (23.02.2021)
+## codeset 2104
+## language russian
+;
+;
+MSG_WINTITLE
+Настройки принтера
+; Printer Preferences
+;
+MSG_OK
+Ок
+; Ok
+;
+MSG_PRINTER_DRIVER
+Устройство
+; Driver
+;
+MSG_PRINTER_SETTINGS
+Настройки печати
+; Settings
+;
+MSG_PRINTER_SELECT_DRIVER
+Доступные драйвера:
+; Select Driver:
+;
+MSG_PRINTER_NAME
+Имя:
+; Name:
+;
+MSG_PRINTER_UNIT
+Порядковый номер:
+; Printer Unit:
+;
+MSG_PRINTER_PS_UNIT
+Unit:
+; Unit:
+;
+MSG_PRINTER_CUSTOM_DEVICE
+Другой драйвер:
+; Custom device:
+;
+MSG_PRINTER_DEVICE_UNIT
+%d-й принтер
+; Unit %d
+;
+MSG_PRINTER_PARALLEL
+параллельный порт
+; Parallel
+;
+MSG_PRINTER_SERIAL
+последовательный порт
+; Serial
+;
+MSG_PRINTER_TO_FILE
+печать в файл
+; Print to file
+;
+MSG_PRINTER_USB
+USB-порт
+; USB Printer
+;
+MSG_TISK_PAPER_TYPE
+Тип бумаги:
+; Paper Type:
+;
+MSG_TISK_PAPER_SIZE
+Размер листа:
+; Paper Size:
+;
+MSG_TISK_QUALITY
+Качество:
+; Quality:
+;
+MSG_TISK_PITCH
+Интенсивность:
+; Pitch:
+;
+MSG_TISK_SPACING
+Интервал:
+; Spacing:
+;
+MSG_TISK_LEFT_MARGIN
+Левое поле:
+; Left Margin:
+;
+MSG_TISK_RIGHT_MARGIN
+Правое поле:
+; Right Margin:
+;
+MSG_TISK_LINE_PER_PAGE
+Строк на лист:
+; Lines per Page:
+;
+MSG_TISK_DENSITY
+Насыщенность:
+; Density:
+;
+MSG_TISK_ASPECT
+Ориентация:
+; Aspect:
+;
+MSG_TISK_SHADE
+Цветность:
+; Shade:
+;
+MSG_TISK_IMAGE
+Изображение:
+; Image:
+;
+MSG_TISK_TRESHOLD
+Порог:
+; Threshold:
+;
+MSG_TISK_DITHERING
+Дизеринг:
+; Dithering:
+;
+MSG_TISK_DIMENSION
+Размеры:
+; Dimensions:
+;
+MSG_TISK_PAPER_OFFSET
+Смещение (
+; Offset (
+;
+MSG_TISK_CENTER_IMAGE
+Центровать печать:
+; Center Image:
+;
+MSG_TISK_ANTIALIAS
+Сглаживание:
+; AntiAlias:
+;
+MSG_TISK_INTEGER_SCALING
+Целочисленный масштаб:
+; Integer Scaling:
+;
+MSG_TISK_FANFOLD
+фальцованная
+; Fanfold
+;
+MSG_TISK_SINGLE
+листами
+; Single
+;
+MSG_TISK_DRAFT
+черновик (72 dpi)
+; Draft (72 dpi)
+;
+MSG_TISK_LETTER
+деловое (240 dpi)
+; Letter (240 dpi)
+;
+MSG_TISK_PORTRAIT
+портретная
+; Portrait
+;
+MSG_TISK_LANDSCAPE
+альбомная
+; Landscape
+;
+MSG_TISK_BW
+чёрно-белая печать
+; Black & White
+;
+MSG_TISK_GRAY
+печать полутонами
+; Greyscape
+;
+MSG_TISK_COLOR
+цветная печать
+; Color
+;
+MSG_TISK_GRAY2
+печать полутонами 2
+; Greyscape 2
+;
+MSG_TISK_POSITIVE
+как есть
+; Positive
+;
+MSG_TISK_NEGATIVE
+инверсия
+; Negative
+;
+MSG_TISK_IGNORE
+игнорировать
+; Ignore
+;
+MSG_TISK_BOUNDED
+ограничивать
+; Bounded
+;
+MSG_TISK_ABSOLUTE
+абсолютные
+; Absolute
+;
+MSG_TISK_PIXEL
+в пикселях
+; Pixel
+;
+MSG_TISK_MULTIPLY
+увеличивать
+; Multiply
+;
+MSG_TISK_ORDERED
+упорядоченный
+; Ordered
+;
+MSG_TISK_HALFTONE
+полутоновый
+; Halftone
+;
+MSG_TISK_FLOYDSTEINBERG
+Флойд-Стейнберг
+; Floyd-Steinberg
+;
+;

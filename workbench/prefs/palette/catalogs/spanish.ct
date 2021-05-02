@@ -1,0 +1,44 @@
+## version $VER: palette.catalog 2.0 (08.01.2021)
+## language español
+## codeset 0
+;
+MSG_WINTITLE
+Preferencias de la paleta
+; Palette Preferences
+;
+MSG_OK
+Ok
+; Ok
+;
+MSG_PEN0
+Pincel 0
+; Pen 0
+;
+MSG_PEN1
+Pincel 1
+; Pen 1
+;
+MSG_PEN2
+Pincel 2
+; Pen 2
+;
+MSG_PEN3
+Pincel 3
+; Pen 3
+;
+MSG_PEN4
+Pincel 4
+; Pen 4
+;
+MSG_PEN5
+Pincel 5
+; Pen 5
+;
+MSG_PEN6
+Pincel 6
+; Pen 6
+;
+MSG_PEN7
+Pincel 7
+; Pen 7
+;

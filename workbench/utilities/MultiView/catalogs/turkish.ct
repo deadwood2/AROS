@@ -1,0 +1,209 @@
+## version $VER: multiview.catalog 1.0 (23.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_CANT_OPEN_LIB
+%s V%ld açýlamadý!\n
+; Can't open %s V%ld!\n
+;
+MSG_CANT_CREATE_IC
+Ara baðlantý nesneleri oluþturalamadý!
+; Can't create interconnection objects!
+;
+MSG_CANT_LOCK_SCR
+Genel ekran kilitlenemedi!
+; Can't lock public screen!
+;
+MSG_CANT_GET_DRI
+DrawInfo alýnamadý!
+; Can't get DrawInfo!
+;
+MSG_CANT_GET_VI
+VisualInfo alýnamadý!
+; Can't get VisualInfo!
+;
+MSG_CANT_CREATE_SYSIMAGE
+SYSICLASS imajlarý oluþturulamadý!
+; Can't create SYSICLASS images!
+;
+MSG_CANT_CREATE_GADGET
+Araç takýmlarý oluþturulamadý!
+; Can't create gadgets!
+;
+MSG_CANT_CREATE_MENUS
+Menüler oluþturulamadý!
+; Can't create menus!
+;
+MSG_CANT_CREATE_WIN
+Pencere oluþturulamadý!
+; Can't create window!
+;
+MSG_CANT_CREATE_MSGPORT
+Mesaj portu oluþturulamadý!
+; Can't create message port!
+;
+MSG_CANT_ADD_APPWINDOW
+Pencereyi bir uygulama penceresi olarak tanýmlanamadý!
+; Can't promote window as an AppWindow!
+;
+MSG_SAVE_FAILED
+Dosyaya kaydedilemedi!
+; Saving to file failed!
+;
+MSG_MEN_PROJECT
+Proje
+; Project
+;
+MSG_MEN_PROJECT_OPEN
+O\0Aç...
+; O\0Open...
+;
+MSG_MEN_PROJECT_EXPORT
+A\0Dýþa aktar...
+; A\0Export...
+;
+MSG_MEN_PROJECT_SAVEAS_IFF
+I\0IFF olarak kaydet...
+; I\0Save as IFF...
+;
+MSG_MEN_PROJECT_PRINT
+P\0Yazdýr
+; P\0Print
+;
+MSG_MEN_PROJECT_ABOUT
+?\0Hakkýnda...
+; ?\0About...
+;
+MSG_MEN_PROJECT_QUIT
+Q\0Çýkýþ
+; Q\0Quit
+;
+MSG_MEN_EDIT
+Düzen
+; Edit
+;
+MSG_MEN_EDIT_MARK
+B\0Ýþaretle
+; B\0Mark
+;
+MSG_MEN_EDIT_COPY
+C\0Kopyala
+; C\0Copy
+;
+MSG_MEN_EDIT_SELECTALL
+[\0Tümünü Seç
+; [\0Select All
+;
+MSG_MEN_EDIT_CLEARSELECTED
+]\0Seçimi Temizle
+; ]\0Clear Selected
+;
+MSG_MEN_WINDOW
+Pencere
+; Window
+;
+MSG_MEN_WINDOW_SEPSCREEN
+\0Ayrý Ekran Kullan
+;  \0Use Separate Screen
+;
+MSG_MEN_WINDOW_MINIMIZE
+\0Küçült
+;  \0Minimize
+;
+MSG_MEN_WINDOW_NORMAL
+\0Normal
+;  \0Normal
+;
+MSG_MEN_WINDOW_MAXIMIZE
+\0Büyüt
+;  \0Maximize
+;
+MSG_MEN_SETTINGS
+Ayarlar
+; Settings
+;
+MSG_MEN_SETTINGS_SAVEDEF
+D\0Varsayýlan Olarak Kaydet
+; D\0Save As Defaults
+;
+MSG_MEN_PICT
+Resim
+; Picture
+;
+MSG_MEN_PICT_ZOOM_IN
+\0Yakýnlaþ
+;  \0Zoom in
+;
+MSG_MEN_PICT_ZOOM_OUT
+\0Uzaklaþ
+;  \0Zoom out
+;
+MSG_MEN_PICT_RESET
+\0Boyutu Sýfýrla
+;  \0Reset Size
+;
+MSG_MEN_PICT_FIT_WIN
+\0Pencereye Sýðdýr
+;  \0Fit to Window
+;
+MSG_MEN_PICT_KEEP_ASPECT
+\0En-boy oranýný koru
+;  \0Keep Aspect Ratio
+;
+MSG_MEN_PICT_FORCE_MAP
+\0Palet Eþlemeyi Zorla
+;  \0Force Palette Mapping
+;
+MSG_MEN_PICT_DITHER
+\0Titreme
+;  \0Dithering
+;
+MSG_MEN_TEXT
+Metin
+; Text
+;
+MSG_MEN_TEXT_WORDWRAP
+\0Kelime Kaydýrmayý Etkinleþtir
+;  \0Enable Word Wrap
+;
+MSG_MEN_TEXT_SEARCH
+\0Ara...
+;  \0Search for...
+;
+MSG_MEN_TEXT_SEARCH_PREV
+\0Öncekini ara
+;  \0Search for previous
+;
+MSG_MEN_TEXT_SEARCH_NEXT
+\0Sonrakini ara
+;  \0Search for next
+;
+MSG_ASL_OPEN_TITLE
+Açýlacak Dosyayý Seçin
+; Select File to Open
+;
+MSG_ASL_SAVE_TITLE
+Kaydedilecek Dosyayý Seçin
+; Select File to Save to
+;
+MSG_ABOUT
+
+; 
+;
+MSG_ABOUT_TITLE
+MultiView
+; MultiView
+;
+MSG_CONTINUE
+Devam
+; Continue
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_SHORTCUT_EDITOR
+E
+; E
+;

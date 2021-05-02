@@ -1,0 +1,72 @@
+## version $VER: deutsch.catalog 2.0 (26.12.2020)
+## language türkçe
+## codeset 12
+;
+;
+MSG_TITLE
+WB Yeniden adlandýr
+; WBRename
+;
+MSG_DESCRIPTION
+Dosya ve çekmeleri yeniden adlandýr
+; Renames files and drawers
+;
+MSG_COPYRIGHT
+\xa9 2012-2019, AROS Geliþtirme Takýmý
+; \xa9 2012-2019, The AROS Development Team
+;
+MSG_WINDOW_TITLE
+Yeniden adlandýr
+; Rename
+;
+MSG_LINE
+Þunun için yeni bir ad girin: "% s"
+; Enter a new name for: '%s'
+;
+MSG_NAME
+\33bYeni adý: \33n
+; \33bNew name: \33n
+;
+MSG_OK
+_TAMAM
+; _OK
+;
+MSG_CANCEL
+_Vazgeç
+; Ca_ncel
+;
+MSG_ERROR_TITLE
+Hata
+; Error
+;
+MSG_ALREADY_EXIST
+'%s' zaten var!
+; '%s' already exists!
+;
+MSG_FAILED
+'%s' nin yeniden adlandýrýlmasý þu hata nedeniyle baþarýsýz oldu:\n'%s'!
+; Rename of '%s' failed with error:\n'%s'!
+;
+MSG_ILLEGAL_CHARS
+'%s' geçersiz karakterler içeriyor!
+; '%s' contains illegal characters!
+;
+MSG_NEEDS_MORE_ARGS
+En az 2 argüman'a ihtiyaç var!
+; Need 2 arguments!
+;
+MSG_INVALID_LOCK
+Geçersiz dizin kilidi!
+; Invalid directory lock!
+;
+MSG_WB_ONLY
+Shell'den baþlatýlamaz!\n
+; Cannot be started from shell!\n
+;
+MSG_FAILED_CREATE_APP
+Uygulama oluþturulamadý!
+; Failed to create Application!
+;
+MSG_OUTOFMEMORY
+RAM ayrýlamýyor!
+; Can't allocate RAM!

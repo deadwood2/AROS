@@ -21,10 +21,10 @@ O Zune
 MSG_ABOUTMUI_STRING
 Zune, klon MUI\n\n\
 Kompilowany %s\n\
-Copyright (C) 2002-2020, The AROS Development Team.
+Copyright (C) 2002-2021, The AROS Development Team.
 ; Zune, a MUI clone\n\n\
 ; Compiled on %s\n\
-; Copyright (C) 2002-2020, The AROS Development Team.
+; Copyright (C) 2002-2021, The AROS Development Team.
 ;
 ; -------------------------------------------------
 ; Coloradjust class
@@ -49,7 +49,7 @@ Nazwa
 ; Name
 ;
 MSG_DIRLIST_SIZE
-WysokoÅ›Ä‡
+Wysoko¶æ
 ; Size
 ;
 MSG_DIRLIST_DATE
@@ -71,7 +71,7 @@ Komentarz
 ; -------------------------------------------------
 ; Frameadjust class
 MSG_FRAMEADJUST_INNER_SPACING
-OdstÄ™p wewnÄ™trzny:
+Odstêp wewnêtrzny:
 ; Inner Spacing:
 ;
 MSG_FRAMEADJUST_LEFT
@@ -79,7 +79,7 @@ Lewo
 ; Left
 ;
 MSG_FRAMEADJUST_TOP
-GÃ³ra
+Góra
 ; Top
 ;
 MSG_FRAMEADJUST_RIGHT
@@ -87,13 +87,13 @@ Prawo
 ; Right
 ;
 MSG_FRAMEADJUST_BOTTOM
-DÃ³Å‚
+Dó³
 ; Bottom
 ;
 ; -------------------------------------------------
 ; Imageadjust class
 MSG_IMAGEADJUST_PATTERN
-WzÃ³r
+Wzór
 ; Pattern
 ;
 MSG_IMAGEADJUST_VECTOR
@@ -105,7 +105,7 @@ Kolor
 ; Color
 ;
 MSG_IMAGEADJUST_EXTERNAL
-ZewnÄ™trzne
+Zewnêtrzne
 ; External
 ;
 MSG_IMAGEADJUST_BITMAP
@@ -129,7 +129,7 @@ Typ:
 ; Type:
 ;
 MSG_IMAGEADJUST_ANGLE
-KÄ…t:
+K±t:
 ; Angle:
 ;
 MSG_IMAGEADJUST_VERTICAL
@@ -153,7 +153,7 @@ Ostatni pisak
 ; End pen
 ;
 MSG_IMAGEADJUST_PREVIEW
-PodglÄ…d:
+Podgl±d:
 ; Preview:
 ;
 ; -------------------------------------------------
@@ -181,11 +181,11 @@ Jasne
 ; Shine
 ;
 MSG_PENADJUST_HALFSHINE
-RozjaÅ›nione
+Rozja¶nione
 ; Halfshine
 ;
 MSG_PENADJUST_BACKGROUND
-TÅ‚o
+T³o
 ; Background
 ;
 MSG_PENADJUST_HALFSHADOW
@@ -201,7 +201,7 @@ Tekst
 ; Text
 ;
 MSG_PENADJUST_FILL
-WypeÅ‚nij
+Wype³nij
 ; Fill
 ;
 MSG_PENADJUST_MARK
@@ -215,7 +215,7 @@ Nazwa
 ; Name
 ;
 MSG_VOLUMELIST_FULL
-PeÅ‚ne
+Pe³ne
 ; Full
 ;
 MSG_VOLUMELIST_FREE

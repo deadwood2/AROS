@@ -1,0 +1,29 @@
+## version $VER: sfsdefrag.catalog 1.0 (08.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_DESCRIPTION
+Defragmentaión SFS 
+; SFS Defragmenter
+;
+MSG_BITMAP
+Bitmap del periférico
+; Device bitmap
+;
+MSG_SELECTION
+Seleccion del periférico
+; Device selection
+;
+MSG_REFRESH
+Refrescar
+; Refresh bitmap
+;
+MSG_START
+Empezar!
+; Start!
+;
+MSG_CANCEL
+Cancelar
+; Cancel
+;

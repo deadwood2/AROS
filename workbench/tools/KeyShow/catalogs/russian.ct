@@ -1,0 +1,120 @@
+## version $VER: KeyShow.catalog 1.0 (17.12.2020)
+## language russian
+## codeset 2104
+;
+MSG_AppDescription
+Раскладка клавиатуры
+; Show Keyboard Layout
+;
+MSG_AppCopyright
+Copyright © 2012 The AROS Development Team
+; Copyright \xa9 2012 The AROS Development Team
+;
+MSG_WI_TITLE
+Раскладка клавиатуры
+; KeyShow
+;
+MSG_OK
+OK
+; _OK
+;
+; Error messages
+;
+MSG_ERR
+Ошибка
+; Error
+;
+MSG_ERR_NO_APPLICATION
+Невозможно создать приложение
+; Can't create application
+;
+MSG_ERR_NO_MEM
+Недостаточно памяти
+; Out of memory
+;
+; Key descriptions
+;
+MSG_KEY_SHIFT
+Shift
+; Shift
+;
+MSG_KEY_CTRL
+Ctrl
+; Ctrl
+;
+MSG_KEY_ALT
+Alt
+; Alt
+;
+MSG_KEY_LOCK
+Lock
+; Lock
+;
+MSG_KEY_HELP
+Help
+; Help
+;
+MSG_KEY_A
+Amiga
+; A
+;
+MSG_KEY_INSERT
+Insert
+; Insert
+;
+MSG_KEY_HOME
+Home
+; Home
+;
+MSG_KEY_PAGEUP
+PgUp
+; Page ^
+;
+MSG_KEY_DELETE
+Delete
+; Delete
+;
+MSG_KEY_END
+End
+; End
+;
+MSG_KEY_PAGEDOWN
+PgDown
+; Page v
+;
+MSG_KEY_NUM
+Num
+; Num
+;
+MSG_KEY_RETURN
+Enter
+; ^M
+;
+MSG_KEY_BACKSP
+Backspace
+; ^H
+;
+MSG_KEY_TAB
+Tab
+; ^I
+;
+MSG_KEY_ESC
+Esc
+; ^[
+;
+MSG_KEY_NUM_ENTER
+Ent.
+; ^M
+;
+MSG_KEY_PRTSCREEN
+Print
+; Print
+;
+MSG_KEY_SCRLOCK
+ScrLock
+; ScrLock
+;
+MSG_KEY_PAUSE
+Pause
+; Pause
+;

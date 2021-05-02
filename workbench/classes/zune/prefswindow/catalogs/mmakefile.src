@@ -1,8 +1,10 @@
-# Copyright (C) 2003-2019, The AROS Development Team. All rights reserved.
+# Copyright © 2003-2019, The AROS Development Team. All rights reserved.
+# $Id$
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:=czech danish finnish french german hungarian italian polish russian spanish swedish norwegian
+CATALOGS:=czech danish finnish french german hungarian italian polish \
+    russian spanish swedish norwegian turkish
 
 %build_catalogs mmake=workbench-classes-zune-prefswindow-catalogs \
     catalogs=$(CATALOGS) \

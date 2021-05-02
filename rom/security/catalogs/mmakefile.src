@@ -1,4 +1,5 @@
-# Copyright (C) 2018, The AROS Development Team. All rights reserved.
+# Copyright © 2018, The AROS Development Team. All rights reserved.
+# $Id$
 
 include $(SRCDIR)/config/aros.cfg
 

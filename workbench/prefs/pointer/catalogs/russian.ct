@@ -1,0 +1,40 @@
+## version $VER: pointer.catalog 2.1 (23.02.2021)
+## codeset 2104
+## language russian
+;
+MSG_WINTITLE
+Настройки указателя мыши
+; Pointer Preferences
+;
+MSG_OK
+Ок
+; OK
+;
+MSG_HOTSPOT
+Точка касания
+;  Hotspot
+;
+MSG_ALPHA
+Прозрачность
+; Alpha
+;
+MSG_FILENAME
+Файл указателя
+; Filename
+;
+MSG_TYPE
+Вид
+; Type
+;
+MSG_TYPE_NORMAL
+основной
+; Normal
+;
+MSG_TYPE_BUSY
+занятость
+; Busy
+;
+MSG_SETVIEW
+Изменить / показать
+; Set / View
+;

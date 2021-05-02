@@ -1,0 +1,64 @@
+## version $VER: R.catalog 2.0 (21.12.2020)
+## language russian
+## codeset 2104
+;
+MSG_APP_TITLE
+R
+; R
+;
+MSG_APP_DESCRIPTION
+Генератор GUI
+; GUI Generator
+;
+MSG_WIN_TITLE
+R: %s
+; R : %s
+;
+MSG_OK
+OK
+; OK
+;
+MSG_CANCEL
+Отмена
+; Cancel
+;
+MSG_ERROR_ALLOCATE
+Ошибка выделения структуры Req\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_RETURN
+\"%s\" упал, код ошибки %ld\n
+; \"%s\" failed, return code %ld\n
+;
+MSG_ERROR_POOL
+Не удалось создать Poolmem\n
+; Can't create poolmem\n
+;
+MSG_ERROR_STRUCT
+Не удалось выделить структуру Req\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_ARGS
+Ошибка разбора аргументов\n
+; Failed to parse arguments\n
+;
+MSG_ERROR_NOTFOUND
+Команда не существует\n
+; Command not found\n
+;
+MSG_ERROR_TMPLT_GET
+Ошибка получения шаблона\n
+; Failed to get template\n
+;
+MSG_ERROR_TMPLT_PARSE
+Ошибка разбора шаблона\n
+; Failed to parse the template\n
+;
+MSG_ERROR_GUI
+Ошибка создания объекта приложения\n
+; Failed to create application object\n
+;
+MSG_ERROR_DEFAULTS
+Ошибка присвоения значений по умолчанию\n
+; Failed to set the default values\n
+;

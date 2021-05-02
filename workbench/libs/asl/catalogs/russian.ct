@@ -1,5 +1,5 @@
-## version $VER: asl.catalog 1.0 (11.05.2006)
-## codeset 0
+## version $VER: asl.catalog 2.0 (14.12.2020)
+## codeset 2104
 ## language russian
 ;## charset CP 1251
 ; Translated by Sergey Mineychev aka Keen
@@ -29,7 +29,7 @@ MSG_FILEREQ_PATTERN_LABEL
 ; Pattern
 ;
 MSG_FILEREQ_DRAWER_LABEL
-Каталог
+Путь
 ; Drawer
 ;
 MSG_FILEREQ_FILE_LABEL
@@ -37,11 +37,11 @@ MSG_FILEREQ_FILE_LABEL
 ; File
 ;
 MSG_FILEREQ_LV_DRAWER
-Каталог
+директория
 ; Drawer
 ;
 MSG_FILEREQ_LV_ASSIGN
-Назначить
+присвоение
 ; Assign
 ;
 MSG_FILEREQ_DELETE_TITLE
@@ -50,8 +50,8 @@ MSG_FILEREQ_DELETE_TITLE
 ;
 MSG_FILEREQ_DELETE_MSG
 Внимание: после удаления\n\
-информация будет утеряна\n\
-ТОЧНО удалять\n\
+информация будет потеряна\n\
+Вы действительно хотите удалить\n\
 %s?
 ; Warning: you cannot get back\nwhat you delete! Ok to delete\n\%s?
 ;
@@ -59,6 +59,19 @@ MSG_FILEREQ_DELETE_OKCANCEL
 Удалить|Отменить
 ; Delete|Cancel
 ;
+MSG_FILEREQ_FOREIGNER_TITLE
+Иконки взяты из разных директорий
+; Icons dropped from different drawers
+;
+MSG_FILEREQ_FOREIGNER_MSG
+Внимание: Иконки которые вы взяли,\n\
+принадлежат разным директориям.\n\
+Невозможно обработать следующие файлы:\n\
+%s
+;
+MSG_FILEREQ_FOREIGNER_OK
+OK
+; OK
 MSG_FILEREQ_RENAME_TITLE
 Переименование
 ; Rename
@@ -72,7 +85,7 @@ MSG_FILEREQ_RENAME_CANCEL
 ; Cancel
 ;
 MSG_FILEREQ_CREATEDRAWER_TITLE
-Создание каталога
+Создание директории
 ; Create Drawer
 ;
 MSG_FILEREQ_CREATEDRAWER_OK
@@ -132,7 +145,7 @@ D\0Удалить
 ; D\0Delete
 ;
 MSG_FILEREQ_MEN_CONTROL_CREATEDRAWER
-T\0Создать каталог...
+T\0Создать директорию...
 ; T\0Create new drawer...
 ;
 MSG_FILEREQ_MEN_CONTROL_RENAME
@@ -176,15 +189,15 @@ MSG_FILEREQ_MEN_FILELIST_SORTDOWN
 ; -\0Descending order
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDRAWERFIRST
-4\0Показать каталоги первыми
+4\0Показать директории первыми
 ; 4\0Show drawers first
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDRAWERSAME
-5\0Показать каталоги с файлами
+5\0Показать директории с файлами
 ; 5\0Show drawers with files
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDRAWERLAST
-6\0Показать каталоги последними
+6\0Показать директории последними
 ; 6\0Show drawers last
 ;
 MSG_MODEREQ_TITLE
@@ -235,11 +248,11 @@ MSG_MODEREQ_AUTOSCROLL_LABEL
 ; AutoScroll
 ;
 MSG_MODEREQ_AUTOSCROLL_OFF
-Выкл
+Выкл.
 ; OFF
 ;
 MSG_MODEREQ_AUTOSCROLL_ON
-Вкл
+Вкл.
 ; ON
 ;
 MSG_MODEREQ_PROPERTIES_TITLE
@@ -259,11 +272,11 @@ MSG_MODEREQ_PROPERTIES_NOTDRAG
 ; Not draggable
 ;
 MSG_MODEREQ_PROPERTIES_HAM
-Hold And Modify
+Режим HAM
 ; Hold & Modify
 ;
 MSG_MODEREQ_PROPERTIES_EHB
-Extra-Halfbright
+Режим EHB
 ; Extra-HalfBright
 ;
 MSG_MODEREQ_PROPERTIES_LACE
@@ -271,7 +284,7 @@ MSG_MODEREQ_PROPERTIES_LACE
 ; Interlaced
 ;
 MSG_MODEREQ_PROPERTIES_ECS
-Нужен ECS
+Требует ECS
 ; Requires ECS
 ;
 MSG_MODEREQ_PROPERTIES_WB
@@ -395,14 +408,14 @@ U
 ; U
 ;
 MSG_FONTREQ_COLOR_LABEL_FG
-Цвет FG
+Цвет тона
 ; Color
 ;
 MSG_FONTREQ_COLOR_LABEL_BG
-Цвет BG
+Цвет фона
 ; BG Color
 ;
 MSG_FONTREQ_COLOR_LABEL_FGBG
-Цвета BG+FG
+Цвета фона+тона
 ; Colors
 ;

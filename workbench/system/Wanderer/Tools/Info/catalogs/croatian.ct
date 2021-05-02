@@ -1,6 +1,6 @@
 ## version $VER: Info.catalog 1.2 (04.01.2010)
 ## language hrvatski
-## codeset 0
+## codeset 5
 ;
 ;
 MSG_TITLE
@@ -12,8 +12,8 @@ Informacije Ikone
 ; Icon informations
 ;
 MSG_COPYRIGHT
-Informacije Ikone\n¬åAROS Dev Team
-; Icon informations\n≈†AROS Dev Team
+Informacije Ikone\nåAROS Dev Team
+; Icon informations\n©AROS Dev Team
 ;
 MSG_ICON
 Ikona
@@ -56,11 +56,11 @@ Projekt
 ; Project
 ;
 MSG_GARBAGE
-Kanta za Smeƒáe
+Kanta za SmeÊe
 ; Garbage
 ;
 MSG_DEVICE
-Ureƒëaj
+Ureaj
 ; Device
 ;
 MSG_KICK
@@ -76,7 +76,7 @@ Informacija
 ; Information
 ;
 MSG_PROTECTION
-Za≈°tita
+Zaπtita
 ; Protection
 ;
 MSG_TOOLTYPES
@@ -84,7 +84,7 @@ Tooltypes
 ; Tooltypes
 ;
 MSG_ERROR_SHELLSTART
-Pogre≈°ka: Nije moguƒáe pokrenuti iz konzole
+Pogreπka: Nije moguÊe pokrenuti iz konzole
 ; Error: Cannot be started from shell
 ;
 MSG_ABOUT
@@ -96,19 +96,19 @@ Izlaz
 ; Quit
 ;
 MSG_READ
-ƒåitaj
+»itaj
 ; Read
 ;
 MSG_WRITE
-Pi≈°i
+Piπi
 ; Write
 ;
 MSG_EXECUTE
-Izvr≈°i
+Izvrπi
 ; Execute
 ;
 MSG_DELETE
-Izbri≈°i
+Izbriπi
 ; Delete
 ;
 MSG_SCRIPT
@@ -116,7 +116,7 @@ Skripta
 ; Script
 ;
 MSG_PURE
-ƒåist
+»ist
 ; Pure
 ;
 MSG_ARCHIVED
@@ -128,7 +128,7 @@ Priljepljivo
 ; Sticky
 ;
 MSG_SIZE
-Veliƒçina
+VeliËina
 ; Size
 ;
 MSG_VERSION
@@ -160,11 +160,11 @@ Datum
 ; Date
 ;
 MSG_NEW_KEY
-Novi Kljuƒç
+Novi KljuË
 ; New key
 ;
 MSG_DELETE_KEY
-Izbri≈°i Kljuƒç
+Izbriπi KljuË
 ; Delete key
 ;
 MSG_SAVE
