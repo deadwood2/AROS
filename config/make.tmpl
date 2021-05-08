@@ -3671,7 +3671,7 @@ else
         LD="" \
         CFLAGS="" \
         CXXFLAGS="" \
-        LDFLAGS="" \
+        LDFLAGS="$(%(mmake)-nix)" \
         LT_LDFLAGS=""
 endif
 ifeq (%(usecppflags),yes)
