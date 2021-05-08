@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2010-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2010-2021, The AROS Development Team. All rights reserved.
 
     Additional startup code for stdcio.library that is executed during
     init of a program that uses the library.
@@ -8,7 +8,6 @@
 */
 
 #include <aros/symbolsets.h>
-#include <proto/stdcio.h>
 #include <libraries/stdcio.h>
 
 #include <aros/debug.h>
