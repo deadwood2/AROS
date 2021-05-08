@@ -28,7 +28,7 @@
 #include "__exec.h"
 
 
-#define VFORK_USE_INLINECOPY
+/* #define VFORK_USE_INLINECOPY */ /* Disabled. Causes crash in native gcc */
 #if defined(VFORK_USE_INLINECOPY)
 #define _VFORK_COPYENV(a,b) \
 ({ \
