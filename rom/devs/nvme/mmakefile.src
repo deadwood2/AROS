@@ -7,7 +7,7 @@ INCLUDE_FILES := $(call WILDCARD, include/hardware/*.h)
 %copy_includes path=hardware dir=include/hardware
 
 INCLUDE_FILES := $(call WILDCARD, include/hidd/*.h)
-%copy_includes path=hidd dir=include/hidd
+%copy_includes path=hidd dir=include/hidd sdk=private
 
 NVMEDEVICEFILES :=  \
         nvme_init \
