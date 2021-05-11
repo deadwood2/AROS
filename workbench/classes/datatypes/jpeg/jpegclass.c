@@ -239,8 +239,8 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     D(bug("jpeg.datatype/LoadJPEG(): Read Header\n"));
     (void) jpeg_read_header(&cinfo, TRUE);
     if (cinfo.output_components == 1) {
-	// force loading as a 8-bit greyscale image
-	cinfo.out_color_space = JCS_GRAYSCALE;
+    // force loading as a 8-bit greyscale image
+    cinfo.out_color_space = JCS_GRAYSCALE;
     }
     D(bug("jpeg.datatype/LoadJPEG(): Starting decompression\n"));
     (void) jpeg_start_decompress(&cinfo);
@@ -251,7 +251,7 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     bmhd->bmh_Depth  = 24;
     D(bug("jpeg.datatype/LoadJPEG(): Size %ld x %ld x %d bit\n", width, height, (int)(cinfo.output_components*8)));
     
-    if (cinfo.output_components != 1 && cinfo.output_components != 3)   /* disallow images with no. components not eq to 1 or 3 */
+    if (cinfo.output_components != 1 && cinfo.output_components != 3) /* disallow images with no. components not eq to 1 or 3 */
     {
         D(bug("jpeg.datatype/LoadJPEG(): unsupported colormode\n"));
         JPEG_Exit(jpeghandle, ERROR_NOT_IMPLEMENTED);
@@ -260,15 +260,15 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     int x;
     int comp = 3;
     numcolors = 0;
-    ULONG pixelfmt = PBPAFMT_RGB; /* set default to rgb colorspace & image data */    
+    ULONG pixelfmt = PBPAFMT_RGB; /* set default to rgb colorspace & image data */
     
     /* set colorspace & image data for 8bit */
     if (cinfo.output_components == 1)
     {
         D(bug("jpeg.datatype/LoadJPEG(): Loading 8bit Greyscale Image.\n"));
         comp = 1;
-	numcolors = 256;       
-        bmhd->bmh_Depth  = 8;        
+        numcolors = 256;
+        bmhd->bmh_Depth  = 8;
         pixelfmt = PBPAFMT_LUT8;
 
         D(bug("jpeg.datatype/LoadJPEG(): Colors %ld\n", numcolors));
@@ -277,8 +277,8 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
             TAG_DONE ) == 2) ||
             !(colormap && colorregs) )
         {
-	    JPEG_Exit(jpeghandle, ERROR_OBJECT_NOT_FOUND);
-	    return FALSE;
+        JPEG_Exit(jpeghandle, ERROR_OBJECT_NOT_FOUND);
+        return FALSE;
         }
 
         /* Make Greyscale Palette */        
@@ -292,8 +292,8 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
 
             *colorregs++ = (ULONG)x * 0x01010101;
             *colorregs++ = (ULONG)x * 0x01010101;
-	    *colorregs++ = (ULONG)x * 0x01010101;
-        }        
+            *colorregs++ = (ULONG)x * 0x01010101;
+        }
         SetDTAttrs(o, NULL, NULL, PDTA_NumColors, numcolors, TAG_DONE);
     }
      
@@ -308,7 +308,7 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     */
     while (cinfo.output_scanline < height)
     {
-<<<<<<< HEAD
+
         /* jpeg_read_scanlines expects an array of pointers to scanlines.
          * Here the array is only one element long, but you could ask for
          * more than one scanline at a time if that's more convenient.
@@ -329,28 +329,28 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
             JPEG_Exit(jpeghandle, ERROR_OBJECT_NOT_FOUND);
             return FALSE;
         }
-=======
-	/* jpeg_read_scanlines expects an array of pointers to scanlines.
-	 * Here the array is only one element long, but you could ask for
-	 * more than one scanline at a time if that's more convenient.
-	 */
-	(void) jpeg_read_scanlines(&cinfo, buffer, 1);
-	// D(bug("jpeg.datatype/LoadJPEG(): Copy line %ld\n", (long)cinfo.output_scanline));
-	if(!DoSuperMethod(cl, o,
-			PDTM_WRITEPIXELARRAY,		/* Method_ID */
-			(IPTR) buffer[0],		        /* PixelData */
-			pixelfmt,			                /* Use PixelFormat */
-			row_stride,			        /* Use PixelArrayMod (number of bytes per row) */
-			0,				                /* Left edge */
-			cinfo.output_scanline-1,	        /* Top edge */
-			width,				        /* Width */
-			1))				                /* Height (here: one line) */
-	{
-	    D(bug("jpeg.datatype/LoadJPEG(): WRITEPIXELARRAY failed\n"));
-	    JPEG_Exit(jpeghandle, ERROR_OBJECT_NOT_FOUND);
-	    return FALSE;
-	} 
->>>>>>> Updated jpeg datatype. Bumped version.
+
+    /* jpeg_read_scanlines expects an array of pointers to scanlines.
+        * Here the array is only one element long, but you could ask for
+        * more than one scanline at a time if that's more convenient.
+      */
+    (void) jpeg_read_scanlines(&cinfo, buffer, 1);
+    // D(bug("jpeg.datatype/LoadJPEG(): Copy line %ld\n", (long)cinfo.output_scanline));
+    if(!DoSuperMethod(cl, o,
+            PDTM_WRITEPIXELARRAY,		/* Method_ID */
+            (IPTR) buffer[0],		        /* PixelData */
+            pixelfmt,			                /* Use PixelFormat */
+            row_stride,			        /* Use PixelArrayMod (number of bytes per row) */
+            0,				                /* Left edge */
+            cinfo.output_scanline-1,	        /* Top edge */
+            width,				        /* Width */
+            1))				                /* Height (here: one line) */
+    {
+        D(bug("jpeg.datatype/LoadJPEG(): WRITEPIXELARRAY failed\n"));
+        JPEG_Exit(jpeghandle, ERROR_OBJECT_NOT_FOUND);
+        return FALSE;
+    } 
+
     }
     D(bug("jpeg.datatype/LoadJPEG(): WRITEPIXELARRAY of whole picture done\n"));
     
@@ -417,27 +417,27 @@ my_term_destination (j_compress_ptr cinfo)
 static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
 {
     JpegHandleType          *jpeghandle;
-<<<<<<< HEAD
+
     BPTR                    filehandle;
     unsigned int            width, height, numplanes;
     UBYTE                   *linebuf;
-=======
+
     BPTR		    filehandle;
     unsigned int            width, height, numplanes, comp;
     UBYTE		    *linebuf;
->>>>>>> Updated jpeg datatype. Bumped version.
+
     struct BitMapHeader     *bmhd;
     long                    *colorregs;
     ULONG pixelfmt;
 
     struct jpeg_compress_struct cinfo;
     struct my_error_mgr jerr;
-<<<<<<< HEAD
-    JSAMPROW row_pointer[1];    /* pointer to JSAMPLE row[s] */
-=======
-    JSAMPROW row_pointer[1];	/* pointer to JSAMPLE row[s] */
+
+    JSAMPROW row_pointer[1]; /* pointer to JSAMPLE row[s] */
+
+    JSAMPROW row_pointer[1]; /* pointer to JSAMPLE row[s] */
     int row_stride;		/* physical row width in output buffer */
->>>>>>> Updated jpeg datatype. Bumped version.
+
     my_dest_ptr dest;
 
     D(bug("jpeg.datatype/SaveJPEG()\n"));
@@ -464,17 +464,17 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
     width = bmhd->bmh_Width;
     height = bmhd->bmh_Height;
     numplanes = bmhd->bmh_Depth;
-    if(( numplanes != 8 ) && ( numplanes != 24 ))   /* disallow images with numplanes not eq to 8 or 24 */
+    if(( numplanes != 8 ) && ( numplanes != 24 )) /* disallow images with numplanes not eq to 8 or 24 */
     {
-<<<<<<< HEAD
+
         D(bug("jpeg.datatype/SaveJPEG(): color depth %d, can save only depths of 24\n", numplanes));
         SetIoErr(ERROR_OBJECT_WRONG_TYPE);
         return FALSE;
-=======
-	D(bug("jpeg.datatype/SaveJPEG(): color depth %d, can save only depths of 8 & 24\n", numplanes));
-	SetIoErr(ERROR_OBJECT_WRONG_TYPE);
-	return FALSE;
->>>>>>> Updated jpeg datatype. Bumped version.
+
+    D(bug("jpeg.datatype/SaveJPEG(): color depth %d, can save only depths of 8 & 24\n", numplanes));
+    SetIoErr(ERROR_OBJECT_WRONG_TYPE);
+    return FALSE;
+
     }
     D(bug("jpeg.datatype/SaveJPEG(): Picture size %d x %d (x %d bit)\n", width, height, numplanes));
 
@@ -512,7 +512,7 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
         cinfo.in_color_space = JCS_GRAYSCALE;  /* greyscale colorspace of input image */
         cinfo.input_components = 1;		     /* # of color components per pixel */
         pixelfmt = PBPAFMT_LUT8;
-    }    
+    }
     else if(numplanes == 24)
     {
         comp = 3;
@@ -521,18 +521,18 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
         pixelfmt = PBPAFMT_RGB;
     }
 
-<<<<<<< HEAD
-    cinfo.image_width = width;          /* image width and height, in pixels */
+
+    cinfo.image_width = width; /* image width and height, in pixels */
     cinfo.image_height = height;
-    cinfo.input_components = 3;         /* # of color components per pixel */
-    cinfo.in_color_space = JCS_RGB;     /* colorspace of input image */
-=======
+    cinfo.input_components = 3; /* # of color components per pixel */
+    cinfo.in_color_space = JCS_RGB; /* colorspace of input image */
+
     row_stride = width * comp;
-    cinfo.image_width = width;	 	/* image width and height, in pixels */
+    cinfo.image_width = width; /* image width and height, in pixels */
     cinfo.image_height = height;   
->>>>>>> Updated jpeg datatype. Bumped version.
+
     jpeg_set_defaults(&cinfo);
-    jpeg_set_quality(&cinfo, QUALITY, TRUE   /* limit to baseline-JPEG values */);
+    jpeg_set_quality(&cinfo, QUALITY, TRUE); /* limit to baseline-JPEG values */
     D(bug("jpeg.datatype/SaveJPEG(): Starting compression\n"));
     jpeg_start_compress(&cinfo, TRUE);
 
@@ -547,7 +547,7 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
     row_pointer[0] = linebuf;
     while (cinfo.next_scanline < cinfo.image_height)
     {
-<<<<<<< HEAD
+
         // D(bug("jpeg.datatype/SaveJPEG(): READPIXELARRAY line %ld\n", (long)cinfo.next_scanline));
         if(!DoSuperMethod(cl, o,
                         PDTM_READPIXELARRAY,    /* Method_ID */
@@ -564,24 +564,24 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
             return FALSE;
         }
         (void) jpeg_write_scanlines(&cinfo, row_pointer, 1);
-=======
-	// D(bug("jpeg.datatype/SaveJPEG(): READPIXELARRAY line %ld\n", (long)cinfo.next_scanline));
-	if(!DoSuperMethod(cl, o,
-			PDTM_READPIXELARRAY,	/* Method_ID */
-			(IPTR)linebuf,		        /* PixelData */			
+
+    // D(bug("jpeg.datatype/SaveJPEG(): READPIXELARRAY line %ld\n", (long)cinfo.next_scanline));
+    if(!DoSuperMethod(cl, o,
+            PDTM_READPIXELARRAY,	/* Method_ID */
+            (IPTR)linebuf,		        /* PixelData */			
                         pixelfmt,			        /* Use PixelFormat */
-			row_stride,			/* Use PixelArrayMod (number of bytes per row) */
-			0,			                /* Left edge */
-			cinfo.next_scanline,	        /* Top edge */
-			width,			        /* Width */
-			1))			                /* Height */
-	{
-	    D(bug("jpeg.datatype/SaveJPEG(): READPIXELARRAY failed!\n"));
-	    JPEG_Exit(jpeghandle, ERROR_OBJECT_WRONG_TYPE);
-	    return FALSE;
-	}
-	(void) jpeg_write_scanlines(&cinfo, row_pointer, 1);
->>>>>>> Updated jpeg datatype. Bumped version.
+            row_stride,			/* Use PixelArrayMod (number of bytes per row) */
+            0,			                /* Left edge */
+            cinfo.next_scanline,	        /* Top edge */
+            width,			        /* Width */
+            1))			                /* Height */
+    {
+        D(bug("jpeg.datatype/SaveJPEG(): READPIXELARRAY failed!\n"));
+        JPEG_Exit(jpeghandle, ERROR_OBJECT_WRONG_TYPE);
+        return FALSE;
+    }
+    (void) jpeg_write_scanlines(&cinfo, row_pointer, 1);
+
     }
 
     jpeg_finish_compress(&cinfo);
