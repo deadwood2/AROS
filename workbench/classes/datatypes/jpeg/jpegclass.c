@@ -176,6 +176,9 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     long                    width, height;
     IPTR                    sourcetype;
     struct BitMapHeader     *bmhd;
+    struct ColorRegister    *colormap;
+    ULONG                   *colorregs;
+    ULONG                   numcolors;
     STRPTR                  name;
 
     struct jpeg_decompress_struct cinfo;
@@ -236,6 +239,11 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     
     D(bug("jpeg.datatype/LoadJPEG(): Read Header\n"));
     (void) jpeg_read_header(&cinfo, TRUE);
+    if (cinfo.output_components == 1) 
+    {
+        // force loading as a 8-bit greyscale image
+        cinfo.out_color_space = JCS_GRAYSCALE;
+    }
     D(bug("jpeg.datatype/LoadJPEG(): Starting decompression\n"));
     (void) jpeg_start_decompress(&cinfo);
     /* set BitMapHeader with image size */
@@ -243,15 +251,56 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
     bmhd->bmh_Height = bmhd->bmh_PageHeight = height = cinfo.output_height;
     bmhd->bmh_Depth  = 24;
     D(bug("jpeg.datatype/LoadJPEG(): Size %ld x %ld x %d bit\n", width, height, (int)(cinfo.output_components*8)));
-    if (cinfo.output_components != 3)
+
+    if (cinfo.output_components != 1 && cinfo.output_components != 3) /* disallow images with no. components not eq to 1 or 3 */
     {
         D(bug("jpeg.datatype/LoadJPEG(): unsupported colormode\n"));
         JPEG_Exit(jpeghandle, ERROR_NOT_IMPLEMENTED);
         return FALSE;
     }
 
+    int x;
+    int comp = 3;
+    numcolors = 0;
+    ULONG pixelfmt = PBPAFMT_RGB; /* set default to rgb colorspace & image data */
+    
+    /* set colorspace & image data for 8bit */
+    if (cinfo.output_components == 1)
+    {
+        D(bug("jpeg.datatype/LoadJPEG(): Loading 8bit Greyscale Image.\n"));
+        comp = 1; 
+        numcolors = 256;       
+        bmhd->bmh_Depth  = 8;        
+        pixelfmt = PBPAFMT_LUT8;
+
+        D(bug("jpeg.datatype/LoadJPEG(): Colors %ld\n", numcolors));
+        if( !(GetDTAttrs(o, PDTA_ColorRegisters, (IPTR)&colormap,
+            PDTA_CRegs, (IPTR)&colorregs,
+            TAG_DONE ) == 2) ||
+            !(colormap && colorregs) )
+        {
+            JPEG_Exit(jpeghandle, ERROR_OBJECT_NOT_FOUND);
+            return FALSE;
+        }
+
+        /* Make Greyscale Palette */        
+        for(x=0; x<numcolors; x++)
+        {    
+            /* greyscale */
+            colormap->red   = x;
+            colormap->green = x;
+            colormap->blue  = x;
+            colormap++;
+
+            *colorregs++ = (ULONG)x * 0x01010101;
+            *colorregs++ = (ULONG)x * 0x01010101;
+            *colorregs++ = (ULONG)x * 0x01010101;
+        }        
+        SetDTAttrs(o, NULL, NULL, PDTA_NumColors, numcolors, TAG_DONE);
+    }
+
     /* Make a one-row-high sample array that will go away when done with image */
-    row_stride = width * 3;
+    row_stride = width * comp; /* Set generic row_stride instead of  [row_stride = width * 3] */
     buffer = (*cinfo.mem->alloc_sarray)
                 ((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
     
@@ -269,8 +318,8 @@ static BOOL LoadJPEG(struct IClass *cl, Object *o)
         if(!DoSuperMethod(cl, o,
                         PDTM_WRITEPIXELARRAY,           /* Method_ID */
                         (IPTR) buffer[0],               /* PixelData */
-                        PBPAFMT_RGB,                    /* PixelFormat */
-                        row_stride,                     /* PixelArrayMod (number of bytes per row) */
+                        pixelfmt,                       /* Use PixelFormat */
+                        row_stride,                     /* Use PixelArrayMod (number of bytes per row) */
                         0,                              /* Left edge */
                         cinfo.output_scanline-1,        /* Top edge */
                         width,                          /* Width */
