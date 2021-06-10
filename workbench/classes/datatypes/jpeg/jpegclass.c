@@ -396,7 +396,7 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
 {
     JpegHandleType *jpeghandle;
     BPTR filehandle;
-    unsigned int width, height, numplanes;
+    unsigned int width, height, numplanes, comp;
     UBYTE *linebuf;
     struct BitMapHeader *bmhd;
     long *colorregs;
