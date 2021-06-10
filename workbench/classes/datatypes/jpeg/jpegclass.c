@@ -394,16 +394,18 @@ my_term_destination (j_compress_ptr cinfo)
 
 static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
 {
-    JpegHandleType          *jpeghandle;
-    BPTR                    filehandle;
-    unsigned int            width, height, numplanes;
-    UBYTE                   *linebuf;
-    struct BitMapHeader     *bmhd;
-    long                    *colorregs;
+    JpegHandleType *jpeghandle;
+    BPTR filehandle;
+    unsigned int width, height, numplanes;
+    UBYTE *linebuf;
+    struct BitMapHeader *bmhd;
+    long *colorregs;
+    ULONG pixelfmt;
 
     struct jpeg_compress_struct cinfo;
     struct my_error_mgr jerr;
     JSAMPROW row_pointer[1];    /* pointer to JSAMPLE row[s] */
+    int row_stride;		/* physical row width in output buffer */
     my_dest_ptr dest;
 
     D(bug("jpeg.datatype/SaveJPEG()\n"));
@@ -430,7 +432,7 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
     width = bmhd->bmh_Width;
     height = bmhd->bmh_Height;
     numplanes = bmhd->bmh_Depth;
-    if( numplanes != 24 )
+    if(( numplanes != 8 ) && ( numplanes != 24 ))   /* disallow images with numplanes not eq to 8 or 24 */
     {
         D(bug("jpeg.datatype/SaveJPEG(): color depth %d, can save only depths of 24\n", numplanes));
         SetIoErr(ERROR_OBJECT_WRONG_TYPE);
@@ -464,18 +466,33 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
     dest = (my_dest_ptr) cinfo.dest;
     dest->pub.empty_output_buffer = my_empty_output_buffer;
     dest->pub.term_destination = my_term_destination;
+    
+    /* determine colorspace & image data by bitdepth */
+    if(numplanes == 8)
+    {
+        comp = 1;
+        cinfo.in_color_space = JCS_GRAYSCALE;  /* greyscale colorspace of input image */
+        cinfo.input_components = 1;		     /* # of color components per pixel */
+        pixelfmt = PBPAFMT_LUT8;
+    }    
+    else if(numplanes == 24)
+    {
+        comp = 3;
+        cinfo.in_color_space = JCS_RGB; 	/* rgb colorspace of input image */
+        cinfo.input_components = 3;		/* # of color components per pixel */
+        pixelfmt = PBPAFMT_RGB;
+    }
 
+    row_stride = width * comp;
     cinfo.image_width = width;          /* image width and height, in pixels */
-    cinfo.image_height = height;
-    cinfo.input_components = 3;         /* # of color components per pixel */
-    cinfo.in_color_space = JCS_RGB;     /* colorspace of input image */
+    cinfo.image_height = height;    
     jpeg_set_defaults(&cinfo);
     jpeg_set_quality(&cinfo, QUALITY, TRUE /* limit to baseline-JPEG values */);
     D(bug("jpeg.datatype/SaveJPEG(): Starting compression\n"));
     jpeg_start_compress(&cinfo, TRUE);
 
     /* Now read the picture data line by line and write it to a chunky buffer */
-    if( !(linebuf = AllocVec(width*3, MEMF_ANY)) )
+    if( !(linebuf = AllocVec(row_stride, MEMF_ANY)) )   /* allocate memory using row_stride */
     {
         JPEG_Exit(jpeghandle, ERROR_NO_FREE_STORE);
         return FALSE;
@@ -489,8 +506,8 @@ static BOOL SaveJPEG(struct IClass *cl, Object *o, struct dtWrite *dtw )
         if(!DoSuperMethod(cl, o,
                         PDTM_READPIXELARRAY,    /* Method_ID */
                         (IPTR)linebuf,          /* PixelData */
-                        PBPAFMT_RGB,            /* PixelFormat */
-                        width,                  /* PixelArrayMod (number of bytes per row) */
+                        pixelfmt,               /* PixelFormat */
+                        row_stride,             /* PixelArrayMod (number of bytes per row) */
                         0,                      /* Left edge */
                         cinfo.next_scanline,    /* Top edge */
                         width,                  /* Width */
