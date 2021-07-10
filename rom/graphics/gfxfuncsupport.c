@@ -732,12 +732,19 @@ LONG write_transp_pixels_8(struct RastPort *rp, UBYTE *array, ULONG modulo,
 BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                  WORD x2, WORD y2, BOOL UpdateDamageList, struct GfxBase * GfxBase)
 {
+    if (0 == dx && 0 == dy)
+        return TRUE;
+
+    return MoveRasterWithMinterm (rp, dx, dy, x1, y1, x2, y2, 0xC0, UpdateDamageList, GfxBase);
+}
+
+BOOL MoveRasterWithMinterm (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
+                WORD x2, WORD y2, UBYTE minterm, BOOL UpdateDamageList, struct GfxBase * GfxBase)
+{
     struct Layer     *L       = rp->Layer;
     struct Rectangle  ScrollRect;
     struct Rectangle  Rect;
 
-    if (0 == dx && 0 == dy)
-        return TRUE;
 
     ScrollRect.MinX = x1;
     ScrollRect.MinY = y1;
@@ -758,7 +765,7 @@ BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                       Rect.MinY,
                       Rect.MaxX - Rect.MinX + 1,
                       Rect.MaxY - Rect.MinY + 1,
-                      0xc0, /* copy */
+                      minterm,
                       0xff,
                       NULL );
         }
@@ -918,7 +925,7 @@ BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                         Rect.MinY,
                         Rect.MaxX - Rect.MinX + 1,
                         Rect.MaxY - Rect.MinY + 1,
-                        0xc0, /* copy */
+                        minterm,
                         0xff,
                         NULL
                     );
@@ -994,7 +1001,7 @@ BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                                     Tmp.MinY + corrdsty,
                                     Tmp.MaxX - Tmp.MinX + 1,
                                     Tmp.MaxY - Tmp.MinY + 1,
-                                    0xc0, /* copy */
+                                    minterm,
                                     0xff,
                                     NULL
                                 );
@@ -1029,7 +1036,7 @@ BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                             MinY(rr) + MinY(RectRegion),
                             Width(rr),
                             Height(rr),
-                            0xc0, /* copy */
+                            minterm,
                             0xff,
                             NULL
                         );
@@ -1047,7 +1054,7 @@ BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                             Tmp.MinY + corrsrcy,
                             Tmp.MaxX - Tmp.MinX + 1,
                             Tmp.MaxY - Tmp.MinY + 1,
-                            0xc0, /* copy */
+                            minterm,
                             0xff,
                             NULL
                         );
@@ -1143,7 +1150,7 @@ BOOL MoveRaster (struct RastPort * rp, WORD dx, WORD dy, WORD x1, WORD y1,
                                 Rect2.MinY + corrdsty,
                                 Rect2.MaxX - Rect2.MinX + 1,
                                 Rect2.MaxY - Rect2.MinY + 1,
-                                0xC0,
+                                minterm,
                                 0xFF,
                                 NULL
                             );

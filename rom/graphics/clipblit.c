@@ -181,13 +181,14 @@
                    In this case I use a special routine to copy the rectangle
                 */
 
-                MoveRaster(srcRP,
+                MoveRasterWithMinterm(srcRP,
                            xSrc - xDest,
                            ySrc - yDest,
                            (xSrc < xDest) ? xSrc : xDest,
                            (ySrc < yDest) ? ySrc : yDest,
                            (xSrc > xDest) ? xSrc + xSize - 1 : xDest + xSize - 1,
                            (ySrc > yDest) ? ySrc + ySize - 1 : yDest + ySize - 1,
+                           minterm,
                            FALSE,
                            GfxBase);
             }
