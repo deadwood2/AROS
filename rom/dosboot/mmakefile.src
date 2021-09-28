@@ -4,21 +4,22 @@ include $(SRCDIR)/config/aros.cfg
 NOMEDIA_IMAGE := nomedia
 
 FILES := dosboot_init bootstrap bootscan \
-         menu gadgets bootscreen bootanim bootanim_nomedia cleanup
+         menu bootscreen bootanim bootanim_nomedia cleanup
 
 #MM- kernel-dosboot-includes : kernel-bootloader-includes
 #MM- kernel-dosboot : includes linklibs kernel-bootloader-includes
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
+               -D__GADTOOLS_NOLIBBASE__ \
                -D__OOP_NOLIBBASE__ \
                -D__OOP_NOATTRBASES__ \
                -D__OOP_NOMETHODBASES__
 USER_INCLUDES := -I$(SRCDIR)/rom/devs -I$(GENDIR)/$(CURDIR)/dosboot
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-dosboot \
   modname=dosboot modtype=resource \
-  files="$(FILES)" uselibs="hiddstubs" usesdks="private config"
+  files="$(FILES)" uselibs="hiddstubs stdc.static" usesdks="private config"
 
 $(GENDIR)/$(CURDIR)/dosboot/bootanim.d : $(GENDIR)/$(CURDIR)/dosboot/nomedia_image.h
 
