@@ -2,7 +2,7 @@
 
 branch | target | description | how to build | download
 -------|--------|-------------|------------- |---------
-[master](https://github.com/deadw00d/AROS/tree/master) | linux-x86_64 | Stable and always backwards compatible hosted version | [Core](https://github.com/deadw00d/AROS/blob/master/INSTALL.md) | [Core](https://vps691225.ovh.net/download/builds/AROS/)
+[master](https://github.com/deadw00d/AROS/tree/master) | linux-x86_64 | Stable and always backwards compatible hosted version, code-named ABIv11 | [Core](https://github.com/deadw00d/AROS/blob/master/INSTALL.md) | [Core](https://vps691225.ovh.net/download/builds/AROS/)
 [master](https://github.com/deadw00d/AROS/tree/master) | amiga-m68k | Amiga replacement ROM and system software | [Core](https://github.com/deadw00d/AROS/blob/master/INSTALL.md) | [Core](https://vps691225.ovh.net/download/builds/AROS/)
 
 ### Backwards compatibility
