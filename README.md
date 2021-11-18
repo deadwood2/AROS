@@ -7,6 +7,8 @@ branch | target | description | how to build | download
 
 ### Backwards compatibility
 
+From system developer's point of view backwards compatibility is defined on a set of components below.
+
 component | kept stable
 ----------|----------------------
 Application Binary Interface (ABI) | YES
@@ -15,6 +17,8 @@ OS 3.1 API (examples: exec.library, input.device) | YES
 Classes, gadgets, datatypes API (examples: png.dataype) | YES
 AROS driver system (HIDD, oop.library) | NO
 AROS kernel components (example: kernel.resource) | NO
+
+From application developer's point of view backwards compatibility is defined as follow: As long as your application only uses components marked as YES, maintainter of Core guarantees that your application will always run while the system will continue evolving and changing its components. In case you notice that compatibility has been broker, please let the maintainer know and the situation will be amended.
 
 ## Alternatives
 
