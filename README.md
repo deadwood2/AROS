@@ -18,7 +18,7 @@ Classes, gadgets, datatypes API (examples: png.dataype) | YES
 AROS driver system (HIDD, oop.library) | NO
 AROS kernel components (example: kernel.resource) | NO
 
-From application developer's point of view backwards compatibility is defined as follow: As long as your application only uses components marked as YES, maintainter of Core guarantees that your application will always run while the system will continue evolving and changing its components. In case you notice that compatibility has been broker, please let the maintainer know and the situation will be amended.
+From application developer's point of view backwards compatibility is defined as follow: As long as your application only uses components marked as YES, maintainter of Core guarantees that your application will always run while the system will continue evolving and changing its components. In case you notice that compatibility has been broken, please contact the maintainer and the situation will be amended.
 
 ## Alternatives
 
