@@ -1,4 +1,4 @@
-## version $VER: R.catalog 2.0 (29.01.2021)
+## version $VER: R.catalog 2.1 (06.07.2021)
 ## language español
 ## codeset 0
 ;
@@ -27,7 +27,7 @@ No puedo cargar el request\n
 ; Can't allocate struct Req\n
 ;
 MSG_ERROR_RETURN
-\"%s\" ha fallado con codigo de error %ld\n
+\"%s\" ha fallado con código de error %ld\n
 ; \"%s\" failed, return code %ld\n
 ;
 MSG_ERROR_POOL
@@ -55,7 +55,7 @@ Fallo al parsear la plantilla\n
 ; Failed to parse the template\n
 ;
 MSG_ERROR_GUI
-Fallo al crear el objero aplicacion\n
+Fallo al crear el objeto aplicación\n
 ; Failed to create application object\n
 ;
 MSG_ERROR_DEFAULTS

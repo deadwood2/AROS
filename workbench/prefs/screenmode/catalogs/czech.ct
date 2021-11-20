@@ -1,4 +1,4 @@
-## version $VER: Screenmode.catalog 2.0 (27.03.2016)
+## version $VER: Screenmode.catalog 2.0 (05.03.2021)
 ## language czech
 ## codeset 5
 ;
@@ -45,17 +45,49 @@ Informace o módu
 ;
 MSG_VISIBLE_SIZE
 Viditelná velikost:
-; Visible Size:
+; Visible Size
 ;
 MSG_MINIMUM_SIZE
 Minimální velikost:
-; Minimum Size:
+; Minimum Size
 ;
 MSG_MAXIMUM_SIZE
 Maximální velikost:
-; Maximum Size:
+; Maximum Size
 ;
 MSG_MAXIMUM_COLORS
 Maximální poèet barev:
-; Maximum Colors:
+; Maximum Colors
+;
+MSG_FREQUENCY
+Frekvence
+; Frequency
+;
+MSG_INTERLACED
+Prokládaný\n
+; Interlaced\n
+;
+MSG_WANTS_ECS
+Podpora ECS\n
+; Requires ECS\n
+;
+MSG_DUALP
+Dual playfields\n
+; Dual playfields\n
+;
+MSG_GENLOCK
+Podpora genloku\n
+; Supports genlock\n
+;
+MSG_DRAGGABLE
+Pøená¹et\n
+; Draggable\n
+;
+MSG_PANELLED
+Panelled for scan conversion\n
+; Panelled for scan conversion\n
+;
+MSG_BEAM_SYNC
+Podpora synchronizaèního pulzu\n
+; Supports beam synchronization\n
 ;

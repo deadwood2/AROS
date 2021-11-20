@@ -1,4 +1,4 @@
-## version $VER: BoingIconBar.catalog 2.0 (08.01.2021)
+## version $VER: BoingIconBar.catalog 2.1 (06.07.2021)
 ## language español
 ## codeset 0
 ;
@@ -7,11 +7,11 @@ BoingIconBar
 ; BoingIconBar
 ;
 MSG_CX_TITLE
-Barra de utilizades
+Barra de utilidades
 ; Icon Toolbar
 ;
 MSG_CX_DESC
-Lanzar prograsmas desde la barra
+Lanzar programas desde la barra
 ; Start Programs from Toolbar
 ;
 MSG_MENU_SETTINGS
