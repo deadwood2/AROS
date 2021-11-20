@@ -59,7 +59,7 @@ endif
 
 #MM- linklibs: linklibs-png-nostdio
 #MM linklibs-png-nostdio : workbench-libs-png-generated
-#MM workbench-libs-png-generated : libpng-fetch
+#MM workbench-libs-png-generated : libpng-fetch compiler-setup
 
 USER_CPPFLAGS += -DPNG_NO_STDIO -DPNG_NO_WRITE_TIME
 
