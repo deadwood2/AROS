@@ -89,7 +89,6 @@ static int SAGAGfx_Init(LIBBASETYPEPTR LIBBASE)
     {
         case VREG_BOARD_V500:
         case VREG_BOARD_V600:
-        case VREG_BOARD_V666:
         case VREG_BOARD_V1200:
         case VREG_BOARD_V4000:
         case VREG_BOARD_VCD32:
@@ -109,6 +108,7 @@ static int SAGAGfx_Init(LIBBASETYPEPTR LIBBASE)
             break;
             
         case VREG_BOARD_V4:
+        case VREG_BOARD_ICEDRAKE:
         case VREG_BOARD_V4SA:
             // SAGA V4 METHODS
             xsd->SAGAGfx_GetPixFmt         = SAGAHW_V4_GetPixFmt;
