@@ -524,7 +524,7 @@ STDCIO := \
 STDCIO_COMMON := \
     __stdcio_stdstreams
 
-#MM- core-linklibs : linklibs-stdc linklibs-stdcio linklibs-libm
+#MM- core-linklibs : linklibs-stdc linklibs-stdcio linklibs-libm linklibs-crt
 
 STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $(STDC_COMMON))))
 
@@ -539,10 +539,72 @@ USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' 
 #USER_CPPFLAGS += -DDEBUG=1
 
-%build_module mmake=compiler-stdc \
-    modname=stdc modtype=library \
-    files="$(STDC) $(STDC_WCHAR) $(STDC_COMMON)" \
-    linklibfiles=$(STDC_LINKLIB) linklibobjs=$(STDC_LINKOBJS)
+#%build_module mmake=compiler-stdc \
+#    modname=stdc modtype=library \
+#    files="$(STDC) $(STDC_WCHAR) $(STDC_COMMON)" \
+#    linklibfiles=$(STDC_LINKLIB) linklibobjs=$(STDC_LINKOBJS)
+
+CRT := \
+    strcat strchr strcmp strcasecmp __ctype strcoll strcpy strlcpy strlen strncat strncmp strncpy \
+    strrchr strsep strspn strcspn strtol strtoul strncasecmp strstr strtod strlcat strpbrk \
+    strtoull strrev strnlen strtoll stccpy strupr strftime \
+    memmove memcmp memset qsort memchr bsearch \
+    setjmp longjmp \
+    atoi atol atof \
+    stcd_l \
+    mktime \
+
+CRT_MATH := \
+    math/e_log \
+    math/e_pow \
+    math/s_fabs \
+    math/k_cos \
+    math/k_rem_pio2 \
+    math/k_sin \
+    math/s_cos \
+    math/s_sin \
+    math/s_floor \
+    math/e_sqrt \
+    math/e_atan2 \
+    math/s_atan \
+    math/e_log10 \
+    math/e_log2 \
+    math/e_acos \
+    math/e_asin \
+    math/e_cosh \
+    math/e_sinh \
+    math/e_exp \
+    math/s_ceil \
+    math/s_tan \
+    math/s_tanh \
+    math/s_modf \
+    math/s_exp2f \
+    math/s_expm1 \
+    math/s_frexp \
+    math/k_tan \
+    math/k_exp \
+    math/s_creal \
+    math/s_cimag \
+    math/e_fmod \
+    math/s_rint \
+    math/s_cosf \
+    math/s_sinf \
+    math/e_logf \
+    math/e_atan2f \
+    math/s_atanf \
+    math/s_fabsf \
+    math/e_powf \
+
+
+CRT_LINKLIB := \
+    crtfake_linklib \
+    strcasestr
+
+%build_module mmake=compiler-crt \
+    modname=crt modtype=library \
+    files="$(CRT) $(CRT_MATH) crtfake" \
+    linklibfiles=$(CRT_LINKLIB)
+
 
 STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notdir $(STDCIO_COMMON))))
 USER_CPPFLAGS := \
@@ -550,11 +612,11 @@ USER_CPPFLAGS := \
         -DSTDC_IO
 #USER_CPPFLAGS += -DDEBUG=1
 
-%build_module mmake=compiler-stdcio \
-    modname=stdcio modtype=library \
-    files="$(STDCIO) $(STDCIO_COMMON)" \
-    linklibobjs=$(STDCIO_LINKOBJS) \
-    uselibs="stdc_rel" usesdks="rel"
+#%build_module mmake=compiler-stdcio \
+#    modname=stdcio modtype=library \
+#    files="$(STDCIO) $(STDCIO_COMMON)" \
+#    linklibobjs=$(STDCIO_LINKOBJS) \
+#    uselibs="stdc_rel" usesdks="rel"
 
 STDC_MATH_STATIC := \
     math/e_log \
@@ -647,13 +709,13 @@ USER_CPPFLAGS := \
 %build_linklib mmake=linklibs-stdc-static libname=stdc.static \
     files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
-#MM- linklibs-romhack : compiler-stdc
+#MM- linklibs-romhack : compiler-crt
 # FIXME: The next romhack linklib is a temporary hack and has to be
 # excommunicated in the future !
 # setjmp()/longjmp() is used in dos.library so make it available.
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
 %build_linklib mmake=linklibs-romhack \
-    objdir=$(GENDIR)/$(CURDIR)/stdc libname=romhack files="setjmp longjmp"
+    objdir=$(GENDIR)/$(CURDIR)/crt libname=romhack files="setjmp longjmp"
 
 # A dummy libm.a is provided so that -lm link option does not produce an error
 # objdir is provided to avoid that arch specific files end up in libm.a
