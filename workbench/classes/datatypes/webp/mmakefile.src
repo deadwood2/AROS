@@ -102,10 +102,10 @@ WEBPUTILSFILES += \
     libname=webputils files="$(WEBPUTILSFILES)" \
     objdir=$(GENDIR)/$(CURDIR)/webputils sdk="datatypes"
 
-USER_LDFLAGS := -lwebpencode -lwebpdecode -lwebpdsp -lwebputils -lstdc_rel
+USER_LDFLAGS := -lwebpencode -lwebpdecode -lwebpdsp -lwebputils
 
 WEBPFILES := webpclass
 
 %build_module mmake=workbench-datatypes-webp \
     modname=webp modtype=datatype \
-    files=$(WEBPFILES) usesdks="rel datatypes"
+    files=$(WEBPFILES) uselibs="crt" usesdks="rel datatypes"
