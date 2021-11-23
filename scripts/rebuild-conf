@@ -6,6 +6,7 @@ show_selection ()
     printf "    4)  core-contrib-x86_64\n"
     printf "    10) toolchain-core-m68k\n"
     printf "    11) core-amiga-m68k\n"
+    printf "    12) core-amiga-m68k (SERIAL DEBUG)\n"
 }
 
 process_selection ()
@@ -52,6 +53,12 @@ process_selection ()
         BUILD_DIR=$(pwd)/core-amiga-m68k
         CONFIGURE_TARGET=amiga-m68k
         CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        ;;
+        12)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
+        BUILD_DIR=$(pwd)/core-amiga-m68k-serial-debug
+        CONFIGURE_TARGET=amiga-m68k
+        CONFIGURE_OPTS="--with-aros-toolchain=yes --with-serial-debug=yes"
         ;;
     esac
 }
