@@ -4,6 +4,7 @@
     Desc: Queue a beam-synchronized Blit
 */
 
+#include <aros/config.h>
 #include <proto/exec.h>
 #include <hardware/intbits.h>
 #include <hardware/blit.h>
