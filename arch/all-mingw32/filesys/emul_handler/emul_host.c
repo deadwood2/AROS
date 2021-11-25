@@ -878,7 +878,7 @@ LONG DoExamineAll(struct emulbase *emulbase, struct filehandle *fh, struct ExAll
         if(error)
             break;
         /* Do some more matching... */
-        if ((eac->eac_MatchFunc) && !CALLHOOKPKT(eac->eac_MatchFunc, ead, &type))
+        if ((eac->eac_MatchFunc) && !CALLHOOKPKT(eac->eac_MatchFunc, &type, ead))
             continue;
         eac->eac_Entries++;
         last = ead;
