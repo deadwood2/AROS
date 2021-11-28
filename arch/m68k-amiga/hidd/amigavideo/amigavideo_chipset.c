@@ -56,7 +56,7 @@ VOID resetcustom(struct amigavideo_staticdata *csd)
     custom->color[0] = DEFAULT_BORDER_GRAY;
 
     // Use AGA modes and create AGA copperlists only if AGA is "enabled"
-    csd->aga_enabled = csd->aga && GfxBase->ChipRevBits0 == SETCHIPREV_AA;
+    csd->aga_enabled = csd->aga && (GfxBase->ChipRevBits0 & SETCHIPREV_AA) == SETCHIPREV_AA;
 }
 
 static VOID waitvblank(struct amigavideo_staticdata *csd)
