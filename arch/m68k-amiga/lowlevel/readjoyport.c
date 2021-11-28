@@ -48,12 +48,14 @@ static inline ULONG llPollGameCtrl(int port)
     UWORD joydat;
     int i;
     UBYTE cmask = (port == 0) ? (1 << 6) : (1 << 7);
+    UWORD ciaaddr = 0;
 
     /* Set Pin 5 as output, shift mode */
     pot = custom->potinp;
     pot &= ~((port == 0) ? (3 << 8) : (3 << 12));
     custom->potgo = pot | (port == 0) ? (2 << 8) : (2 << 12);
     cia->ciapra  &= ~cmask;
+    ciaaddr = cia->ciaddra;
     cia->ciaddra |= cmask;
 
     /* Shift in the button values */
@@ -73,6 +75,8 @@ static inline ULONG llPollGameCtrl(int port)
     if ((bits & 3) != 2) {
         /* Stuck bits? Probably not a game controller */
         D(bug("%s: Stuck bits? (0x%04x)\n", __func__, bits));
+        /* Without reverting ciaddra, joystick gets stuck with RED/FIRE pressed */
+        cia->ciaddra = ciaaddr;
         /* Revert to autosense */
         return 0;
     }
