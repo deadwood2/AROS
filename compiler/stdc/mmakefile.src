@@ -548,53 +548,12 @@ CRT := \
     strcat strchr strcmp strcasecmp __ctype strcoll strcpy strlcpy strlen strncat strncmp strncpy \
     strrchr strsep strspn strcspn strtol strtoul strncasecmp strstr strtod strlcat strpbrk \
     strtoull strrev strnlen strtoll stccpy strupr strftime \
+    snprintf vsnprintf __vcformat sprintf vsprintf sscanf vsscanf __vcscan \
     memmove memcmp memset qsort memchr bsearch \
     setjmp longjmp \
     atoi atol atof \
     stcd_l \
     mktime \
-
-CRT_MATH := \
-    math/e_log \
-    math/e_pow \
-    math/s_fabs \
-    math/k_cos \
-    math/k_rem_pio2 \
-    math/k_sin \
-    math/s_cos \
-    math/s_sin \
-    math/s_floor \
-    math/e_sqrt \
-    math/e_atan2 \
-    math/s_atan \
-    math/e_log10 \
-    math/e_log2 \
-    math/e_acos \
-    math/e_asin \
-    math/e_cosh \
-    math/e_sinh \
-    math/e_exp \
-    math/s_ceil \
-    math/s_tan \
-    math/s_tanh \
-    math/s_modf \
-    math/s_exp2f \
-    math/s_expm1 \
-    math/s_frexp \
-    math/k_tan \
-    math/k_exp \
-    math/s_creal \
-    math/s_cimag \
-    math/e_fmod \
-    math/s_rint \
-    math/s_cosf \
-    math/s_sinf \
-    math/e_logf \
-    math/e_atan2f \
-    math/s_atanf \
-    math/s_fabsf \
-    math/e_powf \
-
 
 CRT_LINKLIB := \
     crtfake_linklib \
@@ -602,7 +561,7 @@ CRT_LINKLIB := \
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
-    files="$(CRT) $(CRT_MATH) crtfake" \
+    files="$(STDC_MATH) $(CRT) crtfake" \
     linklibfiles=$(CRT_LINKLIB)
 
 

@@ -26,9 +26,6 @@ void *calloc(size_t count, size_t size) { asm("int3");return NULL; }
 int rand(void) { asm("int3");return 0; }
 int remove(const char *filename) { asm("int3");return 0; }
 int rename(const char *old, const char *new) { asm("int3");return 0; }
-int snprintf(char * restrict s, size_t n, const char * restrict format, ...) { asm("int3");return 0; }
-int sprintf(char * restrict s, const char * restrict format, ...) { asm("int3");return 0; }
-int sscanf(const char * restrict s, const char * restrict format, ...) { asm("int3");return 0; }
 int __stdc_gmtoffset(void) { asm("int3");return 0; }
 void __stdc_program_startup(jmp_buf exitjmp, int *errorptr) { asm("int3"); }
 int *__stdc_get_errorptr(void) { asm("int3");return NULL; }
