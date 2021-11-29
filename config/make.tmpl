@@ -2473,7 +2473,7 @@ endif
 
 %(mmake)%(flavour)_RELLINKLIBCFILES := $(addprefix $(%(mmake)%(flavour)_OBJDIR)/linklib/,$($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBFILES))
 %(mmake)%(flavour)_RELLINKLIBAFILES := $(addprefix $(%(mmake)%(flavour)_OBJDIR)/linklib/,$($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBAFILES))
-ifeq ($(strip $($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBFILES) $($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBAFILES) %(linklibfiles) $(%(mmake)%(flavour)_ARCHNLIBFILES)),)
+ifeq ($(strip $($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBFILES) $($(%(mmake)%(flavour)_DEFNAME)_RELLINKLIBAFILES)),)
     %(mmake)%(flavour)_RELLINKLIB   :=
 else
     %(mmake)%(flavour)_RELLINKLIB   := $(%(mmake)%(flavour)_RELLIBDIR)/lib$(%(mmake)%(flavour)_DEFNAME)_rel$(%(mmake)%(flavour)_LIBSUFFIX).a
