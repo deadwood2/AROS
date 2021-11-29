@@ -7,9 +7,8 @@ include $(SRCDIR)/config/aros.cfg
 #MM workbench-libs-gl : includes workbench-libs-gl-gen-includes
 #MM- core-linklibs : linklibs-gl
 
-#MM- linklibs-gl : workbench-libs-gl-linklib workbench-libs-gl-linklib-rel
+#MM- linklibs-gl : workbench-libs-gl-linklib
 #MM workbench-libs-gl-linklib : workbench-libs-gl-includes workbench-libs-gl-gen-stubs 
-#MM workbench-libs-gl-linklib-rel : workbench-libs-gl-includes workbench-libs-gl-gen-stubs
 #MM workbench-libs-gl-gen-includes : workbench-libs-gl-setup
 #MM workbench-libs-gl-gen-stubs : workbench-libs-gl-gen-includes
 
@@ -42,15 +41,6 @@ GL_LIB_SOURCES := \
             $(wildcard $(GENDIR)/$(CURDIR)/*_getlibbase.c)
 
 %build_linklib mmake=workbench-libs-gl-linklib libname=GL files=$(GL_LIB_SOURCES:.c=)
-
-GL_RELLIB_SOURCES := \
-            gl_funcs.c \
-            $(wildcard $(GENDIR)/$(CURDIR)/*_relstub.c) \
-            $(wildcard $(GENDIR)/$(CURDIR)/*_relstubs.c) \
-            $(wildcard $(GENDIR)/$(CURDIR)/*_relautoinit.c) \
-            $(wildcard $(GENDIR)/$(CURDIR)/*_relgetlibbase.c)
-
-%build_linklib mmake=workbench-libs-gl-linklib-rel libname=GL_rel sdk=rel files=$(GL_RELLIB_SOURCES:.c=)
 
 #MM
 workbench-libs-gl-gen-stubs: $(GENDIR)/$(CURDIR)/.stubs-generated
