@@ -35,15 +35,11 @@ void __stdc_set_exitjmp(jmp_buf exitjmp, jmp_buf previousjmp) { asm("int3"); }
 char *__stdc_strerror (int n) { asm("int3");return NULL; }
 char *strdup(const char *str) { asm("int3");return NULL; }
 time_t time(time_t *t) { asm("int3");return *t; }
-int __vcformat(void * data, int (*outc)(int, void *), const char * format, va_list args) { asm("int3");return 0; }
-int __vcscan(void * data, int (*getc)(void *), int (*ungetc)(int, void *), const char * format, va_list args) { asm("int3");return 0; }
 int __stdc_ioerr2errno(int ioerr) { asm("int3");return 0; }
 void abort(void) { asm("int3"); }
 __sighandler_t *signal(int a, __sighandler_t * h) { asm("int3");return NULL; }
-int vsprintf(char * restrict s, const char * restrict format, va_list arg) { asm("int3");return 0; }
 clock_t clock(void) { clock_t c; asm("int3");return c; }
 char *ctime(const time_t *t) { asm("int3");return NULL; }
-int vsnprintf(char * restrict s, size_t n, const char * restrict format, va_list arg) { asm("int3");return 0.0; }
 void srand(unsigned int seed)  { asm("int3"); }
 struct tm *gmtime(const time_t *t) { asm("int3");return NULL; }
 char *strtok (char * str, const char * sep) { asm("int3");return NULL; }
