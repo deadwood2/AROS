@@ -556,6 +556,7 @@ CRT := \
     mktime asctime_r \
     _fenv \
     ../posixc/strptime \
+    localeconv \
 
 CRT_LINKLIB := \
     strcasestr
