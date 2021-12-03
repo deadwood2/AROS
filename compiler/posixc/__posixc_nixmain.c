@@ -25,15 +25,17 @@
 
 #include "__upath.h"
 
+#include "__crtext_intbase.h"
+
 static BOOL clone_vars(struct MinList *old_vars);
 static void restore_vars(struct MinList *old_vars);
 static void free_vars(struct MinList *vars);
 static void update_PATH(void);
 
-int __posixc_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[])
+int __progonly_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[])
 {
     struct PosixCIntBase *PosixCBase, *pPosixCBase;
-    int *errorptr = __stdc_get_errorptr();
+    int *errorptr = __progonly_get_errorptr();
     char *old_argv0 = NULL;
     char *new_argv0 = NULL;
     struct MinList old_vars;
@@ -89,7 +91,7 @@ int __posixc_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[]
     {
         int ret;
 
-        __stdc_set_exitjmp(exitjmp, dummyjmp);
+        __progonly_set_exitjmp(exitjmp, dummyjmp);
 
         ret = (*main)(argc, argv);
         if (errorptr)

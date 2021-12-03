@@ -8,12 +8,14 @@
 
 #include <assert.h>
 
+#include "../posixc/__crtext_intbase.h"
+
 /*****************************************************************************
 
     NAME */
 #include <stdlib.h>
 
-        void _Exit (
+        void __progonly__Exit (
 
 /*  SYNOPSIS */
         int code)
@@ -45,7 +47,7 @@
 
 ******************************************************************************/
 {
-    __stdc_jmp2exit(0, code);
+    __progonly_jmp2exit(0, code);
 
     /* never reached */
     assert(0);

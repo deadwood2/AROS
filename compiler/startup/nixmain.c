@@ -16,7 +16,7 @@ extern int main(int argc, char *argv[]);
 
 int __nixmain(int argc, char *argv[])
 {
-    return __posixc_nixmain(main, argc, argv);
+    return __progonly_nixmain(main, argc, argv);
 }
 
 int (*__main_function_ptr)(int argc, char *argv[]) = __nixmain;

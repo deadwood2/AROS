@@ -9,7 +9,7 @@
     NAME */
 #include <stdlib.h>
 
-        int atexit(
+        int __progonly_atexit(
         
 /*  SYNOPSIS */
         void (*func)(void))

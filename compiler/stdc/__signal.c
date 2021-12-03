@@ -57,6 +57,8 @@ struct signal_func_data *__sig_getfuncdata(int signum)
     return &StdCBase->sigfunc_array[signum-1];
 }
 
+#include "../posixc/__crtext_intbase.h"
+
 /* Handler for SIG_DFL */
 /* TODO: Maybe a mechanism has to be implemented so that default signal handler
    can be overloaded by libraries. For example by stdcio.library or posixc.library
@@ -102,7 +104,7 @@ void __sig_default(int signum)
     else
         kprintf("[%s] %s: %s\n", STDCNAME, __func__, s);
 
-    __stdc_jmp2exit(0, 20);
+    __progonly_jmp2exit(0, 20);
 
     assert(0); /* Should not be reached */
 }

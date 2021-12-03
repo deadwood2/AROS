@@ -20,9 +20,6 @@
 #include <setjmp.h>
 
 void __assert(const char * expr, const char * file, unsigned int line) { asm("int3"); }
-void exit(int code) { asm("int3"); }
-void _Exit(int code) { asm("int3"); }
-void _exit(int code) { asm("int3"); }
 void *malloc_align(size_t size, size_t alignment) { asm("int3");return NULL; }
 int rand(void) { asm("int3");return 0; }
 void srand(unsigned int seed)  { asm("int3"); }
@@ -31,7 +28,6 @@ char *ctime(const time_t *t) { asm("int3");return NULL; }
 struct tm *gmtime(const time_t *t) { asm("int3");return NULL; }
 struct tm *localtime(const time_t *t) { asm("int3");return NULL; }
 clock_t clock(void) { clock_t c; asm("int3");return c; }
-void abort(void) { asm("int3"); }
 char *strtok (char * str, const char * sep) { asm("int3");return NULL; }
 int gettimeofday(struct timeval * restrict tv, struct timezone * restrict tz) { asm("int3");return 0; }
 int printf(const char *restrict c, ...) { asm("int3");return 0; }

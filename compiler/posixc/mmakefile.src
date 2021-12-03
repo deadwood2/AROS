@@ -1,6 +1,6 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-posixc
+#MM- AROS : compiler-posixc compiler-crtext
 
 POSIXC := \
     __env \
@@ -243,7 +243,7 @@ POSIXC_LINKLIB := \
 POSIXC_COMMON := \
     __posixc_stdstreams
 
-#MM- core-linklibs : linklibs-posixc
+#MM- core-linklibs : linklibs-posixc linklibs-crtext linklibs-crtprog
 
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS) $(CFLAGS_MERGE_CONSTANTS)
@@ -273,9 +273,11 @@ CRTEXT := \
     ../stdc/__stdc_ioerr2errno \
     ../stdc/__stdc_geterrnoptr \
     ../stdc/__stdc_gmtoffset \
-    ../stdc/__stdc_startup \
+    ../stdc/abort \
     ../stdc/atexit \
     ../stdc/calloc \
+    ../stdc/_exit \
+    ../stdc/exit \
     ../stdc/free \
     ../stdc/malloc \
     ../stdc/realloc \
@@ -303,6 +305,7 @@ CRTEXT := \
     unsetenv \
     ../posixc/vfprintf \
     __crtext_init \
+    __crtext_progonly \
     crtextfake
 
 CRTEXT_LINKLIB := \
@@ -313,3 +316,6 @@ CRTEXT_LINKLIB := \
     modname=crtext modtype=library \
     files="$(CRTEXT)" \
     linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crt"
+
+%build_linklib mmake=linklibs-crtprog \
+    libname=crtprog files="crtprog"

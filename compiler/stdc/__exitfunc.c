@@ -29,7 +29,7 @@ int __init_atexit(struct CrtExtIntBase *CrtExtBase)
     return 1;
 }
 
-void __callexitfuncs(void)
+void __progonly_callexitfuncs(void)
 {
     struct StdCIntBase *StdCBase =
         (struct StdCIntBase *)__aros_getbase_StdCBase();
@@ -47,7 +47,7 @@ void __callexitfuncs(void)
 
         case AEN_PTR:
             {
-                int *errorptr = __stdc_get_errorptr();
+                int *errorptr = __progonly_get_errorptr();
                 aen->func.fptr(errorptr != NULL ? *errorptr : 0, aen->ptr);
             }
             break;

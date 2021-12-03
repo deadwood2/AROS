@@ -12,12 +12,14 @@
 
 #include "debug.h"
 
+#include "../posixc/__crtext_intbase.h"
+
 /*****************************************************************************
 
     NAME */
 #include <stdlib.h>
 
-        void exit (
+        void __progonly_exit (
 
 /*  SYNOPSIS */
         int code)
@@ -60,7 +62,7 @@
 {
     D(bug("[%s] %s(%d)\n", STDCNAME, __func__, code));
 
-    __stdc_jmp2exit(1, code);
+    __progonly_jmp2exit(1, code);
 
     /* never reached */
     assert(0);

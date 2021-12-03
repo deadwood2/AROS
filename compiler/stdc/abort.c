@@ -9,12 +9,14 @@
 #include <signal.h>
 #include <assert.h>
 
+#include "../posixc/__crtext_intbase.h"
+
 /*****************************************************************************
 
     NAME */
 #include <stdlib.h>
 
-        void abort (
+        void __progonly_abort (
 
 /*  SYNOPSIS */
         void)
@@ -51,7 +53,7 @@
     raise(SIGABRT);
 
     /* Abort anyway */
-    __stdc_jmp2exit(0, 20);
+    __progonly_jmp2exit(0, 20);
 
     assert(0); /* Should not be reached and will likely bomb recursively */
 }
