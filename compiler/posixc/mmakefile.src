@@ -259,8 +259,8 @@ USER_LDFLAGS := -noposixc
 
 POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notdir $(POSIXC_COMMON))))
 
-%build_module mmake=compiler-posixc \
-    modname=posixc modtype=library \
-    files="$(POSIXC) $(POSIXC_COMMON) $(POSIXC_ARCH)" \
-    linklibfiles="$(POSIXC_LINKLIB)" linklibobjs=$(POSIXC_LINKOBJS) \
-    uselibs="stdc_rel stdcio_rel" usesdks="rel"
+#%build_module mmake=compiler-posixc \
+#    modname=posixc modtype=library \
+#    files="$(POSIXC) $(POSIXC_COMMON) $(POSIXC_ARCH)" \
+#    linklibfiles="$(POSIXC_LINKLIB)" linklibobjs=$(POSIXC_LINKOBJS) \
+#    uselibs="stdc_rel stdcio_rel" usesdks="rel"

@@ -1,6 +1,6 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-stdc compiler-stdcio
+#MM- AROS : compiler-stdc compiler-stdcio compiler-crt compiler-crtext
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/$(CURDIR)/math -iquote $(FMTPRINTFDIR)
@@ -524,7 +524,7 @@ STDCIO := \
 STDCIO_COMMON := \
     __stdcio_stdstreams
 
-#MM- core-linklibs : linklibs-stdc linklibs-stdcio linklibs-libm linklibs-crt
+#MM- core-linklibs : linklibs-stdc linklibs-stdcio linklibs-libm linklibs-crt compiler-crtext
 
 STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $(STDC_COMMON))))
 
@@ -533,8 +533,8 @@ STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
     $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
 
-USER_CFLAGS := $(NOWARN_FLAGS) -noposixc $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS := -nostdc -noposixc
+USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
+USER_LDFLAGS :=
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' 
 #USER_CPPFLAGS += -DDEBUG=1
@@ -556,7 +556,6 @@ CRT := \
     mktime \
 
 CRT_LINKLIB := \
-    crtfake_linklib \
     strcasestr
 
 %build_module mmake=compiler-crt \
@@ -564,6 +563,13 @@ CRT_LINKLIB := \
     files="$(STDC_MATH) $(CRT) crtfake" \
     linklibfiles=$(CRT_LINKLIB)
 
+CRTEXT := \
+
+
+%build_module mmake=compiler-crtext \
+    modname=crtext modtype=library \
+    files="$(CRTEXT) crtextfake"
+    linklibfiles=
 
 STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notdir $(STDCIO_COMMON))))
 USER_CPPFLAGS := \
