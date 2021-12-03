@@ -555,7 +555,7 @@ CRT := \
     stcd_l \
     mktime asctime_r \
     _fenv \
-    ../posixc/strptime \
+    ../posixc/strptime ../posixc/setenv \
     localeconv \
 
 CRT_LINKLIB := \

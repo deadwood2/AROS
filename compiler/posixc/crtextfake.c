@@ -24,11 +24,9 @@ void exit(int code) { asm("int3"); }
 void _Exit(int code) { asm("int3"); }
 void _exit(int code) { asm("int3"); }
 void free(void *memory) { asm("int3"); }
-void *malloc(size_t size) { asm("int3");return NULL; }
 void *malloc_align(size_t size, size_t alignment) { asm("int3");return NULL; }
 void *realloc(void *oldmem, size_t newsize) { asm("int3");return NULL; }
 void *realloc_nocopy(void *oldmem, size_t newsize) { asm("int3");return NULL; }
-void *calloc(size_t count, size_t size) { asm("int3");return NULL; }
 int rand(void) { asm("int3");return 0; }
 void srand(unsigned int seed)  { asm("int3"); }
 time_t time(time_t *t) { asm("int3");return *t; }
@@ -110,7 +108,6 @@ int __posixc_fgetpos(FILE *restrictf , fpos_t *restrict a) { asm("int3");return 
 int __posixc_fsetpos(FILE *f , const fpos_t *a) { asm("int3");return 0; }
 struct dirent *__posixc_readdir(DIR *dir) { asm("int3");return NULL; }
 char *getcwd(char *buf, size_t size) { asm("int3");return NULL; }
-int __posixc_set_environptr(char ***environptr) { asm("int3");return 0; }
 char *asctime(const struct tm *t) { asm("int3");return NULL; }
 int raise(int a) { asm("int3");return 0; }
 char *ctime_r(const time_t *t, char *a) { asm("int3");return NULL; }
@@ -155,7 +152,6 @@ size_t regerror(int a, const regex_t *restrict b, char *restrict c, size_t d) { 
 int regexec(const regex_t *restrict a, const char *restrict b, size_t c, regmatch_t d[], int e) { asm("int3");return 0; }
 void regfree(regex_t *a) { asm("int3"); }
 char *strndup(const char *a , size_t b) { asm("int3");return 0; }
-int __posixc_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[]) { asm("int3");return 0; }
 mode_t umask(mode_t numask) { asm("int3");return 0; }
 void siglongjmp(sigjmp_buf a, int b) { asm("int3"); }
 int sigsetjmp(sigjmp_buf a, int b) { asm("int3");return 0; }

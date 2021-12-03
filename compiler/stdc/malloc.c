@@ -67,9 +67,12 @@
 
 } /* malloc */
 
+#include "../posixc/__crtext_intbase.h"
 
-int __init_memstuff(struct StdCIntBase *StdCBase)
+int __init_memstuff(struct CrtExtIntBase *CrtExtBase)
 {
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+
     D(bug("[%s] %s: task(0x%p), StdCBase(0x%p)\n", STDCNAME, __func__,
           FindTask(NULL), StdCBase
     ));
@@ -87,8 +90,10 @@ int __init_memstuff(struct StdCIntBase *StdCBase)
 }
 
 
-void __exit_memstuff(struct StdCIntBase *StdCBase)
+void __exit_memstuff(struct CrtExtIntBase *CrtExtBase)
 {
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+
     D(bug("[%s] %s: task(0x%p), StdCBase(0x%p), acb_mempool(0x%p)\n", STDCNAME, __func__,
           FindTask(NULL), StdCBase, StdCBase->mempool
     ));

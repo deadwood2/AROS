@@ -18,8 +18,12 @@ int __addexitfunc(struct AtExitNode *aen)
     return 0;
 }
 
-int __init_atexit(struct StdCIntBase *StdCBase)
+#include "../posixc/__crtext_intbase.h"
+
+int __init_atexit(struct CrtExtIntBase *CrtExtBase)
 {
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+
     NEWLIST((struct List *)&StdCBase->atexit_list);
 
     return 1;

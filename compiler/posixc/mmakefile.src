@@ -255,7 +255,7 @@ USER_CPPFLAGS := \
         -D_LARGEFILE64_SOURCE
 #USER_CPPFLAGS += -DDEBUG=1
 
-USER_LDFLAGS := -noposixc
+USER_LDFLAGS :=
 
 POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notdir $(POSIXC_COMMON))))
 
@@ -266,6 +266,15 @@ POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notd
 #    uselibs="stdc_rel stdcio_rel" usesdks="rel"
 
 CRTEXT := \
+    ../stdc/__exitfunc \
+    ../stdc/__stdc_startup \
+    ../stdc/calloc \
+    ../stdc/malloc \
+    __env \
+    __posixc_environ \
+    __posixc_nixmain \
+    __upath \
+    __crtext_init \
     crtextfake
 
 CRTEXT_LINKLIB := \
@@ -275,4 +284,4 @@ CRTEXT_LINKLIB := \
 %build_module mmake=compiler-crtext \
     modname=crtext modtype=library \
     files="$(CRTEXT)" \
-    linklibfiles="$(CRTEXT_LINKLIB)"
+    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crt"
