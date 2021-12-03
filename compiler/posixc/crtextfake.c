@@ -52,7 +52,6 @@ int fchmod(int fildes, mode_t mode) { asm("int3");return 0; }
 int fchown(int fd, uid_t owner, gid_t group) { asm("int3");return 0; }
 int __posixc_lstat(const char * restrict path, struct stat * restrict sb) { asm("int3");return 0; }
 void rewind(FILE *f) { asm("int3"); }
-char *strerror(int a) { asm("int3");return NULL; }
 int utime(const char *c, const struct utimbuf *u) { asm("int3");return 0; }
 int system(const char *string) { asm("int3");return 0; }
 int rename(const char *old, const char *new) { asm("int3");return 0; }

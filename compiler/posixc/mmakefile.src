@@ -302,11 +302,13 @@ CRTEXT := \
     isatty \
     putenv \
     stat \
+    ../posixc/strerror \
     unsetenv \
     ../posixc/vfprintf \
     __crtext_init \
     __crtext_progonly \
-    crtextfake
+    crtextfake \
+    wrapperstdcstrerror \
 
 CRTEXT_LINKLIB := \
     getopt \

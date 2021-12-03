@@ -209,8 +209,11 @@ static const char * _errstrings[__STDC_ELAST+2] =
     /* Too high        */       NULL,
 };
 
-static int __stdc_dosinit(struct StdCIntBase *StdCBase)
+#include "../posixc/__crtext_intbase.h"
+
+static int __stdc_dosinit(struct CrtExtIntBase *CrtExtBase)
 {
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
     StdCBase->StdCDOSBase = (struct DosLibrary *)OpenLibrary("dos.library", 0);
 
     return 1;
