@@ -29,7 +29,6 @@ struct tm *gmtime(const time_t *t) { asm("int3");return NULL; }
 struct tm *localtime(const time_t *t) { asm("int3");return NULL; }
 clock_t clock(void) { clock_t c; asm("int3");return c; }
 char *strtok (char * str, const char * sep) { asm("int3");return NULL; }
-int gettimeofday(struct timeval * restrict tv, struct timezone * restrict tz) { asm("int3");return 0; }
 int printf(const char *restrict c, ...) { asm("int3");return 0; }
 int puts(const char *c) { asm("int3");return 0; }
 int putchar(int c) { asm("int3");return 0; }
@@ -68,7 +67,6 @@ ssize_t read(int d, void *buf, size_t nbytes) { asm("int3");return 0; }
 ssize_t write(int fd, const void *buf, size_t nbytes) { asm("int3");return 0; }
 int usleep(useconds_t microseconds) { asm("int3");return 0; }
 int feof(FILE *f) { asm("int3");return 0; }
-pid_t getpid(void) { asm("int3");return 0; }
 void setbuf(FILE *restrict f, char *restrict c) { asm("int3"); }
 FILE *freopen(const char *restrict c, const char *restrict d, FILE *restrict f) { asm("int3");return NULL; }
 int chmod(const char *path, mode_t mode) { asm("int3");return 0; }
