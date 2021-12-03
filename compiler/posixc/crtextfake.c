@@ -154,3 +154,4 @@ size_t regerror(int a, const regex_t *restrict b, char *restrict c, size_t d) { 
 int regexec(const regex_t *restrict a, const char *restrict b, size_t c, regmatch_t d[], int e) { asm("int3");return 0; }
 void regfree(regex_t *a) { asm("int3"); }
 char *strndup(const char *a , size_t b) { asm("int3");return 0; }
+int __posixc_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv[]) { asm("int3");return 0; }
