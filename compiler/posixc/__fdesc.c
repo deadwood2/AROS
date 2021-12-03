@@ -507,10 +507,13 @@ static int __copy_fdarray(fdesc **__src_fd_array, int fd_slots)
     return 1;
 }
 
-int __init_fd(struct PosixCIntBase *PosixCBase)
+#include "../posixc/__crtext_intbase.h"
+
+int __init_fd(struct CrtExtIntBase *CrtExtBase)
 {
-    struct PosixCIntBase *pPosixCBase =
-        (struct PosixCIntBase *)__GM_GetBaseParent(PosixCBase);
+    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *pPosixCBase = NULL;
+        //(struct PosixCIntBase *)__GM_GetBaseParent(PosixCBase);
 
     D(bug("Found parent PosixCBase %p with flags 0x%x\n",
           pPosixCBase, pPosixCBase ? pPosixCBase->flags : 0
@@ -531,8 +534,10 @@ int __init_fd(struct PosixCIntBase *PosixCBase)
         return __init_stdfiles(PosixCBase);
 }
 
-void __exit_fd(struct PosixCIntBase *PosixCBase)
+void __exit_fd(struct CrtExtIntBase *CrtExtBase)
 {
+    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+
     int i = PosixCBase->fd_slots;
     while (i)
     {

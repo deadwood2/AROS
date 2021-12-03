@@ -106,8 +106,11 @@ int __oflags2sflags(int omode)
     return ret;
 }
 
-int __init_stdio(struct PosixCIntBase *PosixCIntBase)
+#include "../posixc/__crtext_intbase.h"
+
+int __init_stdio(struct CrtExtIntBase *CrtExtBase)
 {
+    struct PosixCIntBase *PosixCIntBase = CrtExtBase->PosixCBase;
     struct PosixCBase *PosixCBase = (struct PosixCBase *)PosixCIntBase;
     NEWLIST(&PosixCIntBase->stdio_files);
 

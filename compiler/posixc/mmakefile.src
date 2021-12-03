@@ -266,14 +266,42 @@ POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notd
 #    uselibs="stdc_rel stdcio_rel" usesdks="rel"
 
 CRTEXT := \
+    ../stdc/__ctype \
     ../stdc/__exitfunc \
+    ../stdc/__optionallibs \
+    ../stdc/__signal \
+    ../stdc/__stdc_ioerr2errno \
+    ../stdc/__stdc_geterrnoptr \
+    ../stdc/__stdc_gmtoffset \
     ../stdc/__stdc_startup \
+    ../stdc/atexit \
     ../stdc/calloc \
+    ../stdc/free \
     ../stdc/malloc \
+    ../stdc/realloc \
+    ../stdc/realloc_nocopy \
+    ../stdc/signal \
+    ../stdc/strdup \
     __env \
+    __fdesc \
     __posixc_environ \
     __posixc_nixmain \
+    __posixc_stdstreams \
+    ../posixc/__stdio \
+    __stat \
     __upath \
+    access \
+    fdopen \
+    fileno \
+    ../posixc/fflush \
+    ../posixc/fputs \
+    ../posixc/getenv \
+    ioctl \
+    isatty \
+    putenv \
+    stat \
+    unsetenv \
+    ../posixc/vfprintf \
     __crtext_init \
     crtextfake
 

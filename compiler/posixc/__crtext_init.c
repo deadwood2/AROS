@@ -17,6 +17,7 @@ static int __crtext_open(struct CrtExtIntBase *CrtExtBase)
 
     CrtExtBase->StdCBase    = AllocMem(sizeof(struct StdCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
     CrtExtBase->PosixCBase  = AllocMem(sizeof(struct PosixCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
+    CrtExtBase->PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR, 256, 256);
 
     return 1;
 }
@@ -25,8 +26,10 @@ static void __crtext_close(struct CrtExtIntBase *CrtExtBase)
 {
     D(bug("[crtext] %s(0x%p)\n", __func__, CrtExtBase));
 
-    FreeMem(CrtExtBase->StdCBase, sizeof(struct StdCIntBase));
+    DeletePool(CrtExtBase->PosixCBase->internalpool);
     FreeMem(CrtExtBase->PosixCBase, sizeof(struct PosixCIntBase));
+    FreeMem(CrtExtBase->StdCBase, sizeof(struct StdCIntBase));
+
 }
 
 struct StdCBase * __aros_getbase_StdCBase()
