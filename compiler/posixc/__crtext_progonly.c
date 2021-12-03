@@ -16,104 +16,105 @@
 #include "../stdc/__stdc_intbase.h"
 #include "../stdc/__exitfunc.h"
 #include "../stdc/debug.h"
+#include "__crtext_intbase.h"
 
-// /*****************************************************************************
+/*****************************************************************************
 
-//     NAME */
-//         void __stdc_program_startup(
+    NAME */
+        void __progonly_program_startup(
 
-// /*  SYNOPSIS */
-//         jmp_buf exitjmp,
-//         int *errorptr)
+/*  SYNOPSIS */
+        jmp_buf exitjmp,
+        int *errorptr)
 
-// /*  FUNCTION
-//         This is called during program startup and before calling main.
-//         This is to allow stdc.library to do some initialization that couldn't
-//         be done when opening the library.
+/*  FUNCTION
+        This is called during program startup and before calling main.
+        This is to allow stdc.library to do some initialization that couldn't
+        be done when opening the library.
 
-//     INPUTS
-//         exitjmp - jmp_buf to jump to to exit the program
-//         errorptr - pointer to store return value of program
+    INPUTS
+        exitjmp - jmp_buf to jump to to exit the program
+        errorptr - pointer to store return value of program
 
-//     RESULT
-//         -
+    RESULT
+        -
 
-//     NOTES
-//         This function is normally called by the startup code so one
-//         should not need to do it oneself.
+    NOTES
+        This function is normally called by the startup code so one
+        should not need to do it oneself.
 
-//         TODO: Maybe this function should be implemented using Tags so that
-//         functionality can be extended in the future without breaking backwards
-//         compatibility.
+        TODO: Maybe this function should be implemented using Tags so that
+        functionality can be extended in the future without breaking backwards
+        compatibility.
 
-//     EXAMPLE
+    EXAMPLE
 
-//     BUGS
+    BUGS
 
-//     SEE ALSO
+    SEE ALSO
 
-//     INTERNALS
+    INTERNALS
 
-// ******************************************************************************/
-// {
-//     struct StdCIntBase *StdCBase =
-//         (struct StdCIntBase *)__aros_getbase_StdCBase();
+******************************************************************************/
+{
+    struct StdCIntBase *StdCBase =
+        (struct StdCIntBase *)__aros_getbase_StdCBase();
 
-//     D(bug("[%s] %s: StdCBase 0x%p\n", STDCNAME, __func__, StdCBase));
+    D(bug("[%s] %s: StdCBase 0x%p\n", STDCNAME, __func__, StdCBase));
 
-//     StdCBase->startup_errorptr = errorptr;
-//     *StdCBase->exit_jmpbuf = *exitjmp;
-// }
+    StdCBase->startup_errorptr = errorptr;
+    *StdCBase->exit_jmpbuf = *exitjmp;
+}
 
-// /*****************************************************************************
+/*****************************************************************************
 
-//     NAME */
-//         void __stdc_program_end(
+    NAME */
+        void __progonly_program_end(
 
-// /*  SYNOPSIS */
-//         void)
+/*  SYNOPSIS */
+        void)
 
-// /*  FUNCTION
-//         This function is to be called when main() has returned or after
-//         program has exited. This allows to stdc.library to do some
-//         cleanup that can't be done during closing of the library.
+/*  FUNCTION
+        This function is to be called when main() has returned or after
+        program has exited. This allows to stdc.library to do some
+        cleanup that can't be done during closing of the library.
 
-//     INPUTS
-//         -
+    INPUTS
+        -
 
-//     RESULT
-//         -
+    RESULT
+        -
 
-//     NOTES
-//         This function is normally called by the startup code so one
-//         should not need to do it oneself.
+    NOTES
+        This function is normally called by the startup code so one
+        should not need to do it oneself.
 
-//         TODO: Maybe this function should be implemented using Tags so that
-//         functionality can be extended in the future without breaking backwards
-//         compatibility.
+        TODO: Maybe this function should be implemented using Tags so that
+        functionality can be extended in the future without breaking backwards
+        compatibility.
 
-//     EXAMPLE
+    EXAMPLE
 
-//     BUGS
+    BUGS
 
-//     SEE ALSO
+    SEE ALSO
 
-//     INTERNALS
+    INTERNALS
 
 
-// ******************************************************************************/
-// {
-//     struct StdCIntBase *StdCBase =
-//         (struct StdCIntBase *)__aros_getbase_StdCBase();
-//     D(bug("[%s] %s()\n", STDCNAME, __func__));
+******************************************************************************/
+{
+    struct StdCIntBase *StdCBase =
+        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    D(bug("[%s] %s()\n", STDCNAME, __func__));
 
-//     struct ETask *etask = GetETask(FindTask(NULL));
-//     if (etask)
-//         etask->et_Result1 = *StdCBase->startup_errorptr;
+    struct ETask *etask = GetETask(FindTask(NULL));
+    if (etask)
+        etask->et_Result1 = *StdCBase->startup_errorptr;
 
-//     if (!(StdCBase->flags & ABNORMAL_EXIT))
-//         __callexitfuncs();
-// }
+    if (!(StdCBase->flags & ABNORMAL_EXIT))
+        __progonly_callexitfuncs();
+}
 
 // /*****************************************************************************
 
