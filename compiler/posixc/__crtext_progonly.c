@@ -13,9 +13,6 @@
 
 #include <aros/debug.h>
 
-#include "../stdc/__stdc_intbase.h"
-#include "../stdc/__exitfunc.h"
-#include "../stdc/debug.h"
 #include "__crtext_intbase.h"
 
 /*****************************************************************************
@@ -57,13 +54,12 @@
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    struct CrtExtProgCtx *ProgCtx = __aros_create_ProgCtx();
 
-    D(bug("[%s] %s: StdCBase 0x%p\n", STDCNAME, __func__, StdCBase));
+    D(bug("[CRTPROG] %s: ProgCtx 0x%p\n", __func__, ProgCtx));
 
-    StdCBase->startup_errorptr = errorptr;
-    *StdCBase->exit_jmpbuf = *exitjmp;
+    ProgCtx->startup_errorptr = errorptr;
+    *ProgCtx->exit_jmpbuf = *exitjmp;
 }
 
 /*****************************************************************************
@@ -104,16 +100,17 @@
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
-    D(bug("[%s] %s()\n", STDCNAME, __func__));
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    D(bug("[CRTPROG] %s()\n", __func__));
 
     struct ETask *etask = GetETask(FindTask(NULL));
     if (etask)
-        etask->et_Result1 = *StdCBase->startup_errorptr;
+        etask->et_Result1 = *ProgCtx->startup_errorptr;
 
-    if (!(StdCBase->flags & ABNORMAL_EXIT))
+    if (!(ProgCtx->exitflags & ABNORMAL_EXIT))
         __progonly_callexitfuncs();
+
+    __aros_delete_ProgCtx();
 }
 
 /*****************************************************************************
@@ -146,11 +143,10 @@
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
-    int *old = StdCBase->startup_errorptr;
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    int *old = ProgCtx->startup_errorptr;
 
-    StdCBase->startup_errorptr = errorptr;
+    ProgCtx->startup_errorptr = errorptr;
 
     return old;
 }
@@ -185,9 +181,8 @@
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
-    return StdCBase->startup_errorptr;
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    return ProgCtx->startup_errorptr;
 }
 
 /*****************************************************************************
@@ -221,11 +216,10 @@
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
    
-    *previousjmp = *StdCBase->exit_jmpbuf;
-    *StdCBase->exit_jmpbuf = *exitjmp;
+    *previousjmp = *ProgCtx->exit_jmpbuf;
+    *ProgCtx->exit_jmpbuf = *exitjmp;
 }
 
 /*****************************************************************************
@@ -265,23 +259,22 @@
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
 
     /* No __stdc_program_startup() called; Alert()
     */
-    if (StdCBase->startup_errorptr == NULL)
+    if (!ProgCtx || ProgCtx->startup_errorptr == NULL)
     {
-        kprintf("[%s] %s: Trying to exit without proper initialization\n", STDCNAME, __func__);
+        kprintf("[CRTPROG] %s: Trying to exit without proper initialization\n", __func__);
         Alert(AT_DeadEnd | AG_BadParm);
     }
 
     if (!normal)
-        StdCBase->flags |= ABNORMAL_EXIT;
+        ProgCtx->exitflags |= ABNORMAL_EXIT;
 
-    *StdCBase->startup_errorptr = retcode;
+    *ProgCtx->startup_errorptr = retcode;
 
-    longjmp(StdCBase->exit_jmpbuf, 1);
+    longjmp(ProgCtx->exit_jmpbuf, 1);
 
     assert(0); /* Not reached */
 }

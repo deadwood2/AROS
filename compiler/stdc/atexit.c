@@ -2,6 +2,7 @@
     Copyright (C) 1995-2001, The AROS Development Team. All rights reserved.
 */
 
+#include "../posixc/__crtext_intbase.h"
 #include "__exitfunc.h"
 
 /*****************************************************************************
@@ -43,5 +44,5 @@
     aen->node.ln_Type = AEN_VOID;
     aen->func.fvoid = func;
 
-    return __addexitfunc(aen);
+    return __progonly_addexitfunc(aen);
 }

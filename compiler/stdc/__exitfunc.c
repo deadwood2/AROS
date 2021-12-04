@@ -2,41 +2,35 @@
     Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
 */
 
-#include "__stdc_intbase.h"
+#include "../posixc/__crtext_intbase.h"
 
 #include <aros/symbolsets.h>
 #include <exec/lists.h>
 #include "__exitfunc.h"
 
-int __addexitfunc(struct AtExitNode *aen)
+int __progonly_addexitfunc(struct AtExitNode *aen)
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
     
-    ADDHEAD((struct List *)&StdCBase->atexit_list, (struct Node *)aen);
+    ADDHEAD((struct List *)&ProgCtx->atexit_list, (struct Node *)aen);
 
     return 0;
 }
 
-#include "../posixc/__crtext_intbase.h"
-
-int __init_atexit(struct CrtExtIntBase *CrtExtBase)
+int __progonly_init_atexit(struct CrtExtProgCtx *ProgCtx)
 {
-    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
-
-    NEWLIST((struct List *)&StdCBase->atexit_list);
+    NEWLIST((struct List *)&ProgCtx->atexit_list);
 
     return 1;
 }
 
 void __progonly_callexitfuncs(void)
 {
-    struct StdCIntBase *StdCBase =
-        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
     struct AtExitNode *aen;
 
     while (
-        (aen = (struct AtExitNode *) REMHEAD((struct List *) &StdCBase->atexit_list))
+        (aen = (struct AtExitNode *) REMHEAD((struct List *) &ProgCtx->atexit_list))
     )
     {
         switch (aen->node.ln_Type)
@@ -54,5 +48,3 @@ void __progonly_callexitfuncs(void)
         }
     }
 }
-
-ADD2OPENLIB(__init_atexit, 100);
