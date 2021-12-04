@@ -513,24 +513,25 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
 {
     struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
     struct PosixCIntBase *pPosixCBase = NULL;
-        //(struct PosixCIntBase *)__GM_GetBaseParent(PosixCBase);
+        //(struct PosixCIntBase *)__GM_GetBaseParent(PosixCBase); FIXME!!!
 
     D(bug("Found parent PosixCBase %p with flags 0x%x\n",
           pPosixCBase, pPosixCBase ? pPosixCBase->flags : 0
     ));
 
-    if (pPosixCBase && (pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
-    {
-        /* VFORK_PARENT use case - child manipulates file descriptors prior to calling exec* */
-        int res = __copy_fdarray(pPosixCBase->fd_array, pPosixCBase->fd_slots);
+    // FIXME!!!
+    // if (pPosixCBase && (pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
+    // {
+    //     /* VFORK_PARENT use case - child manipulates file descriptors prior to calling exec* */
+    //     int res = __copy_fdarray(pPosixCBase->fd_array, pPosixCBase->fd_slots);
 
-        if (pPosixCBase->flags & EXEC_PARENT)
-            /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
-            PosixCBase->fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
+    //     if (pPosixCBase->flags & EXEC_PARENT)
+    //         /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
+    //         PosixCBase->fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
 
-        return res;
-    }
-    else
+    //     return res;
+    // }
+    // else
         return __init_stdfiles(PosixCBase);
 }
 

@@ -67,9 +67,10 @@ int __progonly_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv
        we avoid it.
        The cloning does not need to be performed if flags of parent have VFORK_PARENT
        or EXEC_PARENT flags */
-    pPosixCBase = NULL; //__GM_GetBaseParent(PosixCBase);
+    pPosixCBase = NULL; //__GM_GetBaseParent(PosixCBase); FIXME!!!
+
     D(bug("__posixc_nixmain: pPosixCBase = %x, Task=%x\n", pPosixCBase, FindTask(NULL)));
-    if (!pPosixCBase || !(pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
+    // if (!pPosixCBase || !(pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT))) FIXME!!!
     {
         D(bug("__posixc_nixmain: Cloning LocalVars"));
         if (!clone_vars(&old_vars))
@@ -101,7 +102,7 @@ int __progonly_nixmain(int (*main)(int argc, char *argv[]), int argc, char *argv
         D(bug("__posixc_nixmain: setjmp() != 0\n"));
 
     D(bug("__posixc_nixmain: pPosixCBase = %x, Task=%x\n", pPosixCBase, FindTask(NULL)));
-    if (!pPosixCBase || !(pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
+    // if (!pPosixCBase || !(pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT))) FIXME!!!
         restore_vars(&old_vars);
 
 err_vars:

@@ -9,6 +9,7 @@
 
 #include "__vfork.h"
 #include "__posixc_intbase.h"
+#include "__crtext_intbase.h"
 
 /*****************************************************************************
 
@@ -39,13 +40,12 @@
 
 ******************************************************************************/
 {
-    struct PosixCIntBase *PosixCBase =
-        (struct PosixCIntBase *)__aros_getbase_PosixCBase();
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
     struct ETask *et;
 
-    if(PosixCBase->flags & PRETEND_CHILD)
+    if(ProgCtx && ProgCtx->vforkflags & PRETEND_CHILD)
     {
-        struct vfork_data *udata = PosixCBase->vfork_data;
+        struct vfork_data *udata = ProgCtx->vfork_data;
         et = GetETask(udata->child);
     }
     else

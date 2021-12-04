@@ -15,7 +15,7 @@
 
 #include "__fdesc.h"
 
-struct PosixCIntBase;
+struct CrtExtProgCtx;
 
 struct vfork_data
 {
@@ -28,7 +28,7 @@ struct vfork_data
     jmp_buf parent_newexitjmp;
     BYTE parent_signal;
     BYTE parent_state;
-    struct PosixCIntBase *parent_posixcbase;
+    struct CrtExtProgCtx *parent_progctx;
     struct StdCBase *parent_stdcbase;
     int parent_cd_changed;
     BPTR parent_cd_lock;
@@ -45,7 +45,7 @@ struct vfork_data
     int child_error, child_errno;
     BYTE child_signal;
     BYTE child_state;
-    struct PosixCIntBase *child_posixcbase;
+    struct CrtExtProgCtx *child_progctx;
 
     const char *exec_filename;
     char *const *exec_argv;

@@ -15,6 +15,12 @@
 
 #include "__crtext_intbase.h"
 
+void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf exitjmp, int *errorptr)
+{
+    ProgCtx->startup_errorptr = errorptr;
+    *ProgCtx->exit_jmpbuf = *exitjmp;
+}
+
 /*****************************************************************************
 
     NAME */
@@ -58,8 +64,7 @@
 
     D(bug("[CRTPROG] %s: ProgCtx 0x%p\n", __func__, ProgCtx));
 
-    ProgCtx->startup_errorptr = errorptr;
-    *ProgCtx->exit_jmpbuf = *exitjmp;
+    __progonly_program_startup_internal(ProgCtx, exitjmp, errorptr);
 }
 
 /*****************************************************************************
