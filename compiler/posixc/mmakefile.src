@@ -296,6 +296,7 @@ CRTEXT := \
     __upath \
     __vfork \
     ../posixc/access \
+    ../posixc/close \
     ../posixc/execl \
     ../posixc/fdopen \
     ../posixc/fileno \
@@ -308,6 +309,7 @@ CRTEXT := \
     ../posixc/gettimeofday \
     ../posixc/ioctl \
     ../posixc/isatty \
+    ../posixc/open \
     ../posixc/perror \
     ../posixc/printf \
     ../posixc/putenv \
