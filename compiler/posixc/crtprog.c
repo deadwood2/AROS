@@ -37,6 +37,20 @@ void _exit(int code)
     _Exit(code);
 }
 
+int execl(const char *path, const char *arg, ...)
+{
+    va_list args;
+    va_start(args, arg);
+    int r = __progonly_execl(path, arg, args);
+    va_end(args);
+    return r;
+}
+
+int execve(const char *path, char *const argv[], char *const envp[])
+{
+    return __progonly_execve(path, argv, envp);
+}
+
 static void __progonly_startup(struct ExecBase *SysBase)
 {
     jmp_buf exitjmp;

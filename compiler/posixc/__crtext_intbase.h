@@ -32,12 +32,11 @@ struct CrtExtProgCtx
 
     /* vfork/exec */
     int                         vforkflags;
+    /* __vfork.c */
+    struct vfork_data           *vfork_data;
 
     /* atexit.c */
     struct MinList              atexit_list;
-
-    /* __vfork.c */
-    struct vfork_data *vfork_data;
 };
 
 struct CrtExtProgCtx * __aros_get_ProgCtx();

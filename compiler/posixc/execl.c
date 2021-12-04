@@ -16,11 +16,11 @@
     NAME */
 #include <unistd.h>
 
-        int execl(
+        int __progonly_execl(
 
 /*  SYNOPSIS */
         const char *path,
-        const char *arg, ...)
+        const char *arg, va_list args)
         
 /*  FUNCTION
         Executes a file located in given path with specified arguments.
@@ -47,21 +47,15 @@
 
 ******************************************************************************/
 {
-    va_list args;
     char *const *argv;
     char ***environptr = __posixc_get_environptr();
     char **environ = (environptr != NULL) ? *environptr : NULL;
 
-    va_start(args, arg);
-    
     if(!(argv = __exec_valist2array(arg, args)))
     {
-        va_end(args);
         errno = ENOMEM;
         return -1;
     }
-
-    va_end(args);
 
     APTR id = __exec_prepare(path, 0, argv, environ);
     __exec_cleanup_array();

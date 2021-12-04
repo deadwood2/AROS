@@ -85,10 +85,10 @@ FILE *tmpfile(void) { asm("int3");return NULL; }
 int chdir(const char *path) { asm("int3");return 0; }
 int __posixc_creat (const char * filename, int mode) { asm("int3");return 0; }
 int chown(const char *path, uid_t owner, gid_t group) { asm("int3");return 0; }
-int execlp(const char *path, const char *arg, ...) { asm("int3");return 0; }
-int execv(const char *path, char *const argv[]) { asm("int3");return 0; }
-int execve(const char *path, char *const argv[], char *const envp[]) { asm("int3");return 0; }
-int execvp(const char *path, char *const argv[]) { asm("int3");return 0; }
+int __progonly_execlp(const char *path, const char *arg, ...) { asm("int3");return 0; }
+int __progonly_execv(const char *path, char *const argv[]) { asm("int3");return 0; }
+int __progonly_execve(const char *path, char *const argv[], char *const envp[]) { asm("int3");return 0; }
+int __progonly_execvp(const char *path, char *const argv[]) { asm("int3");return 0; }
 int fchdir(int fd) { asm("int3");return 0; }
 int mkdir(const char *path, mode_t mode) { asm("int3");return 0; }
 int __posixc_fstat(int fd, struct stat *sb) { asm("int3");return 0; }
