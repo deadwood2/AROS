@@ -6,7 +6,6 @@
 
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <proto/stdc.h>
 #include <exec/exec.h>
 #include <exec/tasks.h>
 #include <dos/dos.h>
@@ -118,6 +117,8 @@ static void parent_createchild(struct vfork_data *udata);
 
 static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork_data *udata);
 
+#include "__crtext_intbase.h"
+
 LONG launcher()
 {
     D(bug("launcher: Entered child launcher, ThisTask=%p\n", FindTask(NULL)));
@@ -228,7 +229,7 @@ LONG launcher()
             if (exec_id)
             {
                 D(bug("launcher: catch _exit()\n"));
-                __stdc_program_startup(exec_exitjmp, &exec_error);
+                __progonly_program_startup(exec_exitjmp, &exec_error);
 
                 D(bug("launcher: executing command\n"));
                 __exec_do(exec_id);
@@ -311,9 +312,9 @@ pid_t __vfork(jmp_buf env)
     D(bug("__vfork: Parent: Setting jmp_buf at %p\n", udata->parent_newexitjmp));
     if (setjmp(udata->parent_newexitjmp) == 0)
     {
-        udata->parent_olderrorptr = __stdc_set_errorptr(&udata->child_error);
+        udata->parent_olderrorptr = __progonly_set_errorptr(&udata->child_error);
         udata->child_error = *udata->parent_olderrorptr;
-        __stdc_set_exitjmp(udata->parent_newexitjmp, udata->parent_oldexitjmp);
+        __progonly_set_exitjmp(udata->parent_newexitjmp, udata->parent_oldexitjmp);
 
         parent_enterpretendchild(udata);
 
@@ -412,8 +413,8 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 
     D(bug("__vfork: Parent: restoring startup buffer\n"));
     /* Restore parent errorptr and startup buffer */
-    __stdc_set_errorptr(udata->parent_olderrorptr);
-    __stdc_set_exitjmp(udata->parent_oldexitjmp, dummy);
+    __progonly_set_errorptr(udata->parent_olderrorptr);
+    __progonly_set_exitjmp(udata->parent_oldexitjmp, dummy);
 
     /* Save some data from udata before udata is being freed */
     _VFORK_COPYENV(env,udata->vfork_jmp);
@@ -504,7 +505,7 @@ static void parent_enterpretendchild(struct vfork_data *udata)
        register the exit jmp_buf in this StdCBase. We don't need to remember
        old as child will overwrite these if it should call __exec_do().
     */
-    __stdc_program_startup(udata->parent_newexitjmp, &udata->child_error);
+    __progonly_program_startup(udata->parent_newexitjmp, &udata->child_error);
 
     /* Remember and switch env var list */
     udata->parent_env_list = PosixCBase->env_list;

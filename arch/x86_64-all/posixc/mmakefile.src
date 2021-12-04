@@ -3,11 +3,18 @@ include $(SRCDIR)/config/aros.cfg
 
 USER_AFLAGS 	:= -I$(GENINCDIR)
 
-#MM- compiler-posixc-x86_64 : includes-asm_h
+##MM- compiler-posixc-x86_64 : includes-asm_h
+
+#%build_archspecific \
+#  mainmmake=compiler-posixc maindir=compiler/posixc \
+#  modname=posixc arch=x86_64 \
+#  asmfiles="siglongjmp sigsetjmp vfork vfork_longjmp"
+
+#MM- compiler-crtext-x86_64 : includes-asm_h
 
 %build_archspecific \
-  mainmmake=compiler-posixc maindir=compiler/posixc \
-  modname=posixc arch=x86_64 \
+  mainmmake=compiler-crtext maindir=compiler/posixc \
+  modname=crtext arch=x86_64 \
   asmfiles="siglongjmp sigsetjmp vfork vfork_longjmp"
 
 %common

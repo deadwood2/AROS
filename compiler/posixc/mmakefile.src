@@ -285,6 +285,7 @@ CRTEXT := \
     ../stdc/signal \
     ../stdc/strdup \
     __env \
+    __exec \
     __fdesc \
     __posixc_environ \
     __posixc_nixmain \
@@ -293,20 +294,22 @@ CRTEXT := \
     ../posixc/__stdio \
     __stat \
     __upath \
-    access \
-    fdopen \
-    fileno \
+    __vfork \
+    ../posixc/access \
+    ../posixc/fdopen \
+    ../posixc/fileno \
     ../posixc/fflush \
     ../posixc/fputs \
     ../posixc/getenv \
-    getpid \
-    gettimeofday \
-    ioctl \
-    isatty \
-    putenv \
-    stat \
+    ../posixc/getpid \
+    ../posixc/gettimeofday \
+    ../posixc/ioctl \
+    ../posixc/isatty \
+    ../posixc/printf \
+    ../posixc/putenv \
+    ../posixc/stat \
     ../posixc/strerror \
-    unsetenv \
+    ../posixc/unsetenv \
     ../posixc/vfprintf \
     __crtext_init \
     __crtext_progonly \

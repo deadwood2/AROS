@@ -29,7 +29,6 @@ struct tm *gmtime(const time_t *t) { asm("int3");return NULL; }
 struct tm *localtime(const time_t *t) { asm("int3");return NULL; }
 clock_t clock(void) { clock_t c; asm("int3");return c; }
 char *strtok (char * str, const char * sep) { asm("int3");return NULL; }
-int printf(const char *restrict c, ...) { asm("int3");return 0; }
 int puts(const char *c) { asm("int3");return 0; }
 int putchar(int c) { asm("int3");return 0; }
 int scanf(const char *restrict c, ...) { asm("int3");return 0; }
@@ -95,7 +94,6 @@ int execlp(const char *path, const char *arg, ...) { asm("int3");return 0; }
 int execv(const char *path, char *const argv[]) { asm("int3");return 0; }
 int execve(const char *path, char *const argv[], char *const envp[]) { asm("int3");return 0; }
 int execvp(const char *path, char *const argv[]) { asm("int3");return 0; }
-pid_t vfork(void) { asm("int3");return 0; }
 int fchdir(int fd) { asm("int3");return 0; }
 int mkdir(const char *path, mode_t mode) { asm("int3");return 0; }
 int __posixc_fstat(int fd, struct stat *sb) { asm("int3");return 0; }
@@ -126,8 +124,6 @@ int regexec(const regex_t *restrict a, const char *restrict b, size_t c, regmatc
 void regfree(regex_t *a) { asm("int3"); }
 char *strndup(const char *a , size_t b) { asm("int3");return 0; }
 mode_t umask(mode_t numask) { asm("int3");return 0; }
-void siglongjmp(sigjmp_buf a, int b) { asm("int3"); }
-int sigsetjmp(sigjmp_buf a, int b) { asm("int3");return 0; }
 void clearerr(FILE *f) { asm("int3"); }
 int rmdir(const char *path) { asm("int3");return 0; }
 char *tempnam(const char *s, const char *ss) { asm("int3");return NULL; }

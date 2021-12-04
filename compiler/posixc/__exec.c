@@ -469,7 +469,7 @@ static void __exec_do_pretend_child(struct PosixCIntBase *PosixCBase)
 
     /* Continue as parent process */
     D(bug("[__exec_do_pretend_child] Stop running as PRETEND_CHILD\n"));
-    _exit(0);
+    __progonly__Exit(0);
 
     assert(0); /* Should not be reached */
 }
@@ -557,7 +557,7 @@ static void __exec_do_regular(struct PosixCIntBase *PosixCBase)
     __exec_cleanup(PosixCBase);
     
     D(bug("[__exec_do_regular] exiting from __exec()\n"));
-    _Exit(returncode);
+    __progonly__Exit(returncode);
 }
 
 

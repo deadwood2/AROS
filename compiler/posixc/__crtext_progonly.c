@@ -116,44 +116,44 @@
         __progonly_callexitfuncs();
 }
 
-// /*****************************************************************************
+/*****************************************************************************
 
-//     NAME */
-//         int *__stdc_set_errorptr(
+    NAME */
+        int *__progonly_set_errorptr(
 
-// /*  SYNOPSIS */
-//         int *errorptr)
+/*  SYNOPSIS */
+        int *errorptr)
 
-// /*  FUNCTION
-//         This function sets the pointer to store error return value for
-//         program exit.
+/*  FUNCTION
+        This function sets the pointer to store error return value for
+        program exit.
 
-//     INPUTS
-//         errorptr - new pointer to return value
+    INPUTS
+        errorptr - new pointer to return value
 
-//     RESULT
-//         old pointer to return value
+    RESULT
+        old pointer to return value
 
-//     NOTES
+    NOTES
 
-//     EXAMPLE
+    EXAMPLE
 
-//     BUGS
+    BUGS
 
-//     SEE ALSO
+    SEE ALSO
 
-//     INTERNALS
+    INTERNALS
 
-// ******************************************************************************/
-// {
-//     struct StdCIntBase *StdCBase =
-//         (struct StdCIntBase *)__aros_getbase_StdCBase();
-//     int *old = StdCBase->startup_errorptr;
+******************************************************************************/
+{
+    struct StdCIntBase *StdCBase =
+        (struct StdCIntBase *)__aros_getbase_StdCBase();
+    int *old = StdCBase->startup_errorptr;
 
-//     StdCBase->startup_errorptr = errorptr;
+    StdCBase->startup_errorptr = errorptr;
 
-//     return old;
-// }
+    return old;
+}
 
 /*****************************************************************************
 

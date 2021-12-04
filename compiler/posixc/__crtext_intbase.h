@@ -24,6 +24,8 @@ struct Library * __aros_getbase_CrtExtBase();
 void __progonly_set_exitjmp(jmp_buf exitjmp, jmp_buf previousjmp);
 void __progonly_jmp2exit(int normal, int retcode);
 int *__progonly_get_errorptr(void);
+int *__progonly_set_errorptr(int *errorptr);
 void __progonly_callexitfuncs(void);
+void __progonly_program_startup(jmp_buf exitjmp, int *errorptr);
 
 #endif //__CRTEXT_INTBASE_H
