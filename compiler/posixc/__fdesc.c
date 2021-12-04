@@ -519,6 +519,18 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
           pPosixCBase, pPosixCBase ? pPosixCBase->flags : 0
     ));
 
+    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+
+    if (ProgCtx && (ProgCtx->vforkflags | EXEC_PARENT))
+    {
+        /* I'm EXEC_PARENT amd executing this program through exec() and this program opened its own library base */
+        int res = __copy_fdarray(ProgCtx->libbase->PosixCBase->fd_array, ProgCtx->libbase->PosixCBase->fd_slots);
+        /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
+        PosixCBase->fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
+        return res;
+    }
+    else
+
     // FIXME!!!
     // if (pPosixCBase && (pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
     // {

@@ -37,6 +37,8 @@ struct CrtExtProgCtx
 
     /* atexit.c */
     struct MinList              atexit_list;
+
+    struct CrtExtIntBase        *libbase;
 };
 
 struct CrtExtProgCtx * __aros_get_ProgCtx();

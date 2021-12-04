@@ -58,6 +58,7 @@ struct CrtExtProgCtx * __aros_create_ProgCtx()
 {
     struct CrtExtProgCtx *ProgCtx = AllocMem(sizeof(struct CrtExtProgCtx), MEMF_PUBLIC | MEMF_CLEAR);
     __progonly_init_atexit(ProgCtx);
+    ProgCtx->libbase = (struct CrtExtIntBase *)__aros_getbase_CrtExtBase();
 
     SetTaskStorageSlot(ProgCtxSlot, (IPTR)ProgCtx);
     return __aros_get_ProgCtx();
