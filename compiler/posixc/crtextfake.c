@@ -36,7 +36,6 @@ int remove(const char *filename) { asm("int3");return 0; }
 FILE *__posixc_fopen(const char *restrict c, const char *restrict d) { asm("int3");return NULL; }
 int fclose(FILE *f) { asm("int3");return 0; }
 size_t fread(void *restrict a, size_t b, size_t c, FILE *restrict f)  { asm("int3");return 0; }
-int fseek(FILE * f, long a, int b) { asm("int3");return 0; }
 double drand48(void) { asm("int3");return 0.0; }
 void srand48(long a) { asm("int3"); }
 int ferror(FILE *f) { asm("int3");return 0; }
@@ -49,7 +48,6 @@ void rewind(FILE *f) { asm("int3"); }
 int utime(const char *c, const struct utimbuf *u) { asm("int3");return 0; }
 int system(const char *string) { asm("int3");return 0; }
 int rename(const char *old, const char *new) { asm("int3");return 0; }
-char *fgets(char *restrict c, int a, FILE *restrict f) { asm("int3");return NULL; }
 int setvbuf(FILE *restrict f, char *restrict c, int a, size_t b) { asm("int3");return 0; }
 char *gets(char *c) { asm("int3");return NULL; }
 long random(void) { asm("int3");return 0; }

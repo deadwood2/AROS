@@ -301,8 +301,10 @@ CRTEXT := \
     ../posixc/fdopen \
     ../posixc/fileno \
     ../posixc/fflush \
+    ../posixc/fgets \
     ../posixc/fputc \
     ../posixc/fputs \
+    ../posixc/fseek \
     ../posixc/fwrite \
     ../posixc/getenv \
     ../posixc/getpid \
