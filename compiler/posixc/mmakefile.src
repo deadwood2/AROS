@@ -296,21 +296,27 @@ CRTEXT := \
     __upath \
     __vfork \
     ../posixc/access \
+    ../posixc/execl \
     ../posixc/fdopen \
     ../posixc/fileno \
     ../posixc/fflush \
+    ../posixc/fputc \
     ../posixc/fputs \
+    ../posixc/fwrite \
     ../posixc/getenv \
     ../posixc/getpid \
     ../posixc/gettimeofday \
     ../posixc/ioctl \
     ../posixc/isatty \
+    ../posixc/perror \
     ../posixc/printf \
     ../posixc/putenv \
+    ../posixc/puts \
     ../posixc/stat \
     ../posixc/strerror \
     ../posixc/unsetenv \
     ../posixc/vfprintf \
+    ../posixc/waitpid \
     __crtext_init \
     __crtext_progonly \
     crtextfake \

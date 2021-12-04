@@ -29,11 +29,9 @@ struct tm *gmtime(const time_t *t) { asm("int3");return NULL; }
 struct tm *localtime(const time_t *t) { asm("int3");return NULL; }
 clock_t clock(void) { clock_t c; asm("int3");return c; }
 char *strtok (char * str, const char * sep) { asm("int3");return NULL; }
-int puts(const char *c) { asm("int3");return 0; }
 int putchar(int c) { asm("int3");return 0; }
 int scanf(const char *restrict c, ...) { asm("int3");return 0; }
 int fprintf(FILE *restrict f, const char *restrict c, ...) { asm("int3");return 0; }
-size_t fwrite(const void *restrict c, size_t b, size_t a, FILE *restrict f) { asm("int3");return 0; }
 int remove(const char *filename) { asm("int3");return 0; }
 FILE *__posixc_fopen(const char *restrict c, const char *restrict d) { asm("int3");return NULL; }
 int fclose(FILE *f) { asm("int3");return 0; }
@@ -43,9 +41,7 @@ double drand48(void) { asm("int3");return 0.0; }
 void srand48(long a) { asm("int3"); }
 int ferror(FILE *f) { asm("int3");return 0; }
 int fgetc(FILE *f) { asm("int3");return 0; }
-int fputc(int a, FILE *f) { asm("int3");return 0; }
 int ungetc(int a, FILE *f) { asm("int3");return 0; }
-void perror(const char *c) { asm("int3"); }
 int fchmod(int fildes, mode_t mode) { asm("int3");return 0; }
 int fchown(int fd, uid_t owner, gid_t group) { asm("int3");return 0; }
 int __posixc_lstat(const char * restrict path, struct stat * restrict sb) { asm("int3");return 0; }
@@ -89,7 +85,6 @@ FILE *tmpfile(void) { asm("int3");return NULL; }
 int chdir(const char *path) { asm("int3");return 0; }
 int __posixc_creat (const char * filename, int mode) { asm("int3");return 0; }
 int chown(const char *path, uid_t owner, gid_t group) { asm("int3");return 0; }
-int execl(const char *path, const char *arg, ...) { asm("int3");return 0; }
 int execlp(const char *path, const char *arg, ...) { asm("int3");return 0; }
 int execv(const char *path, char *const argv[]) { asm("int3");return 0; }
 int execve(const char *path, char *const argv[], char *const envp[]) { asm("int3");return 0; }
@@ -113,7 +108,6 @@ long int nrand48(unsigned short a[3]) { asm("int3");return 0; }
 unsigned short int *seed48(unsigned short a[3]) { asm("int3");return NULL; }
 int statfs(const char *a, struct statfs *b) { asm("int3");return 0; }
 int uname(struct utsname *a) { asm("int3");return 0; }
-pid_t waitpid(pid_t a, int *b, int c) { asm("int3");return 0; }
 pid_t wait(int *a) { asm("int3");return 0; }
 int posix_memalign(void **a, size_t b, size_t c) { asm("int3");return 0; }
 int __posixc_alphasort(const struct dirent **a, const struct dirent **b) { asm("int3");return 0; }
