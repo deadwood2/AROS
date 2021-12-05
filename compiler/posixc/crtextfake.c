@@ -29,7 +29,6 @@ struct tm *gmtime(const time_t *t) { asm("int3");return NULL; }
 struct tm *localtime(const time_t *t) { asm("int3");return NULL; }
 clock_t clock(void) { clock_t c; asm("int3");return c; }
 char *strtok (char * str, const char * sep) { asm("int3");return NULL; }
-int putchar(int c) { asm("int3");return 0; }
 int scanf(const char *restrict c, ...) { asm("int3");return 0; }
 int fprintf(FILE *restrict f, const char *restrict c, ...) { asm("int3");return 0; }
 int remove(const char *filename) { asm("int3");return 0; }

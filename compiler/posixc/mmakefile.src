@@ -314,6 +314,7 @@ CRTEXT := \
     ../posixc/open \
     ../posixc/perror \
     ../posixc/printf \
+    ../posixc/putchar \
     ../posixc/putenv \
     ../posixc/puts \
     ../posixc/stat \
