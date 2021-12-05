@@ -46,6 +46,7 @@ int main()
     {
         TEST(0);
     }
+    printf("\n");
 
     /* Testing nested vfork() + execl() */
     pid = vfork();
@@ -67,11 +68,11 @@ int main()
     }
     else if(pid == 0)
     {
-        //printf("I'm child of a parent\n");
+        printf("I'm child of a parent\n");
         pid_t pid2 = vfork();
         if((int) pid2 > 0)
         {
-            //printf("I'm child, I have my child with pid %d\n", (int) pid2);
+            printf("I'm child, I have my child with pid %d\n", (int) pid2);
             waitpid(pid2, NULL, 0);
         }
         else if(pid2 == 0)
