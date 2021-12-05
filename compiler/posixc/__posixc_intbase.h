@@ -64,7 +64,7 @@ struct PosixCIntBase
     APTR exec_pool;
     char **exec_tmparray;
     BPTR exec_oldin, exec_oldout, exec_olderr;
-    struct StdCBase *exec_oldstdcbase;
+    // struct StdCBase *exec_oldstdcbase;
 
     /* __fdesc.c */
     int fd_slots;

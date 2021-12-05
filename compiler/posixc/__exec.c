@@ -101,7 +101,7 @@ APTR __exec_prepare(const char *filename, int searchpath, char *const argv[], ch
     }
 
     /* Remember current stdcbase, child may overwrite it and mess up exiting */
-    PosixCBase->exec_oldstdcbase = PosixCBase->PosixCBase.StdCBase;
+    // PosixCBase->exec_oldstdcbase = PosixCBase->PosixCBase.StdCBase; FIXME!!!
 
     filename2 = assign_filename(filename, searchpath, environ, PosixCBase);
     if (!filename2)
@@ -741,9 +741,10 @@ static void __exec_cleanup(struct PosixCIntBase *PosixCBase)
         PosixCBase->exec_seglist = (BPTR)NULL;
     }
 
-    if (PosixCBase->exec_oldstdcbase)
-    {
-        PosixCBase->PosixCBase.StdCBase = PosixCBase->exec_oldstdcbase;
-        PosixCBase->exec_oldstdcbase = NULL;
-    }
+    // FIXME!!!
+    // if (PosixCBase->exec_oldstdcbase)
+    // {
+    //     PosixCBase->PosixCBase.StdCBase = PosixCBase->exec_oldstdcbase;
+    //     PosixCBase->exec_oldstdcbase = NULL;
+    // }
 }
