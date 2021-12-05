@@ -332,6 +332,7 @@ CRTEXT := \
     ../posixc/geteuid \
     ../posixc/getgid \
     ../posixc/getpid \
+    ../posixc/getrlimit \
     ../posixc/gettimeofday \
     ../posixc/getuid \
     ../posixc/ioctl \

@@ -116,7 +116,6 @@ void rewinddir(DIR *dir) { asm("int3"); }
 void setgrent(void) { asm("int3"); }
 void setpwent(void) { asm("int3"); }
 int __stdc_mb_cur_max(void) { asm("int3");return 0; }
-int getrlimit(int a, struct rlimit *b) { asm("int3");return 0; }
 char *getlogin(void) { asm("int3");return NULL; }
 char *ttyname(int fd) { asm("int3");return NULL; }
 int setgid(gid_t gid) { asm("int3");return 0; }
