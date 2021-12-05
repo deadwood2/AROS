@@ -521,7 +521,7 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
 
     struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
 
-    if (ProgCtx && (ProgCtx->vforkflags | EXEC_PARENT))
+    if (ProgCtx && (ProgCtx->vforkflags & EXEC_PARENT))
     {
         /* I'm EXEC_PARENT amd executing this program through exec() and this program opened its own library base */
         int res = __copy_fdarray(ProgCtx->libbase->PosixCBase->fd_array, ProgCtx->libbase->PosixCBase->fd_slots);
