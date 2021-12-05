@@ -41,7 +41,7 @@ struct vfork_data
     char *parent_upathbuf;
 
     struct Task *child;
-    int child_executed;
+    int child_called_exec;
     int child_error, child_errno;
     BYTE child_signal;
     BYTE child_state;

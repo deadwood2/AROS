@@ -158,11 +158,11 @@ LONG launcher()
         ASSERTPARENTSTATE(PARENT_STATE_EXEC_CALLED | PARENT_STATE_EXIT_CALLED);
         PRINTSTATE;
 
-        if (udata->child_executed)
+        if (udata->child_called_exec)
         {
             APTR exec_id;
 
-            D(bug("launcher: child executed\n"));
+            D(bug("launcher: child called exec()\n"));
 
             child_takeover(udata);
 
@@ -205,7 +205,7 @@ LONG launcher()
 
             if (exec_id)
             {
-                D(bug("launcher: catch _exit()\n"));
+                D(bug("launcher: prepare to catch _exit()\n"));
                 /* Part 2 of "program_startup" for child. */
                 __progonly_program_startup_internal(ProgCtx, exec_exitjmp, &exec_error);
 
@@ -220,9 +220,9 @@ LONG launcher()
                 ret = -1;
             }
         }
-        else /* !udata->child_executed */
+        else /* !udata->child_called_exec */
         {
-            D(bug("launcher: child not executed\n"));
+            D(bug("launcher: child did not call exec()\n"));
 
             D(bug("launcher: informing parent that we won't use udata anymore\n"));
             /* Inform parent that we won't use udata anymore */
@@ -310,7 +310,7 @@ pid_t __vfork(jmp_buf env)
     }
     else /* setjmp() != 0; _exit() was called */
     {
-        D(bug("__vfork: ParentPretendingChild: exiting or executed\n"));
+        D(bug("__vfork: ParentPretendingChild: child called exit() or exec()\n"));
 
         /* Stack may have been overwritten when we return here,
          * we jump to here from a function lower in the call chain
@@ -321,9 +321,9 @@ pid_t __vfork(jmp_buf env)
 
         D(bug("__vfork: ParentPretendingChild: ThisTask=%p, ProgCtx=%p, vfork_data = %x\n", this, ProgCtx, udata));
 
-        if (!udata->child_executed)
+        if (!udata->child_called_exec)
         {
-            D(bug("__vfork: ParentPretendingChild: not executed\n"));
+            D(bug("__vfork: ParentPretendingChild: child did not call exec()\n"));
 
             /* et_Result is normally set in startup code but no exec was performed
                so we have to mimic the startup code
@@ -383,7 +383,7 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
     */
     parent_leavepretendchild(udata);
 
-    if(udata->child_executed)
+    if(udata->child_called_exec)
     {
         D(bug("__vfork: Inform child that we are after _exit()\n"));
         SETPARENTSTATE(PARENT_STATE_STOPPED_PRETENDING);

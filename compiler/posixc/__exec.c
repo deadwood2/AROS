@@ -222,7 +222,7 @@ static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], ch
     udata->exec_envp = envp;
 
     /* Set this so the child knows that __exec_prepare was called */
-    udata->child_executed = 1;
+    udata->child_called_exec = 1;
 
     D(bug("[__exec_prepare_pretend_child] Calling child\n"));
     /* Now call child process, so it will call __exec_prepare */
