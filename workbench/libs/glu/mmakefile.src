@@ -9,7 +9,7 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM- workbench-libs-complete : workbench-libs-glu
 
-#MM workbench-libs-glu : includes workbench-libs-mesa-linklib workbench-libs-glu-fetch
+##MM workbench-libs-glu : includes workbench-libs-mesa-linklib workbench-libs-glu-fetch
 #MM workbench-libs-glu-includes : workbench-libs-glu-fetch
 
 #MM- includes-copy : workbench-libs-glu-includes
@@ -156,10 +156,10 @@ CC_SOURCES := \
 %create_patch mmake=workbench-libs-glu-create-patch \
     archive=$(ARCHBASE) srcdir=$(ARCHBASE) destination=$(PORTSDIR)/glu
 
-%build_module mmake=workbench-libs-glu \
-    modname=glu modtype=library linklibname=GLU \
-    files="$(LIBRARY_SOURCES)" cxxfiles="$(EMUL_CXX_SOURCES) $(CC_SOURCES)" \
-    uselibs="GL posixc stdcio stdc"
+#%build_module mmake=workbench-libs-glu \
+#    modname=glu modtype=library linklibname=GLU \
+#    files="$(LIBRARY_SOURCES)" cxxfiles="$(EMUL_CXX_SOURCES) $(CC_SOURCES)" \
+#    uselibs="GL crt crtext"
 
 #MM
 workbench-libs-glu-includes:
