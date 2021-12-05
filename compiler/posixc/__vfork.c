@@ -154,6 +154,7 @@ LONG launcher()
        Parent libbase until it gets opened by program in case
        of exec()
     */
+
     ProgCtx->libbase = NULL; /* No-op, but logic depends on this! */
 
     if (setjmp(exec_exitjmp) == 0)
