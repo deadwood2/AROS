@@ -545,7 +545,7 @@ USER_CPPFLAGS := \
 #    linklibfiles=$(STDC_LINKLIB) linklibobjs=$(STDC_LINKOBJS)
 
 CRT := \
-    strcat strchr strcmp strcasecmp __ctype strcoll strcpy strlcpy strlen strncat strncmp strncpy \
+    strcat strchr strcmp strcasecmp strcoll strcpy strlcpy strlen strncat strncmp strncpy \
     strrchr strsep strspn strcspn strtol strtoul strncasecmp strstr strtod strlcat strpbrk stpblk \
     strtoull strrev strnlen strtoll stccpy strupr strftime strtok_r strxfrm \
     snprintf vsnprintf __vcformat sprintf vsprintf sscanf vsscanf __vcscan \
@@ -553,13 +553,14 @@ CRT := \
     setjmp longjmp \
     atoi atol atof \
     stcd_l \
-    _fenv \
     mktime asctime_r gmtime_r \
+    _fenv __ctype \
     ../posixc/strptime ../posixc/setenv \
     localeconv setlocale \
 
 CRT_LINKLIB := \
-    strcasestr
+    strcasestr \
+    __ctype_linklib
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
