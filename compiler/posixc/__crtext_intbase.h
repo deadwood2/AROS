@@ -44,6 +44,7 @@ struct CrtExtProgCtx
 struct CrtExtProgCtx * __aros_get_ProgCtx();
 struct CrtExtProgCtx * __aros_create_ProgCtx();
 void __aros_delete_ProgCtx();
+struct CrtExtProgCtx * __aros_get_Parent_ProgCtx();
 
 void __progonly_set_exitjmp(jmp_buf exitjmp, jmp_buf previousjmp);
 void __progonly_jmp2exit(int normal, int retcode);

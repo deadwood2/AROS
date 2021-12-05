@@ -149,6 +149,13 @@ LONG launcher()
     ProgCtx = __aros_create_ProgCtx();
     udata->child_progctx = ProgCtx;
 
+    /* NOTE: Child is not opening C library on its own here
+       ProgCtx->libbase is NULL. If needed Child need to use
+       Parent libbase until it gets opened by program in case
+       of exec()
+    */
+    ProgCtx->libbase = NULL; /* No-op, but logic depends on this! */
+
     if (setjmp(exec_exitjmp) == 0)
     {
         /* Setup complete, signal parent */

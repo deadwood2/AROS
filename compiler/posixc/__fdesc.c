@@ -523,8 +523,20 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
 
     if (ProgCtx && (ProgCtx->vforkflags & EXEC_PARENT))
     {
-        /* I'm EXEC_PARENT amd executing this program through exec() and this program opened its own library base */
-        int res = __copy_fdarray(ProgCtx->libbase->PosixCBase->fd_array, ProgCtx->libbase->PosixCBase->fd_slots);
+        /*  I'm EXEC_PARENT and executing this program through exec() and this program opened its
+            own library base, so I need to copy file descriptors */
+        struct PosixCIntBase *copyfrom = NULL;
+        if (ProgCtx->libbase)
+            copyfrom = ProgCtx->libbase->PosixCBase;
+        else
+        {
+            /*  Wait, but I'm also a VFORK_CHILD and never had my own base. Need to copy from
+                my parents. */
+            copyfrom = __aros_get_Parent_ProgCtx()->libbase->PosixCBase;
+        }
+
+        int res = __copy_fdarray(copyfrom->fd_array, copyfrom->fd_slots);
+
         /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
         PosixCBase->fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
         return res;

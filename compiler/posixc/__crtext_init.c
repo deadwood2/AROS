@@ -71,6 +71,10 @@ void __aros_delete_ProgCtx()
     SetTaskStorageSlot(ProgCtxSlot, (IPTR)NULL);
 }
 
+struct CrtExtProgCtx * __aros_get_Parent_ProgCtx()
+{
+    return (struct CrtExtProgCtx *)GetParentTaskStorageSlot(ProgCtxSlot);
+}
 
 ADD2OPENLIB(__crtext_open, -50);
 ADD2CLOSELIB(__crtext_close, -50);
