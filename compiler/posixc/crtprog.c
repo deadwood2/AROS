@@ -46,9 +46,19 @@ int execl(const char *path, const char *arg, ...)
     return r;
 }
 
+int execv(const char *path, char *const argv[])
+{
+    return __progonly_execv(path, argv);
+}
+
 int execve(const char *path, char *const argv[], char *const envp[])
 {
     return __progonly_execve(path, argv, envp);
+}
+
+int execvp(const char *path, char *const argv[])
+{
+    return __progonly_execvp(path, argv);
 }
 
 static void __progonly_startup(struct ExecBase *SysBase)

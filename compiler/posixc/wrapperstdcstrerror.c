@@ -1,1 +1,0 @@
-#include "../stdc/strerror.c"

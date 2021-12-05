@@ -19,7 +19,7 @@
     NAME */
 #include <unistd.h>
 
-        int execv(
+        int __progonly_execv(
 
 /*  SYNOPSIS */
         const char *path,

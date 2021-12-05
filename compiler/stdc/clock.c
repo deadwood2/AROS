@@ -8,6 +8,7 @@
 #include <proto/dos.h>
 
 #include "__stdc_intbase.h"
+#include "../posixc/__crtext_intbase.h"
 
 /*****************************************************************************
 
@@ -69,9 +70,9 @@
     return retval;
 } /* clock */
 
-int __init_clock(struct StdCIntBase *StdCBase)
+int __init_clock(struct CrtExtIntBase *CrtExtBase)
 {
-    DateStamp(&StdCBase->starttime);
+    DateStamp(&CrtExtBase->StdCBase->starttime);
 
     return 1;
 }

@@ -19,7 +19,7 @@
     NAME */
 #include <unistd.h>
 
-        int execvp(
+        int __progonly_execvp(
 
 /*  SYNOPSIS */
         const char *file,

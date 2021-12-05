@@ -19,7 +19,9 @@
 
 #include "debug.h"
 
-static int __init_timerbase(struct StdCIntBase *StdCBase);
+#include "../posixc/__crtext_intbase.h"
+
+static int __init_timerbase(struct CrtExtIntBase *CrtExtBase);
 #define TimerBase       StdCBase->StdCTimerBase
 
 /*****************************************************************************
@@ -65,14 +67,15 @@ static int __init_timerbase(struct StdCIntBase *StdCBase);
 
 ******************************************************************************/
 {
-    struct StdCIntBase *StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
+    struct CrtExtIntBase *CrtExtBase = (struct CrtExtIntBase *)__aros_getbase_CrtExtBase();
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
     struct timeval tv;
 
     /* We get TimerBase here and not during LIBINIT because timer.device is not available
        when stdc.library is initialized.
     */
     if (TimerBase == NULL)
-        __init_timerbase(StdCBase);
+        __init_timerbase(CrtExtBase);
     if (TimerBase == NULL)
     {
         errno = EACCES;
@@ -89,9 +92,10 @@ static int __init_timerbase(struct StdCIntBase *StdCBase);
     return tv.tv_sec;
 } /* time */
 
-
-static int __init_timerbase(struct StdCIntBase *StdCBase)
+static int __init_timerbase(struct CrtExtIntBase *CrtExtBase)
 {
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+
     D(bug("[%s] %s()\n", STDCNAME, __func__));
 
     memset( &StdCBase->timeport, 0, sizeof( StdCBase->timeport ) );
@@ -124,8 +128,10 @@ static int __init_timerbase(struct StdCIntBase *StdCBase)
 }
 
 
-static void __exit_timerbase(struct StdCIntBase *StdCBase)
+static void __exit_timerbase(struct CrtExtIntBase *CrtExtBase)
 {
+    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+
     D(bug("[%s] %s()\n", STDCNAME, __func__));
 
     if (TimerBase != NULL)
