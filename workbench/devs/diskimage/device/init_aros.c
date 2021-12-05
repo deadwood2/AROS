@@ -30,7 +30,6 @@
 #include "progress.h"
 #include <exec/exec.h>
 #include <proto/exec.h>
-#include <proto/stdc.h>
 
 #include <expat.h>
 
@@ -50,7 +49,6 @@ static int LibInit(struct DiskImageBase *libBase)
 	libBase->DOSBase = (struct Library *)__aros_getbase_DOSBase();
         libBase->UtilityBase = (struct Library *)__aros_getbase_UtilityBase();
         libBase->IntuitionBase = (struct Library *)__aros_getbase_IntuitionBase();
-        libBase->StdCBase = (struct Library *)__aros_getbase_StdCBase();
 
         if ((libBase->UnitSemaphore = CreateSemaphore()) &&
             (libBase->PluginSemaphore = CreateSemaphore()) &&
