@@ -565,18 +565,6 @@ CRT_LINKLIB := \
     files="$(STDC_MATH) $(CRT) crtfake" \
     linklibfiles=$(CRT_LINKLIB)
 
-CRTEXT := \
-    crtextfake
-
-CRTEXT_LINKLIB := \
-    ../posixc/getopt \
-    ../posixc/posixc_environ \
-
-%build_module mmake=compiler-crtext \
-    modname=crtext modtype=library \
-    files="$(CRTEXT)" \
-    linklibfiles="$(CRTEXT_LINKLIB)"
-
 STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notdir $(STDCIO_COMMON))))
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' \

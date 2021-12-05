@@ -264,3 +264,15 @@ POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notd
 #    files="$(POSIXC) $(POSIXC_COMMON) $(POSIXC_ARCH)" \
 #    linklibfiles="$(POSIXC_LINKLIB)" linklibobjs=$(POSIXC_LINKOBJS) \
 #    uselibs="stdc_rel stdcio_rel" usesdks="rel"
+
+CRTEXT := \
+    crtextfake
+
+CRTEXT_LINKLIB := \
+    getopt \
+    posixc_environ
+
+%build_module mmake=compiler-crtext \
+    modname=crtext modtype=library \
+    files="$(CRTEXT)" \
+    linklibfiles="$(CRTEXT_LINKLIB)"
