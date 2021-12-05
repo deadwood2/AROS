@@ -29,7 +29,7 @@ struct vfork_data
     BYTE parent_signal;
     BYTE parent_state;
     struct CrtExtProgCtx *parent_progctx;
-    struct StdCBase *parent_stdcbase;
+    // struct StdCBase *parent_stdcbase;
     int parent_cd_changed;
     BPTR parent_cd_lock;
     BPTR parent_curdir;

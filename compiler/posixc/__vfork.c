@@ -489,7 +489,7 @@ static void parent_enterpretendchild(struct vfork_data *udata)
     ProgCtx->vfork_data = udata;
 
     /* Remember and switch StdCBase */
-    udata->parent_stdcbase = PosixCBase->PosixCBase.StdCBase;
+    // udata->parent_stdcbase = PosixCBase->PosixCBase.StdCBase; FIXME!!!
     // PosixCBase->PosixCBase.StdCBase = udata->child_posixcbase->PosixCBase.StdCBase; FIXME!!!
     /* _[eE]xit() can also be called with the switched StdCBase so we also
        register the exit jmp_buf in this StdCBase. We don't need to remember
@@ -547,7 +547,7 @@ static void parent_leavepretendchild(struct vfork_data *udata)
     D(bug("parent_leavepretendchild(%x): entered\n", udata));
 
     /* Restore parent's StdCBase */
-    PosixCBase->PosixCBase.StdCBase = udata->parent_stdcbase;
+    // PosixCBase->PosixCBase.StdCBase = udata->parent_stdcbase; FIXME!!!
 
     /* Restore parent's env var list */
     PosixCBase->env_list = udata->parent_env_list;
