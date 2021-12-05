@@ -70,6 +70,8 @@ CUNITSTDCTESTFILES := \
 
 #MM test-dos-common : includes linklibs
 
+#MM test-dos-cunit : linklibs-cunit
+
 %build_progs mmake=test-dos-common \
     files=$(FILES) targetdir=$(EXEDIR)
 
