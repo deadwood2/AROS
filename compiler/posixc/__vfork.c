@@ -106,10 +106,13 @@
 /* The following functions are used to update the child's and parent's privdata
    for the parent pretending to be running as child and for the child to take
    over. It is called in the following sequence:
-   parent_enterpretendchild() is called in vfork() so the parent pretends to be
-   running as child; child_takeover() is called by child if exec*() so it can
-   continue from the parent state; parent_leavepretendchild() is called by
-   parent to switch back to be running as parent
+   1) parent_enterpretendchild() is called in vfork() so the parent pretends to be
+   running as child. Parent executes child code until the code has exec*() or exit():
+      1a) If exit(), execution is stoped and Parent jumps to "else" of "parent_newexitjmp"
+      1b) If exec*(), child_takeover() is called by Child so it can continue from
+      the Parent state
+   2) parent_leavepretendchild() is called by Parent to switch back to be running
+   as parent code
 */
 static void parent_enterpretendchild(struct vfork_data *udata);
 static void child_takeover(struct vfork_data *udata);
