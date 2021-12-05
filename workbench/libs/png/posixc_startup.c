@@ -3,17 +3,7 @@
 
 */
 
-#include <aros/symbolsets.h>
-#include <proto/stdc.h>
-#include <libraries/posixc.h>
-
-static int __posixc_startup(void)
+void abort(void)
 {
-    struct PosixCBase *PosixCBase = __aros_getbase_PosixCBase();
-
-    PosixCBase->StdCBase = __aros_getbase_StdCBase();
-
-    return PosixCBase->StdCBase != NULL;
+    int a = 0 / 0;
 }
-
-ADD2OPENLIB(__posixc_startup, -50);

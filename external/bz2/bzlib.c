@@ -81,7 +81,8 @@ void BZ2_bz__AssertH__fail ( int errcode )
    );
    }
 
-   exit(3);
+   //exit(3);
+   int a = 0 / 0;
 }
 #endif
 

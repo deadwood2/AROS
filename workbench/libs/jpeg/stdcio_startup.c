@@ -3,17 +3,7 @@
 
 */
 
-#include <aros/symbolsets.h>
-#include <proto/stdc.h>
-#include <libraries/stdcio.h>
-
-static int __stdcio_startup(void)
+void exit(void)
 {
-    struct StdCIOBase *StdCIOBase = __aros_getbase_StdCIOBase();
-
-    StdCIOBase->StdCBase = __aros_getbase_StdCBase();
-
-    return StdCIOBase->StdCBase != NULL;
+    int a = 0 / 0;
 }
-
-ADD2OPENLIB(__stdcio_startup, -50);
