@@ -12,23 +12,23 @@
 #include "__stdc_intbase.h"
 #include <fenv.h>
 
-void *__stdc_get_fe_dfl(void)
-{
-    struct StdCIntBase *_StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
-    return (void *)_StdCBase->__fe_dfl_env;
-}
+// void *__stdc_get_fe_dfl(void)
+// {
+//     struct StdCIntBase *_StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
+//     return (void *)_StdCBase->__fe_dfl_env;
+// }
 
-void *__stdc_get_fe_nom(void)
-{
-    struct StdCIntBase *_StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
-    return (void *)_StdCBase->__fe_nomask_env;
-}
+// void *__stdc_get_fe_nom(void)
+// {
+//     struct StdCIntBase *_StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
+//     return (void *)_StdCBase->__fe_nomask_env;
+// }
 
-int __stdc_get_fe_round(void)
-{
-    struct StdCIntBase *_StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
-    return _StdCBase->__fe_round;
-}
+// int __stdc_get_fe_round(void)
+// {
+//     struct StdCIntBase *_StdCBase = (struct StdCIntBase *)__aros_getbase_StdCBase();
+//     return _StdCBase->__fe_round;
+// }
 
 int _feclearexcept(int excepts)
 {

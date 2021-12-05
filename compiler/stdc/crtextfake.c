@@ -14,6 +14,9 @@
 #include <sys/time.h>
 #include <utime.h>
 #include <dirent.h>
+#include <sys/mount.h>
+#include <sys/utsname.h>
+#include <regex.h>
 
 void __assert(const char * expr, const char * file, unsigned int line) { asm("int3"); }
 void exit(int code) { asm("int3"); }
@@ -106,14 +109,48 @@ int __posixc_fgetpos(FILE *restrictf , fpos_t *restrict a) { asm("int3");return 
 int __posixc_fsetpos(FILE *f , const fpos_t *a) { asm("int3");return 0; }
 struct dirent *__posixc_readdir(DIR *dir) { asm("int3");return NULL; }
 char *getcwd(char *buf, size_t size) { asm("int3");return NULL; }
-
-
-int __stdc_gmtoffset(void) { asm("int3");return 0; }
-void __stdc_program_startup(jmp_buf exitjmp, int *errorptr) { asm("int3"); }
-int *__stdc_get_errorptr(void) { asm("int3");return NULL; }
-int *__stdc_set_errorptr(int *errorptr) { asm("int3");return NULL; }
-void __stdc_set_exitjmp(jmp_buf exitjmp, jmp_buf previousjmp) { asm("int3"); }
-char *__stdc_strerror (int n) { asm("int3");return NULL; }
-
-int __stdc_ioerr2errno(int ioerr) { asm("int3");return 0; }
-
+int __posixc_set_environptr(char ***environptr) { asm("int3");return 0; }
+char *asctime(const struct tm *t) { asm("int3");return NULL; }
+int raise(int a) { asm("int3");return 0; }
+char *ctime_r(const time_t *t, char *a) { asm("int3");return NULL; }
+struct tm *gmtime_r(const time_t *t, struct tm *a) { asm("int3");return NULL; }
+struct tm *localtime_r(const time_t *t, struct tm *a) { asm("int3");return NULL; }
+FILE *tmpfile(void) { asm("int3");return NULL; }
+int chdir(const char *path) { asm("int3");return 0; }
+int __posixc_creat (const char * filename, int mode) { asm("int3");return 0; }
+int chown(const char *path, uid_t owner, gid_t group) { asm("int3");return 0; }
+int execl(const char *path, const char *arg, ...) { asm("int3");return 0; }
+int execlp(const char *path, const char *arg, ...) { asm("int3");return 0; }
+int execv(const char *path, char *const argv[]) { asm("int3");return 0; }
+int execve(const char *path, char *const argv[], char *const envp[]) { asm("int3");return 0; }
+int execvp(const char *path, char *const argv[]) { asm("int3");return 0; }
+pid_t vfork(void) { asm("int3");return 0; }
+int fchdir(int fd) { asm("int3");return 0; }
+int mkdir(const char *path, mode_t mode) { asm("int3");return 0; }
+int __posixc_fstat(int fd, struct stat *sb) { asm("int3");return 0; }
+int dup(int oldfd) { asm("int3");return 0; }
+int fcntl (int fd, int cmd, ...) { asm("int3");return 0; }
+int mkstemp(char *c) { asm("int3");return 0; }
+int flock(int a, int b) { asm("int3");return 0; }
+char *mktemp(char *c) { asm("int3");return NULL; }
+int getfsstat (struct statfs *a, long b, int c) { asm("int3");return 0; }
+char *getpass(const char *c) { asm("int3");return NULL; }
+int pipe(int filedes[2]) { asm("int3");return 0; }
+unsigned sleep(unsigned a) { asm("int3");return 0; }
+long int jrand48(unsigned short a[3]) { asm("int3");return 0; }
+void lcong48(unsigned short a[7]) { asm("int3"); }
+long int lrand48(void) { asm("int3");return 0; }
+long int nrand48(unsigned short a[3]) { asm("int3");return 0; }
+unsigned short int *seed48(unsigned short a[3]) { asm("int3");return NULL; }
+int statfs(const char *a, struct statfs *b) { asm("int3");return 0; }
+int uname(struct utsname *a) { asm("int3");return 0; }
+pid_t waitpid(pid_t a, int *b, int c) { asm("int3");return 0; }
+pid_t wait(int *a) { asm("int3");return 0; }
+int posix_memalign(void **a, size_t b, size_t c) { asm("int3");return 0; }
+int __posixc_alphasort(const struct dirent **a, const struct dirent **b) { asm("int3");return 0; }
+int __posixc_scandir (const char *dir, struct dirent ***namelist, int (*select)(const struct dirent *), int (*compar)(const struct dirent **, const struct dirent **)) { asm("int3");return 0; }
+int regcomp(regex_t *restrict a, const char *restrict b, int c) { asm("int3");return 0; }
+size_t regerror(int a, const regex_t *restrict b, char *restrict c, size_t d) { asm("int3");return 0; }
+int regexec(const regex_t *restrict a, const char *restrict b, size_t c, regmatch_t d[], int e) { asm("int3");return 0; }
+void regfree(regex_t *a) { asm("int3"); }
+char *strndup(const char *a , size_t b) { asm("int3");return 0; }
