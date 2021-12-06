@@ -303,6 +303,8 @@ CRTEXT := \
     ../posixc/access \
     ../posixc/chmod \
     ../posixc/close \
+    ../posixc/closedir \
+    ../posixc/dup \
     ../posixc/dup2 \
     ../posixc/execl \
     ../posixc/execv \
@@ -340,6 +342,7 @@ CRTEXT := \
     ../posixc/lseek \
     ../posixc/lstat \
     ../posixc/open \
+    ../posixc/opendir \
     ../posixc/perror \
     ../posixc/pipe \
     ../posixc/printf \
@@ -347,6 +350,7 @@ CRTEXT := \
     ../posixc/putenv \
     ../posixc/puts \
     ../posixc/read \
+    ../posixc/readdir \
     ../posixc/remove \
     ../posixc/stat \
     ../posixc/strerror \

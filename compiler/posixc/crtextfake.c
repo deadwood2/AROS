@@ -45,16 +45,13 @@ double erand48(unsigned short a[3]) { asm("int3");return 0.0; }
 int usleep(useconds_t microseconds) { asm("int3");return 0; }
 void setbuf(FILE *restrict f, char *restrict c) { asm("int3"); }
 FILE *freopen(const char *restrict c, const char *restrict d, FILE *restrict f) { asm("int3");return NULL; }
-int closedir(DIR *dir) { asm("int3");return 0; }
 int fscanf(FILE *restrict f, const char *restrict c, ...) { asm("int3");return 0; }
 pid_t getppid(void) { asm("int3");return 0; }
 int kill(pid_t p, int a) { asm("int3");return 0; }
-DIR *opendir(const char *filename) { asm("int3");return NULL; }
 int pclose(FILE *f) { asm("int3");return 0; }
 FILE *popen(const char *c, const char *d) { asm("int3");return NULL; }
 int __posixc_fgetpos(FILE *restrictf , fpos_t *restrict a) { asm("int3");return 0; }
 int __posixc_fsetpos(FILE *f , const fpos_t *a) { asm("int3");return 0; }
-struct dirent *__posixc_readdir(DIR *dir) { asm("int3");return NULL; }
 char *asctime(const struct tm *t) { asm("int3");return NULL; }
 int raise(int a) { asm("int3");return 0; }
 char *ctime_r(const time_t *t, char *a) { asm("int3");return NULL; }
@@ -66,7 +63,6 @@ int __progonly_execlp(const char *path, const char *arg, ...) { asm("int3");retu
 int __progonly_execve(const char *path, char *const argv[], char *const envp[]) { asm("int3");return 0; }
 int fchdir(int fd) { asm("int3");return 0; }
 int mkdir(const char *path, mode_t mode) { asm("int3");return 0; }
-int dup(int oldfd) { asm("int3");return 0; }
 int mkstemp(char *c) { asm("int3");return 0; }
 int flock(int a, int b) { asm("int3");return 0; }
 char *mktemp(char *c) { asm("int3");return NULL; }
