@@ -315,11 +315,12 @@ pid_t __vfork(jmp_buf env)
               udata->vfork_jmp[0].regs[ALT]
         ));
 
+        /* This equals to "returning" from vfork() into child code (if(vfork() == 0)) */
         vfork_longjmp(udata->vfork_jmp, 0);
         assert(0); /* not reached */
         return (pid_t) 0;
     }
-    else /* setjmp() != 0; _exit() was called */
+    else /* _exit() was called either by Parent in child code or by Parent in __exec_do_pretend_child */
     {
         D(bug("__vfork: ParentPretendingChild: child called exit() or exec()\n"));
 
@@ -414,6 +415,7 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 
     D(bug("__vfork: Parent jumping to jmp_buf %p\n", env));
     D(bug("__vfork: ip: %p, stack: %p\n", env->retaddr, env->regs[SP]));
+    /* This equals to "returning" from vfork() into parent code (if(vfork() > 0)) */
     vfork_longjmp(env, GetETaskID(udata->child));
 }
 
