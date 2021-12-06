@@ -37,7 +37,7 @@ static char *appendargs(char *argptr, int *argptrsize, char *const args[], APTR 
 static void __exec_cleanup(struct __exec_context *ectx);
 
 static void __exec_do_regular(struct CrtExtProgCtx *ProgCt, struct __exec_context *ectx);
-static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx);
+static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx, struct __exec_context *ectx);
 static char *assign_filename(const char *filename, int searchpath, char **environ, struct __exec_context *ectx);
 static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], char *const envp[],
         struct vfork_data *udata, struct __exec_context *ectx);
@@ -59,7 +59,7 @@ void __exec_do(struct __exec_context *ectx)
     if (ProgCtx->vforkflags & PRETEND_CHILD)
     {
         /* forking parent executing child code prior to child taking over */
-        __exec_do_pretend_child(ProgCtx);
+        __exec_do_pretend_child(ProgCtx, ectx);
     }
     else
     {
@@ -457,7 +457,7 @@ error:
     return (APTR)NULL;
 }
 
-static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx)
+static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx, struct __exec_context *ectx)
 {
     /* When exec is called under vfork condition, the PRETEND_CHILD flag is set
        and we need to signal child that exec is called.
@@ -477,7 +477,7 @@ static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx)
 
     /* Clean up in parent */
     D(bug("[__exec_do_pretend_child] Cleaning up parent\n"));
-    // __exec_cleanup(ProgCtx); FIXME!!!
+    __exec_cleanup(ectx);
 
     /* Continue as parent process */
     D(bug("[__exec_do_pretend_child] Stop running as PRETEND_CHILD\n"));
