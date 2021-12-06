@@ -147,7 +147,7 @@ LONG launcher()
 
     /* Create context for this child. Part 1 of "program_startup" for child. */
     ProgCtx = __aros_create_ProgCtx();
-    udata->child_progctx = ProgCtx;
+    // udata->child_progctx = ProgCtx;
 
     /* NOTE: Child is not opening C library on its own here
        ProgCtx->libbase is NULL. If needed Child need to use
@@ -497,7 +497,7 @@ static void parent_enterpretendchild(struct vfork_data *udata)
        register the exit jmp_buf in this StdCBase. We don't need to remember
        old as child will overwrite these if it should call __exec_do().
     */
-    __progonly_program_startup_internal(udata->child_progctx, udata->parent_newexitjmp, &udata->child_error);
+    // __progonly_program_startup_internal(udata->child_progctx, udata->parent_newexitjmp, &udata->child_error);
 
     /* Remember and switch env var list */
     udata->parent_env_list = PosixCBase->env_list;

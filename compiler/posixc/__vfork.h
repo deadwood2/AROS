@@ -45,7 +45,7 @@ struct vfork_data
     int child_error, child_errno;
     BYTE child_signal;
     BYTE child_state;
-    struct CrtExtProgCtx *child_progctx;
+    // struct CrtExtProgCtx *child_progctx;
 
     const char *exec_filename;
     char *const *exec_argv;
