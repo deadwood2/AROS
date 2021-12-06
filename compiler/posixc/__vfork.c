@@ -171,7 +171,7 @@ LONG launcher()
 
         if (udata->child_called_exec)
         {
-            APTR exec_id;
+            APTR ectx;
 
             D(bug("launcher: child called exec()\n"));
 
@@ -182,7 +182,7 @@ LONG launcher()
             // PosixCBase->doupath = udata->parent_posixcbase->doupath; FIXME!!!
             // D(bug("launcher: doupath == %d for __exec_prepare()\n", PosixCBase->doupath)); FIXME!!!
             
-            exec_id = udata->exec_id = __exec_prepare(
+            ectx = udata->ectx = __exec_prepare(
                 udata->exec_filename,
                 0,
                 udata->exec_argv,
@@ -223,14 +223,14 @@ LONG launcher()
             ASSERTPARENTSTATE(PARENT_STATE_STOPPED_PRETENDING);
             PRINTSTATE;
 
-            if (exec_id)
+            if (ectx)
             {
                 D(bug("launcher: prepare to catch _exit()\n"));
                 /* Part 2 of "program_startup" for child. */
                 __progonly_program_startup_internal(ProgCtx, exec_exitjmp, &exec_error);
 
                 D(bug("launcher: executing command\n"));
-                __exec_do(exec_id);
+                __exec_do(ectx);
 
                 assert(0); /* Should not be reached */
             }

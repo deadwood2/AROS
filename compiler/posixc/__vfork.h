@@ -50,7 +50,7 @@ struct vfork_data
     const char *exec_filename;
     char *const *exec_argv;
     char *const *exec_envp;
-    APTR exec_id;
+    APTR ectx;
 };
 
 pid_t __vfork(jmp_buf env);

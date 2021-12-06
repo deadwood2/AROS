@@ -237,7 +237,7 @@ static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], ch
     ASSERTCHILDSTATE(CHILD_STATE_EXEC_PREPARE_FINISHED);
     PRINTSTATE;
 
-    if (!udata->exec_id)
+    if (!udata->ectx)
     {
         D(bug("[__exec_prepare_pretend_child] Continue child immediately on error\n"));
         SETPARENTSTATE(PARENT_STATE_EXEC_DO_FINISHED);
