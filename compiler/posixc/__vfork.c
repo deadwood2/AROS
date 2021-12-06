@@ -205,6 +205,15 @@ LONG launcher()
             PRINTSTATE;
 
             D(bug("launcher: informing parent that we won't use udata anymore\n"));
+
+            /* !!! No usage of parent library base beyond this point !!! */
+
+            /*
+                Once the signal is sent, parent will start leaving "pretend
+                child" state and will eventually jump to parent code which
+                can mean then exit from program and unload the library.
+            */
+
             /* Inform parent that we won't use udata anymore */
             SETCHILDSTATE(CHILD_STATE_UDATA_NOT_USED);
             Signal(udata->parent, 1 << udata->parent_signal);

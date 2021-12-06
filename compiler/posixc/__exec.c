@@ -34,29 +34,27 @@ static BOOL containswhite(const char *str);
 static char *escape(const char *str);
 static char *appendarg(char *argptr, int *argptrsize, const char *arg, APTR pool);
 static char *appendargs(char *argptr, int *argptrsize, char *const args[], APTR pool);
-static void __exec_cleanup(struct PosixCIntBase *PosixCBase);
+static void __exec_cleanup(struct __exec_context *ectx);
 
-static void __exec_do_regular(struct PosixCIntBase *PosixCBase, struct CrtExtProgCtx *ProgCt);
+static void __exec_do_regular(struct CrtExtProgCtx *ProgCt, struct __exec_context *ectx);
 static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx);
-static char * assign_filename(const char *filename, int searchpath, char **environ, struct PosixCIntBase *PosixCBase);
+static char *assign_filename(const char *filename, int searchpath, char **environ, struct __exec_context *ectx);
 static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], char *const envp[],
-        struct CrtExtProgCtx *ProgCtx);
+        struct vfork_data *udata, struct __exec_context *ectx);
 static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *const envp[],
-        char **environ, struct PosixCIntBase *PosixCBase);
+        char **environ, struct __exec_context *ectx);
 
 /* Public functions */
 /********************/
 
-void __exec_do(APTR id)
+void __exec_do(struct __exec_context *ectx)
 {
+    /*  Whole __exec_do has to operate without library base available, due to
+        vfork() + exec() case. See comment in __vfork.c/launcher */
+
     struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
-    struct PosixCIntBase *PosixCBase =
-        (struct PosixCIntBase *)__aros_getbase_PosixCBase();
 
     D(bug("[__exec_do] Entering, id(%x)\n", id));
-
-    /* id is unused */
-    (void)id;
 
     if (ProgCtx->vforkflags & PRETEND_CHILD)
     {
@@ -66,18 +64,18 @@ void __exec_do(APTR id)
     else
     {
         /* exec* without fork or forked child executing exec* */
-        __exec_do_regular(PosixCBase, ProgCtx);
+        __exec_do_regular(ProgCtx, ectx);
     }
 }
 
-APTR __exec_prepare(const char *filename, int searchpath, char *const argv[], char *const envp[])
+struct __exec_context *__exec_prepare(const char *filename, int searchpath, char *const argv[], char *const envp[])
 {
     struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
-    struct PosixCIntBase *PosixCBase =
-        (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     char *filename2 = NULL;
     char ***environptr = __posixc_get_environptr();
     char **environ = (environptr != NULL) ? *environptr : NULL;
+    APTR tmppool = NULL;
+    struct __exec_context *_return = NULL;
 
     D(bug("Entering __exec_prepare(\"%s\", %d, %x, %x)\n",
           filename, searchpath, argv, envp
@@ -89,42 +87,48 @@ APTR __exec_prepare(const char *filename, int searchpath, char *const argv[], ch
         goto error;
     }
 
-    /* Use own memory to allocate so that no stdc.library functions need to be called
-       exec_pool can also be allocated in __exec_valist2array
+    /* Use own memory to allocate so that C library functions need to be used
+       to clean up (see comment in __exec_do)
     */
-    if (!PosixCBase->exec_pool)
-        PosixCBase->exec_pool = CreatePool(MEMF_PUBLIC, 1024, 512);
-    if (!PosixCBase->exec_pool)
+    tmppool= CreatePool(MEMF_PUBLIC | MEMF_CLEAR, 1024, 512);
+    if (tmppool)
+    {
+        _return = (struct __exec_context *)AllocPooled(tmppool, sizeof(struct __exec_context));
+        _return->selfpool = tmppool;
+    }
+
+    if (!tmppool || !_return)
     {
         errno = ENOMEM;
         goto error;
     }
 
+
     /* Remember current stdcbase, child may overwrite it and mess up exiting */
     // PosixCBase->exec_oldstdcbase = PosixCBase->PosixCBase.StdCBase; FIXME!!!
 
-    filename2 = assign_filename(filename, searchpath, environ, PosixCBase);
+    filename2 = assign_filename(filename, searchpath, environ, _return);
     if (!filename2)
         goto error;
 
     if (ProgCtx->vforkflags & PRETEND_CHILD)
     {
         /* forking parent executing child code prior to child taking over */
-        return __exec_prepare_pretend_child(filename2, argv, envp, ProgCtx);
+        return __exec_prepare_pretend_child(filename2, argv, envp, ProgCtx->vfork_data, _return);
     }
     else
     {
         /* exec* without fork or forked child executing exec* */
-        return __exec_prepare_regular(filename2, argv, envp, environ, PosixCBase);
+        return __exec_prepare_regular(filename2, argv, envp, environ, _return);
     }
 
 error:
-    __exec_cleanup(PosixCBase);
+    __exec_cleanup(_return);
 
     return (APTR)NULL;
 }
 
-static char * assign_filename(const char *filename, int searchpath, char **environ, struct PosixCIntBase *PosixCBase)
+static char * assign_filename(const char *filename, int searchpath, char **environ, struct __exec_context *ectx)
 {
     /* Search path if asked and no directory separator is present in the file */
     if (searchpath && index(filename, '/') == NULL && index(filename, ':') == NULL)
@@ -154,14 +158,14 @@ static char * assign_filename(const char *filename, int searchpath, char **envir
 
         D(bug("assign_filename: PATH('%s')\n", path));
 
-        path_ptr = AllocPooled(PosixCBase->exec_pool, strlen(path) + 1);
+        path_ptr = AllocPooled(ectx->selfpool, strlen(path) + 1);
         strcpy(path_ptr, path);
         path = path_ptr;
 
         D(bug("assign_filename: PATH('%s')\n", path));
 
         size = 128;
-        filename2 = AllocPooled(PosixCBase->exec_pool, size);
+        filename2 = AllocPooled(ectx->selfpool, size);
         if (!filename2)
         {
             errno = ENOMEM;
@@ -180,9 +184,9 @@ static char * assign_filename(const char *filename, int searchpath, char **envir
 
             if (len > size)
             {
-                FreePooled(PosixCBase->exec_pool, filename2, size);
+                FreePooled(ectx->selfpool, filename2, size);
                 size = len;
-                filename2 = AllocPooled(PosixCBase->exec_pool, size);
+                filename2 = AllocPooled(ectx->selfpool, size);
                 if (!filename2)
                 {
                     errno = ENOMEM;
@@ -213,10 +217,8 @@ static char * assign_filename(const char *filename, int searchpath, char **envir
 }
 
 static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], char *const envp[],
-        struct CrtExtProgCtx *ProgCtx)
+        struct vfork_data *udata, struct __exec_context *ectx)
 {
-    struct vfork_data *udata = ProgCtx->vfork_data;
-
     udata->exec_filename = filename2;
     udata->exec_argv = argv;
     udata->exec_envp = envp;
@@ -240,19 +242,24 @@ static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], ch
         D(bug("[__exec_prepare_pretend_child] Continue child immediately on error\n"));
         SETPARENTSTATE(PARENT_STATE_EXEC_DO_FINISHED);
         Signal(udata->child, 1 << udata->child_signal);
-
-        return NULL;
+        goto error;
     }
 
     D(bug("[__exec_prepare_pretend_child] Exiting from forked __exec_prepare id=%x, errno=%d\n",
           udata->exec_id, udata->child_errno
     ));
 
-    return (APTR)ProgCtx;
+    /* Everything OK */
+    return (APTR)ectx;
+
+error:
+    __exec_cleanup(ectx);
+
+    return (APTR)NULL;
 }
 
 static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *const envp[],
-        char **environ, struct PosixCIntBase *PosixCBase)
+        char **environ, struct __exec_context *ectx)
 {
     const char *filename2_dos = NULL;
     int argssize = 512;
@@ -260,8 +267,8 @@ static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *c
 
     filename2_dos = __path_u2a(filename2);
 
-    PosixCBase->exec_args = AllocPooled(PosixCBase->exec_pool, argssize);
-    PosixCBase->exec_args[0] = '\0';
+    ectx->exec_args = AllocPooled(ectx->selfpool, argssize);
+    ectx->exec_args[0] = '\0';
 
     /* Let's check if it's a script */
     BPTR fh = Open((CONST_STRPTR)filename2_dos, MODE_OLDFILE);
@@ -305,17 +312,17 @@ static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *c
                         args[0] = filename2;
                     }
 
-                    PosixCBase->exec_args = appendargs(
-                        PosixCBase->exec_args, &argssize, args, PosixCBase->exec_pool
+                    ectx->exec_args = appendargs(
+                        ectx->exec_args, &argssize, args, ectx->selfpool
                     );
-                    if (!PosixCBase->exec_args)
+                    if (!ectx->exec_args)
                     {
-                       errno = ENOMEM;
+                        errno = ENOMEM;
                         goto error;
                     }
 
                     /* Set file to execute as the script interpreter */
-                    // filename2 = AllocPooled(PosixCBase->exec_pool, strlen(inter) + 1);
+                    filename2 = AllocPooled(ectx->selfpool, strlen(inter) + 1);
                     strcpy(filename2, inter);
                     filename2_dos = __path_u2a(filename2);
                 }
@@ -331,18 +338,18 @@ static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *c
     }
 
     /* Add arguments to command line args */
-    PosixCBase->exec_args = appendargs(PosixCBase->exec_args, &argssize, argv + 1, PosixCBase->exec_pool);
-    if (!PosixCBase->exec_args)
+    ectx->exec_args = appendargs(ectx->exec_args, &argssize, argv + 1, ectx->selfpool);
+    if (!ectx->exec_args)
     {
-       errno = ENOMEM;
-       goto error;
+        errno = ENOMEM;
+        goto error;
     }
 
     /* End command line args with '\n' */
-    if(strlen(PosixCBase->exec_args) > 0)
-       PosixCBase->exec_args[strlen(PosixCBase->exec_args) - 1] = '\n';
+    if(strlen(ectx->exec_args) > 0)
+       ectx->exec_args[strlen(ectx->exec_args) - 1] = '\n';
     else
-       strcat(PosixCBase->exec_args, "\n");
+       strcat(ectx->exec_args, "\n");
 
     /* let's make some sanity tests */
     struct stat st;
@@ -368,17 +375,17 @@ static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *c
     }
 
     /* Set taskname */
-    PosixCBase->exec_taskname = AllocPooled(PosixCBase->exec_pool, strlen(filename2_dos) + 1);
-    if (!PosixCBase->exec_taskname)
+    ectx->exec_taskname = AllocPooled(ectx->selfpool, strlen(filename2_dos) + 1);
+    if (!ectx->exec_taskname)
     {
         errno = ENOMEM;
         goto error;
     }
-    strcpy(PosixCBase->exec_taskname, filename2_dos);
+    strcpy(ectx->exec_taskname, filename2_dos);
 
     /* Load file to execute */
-    PosixCBase->exec_seglist = LoadSeg((CONST_STRPTR)filename2_dos);
-    if (!PosixCBase->exec_seglist)
+    ectx->exec_seglist = LoadSeg((CONST_STRPTR)filename2_dos);
+    if (!ectx->exec_seglist)
     {
         errno = ENOEXEC;
         goto error;
@@ -439,13 +446,13 @@ static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *c
         }
     }
 
-    D(bug("[__exec_prepare_regular] Done, returning %p\n", PosixCBase));
+    D(bug("[__exec_prepare_regular] Done, returning %p\n", ectx));
 
     /* Everything OK */
-    return (APTR)PosixCBase;
+    return (APTR)ectx;
 
 error:
-    __exec_cleanup(PosixCBase);
+    __exec_cleanup(ectx);
 
     return (APTR)NULL;
 }
@@ -479,7 +486,7 @@ static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx)
     assert(0); /* Should not be reached */
 }
 
-static void __exec_do_regular(struct PosixCIntBase *PosixCBase, struct CrtExtProgCtx *ProgCtx)
+static void __exec_do_regular(struct CrtExtProgCtx *ProgCtx, struct __exec_context *ectx)
 {
     char *oldtaskname;
     struct CommandLineInterface *cli = Cli();
@@ -489,8 +496,8 @@ static void __exec_do_regular(struct PosixCIntBase *PosixCBase, struct CrtExtPro
     ProgCtx->vforkflags |= EXEC_PARENT;
 
     oldtaskname = self->tc_Node.ln_Name;
-    self->tc_Node.ln_Name = PosixCBase->exec_taskname;
-    SetProgramName((STRPTR)PosixCBase->exec_taskname);
+    self->tc_Node.ln_Name = ectx->exec_taskname;
+    SetProgramName((STRPTR)ectx->exec_taskname);
 
 
     /* Set standard files to the standard files from arosc */
@@ -530,12 +537,13 @@ static void __exec_do_regular(struct PosixCIntBase *PosixCBase, struct CrtExtPro
         }
     }
 
-    D(bug("[__exec_do_regular] Running program, PosixCBase=%x\n", PosixCBase));
+    D(bug("[__exec_do_regular] Running program as task "%s"\n", self->tc_Node.ln_Name));
+
     returncode = RunCommand(
-        PosixCBase->exec_seglist,
+        ectx->exec_seglist,
         cli->cli_DefaultStack * CLI_DEFAULTSTACK_UNIT,
-        (STRPTR)PosixCBase->exec_args,
-        strlen(PosixCBase->exec_args)
+        (STRPTR)ectx->exec_args,
+        strlen(ectx->exec_args)
     );
 
     /* RunCommand() does not Close() standard output so may not flush either.
@@ -551,15 +559,10 @@ static void __exec_do_regular(struct PosixCIntBase *PosixCBase, struct CrtExtPro
     if(errchanged)
         me->pr_CES = olderr;
 
-    D(bug("[__exec_do_regular] Program ran, PosixCBase=%x, __aros_getbase_PosixCBase()=%x\n",
-          PosixCBase, __aros_getbase_PosixCBase()
-      )
-    );
-
     self->tc_Node.ln_Name = oldtaskname;
     SetProgramName((STRPTR)oldtaskname);
 
-    __exec_cleanup(PosixCBase);
+    __exec_cleanup(ectx);
     
     D(bug("[__exec_do_regular] exiting from __exec()\n"));
     __progonly__Exit(returncode);
@@ -726,20 +729,18 @@ static char *appendargs(char *argptr, int *argssizeptr, char *const args[], APTR
     return argptr;
 }
 
-static void __exec_cleanup(struct PosixCIntBase *PosixCBase)
+static void __exec_cleanup(struct __exec_context *ectx)
 {
     D(bug("[__exec_cleanup] me(%x)\n", FindTask(NULL)));
 
-    if (PosixCBase->exec_pool)
-    {
-        DeletePool(PosixCBase->exec_pool);
-        PosixCBase->exec_pool = NULL;
-    }
-    if (PosixCBase->exec_seglist)
-    {
-        UnLoadSeg(PosixCBase->exec_seglist);
-        PosixCBase->exec_seglist = (BPTR)NULL;
-    }
+    if (!ectx)
+        return;
+
+    if (ectx->exec_seglist)
+        UnLoadSeg(ectx->exec_seglist);
+
+    if (ectx->selfpool)
+        DeletePool(ectx->selfpool);
 
     // FIXME!!!
     // if (PosixCBase->exec_oldstdcbase)

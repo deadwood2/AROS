@@ -58,12 +58,7 @@ struct PosixCIntBase
     struct __env_item *env_list;
 
     /* __exec.c */
-    BPTR exec_seglist;
-    char *exec_args;
-    char *exec_taskname;
-    APTR exec_pool;
     char **exec_tmparray;
-    BPTR exec_oldin, exec_oldout, exec_olderr;
     // struct StdCBase *exec_oldstdcbase;
 
     /* __fdesc.c */
