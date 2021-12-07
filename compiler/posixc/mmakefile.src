@@ -273,6 +273,7 @@ CRTEXT := \
     ../stdc/__stdc_ioerr2errno \
     ../stdc/__stdc_geterrnoptr \
     ../stdc/__stdc_gmtoffset \
+    ../stdc/__stdc_mb_cur_max \
     ../stdc/abort \
     ../stdc/atexit \
     ../stdc/calloc \
@@ -283,16 +284,19 @@ CRTEXT := \
     ../stdc/localtime \
     ../stdc/localtime_r \
     ../stdc/malloc \
+    ../stdc/rand \
     ../stdc/realloc \
     ../stdc/realloc_nocopy \
     ../stdc/signal \
     ../stdc/strdup \
+    ../stdc/strndup \
     ../stdc/time \
     __env \
     __exec \
     __fdesc \
     __posixc_environ \
     ../posixc/__fopen \
+    ../posixc/__get_default_file \
     __posixc_nixmain \
     __posixc_stdstreams \
     __posixc_timer \
@@ -300,15 +304,22 @@ CRTEXT := \
     __stat \
     __upath \
     __vfork \
+    ../posixc/__usergrp \
     ../posixc/access \
+    ../posixc/basename \
+    ../posixc/chdir \
     ../posixc/chmod \
+    ../posixc/clearerr \
     ../posixc/close \
     ../posixc/closedir \
+    ../posixc/dirfd \
     ../posixc/dup \
     ../posixc/dup2 \
+    ../posixc/endpwent \
     ../posixc/execl \
     ../posixc/execv \
     ../posixc/execvp \
+    ../posixc/fchdir \
     ../posixc/fclose \
     ../posixc/fcntl \
     ../posixc/fdopen \
@@ -319,12 +330,14 @@ CRTEXT := \
     ../posixc/fgetc \
     ../posixc/fgets \
     ../posixc/fopen \
+    ../posixc/fopen64 \
     ../posixc/fprintf \
     ../posixc/fputc \
     ../posixc/fputs \
     ../posixc/fread \
     ../posixc/fseek \
     ../posixc/fstat \
+    ../posixc/fstat64 \
     ../posixc/ftell \
     ../posixc/ftruncate \
     ../posixc/fwrite \
@@ -332,8 +345,15 @@ CRTEXT := \
     ../posixc/getegid \
     ../posixc/getenv \
     ../posixc/geteuid \
+    ../posixc/getc_unlocked \
     ../posixc/getgid \
+    ../posixc/getgrgid \
+    ../posixc/getgroups \
+    ../posixc/getpgrp \
     ../posixc/getpid \
+    ../posixc/getppid \
+    ../posixc/getpwent \
+    ../posixc/getpwuid \
     ../posixc/getrlimit \
     ../posixc/gettimeofday \
     ../posixc/getuid \
@@ -341,6 +361,8 @@ CRTEXT := \
     ../posixc/isatty \
     ../posixc/lseek \
     ../posixc/lstat \
+    ../posixc/mkdir \
+    ../posixc/mkstemp \
     ../posixc/open \
     ../posixc/opendir \
     ../posixc/perror \
@@ -352,11 +374,26 @@ CRTEXT := \
     ../posixc/read \
     ../posixc/readdir \
     ../posixc/remove \
+    ../posixc/rename \
+    ../posixc/rmdir \
+    ../posixc/setvbuf \
+    ../posixc/setrlimit \
+    ../posixc/sigaction \
+    ../posixc/sigaddset \
+    ../posixc/sigemptyset \
+    ../posixc/sigismember \
+    ../posixc/sigprocmask \
     ../posixc/stat \
     ../posixc/strerror \
+    ../posixc/symlink \
+    ../posixc/tcgetattr \
+    ../posixc/tcsetattr \
+    ../posixc/umask \
+    ../posixc/uname \
     ../posixc/ungetc \
     ../posixc/unsetenv \
     ../posixc/vfprintf \
+    ../posixc/wait \
     ../posixc/waitpid \
     ../posixc/write \
     __crtext_init \

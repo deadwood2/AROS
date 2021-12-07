@@ -45,23 +45,24 @@
     return oumask;
 }
 
-static int __umask_init(struct PosixCIntBase *PosixCBase)
-{
-    struct PosixCIntBase *pPosixCBase;
+// FIXME!!!
+// static int __umask_init(struct PosixCIntBase *PosixCBase)
+// {
+//     struct PosixCIntBase *pPosixCBase;
 
-    pPosixCBase = __GM_GetBaseParent(PosixCBase);
+//     pPosixCBase = __GM_GetBaseParent(PosixCBase);
 
-    /* TODO: Implement umask() properly
-       Currently information is not used in any of the related functions
-    */
+//     /* TODO: Implement umask() properly
+//        Currently information is not used in any of the related functions
+//     */
 
-     /* Child of exec*()/vfork() functions inherit umask of parent */
-    if (pPosixCBase && (pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
-        PosixCBase->umask = pPosixCBase->umask;
-    else
-        PosixCBase->umask = S_IWGRP|S_IWOTH;
+//      /* Child of exec*()/vfork() functions inherit umask of parent */
+//     if (pPosixCBase && (pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
+//         PosixCBase->umask = pPosixCBase->umask;
+//     else
+//         PosixCBase->umask = S_IWGRP|S_IWOTH;
 
-    return 1;
-}
+//     return 1;
+// }
 
-ADD2OPENLIB(__umask_init, 0);
+// ADD2OPENLIB(__umask_init, 0);

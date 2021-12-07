@@ -91,15 +91,19 @@ error:
     return -1;
 }
 
-int __init_chdir(struct PosixCIntBase *PosixCBase)
+#include "__crtext_intbase.h"
+
+int __init_chdir(struct CrtExtIntBase *CrtExtBase)
 {
+    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
     PosixCBase->cd_changed = FALSE;
 
     return 1;
 }
 
-void __exit_chdir(struct PosixCIntBase *PosixCBase)
+void __exit_chdir(struct CrtExtIntBase *CrtExtBase)
 {
+    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
     if( PosixCBase->cd_changed )
     {
         BPTR lock = CurrentDir( PosixCBase->cd_lock );
