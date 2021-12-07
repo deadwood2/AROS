@@ -13,7 +13,7 @@
 
 LONG ProgCtxSlot = -1;
 
-static int __crtext_open(struct CrtExtIntBase *CrtExtBase)
+int __crtext_open(struct CrtExtIntBase *CrtExtBase)
 {
     D(bug("[crtext] %s(0x%p)\n", __func__, CrtExtBase));
 
@@ -23,11 +23,12 @@ static int __crtext_open(struct CrtExtIntBase *CrtExtBase)
     CrtExtBase->StdCBase    = AllocMem(sizeof(struct StdCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
     CrtExtBase->PosixCBase  = AllocMem(sizeof(struct PosixCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
     CrtExtBase->PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR, 256, 256);
+    CrtExtBase->fakevforkbase = NULL;
 
     return 1;
 }
 
-static void __crtext_close(struct CrtExtIntBase *CrtExtBase)
+void __crtext_close(struct CrtExtIntBase *CrtExtBase)
 {
     D(bug("[crtext] %s(0x%p)\n", __func__, CrtExtBase));
 
@@ -37,16 +38,34 @@ static void __crtext_close(struct CrtExtIntBase *CrtExtBase)
 
 }
 
+void __aros_setoffsettable(void *base);
+
+void __aros_setbase_CrtExtBase(struct CrtExtIntBase *CrtExtBase)
+{
+    __aros_setoffsettable(CrtExtBase);
+}
+
+void __aros_setbase_fake_CrtExtBase(struct CrtExtIntBase *fCrtExtBase)
+{
+    struct CrtExtIntBase *CrtExtBase = (struct CrtExtIntBase *)__aros_getbase_CrtExtBase();
+    CrtExtBase->fakevforkbase = fCrtExtBase;
+}
+
 struct StdCBase * __aros_getbase_StdCBase()
 {
     struct CrtExtIntBase *CrtExtBase = (struct CrtExtIntBase *)__aros_getbase_CrtExtBase();
+
     return (struct StdCBase *)CrtExtBase->StdCBase;
 }
 
 struct PosixCBase * __aros_getbase_PosixCBase()
 {
     struct CrtExtIntBase *CrtExtBase = (struct CrtExtIntBase *)__aros_getbase_CrtExtBase();
-    return (struct PosixCBase *)CrtExtBase->PosixCBase;
+
+    if (CrtExtBase->fakevforkbase)
+        return (struct PosixCBase *)CrtExtBase->fakevforkbase->PosixCBase;
+    else
+        return (struct PosixCBase *)CrtExtBase->PosixCBase;
 }
 
 struct CrtExtProgCtx * __aros_get_ProgCtx()

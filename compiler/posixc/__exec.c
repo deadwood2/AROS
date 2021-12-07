@@ -475,8 +475,8 @@ static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx, struct __exec
     SETPARENTSTATE(PARENT_STATE_EXEC_DO_FINISHED);
     Signal(udata->child, 1 << udata->child_signal);
 
-    /* Clean up in parent */
-    D(bug("[__exec_do_pretend_child] Cleaning up parent\n"));
+    /* Clean up not used context created in __exec_prepare_pretend_child */
+    D(bug("[__exec_do_pretend_child] Cleaning up context\n"));
     __exec_cleanup(ectx);
 
     /* Continue as parent process */

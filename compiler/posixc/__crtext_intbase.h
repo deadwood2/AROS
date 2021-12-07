@@ -17,6 +17,8 @@ struct CrtExtIntBase
     struct Library          lib;
     struct StdCIntBase      *StdCBase;
     struct PosixCIntBase    *PosixCBase;
+
+    struct CrtExtIntBase    *fakevforkbase;
 };
 
 struct Library * __aros_getbase_CrtExtBase();
@@ -40,6 +42,8 @@ struct CrtExtProgCtx
 
     struct CrtExtIntBase        *libbase;
 };
+
+#define NEWIMPL 1
 
 struct CrtExtProgCtx * __aros_get_ProgCtx();
 struct CrtExtProgCtx * __aros_create_ProgCtx();
