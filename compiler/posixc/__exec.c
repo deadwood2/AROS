@@ -31,7 +31,7 @@
 #include "__crtext_intbase.h"
 
 static BOOL containswhite(const char *str);
-static char *escape(const char *str);
+static char *escape(const char *str, APTR pool);
 static char *appendarg(char *argptr, int *argptrsize, const char *arg, APTR pool);
 static char *appendargs(char *argptr, int *argptrsize, char *const args[], APTR pool);
 static void __exec_cleanup(struct __exec_context *ectx);
@@ -639,7 +639,7 @@ static BOOL containswhite(const char *str)
 }
 
 /* Escape the string and quote it */
-static char *escape(const char *str)
+static char *escape(const char *str, APTR pool)
 {
     const char *strptr = str;
     char *escaped, *escptr;
@@ -656,7 +656,7 @@ static char *escape(const char *str)
             bufsize++;
         }
     }
-    escptr = escaped = (char*) malloc(bufsize);
+    escptr = escaped = (char*) AllocVecPooled(pool, bufsize);
     if(!escaped)
         return NULL;
     *escptr++ = '"';
@@ -713,14 +713,14 @@ static char *appendargs(char *argptr, int *argssizeptr, char *const args[], APTR
     {
         if(containswhite(*argsit))
         {
-            char *escaped = escape(*argsit);
+            char *escaped = escape(*argsit, pool);
             if(!escaped)
             {
                 FreePooled(pool, argptr, *argssizeptr);
                 return NULL;
             }
             argptr = appendarg(argptr, argssizeptr, escaped, pool);
-            free(escaped);
+            FreeVecPooled(pool, escaped);
         }
         else
             argptr = appendarg(argptr, argssizeptr, *argsit, pool);
