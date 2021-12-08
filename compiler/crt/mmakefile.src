@@ -621,6 +621,7 @@ USER_CPPFLAGS := \
         -D_BSD_SOURCE \
         -D_XOPEN_SOURCE=700 \
         -D_LARGEFILE64_SOURCE
+USER_INCLUDES :=  -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/compiler/posixc
 
 CRTEXT := \
     ../stdc/__ctype \
@@ -648,19 +649,17 @@ CRTEXT := \
     ../stdc/strdup \
     ../stdc/strndup \
     ../stdc/time \
-    __env \
-    __exec \
-    __fdesc \
-    __posixc_environ \
+    ../posixc/__env \
+    ../posixc/__fdesc \
+    ../posixc/__posixc_environ \
     ../posixc/__fopen \
     ../posixc/__get_default_file \
-    __posixc_nixmain \
-    __posixc_stdstreams \
-    __posixc_timer \
+    ../posixc/__posixc_nixmain \
+    ../posixc/__posixc_stdstreams \
+    ../posixc/__posixc_timer \
     ../posixc/__stdio \
-    __stat \
-    __upath \
-    __vfork \
+    ../posixc/__stat \
+    ../posixc/__upath \
     ../posixc/__usergrp \
     ../posixc/access \
     ../posixc/basename \
@@ -753,10 +752,12 @@ CRTEXT := \
     ../posixc/wait \
     ../posixc/waitpid \
     ../posixc/write \
-    __crtext_init \
-    __crtext_progonly \
-    crtextfake \
-    wrapperstdc
+    ../crt/__exec \
+    ../crt/__crtext_init \
+    ../crt/__crtext_progonly \
+    ../crt/__vfork \
+    ../crt/crtextfake \
+    ../crt/wrapperstdc
 
 CRTEXT_LINKLIB := \
     getopt \
@@ -771,6 +772,8 @@ CRTEXT_LINKLIB := \
     libname=crtprog files="crtprog"
 
 
+
+USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
 STDC_MATH_STATIC := \
     ../stdc/math/e_log \
