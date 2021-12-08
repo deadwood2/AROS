@@ -276,16 +276,14 @@ USER_LDFLAGS := -static
     mmake=workbench-classes-zune-levelmeter \
     modname=Levelmeter modtype=mui files=levelmeter \
     conffile=levelmeter.conf \
-    cflags="$(CFLAGS) -DZUNE_BUILTIN_LEVELMETER=0" \
-    uselibs="crt"
+    cflags="$(CFLAGS) -DZUNE_BUILTIN_LEVELMETER=0"
 
 #MM workbench-classes-zune-knob : includes
 %build_module \
     mmake=workbench-classes-zune-knob \
     modname=Knob modtype=mui files=knob \
     conffile=knob.conf \
-    cflags="$(CFLAGS) -DZUNE_BUILTIN_KNOB=0" \
-    uselibs="crt"
+    cflags="$(CFLAGS) -DZUNE_BUILTIN_KNOB=0"
 
 #MM workbench-classes-zune-dtpic : includes
 %build_module \
