@@ -15,11 +15,11 @@
 
 #include "__fdesc.h"
 
-struct CrtExtProgCtx;
+struct PosixCIntBase;
 
 struct vfork_data
 {
-    struct vfork_data *prev;                /* pointer to prev data; happens when vfork()ed process calls vfork() again */
+    struct vfork_data *prev;
     jmp_buf vfork_jmp;                      /* jmp to place where vfork was called */
 
     struct Task *parent;
@@ -28,8 +28,8 @@ struct vfork_data
     jmp_buf parent_newexitjmp;
     BYTE parent_signal;
     BYTE parent_state;
-    struct CrtExtProgCtx *parent_progctx;
-    // struct StdCBase *parent_stdcbase;
+    struct PosixCIntBase *parent_posixcbase;
+    struct StdCBase *parent_stdcbase;
     int parent_cd_changed;
     BPTR parent_cd_lock;
     BPTR parent_curdir;
@@ -41,16 +41,16 @@ struct vfork_data
     char *parent_upathbuf;
 
     struct Task *child;
-    int child_called_exec;
+    int child_executed;
     int child_error, child_errno;
     BYTE child_signal;
     BYTE child_state;
-    struct CrtExtProgCtx *child_progctx;
+    struct PosixCIntBase *child_posixcbase;
 
     const char *exec_filename;
     char *const *exec_argv;
     char *const *exec_envp;
-    APTR ectx;
+    APTR exec_id;
 };
 
 pid_t __vfork(jmp_buf env);
