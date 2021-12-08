@@ -4,7 +4,6 @@
     Get the MB_CUR_MAX value
     This function is both in static linklib as in stdc.library.
 */
-#include <libraries/stdc.h>
 
 int __stdc_mb_cur_max(void)
 {

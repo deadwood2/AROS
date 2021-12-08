@@ -4,9 +4,8 @@
     C99 function putchar()
 */
 
-#include <aros/debug.h>
 
-#include <libraries/posixc.h>
+#include <aros/debug.h>
 
 /*****************************************************************************
 

@@ -45,8 +45,6 @@ void __init_timerbase(struct PosixCIntBase *PosixCBase)
     }
 }
 
-#include "__crtext_intbase.h"
-
 static void __exit_timerbase(struct CrtExtIntBase *CrtExtBase)
 {
     struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;

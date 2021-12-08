@@ -19,8 +19,6 @@
 
 #include "debug.h"
 
-#include "../crt/__crtext_intbase.h"
-
 static int __init_timerbase(struct CrtExtIntBase *CrtExtBase);
 #define TimerBase       StdCBase->StdCTimerBase
 
@@ -91,6 +89,7 @@ static int __init_timerbase(struct CrtExtIntBase *CrtExtBase);
         *tloc = tv.tv_sec;
     return tv.tv_sec;
 } /* time */
+
 
 static int __init_timerbase(struct CrtExtIntBase *CrtExtBase)
 {

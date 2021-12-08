@@ -507,8 +507,6 @@ int __copy_fdarray(fdesc **__src_fd_array, int fd_slots)
     return 1;
 }
 
-#include "../crt/__crtext_intbase.h"
-
 int __init_fd(struct CrtExtIntBase *CrtExtBase)
 {
     struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;

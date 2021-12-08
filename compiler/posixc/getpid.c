@@ -7,9 +7,8 @@
 #include <proto/exec.h>
 #include <assert.h>
 
-#include "__vfork.h"
 #include "__posixc_intbase.h"
-#include "__crtext_intbase.h"
+#include "__vfork.h"
 
 /*****************************************************************************
 

@@ -4,11 +4,8 @@
     C99 function _Exit().
 */
 
-#include <libraries/stdc.h>
 
 #include <assert.h>
-
-#include "../crt/__crtext_intbase.h"
 
 /*****************************************************************************
 

@@ -25,8 +25,6 @@
 
 #include "__upath.h"
 
-#include "__crtext_intbase.h"
-
 static BOOL clone_vars(struct MinList *old_vars);
 static void restore_vars(struct MinList *old_vars);
 static void free_vars(struct MinList *vars);

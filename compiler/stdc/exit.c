@@ -4,15 +4,12 @@
     C99 function exit()
 */
 
-#include <libraries/stdc.h>
 
 #include <aros/debug.h>
 
 #include <assert.h>
 
 #include "debug.h"
-
-#include "../crt/__crtext_intbase.h"
 
 /*****************************************************************************
 

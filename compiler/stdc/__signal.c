@@ -6,8 +6,6 @@
 
 #define __NOBLIBBASE__
 
-#include <libraries/stdc.h>
-
 /* We include the signal.h of posixc.library for getting min/max signal number
    TODO: Implement more elegant way to get maximum and minimum signal number
 */
@@ -56,8 +54,6 @@ struct signal_func_data *__sig_getfuncdata(int signum)
 
     return &StdCBase->sigfunc_array[signum-1];
 }
-
-#include "../crt/__crtext_intbase.h"
 
 /* Handler for SIG_DFL */
 /* TODO: Maybe a mechanism has to be implemented so that default signal handler

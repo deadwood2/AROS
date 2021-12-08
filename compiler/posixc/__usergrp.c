@@ -29,8 +29,6 @@ void __fill_passwd(struct passwd *pwd, uid_t uid)
     pwd->pw_gecos    = DEF_USER_NAME;
 }
 
-#include "__crtext_intbase.h"
-
 int __init_usergrp(struct CrtExtIntBase *CrtExtBase)
 {
     struct PosixCIntBase *PosixCIntBase = CrtExtBase->PosixCBase;

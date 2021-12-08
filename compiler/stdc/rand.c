@@ -89,8 +89,6 @@
     StdCBase->srand_seed = seed;
 } /* srand */
 
-#include "../crt/__crtext_intbase.h"
-
 static int __rand_seedinit(struct CrtExtIntBase *CrtExtBase)
 {
     struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;

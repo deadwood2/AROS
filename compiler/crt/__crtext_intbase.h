@@ -9,8 +9,10 @@
 #include <dos/dos.h>
 #include <devices/timer.h>
 
-#include "../stdc/__stdc_intbase.h"
-#include "../posixc/__posixc_intbase.h"
+#include <setjmp.h>
+
+struct StdCIntBase;
+struct PosixCIntBase;
 
 struct CrtExtIntBase
 {

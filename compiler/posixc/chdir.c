@@ -91,8 +91,6 @@ error:
     return -1;
 }
 
-#include "__crtext_intbase.h"
-
 int __init_chdir(struct CrtExtIntBase *CrtExtBase)
 {
     struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;

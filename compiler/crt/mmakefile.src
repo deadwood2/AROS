@@ -621,7 +621,10 @@ USER_CPPFLAGS := \
         -D_BSD_SOURCE \
         -D_XOPEN_SOURCE=700 \
         -D_LARGEFILE64_SOURCE
-USER_INCLUDES :=  -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/compiler/posixc
+USER_INCLUDES := \
+    -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
+    -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
+    -iquote $(SRCDIR)/compiler/posixc
 
 CRTEXT := \
     ../stdc/__ctype \

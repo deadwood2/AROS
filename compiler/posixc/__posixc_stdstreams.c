@@ -4,7 +4,6 @@
     Get pointer to standard IO streams.
     These function is both in static linklib as in posixc.library.
 */
-#include <libraries/posixc.h>
 
 FILE *__stdio_getstdin(void)
 {

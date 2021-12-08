@@ -209,8 +209,6 @@ static const char * _errstrings[__STDC_ELAST+2] =
     /* Too high        */       NULL,
 };
 
-#include "../crt/__crtext_intbase.h"
-
 static int __stdc_dosinit(struct CrtExtIntBase *CrtExtBase)
 {
     struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
