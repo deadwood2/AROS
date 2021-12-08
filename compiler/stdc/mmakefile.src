@@ -1,6 +1,6 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-stdc compiler-stdcio compiler-crt
+##MM- AROS : compiler-stdc compiler-stdcio
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/$(CURDIR)/math -iquote $(FMTPRINTFDIR)
@@ -524,7 +524,7 @@ STDCIO := \
 STDCIO_COMMON := \
     __stdcio_stdstreams
 
-#MM- core-linklibs : linklibs-stdc linklibs-stdcio linklibs-libm linklibs-crt
+##MM- core-linklibs : linklibs-stdc linklibs-stdcio linklibs-libm
 
 STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $(STDC_COMMON))))
 
@@ -533,8 +533,8 @@ STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
     $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
 
-USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS :=
+USER_CFLAGS := $(NOWARN_FLAGS) -noposixc $(CFLAGS_NO_BUILTIN)
+USER_LDFLAGS := -nostdc -noposixc
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' 
 #USER_CPPFLAGS += -DDEBUG=1
@@ -543,29 +543,6 @@ USER_CPPFLAGS := \
 #    modname=stdc modtype=library \
 #    files="$(STDC) $(STDC_WCHAR) $(STDC_COMMON)" \
 #    linklibfiles=$(STDC_LINKLIB) linklibobjs=$(STDC_LINKOBJS)
-
-CRT := \
-    strcat strchr strcmp strcasecmp strcoll strcpy strlcpy strlen strncat strncmp strncpy \
-    strrchr strsep strspn strcspn strtol strtoul strncasecmp strstr strtod strlcat strpbrk stpblk \
-    strtoull strrev strnlen strtoll stccpy strupr strftime strtok_r strxfrm \
-    snprintf vsnprintf __vcformat sprintf vsprintf sscanf vsscanf __vcscan \
-    memmove memcmp memset qsort memchr bsearch \
-    setjmp longjmp \
-    atoi atol atof \
-    stcd_l \
-    mktime asctime_r gmtime_r \
-    _fenv __ctype \
-    ../posixc/strptime ../posixc/setenv \
-    localeconv setlocale \
-
-CRT_LINKLIB := \
-    strcasestr \
-    __ctype_linklib
-
-%build_module mmake=compiler-crt \
-    modname=crt modtype=library \
-    files="$(STDC_MATH) $(CRT) crtfake" \
-    linklibfiles=$(CRT_LINKLIB)
 
 STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notdir $(STDCIO_COMMON))))
 USER_CPPFLAGS := \
@@ -666,17 +643,17 @@ USER_CPPFLAGS := \
         -Dlint
 #USER_CPPFLAGS += -DDEBUG=1
 
-#MM- core-linklibs : linklibs-stdc-static
-%build_linklib mmake=linklibs-stdc-static libname=stdc.static \
-    files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
+##MM- core-linklibs : linklibs-stdc-static
+#%build_linklib mmake=linklibs-stdc-static libname=stdc.static \
+#    files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
-#MM- linklibs-romhack : compiler-crt
+#MM- linklibs-romhack : compiler-stdc
 # FIXME: The next romhack linklib is a temporary hack and has to be
 # excommunicated in the future !
 # setjmp()/longjmp() is used in dos.library so make it available.
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
-%build_linklib mmake=linklibs-romhack \
-    objdir=$(GENDIR)/$(CURDIR)/crt libname=romhack files="setjmp longjmp"
+#%build_linklib mmake=linklibs-romhack \
+#    objdir=$(GENDIR)/$(CURDIR)/stdc libname=romhack files="setjmp longjmp"
 
 # A dummy libm.a is provided so that -lm link option does not produce an error
 # objdir is provided to avoid that arch specific files end up in libm.a
@@ -689,6 +666,6 @@ ifeq ($(AROS_TARGET_CPU),x86_64)
 endif
 USER_CPPFLAGS += -DSTDC_LIB32
 
-%build_linklib mmake=linklibs-stdc-static32 \
-    libname=stdc.static files="$(STDC_STATIC)" objs=$(ROM_COMMON_OBJ32) \
-    objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32
+#%build_linklib mmake=linklibs-stdc-static32 \
+#    libname=stdc.static files="$(STDC_STATIC)" objs=$(ROM_COMMON_OBJ32) \
+#    objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32

@@ -1,6 +1,6 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-posixc compiler-crtext
+##MM- AROS : compiler-posixc
 
 POSIXC := \
     __env \
@@ -243,7 +243,7 @@ POSIXC_LINKLIB := \
 POSIXC_COMMON := \
     __posixc_stdstreams
 
-#MM- core-linklibs : linklibs-posixc linklibs-crtext linklibs-crtprog
+##MM- core-linklibs : linklibs-posixc
 
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS) $(CFLAGS_MERGE_CONSTANTS)
@@ -255,7 +255,7 @@ USER_CPPFLAGS := \
         -D_LARGEFILE64_SOURCE
 #USER_CPPFLAGS += -DDEBUG=1
 
-USER_LDFLAGS :=
+USER_LDFLAGS := -noposixc
 
 POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notdir $(POSIXC_COMMON))))
 
@@ -264,151 +264,3 @@ POSIXC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/posixc/,$(notd
 #    files="$(POSIXC) $(POSIXC_COMMON) $(POSIXC_ARCH)" \
 #    linklibfiles="$(POSIXC_LINKLIB)" linklibobjs=$(POSIXC_LINKOBJS) \
 #    uselibs="stdc_rel stdcio_rel" usesdks="rel"
-
-CRTEXT := \
-    ../stdc/__ctype \
-    ../stdc/__exitfunc \
-    ../stdc/__optionallibs \
-    ../stdc/__signal \
-    ../stdc/__stdc_ioerr2errno \
-    ../stdc/__stdc_geterrnoptr \
-    ../stdc/__stdc_gmtoffset \
-    ../stdc/__stdc_mb_cur_max \
-    ../stdc/abort \
-    ../stdc/atexit \
-    ../stdc/calloc \
-    ../stdc/clock \
-    ../stdc/_exit \
-    ../stdc/exit \
-    ../stdc/free \
-    ../stdc/localtime \
-    ../stdc/localtime_r \
-    ../stdc/malloc \
-    ../stdc/rand \
-    ../stdc/realloc \
-    ../stdc/realloc_nocopy \
-    ../stdc/signal \
-    ../stdc/strdup \
-    ../stdc/strndup \
-    ../stdc/time \
-    __env \
-    __exec \
-    __fdesc \
-    __posixc_environ \
-    ../posixc/__fopen \
-    ../posixc/__get_default_file \
-    __posixc_nixmain \
-    __posixc_stdstreams \
-    __posixc_timer \
-    ../posixc/__stdio \
-    __stat \
-    __upath \
-    __vfork \
-    ../posixc/__usergrp \
-    ../posixc/access \
-    ../posixc/basename \
-    ../posixc/chdir \
-    ../posixc/chmod \
-    ../posixc/clearerr \
-    ../posixc/close \
-    ../posixc/closedir \
-    ../posixc/dirfd \
-    ../posixc/dup \
-    ../posixc/dup2 \
-    ../posixc/endpwent \
-    ../posixc/execl \
-    ../posixc/execv \
-    ../posixc/execvp \
-    ../posixc/fchdir \
-    ../posixc/fclose \
-    ../posixc/fcntl \
-    ../posixc/fdopen \
-    ../posixc/ferror \
-    ../posixc/feof \
-    ../posixc/fileno \
-    ../posixc/fflush \
-    ../posixc/fgetc \
-    ../posixc/fgets \
-    ../posixc/fopen \
-    ../posixc/fopen64 \
-    ../posixc/fprintf \
-    ../posixc/fputc \
-    ../posixc/fputs \
-    ../posixc/fread \
-    ../posixc/fseek \
-    ../posixc/fstat \
-    ../posixc/fstat64 \
-    ../posixc/ftell \
-    ../posixc/ftruncate \
-    ../posixc/fwrite \
-    ../posixc/getcwd \
-    ../posixc/getegid \
-    ../posixc/getenv \
-    ../posixc/geteuid \
-    ../posixc/getc_unlocked \
-    ../posixc/getgid \
-    ../posixc/getgrgid \
-    ../posixc/getgroups \
-    ../posixc/getpgrp \
-    ../posixc/getpid \
-    ../posixc/getppid \
-    ../posixc/getpwent \
-    ../posixc/getpwuid \
-    ../posixc/getrlimit \
-    ../posixc/gettimeofday \
-    ../posixc/getuid \
-    ../posixc/ioctl \
-    ../posixc/isatty \
-    ../posixc/lseek \
-    ../posixc/lstat \
-    ../posixc/mkdir \
-    ../posixc/mkstemp \
-    ../posixc/open \
-    ../posixc/opendir \
-    ../posixc/perror \
-    ../posixc/pipe \
-    ../posixc/printf \
-    ../posixc/putchar \
-    ../posixc/putenv \
-    ../posixc/puts \
-    ../posixc/read \
-    ../posixc/readdir \
-    ../posixc/remove \
-    ../posixc/rename \
-    ../posixc/rmdir \
-    ../posixc/setvbuf \
-    ../posixc/setrlimit \
-    ../posixc/sigaction \
-    ../posixc/sigaddset \
-    ../posixc/sigemptyset \
-    ../posixc/sigismember \
-    ../posixc/sigprocmask \
-    ../posixc/stat \
-    ../posixc/strerror \
-    ../posixc/symlink \
-    ../posixc/tcgetattr \
-    ../posixc/tcsetattr \
-    ../posixc/umask \
-    ../posixc/uname \
-    ../posixc/ungetc \
-    ../posixc/unsetenv \
-    ../posixc/vfprintf \
-    ../posixc/wait \
-    ../posixc/waitpid \
-    ../posixc/write \
-    __crtext_init \
-    __crtext_progonly \
-    crtextfake \
-    wrapperstdc
-
-CRTEXT_LINKLIB := \
-    getopt \
-    posixc_environ
-
-%build_module mmake=compiler-crtext \
-    modname=crtext modtype=library \
-    files="$(CRTEXT)" \
-    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crt"
-
-%build_linklib mmake=linklibs-crtprog \
-    libname=crtprog files="crtprog"

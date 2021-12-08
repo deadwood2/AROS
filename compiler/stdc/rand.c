@@ -89,7 +89,7 @@
     StdCBase->srand_seed = seed;
 } /* srand */
 
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 
 static int __rand_seedinit(struct CrtExtIntBase *CrtExtBase)
 {

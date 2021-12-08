@@ -19,7 +19,7 @@
 
 #include "debug.h"
 
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 
 static int __init_timerbase(struct CrtExtIntBase *CrtExtBase);
 #define TimerBase       StdCBase->StdCTimerBase

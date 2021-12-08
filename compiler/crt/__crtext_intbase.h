@@ -10,7 +10,7 @@
 #include <devices/timer.h>
 
 #include "../stdc/__stdc_intbase.h"
-#include "__posixc_intbase.h"
+#include "../posixc/__posixc_intbase.h"
 
 struct CrtExtIntBase
 {

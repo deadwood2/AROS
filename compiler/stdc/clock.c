@@ -8,7 +8,7 @@
 #include <proto/dos.h>
 
 #include "__stdc_intbase.h"
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 
 /*****************************************************************************
 

@@ -1,0 +1,53 @@
+#
+
+include $(SRCDIR)/config/aros.cfg
+
+USER_AFLAGS 	:= -I$(GENINCDIR)
+
+STDC_X8664_FILES := \
+    ../fenv
+
+STDC_X8664_ASMFILES := \
+    ../stdc/longjmp \
+    ../stdc/setjmp
+
+# Add replacement math functions ..
+STDC_X8664_ASMFILES += \
+    ../stdc/math/e_fmod \
+    ../stdc/math/e_fmodf \
+    ../stdc/math/e_fmodl \
+    ../stdc/math/e_remainder \
+    ../stdc/math/e_remainderf \
+    ../stdc/math/e_remainderl \
+    ../stdc/math/e_sqrt \
+    ../stdc/math/e_sqrtf \
+    ../stdc/math/e_sqrtl \
+    ../stdc/math/s_llrint \
+    ../stdc/math/s_llrintf \
+    ../stdc/math/s_llrintl \
+    ../stdc/math/s_logbl \
+    ../stdc/math/s_lrint \
+    ../stdc/math/s_lrintf \
+    ../stdc/math/s_lrintl \
+    ../stdc/math/s_remquo \
+    ../stdc/math/s_remquof \
+    ../stdc/math/s_remquol \
+    ../stdc/math/s_rintl \
+    ../stdc/math/s_scalbn \
+    ../stdc/math/s_scalbnf \
+    ../stdc/math/s_scalbnl
+
+%build_archspecific \
+  mainmmake=compiler-crt \
+  modname=crt maindir=compiler/crt \
+  arch=x86_64 \
+  files="$(STDC_X8664_FILES)" asmfiles="$(STDC_X8664_ASMFILES)"
+
+#MM- compiler-crt-x86_64 : includes-asm_h
+
+#MM- compiler-crtext-x86_64 : includes-asm_h
+
+%build_archspecific \
+  mainmmake=compiler-crtext maindir=compiler/crt \
+  modname=crtext arch=x86_64 \
+  asmfiles="../posixc/siglongjmp ../posixc/sigsetjmp ../posixc/vfork ../posixc/vfork_longjmp"

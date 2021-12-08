@@ -2,7 +2,7 @@
     Copyright (C) 1995-2001, The AROS Development Team. All rights reserved.
 */
 
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 #include "__exitfunc.h"
 
 /*****************************************************************************

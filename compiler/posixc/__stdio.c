@@ -106,7 +106,7 @@ int __oflags2sflags(int omode)
     return ret;
 }
 
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 
 int __init_stdio(struct CrtExtIntBase *CrtExtBase)
 {

@@ -57,7 +57,7 @@ struct signal_func_data *__sig_getfuncdata(int signum)
     return &StdCBase->sigfunc_array[signum-1];
 }
 
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 
 /* Handler for SIG_DFL */
 /* TODO: Maybe a mechanism has to be implemented so that default signal handler

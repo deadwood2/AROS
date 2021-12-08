@@ -67,7 +67,7 @@
 
 } /* malloc */
 
-#include "../posixc/__crtext_intbase.h"
+#include "../crt/__crtext_intbase.h"
 
 int __init_memstuff(struct CrtExtIntBase *CrtExtBase)
 {

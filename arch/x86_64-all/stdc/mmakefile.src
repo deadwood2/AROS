@@ -44,11 +44,3 @@ STDC_X8664_ASMFILES += \
 #  files="$(STDC_X8664_FILES)" asmfiles="$(STDC_X8664_ASMFILES)"
 
 ##MM compiler-stdc-x86_64 : includes-asm_h
-
-%build_archspecific \
-  mainmmake=compiler-crt \
-  modname=crt maindir=compiler/stdc \
-  arch=x86_64 \
-  files="$(STDC_X8664_FILES)" asmfiles="$(STDC_X8664_ASMFILES)"
-
-#MM compiler-crt-x86_64 : includes-asm_h

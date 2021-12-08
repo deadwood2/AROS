@@ -10,11 +10,4 @@ USER_AFLAGS 	:= -I$(GENINCDIR)
 #  modname=posixc arch=x86_64 \
 #  asmfiles="siglongjmp sigsetjmp vfork vfork_longjmp"
 
-#MM- compiler-crtext-x86_64 : includes-asm_h
-
-%build_archspecific \
-  mainmmake=compiler-crtext maindir=compiler/posixc \
-  modname=crtext arch=x86_64 \
-  asmfiles="siglongjmp sigsetjmp vfork vfork_longjmp"
-
 %common
