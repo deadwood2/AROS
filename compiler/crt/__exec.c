@@ -499,11 +499,11 @@ static void __exec_do_regular(struct CrtExtProgCtx *ProgCtx, struct __exec_conte
     SetProgramName((STRPTR)ectx->exec_taskname);
 
 
-__HACK_store_C_base();
+
     /* Set standard files to the standard files from arosc */
     fdesc *in = __getfdesc(STDIN_FILENO), *out = __getfdesc(STDOUT_FILENO),
         *err = __getfdesc(STDERR_FILENO);
-__HACK_rem___C_base();
+
     BPTR oldin = BNULL, oldout = BNULL, olderr = BNULL;
     char inchanged = 0, outchanged = 0, errchanged = 0;
     struct Process *me = (struct Process *)FindTask(NULL);

@@ -120,7 +120,7 @@ static void parent_createchild(struct vfork_data *udata);
 
 static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork_data *udata);
 
-#ifdef NEWIMPL
+/* Needed to manage temporary libbase */
 void __aros_setbase_CrtExtBase(struct CrtExtIntBase *CrtExtBase);
 void __aros_setbase_fake_CrtExtBase(struct CrtExtIntBase *fCrtExtBase);
 
@@ -132,7 +132,7 @@ int __init_stdio(struct CrtExtIntBase *CrtExtBase);
 void __exit_fd(struct CrtExtIntBase *CrtExtBase);
 void __exit_memstuff(struct CrtExtIntBase *CrtExtBase);
 void __crtext_close(struct CrtExtIntBase *CrtExtBase);
-#endif
+/* End */
 
 LONG launcher()
 {
@@ -177,9 +177,8 @@ LONG launcher()
         can for example manipulate file descriptors, example "gcc -pipe")
     */
 
-#ifdef NEWIMPL
     ProgCtx->libbase = (struct CrtExtIntBase *)AllocMem(sizeof(struct CrtExtIntBase), MEMF_PUBLIC);
-    /* "register" temp base with child process. TODO:This replaces the __HACK_store_C_base() below */
+    /* "register" temp base with child process. */
     __aros_setbase_CrtExtBase(ProgCtx->libbase);
 
     /* Initialize */
@@ -187,7 +186,6 @@ LONG launcher()
     __init_memstuff(ProgCtx->libbase);
 
     /* Parent process will copy remaining information into this libbase in parent_enterpretenchild */
-#endif
 
 
     if (setjmp(exec_exitjmp) == 0)
@@ -208,7 +206,6 @@ LONG launcher()
 
             D(bug("launcher: child called exec()\n"));
 
-__HACK_store_C_base();
             child_takeover(udata);
 
             /* Filenames passed from parent obey parent's doupath */
@@ -222,7 +219,6 @@ __HACK_store_C_base();
             /* Reset handling of upath */
             // PosixCBase->doupath = 0; // FIXME
             udata->child_errno = errno;
-__HACK_rem___C_base();
 
             D(bug("launcher: informing parent that we have run __exec_prepare\n"));
             /* Inform parent that we have run __exec_prepare */
@@ -290,14 +286,12 @@ __HACK_rem___C_base();
     D(bug("launcher: freeing child_signal\n"));
     FreeSignal(child_signal);
 
-#ifdef NEWIMPL
     D(bug("launcher: freing resources\n"));
     __exit_fd(ProgCtx->libbase);
     __exit_memstuff(ProgCtx->libbase);
     __crtext_close(ProgCtx->libbase);
     FreeMem(ProgCtx->libbase, sizeof(struct CrtExtIntBase));
     FreeMem(ProgCtx, sizeof(struct CrtExtProgCtx));
-#endif
     
     D(bug("Child Done\n"));
 
@@ -535,7 +529,6 @@ static void parent_enterpretendchild(struct vfork_data *udata)
 
     ProgCtx->vfork_data = udata;
 
-#ifdef NEWIMPL
     /* Register child fake libbase as my own */
     __aros_setbase_fake_CrtExtBase(udata->child_progctx->libbase);
 
@@ -543,7 +536,6 @@ static void parent_enterpretendchild(struct vfork_data *udata)
     __copy_fdarray(pPosixCBase->fd_array, pPosixCBase->fd_slots);
     __init_stdio(udata->child_progctx->libbase);
     udata->child_progctx->libbase->PosixCBase->doupath = pPosixCBase->doupath;
-#endif
 
     /* Remember and switch StdCBase */
     // udata->parent_stdcbase = PosixCBase->PosixCBase.StdCBase; FIXME!!!
@@ -624,12 +616,11 @@ static void parent_leavepretendchild(struct vfork_data *udata)
     /* Switch to previous vfork_data */
     ProgCtx->vfork_data = udata->prev;
     ProgCtx->vforkflags = udata->parent_flags;
-#ifdef NEWIMPL
+
     if (ProgCtx->vfork_data)
         __aros_setbase_fake_CrtExtBase(ProgCtx->vfork_data->child_progctx->libbase);
     else
         __aros_setbase_fake_CrtExtBase(NULL);
-#endif
 
     D(bug("parent_leavepretendchild: leaving\n"));
 }

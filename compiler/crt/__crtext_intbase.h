@@ -43,8 +43,6 @@ struct CrtExtProgCtx
     struct CrtExtIntBase        *libbase;
 };
 
-#define NEWIMPL 1
-
 struct CrtExtProgCtx * __aros_get_ProgCtx();
 struct CrtExtProgCtx * __aros_create_ProgCtx();
 void __aros_delete_ProgCtx();

@@ -528,14 +528,6 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
         struct PosixCIntBase *copyfrom = NULL;
         if (ProgCtx->libbase)
             copyfrom = ProgCtx->libbase->PosixCBase;
-#ifndef NEWIMPL
-        else
-        {
-            /*  Wait, but I'm also a VFORK_CHILD and never had my own base. Need to copy from
-                my parent. */
-            copyfrom = __aros_get_Parent_ProgCtx()->libbase->PosixCBase;
-        }
-#endif
 
         int res = __copy_fdarray(copyfrom->fd_array, copyfrom->fd_slots);
 
