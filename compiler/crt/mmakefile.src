@@ -1,11 +1,12 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-crt compiler-crtext
+#MM- AROS : compiler-crt compiler-crtext compiler-crtmath
+#MM- core-linklibs : linklibs-crt linklibs-crtext linklibs-crtprog linklibs-crtmath
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
-STDC_MATH := \
+CRT_MATH := \
     ../stdc/math/bsdsrc/b_exp \
     ../stdc/math/bsdsrc/b_log \
     ../stdc/math/bsdsrc/b_tgamma \
@@ -189,20 +190,15 @@ STDC_MATH := \
     ../stdc/math/s_trunc \
     ../stdc/math/s_truncf
 
-#    ../stdc/math/e_gamma \
-#    ../stdc/math/e_gammaf \
-#    ../stdc/math/e_lgamma \
-#    ../stdc/math/e_lgammaf \
-
-STDC_SCABS_MATH := \
+CRT_SCABS_MATH := \
     ../stdc/math/s_cabs \
     ../stdc/math/s_cabsf
 
-STDC_WCABS_MATH := \
+CRT_WCABS_MATH := \
     ../stdc/math/w_cabs \
     ../stdc/math/w_cabsf
 
-STDC_LONGDB_MATH := \
+CRT_LONGDB_MATH := \
     ../stdc/math/e_acosl \
     ../stdc/math/e_asinl \
     ../stdc/math/e_atan2l \
@@ -259,11 +255,16 @@ STDC_LONGDB_MATH := \
     ../stdc/math/s_tanl \
     ../stdc/math/s_truncl
 
-#    ../stdc/math/e_lgammal \
+CRT_LGAMMA_MATH := \
+    ../stdc/math/e_gamma \
+    ../stdc/math/e_gammaf \
+    ../stdc/math/e_lgamma \
+    ../stdc/math/e_lgammaf \
+    ../stdc/math/e_lgammal \
 
 # Support files for 80bit and 128bit precision long double.
 
-STDC_LONGDB80_MATH := \
+CRT_LONGDB80_MATH := \
     ../stdc/math/ld80/e_acoshl \
     ../stdc/math/ld80/e_atanhl \
     ../stdc/math/ld80/e_coshl \
@@ -287,7 +288,7 @@ STDC_LONGDB80_MATH := \
     ../stdc/math/ld80/s_nanl \
     ../stdc/math/ld80/s_tanhl
 
-STDC_LONGDB128_MATH := \
+CRT_LONGDB128_MATH := \
     ../stdc/math/ld128/e_acoshl \
     ../stdc/math/ld128/e_atanhl \
     ../stdc/math/ld128/e_coshl \
@@ -315,21 +316,21 @@ STDC_LONGDB128_MATH := \
 # Add 80bit long double support on x86, x64 and m68k
 #
 ifneq ($(filter $(AROS_TARGET_CPU),i386 x86_64 m68k),)
-STDC_MATH += $(STDC_LONGDB_MATH)
-STDC_MATH += $(STDC_LONGDB80_MATH)
+CRT_MATH += $(CRT_LONGDB_MATH)
+CRT_MATH += $(CRT_LONGDB80_MATH)
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math/ld80
-STDC_SCABS_MATH += ../stdc/math/s_cabsl
-STDC_WCABS_MATH += ../stdc/math/w_cabsl
+CRT_SCABS_MATH += ../stdc/math/s_cabsl
+CRT_WCABS_MATH += ../stdc/math/w_cabsl
 else
 #
 # Add 128bit long double support for aarch64
 #
 ifneq ($(filter $(AROS_TARGET_CPU),aarch64),)
-STDC_MATH += $(STDC_LONGDB_MATH)
-STDC_MATH += $(STDC_LONGDB128_MATH)
+CRT_MATH += $(CRT_LONGDB_MATH)
+CRT_MATH += $(CRT_LONGDB128_MATH)
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math/ld128
-STDC_SCABS_MATH += ../stdc/math/s_cabsl
-STDC_WCABS_MATH += ../stdc/math/w_cabsl
+CRT_SCABS_MATH += ../stdc/math/s_cabsl
+CRT_WCABS_MATH += ../stdc/math/w_cabsl
 else
 #
 # We either don't know what long double format is required
@@ -341,7 +342,24 @@ else
 endif
 endif
 
-STDC_MATH += $(STDC_WCABS_MATH)
+CRT_MATH += $(CRT_WCABS_MATH)
+
+# Ugh. These are for the math routines, which have a number of
+# lint issues, that should be fixed.
+NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
+    $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
+
+USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
+USER_LDFLAGS :=
+USER_CPPFLAGS := \
+        -Dlint '-D__FBSDID(x)=' 
+#USER_CPPFLAGS += -DDEBUG=1
+
+%build_module mmake=compiler-crtmath \
+    modname="crtmath" modtype=library linklibname="m"\
+    files="$(CRT_MATH) ../stdc/_fenv ../stdc/memset __crtmath_ctype"
+
+###############################################################################
 
 # wide char/string support
 STDC_WCHAR := \
@@ -391,7 +409,7 @@ STDC := \
     longjmp \
     malloc \
     malloc_align \
-    $(STDC_MATH) \
+    $(CRT_MATH) \
     mblen \
     memchr \
     memcmp \
@@ -467,69 +485,6 @@ STDC := \
     vsprintf \
     vsscanf
 
-STDC_LINKLIB := \
-    __ctype_linklib \
-    strcasestr
-
-# The common files will be put both in the shared and in the static link lib
-STDC_COMMON := \
-    __stdc_geterrnoptr \
-    __stdc_getsigngamptr \
-    __stdc_mb_cur_max \
-    math/infinity
-
-STDCIO := \
-    __stdcio_assert \
-    __stdcio_init \
-    __stdio \
-    clearerr \
-    fclose \
-    feof \
-    ferror \
-    fflush \
-    fgetc \
-    fgetpos \
-    fgets \
-    fopen \
-    fprintf \
-    fputc \
-    fputs \
-    fread \
-    freopen \
-    fscanf \
-    fseek \
-    fsetpos \
-    ftell \
-    fwrite \
-    getchar \
-    getenv \
-    gets \
-    printf \
-    putchar \
-    puts \
-    remove \
-    rename \
-    rewind \
-    scanf \
-    setbuf \
-    setvbuf \
-    system \
-    tmpfile \
-    tmpnam \
-    ungetc \
-    vfprintf \
-    vfscanf \
-    vprintf \
-    vscanf
-
-# The common files will be put both in the shared and in the static link lib
-STDCIO_COMMON := \
-    __stdcio_stdstreams
-
-#MM- core-linklibs : linklibs-libm linklibs-crt linklibs-crtext linklibs-crtprog
-
-STDC_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdc/,$(notdir $(STDC_COMMON))))
-
 # Ugh. These are for the math routines, which have a number of
 # lint issues, that should be fixed.
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
@@ -597,13 +552,17 @@ CRT := \
     ../stdc/mktime \
     ../stdc/asctime_r \
     ../stdc/gmtime_r \
-    ../stdc/fenv \
-    ../stdc/_fenv \
     ../stdc/__ctype \
     ../posixc/strptime \
     ../posixc/setenv \
     ../stdc/localeconv \
     ../stdc/setlocale \
+    ../stdc/div \
+    ../stdc/ldiv \
+    ../stdc/lldiv \
+    ../stdc/abs \
+    ../stdc/labs \
+    ../stdc/llabs
 
 CRT_LINKLIB := \
     ../stdc/strcasestr \
@@ -611,8 +570,8 @@ CRT_LINKLIB := \
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
-    files="$(STDC_MATH) $(CRT) crtfake" \
-    linklibfiles=$(CRT_LINKLIB)
+    files="$(CRT) crtfake" \
+    linklibfiles=$(CRT_LINKLIB) uselibs="m"
 
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS) $(CFLAGS_MERGE_CONSTANTS)
@@ -633,6 +592,7 @@ CRTEXT := \
     ../stdc/__signal \
     ../stdc/__stdc_ioerr2errno \
     ../stdc/__stdc_geterrnoptr \
+    ../stdc/__stdc_getsigngamptr \
     ../stdc/__stdc_gmtoffset \
     ../stdc/__stdc_mb_cur_max \
     ../stdc/abort \
@@ -768,8 +728,8 @@ CRTEXT_LINKLIB := \
 
 %build_module mmake=compiler-crtext \
     modname=crtext modtype=library \
-    files="$(CRTEXT)" \
-    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crt"
+    files="$(CRTEXT) $(CRT_LGAMMA_MATH)" \
+    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crt m"
 
 %build_linklib mmake=linklibs-crtprog \
     libname=crtprog files="crtprog"
@@ -778,7 +738,7 @@ CRTEXT_LINKLIB := \
 
 USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
-STDC_MATH_STATIC := \
+CRT_MATH_STATIC := \
     ../stdc/math/e_log \
     ../stdc/math/e_logf \
     ../stdc/math/e_log2 \
@@ -811,7 +771,7 @@ STDC_STATIC := \
     ../stdc/atol \
     ../stdc/atoll \
     ../stdc/bsearch \
-    $(STDC_MATH_STATIC) \
+    $(CRT_MATH_STATIC) \
     ../stdc/memchr \
     ../stdc/memcmp \
     ../stdc/memcpy \
@@ -876,11 +836,6 @@ USER_CPPFLAGS := \
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
 %build_linklib mmake=linklibs-romhack \
     objdir=$(GENDIR)/$(CURDIR)/crt libname=romhack files="setjmp longjmp"
-
-# A dummy libm.a is provided so that -lm link option does not produce an error
-# objdir is provided to avoid that arch specific files end up in libm.a
-%build_linklib mmake=linklibs-libm \
-    libname=m files="../stdc/empty" objdir=$(GENDIR)/$(CURDIR)/libm
 
 # pc-x86_64 needs a 32bit version stdc.static
 ifeq ($(AROS_TARGET_CPU),x86_64)
