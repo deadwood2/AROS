@@ -32,6 +32,7 @@ struct PosixCIntBase
 
     /* common */
     APTR internalpool;
+    int32_t flags;
 
     struct Device *timerBase;
     struct timerequest timerReq;
@@ -58,8 +59,13 @@ struct PosixCIntBase
     struct __env_item *env_list;
 
     /* __exec.c */
+    BPTR exec_seglist;
+    char *exec_args;
+    char *exec_taskname;
+    APTR exec_pool;
     char **exec_tmparray;
-    // struct StdCBase *exec_oldstdcbase;
+    BPTR exec_oldin, exec_oldout, exec_olderr;
+    struct StdCBase *exec_oldstdcbase;
 
     /* __fdesc.c */
     int fd_slots;
@@ -69,6 +75,9 @@ struct PosixCIntBase
     char *upathbuf;  /* Buffer that holds intermediate converted paths */
     int doupath;   /* BOOL - does the conversion need to be done?  */
     int parent_does_upath; /* BOOL - parent does upath conversion */
+
+    /* __vfork.c */
+    struct vfork_data *vfork_data;
 
     /* chdir.c/fchdir.c */
     int cd_changed;
@@ -90,5 +99,19 @@ struct PosixCIntBase
     gid_t gid; /* Real group id of process */
     gid_t egid; /* Effective group id of process */
 };
+
+/* flags; values of flags are power of two so they can be ORed together */
+
+/* When a program is started with the exec functions and from vfork,
+   this is indicated in the flags of the library.
+   This way the child can use the parent posixc.library during its
+   initialization phase */
+#define EXEC_PARENT 0x00000001
+#define VFORK_PARENT 0x00000002
+
+/* This flag is set by vfork() to correctly report child process ID during
+   execution of child code, even though that it's actually executed by parent
+   process until execve() is called. */
+#define PRETEND_CHILD 0x00000004
 
 #endif //__POSIXC_INTBASE_H
