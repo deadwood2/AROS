@@ -1,12 +1,12 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-crtutil compiler-crt compiler-crtmath
-#MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-crtmath
+#MM- AROS : compiler-crtutil compiler-crt compiler-m
+#MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-m
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
-CRT_MATH := \
+M_MATH := \
     ../stdc/math/bsdsrc/b_exp \
     ../stdc/math/bsdsrc/b_log \
     ../stdc/math/bsdsrc/b_tgamma \
@@ -190,15 +190,15 @@ CRT_MATH := \
     ../stdc/math/s_trunc \
     ../stdc/math/s_truncf
 
-CRT_SCABS_MATH := \
+M_SCABS_MATH := \
     ../stdc/math/s_cabs \
     ../stdc/math/s_cabsf
 
-CRT_WCABS_MATH := \
+M_WCABS_MATH := \
     ../stdc/math/w_cabs \
     ../stdc/math/w_cabsf
 
-CRT_LONGDB_MATH := \
+M_LONGDB_MATH := \
     ../stdc/math/e_acosl \
     ../stdc/math/e_asinl \
     ../stdc/math/e_atan2l \
@@ -264,7 +264,7 @@ CRT_LGAMMA_MATH := \
 
 # Support files for 80bit and 128bit precision long double.
 
-CRT_LONGDB80_MATH := \
+M_LONGDB80_MATH := \
     ../stdc/math/ld80/e_acoshl \
     ../stdc/math/ld80/e_atanhl \
     ../stdc/math/ld80/e_coshl \
@@ -288,7 +288,7 @@ CRT_LONGDB80_MATH := \
     ../stdc/math/ld80/s_nanl \
     ../stdc/math/ld80/s_tanhl
 
-CRT_LONGDB128_MATH := \
+M_LONGDB128_MATH := \
     ../stdc/math/ld128/e_acoshl \
     ../stdc/math/ld128/e_atanhl \
     ../stdc/math/ld128/e_coshl \
@@ -316,21 +316,21 @@ CRT_LONGDB128_MATH := \
 # Add 80bit long double support on x86, x64 and m68k
 #
 ifneq ($(filter $(AROS_TARGET_CPU),i386 x86_64 m68k),)
-CRT_MATH += $(CRT_LONGDB_MATH)
-CRT_MATH += $(CRT_LONGDB80_MATH)
+M_MATH += $(M_LONGDB_MATH)
+M_MATH += $(M_LONGDB80_MATH)
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math/ld80
-CRT_SCABS_MATH += ../stdc/math/s_cabsl
-CRT_WCABS_MATH += ../stdc/math/w_cabsl
+M_SCABS_MATH += ../stdc/math/s_cabsl
+M_WCABS_MATH += ../stdc/math/w_cabsl
 else
 #
 # Add 128bit long double support for aarch64
 #
 ifneq ($(filter $(AROS_TARGET_CPU),aarch64),)
-CRT_MATH += $(CRT_LONGDB_MATH)
-CRT_MATH += $(CRT_LONGDB128_MATH)
+M_MATH += $(M_LONGDB_MATH)
+M_MATH += $(M_LONGDB128_MATH)
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math/ld128
-CRT_SCABS_MATH += ../stdc/math/s_cabsl
-CRT_WCABS_MATH += ../stdc/math/w_cabsl
+M_SCABS_MATH += ../stdc/math/s_cabsl
+M_WCABS_MATH += ../stdc/math/w_cabsl
 else
 #
 # We either don't know what long double format is required
@@ -342,7 +342,7 @@ else
 endif
 endif
 
-CRT_MATH += $(CRT_WCABS_MATH)
+M_MATH += $(M_WCABS_MATH)
 
 # Ugh. These are for the math routines, which have a number of
 # lint issues, that should be fixed.
@@ -355,9 +355,9 @@ USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' 
 #USER_CPPFLAGS += -DDEBUG=1
 
-%build_module mmake=compiler-crtmath \
-    modname="crtmath" modtype=library linklibname="m"\
-    files="$(CRT_MATH) ../stdc/_fenv ../stdc/memset __crtmath_ctype"
+%build_module mmake=compiler-m \
+    modname="m" modtype=library \
+    files="$(M_MATH) ../stdc/_fenv ../stdc/memset __m_ctype"
 
 ###############################################################################
 
@@ -634,7 +634,7 @@ CRT_LINKLIB := \
 
 USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
-CRT_MATH_STATIC := \
+M_MATH_STATIC := \
     ../stdc/math/e_log \
     ../stdc/math/e_logf \
     ../stdc/math/e_log2 \
@@ -667,7 +667,7 @@ STDC_STATIC := \
     ../stdc/atol \
     ../stdc/atoll \
     ../stdc/bsearch \
-    $(CRT_MATH_STATIC) \
+    $(M_MATH_STATIC) \
     ../stdc/memchr \
     ../stdc/memcmp \
     ../stdc/memcpy \

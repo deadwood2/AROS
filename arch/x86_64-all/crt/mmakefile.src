@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 
 USER_AFLAGS 	:= -I$(GENINCDIR)
 
-CRT_MATH_X8664_FILES := \
+M_MATH_X8664_FILES := \
     ../fenv
 
 CRT_X8664_ASMFILES := \
@@ -12,7 +12,7 @@ CRT_X8664_ASMFILES := \
     ../stdc/setjmp
 
 # Add replacement math functions ..
-CRT_MATH_X8664_ASMFILES += \
+M_MATH_X8664_ASMFILES += \
     ../stdc/math/e_fmod \
     ../stdc/math/e_fmodf \
     ../stdc/math/e_fmodl \
@@ -38,9 +38,9 @@ CRT_MATH_X8664_ASMFILES += \
     ../stdc/math/s_scalbnl
 
 %build_archspecific \
-  mainmmake=compiler-crtmath \
-  modname=crtmath maindir=compiler/crt \
-  arch=x86_64 files="$(CRT_MATH_X8664_FILES)" asmfiles="$(CRT_MATH_X8664_ASMFILES)"
+  mainmmake=compiler-m \
+  modname=m maindir=compiler/crt \
+  arch=x86_64 files="$(M_MATH_X8664_FILES)" asmfiles="$(M_MATH_X8664_ASMFILES)"
 
 
 %build_archspecific \
