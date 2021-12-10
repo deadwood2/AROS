@@ -350,7 +350,7 @@ NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
     $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
 
 USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS :=
+USER_LDFLAGS := -nolibc
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' 
 #USER_CPPFLAGS += -DDEBUG=1
@@ -361,207 +361,95 @@ USER_CPPFLAGS := \
 
 ###############################################################################
 
-# wide char/string support
-STDC_WCHAR := \
-    wcscat \
-    wcscmp \
-    wcsncmp \
-    wcscpy \
-    wcsncpy \
-    wcslen
-
-STDC := \
-    __ctype \
-    __exitfunc \
-    __optionallibs \
-    __signal \
-    __stdc_assert \
-    __stdc_gmtoffset \
-    __stdc_ioerr2errno \
-    __stdc_startup \
-    __stdc_fpuprivate \
-    __vcformat \
-    __vcscan \
-    _exit \
-    abort \
-    abs labs llabs \
-    asctime asctime_r \
-    atexit \
-    atof \
-    atoi \
-    atol \
-    atoll \
-    bsearch \
-    calloc \
-    clock \
-    ctime ctime_r \
-    difftime \
-    div ldiv lldiv \
-    exit \
-    fenv _fenv \
-    free \
-    getc \
-    gmtime gmtime_r \
-    imaxabs \
-    imaxdiv \
-    localeconv \
-    localtime localtime_r \
-    longjmp \
-    malloc \
-    malloc_align \
-    $(CRT_MATH) \
-    mblen \
-    memchr \
-    memcmp \
-    memcpy \
-    memmove \
-    memset \
-    mktime \
-    on_exit \
-    putc \
-    qsort \
-    raise \
-    rand \
-    realloc \
-    realloc_nocopy \
-    setjmp \
-    setlocale \
-    signal \
-    snprintf \
-    sprintf \
-    sscanf \
-    stccpy \
-    stcd_l \
-    stch_l \
-    stcl_d \
-    stcl_h \
-    stcl_o \
-    stco_l \
-    stcu_d \
-    stpblk \
-    stpcpy \
-    stpsym \
-    strcasecmp \
-    strcat \
-    strchr \
-    strcmp \
-    strcoll \
-    strcpy \
-    strcspn \
-    strdup \
-    strerror \
-    strftime \
-    strlcat \
-    strlcpy \
-    strlen \
-    strnlen \
-    strlwr \
-    strncasecmp \
-    strncat \
-    strncmp \
-    strncpy \
-    strndup \
-    strpbrk \
-    strrchr \
-    strrev \
-    strsep \
-    strspn \
-    strstr \
-    strtod \
-    strtof \
-    strtoimax \
-    strtok \
-    strtok_r \
-    strtol \
-    strtold \
-    strtoll \
-    strtoul \
-    strtoull \
-    strtoumax \
-    strupr \
-    strxfrm \
-    time \
-    vsnprintf \
-    vsprintf \
-    vsscanf
-
-# Ugh. These are for the math routines, which have a number of
-# lint issues, that should be fixed.
-NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
-    $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
-
-USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS :=
+USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
+USER_LDFLAGS := -nolibc
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' \
-        -DSTDC_STATIC
 #USER_CPPFLAGS += -DDEBUG=1
 
+# wide char/string support
+CRT_UTIL_WCHAR := \
+    ../stdc/wcscat \
+    ../stdc/wcscmp \
+    ../stdc/wcsncmp \
+    ../stdc/wcscpy \
+    ../stdc/wcsncpy \
+    ../stdc/wcslen
+
 CRT_UTIL := \
+    ../stdc/__ctype \
+    ../stdc/__vcformat \
+    ../stdc/__vcscan \
+    ../stdc/abs ../stdc/labs ../stdc/llabs \
+    ../stdc/asctime_r \
+    ../stdc/atof \
+    ../stdc/bsearch \
+    ../stdc/ctime_r \
+    ../stdc/difftime \
+    ../stdc/div ../stdc/ldiv ../stdc/lldiv \
+    ../stdc/gmtime_r \
+    ../stdc/imaxabs \
+    ../stdc/imaxdiv \
+    ../stdc/localtime_r \
+    ../stdc/localeconv \
+    ../stdc/longjmp \
+    ../stdc/mblen \
+    ../stdc/memchr \
+    ../stdc/memcmp \
+    ../stdc/memcpy \
+    ../stdc/memmove \
+    ../stdc/memset \
+    ../stdc/mktime \
+    ../stdc/qsort \
+    ../stdc/setjmp \
+    ../stdc/setlocale \
+    ../stdc/snprintf \
+    ../stdc/sprintf \
+    ../stdc/sscanf \
+    ../stdc/stccpy \
+    ../stdc/stcl_d \
+    ../stdc/stcl_h \
+    ../stdc/stcl_o \
+    ../stdc/stcu_d \
+    ../stdc/stpblk \
+    ../stdc/stpcpy \
+    ../stdc/stpsym \
+    ../stdc/strcasecmp \
     ../stdc/strcat \
     ../stdc/strchr \
     ../stdc/strcmp \
-    ../stdc/strcasecmp \
     ../stdc/strcoll \
     ../stdc/strcpy \
+    ../stdc/strcspn \
+    ../stdc/strftime \
+    ../stdc/strlcat \
     ../stdc/strlcpy \
     ../stdc/strlen \
+    ../stdc/strnlen \
+    ../stdc/strlwr \
+    ../stdc/strncasecmp \
     ../stdc/strncat \
     ../stdc/strncmp \
     ../stdc/strncpy \
+    ../stdc/strpbrk \
     ../stdc/strrchr \
+    ../stdc/strrev \
     ../stdc/strsep \
     ../stdc/strspn \
-    ../stdc/strcspn \
-    ../stdc/strncasecmp \
     ../stdc/strstr \
     ../stdc/strtod \
-    ../stdc/strlcat \
-    ../stdc/strpbrk \
-    ../stdc/stpblk \
-    ../stdc/strrev \
-    ../stdc/strnlen \
-    ../stdc/stccpy \
-    ../stdc/strupr \
-    ../stdc/strftime \
+    ../stdc/strtof \
+    ../stdc/strtold \
     ../stdc/strtok_r \
+    ../stdc/strupr \
     ../stdc/strxfrm \
-    ../stdc/snprintf \
     ../stdc/vsnprintf \
-    ../stdc/__vcformat \
-    ../stdc/sprintf \
     ../stdc/vsprintf \
-    ../stdc/sscanf \
     ../stdc/vsscanf \
-    ../stdc/__vcscan \
-    ../stdc/memmove \
-    ../stdc/memcmp \
-    ../stdc/memset \
-    ../stdc/qsort \
-    ../stdc/memchr \
-    ../stdc/bsearch \
-    ../stdc/setjmp \
-    ../stdc/longjmp \
-    ../stdc/atoi \
-    ../stdc/atol \
-    ../stdc/atof \
-    ../stdc/stcd_l \
-    ../stdc/mktime \
-    ../stdc/asctime_r \
-    ../stdc/gmtime_r \
-    ../stdc/__ctype \
-    ../posixc/setenv \
-    ../stdc/localeconv \
-    ../stdc/setlocale \
-    ../stdc/div \
-    ../stdc/ldiv \
-    ../stdc/lldiv \
-    ../stdc/abs \
-    ../stdc/labs \
-    ../stdc/llabs \
-    ../stdc/strtol \
-    ../stdc/strtoul
-
+    ../crt/__crtutil_gmtoffset \
+    ../crt/__crtutil_optionallibs \
+    ../crt/__crtutil_wrapper \
+    ../crt/__crtutil_time
 
 CRT_UTIL_LINKLIB := \
     ../stdc/strcasestr \
@@ -569,8 +457,10 @@ CRT_UTIL_LINKLIB := \
 
 %build_module mmake=compiler-crtutil \
     modname=crtutil modtype=library \
-    files="$(CRT_UTIL)" \
+    files="$(CRT_UTIL) $(CRT_UTIL_WCHAR)" \
     linklibfiles=$(CRT_UTIL_LINKLIB) uselibs="m"
+
+###############################################################################
 
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS) $(CFLAGS_MERGE_CONSTANTS)
@@ -584,6 +474,8 @@ USER_INCLUDES := \
     -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
     -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
     -iquote $(SRCDIR)/compiler/posixc
+
+USER_LDFLAGS := -nolibc
 
 CRTEXT := \
     ../stdc/__exitfunc \
@@ -602,7 +494,6 @@ CRTEXT := \
     ../stdc/exit \
     ../stdc/free \
     ../stdc/localtime \
-    ../stdc/localtime_r \
     ../stdc/malloc \
     ../stdc/rand \
     ../stdc/realloc \
@@ -610,7 +501,6 @@ CRTEXT := \
     ../stdc/signal \
     ../stdc/strdup \
     ../stdc/strndup \
-    ../stdc/time \
     ../posixc/__env \
     ../posixc/__fdesc \
     ../posixc/__posixc_environ \
@@ -694,6 +584,7 @@ CRTEXT := \
     ../posixc/remove \
     ../posixc/rename \
     ../posixc/rmdir \
+    ../posixc/setenv \
     ../posixc/setvbuf \
     ../posixc/setrlimit \
     ../posixc/sigaction \
