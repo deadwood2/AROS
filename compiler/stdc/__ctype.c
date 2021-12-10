@@ -3,7 +3,7 @@
 */
 
 #include <aros/symbolsets.h>
-#include <libraries/crt.h>
+#include <libraries/crtutil.h>
 
 #include <ctype.h>
 

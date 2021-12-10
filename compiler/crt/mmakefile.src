@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-crt compiler-crtext compiler-crtmath
-#MM- core-linklibs : linklibs-crt linklibs-crtext linklibs-crtprog linklibs-crtmath
+#MM- AROS : compiler-crtutil compiler-crtext compiler-crtmath
+#MM- core-linklibs : linklibs-crtutil linklibs-crtext linklibs-crtprog linklibs-crtmath
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
@@ -493,10 +493,11 @@ NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
 USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
 USER_LDFLAGS :=
 USER_CPPFLAGS := \
-        -Dlint '-D__FBSDID(x)=' 
+        -Dlint '-D__FBSDID(x)=' \
+        -DSTDC_STATIC
 #USER_CPPFLAGS += -DDEBUG=1
 
-CRT := \
+CRT_UTIL := \
     ../stdc/strcat \
     ../stdc/strchr \
     ../stdc/strcmp \
@@ -512,18 +513,14 @@ CRT := \
     ../stdc/strsep \
     ../stdc/strspn \
     ../stdc/strcspn \
-    ../stdc/strtol \
-    ../stdc/strtoul \
     ../stdc/strncasecmp \
     ../stdc/strstr \
     ../stdc/strtod \
     ../stdc/strlcat \
     ../stdc/strpbrk \
     ../stdc/stpblk \
-    ../stdc/strtoull \
     ../stdc/strrev \
     ../stdc/strnlen \
-    ../stdc/strtoll \
     ../stdc/stccpy \
     ../stdc/strupr \
     ../stdc/strftime \
@@ -553,7 +550,6 @@ CRT := \
     ../stdc/asctime_r \
     ../stdc/gmtime_r \
     ../stdc/__ctype \
-    ../posixc/strptime \
     ../posixc/setenv \
     ../stdc/localeconv \
     ../stdc/setlocale \
@@ -562,16 +558,19 @@ CRT := \
     ../stdc/lldiv \
     ../stdc/abs \
     ../stdc/labs \
-    ../stdc/llabs
+    ../stdc/llabs \
+    ../stdc/strtol \
+    ../stdc/strtoul
 
-CRT_LINKLIB := \
+
+CRT_UTIL_LINKLIB := \
     ../stdc/strcasestr \
     ../stdc/__ctype_linklib
 
-%build_module mmake=compiler-crt \
-    modname=crt modtype=library \
-    files="$(CRT) crtfake" \
-    linklibfiles=$(CRT_LINKLIB) uselibs="m"
+%build_module mmake=compiler-crtutil \
+    modname=crtutil modtype=library \
+    files="$(CRT_UTIL)" \
+    linklibfiles=$(CRT_UTIL_LINKLIB) uselibs="m"
 
 NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS) $(CFLAGS_MERGE_CONSTANTS)
@@ -580,13 +579,13 @@ USER_CPPFLAGS := \
         -D_BSD_SOURCE \
         -D_XOPEN_SOURCE=700 \
         -D_LARGEFILE64_SOURCE
+
 USER_INCLUDES := \
     -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
     -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
     -iquote $(SRCDIR)/compiler/posixc
 
 CRTEXT := \
-    ../stdc/__ctype \
     ../stdc/__exitfunc \
     ../stdc/__optionallibs \
     ../stdc/__signal \
@@ -720,7 +719,13 @@ CRTEXT := \
     ../crt/__crtext_progonly \
     ../crt/__vfork \
     ../crt/crtextfake \
-    ../crt/wrapperstdc
+    ../crt/wrapperstdc \
+    ../stdc/strtol \
+    ../stdc/strtoul \
+    ../stdc/strtoull \
+    ../stdc/strtoll \
+    ../posixc/strptime \
+
 
 CRTEXT_LINKLIB := \
     getopt \
@@ -729,7 +734,7 @@ CRTEXT_LINKLIB := \
 %build_module mmake=compiler-crtext \
     modname=crtext modtype=library \
     files="$(CRTEXT) $(CRT_LGAMMA_MATH)" \
-    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crt m"
+    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crtutil m"
 
 %build_linklib mmake=linklibs-crtprog \
     libname=crtprog files="crtprog"
@@ -829,13 +834,13 @@ USER_CPPFLAGS := \
 %build_linklib mmake=linklibs-stdc-static libname=stdc.static \
     files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
-#MM- linklibs-romhack : compiler-crt
+#MM- linklibs-romhack : compiler-crtutil
 # FIXME: The next romhack linklib is a temporary hack and has to be
 # excommunicated in the future !
 # setjmp()/longjmp() is used in dos.library so make it available.
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
 %build_linklib mmake=linklibs-romhack \
-    objdir=$(GENDIR)/$(CURDIR)/crt libname=romhack files="setjmp longjmp"
+    objdir=$(GENDIR)/$(CURDIR)/crtutil libname=romhack files="setjmp longjmp"
 
 # pc-x86_64 needs a 32bit version stdc.static
 ifeq ($(AROS_TARGET_CPU),x86_64)

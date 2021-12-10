@@ -95,5 +95,5 @@ struct CrtExtProgCtx * __aros_get_Parent_ProgCtx()
     return (struct CrtExtProgCtx *)GetParentTaskStorageSlot(ProgCtxSlot);
 }
 
-ADD2OPENLIB(__crtext_open, -50);
-ADD2CLOSELIB(__crtext_close, -50);
+ADD2OPENLIB(__crtext_open, -101);
+ADD2CLOSELIB(__crtext_close, -101);

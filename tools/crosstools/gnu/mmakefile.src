@@ -279,9 +279,9 @@ tools-crosstools-gcc :
 #MM	linklibs-mui             \
 #MM	linklibs-arossupport     \
 #MM	linklibs-amiga           \
-#MM	linklibs-posixc          \
-#MM	linklibs-stdcio          \
-#MM	linklibs-stdc            \
+#MM	linklibs-crtutil         \
+#MM	linklibs-crtmath         \
+#MM	linklibs-crtext          \
 #MM	linklibs-codesets        \
 #MM	linklibs-keymap          \
 #MM	linklibs-expansion       \
