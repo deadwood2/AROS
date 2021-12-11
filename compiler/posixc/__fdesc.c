@@ -510,14 +510,20 @@ int __copy_fdarray(fdesc **__src_fd_array, int fd_slots)
 int __init_fd(struct CrtIntBase *CrtBase)
 {
     struct PosixCIntBase *PosixCBase = CrtBase->PosixCBase;
-    struct PosixCIntBase *pPosixCBase = NULL;
-        //(struct PosixCIntBase *)__GM_GetBaseParent(PosixCBase); FIXME!!!
-
-    D(bug("Found parent PosixCBase %p with flags 0x%x\n",
-          pPosixCBase, pPosixCBase ? pPosixCBase->flags : 0
-    ));
-
     struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
+
+    /*
+        Guarantees:
+        If      there is ProgCtx and it is EXEC_PARENT
+        then    ProgCtx->libbase always points to library
+                base from which file descriptors needs to
+                be copied
+
+        Two scenarios are:
+            a) Process executing exec() and having real libbase
+            b) Child process created by vfork() and now executing exec()
+            and having temporary ProgCtx and libbase
+    */
 
     if (ProgCtx && (ProgCtx->vforkflags & EXEC_PARENT))
     {
@@ -534,20 +540,6 @@ int __init_fd(struct CrtIntBase *CrtBase)
         return res;
     }
     else
-
-    // FIXME!!!
-    // if (pPosixCBase && (pPosixCBase->flags & (VFORK_PARENT | EXEC_PARENT)))
-    // {
-    //     /* VFORK_PARENT use case - child manipulates file descriptors prior to calling exec* */
-    //     int res = __copy_fdarray(pPosixCBase->fd_array, pPosixCBase->fd_slots);
-
-    //     if (pPosixCBase->flags & EXEC_PARENT)
-    //         /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
-    //         PosixCBase->fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
-
-    //     return res;
-    // }
-    // else
         return __init_stdfiles(PosixCBase);
 }
 
