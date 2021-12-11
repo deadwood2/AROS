@@ -17,10 +17,6 @@
 
 struct PosixCBase
 {
-    struct Library lib;
-    struct StdCBase *StdCBase;
-    struct StdCIOBase *StdCIOBase;
-
     FILE *_stdin, *_stdout, *_stderr;
 };
 
@@ -32,7 +28,7 @@ struct vfork_data;
 
 struct PosixCIntBase
 {
-    struct PosixCBase PosixCBase;
+    struct PosixCBase lib;
 
     /* common */
     APTR internalpool;
@@ -49,11 +45,6 @@ struct PosixCIntBase
 
     /* getpass.c */
     char passbuffer[PASS_MAX];
-#if (0)
-    /* sigprocmask.c */
-    sigset_t   sigmask;
-    sigset_t   signals;
-#endif
 
     /* __posixc_environ.c; don't use this field outside that file */
     char ***environptr;
@@ -63,7 +54,6 @@ struct PosixCIntBase
 
     /* __exec.c */
     char **exec_tmparray;
-    // struct StdCBase *exec_oldstdcbase;
 
     /* __fdesc.c */
     int fd_slots;
@@ -72,14 +62,13 @@ struct PosixCIntBase
     /* __upath.c */
     char *upathbuf;  /* Buffer that holds intermediate converted paths */
     int doupath;   /* BOOL - does the conversion need to be done?  */
-    int parent_does_upath; /* BOOL - parent does upath conversion */
 
     /* chdir.c/fchdir.c */
     int cd_changed;
     BPTR cd_lock;
 
     /* flock.c */
-    struct MinList _file_locks, *file_locks;
+    struct MinList *file_locks;
 
     /* umask */
     mode_t umask;
