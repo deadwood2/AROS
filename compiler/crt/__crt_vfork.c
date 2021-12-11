@@ -200,7 +200,7 @@ LONG launcher()
         ASSERTPARENTSTATE(PARENT_STATE_EXEC_CALLED | PARENT_STATE_EXIT_CALLED);
         PRINTSTATE;
 
-        if (udata->child_called_exec)
+        if (udata->parent_called_exec_pretending_child)
         {
             APTR ectx;
 
@@ -372,7 +372,7 @@ pid_t __vfork(jmp_buf env)
 
         D(bug("__vfork: ParentPretendingChild: ThisTask=%p, ProgCtx=%p, vfork_data = %x\n", this, ProgCtx, udata));
 
-        if (!udata->child_called_exec)
+        if (!udata->parent_called_exec_pretending_child)
         {
             D(bug("__vfork: ParentPretendingChild: child did not call exec()\n"));
 
@@ -434,7 +434,7 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
     */
     parent_leavepretendchild(udata);
 
-    if(udata->child_called_exec)
+    if(udata->parent_called_exec_pretending_child)
     {
         D(bug("__vfork: Inform child that we are after _exit()\n"));
         SETPARENTSTATE(PARENT_STATE_STOPPED_PRETENDING);

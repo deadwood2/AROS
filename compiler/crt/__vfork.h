@@ -20,7 +20,7 @@ struct CrtExtProgCtx;
 struct vfork_data
 {
     struct vfork_data *prev;                /* pointer to prev data; happens when vfork()ed process calls vfork() again */
-    jmp_buf vfork_jmp;                      /* jmp to place where vfork was called */
+    jmp_buf vfork_jmp;                      /* jmp back to place in program code where vfork was called */
 
     struct Task *parent;
     int *parent_olderrorptr;
@@ -29,20 +29,14 @@ struct vfork_data
     BYTE parent_signal;
     BYTE parent_state;
     struct CrtProgCtx *parent_progctx;
-    // struct StdCBase *parent_stdcbase;
-    int parent_cd_changed;
-    BPTR parent_cd_lock;
     BPTR parent_curdir;
-    struct __env_item *parent_env_list;
-    APTR parent_internalpool;
-    int parent_numslots;
-    fdesc **parent_fd_array;
     int parent_flags;
-    char *parent_upathbuf;
+    int parent_called_exec_pretending_child;
+
 
     struct Task *child;
-    int child_called_exec;
-    int child_error, child_errno;
+    int child_error;
+    int child_errno;
     BYTE child_signal;
     BYTE child_state;
     struct CrtProgCtx *child_progctx;
