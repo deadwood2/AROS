@@ -71,7 +71,7 @@ USER_CPPFLAGS := $(LIBZ_CPPFLAGS)
 # N.B: z.static is compiled without the posix wrappers, so that it looks for the default function
 # symbol names (e.g. lseek)
 
-USER_CPPFLAGS := $(LIBZ_CPPFLAGS) -DNO_STRERROR -DNO_POSIX_WRAPPERS -DNDEBUG
+USER_CPPFLAGS := $(LIBZ_CPPFLAGS) -DNO_STRERROR -DNDEBUG
 
 %build_linklib mmake=linklibs-z-static libname=z.static \
     files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" \
