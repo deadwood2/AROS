@@ -103,9 +103,6 @@ struct __exec_context *__progonly_exec_prepare(const char *filename, int searchp
     }
 
 
-    /* Remember current stdcbase, child may overwrite it and mess up exiting */
-    // PosixCBase->exec_oldstdcbase = PosixCBase->PosixCBase.StdCBase; FIXME!!!
-
     filename2 = assign_filename(filename, searchpath, environ, _return);
     if (!filename2)
         goto error;
@@ -742,11 +739,4 @@ static void __exec_cleanup(struct __exec_context *ectx)
 
     if (ectx->selfpool)
         DeletePool(ectx->selfpool);
-
-    // FIXME!!!
-    // if (PosixCBase->exec_oldstdcbase)
-    // {
-    //     PosixCBase->PosixCBase.StdCBase = PosixCBase->exec_oldstdcbase;
-    //     PosixCBase->exec_oldstdcbase = NULL;
-    // }
 }

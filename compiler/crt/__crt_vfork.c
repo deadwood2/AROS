@@ -538,34 +538,14 @@ static void parent_enterpretendchild(struct vfork_data *udata)
     udata->child_progctx->libbase->PosixCBase->doupath = pPosixCBase->doupath;
 
     /* Remember and switch StdCBase */
-    // udata->parent_stdcbase = PosixCBase->PosixCBase.StdCBase; FIXME!!!
-    // PosixCBase->PosixCBase.StdCBase = udata->child_posixcbase->PosixCBase.StdCBase; FIXME!!!
     /* _[eE]xit() can also be called with the switched StdCBase so we also
        register the exit jmp_buf in this StdCBase. We don't need to remember
        old as child will overwrite these if it should call __exec_do().
     */
-    // __progonly_program_startup_internal(udata->child_progctx, udata->parent_newexitjmp, &udata->child_error);
+    // __progonly_program_startup_internal(udata->child_progctx, udata->parent_newexitjmp, &udata->child_error); FIXME!!!
 
-    /* Remember and switch env var list */
-    // udata->parent_env_list = PosixCBase->env_list;
-    // PosixCBase->env_list = udata->child_posixcbase->env_list; FIXME!!!
-
-    /* Remember and switch fd descriptor table */
-    // udata->parent_internalpool = PosixCBase->internalpool;
-    // PosixCBase->internalpool = udata->child_posixcbase->internalpool; FIXME!!!
-    // __getfdarray((APTR *)&udata->parent_fd_array, &udata->parent_numslots);
-    // __setfdarraybase(udata->child_posixcbase); FIXME
-    
     /* Remember and switch chdir fields */
-    // udata->parent_cd_changed = PosixCBase->cd_changed;
-    // PosixCBase->cd_changed = udata->child_posixcbase->cd_changed; FIXME!!!
-    // udata->parent_cd_lock = PosixCBase->cd_lock;
-    // PosixCBase->cd_lock = udata->child_posixcbase->cd_lock; FIXME!!!
     udata->parent_curdir = CurrentDir(((struct Process *)udata->child)->pr_CurrentDir);
-
-    /* Remember and switch upathbuf */
-    // udata->parent_upathbuf = PosixCBase->upathbuf;
-    // PosixCBase->upathbuf = udata->child_posixcbase->upathbuf; FIXME!!!
 
     /* Pretend to be running as the child created by vfork */
     udata->parent_flags = ProgCtx->vforkflags;
@@ -576,13 +556,9 @@ static void parent_enterpretendchild(struct vfork_data *udata)
 
 static void child_takeover(struct vfork_data *udata)
 {
-    struct PosixCIntBase *PosixCBase =
-        (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     D(bug("child_takeover(%x): entered\n", udata));
 
     /* Set current dir to parent's current dir */
-    // PosixCBase->cd_changed = udata->parent_posixcbase->cd_changed; FIXME!!!
-    // PosixCBase->cd_lock = udata->parent_posixcbase->cd_lock; FIXME!!!
     CurrentDir(((struct Process *)udata->parent)->pr_CurrentDir);
 
     D(bug("child_takeover(): leaving\n"));
@@ -591,27 +567,10 @@ static void child_takeover(struct vfork_data *udata)
 static void parent_leavepretendchild(struct vfork_data *udata)
 {
     struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
-    // struct PosixCIntBase *PosixCBase =
-    //     (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     D(bug("parent_leavepretendchild(%x): entered\n", udata));
 
-    /* Restore parent's StdCBase */
-    // PosixCBase->PosixCBase.StdCBase = udata->parent_stdcbase; FIXME!!!
-
-    /* Restore parent's env var list */
-    // PosixCBase->env_list = udata->parent_env_list;
-
-    /* Restore parent's old fd_array */
-    // PosixCBase->internalpool = udata->parent_internalpool;
-    // __setfdarray(udata->parent_fd_array, udata->parent_numslots);
-
     /* Switch to currentdir from before vfork() call */
-    // PosixCBase->cd_changed = udata->parent_cd_changed;
-    // PosixCBase->cd_lock = udata->parent_cd_lock;
     CurrentDir(udata->parent_curdir);
-
-    /* Restore parent's upathbuf */
-    // PosixCBase->upathbuf = udata->parent_upathbuf;
 
     /* Switch to previous vfork_data */
     ProgCtx->vfork_data = udata->prev;
