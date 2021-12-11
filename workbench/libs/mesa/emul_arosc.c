@@ -51,6 +51,16 @@ int usleep (useconds_t usec)
     return 0;
 }
 
+void abort(void)
+{
+    int a = 0 / 0;
+}
+
+void exit(int code)
+{
+    int a = 0 / 0;
+}
+
 /*
     This implementation of atexit is different than the definition of atexit
     function due to how libraries work in AROS.
