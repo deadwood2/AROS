@@ -4,7 +4,6 @@
     C99 function scanf().
 */
 
-#include <libraries/posixc.h>
 
 #include <stdarg.h>
 

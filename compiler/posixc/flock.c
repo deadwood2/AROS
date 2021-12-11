@@ -249,34 +249,44 @@ void RemoveFromList(struct SignalSemaphore *sem)
     }
 }
 
+static struct MinList *__file_locks = NULL;
+
 /* __init_flocks is called during library init.
-   PosixCBase->file_locks will be initialized here and then copied
-   in all libbases for each open of the library.
    This means that a global file_locks list is used, this is needed as flocks
    are used for locking between different processes.
 */
-int __init_flocks(struct PosixCIntBase *PosixCBase)
+int __init_flocks(struct CrtIntBase *CrtBase)
 {
-    PosixCBase->file_locks = AllocMem(sizeof(struct MinList), MEMF_PUBLIC);
-    NEWLIST(PosixCBase->file_locks);
+    __file_locks = AllocMem(sizeof(struct MinList), MEMF_PUBLIC);
+    NEWLIST(__file_locks);
 
-    D(bug("[flock] Initialized lock list at 0x%p\n", PosixCBase->file_locks));
+    D(bug("[flock] Initialized lock list at 0x%p\n", __file_locks));
 
     return 1;
 }
 
+int __share_flocks(struct CrtIntBase *CrtBase)
+{
+    CrtBase->PosixCBase->file_locks = __file_locks;
+    return 1;
+}
+
+/* NOTE: Shouldn't locks created by opener of library be accounted
+   in library base and released at library closing?
+*/
+
 /* This function is called once before root libbase would be freed.
-   This function will be called when no other program has posixc.library open
+   This function will be called when no other program has crt.library open
    so no protection should be needed.
 */
-void __unlock_flocks(struct PosixCIntBase *PosixCBase)
+void __unlock_flocks(struct CrtIntBase *CrtBase)
 {
     struct FlockNode *lock;
     struct SignalSemaphore *sem;
 
-    D(bug("[flock] Freeing lock list at 0x%p\n", PosixCBase->file_locks));
+    D(bug("[flock] Freeing lock list at 0x%p\n", __file_locks));
 
-    while ((lock = (struct FlockNode *) REMHEAD(PosixCBase->file_locks)))
+    while ((lock = (struct FlockNode *) REMHEAD(__file_locks)))
     {
         sem = lock->sem;
         ReleaseSemaphore(sem);
@@ -290,9 +300,10 @@ void __unlock_flocks(struct PosixCIntBase *PosixCBase)
         FreeVec(sem->ss_Link.ln_Name);
         FreeVec(sem);
     }
-    FreeMem(PosixCBase->file_locks, sizeof(struct MinList));
-    PosixCBase->file_locks = NULL;
+    FreeMem(__file_locks, sizeof(struct MinList));
+    __file_locks = NULL;
 }
 
+ADD2OPENLIB(__share_flocks, 0);
 ADD2INITLIB(__init_flocks, 1);
 ADD2EXPUNGELIB(__unlock_flocks, 1);

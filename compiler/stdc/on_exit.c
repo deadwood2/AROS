@@ -9,7 +9,7 @@
 
     NAME */
 
-        int on_exit(
+        int __progonly_on_exit(
 
 /*  SYNOPSIS */
         void (*func)(int, void *),
@@ -41,6 +41,6 @@
     aen->func.fptr = func;
     aen->ptr = arg;
 
-    return __addexitfunc(aen);
+    return __progonly_addexitfunc(aen);
 }
 

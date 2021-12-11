@@ -11,32 +11,7 @@
 
 #include "__crt_intbase.h"
 
-LONG ProgCtxSlot = -1;
-
-int __crtext_open(struct CrtIntBase *CrtBase)
-{
-    D(bug("[crtext] %s(0x%p)\n", __func__, CrtBase));
-
-    if (ProgCtxSlot == -1)
-        ProgCtxSlot = AllocTaskStorageSlot();
-
-    CrtBase->StdCBase    = AllocMem(sizeof(struct StdCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
-    CrtBase->PosixCBase  = AllocMem(sizeof(struct PosixCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
-    CrtBase->PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR, 256, 256);
-    CrtBase->fakevforkbase = NULL;
-
-    return 1;
-}
-
-void __crtext_close(struct CrtIntBase *CrtBase)
-{
-    D(bug("[crtext] %s(0x%p)\n", __func__, CrtBase));
-
-    DeletePool(CrtBase->PosixCBase->internalpool);
-    FreeMem(CrtBase->PosixCBase, sizeof(struct PosixCIntBase));
-    FreeMem(CrtBase->StdCBase, sizeof(struct StdCIntBase));
-
-}
+static LONG ProgCtxSlot = -1;
 
 void __aros_setoffsettable(void *base);
 
@@ -90,9 +65,35 @@ void __aros_delete_ProgCtx()
     SetTaskStorageSlot(ProgCtxSlot, (IPTR)NULL);
 }
 
-struct CrtProgCtx * __aros_get_Parent_ProgCtx()
+int __intuition_available(APTR base)
 {
-    return (struct CrtProgCtx *)GetParentTaskStorageSlot(ProgCtxSlot);
+    (void)base;
+    return 0;
+}
+
+int __crtext_open(struct CrtIntBase *CrtBase)
+{
+    D(bug("[crtext] %s(0x%p)\n", __func__, CrtBase));
+
+    if (ProgCtxSlot == -1)
+        ProgCtxSlot = AllocTaskStorageSlot();
+
+    CrtBase->StdCBase    = AllocMem(sizeof(struct StdCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
+    CrtBase->PosixCBase  = AllocMem(sizeof(struct PosixCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
+    CrtBase->PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR, 256, 256);
+    CrtBase->fakevforkbase = NULL;
+
+    return 1;
+}
+
+void __crtext_close(struct CrtIntBase *CrtBase)
+{
+    D(bug("[crtext] %s(0x%p)\n", __func__, CrtBase));
+
+    DeletePool(CrtBase->PosixCBase->internalpool);
+    FreeMem(CrtBase->PosixCBase, sizeof(struct PosixCIntBase));
+    FreeMem(CrtBase->StdCBase, sizeof(struct StdCIntBase));
+
 }
 
 ADD2OPENLIB(__crtext_open, -101);

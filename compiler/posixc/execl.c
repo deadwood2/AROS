@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "__exec.h"
+#include "../crt/__exec.h"
 
 /*****************************************************************************
 
@@ -51,18 +51,18 @@
     char ***environptr = __posixc_get_environptr();
     char **environ = (environptr != NULL) ? *environptr : NULL;
 
-    if(!(argv = __exec_valist2array(arg, args)))
+    if(!(argv = __progonly_exec_valist2array(arg, args)))
     {
         errno = ENOMEM;
         return -1;
     }
 
-    APTR id = __exec_prepare(path, 0, argv, environ);
-    __exec_cleanup_array();
+    APTR id = __progonly_exec_prepare(path, 0, argv, environ);
+    __progonly_exec_cleanup_array();
     if (!id)
         return -1;
 
-    __exec_do(id);
+    __progonly_exec_do(id);
     
     assert(0); /* Should not be reached */
     return -1;

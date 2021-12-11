@@ -201,8 +201,9 @@ static struct random_state *get_random_state(void)
     return NULL;
 }
 
-static void free_random_state(struct PosixCIntBase *PosixCIntBase)
+static void free_random_state(struct CrtIntBase *CrtBase)
 {
+    struct PosixCIntBase *PosixCIntBase = CrtBase->PosixCBase;
     if (PosixCIntBase->rs) {
         free(PosixCIntBase->rs);
         PosixCIntBase->rs = NULL;

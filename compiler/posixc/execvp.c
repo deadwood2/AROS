@@ -12,7 +12,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "__exec.h"
+#include "../crt/__exec.h"
 
 /*****************************************************************************
 
@@ -53,11 +53,11 @@
 {
     char ***environptr = __posixc_get_environptr();
     char **environ = (environptr != NULL) ? *environptr : NULL;
-    APTR id = __exec_prepare(file, 1, argv, environ);
+    APTR id = __progonly_exec_prepare(file, 1, argv, environ);
     if(!id)
         return -1;
     
-    __exec_do(id);
+    __progonly_exec_do(id);
     
     assert(0); /* not reached */
     return -1;

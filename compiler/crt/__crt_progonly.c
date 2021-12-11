@@ -14,6 +14,7 @@
 #include <aros/debug.h>
 
 #include "__crt_intbase.h"
+#include "../stdc/__exitfunc.h"
 
 void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exitjmp, int *errorptr)
 {

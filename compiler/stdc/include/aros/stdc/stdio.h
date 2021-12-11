@@ -114,9 +114,6 @@ int fputc(int c, FILE *stream);
 int fputs(const char * restrict s, FILE * restrict stream);
 int getc(FILE *stream);
 int getchar(void);
-#ifndef _STDIO_H_NOMACRO
-#define getchar()       fgetc(stdin)
-#endif
 char *gets(char *s);
 int putc(int c, FILE *stream);
 int putchar(int c);

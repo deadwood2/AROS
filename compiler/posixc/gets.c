@@ -8,7 +8,6 @@
 #include <dos/dosextens.h>
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <libraries/posixc.h>
 #include "__fdesc.h"
 
 #include <string.h>

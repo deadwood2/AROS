@@ -20,7 +20,7 @@
     NAME */
 #include <stdlib.h>
 
-        int __posixc_set_environptr (
+        int __progonly_set_environptr (
 
 /*  SYNOPSIS */
         char ***environptr)

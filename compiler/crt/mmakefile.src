@@ -478,149 +478,264 @@ USER_INCLUDES := \
 USER_LDFLAGS := -nolibc
 
 CRT := \
-    ../stdc/__exitfunc \
-    ../stdc/__optionallibs \
-    ../stdc/__signal \
-    ../stdc/__stdc_ioerr2errno \
-    ../stdc/__stdc_geterrnoptr \
-    ../stdc/__stdc_getsigngamptr \
-    ../stdc/__stdc_gmtoffset \
-    ../stdc/__stdc_mb_cur_max \
-    ../stdc/abort \
-    ../stdc/atexit \
-    ../stdc/calloc \
-    ../stdc/clock \
-    ../stdc/_exit \
-    ../stdc/exit \
-    ../stdc/free \
-    ../stdc/localtime \
-    ../stdc/malloc \
-    ../stdc/rand \
-    ../stdc/realloc \
-    ../stdc/realloc_nocopy \
-    ../stdc/signal \
-    ../stdc/strdup \
-    ../stdc/strndup \
     ../posixc/__env \
     ../posixc/__fdesc \
-    ../posixc/__posixc_environ \
     ../posixc/__fopen \
+    ../posixc/__fseeko \
+    ../posixc/__ftello \
     ../posixc/__get_default_file \
+    ../posixc/__posixc_environ \
     ../posixc/__posixc_nixmain \
     ../posixc/__posixc_stdstreams \
     ../posixc/__posixc_timer \
-    ../posixc/__stdio \
+    ../posixc/__rand48 \
     ../posixc/__stat \
+    ../posixc/__stdio \
     ../posixc/__upath \
     ../posixc/__usergrp \
     ../posixc/access \
+    ../posixc/alphasort \
+    ../posixc/alphasort64 \
     ../posixc/basename \
+    ../posixc/cfgetispeed \
+    ../posixc/cfgetospeed \
+    ../posixc/cfsetispeed \
+    ../posixc/cfsetospeed \
     ../posixc/chdir \
     ../posixc/chmod \
+    ../posixc/chown \
     ../posixc/clearerr \
+    ../posixc/clock_gettime \
     ../posixc/close \
     ../posixc/closedir \
+    ../posixc/creat \
+    ../posixc/creat64 \
     ../posixc/dirfd \
+    ../posixc/dirname \
+    ../posixc/drand48 \
     ../posixc/dup \
     ../posixc/dup2 \
+    ../posixc/endgrent \
     ../posixc/endpwent \
+    ../posixc/erand48 \
     ../posixc/execl \
+    ../posixc/execlp \
     ../posixc/execv \
+    ../posixc/execve \
     ../posixc/execvp \
     ../posixc/fchdir \
+    ../posixc/fchmod \
+    ../posixc/fchown \
     ../posixc/fclose \
     ../posixc/fcntl \
     ../posixc/fdopen \
-    ../posixc/ferror \
     ../posixc/feof \
-    ../posixc/fileno \
+    ../posixc/ferror \
     ../posixc/fflush \
     ../posixc/fgetc \
+    ../posixc/fgetpos \
+    ../posixc/fgetpos64 \
     ../posixc/fgets \
+    ../posixc/fileno \
+    ../posixc/flock \
+    ../posixc/flockfile \
     ../posixc/fopen \
     ../posixc/fopen64 \
     ../posixc/fprintf \
     ../posixc/fputc \
     ../posixc/fputs \
     ../posixc/fread \
+    ../posixc/freopen \
+    ../posixc/fscanf \
     ../posixc/fseek \
+    ../posixc/fseeko \
+    ../posixc/fseeko64 \
+    ../posixc/fsetpos \
+    ../posixc/fsetpos64 \
     ../posixc/fstat \
     ../posixc/fstat64 \
+    ../posixc/fsync \
     ../posixc/ftell \
+    ../posixc/ftello \
+    ../posixc/ftello64 \
     ../posixc/ftruncate \
+    ../posixc/funlockfile \
     ../posixc/fwrite \
+    ../posixc/getc_unlocked \
+    ../posixc/getchar \
     ../posixc/getcwd \
     ../posixc/getegid \
-    ../posixc/getenv \
     ../posixc/geteuid \
-    ../posixc/getc_unlocked \
+    ../posixc/getenv \
+    ../posixc/getfsstat \
     ../posixc/getgid \
+    ../posixc/getgrent \
     ../posixc/getgrgid \
+    ../posixc/getgrnam \
     ../posixc/getgroups \
+    ../posixc/getloadavg \
+    ../posixc/getlogin \
+    ../posixc/getpass \
+    ../posixc/getpgid \
     ../posixc/getpgrp \
     ../posixc/getpid \
     ../posixc/getppid \
     ../posixc/getpwent \
+    ../posixc/getpwnam \
     ../posixc/getpwuid \
     ../posixc/getrlimit \
+    ../posixc/gets \
     ../posixc/gettimeofday \
     ../posixc/getuid \
     ../posixc/ioctl \
     ../posixc/isatty \
+    ../posixc/jrand48 \
+    ../posixc/kill \
+    ../posixc/lcong48 \
+    ../posixc/link \
+    ../posixc/lrand48 \
     ../posixc/lseek \
+    ../posixc/lseek64 \
     ../posixc/lstat \
+    ../posixc/lstat64 \
     ../posixc/mkdir \
+    ../posixc/mknod \
     ../posixc/mkstemp \
+    ../posixc/mktemp \
+    ../posixc/mrand48 \
+    ../posixc/nanosleep \
+    ../posixc/nrand48 \
     ../posixc/open \
     ../posixc/opendir \
+    ../posixc/pathconf \
+    ../posixc/pclose \
     ../posixc/perror \
     ../posixc/pipe \
+    ../posixc/popen \
+    ../posixc/posix_memalign \
     ../posixc/printf \
     ../posixc/putchar \
     ../posixc/putenv \
     ../posixc/puts \
+    ../posixc/random \
     ../posixc/read \
     ../posixc/readdir \
-    ../posixc/remove \
-    ../posixc/rename \
-    ../posixc/rmdir \
+    ../posixc/readdir64 \
+    ../posixc/readlink \
+    ../posixc/realpath \
+    ../posixc/regex/regerror \
+    ../posixc/regex/regexec \
+    ../posixc/regex/regcomp \
+    ../posixc/regex/regfree \
+    ../posixc/rewind \
+    ../posixc/rewinddir \
+    ../posixc/scandir \
+    ../posixc/scandir64 \
+    ../posixc/scanf \
+    ../posixc/seed48 \
+    ../posixc/seekdir \
+    ../posixc/setbuf \
+    ../posixc/setegid \
     ../posixc/setenv \
-    ../posixc/setvbuf \
+    ../posixc/seteuid \
+    ../posixc/setgid \
+    ../posixc/setgrent \
+    ../posixc/setpwent \
     ../posixc/setrlimit \
+    ../posixc/setsid \
+    ../posixc/setuid \
+    ../posixc/setvbuf \
     ../posixc/sigaction \
     ../posixc/sigaddset \
+    ../posixc/sigdelset \
     ../posixc/sigemptyset \
+    ../posixc/sigfillset \
     ../posixc/sigismember \
+    ../posixc/siglongjmp \
+    ../posixc/sigpending \
     ../posixc/sigprocmask \
+    ../posixc/sigsetjmp \
+    ../posixc/sigsuspend \
+    ../posixc/sleep \
+    ../posixc/srand48 \
     ../posixc/stat \
+    ../posixc/stat64 \
+    ../posixc/statfs \
     ../posixc/strerror \
+    ../posixc/strptime \
+    ../posixc/swab \
     ../posixc/symlink \
+    ../posixc/sync \
+    ../posixc/sysconf \
     ../posixc/tcgetattr \
+    ../posixc/tcgetpgrp \
     ../posixc/tcsetattr \
+    ../posixc/telldir \
+    ../posixc/tempnam \
+    ../posixc/times \
+    ../posixc/tmpfile \
+    ../posixc/tmpnam \
+    ../posixc/truncate \
+    ../posixc/ttyname \
     ../posixc/umask \
     ../posixc/uname \
     ../posixc/ungetc \
     ../posixc/unsetenv \
+    ../posixc/updatestdio \
+    ../posixc/usleep \
+    ../posixc/utime \
+    ../posixc/utimes \
     ../posixc/vfprintf \
+    ../posixc/vfscanf \
+    ../posixc/vprintf \
+    ../posixc/vscanf \
     ../posixc/wait \
     ../posixc/waitpid \
     ../posixc/write \
-    ../crt/__crt_exec \
-    ../crt/__crt_vfork \
-    ../crt/__crt_init \
-    ../crt/__crt_progonly \
-    ../crt/__crt_wrapper \
-    ../crt/crtextfake \
+    ../stdc/__exitfunc \
+    ../stdc/__signal \
+    ../stdc/__stdc_geterrnoptr \
+    ../stdc/__stdc_getsigngamptr \
+    ../stdc/__stdc_ioerr2errno \
+    ../stdc/__stdc_mb_cur_max \
+    ../stdc/_exit \
+    ../stdc/abort \
+    ../stdc/asctime \
+    ../stdc/atexit \
+    ../stdc/calloc \
+    ../stdc/clock \
+    ../stdc/ctime \
+    ../stdc/exit \
+    ../stdc/free \
+    ../stdc/gmtime \
+    ../stdc/localtime \
+    ../stdc/malloc \
+    ../stdc/malloc_align \
+    ../stdc/on_exit \
+    ../stdc/raise \
+    ../stdc/rand \
+    ../stdc/realloc \
+    ../stdc/realloc_nocopy \
+    ../stdc/signal \
+    ../stdc/strdup \
+    ../stdc/strndup \
+    ../stdc/strtoimax \
+    ../stdc/strtok \
     ../stdc/strtol \
     ../stdc/strtoul \
     ../stdc/strtoull \
     ../stdc/strtoll \
-    ../posixc/strptime \
-
+    ../stdc/strtoumax \
+    ../crt/__crt_assert \
+    ../crt/__crt_exec \
+    ../crt/__crt_init \
+    ../crt/__crt_progonly \
+    ../crt/__crt_system \
+    ../crt/__crt_vfork \
+    ../crt/__crt_wrapper \
 
 CRT_LINKLIB := \
-    getopt \
-    posixc_environ
+    ../posixc/getopt \
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
@@ -628,7 +743,7 @@ CRT_LINKLIB := \
     linklibfiles="$(CRT_LINKLIB)" uselibs="crtutil m"
 
 %build_linklib mmake=linklibs-crtprog \
-    libname=crtprog files="crtprog"
+    libname=crtprog files="crtprog ../posixc/posixc_environ"
 
 
 

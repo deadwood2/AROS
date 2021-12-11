@@ -23,7 +23,7 @@ struct AtExitNode
 #define AEN_VOID 0
 #define AEN_PTR 1
 
-int __addexitfunc(struct AtExitNode *aen);
-void __callexitfuncs(void);
+int __progonly_addexitfunc(struct AtExitNode *aen);
+void __progonly_callexitfuncs(void);
 
 #endif

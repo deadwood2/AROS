@@ -15,7 +15,7 @@ char **environ;
 
 static int __environ_init(struct ExecBase *SysBase)
 {
-    return __posixc_set_environptr(&environ);
+    return __progonly_set_environptr(&environ);
 }
 
 ADD2INIT(__environ_init, 0)

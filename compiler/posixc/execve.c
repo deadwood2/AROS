@@ -8,14 +8,14 @@
 
 #include <assert.h>
 
-#include "__exec.h"
+#include "../crt/__exec.h"
 
 /*****************************************************************************
 
     NAME */
 #include <unistd.h>
 
-        int execve(
+        int __progonly_execve(
 
 /*  SYNOPSIS */
         const char *filename,
@@ -48,11 +48,11 @@
 
 ******************************************************************************/
 {
-    APTR id = __exec_prepare(filename, 0, argv, envp);
+    APTR id = __progonly_exec_prepare(filename, 0, argv, envp);
     if(!id)
         return -1;
     
-    __exec_do(id);
+    __progonly_exec_do(id);
     
     assert(0); /* Should not be reached */
     return -1;

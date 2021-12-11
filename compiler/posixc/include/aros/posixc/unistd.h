@@ -470,16 +470,12 @@ extern int  optind, opterr, optopt;
 int usleep(useconds_t microseconds);
 pid_t vfork(void);
 
-/* AROS extension */
-void        sharecontextwithchild(int share); /* AROS specific call */
-
 __END_DECLS
 
-/* posixc.library internal functions to initialize environ handling simulation
+/* C library internal functions to initialize environ handling simulation
    This code should normally not be called as it will automatically be called
    when a user program references the 'extern char **environ' variable.
 */
-int __posixc_set_environptr(char ***environ_ptr);
-char ***__posixc_get_environptr(void);
+int __progonly_set_environptr(char ***environ_ptr);
 
 #endif /* _POSIXC_UNISTD_H_ */

@@ -48,20 +48,17 @@ struct CrtProgCtx
 struct CrtProgCtx * __aros_get_ProgCtx();
 struct CrtProgCtx * __aros_create_ProgCtx();
 void __aros_delete_ProgCtx();
-struct CrtProgCtx * __aros_get_Parent_ProgCtx();
 
 void __progonly_set_exitjmp(jmp_buf exitjmp, jmp_buf previousjmp);
 void __progonly_jmp2exit(int normal, int retcode);
 int *__progonly_get_errorptr(void);
 int *__progonly_set_errorptr(int *errorptr);
-void __progonly_callexitfuncs(void);
 void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exitjmp, int *errorptr);
-
 int __progonly_init_atexit(struct CrtProgCtx *ProgCtx);
-struct AtExitNode;
-int __progonly_addexitfunc(struct AtExitNode *aen);
 
 void __progonly__Exit (int code);
+void __progonly_exit (int code);
+char ***__posixc_get_environptr(void);
 
 /* Make a distinction between exit() and abort() */
 #define ABNORMAL_EXIT 0x00000001

@@ -9,18 +9,18 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "__exec.h"
+#include "../crt/__exec.h"
 
 /*****************************************************************************
 
     NAME */
 #include <unistd.h>
 
-        int execlp(
+        int __progonly_execlp(
 
 /*  SYNOPSIS */
         const char *file,
-        const char *arg, ...)
+        const char *arg, va_list args)
         
 /*  FUNCTION
         Executes a file with given name. The search paths for the executed
@@ -48,28 +48,22 @@
 
 ******************************************************************************/
 {
-    va_list args;
     char *const *argv;
     char ***environptr = __posixc_get_environptr();
     char **environ = (environptr != NULL) ? *environptr : NULL;
 
-    va_start(args, arg);
-    
-    if(!(argv = __exec_valist2array(arg, args)))
+    if(!(argv = __progonly_exec_valist2array(arg, args)))
     {
-        va_end(args);
         errno = ENOMEM;
         return -1;
     }
 
-    va_end(args);
-
-    APTR id = __exec_prepare(file, 1, argv, environ);
-    __exec_cleanup_array();
+    APTR id = __progonly_exec_prepare(file, 1, argv, environ);
+    __progonly_exec_cleanup_array();
     if (!id)
         return -1;
 
-    __exec_do(id);
+    __progonly_exec_do(id);
     
     assert(0); /* Should not be reached */
     return -1;

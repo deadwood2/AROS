@@ -4,7 +4,6 @@
     C99 function vprintf()
 */
 
-#include <libraries/posixc.h>
 
 #include <stdarg.h>
 

@@ -209,7 +209,7 @@ LONG launcher()
             child_takeover(udata);
 
             /* Filenames passed from parent obey parent's doupath */
-            ectx = udata->ectx = __exec_prepare(
+            ectx = udata->ectx = __progonly_exec_prepare(
                 udata->exec_filename,
                 0,
                 udata->exec_argv,
@@ -257,7 +257,7 @@ LONG launcher()
                 __progonly_program_startup_internal(ProgCtx, exec_exitjmp, &exec_error); // FIXME!!! What's the point of this?
 
                 D(bug("launcher: executing command\n"));
-                __exec_do(ectx);
+                __progonly_exec_do(ectx);
 
                 assert(0); /* Should not be reached */
             }

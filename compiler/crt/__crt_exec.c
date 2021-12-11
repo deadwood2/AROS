@@ -46,7 +46,7 @@ static APTR __exec_prepare_regular(char * filename2, char *const argv[], char *c
 /* Public functions */
 /********************/
 
-void __exec_do(struct __exec_context *ectx)
+void __progonly_exec_do(struct __exec_context *ectx)
 {
     /*  Whole __exec_do has to operate without library base available, due to
         vfork() + exec() case. See comment in __vfork.c/launcher */
@@ -67,7 +67,7 @@ void __exec_do(struct __exec_context *ectx)
     }
 }
 
-struct __exec_context *__exec_prepare(const char *filename, int searchpath, char *const argv[], char *const envp[])
+struct __exec_context *__progonly_exec_prepare(const char *filename, int searchpath, char *const argv[], char *const envp[])
 {
     struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     char *filename2 = NULL;
@@ -570,7 +570,7 @@ static void __exec_do_regular(struct CrtProgCtx *ProgCtx, struct __exec_context 
 }
 
 
-char *const *__exec_valist2array(const char *arg1, va_list list)
+char *const *__progonly_exec_valist2array(const char *arg1, va_list list)
 {
     struct PosixCIntBase *PosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
@@ -615,7 +615,7 @@ char *const *__exec_valist2array(const char *arg1, va_list list)
 }
 
 
-void __exec_cleanup_array()
+void __progonly_exec_cleanup_array()
 {
     struct PosixCIntBase *PosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();

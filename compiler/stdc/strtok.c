@@ -86,9 +86,9 @@
 } /* strtok */
 
 
-static int __strtok_init(struct StdCIntBase *StdCBase)
+static int __strtok_init(struct CrtIntBase *CrtBase)
 {
-    StdCBase->last = NULL;
+    CrtBase->StdCBase->last = NULL;
 
     return 1;
 }
