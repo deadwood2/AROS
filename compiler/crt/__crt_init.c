@@ -10,6 +10,7 @@
 #include <aros/symbolsets.h>
 
 #include "__crt_intbase.h"
+#include "__crt_progonly.h"
 
 static LONG ProgCtxSlot = -1;
 

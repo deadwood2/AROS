@@ -10,6 +10,7 @@
 #include <assert.h>
 
 #include "debug.h"
+#include "../crt/__crt_progonly.h"
 
 /*****************************************************************************
 

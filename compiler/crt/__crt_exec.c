@@ -22,12 +22,14 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include "__crt_intbase.h"
+#include "__crt_progonly.h"
+
 #include "__exec.h"
 #include "__upath.h"
 #include "__fdesc.h"
 #include "__vfork.h"
 
-#include "__crt_intbase.h"
 
 static BOOL containswhite(const char *str);
 static char *escape(const char *str, APTR pool);

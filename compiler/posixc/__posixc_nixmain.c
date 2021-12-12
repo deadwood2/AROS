@@ -24,6 +24,7 @@
 #include <sys/param.h>
 
 #include "__upath.h"
+#include "../crt/__crt_progonly.h"
 
 static BOOL clone_vars(struct MinList *old_vars);
 static void restore_vars(struct MinList *old_vars);

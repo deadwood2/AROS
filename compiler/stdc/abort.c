@@ -8,6 +8,8 @@
 #include <signal.h>
 #include <assert.h>
 
+#include "../crt/__crt_progonly.h"
+
 /*****************************************************************************
 
     NAME */

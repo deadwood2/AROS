@@ -55,6 +55,8 @@ struct signal_func_data *__sig_getfuncdata(int signum)
     return &StdCBase->sigfunc_array[signum-1];
 }
 
+#include "../crt/__crt_progonly.h"
+
 /* Handler for SIG_DFL */
 /* TODO: Maybe a mechanism has to be implemented so that default signal handler
    can be overloaded by libraries. For example by stdcio.library or posixc.library

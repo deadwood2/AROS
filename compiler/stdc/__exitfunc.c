@@ -6,6 +6,7 @@
 #include <aros/symbolsets.h>
 #include <exec/lists.h>
 #include "__exitfunc.h"
+#include "../crt/__crt_progonly.h"
 
 int __progonly_addexitfunc(struct AtExitNode *aen)
 {

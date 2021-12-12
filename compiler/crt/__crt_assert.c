@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "__crt_intbase.h"
+#include "__crt_progonly.h"
 
 /*****************************************************************************
 

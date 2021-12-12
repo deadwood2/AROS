@@ -21,10 +21,11 @@
 #include <stdio.h>
 
 #include "__crt_intbase.h"
+#include "__crt_progonly.h"
+
 #include "__fdesc.h"
 #include "__vfork.h"
 #include "__exec.h"
-
 
 /* #define VFORK_USE_INLINECOPY */ /* Disabled. Causes crash in native gcc */
 #if defined(VFORK_USE_INLINECOPY)

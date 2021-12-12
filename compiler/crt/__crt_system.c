@@ -15,6 +15,7 @@
 #include <string.h>
 
 #include "__crt_intbase.h"
+#include "__crt_progonly.h"
 
 #include "__fdesc.h"
 #include "__upath.h"
