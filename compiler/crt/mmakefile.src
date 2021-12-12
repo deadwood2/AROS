@@ -742,8 +742,22 @@ CRT_LINKLIB := \
     files="$(CRT) $(CRT_LGAMMA_MATH)" \
     linklibfiles="$(CRT_LINKLIB)" uselibs="crtutil m"
 
+# Note: use absolute path pointing to crt, befor posixc to control vpath in %rule_compile_multi
+CRT_PROG := \
+    $(SRCDIR)/compiler/crt/program/_exit \
+    program/abort \
+    program/atexit \
+    program/exit \
+    program/execl \
+    program/execlp \
+    program/execv \
+    program/execve \
+    program/execvp \
+    program/startup \
+    $(SRCDIR)/compiler/posixc/posixc_environ
+
 %build_linklib mmake=linklibs-crtprog \
-    libname=crtprog files="crtprog ../posixc/posixc_environ"
+    objdir=$(GENDIR)/$(CURDIR)/prog libname=crtprog files="$(CRT_PROG)"
 
 
 
