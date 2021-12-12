@@ -4,7 +4,10 @@
     Desc: special main function for code which has to use special *nix features
 */
 
+#include <aros/symbolsets.h>
 #include <proto/crt.h>
+
+AROS_IMPORT_ASM_SYM(int, dummy, __includecrtprogramstartuphandling);
 
 extern int main(int argc, char *argv[]);
 
