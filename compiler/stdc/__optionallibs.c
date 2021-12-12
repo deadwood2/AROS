@@ -26,6 +26,7 @@ static struct Library *__libfindandopen(const char *libname, int version)
     return (found != NULL) ? OpenLibrary(libname, version) : NULL;
 }
 
+#if 0
 int __locale_available(struct StdCIntBase *StdCBase)
 {
     if (StdCBase->StdCLocaleBase == NULL)
@@ -33,6 +34,7 @@ int __locale_available(struct StdCIntBase *StdCBase)
 
     return StdCBase->StdCLocaleBase != NULL;
 }
+#endif
 
 int __intuition_available(struct StdCIntBase *StdCBase)
 {

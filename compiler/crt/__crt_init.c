@@ -66,12 +66,6 @@ void __aros_delete_ProgCtx()
     SetTaskStorageSlot(ProgCtxSlot, (IPTR)NULL);
 }
 
-int __intuition_available(APTR base)
-{
-    (void)base;
-    return 0;
-}
-
 int __crtext_open(struct CrtIntBase *CrtBase)
 {
     D(bug("[crtext] %s(0x%p)\n", __func__, CrtBase));

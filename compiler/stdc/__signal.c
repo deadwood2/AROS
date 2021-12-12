@@ -90,19 +90,22 @@ void __sig_default(int signum)
     if (__intuition_available(StdCBase))
     {
         struct EasyStruct es =
-            {
-                sizeof(struct EasyStruct),
-                0,
-                "Caught Signal",
-                "%s",
-                "OK"
-            };
+        {
+            sizeof(struct EasyStruct),
+            0,
+            "Caught Signal",
+            "%s",
+            "OK"
+        };
         stdcEasyRequest(StdCBase->StdCIntuitionBase, NULL, &es, NULL, s);
     }
     else
         kprintf("[%s] %s: %s\n", STDCNAME, __func__, s);
 
-    __progonly_jmp2exit(0, 20);
+    if (__aros_get_ProgCtx())
+        __progonly_jmp2exit(0, 20);
+    else
+        __modonly_abort();
 
     assert(0); /* Should not be reached */
 }

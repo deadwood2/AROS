@@ -694,6 +694,7 @@ CRT := \
     ../posixc/waitpid \
     ../posixc/write \
     ../stdc/__exitfunc \
+    ../stdc/__optionallibs \
     ../stdc/__signal \
     ../stdc/__stdc_geterrnoptr \
     ../stdc/__stdc_getsigngamptr \
