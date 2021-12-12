@@ -2,7 +2,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 #USER_CFLAGS := -DDEBUG=1
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 FILES := parallel_support parallel_interrupthandlers
 

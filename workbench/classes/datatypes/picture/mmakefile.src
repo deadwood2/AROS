@@ -7,7 +7,7 @@ FILES := pictureclass colorhandling prefs
 
 USER_CPPFLAGS := -DCOMPILE_DATATYPE -DMYDEBUG
 USER_CFLAGS := $(CFLAGS_NO_INLINE_SMALL_FUNCTIONS)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_module mmake=workbench-datatypes-picture \
     modname=picture modtype=datatype \

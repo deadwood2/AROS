@@ -68,7 +68,7 @@ SYSEXP_BUILD_SDK_INCLUDES := $(AROS_BUILD_SDKS)/sysexplorer/include
 #MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-pci
 #MM- workbench-tools-sysexplorer-modules-quick : workbench-tools-sysexplorer-module-pci-quick
 USER_INCLUDES := $(SYSEXPCOMMON_INCLUDES) -I$(SRCDIR)/$(CURDIR)/$(PCIMODDIR)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 %build_module mmake=workbench-tools-sysexplorer-module-pci \
     modname=pci modtype=library modsuffix=sysexp \
     files="$(PCIFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
@@ -77,7 +77,7 @@ USER_LDFLAGS := -static
 ##MM workbench-tools-sysexplorer-module-gfx : workbench-tools-sysexplorer-includes
 ##MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-gfx
 #USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/$(GFXMODDIR)
-#USER_LDFLAGS := -static
+#USER_LDFLAGS :=
 #%build_module mmake=workbench-tools-sysexplorer-module-gfx \
 #    modname=gfx modtype=library modsuffix=sysexp \
 #    files="$(GFXFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
@@ -89,7 +89,7 @@ USER_LDFLAGS := -static
 
 SYSEXPSTORAGE_INCLUDES := -I$(SRCDIR)/$(CURDIR)/$(STORAGEMODDIR)
 USER_INCLUDES := $(SYSEXPSTORAGE_INCLUDES)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 %build_module mmake=workbench-tools-sysexplorer-module-storage \
     modname=storage modtype=library modsuffix=sysexp \
     files="$(STORAGEFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
@@ -100,7 +100,7 @@ USER_LDFLAGS := -static
 #MM- workbench-tools-sysexplorer-modules-quick : workbench-tools-sysexplorer-module-ata-quick
 
 USER_INCLUDES := $(SYSEXPSTORAGE_INCLUDES) -I$(SRCDIR)/$(CURDIR)/$(ATAMODDIR)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 %build_module mmake=workbench-tools-sysexplorer-module-ata \
     modname=ata modtype=library modsuffix=sysexp \
     files="$(ATAFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
@@ -111,7 +111,7 @@ USER_LDFLAGS := -static
 #MM- workbench-tools-sysexplorer-modules-quick : workbench-tools-sysexplorer-module-ahci-quick
 
 USER_INCLUDES := $(SYSEXPSTORAGE_INCLUDES) -I$(SRCDIR)/$(CURDIR)/$(AHCIMODDIR)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 %build_module mmake=workbench-tools-sysexplorer-module-ahci \
     modname=ahci modtype=library modsuffix=sysexp \
     files="$(AHCIFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \

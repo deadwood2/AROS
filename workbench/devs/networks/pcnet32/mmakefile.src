@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM- workbench-devs-networks-pcnet32-i386 : workbench-devs-networks-pcnet32-x86
 #MM- workbench-devs-networks-pcnet32-x86_64 : workbench-devs-networks-pcnet32-x86
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 FILES := handler unit pcnet32
 

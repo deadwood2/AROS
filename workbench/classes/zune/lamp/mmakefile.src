@@ -3,7 +3,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 USER_CFLAGS := $(PARANOIA_CFLAGS)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 FILES         := lamp
 INCLUDE_FILES := Lamp_mcc.h

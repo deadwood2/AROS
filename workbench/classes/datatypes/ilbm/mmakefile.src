@@ -6,7 +6,7 @@ FILES := ilbmclass
 #MM workbench-datatypes-ilbm : includes linklibs
 
 USER_CPPFLAGS   := -DMYDEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_module mmake=workbench-datatypes-ilbm \
     modname=ilbm modtype=datatype \

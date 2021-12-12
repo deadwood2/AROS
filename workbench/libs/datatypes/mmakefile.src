@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 # For m68k --with-paranoia
 NOWARN_FLAGS := $(NOWARN_FRAME_ADDRESS)
 USER_CFLAGS := $(NOWARN_FLAGS)

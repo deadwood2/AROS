@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 FILES         := systemprefswindow
 INCLUDE_FILES := systemprefswindow.h

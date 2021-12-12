@@ -43,7 +43,7 @@ FILES	:= \
 
 USER_INCLUDES := -I$(GENDIR)/workbench/c/shellcommands/shellsegs.h
 USER_CPPFLAGS := -DADATE="\"$(shell date "+%d.%m.%Y")\""
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 #MM- workbench-c : workbench-c-shellcommands
 #MM- workbench-c-quick : workbench-c-shellcommands-quick

@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 FILES := usb_init usbclass usbdeviceclass usbhubclass usbprocess misc
 

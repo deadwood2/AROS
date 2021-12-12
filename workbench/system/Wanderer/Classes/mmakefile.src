@@ -14,7 +14,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM wanderer-classes-iconvolumelist : includes workbench-libs-muimaster
 #MM wanderer-classes-iconlistview : includes workbench-libs-muimaster
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_module \
     mmake=wanderer-classes-icon \

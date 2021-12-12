@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 
 NOWARN_FLAGS := $(NOWARN_UNINITIALIZED) $(NOWARN_PARENTHESES)
 USER_CFLAGS := $(NOWARN_FLAGS)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_prog mmake=workbench-devs-networks-rhine \
     progname="rhine.device" \

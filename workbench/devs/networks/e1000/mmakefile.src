@@ -8,7 +8,7 @@ FILES := handler unit e1000
 INTELCOREFILES := e1000_api e1000_phy e1000_mac e1000_nvm e1000_manage
 INTELMACFILES := e1000_82540 e1000_82541 e1000_82542 e1000_82543
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 #MM- workbench-devs-networks-e1000 : workbench-devs-networks-e1000-normal
 #MM- workbench-devs-networks-e1000 : workbench-devs-networks-e1000-debug

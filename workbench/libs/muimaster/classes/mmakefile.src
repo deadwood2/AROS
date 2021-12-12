@@ -5,7 +5,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_CFLAGS := -I$(SRCDIR)/$(CURDIR)/.. -I$(TOP)/$(CURDIR)/..
 USER_CFLAGS += $(PARANOIA_CFLAGS)
 USER_LIBS   := mui
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 #MM- workbench-libs-muimaster : \
 #MM     workbench-classes-zune-aboutmui \

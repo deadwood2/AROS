@@ -5,7 +5,7 @@ FILES:= uuid_compare uuid_namespace uuid_parse uuid_pack uuid_clear \
 	uuid_copy uuid_generate
 
 USER_CPPFLAGS := -DADEBUG=1
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 #MM- workbench-libs : workbench-libs-uuid
 %build_module mmake=workbench-libs-uuid \

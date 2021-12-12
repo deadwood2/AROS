@@ -45,7 +45,7 @@ FILES := library \
     cflags=$(CFLAGS) \
     uselibs="identify"
 
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_module mmake=workbench-libs-identify-lib \
     modname=identify modtype=library \
