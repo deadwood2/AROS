@@ -142,7 +142,7 @@ diff -ruN gcc-6.5.0/gcc/config/aarch64/aros.h gcc-6.5.0.aros/gcc/config/aarch64/
 +#endif
 +
 +#undef SUBTARGET_CPP_SPEC
-+#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:%{!nostdc:%{!noposixc|noposixinc: -idirafter %R/include/aros/posixc} -idirafter %R/include/aros/stdc}}"
++#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc: -idirafter %R/include/aros/posixc -idirafter %R/include/aros/stdc}"
 +
 +#undef  SUBTARGET_EXTRA_LINK_SPEC
 +#define SUBTARGET_EXTRA_LINK_SPEC " -m " TARGET_LINKER_EMULATION
@@ -255,7 +255,7 @@ diff -ruN gcc-6.5.0/gcc/config/arm/aros.h gcc-6.5.0.aros/gcc/config/arm/aros.h
 +#endif
 +
 +#undef SUBTARGET_CPP_SPEC
-+#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:%{!nostdc:%{!noposixc|noposixinc: -idirafter %R/include/aros/posixc} -idirafter %R/include/aros/stdc}}"
++#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc: -idirafter %R/include/aros/posixc -idirafter %R/include/aros/stdc}"
 +
 +#undef  SUBTARGET_EXTRA_LINK_SPEC
 +#define SUBTARGET_EXTRA_LINK_SPEC " -m " TARGET_LINKER_EMULATION
@@ -394,7 +394,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.h gcc-6.5.0.aros/gcc/config/aros.h
 +}
 +
 +#undef CPP_SPEC
-+#define CPP_SPEC "%(cpp_cpu) %{fPIC:-D__PIC__ -D__pic__} %{fpic:-D__PIC__ -D__pic__} %{posix:-D_POSIX_SOURCE} %{pthread:-D_REENTRANT} %{nix:-D__NIX__}  %{!nostdinc:%{!nostdc:%{!noposixc|noposixinc:-idirafter %R/include/aros/posixc} -idirafter %R/include/aros/stdc}}"
++#define CPP_SPEC "%(cpp_cpu) %{fPIC:-D__PIC__ -D__pic__} %{fpic:-D__PIC__ -D__pic__} %{posix:-D_POSIX_SOURCE} %{pthread:-D_REENTRANT} %{nix:-D__NIX__}  %{!nostdinc: -idirafter %R/include/aros/posixc -idirafter %R/include/aros/stdc}"
 +
 +/* This is for -profile to use -lc_p instead of -lc.  */
 +#ifndef CC1_SPEC
@@ -407,7 +407,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.h gcc-6.5.0.aros/gcc/config/aros.h
 +
 +#undef	LIB_SPEC
 +#define LIB_SPEC \
-+  "--start-group -lmui -larossupport -lamiga %{!nostartfiles:%{!static:%{!nocrt:-lm -lcrt -lcrtprog -lcrtext}} %{static:%{!nocrt:-lstdc.static}}} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{nostartfiles:%{static:-lstdc.static}} --end-group"
++  "--start-group -lmui -larossupport -lamiga %{!nolibc: -lm -lcrtutil -lcrtext} %{!nostartfiles: -lcrtprog} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit --end-group"
 +
 +#undef	LIBSTDCXX_STATIC
 +#define LIBSTDCXX_STATIC "pthread"
@@ -426,7 +426,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.h gcc-6.5.0.aros/gcc/config/aros.h
 diff -ruN gcc-6.5.0/gcc/config/aros.opt gcc-6.5.0.aros/gcc/config/aros.opt
 --- gcc-6.5.0/gcc/config/aros.opt	1970-01-01 00:00:00.000000000 +0000
 +++ gcc-6.5.0.aros/gcc/config/aros.opt	2020-11-03 18:50:34.855736269 +0000
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,32 @@
 +; Processor-independent options for AROS.
 +
 +; Copyright (C) 2015 Free Software Foundation, Inc.
@@ -450,16 +450,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.opt gcc-6.5.0.aros/gcc/config/aros.opt
 +posix
 +Driver
 +
-+noposixc
-+Driver
-+
-+noposixinc
-+Driver
-+
-+deferposixc
-+Driver
-+
-+nostdc
++nolibc
 +Driver
 +
 +nosysbase
