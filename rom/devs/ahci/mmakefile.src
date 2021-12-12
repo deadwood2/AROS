@@ -42,7 +42,7 @@ USER_CPPFLAGS += -D__BSD_VISIBLE
 # Enable AROS debugging
 #USER_CPPFLAGS += -DDEBUG=1
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-ahci \
   modname=ahci modtype=device \

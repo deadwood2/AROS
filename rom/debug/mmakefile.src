@@ -15,6 +15,6 @@ USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-debug \
   modname=debug modtype=library \
-  files="$(FILES) $(FUNCS)" linklibfiles=$(STATICFUNCS) usesdks="private config"
+  files="$(FILES) $(FUNCS)" linklibfiles=$(STATICFUNCS) usesdks="private config" uselibs="stdc.static"
 
 %common

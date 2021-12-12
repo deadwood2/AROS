@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FILES :=    serialcp210x.class dev debug
 

@@ -6,10 +6,11 @@ include $(SRCDIR)/config/aros.cfg
 USER_INCLUDES := -I.
 
 CFLAGS := $(CFLAGS) -D__KERNEL__
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FILES  := ati_init ati_class ati_bitmap ati_i2c radeon_driver radeon_bios radeon_accel ids bitmap planarbm
 
 %build_module mmake=hidd-radeon \
     modname=radeon modtype=hidd \
     files="$(FILES)" \
-    uselibs="hiddstubs stdc oop" usesdks="private"
+    uselibs="hiddstubs oop" usesdks="private"

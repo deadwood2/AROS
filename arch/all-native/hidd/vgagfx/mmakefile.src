@@ -9,7 +9,7 @@ FILES := \
         vgagfx_support \
         vgagfx_bitmapclass
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-hidd-vgagfx \
   modname=vgagfx modtype=hidd \
