@@ -63,7 +63,7 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
 {
     struct CrtProgCtx *ProgCtx = __aros_create_ProgCtx();
 
-    D(bug("[CRTPROG] %s: ProgCtx 0x%p\n", __func__, ProgCtx));
+    D(bug("[CRT] %s: ProgCtx 0x%p\n", __func__, ProgCtx));
 
     __progonly_program_startup_internal(ProgCtx, exitjmp, errorptr);
 }
@@ -107,7 +107,7 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
 ******************************************************************************/
 {
     struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
-    D(bug("[CRTPROG] %s()\n", __func__));
+    D(bug("[CRT] %s()\n", __func__));
 
     struct ETask *etask = GetETask(FindTask(NULL));
     if (etask)
@@ -271,7 +271,7 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
     */
     if (!ProgCtx || ProgCtx->startup_errorptr == NULL)
     {
-        kprintf("[CRTPROG] %s: Trying to exit without proper initialization\n", __func__);
+        kprintf("[CRT] %s: Trying to exit without proper initialization\n", __func__);
         Alert(AT_DeadEnd | AG_BadParm);
     }
 
