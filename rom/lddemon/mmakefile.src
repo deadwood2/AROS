@@ -6,7 +6,7 @@ INCLUDE_FILES := lddemon.h
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
                -D__DOS_NOLIBBASE__
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-lddemon \
   modname=lddemon modtype=resource \

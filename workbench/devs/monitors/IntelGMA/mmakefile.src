@@ -31,7 +31,7 @@ USER_INCLUDES += \
 
 USER_LDFLAGS := $(TARGET_CXX_LDFLAGS) \
   -lgallium_i915 -lgalliumauxiliary -lmesautil \
-  -lhiddstubs -lpthread -lcrt
+  -lhiddstubs -lpthread
 
 # disable necessary warnings
 NOWARN_FLAGS := -Wno-unused-value -Wno-unused-variable

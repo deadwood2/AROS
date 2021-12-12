@@ -30,7 +30,7 @@ USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/include \
 USER_CFLAGS := -D__NOLIBBASE__ -O2 -DSIMULATE=0 \
                -DADATE="\"$(shell date "+%d.%m.%Y")\"" -fdata-sections -ffunction-sections -fno-zero-initialized-in-bss -fno-common
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 DEVICE_FILES := sagasd_device sdcmd
 

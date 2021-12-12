@@ -5,7 +5,7 @@ FILES := cdfs bcache iso9660
 
 USER_CPPFLAGS += -D__NOLIBBASE__ -DADATE="\"$(shell date '+%d.%m.%Y')\""
 #USER_CPPFLAGS += -DDEBUG=1
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-fs-cdfs \
     modname=cdfs modtype=handler \

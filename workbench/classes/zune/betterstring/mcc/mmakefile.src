@@ -30,7 +30,7 @@ USER_CPPFLAGS := -DNO_INLINE_STDARG
 # *don't* pick up the project's local MUI headers.
 USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/../mcp -idirafter $(SRCDIR)/$(CURDIR)/../include
 USER_CPPFLAGS := -DAROS_ABI_V1
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module_simple mmake=workbench-classes-zune-betterstring-class \
   modname=BetterString modtype=mcc \

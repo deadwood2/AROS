@@ -2,7 +2,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 USER_CPPFLAGS := -DMUIMASTER_YES_INLINE_STDARG
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 FILES :=    bluetooth.class dev debug
 

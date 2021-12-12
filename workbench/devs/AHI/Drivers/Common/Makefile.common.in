@@ -33,14 +33,14 @@ CFLAGS		= @CFLAGS@
 ASFLAGS		= @ASFLAGS@
 LDFLAGS		= @LDFLAGS@ -nostartfiles
 ifeq (@host_os@,aros)
-LDFLAGS		+= -static
+LDFLAGS		+=
 endif
 ARFLAGS         = @ARFLAGS@
 
 SFDC		= @SFDC@
 
 # Do not link drivers with any library by default
-LIBS		+= 
+LIBS		+= -lstdc.static
 
 ifeq ($(DEST),)
   DEST := Devs

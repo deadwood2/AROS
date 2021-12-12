@@ -6,7 +6,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_INCLUDES = -idirafter $(SRCDIR)/$(CURDIR)/../include
 USER_CPPFLAGS := -DNO_INLINE_STDARG -DAROS_ABI_V1
 USER_CFLAGS += $(PARANOIA_CFLAGS)
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FILES := library \
          ClipboardServer \

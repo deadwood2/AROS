@@ -19,7 +19,7 @@ FILES := adminspaces \
 	 req
 
 USER_CPPFLAGS := -DSFS_BE -DADATE="\"$(shell date '+%d.%m.%Y')\""
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-fs-sfs \
     modname=sfs modtype=handler \

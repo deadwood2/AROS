@@ -51,7 +51,7 @@ FUNCTIONS := \
 USER_CPPFLAGS := \
                -DNO_INLINE_STDARG \
                -DUSE_EXEC_DEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 #MM kernel-utility : kernel-utility-$(ARCH)-$(CPU)
 #MM kernel-utility-linklib : kernel-utility-$(ARCH)-$(CPU)

@@ -7,8 +7,8 @@ FILES := pngclass memory directaccess
 #MM workbench-datatypes-png : includes linklibs workbench-libs-z workbench-libs-png-linklib
 
 USER_CPPFLAGS   := -DMYDEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_module mmake=workbench-datatypes-png \
     modname=png modtype=datatype \
-    files=$(FILES) uselibs="crt png z1" usesdks="rel"
+    files=$(FILES) uselibs="png z1"

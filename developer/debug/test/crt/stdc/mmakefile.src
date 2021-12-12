@@ -57,7 +57,7 @@ CUNITSTDCTESTFILES := \
 
 USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/..
 
-STDC_BASE_CFLAGS := -noposixc -ffloat-store $(CFLAGS_NO_BUILTIN) 
+STDC_BASE_CFLAGS := -ffloat-store $(CFLAGS_NO_BUILTIN)
 
 USER_CFLAGS = $(STDC_BASE_CFLAGS) 
 %build_progs mmake=test-crt-stdc-general \

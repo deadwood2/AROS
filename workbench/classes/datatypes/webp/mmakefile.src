@@ -14,7 +14,7 @@ CLASSFILES := webpclass
 #MM datatypes-webp-linklibs-webputils
 
 USER_CPPFLAGS   := -DEMSCRIPTEN
-USER_CFLAGS := -noposixc
+USER_CFLAGS :=
 
 WEBPDSPFILES := \
         src/dsp/alpha_processing \
@@ -108,4 +108,4 @@ WEBPFILES := webpclass
 
 %build_module mmake=workbench-datatypes-webp \
     modname=webp modtype=datatype \
-    files=$(WEBPFILES) uselibs="crt crtext" usesdks="rel datatypes"
+    files=$(WEBPFILES) uselibs="crtext" usesdks="datatypes"

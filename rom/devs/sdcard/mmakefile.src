@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 
 USER_INCLUDES := -I $(SRCDIR)/$(CURDIR)
 USER_CPPFLAGS := -D__TIMER_NOLIBBASE__
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 SDCARDFILES = \
     sdcard_init \

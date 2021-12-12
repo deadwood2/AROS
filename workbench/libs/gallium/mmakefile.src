@@ -25,7 +25,7 @@ LIB_GALLIUM_SOURCES = \
 %build_module mmake=workbench-libs-gallium \
    modname=gallium modtype=library \
    files="$(LIB_GALLIUM_SOURCES)" \
-   uselibs="crt oop" sdk=mesa usesdks="private mesa"
+   uselibs="oop" sdk=mesa usesdks="private mesa"
 
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
 

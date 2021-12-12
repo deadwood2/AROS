@@ -9,7 +9,7 @@ FILES := \
 
 USER_CPPFLAGS := -D__OOP_NOMETHODBASES__ -D__OOP_NOATTRBASES__
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-hidd-scsiwd33c93 \
     modname=scsi_wd33c93 modtype=hidd \

@@ -4,6 +4,13 @@
 #include "library.h"
 #include "DriverData.h"
 
+#ifdef __AROS__
+#include <libraries/crtutil.h>
+
+struct CrtUtilBase *CrtUtilBase = NULL;
+#endif
+
+
 /******************************************************************************
 ** Custom driver init *********************************************************
 ******************************************************************************/
@@ -29,6 +36,16 @@ DriverInit( struct DriverBase* AHIsubBase )
   }
 #endif
 
+#ifdef __AROS__
+  CrtUtilBase = (struct CrtUtilBase *) OpenLibrary( "crtutil.library", 0 );
+
+  if( CrtUtilBase == NULL )
+  {
+    Req( "Unable to open 'crtutil.library'.\n" );
+    return FALSE;
+  }
+#endif
+
   return TRUE;
 }
 
@@ -41,6 +58,10 @@ VOID
 DriverCleanup( struct DriverBase* AHIsubBase )
 {
   struct DeviceBase* DeviceBase = (struct DeviceBase*) AHIsubBase;
+
+#ifdef __AROS__
+  CloseLibrary( (struct Library*) CrtUtilBase );
+#endif
 
 #ifdef __AMIGAOS4__
   DropInterface( (struct Interface *) IDOS);

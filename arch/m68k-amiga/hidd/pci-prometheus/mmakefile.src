@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 FILES=pci-prometheus_init driverclass pci_resource
 

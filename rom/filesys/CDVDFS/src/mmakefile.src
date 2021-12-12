@@ -38,7 +38,7 @@ USER_CPPFLAGS += -DNDEBUG -DDEBUG=0
 
 USER_CPPFLAGS += \
                -DAROS_KERNEL
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-fs-cdvdfs \
     modname=cdrom modtype=handler \

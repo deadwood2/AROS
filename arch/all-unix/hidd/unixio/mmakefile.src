@@ -17,7 +17,7 @@ endif
 ## complaints with -O1 or higher optimizations enabled.
 USER_CFLAGS += -Wno-attributes
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 #MM- includes-generate: kernel-unixio-includes
 

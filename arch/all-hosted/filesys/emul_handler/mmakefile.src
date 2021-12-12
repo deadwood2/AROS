@@ -7,7 +7,7 @@ endif
 
 USER_CPPFLAGS := -DADATE="\"$(shell date '+%d.%m.%Y')\""
 USER_INCLUDES := -I$(SRCDIR)/arch/all-$(ARCH)/filesys/emul_handler $(FAMILY_INCLUDES) -I$(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/rom/expansion -iquote $(SRCDIR)/rom/dosboot
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FILES	      := emul_init emul_handler filenames emul_host
 CONSOLE_FILES := boot

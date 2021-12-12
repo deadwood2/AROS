@@ -17,7 +17,7 @@ EXEDIR        := $(AROS_TESTS)/sdi
 FILES         := example_lib stubs-aros
 USER_INCLUDES := -idirafter $(SRCDIR)/$(CURDIR)/../..
 USER_CFLAGS   := -DAROS_ABI_V1
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module_simple mmake=test-sdi-libraries-library \
     modname=example modtype=library \

@@ -14,7 +14,7 @@ USER_CPPFLAGS := \
                -D__OOP_NOATTRBASES__ \
                -D__OOP_NOMETHODBASES__
 USER_INCLUDES := -I$(SRCDIR)/rom/devs -I$(GENDIR)/$(CURDIR)/dosboot
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 %build_module mmake=kernel-dosboot \
   modname=dosboot modtype=resource \

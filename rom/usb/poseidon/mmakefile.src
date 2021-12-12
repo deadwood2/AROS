@@ -29,7 +29,7 @@ USER_CPPFLAGS := -DMUIMASTER_YES_INLINE_STDARG
 %build_progs mmake=kernel-usb-shelltools \
     files=$(SHELLFILES) targetdir=$(AROS_C)
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-usb-poseidon \
     modname=poseidon modtype=library \

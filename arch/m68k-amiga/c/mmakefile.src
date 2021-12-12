@@ -32,7 +32,7 @@ TARGET_ISA_AFLAGS:=$(ISA_MC68060_FLAGS)
 #MM workbench-c-m68k-setpatcharos : linklibs-loadseg
 #MM workbench-c-m68k-setpatch : kernel-setpatch-includes kernel-setpatch-linklib
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc
 
 FILES := gdbstub
 

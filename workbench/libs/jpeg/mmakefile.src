@@ -36,14 +36,14 @@ FILES := jaricom jcapimin jcapistd jcarith jccoefct jccolor \
 
 # We trust upstream
 NOWARN_FLAGS := -Wno-main
-USER_CFLAGS := -noposixc $(NOWARN_FLAGS)
+USER_CFLAGS := $(NOWARN_FLAGS)
 USER_CPPFLAGS := -DNO_GETENV
 
 #MM- core-linklibs : linklibs-jpeg
 
 %build_module mmake=workbench-libs-jpeg \
   modname=jfif modtype=library \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) stdcio_startup" linklibname=jpeg uselibs="crt crtext" usesdks="rel"
+  files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) stdcio_startup" linklibname=jpeg uselibs="crtext"
 
 INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h
 %copy_includes dir=$(ARCHSRCDIR)

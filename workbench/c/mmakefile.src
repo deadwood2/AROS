@@ -75,12 +75,12 @@ SH_FILES := \
 
 USER_INCLUDES    := -I$(OBJDIR)
 USER_CPPFLAGS    := -DADATE="\"$(shell date "+%d.%m.%Y")\""
-USER_CFLAGS      := -noposixc
+USER_CFLAGS      :=
 # We compile the core C: programs statically, for two reasons:
 #   * The amiga-m68k boot floppy doesn't have space for stdc.library
 #   * This gives us some possibility of system recovery if LIBS:
 #     is deleted or badly Assign(ed).
-USER_LDFLAGS     := -static
+USER_LDFLAGS     := -nolibc -larossupport -lstdc.static
 
 #MM- workbench : workbench-c workbench-c-private
 #MM- workbench-quick : workbench-c-quick

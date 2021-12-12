@@ -2,7 +2,7 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM- workbench-fs-complete : workbench-fs-debug
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FILES=debug-handler
 

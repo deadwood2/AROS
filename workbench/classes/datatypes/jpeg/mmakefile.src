@@ -8,12 +8,12 @@ FILES := jpegclass stubs memory
 
 USER_CPPFLAGS   := -DMYDEBUG
 USER_CPPFLAGS += -DAROS_LC_SETFUNCS
-USER_CFLAGS := -noposixc
-USER_LDFLAGS := -static
+USER_CFLAGS :=
+USER_LDFLAGS :=
 
 %build_module mmake=workbench-datatypes-jpeg \
     modname=jpeg modtype=datatype \
-    files=$(FILES) uselibs="crt jpeg" usesdks="rel"
+    files=$(FILES) uselibs="jpeg"
 
 $(MOD_DIR)/jpeg.readme : jpeg.readme
 	@$(CP) $< $@

@@ -29,6 +29,9 @@
 #include <proto/gadtools.h>
 #include <proto/graphics.h>
 #include <proto/iffparse.h>
+#if defined(__AROS__)
+#include <libraries/crtutil.h>
+#endif
 
 #include "ahi_def.h"
 #include "debug.h"
@@ -149,6 +152,9 @@ struct IntuitionBase      *IntuitionBase  = NULL;
 struct LocaleBase         *LocaleBase     = NULL;
 struct Device             *TimerBase      = NULL;
 struct UtilityBase        *UtilityBase    = NULL;
+#if defined (__AROS__)
+struct CrtUtil            *CrtUtilBase       = NULL;
+#endif
 
 #if defined( __AMIGAOS4__ )
 struct ExecIFace          *IExec          = NULL;
@@ -625,6 +631,18 @@ OpenLibs ( void )
     return FALSE;
   }
 
+#if defined(__AROS__)
+  /* CrtUtil library */
+
+  CrtUtilBase = (struct CrtUtilBase *) OpenLibrary( "crtutil.library", 0 );
+
+  if( CrtUtilBase == NULL)
+  {
+    Req( "Unable to open 'crtutil.library'." );
+    return FALSE;
+  }
+#endif
+
 #ifdef __AMIGAOS4__
   if ((IIntuition = (struct IntuitionIFace *) GetInterface((struct Library *) IntuitionBase, "main", 1, NULL)) == NULL)
   {
@@ -902,6 +920,9 @@ CloseLibs ( void )
   DropInterface((struct Interface *) IAHI );
 #endif
 
+#if defined(__AROS__)
+  CloseLibrary( (struct Library *) CrtUtilBase );
+#endif
   CloseLibrary( (struct Library *) UtilityBase );
 
   if( TimerIO != NULL )
