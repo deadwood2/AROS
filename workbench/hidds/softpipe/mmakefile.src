@@ -21,8 +21,7 @@ SOFTPIPE_SOURCES := \
 
 SOFTPIPE_HIDD_SOURCES := \
             softpipe_init \
-            softpipe_galliumclass \
-            arosc_emul
+            softpipe_galliumclass
 
 USER_INCLUDES := \
             $(USER_INCLUDES) \
@@ -43,7 +42,7 @@ USER_LDFLAGS += $(TARGET_CXX_LIBS)
 endif
 
 %build_module mmake=hidd-softpipe modname=softpipe modtype=hidd \
-    files="$(SOFTPIPE_HIDD_SOURCES)" alwayscxxlink=yes uselibs="oop" usesdks="private mesa"
+    files="$(SOFTPIPE_HIDD_SOURCES)" alwayscxxlink=yes uselibs="oop crtmod" usesdks="private mesa"
 
 %build_linklib mmake=linklibs-gallium_softpipe libname=gallium_softpipe objdir=$(top_builddir)/$(CUR_MESADIR)/$(CUR_GALLIUMDIR) files="$(SOFTPIPE_SOURCES)" sdk=mesa
 

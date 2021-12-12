@@ -11,57 +11,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define IMPLEMENT()  bug("------IMPLEMENT(%s)\n", __func__)
- 
-/*
-    The purpose of this file is to provide implementation for C functions part
-    of arosnixc.library in code where one does not want to use this library.
-*/
-
-struct timezone;
-
-int gettimeofday (struct timeval * tv,struct timezone * tz)
-{
-    struct MsgPort * timerport = CreateMsgPort();
-    struct timerequest * timereq = (struct timerequest *)CreateIORequest(timerport, sizeof(*timereq));
-
-
-    if (timereq)
-    {
-        if (OpenDevice("timer.device", UNIT_VBLANK, (struct IORequest *)timereq, 0) == 0)
-        {
-            #define TimerBase ((struct Device *)timereq->tr_node.io_Device)
-
-            GetSysTime(tv);
-            
-            #undef TimerBase
-            
-            CloseDevice((struct IORequest *)timereq);
-        }
-    }
-    
-    DeleteIORequest((struct IORequest *)timereq);
-    DeleteMsgPort(timerport);
-
-    return 0;
-}
-
-int usleep (useconds_t usec)
-{
-    IMPLEMENT();
-    return 0;
-}
-
-void abort(void)
-{
-    int a = 0 / 0;
-}
-
-void exit(int code)
-{
-    int a = 0 / 0;
-}
-
 /*
     This implementation of atexit is different than the definition of atexit
     function due to how libraries work in AROS.

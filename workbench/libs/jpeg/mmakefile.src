@@ -42,8 +42,8 @@ USER_CPPFLAGS := -DNO_GETENV
 #MM- core-linklibs : linklibs-jpeg
 
 %build_module mmake=workbench-libs-jpeg \
-  modname=jfif modtype=library \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) stdcio_startup" linklibname=jpeg
+  modname=jfif modtype=library uselibs="crtmod" \
+  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=jpeg
 
 INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h
 %copy_includes dir=$(ARCHSRCDIR)

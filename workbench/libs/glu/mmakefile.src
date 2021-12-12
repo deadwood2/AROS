@@ -159,7 +159,7 @@ CC_SOURCES := \
 %build_module mmake=workbench-libs-glu \
     modname=glu modtype=library linklibname=GLU \
     files="$(LIBRARY_SOURCES)" cxxfiles="$(EMUL_CXX_SOURCES) $(CC_SOURCES)" \
-    uselibs="GL"
+    uselibs="GL crtmod"
 
 #MM
 workbench-libs-glu-includes:
