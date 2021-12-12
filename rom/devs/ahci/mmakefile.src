@@ -47,6 +47,6 @@ USER_LDFLAGS := -nolibc
 %build_module mmake=kernel-ahci \
   modname=ahci modtype=device \
   files="$(AHCIDEVICEFILES) $(AHCICLASSFILES)" \
-  uselibs="" sdk=private usesdks=""
+  uselibs="" sdk=private usesdks="private"
 
 %common
