@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-m
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
-USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
+USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
 M_MATH := \
     ../stdc/math/bsdsrc/b_exp \
@@ -742,6 +742,12 @@ CRT_LINKLIB := \
     files="$(CRT) $(CRT_LGAMMA_MATH)" \
     linklibfiles="$(CRT_LINKLIB)" uselibs="crtutil m"
 
+###############################################################################
+
+USER_CFLAGS :=
+USER_CPPFLAGS :=
+USER_INCLUDES :=
+
 # Note: use absolute path pointing to crt, befor posixc to control vpath in %rule_compile_multi
 CRT_PROG := \
     $(SRCDIR)/compiler/crt/program/_exit \
@@ -759,7 +765,7 @@ CRT_PROG := \
 %build_linklib mmake=linklibs-crtprog \
     objdir=$(GENDIR)/$(CURDIR)/prog libname=crtprog files="$(CRT_PROG)"
 
-
+###############################################################################
 
 USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
 
