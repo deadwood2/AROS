@@ -6,7 +6,7 @@
 #include <aros/symbolsets.h>
 #include <proto/crt.h>
 
-AROS_IMPORT_ASM_SYM(int, dummy, __includescrtprogramstartup);
+AROS_IMPORT_ASM_SYM(int, dummy, __includecrtprogramstartuphandling);
 
 int execv(const char *path, char *const argv[])
 {
