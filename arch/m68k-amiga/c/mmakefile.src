@@ -49,7 +49,7 @@ FILES := gdbstop
 CFILES := SetPatchAROS
 AFILES := newstackswap
 USER_INCLUDES += -isystem $(SRCDIR)/rom/dos/include
-USER_LDFLAGS  := -static
+USER_LDFLAGS  := -nolibc
 
 %build_prog mmake=workbench-c-m68k-setpatcharos progname=SetPatchAROS \
     files=$(CFILES) asmfiles=$(AFILES) targetdir=$(AROSARCHDIR) \

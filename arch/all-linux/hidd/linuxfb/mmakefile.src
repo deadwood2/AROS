@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS		= -static
+USER_LDFLAGS		= -nolibc
 USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 
 ifneq ("","$(strip $(WARN_ERROR))")
