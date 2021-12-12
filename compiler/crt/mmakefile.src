@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM- AROS : compiler-crtutil compiler-crt compiler-m
-#MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-m
+#MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-m linklibs-crtmod
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
@@ -768,6 +768,20 @@ CRT_PROG := \
 
 %build_linklib mmake=linklibs-crtprog \
     objdir=$(GENDIR)/$(CURDIR)/prog libname=crtprog files="$(CRT_PROG)"
+
+###############################################################################
+
+USER_CFLAGS :=
+USER_CPPFLAGS :=
+USER_INCLUDES :=
+
+CRT_MOD := \
+    $(SRCDIR)/compiler/crt/module/abort \
+    module/assert \
+    module/exit \
+
+%build_linklib mmake=linklibs-crtmod \
+    objdir=$(GENDIR)/$(CURDIR)/mod libname=crtmod files="$(CRT_MOD)"
 
 ###############################################################################
 
