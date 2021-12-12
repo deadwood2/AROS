@@ -51,9 +51,9 @@ CRT_MATH_X8664_ASMFILES += \
 
 #MM- compiler-crtutil-x86_64 : includes-asm_h
 
-#MM- compiler-crtext-x86_64 : includes-asm_h
+#MM- compiler-crt-x86_64 : includes-asm_h
 
 %build_archspecific \
-  mainmmake=compiler-crtext maindir=compiler/crt \
-  modname=crtext arch=x86_64 \
+  mainmmake=compiler-crt maindir=compiler/crt \
+  modname=crt arch=x86_64 \
   asmfiles="../posixc/siglongjmp ../posixc/sigsetjmp ../posixc/vfork ../posixc/vfork_longjmp"

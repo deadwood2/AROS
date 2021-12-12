@@ -27,7 +27,7 @@
 #include "__fdesc.h"
 #include "__vfork.h"
 
-#include "__crtext_intbase.h"
+#include "__crt_intbase.h"
 
 static BOOL containswhite(const char *str);
 static char *escape(const char *str, APTR pool);
@@ -35,8 +35,8 @@ static char *appendarg(char *argptr, int *argptrsize, const char *arg, APTR pool
 static char *appendargs(char *argptr, int *argptrsize, char *const args[], APTR pool);
 static void __exec_cleanup(struct __exec_context *ectx);
 
-static void __exec_do_regular(struct CrtExtProgCtx *ProgCt, struct __exec_context *ectx);
-static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx, struct __exec_context *ectx);
+static void __exec_do_regular(struct CrtProgCtx *ProgCt, struct __exec_context *ectx);
+static void __exec_do_pretend_child(struct CrtProgCtx *ProgCtx, struct __exec_context *ectx);
 static char *assign_filename(const char *filename, int searchpath, char **environ, struct __exec_context *ectx);
 static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], char *const envp[],
         struct vfork_data *udata, struct __exec_context *ectx);
@@ -51,7 +51,7 @@ void __exec_do(struct __exec_context *ectx)
     /*  Whole __exec_do has to operate without library base available, due to
         vfork() + exec() case. See comment in __vfork.c/launcher */
 
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
 
     D(bug("[__exec_do] Entering, id(%x)\n", id));
 
@@ -69,7 +69,7 @@ void __exec_do(struct __exec_context *ectx)
 
 struct __exec_context *__exec_prepare(const char *filename, int searchpath, char *const argv[], char *const envp[])
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     char *filename2 = NULL;
     char ***environptr = __posixc_get_environptr();
     char **environ = (environptr != NULL) ? *environptr : NULL;
@@ -456,7 +456,7 @@ error:
     return (APTR)NULL;
 }
 
-static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx, struct __exec_context *ectx)
+static void __exec_do_pretend_child(struct CrtProgCtx *ProgCtx, struct __exec_context *ectx)
 {
     /* When exec is called under vfork condition, the PRETEND_CHILD flag is set
        and we need to signal child that exec is called.
@@ -485,7 +485,7 @@ static void __exec_do_pretend_child(struct CrtExtProgCtx *ProgCtx, struct __exec
     assert(0); /* Should not be reached */
 }
 
-static void __exec_do_regular(struct CrtExtProgCtx *ProgCtx, struct __exec_context *ectx)
+static void __exec_do_regular(struct CrtProgCtx *ProgCtx, struct __exec_context *ectx)
 {
     char *oldtaskname;
     struct CommandLineInterface *cli = Cli();

@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-crtutil compiler-crtext compiler-crtmath
-#MM- core-linklibs : linklibs-crtutil linklibs-crtext linklibs-crtprog linklibs-crtmath
+#MM- AROS : compiler-crtutil compiler-crt compiler-crtmath
+#MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-crtmath
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES += -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
@@ -477,7 +477,7 @@ USER_INCLUDES := \
 
 USER_LDFLAGS := -nolibc
 
-CRTEXT := \
+CRT := \
     ../stdc/__exitfunc \
     ../stdc/__optionallibs \
     ../stdc/__signal \
@@ -605,12 +605,12 @@ CRTEXT := \
     ../posixc/wait \
     ../posixc/waitpid \
     ../posixc/write \
-    ../crt/__exec \
-    ../crt/__crtext_init \
-    ../crt/__crtext_progonly \
-    ../crt/__vfork \
+    ../crt/__crt_exec \
+    ../crt/__crt_vfork \
+    ../crt/__crt_init \
+    ../crt/__crt_progonly \
+    ../crt/__crt_wrapper \
     ../crt/crtextfake \
-    ../crt/wrapperstdc \
     ../stdc/strtol \
     ../stdc/strtoul \
     ../stdc/strtoull \
@@ -618,14 +618,14 @@ CRTEXT := \
     ../posixc/strptime \
 
 
-CRTEXT_LINKLIB := \
+CRT_LINKLIB := \
     getopt \
     posixc_environ
 
-%build_module mmake=compiler-crtext \
-    modname=crtext modtype=library \
-    files="$(CRTEXT) $(CRT_LGAMMA_MATH)" \
-    linklibfiles="$(CRTEXT_LINKLIB)" uselibs="crtutil m"
+%build_module mmake=compiler-crt \
+    modname=crt modtype=library \
+    files="$(CRT) $(CRT_LGAMMA_MATH)" \
+    linklibfiles="$(CRT_LINKLIB)" uselibs="crtutil m"
 
 %build_linklib mmake=linklibs-crtprog \
     libname=crtprog files="crtprog"

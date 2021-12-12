@@ -39,7 +39,7 @@
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     struct ETask *et;
 
     if(ProgCtx && ProgCtx->vforkflags & PRETEND_CHILD)

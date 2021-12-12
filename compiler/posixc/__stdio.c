@@ -106,9 +106,9 @@ int __oflags2sflags(int omode)
     return ret;
 }
 
-int __init_stdio(struct CrtExtIntBase *CrtExtBase)
+int __init_stdio(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCIntBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCIntBase = CrtBase->PosixCBase;
     struct PosixCBase *PosixCBase = (struct PosixCBase *)PosixCIntBase;
     NEWLIST(&PosixCIntBase->stdio_files);
 

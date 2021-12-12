@@ -45,9 +45,9 @@ void __init_timerbase(struct PosixCIntBase *PosixCBase)
     }
 }
 
-static void __exit_timerbase(struct CrtExtIntBase *CrtExtBase)
+static void __exit_timerbase(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCBase = CrtBase->PosixCBase;
     if (PosixCBase->timerBase != NULL)
     {
         CloseDevice((struct IORequest *)&PosixCBase->timerReq);

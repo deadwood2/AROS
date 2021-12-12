@@ -507,9 +507,9 @@ int __copy_fdarray(fdesc **__src_fd_array, int fd_slots)
     return 1;
 }
 
-int __init_fd(struct CrtExtIntBase *CrtExtBase)
+int __init_fd(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCBase = CrtBase->PosixCBase;
     struct PosixCIntBase *pPosixCBase = NULL;
         //(struct PosixCIntBase *)__GM_GetBaseParent(PosixCBase); FIXME!!!
 
@@ -517,7 +517,7 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
           pPosixCBase, pPosixCBase ? pPosixCBase->flags : 0
     ));
 
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
 
     if (ProgCtx && (ProgCtx->vforkflags & EXEC_PARENT))
     {
@@ -551,9 +551,9 @@ int __init_fd(struct CrtExtIntBase *CrtExtBase)
         return __init_stdfiles(PosixCBase);
 }
 
-void __exit_fd(struct CrtExtIntBase *CrtExtBase)
+void __exit_fd(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCBase = CrtBase->PosixCBase;
 
     int i = PosixCBase->fd_slots;
     while (i)

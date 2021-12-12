@@ -9,14 +9,14 @@
 
 int __progonly_addexitfunc(struct AtExitNode *aen)
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     
     ADDHEAD((struct List *)&ProgCtx->atexit_list, (struct Node *)aen);
 
     return 0;
 }
 
-int __progonly_init_atexit(struct CrtExtProgCtx *ProgCtx)
+int __progonly_init_atexit(struct CrtProgCtx *ProgCtx)
 {
     NEWLIST((struct List *)&ProgCtx->atexit_list);
 
@@ -25,7 +25,7 @@ int __progonly_init_atexit(struct CrtExtProgCtx *ProgCtx)
 
 void __progonly_callexitfuncs(void)
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     struct AtExitNode *aen;
 
     while (

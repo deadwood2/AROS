@@ -68,9 +68,9 @@
 } /* malloc */
 
 
-int __init_memstuff(struct CrtExtIntBase *CrtExtBase)
+int __init_memstuff(struct CrtIntBase *CrtBase)
 {
-    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+    struct StdCIntBase *StdCBase = CrtBase->StdCBase;
 
     D(bug("[%s] %s: task(0x%p), StdCBase(0x%p)\n", STDCNAME, __func__,
           FindTask(NULL), StdCBase
@@ -89,9 +89,9 @@ int __init_memstuff(struct CrtExtIntBase *CrtExtBase)
 }
 
 
-void __exit_memstuff(struct CrtExtIntBase *CrtExtBase)
+void __exit_memstuff(struct CrtIntBase *CrtBase)
 {
-    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+    struct StdCIntBase *StdCBase = CrtBase->StdCBase;
 
     D(bug("[%s] %s: task(0x%p), StdCBase(0x%p), acb_mempool(0x%p)\n", STDCNAME, __func__,
           FindTask(NULL), StdCBase, StdCBase->mempool

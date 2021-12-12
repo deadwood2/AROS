@@ -29,9 +29,9 @@ void __fill_passwd(struct passwd *pwd, uid_t uid)
     pwd->pw_gecos    = DEF_USER_NAME;
 }
 
-int __init_usergrp(struct CrtExtIntBase *CrtExtBase)
+int __init_usergrp(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCIntBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCIntBase = CrtBase->PosixCBase;
     PosixCIntBase->uid      = DEF_USER_UID;
     PosixCIntBase->euid     = DEF_USER_UID;
     PosixCIntBase->gid     = DEF_USER_GID;

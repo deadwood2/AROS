@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "__crtext_intbase.h"
+#include "__crt_intbase.h"
 #include "__fdesc.h"
 #include "__vfork.h"
 #include "__exec.h"
@@ -121,17 +121,17 @@ static void parent_createchild(struct vfork_data *udata);
 static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork_data *udata);
 
 /* Needed to manage temporary libbase */
-void __aros_setbase_CrtExtBase(struct CrtExtIntBase *CrtExtBase);
-void __aros_setbase_fake_CrtExtBase(struct CrtExtIntBase *fCrtExtBase);
+void __aros_setbase_CrtBase(struct CrtIntBase *CrtBase);
+void __aros_setbase_fake_CrtBase(struct CrtIntBase *fCrtBase);
 
-int __crtext_open(struct CrtExtIntBase *CrtExtBase);
-int __init_memstuff(struct CrtExtIntBase *CrtExtBase);
+int __crtext_open(struct CrtIntBase *CrtBase);
+int __init_memstuff(struct CrtIntBase *CrtBase);
 int __copy_fdarray(fdesc **__src_fd_array, int fd_slots);
-int __init_stdio(struct CrtExtIntBase *CrtExtBase);
+int __init_stdio(struct CrtIntBase *CrtBase);
 
-void __exit_fd(struct CrtExtIntBase *CrtExtBase);
-void __exit_memstuff(struct CrtExtIntBase *CrtExtBase);
-void __crtext_close(struct CrtExtIntBase *CrtExtBase);
+void __exit_fd(struct CrtIntBase *CrtBase);
+void __exit_memstuff(struct CrtIntBase *CrtBase);
+void __crtext_close(struct CrtIntBase *CrtBase);
 /* End */
 
 LONG launcher()
@@ -141,7 +141,7 @@ LONG launcher()
     struct Task *this = FindTask(NULL);
     struct vfork_data *udata = this->tc_UserData;
     BYTE child_signal;
-    struct CrtExtProgCtx *ProgCtx = NULL;
+    struct CrtProgCtx *ProgCtx = NULL;
     jmp_buf exec_exitjmp; /* jmp_buf for when calling __exec_do */
     int exec_error; /* errno for when calling __exec_do */
     LONG ret = 0;
@@ -177,9 +177,9 @@ LONG launcher()
         can for example manipulate file descriptors, example "gcc -pipe")
     */
 
-    ProgCtx->libbase = (struct CrtExtIntBase *)AllocMem(sizeof(struct CrtExtIntBase), MEMF_PUBLIC);
+    ProgCtx->libbase = (struct CrtIntBase *)AllocMem(sizeof(struct CrtIntBase), MEMF_PUBLIC);
     /* "register" temp base with child process. */
-    __aros_setbase_CrtExtBase(ProgCtx->libbase);
+    __aros_setbase_CrtBase(ProgCtx->libbase);
 
     /* Initialize */
     __crtext_open(ProgCtx->libbase);
@@ -290,8 +290,8 @@ LONG launcher()
     __exit_fd(ProgCtx->libbase);
     __exit_memstuff(ProgCtx->libbase);
     __crtext_close(ProgCtx->libbase);
-    FreeMem(ProgCtx->libbase, sizeof(struct CrtExtIntBase));
-    FreeMem(ProgCtx, sizeof(struct CrtExtProgCtx));
+    FreeMem(ProgCtx->libbase, sizeof(struct CrtIntBase));
+    FreeMem(ProgCtx, sizeof(struct CrtProgCtx));
     
     D(bug("Child Done\n"));
 
@@ -311,7 +311,7 @@ LONG launcher()
 
 pid_t __vfork(jmp_buf env)
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     struct Task *this = FindTask(NULL);
     struct ETask *etask = NULL;
     struct vfork_data *udata = AllocMem(sizeof(struct vfork_data), MEMF_ANY | MEMF_CLEAR);
@@ -460,7 +460,7 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 
 static void parent_createchild(struct vfork_data *udata)
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     jmp_buf vfork_jmp;
 
     _VFORK_COPYENV(vfork_jmp,udata->vfork_jmp);
@@ -522,7 +522,7 @@ static void parent_createchild(struct vfork_data *udata)
 
 static void parent_enterpretendchild(struct vfork_data *udata)
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     struct PosixCIntBase *pPosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     D(bug("parent_enterpretendchild(%x): entered\n", udata));
@@ -530,7 +530,7 @@ static void parent_enterpretendchild(struct vfork_data *udata)
     ProgCtx->vfork_data = udata;
 
     /* Register child fake libbase as my own */
-    __aros_setbase_fake_CrtExtBase(udata->child_progctx->libbase);
+    __aros_setbase_fake_CrtBase(udata->child_progctx->libbase);
 
     /* Copy necessary information into fake child libbase */
     __copy_fdarray(pPosixCBase->fd_array, pPosixCBase->fd_slots);
@@ -590,7 +590,7 @@ static void child_takeover(struct vfork_data *udata)
 
 static void parent_leavepretendchild(struct vfork_data *udata)
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     // struct PosixCIntBase *PosixCBase =
     //     (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     D(bug("parent_leavepretendchild(%x): entered\n", udata));
@@ -618,9 +618,9 @@ static void parent_leavepretendchild(struct vfork_data *udata)
     ProgCtx->vforkflags = udata->parent_flags;
 
     if (ProgCtx->vfork_data)
-        __aros_setbase_fake_CrtExtBase(ProgCtx->vfork_data->child_progctx->libbase);
+        __aros_setbase_fake_CrtBase(ProgCtx->vfork_data->child_progctx->libbase);
     else
-        __aros_setbase_fake_CrtExtBase(NULL);
+        __aros_setbase_fake_CrtBase(NULL);
 
     D(bug("parent_leavepretendchild: leaving\n"));
 }

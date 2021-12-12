@@ -281,7 +281,7 @@ tools-crosstools-gcc :
 #MM	linklibs-amiga           \
 #MM	linklibs-crtutil         \
 #MM	linklibs-crtmath         \
-#MM	linklibs-crtext          \
+#MM	linklibs-crt             \
 #MM	linklibs-codesets        \
 #MM	linklibs-keymap          \
 #MM	linklibs-expansion       \

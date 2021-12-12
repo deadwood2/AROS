@@ -13,9 +13,9 @@
 
 #include <aros/debug.h>
 
-#include "__crtext_intbase.h"
+#include "__crt_intbase.h"
 
-void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf exitjmp, int *errorptr)
+void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exitjmp, int *errorptr)
 {
     ProgCtx->startup_errorptr = errorptr;
     *ProgCtx->exit_jmpbuf = *exitjmp;
@@ -60,7 +60,7 @@ void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf 
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_create_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_create_ProgCtx();
 
     D(bug("[CRTPROG] %s: ProgCtx 0x%p\n", __func__, ProgCtx));
 
@@ -105,7 +105,7 @@ void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf 
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     D(bug("[CRTPROG] %s()\n", __func__));
 
     struct ETask *etask = GetETask(FindTask(NULL));
@@ -148,7 +148,7 @@ void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf 
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     int *old = ProgCtx->startup_errorptr;
 
     ProgCtx->startup_errorptr = errorptr;
@@ -186,7 +186,7 @@ void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf 
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
     return ProgCtx->startup_errorptr;
 }
 
@@ -221,7 +221,7 @@ void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf 
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
    
     *previousjmp = *ProgCtx->exit_jmpbuf;
     *ProgCtx->exit_jmpbuf = *exitjmp;
@@ -264,7 +264,7 @@ void __progonly_program_startup_internal(struct CrtExtProgCtx *ProgCtx, jmp_buf 
 
 ******************************************************************************/
 {
-    struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+    struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
 
     /* No __stdc_program_startup() called; Alert()
     */

@@ -69,9 +69,9 @@
     return retval;
 } /* clock */
 
-int __init_clock(struct CrtExtIntBase *CrtExtBase)
+int __init_clock(struct CrtIntBase *CrtBase)
 {
-    DateStamp(&CrtExtBase->StdCBase->starttime);
+    DateStamp(&CrtBase->StdCBase->starttime);
 
     return 1;
 }

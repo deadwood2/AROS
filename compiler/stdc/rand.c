@@ -89,9 +89,9 @@
     StdCBase->srand_seed = seed;
 } /* srand */
 
-static int __rand_seedinit(struct CrtExtIntBase *CrtExtBase)
+static int __rand_seedinit(struct CrtIntBase *CrtBase)
 {
-    struct StdCIntBase *StdCBase = CrtExtBase->StdCBase;
+    struct StdCIntBase *StdCBase = CrtBase->StdCBase;
     // use Xorshift with the suggested coefficients by Marsaglia for
     // a 32-bit generator (13, 17, 5)   to set our initial seed.
     StdCBase->srand_seed = time(NULL);

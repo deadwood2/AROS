@@ -91,17 +91,17 @@ error:
     return -1;
 }
 
-int __init_chdir(struct CrtExtIntBase *CrtExtBase)
+int __init_chdir(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCBase = CrtBase->PosixCBase;
     PosixCBase->cd_changed = FALSE;
 
     return 1;
 }
 
-void __exit_chdir(struct CrtExtIntBase *CrtExtBase)
+void __exit_chdir(struct CrtIntBase *CrtBase)
 {
-    struct PosixCIntBase *PosixCBase = CrtExtBase->PosixCBase;
+    struct PosixCIntBase *PosixCBase = CrtBase->PosixCBase;
     if( PosixCBase->cd_changed )
     {
         BPTR lock = CurrentDir( PosixCBase->cd_lock );

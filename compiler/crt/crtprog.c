@@ -9,7 +9,7 @@
 #include <proto/exec.h>
 #include <aros/symbolsets.h>
 
-#include <proto/crtext.h>
+#include <proto/crt.h>
 
 
 void abort (void)

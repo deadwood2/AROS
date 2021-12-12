@@ -41,7 +41,7 @@
 
 ******************************************************************************/
 {
-  struct CrtExtProgCtx *ProgCtx = __aros_get_ProgCtx();
+  struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
   struct Task *ParentTask;
   struct ETask *eThisTask;
   struct ETask *et;

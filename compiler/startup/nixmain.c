@@ -4,7 +4,7 @@
     Desc: special main function for code which has to use special *nix features
 */
 
-#include <proto/crtext.h>
+#include <proto/crt.h>
 
 extern int main(int argc, char *argv[]);
 

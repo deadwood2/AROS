@@ -3,7 +3,7 @@
 
 /* This file replaces the header found in compiler/stdc */
 
-#include "__crtext_intbase.h"
+#include "__crt_intbase.h"
 
 #include <exec/lists.h>
 #include <dos/dos.h>
