@@ -729,6 +729,7 @@ CRT := \
     ../crt/__crt_assert \
     ../crt/__crt_exec \
     ../crt/__crt_init \
+    ../crt/__crt_modonly \
     ../crt/__crt_progonly \
     ../crt/__crt_system \
     ../crt/__crt_vfork \
@@ -752,6 +753,7 @@ USER_INCLUDES :=
 CRT_PROG := \
     $(SRCDIR)/compiler/crt/program/_exit \
     program/abort \
+    program/assert \
     program/atexit \
     program/exit \
     program/execl \
