@@ -69,6 +69,12 @@ USER_CFLAGS = $(STDC_BASE_CFLAGS) $(NOWARN_CFLAGS)
 %build_progs mmake=test-crt-stdc-print \
     files=$(STDCPRINTTESTFILES) targetdir=$(EXEDIR)
 
+# Force missing ProgCtx for this test
+USER_LDFLAGS := -nolibc -lcrtmod -lcrt
+
+%build_progs mmake=test-crt-stdc-modonly \
+    files="modonly" targetdir=$(EXEDIR)
+
 USER_INCLUDES :=
 USER_CFLAGS := $(STDC_BASE_CFLAGS)
 USER_LDFLAGS :=
