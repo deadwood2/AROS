@@ -37,7 +37,7 @@ USER_CFLAGS += $(NOWARN_CFLAGS)
 
 USER_LDFLAGS := \
   -Wl,--start-group -lgallium_softpipe -lcompiler -lgalliumauxiliary -lmesautil \
-  -lpthread -lcrtext
+  -lpthread
 ifneq ($(TARGET_LIBATOMIC),)
 USER_LDFLAGS += $(TARGET_CXX_LIBS)
 endif

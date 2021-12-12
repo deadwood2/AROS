@@ -86,7 +86,7 @@ USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
 #  confoverride=mesa3dgl.conf \
 #  files="$(MESAGL_LIBRARY_SOURCES_C)" \
 #  cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
-#  alwayscxxlink=yes uselibs="glapi mesa compiler galliumauxiliary gallium mesautil crt crtext" usesdks="mesa rel"
+#  alwayscxxlink=yes uselibs="glapi mesa compiler galliumauxiliary gallium mesautil" usesdks="mesa"
 
 #
 # mesa3d includes...

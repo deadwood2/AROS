@@ -108,4 +108,4 @@ WEBPFILES := webpclass
 
 %build_module mmake=workbench-datatypes-webp \
     modname=webp modtype=datatype \
-    files=$(WEBPFILES) uselibs="crtext" usesdks="datatypes"
+    files=$(WEBPFILES) usesdks="datatypes"

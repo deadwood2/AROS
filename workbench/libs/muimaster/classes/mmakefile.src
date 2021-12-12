@@ -91,9 +91,7 @@ USER_LDFLAGS := -static
     mmake=workbench-classes-zune-balance \
     modname=Balance modtype=mui files=balance \
     conffile=balance.conf \
-    cflags="$(CFLAGS) -DZUNE_BUILTIN_BALANCE=0" \
-    uselibs="crtext"
-# stdc for rand()
+    cflags="$(CFLAGS) -DZUNE_BUILTIN_BALANCE=0"
 
 #MM workbench-classes-zune-coloradjust : includes
 %build_module \
