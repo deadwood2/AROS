@@ -18,5 +18,6 @@ int __progonly_init_atexit(struct CrtProgCtx *ProgCtx);
 
 void __progonly__Exit (int code);
 void __progonly_abort (void);
+void __progonly_exit (int code);
 
 #endif //__CRT_PROGONLY_H

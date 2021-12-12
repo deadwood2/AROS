@@ -49,6 +49,7 @@ struct CrtProgCtx * __aros_get_ProgCtx();
 struct CrtProgCtx * __aros_create_ProgCtx();
 void __aros_delete_ProgCtx();
 
+void __modonly_abort(void);
 char ***__posixc_get_environptr(void);
 
 /* Make a distinction between exit() and abort() */
