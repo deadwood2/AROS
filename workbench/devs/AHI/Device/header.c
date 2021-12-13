@@ -30,7 +30,7 @@
 #include <proto/graphics.h>
 #include <proto/iffparse.h>
 #if defined(__AROS__)
-#include <libraries/crtutil.h>
+#include <libraries/stdlib.h>
 #endif
 
 #include "ahi_def.h"
@@ -153,7 +153,7 @@ struct LocaleBase         *LocaleBase     = NULL;
 struct Device             *TimerBase      = NULL;
 struct UtilityBase        *UtilityBase    = NULL;
 #if defined (__AROS__)
-struct CrtUtil            *CrtUtilBase       = NULL;
+struct StdlibBase         *StdlibBase       = NULL;
 #endif
 
 #if defined( __AMIGAOS4__ )
@@ -632,13 +632,13 @@ OpenLibs ( void )
   }
 
 #if defined(__AROS__)
-  /* CrtUtil library */
+  /* Stdlib library */
 
-  CrtUtilBase = (struct CrtUtilBase *) OpenLibrary( "crtutil.library", 0 );
+  StdlibBase = (struct StdlibBase *) OpenLibrary( "stdlib.library", 0 );
 
-  if( CrtUtilBase == NULL)
+  if( StdlibBase == NULL)
   {
-    Req( "Unable to open 'crtutil.library'." );
+    Req( "Unable to open 'stdlib.library'." );
     return FALSE;
   }
 #endif
@@ -921,7 +921,7 @@ CloseLibs ( void )
 #endif
 
 #if defined(__AROS__)
-  CloseLibrary( (struct Library *) CrtUtilBase );
+  CloseLibrary( (struct Library *) StdlibBase );
 #endif
   CloseLibrary( (struct Library *) UtilityBase );
 

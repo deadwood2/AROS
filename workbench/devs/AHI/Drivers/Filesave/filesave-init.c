@@ -12,9 +12,9 @@
 #include "DriverData.h"
 
 #ifdef __AROS__
-#include <libraries/crtutil.h>
+#include <libraries/stdlib.h>
 
-struct CrtUtilBase *CrtUtilBase = NULL;
+struct StdlibBase *StdlibBase = NULL;
 #endif
 
 
@@ -83,11 +83,11 @@ DriverInit( struct DriverBase* AHIsubBase )
 #endif
 
 #ifdef __AROS__
-  CrtUtilBase = (struct CrtUtilBase *) OpenLibrary( "crtutil.library", 0 );
+  StdlibBase = (struct StdlibBase *) OpenLibrary( "stdlib.library", 0 );
 
-  if( CrtUtilBase == NULL )
+  if( StdlibBase == NULL )
   {
-    Req( "Unable to open 'crtutil.library'.\n" );
+    Req( "Unable to open 'stdlib.library'.\n" );
     return FALSE;
   }
 #endif
@@ -106,7 +106,7 @@ DriverCleanup( struct DriverBase* AHIsubBase )
   struct FilesaveBase* FilesaveBase = (struct FilesaveBase*) AHIsubBase;
 
 #ifdef __AROS__
-  CloseLibrary( (struct Library*) CrtUtilBase );
+  CloseLibrary( (struct Library*) StdlibBase );
 #endif
 
 #ifdef __AMIGAOS4__
