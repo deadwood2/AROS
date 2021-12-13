@@ -47,7 +47,6 @@ M_MATH_X8664_ASMFILES += \
   modname=m maindir=compiler/crt \
   arch=x86_64 files="$(M_MATH_X8664_FILES)" asmfiles="$(M_MATH_X8664_ASMFILES)"
 
-
 %build_archspecific \
   mainmmake=compiler-stdlib \
   modname=stdlib maindir=compiler/crt \

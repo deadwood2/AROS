@@ -479,7 +479,15 @@ USER_INCLUDES := \
 USER_LDFLAGS := -nolibc
 
 CRT := \
-    ../posixc/__env \
+    $(SRCDIR)/compiler/crt/__crt_exec \
+    __crt_init \
+    __crt_modonly \
+    __crt_progonly \
+    __crt_vfork \
+    crt_assert \
+    crt_system \
+    crt_wrapper \
+    $(SRCDIR)/compiler/posixc/__env \
     ../posixc/__fdesc \
     ../posixc/__fopen \
     ../posixc/__fseeko \
@@ -727,15 +735,7 @@ CRT := \
     ../stdc/strtoul \
     ../stdc/strtoull \
     ../stdc/strtoll \
-    ../stdc/strtoumax \
-    ../crt/__crt_assert \
-    ../crt/__crt_exec \
-    ../crt/__crt_init \
-    ../crt/__crt_modonly \
-    ../crt/__crt_progonly \
-    ../crt/__crt_system \
-    ../crt/__crt_vfork \
-    ../crt/__crt_wrapper \
+    ../stdc/strtoumax
 
 CRT_LINKLIB := \
     ../posixc/getopt \
