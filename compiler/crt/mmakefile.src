@@ -357,7 +357,9 @@ USER_CPPFLAGS := \
 
 %build_module mmake=compiler-m \
     modname="m" modtype=library \
-    files="$(M_MATH) ../stdc/_fenv ../stdc/memset __m_ctype"
+    files="$(M_MATH) ../stdc/_fenv __m_ctype" uselibs="stdc.static"
+#stdc.static for memcpy/memset which do not want to compile-in otherwise
+
 
 ###############################################################################
 

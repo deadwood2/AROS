@@ -2,21 +2,28 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_AFLAGS  := -I$(GENINCDIR)
+#MM- compiler-m-m68k : includes-asm_h
+#MM- compiler-stdlib-m68k : includes-asm_h
+#MM- compiler-crt-m68k : includes-asm_h
+
+
+USER_AFLAGS 	:= -I$(GENINCDIR)
 USER_CPPFLAGS := -DDEBUG=0
-USER_INCLUDES := -I$(SRCDIR)/compiler/stdc
 ISA_FLOAT_FLAGS :=
 TARGET_ISA_AFLAGS := $(ISA_MC68020_FLAGS)
 
-STDC_M68K_FILES := \
+M_MATH_M68K_FILES := \
     fenv
 
-STDC_M68K_ASMFILES := \
-    longjmp \
-    setjmp
+#__stdc_fpumath
+
+
+STDLIB_M68K_ASMFILES := \
+    ../stdc/longjmp \
+    ../stdc/setjmp
 
 # Add FPU based runtime-replacement math functions ..
-STDC_M68K_ASMFILES += \
+M_MATH_M68K_ASMFILES += \
     math/e_acos-881 \
     math/e_asin-881 \
     math/e_atanh-881 \
@@ -55,26 +62,20 @@ STDC_M68K_ASMFILES += \
     math/s_tanh-881 \
     math/s_trunc-881
 
-STDC_M68K_FILES += \
-    __stdc_fpumath
+%build_archspecific \
+  mainmmake=compiler-m \
+  modname=m maindir=compiler/crt \
+  arch=m68k files="$(M_MATH_M68K_FILES)" asmfiles="$(M_MATH_M68K_ASMFILES)"
 
-#%build_archspecific \
-#  mainmmake=compiler-stdc \
-#  modname=stdc maindir=compiler/stdc \
-#  arch=m68k \
-#  files="$(STDC_M68K_FILES)" asmfiles="$(STDC_M68K_ASMFILES)"
+TARGET_ISA_AFLAGS :=
 
-##MM- compiler-stdc-m68k : includes-asm_h
+%build_archspecific \
+  mainmmake=compiler-stdlib \
+  modname=stdlib maindir=compiler/crt \
+  arch=m68k \
+  files="" asmfiles="$(STDLIB_M68K_ASMFILES)"
 
-#
-#
-#
-
-#MM- test-clib-m68k: includes-asm_h test-clib-m68k-jmptests
-
-USER_AFLAGS := -I$(GENINCDIR) # -DDEBUG_MAGIC=0x40506070 -DDEBUG=1
-AFILES:=jmptests setjmp longjmp ../posixc/vfork ../posixc/vfork_longjmp
-
-#%build_prog mmake=test-clib-m68k-jmptests files= asmfiles=$(AFILES) \
-#            progname=jmptests targetdir=$(AROS_TESTS)/clib \
-#            usestartup=no
+%build_archspecific \
+  mainmmake=compiler-crt maindir=compiler/crt \
+  modname=crt arch=m68k \
+  asmfiles="../posixc/siglongjmp ../posixc/sigsetjmp ../posixc/vfork ../posixc/vfork_longjmp"

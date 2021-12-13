@@ -4,12 +4,12 @@ include $(SRCDIR)/config/aros.cfg
 USER_AFLAGS  := -I$(GENINCDIR)
 USER_CPPFLAGS := -DDEBUG=0
 
-#MM- compiler-posixc-m68k : includes-asm_h
+##MM- compiler-posixc-m68k : includes-asm_h
 
-%build_archspecific \
-  mainmmake=compiler-posixc modname=posixc maindir=compiler/posixc \
-  arch=m68k \
-  asmfiles="siglongjmp sigsetjmp vfork vfork_longjmp"
+#%build_archspecific \
+#  mainmmake=compiler-posixc modname=posixc maindir=compiler/posixc \
+#  arch=m68k \
+#  asmfiles="siglongjmp sigsetjmp vfork vfork_longjmp"
 
 %common
 
