@@ -1,0 +1,74 @@
+Specification of C libraries
+============================
+
+Following shared libraries are available:
+
+    stdlib.library
+
+        Contains most of C99 <stdlib.h>, <string.h>, <time.h> functions. All
+        functions in this library are state-less, like memcpy(), strstr(),
+        etc. This library is romable.
+
+    m.library
+
+        Contains <math.h>, <complex.h>, <fenv.h> functions expect for gamma()
+        gammaf() and gammal().
+
+    crt.library
+
+        Main C Runtime. Contains remaining C99 functions as well as all
+        implemented Posix functions. This library creates a new library base
+        each time it is opened. The library base contains state information
+        like file descriptors and memory pools.
+
+
+All three libraries are safe to be used from other libraries, devices or
+resources. In order to use the exposed functions simply OpenLibrary() and
+call function and then link with appropriate link library: -lm -lstdlib or
+-lcrt. GCC compiler links in those libraries by default, so you don't have
+to do anything manually.
+
+In case these libraries are not desired, use -nolib switch when linking.
+
+Special initialization for selected functions
+============================================
+
+Note the following functions require special initialization:
+
+    _exit(), _Exit(), abort(), assert(), atexit(), execl(), execlp(), execv(),
+    execve(), execvp(), exit()
+
+In case your program uses any of those functions, you need to link it with
+-lcrtprog link library. The link library will take care of needed
+initialization. The library is linked in by default by the GCC compiler.
+
+Due to this special initiazation, these functions are not available to be used
+in shared libraries. There is a partial workaround available for abort(),
+assert() and exit() in form of -lcrtmod link library. It is however not
+guaranteed to work in all cases. In general it is preferred not to use
+functions mentioned above in a shared library.
+
+Sharing same base of crt.library between different programs/modules
+===================================================================
+
+This describes a situation when a program opens its "copy" of
+crt.library which is then used by another module that program opened as its
+crt.library for the purpose of handling only this program calls:
+
+        -> crt.library(1)
+       /
+    program(1)             -> crt.library(1)
+        \                /
+          -> some.library
+        /                \
+    program(2)             -> crt.library(2)
+       \
+        -> crt.library(2)
+
+
+This use case is currently not supported. Current design does not block
+that use case and will in future require that "some.library" will also
+have to provide copy of its library base per opening program and there is
+special initialization needed in the program to "share" its crt.library
+library base with "some.library".
+
