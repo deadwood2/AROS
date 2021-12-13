@@ -2624,7 +2624,7 @@ ifeq (%(build_library),M)
 
 %(mmake)%(flavour)_SYMBOLS := $(%(mmake)%(flavour)_KBASE)
 
-%(mmake)%(flavour)_KLIB             := hiddstubs amiga arossupport autoinit libinit
+%(mmake)%(flavour)_KLIB             := hiddstubs amiga arossupport autoinit libinit stdc.static
 %(mmake)%(flavour)_KOBJ_LIBS        := $(filter-out $(%(mmake)%(flavour)_KLIB),$(%(mmake)%(flavour)_LIBS)) $(%(mmake)%(flavour)_KAUTOLIB)
 $(%(mmake)%(flavour)_KOBJ) : LINKLIBS:=$(%(mmake)%(flavour)_KOBJ_LIBS) $($(%(mmake)%(flavour)_DEFNAME)_LIBS)
 $(%(mmake)%(flavour)_KOBJ) : FILTBASES:=$(addprefix -L ,$(%(mmake)%(flavour)_SYMBOLS))
