@@ -2,17 +2,17 @@
     Copyright (C) 2021, The AROS Development Team. All rights reserved.
 
 */
-#ifndef __CRTUTIL_INTBASE_H
-#define __CRTUTIL_INTBASE_H
+#ifndef __STDLIB_INTBASE_H
+#define __STDLIB_INTBASE_H
 
 #include <exec/libraries.h>
 #include <dos/dos.h>
-#include <libraries/crtutil.h>
+#include <libraries/stdlib.h>
 #include <devices/timer.h>
 
-struct CrtUtilIntBase
+struct StdlibIntBase
 {
-    struct CrtUtilBase          lib;
+    struct StdlibBase          lib;
 
     /* optional libs */
     struct LocaleBase           *_LocaleBase;
@@ -24,6 +24,6 @@ struct CrtUtilIntBase
     struct MsgPort              timeport;
 };
 
-struct CrtUtilBase * __aros_getbase_CrtUtilBase();
+struct StdlibBase * __aros_getbase_StdlibBase();
 
-#endif //__CRTUTIL_INTBASE_H
+#endif //__STDLIB_INTBASE_H

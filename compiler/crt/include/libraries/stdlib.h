@@ -1,17 +1,17 @@
-#ifndef _LIBRARIES_CRTUTIL_H
-#define _LIBRARIES_CRTUTIL_H
+#ifndef _LIBRARIES_STDLIB_H
+#define _LIBRARIES_STDLIB_H
 
 /*
     Copyright © 2021, The AROS Development Team. All rights reserved.
     $Id$
 
-    Public part of CrtUtil libbase.
+    Public part of Stdlib libbase.
     Take care of backwards compatibility when changing something in this file.
 */
 
 #include <exec/libraries.h>
 
-struct CrtUtilBase
+struct StdlibBase
 {
     struct Library lib;
 
@@ -21,4 +21,4 @@ struct CrtUtilBase
     const unsigned char * __ctype_tolower;
 };
 
-#endif /* _LIBRARIES_CRTUTIL_H */
+#endif /* _LIBRARIES_STDLIB_H */

@@ -10,8 +10,8 @@
 #include <proto/locale.h>
 #include <exec/execbase.h>
 
-#include "__crtutil_intbase.h"
-#include "__crtutil_optionallibs.h"
+#include "__stdlib_intbase.h"
+#include "__stdlib_optionallibs.h"
 
 /*****************************************************************************
 
@@ -45,15 +45,15 @@
 
 ******************************************************************************/
 {
-    struct CrtUtilIntBase *CrtUtilIntBase =
-        (struct CrtUtilIntBase *)__aros_getbase_CrtUtilBase();
+    struct StdlibIntBase *StdlibIntBase =
+        (struct StdlibIntBase *)__aros_getbase_StdlibBase();
     struct LocaleBase *LocaleBase;
     int gmtoffset = 0;
 
-    if (__locale_available(CrtUtilIntBase))
+    if (__locale_available(StdlibIntBase))
     {
         struct Locale *loc;
-        LocaleBase = CrtUtilIntBase->_LocaleBase;
+        LocaleBase = StdlibIntBase->_LocaleBase;
         if ((loc = OpenLocale(NULL)))
         {
             gmtoffset = (int)loc->loc_GMTOffset;

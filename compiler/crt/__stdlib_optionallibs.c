@@ -9,8 +9,8 @@
 #include <proto/locale.h>
 #include <proto/intuition.h>
 
-#include "__crtutil_intbase.h"
-#include "__crtutil_optionallibs.h"
+#include "__stdlib_intbase.h"
+#include "__stdlib_optionallibs.h"
 
 /* Internal function __libfindandopen will only open a library when it is
    already in the list of open libraries
@@ -26,18 +26,18 @@ static struct Library *__libfindandopen(const char *libname, int version)
     return (found != NULL) ? OpenLibrary(libname, version) : NULL;
 }
 
-int __locale_available(struct CrtUtilIntBase *CrtUtilBase)
+int __locale_available(struct StdlibIntBase *StdlibBase)
 {
-    if (CrtUtilBase->_LocaleBase == NULL)
-        CrtUtilBase->_LocaleBase = (struct LocaleBase *)__libfindandopen("locale.library", 0);
+    if (StdlibBase->_LocaleBase == NULL)
+        StdlibBase->_LocaleBase = (struct LocaleBase *)__libfindandopen("locale.library", 0);
 
-    return CrtUtilBase->_LocaleBase != NULL;
+    return StdlibBase->_LocaleBase != NULL;
 }
 
-int __intuition_available(struct CrtUtilIntBase *CrtUtilBase)
+int __intuition_available(struct StdlibIntBase *StdlibBase)
 {
-    if (CrtUtilBase->_IntuitionBase == NULL)
-        CrtUtilBase->_IntuitionBase = (struct IntuitionBase *)__libfindandopen("intuition.library", 0);
+    if (StdlibBase->_IntuitionBase == NULL)
+        StdlibBase->_IntuitionBase = (struct IntuitionBase *)__libfindandopen("intuition.library", 0);
 
-    return CrtUtilBase->_IntuitionBase != NULL;
+    return StdlibBase->_IntuitionBase != NULL;
 }

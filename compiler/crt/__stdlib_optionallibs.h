@@ -20,6 +20,6 @@ static inline LONG stdcEasyRequest(struct IntuitionBase *IntuitionBase, struct W
     return retval;
 }
 
-int __locale_available(struct CrtUtilIntBase *CrtUtilBase);
-int __intuition_available(struct CrtUtilIntBase *CrtUtilBase);
-int __optionallibs_close(struct CrtUtilIntBase *CrtUtilBase);
+int __locale_available(struct StdlibIntBase *StdlibBase);
+int __intuition_available(struct StdlibIntBase *StdlibBase);
+int __optionallibs_close(struct StdlibIntBase *StdlibBase);

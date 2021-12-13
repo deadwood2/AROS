@@ -5,39 +5,39 @@
 #include <aros/symbolsets.h>
 
 #include <proto/exec.h>
-#include <libraries/crtutil.h>
+#include <libraries/stdlib.h>
 
 const unsigned short int * const *__ctype_b_ptr = NULL;
 const unsigned char * const *__ctype_toupper_ptr = NULL;
 const unsigned char * const *__ctype_tolower_ptr = NULL;
 
-static struct CrtUtilBase *_CrtUtilBase = NULL;
+static struct StdlibBase *_StdlibBase = NULL;
 static int opened = 0;
 
 static int __ctype_init(struct ExecBase *SysBase)
 {
     /* Be sure ctype functions may be called from init code.
-     * Try to open crtutil.library manually here
+     * Try to open stdlib.library manually here
      */
-    if (!_CrtUtilBase)
+    if (!_StdlibBase)
     {
-        _CrtUtilBase = (struct CrtUtilBase *)OpenLibrary("crtutil.library", 0);
+        _StdlibBase = (struct StdlibBase *)OpenLibrary("stdlib.library", 0);
         opened = 1;
     }
-    if (!_CrtUtilBase)
+    if (!_StdlibBase)
         return 0;
 
-    __ctype_b_ptr = &_CrtUtilBase->__ctype_b;
-    __ctype_toupper_ptr = &_CrtUtilBase->__ctype_toupper;
-    __ctype_tolower_ptr = &_CrtUtilBase->__ctype_tolower;
+    __ctype_b_ptr = &_StdlibBase->__ctype_b;
+    __ctype_toupper_ptr = &_StdlibBase->__ctype_toupper;
+    __ctype_tolower_ptr = &_StdlibBase->__ctype_tolower;
 
     return 1;
 }
 
 static void __ctype_exit(void)
 {
-    if (opened && _CrtUtilBase)
-        CloseLibrary((struct Library *)_CrtUtilBase);
+    if (opened && _StdlibBase)
+        CloseLibrary((struct Library *)_StdlibBase);
 }
 
 ADD2INIT(__ctype_init, 20);

@@ -3,7 +3,7 @@
 */
 
 #include <aros/symbolsets.h>
-#include <libraries/crtutil.h>
+#include <libraries/stdlib.h>
 
 #include <ctype.h>
 
@@ -353,15 +353,15 @@ const unsigned char * const * const __ctype_toupper_ptr = &__ctype_toupper;
 const unsigned char * const * const __ctype_tolower_ptr = &__ctype_tolower;
 
 #ifndef STDC_STATIC
-static int __ctype_init(struct CrtUtilBase *CrtUtilBase)
+static int __ctype_init(struct StdlibBase *StdlibBase)
 {
     /* Currently these values are the same for all libbases
        but could in theory be changed in the future to make
        it locale dependent.
     */
-    CrtUtilBase->__ctype_b = &__ctype_b_array[0];
-    CrtUtilBase->__ctype_toupper = &__ctype_toupper_array[0];
-    CrtUtilBase->__ctype_tolower = &__ctype_tolower_array[0];
+    StdlibBase->__ctype_b = &__ctype_b_array[0];
+    StdlibBase->__ctype_toupper = &__ctype_toupper_array[0];
+    StdlibBase->__ctype_tolower = &__ctype_tolower_array[0];
 
     return 1;
 }

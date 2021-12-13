@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-crtutil compiler-crt compiler-m
-#MM- core-linklibs : linklibs-crtutil linklibs-crt linklibs-crtprog linklibs-m linklibs-crtmod
+#MM- AROS : compiler-stdlib compiler-crt compiler-m
+#MM- core-linklibs : linklibs-stdlib linklibs-crt linklibs-crtprog linklibs-m linklibs-crtmod
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES := -I$(SRCDIR)/compiler/stdc/math -iquote $(FMTPRINTFDIR)
@@ -368,7 +368,7 @@ USER_CPPFLAGS := \
 #USER_CPPFLAGS += -DDEBUG=1
 
 # wide char/string support
-CRT_UTIL_WCHAR := \
+STDLIB_WCHAR := \
     ../stdc/wcscat \
     ../stdc/wcscmp \
     ../stdc/wcsncmp \
@@ -376,8 +376,12 @@ CRT_UTIL_WCHAR := \
     ../stdc/wcsncpy \
     ../stdc/wcslen
 
-CRT_UTIL := \
-    ../stdc/__ctype \
+STDLIB := \
+    $(SRCDIR)/compiler/crt/__stdlib_optionallibs \
+    stdlib_gmtoffset \
+    stdlib_time \
+    stdlib_wrapper \
+    $(SRCDIR)/compiler/stdc/__ctype \
     ../stdc/__vcformat \
     ../stdc/__vcscan \
     ../stdc/abs ../stdc/labs ../stdc/llabs \
@@ -445,20 +449,16 @@ CRT_UTIL := \
     ../stdc/strxfrm \
     ../stdc/vsnprintf \
     ../stdc/vsprintf \
-    ../stdc/vsscanf \
-    ../crt/__crtutil_gmtoffset \
-    ../crt/__crtutil_optionallibs \
-    ../crt/__crtutil_wrapper \
-    ../crt/__crtutil_time
+    ../stdc/vsscanf
 
-CRT_UTIL_LINKLIB := \
+STDLIB_LINKLIB := \
     ../stdc/strcasestr \
     ../stdc/__ctype_linklib
 
-%build_module mmake=compiler-crtutil \
-    modname=crtutil modtype=library \
-    files="$(CRT_UTIL) $(CRT_UTIL_WCHAR)" \
-    linklibfiles=$(CRT_UTIL_LINKLIB) uselibs="m"
+%build_module mmake=compiler-stdlib \
+    modname=stdlib modtype=library \
+    files="$(STDLIB) $(STDLIB_WCHAR)" \
+    linklibfiles=$(STDLIB_LINKLIB) uselibs="m"
 
 ###############################################################################
 
@@ -743,7 +743,7 @@ CRT_LINKLIB := \
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
     files="$(CRT) $(CRT_LGAMMA_MATH)" \
-    linklibfiles="$(CRT_LINKLIB)" uselibs="crtutil m"
+    linklibfiles="$(CRT_LINKLIB)" uselibs="stdlib m"
 
 ###############################################################################
 
@@ -878,13 +878,13 @@ USER_CPPFLAGS := \
 %build_linklib mmake=linklibs-stdc-static libname=stdc.static \
     files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
-#MM- linklibs-romhack : compiler-crtutil
+#MM- linklibs-romhack : compiler-stdlib
 # FIXME: The next romhack linklib is a temporary hack and has to be
 # excommunicated in the future !
 # setjmp()/longjmp() is used in dos.library so make it available.
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
 %build_linklib mmake=linklibs-romhack \
-    objdir=$(GENDIR)/$(CURDIR)/crtutil libname=romhack files="setjmp longjmp"
+    objdir=$(GENDIR)/$(CURDIR)/stdlib libname=romhack files="setjmp longjmp"
 
 # pc-x86_64 needs a 32bit version stdc.static
 ifeq ($(AROS_TARGET_CPU),x86_64)

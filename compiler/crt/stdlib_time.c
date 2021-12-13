@@ -12,12 +12,12 @@
 
 #include <string.h>
 
-#include "__crtutil_intbase.h"
+#include "__stdlib_intbase.h"
 
 #include <aros/debug.h>
 
-static int __init_timerbase(struct CrtUtilIntBase *CrtUtilBase);
-#define TimerBase       CrtUtilBase->_TimerBase
+static int __init_timerbase(struct StdlibIntBase *StdlibBase);
+#define TimerBase       StdlibBase->_TimerBase
 
 /*****************************************************************************
 
@@ -60,14 +60,14 @@ static int __init_timerbase(struct CrtUtilIntBase *CrtUtilBase);
 
 ******************************************************************************/
 {
-    struct CrtUtilIntBase *CrtUtilBase = (struct CrtUtilIntBase *)__aros_getbase_CrtUtilBase();
+    struct StdlibIntBase *StdlibBase = (struct StdlibIntBase *)__aros_getbase_StdlibBase();
     struct timeval tv;
 
     /* We get TimerBase here and not during LIBINIT because timer.device is not available
        when library is initialized.
     */
     if (TimerBase == NULL)
-        __init_timerbase(CrtUtilBase);
+        __init_timerbase(StdlibBase);
     if (TimerBase == NULL)
         return (time_t)-1;
 
@@ -82,29 +82,29 @@ static int __init_timerbase(struct CrtUtilIntBase *CrtUtilBase);
 } /* time */
 
 
-static int __init_timerbase(struct CrtUtilIntBase *CrtUtilBase)
+static int __init_timerbase(struct StdlibIntBase *StdlibBase)
 {
     D(bug("%s()\n", __func__));
 
-    memset( &CrtUtilBase->timeport, 0, sizeof( CrtUtilBase->timeport ) );
-    CrtUtilBase->timeport.mp_Node.ln_Type   = NT_MSGPORT;
-    CrtUtilBase->timeport.mp_Flags          = PA_IGNORE;
-    CrtUtilBase->timeport.mp_SigTask        = FindTask(NULL);
-    NEWLIST(&CrtUtilBase->timeport.mp_MsgList);
+    memset( &StdlibBase->timeport, 0, sizeof( StdlibBase->timeport ) );
+    StdlibBase->timeport.mp_Node.ln_Type   = NT_MSGPORT;
+    StdlibBase->timeport.mp_Flags          = PA_IGNORE;
+    StdlibBase->timeport.mp_SigTask        = FindTask(NULL);
+    NEWLIST(&StdlibBase->timeport.mp_MsgList);
 
-    CrtUtilBase->timereq.tr_node.io_Message.mn_Node.ln_Type    = NT_MESSAGE;
-    CrtUtilBase->timereq.tr_node.io_Message.mn_Node.ln_Pri     = 0;
-    CrtUtilBase->timereq.tr_node.io_Message.mn_Node.ln_Name    = NULL;
-    CrtUtilBase->timereq.tr_node.io_Message.mn_ReplyPort       = &CrtUtilBase->timeport;
-    CrtUtilBase->timereq.tr_node.io_Message.mn_Length          = sizeof (CrtUtilBase->timereq);
+    StdlibBase->timereq.tr_node.io_Message.mn_Node.ln_Type    = NT_MESSAGE;
+    StdlibBase->timereq.tr_node.io_Message.mn_Node.ln_Pri     = 0;
+    StdlibBase->timereq.tr_node.io_Message.mn_Node.ln_Name    = NULL;
+    StdlibBase->timereq.tr_node.io_Message.mn_ReplyPort       = &StdlibBase->timeport;
+    StdlibBase->timereq.tr_node.io_Message.mn_Length          = sizeof (StdlibBase->timereq);
 
     if (OpenDevice(
             "timer.device", UNIT_VBLANK,
-            (struct IORequest *)&CrtUtilBase->timereq, 0
+            (struct IORequest *)&StdlibBase->timereq, 0
         ) == 0
     )
     {
-        TimerBase = (struct Device *)CrtUtilBase->timereq.tr_node.io_Device;
+        TimerBase = (struct Device *)StdlibBase->timereq.tr_node.io_Device;
         D(bug("%s: TimerBase = 0x%p\n", __func__, TimerBase));
         return 1;
     }
@@ -116,13 +116,13 @@ static int __init_timerbase(struct CrtUtilIntBase *CrtUtilBase)
 }
 
 
-static void __exit_timerbase(struct CrtUtilIntBase *CrtUtilBase)
+static void __exit_timerbase(struct StdlibIntBase *StdlibBase)
 {
     D(bug("%s()\n", __func__));
 
     if (TimerBase != NULL)
     {
-        CloseDevice((struct IORequest *)&CrtUtilBase->timereq);
+        CloseDevice((struct IORequest *)&StdlibBase->timereq);
         TimerBase = NULL;
     }
 }
