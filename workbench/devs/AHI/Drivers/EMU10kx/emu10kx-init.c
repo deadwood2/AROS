@@ -43,9 +43,9 @@ struct MMUIFace*   IMMU       = NULL;
 #endif
 
 #ifdef __AROS__
-#include <proto/stdc.h>
+#include <proto/stdlib.h>
 
-struct StdCBase *StdCBase = NULL;
+struct StdlibBase *StdlibBase = NULL;
 #endif
 
 
@@ -104,11 +104,11 @@ DriverInit( struct DriverBase* ahisubbase )
 #endif
 
 #ifdef __AROS__
-  StdCBase = (struct StdCBase *) OpenLibrary( "stdc.library", 0 ); 
+  StdlibBase = (struct StdlibBase *) OpenLibrary( "stdlib.library", 0 );
 
-  if( StdCBase == NULL )
+  if( StdlibBase == NULL )
   {
-    Req( "Unable to open 'stdc.library'.\n" );
+    Req( "Unable to open 'stdlib.library'.\n" );
     return FALSE;
   }
 #endif
@@ -296,7 +296,7 @@ DriverCleanup( struct DriverBase* AHIsubBase )
   FreeVec( EMU10kxBase->driverdatas ); 
 
 #ifdef __AROS__
-  CloseLibrary( (struct Library*) StdCBase );
+  CloseLibrary( (struct Library*) StdlibBase );
 #endif
     
 #ifdef __AMIGAOS4__

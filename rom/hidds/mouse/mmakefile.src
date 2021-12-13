@@ -11,6 +11,6 @@ USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-hidd-mouse \
     modname=mouse modtype=hidd \
-    files="$(FILES)" sdk=private usesdks="private"
+    files="$(FILES)" sdk=private usesdks="private" uselibs="stdc.static"
 
 %common

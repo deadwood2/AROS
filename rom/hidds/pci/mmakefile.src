@@ -25,4 +25,4 @@ INCLUDE_FILES := $(call WILDCARD, include/hardware/*.h)
 
 %build_module mmake=kernel-hidd-pci \
     modname=pci modtype=hidd \
-    files="$(FILES)" sdk=private usesdks="private"
+    files="$(FILES)" sdk=private usesdks="private" uselibs="stdc.static"

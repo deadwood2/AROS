@@ -12,4 +12,4 @@ USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-keyboard \
   modname=keyboard modtype=device \
-  files=keyboard usesdks="private"
+  files=keyboard usesdks="private" uselibs="stdc.static"

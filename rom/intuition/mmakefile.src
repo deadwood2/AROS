@@ -17,7 +17,7 @@ USER_CPPFLAGS := \
                -D__OOP_NOATTRBASES__ \
                -D__GRAPHICS_NOLIBBASE__ \
                -D__KEYMAP_NOLIBBASE__
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -nolibc
 
 FILES := boolgadgets boopsigadgets buttongclass frameiclass frbuttonclass \
          gadgetclass gadgets imageclass inputhandler propgadgets propgclass \
@@ -190,7 +190,7 @@ FUNCS := \
 
 %build_module mmake=kernel-intuition \
   modname=intuition modtype=library \
-  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config"
+  files="intuition_init $(FUNCS) $(FILES)" usesdks="private config" uselibs="stdc.static"
 
 $(INTUITION_BUILDDIR)/shutdownscreen.d : $(INTUITION_BUILDDIR)/shutdown_image.h
 

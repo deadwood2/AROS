@@ -38,7 +38,7 @@ FILES := gdbstub
 
 %build_progs mmake=workbench-c-m68k-gdbstub \
     files=$(FILES) targetdir=$(AROS_C) \
-    detach=yes uselibs=romhack coverageinstr=no
+    detach=yes uselibs="romhack stdc.static" coverageinstr=no
 
 FILES := gdbstop
 
@@ -53,13 +53,13 @@ USER_LDFLAGS  := -nolibc
 
 %build_prog mmake=workbench-c-m68k-setpatcharos progname=SetPatchAROS \
     files=$(CFILES) asmfiles=$(AFILES) targetdir=$(AROSARCHDIR) \
-    uselibs="loadseg" coverageinstr=no usesdks="private"
+    uselibs="loadseg stdc.static" coverageinstr=no usesdks="private"
 
 CFILES	      := AROSBootstrap
 
 %build_prog mmake=workbench-c-m68k-arosbootstrap progname=AROSBootstrap \
     files=$(CFILES) targetdir=$(AROSARCHDIR) \
-    usestartup=no uselibs="loadseg z.static" lto=no usesdks="private"
+    usestartup=no uselibs="loadseg z.static stdc.static" lto=no usesdks="private"
 
 CFILES	      := mmudump
 
@@ -72,7 +72,7 @@ CFILES		:= SetPatch
 
 %build_prog mmake=workbench-c-m68k-setpatch progname=SetPatch \
     files=$(CFILES) targetdir=$(AROS_C) \
-    uselibs=setpatch usestartup=no
+    uselibs="setpatch stdc.static" usestartup=no
 
 # Some Tests to check SetPatch functionality ..
 

@@ -46,8 +46,8 @@ struct MMUIFace*            IMMU          = NULL;
 #define CARD_STRING "Envy24HT"
 
 #ifdef __AROS__
-#include <proto/stdc.h>
-struct StdCBase *StdCBase = NULL;
+#include <proto/stdlib.h>
+struct StdlibBase *StdlibBase = NULL;
 #endif
 
 /******************************************************************************
@@ -65,8 +65,8 @@ BOOL DriverInit( struct DriverBase* ahisubbase )
     AHIsubBase = ahisubbase;
 
 #ifdef __AROS__
-    StdCBase = (struct StdCBase *)OpenLibrary((CONST_STRPTR)"stdc.library", 0);
-    if (!StdCBase)
+    StdlibBase = (struct StdlibBase *)OpenLibrary((CONST_STRPTR)"stdlib.library", 0);
+    if (!StdlibBase)
     {
         return FALSE;
     }
@@ -188,10 +188,10 @@ DriverCleanup( struct DriverBase* AHIsubBase )
   ahi_pci_exit();
 
 #ifdef __AROS__
-  if (StdCBase)
+  if (StdlibBase)
   {
-    CloseLibrary((struct Library *)StdCBase);
-    StdCBase = NULL;
+    CloseLibrary((struct Library *)StdlibBase);
+    StdlibBase = NULL;
   }
 #endif
 }

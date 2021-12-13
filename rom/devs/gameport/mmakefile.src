@@ -12,7 +12,7 @@ USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-gameport \
   modname=gameport modtype=device \
-  files=gameport usesdks="private"
+  files=gameport usesdks="private" uselibs="stdc.static"
 
 #MM includes-copy
 

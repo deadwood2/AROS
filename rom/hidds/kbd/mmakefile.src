@@ -15,6 +15,6 @@ USER_LDFLAGS := -nolibc
 
 %build_module mmake=kernel-hidd-kbd \
     modname=keyboard modtype=hidd \
-    files="$(FILES)" sdk=private usesdks="private"
+    files="$(FILES)" sdk=private usesdks="private" uselibs="stdc.static"
 
 %common

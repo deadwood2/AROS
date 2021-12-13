@@ -82,10 +82,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-nvdisk-kobj \
 #MM     workbench-libs-workbench-kobj \
 #MM     linklibs-loadseg \
-#MM     compiler-stdc \
-#MM     compiler-stdcio \
-#MM     hidd-m68k-sagagfx \
-#MM     compiler-posixc
+#MM     hidd-m68k-sagagfx
 
 #MM- kernel-workbench-devs-amiga-m68k : workbench-devs-amiga-m68k
 
@@ -195,7 +192,7 @@ $(GENDIR)/boot/aros-amiga-m68k-reloc.elf : $(DEPLIBS) $(SRCDIR)/$(CURDIR)/mmakef
 	@$(MKDIR) $(GENDIR)/boot
 	@$(ECHO) Linking $@...
 	$(Q)$(KERNEL_CC) -Wl,-r \
-		-nolibc -nostartfiles -nostdlib \
+		-nostartfiles -nodefaultlibs \
 		-Wl,-Map=$(GENDIR)/boot/aros-amiga-m68k-reloc.elf.map \
 		-Wl,--defsym -Wl,start=0x0 \
 		-Wl,--defsym -Wl,SysBase=0x4 \
@@ -342,7 +339,7 @@ $(GENDIR)/boot/aros-amiga-m68k-ram.elf : $(DEPLIBS) $(SRCDIR)/$(CURDIR)/mmakefil
 	@$(MKDIR) $(GENDIR)/boot
 	@$(ECHO) Linking $@...
 	$(Q)$(KERNEL_CC) -Wl,-r \
-		-nolibc -nostartfiles -nostdlib \
+		-nostartfiles -nodefaultlibs \
 		-Wl,-Map=$(GENDIR)/boot/aros-amiga-m68k-ram.elf.map \
 		-Wl,--defsym -Wl,start=0x0 \
 		-Wl,--defsym -Wl,SysBase=0x4 \
@@ -394,7 +391,7 @@ $(AROSARCHDIR)/aros.elf.dbg : $(DEPLIBS) $(SRCDIR)/$(CURDIR)/mmakefile.src \
 	@$(IF) [ "$(DEBUG)" = "yes" ]; then \
 		$(ECHO) Linking $@...; \
 		$(KERNEL_CC) -Wl,-r \
-		-nolibc -nostartfiles -nostdlib \
+		-nostartfiles -nodefaultlibs \
 		-Wl,--defsym -Wl,start=0x0 \
 		-Wl,--defsym -Wl,SysBase=0x4 \
 		-Wl,--defsym -Wl,AbsExecBase=0x4 \

@@ -2,7 +2,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 USER_CPPFLAGS := -DMUIMASTER_YES_INLINE_STDARG
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FILES :=    simplemidi.class debug
 

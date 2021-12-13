@@ -63,7 +63,7 @@ USER_CPPFLAGS := $(LIBZ_CPPFLAGS)
 
 %build_module mmake=workbench-libs-z \
   modname=z1 modtype=library \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=z
+  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=z uselibs="crtmod"
 
 #MM- linklibs: linklibs-z-static
 #MM linklibs-z-static : zlib-fetch

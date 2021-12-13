@@ -11,4 +11,4 @@ USER_LDFLAGS := -nolibc
 %build_module mmake=amiga-m68k-hidd-parallel \
   modname=parallel modtype=hidd \
   files=$(FILES) \
-  uselibs="hiddstubs oop" usesdks="private"
+  uselibs="hiddstubs oop stdc.static" usesdks="private"

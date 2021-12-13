@@ -66,4 +66,4 @@ FUNCS := \
 
 %build_module mmake=kernel-layers \
   modname=layers modtype=library \
-  files="layers_init $(FUNCS) $(FILES)" usesdks="config"
+  files="layers_init $(FUNCS) $(FILES)" usesdks="config" uselibs="stdc.static"

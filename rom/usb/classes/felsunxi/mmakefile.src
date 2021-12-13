@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -nolibc -lstdc.static
 
 FUNCS := class_Library class_DoMethodA class_GetAttrsA class_SetAttrsA class_DeviceBinding class_FELSunxiTask
 
