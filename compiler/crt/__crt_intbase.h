@@ -60,7 +60,7 @@ char ***__posixc_get_environptr(void);
 
 /* When a program is started with the exec functions and from vfork,
    this is indicated in the flags of the library.
-   This way the child can use the parent posixc.library during its
+   This way the child can use the parent crt.library during its
    initialization phase */
 #define EXEC_PARENT 0x00000001
 #define VFORK_PARENT 0x00000002

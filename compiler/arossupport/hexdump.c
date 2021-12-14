@@ -78,7 +78,7 @@
                 UBYTE c = ((UBYTE *)data)[t-i];
 
                 /*
-                 * isprint() introduces dependency on stdc.library, which
+                 * isprint() introduces dependency on stdlib.library, which
                  * prevents using this function from within KS code.
                  */
                 if ((c > 0x1F) && (c < 0x7E))

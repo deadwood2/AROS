@@ -6,9 +6,6 @@
     $Id$
 
     C99 & POSIX.1-2008 header file string.h with extra SAS/C and other extensions
-    Also the POSIX.1-2008 extension to string.h will be included in
-    stdc.library. This avoids opening of posixc.library by programs
-    that only use few simple POSIX string functions.
 */
 #include <aros/system.h>
 

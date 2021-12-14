@@ -33,7 +33,7 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
 
 /*  FUNCTION
         This is called during program startup and before calling main.
-        This is to allow stdc.library to do some initialization that couldn't
+        This is to allow crt.library to do some initialization that couldn't
         be done when opening the library.
 
     INPUTS
@@ -78,7 +78,7 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
 
 /*  FUNCTION
         This function is to be called when main() has returned or after
-        program has exited. This allows to stdc.library to do some
+        program has exited. This allows to crt.library to do some
         cleanup that can't be done during closing of the library.
 
     INPUTS
@@ -251,9 +251,8 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
     NOTES
         In normal operation this function does not return.
         If this function returns it means that this function was called in a
-        context where jmp_buf for exit was not initialized. Likely cause is
-        a module that opened stdc.library.
-        Be sure to capture this situation.
+        context where jmp_buf for exit was not initialized. Be sure to
+        capture this situation.
 
     EXAMPLE
 
@@ -267,7 +266,7 @@ void __progonly_program_startup_internal(struct CrtProgCtx *ProgCtx, jmp_buf exi
 {
     struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
 
-    /* No __stdc_program_startup() called; Alert()
+    /* No __progonly_program_startup() called; Alert()
     */
     if (!ProgCtx || ProgCtx->startup_errorptr == NULL)
     {

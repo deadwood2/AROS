@@ -33,10 +33,6 @@ struct __sFILE;
 
 __BEGIN_DECLS
 
-/*
- * stdc.library (45 funcs)
- */
-
 /* Formatted wide-character input/output functions */
 /* NOTIMPL int swprintf(wchar_t * restrict s, size_t n,
 	const wchar_t * restrict format, ...); */
@@ -113,9 +109,6 @@ size_t wcslen(const wchar_t *s);
 /* NOTIMPL size_t wcsrtombs(char * restrict dst, const wchar_t ** restrict src,
 	size_t len, mbstate_t * restrict ps); */
 
-/*
- * stdcio.library
- */
 /* Formatted wide-character input/output functions */
 /* NOTIMPL int fwprintf(struct __sFILE * restrict stream,
         const wchar_t * restrict format, ...); */

@@ -69,7 +69,7 @@ void LoadPlugins (struct DiskImageBase *libBase) {
 	plugin_data.UtilityBase = libBase->UtilityBase;
 	plugin_data.IPlugin = &IPluginIFace;
 #ifdef __AROS__
-        plugin_data.StdCBase = libBase->StdCBase;
+	plugin_data.StdlibBase = libBase->StdlibBase;
 #endif
 
 	libBase->HeaderTestSize = 0;

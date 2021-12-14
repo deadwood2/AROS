@@ -56,9 +56,8 @@ int __progonly_execl_wrapper(const char *path, const char *arg, ...)
         1 is return if string is NULL.
 
     NOTES
-        The system() version of posixc.library will translate UNIX<>Amiga
-        if applicable as well as use a shell for executing text batch
-        commands.
+        The system() will translate UNIX<>Amiga if applicable as well as use
+        a shell for executing text batch commands.
 
     EXAMPLE
 

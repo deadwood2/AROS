@@ -76,7 +76,7 @@ struct DiskImageBase {
 	struct Library *UtilityBase;
 	struct Library *IntuitionBase;
 #ifdef __AROS__
-	struct Library *StdCBase;
+	struct Library *StdlibBase;
 #endif
 };
 

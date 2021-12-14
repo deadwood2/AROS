@@ -53,7 +53,7 @@ __ctype_make_func(isalnum,  _istype(c,_ISalnum))
 __ctype_make_func(toupper,  (*__ctype_toupper_ptr)[((int)(c)) & 0xff])
 __ctype_make_func(tolower,  (*__ctype_tolower_ptr)[((int)(c)) & 0xff])
 
-/* POSIX.1-2008/XSI extensions that are provided in stdc.library */
+/* POSIX.1-2008/XSI extensions that are provided in stdlib.library */
 __ctype_make_func(isascii,  (c & ~0x7F) == 0)
 __ctype_make_func(toascii,  c & 0x7F)
 #define _toupper(c) toupper(c)

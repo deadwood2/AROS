@@ -11,7 +11,7 @@ AROS_IMPORT_ASM_SYM(int, dummy, __includecrtprogramstartuphandling);
 
 extern int main(int argc, char *argv[]);
 
-/* FIXME: This solution for -nix flag is now specific for posixc.library
+/* FIXME: This solution for -nix flag is now specific for crt.library
    Could a more general approach be provided so other libs can add their own
    flags without needing to do something in compiler/startup
    Is this wanted ?

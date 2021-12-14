@@ -27,7 +27,7 @@ All Rights Reserved.
 #include <clib/alib_protos.h>
 #ifdef __AROS__
 struct DosLibrary* DOSBase;
-struct Library *StdCBase = NULL;
+struct Library *StdlibBase = NULL;
 #endif
 #include <stdlib.h>
 
@@ -79,10 +79,10 @@ BOOL DriverInit(struct DriverBase* ahisubbase)
     }
 
 #ifdef __AROS__
-    StdCBase = OpenLibrary("stdc.library", 0);
-    if (StdCBase == NULL)
+    StdlibBase = OpenLibrary("stdlib.library", 0);
+    if (StdlibBase == NULL)
     {
-        Req("Unable to open 'stdc.library'.\n");
+        Req("Unable to open 'stdlib.library'.\n");
         return FALSE;
     }
 #endif
@@ -186,9 +186,9 @@ VOID DriverCleanup(struct DriverBase* AHIsubBase)
     ahi_pci_exit();
 
 #ifdef __AROS__
-    if (StdCBase)
+    if (StdlibBase)
     {
-        CloseLibrary(StdCBase);
+        CloseLibrary(StdlibBase);
     }
 #endif
 
