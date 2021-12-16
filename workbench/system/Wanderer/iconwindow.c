@@ -489,7 +489,6 @@ D(bug("[Wanderer:IconWindow] %s: Allocated WindowBackFillHook @ 0x%p\n", __PRETT
     {
         struct DiskObject   *drawericon = NULL;
         IPTR                geticon_error = 0, geticon_isdefault = 0;
-        IPTR                _newIconWin__TitleLen = 0;
         BOOL                forceshowall = FALSE;
         BOOL                isVolume;
 
@@ -499,8 +498,7 @@ D(bug("[Wanderer:IconWindow] %s: Allocated WindowBackFillHook @ 0x%p\n", __PRETT
         _newIconWin__WindowHeight = 300;
 
         _newIconWin__Title = (STRPTR) GetTagData(MUIA_IconWindow_Location, (IPTR)NULL, message->ops_AttrList);
-        _newIconWin__TitleLen = strlen(_newIconWin__Title);
-        isVolume = (_newIconWin__Title[_newIconWin__TitleLen - 1] == ':');
+        isVolume = (_newIconWin__Title[strlen(_newIconWin__Title) - 1] == ':');
 
         D(bug("[Wanderer:IconWindow] %s: Opening %s Window '%s'\n", __PRETTY_FUNCTION__, isVolume ? "Volume Root" : "Drawer", _newIconWin__Title));
 
@@ -681,7 +679,6 @@ D(bug("]\n"));
         MUIA_Window_TopEdge,                                   _newIconWin__WindowTop,
         (!isBackdrop) ? MUIA_Window_AltWidth : TAG_IGNORE,     100,
         (!isBackdrop) ? MUIA_Window_AltHeight : TAG_IGNORE,    80,
-        MUIA_Window_Title,                                   (IPTR)_newIconWin__Title,
 
         MUIA_Window_DragBar,                                   (!isBackdrop) ? TRUE : FALSE,
         MUIA_Window_CloseGadget,                               (!isBackdrop) ? TRUE : FALSE,
@@ -726,7 +723,6 @@ D(bug("]\n"));
         data->iwd_VolViewMode                           = _newIconWin__VOLVIEWMODE;
 
         data->iwd_Screen                                = _newIconWin__Screen;
-        data->iwd_Title                                 = _newIconWin__Title;
 
         data->iwd_RootViewObj                           = _newIconWin__RootViewObj;
         data->iwd_IconListObj                           = _newIconWin__IconListObj;
@@ -757,6 +753,12 @@ D(bug("]\n"));
                                                           : "Drawer";
 
         data->iwd_FSNotifyPort                          = _newIconWin__FSNotifyPort;
+
+        if (_newIconWin__Title)
+        {
+            strcpy(data->iwd_DirectoryPath, (STRPTR)_newIconWin__Title);
+            SET(self, MUIA_Window_Title, data->iwd_DirectoryPath);
+        }
 
         if (prefs)
         {

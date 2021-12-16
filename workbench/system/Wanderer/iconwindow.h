@@ -102,7 +102,6 @@ struct IconWindow_Panel_Data
 struct IconWindow_DATA
 {
     struct Screen                       *iwd_Screen;
-    char                                *iwd_Title;
     char                                iwd_DirectoryPath[IWD_MAX_DIRECTORYPATHLEN];
 
     char                                *iwd_ViewSettings_Attrib;
