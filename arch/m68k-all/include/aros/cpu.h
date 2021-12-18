@@ -150,10 +150,6 @@ extern void aros_not_implemented ();
 #define ___AROS_ISREG(reg,regcmp)               (0x##reg == 0x##regcmp)
 #define __AROS_ISREG(type,name,reg,regcmp)      ___AROS_ISREG(reg,regcmp)
 
-/* #defines for cpu specific asm and lib calls */
-#define __AROS_ASMCALL_H_FILE "aros/m68k/asmcall.h"
-#define __AROS_LIBCALL_H_FILE "aros/m68k/libcall.h"
-
 /* Function declaration for program startup style code
  */
 #define AROS_PROCH(n, _argptr, _argsize, _SysBase) \

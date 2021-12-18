@@ -68,8 +68,16 @@
 #   include <aros/system.h>
 #endif
 
-#ifdef __AROS_LIBCALL_H_FILE
-#include __AROS_LIBCALL_H_FILE
+#if defined __i386__
+#   include <aros/i386/libcall.h>
+#elif defined __x86_64__
+#elif defined __mc68000__
+#   include <aros/m68k/libcall.h>
+#elif defined __MORPHOS__
+#elif defined __powerpc__
+#elif defined __arm__
+#else
+#   error unsupported CPU type
 #endif
 
 #ifndef __typedef_VOID_FUNC
