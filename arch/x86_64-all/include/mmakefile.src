@@ -7,6 +7,20 @@ INCLUDE_FILES := $(call WILDCARD, aros/*.h)
 INCLUDE_FILES := $(call WILDCARD, asm/*.h)
 %copy_includes mmake=compiler-includes path=asm/x86_64 dir=asm
 
-#MM- compiler-includes: compiler-includes-pc
+#MM- compiler-includes: includes-generated-x86_64-libcall compiler-includes-pc
+
+#MM includes-generated-x86_64-libcall
+includes-generated-x86_64-libcall: $(AROS_INCLUDES)/aros/x86_64/libcall.h $(GENINCDIR)/aros/x86_64/libcall.h
+
+$(AROS_INCLUDES)/aros/x86_64/libcall.h: $(HOSTGENDIR)/tools/gencall_x86_64 | $(AROS_INCLUDES)/aros/x86_64
+	$(HOSTGENDIR)/tools/gencall_x86_64 >$@
+GLOB_MKDIRS += $(AROS_INCLUDES)/aros/x86_64
+
+$(GENINCDIR)/aros/x86_64/libcall.h: $(AROS_INCLUDES)/aros/x86_64/libcall.h | $(GENINCDIR)/aros/x86_64
+	$(CP) $< $@
+GLOB_MKDIRS += $(GENINCDIR)/aros/x86_64
+
+$(HOSTGENDIR)/tools/gencall_x86_64: $(SRCDIR)/$(CURDIR)/gencall.c
+	@$(HOST_CC) -Wall -Werror -o $@ $<
 
 %common

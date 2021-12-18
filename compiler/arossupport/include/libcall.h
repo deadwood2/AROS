@@ -71,6 +71,7 @@
 #if defined __i386__
 #   include <aros/i386/libcall.h>
 #elif defined __x86_64__
+#   include <aros/x86_64/libcall.h>
 #elif defined __mc68000__
 #   include <aros/m68k/libcall.h>
 #elif defined __MORPHOS__
