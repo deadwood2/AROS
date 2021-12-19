@@ -42,7 +42,9 @@ struct CrtProgCtx
     /* atexit.c */
     struct MinList              atexit_list;
 
-    struct CrtIntBase        *libbase;
+    /* Libbase that was in use when this context was created */
+    /* Treat this field as readonly. Never assign/substitute its value */
+    struct CrtIntBase           *libbase;
 };
 
 struct CrtProgCtx * __aros_get_ProgCtx();
