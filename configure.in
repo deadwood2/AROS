@@ -1282,6 +1282,7 @@ case "$target_os" in
                 aros_flavour="emulation"
                 aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dx86_64 -D__linux__"
                 aros_isa_flags="$""(ISA_X8664_FLAGS)"
+                aros_module_isa_flags=-ffixed-r12
                 x86_64_isa_extra="$x86_64_isa_extra $""(CFLAGS_NO_RED_ZONE)"
                 aros_config_cflags="$aros_config_cflags $""(CFLAGS_NO_OMIT_FP)"
                 aros_config_cxxflags="$aros_config_cxxflags $""(CFLAGS_NO_OMIT_FP)"
@@ -1427,6 +1428,7 @@ case "$target_os" in
                 aros_flavour="standalone"
                 aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dx86_64"
                 aros_isa_flags="$""(ISA_X8664_FLAGS)"
+                aros_module_isa_flags=-ffixed-r12
                 x86_64_isa_extra="$x86_64_isa_extra $""(CFLAGS_NO_RED_ZONE)"
                 aros_config_cflags="$aros_config_cflags $""(CFLAGS_NO_ASYNCHRONOUS_UNWIND_TABLES) $""(CFLAGS_NO_OMIT_FP)"
                 aros_config_cxxflags="$aros_config_cxxflags $""(CFLAGS_NO_ASYNCHRONOUS_UNWIND_TABLES) $""(CFLAGS_NO_OMIT_FP)"
@@ -1507,6 +1509,7 @@ case "$target_os" in
                 aros_object_format="elf_x86_64"
                 aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dx86_64"
                 aros_isa_flags="$""(ISA_X8664_FLAGS)"
+                aros_module_isa_flags=-ffixed-r12
                 aros_macosx_version="10.6"
                 aros_config_cflags="$aros_config_cflags $""(CFLAGS_NO_OMIT_FP)"
                 aros_config_cxxflags="$aros_config_cxxflags $""(CFLAGS_NO_OMIT_FP)"
@@ -1609,6 +1612,7 @@ case "$target_os" in
                 aros_object_format="elf_x86_64"
                 aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dx86_64 -D__DragonFly__"
                 aros_isa_flags="$""(ISA_X8664_FLAGS)"
+                aros_module_isa_flags=-ffixed-r12
                 ;;
             *)
                 AC_MSG_ERROR("Unknown CPU for DragonFly -- $target_cpu")
@@ -1933,6 +1937,7 @@ case "$target_os" in
                 aros_object_format="elf_x86_64"
                 aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dx86_64"
                 aros_isa_flags="$""(ISA_X8664_FLAGS)"
+                aros_module_isa_flags=-ffixed-r12
                 aros_config_cflags="$aros_config_cflags $""(CFLAGS_NO_OMIT_FP)"
                 aros_config_cxxflags="$aros_config_cxxflags $""(CFLAGS_NO_OMIT_FP)"
                 aros_nominal_depth=8
