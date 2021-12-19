@@ -318,6 +318,12 @@ pid_t __vfork(jmp_buf env)
     struct vfork_data *udata = AllocMem(sizeof(struct vfork_data), MEMF_ANY | MEMF_CLEAR);
 
     /*
+        Remember that vfork() can be called recursivelly, that is a child of parent,
+        can create new child and so on. This is supported via vfork_data->prev chain.
+        if (vfork() == 0)
+            if (vfork() == 0)
+                child of child code
+    /*
         vfork() is being called by a direct call without passing a library base
         Use library base registered with context. We can do this, because vfork()
         is progonly, meaning registered library base is one opened by program
