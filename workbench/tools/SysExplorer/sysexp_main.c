@@ -461,7 +461,7 @@ int main(void)
                             if ((SysExpModuleBase = (APTR)OpenLibrary(SysExpModuleFilename, 0)) != NULL)
                             {
                                 D(bug("[SysExplorer] %s: '%s' Loaded @ 0x%p\n", __func__, SysexpFileFIB->fib_FileName, SysExpModuleBase));
-                                    AROS_LC1(void, ModuleInit,
+                                    AROS_LC1NR(void, ModuleInit,
                                         AROS_LCA(void *, (SysexpBase), A0),
                                         struct Library *, SysExpModuleBase, 5, Module);
                             }
