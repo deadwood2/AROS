@@ -56,12 +56,13 @@ static void aros_call(int id, int flags)
         printf("a%d,", i + 1);
     printf("bt,bn) \\\n"
            "({ \\\n"
-           "    t __bn; \\\n"
+           "    t __ret; \\\n"
+           "    register bt __bn asm(\"r12\"); \\\n"
            /* Need to first assign to variable otherwise gcc may miscompile */
            "    APTR __func = (APTR)n; \\\n"
            "    asm volatile(\"pushq %%%%r12\" : : :); \\\n"
-           "    asm volatile(\"movq %%0,%%%%r12\" : : \"r\"(bn) :); \\\n"
-           "    __bn = (( t (*)("
+           "    __bn = bn; \\\n"
+           "    __ret = (( t (*)("
     );
     if (i == 0)
         printf("void");
@@ -82,7 +83,7 @@ static void aros_call(int id, int flags)
     }
     printf("); \\\n"
     "    asm volatile(\"popq %%%%r12\" : : :); \\\n"
-    "    __bn; \\\n"
+    "    __ret; \\\n"
            "})\n"
     );
     printf("#define AROS_NEWCALL%d%s __AROS_NEWCALL%d%s\n", id, nr(flags), id, nr(flags));
