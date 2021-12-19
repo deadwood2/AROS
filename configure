@@ -668,6 +668,7 @@ use_libatomic
 crosstools_cxx_target
 crosstools_target
 aros_target_nostartup_objects
+aros_module_isa_flags
 aros_isa_flags
 aros_isa_extra
 aros_kernel_isa_flags
@@ -8273,6 +8274,7 @@ aros_elf_translate=
 aros_warn_flags=
 aros_isa_extra=
 aros_isa_flags=
+aros_module_isa_flags=
 aros_kernel_isaflags=
 aros_config_cppflags=
 aros_config_cflags=
@@ -16517,6 +16519,10 @@ aros_kernel_ranlib=$aros_kernel_ranlib
 
 
 
+
+
+
+
 # Native version related
 
 
@@ -16532,9 +16538,6 @@ aros_kernel_ranlib=$aros_kernel_ranlib
 
 
 # ARM default GCC target related
-
-
-
 
 
 

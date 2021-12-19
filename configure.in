@@ -798,6 +798,7 @@ aros_elf_translate=
 aros_warn_flags=
 aros_isa_extra=
 aros_isa_flags=
+aros_module_isa_flags=
 aros_kernel_isaflags=
 aros_config_cppflags=
 aros_config_cflags=
@@ -3480,6 +3481,7 @@ AC_SUBST(aros_optimization_cflags)
 AC_SUBST(aros_kernel_isa_flags)
 AC_SUBST(aros_isa_extra)
 AC_SUBST(aros_isa_flags)
+AC_SUBST(aros_module_isa_flags)
 
 AC_SUBST(aros_target_nostartup_objects)
 

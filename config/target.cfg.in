@@ -127,6 +127,8 @@ TARGET_C_LIBS                 := $(strip @aros_c_libs@)
 TARGET_CXX_LDFLAGS            = $(strip @aros_cxx_ldflags@)
 TARGET_CXX_LIBS               := $(strip @aros_cxx_libs@)
 
+MODULE_ISA_CFLAGS             := $(strip @aros_module_isa_flags@)
+
 COVERAGEINSTR_FLAGS           = $(strip $(CFLAGS_PROFILE_ARCS) $(CFLAGS_TEST_COVERAGE))
 COVERAGEINSTR_LIBS            = gcov
 FUNCINSTR_FLAGS               = $(CFLAGS_INSTR_FUNCTIONS)

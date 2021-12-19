@@ -1947,8 +1947,8 @@ endif
 
 # Default values for variables and arguments
 %(mmake)_DEFLINKLIBNAME := %(modname)
-%(mmake)_CFLAGS := %(cflags)
-%(mmake)_CXXFLAGS := %(cxxflags)
+%(mmake)_CFLAGS := %(cflags) $(MODULE_ISA_CFLAGS)
+%(mmake)_CXXFLAGS := %(cxxflags) $(MODULE_ISA_CFLAGS)
 ifeq (%(compiler),target)
 ifeq (%(lto),yes)
 %(mmake)_CFLAGS    := $(strip $(LTO_BINARY_CFLAGS) $(CFLAGS_NO_STRICT_ALIASING) $(%(mmake)_CFLAGS))
@@ -2411,9 +2411,9 @@ endif
 %(mmake)%(flavour)_LINKLIBCPPFLAGS  := $(%(mmake)%(flavour)_CPPFLAGS)
 %(mmake)%(flavour)_CPPFLAGS         += $(strip $($(%(mmake)%(flavour)_DEFNAME)_CPPFLAGS))
 %(mmake)%(flavour)_LINKLIBCPPFLAGS  += $(strip $($(%(mmake)%(flavour)_DEFNAME)_LINKLIBCPPFLAGS))
-%(mmake)%(flavour)_CFLAGS           := $(strip %(cflags) $($(%(mmake)%(flavour)_DEFNAME)_CFLAGS))
+%(mmake)%(flavour)_CFLAGS           := $(strip %(cflags) $($(%(mmake)%(flavour)_DEFNAME)_CFLAGS)) $(MODULE_ISA_CFLAGS)
 %(mmake)%(flavour)_LINKLIBCFLAGS    := $(strip %(cflags) $($(%(mmake)%(flavour)_DEFNAME)_LINKLIBCFLAGS))
-%(mmake)%(flavour)_CXXFLAGS         := $(strip %(cxxflags) $($(%(mmake)%(flavour)_DEFNAME)_CXXFLAGS))
+%(mmake)%(flavour)_CXXFLAGS         := $(strip %(cxxflags) $($(%(mmake)%(flavour)_DEFNAME)_CXXFLAGS)) $(MODULE_ISA_CFLAGS)
 ifeq (%(compiler),target)
 ifeq (%(lto),yes)
 %(mmake)%(flavour)_LTOFLAGS         ?= $(strip $(LTO_BINARY_CFLAGS) $(CFLAGS_NO_STRICT_ALIASING) $(NOWARN_LTO_TYPE_MISMATCH))
@@ -3180,7 +3180,7 @@ $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(strip %(cppflag
 else
 $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=%(cppflags)
 endif
-$(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=%(cflags)
+$(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=%(cflags) $(MODULE_ISA_CFLAGS)
 ifneq (%(usesdks),)
 $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
