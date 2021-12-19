@@ -422,6 +422,7 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 {
     jmp_buf dummy;
     jmp_buf env;
+    ULONG childid;
 
     D(bug("__vfork: ParentPretendingChild: freeing parent signal\n"));
     FreeSignal(udata->parent_signal);
@@ -449,14 +450,16 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 
     /* Save some data from udata before udata is being freed */
     _VFORK_COPYENV(env,udata->vfork_jmp);
+    childid = GetETaskID(udata->child);
 
     D(bug("__vfork: Parent: freeing udata\n"));
     FreeMem(udata, sizeof(struct vfork_data));
 
     D(bug("__vfork: Parent jumping to jmp_buf %p\n", env));
     D(bug("__vfork: ip: %p, stack: %p\n", env->retaddr, env->regs[SP]));
+
     /* This equals to "returning" from vfork() into parent code (if(vfork() > 0)) */
-    vfork_longjmp(env, GetETaskID(udata->child));
+    vfork_longjmp(env, childid);
 }
 
 static void parent_createchild(struct vfork_data *udata)
