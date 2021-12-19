@@ -316,6 +316,15 @@ pid_t __vfork(jmp_buf env)
     struct Task *this = FindTask(NULL);
     struct ETask *etask = NULL;
     struct vfork_data *udata = AllocMem(sizeof(struct vfork_data), MEMF_ANY | MEMF_CLEAR);
+
+    /*
+        vfork() is being called by a direct call without passing a library base
+        Use library base registered with context. We can do this, because vfork()
+        is progonly, meaning registered library base is one opened by program
+        binary.
+    */
+    __aros_setbase_CrtBase(ProgCtx->libbase);
+
     if (udata == NULL)
     {
         errno = ENOMEM;
