@@ -4,6 +4,7 @@ show_selection ()
     printf "    2)  core-linux-x86_64 (DEBUG)\n"
     printf "    3)  core-pc-x86_64\n"
     printf "    4)  core-contrib-x86_64\n"
+    printf "    5)  core-linux-x86_64\n"
     printf "    10) toolchain-core-m68k\n"
     printf "    11) core-amiga-m68k\n"
     printf "    12) core-amiga-m68k (SERIAL DEBUG)\n"
@@ -40,6 +41,12 @@ process_selection ()
         MAKE_TARGET="tools"
         MAKE_TARGET_2="mmake"
         MAKE_TARGET_3="contrib"
+        ;;
+        5)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-x86_64
+        BUILD_DIR=$(pwd)/core-linux-x86_64
+        CONFIGURE_TARGET=linux-x86_64
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
         ;;
         10)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
