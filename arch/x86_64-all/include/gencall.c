@@ -35,7 +35,7 @@ static void aros_call_internal(int id, int flags, const char *calltype, const ch
            "    APTR __sto; \\\n"
            "    bt _bn = (bt)bn;\\\n"
            "    APTR __func = %s; \\\n"
-           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn)); \\\n"
+           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
            "%s",
            paramsend,
            address,
@@ -57,7 +57,7 @@ static void aros_call_internal(int id, int flags, const char *calltype, const ch
         printf("__AROS_LCA(a%d)", i+1);
     }
     printf("); \\\n"
-           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto)); \\\n"
+           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n"
            "%s"
            "})\n",
     (flags & FLAG_NR ? "" : "    __ret; \\\n")
