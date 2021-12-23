@@ -20,52 +20,28 @@ static inline const char *nr(int flags)
         return "";
 }
 
-#if 0
-void aros_lc(int id, const char *suffix)
+static void aros_call_internal(int id, int flags, const char *calltype, const char *paramsend, const char *address)
 {
     int i;
+    /* Note that due to case of bn = (Base->OtherBase), Base cannot occupy r12 for duration of this macro.
+       _bn = bn changes r12, which would mean changing Base, however Base can be later referenced in one
+       of the __AROS_LCA() macros */
 
-    printf("#define AROS_LC%d%s(t,n,", id, suffix);
+    printf("#define __AROS_%s%d%s(t,a,", calltype, id, nr(flags));
     for (i = 0; i < id; i++)
         printf("a%d,", i + 1);
-    printf("bt,bn,o,s) \\\n"
+    printf("bt,bn%s) \\\n"
            "({ \\\n"
-           "    bt __bn = (bt)bn; \\\n"
-           "    ((__attribute__((regparm(1))) t (*)(bt"
+           "    APTR __sto; \\\n"
+           "    bt _bn = (bt)bn;\\\n"
+           "    APTR __func = %s; \\\n"
+           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn)); \\\n"
+           "%s",
+           paramsend,
+           address,
+           (flags & FLAG_NR ? "    (( t (*)(" : "    t __ret = (( t (*)(")
     );
-    for (i = 0; i < id; i++)
-    {
-        printf(", __AROS_LDA(a%d)", i+1);
-    }
-    printf("))__AROS_GETVECADDR(__bn,o))(__bn");
-    for (i = 0; i < id; i++)
-    {
-        printf(", __AROS_LCA(a%d)", i+1);
-    }
-    printf("); \\\n"
-           "})\n"
-    );
-}
-#endif
 
-static void aros_call(int id, int flags)
-{
-    int i;
-    printf("#define __AROS_NEWCALL%d%s(t,n,", id, nr(flags));
-    for (i = 0; i < id; i++)
-        printf("a%d,", i + 1);
-    printf("bt,bn) \\\n"
-           "({ \\\n"
-           "    t __ret; \\\n"
-           "    register bt __bn asm(\"r12\"); \\\n"
-           /* Need to first assign to variable otherwise gcc may miscompile */
-           "    APTR __func = (APTR)n; \\\n"
-           "    asm volatile(\"pushq %%%%r12\" : : :); \\\n"
-           "    __bn = bn; \\\n"
-           "    __ret = (( t (*)("
-    );
-    if (i == 0)
-        printf("void");
     for (i = 0; i < id; i++)
     {
         if (i > 0)
@@ -73,8 +49,7 @@ static void aros_call(int id, int flags)
         printf("__AROS_LDA(a%d)", i+1);
     }
     printf("))(APTR)__func)(");
-    if (i == 0)
-        printf("void");
+
     for (i = 0; i < id; i++)
     {
         if (i > 0)
@@ -82,32 +57,28 @@ static void aros_call(int id, int flags)
         printf("__AROS_LCA(a%d)", i+1);
     }
     printf("); \\\n"
-    "    asm volatile(\"popq %%%%r12\" : : :); \\\n"
-    "    __ret; \\\n"
-           "})\n"
+           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto)); \\\n"
+           "%s"
+           "})\n",
+    (flags & FLAG_NR ? "" : "    __ret; \\\n")
     );
-    printf("#define AROS_NEWCALL%d%s __AROS_NEWCALL%d%s\n", id, nr(flags), id, nr(flags));
+    printf("#define AROS_%s%d%s __AROS_%s%d%s\n", calltype, id, nr(flags), calltype, id, nr(flags));
 }
 
-static void aros_lvo_call(int id, int flags)
+static void aros_lc(int id, int flags)
 {
-    int i;
-    printf("#define __AROS_NEWLVO_CALL%d%s(t,", id, nr(flags));
-    for (i = 0; i < id; i++)
-        printf("a%d,", i + 1);
-    printf("bt,bn,o,s) \\\n");
-    printf("    __AROS_NEWCALL%d%s(t,__AROS_GETVECADDR(bn,o), \\\n", id, nr(flags));
-    for (i = 0; i < id; i++)
-        printf("        AROS_LCA(a%d), \\\n", i + 1);
-    printf("        bt,bn)\n");
-    printf("#define AROS_NEWLVO_CALL%d%s __AROS_NEWLVO_CALL%d%s\n", id, nr(flags), id, nr(flags));
+    aros_call_internal(id, flags, "LC", ",o,s", "__AROS_GETVECADDR(_bn,o)");
+}
+static void aros_call(int id, int flags)
+{
+    aros_call_internal(id, flags, "CALL", "", "(APTR)a");
 }
 
 static void aros_lh(int id, int is_ignored)
 {
     int i;
 
-    printf("#define __AROS_NEWLH%d%s(t,n,", id, is_ignored ? "I" : "");
+    printf("#define __AROS_LH%d%s(t,n,", id, is_ignored ? "I" : "");
     for (i = 0; i < id; i++)
         printf("a%d,", i + 1);
     printf("bt,bn,o,s) \\\n");
@@ -122,45 +93,32 @@ static void aros_lh(int id, int is_ignored)
     }
     printf(") {");
     if (!is_ignored)
-        printf(" \\\n    register bt __attribute__((unused)) bn asm(\"r12\");");
+        printf(" \\\n    register bt __attribute__((unused)) bn = ({register APTR __r asm(\"r12\");asm volatile(\"\":\"=r\"(__r):\"0\"(__r));(bt)__r;});");
     printf("\n");
-    printf("#define AROS_NEWLH%d%s __AROS_NEWLH%d%s\n", id, is_ignored ? "I" : "", id, is_ignored ? "I" : "");
+    printf("#define AROS_LH%d%s __AROS_LH%d%s\n", id, is_ignored ? "I" : "", id, is_ignored ? "I" : "");
 }
 
-#if 0
 static void aros_ld(int id, int is_ignored)
 {
     int i;
 
-    printf("#define AROS_LD%d%s(t,n,", id, is_ignored ? "I" : "");
+    printf("#define __AROS_LD%d%s(t,n,", id, is_ignored ? "I" : "");
     for (i = 0; i < id; i++)
         printf("a%d,", i + 1);
     printf("bt,bn,o,s) \\\n");
-    if (!is_ignored)
+    printf("    t AROS_SLIB_ENTRY(n,s,o) (");
+    if (i == 0)
+        printf("void");
+    for (i = 0; i < id; i++)
     {
-        printf("    __attribute__((regparm(1))) t AROS_SLIB_ENTRY(n,s,o) (bt bn");
-        for (i = 0; i < id; i++)
-        {
-            printf(", __AROS_LDA(a%d)", i + 1);
-        }
-    }
-    else
-    {
-        printf("    t AROS_SLIB_ENTRY(n,s,o) (");
-        if (i == 0)
-            printf("void");
-        for (i = 0; i < id; i++)
-        {
-            if (i > 0)
-                printf(", ");
-            printf("__AROS_LDA(a%d)", i + 1);
-        }
+        if (i > 0)
+            printf(", ");
+        printf("__AROS_LDA(a%d)", i + 1);
     }
     printf(");\n");
+    printf("#define AROS_LD%d%s __AROS_LD%d%s\n", id, is_ignored ? "I" : "", id, is_ignored ? "I" : "");
 }
-#endif
 
-#if 0
 const static char extra[] =
 "\n"
 "#define __AROS_QUADt(type,name,reg1,reg2) type\n"
@@ -267,57 +225,54 @@ const static char extra[] =
 "         bt, bn, o, s \\\n"
 "     )\n"
 "\n";
-#endif
 
 int main(int argc, char **argv)
 {
-    // int i;
+    int i;
 
     printf("/* AUTOGENERATED by arch/x86_64-all/include/gencall.c */\n");
     printf("\n");
     printf("#ifndef AROS_X86_64_LIBCALL_H\n");
     printf("#define AROS_X86_64_LIBCALL_H\n");
     printf("\n");
+    printf("/* Reserver r12 from being used by compiler in compilation unit including \n");
+    printf("   directly or indirectly libcall.h */\n");
+    printf("register void * __fixedreg asm(\"r12\");\n");
+    printf("\n");
 
-    aros_lh(1, 0);
+    printf("#define __AROS_CPU_SPECIFIC_LH\n\n");
 
-    aros_call(1, 0);
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_lh(i, 0);
 
-    aros_lvo_call(1, 0);
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_lh(i, 1);
 
-    // printf("#define __AROS_CPU_SPECIFIC_LH\n\n");
+    printf("\n");
+    printf("#define __AROS_CPU_SPECIFIC_LC\n\n");
 
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_lh(i, 0);
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_lc(i, 0);
 
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_lh(i, 1);
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_lc(i, FLAG_NR);
 
-    // printf("\n");
-    // printf("#define __AROS_CPU_SPECIFIC_LC\n\n");
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_call(i, 0);
 
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_lc(i, "");
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_call(i, FLAG_NR);
 
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_lc(i, "NR");
+    printf("\n");
+    printf("#define __AROS_CPU_SPECIFIC_LD\n\n");
 
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_call(i, "");
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_ld(i, 0);
 
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_call(i, "NR");
+    for (i = 0; i < GENCALL_MAX; i++)
+        aros_ld(i, 1);
 
-    // printf("\n");
-    // printf("#define __AROS_CPU_SPECIFIC_LD\n\n");
-
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_ld(i, 0);
-
-    // for (i = 0; i < GENCALL_MAX; i++)
-    //     aros_ld(i, 1);
-
-    // printf("%s\n", extra);
+    printf("%s\n", extra);
 
     printf("#endif /* AROS_X86_64_LIBCALL_H */\n");
     return 0;
