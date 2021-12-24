@@ -192,14 +192,6 @@ void writeinclibdefs(struct config *cfg)
                 , !(cfg->options & OPTION_STACKCALL) ? "#endif" : ""
         );
 
-    if (cfg->options & OPTION_PERTASKBASE)
-    {
-        fprintf(out,
-                "\n"
-                "LIBBASETYPEPTR __GM_GetBaseParent(LIBBASETYPEPTR);\n"
-        );
-    }
-
     fprintf
     (
         out,

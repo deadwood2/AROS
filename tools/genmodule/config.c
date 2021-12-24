@@ -899,7 +899,7 @@ static void readsectionconfig(struct config *cfg, struct classinfo *cl, struct i
                     static const char *optionnames[] =
                     {
                         "noautolib", "noexpunge", "noresident", "peropenerbase",
-                        "pertaskbase", "includes", "noincludes", "nostubs",
+                        "includes", "noincludes", "nostubs",
                         "autoinit", "noautoinit", "resautoinit", "noinittable", "noresstruct", "nofunctable",
                         "noopenclose", "selfinit", "rellinklib"
                     };
@@ -935,60 +935,57 @@ static void readsectionconfig(struct config *cfg, struct classinfo *cl, struct i
                             cfg->options |= OPTION_NORESIDENT;
                             cfg->firstlvo = 1;
                             break;
-                        case 5: /* pertaskbase */
-                            cfg->options |= OPTION_PERTASKBASE;
-                            /* Fall through */
                         case 4: /* peropenerbase */
                             if (cfg->options & OPTION_DUPBASE)
                                 exitfileerror(20, "Only one option peropenerbase or pertaskbase allowed\n");
                             cfg->options |= OPTION_DUPBASE;
                             break;
-                        case 6: /* includes */
+                        case 5: /* includes */
                             if (cfg->options & OPTION_NOINCLUDES)
                                 exitfileerror(20, "option includes and noincludes are incompatible\n");
                             cfg->options |= OPTION_INCLUDES;
                             break;
-                        case 7: /* noincludes */
+                        case 6: /* noincludes */
                             if (cfg->options & OPTION_INCLUDES)
                                 exitfileerror(20, "option includes and noincludes are incompatible\n");
                             cfg->options |= OPTION_NOINCLUDES;
                             break;
-                        case 8: /* nostubs */
+                        case 7: /* nostubs */
                             cfg->options |= OPTION_NOSTUBS;
                             break;
-                        case 9: /* autoinit */
+                        case 8: /* autoinit */
                             if (cfg->options & OPTION_NOAUTOINIT)
                                 exitfileerror(20, "option autoinit and noautoinit are incompatible\n");
                             cfg->options |= OPTION_AUTOINIT;
                             break;
-                        case 10: /* noautoinit */
+                        case 9: /* noautoinit */
                             if (cfg->options & OPTION_AUTOINIT)
                                 exitfileerror(20, "option autoinit and noautoinit are incompatible\n");
                             cfg->options |= OPTION_NOAUTOINIT;
                             break;
-                        case 11: /* resautoinit */
+                        case 10: /* resautoinit */
                                 if (cfg->options & OPTION_SELFINIT)
                                         exitfileerror(20, "option resautoinit and selfinit are incompatible\n");
                             cfg->options |= OPTION_RESAUTOINIT;
                             break;
-                        case 12: /* noinittable */
+                        case 11: /* noinittable */
                             cfg->options |= OPTION_NOINITTABLE;
                             break;
-                        case 13: /* noresstruct */
+                        case 12: /* noresstruct */
                             cfg->options |= OPTION_NORESSTRUCT;
                             break;
-                        case 14: /* nofunctable */
+                        case 13: /* nofunctable */
                             cfg->options |= OPTION_NOFUNCTABLE;
                             break;
-                        case 15:
+                        case 14:
                             cfg->options |= OPTION_NOOPENCLOSE;
                             break;
-                        case 16: /* selfinit */
+                        case 15: /* selfinit */
                                 if (cfg->options & OPTION_RESAUTOINIT)
                                         exitfileerror(20, "option resautoinit and selfinit are incompatible\n");
                             cfg->options |= OPTION_SELFINIT;
                             break;
-                        case 17: /* rellinklib */
+                        case 16: /* rellinklib */
                             cfg->options |= OPTION_RELLINKLIB;
                             break;
                         }
