@@ -5,7 +5,6 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <proto/peropener.h>
-#include <proto/pertask.h>
 
 /* Block autopenening of PeropenerBase */
 struct Library *PeropenerBase = NULL;
