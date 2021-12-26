@@ -7,18 +7,18 @@
  * - On other systems it is possible that a shared library defines a global
  *   variable and this global variable can then be accessed both from other
  *   shared libraries and from the program.
- *   This is tested by defining pertaskvalue in pertask.library and
+ *   This is tested by defining peropenervalue in peropener.library and
  *   accessing it both from userel.library and userel test program.
  *   One imperfection it that it is not yet supported that programs just
- *   define pertaskvalue as a global variable without including the .h file.
- * - It is avoided to call a function of pertask.library to achieve this.
+ *   define peropenervalue as a global variable without including the .h file.
+ * - It is avoided to call a function of peropener.library to achieve this.
  *   A good compiler that has good link time optimizations can than optimize
  *   the access to the global very well.
  */
 
 /*
 Mimic following definition:
-int pertaskvalue;
+int peropenervalue;
 */
-int *__pertask_getvalueptr(void);
-#define pertaskvalue (*__pertask_getvalueptr())
+int *__peropener_getvalueptr(void);
+#define peropenervalue (*__peropener_getvalueptr())

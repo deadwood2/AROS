@@ -5,40 +5,27 @@ include $(SRCDIR)/config/aros.cfg
 #MM- test-library : \
 #MM      test-library-singletest \
 #MM      test-library-singletest_auto \
-#MM      test-library-peropenertest
+#MM      test-library-peropenertest \
+#MM      test-library-usereltest
 
 #MM test-library-singletest : test-library-singlelib
 #MM test-library-singletest_auto : test-library-singlelib
 #MM test-library-peropenertest : test-library-peropenerlib
+#MM test-library-usereltest :  test-library-userellib
+#MM test-library-userellib: includes-peropener includes-single linklibs-peropener linklibs-single
 
 #MM- test-library-clean : \
 #MM       test-library-singletest-clean \
 #MM       test-library-singletest_auto-clean \
 #MM       test-library-peropenertest-clean \
 #MM       test-library-singlelib-clean \
-#MM       test-library-peropenerlib-clean
+#MM       test-library-peropenerlib-clean \
+#MM       test-library-userellib-clean
 
 
 #MM- test-cunit : test-genmodule-library-cunit
 #MM- test-cunit-quick : test-genmodule-library-cunit-quick
 #MM- test-genmodule-library-cunit-deps : linklibs-cunit test-library-userellib
-
-
-
-##MM      test-library-usereltest
-##MM      test-genmodule-library-cunit
-
-##MM- test-library-userellib: includes-pertask includes-dummy linklibs-pertask linklibs-dummy
-
-##MM- test-library-usereltest :  test-library-userellib
-
-##MM      test-library-pertasklib-clean
-##MM      test-library-userellib-clean
-
-
-
-
-
 
 TARGETDIR := $(AROS_TESTS)/Library
 CUNITEXEDIR := $(AROS_TESTS)/cunit/genmodule/library
@@ -60,10 +47,9 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
     progname=peropenertest targetdir=$(TARGETDIR) \
     uselibs=peropener
 
-
-#%build_prog mmake=test-library-usereltest \
-#    progname=usereltest targetdir=$(TARGETDIR) \
-#    uselibs="userel pertask"
+%build_prog mmake=test-library-usereltest \
+    progname=usereltest targetdir=$(TARGETDIR) \
+    uselibs="userel peropener"
 
 # Libraries
 
@@ -74,18 +60,13 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 
 %build_module mmake=test-library-peropenerlib \
     modname=peropener modtype=library \
-    files="peropenervalue peropenernolib peropenernamechange" \
+    files="peropenervalue peropenernolib peropenernamechange" linklibfiles="peropenervalue_linklib" \
     prefix=$(TARGETDIR)
 
-#%build_module mmake=test-library-pertasklib \
-#    modname=pertask modtype=library \
-#    files="getparentbase pertaskvalue" linklibfiles=pertaskvalue_linklib \
-#    prefix=$(TARGETDIR)
-
-#%build_module mmake=test-library-userellib \
-#    modname=userel modtype=library \
-#    files="dummyadd pertaskgetparentbase dummyprint4 getchildvalue" \
-#    prefix=$(TARGETDIR)
+%build_module mmake=test-library-userellib \
+    modname=userel modtype=library \
+    files="userellib" \
+    prefix=$(TARGETDIR)
 
 # CUnit tests
 
