@@ -55,31 +55,59 @@ void testBASE(void)
     }
 }
 
-void testGPBSE(void)
+void testREGCALL(void)
 {
-    ULONG a=1,b=2,c=0,d=0;
     CU_SKIP_IF(SingleBase == NULL);
-    if(SingleBase != NULL)
-    {
-        RegSetValue(5);
 
-        const LONG e1 = 15;
-        LONG r1 = RegAdd4(1, 2, 3, 4);
+    /* Set initial value */
+    RegSetValue(6);
 
-        if (e1 != r1)
-        {
-            CU_FAIL("15 != RegAdd4(1, 2, 3, 4)");
-        }
+    /* Check fixed number of argument functions */
+    const LONG e1 = 16;
+    LONG r1 = RegAdd4(1, 2, 3, 4);
+    CU_ASSERT_EQUAL(r1, e1);
 
-        const int e5 = 26;
-        int r5 = StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6);
-        if (e5 != r5)
-        {
-            CU_FAIL("26 != StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6)");
-        }
+    const LONG e2 = 27;
+    LONG r2 = RegAdd6(1, 2, 3, 4, 5, 6);
+    CU_ASSERT_EQUAL(r2, e2);
 
-        CU_PASS("");
-    }
+    const LONG e3 = 51;
+    LONG r3 = RegAdd9(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    CU_ASSERT_EQUAL(r3, e3);
+}
+
+void testSTACKCALL(void)
+{
+    CU_SKIP_IF(SingleBase == NULL);
+
+    /* Set initial value */
+    StackSetValue(5);
+
+    /* Check fixed number of argument functions */
+    const int e1 = 15;
+    int r1 = StackAdd4(1, 2, 3, 4);
+    CU_ASSERT_EQUAL(r1, e1);
+
+    const int e2 = 26;
+    int r2 = StackAdd6(1, 2, 3, 4, 5, 6);
+    CU_ASSERT_EQUAL(r2, e2);
+
+    const int e3 = 50;
+    int r3 = StackAdd9(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    CU_ASSERT_EQUAL(r3, e3);
+
+    /* Check variable number of argument functions */
+    const int e4 = 15;
+    int r4 = StackAdd4OrMore(4, 1, 2, 3, 4);
+    CU_ASSERT_EQUAL(r4, e4);
+
+    const int e5 = 26;
+    int r5 = StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6);
+    CU_ASSERT_EQUAL(r5, e5);
+
+    const int e6 = 50;
+    int r6 = StackAdd4OrMore(9, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+    CU_ASSERT_EQUAL(r6, e6);
 }
 
 void testCLOSE(void)
@@ -110,7 +138,8 @@ int main(void)
    /* add the tests to the suite */
     if ((NULL == CU_add_test(pSuite, "test of OpenLibrary() on genmodule generated library", testOPEN)) ||
         (NULL == CU_add_test(pSuite, "test of opened library base", testBASE)) ||
-        (NULL == CU_add_test(pSuite, "test of calling reg-call functions of opened library", testGPBSE)) ||
+        (NULL == CU_add_test(pSuite, "test of calling reg-call functions of opened library", testREGCALL)) ||
+        (NULL == CU_add_test(pSuite, "test of calling stack-call functions of opened library", testSTACKCALL)) ||
         (NULL == CU_add_test(pSuite, "test of CloseLibrary() on genmodule generated library", testCLOSE)))
     {
         CU_cleanup_registry();
