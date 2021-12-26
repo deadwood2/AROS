@@ -1,6 +1,6 @@
 .Key PROG/A,ARGS/F
 Echo "TEST: <PROG> <ARGS>*N"  >DEBUG:
-Developer/Debug/Tests/<PROG> <ARGS>  >DEBUG:
+Development/Debug/Tests/<PROG> <ARGS>  >DEBUG:
 If WARN
     Skip failure
 Else
