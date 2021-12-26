@@ -6,7 +6,8 @@ include $(SRCDIR)/config/aros.cfg
 #MM      test-library-singletest \
 #MM      test-library-singletest_auto \
 #MM      test-library-peropenertest \
-#MM      test-library-usereltest
+#MM      test-library-usereltest \
+#MM      test-genmodule-library-cunit
 
 #MM test-library-singletest : test-library-singlelib
 #MM test-library-singletest_auto : test-library-singlelib
