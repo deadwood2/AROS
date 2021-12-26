@@ -24,11 +24,9 @@ int PeropenerGetValueStack(void)
 
 AROS_LH1(void, PeropenerSetValueReg,
 AROS_LHA(int, value, D0),
-struct Library *, PeropenerBase, 7, Peropener)
+struct PeropenerBase *, PeropenerBase, 7, Peropener)
 {
     AROS_LIBFUNC_INIT
-
-    struct PeropenerBase *PeropenerBase = (struct PeropenerBase *)__aros_getbase_PeropenerBase();
 
     PeropenerBase->value = value;
 
@@ -36,11 +34,9 @@ struct Library *, PeropenerBase, 7, Peropener)
 }
 
 AROS_LH0(int, PeropenerGetValueReg,
-struct Library *, PeropenerBase, 8, Peropener)
+struct PeropenerBase *, PeropenerBase, 8, Peropener)
 {
     AROS_LIBFUNC_INIT
-
-    struct PeropenerBase *PeropenerBase = (struct PeropenerBase *)__aros_getbase_PeropenerBase();
 
     return PeropenerBase->value;
 
