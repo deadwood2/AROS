@@ -4,20 +4,24 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM- test-library : \
 #MM      test-library-singletest \
+#MM      test-library-singletest_auto \
 #MM      test-library-peropenertest
 
 #MM test-library-singletest : test-library-singlelib
+#MM test-library-singletest_auto : test-library-singlelib
 #MM test-library-peropenertest : test-library-peropenerlib
 
 #MM- test-library-clean : \
 #MM       test-library-singletest-clean \
-#MM       test-library-peropenertest-clean
+#MM       test-library-singletest_auto-clean \
+#MM       test-library-peropenertest-clean \
+#MM       test-library-singlelib-clean \
+#MM       test-library-peropenerlib-clean
 
 
 
 
 
-##MM      test-library-dummytest_auto
 ##MM      test-library-usereltest
 ##MM      test-genmodule-library-cunit
 
@@ -26,17 +30,10 @@ include $(SRCDIR)/config/aros.cfg
 
 ##MM- test-library-userellib: includes-pertask includes-dummy linklibs-pertask linklibs-dummy
 
-
-##MM- test-library-dummytest_auto : test-library-dummylib
-
-
 ##MM- test-genmodule-library-cunit-deps : linklibs-cunit test-library-userellib
 
 ##MM- test-library-usereltest :  test-library-userellib
 
-
-##MM      test-library-dummytest_auto-clean
-##MM      test-library-peropenerlib-clean
 ##MM      test-library-pertasklib-clean
 ##MM      test-library-userellib-clean
 
@@ -57,13 +54,14 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
     progname=singletest targetdir=$(TARGETDIR) \
     uselibs=single
 
+%build_prog mmake=test-library-singletest_auto \
+    files=singletest_auto progname=singletest_auto targetdir=$(TARGETDIR) \
+    uselibs=single
+
 %build_prog mmake=test-library-peropenertest \
     progname=peropenertest targetdir=$(TARGETDIR) \
     uselibs=peropener
 
-#%build_prog mmake=test-library-dummytest_auto \
-#    files=dummytest_auto progname=dummytest_auto targetdir=$(TARGETDIR) \
-#    uselibs=dummy
 
 #%build_prog mmake=test-library-usereltest \
 #    progname=usereltest targetdir=$(TARGETDIR) \
