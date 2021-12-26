@@ -6,7 +6,7 @@
 
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <proto/dummy.h>
+#include <proto/single.h>
 
 #include <CUnit/Basic.h>
 #include <CUnit/Automated.h>
@@ -29,22 +29,20 @@ int clean_suite(void)
 
 void testADD(void)
 {
-    ULONG a=1,b=2,c=0,d=0;
+    RegSetValue(5);
 
-    c=add(a,b);
-    if (c != a + b)
-    {
-        CU_FAIL("3 != add(1, 2)");
-    }
-    d=asl(a,b);
-    if (d == (a << b))
-    {
-        CU_PASS("");
-    }
-    else
-    {
-        CU_FAIL("4 != asl(1, 2)");
-    }
+    const LONG e1 = 15;
+    LONG r1 = RegAdd4(1, 2, 3, 4);
+
+    if (e1 != r1)
+        CU_FAIL("15 != RegAdd4(1, 2, 3, 4)");
+
+    const int e5 = 26;
+    int r5 = StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6);
+    if (e5 != r5)
+        CU_FAIL("26 != StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6)");
+
+    CU_PASS("");
 }
 
 int main(void)
@@ -63,7 +61,7 @@ int main(void)
     }
 
    /* add the tests to the suite */
-    if ((NULL == CU_add_test(pSuite, "test of calling auto-opened dummy.library", testADD)))
+    if ((NULL == CU_add_test(pSuite, "test of calling auto-opened single.library", testADD)))
     {
         CU_cleanup_registry();
         return CU_get_error();

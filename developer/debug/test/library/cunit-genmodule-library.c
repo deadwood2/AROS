@@ -6,12 +6,12 @@
 
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <proto/dummy.h>
+#include <proto/single.h>
 
 #include <CUnit/Basic.h>
 #include <CUnit/Automated.h>
 
-struct Library *DummyBase;
+struct Library *SingleBase;
 
 /* The suite initialization function.
   * Returns zero on success, non-zero otherwise.
@@ -31,59 +31,59 @@ int clean_suite(void)
 
 void testOPEN(void)
 {
-    DummyBase = OpenLibrary((STRPTR)"dummy.library",0);
+    SingleBase = OpenLibrary((STRPTR)"single.library",0);
 
-    if (DummyBase)
+    if (SingleBase)
     {
         CU_PASS("");
     }
     else
     {
-        CU_FAIL("NULL != OpenLibrary( \"dummy.library\", 0 ))");
+        CU_FAIL("NULL != OpenLibrary( \"single.library\", 0 ))");
     }
 }
 
 void testBASE(void)
 {
-    CU_SKIP_IF(DummyBase == NULL);
-    if(DummyBase != NULL)
+    CU_SKIP_IF(SingleBase == NULL);
+    if(SingleBase != NULL)
     {
-        CU_ASSERT(NT_LIBRARY == DummyBase->lib_Node.ln_Type);
-        CU_ASSERT(0 != DummyBase->lib_NegSize);
-        CU_ASSERT(0 != DummyBase->lib_PosSize);
-        CU_ASSERT(0 != DummyBase->lib_OpenCnt);
+        CU_ASSERT(NT_LIBRARY == SingleBase->lib_Node.ln_Type);
+        CU_ASSERT(0 != SingleBase->lib_NegSize);
+        CU_ASSERT(0 != SingleBase->lib_PosSize);
+        CU_ASSERT(0 != SingleBase->lib_OpenCnt);
     }
 }
 
 void testGPBSE(void)
 {
     ULONG a=1,b=2,c=0,d=0;
-    CU_SKIP_IF(DummyBase == NULL);
-    if(DummyBase != NULL)
+    CU_SKIP_IF(SingleBase == NULL);
+    if(SingleBase != NULL)
     {
-	c=add(a,b);
-        if (c != a + b)
-        {
-            CU_FAIL("3 != add(1, 2)");
-        }
-	d=asl(a,b);
-        if (d == (a << b))
-        {
-            CU_PASS("");
-        }
-        else
-        {
-            CU_FAIL("4 != asl(1, 2)");
-        }
+        RegSetValue(5);
+
+        const LONG e1 = 15;
+        LONG r1 = RegAdd4(1, 2, 3, 4);
+
+        if (e1 != r1)
+            CU_FAIL("15 != RegAdd4(1, 2, 3, 4)");
+
+        const int e5 = 26;
+        int r5 = StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6);
+        if (e5 != r5)
+            CU_FAIL("26 != StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6)");
+
+        CU_PASS("");
     }
 }
 
 void testCLOSE(void)
 {
-    CU_SKIP_IF(DummyBase == NULL);
-    if(DummyBase != NULL)
+    CU_SKIP_IF(SingleBase == NULL);
+    if(SingleBase != NULL)
     {
-        CloseLibrary((struct Library *)DummyBase);
+        CloseLibrary((struct Library *)SingleBase);
         CU_PASS("");
     }
 }

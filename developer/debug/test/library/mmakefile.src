@@ -19,18 +19,16 @@ include $(SRCDIR)/config/aros.cfg
 #MM       test-library-peropenerlib-clean
 
 
+#MM- test-cunit : test-genmodule-library-cunit
+#MM- test-cunit-quick : test-genmodule-library-cunit-quick
+#MM- test-genmodule-library-cunit-deps : linklibs-cunit test-library-userellib
 
 
 
 ##MM      test-library-usereltest
 ##MM      test-genmodule-library-cunit
 
-##MM- test-cunit : test-genmodule-library-cunit
-##MM- test-cunit-quick : test-genmodule-library-cunit-quick
-
 ##MM- test-library-userellib: includes-pertask includes-dummy linklibs-pertask linklibs-dummy
-
-##MM- test-genmodule-library-cunit-deps : linklibs-cunit test-library-userellib
 
 ##MM- test-library-usereltest :  test-library-userellib
 
@@ -79,9 +77,6 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
     files="peropenervalue peropenernolib peropenernamechange" \
     prefix=$(TARGETDIR)
 
-#%build_module mmake=test-library-dummylib \
-#    modname=dummy modtype=library files=dummylib prefix=$(TARGETDIR)
-
 #%build_module mmake=test-library-pertasklib \
 #    modname=pertask modtype=library \
 #    files="getparentbase pertaskvalue" linklibfiles=pertaskvalue_linklib \
@@ -94,25 +89,25 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 
 # CUnit tests
 
-USER_INCLUDES += -I$(AROS_CONTRIB_INCLUDES)
+USER_INCLUDES +=
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS += -L$(AROS_CONTRIB_LIB)
+USER_LDFLAGS +=
 
 ##MM- test-genmodule-library-relbase-cunit : test-genmodule-library-cunit-deps
 
-#%build_prog mmake=test-genmodule-library-autoopen-cunit \
-#    progname=cunit-genmodule-autoopen targetdir=$(CUNITEXEDIR) \
-#    uselibs="dummy cunit"
+%build_prog mmake=test-genmodule-library-autoopen-cunit \
+    progname=cunit-genmodule-autoopen targetdir=$(CUNITEXEDIR) \
+    uselibs="single cunit"
 
-#%build_prog mmake=test-genmodule-library-library-cunit \
-#    progname=cunit-genmodule-library targetdir=$(CUNITEXEDIR) \
-#    uselibs="dummy cunit"
+%build_prog mmake=test-genmodule-library-library-cunit \
+    progname=cunit-genmodule-library targetdir=$(CUNITEXEDIR) \
+    uselibs="single cunit"
 
 #%build_prog mmake=test-genmodule-library-relbase-cunit \
 #    progname=cunit-genmodule-relbase targetdir=$(CUNITEXEDIR) \
 #    uselibs="userel pertask cunit"
 
-##MM- test-genmodule-library-cunit : test-genmodule-library-relbase-cunit test-genmodule-library-autoopen-cunit test-genmodule-library-library-cunit
-##MM- test-genmodule-library-cunit-quick : test-genmodule-library-relbase-cunit-quick test-genmodule-library-autoopen-cunit-quick test-genmodule-library-library-cunit-quick
+#MM- test-genmodule-library-cunit : test-genmodule-library-relbase-cunit test-genmodule-library-autoopen-cunit test-genmodule-library-library-cunit
+#MM- test-genmodule-library-cunit-quick : test-genmodule-library-relbase-cunit-quick test-genmodule-library-autoopen-cunit-quick test-genmodule-library-library-cunit-quick
 
 %common
