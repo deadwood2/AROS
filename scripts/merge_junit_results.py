@@ -34,7 +34,7 @@ import xml.etree.ElementTree as ET
 Output dumps to stdout.
 
 example usage:
-    $ python merge_junit_results.py results1.xml results2.xml > results.xml
+    $ python merge_junit_results.py directory > results.xml
 """
 
 
@@ -46,7 +46,12 @@ def main():
     if '-h' in args or '--help' in args:
         usage()
         sys.exit(2)
-    merge_results(args[:])
+    xml_files = []
+    for f in os.listdir(args[0]):
+        if f.endswith("-Results.xml"):
+            xml_files.append(os.path.join(args[0], f))
+
+    merge_results(xml_files)
 
 
 def merge_results(xml_files):
@@ -65,7 +70,7 @@ def merge_results(xml_files):
         time += float(test_suite.attrib['time'])
         cases.append(test_suite.getchildren())
 
-    new_root = ET.Element('testsuite')
+    new_root = ET.Element('testsuites')
     new_root.attrib['failures'] = '%s' % failures
     new_root.attrib['tests'] = '%s' % tests
     new_root.attrib['errors'] = '%s' % errors
@@ -78,7 +83,7 @@ def merge_results(xml_files):
 
 def usage():
     this_file = os.path.basename(__file__)
-    print 'Usage:  %s results1.xml results2.xml' % this_file
+    print 'Usage:  %s directory' % this_file
 
 
 if __name__ == '__main__':
