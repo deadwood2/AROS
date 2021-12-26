@@ -6,13 +6,13 @@
 
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <proto/pertask.h>
+#include <proto/peropener.h>
 #include <proto/userel.h>
 
 #include <CUnit/Basic.h>
 #include <CUnit/Automated.h>
 
-#include "pertaskvalue.h"
+#include "peropenervalue.h"
 
 /* The suite initialization function.
   * Returns zero on success, non-zero otherwise.
@@ -32,40 +32,40 @@ int clean_suite(void)
 
 void testADD(void)
 {
-    ULONG vec[3] = {1, 2, 0};
-    vec[2] = DummyAdd(vec[0], vec[1]);
-    if (vec[2] == vec[0] + vec[1])
+    const int e1 = 11;
+    int r1 = UseRelAdd2(8, 1, 2);
+    if (e1 != r1)
     {
-        CU_PASS("");
+        CU_FAIL("11 != UseRelAdd2(8, 1, 2)");
     }
     else
     {
-        CU_FAIL("3 != DummyAdd(1, 2)");
+        CU_PASS("");
     }
 }
 
 void testGPBSE(void)
 {
-    void *parent;
-    parent = PertaskGetParentBase();
-    if (parent != NULL)
+    const int e4 = 5;
+    SetPeropenerLibraryValue(e4);
+    int r4 = GetPeropenerLibraryValue();
+    if (e4 != r4)
     {
-        CU_PASS("");
+        CU_FAIL("2 != GetPeropenerLibraryValue()");
     }
     else
     {
-        CU_FAIL("NULL == pertask.library->GetParentBase() (via userel.library relbase)");
+        CU_PASS("");
     }
 }
 
-void testPTVL(void)
+void testPOVL(void)
 {
-    pertaskvalue = 1;
-    CU_ASSERT(1 == PertaskGetValue());
-    CU_ASSERT(1 == GetChildValue());
+    const int e5 = 7;
+    SetPeropenerLibraryValue(e5);
 
-    PertaskSetValue(2);
-    CU_ASSERT(2 == GetChildValue());
+    CU_ASSERT(e5 == GetPeropenerLibraryValue());
+    CU_ASSERT(e5 == peropenervalue); // <-- this one fails
 }
 
 int main(void)
@@ -84,9 +84,9 @@ int main(void)
     }
 
    /* add the tests to the suite */
-    if ((NULL == CU_add_test(pSuite, "test of calling dummy.library->add() via userel.library, using relbase", testADD)) ||
-        (NULL == CU_add_test(pSuite, "test of calling pertask.library->getparentbase() via userel.library, using relbase", testGPBSE)) ||
-        (NULL == CU_add_test(pSuite, "test of accessing pertaskbase->value via userel.library, using relbase", testPTVL)))
+    if ((NULL == CU_add_test(pSuite, "test of calling single.library via userel.library, using relbase", testADD)) ||
+        (NULL == CU_add_test(pSuite, "test of calling peropener.library via userel.library, using relbase", testGPBSE)) ||
+        (NULL == CU_add_test(pSuite, "test of accessing peropenerbase->value via userel.library, using relbase", testPOVL)))
     {
         CU_cleanup_registry();
         return CU_get_error();

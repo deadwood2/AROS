@@ -84,9 +84,9 @@ USER_LDFLAGS +=
     progname=cunit-genmodule-library targetdir=$(CUNITEXEDIR) \
     uselibs="single cunit"
 
-#%build_prog mmake=test-genmodule-library-relbase-cunit \
-#    progname=cunit-genmodule-relbase targetdir=$(CUNITEXEDIR) \
-#    uselibs="userel pertask cunit"
+%build_prog mmake=test-genmodule-library-relbase-cunit \
+    progname=cunit-genmodule-relbase targetdir=$(CUNITEXEDIR) \
+    uselibs="userel peropener cunit"
 
 #MM- test-genmodule-library-cunit : test-genmodule-library-relbase-cunit test-genmodule-library-autoopen-cunit test-genmodule-library-library-cunit
 #MM- test-genmodule-library-cunit-quick : test-genmodule-library-relbase-cunit-quick test-genmodule-library-autoopen-cunit-quick test-genmodule-library-library-cunit-quick

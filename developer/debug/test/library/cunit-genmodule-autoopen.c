@@ -35,12 +35,16 @@ void testADD(void)
     LONG r1 = RegAdd4(1, 2, 3, 4);
 
     if (e1 != r1)
+    {
         CU_FAIL("15 != RegAdd4(1, 2, 3, 4)");
+    }
 
     const int e5 = 26;
     int r5 = StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6);
     if (e5 != r5)
+    {
         CU_FAIL("26 != StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6)");
+    }
 
     CU_PASS("");
 }
