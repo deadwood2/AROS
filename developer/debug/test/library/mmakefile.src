@@ -3,16 +3,20 @@ include $(SRCDIR)/config/aros.cfg
 #MM- test : test-library
 
 #MM- test-library : \
+#MM      test-library-singletest \
 #MM      test-library-peropenertest
 
+#MM test-library-singletest : test-library-singlelib
 #MM test-library-peropenertest : test-library-peropenerlib
 
 #MM- test-library-clean : \
+#MM       test-library-singletest-clean \
 #MM       test-library-peropenertest-clean
 
 
 
-##MM      test-library-dummytest
+
+
 ##MM      test-library-dummytest_auto
 ##MM      test-library-usereltest
 ##MM      test-genmodule-library-cunit
@@ -22,7 +26,7 @@ include $(SRCDIR)/config/aros.cfg
 
 ##MM- test-library-userellib: includes-pertask includes-dummy linklibs-pertask linklibs-dummy
 
-##MM- test-library-dummytest : test-library-dummylib
+
 ##MM- test-library-dummytest_auto : test-library-dummylib
 
 
@@ -31,12 +35,15 @@ include $(SRCDIR)/config/aros.cfg
 ##MM- test-library-usereltest :  test-library-userellib
 
 
-##MM      test-library-dummytest-clean
 ##MM      test-library-dummytest_auto-clean
-##MM      test-library-dummylib-clean
 ##MM      test-library-peropenerlib-clean
 ##MM      test-library-pertasklib-clean
 ##MM      test-library-userellib-clean
+
+
+
+
+
 
 TARGETDIR := $(AROS_TESTS)/Library
 CUNITEXEDIR := $(AROS_TESTS)/cunit/genmodule/library
@@ -46,12 +53,13 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 
 # Test Progs
 
+%build_prog mmake=test-library-singletest \
+    progname=singletest targetdir=$(TARGETDIR) \
+    uselibs=single
+
 %build_prog mmake=test-library-peropenertest \
     progname=peropenertest targetdir=$(TARGETDIR) \
     uselibs=peropener
-
-#%build_prog mmake=test-library-dummytest \
-#    progname=dummytest targetdir=$(TARGETDIR) \
 
 #%build_prog mmake=test-library-dummytest_auto \
 #    files=dummytest_auto progname=dummytest_auto targetdir=$(TARGETDIR) \
@@ -62,6 +70,11 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 #    uselibs="userel pertask"
 
 # Libraries
+
+%build_module mmake=test-library-singlelib \
+    modname=single modtype=library \
+    files="singlelib" \
+    prefix=$(TARGETDIR)
 
 %build_module mmake=test-library-peropenerlib \
     modname=peropener modtype=library \
