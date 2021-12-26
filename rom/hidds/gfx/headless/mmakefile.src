@@ -14,4 +14,4 @@ FILES	:=	\
 
 %build_module mmake=kernel-hidd-gfx-headlessgfx \
   modname=headlessgfx modtype=hidd \
-  files=$(FILES) moduledir=$(EXEDIR)
+  files=$(FILES) moduledir=$(EXEDIR) uselibs="oop" usesdks="private"
