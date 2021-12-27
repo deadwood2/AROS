@@ -53,6 +53,8 @@ struct functionarg *funcaddarg
     {
         (*argptr)->next = NULL;
         (*argptr)->arg  = (arg == NULL) ? NULL : strdup(arg);
+        (*argptr)->type = NULL;
+        (*argptr)->name = NULL;
         (*argptr)->reg  = (reg  == NULL) ? NULL : strdup(reg);
         (*argptr)->parent  = funchead;
         (*argptr)->noargname = 0;
@@ -454,6 +456,7 @@ char *getargtype(struct functionarg *funcarg)
     /* Count the [] at the end of the argument */
     end = begin+strlen(begin);
     while (isspace(*(end-1))) end--;
+
     while (*(end-1)==']')
     {
         brackets++;
@@ -477,12 +480,16 @@ char *getargtype(struct functionarg *funcarg)
             if (strcmp(s, "void") == 0)
             {
                 funcarg->noargname = 1;
+                if (funcarg->type == NULL) funcarg->type = strdup(s);
+                if (funcarg->name == NULL) funcarg->name = strdup("");
                 return s;
             }
             else if (strcmp(s, "...") == 0)
             {
                 funcarg->noargname = 1;
                 funcarg->varargs = 1;
+                if (funcarg->type == NULL) funcarg->type = strdup(s);
+                if (funcarg->name == NULL) funcarg->name = strdup("");
                 return s;
             }
             else
@@ -504,6 +511,9 @@ char *getargtype(struct functionarg *funcarg)
     }
     *end='\0';
 
+    if (funcarg->type == NULL) funcarg->type = strdup(s);
+    if (funcarg->name == NULL) funcarg->name = getargname(funcarg);
+
     return s;
 }
 
@@ -511,13 +521,6 @@ char *getargname(const struct functionarg *funcarg)
 {
     char *s, *begin, *end;
     int len;
-
-    if (funcarg->noargname)
-    {
-        s = malloc(1);
-        s[0] = '\0';
-        return s;
-    }
 
     /* Count the [] at the end of the argument */
     end = funcarg->arg+strlen(funcarg->arg);
