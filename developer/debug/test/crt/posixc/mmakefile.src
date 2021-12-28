@@ -13,6 +13,7 @@ POSIXCTESTFILES := \
         fchmod \
         fcntl \
         flock \
+        fprintf \
         getfsstat \
         getpass \
         lseek \
