@@ -297,10 +297,105 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
                 funclistit->name, cfg->libbase, cfg->libbase, funclistit->version
         );
 
+#if defined(__x86_64__)
+        if (funclistit->unusedlibbase)
+        {
+            fprintf(out, "AROS_GM_%sLIBFUNCSTUB(%s, %s, %d)\n",
+                is_rel ? "REL" : "",
+                funclistit->name, cfg->libbase, funclistit->lvo
+            );
+        }
+        else if (funclistit->varargtype == 4)
+        {
+            fprintf(out, "AROS_GM_%sLIBFUNCVARARGSSTUB(%s, %s, %d)\n",
+                is_rel ? "REL" : "",
+                funclistit->name, cfg->libbase, funclistit->lvo
+            );
+        }
+        else
+        {
+        int typelen = strlen(funclistit->type);
+        char *loc = funclistit->type + typelen - 4;
+        /* is 'void' last 4 characters of type */
+        int isvoid = ((strstr(funclistit->type, "void") == loc)
+            || (strstr(funclistit->type, "VOID") == loc));
+
+        fprintf(out, "register void * __fixedreg asm(\"r12\");\n");
+
+        fprintf(out,
+                "\n"
+                "%s %s(",
+                funclistit->type, funclistit->name
+        );
+        for (arglistit = funclistit->arguments;
+             arglistit!=NULL;
+             arglistit = arglistit->next
+        )
+        {
+            if (arglistit != funclistit->arguments)
+                fprintf(out, ", ");
+            fprintf(out, "%s", arglistit->arg);
+        }
+
+        fprintf(out,
+                ")\n"
+                "{\n"
+        );
+        fprintf(out,
+                "    APTR __sto;\n"
+                "    %s _bn = (%s)__aros_getbase_%s();\n"
+                "    APTR __func = __AROS_GETVECADDR(_bn, %d);\n"
+                "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n",
+                 cfg->libbasetypeptrextern, cfg->libbasetypeptrextern, cfg->libbase, funclistit->lvo
+        );
+
+        fprintf(out,
+                "    %s%s",
+                (isvoid ? "" : funclistit->type),
+                (isvoid ? "" : " __ret = ")
+        );
+
+        fprintf(out,
+                "(( %s (*)(",
+                funclistit->type
+        );
+        for (arglistit = funclistit->arguments;
+             arglistit!=NULL;
+             arglistit = arglistit->next
+        )
+        {
+            if (arglistit != funclistit->arguments)
+                fprintf(out, ", ");
+
+            fprintf(out, "%s", arglistit->type);
+        }
+        fprintf(out, "))(APTR)__func)(");
+
+        for (arglistit = funclistit->arguments;
+             arglistit!=NULL;
+             arglistit = arglistit->next
+        )
+        {
+            if (arglistit != funclistit->arguments)
+                fprintf(out, ", ");
+
+            fprintf(out, "%s", arglistit->name);
+        }
+
+        fprintf(out,
+                ");\n"
+                "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n"
+                "%s",
+                (isvoid ? "" : "    return __ret;\n"));
+
+        fprintf(out, "}\n");
+        }
+#else
         fprintf(out, "AROS_GM_%sLIBFUNCSTUB(%s, %s, %d)\n",
                 is_rel ? "REL" : "",
                 funclistit->name, cfg->libbase, funclistit->lvo
         );
+#endif
     }
 
     for (aliasesit = funclistit->aliases;

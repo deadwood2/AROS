@@ -28,6 +28,9 @@
     { \
         asm volatile( \
             ".weak " #fname "\n" \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            "\tnop\n"               \
             #fname " :\n" \
             "\tmovabsq $" #libbasename ", %%r11\n" \
             "\tmovq (%%r11),%%r11\n" \
@@ -38,6 +41,59 @@
 #define AROS_GM_LIBFUNCSTUB(fname, libbasename, lvo) \
     __AROS_GM_LIBFUNCSTUB(fname, libbasename, lvo)
 
+#define __AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
+    void __ ## fname ## _ ## libbasename ## _wrapper(void) \
+    { \
+        asm volatile( \
+            ".weak " #fname "\n"    \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            #fname " :\n"           \
+            "\tpushq %%rbp\n"       \
+            "\tmov %%rsp,%%rbp\n"    \
+            "\tmov %%rsp,%%r11\n"   \
+            "\taddq $16,%%r11\n"    /* r11 = addres of last stack entry on previous frame */    \
+            "\n"                    \
+            "\tpushq %%r12\n"       /* backup current r12 value */                              \
+            "\tpushq %%r13\n"       /* backup current r13 value */                              \
+            "\n"                    \
+            "\tmov (%%rbp),%%r13\n"   \
+            "\tsub %%r11,%%r13\n"   /* calculate size of previous stack frame */                \
+            "\n"                    \
+            "\tsubq %%r13,%%rsp\n"  /* make space on stack for copy */                          \
+            "\n"                    \
+            "\tcmp $0,%%r13\n"      \
+            "\tje 1f\n"             \
+            "\n"                    \
+            "\tpushq %%rcx\n"       /* make copy */                                             \
+            "\tpushq %%rdi\n"       \
+            "\tpushq %%rsi\n"       \
+            "\tmovq %%r13,%%rcx\n"  \
+            "\tmov %%r11,%%rsi\n"   \
+            "\tmov %%rsp,%%rdi\n"   \
+            "\taddq $24,%%rdi\n"    \
+            "\trep movsb\n"         \
+            "\tpopq %%rsi\n"        \
+            "\tpopq %%rdi\n"        \
+            "\tpopq %%rcx\n"        \
+            "1:\n"                  \
+            "\tmovabsq $" #libbasename ", %%r11\n" /* load library base */                      \
+            "\tmovq (%%r11),%%r11\n"\
+            "\n"                    \
+            "\tmovq %%r11,%%r12\n"  \
+            "\n"                    \
+            "\tcallq *%c0(%%r11)\n" \
+            "\taddq %%r13,%%rsp\n"  /* remove stack copy space */                               \
+            "\tpopq %%r13\n"        /* restore r13 value */                                     \
+            "\tpopq %%r12\n"        /* restore r12 value */                                     \
+            : : "i" ((-lvo)*LIB_VECTSIZE) \
+        ); \
+    }
+
+#define AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
+    __AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo)
+
 /* Macro: AROS_GM_RELLIBFUNCSTUB(functionname, libbasename, lvo)
    Same as AROS_GM_LIBFUNCSTUB but finds libbase at an offset in
    the current libbase
@@ -47,6 +103,9 @@
     { \
         asm volatile( \
             ".weak " #fname "\n" \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            "\tnop\n"               \
             "\t" #fname " :\n"   \
             "\tpushq %%rax\n"     \
             "\tpushq %%rdi\n"     \
@@ -72,6 +131,75 @@
     }
 #define AROS_GM_RELLIBFUNCSTUB(fname, libbasename, lvo) \
     __AROS_GM_RELLIBFUNCSTUB(fname, libbasename, lvo)
+
+#define __AROS_GM_RELLIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
+    void __ ## fname ## _ ## libbasename ## _wrapper(void) \
+    { \
+        asm volatile( \
+            ".weak " #fname "\n"    \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            #fname " :\n"           \
+            "\tpushq %%rbp\n"       \
+            "\tmov %%rsp,%%rbp\n"    \
+            "\tmov %%rsp,%%r11\n"   \
+            "\taddq $16,%%r11\n"    /* r11 = addres of last stack entry on previous frame */    \
+            "\n"                    \
+            "\tpushq %%r12\n"       /* backup current r12 value */                              \
+            "\tpushq %%r13\n"       /* backup current r13 value */                              \
+            "\n"                    \
+            "\tmov (%%rbp),%%r13\n"   \
+            "\tsub %%r11,%%r13\n"   /* calculate size of previous stack frame */                \
+            "\n"                    \
+            "\tsubq %%r13,%%rsp\n"  /* make space on stack for copy */                          \
+            "\n"                    \
+            "\tcmp $0,%%r13\n"      \
+            "\tje 1f\n"             \
+            "\n"                    \
+            "\tpushq %%rcx\n"       /* make copy */                                             \
+            "\tpushq %%rdi\n"       \
+            "\tpushq %%rsi\n"       \
+            "\tmovq %%r13,%%rcx\n"  \
+            "\tmov %%r11,%%rsi\n"   \
+            "\tmov %%rsp,%%rdi\n"   \
+            "\taddq $24,%%rdi\n"    \
+            "\trep movsb\n"         \
+            "\tpopq %%rsi\n"        \
+            "\tpopq %%rdi\n"        \
+            "\tpopq %%rcx\n"        \
+            "1:\n"                  \
+            "\tpushq %%rax\n"       \
+            "\tpushq %%rdi\n"       \
+            "\tpushq %%rsi\n"       \
+            "\tpushq %%rdx\n"       \
+            "\tpushq %%rcx\n"       \
+            "\tpushq %%r8\n"        \
+            "\tpushq %%r9\n"        \
+            "\tmovabsq $__aros_getoffsettable,%%r11\n"                                          \
+            "\tcall *%%r11\n"       \
+            "\taddq __aros_rellib_offset_" #libbasename "(%%rip), %%rax\n"                      \
+            "\tmovq (%%rax),%%r11\n" /* load library base */                                    \
+            "\tpopq %%r9\n"         \
+            "\tpopq %%r8\n"         \
+            "\tpopq %%rcx\n"        \
+            "\tpopq %%rdx\n"        \
+            "\tpopq %%rsi\n"        \
+            "\tpopq %%rdi\n"        \
+            "\tpopq %%rax\n"        \
+            "\n"                    \
+            "\tmovq %%r11,%%r12\n"  \
+            "\n"                    \
+            "\tcallq *%c0(%%r11)\n" \
+            "\taddq %%r13,%%rsp\n"  /* remove stack copy space */                               \
+            "\tpopq %%r13\n"        /* restore r13 value */                                     \
+            "\tpopq %%r12\n"        /* restore r12 value */                                     \
+            : : "i" ((-lvo)*LIB_VECTSIZE) \
+        ); \
+    }
+
+#define AROS_GM_RELLIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
+    __AROS_GM_RELLIBFUNCVARARGSSTUB(fname, libbasename, lvo)
 
 /* Macro: AROS_GM_LIBFUNCALIAS(functionname, alias)
    This macro will generate an alias 'alias' for function
@@ -106,7 +234,7 @@
             "\tpushq %%rcx\n"     \
             "\tpushq %%r8\n"      \
             "\tpushq %%r9\n"      \
-            "\tmovq  %%r11,%%rdi\n" \
+            "\tmovq  %%r12,%%rdi\n" \
             "\tmovabsq $__aros_setoffsettable,%%r11\n" \
             "\tcall *%%r11\n" \
             "\tpopq %%r9\n"      \
