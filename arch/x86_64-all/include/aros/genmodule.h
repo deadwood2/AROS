@@ -13,17 +13,18 @@
 
 /* Macros for generating library stub functions and aliases for stack libcalls. */
 
-/* Macro: AROS_LIBFUNCSTUB(functionname, libbasename, lvo)
+/* Macro: AROS_LIBFUNCNOBASESTUB(functionname, libbasename, lvo)
    This macro will generate code for a stub function for
    the function 'functionname' of library with libbase
    'libbasename' and 'lvo' number of the function in the
-   vector table. lvo has to be a constant value (not a variable)
+   vector table. lvo has to be a constant value (not a variable).
+   Library base is not passed to library.
 
    Internals: a dummy function is used that will generate some
    unused junk code but otherwise we can't pass input arguments
    to the asm statement
 */
-#define __AROS_GM_LIBFUNCSTUB(fname, libbasename, lvo) \
+#define __AROS_GM_LIBFUNCNOBASESTUB(fname, libbasename, lvo) \
     void __ ## fname ## _ ## libbasename ## _wrapper(void) \
     { \
         asm volatile( \
@@ -38,8 +39,8 @@
             : : "i" ((-lvo)*LIB_VECTSIZE) \
         ); \
     }
-#define AROS_GM_LIBFUNCSTUB(fname, libbasename, lvo) \
-    __AROS_GM_LIBFUNCSTUB(fname, libbasename, lvo)
+#define AROS_GM_LIBFUNCNOBASESTUB(fname, libbasename, lvo) \
+    __AROS_GM_LIBFUNCNOBASESTUB(fname, libbasename, lvo)
 
 #define __AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
     void __ ## fname ## _ ## libbasename ## _wrapper(void) \
@@ -94,11 +95,11 @@
 #define AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
     __AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo)
 
-/* Macro: AROS_GM_RELLIBFUNCSTUB(functionname, libbasename, lvo)
-   Same as AROS_GM_LIBFUNCSTUB but finds libbase at an offset in
+/* Macro: AROS_GM_RELLIBFUNCNOBASESTUB(functionname, libbasename, lvo)
+   Same as AROS_GM_LIBFUNCNOBASESTUB but finds libbase at an offset in
    the current libbase
 */
-#define __AROS_GM_RELLIBFUNCSTUB(fname, libbasename, lvo) \
+#define __AROS_GM_RELLIBFUNCNOBASESTUB(fname, libbasename, lvo) \
     void __ ## fname ## _ ## libbasename ## _relwrapper(void) \
     { \
         asm volatile( \
@@ -129,8 +130,8 @@
             : : "i" ((-lvo)*LIB_VECTSIZE) \
         ); \
     }
-#define AROS_GM_RELLIBFUNCSTUB(fname, libbasename, lvo) \
-    __AROS_GM_RELLIBFUNCSTUB(fname, libbasename, lvo)
+#define AROS_GM_RELLIBFUNCNOBASESTUB(fname, libbasename, lvo) \
+    __AROS_GM_RELLIBFUNCNOBASESTUB(fname, libbasename, lvo)
 
 #define __AROS_GM_RELLIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
     void __ ## fname ## _ ## libbasename ## _wrapper(void) \

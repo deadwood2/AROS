@@ -300,7 +300,7 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
 #if defined(__x86_64__)
         if (funclistit->unusedlibbase)
         {
-            fprintf(out, "AROS_GM_%sLIBFUNCSTUB(%s, %s, %d)\n",
+            fprintf(out, "AROS_GM_%sLIBFUNCNOBASESTUB(%s, %s, %d)\n",
                 is_rel ? "REL" : "",
                 funclistit->name, cfg->libbase, funclistit->lvo
             );
@@ -320,7 +320,7 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
         int isvoid = ((strstr(funclistit->type, "void") == loc)
             || (strstr(funclistit->type, "VOID") == loc));
 
-        fprintf(out, "register void * __fixedreg asm(\"r12\");\n");
+        fprintf(out, "\nregister void * __fixedreg asm(\"r12\");\n");
 
         fprintf(out,
                 "\n"
