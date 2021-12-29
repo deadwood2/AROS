@@ -1,0 +1,100 @@
+Specification of AROS x86_64 ABIv11 calling conventions
+=======================================================
+
+
+===========================================================================================================================================
+
+Caller-side
+
+Type of call            How base is fetched at caller                  ==>                  How base and arguments are passed to library
+REGCALL
+  inline
+    regular             Passed to inline function as result of __aros_getbase_LibBase()     R12 for base    / SysV x86_64 ABI for arguments
+                        defined by default to (LibBase) global or local variable.
+                        (LibBase) can be re-defined by caller.
+
+    base-relative       Disabled                                                            Disabled
+
+  define
+    regular             Passed to macro as result of __aros_getbase_LibBase()               R12 for base    / SysV x86_64 ABI for arguments
+                        defined by default to (LibBase) global or local variable.
+                        (LibBase) cab be re-defined by caller.
+
+    base-relative       Passed to macro as result of __aros_getbase_LibBase()               R12 for base    / SysV x86_64 ABI for arguments
+                        defined by default as result of __aros_getoffsettable() offsetted
+                        by __aros_rellib_offset_LibBase global constant. Caller must
+                        implement or define __aros_getoffsettable() returning
+                        caller's library base.
+
+  linklib
+    regular             Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
+                        __aros_getbase_LibBase() which is compiled as (LibBase) global
+                        variable. Re-defining (LibBase) by caller has no effect, as
+                        stub function is already compiled.
+
+    base-relative       Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
+                        __aros_getbase_LibBase() which is compiled as result of
+                        __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
+                        global constant. Caller must implement __aros_getoffsettable()
+                        returning caller's library base.
+
+STACKCALL
+  linklib
+    non-varargs
+      regular           Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
+                        __aros_getbase_LibBase() which is compiled as (LibBase) global
+                        variable. Re-defining (LibBase) by caller has no effect, as
+                        stub function is already compiled.
+
+      base-relative     Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
+                        __aros_getbase_LibBase() which is compiled as result of
+                        __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
+                        global constant. Caller must implement __aros_getoffsettable()
+                        returning caller's library base.
+
+    varargs
+      regular           Fetched by compiled-in reading of (LibBase) global variable.        R12 for base    / SysV x86_64 ABI for arguments
+                        Re-defining (LibBase) by caller has no effect, as stub function is
+                        already compiled.
+
+      base-relative     Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
+                        __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
+                        global constant. Caller must implement __aros_getoffsettable()
+                        returning caller's library base.
+    unusedlibbase
+      regular           Fetched by compiled-in reading of (LibBase) global variable.        Base not passed / SysV x86_64 ABI for arguments
+                        Re-defining (LibBase) by caller has no effect, as stub function is
+                        already compiled.
+
+      base-relative     Fetched in stub function as results of                              Base not passed / SysV x86_64 ABI for arguments
+                        __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
+                        global constant. Caller must implement __aros_getoffsettable()
+                        returning caller's library base.
+
+===========================================================================================================================================
+
+Library-side
+
+                        How base is passed to library  =>   Addition library stub logic  => How base is made available in library functions
+Type of library
+SingleBase
+  REGCALL
+    any                 R12                                 None                            Passed to each function as explicit parameter
+
+  STACKCALL
+    normal              R12                                 None                            Fetched in each function via
+                                                                                            __aros_getbase_LibBase() reading global
+                                                                                            variable
+
+    unusedlibbase       Not passed                          None                            Not available in functions
+
+PerOpenerBase
+  REGCALL
+    any                 R12                                 None                            Passed to each function as explicit parameter
+
+  STACKCALL
+    normal              R12                                 R12 saved into per task slot.   Fetched in each function via
+                                                                                            __aros_getbase_LibBase() reading per task slot
+
+    unusedlibbase       Not passed                          None                            Not available in functions
+
