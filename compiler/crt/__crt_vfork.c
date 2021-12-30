@@ -39,6 +39,8 @@
 #define _VFORK_COPYENV(a,b)      *(a) = *(b)
 #endif
 
+BOOL __aros_setoffsettable(char *base);
+
 /*****************************************************************************
 
     NAME
@@ -180,7 +182,7 @@ LONG launcher()
 
     ProgCtx->libbase = (struct CrtIntBase *)AllocMem(sizeof(struct CrtIntBase), MEMF_PUBLIC);
     /* "register" temp base with child process. */
-    __aros_setbase_CrtBase(ProgCtx->libbase);
+    __aros_setoffsettable((char *)ProgCtx->libbase);
 
     /* Initialize */
     __crtext_open(ProgCtx->libbase);
@@ -329,7 +331,7 @@ pid_t __vfork(jmp_buf env)
         is progonly, meaning registered library base is one opened by program
         binary.
     */
-    __aros_setbase_CrtBase(ProgCtx->libbase);
+    __aros_setoffsettable((char *)ProgCtx->libbase);
 
     if (udata == NULL)
     {

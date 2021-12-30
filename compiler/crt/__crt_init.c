@@ -14,13 +14,6 @@
 
 static LONG ProgCtxSlot = -1;
 
-void __aros_setoffsettable(void *base);
-
-void __aros_setbase_CrtBase(struct CrtIntBase *CrtBase)
-{
-    __aros_setoffsettable(CrtBase);
-}
-
 void __aros_setbase_fake_CrtBase(struct CrtIntBase *fCrtBase)
 {
     struct CrtIntBase *CrtBase = (struct CrtIntBase *)__aros_getbase_CrtBase();
