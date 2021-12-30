@@ -297,7 +297,7 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
                 funclistit->name, cfg->libbase, cfg->libbase, funclistit->version
         );
 
-#if defined(__x86_64__)
+#if defined(LIBBASE_IN_REG)
         if (funclistit->unusedlibbase)
         {
             fprintf(out, "AROS_GM_%sLIBFUNCNOBASESTUB(%s, %s, %d)\n",

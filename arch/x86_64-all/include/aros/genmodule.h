@@ -42,6 +42,16 @@
 #define AROS_GM_LIBFUNCNOBASESTUB(fname, libbasename, lvo) \
     __AROS_GM_LIBFUNCNOBASESTUB(fname, libbasename, lvo)
 
+/* Macro: AROS_LIBFUNCVARARGSSTUB(functionname, libbasename, lvo)
+   This macro will generate code for a stub function for
+   the varargs function 'functionname' of library with libbase
+   'libbasename' and 'lvo' number of the function in the
+   vector table. lvo has to be a constant value (not a variable)
+
+   Internals: a dummy function is used that will generate some
+   unused junk code but otherwise we can't pass input arguments
+   to the asm statement
+*/
 #define __AROS_GM_LIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
     void __ ## fname ## _ ## libbasename ## _wrapper(void) \
     { \
@@ -133,6 +143,11 @@
 #define AROS_GM_RELLIBFUNCNOBASESTUB(fname, libbasename, lvo) \
     __AROS_GM_RELLIBFUNCNOBASESTUB(fname, libbasename, lvo)
 
+/* Macro: AROS_GM_RELLIBFUNCVARARGSSTUB(functionname, libbasename, lvo)
+   Same as AROS_GM_LIBFUNCVARARGSSTUB but finds libbase at an offset in
+   the current libbase
+*/
+
 #define __AROS_GM_RELLIBFUNCVARARGSSTUB(fname, libbasename, lvo) \
     void __ ## fname ## _ ## libbasename ## _wrapper(void) \
     { \
@@ -215,44 +230,7 @@
 
 /******************* Library Side Thunks ******************/
 
-/* This macro relies upon the fact that the
- * caller to a stack function will have passed in
- * the base in %r11, since the caller will
- * have used the AROS_LIBFUNCSTUB() macro.
- */
-
 #define __GM_STRINGIZE(x) #x
-#define __AROS_GM_STACKCALL(fname, libbasename, libfuncname) \
-    void libfuncname(void); \
-    void __ ## fname ## _stackcall(void) \
-    { \
-        asm volatile( \
-            "\t" __GM_STRINGIZE(libfuncname) " :\n" \
-            "\tpushq %%rax\n"     \
-            "\tpushq %%rdi\n"     \
-            "\tpushq %%rsi\n"     \
-            "\tpushq %%rdx\n"     \
-            "\tpushq %%rcx\n"     \
-            "\tpushq %%r8\n"      \
-            "\tpushq %%r9\n"      \
-            "\tmovq  %%r12,%%rdi\n" \
-            "\tmovabsq $__aros_setoffsettable,%%r11\n" \
-            "\tcall *%%r11\n" \
-            "\tpopq %%r9\n"      \
-            "\tpopq %%r8\n"      \
-            "\tpopq %%rcx\n"     \
-            "\tpopq %%rdx\n"     \
-            "\tpopq %%rsi\n"     \
-            "\tpopq %%rdi\n"     \
-            "\tpopq %%rax\n"     \
-            "\tmovabsq $" #fname ",%%r11\n" \
-            "\tjmp  *%%r11\n" \
-            : : : \
-        ); \
-    }
-    
-#define AROS_GM_STACKCALL(fname, libbasename, lvo) \
-     __AROS_GM_STACKCALL(fname, libbasename, AROS_SLIB_ENTRY(fname, libbasename, lvo))
 
 /* Macro: AROS_GM_STACKALIAS(functionname, libbasename, lvo)
    This macro will generate an alias 'alias' for function

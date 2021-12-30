@@ -14,13 +14,18 @@ HOST_STRIP     ?= strip
 MECHO	       ?= echo
 HOST_CFLAGS    ?= $(USER_CFLAGS)
 GENMODULE      ?= genmodule
+GM_CPPFLAGS    :=
+
+ifeq ($(AROS_TARGET_CPU),x86_64)
+GM_CPPFLAGS    := -DLIBBASE_IN_REG
+endif
 
 all : $(GENMODULE)
 
 $(GENMODULE) : $(GENMODULE_DEPS)
 	@$(MECHO) "Compiling $(notdir $@)..."
-	@$(HOST_CC) -g $(HOST_CFLAGS) -I$(GENINCDIR) -I$(TOP)/$(CURDIR) $(GENMODULE_SRCS) -o $@
-#	@$(HOST_CC) -E $(HOST_CFLAGS) -I$(GENINCDIR) -I$(TOP)/$(CURDIR) $(GENMODULE_SRCS) -o $@.C
+	@$(HOST_CC) -g $(HOST_CFLAGS) $(GM_CPPFLAGS) -I$(GENINCDIR) -I$(TOP)/$(CURDIR) $(GENMODULE_SRCS) -o $@
+#	@$(HOST_CC) -E $(HOST_CFLAGS) $(GM_CPPFLAGS) -I$(GENINCDIR) -I$(TOP)/$(CURDIR) $(GENMODULE_SRCS) -o $@.C
 #	@$(HOST_STRIP) $@
 
 clean :

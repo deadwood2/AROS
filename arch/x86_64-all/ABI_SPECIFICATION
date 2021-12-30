@@ -83,8 +83,7 @@ SingleBase
 
   STACKCALL
     normal              R12                                 None                            Fetched in each function via
-                                                                                            __aros_getbase_LibBase() reading global
-                                                                                            variable
+                                                                                            __aros_getbase_LibBase() reading R12
 
     unusedlibbase       Not passed                          None                            Not available in functions
 
@@ -93,8 +92,8 @@ PerOpenerBase
     any                 R12                                 None                            Passed to each function as explicit parameter
 
   STACKCALL
-    normal              R12                                 R12 saved into per task slot.   Fetched in each function via
-                                                                                            __aros_getbase_LibBase() reading per task slot
+    normal              R12                                 None                            Fetched in each function via
+                                                                                            __aros_getbase_LibBase() reading R12
 
     unusedlibbase       Not passed                          None                            Not available in functions
 

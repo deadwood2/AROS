@@ -414,6 +414,14 @@ void writefuncinternalstubs(FILE *out, struct config *cfg, struct functionhead *
         switch (funclistit->libcall)
         {
         case STACK:
+#if defined(LIBBASE_IN_REG)
+            fprintf(out,
+                    "AROS_GM_STACKALIAS(%s,%s,%d);\n"
+                    , funclistit->internalname
+                    , cfg->basename
+                    , funclistit->lvo
+            );
+#else
             if ((cfg->options & OPTION_DUPBASE)
                 && !funclistit->unusedlibbase
             )
@@ -434,6 +442,7 @@ void writefuncinternalstubs(FILE *out, struct config *cfg, struct functionhead *
                         , funclistit->lvo
                 );
             }
+#endif
             break;
 
         case REGISTER:
