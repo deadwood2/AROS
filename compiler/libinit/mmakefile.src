@@ -8,13 +8,15 @@ include $(SRCDIR)/config/aros.cfg
 #MM- linklibs: linklibs-libinit
 #MM linklibs-libinit : includes
 
+USER_CFLAGS := $(MODULE_ISA_CFLAGS)
+
 %build_linklib mmake=linklibs-libinit \
     libname=libinit files="libinit"
 
 # Special kickstart module header
 $(GENDIR)/$(CURDIR)/kickentry.o : $(SRCDIR)/$(CURDIR)/kickentry.c | $(GENDIR)/$(CURDIR)
 	@$(ECHO) "Compiling  $<"
-	@$(TARGET_CC) $(TARGET_SYSROOT) -c $(TARGET_ISA_CFLAGS) $(TARGET_CFLAGS) $(CFLAGS) $< -o $@
+	@$(TARGET_CC) $(TARGET_SYSROOT) -c $(TARGET_ISA_CFLAGS) $(MODULE_ISA_CFLAGS) $(TARGET_CFLAGS) $(CFLAGS) $< -o $@
 
 #MM
 libinit-kickentry : $(GENDIR)/$(CURDIR)/kickentry.o
@@ -22,7 +24,7 @@ libinit-kickentry : $(GENDIR)/$(CURDIR)/kickentry.o
 # Disk-based module header
 $(GENDIR)/$(CURDIR)/libentry.o : $(SRCDIR)/$(CURDIR)/libentry.c | $(GENDIR)/$(CURDIR)
 	@$(ECHO) "Compiling  $<"
-	@$(TARGET_CC) $(TARGET_SYSROOT) -c $(TARGET_ISA_CFLAGS) $(TARGET_CFLAGS) $(CFLAGS) $< -o $@
+	@$(TARGET_CC) $(TARGET_SYSROOT) -c $(TARGET_ISA_CFLAGS) $(MODULE_ISA_CFLAGS) $(TARGET_CFLAGS) $(CFLAGS) $< -o $@
 
 #MM
 libinit-libentry : $(GENDIR)/compiler/libinit/libentry.o
