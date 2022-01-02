@@ -45,8 +45,13 @@ void writeincproto(struct config *cfg)
             cfg->includename
     );
     freeBanner(banner);
+    if (cfg->options & OPTION_RELLINKLIB)
+        fprintf(out,
+                "#ifndef __%s_RELLIBBASE__\n",
+                cfg->includenameupper
+        );
+
     fprintf(out,
-            "#ifndef __%s_RELLIBBASE__\n"
             " #if !defined(__NOLIBBASE__) && !defined(__%s_NOLIBBASE__)\n"
             "  #if !defined(%s)\n"
             "   #ifdef __%s_STDLIBBASE__\n"
@@ -58,34 +63,38 @@ void writeincproto(struct config *cfg)
             " #endif\n"
             " #ifndef __aros_getbase_%s\n"
             "  #define __aros_getbase_%s() (%s)\n"
-            " #endif\n"
-            "#else /* __%s_RELLIBASE__ */\n"
-            " extern const IPTR __aros_rellib_offset_%s;\n"
-            " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
-            " #define AROS_RELLIB_BASE_%s __aros_rellib_base_%s\n"
-            " #ifndef __aros_getbase_%s\n"
-            "  #ifndef __aros_getoffsettable\n"
-            "   char *__aros_getoffsettable(void);\n"
-            "  #endif\n"
-            "  #define __aros_getbase_%s() (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
-            " #endif\n"
-            "#endif\n"
-            "\n",
-            cfg->includenameupper,
+            " #endif\n",
             cfg->includenameupper,
             cfg->libbase,
             cfg->includenameupper,
             cfg->libbase,
             cfg->libbasetypeptrextern, cfg->libbase,
             cfg->libbase,
-            cfg->libbase, cfg->libbase,
-            cfg->includenameupper,
-            cfg->libbase,
-            cfg->includenameupper, cfg->libbase,
-            cfg->includenameupper, cfg->libbase,
-            cfg->libbase,
-            cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase
+            cfg->libbase, cfg->libbase
     );
+
+    if (cfg->options & OPTION_RELLINKLIB)
+        fprintf(out,
+                "#else /* __%s_RELLIBASE__ */\n"
+                " extern const IPTR __aros_rellib_offset_%s;\n"
+                " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
+                " #define AROS_RELLIB_BASE_%s __aros_rellib_base_%s\n"
+                " #ifndef __aros_getbase_%s\n"
+                "  #ifndef __aros_getoffsettable\n"
+                "   char *__aros_getoffsettable(void);\n"
+                "  #endif\n"
+                "  #define __aros_getbase_%s() (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
+                " #endif\n"
+                "#endif\n",
+                cfg->includenameupper,
+                cfg->libbase,
+                cfg->includenameupper, cfg->libbase,
+                cfg->includenameupper, cfg->libbase,
+                cfg->libbase,
+                cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase
+        );
+
+    fprintf(out, "\n");
 
     // define name must not start with a digit
     // this solves a problem with proto/8svx.h
@@ -98,15 +107,28 @@ void writeincproto(struct config *cfg)
         strncpy(define, cfg->includenameupper, sizeof define);
     }
 
+    if (cfg->options & OPTION_RELLINKLIB)
+    {
+        fprintf(out,
+                "#if !defined(NOLIBINLINE) && !defined(%s_NOLIBINLINE) && !defined(__%s_RELLIBBASE__)\n",
+                define, cfg->includenameupper
+        );
+    }
+    else
+    {
+        fprintf(out,
+                "#if !defined(NOLIBINLINE) && !defined(%s_NOLIBINLINE)\n",
+                define
+        );
+    }
+
     fprintf(out,
-            "#if !defined(NOLIBINLINE) && !defined(%s_NOLIBINLINE) && !defined(__%s_RELLIBBASE__)\n"
             "#   include <inline/%s.h>\n"
             "#elif !defined(NOLIBDEFINES) && !defined(%s_NOLIBDEFINES)\n"
             "#   include <defines/%s.h>\n"
             "#endif\n"
             "\n"
             "#endif /* PROTO_%s_H */\n",
-            define, cfg->includenameupper,
             cfg->includename,
             define,
             cfg->includename,
