@@ -282,12 +282,11 @@ static void writedecl(FILE *out, struct config *cfg)
             "#else /* !__aros_getoffsettable */\n"
             "char *__aros_getoffsettable(void)\n"
             "{\n"
-            "    return ({register APTR __r asm(\"r12\");asm volatile(\"\":\"=r\"(__r):\"0\"(__r));(char *)__r;});\n"
+            "    AROS_GM_GETOFFSETTABLE\n"
             "}\n"
             "BOOL __aros_setoffsettable(char *base)\n"
             "{\n"
-            "    asm volatile(\"movq %%0, %%%%r12\" : : \"rm\"(base) : \"r12\");\n"
-            "    return TRUE;\n"
+            "    AROS_GM_SETOFFSETTABLE\n"
             "}\n"
         );
 #else

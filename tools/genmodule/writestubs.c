@@ -323,8 +323,6 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
         int isvoid = ((strstr(funclistit->type, "void") == loc)
             || (strstr(funclistit->type, "VOID") == loc));
 
-        fprintf(out, "\nregister void * __fixedreg asm(\"r12\");\n");
-
         fprintf(out,
                 "\n"
                 "%s %s(",
@@ -345,11 +343,8 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
                 "{\n"
         );
         fprintf(out,
-                "    APTR __sto;\n"
-                "    %s _bn = (%s)__aros_getbase_%s();\n"
-                "    APTR __func = __AROS_GETVECADDR(_bn, %d);\n"
-                "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n",
-                 cfg->libbasetypeptrextern, cfg->libbasetypeptrextern, cfg->libbase, funclistit->lvo
+                "    AROS_LIBCALL_INIT(__aros_getbase_%s(), %d)\n",
+                cfg->libbase, funclistit->lvo
         );
 
         fprintf(out,
@@ -387,7 +382,7 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
 
         fprintf(out,
                 ");\n"
-                "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n"
+                "    AROS_LIBCALL_EXIT\n"
                 "%s",
                 (isvoid ? "" : "    return __ret;\n"));
 

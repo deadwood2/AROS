@@ -260,5 +260,17 @@
 #define AROS_GM_STACKALIAS(fname, libbasename, lvo) \
     __AROS_GM_STACKALIAS(fname, AROS_SLIB_ENTRY(fname, libbasename, lvo))
 
+/* Macro: AROS_GM_GETOFFSETTABLE
+   This macro will retrieve library base from within library
+*/
+#define AROS_GM_GETOFFSETTABLE \
+        return ({register APTR __r asm("r12");asm volatile("":"=r"(__r):"0"(__r));(char *)__r;});
+
+/* Macro: AROS_GM_SETOFFSETTABLE
+   This macro will set library base from within library
+*/
+#define AROS_GM_SETOFFSETTABLE \
+        asm volatile("movq %0, %%r12" : : "rm"(base) : "r12"); \
+        return TRUE;
 
 #endif /* AROS_X86_64_GENMODULE_H */

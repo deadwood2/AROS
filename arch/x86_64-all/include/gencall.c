@@ -20,25 +20,12 @@ static inline const char *nr(int flags)
         return "";
 }
 
-static void aros_call_internal(int id, int flags, const char *calltype, const char *paramsend, const char *address)
+static void aros_call_internal(int id, int flags)
 {
     int i;
-    /* Note that due to case of bn = (Base->OtherBase), Base cannot occupy r12 for duration of this macro.
-       _bn = bn changes r12, which would mean changing Base, however Base can be later referenced in one
-       of the __AROS_LCA() macros */
 
-    printf("#define __AROS_%s%d%s(t,a,", calltype, id, nr(flags));
-    for (i = 0; i < id; i++)
-        printf("a%d,", i + 1);
-    printf("bt,bn%s) \\\n"
-           "({ \\\n"
-           "    APTR __sto; \\\n"
-           "    bt _bn = (bt)bn;\\\n"
-           "    APTR __func = %s; \\\n"
-           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
-           "%s",
-           paramsend,
-           address,
+    printf(
+            "%s",
            (flags & FLAG_NR ? "    (( t (*)(" : "    t __ret = (( t (*)(")
     );
 
@@ -57,21 +44,51 @@ static void aros_call_internal(int id, int flags, const char *calltype, const ch
         printf("__AROS_LCA(a%d)", i+1);
     }
     printf("); \\\n"
-           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n"
+           "    AROS_LIBCALL_EXIT \\\n"
            "%s"
            "})\n",
     (flags & FLAG_NR ? "" : "    __ret; \\\n")
     );
-    printf("#define AROS_%s%d%s __AROS_%s%d%s\n", calltype, id, nr(flags), calltype, id, nr(flags));
 }
 
 static void aros_lc(int id, int flags)
 {
-    aros_call_internal(id, flags, "LC", ",o,s", "__AROS_GETVECADDR(_bn,o)");
+    /* Note that due to case of bn = (Base->OtherBase), Base cannot occupy r12 for duration of this macro.
+    _bn = bn changes r12, which would mean changing Base, however Base can be later referenced in one
+    of the __AROS_LCA() macros */
+
+    printf("#define __AROS_LC%d%s(t,a,", id, nr(flags));
+    for (int i = 0; i < id; i++)
+        printf("a%d,", i + 1);
+    printf("bt,bn,o,s) \\\n"
+           "({ \\\n"
+           "    AROS_LIBCALL_INIT(bn, o) \\\n"
+    );
+
+    aros_call_internal(id, flags);
+
+    printf("#define AROS_LC%d%s __AROS_LC%d%s\n", id, nr(flags), id, nr(flags));
 }
 static void aros_call(int id, int flags)
 {
-    aros_call_internal(id, flags, "CALL", "", "(APTR)a");
+    /* Note that due to case of bn = (Base->OtherBase), Base cannot occupy r12 for duration of this macro.
+       _bn = bn changes r12, which would mean changing Base, however Base can be later referenced in one
+       of the __AROS_LCA() macros */
+
+    printf("#define __AROS_CALL%d%s(t,a,", id, nr(flags));
+    for (int i = 0; i < id; i++)
+        printf("a%d,", i + 1);
+    printf("bt,bn) \\\n"
+           "({ \\\n"
+           "    APTR __sto; \\\n"
+           "    bt _bn = (bt)bn;\\\n"
+           "    APTR __func = (APTR)a; \\\n"
+           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
+    );
+
+    aros_call_internal(id, flags);
+
+    printf("#define AROS_CALL%d%s __AROS_CALL%d%s\n", id, nr(flags), id, nr(flags));
 }
 
 static void aros_lh(int id, int is_ignored)
@@ -239,6 +256,17 @@ int main(int argc, char **argv)
     printf("   directly or indirectly libcall.h */\n");
     printf("register void * __fixedreg asm(\"r12\");\n");
     printf("\n");
+
+    printf("#define AROS_LIBCALL_INIT(bn, o) \\\n"
+           "    APTR __sto; \\\n"
+           "    APTR _bn = (APTR)bn;\\\n"
+           "    APTR __func = __AROS_GETVECADDR(_bn, o); \\\n"
+           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n"
+           "\n"
+    );
+
+    printf("#define AROS_LIBCALL_EXIT \\\n");
+    printf("    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n\n");
 
     printf("#define __AROS_CPU_SPECIFIC_LH\n\n");
 
