@@ -67,7 +67,7 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 %build_module mmake=test-library-userellib \
     modname=userel modtype=library \
     files="userellib" \
-    prefix=$(TARGETDIR)
+    prefix=$(TARGETDIR) uselibs="single"
 
 # CUnit tests
 
