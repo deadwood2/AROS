@@ -62,29 +62,37 @@
             "\tnop\n"               \
             #fname " :\n"           \
             "\tpushq %%rbp\n"       \
-            "\tmov %%rsp,%%rbp\n"    \
+            "\tmov %%rsp,%%rbp\n"   \
             "\tmov %%rsp,%%r11\n"   \
             "\taddq $16,%%r11\n"    /* r11 = addres of last stack entry on previous frame */    \
             "\n"                    \
             "\tpushq %%r12\n"       /* backup current r12 value */                              \
             "\tpushq %%r13\n"       /* backup current r13 value */                              \
             "\n"                    \
-            "\tmov (%%rbp),%%r13\n"   \
-            "\tsub %%r11,%%r13\n"   /* calculate size of previous stack frame */                \
-            "\n"                    \
-            "\tsubq %%r13,%%rsp\n"  /* make space on stack for copy */                          \
-            "\n"                    \
+            "\tmov (%%rbp),%%r13\n" \
+            "\tsub %%r11,%%r13\n"   /* r13 = size of previous stack frame, which will be */     \
+            "\n"                    /* wrong if there is no frame pointer in rbp */             \
             "\tcmp $0,%%r13\n"      \
-            "\tje 1f\n"             \
-            "\n"                    \
-            "\tpushq %%rcx\n"       /* make copy */                                             \
+            "\tje 1f\n"             /*   0 - treat as correct and no copy need */               \
+            "\tjl 3f\n"             /* < 0 - treat as wrong, use fixed size */                  \
+            "\tcmp $128,%%r13\n"    /* > 0 - check if not too big and use fixed size if yes */  \
+            "\tjg 3f\n"             \
+            "\tjmp 2f\n"            \
+            "3:\n"                  \
+            "\tmovabsq $__" #fname "_" #libbasename "_stack_varargs_cnt,%%r13\n" /* fixed size */  \
+            "\tmov (%%r13),%%r13d\n"\
+            "\tshl $3,%%r13d\n"     \
+            "2:\n"                  \
+            "\tsubq %%r13,%%rsp\n"  /* make space on stack for copy */                          \
+            "\tpushq %%rcx\n"       \
             "\tpushq %%rdi\n"       \
             "\tpushq %%rsi\n"       \
             "\tmovq %%r13,%%rcx\n"  \
+            "\tshrq $3,%%rcx\n"     \
             "\tmov %%r11,%%rsi\n"   \
             "\tmov %%rsp,%%rdi\n"   \
-            "\taddq $24,%%rdi\n"    \
-            "\trep movsb\n"         \
+            "\taddq $24,%%rdi\n"    /* because of push rcx, rdi, rsi */                         \
+            "\trep movsq\n"         /* make copy */                                             \
             "\tpopq %%rsi\n"        \
             "\tpopq %%rdi\n"        \
             "\tpopq %%rcx\n"        \
@@ -158,29 +166,37 @@
             "\tnop\n"               \
             #fname " :\n"           \
             "\tpushq %%rbp\n"       \
-            "\tmov %%rsp,%%rbp\n"    \
+            "\tmov %%rsp,%%rbp\n"   \
             "\tmov %%rsp,%%r11\n"   \
             "\taddq $16,%%r11\n"    /* r11 = addres of last stack entry on previous frame */    \
             "\n"                    \
             "\tpushq %%r12\n"       /* backup current r12 value */                              \
             "\tpushq %%r13\n"       /* backup current r13 value */                              \
             "\n"                    \
-            "\tmov (%%rbp),%%r13\n"   \
-            "\tsub %%r11,%%r13\n"   /* calculate size of previous stack frame */                \
-            "\n"                    \
-            "\tsubq %%r13,%%rsp\n"  /* make space on stack for copy */                          \
-            "\n"                    \
+            "\tmov (%%rbp),%%r13\n" \
+            "\tsub %%r11,%%r13\n"   /* r13 = size of previous stack frame, which will be */     \
+            "\n"                    /* wrong if there is no frame pointer in rbp */             \
             "\tcmp $0,%%r13\n"      \
-            "\tje 1f\n"             \
-            "\n"                    \
-            "\tpushq %%rcx\n"       /* make copy */                                             \
+            "\tje 1f\n"             /*   0 - treat as correct and no copy need */               \
+            "\tjl 3f\n"             /* < 0 - treat as wrong, use fixed size */                  \
+            "\tcmp $128,%%r13\n"    /* > 0 - check if not too big and use fixed size if yes */  \
+            "\tjg 3f\n"             \
+            "\tjmp 2f\n"            \
+            "3:\n"                  \
+            "\tmovabsq $__" #fname "_" #libbasename "_stack_varargs_cnt,%%r13\n" /* fixed size */  \
+            "\tmov (%%r13),%%r13d\n"\
+            "\tshl $3,%%r13d\n"     \
+            "2:\n"                  \
+            "\tsubq %%r13,%%rsp\n"  /* make space on stack for copy */                          \
+            "\tpushq %%rcx\n"       \
             "\tpushq %%rdi\n"       \
             "\tpushq %%rsi\n"       \
             "\tmovq %%r13,%%rcx\n"  \
+            "\tshrq $3,%%rcx\n"     \
             "\tmov %%r11,%%rsi\n"   \
             "\tmov %%rsp,%%rdi\n"   \
-            "\taddq $24,%%rdi\n"    \
-            "\trep movsb\n"         \
+            "\taddq $24,%%rdi\n"    /* because of push rcx, rdi, rsi */                         \
+            "\trep movsq\n"         /* make copy */                                             \
             "\tpopq %%rsi\n"        \
             "\tpopq %%rdi\n"        \
             "\tpopq %%rcx\n"        \

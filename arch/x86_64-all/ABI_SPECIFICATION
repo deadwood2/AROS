@@ -2,8 +2,9 @@ Specification of AROS x86_64 ABIv11 calling conventions
 =======================================================
 
 1. Caller-side (regular)
+1a. Variadic functions in STACKCALL
 2. Library-side
-3. Caller-size (base-relative)
+3. Caller-side (base-relative)
 
 Caller-side (Regular caller: program or library storing called library base in variable (local, global, field of structure))
 ============================================================================================================================
@@ -43,6 +44,29 @@ STACKCALL
       regular           Fetched by compiled-in reading of (LibBase) global variable.        Base not passed / SysV x86_64 ABI for arguments
                         Re-defining (LibBase) by caller has no effect, as stub function is
                         already compiled.
+
+Variadic functions in STACKCALL
+===============================
+
+It it possible for a library to expose a C variadic function (using ... as last argument) when using STACKCALL call type. As with other
+STACKCALL functions, there is a stub function generated in a linklib. This stub loads library base to R12 and passes arguments from caller
+to library function. In this case however the function is special and complicated.
+
+SysV x86_64 ABI defines that certain number of arguments is passed via registers and remaining are passed via stack. For non-varargs
+function it is possible to derive at compile-time how many arguments were passed via stack. For varargs functions, there is no such
+possibility. The stub for varargs function needs to copy the callers stack to stub stack, however it does not have information of how much
+stack to copy. Thus, by default it copies up to 16 quad words. This can cause that arguments become "lost" if varargs function call passes
+more arguments. If this happens, the caller needs to change this default limit.
+
+Changing the limit is being done by defining a global symbol like:
+
+int __<function>_<LibBaseName>_stack_varargs_cnt = <number>;
+
+Where <function> is name of function being called, <LibBaseName> is name of library base and <number> is number of arguments (even, larger
+than 16). Example:
+
+int __fprintf_CrtBase_stack_varargs_cnt = 18;
+
 
 Library-side
 ============

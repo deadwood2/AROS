@@ -307,6 +307,9 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
         }
         else if (funclistit->varargtype == 4)
         {
+            fprintf(out, "int __%s_%s_stack_varargs_cnt __attribute__((weak)) = 16;\n",
+                funclistit->name, cfg->libbase);
+
             fprintf(out, "AROS_GM_%sLIBFUNCVARARGSSTUB(%s, %s, %d)\n",
                 is_rel ? "REL" : "",
                 funclistit->name, cfg->libbase, funclistit->lvo
