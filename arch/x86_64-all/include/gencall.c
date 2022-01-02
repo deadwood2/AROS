@@ -44,10 +44,9 @@ static void aros_call_internal(int id, int flags)
         printf("__AROS_LCA(a%d)", i+1);
     }
     printf("); \\\n"
-           "    AROS_LIBCALL_EXIT \\\n"
-           "%s"
+           "    AROS_LIBCALL%s_EXIT \\\n"
            "})\n",
-    (flags & FLAG_NR ? "" : "    __ret; \\\n")
+            (flags & FLAG_NR ? "NR" : "")
     );
 }
 
@@ -265,8 +264,16 @@ int main(int argc, char **argv)
            "\n"
     );
 
-    printf("#define AROS_LIBCALL_EXIT \\\n");
-    printf("    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n\n");
+    printf("#define AROS_LIBCALL_EXIT \\\n"
+           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n"
+           "    __ret; \n"
+           "\n"
+    );
+
+    printf("#define AROS_LIBCALLNR_EXIT \\\n"
+           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n"
+           "\n"
+    );
 
     printf("#define __AROS_CPU_SPECIFIC_LH\n\n");
 

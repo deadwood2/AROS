@@ -343,12 +343,15 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
                 "{\n"
         );
         fprintf(out,
-                "    AROS_LIBCALL_INIT(__aros_getbase_%s(), %d)\n",
+                "%s"
+                "    ({\n"
+                "        AROS_LIBCALL_INIT(__aros_getbase_%s(), %d)\n",
+                isvoid ? "" : "    return\n",
                 cfg->libbase, funclistit->lvo
         );
 
         fprintf(out,
-                "    %s%s",
+                "        %s%s",
                 (isvoid ? "" : funclistit->type),
                 (isvoid ? "" : " __ret = ")
         );
@@ -382,9 +385,9 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
 
         fprintf(out,
                 ");\n"
-                "    AROS_LIBCALL_EXIT\n"
-                "%s",
-                (isvoid ? "" : "    return __ret;\n"));
+                "        AROS_LIBCALL%s_EXIT\n"
+                "    });\n",
+                (isvoid ? "NR" : ""));
 
         fprintf(out, "}\n");
         }
