@@ -73,7 +73,7 @@ void writeincinline(struct config *cfg)
 
                 while (arglistit->next != NULL) arglistit = arglistit->next;
 
-                lastname = getargname(arglistit);
+                lastname = arglistit->name;
                 assert(lastname != NULL);
 
                 if (*(funclistit->name + strlen(funclistit->name) - 1) == 'A')
@@ -185,7 +185,6 @@ writeinlineregister(FILE *out, struct functionhead *funclistit, struct config *c
     struct functionarg *arglistit;
     int count, isvoid;
     int narg=0,nquad=0;
-    char *type;
 
     isvoid = strcmp(funclistit->type, "void") == 0
         || strcmp(funclistit->type, "VOID") == 0;
@@ -200,9 +199,8 @@ writeinlineregister(FILE *out, struct functionhead *funclistit, struct config *c
          arglistit = arglistit->next, count++
     )
     {
-        type = getargtype(arglistit);
         fprintf(out, "%s __arg%d, ",
-            type, count);
+            arglistit->type, count);
         if (strchr(arglistit->reg, '/') != NULL) {
             nquad++;
         } else {
@@ -232,13 +230,11 @@ writeinlineregister(FILE *out, struct functionhead *funclistit, struct config *c
              arglistit = arglistit->next, count++
         )
         {
-            type = getargtype(arglistit);
-            assert(type != NULL);
+            assert(arglistit->type != NULL);
             fprintf(out,
                     "        AROS_LCA(%s,(__arg%d),%s),\n",
-                    type, count, arglistit->reg
+                    arglistit->type, count, arglistit->reg
             );
-            free(type);
         }
     }
     else /* nquad != 0 */
@@ -267,23 +263,21 @@ writeinlineregister(FILE *out, struct functionhead *funclistit, struct config *c
             char *quad2 = strchr(arglistit->reg, '/');
 
             arglistit->reg[2] = 0;
-            type = getargtype(arglistit);
-            assert(type != NULL);
+            assert(arglistit->type != NULL);
 
             if (quad2 != NULL) {
                 *quad2 = 0;
                 fprintf(out,
                         "         AROS_LCAQUAD(%s, (__arg%d), %s, %s), \n",
-                        type, count, arglistit->reg, quad2+1
+                        arglistit->type, count, arglistit->reg, quad2+1
                 );
                 *quad2 = '/';
             } else {
                 fprintf(out,
                         "         AROS_LCA(%s, (__arg%d), %s), \n",
-                        type, count, arglistit->reg
+                        arglistit->type, count, arglistit->reg
                 );
             }
-            free(type);
         }
     }
     fprintf(out,
@@ -324,7 +318,6 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
     if (isvararg == 1)
     {
         int count;
-        char *type;
 
         fprintf(out,
                 "\n#if !defined(NO_INLINE_STDARG) && !defined(%s_NO_INLINE_STDARG)\n"
@@ -366,10 +359,8 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
 
             if (arglistit->next == NULL)
             {
-                type = getargtype(arglistit);
-                assert(type != NULL);
-                fprintf(out, "(%s)(%s_args)", type, funclistit->name);
-                free(type);
+                assert(arglistit->type != NULL);
+                fprintf(out, "(%s)(%s_args)", arglistit->type, funclistit->name);
             }
             else
                 fprintf(out, "(arg%d)", count);
@@ -395,9 +386,7 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
              arglistit = arglistit->next
         )
         {
-            char *type = getargtype(arglistit);
-
-            fprintf(out, ", %s __arg%d", type, ++count);
+            fprintf(out, ", %s __arg%d", arglistit->type, ++count);
         }
         fprintf(out, ", ...)\n");
 
@@ -471,9 +460,7 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
              arglistit = arglistit->next
         )
         {
-            char *type = getargtype(arglistit);
-
-            fprintf(out, ", %s __arg%d", type, ++count);
+            fprintf(out, ", %s __arg%d", arglistit->type, ++count);
         }
         fprintf(out, ", ...)\n");
 
