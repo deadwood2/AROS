@@ -58,7 +58,6 @@ struct functionarg *funcaddarg
         (*argptr)->name = NULL;
         (*argptr)->reg  = (reg  == NULL) ? NULL : strdup(reg);
         (*argptr)->parent  = funchead;
-        (*argptr)->noargname = 0;
         (*argptr)->varargs = 0;
 
         /* Set noargname, varargs, type, name here (in a better way) */
@@ -520,14 +519,12 @@ char *getargtype(struct functionarg *funcarg)
             /* Support special cases */
             if (strcmp(s, "void") == 0)
             {
-                funcarg->noargname = 1;
                 if (funcarg->type == NULL) funcarg->type = strdup(s);
                 if (funcarg->name == NULL) funcarg->name = strdup("");
                 return s;
             }
             else if (strcmp(s, "...") == 0)
             {
-                funcarg->noargname = 1;
                 funcarg->varargs = 1;
                 if (funcarg->type == NULL) funcarg->type = strdup(s);
                 if (funcarg->name == NULL) funcarg->name = strdup("");
