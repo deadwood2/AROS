@@ -35,6 +35,9 @@ If NOT WARN
     Execute S/Test cunit/crt/stdc/cunit-crt-fileseek
     Execute S/Test cunit/crt/posix/cunit-crt-fread
 
+    ; Perform basic "Zune" unit tests...
+    Execute S/Test cunit/zune/cunit-zune-handleevent
+
 Endif
 
 ; All done!

@@ -27,11 +27,21 @@ FILES  := test             \
           listinsertactive \
           mui4test
 
+CUNITFILES := \
+    cunit-zune-handleevent
+
 USER_CFLAGS := -I $(SRCDIR)/workbench/system/Wanderer/Classes
 
 EXEDIR := $(AROS_TESTS)/Zune
+CUNITEXEDIR := $(AROS_TESTS)/cunit/zune
 
-#MM test-zune : includes linklibs workbench-classes-zune-busy
+#MM test-zune : includes linklibs workbench-classes-zune-busy test-zune-cunit
 
 %build_progs mmake=test-zune \
     files=$(FILES) targetdir=$(EXEDIR)
+
+#MM test-zune-cunit : includes linklibs
+
+%build_progs mmake=test-zune-cunit \
+    files=$(CUNITFILES) targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
