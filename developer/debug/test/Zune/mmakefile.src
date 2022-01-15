@@ -28,7 +28,8 @@ FILES  := test             \
           mui4test
 
 CUNITFILES := \
-    cunit-zune-handleevent
+    cunit-zune-handleevent \
+    cunit-zune-sleep
 
 USER_CFLAGS := -I $(SRCDIR)/workbench/system/Wanderer/Classes
 
