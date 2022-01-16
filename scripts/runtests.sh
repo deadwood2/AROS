@@ -22,6 +22,8 @@ rm -rf $AROSBUILDDIR
 mkdir -p $AROSRUNDIR
 mkdir -p $AROSLOGDIR
 cp -r ./core-linux-x86_64-d/bin/linux-x86_64/AROS/* $AROSRUNDIR
+cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdb_ignore_errors.py $AROSRUNDIR
+cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdbinit $AROSRUNDIR
 
 cp $AROSSRCDIR/scripts/nightly/autotest/User-Startup.cunit $AROSRUNDIR/S/User-Startup
 cp $AROSSRCDIR/scripts/nightly/autotest/Try $AROSRUNDIR/S/
