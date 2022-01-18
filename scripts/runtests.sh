@@ -17,11 +17,14 @@ AROSSRCDIR=$(pwd)/AROS
 AROSRUNDIR=$AROSBUILDDIR/bin/linux-x86_64/AROS
 AROSLOGDIR=$AROSBUILDDIR/logs
 
+if [[ $1 == 'clean' ]]
+then
 rm -rf $AROSBUILDDIR
+fi
 
 mkdir -p $AROSRUNDIR
 mkdir -p $AROSLOGDIR
-cp -r ./core-linux-x86_64-d/bin/linux-x86_64/AROS/* $AROSRUNDIR
+rsync -r -t -l --info=progress2 -s ./core-linux-x86_64-d/bin/linux-x86_64/AROS/* $AROSRUNDIR
 cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdb_ignore_errors.py $AROSRUNDIR
 cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdbinit $AROSRUNDIR
 
