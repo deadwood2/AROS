@@ -34,6 +34,7 @@ If NOT WARN
     ; Perform basic C library unit tests...
     Execute S/Test cunit/crt/stdc/math/cunit-crt-math
     Execute S/Test cunit/crt/stdc/cunit-crt-fileseek
+    Execute S/Test cunit/crt/stdc/cunit-crt-sxprintf
     Execute S/Test cunit/crt/posix/cunit-crt-fread
     Copy SYS:Development/Debug/Tests/crt/posix/execl2_slave SYS:
     Execute S/Test cunit/crt/posix/cunit-crt-vfork
