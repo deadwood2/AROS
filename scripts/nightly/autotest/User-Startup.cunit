@@ -1,4 +1,5 @@
 Assign EXISTS "DEBUG:" >NIL:
+FailAt 100
 If NOT WARN
     Echo "## Unit Test Output is redirected to DEBUG:" >DEBUG:
 
