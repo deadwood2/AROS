@@ -14,7 +14,7 @@ int main(int argc, const char *argv[])
     FILE *f;
 
     sscanf(argv[1], "%d", &fd);
-    f = fdopen(fd, "r");
+    f = fdopen(fd, "w");
     TEST(f != NULL);
     
     char line[10];
@@ -22,6 +22,9 @@ int main(int argc, const char *argv[])
     TEST(fgets(line, 10, f) != NULL);
 
     TEST(strcmp(line, "OK\n") == 0);
+    fseek(f, 0, SEEK_SET);
+    fputs("CHILD\n", f);
+    fclose(f);
 
     return 0;
 }
