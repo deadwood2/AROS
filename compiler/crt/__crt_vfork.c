@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2008-2021, The AROS Development Team. All rights reserved.
+    Copyright (C) 2008-2022, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/debug.h>
@@ -190,7 +190,6 @@ LONG launcher()
 
     /* Parent process will copy remaining information into this libbase in parent_enterpretenchild */
 
-
     if (setjmp(exec_exitjmp) == 0)
     {
         /* Setup complete, signal parent */
@@ -219,8 +218,6 @@ LONG launcher()
                 udata->exec_envp
             );
 
-            /* Reset handling of upath */
-            // PosixCBase->doupath = 0; // FIXME
             udata->child_errno = errno;
 
             D(bug("launcher: informing parent that we have run __exec_prepare\n"));
@@ -236,12 +233,12 @@ LONG launcher()
 
             D(bug("launcher: informing parent that we won't use udata anymore\n"));
 
-            /* !!! No usage of parent library base beyond this point !!! */
+            /* !!! No usage of any parent data beyond this point !!! */
 
             /*
                 Once the signal is sent, parent will start leaving "pretend
                 child" state and will eventually jump to parent code which
-                can mean then exit from program and unload the library.
+                can mean then exit from program.
             */
 
             /* Inform parent that we won't use udata anymore */
@@ -257,7 +254,7 @@ LONG launcher()
             {
                 D(bug("launcher: prepare to catch _exit()\n"));
                 /* Part 2 of "program_startup" for child. */
-                __progonly_program_startup_internal(ProgCtx, exec_exitjmp, &exec_error); // FIXME!!! What's the point of this?
+                __progonly_program_startup_internal(ProgCtx, exec_exitjmp, &exec_error);
 
                 D(bug("launcher: executing command\n"));
                 __progonly_exec_do(ectx);
@@ -446,11 +443,6 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 
     errno = udata->child_errno;
 
-    /* leavepretendchild will restore old StdCBase and thus also
-       old startup jmp_buf.
-       This is also the reason this function has to be called before
-       signaling child that we are after _exit().
-    */
     parent_leavepretendchild(udata);
 
     if(udata->parent_called_exec_pretending_child)
@@ -558,12 +550,10 @@ static void parent_enterpretendchild(struct vfork_data *udata)
     __init_stdio(udata->child_progctx->libbase);
     udata->child_progctx->libbase->PosixCBase->doupath = pPosixCBase->doupath;
 
-    /* Remember and switch StdCBase */
-    /* _[eE]xit() can also be called with the switched StdCBase so we also
-       register the exit jmp_buf in this StdCBase. We don't need to remember
-       old as child will overwrite these if it should call __exec_do().
+    /* Note: it is possible that Parent should replace its ProgCtx with the
+       created by Child for the durection of "pretending". I have not come
+       across a test case so far that show that this is required
     */
-    // __progonly_program_startup_internal(udata->child_progctx, udata->parent_newexitjmp, &udata->child_error); FIXME!!!
 
     /* Remember and switch chdir fields */
     udata->parent_curdir = CurrentDir(((struct Process *)udata->child)->pr_CurrentDir);
