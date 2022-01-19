@@ -20,6 +20,7 @@ struct Data
 
 int numMessages;
 
+struct MUI_CustomClass *mcc_Notify;
 struct MUI_CustomClass *mcc_Rectangle;
 struct MUI_CustomClass *mcc_Window;
 
@@ -74,6 +75,7 @@ CU_SUITE_SETUP()
     if (!MUIMasterBase)
         CUE_SINIT_FAILED;
 
+    mcc_Notify      = MUI_CreateCustomClass(NULL, MUIC_Notify, NULL, sizeof(struct Data), dispatcher);
     mcc_Rectangle   = MUI_CreateCustomClass(NULL, MUIC_Rectangle, NULL, sizeof(struct Data), dispatcher);
     mcc_Window      = MUI_CreateCustomClass(NULL, MUIC_Window, NULL, sizeof(struct Data), dispatcher);
 
@@ -82,6 +84,7 @@ CU_SUITE_SETUP()
 
 CU_SUITE_TEARDOWN()
 {
+    MUI_DeleteCustomClass(mcc_Notify);
     MUI_DeleteCustomClass(mcc_Rectangle);
     MUI_DeleteCustomClass(mcc_Window);
     CloseLibrary(MUIMasterBase);
@@ -94,6 +97,40 @@ CU_TEST_SETUP()
 
 CU_TEST_TEARDOWN()
 {
+}
+
+static void test_handleevent_notify()
+{
+    ULONG sigs;
+    Object *app = ApplicationObject, End;
+    Object *obj = NewObject(mcc_Notify->mcc_Class, NULL, TAG_END);
+    Object *win = WindowObject, MUIA_Window_RootObject, RectangleObject, End, End;
+    DoMethod(app, OM_ADDMEMBER, win);
+
+    struct MUI_EventHandlerNode ehnode;
+    ehnode.ehn_Object = obj;
+    ehnode.ehn_Class  = mcc_Notify->mcc_Class;
+    ehnode.ehn_Events = IDCMP_INTUITICKS;
+    ehnode.ehn_Priority = 10;
+    DoMethod(win, MUIM_Window_AddEventHandler, &ehnode);
+
+    set(win, MUIA_Window_Open, TRUE);
+
+    numMessages = 0;
+
+    for (int j = 0; j < 10; j++) {
+        sigs = 0;
+        do {
+            DoMethod(app, MUIM_Application_NewInput, &sigs);
+        } while (sigs == 0);
+        Delay(1);
+    }
+
+    CU_ASSERT(numMessages > 0);
+
+    DoMethod(win, MUIM_Window_RemEventHandler, &ehnode);
+
+    MUI_DisposeObject(app);
 }
 
 static void test_handleevent_rectangle()
@@ -145,6 +182,7 @@ static void test_handleevent_window()
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CUNIT_CI_TEST(test_handleevent_notify);
     CUNIT_CI_TEST(test_handleevent_rectangle);
     CUNIT_CI_TEST(test_handleevent_window);
     return CU_CI_RUN_SUITES();

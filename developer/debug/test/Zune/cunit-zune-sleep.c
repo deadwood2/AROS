@@ -44,12 +44,68 @@ CU_TEST_TEARDOWN()
 {
 }
 
+static void test_nesting_application_sleep()
+{
+    /* MUI 3.8 always returns 0 */
+    Object *app = ApplicationObject, End;
+    CU_ASSERT_EQUAL(0, nget(app, MUIA_Application_Sleep));
+
+    set(app, MUIA_Application_Sleep, TRUE);
+    CU_ASSERT_EQUAL(0, nget(app, MUIA_Application_Sleep));
+
+    set(app, MUIA_Application_Sleep, TRUE);
+    CU_ASSERT_EQUAL(0, nget(app, MUIA_Application_Sleep));
+
+    set(app, MUIA_Application_Sleep, FALSE);
+    CU_ASSERT_EQUAL(0, nget(app, MUIA_Application_Sleep));
+
+    set(app, MUIA_Application_Sleep, FALSE);
+    CU_ASSERT_EQUAL(0, nget(app, MUIA_Application_Sleep));
+
+    MUI_DisposeObject(app);
+}
+
+static void test_nesting_window_sleep()
+{
+    Object *app = ApplicationObject, End;
+    Object *win = WindowObject,
+           MUIA_Window_Title, "A window",
+           MUIA_Window_RootObject, RectangleObject,
+               End,
+           End;
+    DoMethod(app, OM_ADDMEMBER, win);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, TRUE);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Open, TRUE);
+
+    set(win, MUIA_Window_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, FALSE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, FALSE);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    MUI_DisposeObject(app);
+}
+
 static void test_dont_underflow_window_sleep()
 {
     Object *app = ApplicationObject, End;
     set(app, MUIA_Application_Sleep, TRUE);
 
-    Object *win = WindowObject, End;
+    Object *win = WindowObject,
+           MUIA_Window_Title, "A window",
+           MUIA_Window_RootObject, RectangleObject,
+               End,
+           End;
     DoMethod(app, OM_ADDMEMBER, win);
     set(win, MUIA_Window_Open, TRUE);
 
@@ -66,8 +122,16 @@ static void test_put_only_open_window_to_sleep()
 {
     Object *app = ApplicationObject, End;
 
-    Object *win1 = WindowObject, End;
-    Object *win2 = WindowObject, End;
+    Object *win1 = WindowObject,
+           MUIA_Window_Title, "A window",
+           MUIA_Window_RootObject, RectangleObject,
+               End,
+           End;
+    Object *win2 = WindowObject,
+           MUIA_Window_Title, "A window",
+           MUIA_Window_RootObject, RectangleObject,
+               End,
+           End;
     DoMethod(app, OM_ADDMEMBER, win1);
     DoMethod(app, OM_ADDMEMBER, win2);
 
@@ -78,20 +142,90 @@ static void test_put_only_open_window_to_sleep()
 
     set(app, MUIA_Application_Sleep, TRUE);
 
+    CU_ASSERT_EQUAL(1, nget(win1, MUIA_Window_Sleep));
+    CU_ASSERT_EQUAL(0, nget(win2, MUIA_Window_Sleep));
 
+    set(win2, MUIA_Window_Open, TRUE);
+    set(app, MUIA_Application_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win1, MUIA_Window_Sleep));
+    CU_ASSERT_EQUAL(1, nget(win2, MUIA_Window_Sleep));
+
+    set(app, MUIA_Application_Sleep, FALSE);
     CU_ASSERT_EQUAL(1, nget(win1, MUIA_Window_Sleep));
     CU_ASSERT_EQUAL(0, nget(win2, MUIA_Window_Sleep));
 
     set(app, MUIA_Application_Sleep, FALSE);
-    set(win1, MUIA_Window_Open, FALSE);
+    CU_ASSERT_EQUAL(0, nget(win1, MUIA_Window_Sleep));
+    CU_ASSERT_EQUAL(0, nget(win2, MUIA_Window_Sleep));
 
     MUI_DisposeObject(app);
 }
 
+static void test_put_only_open_window_to_sleep_2()
+{
+    Object *app = ApplicationObject, End;
+
+    Object *win = WindowObject,
+           MUIA_Window_Title, "A window",
+           MUIA_Window_RootObject, RectangleObject,
+               End,
+           End;
+    DoMethod(app, OM_ADDMEMBER, win);
+
+    // Testing MUIA_Application_Sleep
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    set(app, MUIA_Application_Sleep, TRUE);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+    set(app, MUIA_Application_Sleep, FALSE);
+
+    set(win, MUIA_Window_Open, TRUE);
+    set(app, MUIA_Application_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(app, MUIA_Application_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(app, MUIA_Application_Sleep, FALSE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Open, FALSE);
+    set(app, MUIA_Application_Sleep, FALSE);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    // Testing MUIA_Window_Sleep
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, TRUE);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+    set(win, MUIA_Window_Sleep, FALSE);
+
+    set(win, MUIA_Window_Open, TRUE);
+    set(win, MUIA_Window_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, TRUE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Sleep, FALSE);
+    CU_ASSERT_EQUAL(1, nget(win, MUIA_Window_Sleep));
+
+    set(win, MUIA_Window_Open, FALSE);
+    set(win, MUIA_Window_Sleep, FALSE);
+    CU_ASSERT_EQUAL(0, nget(win, MUIA_Window_Sleep));
+
+    MUI_DisposeObject(app);
+}
+
+
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("MUIA_Sleep_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
     CUNIT_CI_TEST(test_dont_underflow_window_sleep);
     CUNIT_CI_TEST(test_put_only_open_window_to_sleep);
+    CUNIT_CI_TEST(test_put_only_open_window_to_sleep_2);
+    CUNIT_CI_TEST(test_nesting_application_sleep);
+    CUNIT_CI_TEST(test_nesting_window_sleep);
+
     return CU_CI_RUN_SUITES();
 }
