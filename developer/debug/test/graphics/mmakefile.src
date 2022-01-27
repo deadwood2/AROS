@@ -12,6 +12,7 @@ FILES := \
     gfx \
     gfxinfo \
     gfxtest \
+    loadview \
     obtainpentest \
     readpixelarray \
     scalepixelarray \
