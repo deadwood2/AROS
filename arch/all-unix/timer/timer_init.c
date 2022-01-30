@@ -1,14 +1,6 @@
 /*
-    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2019, The AROS Development Team. All rights reserved.
 */
-
-/*
- * UNIX-hosted timer driver.
- * Unix operating systems have only one usable timer, producing SIGALRM.
- * In this implementation we run the timer with a fixed frequency, which
- * is a multiple of VBlank frequency.
- * TODO: Rewrite UNIX-hosted timer.device to use variable delays, for improved accuracy.
- */
 
 #include <aros/config.h>
 #include <aros/bootloader.h>
@@ -23,6 +15,11 @@
 #include <proto/hostlib.h>
 #include <proto/kernel.h>
 
+#if defined(__AROSEXEC_SMP__)
+#include <proto/execlock.h>
+#include <resources/execlock.h>
+#endif
+
 #include "timer_intern.h"
 #include "timer_macros.h"
 
@@ -31,6 +28,7 @@
 #include <signal.h>
 #include <sys/time.h>
 #include <string.h>
+#include <unistd.h>
 
 #undef timeval
 
@@ -76,20 +74,53 @@ static void TimerTick(struct TimerBase *TimerBase, struct ExecBase *SysBase)
     TimerBase->tb_Platform.tb_TimerCount++;
     if (TimerBase->tb_Platform.tb_TimerCount == TimerBase->tb_Platform.tb_VBlankTicks)
     {
-        vblank_Cause(SysBase);
+        /* Protect the interrupt chain list when "causing" INTB_VERTB
+
+           alsa.audio is continuously doing Add/Rem IntServer which
+           was randomly triggering a crash here as the list was being
+           modified while the interrupt code was running.
+        */
+#if defined(__AROSEXEC_SMP__)
+        struct ExecLockBase *ExecLockBase = TimerBase->tb_ExecLockBase;
+        if (ExecLockBase) ObtainSystemLock(&SysBase->IntrList, SPINLOCK_MODE_READ, LOCKF_DISABLE);
+#endif
+        /* vblank_Cuase */
+        struct IntVector *iv = &SysBase->IntVects[INTB_VERTB];
+
+        if (iv->iv_Code)
+            AROS_INTC2(iv->iv_Code, iv->iv_Data, INTF_VERTB);
+#if defined(__AROSEXEC_SMP__)
+        if (ExecLockBase) ReleaseSystemLock(&SysBase->IntrList, LOCKF_DISABLE);
+#endif
+
         handleVBlank(TimerBase, SysBase);
 
         TimerBase->tb_Platform.tb_TimerCount = 0;
     }
 }
-
-#define KernelBase TimerBase->tb_KernelBase
+static VOID timerTask(struct TimerBase *TimerBase, struct ExecBase *sysBase)
+{
+    while (1)
+    {
+        usleep(TimerBase->tb_Platform.tb_VBlankTime.tv_micro);
+        TimerTick(TimerBase, sysBase);
+    }
+}
 
 static int Timer_Init(struct TimerBase *TimerBase)
 {
     APTR BootLoaderBase;
     struct itimerval interval;
     int ret;
+
+#if defined(__AROSEXEC_SMP__)
+    struct ExecLockBase *ExecLockBase;
+    if ((ExecLockBase = OpenResource("execlock.resource")) != NULL)
+    {
+        TimerBase->tb_ExecLockBase = ExecLockBase;
+        TimerBase->tb_ListLock = AllocLock();
+    }
+#endif
 
     HostLibBase = OpenResource("hostlib.resource");
     if (!HostLibBase)
@@ -101,11 +132,6 @@ static int Timer_Init(struct TimerBase *TimerBase)
 
     TimerBase->tb_Platform.setitimer = HostLib_GetPointer(TimerBase->tb_Platform.libcHandle, "setitimer", NULL);
     if (!TimerBase->tb_Platform.setitimer)
-        return FALSE;
-
-    /* Install timer IRQ handler */
-    TimerBase->tb_TimerIRQHandle = KrnAddIRQHandler(SIGALRM, TimerTick, TimerBase, SysBase);
-    if (!TimerBase->tb_TimerIRQHandle)
         return FALSE;
 
     /* Our defaults: 50 Hz VBlank and 4x timer rate. 1x gives very poor results. */
@@ -150,7 +176,10 @@ static int Timer_Init(struct TimerBase *TimerBase)
 
     HostLib_Lock();
 
-    ret = TimerBase->tb_Platform.setitimer(ITIMER_REAL, &interval, NULL);
+    NewCreateTask(TASKTAG_PC, timerTask, TASKTAG_NAME, "Timer Heartbeat",
+            TASKTAG_ARG1, TimerBase, TASKTAG_ARG2, SysBase, TAG_DONE);
+    ret = 0;
+
     AROS_HOST_BARRIER
 
     HostLib_Unlock();
@@ -163,9 +192,6 @@ static int Timer_Expunge(struct TimerBase *TimerBase)
 {
     if (!HostLibBase)
         return TRUE;
-
-    if (TimerBase->tb_TimerIRQHandle)
-        KrnRemIRQHandler(TimerBase->tb_TimerIRQHandle);
 
     if (TimerBase->tb_Platform.libcHandle)
         HostLib_Close(TimerBase->tb_Platform.libcHandle, NULL);
