@@ -2,6 +2,7 @@
 #define _AROS_TYPES_TIMEVAL_S_H_
 
 #include <aros/cpu.h>
+#include <bits/types.h>
 
 /* Version of timeval structure that guarantees 32-bit sizes and can be used
     then 32-bit is enough */
@@ -15,27 +16,33 @@ struct timeval32
    for compability with POSIX-style structure. All new compiled code will be
    using 64-bit wide fields for both AROS-style and POSIX-style functions */
 
-/* The following structure is composed of two anonymous unions so that it
-   can be transparently used by both AROS-style programs and POSIX-style
-   ones. For binary compatibility reasons the fields in the unions MUST
-   have the same size, however they can have different signs (as it is
-   the case for microseconds).  */
+/* The following structure is combines two requirements:
+        Linux-side POSIX requires 64-bit fields
+        AROS-side is still operating on 32-bit fields
+   In future AROS-will migrate to 64-bit fields and this structure will
+   return to initial setup of two unions */
 
 #ifndef NO_AROS_TIMEVAL
 
+#if (__WORDSIZE == 64) && (!AROS_BIG_ENDIAN)
 __extension__ struct timeval
 {
-    union  /* Seconds passed. */
+    union
     {
+        struct
+        {
         unsigned AROS_32BIT_TYPE tv_secs;   /* AROS field */
-        unsigned AROS_32BIT_TYPE tv_sec;    /* POSIX field */
+        unsigned AROS_32BIT_TYPE tv_micro;  /* AROS field */
+        };
+        /* Seconds passed. */
+        __time_t tv_sec;	                /* POSIX field */
     };
-    union /* Microseconds passed in the current second. */
-    {
-        unsigned AROS_32BIT_TYPE tv_micro; /* AROS field */
-        signed   AROS_32BIT_TYPE tv_usec;  /* POSIX field */
-    };
+    /* Microseconds passed in the current second. */
+    __suseconds_t tv_usec;                  /* POSIX field */
 };
+#else
+#error Adjust struct timeval to your architecture
+#endif
 
 #endif /* !NO_AROS_TIMEVAL */
 
