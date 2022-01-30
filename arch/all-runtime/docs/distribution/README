@@ -111,9 +111,9 @@ at: http://www.aros.org/
       AXRTSYS subdirectory in application directory
 
     <Application Directory>
-    ├── <Application Executable>
-    ├── AXRTSYS
-    ├── libaxrt.so
+    |--> <Application Executable>
+    |--> AXRTSYS
+    |--> libaxrt.so
 
     If you are getting the following error when running the application:
 
