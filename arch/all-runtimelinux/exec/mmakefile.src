@@ -2,9 +2,9 @@
 include $(SRCDIR)/config/aros.cfg
 
 FILES := allocabs allocate createpool \
-        deallocate deletepool exec_debug exec_locks \
-        initkicktags memory_nommu newaddtask \
-        signal stackswap wait
+        deallocate deletepool \
+        initkicktags memory_nommu \
+        stackswap
 
 USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
 		 -isystem $(GENINCDIR) $(KERNEL_INCLUDES) \
