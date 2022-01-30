@@ -3,7 +3,8 @@ include $(SRCDIR)/config/aros.cfg
 
 # Allow to override timer_platform.h
 USER_INCLUDES := -I$(SRCDIR)/arch/$(CPU)-$(ARCH)/timer	\
-	         -I$(SRCDIR)/arch/all-$(ARCH)/timer
+	         -I$(SRCDIR)/arch/all-$(ARCH)/timer \
+	         -I$(SRCDIR)/arch/all-unix/timer
 ifneq ($(FAMILY),)
 USER_INCLUDES += -I$(SRCDIR)/arch/all-$(FAMILY)/timer
 endif
