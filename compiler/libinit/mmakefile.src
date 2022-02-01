@@ -4,8 +4,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : linklibs-libinit
-#MM- linklibs: linklibs-libinit
+#MM- core-linklibs : linklibs-libinit libinit-libentry libinit-kickentry
+#MM- linklibs: linklibs-libinit libinit-libentry libinit-kickentry
 #MM linklibs-libinit : includes
 
 USER_CFLAGS := $(MODULE_ISA_CFLAGS)
@@ -28,5 +28,3 @@ $(GENDIR)/$(CURDIR)/libentry.o : $(SRCDIR)/$(CURDIR)/libentry.c | $(GENDIR)/$(CU
 
 #MM
 libinit-libentry : $(GENDIR)/compiler/libinit/libentry.o
-
-#MM- linklibs-startup : libinit-libentry libinit-kickentry
