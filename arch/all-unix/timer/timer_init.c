@@ -10,6 +10,7 @@
  * TODO: Rewrite UNIX-hosted timer.device to use variable delays, for improved accuracy.
  */
 
+#include <aros/config.h>
 #include <aros/bootloader.h>
 #include <aros/debug.h>
 #include <aros/symbolsets.h>
@@ -61,6 +62,9 @@ int atoi(const char *nptr);
 /* Handle periodic timer and drive exec VBlank */
 static void TimerTick(struct TimerBase *TimerBase, struct ExecBase *SysBase)
 {
+#if defined(__AROSEXEC_SMP__)
+    struct ExecLockBase *ExecLockBase = TimerBase->tb_ExecLockBase;
+#endif
     /* Increment EClock value and process microhz requests */
     ADDTIME(&TimerBase->tb_CurrentTime, &TimerBase->tb_Platform.tb_VBlankTime);
     ADDTIME(&TimerBase->tb_Elapsed, &TimerBase->tb_Platform.tb_VBlankTime);

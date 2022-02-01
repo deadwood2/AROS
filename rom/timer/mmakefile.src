@@ -28,6 +28,6 @@ USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-timer \
   modname=timer modtype=device version=$(AROS_TARGET_PLATFORM) \
-  files="$(FUNCS) $(FILES)" archspecific=yes usesdks="config"
+  files="$(FUNCS) $(FILES)" archspecific=yes usesdks="private config"
 
 %common

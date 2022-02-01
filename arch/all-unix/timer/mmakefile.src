@@ -12,6 +12,6 @@ endif
 %build_archspecific \
   mainmmake=kernel-timer maindir=rom/timer \
   arch=unix modname=timer \
-  files="timer_init" usesdks="private"
+  files="timer_init" usesdks="private config"
 
 %common
