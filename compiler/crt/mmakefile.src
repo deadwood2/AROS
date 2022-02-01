@@ -880,13 +880,11 @@ USER_CPPFLAGS := \
 %build_linklib mmake=linklibs-stdc-static libname=stdc.static \
     files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 
-#MM- linklibs-romhack : compiler-stdlib
 # FIXME: The next romhack linklib is a temporary hack and has to be
 # excommunicated in the future !
 # setjmp()/longjmp() is used in dos.library so make it available.
 # Plan to put stdc.library also in aros-base rom so this is not needed anymore
-%build_linklib mmake=linklibs-romhack \
-    objdir=$(GENDIR)/$(CURDIR)/stdlib libname=romhack files="setjmp longjmp"
+#MM- linklibs-romhack : linklibs-romhack-$(AROS_TARGET_CPU)
 
 # pc-x86_64 needs a 32bit version stdc.static
 ifeq ($(AROS_TARGET_CPU),x86_64)

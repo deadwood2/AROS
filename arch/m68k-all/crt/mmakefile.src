@@ -79,3 +79,5 @@ TARGET_ISA_AFLAGS :=
   mainmmake=compiler-crt maindir=compiler/crt \
   modname=crt arch=m68k \
   asmfiles="../posixc/siglongjmp ../posixc/sigsetjmp ../posixc/vfork ../posixc/vfork_longjmp"
+
+%build_linklib mmake=linklibs-romhack-m68k libname=romhack asmfiles=$(STDLIB_M68K_ASMFILES) sdk="private"
