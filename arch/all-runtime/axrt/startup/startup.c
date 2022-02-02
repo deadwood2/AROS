@@ -18,7 +18,7 @@
 /*****************************************************************************/
 /* Code copied from compiler/startup/startup.c                               */
 
-struct DosLibrary *DOSBase;
+struct DosLibrary *DOSBase __attribute__((weak));
 
 THIS_PROGRAM_HANDLES_SYMBOLSET(PROGRAM_ENTRIES)
 
@@ -103,7 +103,7 @@ void __runtimestartup()
     /* This thread is not an AROS Process/Task. Restrictions apply. */
 
     /* This is executed before main() via INIT_ARRAY section. The host thread
-     * have not yet reached main(). It will never reach it, __kick_start has to
+     * has not yet reached main(). It will never reach it, __kick_start has to
      * guarantee this.
      */
 
