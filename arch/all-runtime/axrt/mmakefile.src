@@ -108,10 +108,14 @@ $(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
 
 %include_deps depstargets="runtime-objects-startup" deps=$(ROS_DEPS)
 
-COMPILER_FILES := \
-    axrt.specs \
-    axrt.ld
+#MM
+runtime-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
 
-%copy_files_q mmake=runtime-compiler-files files=$(COMPILER_FILES) src=compiler dst=$(AROS_LIB)
+$(AROS_LIB)/axrt.specs : $(SRCDIR)/$(CURDIR)/compiler/axrt.specs
+	@$(CP) $< $@
+	@$(SED) -i -e "s|@AXRT_LIB@|$(AROS_LIB)|g" $@
+
+$(AROS_LIB)/axrt.ld : $(SRCDIR)/$(CURDIR)/compiler/axrt.ld
+	@$(CP) $< $@
 
 %common

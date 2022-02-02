@@ -1,8 +1,12 @@
-%rename lib     default_lib
-%rename link    default_link
+%rename lib         default_lib
+%rename link        default_link
+%rename startfile   default_startfile
 
 *lib:
 --start-group -lexec -larossupport -lautoinit -lamiga -llibinit %{!noaxrtloader:-laxrt} --end-group %(default_lib)
 
 *link:
 %(default_link) -rpath=$ORIGIN
+
+*startfile:
+%(default_startfile) @AXRT_LIB@/startup%O%s
