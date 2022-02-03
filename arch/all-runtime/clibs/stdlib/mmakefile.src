@@ -69,6 +69,7 @@ RUNTIME_STDLIB_LINKLIB := \
 
 STDC_STATIC_SOURCES := \
     stpblk \
+    strlcat \
     strlcpy \
 
 RUNTIME_STDC_STATIC = \
