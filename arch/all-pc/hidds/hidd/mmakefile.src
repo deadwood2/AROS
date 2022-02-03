@@ -7,7 +7,7 @@ HIDDDIR := rom/hidds/hidd
 USER_CPPFLAGS := -DAROS_USE_OOP \
                -D__OOP_NOLIBBASE__ \
                -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 USER_INCLUDES := -I$(SRCDIR)/$(CURDIR) -I$(SRCDIR)/$(HIDDDIR)
 
 %build_archspecific \

@@ -26,7 +26,7 @@ USER_CPPFLAGS:= -DAROS_USE_OOP \
                     -D__GRAPHICS_NOLIBBASE__ \
                     -D__OOP_NOLIBBASE__ \
                     -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-hidd-gfx \
   modname=gfx modtype=hidd \

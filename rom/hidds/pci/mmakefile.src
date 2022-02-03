@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_INCLUDES := -I.
 
 USER_CPPFLAGS := -D__KERNEL__
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 FILES	:= pci_init pcidriverclass pcideviceclass pciclass pciutil
 

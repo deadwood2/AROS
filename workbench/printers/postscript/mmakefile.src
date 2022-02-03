@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 FILES := postscript
 
 USER_CFLAGS := -D__GRAPHICS_NOLIBBASE__
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 #MM- workbench-printers: workbench-printers-postscript
 

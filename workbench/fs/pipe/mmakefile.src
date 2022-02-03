@@ -2,7 +2,7 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM- workbench-fs-complete : workbench-fs-pipe
 
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 FILES=pipebuf pipedebug pipecreate pipedir \
       pipe-handler pipelists pipename pipesched \

@@ -11,7 +11,7 @@ USER_CPPFLAGS := \
                -D__OOP_NOMETHODBASES__ \
                -D__OOP_NOATTRBASES__
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-hidd-bus \
     modname=bus modtype=hidd \

@@ -23,7 +23,7 @@ FILES := \
 
 USER_CPPFLAGS += -DADATE="\"$(shell date "+%d.%m.%Y")\"" \
 	       -D__DOS_NOLIBBASE__
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 #MM- workbench-c : workbench-c-shell
 

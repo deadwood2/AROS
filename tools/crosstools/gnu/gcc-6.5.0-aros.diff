@@ -407,7 +407,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.h gcc-6.5.0.aros/gcc/config/aros.h
 +
 +#undef	LIB_SPEC
 +#define LIB_SPEC \
-+  "--start-group -lmui -larossupport -lamiga %{!nolibc: -lm -lstdlib %{!nostartfiles: -lcrtprog} -lcrt} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit --end-group"
++  "--start-group -lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib %{!nostartfiles: -lcrtprog} -lcrt} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit --end-group"
 +
 +#undef	LIBSTDCXX_STATIC
 +#define LIBSTDCXX_STATIC "pthread"
@@ -450,7 +450,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.opt gcc-6.5.0.aros/gcc/config/aros.opt
 +posix
 +Driver
 +
-+nolibc
++noclibs
 +Driver
 +
 +nosysbase

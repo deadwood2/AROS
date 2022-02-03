@@ -45,7 +45,7 @@ FUNCS := \
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
 	       -DDEBUG=0
-USER_LDFLAGS  := -nolibc -lstdc.static
+USER_LDFLAGS  := -noclibs -lstdc.static
 
 %build_module mmake=kernel-partition \
     modname=partition modtype=library \

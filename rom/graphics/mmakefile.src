@@ -6,7 +6,7 @@ USER_CFLAGS :=  $(AROSROM_MODULE_CFLAGS)
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
 	       -D__OOP_NOMETHODBASES__
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 FILES	  := \
 	intregions \

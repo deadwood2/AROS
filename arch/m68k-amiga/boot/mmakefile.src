@@ -357,7 +357,7 @@ $(GENDIR)/boot/objtest:
 $(GENDIR)/boot/objtest/%.tst : $(KOBJSDIR)/%.ko $(GENDIR)/boot/objtest
 	@$(ECHO) Test Linking $@...
 	$(KERNEL_CC) -Wl,-r \
-		-nolibc -nostartfiles -nostdlib \
+		-noclibs -nostartfiles -nostdlib \
 		-Wl,--defsym -Wl,start=0x0 \
 		-Wl,--defsym -Wl,SysBase=0x4 \
 		-Wl,--defsym -Wl,AbsExecBase=0x4 \

@@ -42,7 +42,7 @@ ACPICA_BASESOURCES = \
 
 NOWARN_FLAGS := $(NOWARN_STRICT_ALIASING)
 USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN_VSNPRINTF)
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 # ACPICA debugging options
 ifeq ($(DEBUG_ACPI),yes)

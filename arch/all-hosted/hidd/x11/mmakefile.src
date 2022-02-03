@@ -23,7 +23,7 @@ USER_CFLAGS := $(HOST_X11_CFLAGS)
 ## complaints with -O1 or higher optimizations enabled.
 USER_CFLAGS += -Wno-attributes
 
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 # TODO: What if the system is pure Darwin running a regular PC?
 ifeq ($(ARCH),darwin)

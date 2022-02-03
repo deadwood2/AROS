@@ -32,7 +32,7 @@ TARGET_ISA_AFLAGS:=$(ISA_MC68060_FLAGS)
 #MM workbench-c-m68k-setpatcharos : linklibs-loadseg
 #MM workbench-c-m68k-setpatch : kernel-setpatch-includes kernel-setpatch-linklib
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 FILES := gdbstub
 
@@ -49,7 +49,7 @@ FILES := gdbstop
 CFILES := SetPatchAROS
 AFILES := newstackswap
 USER_INCLUDES += -isystem $(SRCDIR)/rom/dos/include
-USER_LDFLAGS  := -nolibc
+USER_LDFLAGS  := -noclibs
 
 %build_prog mmake=workbench-c-m68k-setpatcharos progname=SetPatchAROS \
     files=$(CFILES) asmfiles=$(AFILES) targetdir=$(AROSARCHDIR) \

@@ -350,7 +350,7 @@ NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE) $(NOWARN_UNUSED_VARIABLE) \
     $(NOWARN_PARENTHESES) $(NOWARN_UNINITIALIZED)
 
 USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' 
 #USER_CPPFLAGS += -DDEBUG=1
@@ -364,7 +364,7 @@ USER_CPPFLAGS := \
 ###############################################################################
 
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' \
 #USER_CPPFLAGS += -DDEBUG=1
@@ -478,7 +478,7 @@ USER_INCLUDES := \
     -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
     -iquote $(SRCDIR)/compiler/posixc
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 CRT := \
     $(SRCDIR)/compiler/crt/__crt_exec \

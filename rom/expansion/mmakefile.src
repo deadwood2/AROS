@@ -27,7 +27,7 @@ endif
 
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-expansion \
   modname=expansion modtype=library version=$(VERSION) \

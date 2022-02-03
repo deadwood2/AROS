@@ -12,7 +12,7 @@ USER_CPPFLAGS := \
                -D__UTILITY_NOLIBBASE__ \
                -D__GRAPHICS_NOLIBBASE__
 
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 #MM- kernel-fs-con : includes linklibs kernel-fs-con-linklib
 

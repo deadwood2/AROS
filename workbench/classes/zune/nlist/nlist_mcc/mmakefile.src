@@ -31,7 +31,7 @@ USER_INCLUDES := -idirafter $(SRCDIR)/$(CURDIR)/../include -I$(SRCDIR)/$(CURDIR)
 
 USER_CPPFLAGS := -DAROS_ABI_V1
 USER_CFLAGS += $(PARANOIA_CFLAGS)
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module_simple mmake=classes-zune-nlist-class \
   modname=NList modtype=mcc \

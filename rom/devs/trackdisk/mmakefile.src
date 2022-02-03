@@ -7,7 +7,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG
 USER_INCLUDES := -I$(TOP)/rom/devs
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-devs-trackdisk \
   modname=trackdisk modtype=device \

@@ -4579,7 +4579,7 @@ endif
 
 %(file): KOBJS    := $(KOBJS)
 %(file): LDFLAGS  := $(strip $(TMP_LDFLAGS) $(NOSTARTUP_LDFLAGS) \
-                    -nolibc -nosysbase -Wl,-Ur)
+                    -noclibs -nosysbase -Wl,-Ur)
 %(file): LDLIBS   := $(addprefix -l, %(uselibs)) -lstdc.static
 %(file): $(KOBJS) $(DEPLIBS) | $(TMP_DIRS)
 	$(Q)$(ECHO) "Kickstart  $(subst $(TARGETDIR)/,,$@)..."

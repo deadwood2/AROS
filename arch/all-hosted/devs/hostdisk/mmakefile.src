@@ -6,7 +6,7 @@ USER_INCLUDES := -I$(SRCDIR)/arch/all-$(ARCH)/devs/hostdisk
 ifneq ($(FAMILY),)
 USER_INCLUDES += -I$(SRCDIR)/arch/all-$(FAMILY)/devs/hostdisk
 endif
-USER_LDFLAGS	= -nolibc -lstdc.static
+USER_LDFLAGS	= -noclibs -lstdc.static
 
 %build_module mmake=workbench-devs-hostdisk \
   modname=hostdisk modtype=device version=$(AROS_TARGET_PLATFORM) \

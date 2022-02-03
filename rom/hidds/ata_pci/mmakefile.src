@@ -8,7 +8,7 @@ USER_CPPFLAGS := \
         -D__OOP_NOATTRBASES__
 
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-hidd-pciata \
     modname=ata_pci modtype=hidd \

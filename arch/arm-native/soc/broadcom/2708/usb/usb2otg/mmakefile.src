@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 FILES := \
     usb2otg_device \

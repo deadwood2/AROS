@@ -13,7 +13,7 @@ USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 USER_CPPFLAGS := \
                -DNO_INLINE_STDARG \
                -DUSE_EXEC_DEBUG
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 #MM kernel-keymap-includes : \
 #MM     kernel-exec-includes

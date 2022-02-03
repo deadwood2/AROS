@@ -22,7 +22,7 @@ USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
 	       -D__INTUITION_NOLIBBASE__ \
 	       -DADATE="\"$(shell date '+%d.%m.%Y')\""
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-fs-afs \
     modname=afs modtype=handler \

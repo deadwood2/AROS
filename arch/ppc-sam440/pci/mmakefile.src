@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-hidd-pci-amcc440 \
   modname=pci-amcc440 modtype=hidd \

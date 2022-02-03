@@ -14,7 +14,7 @@ DOS_CPPFLAGS := \
 ifneq ($(REPOTYPE),)
     DOS_CPPFLAGS  += -DREPOTYPE=\"$(REPOTYPE)\" -DREPOREVISION=\"$(REPOREVISION)\" -DREPOID=\"$(REPOID)\"
 endif
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 ifeq ($(AROS_TARGET_CPU),m68k)
 # Make sure we optimize this code for size on m68k..
 OPTIMIZATION_CFLAGS := -Os

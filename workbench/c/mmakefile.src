@@ -80,7 +80,7 @@ USER_CFLAGS      :=
 #   * The amiga-m68k boot floppy doesn't have space for stdc.library
 #   * This gives us some possibility of system recovery if LIBS:
 #     is deleted or badly Assign(ed).
-USER_LDFLAGS     := -nolibc -larossupport -lstdc.static
+USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
 
 #MM- workbench : workbench-c workbench-c-private
 #MM- workbench-quick : workbench-c-quick

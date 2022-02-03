@@ -17,7 +17,7 @@ USER_CPPFLAGS := \
                -D__OOP_NOATTRBASES__ \
                -D__GRAPHICS_NOLIBBASE__ \
                -D__KEYMAP_NOLIBBASE__
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 FILES := boolgadgets boopsigadgets buttongclass frameiclass frbuttonclass \
          gadgetclass gadgets imageclass inputhandler propgadgets propgclass \

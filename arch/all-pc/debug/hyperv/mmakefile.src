@@ -8,7 +8,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG
 #USER_CPPFLAGS += -DDEBUG=1
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 #USER_INCLUDES := -I $(SRCDIR)/rom/exec
 USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) -I$(SRCDIR)/arch/all-native/kernel \

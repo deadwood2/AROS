@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM hidd-m68k-sagagfx : kernel-hidd-gfx-includes devs-monitors-wrapper
 
-USER_LDFLAGS := -nolibc
+USER_LDFLAGS := -noclibs
 
 SAGA_HIDD_SOURCES := \
         sagagfx_init \

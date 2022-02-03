@@ -23,7 +23,7 @@ GL_LIBRARY_SOURCES = \
 
 USER_INCLUDES := -I$(GENDIR)/$(CURDIR)/include
 
-USER_LDFLAGS := -nolibc -lstdc.static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module_simple mmake=workbench-libs-gl \
 	modname=gl modtype=library \
