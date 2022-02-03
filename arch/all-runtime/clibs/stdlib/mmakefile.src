@@ -1,0 +1,88 @@
+include $(SRCDIR)/config/aros.cfg
+
+#MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdlib-linklib $(FAMILY)-clibs-crtmod
+#MM- runtime-clibs : runtime-clibs-stdlib
+
+STDC_PATH = $(SRCDIR)/compiler/stdc/
+
+STDLIB_SOURCES := \
+    stccpy \
+    stcd_l \
+    stch_l \
+    stcl_d \
+    stcl_h \
+    stcl_o \
+    stco_l \
+    stcu_d \
+    stpblk \
+    stpsym \
+    strlcpy \
+    strlcat \
+    strlwr \
+    strrev \
+    strsep \
+    strupr
+
+RUNTIME_STDLIB = \
+    $(addprefix $(STDC_PATH),$(STDLIB_SOURCES)) \
+
+USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
+USER_LDFLAGS :=
+USER_CPPFLAGS := -Dlint '-D__FBSDID(x)='
+
+# build_module_library is used instead of build_module so that linklibs-stdlib target is not created
+# this target would interfere with standard build
+
+%build_module_library mmake=runtime-clibs-stdlib \
+    modname=stdlib modtype=library \
+    files="$(RUNTIME_STDLIB)"
+
+#==============================================================================
+
+# Generate stub files and compile linklib in separate directory not to cause
+# conflicts with build_module_library(stdlib) above.
+
+STDLIBLINKLIB_OBJDIR := $(GENDIR)/$(CURDIR)/stdlib-linklib
+STDLIBLINKLIB-makefile := $(STDLIBLINKLIB_OBJDIR)/Makefile.stdliblibrary
+STDLIBLINKLIB_GENFILEFLAG := $(STDLIBLINKLIB_OBJDIR)/.stdlib.library-genfiles
+
+#MM
+runtime-clibs-stdlib-linklib-gen : $(STDLIBLINKLIB-makefile) $(STDLIBLINKLIB_GENFILEFLAG)
+
+$(STDLIBLINKLIB-makefile) : runtime-clibs-stdlib-linklib-makedirs
+
+%rule_makedirs dirs="$(STDLIBLINKLIB_OBJDIR) $(STDLIBLINKLIB_OBJDIR)/linklib" setuptarget=runtime-clibs-stdlib-linklib-makedirs
+
+%rule_genmodule_makefile modname=stdlib modtype=library targetdir="$(STDLIBLINKLIB_OBJDIR)"
+
+%rule_genmodule_files modname=stdlib modtype=library targetdir="$(STDLIBLINKLIB_OBJDIR)" stubdir="$(STDLIBLINKLIB_OBJDIR)/linklib"
+
+RUNTIME_STDLIB_LINKLIB := \
+    $(basename $(call WILDCARD, $(STDLIBLINKLIB_OBJDIR)/linklib/*.c))
+
+#MM runtime-clibs-stdlib-linklib : runtime-clibs-stdlib-linklib-gen
+
+%build_linklib mmake=runtime-clibs-stdlib-linklib libname=stdlib \
+    files="$(RUNTIME_STDLIB_LINKLIB)" objdir="$(STDLIBLINKLIB_OBJDIR)/linklib"
+
+#==============================================================================
+
+STDC_STATIC_SOURCES := \
+    stpblk \
+    strlcpy \
+
+RUNTIME_STDC_STATIC = \
+    $(addprefix $(STDC_PATH),$(STDC_STATIC_SOURCES)) \
+
+USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN)
+USER_CPPFLAGS := -DSTDC_STATIC -Dlint
+
+%build_linklib mmake=runtime-clibs-stdc-static libname=stdc.static \
+    files="$(RUNTIME_STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
+
+#==============================================================================
+
+%build_linklib mmake=runtime-clibs-crtmod libname=crtmod \
+    files="" objdir="$(STDLIBLINKLIB_OBJDIR)/linklib"
+
+%common
