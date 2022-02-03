@@ -112,7 +112,7 @@ USER_LDFLAGS := -L$(GENDIR)/$(CURDIR)/lib -lftcommon
 %build_prog mmake=test-freetype-ftstring-static \
     progname=ftstring-static targetdir=$(EXEDIR) \
     files="$(addprefix $(FT2SRCDIR)/src/,ftstring)" \
-    uselibs="ftcommon graph common freetype2.static png z1" objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
+    uselibs="ftcommon graph common freetype2.static png z" objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
 
 USER_CPPFLAGS += -DFT2_BUILD_LIBRARY
 
@@ -124,6 +124,6 @@ USER_CPPFLAGS += -DFT2_BUILD_LIBRARY
 %build_prog mmake=test-freetype-ftview-static \
     progname=ftview-static targetdir=$(EXEDIR) \
     files="$(addprefix $(FT2SRCDIR)/src/,ftview)" \
-    uselibs="ftcommon graph common freetype2.static png z1" objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
+    uselibs="ftcommon graph common freetype2.static png z" objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
 
 %common
