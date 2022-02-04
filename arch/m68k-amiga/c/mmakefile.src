@@ -38,7 +38,7 @@ FILES := gdbstub
 
 %build_progs mmake=workbench-c-m68k-gdbstub \
     files=$(FILES) targetdir=$(AROS_C) \
-    detach=yes uselibs="romhack stdc.static" coverageinstr=no
+    detach=yes uselibs="romhack stdc.static" usesdks="private" coverageinstr=no
 
 FILES := gdbstop
 
