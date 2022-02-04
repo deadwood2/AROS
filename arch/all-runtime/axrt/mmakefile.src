@@ -31,6 +31,8 @@ MODULE_FILES := \
     shims/init \
     shims/util
 
+RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+
 BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 
 .PHONY : $(BD_ALLTARGETS)
@@ -39,7 +41,7 @@ BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 
 # Default values for variables and arguments
 BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden $(WARN_ERROR) -I$(SRCDIR)/$(CURDIR)/shims -I$(AROS_PRIVATE_INCLUDES)
-CFLAGS += -I$(SRCDIR)/$(CURDIR)/shims # Needed to resolve error with mkdepend_q
+CFLAGS += -I$(SRCDIR)/$(CURDIR)/shims -I$(AROS_PRIVATE_INCLUDES) # Needed to resolve error with mkdepend_q
 OBJDIR ?= $(GENDIR)/$(CURDIR)
 BD_MODDIR := $(AROS_LIB)
 
@@ -52,7 +54,7 @@ BD_NARCHFILES := $(filter-out $(BD_ARCHFILES),$(MODULE_FILES))
     cflags="$(BD_DEFDFLAGS)" \
     compiler=target
 
-BD_MODULE := $(BD_MODDIR)/libaxrt.so
+BD_MODULE := $(BD_MODDIR)/libaxrt-$(RT_ABI).0.so
 
 runtime-axrt-so-quick : runtime-axrt-so
 runtime-axrt-so       : $(BD_MODULE)
@@ -60,7 +62,7 @@ runtime-axrt-so       : $(BD_MODULE)
 # The module is linked from all the compiled .o files
 BD_OBJS       := $(BD_ARCHOBJS) $(addprefix $(OBJDIR)/, $(addsuffix .o,$(notdir $(BD_NARCHFILES))))
 
-BD_ERR := libaxrt.so.err
+BD_ERR := libaxrt-$(RT_ABI).0.so.err
 
 %rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(AROS_LIB)/axrt.ld" \
 		 endobj= err=$(BD_ERR) objdir="$(OBJDIR)" \
@@ -77,7 +79,7 @@ GLOB_MKDIRS += $(OBJDIR) $(BD_MODDIR)
 
 runtime-axrt-so-clean : FILES := $(BD_OBJS) $(BD_MODULE) $(BD_DEPS)
 runtime-axrt-so-clean ::
-	@$(ECHO) "Cleaning up for module libaxrt.so"
+	@$(ECHO) "Cleaning up for module libaxrt-$(RT_ABI).0.so"
 	@$(RM) $(FILES)
 
 
@@ -114,6 +116,7 @@ runtime-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
 $(AROS_LIB)/axrt.specs : $(SRCDIR)/$(CURDIR)/compiler/axrt.specs
 	@$(CP) $< $@
 	@$(SED) -i -e "s|@AXRT_LIB@|$(AROS_LIB)|g" $@
+	@$(SED) -i -e "s|@AXRT_ABI@|$(RT_ABI)|g" $@
 
 $(AROS_LIB)/axrt.ld : $(SRCDIR)/$(CURDIR)/compiler/axrt.ld
 	@$(CP) $< $@

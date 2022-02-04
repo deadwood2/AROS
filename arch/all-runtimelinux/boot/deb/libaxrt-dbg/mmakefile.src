@@ -36,7 +36,7 @@ runtime-setup-package-deb-libaxrt-dbg :
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/DEBIAN/control
 	%mkdirs_q $(AXRT_DEST_DIR)
-	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt.so.dbg $(DEST_ROOT_DIR)/usr/lib/debug/usr/lib/x86_64-linux-gnu
+	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).0.so.dbg $(DEST_ROOT_DIR)/usr/lib/debug/usr/lib/x86_64-linux-gnu
 
 runtime-package-deb-libaxrt-dbg : runtime-package-deb-libaxrt-dbg-build
 

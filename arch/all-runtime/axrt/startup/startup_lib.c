@@ -361,7 +361,7 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
         }
         else
         {
-            strcpy(buff, "/usr/lib/x86_64-linux-gnu/axrt/2.0");
+            sprintf(buff, "/usr/lib/x86_64-linux-gnu/axrt/%d.0", RT_ABI);
         }
 
         strcpy(RUNTIME_ROOT, buff);

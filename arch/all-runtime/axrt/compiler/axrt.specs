@@ -3,7 +3,7 @@
 %rename startfile   default_startfile
 
 *lib:
---start-group -lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{!noaxrtloader:-laxrt} --end-group %(default_lib)
+--start-group -lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{!noaxrtloader:-laxrt-@AXRT_ABI@.0} --end-group %(default_lib)
 
 *link:
 %(default_link) -rpath=$ORIGIN %{nix: }
