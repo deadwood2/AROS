@@ -30,7 +30,7 @@ at: http://www.aros.org/
 
 1) What is available is current version?
 
-    Current version is version V40.
+    Current version is version V41.
 
     This is an early preview version allowing application developers to test
     compilation and execution of their applications against the runtime. This
@@ -41,24 +41,24 @@ at: http://www.aros.org/
     Notes:
     - In case of issues, please make sure you have only one monitor connected
       to your Linux when running this preview.
-    - This version was developed and tested under Ubuntu 18.04 64-bit.
+    - This version was developed and tested under Ubuntu 20.04 64-bit.
       Compatibility with other Linux distributions may vary. Ubuntu-based
       distribution like Linux Mint are supported.
 
 2) How do I install and use the runtime?
 
-    Runtime is composed of three modules: libaxrt.so and AXRTSYS and USERSYS
-    directories. Application loads libaxrt.so, which then in turn initializes
+    Runtime is composed of three modules: libaxrt-4.0.so and AXRTSYS and USERSYS
+    directories. Application loads libaxrt-4.0.so, which then in turn initializes
     the runtime and user settings.
 
     Runtime is distributed as .deb package which can be downloaded from
-    https://www.axrt.org/download. Package name is libaxrt-2.0. The package
-    installs into /usr/lib/x86_64-linux-gnu/axrt/2.0
+    https://www.axrt.org/download. Package name is libaxrt-4.0. The package
+    installs into /usr/lib/x86_64-linux-gnu/axrt/4.0
 
 3) How do I install and use the SDK?
 
     Runtime SDK is distributed as .deb package which can be downloaded from
-    https://www.axrt.org/download. Package name is libaxrt-2.0-dev. The package
+    https://www.axrt.org/download. Package name is libaxrt-4.0-dev. The package
     installs into /usr/lib/x86_64-linux-gnu/ and /usr/include/axrt
 
 4) How do I build an application using runtime?
@@ -77,20 +77,15 @@ at: http://www.aros.org/
 
 4.3) Detailed - Linking
 
-    i.) Add startup.o and axrt.ld to objects being linked, example:
+    i.) Add axrt.ld to objects being linked, example:
 
-    OBJ += /usr/lib/x86_64-linux-gnu/startup.o /usr/lib/x86_64-linux-gnu/axrt.ld
+    OBJ += /usr/lib/x86_64-linux-gnu/axrt.ld
 
     ii.) Select axrt.specs linker specs file, example:
 
     LDFLAGS = -specs=/usr/lib/x86_64-linux-gnu/axrt.specs
 
-    iii.) Add additional linker libraries to resolve symbols, example:
-
-    -lmui -lamiga -lstdc.static -lstdc -lcodesets -lkeymap -lexpansion -lcommodities
-    -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon
-    -lintuition -lgadtools -llayers -liffparse -lgraphics -llocale -ldos
-    -lutility -lexec -lm
+    iii.) Add additional linker libraries to resolve symbols
 
 4.4) Detailed - Running
 
@@ -106,8 +101,8 @@ at: http://www.aros.org/
     to install the runtime system-wide from a package.
 
     In order to build such boundle:
-    - Copy /usr/lib/x86_64-linux-gnu/libaxrt.so to applications directory
-    - Copy contents of /usr/lib/x86_64-linux-gnu/axrt/2.0 directory to
+    - Copy /usr/lib/x86_64-linux-gnu/libaxrt-4.0.so to applications directory
+    - Copy contents of /usr/lib/x86_64-linux-gnu/axrt/4.0 directory to
       AXRTSYS subdirectory in application directory
 
     <Application Directory>
