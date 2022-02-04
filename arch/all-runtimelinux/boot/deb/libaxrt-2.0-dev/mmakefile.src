@@ -42,14 +42,11 @@ INCLUDE_DIRS := \
     gadgets \
     graphics \
     hardware \
-    hidd \
     inline \
-    interface \
     intuition \
     libraries \
     midi \
     mui \
-    oop \
     pragmas \
     prefs \
     proto \
@@ -101,7 +98,6 @@ LIB_FILES := \
     libfreetype2.static.a \
     libgadtools.a \
     libgraphics.a \
-    libhiddstubs.a \
     libicon.a \
     libidentify.a \
     libiffparse.a \
@@ -122,7 +118,6 @@ LIB_FILES := \
     libmuiscreen.a \
     libnonvolatile.a \
     libnvdisk.a \
-    liboop.a \
     libopenurl.a \
     libpartition.a \
     libpng_nostdio.a \
@@ -133,7 +128,7 @@ LIB_FILES := \
     libreqtoolsstubs.a \
     librexxsupport.a \
     librexxsyslib.a \
-    libstdc.a \
+    libstdlib.a \
     libstdc.static.a \
     libtimer.device.a \
     libutility.a \
