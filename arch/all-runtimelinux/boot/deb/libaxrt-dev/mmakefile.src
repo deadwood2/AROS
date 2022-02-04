@@ -30,6 +30,7 @@ runtime-setup-package-deb-libaxrt-dev :
 INCLUDE_DIRS := \
     aros \
     asm \
+    bits \
     boost \
     bsdsocket \
     clib \
