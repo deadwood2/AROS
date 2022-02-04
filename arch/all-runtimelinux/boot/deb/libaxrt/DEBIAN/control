@@ -1,4 +1,4 @@
-Package: libaxrt-2.0
+Package: libaxrt-{RTABI}.0
 Version: {RTVER}-1
 Architecture: amd64
 Maintainer: deadwood <deadwood@uknown>

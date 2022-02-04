@@ -1,10 +1,10 @@
-Package: libaxrt-2.0-dev
+Package: libaxrt-{RTABI}.0-dev
 Version: {RTVER}-1
 Architecture: amd64
 Maintainer: deadwood <deadwood@uknown>
 Priority: optional
 Homepage: http://www.axrt.org/
-Depends: libaxrt-2.0 (= {RTVER}-1)
+Depends: libaxrt-{RTABI}.0 (= {RTVER}-1)
 Multi-Arch: same
 Description: development files for AxRuntime
 
