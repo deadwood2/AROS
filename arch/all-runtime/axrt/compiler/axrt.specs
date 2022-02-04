@@ -6,7 +6,7 @@
 --start-group -lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{!noaxrtloader:-laxrt} --end-group %(default_lib)
 
 *link:
-%(default_link) -rpath=$ORIGIN
+%(default_link) -rpath=$ORIGIN %{nix: }
 
 *startfile:
 %(default_startfile) @AXRT_LIB@/startup%O%s
