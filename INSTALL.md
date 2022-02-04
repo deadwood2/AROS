@@ -29,3 +29,27 @@ Proceed to build selection below
 Runtime binaries available in
 
     alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
+
+### Validating build
+
+Build Wanderer
+
+    $ cd alt-runtimelinux-x86_64-d
+    $ make workbench-system-wanderer
+
+Configure setup
+
+    $ mkdir ~/.axrt/
+    $ mkdir -p ~/.axrt/Prefs/Presets/Themes
+    $ cp -r ../AROS/arch/all-runtimelinux/boot/deb/libaxrt/UserSYS/* ~/.axrt/
+    $ cp -r ../AROS/images/Themes/pixblue ~/.axrt/Prefs/Presets/Themes
+    $ export AXRT_ROOT=<myrepo-absolute-path>/alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
+
+Copy loader
+
+    $ cd bin/runtimelinux-x86_64/AROS/System/Wanderer
+    $ cp ../../Development/lib/libaxrt-4.0.so .
+
+Start Wanderer
+
+    $ ./Wanderer
