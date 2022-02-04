@@ -1,9 +1,9 @@
 
 include $(SRCDIR)/config/aros.cfg
-include $(SRCDIR)/$(CURDIR)/../libaxrt-2.0/filelist.cfg
+include $(SRCDIR)/$(CURDIR)/../libaxrt/filelist.cfg
 
-#MM runtime-package-deb-libaxrt-2.0-dbg : \
-#MM     runtime-setup-package-deb-libaxrt-2.0-dbg
+#MM runtime-package-deb-libaxrt-dbg : \
+#MM     runtime-setup-package-deb-libaxrt-dbg
 
 # Files are explicitly listed to have fine grained control over release process
 
@@ -28,7 +28,7 @@ AXRT_DEST_DIRS := $(dir $(AXRT_DEST_FILES))
 GLOB_MKDIRS += $(AXRT_DEST_DIRS) $(DISTDIR) $(GENDIR)/boot
 
 #MM
-runtime-setup-package-deb-libaxrt-2.0-dbg :
+runtime-setup-package-deb-libaxrt-dbg :
 	@$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
@@ -36,9 +36,9 @@ runtime-setup-package-deb-libaxrt-2.0-dbg :
 	%mkdirs_q $(AXRT_DEST_DIR)
 	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt.so.dbg $(DEST_ROOT_DIR)/usr/lib/debug/usr/lib/x86_64-linux-gnu
 
-runtime-package-deb-libaxrt-2.0-dbg : runtime-package-deb-libaxrt-2.0-dbg-build
+runtime-package-deb-libaxrt-dbg : runtime-package-deb-libaxrt-dbg-build
 
-runtime-package-deb-libaxrt-2.0-dbg-build: $(AXRT_DEST_FILES)
+runtime-package-deb-libaxrt-dbg-build: $(AXRT_DEST_FILES)
 	@$(MKDIR) -p "$(DISTDIR)"
 	dpkg-deb --build $(DEST_ROOT_DIR) $(DISTDIR)
 

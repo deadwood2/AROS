@@ -1,10 +1,10 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM runtime-package-deb-libaxrt-2.0-dev : \
-#MM     runtime-setup-package-deb-libaxrt-2.0-dev \
-#MM     runtime-package-deb-libaxrt-2.0-dev-includes \
-#MM     runtime-package-deb-libaxrt-2.0-dev-lib
+#MM runtime-package-deb-libaxrt-dev : \
+#MM     runtime-setup-package-deb-libaxrt-dev \
+#MM     runtime-package-deb-libaxrt-dev-includes \
+#MM     runtime-package-deb-libaxrt-dev-lib
 
 SDK_SRC_DIR := $(AROS_DEVELOPMENT)
 DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-2.0-dev
@@ -17,7 +17,7 @@ RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDI
 RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
 
 #MM
-runtime-setup-package-deb-libaxrt-2.0-dev :
+runtime-setup-package-deb-libaxrt-dev :
 	@$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
@@ -66,7 +66,7 @@ INCLUDE_FILES := \
 INCLUDE_DEST_FILES := $(foreach f, $(INCLUDE_FILES), $(INCLUDE_DEST_DIR)/$(f))
 
 #MM
-runtime-package-deb-libaxrt-2.0-dev-includes : $(INCLUDE_DEST_FILES) $(INCLUDE_DEST_DIRS)
+runtime-package-deb-libaxrt-dev-includes : $(INCLUDE_DEST_FILES) $(INCLUDE_DEST_DIRS)
 
 $(INCLUDE_DEST_DIR)/% : $(SDK_SRC_DIR)/include/%
 	@$(CP) -r $< $@
@@ -140,14 +140,14 @@ LIB_FILES := \
 LIB_DEST_FILES := $(foreach f, $(LIB_FILES), $(LIB_DEST_DIR)/$(f))
 
 #MM
-runtime-package-deb-libaxrt-2.0-dev-lib : $(LIB_DEST_FILES)
+runtime-package-deb-libaxrt-dev-lib : $(LIB_DEST_FILES)
 
 $(LIB_DEST_DIR)/% : $(SDK_SRC_DIR)/lib/%
 	@$(CP) $< $@
 
-runtime-package-deb-libaxrt-2.0-dev : runtime-package-deb-libaxrt-2.0-dev-build
+runtime-package-deb-libaxrt-dev : runtime-package-deb-libaxrt-dev-build
 
-runtime-package-deb-libaxrt-2.0-dev-build:
+runtime-package-deb-libaxrt-dev-build:
 	@$(MKDIR) -p "$(DISTDIR)"
 	dpkg-deb --build $(DEST_ROOT_DIR) $(DISTDIR)
 
