@@ -2,14 +2,14 @@ SRC = Calculator.c
 OBJ = $(SRC:.c=.o)
 DEP = $(OBJ:.o=.d)
 
-CFLAGS = -D__AROS__ -g -O0 -I/usr/include/axrt
+CFLAGS = -D__AROS__ -g -O0 -I/usr/include/axrt-4.0
 USER_LIBS =
-LDFLAGS = -specs=/usr/lib/x86_64-linux-gnu/axrt.specs
+LDFLAGS = -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 
 # axrt.ld needs to be added to list of objects passed to linker for proper section ordering
 # axrt.specs needs to be used for default libraries selection
 
-Calculator: $(OBJ) /usr/lib/x86_64-linux-gnu/axrt.ld
+Calculator: $(OBJ) /usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.ld
 	$(CC) -o $@ $^ $(LDFLAGS) $(USER_LIBS)
 
 -include $(DEP)

@@ -59,7 +59,7 @@ at: http://www.aros.org/
 
     Runtime SDK is distributed as .deb package which can be downloaded from
     https://www.axrt.org/download. Package name is libaxrt-4.0-dev. The package
-    installs into /usr/lib/x86_64-linux-gnu/ and /usr/include/axrt
+    installs into /usr/lib/x86_64-linux-gnu/axrt-4.0 and /usr/include/axrt-4.0
 
 4) How do I build an application using runtime?
 
@@ -73,17 +73,17 @@ at: http://www.aros.org/
 
     Add __AROS__ define and path to header files, example:
 
-    CFLAGS = -D__AROS__ -I/usr/include/axrt
+    CFLAGS = -D__AROS__ -I/usr/include/axrt-4.0
 
 4.3) Detailed - Linking
 
     i.) Add axrt.ld to objects being linked, example:
 
-    OBJ += /usr/lib/x86_64-linux-gnu/axrt.ld
+    OBJ += /usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.ld
 
-    ii.) Select axrt.specs linker specs file, example:
+    ii.) Add path to linker libraries and select axrt.specs linker specs file, example:
 
-    LDFLAGS = -specs=/usr/lib/x86_64-linux-gnu/axrt.specs
+    LDFLAGS = -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 
     iii.) Add additional linker libraries to resolve symbols
 
@@ -108,11 +108,11 @@ at: http://www.aros.org/
     <Application Directory>
     |--> <Application Executable>
     |--> AXRTSYS
-    |--> libaxrt.so
+    |--> libaxrt-4.0.so
 
     If you are getting the following error when running the application:
 
-    'error while loading shared libraries: libaxrt.so: cannot open shared
+    'error while loading shared libraries: libaxrt-4.0.so: cannot open shared
      object file: No such file or directory'
 
     then most likely setting 'rpath' to $ORIGIN failed during linking. You can
