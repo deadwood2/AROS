@@ -22,6 +22,7 @@ If NOT WARN
     ; Perform basic "utility.library" unit tests...
 
     ; Perform basic "dos.library" unit tests...
+    Execute S/Test cunit/dos/cunit-dos-createnewproc
     Execute S/Test cunit/dos/cunit-dos-fileseek
     Execute S/Test cunit/dos/cunit-dos-readargs
 
