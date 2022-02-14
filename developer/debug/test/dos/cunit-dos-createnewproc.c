@@ -26,6 +26,7 @@ static LONG stack_prStackSize_Initial;
 static LONG stack_cliDefaultStack_Initial;
 static LONG stack_tcSPUpper_tcSPLower_Initial;
 
+static LONG stack_cliDefaultStack_Original;
 
 static void save_stack_values()
 {
@@ -61,6 +62,7 @@ static void SubProcess(void)
 CU_SUITE_SETUP()
 {
     struct CommandLineInterface *cli = Cli();
+    stack_cliDefaultStack_Original = cli->cli_DefaultStack;
     cli->cli_DefaultStack = 50000 / CLI_DEFAULTSTACK_UNIT;
 
     sig = AllocSignal(-1);
@@ -76,6 +78,10 @@ CU_SUITE_SETUP()
 
 CU_SUITE_TEARDOWN()
 {
+
+    struct CommandLineInterface *cli = Cli();
+    cli->cli_DefaultStack = stack_cliDefaultStack_Original;
+
     FreeSignal(sig);
 
     return CUE_SUCCESS;
