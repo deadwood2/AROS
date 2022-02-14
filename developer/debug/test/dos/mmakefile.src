@@ -58,7 +58,9 @@ PURE_FILES := \
 CUNITSTDCTESTFILES := \
     cunit-dos-createnewproc \
     cunit-dos-fileseek \
-    cunit-dos-readargs
+    cunit-dos-readargs \
+    cunit-dos-systemtags \
+    cunit-dos-systemtags-stack-slave
 
 #MM- test : test-dos
 #MM- test-quick : test-dos-quick
