@@ -63,7 +63,6 @@ SH_FILES := \
     Beep \
     BindDrivers \
     Copy \
-    Debug \
     Dir \
     GfxControl \
     LoadWB \
