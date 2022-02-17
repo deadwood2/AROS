@@ -25,8 +25,8 @@ EXEDIR := $(AROS_C)
 #USER_CPPFLAGS := -DDEBUG=1
 
 #MM workbench-c-iprefs : includes linklibs
-#MM- workbench-c : workbench-c-iprefs
-#MM- workbench-c-quick : workbench-c-iprefs-quick
+##MM- workbench-c : workbench-c-iprefs
+##MM- workbench-c-quick : workbench-c-iprefs-quick
 
 %build_prog mmake=workbench-c-iprefs \
     progname=IPrefs targetdir=$(EXEDIR) \
