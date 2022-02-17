@@ -71,6 +71,7 @@ STDC_STATIC_SOURCES := \
     stpblk \
     strlcat \
     strlcpy \
+    stccpy
 
 RUNTIME_STDC_STATIC = \
     $(addprefix $(STDC_PATH),$(STDC_STATIC_SOURCES)) \
