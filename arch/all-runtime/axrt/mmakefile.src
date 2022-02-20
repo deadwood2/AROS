@@ -2,8 +2,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : runtime-axrt-linklibs-$(FAMILY)
-#MM- runtime-axrt-linklibs-runtime : runtime-objects-startup runtime-compiler-files
+#MM- linklibs-amiga : $(FAMILY)-axrt-compiler-files
+#MM- core-linklibs : $(FAMILY)-objects-startup
 
 #MM runtime-axrt-so : core-linklibs includes-generate-deps
 #MM runtime-axrt-so-quick
@@ -111,9 +111,10 @@ $(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
 %include_deps depstargets="runtime-objects-startup" deps=$(ROS_DEPS)
 
 #MM
-runtime-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
+$(FAMILY)-axrt-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
 
 $(AROS_LIB)/axrt.specs : $(SRCDIR)/$(CURDIR)/compiler/axrt.specs
+	@$(MKDIR) -p $(AROS_LIB)
 	@$(CP) $< $@
 	@$(SED) -i -e "s|@AXRT_LIB@|$(AROS_LIB)|g" $@
 	@$(SED) -i -e "s|@AXRT_ABI@|$(RT_ABI)|g" $@
