@@ -1,6 +1,8 @@
 %rename lib         default_lib
 %rename link        default_link
 %rename startfile   default_startfile
+%rename cc1         default_cc1
+%rename cc1plus     default_cc1plus
 
 *lib:
 --start-group -lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{!noaxrtloader:-laxrt-@AXRT_ABI@.0} --end-group %(default_lib)
@@ -10,3 +12,9 @@
 
 *startfile:
 %(default_startfile) @AXRT_LIB@/startup%O%s
+
+*cc1:
+%(default_cc1) -fvisibility=hidden
+
+*cc1plus:
+%(default_cc1plus) -fvisibility=hidden
