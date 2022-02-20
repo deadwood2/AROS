@@ -82,7 +82,7 @@ runtime-axrt-so-clean ::
 	@$(ECHO) "Cleaning up for module libaxrt-$(RT_ABI).0.so"
 	@$(RM) $(FILES)
 
-
+###############################################################################
 
 #MM runtime-axrt-so : runtime-objects-startup
 #MM runtime-objects-startup : runtime-objects-startup-setup
@@ -93,22 +93,21 @@ ROS_FILES := \
 ROS_OBJS  := $(addprefix $(AROS_LIB)/,$(addsuffix .o, $(notdir $(ROS_FILES))))
 ROS_DEPS  := $(addprefix $(GENDIR)/$(CURDIR)/,$(addsuffix .d,$(ROS_FILES)))
 
-runtime-objects-startup: $(ROS_OBJS)
-
 #MM
-runtime-objects-startup-quick: $(ROS_OBJS)
+runtime-objects-startup: $(ROS_OBJS)
 
 $(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
 	@$(CP) $< $@
 
-%rule_compile basename=% targetdir=$(GENDIR)/$(CURDIR) cflags="$(CFLAGS) -fvisibility=hidden"
+%rule_compile_multi mmake=runtime-objects-startup \
+    basenames=$(ROS_FILES) targetdir=$(GENDIR)/$(CURDIR)
 
 #MM runtime-objects-startup-setup
 %rule_makedirs dirs="$(GENDIR)/$(CURDIR) $(AROS_LIB)" setuptarget=runtime-objects-startup-setup
 
-.PHONY: runtime-objects-startup runtime-objects-startup-setup
-
 %include_deps depstargets="runtime-objects-startup" deps=$(ROS_DEPS)
+
+###############################################################################
 
 #MM
 $(FAMILY)-axrt-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
