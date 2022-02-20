@@ -40,8 +40,8 @@ BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 # NOTE: dep files don't seem to work here, do -clean + -quick for best effect
 
 # Default values for variables and arguments
-BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden $(WARN_ERROR) -I$(SRCDIR)/$(CURDIR)/shims -I$(AROS_PRIVATE_INCLUDES)
 CFLAGS += -I$(SRCDIR)/$(CURDIR)/shims -I$(AROS_PRIVATE_INCLUDES) # Needed to resolve error with mkdepend_q
+BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden $(WARN_ERROR)
 OBJDIR ?= $(GENDIR)/$(CURDIR)
 BD_MODDIR := $(AROS_LIB)
 
@@ -101,7 +101,7 @@ runtime-objects-startup-quick: $(ROS_OBJS)
 $(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
 	@$(CP) $< $@
 
-%rule_compile basename=% targetdir=$(GENDIR)/$(CURDIR)
+%rule_compile basename=% targetdir=$(GENDIR)/$(CURDIR) cflags="$(CFLAGS) -fvisibility=hidden"
 
 #MM runtime-objects-startup-setup
 %rule_makedirs dirs="$(GENDIR)/$(CURDIR) $(AROS_LIB)" setuptarget=runtime-objects-startup-setup

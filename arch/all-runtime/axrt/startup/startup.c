@@ -16,7 +16,8 @@
 #include "rt_version.h"
 
 /*****************************************************************************/
-/* Code copied from compiler/startup/startup.c                               */
+/* AxRT-side startup                                                         */
+/*     Note: code copied from compiler/startup/startup.c                     */
 
 struct DosLibrary *DOSBase __attribute__((weak));
 
@@ -53,6 +54,7 @@ asm(".set __importnoinitexitsets, __noinitexitsets");
 
 extern void __startup_entries_init(void);
 
+__attribute__((visibility("default"))) __attribute__((__weak__))
 int __startup_entry(STRPTR argstr, LONG argsize, struct ExecBase *SysBase)
 {
     D(bug("Entering __startup_entry(\"%s\", %d, %x)\n", argstr, argsize, SysBase));
