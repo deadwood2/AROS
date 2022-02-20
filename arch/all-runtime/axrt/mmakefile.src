@@ -40,9 +40,9 @@ BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 # NOTE: dep files don't seem to work here, do -clean + -quick for best effect
 
 # Default values for variables and arguments
-CFLAGS += -I$(SRCDIR)/$(CURDIR)/shims -I$(AROS_PRIVATE_INCLUDES) # Needed to resolve error with mkdepend_q
-BD_DEFDFLAGS := $(CFLAGS) -fPIC -fvisibility=hidden $(WARN_ERROR)
-OBJDIR ?= $(GENDIR)/$(CURDIR)
+DB_CPPFLAGS := $(CPPFLAGS) -I$(SRCDIR)/$(CURDIR)/shims -I$(AROS_PRIVATE_INCLUDES)
+BD_CFLAGS := $(CFLAGS) -fPIC $(WARN_ERROR)
+OBJDIR := $(GENDIR)/$(CURDIR)
 BD_MODDIR := $(AROS_LIB)
 
 BD_ARCHOBJS   := $(wildcard $(OBJDIR)/arch/*.o)
@@ -51,7 +51,7 @@ BD_NARCHFILES := $(filter-out $(BD_ARCHFILES),$(MODULE_FILES))
 
 %rule_compile_multi \
     basenames=$(BD_NARCHFILES) targetdir="$(OBJDIR)" \
-    cflags="$(BD_DEFDFLAGS)" \
+    cflags="$(BD_CFLAGS)" cppflags="$(DB_CPPFLAGS)" \
     compiler=target
 
 BD_MODULE := $(BD_MODDIR)/libaxrt-$(RT_ABI).0.so
