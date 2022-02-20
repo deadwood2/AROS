@@ -186,6 +186,7 @@ COLLECT-AROS                  := $(TOOLDIR)/collect-aros$(HOST_EXE_SUFFIX)
 GENMODULE                     := $(TOOLDIR)/genmodule$(HOST_EXE_SUFFIX)
 MKAMIKEYMAP                   := $(TOOLDIR)/mkamikeymap$(HOST_EXE_SUFFIX)
 SETREV                        := $(TOOLDIR)/setrev$(HOST_EXE_SUFFIX)
+PATCHELF                      := $(TOOLDIR)/patchelf$(HOST_EXE_SUFFIX)
 @make_extra_commands@
 RESIDENT_BEGIN                := compiler/libinit/libentry
 KICKSTART_BEGIN               := compiler/libinit/kickentry

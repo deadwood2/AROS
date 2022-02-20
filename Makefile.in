@@ -163,7 +163,7 @@ tools : makedirs gdbinit mmake $(GENMFSCRIPT) $(ARCHTOOL) $(ELF2HUNK) \
 	$(FLEXCAT) $(CREATEDTDESC) \
 	$(ILBMTOC) $(ILBMTOICON) $(INFOINFO) \
 	$(COLLECT-AROS) $(AFSLIB) $(COPYTOAFS) \
-	$(FD2INLINE) $(FD2PRAGMA) $(SFDC) $(SETREV) $(PARSEOFFSETS)
+	$(FD2INLINE) $(FD2PRAGMA) $(SFDC) $(SETREV) $(PARSEOFFSETS) $(PATCHELF)
 	@$(NOP)
 
 # rebuild the crosstools if we are reconfigured, or its dependencies change.
@@ -254,6 +254,11 @@ $(SFDC): $(SRCDIR)/tools/sfdc/*.pl
 $(SETREV): $(SRCDIR)/tools/setrev/setrev.c
 	@$(ECHO) Building setrev...
 	@$(CALL) $(MAKE) $(MKARGS) -C $(SRCDIR)/tools/setrev SRCDIR=$(SRCDIR) TOP=$(TOP)
+
+$(PATCHELF): $(SRCDIR)/tools/patchelf/patchelf.cc
+	@$(ECHO) Building patchelf...
+	@$(CALL) $(MAKE) $(MKARGS) -C $(SRCDIR)/tools/patchelf SRCDIR=$(SRCDIR) TOP=$(TOP)
+
 
 # MetaMake apparently requires a slighty different compilation. Probably
 # because it is sort-of an external package as well.
