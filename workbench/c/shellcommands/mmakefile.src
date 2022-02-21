@@ -55,6 +55,13 @@ USER_LDFLAGS := -noclibs
     files=$(FILES) targetdir=$(AROS_C) \
     uselibs="stdc.static" usestartup=no
 
+#MM- workbench-c : workbench-c-arosshell
+#MM- workbench-c-quick : workbench-c-arosshell-quick
+
+USER_CPPFLAGS += -DSTANDALONE
+%build_prog mmake=workbench-c-arosshell progname=AROS-Shell \
+    files=NewShell objdir=$(GENDIR)/$(CURDIR)/standalone targetdir=$(AROS_C)
+
 
 # Embedded side of the world
 
