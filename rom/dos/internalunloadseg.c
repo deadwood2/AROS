@@ -9,6 +9,7 @@
 #include <exec/libraries.h>
 #include <proto/debug.h>
 #include <proto/exec.h>
+#include <dlfcn.h>
 
 #include "dos_intern.h"
 #include "internalloadseg.h"
@@ -73,6 +74,13 @@
 
         while (seglist)
         {
+            ULONG segmagic = *(ULONG *)((BYTE *)seglist + sizeof(BPTR) + sizeof(struct FullJumpVec));
+            if (segmagic == SEGMAGIC_DYN)
+            {
+                APTR __so_handle = *(APTR *)((BYTE *)seglist + sizeof(BPTR) + sizeof(struct FullJumpVec) + sizeof(ULONG));
+                dlclose(__so_handle);
+            }
+
             next = *(BPTR *)BADDR(seglist);
             ilsFreeVec(BADDR(seglist));
             seglist = next;
