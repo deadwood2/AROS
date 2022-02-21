@@ -59,7 +59,7 @@ DECLARE_DOSBase_global                                                        \
                                                                               \
 THIS_PROGRAM_HANDLES_SYMBOLSET(LIBS)                                          \
                                                                               \
-__startup static AROS_PROCH(_entry, __argstr, argsize, SysBase)               \
+__attribute__((visibility("default"))) AROS_PROCH(__startup_entry, __argstr, argsize, SysBase) \
 {                                                                             \
     AROS_PROCFUNC_INIT                                                        \
                                                                               \
