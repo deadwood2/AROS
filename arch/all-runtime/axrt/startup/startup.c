@@ -92,22 +92,23 @@ static void __startup_main(struct ExecBase *SysBase)
 }
 
 ADD2SET(__startup_main, PROGRAM_ENTRIES, 127);
-/*****************************************************************************/
 
-void __runtimestartup();
-const void * const __init_runtime_symbol __attribute__((__section__(".init_array"))) __attribute__((used)) = (void *)&__runtimestartup;
+
+
+
+
+
+/*****************************************************************************/
+/*  Linux-side startup                                                       */
+
+const char dl_loader[] __attribute__((section(".interp"))) = "/lib64/ld-linux-x86-64.so.2";
 
 void __kick_start(void *, int);
 void __set_runtime_env(int);
 
-void __runtimestartup()
+static int __runtimestartup(int argc, char **argv, char **evnp)
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
-
-    /* This is executed before main() via INIT_ARRAY section. The host thread
-     * has not yet reached main(). It will never reach it, __kick_start has to
-     * guarantee this.
-     */
 
     __set_runtime_env(RT_VER);
 
@@ -117,6 +118,18 @@ void __runtimestartup()
 
     // TODO: error handling
 }
+
+int __libc_start_main(int (*main) (int, char * *, char * *),int argc, char * * ubp_av,
+    void (*init) (void), void (*fini) (void), void (*rtld_fini) (void), void (* stack_end));
+
+/* This is custom entry point (see axrt.specs) to the binary. __runtimestartup is
+   the "main" on Linux side */
+__attribute__((force_align_arg_pointer)) void _axrt_start(void)
+{
+    __libc_start_main(__runtimestartup, 0, NULL, NULL, NULL, NULL, NULL);
+}
+
+/*****************************************************************************/
 
 /* These functions need to be complied into application to properly proxy
    to the shims in runtime. */
