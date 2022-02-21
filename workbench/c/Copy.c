@@ -2671,3 +2671,10 @@ STRPTR skipnonspaces( STRPTR buffer)
         }
     }
 }
+
+#undef SysBase
+
+ULONG __startup_entry(STRPTR argstr, LONG argsize, struct ExecBase *SysBase)
+{
+    return Start(argstr, argsize, SysBase);
+}

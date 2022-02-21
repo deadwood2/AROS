@@ -210,7 +210,7 @@ struct ArgList
     IPTR devices;
 };
 
-__startup AROS_PROCH(Start, argstr, argsize, sBase)
+__attribute__((visibility("default"))) AROS_PROCH(__startup_entry, argstr, argsize, sBase)
 {
         AROS_PROCFUNC_INIT
         return Main(sBase);
