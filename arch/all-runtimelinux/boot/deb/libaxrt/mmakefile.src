@@ -7,7 +7,8 @@ include $(SRCDIR)/$(CURDIR)/filelist.cfg
 #MM     runtime-package-deb-libaxrt-usersys-theme \
 #MM     runtime-package-deb-libaxrt-usersys \
 #MM     runtime-package-deb-libaxrt-usersys-fonts-truetype \
-#MM     runtime-package-deb-libaxrt-usersys-fonts-ttcourier
+#MM     runtime-package-deb-libaxrt-usersys-fonts-ttcourier \
+#MM     runtime-package-deb-libaxrt-usersys-s
 
 # Files are explicitly listed to have fine grained control over release process
 AXRT_FILES := \
@@ -43,11 +44,11 @@ runtime-setup-package-deb-libaxrt :
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/DEBIAN/control
-	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
+	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS $(USERSYS_DEST_DIR)/S
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
 	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).0.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
-	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
+
 
 %copy_dir_recursive mmake=runtime-package-deb-libaxrt-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
 %copy_dir_recursive mmake=runtime-package-deb-libaxrt-usersys src=$(SRCDIR)/$(CURDIR)/UserSYS dst=$(USERSYS_DEST_DIR)
@@ -67,6 +68,11 @@ TRUETYPE_FILES := \
     VeraSerifBold.ttf \
 
 %copy_files_q mmake=runtime-package-deb-libaxrt-usersys-fonts-truetype src=$(AROSDIR)/Fonts/TrueType dst=$(USERSYS_DEST_DIR)/Fonts/TrueType files=$(TRUETYPE_FILES)
+
+S_FILES := \
+    Shell-Startup
+
+%copy_files_q mmake=runtime-package-deb-libaxrt-usersys-s src=$(AROSDIR)/S dst=$(USERSYS_DEST_DIR)/S files=$(S_FILES)
 
 
 runtime-package-deb-libaxrt : runtime-package-deb-libaxrt-build
