@@ -109,7 +109,7 @@ int strtoi(STRPTR string);
 
 LONG MainEntry(struct ExecBase *SysBase);
 
-__startup static AROS_PROCH(Start, argstr, argsize, sBase)
+__attribute__((visibility("default"))) AROS_PROCH(__startup_entry, argstr, argsize, sBase)
 {
     AROS_PROCFUNC_INIT
     return MainEntry(sBase);
