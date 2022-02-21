@@ -10,6 +10,6 @@ USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-lddemon \
   modname=lddemon modtype=resource \
-  files="lddemon" sdk=private usesdks="private config"
+  files="lddemon" uselibs="dl" sdk=private usesdks="private config"
 
 %copy_includes dir=include path=resources sdk=private

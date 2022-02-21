@@ -179,24 +179,6 @@ static int load_header(BPTR file, struct elfheader *eh, SIPTR *funcarray, struct
     }
     D(bug("[ELF Loader] ELF object\n"));
 
-    /* WANT_CLASS should be defined for your target */
-    if (eh->ident[EI_CLASS]   != AROS_ELF_CLASS  ||
-        eh->ident[EI_VERSION] != EV_CURRENT      ||
-        eh->type              != ET_REL          ||
-        eh->ident[EI_DATA]    != AROS_ELF_DATA   ||
-        eh->machine           != AROS_ELF_MACHINE)
-    {
-        D(bug("[ELF Loader] Object is of wrong type\n"));
-        D(bug("[ELF Loader] EI_CLASS   is %d - should be %d\n", eh->ident[EI_CLASS]  , AROS_ELF_CLASS ));
-        D(bug("[ELF Loader] EI_VERSION is %d - should be %d\n", eh->ident[EI_VERSION], EV_CURRENT     ));
-        D(bug("[ELF Loader] type       is %d - should be %d\n", eh->type             , ET_REL         ));
-        D(bug("[ELF Loader] EI_DATA    is %d - should be %d\n", eh->ident[EI_DATA]   , AROS_ELF_DATA  ));
-        D(bug("[ELF Loader] machine    is %d - should be %d\n", eh->machine          , AROS_ELF_MACHINE));
-
-        SetIoErr(ERROR_NOT_EXECUTABLE);
-        return 0;
-    }
-
     return 1;
 }
 
@@ -852,6 +834,8 @@ static BOOL ARM_ParseAttrs(UBYTE *data, ULONG len, struct DosLibrary *DOSBase)
 
 #endif
 
+BPTR InternalLoadSeg_ELF_DYN(BPTR file, BPTR table, SIPTR *funcarray, LONG *stack, struct DosLibrary *DOSBase);
+
 BPTR InternalLoadSeg_ELF
 (
     BPTR               file,
@@ -878,6 +862,27 @@ BPTR InternalLoadSeg_ELF
     /* load and validate ELF header */
     if (!load_header(file, &eh, funcarray, &srb, DOSBase))
         return 0;
+
+    if (eh.type == ET_DYN)
+        return InternalLoadSeg_ELF_DYN(file, table, funcarray, stack, DOSBase);
+
+    /* WANT_CLASS should be defined for your target */
+    if (eh.ident[EI_CLASS]   != AROS_ELF_CLASS  ||
+        eh.ident[EI_VERSION] != EV_CURRENT      ||
+        eh.type              != ET_REL          ||
+        eh.ident[EI_DATA]    != AROS_ELF_DATA   ||
+        eh.machine           != AROS_ELF_MACHINE)
+    {
+        D(bug("[ELF Loader] Object is of wrong type\n"));
+        D(bug("[ELF Loader] EI_CLASS   is %d - should be %d\n", eh.ident[EI_CLASS]  , AROS_ELF_CLASS ));
+        D(bug("[ELF Loader] EI_VERSION is %d - should be %d\n", eh.ident[EI_VERSION], EV_CURRENT     ));
+        D(bug("[ELF Loader] type       is %d - should be %d\n", eh.type             , ET_REL         ));
+        D(bug("[ELF Loader] EI_DATA    is %d - should be %d\n", eh.ident[EI_DATA]   , AROS_ELF_DATA  ));
+        D(bug("[ELF Loader] machine    is %d - should be %d\n", eh.machine          , AROS_ELF_MACHINE));
+
+        SetIoErr(ERROR_NOT_EXECUTABLE);
+        return 0;
+    }
 
     int_shnum = read_shnum(file, &eh, funcarray, &srb, DOSBase);
     if (!int_shnum)

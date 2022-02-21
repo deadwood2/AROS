@@ -49,6 +49,7 @@
 
 #define ET_REL          1
 #define ET_EXEC         2
+#define ET_DYN          3
 
 #define EM_M32          1
 #define EM_SPARC        2

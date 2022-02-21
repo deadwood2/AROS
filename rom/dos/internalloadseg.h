@@ -5,6 +5,8 @@
 #define SEGTYPE_HUNK_OVERLAY    2
 #define SEGTYPE_ELF             10
 
+#define SEGMAGIC_DYN    AROS_MAKE_ID('D','Y','N','0')
+
 BPTR InternalLoadSeg_AOS(BPTR file,
                          BPTR table,
                          SIPTR * funcarray,
