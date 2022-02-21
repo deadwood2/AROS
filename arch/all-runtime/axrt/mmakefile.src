@@ -2,8 +2,11 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- linklibs-amiga : $(FAMILY)-axrt-compiler-files
-#MM- core-linklibs : $(FAMILY)-objects-startup
+#MM- linklibs-amiga : linklibs-amiga-deps-$(FAMILY)
+#MM- core-linklibs : core-linklibs-$(FAMILY)
+
+#MM- linklibs-amiga-deps-runtime : runtime-axrt-compiler-files
+#MM- core-linklibs-runtime : runtime-objects-startup
 
 #MM runtime-axrt-so : core-linklibs includes-generate-deps
 #MM runtime-axrt-so-quick
@@ -110,7 +113,7 @@ $(AROS_LIB)/%.o : $(GENDIR)/$(CURDIR)/%.o
 ###############################################################################
 
 #MM
-$(FAMILY)-axrt-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
+runtime-axrt-compiler-files : $(AROS_LIB)/axrt.specs $(AROS_LIB)/axrt.ld
 
 $(AROS_LIB)/axrt.specs : $(SRCDIR)/$(CURDIR)/compiler/axrt.specs
 	@$(MKDIR) -p $(AROS_LIB)
