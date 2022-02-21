@@ -31,8 +31,10 @@
 
 #include <stddef.h>
 #include <string.h>
+#include <dlfcn.h>
 
 #include "lddemon.h"
+#include "../dos/internalloadseg.h"
 
 #ifdef __mc68000
 #define INIT_IN_LDDEMON_CONTEXT 1
@@ -191,9 +193,26 @@ static struct Library *LDInit(BPTR seglist, struct List *list, STRPTR resname, s
 {
     struct Node *node = NULL;
     BPTR seg = seglist;
+    struct Resident *res = NULL;
 
     /* we may not have any extension fields */
     const int sizeofresident = offsetof(struct Resident, rt_Init) + sizeof(APTR);
+
+    ULONG segmagic = *(ULONG *)((BYTE *)seglist + sizeof(BPTR) + sizeof(struct FullJumpVec));
+    if (segmagic == SEGMAGIC_DYN)
+    {
+        APTR __so_handle = *(APTR *)((BYTE *)seglist + sizeof(BPTR) + sizeof(struct FullJumpVec) + sizeof(ULONG));
+        void *(*__get_resident)();
+
+        __get_resident = (void *(*)())dlsym(__so_handle, "__get_resident");
+        if (__get_resident == NULL)
+        {
+            bug("<<ERROR>>: Failed to get Resident from module %s\n", resname);
+            return NULL;
+        }
+
+        res = (struct Resident *)(__get_resident)();
+    }
 
     while(seg)
     {
@@ -208,10 +227,19 @@ static struct Library *LDInit(BPTR seglist, struct List *list, STRPTR resname, s
 //          size -= AROS_PTRALIGN, addr += AROS_PTRALIGN
         )
         {
-            struct Resident *res = (struct Resident *)addr;
-            if(    res->rt_MatchWord == RTC_MATCHWORD
-                && res->rt_MatchTag == res )
+            struct Resident *ptr = (struct Resident *)addr;
+            if(    ptr->rt_MatchWord == RTC_MATCHWORD
+                && ptr->rt_MatchTag == ptr )
             {
+                res = ptr;
+                break;
+            }
+        }
+        seg = *(BPTR *)BADDR(seg);
+    }
+
+    if (res)
+    {
                 D(bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
                 /* AOS compatibility requirement.
                  * Ramlib ignores InitResident() return code.
@@ -228,9 +256,6 @@ static struct Library *LDInit(BPTR seglist, struct List *list, STRPTR resname, s
                 D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), node));
 
                 return (struct Library*)node;
-            }
-        }
-        seg = *(BPTR *)BADDR(seg);
     }
     D(bug("[LDInit] Couldn't find Resident for %p\n", seglist));
 #ifdef __mc68000
