@@ -723,3 +723,7 @@ __startup AROS_CLI(ShellStart)
     return error ? RETURN_FAIL : RETURN_OK;
 }
 
+__attribute__ ((visibility("default"))) ULONG __startup_entry(STRPTR argstr, LONG argsize, struct ExecBase *SysBase)
+{
+    return ShellStart(argstr, argsize, SysBase);
+}
