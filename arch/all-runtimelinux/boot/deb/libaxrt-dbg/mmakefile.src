@@ -12,6 +12,7 @@ AXRT_FILES := \
     $(AXRT_LIBS) \
     $(AXRT_CLASSES) \
     $(AXRT_DEVS) \
+    $(AXRT_L) \
 
 # Extract version information
 RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
