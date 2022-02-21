@@ -685,7 +685,7 @@ ifeq (%(compiler),target)
 %(mmake)_ASSEMBLER ?= $(strip $(TARGET_CC) $(TARGET_SYSROOT))
 $(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : CMD:=$(strip $(TARGET_CC) $(TARGET_SYSROOT))
 $(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : %(mmake)_MC_CPPFLAGS:=$(strip $(%(mmake)_MC_CPPFLAGS) $(%(mmake)_MC_EXTRA_CPPFLAGS))
-$(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : %(mmake)_CFLAGS:=$(strip $(%(mmake)_CFLAGS) $(SAFETY_CFLAGS))
+$(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : %(mmake)_CFLAGS:=$(strip $(%(mmake)_CFLAGS) $(SAFETY_CFLAGS)) -specs=$(AROS_LIB)/axrt.specs
 $(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : %(mmake)_DFLAGS:=$(%(mmake)_DFLAGS)
 $(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : %(mmake)_IQUOTE:=$(CFLAGS_IQUOTE)
 $(%(mmake)_MC_TARGETS) $(%(mmake)_MC_DTARGETS) : %(mmake)_IQUOTE_END:=$(CFLAGS_IQUOTE_END)
@@ -3250,7 +3250,7 @@ $(BD_FILEOBJS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS) -
 ifeq (%(compiler),target)
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CMD:=$(strip $(TARGET_CC) $(TARGET_SYSROOT))
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CPPFLAGS:=$(TMP_CPPFLAGS)
-$(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=$(strip $(TMP_CFLAGS) $(SAFETY_CFLAGS)) -fPIC
+$(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_CFLAGS:=$(strip $(TMP_CFLAGS) $(SAFETY_CFLAGS)) -fPIC -specs=$(AROS_LIB)/axrt.specs
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_IQUOTE:=$(CFLAGS_IQUOTE)
 $(BD_FILEOBJS$(BDID)) $(BD_DEPS$(BDID)) $(BD_LINKLIBOBJS$(BDID)) : TMP_IQUOTE_END:=$(CFLAGS_IQUOTE_END)
 endif
