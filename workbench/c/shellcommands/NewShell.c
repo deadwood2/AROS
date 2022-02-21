@@ -127,7 +127,11 @@ AROS_SHA(LONG *, ,STACK,/N,NULL))
     {
         struct TagItem tags[] =
         {
+#ifdef STANDALONE
+            { SYS_Asynch,      FALSE      },
+#else
             { SYS_Asynch,      TRUE       },
+#endif
             { SYS_Background,  FALSE      },
             { SYS_Input,       (IPTR)win  },
             { SYS_Output,      (IPTR)NULL },
@@ -159,3 +163,7 @@ AROS_SHA(LONG *, ,STACK,/N,NULL))
 
     AROS_SHCOMMAND_EXIT
 }
+
+#ifdef STANDALONE
+int main() { return 0; }
+#endif
