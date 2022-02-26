@@ -7,4 +7,52 @@
 
 #define CUNIT_ABSOLUTE_PATH "SYS:Development/Debug/Tests/cunit"
 
+#if !defined(__AROS__)
+
+#define REG(r, x)   x __asm(#r)
+#define SAVEDS      __saveds
+#define STDARGS     __stdargs
+#define INTERRUPT   __interrupt
+#define IPTR        ULONG
+
+#define BOOPSI_DISPATCHER(type, func, cl, obj, msg) \
+static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
+        REG(a2, Object *obj), REG(a1, Msg msg))
+
+#define BOOPSI_DISPATCHER_END
+
+#ifndef MUIM_Window_Setup
+#define MUIM_Window_Setup         0x8042c34c /* Custom Class */ /* V18 */
+#define MUIM_Window_Cleanup       0x8042ab26 /* Custom Class */ /* V18 */
+#endif
+
+#define CU_SUITE_SETUP      static int __cu_suite_setup
+#define CU_SUITE_TEARDOWN   static int __cu_suite_teardown
+#define CU_TEST_SETUP       static void __cu_test_setup
+#define CU_TEST_TEARDOWN    static void __cu_test_teardown
+
+#define CUE_SUCCESS         0
+#define CUE_SINIT_FAILED    22
+
+#define CU_ASSERT(expr)                                 \
+    if (!(expr))                                        \
+    {                                                   \
+        CONST_STRPTR f = __FILE__;                      \
+        ULONG _tags[] = { (ULONG)f, __LINE__};          \
+        VPrintf("Assertion failed %s:%ld\n", _tags);    \
+    }
+
+#define CU_CI_DEFINE_SUITE(...) \
+    __cu_suite_setup();         \
+
+#define CUNIT_CI_TEST(func)     \
+    __cu_test_setup();          \
+    func();                     \
+    __cu_test_teardown();       \
+
+#define CU_CI_RUN_SUITES()      \
+    __cu_suite_teardown();      \
+
+#endif
+
 #endif
