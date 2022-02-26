@@ -8,8 +8,13 @@
 #include <proto/intuition.h>
 #include <proto/exec.h>
 #include <proto/dos.h>
+#include <clib/alib_protos.h>
 
+#include "../test-util.h"
+
+#if defined(__AROS__)
 #include <CUnit/CUnitCI.h>
+#endif
 
 struct Library *MUIMasterBase = NULL;
 
@@ -156,6 +161,40 @@ static void test_handleevent_rectangle()
     MUI_DisposeObject(app);
 }
 
+static void test_handleevent_rectangle_hidden()
+{
+    ULONG sigs;
+    CONST_STRPTR tabs[] = { "First", "Second", NULL };
+    Object *app = ApplicationObject, End;
+    Object *win = WindowObject,
+        MUIA_Window_RootObject, RegisterGroup((IPTR)tabs),
+            Child, (IPTR)VGroup,
+                Child, (IPTR)(RectangleObject, End),
+            End,
+            Child, (IPTR)VGroup,
+                Child, (IPTR)(NewObject(mcc_Rectangle->mcc_Class, NULL, TAG_END)),
+            End,
+        End,
+    End;
+
+    DoMethod(app, OM_ADDMEMBER, win);
+    set(win, MUIA_Window_Open, TRUE);
+
+    numMessages = 0;
+
+    for (int j = 0; j < 10; j++) {
+        sigs = 0;
+        do {
+            DoMethod(app, MUIM_Application_NewInput, &sigs);
+        } while (sigs == 0);
+        Delay(1);
+    }
+
+    CU_ASSERT(numMessages > 0);
+
+    MUI_DisposeObject(app);
+}
+
 static void test_handleevent_window()
 {
     ULONG sigs;
@@ -185,5 +224,6 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_handleevent_notify);
     CUNIT_CI_TEST(test_handleevent_rectangle);
     CUNIT_CI_TEST(test_handleevent_window);
+    CUNIT_CI_TEST(test_handleevent_rectangle_hidden);
     return CU_CI_RUN_SUITES();
 }
