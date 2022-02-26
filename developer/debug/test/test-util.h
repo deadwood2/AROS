@@ -7,6 +7,40 @@
 
 #define CUNIT_ABSOLUTE_PATH "SYS:Development/Debug/Tests/cunit"
 
+static inline struct IntuiMessage * _AllocIntuiMessage(struct Window *w)
+{
+    struct IntuiMessage *imsg = AllocMem(sizeof(struct IntuiMessage), MEMF_PUBLIC | MEMF_CLEAR);
+    imsg->ExecMessage.mn_Node.ln_Type = NT_MESSAGE;
+    imsg->ExecMessage.mn_Length       = sizeof(struct IntuiMessage);
+    imsg->IDCMPWindow = w;
+    return imsg;
+}
+
+static inline void _SendIntuiMessage(struct Window *w, struct IntuiMessage *imsg)
+{
+    PutMsg(w->UserPort, &imsg->ExecMessage);
+}
+
+static inline void Click(struct Window *w, LONG x, LONG y)
+{
+    struct IntuiMessage *imsg = NULL;
+
+    imsg = _AllocIntuiMessage(w);
+    imsg->Class = IDCMP_MOUSEBUTTONS;
+    imsg->Code = SELECTDOWN;
+    imsg->MouseX = (WORD)x;
+    imsg->MouseY = (WORD)y;
+    _SendIntuiMessage(w, imsg);
+
+    imsg = _AllocIntuiMessage(w);
+    imsg->Class = IDCMP_MOUSEBUTTONS;
+    imsg->Code = SELECTUP;
+    imsg->MouseX = (WORD)x;
+    imsg->MouseY = (WORD)y;
+    _SendIntuiMessage(w, imsg);
+
+}
+
 #if !defined(__AROS__)
 
 #define REG(r, x)   x __asm(#r)
