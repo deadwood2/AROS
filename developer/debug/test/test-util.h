@@ -45,10 +45,15 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 #define CU_CI_DEFINE_SUITE(...) \
     __cu_suite_setup();         \
 
-#define CUNIT_CI_TEST(func)     \
-    __cu_test_setup();          \
-    func();                     \
-    __cu_test_teardown();       \
+#define CUNIT_CI_TEST(func)                 \
+    __cu_test_setup();                      \
+    {                                       \
+        CONST_STRPTR f = #func;             \
+        ULONG _tags[] = { (ULONG) f};       \
+        VPrintf("Running: %s\n", _tags);    \
+    }                                       \
+    func();                                 \
+    __cu_test_teardown();                   \
 
 #define CU_CI_RUN_SUITES()      \
     __cu_suite_teardown();      \
