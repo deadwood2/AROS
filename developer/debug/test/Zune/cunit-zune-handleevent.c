@@ -24,7 +24,7 @@ struct MUI_CustomClass *mcc_Notify;
 struct MUI_CustomClass *mcc_Rectangle;
 struct MUI_CustomClass *mcc_Window;
 
-static ULONG mSetup(struct IClass *cl, Object *obj, Msg msg, Object *win)
+static IPTR mSetup(struct IClass *cl, Object *obj, Msg msg, Object *win)
 {
     struct Data *data = INST_DATA(cl, obj);
 
@@ -42,7 +42,7 @@ static ULONG mSetup(struct IClass *cl, Object *obj, Msg msg, Object *win)
     return TRUE;
 }
 
-static ULONG mCleanup(struct IClass *cl, Object *obj, Msg msg, Object *win)
+static IPTR mCleanup(struct IClass *cl, Object *obj, Msg msg, Object *win)
 {
     struct Data *data = INST_DATA(cl, obj);
 
@@ -50,7 +50,7 @@ static ULONG mCleanup(struct IClass *cl, Object *obj, Msg msg, Object *win)
     return DoSuperMethodA(cl, obj, msg);
 }
 
-static ULONG mHandleEvent(struct IClass *cl, Object *obj, struct  MUIP_HandleEvent *msg)
+static IPTR mHandleEvent(struct IClass *cl, Object *obj, struct  MUIP_HandleEvent *msg)
 {
     numMessages++;
 }
