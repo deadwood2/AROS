@@ -1,16 +1,17 @@
 /*
-    Copyright © 2021, The AROS Development Team. All rights reserved.
+    Copyright © 2021-2022, The AROS Development Team. All rights reserved.
     $Id$
 */
 
-#include <stdio.h>
+#include <proto/exec.h>
 #include <proto/dos.h>
 #include <dos/dos.h>
-#include <stdlib.h>
-#include <assert.h>
 
-#include <CUnit/Basic.h>
-#include <CUnit/Automated.h>
+#include "../test-util.h"
+
+#if defined(__AROS__)
+#include <CUnit/CUnitCI.h>
+#endif
 
 enum
 {
@@ -18,26 +19,27 @@ enum
     ARG_CNT
 };
 
-/* The suite initialization function.
-  * Returns zero on success, non-zero otherwise.
- */
-int init_suite(void)
+CU_SUITE_SETUP()
 {
-    return 0;
+    return CUE_SUCCESS;
 }
 
-/* The suite cleanup function.
-  * Returns zero on success, non-zero otherwise.
- */
-int clean_suite(void)
+CU_SUITE_TEARDOWN()
 {
-    return 0;
+    return CUE_SUCCESS;
 }
 
+CU_TEST_SETUP()
+{
+}
+
+CU_TEST_TEARDOWN()
+{
+}
 
 /* test of ReadArgs() with a /N parameter and a number.
  */
-void testREADARGSNUMBER(void)
+void test_readargs_number(void)
 {
     IPTR args[ARG_CNT];
     struct RDArgs *rdargs;
@@ -85,7 +87,7 @@ void testREADARGSNUMBER(void)
 /* test of ReadArgs() with a /N parameter and a number
  * followed by a space.
  */
-void testREADARGSNUMBERSPACE(void)
+void test_readargs_number_space(void)
 {
     IPTR args[ARG_CNT];
     struct RDArgs *rdargs;
@@ -129,38 +131,10 @@ void testREADARGSNUMBERSPACE(void)
     }
 }
 
-int main(void)
+int main(int argc, char** argv)
 {
-    CU_pSuite pSuite = NULL;
-
-    /* initialize the CUnit test registry */
-    if (CUE_SUCCESS != CU_initialize_registry())
-        return CU_get_error();
-
-   /* add a suite to the registry */
-    pSuite = CU_add_suite("ReadArgs_Suite", init_suite, clean_suite);
-    if (NULL == pSuite) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-   /* add the tests to the suite */
-    if ((NULL == CU_add_test(pSuite, "test of ReadArgs() /N number", testREADARGSNUMBER)) ||
-        (NULL == CU_add_test(pSuite, "test of ReadArgs() /N number with space", testREADARGSNUMBERSPACE)))
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    /* Run all tests using the CUnit Basic & Automated interfaces */
-    CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    CU_basic_set_mode(CU_BRM_SILENT);
-    CU_automated_package_name_set("DOSUnitTests");
-    CU_set_output_filename("DOS-ReadArgs");
-    CU_automated_enable_junit_xml(CU_TRUE);
-    CU_automated_run_tests();
-    CU_cleanup_registry();
-
-    return CU_get_error();
+    CU_CI_DEFINE_SUITE("ReadArgs_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CUNIT_CI_TEST(test_readargs_number);
+    CUNIT_CI_TEST(test_readargs_number_space);
+    return CU_CI_RUN_SUITES();
 }
