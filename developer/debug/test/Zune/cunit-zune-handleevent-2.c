@@ -37,7 +37,7 @@ struct MUI_CustomClass *mcc_Button;
     do {                                                    \
         DoMethod(app, MUIM_Application_NewInput, &sigs);    \
     } while (sigs == 0);                                    \
-    Delay(5);
+    Delay(2);
 
 LONG global_Pressed =   0;
 LONG global_EventRec = -1;
@@ -58,23 +58,6 @@ IPTR mOM_NEW(struct IClass *cl, Object *obj, struct opSet *msg)
     tags[6].ti_Data = (IPTR)tagsmore;
     msg->ops_AttrList = tags;
 
-    return DoSuperMethodA(cl, obj, (Msg)msg);
-}
-
-IPTR mOM_SET(struct IClass *cl, Object *obj, struct opSet *msg)
-{
-    struct TagItem *tags = msg->ops_AttrList;
-    struct TagItem *tag;
-
-    while ((tag = NextTagItem(&tags)) != NULL)
-    {
-        switch (tag->ti_Tag)
-        {
-        case MUIA_Window_Width:
-            global_Pressed += (LONG)tag->ti_Data;
-            break;
-        }
-    }
     return DoSuperMethodA(cl, obj, (Msg)msg);
 }
 
@@ -120,7 +103,6 @@ BOOPSI_DISPATCHER(IPTR, dispatcher, cl, obj, msg)
     switch (msg->MethodID)
     {
         case OM_NEW: return mOM_NEW(cl, obj, (struct opSet *)msg);
-        case OM_SET: return mOM_SET(cl, obj, (struct opSet *)msg);
         case MUIM_Setup: return mSetup(cl, obj, (APTR)msg);
         case MUIM_Cleanup: return mCleanup(cl, obj, (APTR)msg);
         case MUIM_HandleEvent:  return mHandleEvent(cl, obj, (APTR)msg);
@@ -129,6 +111,13 @@ BOOPSI_DISPATCHER(IPTR, dispatcher, cl, obj, msg)
 }
 BOOPSI_DISPATCHER_END
 
+static struct Hook pressedhook;
+
+static void pressedfunction(struct Hook *hook, Object *obj, APTR msg)
+{
+    LONG val = *(LONG *)msg;
+    global_Pressed += val;
+}
 
 CU_SUITE_SETUP()
 {
@@ -137,6 +126,9 @@ CU_SUITE_SETUP()
         CUE_SINIT_FAILED;
 
     mcc_Button = MUI_CreateCustomClass(NULL, MUIC_Text, NULL, sizeof(struct Data), dispatcher);
+
+    pressedhook.h_Entry = HookEntry;
+    pressedhook.h_SubEntry = (HOOKFUNC)pressedfunction;
 
     return CUE_SUCCESS;
 }
@@ -216,13 +208,13 @@ const LONG ycoord[] = { 40, 40, 20, 40, 40};
         DoMethod
         (
             firstButton, MUIM_Notify, MUIA_Pressed, FALSE,
-            (IPTR)firstButton, 3, MUIM_Set, MUIA_Window_Width, 7
+            (IPTR)firstButton, 3, MUIM_CallHook, &pressedhook, 7
         );
 
         DoMethod
         (
             secondButton, MUIM_Notify, MUIA_Pressed, FALSE,
-            (IPTR)firstButton, 3, MUIM_Set, MUIA_Window_Width, 4
+            (IPTR)firstButton, 3, MUIM_CallHook, &pressedhook, 4
         );
 
         set(wnd,MUIA_Window_Open,TRUE);
@@ -293,13 +285,13 @@ static void test_handleevent_hidden_button_is_not_pressed()
         DoMethod
         (
             btn1, MUIM_Notify, MUIA_Pressed, FALSE,
-            (IPTR)btn2, 3, MUIM_Set, MUIA_Window_Width, 5
+            (IPTR)btn2, 3, MUIM_CallHook, &pressedhook, 5
         );
 
         DoMethod
         (
             btn2, MUIM_Notify, MUIA_Pressed, FALSE,
-            (IPTR)btn2, 3, MUIM_Set, MUIA_Window_Width, 8
+            (IPTR)btn2, 3, MUIM_CallHook, &pressedhook, 8
         );
 
         set(wnd,MUIA_Window_Open,TRUE);
