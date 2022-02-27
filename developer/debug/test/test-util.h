@@ -7,6 +7,7 @@
 
 #define CUNIT_ABSOLUTE_PATH "SYS:Development/Debug/Tests/cunit"
 
+#if defined(ENABLE_CLICK)
 static inline struct IntuiMessage * _AllocIntuiMessage(struct Window *w)
 {
     struct IntuiMessage *imsg = AllocMem(sizeof(struct IntuiMessage), MEMF_PUBLIC | MEMF_CLEAR);
@@ -40,6 +41,7 @@ static inline void Click(struct Window *w, LONG x, LONG y)
     _SendIntuiMessage(w, imsg);
 
 }
+#endif
 
 #if !defined(__AROS__)
 
@@ -84,6 +86,14 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
         CONST_STRPTR f = __FILE__;                      \
         ULONG _tags[] = { (ULONG)f, __LINE__};          \
         VPrintf("Assertion failed %s:%ld\n", _tags);    \
+    }
+
+#define CU_FAIL(msg)                                        \
+    {                                                       \
+        CONST_STRPTR f = __FILE__;                          \
+        CONST_STRPTR m = #msg;                              \
+        ULONG _tags[] = { (ULONG)m, (ULONG)f, __LINE__};    \
+        VPrintf("Test failed %s %s:%ld\n", _tags);          \
     }
 
 #define CU_CI_DEFINE_SUITE(...) \

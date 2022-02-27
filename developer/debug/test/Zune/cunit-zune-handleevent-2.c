@@ -13,6 +13,7 @@
 
 #include <libraries/mui.h>
 
+#define ENABLE_CLICK
 #include "../test-util.h"
 
 #if defined(__AROS__)
