@@ -33,6 +33,13 @@ static void test_sprintf_float_double()
 
     sprintf(buffer, "%6.3f %6.3f", xf, xd);
     CU_ASSERT_EQUAL(0, strcmp(buffer, " 3.140  6.280"));
+}
+
+static void test_sprintf_float_double_failing()
+{
+    char buffer[50];
+    float xf = 3.14;
+    double xd = 6.28;
 
     xd = 2;
     sprintf(buffer, "%a", xd);
