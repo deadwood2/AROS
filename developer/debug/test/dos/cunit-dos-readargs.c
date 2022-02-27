@@ -6,6 +6,7 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <dos/dos.h>
+#include <string.h>
 
 #include "../test-util.h"
 
@@ -63,16 +64,9 @@ void test_readargs_number(void)
 
         if ((ReadArgs(template, args, rdargs)))
         {
-            if (args[ARG_COL])
-                colno = *(LONG *) args[ARG_COL];
-
-            CU_ASSERT(3 == colno);
+            CU_FAIL("ReadArgs() returned non-NULL");
             
             FreeArgs(rdargs);
-        }
-        else
-        {
-            CU_FAIL("ReadArgs() returned NULL");
         }
 
         FreeDosObject(DOS_RDARGS, rdargs);
