@@ -21,6 +21,89 @@
 
 struct Library *MUIMasterBase;
 
+struct Data
+{
+    LONG dummy;
+};
+
+struct MUI_CustomClass *mcc_Button;
+
+ULONG global_Setup;
+ULONG global_Cleanup;
+ULONG global_Show;
+ULONG global_Hide;
+
+static int globalReset()
+{
+    global_Setup    = 0;
+    global_Cleanup  = 0;
+    global_Show     = 0;
+    global_Hide     = 0;
+}
+
+IPTR mOM_NEW(struct IClass *cl, Object *obj, struct opSet *msg)
+{
+    struct TagItem *tagsmore = msg->ops_AttrList;
+    struct TagItem tags[] =
+    {
+        { MUIA_Font, MUIV_Font_Button } ,
+        { MUIA_Text_PreParse, (IPTR)"\33c" } ,
+        { MUIA_InputMode    , MUIV_InputMode_RelVerify },
+        { MUIA_Background   , MUII_ButtonBack },
+        { MUIA_CycleChain,    1 },
+        { MUIA_Frame, MUIV_Frame_Button },
+        { TAG_MORE, 0}
+    };
+    tags[6].ti_Data = (IPTR)tagsmore;
+    msg->ops_AttrList = tags;
+
+    return DoSuperMethodA(cl, obj, (Msg)msg);
+}
+
+static IPTR mSetup(struct IClass *cl, Object *obj, Msg msg)
+{
+    if (!DoSuperMethodA(cl, obj, msg))
+        return FALSE;
+
+    global_Setup = 1;
+
+    return TRUE;
+}
+
+static IPTR mCleanup(struct IClass *cl, Object *obj, Msg msg)
+{
+    global_Cleanup = 1;
+
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+static IPTR mShow(struct IClass *cl, Object *obj, Msg msg)
+{
+    global_Show = 1;
+
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+static IPTR mHide(struct IClass *cl, Object *obj, Msg msg)
+{
+    global_Hide = 1;
+
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+BOOPSI_DISPATCHER(IPTR, dispatcher, cl, obj, msg)
+{
+    switch (msg->MethodID)
+    {
+        case OM_NEW: return mOM_NEW(cl, obj, (struct opSet *)msg);
+        case MUIM_Setup: return mSetup(cl, obj, (APTR)msg);
+        case MUIM_Cleanup: return mCleanup(cl, obj, (APTR)msg);
+        case MUIM_Show: return mShow(cl, obj, (APTR)msg);
+        case MUIM_Hide: return mHide(cl, obj, (APTR)msg);
+    }
+    return DoSuperMethodA(cl, obj, msg);
+}
+BOOPSI_DISPATCHER_END
 
 
 CU_SUITE_SETUP()
@@ -28,6 +111,8 @@ CU_SUITE_SETUP()
     MUIMasterBase = OpenLibrary((STRPTR)MUIMASTER_NAME, 0);
     if (!MUIMasterBase)
         CUE_SINIT_FAILED;
+
+    mcc_Button = MUI_CreateCustomClass(NULL, MUIC_Text, NULL, sizeof(struct Data), dispatcher);
 
     return CUE_SUCCESS;
 }
@@ -46,12 +131,68 @@ CU_TEST_TEARDOWN()
 {
 }
 
-static void test_handleevent_hidden_object_dimensions_dont_change()
+static void test_methods_called_during_showme()
 {
     Object *wnd;
     Object *app;
     Object *btn1, *btn2;
 
+    btn2 = NewObject(mcc_Button->mcc_Class, NULL,
+            MUIA_Text_Contents, "BTN2",
+            TAG_DONE);
+
+    app = ApplicationObject,
+        SubWindow, wnd = WindowObject,
+            MUIA_Window_Activate, TRUE,
+            WindowContents, HGroup,
+                GroupFrame,
+                Child, btn1 = MUI_MakeObject(MUIO_Button,(IPTR)"BTN1"),
+                Child, btn2,
+            End,
+        End,
+    End;
+
+
+    if (app)
+    {
+        globalReset();
+        set(wnd,MUIA_Window_Open, TRUE);
+
+        CU_ASSERT_EQUAL(1, global_Setup);
+        CU_ASSERT_EQUAL(1, global_Show);
+        CU_ASSERT_EQUAL(0, global_Cleanup);
+        CU_ASSERT_EQUAL(0, global_Hide);
+
+        globalReset();
+        set(btn2, MUIA_ShowMe, FALSE);
+        CU_ASSERT_EQUAL(0, global_Setup);
+        CU_ASSERT_EQUAL(0, global_Show);
+        CU_ASSERT_EQUAL(0, global_Cleanup);
+        CU_ASSERT_EQUAL(1, global_Hide);
+
+        globalReset();
+        set(btn2, MUIA_ShowMe, TRUE);
+        CU_ASSERT_EQUAL(0, global_Setup);
+        CU_ASSERT_EQUAL(1, global_Show);
+        CU_ASSERT_EQUAL(0, global_Cleanup);
+        /* CU_ASSERT_EQUAL(0, global_Hide); - incompatibility of Zune */
+
+        globalReset();
+        set(wnd,MUIA_Window_Open, FALSE);
+        CU_ASSERT_EQUAL(0, global_Setup);
+        CU_ASSERT_EQUAL(0, global_Show);
+        CU_ASSERT_EQUAL(1, global_Cleanup);
+        CU_ASSERT_EQUAL(1, global_Hide);
+
+        MUI_DisposeObject(app);
+    }
+}
+
+static void test_hidden_object_dimensions_dont_change()
+{
+    Object *wnd;
+    Object *app;
+    Object *btn1, *btn2;
 
     app = ApplicationObject,
         SubWindow, wnd = WindowObject,
@@ -135,6 +276,7 @@ static void test_handleevent_hidden_object_dimensions_dont_change()
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("MUIA_ShowMe_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
-    CUNIT_CI_TEST(test_handleevent_hidden_object_dimensions_dont_change);
+    CUNIT_CI_TEST(test_hidden_object_dimensions_dont_change);
+    CUNIT_CI_TEST(test_methods_called_during_showme);
     return CU_CI_RUN_SUITES();
 }
