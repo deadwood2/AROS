@@ -60,6 +60,13 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 #define MUIM_Window_Cleanup       0x8042ab26 /* Custom Class */ /* V18 */
 #endif
 
+#define XGET(object, attribute)                 \
+({                                              \
+    IPTR __storage = 0;                         \
+    GetAttr((attribute), (object), &__storage); \
+    __storage;                                  \
+})
+
 #define CU_SUITE_SETUP      static int __cu_suite_setup
 #define CU_SUITE_TEARDOWN   static int __cu_suite_teardown
 #define CU_TEST_SETUP       static void __cu_test_setup
@@ -67,6 +74,9 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 
 #define CUE_SUCCESS         0
 #define CUE_SINIT_FAILED    22
+
+#define CU_ASSERT_EQUAL(expected, actual) \
+    CU_ASSERT(expected == actual)
 
 #define CU_ASSERT(expr)                                 \
     if (!(expr))                                        \
