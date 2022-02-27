@@ -262,18 +262,13 @@ static void test_handleevent_hidden_button_is_not_pressed()
 #endif
 
 
-    btn2 = NewObject(mcc_Button->mcc_Class, NULL,
-                MUIA_Text_Contents, "BTN2",
-                TAG_DONE);
-
-
     app = ApplicationObject,
         SubWindow, wnd = WindowObject,
             MUIA_Window_Activate, TRUE,
             WindowContents, HGroup,
                 GroupFrame,
                 Child, btn1 = MUI_MakeObject(MUIO_Button,(IPTR)"BTN1"),
-                Child, btn2,
+                Child, btn2 = MUI_MakeObject(MUIO_Button,(IPTR)"BTN2"),
             End,
         End,
     End;
@@ -285,7 +280,7 @@ static void test_handleevent_hidden_button_is_not_pressed()
         DoMethod
         (
             btn1, MUIM_Notify, MUIA_Pressed, FALSE,
-            (IPTR)btn2, 3, MUIM_CallHook, &pressedhook, 5
+            (IPTR)btn1, 3, MUIM_CallHook, &pressedhook, 5
         );
 
         DoMethod
