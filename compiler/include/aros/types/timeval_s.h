@@ -21,6 +21,8 @@ struct timeval32
    have the same size, however they can have different signs (as it is
    the case for microseconds).  */
 
+#ifndef NO_AROS_TIMEVAL
+
 __extension__ struct timeval
 {
     union  /* Seconds passed. */
@@ -34,5 +36,7 @@ __extension__ struct timeval
         signed   AROS_32BIT_TYPE tv_usec;  /* POSIX field */
     };
 };
+
+#endif /* !NO_AROS_TIMEVAL */
 
 #endif /* ! _AROS_TYPES_TIMEVAL_S_H_ */
