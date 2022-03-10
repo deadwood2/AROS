@@ -62,6 +62,10 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 #define MUIM_Window_Cleanup       0x8042ab26 /* Custom Class */ /* V18 */
 #endif
 
+#ifndef MUI_EHF_GUIMODE
+#define MUI_EHF_GUIMODE (1 << 1)
+#endif
+
 #define XGET(object, attribute)                 \
 ({                                              \
     IPTR __storage = 0;                         \
