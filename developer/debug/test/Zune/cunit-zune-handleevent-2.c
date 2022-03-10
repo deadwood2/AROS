@@ -41,12 +41,13 @@ struct MUI_CustomClass *mcc_Button;
     Delay(2);
 
 LONG global_Pressed =   0;
-LONG global_EventRec = -1;
+LONG global_EventRec =  0;
 
 IPTR mOM_NEW(struct IClass *cl, Object *obj, struct opSet *msg)
 {
-    struct TagItem *tagsmore = msg->ops_AttrList;
-    struct TagItem tags[] =
+    struct Data *data = NULL;
+    struct TagItem *tags, *tag;
+    struct TagItem tagssuper[] =
     {
         { MUIA_Font, MUIV_Font_Button } ,
         { MUIA_Text_PreParse, (IPTR)"\33c" } ,
@@ -56,10 +57,25 @@ IPTR mOM_NEW(struct IClass *cl, Object *obj, struct opSet *msg)
         { MUIA_Frame, MUIV_Frame_Button },
         { TAG_MORE, 0}
     };
-    tags[6].ti_Data = (IPTR)tagsmore;
-    msg->ops_AttrList = tags;
+    tagssuper[6].ti_Data = (IPTR)msg->ops_AttrList;
+    msg->ops_AttrList = tagssuper;
 
-    return DoSuperMethodA(cl, obj, (Msg)msg);
+    obj = (Object *)DoSuperMethodA(cl, obj, (Msg)msg);
+
+    data = INST_DATA(cl, obj);
+    data->ehnode.ehn_Flags = 0;
+
+    for (tags = msg->ops_AttrList; (tag = NextTagItem(&tags));)
+    {
+        switch (tag->ti_Tag)
+        {
+        case 0x01010101:
+            data->ehnode.ehn_Flags = MUI_EHF_GUIMODE;
+            break;
+        }
+    }
+
+    return (IPTR)obj;
 }
 
 static IPTR mSetup(struct IClass *cl, Object *obj, Msg msg)
@@ -152,7 +168,7 @@ CU_TEST_TEARDOWN()
 static void globalReset()
 {
     global_Pressed =    0;
-    global_EventRec =   -1;
+    global_EventRec =   0;
 }
 
 /* While invisible objects will be receive events, they should only be handled
@@ -262,7 +278,6 @@ static void test_handleevent_hidden_button_is_not_pressed()
     const LONG ycoord[] = { 20, 20, 0, 20, 20};
 #endif
 
-
     app = ApplicationObject,
         SubWindow, wnd = WindowObject,
             MUIA_Window_Activate, TRUE,
@@ -315,6 +330,72 @@ static void test_handleevent_hidden_button_is_not_pressed()
                 break;
             case 4:
                 CU_ASSERT(global_Pressed == 0);
+                break;
+            }
+        }
+
+        MUI_DisposeObject(app);
+    }
+}
+
+/* Note MUI_EHF_GUIMODE is present and working only starting from MUI 3.9 */
+static void test_handleevent_hidden_object_ehf_guimode_does_not_receive_events()
+{
+    Object *wnd;
+    Object *app;
+    Object *btn1, *btn2;
+    const LONG xcoord[] = { 80, 0, 0, 80, 0};
+#if defined(__AROS__)
+    const LONG ycoord[] = { 35, 35, 0, 35, 35};
+#else
+    const LONG ycoord[] = { 20, 20, 0, 20, 20};
+#endif
+
+    btn2 = NewObject(mcc_Button->mcc_Class, NULL,
+                MUIA_Text_Contents, "BTN2",
+                0x01010101, TRUE,
+                TAG_DONE);
+
+    app = ApplicationObject,
+        SubWindow, wnd = WindowObject,
+            MUIA_Window_Activate, TRUE,
+            WindowContents, HGroup,
+                GroupFrame,
+                Child, btn1 = MUI_MakeObject(MUIO_Button,(IPTR)"BTN1"),
+                Child, btn2,
+            End,
+        End,
+    End;
+
+    if (app)
+    {
+        ULONG sigs = 0;
+
+        set(wnd,MUIA_Window_Open,TRUE);
+
+        struct Window *w = _window(btn2);
+
+        for (int j = 0; j < 6; j++) {
+
+            EVENT_LOOP
+
+            switch(j)
+            {
+            case 0:
+                CU_ASSERT(global_EventRec == 1);
+                break;
+            case 1:
+                CU_ASSERT(global_EventRec == 1);
+                set(btn2, MUIA_ShowMe, FALSE);
+                break;
+            case 2:
+                CU_ASSERT(global_EventRec == 0);
+                break;
+            case 3:
+                CU_ASSERT(global_EventRec == 0);
+                break;
+            case 4:
+                CU_ASSERT(global_EventRec == 0);
                 break;
             }
         }
@@ -402,5 +483,6 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_handleevent_area_does_not_eat_event);
     CUNIT_CI_TEST(test_handleevent_hidden_button_is_not_pressed);
     CUNIT_CI_TEST(test_handleevent_objects_samelocation);
+    CUNIT_CI_TEST(test_handleevent_hidden_object_ehf_guimode_does_not_receive_events);
     return CU_CI_RUN_SUITES();
 }
