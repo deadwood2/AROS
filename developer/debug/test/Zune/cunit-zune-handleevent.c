@@ -104,6 +104,10 @@ CU_TEST_TEARDOWN()
 {
 }
 
+/* Notes:
+    MUI 3.8 PASS
+    MUI 3.9 FAIL
+*/
 static void test_handleevent_notify()
 {
     ULONG sigs;
