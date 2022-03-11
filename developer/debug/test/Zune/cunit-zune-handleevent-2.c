@@ -338,7 +338,11 @@ static void test_handleevent_hidden_button_is_not_pressed()
     }
 }
 
-/* Note MUI_EHF_GUIMODE is present and working only starting from MUI 3.9 */
+/* Notes:
+    MUI_EHF_GUIMODE is only starting from MUI 3.9
+    MUI 3.8 FAIL
+    MUI 3.9 PASS
+*/
 static void test_handleevent_hidden_object_ehf_guimode_does_not_receive_events()
 {
     Object *wnd;
