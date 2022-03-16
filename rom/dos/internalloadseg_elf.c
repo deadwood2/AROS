@@ -251,7 +251,7 @@ static int __attribute__ ((noinline)) load_hunk
         }
     }
 
-    hunk = ilsAllocMem(hunk_size, memflags | MEMF_PUBLIC | (sh->type == SHT_NOBITS ? MEMF_CLEAR : 0));
+    hunk = ilsAllocMem(hunk_size, memflags | MEMF_31BIT | MEMF_PUBLIC | (sh->type == SHT_NOBITS ? MEMF_CLEAR : 0));
     if (hunk)
     {
         hunk->next = 0;
