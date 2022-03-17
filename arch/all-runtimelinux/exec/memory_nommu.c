@@ -21,40 +21,40 @@
 #include <unistd.h>
 #include <sys/mman.h>
 
-//#define COMP_32BIT
-
-#ifdef COMP_32BIT
-static BOOL installed = FALSE;
-static APTR space = NULL;
-#endif
+static BOOL installed   = FALSE;
+static APTR space32bit  = NULL;
+static char *nextpage   = NULL;
+#define SPACE32SIZE     (1 << 27) /* 128 MB */
+/* Notes: implementation of MEMF_31BIT is good enough to support loading ELF objects into < 2GB address
+   range a few times without restart but nothing more. Page memory is not re-used, so it can be
+   exhaused*/
 
 APTR nommu_AllocMem(IPTR byteSize, ULONG flags, struct TraceLocation *loc, struct ExecBase *SysBase)
 {
     APTR res = NULL;
 
-#ifdef COMP_32BIT
-    if (!installed)
+    if ((flags & MEMF_31BIT) && !installed)
     {
-        size_t len = 1 << 30;
-        space = mmap((APTR)0x1000, len, PROT_READ|PROT_WRITE, MAP_ANON|MAP_SHARED|MAP_32BIT, -1, 0);
+        size_t len = SPACE32SIZE;
+        space32bit = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_ANON | MAP_SHARED | MAP_32BIT, -1, 0);
+        nextpage = space32bit;
         installed = TRUE;
     }
-#endif
 
 
     if (flags & MEMF_31BIT)
     {
-        res = mmap(NULL, byteSize, PROT_READ|PROT_WRITE, MAP_ANON|MAP_SHARED|MAP_32BIT, -1, 0);
+        /* Always allocate full pages for now. Used together with internalloadseg_elf */
+        LONG pagecount = AROS_ROUNDUP2(byteSize, 4096) / 4096;
+        if (nextpage + pagecount * 4096 > (char *)space32bit + SPACE32SIZE)
+            return NULL;
+
+        res = nextpage;
+        nextpage += pagecount * 4096;
     }
     else
     {
-#ifdef COMP_32BIT
-        res = space;
-        space += byteSize + 128;
-        space = (APTR)((IPTR)space & (~0x3));
-#else
         res = malloc(byteSize);
-#endif
     }
 
     if (flags & MEMF_CLEAR)
@@ -71,13 +71,10 @@ APTR nommu_AllocAbs(APTR location, IPTR byteSize, struct ExecBase *SysBase)
 
 void nommu_FreeMem(APTR memoryBlock, IPTR byteSize, struct TraceLocation *loc, struct ExecBase *SysBase)
 {
-#ifdef COMP_32BIT
-#else
-    if (memoryBlock < (APTR)0x100000000)
+    if (memoryBlock >= space32bit && memoryBlock < space32bit + SPACE32SIZE)
         return;
 
     free(memoryBlock);
-#endif
 }
 
 IPTR nommu_AvailMem(ULONG attributes, struct ExecBase *SysBase)
@@ -89,10 +86,7 @@ IPTR nommu_AvailMem(ULONG attributes, struct ExecBase *SysBase)
     ULONG   page_size   = sysconf(_SC_PAGE_SIZE);
 
     _return = pages * page_size;
-#if COMP_32BIT
-    // Limit reported value to 1 GB
-    if (_return > 1 << 30) _return = 1 << 30;
-#endif
+
     return _return;
 }
 
