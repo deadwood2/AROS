@@ -55,4 +55,4 @@ static void __exit_timerbase(struct CrtIntBase *CrtBase)
     }
 }
 
-ADD2EXIT(__exit_timerbase, 0);
+ADD2CLOSELIB(__exit_timerbase, 0);
