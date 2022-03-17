@@ -834,6 +834,9 @@ static BOOL ARM_ParseAttrs(UBYTE *data, ULONG len, struct DosLibrary *DOSBase)
 #endif
 
 BPTR InternalLoadSeg_ELF_DYN(BPTR file, BPTR table, SIPTR *funcarray, LONG *stack, struct DosLibrary *DOSBase);
+#include <sys/mman.h>
+#include <errno.h>
+
 
 BPTR InternalLoadSeg_ELF
 (
@@ -989,6 +992,27 @@ BPTR InternalLoadSeg_ELF
 
             ilsFreeMem(sh[i].addr, sh[i].size);
             sh[i].addr = NULL;
+        }
+    }
+
+    /* Change page flags to executable, readonly */
+    for (i = 0; i < int_shnum; i++)
+    {
+        /* Skip the already loaded hunks */
+        if (sh[i].type == SHT_SYMTAB || sh[i].type == SHT_STRTAB || sh[i].type == SHT_SYMTAB_SHNDX)
+            continue;
+
+        if (sh[i].flags & SHF_ALLOC)
+        {
+            if ((sh[i].size) && (sh[i].flags & SHF_EXECINSTR))
+            {
+                void *ptr = (void *)AROS_ROUNDDOWN2((IPTR)sh[i].addr, 4096);
+                size_t len = AROS_ROUNDUP2(sh[i].size, 4096);
+                if (mprotect(ptr, len, PROT_READ | PROT_EXEC) == -1)
+                {
+                    bug("[LoadSeg] Failed to change memory to executable, errno: %d, ptr %p, len %ld\n", errno, ptr, len);
+                }
+            }
         }
     }
 
