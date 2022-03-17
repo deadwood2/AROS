@@ -7,7 +7,7 @@ FUNCS       := registermodule unregistermodule decodelocation enumeratesymbolsa 
 FILES       := debug_init
 STATICFUNCS := kdofmt kgetchar kmaygetchar kputstr _kprintf kvprintf
 
-USER_CPPFLAGS := -DHOST_OS_$(FAMILY) -D__UTILITY_NOLIBBASE__ -DNO_INLINE_STDARG
+USER_CPPFLAGS := -DHOST_OS_unix -D__UTILITY_NOLIBBASE__ -DNO_INLINE_STDARG
 USER_LDFLAGS := -noclibs
 
 -include $(SRCDIR)/arch/all-$(ARCH)/debug/make.opts

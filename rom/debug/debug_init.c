@@ -30,6 +30,8 @@
 #include "../../arch/all-unix/kernel/hostinterface.h"
 #endif
 
+struct MinList *Debug_ModList = NULL;
+
 static int Debug_Init(struct DebugBase *DebugBase)
 {
     struct TagItem *bootMsg;
@@ -38,31 +40,11 @@ static int Debug_Init(struct DebugBase *DebugBase)
     struct HostInterface *HostIFace;
 #endif
 
-    KernelBase = OpenResource("kernel.resource");
-    if (!KernelBase)
-            return FALSE;
-
     NEWLIST(&DebugBase->db_Modules);
     InitSemaphore(&DebugBase->db_ModSem);
 
-    bootMsg = KrnGetBootInfo();
-    kmod = (struct ELF_ModuleInfo *)LibGetTagData(KRN_DebugInfo, 0, bootMsg);
-
-
-    for (; kmod; kmod = kmod->Next)
-    {
-        RegisterModule_ELF(kmod->Name, BNULL, kmod->eh, kmod->sh, (struct Library *)DebugBase);
-    }
-
 #if AROS_MODULES_DEBUG
-    HostIFace = (APTR)LibGetTagData(KRN_HostInterface, 0, bootMsg);
-    /*
-     * Provide a pointer to our modules list to the bootstrap.
-     * This is needed because gdb is actually debugging bootstrap
-     * and it can read debug information only from there
-     */
-    if (HostIFace && HostIFace->ModListPtr)
-        *HostIFace->ModListPtr = &DebugBase->db_Modules;
+    Debug_ModList = &DebugBase->db_Modules;
 #endif
 
     D(bug("[Debug] Debug_Init() done\n"));

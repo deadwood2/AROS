@@ -400,7 +400,7 @@ define loadmod
     log_to_file segname.tmp on
     printf "%s", (char *)$this_mod->m_name
     end_log
-    shell sed -i 's/.*:\(.*\)/\1/' segname.tmp
+    shell sed -i 's/.*:\(.*\)/\/\1/' segname.tmp
     log_to_file loadseg.tmp on
     printf "add-symbol-file \""
     end_log
