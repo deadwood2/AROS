@@ -55,7 +55,7 @@ void register_elf(BPTR file, BPTR hunks, struct elfheader *eh, struct sheader *s
             AddTail(&IDosBase(DOSBase)->segdata, segnode);
             ReleaseSemaphore(&IDosBase(DOSBase)->segsem);
 
-            if (DebugBase)
+            if (DebugBase && eh && sh)
             {
                 char *buffer = NULL;
                 char *nameptr = getname(file, &buffer, DOSBase);
