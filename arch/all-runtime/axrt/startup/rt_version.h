@@ -5,7 +5,7 @@
 #ifndef RT_VERSION_H
 #define RT_VERSION_H
 
-#define RT_STARTUP  (3)
+#define RT_STARTUP  (4)
 #define RT_ABI      (4)
 #define RT_VERSION  (41)
 #define RT_REVISION (1)

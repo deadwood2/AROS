@@ -103,7 +103,7 @@ ADD2SET(__startup_main, PROGRAM_ENTRIES, 127);
 
 const char dl_loader[] __attribute__((section(".interp"))) = "/lib64/ld-linux-x86-64.so.2";
 
-void __kick_start(void *, int);
+int __kick_start(void *, int);
 void __set_runtime_env(int);
 
 static int __runtimestartup(int argc, char **argv, char **evnp)
@@ -114,9 +114,7 @@ static int __runtimestartup(int argc, char **argv, char **evnp)
 
     // TODO: error handling
 
-    __kick_start(__startup_entry, RT_VER);
-
-    // TODO: error handling
+    return __kick_start(__startup_entry, RT_VER);
 }
 
 int __libc_start_main(int (*main) (int, char * *, char * *),int argc, char * * ubp_av,

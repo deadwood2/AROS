@@ -61,9 +61,9 @@ static CONST_STRPTR Kickstart [] =
         NULL
 };
 
-static void __bye()
+static void __Abort()
 {
-    printf("<<INFO>>: Exiting...\n");
+    printf("<<INFO>>: Aborting...\n");
     exit(100);
 }
 
@@ -131,13 +131,13 @@ static void InitKickstart(struct ExecBase *SysBase)
         if (__so_handle == NULL)
         {
             printf("<<ERROR>>: Failed to load kickstart module %s\n", path);
-            __bye();
+            __Abort();
         }
         __get_resident = (void *(*)())dlsym(__so_handle, "__get_resident");
         if (__get_resident == NULL)
         {
             printf("<<ERROR>>: Failed to get Resident from module %s\n", path);
-            __bye();
+            __Abort();
         }
 
         resList[i] = (struct Resident *)(__get_resident)();
@@ -182,11 +182,13 @@ struct ARPSMsg
     STRPTR  arps_ProgramDir;
 };
 
+static volatile int ARPPExited      = 0;
+static volatile int ARPPExitCode    = 0;
+
 static VOID RunProgram(APTR sysbase, APTR _m)
 {
     /* This trampoline is executed by "AxRuntime Program" process */
     struct ARPSMsg *msg;
-    int __startup_error = 0;
 
     /* This library was never properly loaded by Exec. Do manual initialization */
     SysBase = (struct ExecBase *)sysbase;
@@ -222,12 +224,12 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_Decoration();
     Close(Open("RAM:Welcome", MODE_NEWFILE));
 
-    __startup_error = msg->arps_RunProgramSets(NULL, 0, SysBase);
+    ARPPExitCode = msg->arps_RunProgramSets(NULL, 0, SysBase);
 
-    exit(__startup_error);
+    ARPPExited = 1;
 }
 
-__attribute__((visibility("default"))) void __kick_start(void *__run_program_sets, int __version)
+__attribute__((visibility("default"))) int __kick_start(void *__run_program_sets, int __version)
 {
     /* This thread is not a Process/Task. Restrictions apply. */
     pthread_t execbootstrap;
@@ -240,6 +242,7 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     char _t[PATH_MAX];
     STRPTR _p = NULL;
     int ret = 0;
+    const useconds_t DELAY = 100000;
 
     /* Initialize internals of shims */
     __shims_init_internals();
@@ -254,7 +257,7 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
      */
     struct MsgPort *startup = NULL;
     while((startup = FindPort("ARPS")) == NULL)
-        usleep(100000);
+        usleep(DELAY);
 
     struct ARPSMsg msg = {0};
     msg.arps_Msg.mn_Length      = sizeof(struct ARPSMsg);
@@ -290,10 +293,11 @@ __attribute__((visibility("default"))) void __kick_start(void *__run_program_set
     PutMsg(startup, (struct Message *)&msg);
 #undef SysBase
 
-    /* TODO: handle exit */
-    while(1)
-        sleep(1);
-    asm("int3");
+    while(!ARPPExited)
+        usleep(DELAY);
+
+    printf("<<INFO>>: Exiting...\n");
+    return ARPPExitCode;
 }
 
 static void check_install_usersys(const char *runtimeroot, const char *usersys)
