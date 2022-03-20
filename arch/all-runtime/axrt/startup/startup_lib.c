@@ -176,14 +176,17 @@ struct ARPSMsg
     VOID (*arps_Target)(APTR, APTR);
 
     /* Private fields */
+
+    /* ENTER */
     int (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
     STRPTR  arps_CurrentDir;
     STRPTR  arps_ProgramName;
     STRPTR  arps_ProgramDir;
-};
 
-static volatile int ARPPExited      = 0;
-static volatile int ARPPExitCode    = 0;
+    /* EXIT */
+    LONG    arps_ExitCode;
+    BOOL    arps_ProgramExited;
+};
 
 static VOID RunProgram(APTR sysbase, APTR _m)
 {
@@ -224,9 +227,9 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_Decoration();
     Close(Open("RAM:Welcome", MODE_NEWFILE));
 
-    ARPPExitCode = msg->arps_RunProgramSets(NULL, 0, SysBase);
+    msg->arps_ExitCode = msg->arps_RunProgramSets(NULL, 0, SysBase);
 
-    ARPPExited = 1;
+    msg->arps_ProgramExited = TRUE;
 }
 
 __attribute__((visibility("default"))) int __kick_start(void *__run_program_sets, int __version)
@@ -253,7 +256,7 @@ __attribute__((visibility("default"))) int __kick_start(void *__run_program_sets
      *  ARPP creates public port
      *  This thread sends pointer to RunProgram to the port
      *  ARPP executes RunProgram()
-     *  This thread waits for finishing of execution and exits never reaching main (TODO)
+     *  This thread waits for finishing of execution and returns control to caller
      */
     struct MsgPort *startup = NULL;
     while((startup = FindPort("ARPS")) == NULL)
@@ -288,16 +291,23 @@ __attribute__((visibility("default"))) int __kick_start(void *__run_program_sets
     strcat(msg.arps_ProgramName, _p + 1);
     printf("<<INFO>>: PROGRAM NAME: %s\n", msg.arps_ProgramName);
 
+    /* TODO: Program arguments */
+
 
     /* Done, send message */
     PutMsg(startup, (struct Message *)&msg);
 #undef SysBase
 
-    while(!ARPPExited)
+    while(!msg.arps_ProgramExited)
         usleep(DELAY);
 
+    /* Free allocated strings in ARPSMsg */
+    free(msg.arps_CurrentDir);
+    free(msg.arps_ProgramDir);
+    free(msg.arps_ProgramName);
+
     printf("<<INFO>>: Exiting...\n");
-    return ARPPExitCode;
+    return msg.arps_ExitCode;
 }
 
 static void check_install_usersys(const char *runtimeroot, const char *usersys)
