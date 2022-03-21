@@ -24,8 +24,6 @@ int main_AddDataTypes();
 int main_Decoration();
 int main_IPrefs();
 
-CONST_STRPTR WANDERER_ROOT = "SYS:System/Wanderer/";
-
 static CONST_STRPTR Kickstart [] =
 {
         "boot/runtimelinux/Libs/exec.library", /* EXEC MUST BE AT INDEX 0 */
@@ -200,12 +198,6 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     /* Retrieve message */
     msg = (struct ARPSMsg *)_m;
 
-    /* Make WANDERER assign */
-    BPTR lck = Lock(WANDERER_ROOT, SHARED_LOCK);
-    AssignLock("WANDERER", lck);
-    AssignPath("THEME", "USERSYS:Prefs/Presets/Themes/pixblue");
-    AssignPath("FONTS","USERSYS:Fonts");
-
     /*
      * FIXME: Maybe these should be passed to CreateNewProc instead of being
      * set manually here?
@@ -225,7 +217,6 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_AddDataTypes();
     main_IPrefs();
     main_Decoration();
-    Close(Open("RAM:Welcome", MODE_NEWFILE));
 
     msg->arps_ExitCode = msg->arps_RunProgramSets(NULL, 0, SysBase);
 
