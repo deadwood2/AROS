@@ -13,7 +13,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM runtime-axrt-so-clean
 
 MODULE_FILES := \
-    startup/AddDataTypes \
     startup/decoration \
     startup/config \
     startup/drawfuncs \

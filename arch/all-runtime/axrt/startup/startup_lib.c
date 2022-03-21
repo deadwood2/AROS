@@ -214,7 +214,6 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     CopyMem(msg->arps_ProgramName, me->tc_Node.ln_Name, strlen(msg->arps_ProgramName));
     // FIXME: this does not change linux-side name!!!
 
-    main_AddDataTypes();
     main_IPrefs();
     main_Decoration();
 
