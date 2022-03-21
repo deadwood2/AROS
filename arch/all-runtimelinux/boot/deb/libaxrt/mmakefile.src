@@ -21,6 +21,8 @@ AXRT_FILES := \
     $(AXRT_DEVS_EXT) \
     $(AXRT_L) \
     $(AXRT_C_SHELLCOMMANDS) \
+    $(AXRT_C) \
+    $(AXRT_S) \
 
 # Extract version information
 RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
@@ -45,7 +47,8 @@ runtime-setup-package-deb-libaxrt :
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/DEBIAN/control
-	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS $(USERSYS_DEST_DIR)/S $(USERSYS_DEST_DIR)/C
+	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
+	%mkdirs_q $(USERSYS_DEST_DIR)/S $(USERSYS_DEST_DIR)/C $(USERSYS_DEST_DIR)/Libs
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
 	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).0.so $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
