@@ -171,13 +171,15 @@ static VOID * InitRuntime(VOID *ptr)
 
 struct ARPSMsg
 {
-    struct Message arps_Msg;
-    VOID (*arps_Target)(APTR, APTR);
+    struct Message  arps_Msg;
+    VOID            (*arps_Target)(APTR, APTR);
+    STRPTR          arps_ArgStr;
+    LONG            arps_ArgSize;
 
     /* Private fields */
 
     /* ENTER */
-    int (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
+    int     (*arps_RunProgramSets)(STRPTR, LONG, struct ExecBase *);
     STRPTR  arps_CurrentDir;
     STRPTR  arps_ProgramName;
     STRPTR  arps_ProgramDir;
@@ -218,7 +220,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_IPrefs();
     main_Decoration();
 
-    msg->arps_ExitCode = msg->arps_RunProgramSets(NULL, 0, SysBase);
+    msg->arps_ExitCode = msg->arps_RunProgramSets(msg->arps_ArgStr, msg->arps_ArgSize, SysBase);
 
     msg->arps_ProgramExited = TRUE;
 }
@@ -282,8 +284,18 @@ __attribute__((visibility("default"))) int __kick_start(int __version, __kick_st
     strcat(msg.arps_ProgramName, _p + 1);
     printf("<<INFO>>: PROGRAM NAME: %s\n", msg.arps_ProgramName);
 
-    /* TODO: Program arguments */
+    /* Program arguments */
+    msg.arps_ArgSize = 1; /* No arguments is string "\n" and size of 1 */
+    for (int i = 1; i < arg->argc; i++) /* skip first argument => program name */
+        msg.arps_ArgSize += strlen(arg->argv[i]) + 1;
 
+    msg.arps_ArgStr = calloc(msg.arps_ArgSize + 1, 1);
+    for (int i = 1; i < arg->argc; i++)
+    {
+        strcat(msg.arps_ArgStr, arg->argv[i]);
+        strcat(msg.arps_ArgStr, " ");
+    }
+    strcat(msg.arps_ArgStr, "\n");
 
     /* Done, send message */
     PutMsg(startup, (struct Message *)&msg);
@@ -296,6 +308,7 @@ __attribute__((visibility("default"))) int __kick_start(int __version, __kick_st
     free(msg.arps_CurrentDir);
     free(msg.arps_ProgramDir);
     free(msg.arps_ProgramName);
+    free(msg.arps_ArgStr);
 
     printf("<<INFO>>: Exiting...\n");
     return msg.arps_ExitCode;
