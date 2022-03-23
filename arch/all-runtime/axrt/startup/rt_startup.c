@@ -18,6 +18,7 @@
 #include <limits.h>
 
 #include "rt_version.h"
+#include "rt_startup.h"
 #include "shimsinit.h"
 
 int main_AddDataTypes();
@@ -222,7 +223,7 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     msg->arps_ProgramExited = TRUE;
 }
 
-__attribute__((visibility("default"))) int __kick_start(void *__run_program_sets, int __version)
+__attribute__((visibility("default"))) int __kick_start(int __version, __kick_start_arg_t *arg)
 {
     /* This thread is not a Process/Task. Restrictions apply. */
     pthread_t execbootstrap;
@@ -256,7 +257,7 @@ __attribute__((visibility("default"))) int __kick_start(void *__run_program_sets
     msg.arps_Msg.mn_Length      = sizeof(struct ARPSMsg);
     msg.arps_Msg.mn_ReplyPort   = NULL;
     msg.arps_Target             = RunProgram;
-    msg.arps_RunProgramSets     = __run_program_sets;
+    msg.arps_RunProgramSets     = arg->axrtentry;
 
     /* Current directory */
     getcwd(_t, PATH_MAX);

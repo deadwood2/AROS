@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2019-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2019-2022, The AROS Development Team. All rights reserved.
 */
 
 #include <exec/types.h>
@@ -7,13 +7,6 @@
 #include <proto/dos.h>
 #include <aros/debug.h>
 #include <aros/startup.h>
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <dlfcn.h>
-
-#include "rt_version.h"
 
 /*****************************************************************************/
 /* AxRT-side startup                                                         */
@@ -101,20 +94,31 @@ ADD2SET(__startup_main, PROGRAM_ENTRIES, 127);
 /*****************************************************************************/
 /*  Linux-side startup                                                       */
 
-const char dl_loader[] __attribute__((section(".interp"))) = "/lib64/ld-linux-x86-64.so.2";
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <dlfcn.h>
 
-int __kick_start(void *, int);
-void __set_runtime_env(int);
+#include "rt_version.h"
+#include "rt_startup.h"
+
+const char dl_loader[] __attribute__((section(".interp"))) = "/lib64/ld-linux-x86-64.so.2";
 
 static int __runtimestartup(int argc, char **argv, char **evnp)
 {
     /* This thread is not an AROS Process/Task. Restrictions apply. */
 
+    __kick_start_arg_t ksarg;
+    ksarg.version   = RT_VER;
+    ksarg.axrtentry = __startup_entry;
+    ksarg.argc      = argc;
+    ksarg.argv      = argv;
+
     __set_runtime_env(RT_VER);
 
     // TODO: error handling
 
-    return __kick_start(__startup_entry, RT_VER);
+    return __kick_start(RT_VER, &ksarg);
 }
 
 /* Note: this declaration is missing last argument. It is pushed "manually"
