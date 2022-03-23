@@ -117,14 +117,35 @@ static int __runtimestartup(int argc, char **argv, char **evnp)
     return __kick_start(__startup_entry, RT_VER);
 }
 
+/* Note: this declaration is missing last argument. It is pushed "manually"
+   in assembler to control stack operations */
 int __libc_start_main(int (*main) (int, char * *, char * *),int argc, char * * ubp_av,
-    void (*init) (void), void (*fini) (void), void (*rtld_fini) (void), void (* stack_end));
+    void (*init) (void), void (*fini) (void), void (*rtld_fini) (void) /*, void (* stack_end)*/);
 
 /* This is custom entry point (see axrt.specs) to the binary. __runtimestartup is
    the "main" on Linux side */
-__attribute__((force_align_arg_pointer)) void _axrt_start(void)
+void __attribute__((naked)) _axrt_start(void)
 {
-    __libc_start_main(__runtimestartup, 0, NULL, NULL, NULL, NULL, NULL);
+    int argc;
+    char **argv;
+    asm volatile( \
+        /* Read argc from stack */      \
+        "\tmov (%%rsp), %0\n"           \
+        /* Read argv from stack */      \
+        "\tmov %%rsp, %1\n"             \
+        "\tadd $8, %1\n"                \
+        /* Aling stack to 16 bytes */   \
+        "\tand $~15, %%rsp\n"           \
+        /* Push 8 bytes */              \
+        "\tpush %%rax\n"                \
+        /* Push last argument to __libc_start_main */   \
+        "\tpush %%rsp\n"                \
+        : "=r" (argc), "=r" (argv)
+    );
+    __libc_start_main(__runtimestartup, argc, argv, NULL, NULL, NULL);
+    asm volatile( \
+        "\thlt\n"
+    );
 }
 
 /*****************************************************************************/
