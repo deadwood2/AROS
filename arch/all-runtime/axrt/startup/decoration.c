@@ -173,23 +173,23 @@ int main_Decoration(void)
 
     IPTR rd_Args[] = {0, 0, };
 
-    struct RDArgs *args, *newargs;
+    // struct RDArgs *args, *newargs;
 
     /* the 1M $$ Question why "Decoration ?" does not work in the shell? */
 
-    newargs = (struct RDArgs*) AllocDosObject(DOS_RDARGS, NULL);
+    // newargs = (struct RDArgs*) AllocDosObject(DOS_RDARGS, NULL);
 
-    if (newargs == NULL) return 0;
+    // if (newargs == NULL) return 0;
 
-    newargs->RDA_ExtHelp = usage;
-    newargs->RDA_Flags = 0;
+    // newargs->RDA_ExtHelp = usage;
+    // newargs->RDA_Flags = 0;
     
-    args = ReadArgs(ARGUMENT_TEMPLATE, rd_Args, newargs);
+    // args = ReadArgs(ARGUMENT_TEMPLATE, rd_Args, newargs);
 
-    if (args == NULL) {
-        FreeDosObject (DOS_RDARGS, (APTR) newargs);
-        return 0;
-    }
+    // if (args == NULL) {
+    //     FreeDosObject (DOS_RDARGS, (APTR) newargs);
+    //     return 0;
+    // }
 
     if ((port = CreateMsgPort()) == NULL)
         return 0;
@@ -207,7 +207,7 @@ int main_Decoration(void)
         GetMsg(port);
         Permit();
         DeleteMsgPort(port);
-        FreeArgs(args);
+        // FreeArgs(args);
         return 0;
     }
     Permit();
@@ -297,7 +297,7 @@ int main_Decoration(void)
             FreeClass(decor->nd_ScreenClass);
         }
     }
-    FreeDosObject (DOS_RDARGS, (APTR) newargs);
-    FreeArgs(args);
+    // FreeDosObject (DOS_RDARGS, (APTR) newargs);
+    // FreeArgs(args);
     return 0;
 }
