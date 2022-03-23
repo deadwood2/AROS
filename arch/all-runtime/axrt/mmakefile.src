@@ -24,7 +24,7 @@ MODULE_FILES := \
     startup/iprefs/fontprefs \
     startup/iprefs/vars \
     startup/iprefs/misc \
-    startup/startup_lib \
+    startup/rt_startup \
     shims/libc/fopen \
     shims/libc/libc_init \
     shims/libc/mkdir \
