@@ -2511,15 +2511,15 @@ $(%(mmake)%(flavour)_LINKLIBOBJS) $(%(mmake)%(flavour)_RELLINKLIBOBJS) : | $(%(m
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames="$(%(mmake)%(flavour)_TARGETCCFILES)" targetdir="$(%(mmake)%(flavour)_OBJDIR)" \
-    cppflags="$(%(mmake)%(flavour)_CPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_CFLAGS)" dflags="$(%(mmake)%(flavour)_DFLAGS)" \
+    cppflags="$(%(mmake)%(flavour)_CPPFLAGS)" cflags="$(%(mmake)%(flavour)_CFLAGS)" dflags="$(%(mmake)%(flavour)_DFLAGS)" \
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames="$(%(mmake)%(flavour)_NLIBARCHFILES)" targetdir="$(%(mmake)%(flavour)_OBJDIR)/linklib" \
-    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_LINKLIBCFLAGS)" dflags="$(%(mmake)%(flavour)_LINKLIBDFLAGS)" \
+    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS)" cflags="$(%(mmake)%(flavour)_LINKLIBCFLAGS)" dflags="$(%(mmake)%(flavour)_LINKLIBDFLAGS)" \
     compiler="%(compiler)"
 %rule_compile_multi mmake=%(mmake)%(flavour) \
     basenames="$(%(mmake)%(flavour)_LINKLIBCCGENFILES)" srcdir="$(%(mmake)%(flavour)_OBJDIR)/linklib" targetdir="$(%(mmake)%(flavour)_OBJDIR)/linklib" \
-    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS) -D__AROS__" cflags="$(%(mmake)%(flavour)_LINKLIBCFLAGS)" dflags="$(%(mmake)%(flavour)_LINKLIBDFLAGS)" \
+    cppflags="$(%(mmake)%(flavour)_LINKLIBCPPFLAGS)" cflags="$(%(mmake)%(flavour)_LINKLIBCFLAGS)" dflags="$(%(mmake)%(flavour)_LINKLIBDFLAGS)" \
     compiler="%(compiler)"
 
 ifneq ($(%(mmake)%(flavour)_LINKLIBAFILES),)
