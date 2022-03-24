@@ -2,7 +2,7 @@ SRC = Calculator.c
 OBJ = $(SRC:.c=.o)
 DEP = $(OBJ:.o=.d)
 
-CFLAGS = -D__AROS__ -g -O0 -I/usr/include/axrt-4.0
+CFLAGS = -g -O0 -I/usr/include/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 USER_LIBS =
 LDFLAGS = -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 

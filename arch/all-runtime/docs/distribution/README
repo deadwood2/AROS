@@ -71,9 +71,9 @@ at: http://www.aros.org/
 
 4.2) Detailed - Compilation
 
-    Add __AROS__ define and path to header files, example:
+    Add path to header files and select axrt.specs specs file, example:
 
-    CFLAGS = -D__AROS__ -I/usr/include/axrt-4.0
+    CFLAGS = -I/usr/include/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 
 4.3) Detailed - Linking
 
@@ -81,7 +81,7 @@ at: http://www.aros.org/
 
     OBJ += /usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.ld
 
-    ii.) Add path to linker libraries and select axrt.specs linker specs file, example:
+    ii.) Add path to linker libraries and select axrt.specs specs file, example:
 
     LDFLAGS = -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 
