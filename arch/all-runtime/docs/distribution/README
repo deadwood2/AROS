@@ -26,7 +26,7 @@ AxRuntime is based on work of AROS projects, which is an open source
 re-implementation of AmigaOS 3.1 API. More information on AROS is available
 at: http://www.aros.org/
 
-================================Current Version================================
+=============================Building your projects============================
 
 1) What is available is current version?
 
@@ -47,9 +47,9 @@ at: http://www.aros.org/
 
 2) How do I install and use the runtime?
 
-    Runtime is composed of three modules: libaxrt-4.0.so and AXRTSYS and USERSYS
-    directories. Application loads libaxrt-4.0.so, which then in turn initializes
-    the runtime and user settings.
+    Runtime is composed of three modules: libaxrt-4.0.so and AXRTSYS and
+    USERSYS directories. Application loads libaxrt-4.0.so, which then in turn
+    initializes the runtime and user settings.
 
     Runtime is distributed as .deb package which can be downloaded from
     https://www.axrt.org/download. Package name is libaxrt-4.0. The package
@@ -81,9 +81,10 @@ at: http://www.aros.org/
 
     OBJ += /usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.ld
 
-    ii.) Add path to linker libraries and select axrt.specs specs file, example:
+    ii.) Add path to linker libraries and select axrt.specs specs file,
+         example:
 
-    LDFLAGS = -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
+    LDFLAGS = -shared -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 
     iii.) Add additional linker libraries to resolve symbols
 
@@ -93,7 +94,8 @@ at: http://www.aros.org/
 
 5) How do I compile a module (library, class) for the runtime?
 
-    This is not yet possible in this version.
+    Support for compiling modules is not yet documented. Contact me directly if
+    you need to build a module.
 
 6) How do I distribute my application as self-contained boundle?
 
@@ -118,55 +120,8 @@ at: http://www.aros.org/
     then most likely setting 'rpath' to $ORIGIN failed during linking. You can
     check this by invoking:
 
-    $readelf <executable> -d | grep path
+    $ readelf <executable> -d | grep path
     0x000000000000000f (RPATH)              Library rpath: [$ORIGIN]
 
     If the string does not read $ORIGIN, then inspect and fix the axrt.specs
     file.
-
-======================================FAQ======================================
-
-1) Do I need to use special compiler and linker?
-
-    No. Any compiler available on your Linux setup is usable out of
-    the box.
-
-2) How to get in contact with development team?
-
-    At this point in time send an email to: deadwood@onet.pl
-
-3) Will AxRuntime work under Windows, BSD, MacOS in future?
-
-    Yes, support for other platforms is planned.
-
-4) What does it mean that AxRuntime supports SMP (Symmetric Multiprocessing)?
-
-    Unlike current Amiga-like platforms, Tasks and Processes in AxRuntime
-    are distributed across different CPU cores. This means they execute in real
-    parallel conditions.
-
-    AxRuntime enables SMP in "forward-compatible" way. This means any
-    application that has multiple tasks and is working correctly under the
-    runtime, is guaranteed to be working correctly under the native platform.
-
-    The original source code though might sometimes need modifications to work
-    correctly under platform. This includes:
-
-    1) SysBase->ThisTask is removed.
-
-        SOLUTION: Use FindTask(NULL).
-
-    2) It is not guaranteed that newly created Task with higher priority than
-    current Task will be executed before current Task continues.
-
-        SOLUTION: Use semaphores to serialize access and execution.
-
-5) Will AxRuntime work under PPC Linux?
-
-    This version is being considered and it will be made if there is strong
-    need expressed by developer community.
-
-6) Will AxRuntime packages be available via ppa repository?
-
-    Yes, it is planned to provide such repository at some point.
-

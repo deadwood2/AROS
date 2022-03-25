@@ -1,0 +1,80 @@
+=================================Introduction==================================
+
+AxRuntime (AxRT) is a product for application developers who enjoy creating
+their applications using Amiga APIs.
+
+The runtime allows developers to continue developing Amiga applications in
+unmodified way while at the same time being able to utilize modern development
+tools available on Linux like IDEs, debuggers, profilers, etc.
+
+This solution lets developers compile their Amiga API-based applications as
+Linux binaries. Once the features are implemented, tested and optimized using
+the runtime on Linux, developers re-compile their applications for their
+Amiga-like system of choice and perform final quality checking.
+
+Applications created with AxRuntime can be distributed to the Linux
+community giving developers a much broader user base and a possibility to
+invite developers from outside general Amiga community to contribute to the
+application.
+
+https://www.axrt.org/
+https://github.com/deadw00d/AROS/tree/alt-runtime
+
+================================Acknowledgement================================
+
+AxRuntime is based on work of AROS projects, which is an open source
+re-implementation of AmigaOS 3.1 API. More information on AROS is available
+at: http://www.aros.org/
+
+===================================Internals===================================
+
+1) How a shared module is structured?
+
+    A shared module is a collection of functions that is accessing by making
+    calls relative to modules "base". Examples of modules are libraries (
+    dos.library), devices (timer.device), resources, etc.
+
+    A shared module under AxRuntime is an ELF dynamic object (ET_DYN) (also
+    called shared object) with a predefined interfaces. Such object needs to
+    expose function called __get_resident which returns the Resident structure
+    of a module.
+
+    Functions calls of module are done in the same way as in Amiga, as a jump
+    table (LVO) relative to modules base acquired for example from OpenLibrary
+    call. Functions are not exposed via ELF mechanisms like GOT or PLT.
+
+    Modules name retains Amiga naming, so DOS is named dos.library, not dos.so
+    or dos.library.so.
+
+    Modules are LoadSeg'ed using dlopen() calls.
+
+2) How an executable is structured?
+
+    A regular AxRuntime-enabled executable has so called "dual-run" capability.
+    This means the same executable can be started directly from Linux console
+    as well as directly from AxRuntime (RunCommand(), SystemTags() or Shell).
+
+    To achieve this an executable needs to be loadable by Linux and this is
+    achieved by making every executable a dynamic object, but with a defined
+    entry point. Necessary configuration is provided in axrt.spec file which
+    needs to be used during compilation and linking stages.
+
+    When started from Linux, the sequence is the following:
+
+    (startup.o) _axrt_start (Linux side entry point)
+                    |
+                   \ /
+    (startup.o) __runtimestartup
+                    |
+                   \ /
+    (startup.o) __kick_start (initializes runtime and calls AxRT-side entry)
+                    |
+                   \ /
+    (startup.o) __startup_entry (AxRT side entry point)
+
+    When loaded into existing, running runtime, only AxRT side entry
+    (__startup_entry) is called directly from DOS.
+
+    __startup_entry is the single function that needs to be exposed from an
+    executable. Executables are LoadSeg'ed using dlopen() calls.
+
