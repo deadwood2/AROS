@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-FILES := allocabs allocate createpool \
+FILES := allocate createpool \
         deallocate deletepool \
         initkicktags memory_nommu \
         stackswap
