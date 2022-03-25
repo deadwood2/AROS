@@ -152,10 +152,7 @@ AROS_LIBSET(name, btype, bname)           \
 const LONG __aros_libreq_##bname = ver;
 
 #ifndef AROS_LIBREQ
-#define AROS_LIBREQ(bname, ver) \
-    asm volatile ( \
-                  ".global __aros_libreq_" #bname "." #ver "\n" \
-                  "__aros_libreq_" #bname "." #ver "=" #ver);
+#define AROS_LIBREQ(bname, ver)
 #endif
 
 #define SETRELLIBOFFSET(bname, libbasetype, fname) \
