@@ -62,7 +62,7 @@ static CONST_STRPTR Kickstart [] =
 
 static void __Abort()
 {
-    printf("<<INFO>>: Aborting...\n");
+    printf("<<ERROR>>: Aborting...\n");
     exit(100);
 }
 
@@ -334,6 +334,28 @@ static void check_install_usersys(const char *runtimeroot, const char *usersys)
     }
 }
 
+static void check_runtimeroot(const char *runtimeroot)
+{
+    int notfound = 1;
+    char tmp[1024];
+    struct stat s;
+    int err = stat(runtimeroot, &s);
+    if ((err == 0) && (S_ISDIR(s.st_mode)))
+    {
+        strcpy(tmp, runtimeroot);
+        strcat(tmp, Kickstart[0]);
+        err = stat(tmp, &s);
+        if ((err == 0) && (S_ISREG(s.st_mode)))
+            notfound = 0;
+    }
+
+    if (notfound)
+    {
+        printf("<<ERROR>>: Runtime not found at %s\n", runtimeroot);
+        __Abort();
+    }
+}
+
 __attribute__((visibility("default"))) void __set_runtime_env(int __version)
 {
     /* Paths needs to end with "/" */
@@ -409,13 +431,16 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     strcpy(USERSYS, "ROOT:");
     strcat(USERSYS, __usersys + 1);
 
-    /* Check & Install USERSYS */
-    check_install_usersys(RUNTIME_ROOT, __usersys);
-
     /* Summary */
     printf("<<INFO>>: RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
     printf("<<INFO>>: AXRTSYS     : %s\n", AXRTSYS);
     printf("<<INFO>>: USERSYS     : %s\n", USERSYS);
+
+    /* Check if runtime is installed at selected RUNTIME_ROOT */
+    check_runtimeroot(RUNTIME_ROOT);
+
+    /* Check & Install USERSYS */
+    check_install_usersys(RUNTIME_ROOT, __usersys);
 
     setenv(ENV_AXRT_ROOT, RUNTIME_ROOT, 1);
     setenv("AXRTSYS", AXRTSYS, 1);
