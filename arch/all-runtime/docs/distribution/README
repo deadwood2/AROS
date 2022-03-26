@@ -71,9 +71,13 @@ at: http://www.aros.org/
 
 4.2) Detailed - Compilation
 
-    Add path to header files and select axrt.specs specs file, example:
+    i.) Add path to header files and select axrt.specs specs file, example:
 
     CFLAGS = -I/usr/include/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
+
+    ii.) To build a dual-run executable, add -fPIC flag
+
+    CFLAGS += -fPIC
 
 4.3) Detailed - Linking
 
@@ -84,13 +88,29 @@ at: http://www.aros.org/
     ii.) Add path to linker libraries and select axrt.specs specs file,
          example:
 
-    LDFLAGS = -shared -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
+    LDFLAGS = -L/usr/lib/x86_64-linux-gnu/axrt-4.0 -specs=/usr/lib/x86_64-linux-gnu/axrt-4.0/axrt.specs
 
-    iii.) Add additional linker libraries to resolve symbols
+    iii.) To build a dual-run executable, add -shared flag
+
+    LDFLAGS += -shared
+
+    iv.) Add additional linker libraries to resolve symbols
 
 4.4) Detailed - Running
 
     Execute the binary resulting from the build.
+
+    $ ./<executable>
+
+4.5) Detailed - Debugging
+
+    Execute the binary resulting from the build through gdb
+
+    $ gdb ./<executable>
+
+    To debug a dual-run executable, add DT_DEBUG after each rebuild
+
+    $ patchelf-debug --add-debug ./executable
 
 5) How do I compile a module (library, class) for the runtime?
 
