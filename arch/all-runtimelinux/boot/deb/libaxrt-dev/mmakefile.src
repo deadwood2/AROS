@@ -16,6 +16,7 @@ DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-$(RT_ABI).0-dev
 LIB_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu/axrt-$(RT_ABI).0
 INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/usr/include/axrt-$(RT_ABI).0
 DOC_DEST_DIR := $(DEST_ROOT_DIR)/usr/share/doc/libaxrt-$(RT_ABI).0-dev
+BIN_DEST_DIR := $(DEST_ROOT_DIR)/usr/bin
 
 #MM
 runtime-setup-package-deb-libaxrt-dev :
@@ -24,8 +25,9 @@ runtime-setup-package-deb-libaxrt-dev :
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/DEBIAN/control
-	%mkdirs_q $(LIB_DEST_DIR) $(INCLUDE_DEST_DIR) $(DOC_DEST_DIR)
+	%mkdirs_q $(LIB_DEST_DIR) $(INCLUDE_DEST_DIR) $(DOC_DEST_DIR) $(BIN_DEST_DIR)
 	@$(CP) -r $(SRCDIR)/arch/all-runtime/docs/distribution/* $(DOC_DEST_DIR)
+	@$(CP) $(TOOLDIR)/patchelf $(BIN_DEST_DIR)/patchelf-debug
 
 INCLUDE_DIRS := \
     aros \
