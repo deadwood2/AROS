@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2018, The AROS Development Team. All rights reserved.
     Command line options:
 
     1. PUBSCREEN <name>: the name of the public screen to open the window on
@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-const char *version = "$VER: Calculator 1.4 (08.08.2013) © AROS Dev Team";
+const char *version = "$VER: Calculator 1.5 (31.05.2018) \xA9 1995-2018 The AROS Dev Team";
 
 #define ARG_TEMPLATE "PUBSCREEN,TAPE/K"
 enum {ARG_PUBSCREEN,ARG_TAPE,NUM_ARGS};
@@ -53,7 +53,7 @@ enum
     BTYPE_SUB,
     BTYPE_ADD,
     BTYPE_SIGN,
-    BTYPE_EQU    
+    BTYPE_EQU
 };
 
 #define NUM_BUTTONS 20
@@ -78,8 +78,9 @@ struct CalcButtonInfo BUTTONS[] =
  * Most of the application state is local or in BOOPSI objects.
  * The only global state is to communicate the command line arguments
  */
+#define CALC_TAPENAME_MAX       320
 static char pubscrname[256];
-static char tapename[256];
+static char tapename[CALC_TAPENAME_MAX];
 static BOOL use_tape;
 
 /**********************************************************************
@@ -501,7 +502,7 @@ IPTR mAddCalcKey(struct IClass *cl, Object *obj, struct MUIMP_CalcKey *msg)
              (data->state == STATE_LEFTVAL || data->state == STATE_RIGHTVAL))
     {
         clear_edit_buffer(data);
-        display_state(data);      
+        display_state(data);
 
     }
     else if (msg->btype == BTYPE_SIGN && data->state != STATE_OP)
@@ -566,13 +567,13 @@ static void dos_error(void)
 
 static char retrieve_decimal_point(void)
 {
-    struct Locale *loc;    
+    struct Locale *loc;
     char result = '.';
 
     if ((loc = OpenLocale(0)))
     {
-    	  result = loc->loc_DecimalPoint[0];
-    	  CloseLocale(loc);
+          result = loc->loc_DecimalPoint[0];
+          CloseLocale(loc);
     }
     return result;
 }
@@ -594,7 +595,7 @@ static void get_arguments(void)
     if (args[ARG_TAPE])
     {
         use_tape = TRUE;
-        strncpy(tapename, (const char *) args[ARG_TAPE], 255);
+        strncpy(tapename, (const char *) args[ARG_TAPE], CALC_TAPENAME_MAX);
     }
     if (rdargs) FreeArgs(rdargs);
 }
@@ -616,7 +617,7 @@ static void open_raw_tape_if_needed(Object *window, Object *obj_tape)
         if (x > (win->WScreen->Width - (x + w))) x -= w;
         else                                     x += win->WScreen->Width;
 
-        snprintf(tapename, 255, RAW_TAPE_NAME, x, y, w, h, pubscrname);
+        snprintf(tapename, CALC_TAPENAME_MAX, RAW_TAPE_NAME, x, y, w, h, pubscrname);
         tapefh = Open(tapename, MODE_NEWFILE);
         SetAttrs(obj_tape, TAPEA_FILEHANDLE, tapefh);
     }
@@ -687,8 +688,8 @@ int main(void)
 
     app = ApplicationObject,
           MUIA_Application_Title, "Calculator",
-          MUIA_Application_Version, "1.4",
-          MUIA_Application_Copyright, "©2007-2013, AROS Dev Team",
+          MUIA_Application_Version, "1.5",
+          MUIA_Application_Copyright, "©2007-2018, AROS Dev Team",
           MUIA_Application_Author, "AROS Team",
           MUIA_Application_Description, "Simple desktop calculator",
           MUIA_Application_Base, "calculator",
