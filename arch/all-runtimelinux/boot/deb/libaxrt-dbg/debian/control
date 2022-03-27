@@ -1,0 +1,15 @@
+Source: libaxrt-{RTABI}-dbg
+Section: unknown
+Priority: optional
+Maintainer: deadwood <deadwood@uknown>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.4.1
+Homepage: http://www.axrt.org/
+
+Package: libaxrt-{RTABI}-dbg
+Architecture: amd64
+Depends: ${misc:Depends}, libaxrt-{RTABI} (= {RTVER}-1)
+Description: AxRuntime debug symbols
+Section: debug
+Priority: extra
+Multi-Arch: same
