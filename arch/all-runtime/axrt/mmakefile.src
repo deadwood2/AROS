@@ -33,7 +33,7 @@ MODULE_FILES := \
     shims/init \
     shims/util
 
-RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h).0
 
 BD_ALLTARGETS := runtime-axrt-so runtime-axrt-so-clean runtime-axrt-so-quick
 
@@ -56,7 +56,7 @@ BD_NARCHFILES := $(filter-out $(BD_ARCHFILES),$(MODULE_FILES))
     cflags="$(BD_CFLAGS)" cppflags="$(DB_CPPFLAGS)" \
     compiler=target
 
-BD_MODULE := $(BD_MODDIR)/libaxrt-$(RT_ABI).0.so
+BD_MODULE := $(BD_MODDIR)/libaxrt-$(RT_ABI).so
 
 runtime-axrt-so-quick : runtime-axrt-so
 runtime-axrt-so       : $(BD_MODULE)
@@ -64,7 +64,7 @@ runtime-axrt-so       : $(BD_MODULE)
 # The module is linked from all the compiled .o files
 BD_OBJS       := $(BD_ARCHOBJS) $(addprefix $(OBJDIR)/, $(addsuffix .o,$(notdir $(BD_NARCHFILES))))
 
-BD_ERR := libaxrt-$(RT_ABI).0.so.err
+BD_ERR := libaxrt-$(RT_ABI).so.err
 
 %rule_linkmodule module=$(BD_MODULE) objs="$(BD_OBJS) $(AROS_LIB)/axrt.ld" \
 		 endobj= err=$(BD_ERR) objdir="$(OBJDIR)" \
@@ -81,7 +81,7 @@ GLOB_MKDIRS += $(OBJDIR) $(BD_MODDIR)
 
 runtime-axrt-so-clean : FILES := $(BD_OBJS) $(BD_MODULE) $(BD_DEPS)
 runtime-axrt-so-clean ::
-	@$(ECHO) "Cleaning up for module libaxrt-$(RT_ABI).0.so"
+	@$(ECHO) "Cleaning up for module libaxrt-$(RT_ABI).so"
 	@$(RM) $(FILES)
 
 ###############################################################################
