@@ -358,6 +358,18 @@ diff -ruN freetype-2.10.4/builds/aros/src/base/ftsystem.c freetype-2.10.4.aros/b
 +
 +
 +/* END */
+diff -ruN freetype-2.10.4/include/freetype/config/public-macros.h freetype-2.10.4.aros/include/freetype/config/public-macros.h
+--- freetype-2.10.4/include/freetype/config/public-macros.h	2020-08-27 06:17:20.000000000 +0000
++++ freetype-2.10.4.aros/include/freetype/config/public-macros.h	2022-03-27 05:35:05.934677526 +0000
+@@ -71,6 +71,8 @@
+ #define FT_PUBLIC_FUNCTION_ATTRIBUTE  __declspec( dllimport )
+ #endif
+ 
++#elif defined(__AROS__)
++
+   /* gcc, clang */
+ #elif ( defined( __GNUC__ ) && __GNUC__ >= 4 ) || defined( __clang__ )
+ #define FT_PUBLIC_FUNCTION_ATTRIBUTE \
 diff -ruN freetype-2.10.4/src/autofit/afcjk.c freetype-2.10.4.aros/src/autofit/afcjk.c
 --- freetype-2.10.4/src/autofit/afcjk.c	2020-08-27 06:17:20.000000000 +0000
 +++ freetype-2.10.4.aros/src/autofit/afcjk.c	2021-01-08 22:34:15.600000000 +0000
