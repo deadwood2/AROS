@@ -1,0 +1,14 @@
+Source: libaxrt-{RTABI}.0
+Section: unknown
+Priority: optional
+Maintainer: deadwood <deadwood@uknown>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.4.1
+Homepage: http://www.axrt.org/
+
+Package: libaxrt-{RTABI}.0
+Architecture: amd64
+Priority: optional
+Homepage: http://www.axrt.org/
+Description: AxRuntime
+Multi-Arch: same
