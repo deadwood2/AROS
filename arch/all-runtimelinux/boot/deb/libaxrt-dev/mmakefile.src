@@ -9,22 +9,23 @@ include $(SRCDIR)/config/aros.cfg
 # Extract version information
 RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
 RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
-RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h).0
 
 SDK_SRC_DIR := $(AROS_DEVELOPMENT)
-DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-$(RT_ABI).0-dev
-LIB_DEST_DIR := $(DEST_ROOT_DIR)/usr/lib/x86_64-linux-gnu/axrt-$(RT_ABI).0
-INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/usr/include/axrt-$(RT_ABI).0
-DOC_DEST_DIR := $(DEST_ROOT_DIR)/usr/share/doc/libaxrt-$(RT_ABI).0-dev
-BIN_DEST_DIR := $(DEST_ROOT_DIR)/usr/bin
+DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-$(RT_ABI)-dev
+LIB_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu/axrt-$(RT_ABI)
+INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/include/axrt-$(RT_ABI)
+DOC_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/share/doc/libaxrt-$(RT_ABI)-dev
+BIN_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/bin
 
 #MM
 runtime-setup-package-deb-libaxrt-dev :
 	@$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
-	@$(CP) -r $(SRCDIR)/$(CURDIR)/DEBIAN/ $(DEST_ROOT_DIR)
-	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/DEBIAN/control
-	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/DEBIAN/control
+	@$(CP) -r $(SRCDIR)/$(CURDIR)/debian/ $(DEST_ROOT_DIR)
+	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/debian/changelog
+	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/debian/control
+	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/debian/control
 	%mkdirs_q $(LIB_DEST_DIR) $(INCLUDE_DEST_DIR) $(DOC_DEST_DIR) $(BIN_DEST_DIR)
 	@$(CP) -r $(SRCDIR)/arch/all-runtime/docs/distribution/* $(DOC_DEST_DIR)
 	@$(CP) $(TOOLDIR)/patchelf $(BIN_DEST_DIR)/patchelf-debug
@@ -146,7 +147,7 @@ LIB_DEST_FILES := $(foreach f, $(LIB_FILES), $(LIB_DEST_DIR)/$(f))
 #MM
 runtime-package-deb-libaxrt-dev-lib : $(LIB_DEST_FILES)
 	@$(CP) $(SRCDIR)/arch/all-runtime/axrt/compiler/axrt.specs $(LIB_DEST_DIR)
-	@$(SED) -i -e "s|@AXRT_LIB@|/usr/lib/x86_64-linux-gnu/axrt-$(RT_ABI).0|g" $(LIB_DEST_DIR)/axrt.specs
+	@$(SED) -i -e "s|@AXRT_LIB@|/usr/lib/x86_64-linux-gnu/axrt-$(RT_ABI)|g" $(LIB_DEST_DIR)/axrt.specs
 	@$(SED) -i -e "s|@AXRT_ABI@|$(RT_ABI)|g" $(LIB_DEST_DIR)/axrt.specs
 
 $(LIB_DEST_DIR)/% : $(SDK_SRC_DIR)/lib/%
@@ -156,6 +157,7 @@ runtime-package-deb-libaxrt-dev : runtime-package-deb-libaxrt-dev-build
 
 runtime-package-deb-libaxrt-dev-build:
 	@$(MKDIR) -p "$(DISTDIR)"
-	dpkg-deb --build $(DEST_ROOT_DIR) $(DISTDIR)
+	@cd "$(DEST_ROOT_DIR)" && dpkg-buildpackage -b -us -ui -uc -tc
+	@$(CP) "$(GENDIR)/boot/libaxrt-$(RT_ABI)-dev_$(RT_VERSION).$(RT_REVISION)-1_amd64.deb" "$(DISTDIR)"
 
 %common
