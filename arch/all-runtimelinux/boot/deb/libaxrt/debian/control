@@ -8,7 +8,6 @@ Homepage: http://www.axrt.org/
 
 Package: libaxrt-{RTABI}
 Architecture: amd64
-Priority: optional
-Homepage: http://www.axrt.org/
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: AxRuntime
 Multi-Arch: same
