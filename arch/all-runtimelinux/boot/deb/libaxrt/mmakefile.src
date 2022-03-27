@@ -27,11 +27,11 @@ AXRT_FILES := \
 # Extract version information
 RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
 RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
-RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
+RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h).0
 
 AXRT_SRC_DIR := $(AROSDIR)
-DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-$(RT_ABI).0
-AXRT_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu/axrt/$(RT_ABI).0
+DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-$(RT_ABI)
+AXRT_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu/axrt/$(RT_ABI)
 USERSYS_DEST_DIR := $(AXRT_DEST_DIR)/UserSYS
 
 AXRT_DEST_FILES := $(foreach f, $(AXRT_FILES), $(AXRT_DEST_DIR)/$(f))
@@ -45,12 +45,12 @@ runtime-setup-package-deb-libaxrt :
 	@$(RM) $(DEST_ROOT_DIR)
 	%mkdirs_q $(DEST_ROOT_DIR)
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/debian/ $(DEST_ROOT_DIR)
-	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/debian/control
+	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/debian/changelog
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/debian/control
 	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
 	%mkdirs_q $(USERSYS_DEST_DIR)/S $(USERSYS_DEST_DIR)/C $(USERSYS_DEST_DIR)/Libs
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
-	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).0.so $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu
+	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).so $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
 
 
@@ -84,7 +84,7 @@ runtime-package-deb-libaxrt : runtime-package-deb-libaxrt-build
 runtime-package-deb-libaxrt-build: $(AXRT_DEST_FILES)
 	@$(MKDIR) -p "$(DISTDIR)"
 	@cd "$(DEST_ROOT_DIR)" && dpkg-buildpackage -b -us -ui -uc -tc
-	@cp "$(GENDIR)/boot/libaxrt-$(RT_ABI).0_$(RT_VERSION).$(RT_REVISION)-1_amd64.deb" "$(DISTDIR)"
+	@cp "$(GENDIR)/boot/libaxrt-$(RT_ABI)_$(RT_VERSION).$(RT_REVISION)-1_amd64.deb" "$(DISTDIR)"
 
 $(AXRT_DEST_DIR)/% : $(AXRT_SRC_DIR)/% | $(AXRT_DEST_DIRS)
 	@$(CP) $< $@
