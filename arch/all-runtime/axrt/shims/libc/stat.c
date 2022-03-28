@@ -10,7 +10,7 @@ __attribute__((visibility("default"))) int __xstat64(int ver, char * path, void 
     int _return = 0;
     char lpathname[1024];
 
-    __shims_amiga2host(path, lpathname);
+    __shims_amiga2host(__func__, path, lpathname);
 
     _return = __libcfuncs.__xstat64(ver, lpathname, buf);
 

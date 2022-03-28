@@ -4,6 +4,7 @@
 
 
 #include <string.h>
+#include <stdio.h>
 
 #include <proto/dos.h>
 
@@ -34,7 +35,7 @@ static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
     }
 }
 
-LONG __shims_amiga2host(const char *amigapath, char *hostpath)
+LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
 {
     /* Make copy */
     strcpy(hostpath, amigapath);
@@ -53,6 +54,12 @@ LONG __shims_amiga2host(const char *amigapath, char *hostpath)
 
     /* Convert path to Linux */
     strreplace(hostpath, "ROOT:","/");
+
+#if 0
+    printf("A2H [%s] %s -> %s\n", func, amigapath, hostpath);
+#else
+    (void)func;
+#endif
 
     return 0;
 }

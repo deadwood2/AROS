@@ -21,6 +21,6 @@ extern struct ShimsBase SB;
 #define SysBase SB.sysBase
 #define DOSBase SB.dosBase
 
-LONG __shims_amiga2host(const char *amigapath, char *hostpath);
+LONG __shims_amiga2host(const char *func, const char *amigapath, char *hostpath);
 
 #endif

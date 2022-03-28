@@ -10,7 +10,7 @@ __attribute__((visibility("default"))) FILE * fopen64 (const char * restrict pat
     FILE *_return = NULL;
     char lpathname[1024];
 
-    __shims_amiga2host(path, lpathname);
+    __shims_amiga2host(__func__, path, lpathname);
 
     _return = __libcfuncs.fopen64(lpathname, mode);
 

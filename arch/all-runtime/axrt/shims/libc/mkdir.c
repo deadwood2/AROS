@@ -10,7 +10,7 @@ __attribute__((visibility("default"))) int mkdir(const char * path, mode_t mode)
     int _return = 0;
     char lpathname[1024];
 
-    __shims_amiga2host(path, lpathname);
+    __shims_amiga2host(__func__, path, lpathname);
 
     _return = __libcfuncs.mkdir(lpathname, mode);
 
