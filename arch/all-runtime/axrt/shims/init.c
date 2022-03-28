@@ -4,6 +4,7 @@
 
 
 #include <proto/exec.h>
+#include <stdlib.h>
 
 #include "shimsinit.h"
 #include "internal.h"
@@ -27,6 +28,10 @@ void __shims_init_internals()
 
     if (!SB.dosBase)
         return;
+
+    SB.sb_debugpath = FALSE;
+    if (getenv("AXRT_DEBUG_PATH") != NULL)
+        SB.sb_debugpath = TRUE;
 
     inited = TRUE;
 }

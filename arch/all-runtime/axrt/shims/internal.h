@@ -14,6 +14,8 @@ struct ShimsBase
     struct Library base;
     struct ExecBase *sysBase;
     struct Library *dosBase;
+
+    BOOL            sb_debugpath;
 };
 
 extern struct ShimsBase SB;

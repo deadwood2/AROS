@@ -55,11 +55,8 @@ LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
     /* Convert path to Linux */
     strreplace(hostpath, "ROOT:","/");
 
-#if 0
-    printf("A2H [%s] %s -> %s\n", func, amigapath, hostpath);
-#else
-    (void)func;
-#endif
+    if (SB.sb_debugpath)
+        printf("<<INFO>>: A2H [%s] %s -> %s\n", func, amigapath, hostpath);
 
     return 0;
 }
