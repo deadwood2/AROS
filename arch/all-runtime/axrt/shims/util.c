@@ -59,7 +59,7 @@ LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
     /* Make copy */
     strcpy(hostpath, amigapath);
 
-    if (DOSBase) /* amiga path resolution works only when dos.library is up */
+    if (hostpath[0] != '/' && DOSBase) /* amiga path resolution works only when dos.library is up */
     {
         char volume[64];
         char adir[1024];
@@ -67,7 +67,12 @@ LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
         adir[0] = 0;
 
         /* Get to path starting from ROOT: */
-        if (strcasestr(hostpath, "PROGDIR:") == hostpath)
+
+        if (strcasestr(hostpath, "ROOT:") == hostpath)
+        {
+            /* Do nothing */
+        }
+        else if (strcasestr(hostpath, "PROGDIR:") == hostpath)
         {
             extractvolume(hostpath, volume, 64);
             NameFromLock(GetProgramDir(), adir, 1024);
