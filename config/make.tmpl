@@ -2711,7 +2711,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   objdir= moduledir= prefix="$(AROSDIR)" \
   linklibname= uselibs= usehostlibs= \
   compiler=target nostartup=yes archspecific=no \
-  include_set=includes-all stripdebug="$(DEBUG)"
+  include_set=includes-all stripdebug="$(DEBUG)" sdk=public usesdks=
 
 %build_module_core mmake="%(mmake)" modname="%(modname)" modtype="%(modtype)" \
   modsuffix="%(modsuffix)" version="%(version)" flavour="%(flavour)" conffile="%(conffile)" confoverride="%(confoverride)" \
@@ -2722,7 +2722,7 @@ endif # $(TARGET) in $(%(mmake)%(flavour)_ALLTARGETS)
   uselibs="%(uselibs)" usehostlibs="%(usehostlibs)" compiler="%(compiler)" lto=%(lto) \
   nostartup="%(nostartup)" archspecific="%(archspecific)" \
   include_set=%(include_set) \
-  build_abi=M build_library= stripdebug="%(stripdebug)"
+  build_abi=M build_library= stripdebug="%(stripdebug)" sdk="%(sdk)" usesdks="%(usesdks)"
 
 %end
 #------------------------------------------------------------------------------
