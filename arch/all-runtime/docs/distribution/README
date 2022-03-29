@@ -145,3 +145,17 @@ at: http://www.aros.org/
 
     If the string does not read $ORIGIN, then inspect and fix the axrt.specs
     file.
+
+7) How to control behavior of AxRuntime through environment variables?
+
+    AxRuntime supports a number of variables that alter its operations:
+
+    AXRT_ROOT=path - defines path where runtime is located. Overrides the
+    default location of /usr/lib/x86_64-linux-gnu/axrt/4.0. Priority is as
+    follows:
+    1) Relative (./AXRTSYS)
+    2) AXRT_ROOT variable
+    3) /usr/lib/x86_64-linux-gnu/axrt/4.0
+
+    AXRT_DEBUG_PATH=1 - enables reporting on path conversion from Amiga to
+    host.
