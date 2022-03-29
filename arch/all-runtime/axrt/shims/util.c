@@ -70,6 +70,10 @@ LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
             strcpy(volume, "PROGDIR:");
             NameFromLock(GetProgramDir(), adir, 1024);
         }
+        else if (strcasecmp(hostpath, "Console:") == 0)
+        {
+            strcpy(hostpath, "ROOT:dev/stdout");
+        }
         else if (extractvolume(hostpath, volume, 64))
         {
             BPTR lock = Lock(volume, SHARED_LOCK);
