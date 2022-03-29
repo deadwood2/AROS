@@ -15,6 +15,7 @@ struct libcfuncs
     int (*mkdir)(const char * path, mode_t mode);
     int (*open64)(const char * pathname, int oflag);
     int (*__xstat64)(int ver, const char * path, void * buf);
+    int (*__lxstat64)(int ver, const char * path, void * buf);
 };
 
 extern struct libcfuncs __libcfuncs;

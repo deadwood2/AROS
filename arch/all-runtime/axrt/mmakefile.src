@@ -27,6 +27,7 @@ MODULE_FILES := \
     startup/rt_startup \
     shims/libc/fopen \
     shims/libc/libc_init \
+    shims/libc/lstat \
     shims/libc/mkdir \
     shims/libc/open \
     shims/libc/stat \

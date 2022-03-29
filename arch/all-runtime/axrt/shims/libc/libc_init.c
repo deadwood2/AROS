@@ -16,5 +16,6 @@ VOID __shims_libc_init_jumptables()
     __libcfuncs.mkdir       = dlsym(RTLD_NEXT, "mkdir");
     __libcfuncs.open64      = dlsym(RTLD_NEXT, "open64");
     __libcfuncs.__xstat64   = dlsym(RTLD_NEXT, "__xstat64");
+    __libcfuncs.__lxstat64  = dlsym(RTLD_NEXT, "__lxstat64");
 }
 
