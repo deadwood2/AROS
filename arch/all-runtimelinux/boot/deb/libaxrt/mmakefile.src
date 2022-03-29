@@ -52,6 +52,7 @@ runtime-setup-package-deb-libaxrt :
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
 	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).so $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
+	touch $(USERSYS_DEST_DIR)/S/User-Startup
 
 
 %copy_dir_recursive mmake=runtime-package-deb-libaxrt-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
