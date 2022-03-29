@@ -109,3 +109,42 @@ LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
     return 0;
 }
 
+/*****************************************************************************
+
+    NAME */
+        __attribute__((visibility("default")))
+
+        LONG Path2Host(
+
+/*  SYNOPSIS */
+        CONST_STRPTR path,
+        STRPTR buffer,
+        LONG length)
+
+/*  FUNCTION
+        Converts a path that is either Amiga or Host to a Host path
+
+    INPUTS
+        path    - input path, either Amiga or Host
+        buffer  - output buffer for converted path
+        length  - size of output buffer
+
+    RESULT
+        Ignored. Always returns 0 (success).
+
+    NOTES
+
+    EXAMPLE
+
+    BUGS
+
+    SEE ALSO
+
+    INTERNALS
+
+    HISTORY
+
+*****************************************************************************/
+{
+    return __shims_amiga2host(__func__, path, buffer);
+}
