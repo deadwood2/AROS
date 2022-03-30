@@ -74,6 +74,10 @@ static void enhancedpathtranslation(char *hostpath)
             Expected corrected output:
             ROOT:dir1/dir2/dir3/dir4/filename
 
+            Example: MUIbase passing absolute path from Project->Open->Project
+            requester to sqline3_open which tries detecting if path is absolute
+            and if not, attaches current working directory to it.
+
             2) Same as 1) but volume is an assigning translating to ROOT: path
         */
 
