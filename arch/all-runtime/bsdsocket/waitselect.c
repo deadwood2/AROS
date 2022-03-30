@@ -52,12 +52,16 @@
     BOOL cont = TRUE;
     ULONG rcvd = 0;
     int __selectresult = 0;
-    struct timeval _t = {0, 20}; /* do pooling with some small sleep*/
+    struct timeval _t;
     ULONG _tsmask = sigmask ? *sigmask : 0;
+
+     /* do pooling with some small sleep */
+     _t.tv_sec  = 0;
+     _t.tv_usec = 20;
 
     if (timeout)
     {
-        /* use couter = timeout/_t to exit with timeout after counter iterations of pooling */
+        /* use counter = timeout/_t to exit with timeout after counter iterations of pooling */
         (bug("<<WARN>>: Handling 'timeout' in WaitSelect is not implemented. Please submit issuet at https://github.com/deadw00d/AROS/issues.\n"));
         return __selectresult;
     }
