@@ -28,7 +28,9 @@ char * stpblk( const char * str );
 #define stpchr(s,c)  strchr(s,c)
 
 /* BSD */
+#ifndef __cplusplus
 char *strcasestr(const char * str, const char * search);
+#endif
 
 /* Extension */
 #define stricmp strcasecmp
