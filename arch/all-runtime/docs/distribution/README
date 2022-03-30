@@ -159,3 +159,36 @@ at: http://www.aros.org/
 
     AXRT_DEBUG_PATH=1 - enables reporting on path conversion from Amiga to
     host.
+
+    AXRT_ENHANCED_PATH_MODE=1 - enables enhanced path translation mode which
+    tries to recover from some errors caused by Linux native libraries
+    modifying Amiga-type paths.
+
+8) I have a problem with Amiga-type paths being wrongly converted to Linux
+   paths when working with C library functions.
+
+    First thing to do is to enable reporting on path conversion by doing:
+
+    $ export AXRT_DEBUG_PATH=1
+
+    This will print to Linux console each time a conversion happens. Here you
+    can see if a conversion happens at all. If not, it might be an issue with
+    runtime itself. Please fill in a bug report describing in as much details
+    the situation you are facing.
+
+    If conversion happens, but is wrong try enabling enhanced mode:
+
+    $ export AXRT_EHANCED_PATH_MODE=1
+
+    If the issue is solved, you can keep the mode enabled always in your
+    application, but defining a global variable in one of your .c files:
+
+    int __enhancedpathmode = 1;
+
+    If the issue is not solved, your last option is to do path translation
+    in your application so that you pass already translated (so Linux native)
+    path to a function call. You can do this by using the following function:
+
+    LONG Path2Host(CONST_STRPTR path, STRPTR buffer, LONG length);
+
+    where 'path' is the input path and 'buffer' holds converted path.
