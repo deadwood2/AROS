@@ -16,7 +16,7 @@ struct ShimsBase
     struct Library *dosBase;
 
     BOOL            sb_debugpath;
-    BOOL            sb_enhancedpathtranslation;
+    BOOL            sb_EnhPathMode;
 };
 
 extern struct ShimsBase SB;

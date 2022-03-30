@@ -35,7 +35,7 @@ static void strreplace(STRPTR target, CONST_STRPTR from, CONST_STRPTR to)
     }
 }
 
-static BOOL extractvolume(const char* amigapath, char *volume, int vsize)
+static BOOL extractvolume(const char *amigapath, char *volume, int vsize)
 {
     /* Copy letters up to : or size */
     for (int i = 0; i < vsize - 1; i++)
@@ -54,10 +54,51 @@ static BOOL extractvolume(const char* amigapath, char *volume, int vsize)
     return FALSE;
 }
 
-LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
+static void enhancedpathtranslation(char *hostpath)
+{
+    if (hostpath[0] == '/' && DOSBase && strchr(hostpath,':') != NULL)
+    {
+        char buff[1024];
+        int pathisvalid = 0;
+        /* Special path handling. Supports cases:
+            1) Volume in absolute Amiga path caused Linux-side detection as
+               "relative" path. An "absolute" path was inserted before it.
+               Volume is ROOT:
+
+            Original path:
+            ROOT:dir1/dir2/dir3/dir4/filename
+
+            Path after Linux-side modifications:
+            /dir1/dir2/dir3/ROOT:dir1/dir2/dir3/dir4/filename
+
+            Expected corrected output:
+            ROOT:dir1/dir2/dir3/dir4/filename
+
+            2) Same as 1) but volume is an assigning translating to ROOT: path
+        */
+
+        char *p = strchr(hostpath, ':');
+        while (*p != '/') p--;
+        strcpy(buff, (p + 1));
+        if (strcasestr(buff, "ROOT:") == buff)
+            pathisvalid = 1;
+
+        /* TODO: 2) check if volume in buff is actually a volume - Lock */
+        /* TODO: 2) translate volume from path into ROOT: path - NameFromLock */
+        /* TODO: 2) check if path before "volume" actually covers beginnig of ROOT: path */
+
+        if (pathisvalid)
+            strcpy(hostpath, buff);
+    }
+}
+
+LONG __shims_amiga2host(const char *func, const char *amigapath, char *hostpath)
 {
     /* Make copy */
     strcpy(hostpath, amigapath);
+
+    if (SB.sb_EnhPathMode)
+        enhancedpathtranslation(hostpath);
 
     if (hostpath[0] != '/' && DOSBase) /* amiga path resolution works only when dos.library is up */
     {
@@ -104,7 +145,9 @@ LONG __shims_amiga2host(const char* func, const char *amigapath, char *hostpath)
     strreplace(hostpath, "ROOT:","/");
 
     if (SB.sb_debugpath)
-        printf("<<INFO>>: A2H [%s] %s -> %s\n", func, amigapath, hostpath);
+        printf("<<INFO>>: %sA2H [%s] %s -> %s\n",
+            SB.sb_EnhPathMode ? "Enh" : "",
+            func, amigapath, hostpath);
 
     return 0;
 }
