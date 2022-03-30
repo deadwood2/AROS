@@ -20,6 +20,7 @@
 #include "rt_version.h"
 #include "rt_startup.h"
 #include "shimsinit.h"
+#include "shimsbase.h"
 
 int main_AddDataTypes();
 int main_Decoration();
@@ -240,7 +241,7 @@ __attribute__((visibility("default"))) int __kick_start(int __version, __kick_st
     int ret = 0;
     const useconds_t DELAY = 100000;
 
-    /* Initialize internals of shims */
+    /* Initialize internals of shims. Needs dos.library available. */
     __shims_init_internals();
 
 #define SysBase local_SysBase
@@ -356,7 +357,7 @@ static void check_runtimeroot(const char *runtimeroot)
     }
 }
 
-__attribute__((visibility("default"))) void __set_runtime_env(int __version)
+__attribute__((visibility("default"))) void __set_runtime_env(int __version, __set_runtime_env_arg_t *arg)
 {
     /* Paths needs to end with "/" */
     char *RUNTIME_ROOT = NULL, *AXRTSYS = NULL, *USERSYS = NULL;
@@ -365,6 +366,7 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     char tstbuff[_size];
     char __usersys[_size];
 
+    /* Init jumptables as early as possible */
     __shims_init_jumptables();
 
     RUNTIME_ROOT    = malloc(_size);
@@ -445,4 +447,11 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version)
     setenv(ENV_AXRT_ROOT, RUNTIME_ROOT, 1);
     setenv("AXRTSYS", AXRTSYS, 1);
     setenv("USERSYS", USERSYS, 1);
+
+    SB.sb_EnhPathMode = FALSE;
+
+    if (RT_GET_STARTUP(__version) > 5)
+    {
+        SB.sb_EnhPathMode = arg->enhpathmode == 1 ? TRUE : FALSE;
+    }
 }

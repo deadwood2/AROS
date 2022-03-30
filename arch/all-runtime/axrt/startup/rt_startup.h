@@ -15,7 +15,14 @@ typedef struct
     char **argv;
 } __kick_start_arg_t;
 
-void __set_runtime_env(int __version);
+typedef struct
+{
+    int version;
+    int enhpathmode;
+} __set_runtime_env_arg_t;
+
+
+void __set_runtime_env(int __version, __set_runtime_env_arg_t *arg);
 int __kick_start(int __version, __kick_start_arg_t *arg);
 
 #endif

@@ -102,6 +102,8 @@ ADD2SET(__startup_main, PROGRAM_ENTRIES, 127);
 #include "rt_version.h"
 #include "rt_startup.h"
 
+int __enhancedpathmode __attribute__((weak)) = 0;
+
 const char dl_loader[] __attribute__((section(".interp"))) = "/lib64/ld-linux-x86-64.so.2";
 
 static int __runtimestartup(int argc, char **argv, char **evnp)
@@ -109,12 +111,17 @@ static int __runtimestartup(int argc, char **argv, char **evnp)
     /* This thread is not an AROS Process/Task. Restrictions apply. */
 
     __kick_start_arg_t ksarg;
+    __set_runtime_env_arg_t srarg;
+
     ksarg.version   = RT_VER;
     ksarg.axrtentry = __startup_entry;
     ksarg.argc      = argc;
     ksarg.argv      = argv;
 
-    __set_runtime_env(RT_VER);
+    srarg.version       = RT_VER;
+    srarg.enhpathmode   = __enhancedpathmode;
+
+    __set_runtime_env(RT_VER, &srarg);
 
     // TODO: error handling
 
