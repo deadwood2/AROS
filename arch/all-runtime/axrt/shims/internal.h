@@ -9,16 +9,7 @@
 #include <exec/exec.h>
 #include <dos/dos.h>
 
-struct ShimsBase
-{
-    struct Library base;
-    struct ExecBase *sysBase;
-    struct Library *dosBase;
-
-    BOOL            sb_debugpath;
-};
-
-extern struct ShimsBase SB;
+#include "shimsbase.h"
 
 #define SysBase SB.sysBase
 #define DOSBase SB.dosBase
