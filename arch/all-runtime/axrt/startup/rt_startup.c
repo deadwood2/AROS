@@ -214,8 +214,10 @@ static VOID RunProgram(APTR sysbase, APTR _m)
 
     /* Set correct Task name */
     struct Task *me = FindTask(NULL);
-    me->tc_Node.ln_Name = AllocMem(strlen(msg->arps_ProgramName) + 1, MEMF_PUBLIC);
-    CopyMem(msg->arps_ProgramName, me->tc_Node.ln_Name, strlen(msg->arps_ProgramName));
+    LONG size = strlen(msg->arps_ProgramName);
+    me->tc_Node.ln_Name = AllocMem(size + 1, MEMF_PUBLIC);
+    CopyMem(msg->arps_ProgramName, me->tc_Node.ln_Name, size);
+    me->tc_Node.ln_Name[size] = '\0';
     // FIXME: this does not change linux-side name!!!
 
     main_IPrefs();
