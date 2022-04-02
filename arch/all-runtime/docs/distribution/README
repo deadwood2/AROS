@@ -52,22 +52,29 @@ at: http://www.aros.org/
     initializes the runtime and user settings.
 
     Runtime is distributed as .deb package which can be downloaded from
-    https://www.axrt.org/download. Package name is libaxrt-4.0. The package
+    https://axrt.org/index.php?tab=download. Package name is libaxrt-4.0. The package
     installs into /usr/lib/x86_64-linux-gnu/axrt/4.0
 
 3) How do I install and use the SDK?
 
     Runtime SDK is distributed as .deb package which can be downloaded from
-    https://www.axrt.org/download. Package name is libaxrt-4.0-dev. The package
+    https://axrt.org/index.php?tab=download. Package name is libaxrt-4.0-dev. The package
     installs into /usr/lib/x86_64-linux-gnu/axrt-4.0 and /usr/include/axrt-4.0
 
 4) How do I build an application using runtime?
 
 4.1) Easy start
 
-    The 'example' directory which contains a Makefile configured to build with
+    The 'example' package contains a Makefile configured to build with
     the SDK. Add your source files to SRC variable and issue make command in
     Linux console.
+
+    You can get the 'example' package from following places:
+    https://github.com/deadw00d/AROS/tree/alt-runtime/arch/all-runtime/docs/distribution/example
+    https://axrt.org/download/axrt/other/axrt-example_1.1.tar.gz
+    /usr/share/doc/libaxrt-4.0-dev/example (*)
+
+    (*) after installing libaxrt-4.0-dev package
 
 4.2) Detailed - Compilation
 
