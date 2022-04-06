@@ -185,7 +185,7 @@ at: http://www.aros.org/
 
     If conversion happens, but is wrong try enabling enhanced mode:
 
-    $ export AXRT_EHANCED_PATH_MODE=1
+    $ export AXRT_ENHANCED_PATH_MODE=1
 
     If the issue is solved, you can keep the mode enabled always in your
     application, but defining a global variable in one of your .c files:
