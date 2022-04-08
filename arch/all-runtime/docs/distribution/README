@@ -76,7 +76,16 @@ at: http://www.aros.org/
 
     (*) after installing libaxrt-4.0-dev package
 
-4.2) Detailed - Compilation
+4.2) Detailed - Requirements
+
+    In order to build your application for Linux, the source code of such
+    application needs to be available along with source code of dependencies
+    which are not provided by AxRuntime itself or Linux.
+
+    AxRuntime currently support programs written in C and C++. There is Pascal
+    support being worked on.
+
+4.3) Detailed - Compilation
 
     i.) Add path to header files and select axrt.specs specs file, example:
 
@@ -86,7 +95,7 @@ at: http://www.aros.org/
 
     CFLAGS += -fPIC
 
-4.3) Detailed - Linking
+4.4) Detailed - Linking
 
     i.) Add axrt.ld to objects being linked, example:
 
@@ -103,13 +112,13 @@ at: http://www.aros.org/
 
     iv.) Add additional linker libraries to resolve symbols
 
-4.4) Detailed - Running
+4.5) Detailed - Running
 
     Execute the binary resulting from the build.
 
     $ ./<executable>
 
-4.5) Detailed - Debugging
+4.6) Detailed - Debugging
 
     Execute the binary resulting from the build through gdb
 
@@ -118,6 +127,20 @@ at: http://www.aros.org/
     To debug a dual-run executable, add DT_DEBUG after each rebuild
 
     $ patchelf-debug --add-debug ./executable
+
+4.7 Detailed - Porting
+
+    As the current dominant Amiga platforms are 32-bit Big Endian, it can be
+    assumed that your application code might also have some specific 32-bit Big
+    Endian constructs. On the other hand, AxRuntime is 64-bit Little Endian, so
+    your code might need to be generalized to work in both cases. Furtunatelly
+    AxRuntime contains many pieces of helper code that can make these things
+    transparent.
+
+    The most frequently found issues is use of ULONG to transport a pointer.
+    This is especially visible in MUI code. The solution is to change ULONG
+    to IPTR which will auto adjust depending on whether you are compiling for
+    32-bit or 64-bit system.
 
 5) How do I compile a module (library, class) for the runtime?
 
