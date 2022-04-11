@@ -1,8 +1,9 @@
 /*
-    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2022, The AROS Development Team. All rights reserved.
 
     Desc: Create an empty usable CPU context, x86_64 version.
 */
+#include <aros/config.h>
 
 #include <aros/kernel.h>
 #include <aros/libcall.h>
@@ -32,6 +33,8 @@ AROS_LH0(void *, KrnCreateContext,
     if (ctx)
     {
         IPTR fpdata;
+
+#if (AROS_FLAVOUR == AROS_FLAVOUR_STANDALONE)
         if (KernelBase->kb_ContextSize > AROS_ROUNDUP2(sizeof(struct AROSCPUContext), 16) + sizeof(struct FPFXSContext))
         {
             /* AVX state
@@ -39,7 +42,7 @@ AROS_LH0(void *, KrnCreateContext,
              * just that the header is 128+64bytes bigger than the legacy context
              */
             ctx->FPUCtxSize = sizeof(struct FPFXSContext) + (128 + 64);
-            fpdata = AROS_ROUNDUP2((IPTR)ctx + sizeof(struct AROSCPUContext), 64);
+            fpdata = (IPTR)ctx + AROS_ROUNDUP2(sizeof(struct AROSCPUContext), 64);
             D(bug("[Kernel] %s: AVX context data @ 0x%p\n", __func__, fpdata);)
             ctx->Flags  = ECF_FPXS;
             ctx->XSData = (struct FPXSContext *)fpdata;
@@ -48,7 +51,10 @@ AROS_LH0(void *, KrnCreateContext,
         {
             /* Legacy x86 FPU / XMM / MXCSR state */
             ctx->FPUCtxSize = sizeof(struct FPFXSContext);
-            fpdata = AROS_ROUNDUP2((IPTR)ctx + sizeof(struct AROSCPUContext), 16);
+#else
+        {
+#endif
+            fpdata = (IPTR)ctx + AROS_ROUNDUP2(sizeof(struct AROSCPUContext), 16);
             D(bug("[Kernel] %s: SSE context data @ 0x%p\n", __func__, fpdata);)
             ctx->Flags  = ECF_FPFXS;
             ctx->FXSData = (struct FPFXSContext *)fpdata;
