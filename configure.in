@@ -617,7 +617,7 @@ AM_PATH_PYTHON(3.0)
 
 dnl Check if mako templates are installed..
 AC_MSG_CHECKING(if Python's mako templates are installed)
-PC_PYTHON_CHECK_MODULE(mako, [AC_MSG_RESULT(yes)], [AC_MSG_FAILURE([failed to detect mako templates])])
+PC_PYTHON_CHECK_MODULE(mako, [], [AC_MSG_FAILURE([failed to detect mako templates])])
 
 AC_ARG_ENABLE([libpng-config], [--disable-libpng-config    disable libpng-config test and configuration])
 if test "$enable_libpng_config" != "no"; then
@@ -836,7 +836,7 @@ ignore_undefined_symbols=""
 # Check for X11 by default
 need_x11="auto"
 
-AC_MSG_CHECKING([Which toolchain family to use ...])
+AC_MSG_CHECKING([which toolchain family to use ...])
 AC_ARG_WITH(toolchain,AS_HELP_STRING([--with-toolchain=family],[Which toolchain family to crosscompile with (defaults to gnu)]),aros_toolchain="$withval",aros_toolchain="$default_toolchain_family")
 AC_MSG_RESULT($aros_toolchain)
 
@@ -1875,8 +1875,19 @@ case "$target_os" in
         ;;
 
     amiga*)
+        AROS_PROG(GZIP,[gzip])
+        host_extra_cfg+="$export_newline""GZIP                          := $GZIP"
+        AC_MSG_CHECKING([if we should compress EBF executables])
+        AC_ARG_ENABLE(ebf-packed-exes,AS_HELP_STRING([--enable-ebf-packed-exes],[Create self extracting compressed exes on the Emergency Boot Floppy]),aros_pack_exes=$enableval,aros_pack_exes="no")
+        AC_MSG_RESULT($aros_pack_exes)
+        if test "$aros_pack_exes" = "yes" ; then
+             dnl Check if crcmod is installed..
+             AC_MSG_CHECKING(if Python's crcmod is installed)
+             PC_PYTHON_CHECK_MODULE(crcmod, [], [AC_MSG_FAILURE([failed to detect crcmod])])
+             aros_target_options="$aros_target_options$export_newline""EBFPACKEDEXES                 := yes$export_newline"
+        fi
         aros_elf_translate="$""(ELF2HUNK)"
-        make_extra_commands="$export_newline""ELF2HUNK	:= $""(TOOLDIR)/elf2hunk$""(HOST_EXE_SUFFIX)$export_newline"
+        make_extra_commands="$make_extra_commands$export_newline""ELF2HUNK	:= $""(TOOLDIR)/elf2hunk$""(HOST_EXE_SUFFIX)$export_newline"
         aros_target_arch="amiga"
         aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -D_AMIGA -DAMIGA"
         aros_shared_default="no"
@@ -2251,7 +2262,7 @@ case "$aros_target_cpu" in
         aros_isa_extra="$aros_isa_extra$m68k_020_ldflags$export_newline$m68k_030_ldflags$export_newline$m68k_040_ldflags$export_newline$m68k_060_ldflags$export_newline"
         aros_isa_extra="$aros_isa_extra$m68k_020_ext$export_newline$m68k_030_ext$export_newline$m68k_040_ext$export_newline$m68k_060_ext$export_newline"
         
-        AC_MSG_CHECKING([Which minimum CPU to use])
+        AC_MSG_CHECKING([which minimum CPU to use])
         AC_ARG_WITH(cpu,AS_HELP_STRING([--with-cpu=<spec>],[Specify minumum CPU (default=$gcc_default_cpu).]),aros_gcc_cpu="$withval",aros_gcc_cpu=$gcc_default_cpu)
         AC_MSG_RESULT($aros_gcc_cpu)
         if test "$gcc_default_cpu" != "$aros_gcc_cpu"; then
@@ -2285,19 +2296,19 @@ case "$aros_target_cpu" in
 
         aros_target_nostartup_objects="$""(AROS_LIB)/arm-exidx-unwind.o"
 
-        AC_MSG_CHECKING([Which minimum CPU to use])
+        AC_MSG_CHECKING([which minimum CPU to use])
         AC_ARG_WITH(cpu,AS_HELP_STRING([--with-cpu=<spec>],[Specify minumum CPU (default=$gcc_default_cpu).]),aros_gcc_cpu="$withval",aros_gcc_cpu=$gcc_default_cpu)
         AC_MSG_RESULT($aros_gcc_cpu)
 
-        AC_MSG_CHECKING([Which minimum FPU to use])
+        AC_MSG_CHECKING([which minimum FPU to use])
         AC_ARG_WITH(fpu,AS_HELP_STRING([--with-fpu=<spec>],[Specify minumum FPU (default=$gcc_default_fpu).]),aros_gcc_fpu="$withval",aros_gcc_fpu=$gcc_default_fpu)
         AC_MSG_RESULT($aros_gcc_fpu)
 
-        AC_MSG_CHECKING([Which floating point ABI to use])
+        AC_MSG_CHECKING([which floating point ABI to use])
         AC_ARG_WITH(float,AS_HELP_STRING([--with-float=<spec>],[Specify floating point ABI (default=$gcc_default_float_abi).]),aros_gcc_float_abi="$withval",aros_gcc_float_abi=$gcc_default_float_abi)
         AC_MSG_RESULT($aros_gcc_float_abi)
 
-        AC_MSG_CHECKING([Which ARM mode to use])
+        AC_MSG_CHECKING([which ARM mode to use])
         if test "$aros_target_cpu_mode" = ""; then
             aros_target_cpu_mode="arm32"
             AC_MSG_RESULT([Defaulting to $aros_target_cpu_mode])
