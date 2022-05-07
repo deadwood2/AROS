@@ -1510,7 +1510,7 @@ struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct Intui
     struct Layer *l = NULL;
     Display *xd;
     Window root, child, parent;
-    Window *children;
+    Window *children = NULL;
     int count, i;
     int xt,yt,mask;
 
@@ -1518,6 +1518,9 @@ struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct Intui
 
     /* Find window under pointer: this is outer X11 window or the window in case of BORDERLESS */
     XQueryPointer(xd, RootWindow(xd, DefaultScreen(xd)), &root, &child, &xt, &yt, &xt, &yt, &mask);
+    if (child == 0)
+        return NULL;
+
     l = SearchActiveScreen(child, IntuitionBase);
 
     /* Intuition window is most likely a child (inner X11 window) in case of not BORDERLESS */
