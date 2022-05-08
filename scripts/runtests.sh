@@ -36,7 +36,7 @@ sed -i "s|Startup = 0|Startup = 1|g" $AROSRUNDIR/Devs/DOSDrivers/DEBUG
 sed -i "s|module Devs/Drivers/gfx.hidd|&\nmodule Storage/Drivers/headlessgfx.hidd|g" $AROSRUNDIR/boot/linux/AROSBootstrap.conf
 sed -i "/module Devs\/Drivers\/x11gfx.hidd/d" $AROSRUNDIR/boot/linux/AROSBootstrap.conf
 cd $AROSRUNDIR
-./boot/linux/AROSBootstrap
+./boot/linux/AROSBootstrap -m 640
 cd ../../../../
 find $AROSRUNDIR/ -name "*-Results.xml" -exec cp {} $AROSLOGDIR/ \;
 $AROSSRCDIR/scripts/merge_junit_results.py $AROSLOGDIR > $AROSLOGDIR/all-unittests.xml

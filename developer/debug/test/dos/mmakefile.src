@@ -55,21 +55,24 @@ PURE_FILES := \
     exit \
     isfilesystem
 
-CUNITSTDCTESTFILES := \
+CUNITDOSTESTFILES := \
     cunit-dos-createnewproc \
     cunit-dos-fileseek \
     cunit-dos-readargs \
     cunit-dos-systemtags \
     cunit-dos-systemtags-stack-slave
 
+CUNITDOSSCMTESTFILES := \
+    cunit-dos-smallcodemodel
+
 #MM- test : test-dos
 #MM- test-quick : test-dos-quick
 
-#MM- test-dos : test-dos-common test-dos-pure test-dos-cunit
-#MM- test-dos-quick : test-dos-common-quick test-dos-pure-quick test-dos-cunit-quick
+#MM- test-dos : test-dos-common test-dos-pure test-dos-cunit test-dos-cunit-smallcodemodel
+#MM- test-dos-quick : test-dos-common-quick test-dos-pure-quick test-dos-cunit-quick test-dos-cunit-smallcodemodel-quick
 
-#MM- test-cunit : test-dos-cunit
-#MM- test-cunit-quick : test-dos-cunit-quick
+#MM- test-cunit : test-dos-cunit test-dos-cunit-smallcodemodel
+#MM- test-cunit-quick : test-dos-cunit-quick test-dos-cunit-smallcodemodel-quick
 
 #MM test-dos-common : includes linklibs
 
@@ -82,12 +85,16 @@ CUNITSTDCTESTFILES := \
     files=$(PURE_FILES) targetdir=$(EXEDIR) \
     usestartup="no"
 
-USER_INCLUDES := -I$(AROS_CONTRIB_INCLUDES)
-USER_CFLAGS := $(CFLAGS_NO_BUILTIN) 
-USER_LDFLAGS := -L$(AROS_CONTRIB_LIB)
+USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 
 %build_progs mmake=test-dos-cunit \
-    files=$(CUNITSTDCTESTFILES) targetdir=$(CUNITEXEDIR) \
+    files=$(CUNITDOSTESTFILES) targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
+
+USER_CFLAGS := $(CFLAGS_NO_BUILTIN) -mcmodel=small
+
+%build_progs mmake=test-dos-cunit-smallcodemodel \
+    files=$(CUNITDOSSCMTESTFILES) targetdir=$(CUNITEXEDIR) \
     uselibs="cunit"
 
 %common

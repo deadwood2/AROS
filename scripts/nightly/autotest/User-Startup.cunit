@@ -25,6 +25,7 @@ If NOT WARN
     Execute S/Test cunit/dos/cunit-dos-createnewproc
     Execute S/Test cunit/dos/cunit-dos-fileseek
     Execute S/Test cunit/dos/cunit-dos-readargs
+    Execute S/Test cunit/dos/cunit-dos-smallcodemodel
     Execute S/Test cunit/dos/cunit-dos-systemtags
 
     ; Perform basic "locale.library" unit tests...
