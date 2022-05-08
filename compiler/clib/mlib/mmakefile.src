@@ -52,6 +52,7 @@ STDC_MATH_FILES = \
     k_rem_pio2f \
     k_sin \
     k_tan \
+    polevll \
     s_asinh \
     s_asinhf \
     s_atan \
@@ -138,6 +139,8 @@ STDC_MATH_FILES = \
     s_significand \
     s_significandf \
     s_sin \
+    s_sincos \
+    s_sincosf \
     s_sinf \
     s_tan \
     s_tanf \
@@ -146,11 +149,10 @@ STDC_MATH_FILES = \
     s_trunc \
     s_truncf \
     s_truncl \
-    sincos \
-    sincosf \
-    sincosl \
     w_cabs \
     w_cabsf \
+    ld80/e_log10l \
+    ld80/e_powl
 
 # If long double != double use these; otherwise, we alias the double versions
 # These are architectures that have LDBL_MANT_DIG == 53 in float.h
@@ -189,8 +191,8 @@ FILES := \
 
 # Define lint to get rid of the warnings about rcsid[]
 
-USER_CFLAGS := -D_IEEE_LIBM -Dlint '-D__FBSDID(x)=' \
-    -Wno-uninitialized -Wno-parentheses
+USER_CPPFLAGS := -D_IEEE_LIBM -Dlint '-D__FBSDID(x)='
+USER_CFLAGS := -Wno-uninitialized -Wno-parentheses
 
 # For pulling source files from stdc/math, each dummy source file
 # needs to have #include "stdc/math/..." so that direct includes in
