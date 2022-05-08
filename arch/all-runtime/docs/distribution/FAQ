@@ -5,15 +5,15 @@ their applications using Amiga APIs.
 
 The runtime allows developers to continue developing Amiga applications in
 unmodified way while at the same time being able to utilize modern development
-tools available on Linux like IDEs, debuggers, profilers, etc.
+tools available on Linux or Windows like IDEs, debuggers, profilers, etc.
 
 This solution lets developers compile their Amiga API-based applications as
 Linux binaries. Once the features are implemented, tested and optimized using
-the runtime on Linux, developers re-compile their applications for their
-Amiga-like system of choice and perform final quality checking.
+the runtime on Linux or Windows, developers re-compile their applications for
+their Amiga-like system of choice and perform final quality checking.
 
-Applications created with AxRuntime can be distributed to the Linux
-community giving developers a much broader user base and a possibility to
+Applications created with AxRuntime can be distributed to Linux or Windows
+communities, giving developers a much broader user base and a possibility to
 invite developers from outside general Amiga community to contribute to the
 application.
 
@@ -37,7 +37,7 @@ at: http://www.aros.org/
 
     At this point in time send an email to: deadwood@onet.pl
 
-3) Will AxRuntime work under Windows, BSD, MacOS in future?
+3) Will AxRuntime work under BSD, MacOS in future?
 
     Yes, support for other platforms is planned.
 

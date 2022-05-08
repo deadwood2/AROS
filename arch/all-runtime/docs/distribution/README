@@ -5,15 +5,15 @@ their applications using Amiga APIs.
 
 The runtime allows developers to continue developing Amiga applications in
 unmodified way while at the same time being able to utilize modern development
-tools available on Linux like IDEs, debuggers, profilers, etc.
+tools available on Linux or Windows like IDEs, debuggers, profilers, etc.
 
 This solution lets developers compile their Amiga API-based applications as
 Linux binaries. Once the features are implemented, tested and optimized using
-the runtime on Linux, developers re-compile their applications for their
-Amiga-like system of choice and perform final quality checking.
+the runtime on Linux or Windows, developers re-compile their applications for
+their Amiga-like system of choice and perform final quality checking.
 
-Applications created with AxRuntime can be distributed to the Linux
-community giving developers a much broader user base and a possibility to
+Applications created with AxRuntime can be distributed to Linux or Windows
+communities, giving developers a much broader user base and a possibility to
 invite developers from outside general Amiga community to contribute to the
 application.
 
@@ -47,13 +47,32 @@ at: http://www.aros.org/
 
 2) How do I install and use the runtime?
 
+2.1) If you are a Linux user.
+
     Runtime is composed of three modules: libaxrt-4.0.so and AXRTSYS and
     USERSYS directories. Application loads libaxrt-4.0.so, which then in turn
     initializes the runtime and user settings.
 
     Runtime is distributed as .deb package which can be downloaded from
-    https://axrt.org/index.php?tab=download. Package name is libaxrt-4.0. The package
-    installs into /usr/lib/x86_64-linux-gnu/axrt/4.0
+    https://axrt.org/index.php?tab=download. Package name is libaxrt-4.0. The
+    package installs into /usr/lib/x86_64-linux-gnu/axrt/4.0
+
+2.2) If you are a Windows user.
+
+    AxRuntime is confirmed to work with Windows Subsystem for Linux feature of
+    Windows 10 and 11. This feature allows running "a Linux" in a background
+    and since AxRuntime binaries are Linux binaries, they can also use this
+    feature to give impression of running nativelly under Windows.
+
+    If you are running a fairly recent Windows 10 or Windows 11, use the
+    following guide to install WSL2:
+
+    https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps
+
+    If this does not work for you, you can still install a standalone X server
+    following this guide, choosing option 1 - VcXsrv
+
+    https://techcommunity.microsoft.com/t5/windows-dev-appconsult/running-wsl-gui-apps-on-windows-10/ba-p/1493242
 
 3) How do I install and use the SDK?
 
