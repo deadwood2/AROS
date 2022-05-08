@@ -501,6 +501,8 @@ MLIB := \
     s_significand \
     s_significandf \
     s_sin \
+    s_sincos \
+    s_sincosf \
     s_sinf \
     s_tan \
     s_tanf \
@@ -509,9 +511,6 @@ MLIB := \
     s_trunc \
     s_truncf \
     s_truncl \
-    sincos \
-    sincosf \
-    sincosl \
     w_cabs \
     w_cabsf \
     e_gamma \
