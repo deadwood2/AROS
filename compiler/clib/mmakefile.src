@@ -412,6 +412,8 @@ MLIB := \
     e_sqrt \
     e_sqrtf \
     k_cos \
+    k_exp \
+    k_expf \
     k_rem_pio2 \
     k_rem_pio2f \
     k_sin \
@@ -502,6 +504,8 @@ MLIB := \
     s_significand \
     s_significandf \
     s_sin \
+    s_sincos \
+    s_sincosf \
     s_sinf \
     s_tan \
     s_tanf \
@@ -510,9 +514,6 @@ MLIB := \
     s_trunc \
     s_truncf \
     s_truncl \
-    sincos \
-    sincosf \
-    sincosl \
     w_cabs \
     w_cabsf \
     e_gamma \
