@@ -88,7 +88,8 @@ AROS_UFHA(APTR, msg, A1))
         MUIA_PPreview_FileName, pointerprefs[entry].filename,
         MUIA_PPreview_Alpha,    pointerprefs[entry].npp.npp_AlphaValue,
         MUIA_PPreview_HSpotX,   - pointerprefs[entry].npp.npp_X,
-        MUIA_PPreview_HSpotY,   - pointerprefs[entry].npp.npp_Y
+        MUIA_PPreview_HSpotY,   - pointerprefs[entry].npp.npp_Y,
+        TAG_DONE
     );
 
     data->pded_oldentry = entry;
@@ -241,7 +242,8 @@ STATIC VOID PTPrefs2Gadgets(struct PTEditor_DATA *data)
         MUIA_PPreview_FileName, pointerprefs[entry].filename,
         MUIA_PPreview_Alpha,    pointerprefs[entry].npp.npp_AlphaValue,
         MUIA_PPreview_HSpotX,   - pointerprefs[entry].npp.npp_X,
-        MUIA_PPreview_HSpotY,   - pointerprefs[entry].npp.npp_Y
+        MUIA_PPreview_HSpotY,   - pointerprefs[entry].npp.npp_Y,
+        TAG_DONE
     );
 }
 
