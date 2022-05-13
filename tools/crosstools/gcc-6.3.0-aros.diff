@@ -413,7 +413,7 @@ diff -ruN gcc-6.3.0/gcc/config/aros.h gcc-6.3.0.aros/gcc/config/aros.h
 +#define TARGET_POSIX_IO
 diff -ruN gcc-6.3.0/gcc/config/aros.opt gcc-6.3.0.aros/gcc/config/aros.opt
 --- gcc-6.3.0/gcc/config/aros.opt	1970-01-01 01:00:00.000000000 +0100
-+++ gcc-6.3.0.aros/gcc/config/aros.opt	2018-04-23 15:24:25.358883950 +0100
++++ gcc-6.3.0.aros/gcc/config/aros.opt	2022-05-10 20:40:01.505807951 +0200
 @@ -0,0 +1,39 @@
 +; Processor-independent options for AROS.
 +
@@ -948,6 +948,38 @@ diff -ruN gcc-6.3.0/gcc/config.host gcc-6.3.0.aros/gcc/config.host
    *-*-*vms*)
      host_xm_file="vms/xm-vms.h"
      host_xmake_file=vms/x-vms
+diff -ruN gcc-6.3.0/gcc/configure gcc-6.3.0.aros/gcc/configure
+--- gcc-6.3.0/gcc/configure	2016-12-11 17:23:04.000000000 +0100
++++ gcc-6.3.0.aros/gcc/configure	2022-05-10 20:40:01.505807951 +0200
+@@ -11803,7 +11803,7 @@
+ 	CC="${CC_FOR_BUILD}" CFLAGS="${CFLAGS_FOR_BUILD}" \
+ 	CXX="${CXX_FOR_BUILD}" CXXFLAGS="${CXXFLAGS_FOR_BUILD}" \
+ 	LD="${LD_FOR_BUILD}" LDFLAGS="${LDFLAGS_FOR_BUILD}" \
+-	GMPINC="" CPPFLAGS="${CPPFLAGS} -DGENERATOR_FILE" \
++	GMPINC="" CPPFLAGS=" -DGENERATOR_FILE" \
+ 	${realsrcdir}/configure \
+ 		--enable-languages=${enable_languages-all} \
+ 		--target=$target_alias --host=$build_alias --build=$build_alias
+diff -ruN gcc-6.3.0/gcc/cp/g++spec.c gcc-6.3.0.aros/gcc/cp/g++spec.c
+--- gcc-6.3.0/gcc/cp/g++spec.c	2016-01-04 15:30:50.000000000 +0100
++++ gcc-6.3.0.aros/gcc/cp/g++spec.c	2022-05-11 20:04:35.091837992 +0200
+@@ -347,14 +347,12 @@
+ 		       CL_DRIVER, &new_decoded_options[j]);
+       added_libraries++;
+       j++;
+-      /* Add target-dependent static library, if necessary.  */
+-      if ((static_link || library > 1) && LIBSTDCXX_STATIC != NULL)
+-	{
++
+ 	  generate_option (OPT_l, LIBSTDCXX_STATIC, 1,
+ 			   CL_DRIVER, &new_decoded_options[j]);
+ 	  added_libraries++;
+ 	  j++;
+-	}
++
+ #ifdef HAVE_LD_STATIC_DYNAMIC
+       if (library > 1 && !static_link)
+ 	{
 diff -ruN gcc-6.3.0/gcc/ginclude/aros/types/null.h gcc-6.3.0.aros/gcc/ginclude/aros/types/null.h
 --- gcc-6.3.0/gcc/ginclude/aros/types/null.h	1970-01-01 01:00:00.000000000 +0100
 +++ gcc-6.3.0.aros/gcc/ginclude/aros/types/null.h	2018-04-23 15:24:25.358883950 +0100
@@ -1063,6 +1095,27 @@ diff -ruN gcc-6.3.0/include/filenames.h gcc-6.3.0.aros/include/filenames.h
  #else /* not DOSish */
  #  if defined(__APPLE__)
  #    ifndef HAVE_CASE_INSENSITIVE_FILE_SYSTEM
+diff -ruN gcc-6.3.0/libcpp/Makefile.in gcc-6.3.0.aros/libcpp/Makefile.in
+--- gcc-6.3.0/libcpp/Makefile.in	2016-12-21 08:53:39.000000000 +0100
++++ gcc-6.3.0.aros/libcpp/Makefile.in	2022-05-10 20:40:01.505807951 +0200
+@@ -35,7 +35,7 @@
+ CFLAGS = @CFLAGS@
+ WARN_CFLAGS = @warn@ @c_warn@ @WARN_PEDANTIC@ @WERROR@
+ CXX = @CXX@
+-CXXFLAGS = @CXXFLAGS@
++CXXFLAGS1 = @CXXFLAGS@
+ WARN_CXXFLAGS = @warn@ @WARN_PEDANTIC@ @WERROR@
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+@@ -74,7 +74,7 @@
+ 	-I$(srcdir)/include
+ 
+ ALL_CFLAGS = $(CFLAGS) $(WARN_CFLAGS) $(INCLUDES) $(CPPFLAGS) $(PICFLAG)
+-ALL_CXXFLAGS = $(CXXFLAGS) $(WARN_CXXFLAGS) $(NOEXCEPTION_FLAGS) $(INCLUDES) \
++ALL_CXXFLAGS = $(CXXFLAGS1) $(WARN_CXXFLAGS) $(NOEXCEPTION_FLAGS) $(INCLUDES) \
+ 	$(CPPFLAGS) $(PICFLAG)
+ 
+ # The name of the compiler to use.
 diff -ruN gcc-6.3.0/libgcc/config.host gcc-6.3.0.aros/libgcc/config.host
 --- gcc-6.3.0/libgcc/config.host	2016-11-19 03:03:55.000000000 +0000
 +++ gcc-6.3.0.aros/libgcc/config.host	2018-04-23 15:24:25.358883950 +0100

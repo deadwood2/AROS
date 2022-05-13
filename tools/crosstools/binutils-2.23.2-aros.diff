@@ -52,6 +52,33 @@ diff -ruN binutils-2.23.2/bfd/config.bfd binutils-2.23.2.aros/bfd/config.bfd
    powerpc-*-*freebsd*)
      targ_defvec=bfd_elf32_powerpc_freebsd_vec
      targ_selvecs="rs6000coff_vec bfd_elf32_powerpc_vec bfd_elf32_powerpcle_vec ppcboot_vec"
+diff -ruN binutils-2.23.2/bfd/doc/Makefile.in binutils-2.23.2.aros/bfd/doc/Makefile.in
+--- binutils-2.23.2/bfd/doc/Makefile.in	2013-03-25 10:08:08.000000000 +0100
++++ binutils-2.23.2.aros/bfd/doc/Makefile.in	2022-05-12 14:25:03.149647368 +0200
+@@ -418,22 +418,7 @@
+ 	-rm -rf .libs _libs
+ 
+ bfd.info: bfd.texinfo $(bfd_TEXINFOS)
+-	restore=: && backupdir="$(am__leading_dot)am$$$$" && \
+-	rm -rf $$backupdir && mkdir $$backupdir && \
+-	if ($(MAKEINFO) --version) >/dev/null 2>&1; then \
+-	  for f in $@ $@-[0-9] $@-[0-9][0-9] $(@:.info=).i[0-9] $(@:.info=).i[0-9][0-9]; do \
+-	    if test -f $$f; then mv $$f $$backupdir; restore=mv; else :; fi; \
+-	  done; \
+-	else :; fi && \
+-	if $(MAKEINFO) $(AM_MAKEINFOFLAGS) $(MAKEINFOFLAGS) -I $(srcdir) \
+-	 -o $@ `test -f 'bfd.texinfo' || echo '$(srcdir)/'`bfd.texinfo; \
+-	then \
+-	  rc=0; \
+-	else \
+-	  rc=$$?; \
+-	  $$restore $$backupdir/* `echo "./$@" | sed 's|[^/]*$$||'`; \
+-	fi; \
+-	rm -rf $$backupdir; exit $$rc
++
+ 
+ bfd.dvi: bfd.texinfo $(bfd_TEXINFOS) 
+ 	TEXINPUTS="$(am__TEXINFO_TEX_DIR)$(PATH_SEPARATOR)$$TEXINPUTS" \
 diff -ruN binutils-2.23.2/binutils/configure binutils-2.23.2.aros/binutils/configure
 --- binutils-2.23.2/binutils/configure	2012-11-05 17:27:34.000000000 +0100
 +++ binutils-2.23.2.aros/binutils/configure	2012-06-28 13:50:52.000000000 +0200
