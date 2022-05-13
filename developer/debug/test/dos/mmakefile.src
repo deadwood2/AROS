@@ -68,11 +68,11 @@ CUNITDOSSCMTESTFILES := \
 #MM- test : test-dos
 #MM- test-quick : test-dos-quick
 
-#MM- test-dos : test-dos-common test-dos-pure test-dos-cunit test-dos-cunit-smallcodemodel
-#MM- test-dos-quick : test-dos-common-quick test-dos-pure-quick test-dos-cunit-quick test-dos-cunit-smallcodemodel-quick
+#MM- test-dos : test-dos-common test-dos-pure test-dos-cunit test-dos-cunit-$(CPU)-smallcodemodel
+#MM- test-dos-quick : test-dos-common-quick test-dos-pure-quick test-dos-cunit-quick test-dos-cunit-$(CPU)-smallcodemodel-quick
 
-#MM- test-cunit : test-dos-cunit test-dos-cunit-smallcodemodel
-#MM- test-cunit-quick : test-dos-cunit-quick test-dos-cunit-smallcodemodel-quick
+#MM- test-cunit : test-dos-cunit test-dos-cunit-$(CPU)-smallcodemodel
+#MM- test-cunit-quick : test-dos-cunit-quick test-dos-cunit-$(CPU)-smallcodemodel-quick
 
 #MM test-dos-common : includes linklibs
 
@@ -93,7 +93,7 @@ USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN) -mcmodel=small
 
-%build_progs mmake=test-dos-cunit-smallcodemodel \
+%build_progs mmake=test-dos-cunit-x86_64-smallcodemodel \
     files=$(CUNITDOSSCMTESTFILES) targetdir=$(CUNITEXEDIR) \
     uselibs="cunit"
 
