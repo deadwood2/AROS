@@ -135,6 +135,42 @@ static void test_unsigned()
     CU_ASSERT_EQUAL(10000010, u);
 }
 
+static void test_signed()
+{
+    signed char hh;
+    signed short h;
+    signed long l;
+    signed long long ll;
+    signed int u;
+    int cnt;
+
+    cnt = sscanf("-10", "%hhd", &hh);
+    CU_ASSERT_EQUAL(1, cnt);
+    CU_ASSERT_EQUAL(-10, hh);
+
+    cnt = sscanf("-1010", "%hd", &h);
+    CU_ASSERT_EQUAL(1, cnt);
+    CU_ASSERT_EQUAL(-1010, h);
+
+#if (__WORDSIZE == 64)
+    cnt = sscanf("-100000000010", "%ld", &l);
+    CU_ASSERT_EQUAL(1, cnt);
+    CU_ASSERT_EQUAL(-100000000010, l);
+#else
+    cnt = sscanf("-10000010", "%ld", &l);
+    CU_ASSERT_EQUAL(1, cnt);
+    CU_ASSERT_EQUAL(-10000010, l);
+#endif
+
+    cnt = sscanf("-100000000010", "%lld", &ll);
+    CU_ASSERT_EQUAL(1, cnt);
+    CU_ASSERT_EQUAL(-100000000010, ll);
+
+    cnt = sscanf("-10000010", "%d", &u);
+    CU_ASSERT_EQUAL(1, cnt);
+    CU_ASSERT_EQUAL(-10000010, u);
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("sscanf_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
@@ -142,6 +178,7 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_multi);
     CUNIT_CI_TEST(test_float);
     CUNIT_CI_TEST(test_unsigned);
+    CUNIT_CI_TEST(test_signed);
 
     return CU_CI_RUN_SUITES();
 }
