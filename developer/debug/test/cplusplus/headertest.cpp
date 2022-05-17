@@ -117,7 +117,7 @@
 #ifdef __mc68000__
 #include <aros/m68k/ammxcontext.h>
 #include <aros/m68k/asmcall.h>
-#include <aros/m68k/atomic.h>
+// #include <aros/m68k/atomic.h>
 #include <aros/m68k/cpucontext.h>
 #include <aros/m68k/cpu.h>
 #include <aros/m68k/fenv.h>
@@ -191,8 +191,6 @@
 #include <aros/preprocessor/variadic.hpp>
 #include <aros/preprocessor/variadic/size.hpp>
 #include <aros/printertag.h>
-
-#include <aros/purify.h>
 
 #include <aros/shcommands_embedded.h>
 #include <aros/shcommands.h>
@@ -599,8 +597,8 @@
 // #include <c_iff.h>
 
 // #include <clib/Aboutbox_protos.h>
-#include <clib/Aboutmui_protos.h>
-#include <clib/AboutWindow_protos.h>
+// #include <clib/Aboutmui_protos.h>
+// #include <clib/AboutWindow_protos.h>
 #include <clib/ahi_protos.h>
 #include <clib/ahi_sub_protos.h>
 #include <clib/alib_protos.h>
@@ -609,22 +607,22 @@
 #include <clib/arossupport_protos.h>
 #include <clib/asl_protos.h>
 #include <clib/ata_protos.h>
-#include <clib/Balance_protos.h>
+// #include <clib/Balance_protos.h>
 #include <clib/battclock_protos.h>
 #include <clib/bestcomm_protos.h>
-#include <clib/Boopsi_protos.h>
-#include <clib/boopsistubs.h>
+// #include <clib/Boopsi_protos.h>
+// #include <clib/boopsistubs.h>
 #include <clib/bootloader_protos.h>
 #include <clib/bsdsocket_protos.h>
 #include <clib/bullet_protos.h>
-#include <clib/Busy_protos.h>
+// #include <clib/Busy_protos.h>
 #include <clib/bz2_protos.h>
-#include <clib/Calendar_protos.h>
+// #include <clib/Calendar_protos.h>
 // #include <clib/Calltips_protos.h>
 #include <clib/camd_protos.h>
 #include <clib/cardres_protos.h>
 #include <clib/cia_protos.h>
-#include <clib/Clock_protos.h>
+// #include <clib/Clock_protos.h>
 #include <clib/clocksource_protos.h>
 #include <clib/codesets_protos.h>
 // #include <clib/Coloradjust_protos.h>
@@ -651,20 +649,20 @@
 // #include <clib/Floattext_protos.h>
 #include <clib/freetype2_protos.h>
 #include <clib/gadtools_protos.h>
-#include <clib/gallium_protos.h>
+// #include <clib/gallium_protos.h>
 #include <clib/gameport_protos.h>
 #include <clib/gl_protos.h>
 #include <clib/glu_protos.h>
 #include <clib/graphics_protos.h>
-#include <clib/Graph_protos.h>
+// #include <clib/Graph_protos.h>
 #include <clib/hostlib_protos.h>
 #include <clib/hpet_protos.h>
-#include <clib/IconDrawerList_protos.h>
-#include <clib/IconImage_protos.h>
-#include <clib/IconList_protos.h>
-#include <clib/IconListview_protos.h>
+// #include <clib/IconDrawerList_protos.h>
+// #include <clib/IconImage_protos.h>
+// #include <clib/IconList_protos.h>
+// #include <clib/IconListview_protos.h>
 #include <clib/icon_protos.h>
-#include <clib/IconVolumeList_protos.h>
+// #include <clib/IconVolumeList_protos.h>
 #include <clib/identify_protos.h>
 #include <clib/iffparse_protos.h>
 #include <clib/input_protos.h>
@@ -714,8 +712,8 @@
 #include <clib/popupmenu_protos.h>
 #include <clib/poseidon_protos.h>
 // #include <clib/posixc_protos.h>
-#include <clib/PrefsEditor_protos.h>
-#include <clib/PrefsWindow_protos.h>
+// #include <clib/PrefsEditor_protos.h>
+// #include <clib/PrefsWindow_protos.h>
 #include <clib/processor_protos.h>
 // #include <clib/Process_protos.h>
 #include <clib/prometheus_protos.h>
@@ -733,7 +731,7 @@
 #include <clib/socket_protos.h>
 // #include <clib/stdcio_protos.h>
 // #include <clib/stdc_protos.h>
-#include <clib/SystemPrefsWindow_protos.h>
+// #include <clib/SystemPrefsWindow_protos.h>
 #include <clib/task_protos.h>
 #include <clib/timer_protos.h>
 // #include <clib/Title_protos.h>
@@ -745,7 +743,7 @@
 // #include <clib/Volumelist_protos.h>
 #include <clib/wb_protos.h>
 #include <clib/workbench_protos.h>
-#include <clib/x11gfx_protos.h>
+// #include <clib/x11gfx_protos.h>
 #include <clib/z1_protos.h>
 
 #include <c++/swappedtype.hpp>
@@ -840,7 +838,7 @@
 
 // #include <EGL/eglextchromium.h>
 // #include <EGL/eglext.h>
-#include <EGL/egl.h>
+// #include <EGL/egl.h>
 // #include <EGL/eglmesaext.h>
 // #include <EGL/eglplatform.h>
 
@@ -1069,7 +1067,7 @@
 // #include <interface/Hidd_ATABus.h>
 #include <interface/Hidd_ATAUnit.h>
 #include <interface/Hidd_BitMap.h>
-#include <interface/Hidd_BMHistogram.h>
+// #include <interface/Hidd_BMHistogram.h>
 #include <interface/Hidd_Bus.h>
 #include <interface/Hidd_ChunkyBM.h>
 #include <interface/Hidd_ColorMap.h>
@@ -1167,19 +1165,19 @@
 #include <libraries/pccard.h>
 #include <libraries/pm.h>
 #include <libraries/poseidon.h>
-#include <libraries/posixc.h>
+// #include <libraries/posixc.h>
 #include <libraries/prometheus.h>
 #include <libraries/realtime.h>
 #include <libraries/reqtools.h>
-#include <libraries/security.h>
-#include <libraries/stdc.h>
-#include <libraries/stdcio.h>
+// #include <libraries/security.h>
+// #include <libraries/stdc.h>
+#include <libraries/stdlib.h>
 #include <libraries/thread.h>
 #include <libraries/usbclass.h>
 // #include <libraries/usergroup.h>
 #include <libraries/uuid.h>
 
-#include <linklibs/coolimages.h>
+// #include <linklibs/coolimages.h>
 
 #include <midi/camddevices.h>
 #include <midi/camd.h>
@@ -1258,8 +1256,8 @@
 #include <prefs/workbench.h>
 
 // #include <proto/Aboutbox.h>
-#include <proto/Aboutmui.h>
-#include <proto/AboutWindow.h>
+// #include <proto/Aboutmui.h>
+// #include <proto/AboutWindow.h>
 #include <proto/ahi.h>
 #include <proto/ahi_sub.h>
 #include <proto/alib.h>
@@ -1268,22 +1266,22 @@
 #include <proto/arossupport.h>
 #include <proto/asl.h>
 #include <proto/ata.h>
-#include <proto/Balance.h>
+// #include <proto/Balance.h>
 #include <proto/battclock.h>
 // #include <proto/battmem.h>
 #include <proto/bestcomm.h>
-#include <proto/Boopsi.h>
+// #include <proto/Boopsi.h>
 #include <proto/bootloader.h>
 #include <proto/bsdsocket.h>
 #include <proto/bullet.h>
-#include <proto/Busy.h>
+// #include <proto/Busy.h>
 #include <proto/bz2.h>
-#include <proto/Calendar.h>
+// #include <proto/Calendar.h>
 // #include <proto/Calltips.h>
 #include <proto/camd.h>
 #include <proto/cardres.h>
 #include <proto/cia.h>
-#include <proto/Clock.h>
+// #include <proto/Clock.h>
 #include <proto/clocksource.h>
 #include <proto/codesets.h>
 // #include <proto/Coloradjust.h>
@@ -1317,16 +1315,16 @@
 #include <proto/gameport.h>
 #include <proto/gl.h>
 #include <proto/glu.h>
-#include <proto/Graph.h>
+// #include <proto/Graph.h>
 #include <proto/graphics.h>
 #include <proto/hostlib.h>
 #include <proto/hpet.h>
-#include <proto/IconDrawerList.h>
+// #include <proto/IconDrawerList.h>
 #include <proto/icon.h>
-#include <proto/IconImage.h>
-#include <proto/IconList.h>
-#include <proto/IconListview.h>
-#include <proto/IconVolumeList.h>
+// #include <proto/IconImage.h>
+// #include <proto/IconList.h>
+// #include <proto/IconListview.h>
+// #include <proto/IconVolumeList.h>
 #include <proto/identify.h>
 #include <proto/iffparse.h>
 #include <proto/input.h>
@@ -1374,8 +1372,8 @@
 #include <proto/poseidon.h>
 // #include <proto/posixc.h>
 // #include <proto/potgo.h>
-#include <proto/PrefsEditor.h>
-#include <proto/PrefsWindow.h>
+// #include <proto/PrefsEditor.h>
+// #include <proto/PrefsWindow.h>
 // #include <proto/Process.h>
 #include <proto/processor.h>
 #include <proto/prometheus.h>
@@ -1393,7 +1391,7 @@
 #include <proto/socket.h>
 // #include <proto/stdc.h>
 // #include <proto/stdcio.h>
-#include <proto/SystemPrefsWindow.h>
+// #include <proto/SystemPrefsWindow.h>
 #include <proto/task.h>
 #include <proto/timer.h>
 // #include <proto/Title.h>
@@ -1406,7 +1404,7 @@
 // #include <proto/Volumelist.h>
 #include <proto/wb.h>
 #include <proto/workbench.h>
-#include <proto/x11gfx.h>
+// #include <proto/x11gfx.h>
 #include <proto/z1.h>
 
 #include <pthread.h>
@@ -1463,10 +1461,10 @@
 
 #include <turboprint.h>
 
-#include <usb/hid.h>
-#include <usb/mstorage.h>
-#include <usb/usb_core.h>
-#include <usb/usb.h>
+// #include <usb/hid.h>
+// #include <usb/mstorage.h>
+// #include <usb/usb_core.h>
+// #include <usb/usb.h>
 
 #include <utility/date.h>
 #include <utility/hooks.h>
