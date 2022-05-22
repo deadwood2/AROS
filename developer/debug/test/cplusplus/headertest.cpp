@@ -1038,7 +1038,7 @@
 
 // #include <hidd/acpibutton.h>
 #include <hidd/agp.h>
-#include <hidd/ahci.h>
+// #include <hidd/ahci.h>
 // #include <hidd/ata.h>
 #include <hidd/bus.h>
 #include <hidd/compositor.h>
@@ -1061,9 +1061,9 @@
 
 #include <inetd.h>
 
-#include <interface/Hidd_AHCIBus.h>
-#include <interface/Hidd_AHCI.h>
-#include <interface/Hidd_AHCIUnit.h>
+// #include <interface/Hidd_AHCIBus.h>
+// #include <interface/Hidd_AHCI.h>
+// #include <interface/Hidd_AHCIUnit.h>
 // #include <interface/Hidd_ATABus.h>
 #include <interface/Hidd_ATAUnit.h>
 #include <interface/Hidd_BitMap.h>
