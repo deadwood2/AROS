@@ -56,7 +56,7 @@ TARGET_CFLAGS           = $(ISA_FLAGS) $(OPTIMIZATION_CFLAGS) $(USER_INCLUDES) $
 TARGET_CXXFLAGS         = $(ISA_FLAGS) $(OPTIMIZATION_CFLAGS) $(USER_INCLUDES) $(CONFIG_CXXFLAGS) $(USER_CXXFLAGS)
 
 DEBUG_CFLAGS	        := @aros_debug_cflags@
-DEBUG_CXXFLAGS          :=
+DEBUG_CXXFLAGS          := @aros_debug_cflags@
 DEBUG_AFLAGS            := @aros_debug_aflags@
 DEBUG_LDFLAGS           := @aros_debug_ldflags@
 OPTIMIZATION_CFLAGS     := @aros_optimization_cflags@
