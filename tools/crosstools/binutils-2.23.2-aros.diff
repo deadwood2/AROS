@@ -54,7 +54,7 @@ diff -ruN binutils-2.23.2/bfd/config.bfd binutils-2.23.2.aros/bfd/config.bfd
      targ_selvecs="rs6000coff_vec bfd_elf32_powerpc_vec bfd_elf32_powerpcle_vec ppcboot_vec"
 diff -ruN binutils-2.23.2/bfd/doc/Makefile.in binutils-2.23.2.aros/bfd/doc/Makefile.in
 --- binutils-2.23.2/bfd/doc/Makefile.in	2013-03-25 10:08:08.000000000 +0100
-+++ binutils-2.23.2.aros/bfd/doc/Makefile.in	2022-05-12 14:25:03.149647368 +0200
++++ binutils-2.23.2.aros/bfd/doc/Makefile.in	2012-06-28 13:50:52.000000000 +0200
 @@ -418,22 +418,7 @@
  	-rm -rf .libs _libs
  
@@ -92,6 +92,18 @@ diff -ruN binutils-2.23.2/binutils/configure binutils-2.23.2.aros/binutils/confi
  int
  main ()
  {
+diff -ruN binutils-2.23.2/binutils/objcopy.c binutils-2.23.2.aros/binutils/objcopy.c
+--- binutils-2.23.2/binutils/objcopy.c	2013-03-25 09:06:21.000000000 +0100
++++ binutils-2.23.2.aros/binutils/objcopy.c	2012-06-28 13:50:52.000000000 +0200
+@@ -2539,7 +2539,7 @@
+   if (p != NULL && p->set_flags)
+     flags = p->flags | (flags & (SEC_HAS_CONTENTS | SEC_RELOC));
+   else if (strip_symbols == STRIP_NONDEBUG
+-	   && (flags & (SEC_ALLOC | SEC_GROUP)) != 0
++	   && (flags & (SEC_ALLOC /*| SEC_GROUP*/)) != 0
+ 	   && !(ibfd->xvec->flavour == bfd_target_elf_flavour
+ 		&& elf_section_type (isection) == SHT_NOTE))
+     {
 diff -ruN binutils-2.23.2/binutils/sysdep.h binutils-2.23.2.aros/binutils/sysdep.h
 --- binutils-2.23.2/binutils/sysdep.h	2012-05-11 16:25:29.000000000 +0200
 +++ binutils-2.23.2.aros/binutils/sysdep.h	2012-06-28 13:50:52.000000000 +0200
