@@ -9,9 +9,9 @@ FUNCS := debug_platform disassemble
 
 %build_archspecific \
   mainmmake=kernel-debug maindir=rom/debug \
-  arch=pc modname=debug \
+  arch=i386 modname=debug \
   files=" $(FUNCS)" usesdks="config"
 
-#MM kernel-debug-pc : linklibs-udis86
+#MM kernel-debug-i386 : linklibs-udis86
 
 %common
