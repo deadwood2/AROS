@@ -3515,7 +3515,7 @@ DEPS := $(DEPS) $(STUBS_DEP)
 
 %define build_with_configure mmake=/A package= srcdir="$(SRCDIR)/$(CURDIR)" \
     prefix= gendir= basedir="$(CURDIR)" extraoptions= \
-    usecppflags=yes extracppflags= \
+    usecppflags=yes extracppflags= touch=yes \
     usecflags=yes extracflags="$(OPTIMIZATION_CFLAGS)" \
     usecxxflags=yes extracxxflags="$(OPTIMIZATION_CFLAGS)" \
     hostisaflags="$(HOST_ISA_CFLAGS)" \
@@ -3886,7 +3886,7 @@ $(%(mmake)-installflag) : $(%(mmake)-configflag)
 	    $(TOUCH) $@ -r $^; \
 	fi
 
-ifneq ($(%(mmake)-touchfileflag),)
+ifeq (%(touch),yes)
 $(%(mmake)-touchfileflag):
 	%mkdirs_q $(%(mmake)-pkgdir)
 	$(Q)find %(srcdir) -exec $(TOUCH) -c -r $(%(mmake)-cfg-srcdir)/configure '{}' \; && \
@@ -3949,7 +3949,7 @@ $(%(mmake)-configflag) : $(%(mmake)-touchfileflag) $(TOP)/$(CURDIR)/mmakefile
 
 %define build_with_cmake mmake=/A package= srcdir="$(SRCDIR)/$(CURDIR)" gendir= prefix= \
     aros_prefix= extraoptions= installoptions= maketarget= compiler=target \
-    cmakebuildcmd= \
+    touch=yes cmakebuildcmd= \
     cmakeinstallcmd= \
     precmake=  postcmake= \
     usecppflags=yes extracppflags= \
@@ -4072,7 +4072,7 @@ $(%(mmake)-installflag) : $(%(mmake)-cmakeflag)
 
 # Files are not touched anymore by default, add this to your mmakefile if that is necessry
 #<target>-touchfileflag := $(GENDIR)/$(CURDIR)/.files-touched
-ifneq ($(%(mmake)-touchfileflag),)
+ifeq (%(touch),yes)
 $(%(mmake)-touchfileflag):
 	%mkdirs_q $(%(mmake)-pkgdir)
 	find %(srcdir) -exec $(TOUCH) -c -r %(srcdir)/CMakeLists.txt '{}' \; && \
@@ -4275,7 +4275,7 @@ endif
 %define fetch_and_build mmake=/A package=/A subpackage= compiler=target crossbuild=no install_target=install \
     version=/A suffixes="tar.bz2 tar.gz" srcdir= builddir= gendir= basedir="$(CURDIR)" package_repo= patch=no patch_repo= patches_specs= \
     prefix= aros_prefix= preconfigure= postconfigure= postinstall= \
-    extraoptions= \
+    touch=yes extraoptions= \
     usecppflags=yes extracppflags= \
     usecflags=yes extracflags="$(OPTIMIZATION_CFLAGS)" \
     usecxxflags=yes extracxxflags="$(OPTIMIZATION_CFLAGS)" \
@@ -4422,7 +4422,7 @@ $(%(mmake)-%(subpackage)-package-basename).tar.bz2 :
 %define fetch_and_build_gnu mmake=/A package=/A subpackage= version=/A crossbuild=no suffixes="tar.bz2 tar.gz" \
     srcdir= package_repo= patch=no patch_repo= prefix="$(GNUDIR)" \
     aros_prefix=/GNU config_env_extra= preconfigure= postconfigure= postinstall= \
-    extraoptions= \
+    touch=yes extraoptions= \
     usecppflags=yes extracppflags= \
     usecflags=yes extracflags="$(OPTIMIZATION_CFLAGS)" \
     usecxxflags=yes extracxxflags="$(OPTIMIZATION_CFLAGS)" \
@@ -4438,7 +4438,7 @@ GNU_REPOSITORY := gnu://
     package_repo="%(package_repo) $(GNU_REPOSITORY)%(package)" \
     patch="%(patch)" patch_repo="%(patch_repo)" \
     prefix="%(prefix)" aros_prefix="%(aros_prefix)" \
-    extraoptions="%(extraoptions)" \
+    touch=%(touch) extraoptions="%(extraoptions)" \
     usecppflags="%(usecppflags)" extracppflags="%(extracppflags)" \
     usecflags="%(usecflags)" extracflags="%(extracflags)" \
     usecxxflags="%(usecxxflags)" extracxxflags="%(extracxxflags)" \
@@ -4464,7 +4464,7 @@ GNU_REPOSITORY := gnu://
 %define fetch_and_build_gnu_development package=/A subpackage= version=/A  crossbuild=no suffixes="tar.bz2 tar.gz" \
     srcdir= package_repo= patch=no patch_repo= prefix="$(AROS_DEVELOPMENT)" \
     aros_prefix=/Development config_env_extra= preconfigure= postconfigure= postinstall= \
-    extraoptions= \
+    touch=yes extraoptions= \
     usecppflags=yes extracppflags= \
     usecflags=yes extracflags="$(OPTIMIZATION_CFLAGS)" \
     usecxxflags=yes extracxxflags="$(OPTIMIZATION_CFLAGS)" \
@@ -4481,7 +4481,7 @@ GNU_REPOSITORY := gnu://
    package_repo="%(package_repo)" \
    patch="%(patch)" patch_repo="%(patch_repo)" \
    prefix="%(prefix)"  aros_prefix="%(aros_prefix)" \
-   extraoptions="%(extraoptions)" \
+   touch="%(touch)" extraoptions="%(extraoptions)" \
    usecppflags="%(usecppflags)" extracppflags="%(extracppflags)" \
    usecflags="%(usecflags)" extracflags="%(extracflags)" \
    usecxxflags="%(usecxxflags)" extracxxflags="%(extracxxflags)" \
