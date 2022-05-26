@@ -135,12 +135,104 @@ static void test_sprintf_long_varargs()
     CU_ASSERT_EQUAL(0, strcmp(buffer, "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22"));
 }
 
+#include <aros/debug.h>
+
+static void test_sprintf_u()
+{
+    char buffer[16];
+
+    // TEST FAILS
+    // sprintf(buffer, "%hhu", (unsigned char)10);
+    // CU_ASSERT_STRING_EQUAL("10", buffer);
+
+    sprintf(buffer, "%hu", (unsigned short)10010);
+    CU_ASSERT_STRING_EQUAL("10010", buffer);
+
+    sprintf(buffer, "%u", (unsigned int)1000000010);
+    CU_ASSERT_STRING_EQUAL("1000000010", buffer);
+
+#if (__WORDSIZE == 64)
+    sprintf(buffer, "%lu", (unsigned long)100000000010);
+    CU_ASSERT_STRING_EQUAL("100000000010", buffer);
+#else
+    sprintf(buffer, "%lu", (unsigned long)1000000010);
+    CU_ASSERT_STRING_EQUAL("1000000010", buffer);
+#endif
+
+    sprintf(buffer, "%llu", (unsigned long long)100000000010);
+    CU_ASSERT_STRING_EQUAL("100000000010", buffer);
+}
+
+static void test_sprintf_d()
+{
+    char buffer[16];
+
+    // TEST FAILS
+    // sprintf(buffer, "%hhd", (signed char)-10);
+    // CU_ASSERT_STRING_EQUAL("-10", buffer);
+
+    sprintf(buffer, "%hd", (signed short)-10010);
+    CU_ASSERT_STRING_EQUAL("-10010", buffer);
+
+    sprintf(buffer, "%d", (signed int)-1000000010);
+    CU_ASSERT_STRING_EQUAL("-1000000010", buffer);
+
+#if (__WORDSIZE == 64)
+    sprintf(buffer, "%ld", (signed long)-100000000010);
+    CU_ASSERT_STRING_EQUAL("-100000000010", buffer);
+#else
+    sprintf(buffer, "%ld", (signed long)-1000000010);
+    CU_ASSERT_STRING_EQUAL("-1000000010", buffer);
+#endif
+
+    sprintf(buffer, "%lld", (signed long long)-100000000010);
+    CU_ASSERT_STRING_EQUAL("-100000000010", buffer);
+}
+
+static void test_sprintf_x()
+{
+    char buffer[16];
+
+    // TEST FAILS
+    // sprintf(buffer, "%hhx", (unsigned char)10);
+    // CU_ASSERT_STRING_EQUAL("a", buffer);
+
+    sprintf(buffer, "%hx", (unsigned short)10010);
+    CU_ASSERT_STRING_EQUAL("271a", buffer);
+
+    sprintf(buffer, "%x", (unsigned int)1000000010);
+    CU_ASSERT_STRING_EQUAL("3b9aca0a", buffer);
+
+#if (__WORDSIZE == 64)
+    sprintf(buffer, "%lx", (unsigned long)100000000010);
+    CU_ASSERT_STRING_EQUAL("174876e80a", buffer);
+#else
+    sprintf(buffer, "%lx", (unsigned long)1000000010);
+    CU_ASSERT_STRING_EQUAL("3b9aca0a", buffer);
+#endif
+
+    sprintf(buffer, "%llx", (unsigned long long)100000000010);
+    CU_ASSERT_STRING_EQUAL("174876e80a", buffer);
+
+    sprintf(buffer, "%#x", (unsigned int)1000000010);
+    CU_ASSERT_STRING_EQUAL("0x3b9aca0a", buffer);
+
+    sprintf(buffer, "%#llx", (unsigned long long)100000000010);
+    CU_ASSERT_STRING_EQUAL("0x174876e80a", buffer);
+
+    sprintf(buffer, "+%#llx", (unsigned long long)100000000010);
+    CU_ASSERT_STRING_EQUAL("+0x174876e80a", buffer);
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("sxprintf_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
     CUNIT_CI_TEST(test_sprintf_float_double);
     CUNIT_CI_TEST(test_snprintf);
     CUNIT_CI_TEST(test_sprintf_long_varargs);
+    CUNIT_CI_TEST(test_sprintf_u);
+    CUNIT_CI_TEST(test_sprintf_d);
+    CUNIT_CI_TEST(test_sprintf_x);
 
     return CU_CI_RUN_SUITES();
 }
