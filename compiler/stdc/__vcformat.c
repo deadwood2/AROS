@@ -387,9 +387,17 @@ static size_t format_longlong(char *buffer, char type, int base, unsigned long l
 
 	      if (flags & ALTERNATEFLAG)
 	      {
-	          if (type == 'o' && preci && v)
+            char nzero = 1;
+#ifdef AROS_HAVE_LONG_LONG
+            if (lltype)
+            nzero = (llv != 0);
+            else
+#endif
+            nzero = (v != 0);
+
+	          if (type == 'o' && preci && nzero)
 		      buffer1[size1++] = '0';
-	          if ((type == 'x' || type == 'X') && v)
+	          if ((type == 'x' || type == 'X') && nzero)
 	          {
 	              buffer1[size1++] = '0';
 		      buffer1[size1++] = type;
