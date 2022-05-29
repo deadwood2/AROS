@@ -81,6 +81,9 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 #define CUE_SUCCESS         0
 #define CUE_SINIT_FAILED    22
 
+#define CU_ASSERT_STRING_EQUAL(expected, actual) \
+    CU_ASSERT(strcmp(expected, actual) == 0)
+
 #define CU_ASSERT_EQUAL(expected, actual) \
     CU_ASSERT(expected == actual)
 

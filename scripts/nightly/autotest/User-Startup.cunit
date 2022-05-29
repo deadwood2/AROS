@@ -48,6 +48,7 @@ If NOT WARN
     Execute S/Test cunit/zune/cunit-zune-handleevent-2
     Execute S/Test cunit/zune/cunit-zune-showhide
     Execute S/Test cunit/zune/cunit-zune-sleep
+    Execute S/Test cunit/zune/cunit-zune-window
 
 Endif
 

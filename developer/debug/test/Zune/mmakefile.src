@@ -31,7 +31,8 @@ CUNITFILES := \
     cunit-zune-handleevent \
     cunit-zune-handleevent-2 \
     cunit-zune-showhide \
-    cunit-zune-sleep
+    cunit-zune-sleep \
+    cunit-zune-window
 
 USER_CFLAGS := -I $(SRCDIR)/workbench/system/Wanderer/Classes
 
