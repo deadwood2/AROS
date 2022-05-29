@@ -611,7 +611,7 @@
 #include <clib/battclock_protos.h>
 #include <clib/bestcomm_protos.h>
 // #include <clib/Boopsi_protos.h>
-// #include <clib/boopsistubs.h>
+#include <clib/boopsistubs.h>
 #include <clib/bootloader_protos.h>
 #include <clib/bsdsocket_protos.h>
 #include <clib/bullet_protos.h>
