@@ -46,6 +46,7 @@ If NOT WARN
     ; Perform basic "Zune" unit tests...
     Execute S/Test cunit/zune/cunit-zune-handleevent
     Execute S/Test cunit/zune/cunit-zune-handleevent-2
+    Execute S/Test cunit/zune/cunit-zune-list
     Execute S/Test cunit/zune/cunit-zune-showhide
     Execute S/Test cunit/zune/cunit-zune-sleep
     Execute S/Test cunit/zune/cunit-zune-window
