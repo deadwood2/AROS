@@ -54,7 +54,6 @@ static void test_window_not_copying_title()
     TEXT wintitle[] = "TITLE";
 
     Object *app = ApplicationObject, End;
-    set(app, MUIA_Application_Sleep, TRUE);
 
     Object *win = WindowObject,
            MUIA_Window_Title, wintitle,
