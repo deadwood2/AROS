@@ -402,6 +402,32 @@ diff -ruN binutils-2.32/bfd/targets.c binutils-2.32-aros/bfd/targets.c
  extern const bfd_target arm_elf32_fdpic_be_vec;
  extern const bfd_target arm_elf32_fdpic_le_vec;
  extern const bfd_target arm_elf32_nacl_be_vec;
+diff -ruN binutils-2.32/bfd/doc/Makefile.in binutils-2.32.aros/bfd/doc/Makefile.in
+--- binutils-2.32/bfd/doc/Makefile.in	2019-02-02 16:47:56.000000000 +0100
++++ binutils-2.32.aros/bfd/doc/Makefile.in	2019-01-19 17:10:54.000000000 +0100
+@@ -538,22 +538,6 @@
+ 	-rm -rf .libs _libs
+ 
+ bfd.info: bfd.texi $(bfd_TEXINFOS)
+-	$(AM_V_MAKEINFO)restore=: && backupdir="$(am__leading_dot)am$$$$" && \
+-	rm -rf $$backupdir && mkdir $$backupdir && \
+-	if ($(MAKEINFO) --version) >/dev/null 2>&1; then \
+-	  for f in $@ $@-[0-9] $@-[0-9][0-9] $(@:.info=).i[0-9] $(@:.info=).i[0-9][0-9]; do \
+-	    if test -f $$f; then mv $$f $$backupdir; restore=mv; else :; fi; \
+-	  done; \
+-	else :; fi && \
+-	if $(MAKEINFO) $(AM_MAKEINFOFLAGS) $(MAKEINFOFLAGS) -I $(srcdir) \
+-	 -o $@ `test -f 'bfd.texi' || echo '$(srcdir)/'`bfd.texi; \
+-	then \
+-	  rc=0; \
+-	else \
+-	  rc=$$?; \
+-	  $$restore $$backupdir/* `echo "./$@" | sed 's|[^/]*$$||'`; \
+-	fi; \
+-	rm -rf $$backupdir; exit $$rc
+ 
+ bfd.dvi: bfd.texi $(bfd_TEXINFOS) 
+ 	$(AM_V_TEXI2DVI)TEXINPUTS="$(am__TEXINFO_TEX_DIR)$(PATH_SEPARATOR)$$TEXINPUTS" \
 diff -ruN binutils-2.32/binutils/configure binutils-2.32-aros/binutils/configure
 --- binutils-2.32/binutils/configure	2019-02-02 16:54:08.000000000 +0100
 +++ binutils-2.32-aros/binutils/configure	2019-01-19 17:10:54.000000000 +0100
