@@ -48,6 +48,8 @@ STDC_MATH_FILES = \
     e_sqrt \
     e_sqrtf \
     k_cos \
+    k_exp \
+    k_expf \
     k_rem_pio2 \
     k_rem_pio2f \
     k_sin \
