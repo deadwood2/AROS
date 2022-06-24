@@ -1,0 +1,13 @@
+## version $VER: loadresource.catalog 2.0 (08.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_ERROR_OPEN_LIBRARY
+%s kütüphanesi açýlamadý.
+; Couldn't open library %s.
+;
+MSG_ERROR_OPEN_DEVICE
+%s aygýtý açýlamadý.
+; Couldn't open device %s.
+;

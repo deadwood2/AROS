@@ -1,0 +1,228 @@
+## version $VER: Boot.catalog 1.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+MSG_NAME
+Önyükleme Tecihleri
+; Boot Preferences
+;
+MSG_DESCRIPTION
+Önyükleme tercihlerini yönet
+; Manage boot preferences
+;
+MSG_GFX
+Grafik
+; Graphics
+;
+MSG_GFX_COMPOSITION
+Birleþtirme etkin
+; Enable composition
+;
+MSG_GFX_TYPE
+Tür:
+; Type:
+;
+MSG_GFX_TYPE_AUTO
+Otomatik
+; Automatic
+;
+MSG_GFX_TYPE_NATIVE
+Doðal
+; Native
+;
+MSG_GFX_TYPE_VESA
+VESA
+; VESA
+;
+MSG_GFX_TYPE_VGA
+VGA
+; VGA
+;
+MSG_GFX_VESAMODE
+VESA Modu
+; VESA Mode
+;
+MSG_GFX_WIDTH
+Geniþlik:
+; Width:
+;
+MSG_GFX_HEIGHT
+Yükseklik:
+; Height:
+;
+MSG_GFX_DEPTH
+Renk Derinliði:
+; Colour Depth:
+;
+MSG_GFX_DEPTH_TRUE
+Gerçek Renkler
+; True Colour
+;
+MSG_GFX_DEPTH_HIGH
+Yüksek Renkler
+; High Colour
+;
+MSG_GFX_DEPTH_LOW
+256 Renkli
+; 256 Colours
+;
+MSG_GFX_REFRESH
+Tarama Hýzý:
+; Refresh Rate:
+;
+MSG_GFX_HERTZ
+Hz
+; Hz
+;
+MSG_GFX_DEFAULTREFRESH
+Varsayýlan Tarama Hýzýný Kullan
+; Use Default Refresh Rate
+;
+MSG_GFX_BESTRES
+Mevcut En Yüksek Çözünürlüðü Kullan
+; Use Highest Available Resolution
+;
+MSG_ATA
+ATA
+; ATA
+;
+MSG_ATA_BUSES
+Etkin Veri Yollarý:
+; Enabled Buses:
+;
+MSG_ATA_BUS_PCI
+PCI
+; PCI
+;
+MSG_ATA_BUS_LEGACY
+Eski
+; Legacy
+;
+MSG_ATA_BUS_ALL
+Tümü
+; All
+;
+MSG_ATA_BUS_NONE
+Hiçbiri
+; None
+;
+MSG_ATA_DMA
+DMA Veri Aktarýmlarýný Etkinleþtir
+; Enable DMA Data Transfers
+;
+MSG_ATA_32BIT
+32-bit Veri Aktarýmlarýný Etkinleþtir
+; Enable 32-bit Data Transfers
+;
+MSG_ATA_POLL
+Meþgul Durumunun Sonunu Algýlamak için Yoklamayý Kullan
+; Use Polling to Detect End of Busy State
+;
+MSG_ATA_MULTI
+Çok Sektörlü Veri Aktarýmlarýný Etkinleþtir
+; Enable Multisector Data Transfers
+;
+MSG_ATA_AHCI
+Doðal AHCI Etkinleþtir
+; Enable Native AHCI
+;
+MSG_DEBUG
+Hata Ayýklama
+; Debugging
+;
+MSG_DEBUG_OUTPUT
+Çýktý:
+; Output:
+;
+MSG_DEBUG_OUTPUT_NONE
+Hiçbiri
+; None
+;
+MSG_DEBUG_OUTPUT_MEMORY
+Bellek Tamponu
+; Memory Buffer
+;
+MSG_DEBUG_OUTPUT_SERIAL
+Seri Port
+; Serial Port
+;
+MSG_DEBUG_MUNGWALL
+Mungwall'u Etkinleþtir
+; Enable Mungwall
+;
+MSG_DEBUG_USB
+USB Hata ayýklama
+; Debug USB
+;
+MSG_MISC
+Çeþitli
+; Miscellaneous
+;
+MSG_USB_ENABLE
+USB Etkinleþtir
+; Enable USB
+;
+MSG_ACPI_ENABLE
+ACPI Etkinleþtir
+; Enable ACPI
+;
+MSG_FLOPPY_ENABLE
+Disket Sürücüyü Etkinleþtir
+; Enable Floppy Disk Drive
+;
+MSG_DEVICE
+Önyükleme Aygýtý
+; Boot Device
+;
+MSG_DEVICE_NAME
+DOS Aygýtý:
+; DOS Device:
+;
+MSG_DEVICE_DELAY
+Önyükleme Geçikmesi:
+; Boot Delay:
+;
+MSG_DEVICE_SECONDS
+saniye
+; seconds
+;
+MSG_DEVICE_DEFAULTDELAY
+Varsayýlan Önyükleme Gecikmesini Kullan
+; Use Default Boot Delay
+;
+MSG_OPTIONS
+Seçenekler
+; Options
+;
+MSG_MODULES
+Modüller
+; Modules
+;
+MSG_ACTIVE
+Aktif
+; Active
+;
+MSG_PATH
+Yol
+; Path
+;
+MSG_ADD
+Ekle
+; Add
+;
+MSG_REMOVE
+Kaldýr
+; Remove
+;
+MSG_OK
+Tamam
+; OK
+;
+MSG_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_BAD_MODULE
+Hatalý modül yolu "%s"
+; Bad module path "%s"
+;

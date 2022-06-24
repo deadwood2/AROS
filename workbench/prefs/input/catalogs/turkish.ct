@@ -1,0 +1,93 @@
+## version $VER: Input.catalog 3.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_NAME
+Giriþ Tercihleri
+; Input Preferences
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_GAD_TAB_MOUSE
+Fare
+; Mouse
+;
+MSG_GAD_TAB_KEYBOARD
+Klavye
+; Keyboard
+;
+MSG_GAD_MOUSE_SPEED
+Fare Hýzý
+; Mouse Speed
+;
+MSG_GAD_MOUSE_ACCELERATED
+Hýzlandýrýlmýþ
+; Accelerated
+;
+MSG_GAD_MOUSE_DOUBLE_CLICK_DELAY
+Çift-Týklam Geçikmesi
+; Double-Click Delay
+;
+MSG_GAD_KEY_REPEAT_DELAY
+Tuþ Tekrar Geçikmesi
+; Key Repeat Delay
+;
+MSG_GAD_KEY_REPEAT_RATE
+Tuþ Terrar Oraný
+; Key Repeat Rate
+;
+MSG_GAD_KEY_TEST
+Sýna
+; Test
+;
+MSG_GAD_KEY_TYPE
+Tür
+; Type
+;
+MSG_GAD_MOUSE_BUTTON_SETTINGS
+Fare düðmeleri
+; Mouse buttons
+;
+MSG_GAD_LEFT_HANDED_MOUSE
+Sol-El fare
+; Left-handed mouse
+;
+MSG_GAD_MOUSE_SPEED_SLOW
+Yavaþ
+; Slow
+;
+MSG_GAD_MOUSE_SPEED_NORMAL
+Normal
+; Normal
+;
+MSG_GAD_MOUSE_SPEED_FAST
+Hýzlý
+; Fast
+;
+MSG_GAD_KEY_DEF
+Varsayýlan
+; Default
+;
+MSG_GAD_KEY_ALT
+Alternatif
+; Alternate
+;
+MSG_GAD_KEY_SET
+Ayarla
+; Set
+;
+MSG_GAD_KEY_SWITCH
+Düzen deðiþtirme
+; Layout switching
+;
+MSG_GAD_KEY_SWITCH_ENABLE
+Etkin
+; Enabled
+;
+MSG_GAD_KEY_SWITCH_KEY
+Kýsayol Tuþu
+; Hotkey
+;

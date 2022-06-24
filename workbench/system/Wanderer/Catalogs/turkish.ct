@@ -264,7 +264,7 @@ Sistemi kapat
 ; System shutdown
 ;
 MSG_SHUTDOWN_BODY
-Ne yapmak istersiniz?
+Ne yapmak istiyorsunuz?
 ; What would you like to do?
 ;
 MSG_SHUTDOWN_BUTTONS

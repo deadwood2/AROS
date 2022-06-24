@@ -124,7 +124,7 @@ Belgelendirme
 ; Documentation
 ;
 MSG_SECTION_TRANSLATION
-Çeviri
+Çeviriler
 ; Translation
 ;
 MSG_SECTION_ARTISTRY
@@ -140,7 +140,7 @@ Veri türleri
 ; Datatypes
 ;
 MSG_SECTION_TESTING
-Testler
+Test edenler
 ; Testing
 ;
 MSG_BUILD_CPU

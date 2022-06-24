@@ -1,0 +1,265 @@
+## version $VER: FTManager.catalog 1.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_APP_NAME
+FTManager
+; FTManager
+;
+MSG_APP_TITLE
+
+; FreeType font manager
+;
+MSG_WINDOW_TITLE
+FreeType yazý tipi yöneticisi
+; FreeType font manager
+;
+MSG_LABEL_SOURCE
+Kaynak
+; Source
+;
+MSG_ASL_FONTS_TRUETYPE
+Yazýtipi:TrueType
+; Fonts:TrueType
+;
+MSG_LABEL_DESTINATION
+Hedef
+; Destination
+;
+MSG_ASL_FONTS
+Fonts:
+; Fonts:
+;
+MSG_LABEL_CODEPAGE
+Kod sayfasý
+; Codepage
+;
+MSG_QUIT
+_Çýkýþ
+; _Quit
+;
+MSG_BUTTON_INSTALL
+_Yükle
+; _Install
+;
+MSG_BUTTON_CLOSE
+_Vazgeç
+; _Close
+;
+MSG_WEIGHT_ULTRATHIN
+UltraÝnce
+; UltraThin
+;
+MSG_WEIGHT_EXTRATHIN
+EkstraÝnce
+; ExtraThin
+;
+MSG_WEIGHT_THIN
+Ýnce
+; Thin
+;
+MSG_WEIGHT_EXTRALIGHT
+EkstraParlak
+; ExtraLight
+;
+MSG_WEIGHT_LIGHT
+Parlak
+; Light
+;
+MSG_WEIGHT_DEMILIGHT
+YarýParlak
+; DemiLight
+;
+MSG_WEIGHT_SEMILIGHT
+HafifParlak
+; SemiLight
+;
+MSG_WEIGHT_BOOK
+Kitap
+; Book
+;
+MSG_WEIGHT_MEDIUM
+Orta
+; Medium
+;
+MSG_WEIGHT_SEMIBOLD
+HafifKalýn
+; SemiBold
+;
+MSG_WEIGHT_DEMIBOLD
+YarýKalýn
+; DemiBold
+;
+MSG_WEIGHT_BOLD
+Kalýn
+; Bold
+;
+MSG_WEIGHT_EXTRABOLD
+EkstraKalýn
+; ExtraBold
+;
+MSG_WEIGHT_BLACK
+Siyah
+; Black
+;
+MSG_WEIGHT_EXTRABLACK
+EkstraSiyah
+; ExtraBlack
+;
+MSG_WEIGHT_ULTRABLACK
+UltraSiyah
+; UltraBlack
+;
+MSG_WEIGHT_CUSTOM
+Özel
+; Custom
+;
+MSG_STYLE_UPRIGHT
+Dik
+; Upright
+;
+MSG_STYLE_ITALIC
+Ýtalik
+; Italic
+;
+MSG_STYLE_LEFTITALIC
+SolaÝtalik
+; LeftItalic
+;
+MSG_HSTYLE_ULTRACOMPRESSED
+
+; UltraCompressed
+;
+MSG_HSTYLE_EXTRACOMPRESSED
+UltraDar
+; ExtraCompressed
+;
+MSG_HSTYLE_COMPRESSED
+Dar
+; Compressed
+;
+MSG_HSTYLE_CONDENSED
+Yoðun
+; Condensed
+;
+MSG_HSTYLE_NORMAL
+Normal
+; Normal
+;
+MSG_HSTYLE_SEMIEXPANDED
+HafifGeniþletilmiþ
+; SemiExpanded
+;
+MSG_HSTYLE_EXPANDED
+Geniþletilmiþ
+; Expanded
+;
+MSG_HSTYLE_EXTRAEXPANDED
+EkstraGeniþletilmiþ
+; ExtraExpanded
+;
+MSG_HSTYLE_CUSTOM
+Özel
+; Custom
+;
+MSG_METRIC_GLOBALBOUNDINGBOX
+Genel sýnýrlayýcý kutu
+; Global bounding box
+;
+MSG_METRIC_RAWFONTMETRIC
+Ham yazý tipi metriði
+; Raw font metric
+;
+MSG_METRIC_ASCENDER
+Yükselen
+; Ascender
+;
+MSG_METRIC_TYPOASCENDER
+Yazým hatasý yükseltici
+; Typo ascender
+;
+MSG_METRIC_USWINASCENDER
+USWin yükselen
+; USWin ascender
+;
+MSG_METRIC_CUSTOMBOUNDINGBOX
+Özel sýnýrlayýcý kutu
+; Custom bounding box
+;
+MSG_LABEL_EXTRAFILE
+Ekstra dosya
+; Extra file
+;
+MSG_LABEL_FACENUM
+Face num
+; Face num
+;
+MSG_LABEL_NAME
+Adý
+; Name
+;
+MSG_LABEL_FAMILY
+Ailesi
+; Family
+;
+MSG_LABEL_METRIC
+Metrik
+; Metric
+;
+MSG_LABEL_BOUNDINGBOX
+Sýnýrlayýcý kutu
+; Bounding box
+;
+MSG_LABEL_YMIN
+yMin
+; yMin
+;
+MSG_LABEL_YMAX
+yMaks
+; yMax
+;
+MSG_LABEL_SIZEFACTOR
+Boyut faktörü
+; Size factor
+;
+MSG_LABEL_SPACEWIDTH
+Alan geniþliði
+; Space width
+;
+MSG_LABEL_FIXEDWIDTH
+Sabit geniþlik
+; Fixed width
+;
+MSG_LABEL_SERIF
+Serif
+; Serif
+;
+MSG_LABEL_STEMWEIGHT
+Gövde aðýrlýðý
+; Stem weight
+;
+MSG_LABEL_SLANTSTYLE
+Eðik stil
+; Slant style
+;
+MSG_LABEL_HORIZSTYLE
+Yatay stil
+; Horiz style
+;
+MSG_FRAME_PREVIEW
+Önizleme
+; Preview
+;
+MSG_PREVIEW_STRING
+Hýzlý kahverengi tilki tembel köpeðin üzerinden atladý.
+; The quick brown fox jumped over the lazy dog.
+;
+MSG_LABEL_SIZE
+Boyut
+; Size
+;
+MSG_LABEL_ANTIALIASING
+Kenar-yumuþatma
+; Anti-aliasing
+;

@@ -1,0 +1,260 @@
+## version $VER: dos.catalog 1.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+MSG_ERROR_NO_FREE_STORE
+yeterli bellek yok
+; not enough memory available
+;
+MSG_ERROR_TASK_TABLE_FULL
+iþlem tablosu dolu
+; process table full
+;
+MSG_ERROR_BAD_TEMPLATE
+kötü þablon
+; bad template
+;
+MSG_ERROR_BAD_NUMBER
+kötü numara
+; bad number
+;
+MSG_ERROR_REQUIRED_ARG_MISSING
+gerekli argümanlar eksik
+; required argument missing
+;
+MSG_ERROR_KEY_NEEDS_ARG
+anahtar kelime eksik olduktan sonraki deðer
+; value after keyword missing
+;
+MSG_ERROR_TOO_MANY_ARGS
+yanlýþ sayýda argüman
+; wrong number of arguments
+;
+MSG_ERROR_UNMATCHED_QUOTES
+eþlenmeyen alýntýlar
+; unmatched quotes
+;
+MSG_ERROR_LINE_TOO_LONG
+argüman satýrý geçersiz veya çok uzun
+; argument line invalid or too long
+;
+MSG_ERROR_FILE_NOT_OBJECT
+dosya çalýþtýrýlabilir deðil
+; file is not executable
+;
+MSG_ERROR_INVALID_RESIDENT_LIBRARY
+yerleþik kütüphaneler geçersiz
+; invalid resident library
+;
+MSG_ERROR_NO_DEFAULT_DIR
+varsayýlan dizin yok
+; no default directory
+;
+MSG_ERROR_OBJECT_IN_USE
+nesne kullanýmda
+; object is in use
+;
+MSG_ERROR_OBJECT_EXISTS
+nesne zaten mevcut
+; object already exists
+;
+MSG_ERROR_DIR_NOT_FOUND
+dizin bulunamadý
+; directory not found
+;
+MSG_ERROR_OBJECT_NOT_FOUND
+nesne bulunamadý
+; object not found
+;
+MSG_ERROR_BAD_STREAM_NAME
+geçersiz pencere açýklamasý
+; invalid window description
+;
+MSG_ERROR_OBJECT_TOO_LARGE
+nesne çok büyük
+; object too large
+;
+MSG_ERROR_ACTION_NOT_KNOWN
+dosya sistemi eylem türü bilinmiyor
+; filesystem action type unknown
+;
+MSG_ERROR_INVALID_COMPONENT_NAME
+nesne adý geçersiz
+; object name invalid
+;
+MSG_ERROR_INVALID_LOCK
+geçersiz nesne kiliti
+; invalid object lock
+;
+MSG_ERROR_OBJECT_WRONG_TYPE
+nesne gerekli türde deðil
+; object is not of required type
+;
+MSG_ERROR_DISK_NOT_VALIDATED
+disk doðrulanmadý
+; disk not validated
+;
+MSG_ERROR_DISK_WRITE_PROTECTED
+disk yazmaya karþý korumalýdýr
+; disk is write-protected
+;
+MSG_ERROR_RENAME_ACROSS_DEVICES
+denenen cihazlar arasýnda yeniden adlandýrma
+; rename across devices attempted
+;
+MSG_ERROR_DIRECTORY_NOT_EMPTY
+dizin boþ deðil
+; directory not empty
+;
+MSG_ERROR_TOO_MANY_LEVELS
+çok fazla seviye
+; too many levels
+;
+MSG_ERROR_DEVICE_NOT_MOUNTED
+aygýt (veya veri birimi) baðlanamadý
+; device (or volume) is not mounted
+;
+MSG_ERROR_SEEK_ERROR
+arama baþarýsýz
+; seek failure
+;
+MSG_ERROR_COMMENT_TOO_BIG
+açýklama çok uzun
+; comment is too long
+;
+MSG_ERROR_DISK_FULL
+disk dolu
+; disk is full
+;
+MSG_ERROR_DELETE_PROTECTED
+nesne silmeye karþý korumalý
+; object is protected from deletion
+;
+MSG_ERROR_WRITE_PROTECTED
+dosya yazmaya karþý korumalý
+; file is write protected
+;
+MSG_ERROR_READ_PROTECTED
+dosya okumaya karþý korumalý
+; file is read protected
+;
+MSG_ERROR_NOT_A_DOS_DISK
+geçersiz DOS diski
+; not a valid DOS disk
+;
+MSG_ERROR_NO_DISK
+sürücüde disk yok
+; no disk in drive
+;
+MSG_ERROR_NO_MORE_ENTRIES
+dizinde daha fazla giriþ yok
+; no more entries in directory
+;
+MSG_ERROR_IS_SOFT_LINK
+nesne yumuþak baðlantýdýr
+; object is soft link
+;
+MSG_ERROR_OBJECT_LINKED
+nesne baðlantýlý
+; object is linked
+;
+MSG_ERROR_BAD_HUNK
+kötü yük dosyasý
+; bad loadfile hunk
+;
+MSG_ERROR_NOT_IMPLEMENTED
+iþlev uygulanmadý
+; function not implemented
+;
+MSG_ERROR_RECORD_NOT_LOCKED
+kayýt kilitli deðil
+; record not locked
+;
+MSG_ERROR_LOCK_COLLISION
+kayýt kilidi çarpýþmasý
+; record lock collision
+;
+MSG_ERROR_LOCK_TIMEOUT
+kayýt kilidi zaman aþýmý
+; record lock timeout
+;
+MSG_ERROR_UNLOCK_ERROR
+kilit açma hatasýný kaydet
+; record unlock error
+;
+MSG_ERROR_BUFFER_OVERFLOW
+arabellek taþmasý
+; buffer overflow
+;
+MSG_ERROR_BREAK
+***Kes
+; ***Break
+;
+MSG_ERROR_NOT_EXECUTABLE
+dosya çalýþtýrýlabilir deðil
+; file not executable
+;
+MSG_STRING_DISK_NOT_VALIDATED
+"%s" birimi doðrulanmadý
+; Volume "%s" is not validated
+;
+MSG_STRING_DISK_WRITE_PROTECTED
+"%s" birimi yazma korumalý
+; Volume "%s" is write protected
+;
+MSG_STRING_DEVICE_NOT_MOUNTED_INSERT
+Lütfen herhangi bir sürücüye "%s" birimi ekleyin
+; Please insert volume "%s" in any drive
+;
+MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE
+Lütfen herhangi bir sürücüdeki "%s" birimini deðiþtirin
+; Please replace volume "%s" in any drive
+;
+MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE_TARGET
+Lütfen "%s" birimini "%s" içinde deðiþtirin
+; Please replace volume "%s" in "%s"
+;
+MSG_STRING_DISK_FULL
+"%s" birimi dolu
+; Volume "%s" is full
+;
+MSG_STRING_NOT_A_DOS_DISK
+"%s" içinde bir DOS diski deðil
+; Not a DOS disk in "%s"
+;
+MSG_STRING_NO_DISK
+"%s" içinde disk yok
+; No disk present in "%s"
+;
+MSG_STRING_ABORT_BUSY
+"%s" birimini "%s" içinde deðiþtirmelisiniz!
+; You MUST replace volume "%s" in "%s"!
+;
+MSG_STRING_ABORT_DISK_ERROR
+"%s" biriminde okuma/yazma hatasý var
+; Volume "%s" has a read/write error
+;
+MSG_STRING_RETRY
+Tekrarla
+; Retry
+;
+MSG_STRING_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_STRING_REQUESTTITLE
+Sistem istemi
+; System requester
+;
+MSG_ERROR_NO_MATCHING_ELSEENDIF
+eþleþen Else veya EndIf yok
+; no matching Else or EndIf
+;
+MSG_ERROR_SCRIPT_ONLY
+bu komutun yalnýzca komut dosyalarýnda kullanýlmasý gerekiyor
+; this command is supposed to be used in command files only
+;
+MSG_ERROR_UNKNOWN
+tanýmsýz hata
+; undefined error
+;

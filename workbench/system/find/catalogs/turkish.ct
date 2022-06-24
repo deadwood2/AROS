@@ -1,0 +1,117 @@
+## version $VER: find.catalog 1.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+MSG_APP_TITLE
+Bul
+; Find
+;
+MSG_APP_DESCRIPTION
+Bul ve ara aracý
+; File search tool
+;
+MSG_APP_COPYRIGHT
+Telif Hakký \xa9 2016 The AROS Geliþtirme Takýmý
+; Copyright \xa9 2016 The AROS Development Team
+;
+MSG_WI_TITLE
+Bul
+; Find
+;
+MSG_OK
+Tamam
+; OK
+;
+MSG_LST_FULLPATH
+Tam Yol
+; Full Path
+;
+MSG_LST_SIZE
+Boyut
+; Size
+;
+MSG_LST_ATTRIBUTES
+Öznitellikler
+; Attributes
+;
+MSG_LST_DATE
+Tarih
+; Date
+;
+MSG_LST_TIME
+Saat
+; Time
+;
+MSG_LST_COMMENT
+Açýklama
+; Comment
+;
+MSG_LBL_PATH
+Yol
+; Path
+;
+MSG_LBL_PATTERN
+Desen
+; Pattern
+;
+MSG_LBL_CONTENTS
+Ýçindekiler
+; Contents
+;
+MSG_BTN_START
+Baþlat
+; Start
+;
+MSG_BTN_STOP
+Durdur
+; Stop
+;
+MSG_BTN_OPEN
+Aç
+; Open
+;
+MSG_BTN_VIEW
+Göster
+; View
+;
+MSG_BTN_DRAWER
+Çekmece
+; Drawer
+;
+; Error messages
+;
+MSG_ERR
+Hata
+; Error
+;
+MSG_ERR_NO_APPLICATION
+Uygulama oluþturulamýyor.
+; Can't create application.
+;
+MSG_ERR_READARGS
+Komut satýrý argümanlarý okunamýyor.
+; Can't read commandline arguments.
+;
+MSG_ERR_NO_MEM
+Hata:\nBellek ayrýlamýyor.
+; Error:\nCan't allocate memory.
+;
+MSG_ERR_NO_WINDOW
+Hata:\Pencere açýlamýyor.
+; Error:\nCan't open window.
+;
+MSG_ERR_DOS
+DOS Hatasý:\n%s
+; DOS Error:\n%s
+;
+MSG_ERR_NO_FILE
+Hata:\n\"%s\" dosyasý açýlamýyor.
+; Error:\nCan't open file\n\"%s\".
+;
+MSG_ERR_NO_DIR
+Hata:\ndizin açýlamýyor\n\"%s\".
+; Error:\nCan't open directory\n\"%s\".
+;
+MSG_ERR_PATTERN
+Hata:\nDesen ayrýþtýrýlamýyor.
+; Error:\nCan't parse pattern.

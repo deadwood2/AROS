@@ -1,0 +1,440 @@
+## version $VER: JanoEditor.catalog 1.1 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+; Catalog description for JanoEditor
+; JanoEditor.cd
+;
+;
+; *****************************
+;  NewMenu strings
+; *****************************
+;
+; Project Menu
+;
+MSG_PROJECTTITLE
+Proje
+; Project
+;
+MSG_NEWEMPTYFILE
+Yeni
+; New
+;
+MSG_OPENNEWFILE
+Dosya aç...
+; Open file...
+;
+MSG_LOADINPRJ
+Dosya yükle...
+; Load file...
+;
+MSG_SAVEFILE
+Kaydet
+; Save
+;
+MSG_SAVEFILEAS
+Faklý kaydet...
+; Save as...
+;
+MSG_SAVECHANGES
+Deðiþiklikleri kaydet
+; Save changes
+;
+MSG_PRINTFILE
+Yazdýr
+; Print
+;
+MSG_INFORMATION
+Bilgi...
+; Information...
+;
+MSG_CLOSE
+Kapat
+; Close
+;
+MSG_QUIT
+Çýkýþ
+; Quit
+;
+; Edit Menu
+;
+MSG_EDITTITLE
+Düzen
+; Edit
+;
+MSG_CUT
+Kes
+; Cut
+;
+MSG_COPY
+Kopyala
+; Copy
+;
+MSG_PASTE
+Yapýþtýr
+; Paste
+;
+MSG_MARK
+Ýþaretle
+; Mark
+;
+MSG_MARKCOLUMN
+Sütunu iþaretle
+; Mark column
+;
+MSG_SELECTALL
+Tümünü seç
+; Select all
+;
+MSG_DELLINE
+Satýrý sil
+; Delete line
+;
+MSG_SUBTOOLS
+Araçlar
+; Tools
+;
+MSG_INDENT
+Girintili
+; Indent
+;
+MSG_UNINDENT
+Girintisiz
+; Unindent
+;
+MSG_UPPERCASE
+Büyük harf
+; Upper case
+;
+MSG_LOWERCASE
+Küçük harf
+; Lower case
+;
+MSG_TOGGLECASE
+Harf Aç/Kapat
+; Toggle case
+;
+MSG_INSERTFILE
+Dosya ekle...
+; Insert file...
+;
+MSG_UNDO
+Geri Al
+; Undo
+;
+MSG_REDO
+Yinele
+; Redo
+;
+; Search Menu
+;
+MSG_SEARCHTITLE
+Arama
+; Search
+;
+MSG_FIND
+Bul...
+; Find...
+;
+MSG_REPLACE
+Deðiþtir...
+; Replace...
+;
+MSG_SUBFIND
+Bul
+; Find
+;
+MSG_NEXTFIND
+Sonraki
+; Next
+;
+MSG_PREVFIND
+Önceki
+; Previous
+;
+MSG_NEXTREPLACE
+Deðiþtir
+; Replace
+;
+MSG_PREVPAGE
+Önceki sayfa
+; Previous page
+;
+MSG_NEXTPAGE
+Sonraki sayfa
+; Next page
+;
+MSG_GOTOLINE
+Satýra git...
+; Goto line...
+;
+MSG_FINDBRACKET
+Eþleþen parantez
+; Matching bracket
+;
+MSG_LASTMODIF
+Son deðiþiklik
+; Last modification
+;
+MSG_BEGOFLINE
+Satýr baþlanðýcý
+; Start of line
+;
+MSG_ENDOFLINE
+Satýr sonu
+; End of line
+;
+; Macro Menu
+;
+MSG_MACROTITLE
+Makro
+; Macro
+;
+MSG_STARTRECORD
+Kayda baþla
+; Start recording
+;
+MSG_STOPRECORD
+Kaydý durdur
+; Stop recording
+;
+MSG_PLAYMACRO
+Macro çalýþtýr
+; Execute macro
+;
+MSG_REPEATMACRO
+Makroyu tekrarla...
+; Repeat macro...
+;
+; Environment Menu
+;
+MSG_ENVTITLE
+Ortam
+; Environment
+;
+MSG_SCRMODE
+Ekran modu...
+; Screen mode...
+;
+MSG_FONTS
+Yazý Tipleri...
+; Fonts...
+;
+MSG_PREFS
+Genel terçihler...
+; General preferences...
+;
+MSG_LOADPREFS
+Terçihleri yükle...
+; Load preferences...
+;
+MSG_SAVEPREFS
+Tercihleri kaydet
+; Save preferences
+;
+MSG_SAVEPREFSAS
+Tercihleri farklý kaydet...
+; Save preferences as...
+;
+;
+;
+; *****************************
+;  Possible error messages
+; *****************************
+;
+ERR_BADOS
+Eski iþletim sistemi. v2.0 veya daha iyisini yükleyin.
+; Obsolete OS. Install v2.0 or better.
+;
+ERR_NOASLREQ
+ASL istek sahibi atanamýyor!
+; Cannot alloc ASL requester!
+;
+ERR_NOMEM
+Yetersiz bellek!
+; Out of memory!
+;
+ERR_NOGUI
+Ana arayüz açýlamadý!
+; Main interface failed to open!
+;
+ERR_NONAME
+Baþlýk yok
+; No title
+; Not really an error but simplify translation
+;
+ERR_WRITECLIP
+Pano cihazýna hata yaz
+; Write error into clipboard device
+;
+ERR_OPENCLIP
+Pano açýlamýyor!
+; Unable to open clipboard!
+;
+ERR_LOADFILE
+Ýstenen dosya yüklenemiyor
+; Unable to load requested file
+;
+ERR_NOTXTINCLIP
+Panoda metin yok
+; No text in clipboard
+;
+ERR_WRONG_TYPE
+Nesne bir dizindir!
+; Object is a directory!
+;
+ERR_READCLIP
+Okuma iþlemi tamamlanmadý
+; Read operation incomplete
+;
+ERR_NOBRACKET
+Ýmlecin altýnda parantez yok!
+; No parenthesis under cursor!
+;
+ERR_NOT_FOUND
+`%s' kalýbý bulunamadý
+; Pattern `%s' not found
+;
+ERR_LOADFONT
+Ýstenilen yazý tipi açýlamýyor!
+; Can't open desired font!
+;
+ERR_NOPREFEDITOR
+Tercih düzenleyicisi bulamýyor!
+; Can't find preference editor!
+;
+ERR_BADPREFSFILE
+Kötü tercih dosya biçimi.
+; Bad preference file format.
+;
+ERR_FILEMODIFIED
+%s deðiþtirildi.\nKapatmak istediðinizden emin misiniz?
+; %s has been modified.\nAre you sure want to close it?
+;
+ERR_SLC
+Kaydet|Kapat|Vazgeç
+; Save|Close|Cancel
+;
+ERR_NOSEARCHTEXT
+Aranacak metin yok!
+; No text to search for!
+;
+ERR_FILEEXISTS
+Bu dosya zaten var. Üzerine yazýlsýn mý?
+; This file already exists. Overwrite it?
+;
+ERR_OC
+Evet|Hayýr!
+; Yes|No!
+;
+WARN_RECORD
+Makro kaydetmeye baþla
+; Start recording macro
+;
+WARN_RECORDED
+Makro kaydedildi
+; Macro recorded
+;
+WARN_REC
+[KAYIT]
+; [REC]
+;
+;
+; *************************************
+;  Information window related messages
+; *************************************
+;
+MSG_ABOUT
+Bilgi
+; Information
+;
+MSG_FORMATINFO
+%s\nT.Pierron ve C.Guillaume tarafýndan tasarlanmýþtýr \xa9 2000\n\nDosya düzenlendi: %s\nUzunluk: %iu %s, %iu %s.
+; %s\nDesigned by T.Pierron and C.Guillaume \xa9 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
+;
+MSG_CONTINUE
+Devam
+; Continue
+;
+MSG_BYTE
+bayt
+; byte
+;
+MSG_BYTES
+bayt
+; bytes
+;
+MSG_LINE
+satýr
+; line
+;
+MSG_LINES
+satýrlar
+; lines
+;
+;
+; *************************
+;  Search & replace window
+; *************************
+;
+MSG_SEARCHWINDOW
+Arama deseni
+; Search pattern
+;
+MSG_REPLACEWINDOW
+Ara & Deðiþtir
+; Search & Replace
+;
+MSG_SEARCHSTRING
+Bulunan:
+; Locate:
+;
+MSG_REPLACESTRING
+Deðiþtir:
+; Replace:
+;
+MSG_OPTCASE
+Büyük/küçük uyumu
+; Match case
+;
+MSG_OPTWORDS
+Bütün kelimeler
+; Whole words
+;
+MSG_BUTTONREPLACE
+Deðiþti_r
+; _Replace
+;
+MSG_BUTTONREPALL
+_Tümünü Deðiþtir
+; Replace _All
+;
+MSG_BUTTONSEARCH
+Arama
+; Search
+;
+MSG_NEXTSEARCH
+_Önceki
+; _Previous
+;
+MSG_USESEARCH
+K_ullan
+; _Use
+;
+MSG_CANCELSEARCH
+_Vazgeç
+; _Cancel
+;
+MSG_REPLACEALL
+%iu %s ile `%s' deðiþtirildi
+; %iu %s of `%s' replaced
+;
+MSG_OCCURENCY
+meydana gelmen
+; occurency
+;
+MSG_OCCURENCIES
+olaylar
+; occurencies
+;
