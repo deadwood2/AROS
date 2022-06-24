@@ -2018,6 +2018,7 @@
 # /workbench/devs/AHI/
 /workbench/devs/AHI/mmakefile
 /workbench/devs/AHI/.files-touched
+/workbench/devs/AHI/autom4te.cache
 
 # /workbench/devs/AHI/Drivers/HDAudio/
 /workbench/devs/AHI/Drivers/HDAudio/mmakefile
