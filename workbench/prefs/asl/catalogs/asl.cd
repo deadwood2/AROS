@@ -109,3 +109,9 @@ Minimum:
 MSG_MAX (//)
 Maximum:
 ;
+MSG_CANT_OPEN_STREAM (//)
+Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR (//)
+Can't allocate IFF handle!
+;
