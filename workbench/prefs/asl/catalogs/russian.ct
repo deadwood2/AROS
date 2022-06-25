@@ -1,0 +1,109 @@
+## version $VER: Asl.catalog 3.1 (18.02.2021)
+## language russian
+## codeset 2104
+;
+MSG_WINDOW_TITLE
+Настройки ASL
+;
+MSG_GENERAL
+Общие настройки
+;
+MSG_FILEREQUESTER
+Запрос выбора файлов
+;
+MSG_SIZE
+Высота (в % от экрана)
+;
+MSG_OK
+Ок
+;
+MSG_POPSCREEN
+Передний план
+;
+MSG_IMMEDIATESORT
+Автосортировка
+;
+MSG_DRAWERSFIRST
+Директории сверху
+;
+MSG_DRAWERSMIXED
+Директории среди файлов
+;
+MSG_LED
+Индикатор операций
+;
+MSG_DEFAULTFONT
+Стaндaртный шрифт
+;
+MSG_FKEYS
+Функциональные клaвиши
+;
+MSG_DOWHEEL
+Колесо гаммы:
+;
+MSG_WHEEL_NONE
+нет
+;
+MSG_WHEEL_SIMPLE
+обычное
+;
+MSG_WHEEL_FANCY
+расширенное
+;
+MSG_MMB_PARENT
+Возврат по средней кнопке
+;
+MSG_DEFAULTS
+Настройки окна запроса
+;
+MSG_REQUESTER
+\33bЗапрос:
+;
+MSG_FILEREQ
+выбор фaйлов
+;
+MSG_FONTREQ
+выбор шрифтов
+;
+MSG_PALETTEREQ
+выбор цветов из пaлитры
+;
+MSG_SCRMODEREQ
+выбор экрaнов
+;
+MSG_VOLUMEREQ
+выбор устройств
+;
+MSG_OTHERREQ
+прочие запросы
+;
+MSG_POSITION
+Положение:
+;
+MSG_POINTER
+по курсору
+;
+MSG_CENTERWIN
+по центру окна
+;
+MSG_CENTERSCR
+по центру экрaна
+;
+MSG_TOPLEFTWIN
+верхний левый угол окнa
+;
+MSG_TOPLEFTSCR
+верхний левый угол экрaнa
+;
+MSG_OFFSET
+\33bСмещение
+;
+MSG_NR_OF_ENTRIES
+\33bЧисло видимых строк
+;
+MSG_MIN
+Минимум:
+;
+MSG_MAX
+Мaксимум:
+;
