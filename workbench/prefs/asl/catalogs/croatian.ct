@@ -1,0 +1,64 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language hrvatski
+## codeset 5
+;
+MSG_WINDOW_TITLE
+ASL Postavke
+; ASL Preferences
+;
+MSG_GENERAL
+Opæenito
+; General
+;
+MSG_FILEREQUESTER
+Biraè Datoteka
+; File Requester
+;
+MSG_SIZE
+Velièina (% of vidljive visine)
+; Size (% of visible height):
+;
+MSG_OK
+U redu
+;  Ok
+;
+MSG_DRAWERSFIRST
+Prika¾i mape prvo
+; Display drawers first
+;
+MSG_POSITION
+Pozicija:
+; Position:
+;
+MSG_POINTER
+Pokazivaè mi¹a
+; Mouse pointer
+;
+MSG_CENTERWIN
+Centriraj u prozoru
+; Center in window
+;
+MSG_CENTERSCR
+Centriraj u zaslonu
+; Center on screen
+;
+MSG_TOPLEFTWIN
+Gore lijevo od prozora
+; Top left of window
+;
+MSG_TOPLEFTSCR
+Gore lijevo od zaslona
+; Top left of screen
+;
+MSG_OFFSET
+\33bRazmak
+; \33bOffset
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

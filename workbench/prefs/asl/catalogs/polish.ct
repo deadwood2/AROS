@@ -1,0 +1,64 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language polski
+## codeset 5
+;
+MSG_WINDOW_TITLE
+Ustawienia ASL
+; ASL Preferences
+;
+MSG_GENERAL
+Podstawowe
+; General
+;
+MSG_FILEREQUESTER
+Okno wyboru plików
+; File Requester
+;
+MSG_SIZE
+Wielko¶æ (% wysoko¶ci ekranu):
+; Size (% of visible height):
+;
+MSG_OK
+Ok
+;  Ok
+;
+MSG_DRAWERSFIRST
+Wy¶wietl katalogi na pocz±tku
+; Display drawers first
+;
+MSG_POSITION
+Pozycja:
+; Position:
+;
+MSG_POINTER
+w/g wska¼nika myszki
+; Mouse pointer
+;
+MSG_CENTERWIN
+¶rodek okna
+; Center in window
+;
+MSG_CENTERSCR
+¶rodek ekranu
+; Center on screen
+;
+MSG_TOPLEFTWIN
+lewy górny róg okna
+; Top left of window
+;
+MSG_TOPLEFTSCR
+lewy górny róg ekranu
+; Top left of screen
+;
+MSG_OFFSET
+\33bPrzesuniêcie
+; \33bOffset
+;
+MSG_CANT_OPEN_STREAM
+Nie mo¿na otworzyæ danych w formacie IFF!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Nie mo¿na zaalokowaæ struktury IFF!
+; Can't allocate IFF handle!
+;

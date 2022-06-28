@@ -1,0 +1,10 @@
+# Copyright (C) 2022, The AROS Development Team. All rights reserved.
+
+include $(SRCDIR)/config/aros.cfg
+
+CATALOGS := croatian czech danish dutch finnish french german hungarian italian norwegian \
+            polish portuguese russian serbian spanish swedish
+
+%build_catalogs mmake=workbench-prefs-asl-catalogs \
+    catalogs=$(CATALOGS) \
+    name=Asl subdir=System/Prefs

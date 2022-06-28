@@ -1,0 +1,51 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language srpski
+## codeset 8
+;
+MSG_WINDOW_TITLE
+ASL preference
+;
+MSG_GENERAL
+Opçte
+;
+MSG_FILEREQUESTER
+Fajl upitnik
+;
+MSG_SIZE
+VeliŸina (% vidljive visine):
+;
+MSG_OK
+Ok
+;
+MSG_DRAWERSFIRST
+Direktorijumi prvo
+;
+MSG_POSITION
+Pozicija:
+;
+MSG_POINTER
+Pointer
+;
+MSG_CENTERWIN
+Na sredini prozora
+;
+MSG_CENTERSCR
+Na sredini skrina
+;
+MSG_TOPLEFTWIN
+Gore-levo u prozoru
+;
+MSG_TOPLEFTSCR
+Gore-levo na skrinu
+;
+MSG_OFFSET
+\33bPolo§aj
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

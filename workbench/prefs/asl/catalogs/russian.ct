@@ -1,0 +1,51 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language russian
+## codeset 2104
+;
+MSG_WINDOW_TITLE
+Настройки ASL
+;
+MSG_GENERAL
+Общие настройки
+;
+MSG_FILEREQUESTER
+Запрос выбора файлов
+;
+MSG_SIZE
+Высота (в % от экрана)
+;
+MSG_OK
+Ок
+;
+MSG_DRAWERSFIRST
+Директории сверху
+;
+MSG_POSITION
+Положение:
+;
+MSG_POINTER
+по курсору
+;
+MSG_CENTERWIN
+по центру окна
+;
+MSG_CENTERSCR
+по центру экрaна
+;
+MSG_TOPLEFTWIN
+верхний левый угол окнa
+;
+MSG_TOPLEFTSCR
+верхний левый угол экрaнa
+;
+MSG_OFFSET
+\33bСмещение
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;
