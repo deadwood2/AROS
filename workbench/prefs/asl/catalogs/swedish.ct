@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.1 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language svenska
 ## codeset 0
 ;
@@ -18,66 +18,8 @@ MSG_OK
 Ok
 ;
 ;
-MSG_POPSCREEN
-Flytta fram skärm
-;
-MSG_IMMEDIATESORT
-Sortera omedelbart
-;
 MSG_DRAWERSFIRST
 Visa lådor först
-;
-MSG_DRAWERSMIXED
-Blanda filer och lådor
-;
-MSG_LED
-LED
-;
-MSG_DEFAULTFONT
-Systemteckensnitt
-;
-MSG_FKEYS
-Använd f-tangenter
-;
-; Hrm. Inte så bra kanske.. ;)
-MSG_DOWHEEL
-Färghjul:
-;
-MSG_WHEEL_NONE
-Ingen
-;
-MSG_WHEEL_SIMPLE
-Enkelt
-;
-MSG_WHEEL_FANCY
-Fint
-;
-MSG_MMB_PARENT
-MMK ger moderlåda
-;
-MSG_DEFAULTS
-Förinställt
-;
-MSG_REQUESTER
-\33bDialog:
-;
-MSG_FILEREQ
-Fil
-;
-MSG_FONTREQ
-Teckensnitts
-;
-MSG_PALETTEREQ
-Färginst
-;
-MSG_SCRMODEREQ
-Skärmlägesinst
-;
-MSG_VOLUMEREQ
-Volym
-;
-MSG_OTHERREQ
-Andra
 ;
 MSG_POSITION
 Läge:
@@ -100,11 +42,11 @@ MSG_TOPLEFTSCR
 MSG_OFFSET
 \33bOffset
 ;
-MSG_NR_OF_ENTRIES
-\33bAntal synliga poster
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimum:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;
-MSG_MAX
-Maximum:

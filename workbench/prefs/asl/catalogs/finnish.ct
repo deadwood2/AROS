@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.1 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language suomi
 ## codeset 0
 ;
@@ -17,69 +17,8 @@ Koko (% näkyvästä korkeudesta):
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Tuo näyttö eteen
-;
-MSG_IMMEDIATESORT
-Järjestä heti
-;
 MSG_DRAWERSFIRST
 Näytä hakemistot ensin
-;
-MSG_DRAWERSMIXED
-Sekoita tiedostot ja hakemistot
-;
-MSG_LED
-Levyn toimintavalo
-;
-MSG_DEFAULTFONT
-Käytä järjestelmän oletusfonttia
-;
-MSG_FKEYS
-Käytä funktionäppäimiä
-;
-MSG_DOWHEEL
-Väripyörä:
-;
-MSG_WHEEL_NONE
-Ei mitään
-;None
-;
-MSG_WHEEL_SIMPLE
-Yksinkertainen
-;Simple
-;
-MSG_WHEEL_FANCY
-Hieno
-;Fancy
-;
-MSG_MMB_PARENT
-MMB gives parent
-;MMB gives parent
-;
-MSG_DEFAULTS
-Oletusarvot
-;
-MSG_REQUESTER
-\33bValitsija:
-;
-MSG_FILEREQ
-Tiedostoa
-;
-MSG_FONTREQ
-Font
-;
-MSG_PALETTEREQ
-Palet
-;
-MSG_SCRMODEREQ
-Näyttötilan
-;
-MSG_VOLUMEREQ
-Levyn
-;
-MSG_OTHERREQ
-Muut
 ;
 MSG_POSITION
 Paikka:
@@ -102,12 +41,11 @@ Näytön vasen ylänurkka
 MSG_OFFSET
 \33bSiirto
 ;
-MSG_NR_OF_ENTRIES
-\33bNäkyvien rivien määrä
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimi:
-;
-MSG_MAX
-Maksimi:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

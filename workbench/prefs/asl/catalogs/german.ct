@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.1 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language deutsch
 ## codeset 0
 ; Authors: Steffen Salzmann
@@ -18,65 +18,8 @@ Größe (% der sichtbaren Höhe):
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Bildschirm nach vorne
-;
-MSG_IMMEDIATESORT
-Sofort sortieren
-;
 MSG_DRAWERSFIRST
 Schubladen zuerst anzeigen
-;
-MSG_DRAWERSMIXED
-Dateien und Schubl. mischen
-;
-MSG_LED
-Diskzugriffs-LED
-;
-MSG_DEFAULTFONT
-Standard-System-Zeichensatz
-;
-MSG_FKEYS
-Funktionstasten benutzen
-;
-MSG_DOWHEEL
-Farbrad benutzen:
-;
-MSG_WHEEL_NONE
-Nichts
-;
-MSG_WHEEL_SIMPLE
-Einfaches
-;
-MSG_WHEEL_FANCY
-Aufwendiges
-;
-MSG_MMB_PARENT
-Mittlere Maustaste für übergeordnete Schublade
-;
-MSG_DEFAULTS
-Vorgaben
-;
-MSG_REQUESTER
-\33bAuswahlfenster:
-;
-MSG_FILEREQ
-Datei
-;
-MSG_FONTREQ
-Zeichensatz
-;
-MSG_PALETTEREQ
-Farb
-;
-MSG_SCRMODEREQ
-Schirmmodus
-;
-MSG_VOLUMEREQ
-Datenträger
-;
-MSG_OTHERREQ
-Andere
 ;
 MSG_POSITION
 Position:
@@ -99,12 +42,11 @@ Oben links auf Bildschirm
 MSG_OFFSET
 \33bAbstand
 ;
-MSG_NR_OF_ENTRIES
-\33bAnzahl sichtbarer Einträge
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimum:
-;
-MSG_MAX
-Maximum:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

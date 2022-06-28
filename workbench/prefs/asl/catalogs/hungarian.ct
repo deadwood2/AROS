@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.0 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language magyar
 ## codeset 5
 ; Authors: Kertai Gábor
@@ -23,80 +23,9 @@ MSG_OK
 Rendben
 ;  Ok
 ;
-MSG_POPSCREEN
-Képernyõ elõre
-; Pop screen to front
-;
-MSG_IMMEDIATESORT
-Folytonos rendezés
-; Immediate sort
-;
 MSG_DRAWERSFIRST
 Fiókok elõre
 ; Display drawers first
-;
-MSG_DRAWERSMIXED
-Fiók/állomány vegyesen
-; Mix files and drawers
-;
-MSG_LED
-Aktivitásjelzõ LED
-; Disk activity LED
-;
-MSG_DEFAULTFONT
-Rendszerfont
-; Use system default font
-;
-MSG_FKEYS
-Funkcióbillentyûk
-; Use function keys
-;
-MSG_DOWHEEL
-Color wheel:
-;
-MSG_WHEEL_NONE
-None
-; None
-;
-MSG_WHEEL_SIMPLE
-Simple
-; Simple
-;
-MSG_WHEEL_FANCY
-Fancy
-; Fancy
-;
-MSG_DEFAULTS
-Alapértelmezések
-; Defaults
-;
-MSG_REQUESTER
-\33bRequester:
-; \33bRequester:
-;
-MSG_FILEREQ
-Állomány
-; File
-;
-MSG_FONTREQ
-Font
-; Font
-;
-MSG_PALETTEREQ
-Paletta
-; Palette
-;
-MSG_SCRMODEREQ
-Képernyõmód
-; Screen Mode
-;
-MSG_VOLUMEREQ
-Egység
-; Volume
-;
-MSG_OTHERREQ
-Egyéb
-; Other
 ;
 MSG_POSITION
 Pozíció:
@@ -126,15 +55,11 @@ MSG_OFFSET
 \33bTávolság
 ; \33bOffset
 ;
-MSG_NR_OF_ENTRIES
-\33bLátható bejegyzések száma
-; \33bNumber of visible entries
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Legalább:
-; Minimum
-;
-MSG_MAX
-Legfeljebb:
-; Maximum
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

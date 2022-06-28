@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.1 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language srpski
 ## codeset 8
 ;
@@ -17,65 +17,8 @@ VeliŸina (% vidljive visine):
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Izbaci skrin napred
-;
-MSG_IMMEDIATESORT
-Trenutno sortiranje
-;
 MSG_DRAWERSFIRST
 Direktorijumi prvo
-;
-MSG_DRAWERSMIXED
-Pomeçano
-;
-MSG_LED
-LED pri isŸitavanju
-;
-MSG_DEFAULTFONT
-Standardni font
-;
-MSG_FKEYS
-Funkcijski tasteri
-;
-MSG_DOWHEEL
-Color wheel:
-;
-MSG_WHEEL_NONE
-Nema
-;
-MSG_WHEEL_SIMPLE
-Prost
-;
-MSG_WHEEL_FANCY
-Luksuzan
-;
-MSG_MMB_PARENT
-SDM daje prethodni
-;
-MSG_DEFAULTS
-UgraÐeno
-;
-MSG_REQUESTER
-\33bUpitnik:
-;
-MSG_FILEREQ
-Fajl
-;
-MSG_FONTREQ
-Font
-;
-MSG_PALETTEREQ
-Boje
-;
-MSG_SCRMODEREQ
-Skrinmod
-;
-MSG_VOLUMEREQ
-Disk
-;
-MSG_OTHERREQ
-Ostali
 ;
 MSG_POSITION
 Pozicija:
@@ -98,12 +41,11 @@ Gore-levo na skrinu
 MSG_OFFSET
 \33bPolo§aj
 ;
-MSG_NR_OF_ENTRIES
-\33bBroj vidljivih linija
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimum:
-;
-MSG_MAX
-Maksimum:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

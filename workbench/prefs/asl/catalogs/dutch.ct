@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.0 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language nederlands
 ## codeset 0
 ;
@@ -17,56 +17,14 @@ Grootte (% van zichtbare grootte):
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Haal scherm naar voren
-;
-MSG_IMMEDIATESORT
-Sorteer onmiddellijk
-;
 MSG_DRAWERSFIRST
 Toon laden eerst
-;
-MSG_DRAWERSMIXED
-Meng laden en bestanden
-;
-MSG_LED
-Diskactiviteit-LED
-;
-MSG_DEFAULTFONT
-Gebruik systeem standaardfont
-;
-MSG_FKEYS
-Gebruik functietoetsen
-;
-MSG_DEFAULTS
-Instellingen
-;
-MSG_REQUESTER
-\33bRequester:
-;
-MSG_FILEREQ
-Bestand
-;
-MSG_FONTREQ
-Font
-;
-MSG_PALETTEREQ
-Palet
-;
-MSG_SCRMODEREQ
-Schermmodus
-;
-MSG_VOLUMEREQ
-Volume
-;
-MSG_OTHERREQ
-Andere
 ;
 MSG_POSITION
 Positie:
 ;
 MSG_POINTER
-Muiswijzer 
+Muiswijzer
 ;
 MSG_CENTERWIN
 Centreer in venster
@@ -83,12 +41,11 @@ Links-boven op scherm
 MSG_OFFSET
 \33bPlaats
 ;
-MSG_NR_OF_ENTRIES
-\33bAantal zichtbare regels
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimum:
-;
-MSG_MAX
-Maximum:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

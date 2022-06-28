@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.0 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language español
 ## codeset 0
 ;
@@ -17,50 +17,8 @@ Tamaño
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Llevar pantalla al frente
-;
-MSG_IMMEDIATESORT
-Ordenación inmediata
-;
 MSG_DRAWERSFIRST
 Mostrar primero cajones
-;
-MSG_DRAWERSMIXED
-Mezclar ficheros/cajones
-;
-MSG_LED
-LED
-;
-MSG_DEFAULTFONT
-Texto sistema por defecto
-;
-MSG_FKEYS
-Use function keys
-;
-MSG_DEFAULTS
-Valores
-;
-MSG_REQUESTER
-\33bRequerimiento:
-;
-MSG_FILEREQ
-Ficheros
-;
-MSG_FONTREQ
-Fuentes
-;
-MSG_PALETTEREQ
-Paleta
-;
-MSG_SCRMODEREQ
-Modo de pantalla
-;
-MSG_VOLUMEREQ
-Volumen
-;
-MSG_OTHERREQ
-Otros
 ;
 MSG_POSITION
 Posición:
@@ -83,12 +41,11 @@ Tope izquierdo de la pantalla
 MSG_OFFSET
 \33bDesplaz.
 ;
-MSG_NR_OF_ENTRIES
-\33bNúmero de entradas visibles
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Mínimo:
-;
-MSG_MAX
-Máximo:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

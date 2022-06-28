@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.1 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language hrvatski
 ## codeset 5
 ;
@@ -22,85 +22,9 @@ MSG_OK
 U redu
 ;  Ok
 ;
-MSG_POPSCREEN
-Izbaci zaslon naprijed
-; Pop screen to front
-;
-MSG_IMMEDIATESORT
-Odmah poslo¾i
-; Immediate sort
-;
 MSG_DRAWERSFIRST
 Prika¾i mape prvo
 ; Display drawers first
-;
-MSG_DRAWERSMIXED
-Pomje¹aj datoteke i mape
-; Mix files and drawers
-;
-MSG_LED
-LED disk aktivnosti
-; Disk activity LED
-;
-MSG_DEFAULTFONT
-Koristi slovo sustava
-; Use system default font
-;
-MSG_FKEYS
-Koristi funkcijske kljuèeve
-; Use function keys
-;
-MSG_DOWHEEL
-Kolo boja:
-; Color wheel:
-;
-MSG_WHEEL_NONE
-Iskljuèen
-; None
-;
-MSG_WHEEL_SIMPLE
-Jednostavno
-; Simple
-;
-MSG_WHEEL_FANCY
-Ukra¹eno
-; Fancy
-;
-MSG_MMB_PARENT
-MMB daje osnovno
-; MMB gives parent
-;
-MSG_DEFAULTS
-Predlo¾ak
-; Defaults
-;
-MSG_REQUESTER
-\33bBiraè:
-; \33bRequester:
-;
-MSG_FILEREQ
-Datoteka
-; File
-;
-MSG_FONTREQ
-Slova
-; Font
-;
-MSG_PALETTEREQ
-Boja
-; Palette
-;
-MSG_SCRMODEREQ
-Rezolucije Zaslona
-; Screen Mode
-;
-MSG_VOLUMEREQ
-Pode¹avanje Glasnoèe
-; Volume
-;
-MSG_OTHERREQ
-Drugi
-; Other
 ;
 MSG_POSITION
 Pozicija:
@@ -130,15 +54,11 @@ MSG_OFFSET
 \33bRazmak
 ; \33bOffset
 ;
-MSG_NR_OF_ENTRIES
-\33bBroj vidljivih ulaza
-; \33bNumber of visible entries
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimalno:
-; Minimum:
-;
-MSG_MAX
-Maksimalno:
-; Maximum:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

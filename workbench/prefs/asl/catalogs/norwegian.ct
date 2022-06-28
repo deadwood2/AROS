@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.1 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language norsk
 ## codeset 0
 ; Authors: Kim Roar Utsi, Daniel Holmen
@@ -18,69 +18,8 @@ Størrelse (% av synlig høyde):
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Flytt skjerm til front
-;
-MSG_IMMEDIATESORT
-Sorter umiddelbart
-;
 MSG_DRAWERSFIRST
 Vis skuffer først
-;
-MSG_DRAWERSMIXED
-Bland filer og skuffer
-;
-MSG_LED
-LED
-;
-MSG_DEFAULTFONT
-Standard systemskrift
-;
-MSG_FKEYS
-Bruk funksjonstaster
-;
-MSG_DOWHEEL
-Fargehjul:
-;
-MSG_WHEEL_NONE
-Ingen
-;None
-;
-MSG_WHEEL_SIMPLE
-Enkelt
-;Simple
-;
-MSG_WHEEL_FANCY
-Fancy
-;Fancy
-;
-MSG_MMB_PARENT
-MMB nivå opp
-;MMB gives parent
-;
-MSG_DEFAULTS
-Standardverdier
-;
-MSG_REQUESTER
-\33bForespørsel:
-;
-MSG_FILEREQ
-Fil
-;
-MSG_FONTREQ
-Skrifttype
-;
-MSG_PALETTEREQ
-Palett
-;
-MSG_SCRMODEREQ
-Skjermmodus
-;
-MSG_VOLUMEREQ
-Enhets
-;
-MSG_OTHERREQ
-Andre
 ;
 MSG_POSITION
 Posisjon:
@@ -103,12 +42,11 @@ MSG_TOPLEFTSCR
 MSG_OFFSET
 \33bOffset
 ;
-MSG_NR_OF_ENTRIES
-\33bAntall synlige poster
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimum:
-;
-MSG_MAX
-Maksimum:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;

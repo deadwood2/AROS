@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 3.0 (30.06.2017)
+## version $VER: Asl.catalog 1.0 (28.06.2022)
 ## language italiano
 ## codeset 0
 ; Authors: Michele Giorato
@@ -18,50 +18,8 @@ Dimensione (% dell'altezza utile):
 MSG_OK
 Ok
 ;
-MSG_POPSCREEN
-Porta schermo in 1° piano
-;
-MSG_IMMEDIATESORT
-Riordina subito
-;
 MSG_DRAWERSFIRST
 Mostra prima i cassetti
-;
-MSG_DRAWERSMIXED
-Mischia files e cassetti
-;
-MSG_LED
-LED attività disco
-;
-MSG_DEFAULTFONT
-Caratteri di sistema
-;
-MSG_FKEYS
-Usa tasti funzione
-;
-MSG_DEFAULTS
-Formato standard
-;
-MSG_REQUESTER
-\33bRequester:
-;
-MSG_FILEREQ
-Files
-;
-MSG_FONTREQ
-Caratteri
-;
-MSG_PALETTEREQ
-Colori
-;
-MSG_SCRMODEREQ
-Modo schermo
-;
-MSG_VOLUMEREQ
-Volumi
-;
-MSG_OTHERREQ
-Altri
 ;
 MSG_POSITION
 Posizione
@@ -84,12 +42,11 @@ In alto a sinistra schermo
 MSG_OFFSET
 \33bMargini
 ;
-MSG_NR_OF_ENTRIES
-\33bNumero di righe visibili
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
 ;
-MSG_MIN
-Minimo:
-;
-MSG_MAX
-Massimo:
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
 ;
