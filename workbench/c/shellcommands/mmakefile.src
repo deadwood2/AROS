@@ -43,7 +43,9 @@ FILES	:= \
 
 USER_INCLUDES := -I$(GENDIR)/workbench/c/shellcommands/shellsegs.h
 USER_CPPFLAGS := -DADATE="\"$(shell date "+%d.%m.%Y")\""
-USER_LDFLAGS :=
+# Linking with stdlib.library on m68k causes system crash at startup
+# for programs using AROS_SHxH macros. Reason is unknown.
+USER_LDFLAGS := -noclibs
 
 #MM- workbench-c : workbench-c-shellcommands
 #MM- workbench-c-quick : workbench-c-shellcommands-quick
@@ -51,7 +53,7 @@ USER_LDFLAGS :=
 
 %build_progs mmake=workbench-c-shellcommands \
     files=$(FILES) targetdir=$(AROS_C) \
-    usestartup=no
+    uselibs="stdc.static" usestartup=no
 
 
 # Embedded side of the world
