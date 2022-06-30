@@ -5,9 +5,10 @@ show_selection ()
     printf "    3)  core-pc-x86_64\n"
     printf "    4)  core-contrib-x86_64\n"
     printf "    5)  core-linux-x86_64\n"
-    printf "    10) toolchain-core-m68k\n"
-    printf "    11) core-amiga-m68k\n"
-    printf "    12) core-amiga-m68k (SERIAL DEBUG)\n"
+    printf "    11) toolchain-core-m68k\n"
+    printf "    12) core-amiga-m68k\n"
+    printf "    13) core-amiga-m68k (SERIAL DEBUG)\n"
+    printf "    14) core-contrib-m68k\n"
 }
 
 process_selection ()
@@ -48,25 +49,33 @@ process_selection ()
         CONFIGURE_TARGET=linux-x86_64
         CONFIGURE_OPTS="--with-aros-toolchain=yes"
         ;;
-        10)
+        11)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
         BUILD_DIR=$(pwd)/toolchain-core-m68k-build
         TOOLCHAIN_BUILD=yes
         CONFIGURE_TARGET=amiga-m68k
         MAKE_TARGET="-s crosstools"
         ;;
-        11)
+        12)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
         BUILD_DIR=$(pwd)/core-amiga-m68k
         CONFIGURE_TARGET=amiga-m68k
         CONFIGURE_OPTS="--with-aros-toolchain=yes"
         ;;
-        12)
+        13)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
         BUILD_DIR=$(pwd)/core-amiga-m68k-serial-debug
         CONFIGURE_TARGET=amiga-m68k
         CONFIGURE_OPTS="--with-aros-toolchain=yes --with-serial-debug=yes"
         ;;
+        14)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-m68k
+        BUILD_DIR=$(pwd)/core-contrib-m68k
+        CONFIGURE_TARGET=amiga-m68k
+        CONFIGURE_OPTS="--with-aros-toolchain=yes"
+        MAKE_TARGET="tools"
+        MAKE_TARGET_2="mmake"
+        MAKE_TARGET_3="contrib"
     esac
 }
 
