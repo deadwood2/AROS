@@ -18,7 +18,7 @@
 #include <errno.h>
 
 struct Device *TimerBase;
-static void __init_timerbase(void);
+void __init_timerbase(void);
 
 /*****************************************************************************
 
@@ -134,7 +134,7 @@ static void __init_timerbase(void);
 static struct timerequest __timereq;
 static struct MsgPort __timeport;
 
-static void __init_timerbase(void)
+void __init_timerbase(void)
 {
     memset( &__timeport, 0, sizeof( __timeport ) );
     __timeport.mp_Node.ln_Type   = NT_MSGPORT;
