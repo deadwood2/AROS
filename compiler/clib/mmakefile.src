@@ -298,6 +298,7 @@ SHARED    := \
     asctime \
     chdir \
     chown \
+    clock_gettime \
     clock \
     exit \
     _exit \
