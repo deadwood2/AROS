@@ -649,10 +649,8 @@ void AddDTOToWin(void)
 {
     D(bug("[MultiView] %s()\n", __func__));
 
-    /* FIXME: this should probably go to window backfill hook, because this is not refreshed
-    at change of window size currently */
-
-    /* fill the background */
+#if (0)
+    /* add checkered background to see transparency in images */
     ULONG drawwidth = win->Width - 1 - win->BorderRight - win->BorderLeft;
     ULONG drawheight = win->Height - 1 - win->BorderBottom - win->BorderTop;
     ULONG drawoffsetx = win->BorderLeft;
@@ -679,6 +677,13 @@ void AddDTOToWin(void)
             RectFill(win->RPort, drawoffsetx + x, drawoffsety + y, drawoffsetx + x + fillw, drawoffsety + y + fillh);
         }
     }
+#else
+
+    EraseRect(win->RPort, win->BorderLeft,
+                          win->BorderTop,
+                          win->Width - 1 - win->BorderRight,
+                          win->Height - 1 - win->BorderBottom);
+#endif
 
     SetDTAttrs (dto, NULL, NULL, GA_Left        , win->BorderLeft + 2                           ,
                                  GA_Top         , win->BorderTop + 2                            ,
