@@ -649,11 +649,37 @@ void AddDTOToWin(void)
 {
     D(bug("[MultiView] %s()\n", __func__));
 
-    EraseRect(win->RPort, win->BorderLeft,
-                          win->BorderTop,
-                          win->Width - 1 - win->BorderRight,
-                          win->Height - 1 - win->BorderBottom);
-                          
+    /* FIXME: this should probably go to window backfill hook, because this is not refreshed
+    at change of window size currently */
+
+    /* fill the background */
+    ULONG drawwidth = win->Width - 1 - win->BorderRight - win->BorderLeft;
+    ULONG drawheight = win->Height - 1 - win->BorderBottom - win->BorderTop;
+    ULONG drawoffsetx = win->BorderLeft;
+    ULONG drawoffsety = win->BorderTop;
+    WORD fillpen;
+    UWORD x, y;
+    UBYTE step = drawwidth / 16;
+    if (step < 4) step = 4;
+
+    for (x = 0; x < drawwidth; x += step)
+    {
+        for (y = 0; y < drawheight; y += step)
+        {
+            UBYTE fillw = step, fillh = step;
+            if (x + fillw > drawwidth) fillw = drawwidth - x;
+            if (y + fillh > drawheight) fillh = drawheight - y;
+
+            if ((((x / step) + (y / step)) % 2) == 0)
+                fillpen = 1;
+            else
+                fillpen = 2;
+
+            SetAPen(win->RPort, fillpen);
+            RectFill(win->RPort, drawoffsetx + x, drawoffsety + y, drawoffsetx + x + fillw, drawoffsety + y + fillh);
+        }
+    }
+
     SetDTAttrs (dto, NULL, NULL, GA_Left        , win->BorderLeft + 2                           ,
                                  GA_Top         , win->BorderTop + 2                            ,
                                  GA_RelWidth    , - win->BorderLeft - win->BorderRight - 4      ,
