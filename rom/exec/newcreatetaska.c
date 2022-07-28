@@ -163,6 +163,14 @@ static const struct newMemList MemTemplate =
  	}
     }
 
+    /* We need a minimum stack to handle interrupt contexts. Additionally confirned on MorphOS that
+       it sets a minimum fixed size of stack */
+    if (nml.nml_ME[1].me_Length < AROS_STACKSIZE)
+    {
+        nml.nml_ME[1].me_Length = AROS_STACKSIZE;
+    }
+
+
     DADDTASK("NewCreateTaskA: name %s", taskname ? taskname : "<NULL>");
 
     ml = NewAllocEntry((struct MemList *)&nml, NULL);
