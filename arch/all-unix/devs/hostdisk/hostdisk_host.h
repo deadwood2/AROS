@@ -62,7 +62,7 @@ struct HostInterface
     off_t          (*lseek)(int fildes, off_t offset, int whence);
 #endif
     int           *(*__error)(void);
-#ifdef HOST_OS_linux
+#if defined(HOST_OS_linux) && defined(_STAT_VER)
     int            (*__fxstat64)(int ver, int fd, struct stat64 *buf);
     #define fstat64(fd, buf) __fxstat64(_STAT_VER, fd, buf)
 #else
