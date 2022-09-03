@@ -1239,6 +1239,18 @@ diff -ruN icu/source/i18n/Makefile.in icu.aros/source/i18n/Makefile.in
  	$(AR) $(ARFLAGS) $(AR_OUTOPT)$@ $^
  	$(RANLIB) $@
  endif
+diff -ruN icu/source/i18n/uspoof.cpp icu.aros/source/i18n/uspoof.cpp
+--- icu/source/i18n/uspoof.cpp	2009-07-01 20:50:10.000000000 +0200
++++ icu.aros/source/i18n/uspoof.cpp	2022-09-03 16:53:04.299386823 +0200
+@@ -366,7 +366,7 @@
+         // u_strToUTF8() in preflight mode is an easy way to do it.
+         U_ASSERT(position16 <= len16);
+         u_strToUTF8(NULL, 0, position, text16, position16, status);
+-        if (position > 0) {
++        if (*position > 0) {
+             // position is the required buffer length from u_strToUTF8, which includes
+             // space for a terminating NULL, which we don't want, hence the -1.
+             *position -= 1;
 diff -ruN icu/source/icudefs.mk.in icu.aros/source/icudefs.mk.in
 --- icu/source/icudefs.mk.in	2009-07-01 19:51:26.000000000 +0100
 +++ icu.aros/source/icudefs.mk.in	2013-04-09 21:17:15.024255833 +0100
