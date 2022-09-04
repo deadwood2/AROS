@@ -55,7 +55,7 @@ static CONST_STRPTR Kickstart [] =
         "Devs/keyboard.device",
         "Devs/gameport.device",
         "L/ram-handler",
-        "Libs/debug.library",
+        "boot/runtimelinux/Libs/debug.library",
         "Devs/console.device",
         "L/con-handler",
         NULL
