@@ -4,23 +4,23 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- test : test-cxx
-#MM- test-quick : test-cxx-quick
+##MM- test : test-cxx
+##MM- test-quick : test-cxx-quick
 
-#MM test-cxx: includes linklibs workbench-devs-AHI external-bz2-lib-includes kernel-cardres-includes \
-#MM workbench-devs-diskimage-device-includes workbench-libs-dxtn-includes workbench-libs-freetype-module-includes \
-#MM workbench-libs-identify-lib-includes workbench-libs-pccard-includes workbench-devs-ramdrive-includes \
-#MM workbench-libs-uuid-includes workbench-libs-version-includes kernel-hidd-bus-includes kernel-hidd-storage-includes \
-#MM workbench-libs-expat-lib-includes
+##MM test-cxx: includes linklibs workbench-devs-AHI external-bz2-lib-includes kernel-cardres-includes \
+##MM workbench-devs-diskimage-device-includes workbench-libs-dxtn-includes workbench-libs-freetype-module-includes \
+##MM workbench-libs-identify-lib-includes workbench-libs-pccard-includes workbench-devs-ramdrive-includes \
+##MM workbench-libs-uuid-includes workbench-libs-version-includes kernel-hidd-bus-includes kernel-hidd-storage-includes \
+##MM workbench-libs-expat-lib-includes
 
 #MM test-cxx : test-cxx-cunit
 
 EXEDIR := $(AROS_TESTS)/cplusplus
 CUNITEXEDIR := $(AROS_TESTS)/cunit/cplusplus
 
-%build_prog mmake=test-cxx progname=headertest \
-    files="" cxxfiles="headertest" \
-    targetdir=$(EXEDIR) usesdks="config private mesa"
+#%build_prog mmake=test-cxx progname=headertest \
+#    files="" cxxfiles="headertest" \
+#    targetdir=$(EXEDIR) usesdks="config private mesa"
 
 %build_prog mmake=test-cxx progname=exception \
     files="" cxxfiles="exception" \

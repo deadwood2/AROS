@@ -126,6 +126,8 @@ USER_INCLUDES := -I$(AROS_CONTRIB_INCLUDES)
 USER_LDFLAGS := -L$(AROS_CONTRIB_LIB)
 USER_CPPFLAGS:=
 
+USER_CPPFLAGS := -D_LARGEFILE64_SOURCE
+
 %build_progs mmake=test-crt-posixc-cunit \
     files=$(CUNITPOSIXCTESTFILES) targetdir=$(CUNITEXEDIR) \
     uselibs="cunit"
