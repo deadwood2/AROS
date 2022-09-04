@@ -27,7 +27,7 @@
 #define UD_SYN_H
 
 #include "types.h"
-#ifndef __UD_STANDALONE__
+#if 1
 # include <stdarg.h>
 #endif /* __UD_STANDALONE__ */
 

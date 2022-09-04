@@ -120,6 +120,8 @@ USER_CPPFLAGS = -D_XOPEN_SOURCE=700
 USER_CFLAGS := -ffloat-store $(NOWARN_CFLAGS)
 USER_CPPFLAGS :=
 
+USER_CPPFLAGS := -D_LARGEFILE64_SOURCE
+
 %build_progs mmake=test-crt-posixc-cunit \
     files=$(CUNITPOSIXCTESTFILES) targetdir=$(CUNITEXEDIR) \
     uselibs="cunit"
