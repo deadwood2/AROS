@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """Merge multiple JUnit XML results files into a single results file."""
 
@@ -68,7 +68,7 @@ def merge_results(xml_files):
         tests += int(test_suite.attrib['tests'])
         errors += int(test_suite.attrib['errors'])
         time += float(test_suite.attrib['time'])
-        cases.append(test_suite.getchildren())
+        cases.append(list(test_suite))
 
     new_root = ET.Element('testsuites')
     new_root.attrib['failures'] = '%s' % failures
@@ -83,7 +83,7 @@ def merge_results(xml_files):
 
 def usage():
     this_file = os.path.basename(__file__)
-    print 'Usage:  %s directory' % this_file
+    print ('Usage:  %s directory' % this_file)
 
 
 if __name__ == '__main__':
