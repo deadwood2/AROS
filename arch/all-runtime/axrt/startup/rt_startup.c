@@ -223,6 +223,11 @@ static VOID RunProgram(APTR sysbase, APTR _m)
     main_IPrefs();
     main_Decoration();
 
+    /* Run program specific Package-Startup script */
+    BPTR pckgs = Open("PROGDIR:S/Package-Startup", MODE_OLDFILE);
+    if (pckgs)
+        SystemTags(NULL, SYS_ScriptInput, (IPTR) pckgs, TAG_END);
+
     msg->arps_ExitCode = msg->arps_RunProgramSets(msg->arps_ArgStr, msg->arps_ArgSize, SysBase);
 
     msg->arps_ProgramExited = TRUE;
