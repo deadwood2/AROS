@@ -48,7 +48,7 @@ runtime-setup-package-deb-libaxrt :
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/debian/changelog
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/debian/control
 	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
-	%mkdirs_q $(USERSYS_DEST_DIR)/S $(USERSYS_DEST_DIR)/C $(USERSYS_DEST_DIR)/Libs
+	%mkdirs_q $(USERSYS_DEST_DIR)/S $(USERSYS_DEST_DIR)/C $(USERSYS_DEST_DIR)/Libs $(USERSYS_DEST_DIR)/Classes
 	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
 	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).so $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
