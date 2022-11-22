@@ -12,7 +12,6 @@
 #include "client.h"
 #include "binding.h"
 #include "event.h"
-#include "tray.h"
 #include "settings.h"
 
 ClientNode *nodes[LAYER_COUNT];
@@ -58,7 +57,7 @@ void StartWindowWalk(void)
 {
    JXGrabKeyboard(display, rootWindow, False, GrabModeAsync,
                   GrabModeAsync, CurrentTime);
-   RaiseTrays();
+
    walkingWindows = 1;
 }
 
@@ -115,7 +114,7 @@ void StartWindowStackWalk(void)
    JXGrabKeyboard(display, rootWindow, False, GrabModeAsync,
                   GrabModeAsync, CurrentTime);
 
-   RaiseTrays();
+
 
    walkingWindows = 1;
    wasMinimized = 0;
@@ -210,7 +209,7 @@ void StopWindowWalk(void)
 
    if(walkingWindows) {
       JXUngrabKeyboard(display, CurrentTime);
-      LowerTrays();
+
       walkingWindows = 0;
    }
 

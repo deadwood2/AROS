@@ -12,15 +12,11 @@
 #include "main.h"
 #include "client.h"
 #include "clientlist.h"
-#include "taskbar.h"
 #include "error.h"
-#include "menu.h"
 #include "misc.h"
-#include "background.h"
 #include "settings.h"
 #include "grab.h"
 #include "event.h"
-#include "tray.h"
 
 static char **desktopNames = NULL;
 static char *showingDesktop = NULL;
@@ -202,65 +198,8 @@ void ChangeDesktop(unsigned int desktop)
    RequireRestack();
    RequireTaskUpdate();
 
-   LoadBackground(desktop);
 
-}
 
-/** Create a desktop menu. */
-Menu *CreateDesktopMenu(unsigned int mask, void *context)
-{
-
-   Menu *menu;
-   int x;
-
-   menu = CreateMenu();
-   for(x = settings.desktopCount - 1; x >= 0; x--) {
-      const size_t len = strlen(desktopNames[x]);
-      MenuItem *item = CreateMenuItem(MENU_ITEM_NORMAL);
-      item->next = menu->items;
-      menu->items = item;
-
-      item->action.type = MA_DESKTOP;
-      item->action.context = context;
-      item->action.value = x;
-
-      item->name = Allocate(len + 3);
-      item->name[0] = (mask & (1 << x)) ? '[' : ' ';
-      memcpy(&item->name[1], desktopNames[x], len);
-      item->name[len + 1] = (mask & (1 << x)) ? ']' : ' ';
-      item->name[len + 2] = 0;
-   }
-
-   return menu;
-
-}
-
-/** Create a sendto menu. */
-Menu *CreateSendtoMenu(MenuActionType mask, void *context)
-{
-
-   Menu *menu;
-   int x;
-
-   menu = CreateMenu();
-   for(x = settings.desktopCount - 1; x >= 0; x--) {
-      const size_t len = strlen(desktopNames[x]);
-      MenuItem *item = CreateMenuItem(MENU_ITEM_NORMAL);
-      item->next = menu->items;
-      menu->items = item;
-
-      item->action.type = MA_SENDTO | mask;
-      item->action.context = context;
-      item->action.value = x;
-
-      item->name = Allocate(len + 3);
-      item->name[0] = (x == currentDesktop) ? '[' : ' ';
-      memcpy(&item->name[1], desktopNames[x], len);
-      item->name[len + 1] = (x == currentDesktop) ? ']' : ' ';
-      item->name[len + 2] = 0;
-   }
-
-   return menu;
 }
 
 /** Toggle the "show desktop" state. */
@@ -324,7 +263,7 @@ void ShowDesktop(void)
    SetCardinalAtom(rootWindow, ATOM_NET_SHOWING_DESKTOP,
                    showingDesktop[currentDesktop]);
    UngrabServer();
-   DrawTray();
+
 
 }
 

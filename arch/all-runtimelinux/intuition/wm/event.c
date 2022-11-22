@@ -12,24 +12,15 @@
 
 #include "client.h"
 #include "clientlist.h"
-#include "confirm.h"
 #include "cursor.h"
 #include "desktop.h"
-#include "dock.h"
 #include "icon.h"
 #include "binding.h"
 #include "move.h"
 #include "place.h"
 #include "resize.h"
-#include "root.h"
-#include "swallow.h"
-#include "taskbar.h"
 #include "timing.h"
-#include "winmenu.h"
 #include "settings.h"
-#include "tray.h"
-#include "popup.h"
-#include "pager.h"
 #include "grab.h"
 #include "screen.h"
 
@@ -167,7 +158,7 @@ char WaitForEvent(XEvent *event)
          handled = HandleSelectionClear(&event->xselectionclear);
          break;
       case ResizeRequest:
-         handled = HandleDockResizeRequest(&event->xresizerequest);
+         handled = 0;
          break;
       case MotionNotify:
          SetMousePosition(event->xmotion.x_root, event->xmotion.y_root,
@@ -191,7 +182,7 @@ char WaitForEvent(XEvent *event)
          handled = 0;
          break;
       case ReparentNotify:
-         HandleDockReparentNotify(&event->xreparent);
+
          handled = 1;
          break;
       case ConfigureNotify:
@@ -216,19 +207,6 @@ char WaitForEvent(XEvent *event)
          break;
       }
 
-      if(!handled) {
-         handled = ProcessTrayEvent(event);
-      }
-      if(!handled) {
-         handled = ProcessDialogEvent(event);
-      }
-      if(!handled) {
-         handled = ProcessSwallowEvent(event);
-      }
-      if(!handled) {
-         handled = ProcessPopupEvent(event);
-      }
-
    } while(handled && JLIKELY(!shouldExit));
 
    return !handled;
@@ -250,11 +228,11 @@ void Signal(void)
       restack_pending = 0;
    }
    if(task_update_pending) {
-      UpdateTaskBar();
+
       task_update_pending = 0;
    }
    if(pager_update_pending) {
-      UpdatePager();
+
       pager_update_pending = 0;
    }
 
@@ -361,7 +339,7 @@ char HandleSelectionClear(const XSelectionClearEvent *event)
       shouldExit = 1;
       return 1;
    }
-   return HandleDockSelectionClear(event);
+   return 0;
 }
 
 /** Process a button event. */
@@ -417,9 +395,9 @@ void HandleButtonEvent(const XButtonEvent *event)
    } else if(event->window == rootWindow) {
       /* Click on the root.
        * Note that we use the raw button from the event for ShowRootMenu. */
-      if(!ShowRootMenu(event->button, event->x, event->y, 0)) {
+
          ProcessBinding(MC_ROOT, NULL, event->state, button, 0, 0);
-      }
+
    } else {
       /* Click over window content. */
       const unsigned int mask = event->state & ~lockMask;
@@ -483,7 +461,7 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
    unsigned int desktop;
    switch(key.action) {
    case ACTION_EXEC:
-      RunKeyCommand(context, state, code);
+
       break;
    case ACTION_DESKTOP:
       desktop = key.extra;
@@ -509,11 +487,11 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
       ShowDesktop();
       break;
    case ACTION_SHOWTRAY:
-      ShowAllTrays();
+
       break;
    case ACTION_NEXT:
       StartWindowWalk();
-      FocusNext();
+
       break;
    case ACTION_NEXTSTACK:
       StartWindowStackWalk();
@@ -521,7 +499,7 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
       break;
    case ACTION_PREV:
       StartWindowWalk();
-      FocusPrevious();
+
       break;
    case ACTION_PREVSTACK:
       StartWindowStackWalk();
@@ -624,28 +602,28 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
       ToggleMaximized(np, MAX_HORIZ);
       break;
    case ACTION_ROOT:
-      ShowKeyMenu(context, state, code);
+
       break;
    case ACTION_WIN:
       if(np) {
          if(keyAction) {
             RaiseClient(np);
-            ShowWindowMenu(np, np->x, np->y, 1);
+
          } else {
             const unsigned bsize = (np->state.border & BORDER_OUTLINE)
                                  ? settings.borderWidth : 0;
             const unsigned titleHeight = GetTitleHeight();
             const int mx = np->x + x - bsize;
             const int my = np->y + y - titleHeight - bsize;
-            ShowWindowMenu(np, mx, my, 0);
+
          }
       }
       break;
    case ACTION_RESTART:
-      Restart();
+
       break;
    case ACTION_EXIT:
-      Exit(1);
+
       break;
    case ACTION_FULLSCREEN:
       if(np) {
@@ -707,7 +685,7 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
       break;
     case ACTION_AT:
       StartWindowWalk();
-      FocusAt(key.extra);
+
       break;
    default:
       break;
@@ -741,9 +719,7 @@ void HandleConfigureRequest(const XConfigureRequestEvent *event)
 {
    ClientNode *np;
 
-   if(HandleDockConfigureRequest(event)) {
-      return;
-   }
+
 
    np = FindClientByWindow(event->window);
    if(np) {
@@ -1113,11 +1089,11 @@ void HandleClientMessage(const XClientMessageEvent *event)
    } else if(event->window == rootWindow) {
 
       if(event->message_type == atoms[ATOM_JWM_RESTART]) {
-         Restart();
+
       } else if(event->message_type == atoms[ATOM_JWM_EXIT]) {
-         Exit(0);
+
       } else if(event->message_type == atoms[ATOM_JWM_RELOAD]) {
-         ReloadMenu();
+
       } else if(event->message_type == atoms[ATOM_NET_CURRENT_DESKTOP]) {
          ChangeDesktop(event->data.l[0]);
       } else if(event->message_type == atoms[ATOM_NET_SHOWING_DESKTOP]) {
@@ -1136,7 +1112,7 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
    } else if(event->message_type == atoms[ATOM_NET_SYSTEM_TRAY_OPCODE]) {
 
-      HandleDockEvent(event);
+
 
    } else {
 #ifdef DEBUG
@@ -1550,9 +1526,7 @@ void HandleMapRequest(const XMapEvent *event)
 {
    ClientNode *np;
    Assert(event);
-   if(CheckSwallowMap(event->window)) {
-      return;
-   }
+
    np = FindClientByWindow(event->window);
    if(!np) {
       GrabServer();
@@ -1644,8 +1618,6 @@ char HandleDestroyNotify(const XDestroyWindowEvent *event)
       }
       RemoveClient(np);
       return 1;
-   } else {
-      return HandleDockDestroy(event->window);
    }
 }
 

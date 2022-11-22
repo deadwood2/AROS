@@ -10,7 +10,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include "../config.h"
+#include "config.h"
 
 #ifndef MAKE_DEPEND
 #   include <stdlib.h>

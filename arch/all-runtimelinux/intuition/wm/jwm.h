@@ -10,7 +10,7 @@
 #ifndef JWM_H
 #define JWM_H
 
-#include "../config.h"
+#include "config.h"
 
 #ifndef MAKE_DEPEND
 

@@ -13,7 +13,6 @@
 #include "outline.h"
 #include "cursor.h"
 #include "misc.h"
-#include "pager.h"
 #include "status.h"
 #include "binding.h"
 #include "event.h"

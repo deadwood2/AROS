@@ -17,10 +17,8 @@
 #include "event.h"
 #include "binding.h"
 #include "outline.h"
-#include "pager.h"
 #include "screen.h"
 #include "status.h"
-#include "tray.h"
 #include "desktop.h"
 #include "settings.h"
 #include "timing.h"
@@ -532,7 +530,7 @@ void DoSnapBorder(ClientNode *np)
 {
 
    const ClientNode *tp;
-   const TrayType *tray;
+
    RectangleType client, other;
    RectangleType left = { 0 };
    RectangleType right = { 0 };
@@ -550,41 +548,7 @@ void DoSnapBorder(ClientNode *np)
    /* Work from the bottom of the window stack to the top. */
    for(layer = 0; layer < LAYER_COUNT; layer++) {
 
-      /* Check tray windows. */
-      for(tray = GetTrays(); tray; tray = tray->next) {
 
-         if(tray->hidden) {
-            continue;
-         }
-
-         other.left = tray->x;
-         other.right = tray->x + tray->width;
-         other.top = tray->y;
-         other.bottom = tray->y + tray->height;
-
-         left.valid = CheckLeftValid(&client, &other, &left);
-         right.valid = CheckRightValid(&client, &other, &right);
-         top.valid = CheckTopValid(&client, &other, &top);
-         bottom.valid = CheckBottomValid(&client, &other, &bottom);
-
-         if(CheckOverlapTopBottom(&client, &other)) {
-            if(abs(client.left - other.right) <= settings.snapDistance) {
-               left = other;
-            }
-            if(abs(client.right - other.left) <= settings.snapDistance) {
-               right = other;
-            }
-         }
-         if(CheckOverlapLeftRight(&client, &other)) {
-            if(abs(client.top - other.bottom) <= settings.snapDistance) {
-               top = other;
-            }
-            if(abs(client.bottom - other.top) <= settings.snapDistance) {
-               bottom = other;
-            }
-         }
-
-      }
 
       /* Check client windows. */
       for(tp = nodeTail[layer]; tp; tp = tp->prev) {

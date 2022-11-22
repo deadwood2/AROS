@@ -9,35 +9,21 @@
 
 #include "jwm.h"
 #include "main.h"
-#include "parse.h"
-#include "help.h"
 #include "error.h"
 #include "event.h"
 
 #include "border.h"
 #include "client.h"
 #include "color.h"
-#include "command.h"
 #include "cursor.h"
-#include "confirm.h"
 #include "font.h"
 #include "group.h"
 #include "binding.h"
 #include "icon.h"
-#include "taskbar.h"
-#include "tray.h"
-#include "traybutton.h"
-#include "popup.h"
-#include "pager.h"
-#include "swallow.h"
 #include "screen.h"
-#include "root.h"
 #include "desktop.h"
 #include "place.h"
-#include "clock.h"
-#include "dock.h"
 #include "misc.h"
-#include "background.h"
 #include "settings.h"
 #include "timing.h"
 #include "grab.h"
@@ -120,10 +106,8 @@ int main(int argc, char *argv[])
    action = COMMAND_RUN;
    for(x = 1; x < argc; x++) {
       if(!strcmp(argv[x], "-v")) {
-         DisplayAbout();
          DoExit(0);
       } else if(!strcmp(argv[x], "-h")) {
-         DisplayHelp();
          DoExit(0);
       } else if(!strcmp(argv[x], "-p")) {
          action = COMMAND_PARSE;
@@ -142,7 +126,6 @@ int main(int argc, char *argv[])
          configPath = CopyString(argv[++x]);
       } else {
          printf("unrecognized option: %s\n", argv[x]);
-         DisplayHelp();
          DoExit(1);
       }
    }
@@ -150,7 +133,6 @@ int main(int argc, char *argv[])
    switch(action) {
    case COMMAND_PARSE:
       Initialize();
-      ParseConfig(configPath);
       DoExit(0);
    case COMMAND_RESTART:
       SendRestart();
@@ -186,7 +168,13 @@ int main(int argc, char *argv[])
       Initialize();
 
       /* Parse the configuration file. */
-      ParseConfig(configPath);
+      ActionType at_close = { ACTION_CLOSE, 0 };
+      InsertMouseBinding(-1, NULL, MC_CLOSE, at_close , NULL);
+      ActionType at_move = { ACTION_MOVE, 0 };
+      InsertMouseBinding(1, NULL, MC_MOVE, at_move , NULL);
+      ActionType at_resize = { ACTION_RESIZE, 0 };
+      InsertMouseBinding(1, NULL, MC_BORDER, at_resize , NULL);
+
 
       /* Start up the JWM components. */
       Startup();
@@ -255,9 +243,7 @@ void EventLoop(void)
    GetCurrentTime(&start);
    for(;;) {
       if(JXPending(display) == 0) {
-         if(!IsSwallowPending()) {
-            break;
-         } else {
+            {
             TimeType now;
             GetCurrentTime(&now);
             if(GetTimeDifference(&start, &now) > RESTART_DELAY) {
@@ -466,33 +452,23 @@ void HandleChild(int sig)
 void Initialize(void)
 {
 
-   InitializeBackgrounds();
    InitializeBindings();
    InitializeBorders();
    InitializeClients();
-   InitializeClock();
    InitializeColors();
-   InitializeCommands();
    InitializeCursors();
    InitializeDesktops();
 #ifndef DISABLE_CONFIRM
    InitializeDialogs();
 #endif
-   InitializeDock();
    InitializeFonts();
    InitializeGroups();
    InitializeHints();
    InitializeIcons();
-   InitializePager();
    InitializePlacement();
-   InitializePopup();
-   InitializeRootMenu();
    InitializeScreens();
    InitializeSettings();
-   InitializeSwallow();
-   InitializeTaskBar();
-   InitializeTray();
-   InitializeTrayButtons();
+
 }
 
 /** Startup the various JWM components.
@@ -514,17 +490,10 @@ void Startup(void)
    StartupColors();
    StartupFonts();
    StartupIcons();
-   StartupBackgrounds();
    StartupCursors();
 
-   StartupPager();
-   StartupClock();
-   StartupTaskBar();
-   StartupTrayButtons();
    StartupDesktops();
    StartupHints();
-   StartupDock();
-   StartupTray();
    StartupBindings();
    StartupBorders();
    StartupPlacement();
@@ -533,9 +502,7 @@ void Startup(void)
 #  ifndef DISABLE_CONFIRM
       StartupDialogs();
 #  endif
-   StartupPopup();
 
-   StartupRootMenu();
 
    SetDefaultCursor(rootWindow);
    ReadCurrentDesktop();
@@ -547,19 +514,8 @@ void Startup(void)
    JXSync(display, True);
    UngrabServer();
 
-   StartupSwallow();
-
-   DrawTray();
-
    /* Send expose events. */
    ExposeCurrentDesktop();
-
-   /* Draw the background (if backgrounds are used). */
-   LoadBackground(currentDesktop);
-
-   /* Run any startup commands. */
-   StartupCommands();
-
 }
 
 /** Shutdown the various JWM components.
@@ -570,23 +526,13 @@ void Shutdown(void)
 
    /* This order is important. */
 
-   ShutdownSwallow();
-
 #  ifndef DISABLE_CONFIRM
       ShutdownDialogs();
 #  endif
-   ShutdownPopup();
+
    ShutdownBindings();
-   ShutdownPager();
-   ShutdownRootMenu();
-   ShutdownDock();
-   ShutdownTray();
-   ShutdownTrayButtons();
-   ShutdownTaskBar();
-   ShutdownClock();
    ShutdownBorders();
    ShutdownClients();
-   ShutdownBackgrounds();
    ShutdownIcons();
    ShutdownCursors();
    ShutdownFonts();
@@ -599,8 +545,6 @@ void Shutdown(void)
    ShutdownScreens();
    ShutdownSettings();
 
-   ShutdownCommands();
-
 }
 
 /** Clean up memory.
@@ -609,33 +553,23 @@ void Shutdown(void)
  */
 void Destroy(void)
 {
-   DestroyBackgrounds();
    DestroyBorders();
    DestroyClients();
-   DestroyClock();
    DestroyColors();
-   DestroyCommands();
    DestroyCursors();
    DestroyDesktops();
 #ifndef DISABLE_CONFIRM
    DestroyDialogs();
 #endif
-   DestroyDock();
    DestroyFonts();
    DestroyGroups();
    DestroyHints();
    DestroyIcons();
    DestroyBindings();
-   DestroyPager();
    DestroyPlacement();
-   DestroyPopup();
-   DestroyRootMenu();
+
    DestroyScreens();
    DestroySettings();
-   DestroySwallow();
-   DestroyTaskBar();
-   DestroyTray();
-   DestroyTrayButtons();
 }
 
 /** Send _JWM_RESTART to the root window. */

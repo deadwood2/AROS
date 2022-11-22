@@ -12,12 +12,8 @@
 #include "clientlist.h"
 #include "icon.h"
 #include "group.h"
-#include "tray.h"
-#include "confirm.h"
 #include "cursor.h"
-#include "taskbar.h"
 #include "screen.h"
-#include "pager.h"
 #include "color.h"
 #include "place.h"
 #include "event.h"
@@ -248,9 +244,6 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
    if(np->state.status & STAT_URGENT) {
       RegisterCallback(URGENCY_DELAY, SignalUrgent, np);
    }
-
-   /* Update task bars. */
-   AddClientToTaskBar(np);
 
    /* Make sure we're still in sync */
    WriteState(np);
@@ -900,10 +893,6 @@ void KillClientHandler(ClientNode *np)
 void KillClient(ClientNode *np)
 {
    Assert(np);
-   ShowConfirmDialog(np, KillClientHandler,
-      _("Kill this window?"),
-      _("This may cause data to be lost!"),
-      NULL);
 }
 
 /** Place transients on top of the owner. */
@@ -1082,7 +1071,6 @@ void RestackClient(ClientNode *np, Window above, int detail)
 void RestackClients(void)
 {
 
-   TrayType *tp;
    ClientNode *np;
    unsigned int layer, index;
    int trayCount;
@@ -1094,7 +1082,7 @@ void RestackClients(void)
    }
 
    /* Allocate memory for restacking. */
-   trayCount = GetTrayCount();
+   trayCount = 0;
    stack = AllocateStack((clientCount + trayCount) * sizeof(Window));
 
    /* Prepare the stacking array. */
@@ -1137,13 +1125,6 @@ void RestackClients(void)
          }
       }
 
-      for(tp = GetTrays(); tp; tp = tp->next) {
-         if(layer == tp->layer) {
-            stack[index] = tp->window;
-            index += 1;
-         }
-      }
-
       if(layer == FIRST_LAYER) {
          break;
       }
@@ -1154,7 +1135,7 @@ void RestackClients(void)
    JXRestackWindows(display, stack, index);
 
    ReleaseStack(stack);
-   UpdateNetClientList();
+
    RequirePagerUpdate();
 
 }
@@ -1264,7 +1245,6 @@ void RemoveClient(ClientNode *np)
       Release(np->clientName);
    }
 
-   RemoveClientFromTaskBar(np);
    RemoveClientStrut(np);
 
    while(np->colormaps) {

@@ -12,11 +12,8 @@
 
 #include "client.h"
 #include "clientlist.h"
-#include "command.h"
 #include "error.h"
 #include "misc.h"
-#include "root.h"
-#include "tray.h"
 
 #define MASK_NONE    0
 #define MASK_SHIFT   (1 << ShiftMapIndex)
@@ -91,7 +88,7 @@ void StartupBindings(void)
 
    XModifierKeymap *modmap;
    KeyNode *np;
-   TrayType *tp;
+
    int x;
 
    /* Get the keys that we don't care about (num lock, etc). */
@@ -118,10 +115,7 @@ void StartupBindings(void)
          /* Grab on the root. */
          GrabKey(np, rootWindow);
 
-         /* Grab on the trays. */
-         for(tp = GetTrays(); tp; tp = tp->next) {
-            GrabKey(np, tp->window);
-         }
+
 
       }
 
@@ -132,7 +126,7 @@ void StartupBindings(void)
 void ShutdownBindings(void)
 {
    ClientNode *np;
-   TrayType *tp;
+
    unsigned int layer;
 
    /* Ungrab keys on client windows. */
@@ -142,10 +136,6 @@ void ShutdownBindings(void)
       }
    }
 
-   /* Ungrab keys on trays, only really needed if we are restarting. */
-   for(tp = GetTrays(); tp; tp = tp->next) {
-      JXUngrabKey(display, AnyKey, AnyModifier, tp->window);
-   }
 
    /* Ungrab keys on the root. */
    JXUngrabKey(display, AnyKey, AnyModifier, rootWindow);
@@ -237,7 +227,7 @@ void RunKeyCommand(MouseContextType context, unsigned state, int code)
 
    for(np = bindings[context]; np; np = np->next) {
       if(np->state == state && np->code == code) {
-         RunCommand(np->command);
+
          return;
       }
    }
@@ -256,10 +246,7 @@ void ShowKeyMenu(MouseContextType context, unsigned state, int code)
 
    for(np = bindings[context]; np; np = np->next) {
       if(np->state == state && np->code == code) {
-         const int button = GetRootMenuIndexFromString(np->command);
-         if(JLIKELY(button >= 0)) {
-            ShowRootMenu(button, -1, -1, 1);
-         }
+
          return;
       }
    }
@@ -516,11 +503,7 @@ void ValidateKeys(void)
    for(i = 0; i < MC_COUNT; i++) {
       for(kp = bindings[i]; kp; kp = kp->next) {
          if(kp->action.action == ACTION_ROOT && kp->command) {
-            const int bindex = GetRootMenuIndexFromString(kp->command);
-            if(JUNLIKELY(!IsRootMenuDefined(bindex))) {
-               Warning(_("key binding: root menu \"%s\" not defined"),
-                       kp->command);
-            }
+
          }
       }
    }
