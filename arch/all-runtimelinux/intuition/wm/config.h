@@ -36,7 +36,7 @@
 #define HAVE_DCGETTEXT 1
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
-#define HAVE_GETTEXT 1
+/* #undef HAVE_GETTEXT */
 
 /* Define if you have the iconv() function and it works. */
 #define HAVE_ICONV 1

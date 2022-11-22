@@ -1,0 +1,17 @@
+# Copyright (C) 2022, The AROS Development Team. All rights reserved.
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES   :=  main error screen cursor place settings misc border grab binding font color \
+            client timing hint desktop event move resize status outline clientlist debug \
+            group match gradient
+
+EXEDIR  := $(AROS_C)
+
+#MM workbench-c-intuition : includes linklibs
+
+%build_prog mmake=workbench-c-intuition \
+    progname=Intuition targetdir=$(EXEDIR) \
+    files="$(FILES)" uselibs="X11 Xft Xrender Xext Xmu Xinerama"
+
+%common
