@@ -18,7 +18,6 @@
 #include "binding.h"
 #include "outline.h"
 #include "screen.h"
-#include "status.h"
 #include "desktop.h"
 #include "settings.h"
 #include "timing.h"
@@ -79,7 +78,7 @@ void MoveController(int wasDestroyed)
    JXUngrabPointer(display, CurrentTime);
    JXUngrabKeyboard(display, CurrentTime);
 
-   DestroyMoveWindow();
+
    shouldStopMove = 1;
    atTop = 0;
    atBottom = 0;
@@ -249,7 +248,7 @@ char MoveClient(ClientNode *np, int startx, int starty)
                MaximizeClient(np, MAX_NONE);
             }
 
-            CreateMoveWindow(np);
+
             doMove = 1;
          }
 
@@ -271,7 +270,7 @@ char MoveClient(ClientNode *np, int startx, int starty)
                }
                SendConfigureEvent(np);
             }
-            UpdateMoveWindow(np);
+
             RequirePagerUpdate();
          }
 
@@ -325,8 +324,8 @@ char MoveClientKeyboard(ClientNode *np)
    np->controller = MoveController;
    shouldStopMove = 0;
 
-   CreateMoveWindow(np);
-   UpdateMoveWindow(np);
+
+
 
    MoveMouse(rootWindow, np->x, np->y);
    DiscardMotionEvents(&event, np->window);
@@ -414,7 +413,7 @@ char MoveClientKeyboard(ClientNode *np)
             SendConfigureEvent(np);
          }
 
-         UpdateMoveWindow(np);
+
          RequirePagerUpdate();
 
       }
@@ -459,7 +458,7 @@ void RestartMove(ClientNode *np, int *doMove)
    if(*doMove) {
       int north, south, east, west;
       *doMove = 0;
-      DestroyMoveWindow();
+
       GetBorderSize(&np->state, &north, &south, &east, &west);
       if(np->parent != None) {
          JXMoveWindow(display, np->parent, np->x - west, np->y - north);

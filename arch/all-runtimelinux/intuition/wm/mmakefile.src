@@ -3,7 +3,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 FILES   :=  main error screen cursor place settings misc border grab binding font color \
-            client timing hint desktop event move resize status outline clientlist debug \
+            client timing hint desktop event move resize outline clientlist debug \
             group match gradient
 
 EXEDIR  := $(AROS_C)
