@@ -23,6 +23,7 @@ static IconNode *buttonIcons[BI_COUNT];
 
 static char IsContextEnabled(MouseContextType context, const ClientNode *np);
 static void DrawBorderHelper(const ClientNode *np);
+#if 0
 static void DrawBorderHandles(const ClientNode *np,
                               Pixmap canvas, GC gc);
 static void DrawBorderButton(const ClientNode *np, MouseContextType context,
@@ -47,6 +48,7 @@ static void DrawMaxAButton(unsigned xoffset, unsigned yoffset,
                            Pixmap canvas, GC gc, long fg);
 static void DrawMinButton(unsigned xoffset, unsigned yoffset,
                           Pixmap canvas, GC gc, long fg);
+#endif
 
 #ifdef USE_SHAPE
 static void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
@@ -386,6 +388,8 @@ void DrawBorder(ClientNode *np)
 /** Helper method for drawing borders. */
 void DrawBorderHelper(const ClientNode *np)
 {
+return;
+#if 0
    ColorType borderTextColor;
 
    long titleColor1, titleColor2;
@@ -526,8 +530,10 @@ void DrawBorderHelper(const ClientNode *np)
    JXFreePixmap(display, canvas);
    JXFreeGC(display, gc);
 
+#endif
 }
 
+#if 0
 /** Draw window handles. */
 void DrawBorderHandles(const ClientNode *np, Pixmap canvas, GC gc)
 {
@@ -1160,6 +1166,7 @@ void DrawIconButton(const ClientNode *np, int x, int y,
            iconSize, iconSize);
 #endif
 }
+#endif
 
 /** Redraw the borders on the current desktop.
  * This should be done after loading clients since the stacking order

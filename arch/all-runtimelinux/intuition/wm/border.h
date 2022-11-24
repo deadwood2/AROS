@@ -10,7 +10,6 @@
 #ifndef BORDER_H
 #define BORDER_H
 
-#include "gradient.h"
 #include "binding.h"
 
 struct ClientNode;
