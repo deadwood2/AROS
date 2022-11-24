@@ -23,6 +23,7 @@
 #include "settings.h"
 #include "grab.h"
 #include "screen.h"
+#include "xintuition.h"
 
 #define MIN_TIME_DELTA 50
 
@@ -163,12 +164,14 @@ char WaitForEvent(XEvent *event)
       case MotionNotify:
          SetMousePosition(event->xmotion.x_root, event->xmotion.y_root,
                           event->xmotion.window);
+         SendXEventToIntuition(event);
          handled = 0;
          break;
       case ButtonPress:
       case ButtonRelease:
          SetMousePosition(event->xbutton.x_root, event->xbutton.y_root,
                           event->xbutton.window);
+         SendXEventToIntuition(event);
          handled = 0;
          break;
       case EnterNotify:
@@ -351,8 +354,10 @@ void HandleButtonEvent(const XButtonEvent *event)
 
    ClientNode *np;
    int button;
+#if 0
    int north, south, east, west;
    MouseContextType context;
+#endif
 
    /* Determine the button to present for processing.
     * Press is positive, release is negative, double clicks
@@ -385,6 +390,7 @@ void HandleButtonEvent(const XButtonEvent *event)
    /* Dispatch the event. */
    np = FindClientByParent(event->window);
    if(np) {
+#if 0
       /* Click on the border. */
       if(event->type == ButtonPress) {
          FocusClient(np);
@@ -392,17 +398,24 @@ void HandleButtonEvent(const XButtonEvent *event)
       }
       context = GetBorderContext(np, event->x, event->y);
       ProcessBinding(context, np, event->state, button, event->x, event->y);
+#endif
    } else if(event->window == rootWindow) {
+#if 0
       /* Click on the root.
        * Note that we use the raw button from the event for ShowRootMenu. */
 
          ProcessBinding(MC_ROOT, NULL, event->state, button, 0, 0);
 
+#endif
    } else {
       /* Click over window content. */
+
+#if 0
       const unsigned int mask = event->state & ~lockMask;
+#endif
       np = FindClientByWindow(event->window);
       if(np) {
+#if 0
          const char move_resize = (np->state.status & STAT_DRAG)
             || ((mask == settings.moveMask)
                && !(np->state.status & STAT_NODRAG));
@@ -435,6 +448,7 @@ void HandleButtonEvent(const XButtonEvent *event)
          default:
             break;
          }
+#endif
          JXAllowEvents(display, ReplayPointer, eventTime);
       }
    }
@@ -610,12 +624,14 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
             RaiseClient(np);
 
          } else {
+#if 0
             const unsigned bsize = (np->state.border & BORDER_OUTLINE)
                                  ? settings.borderWidth : 0;
             const unsigned titleHeight = GetTitleHeight();
             const int mx = np->x + x - bsize;
             const int my = np->y + y - titleHeight - bsize;
 
+#endif
          }
       }
       break;
