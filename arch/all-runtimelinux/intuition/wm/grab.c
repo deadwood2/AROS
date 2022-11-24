@@ -29,6 +29,7 @@ void UngrabServer(void)
    grabCount -= 1;
    if(grabCount == 0) {
       JXUngrabServer(display);
+      JXSync(display, False);
    }
 }
 
