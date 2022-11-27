@@ -1,0 +1,72 @@
+Design of interconnections between Intuition, Graphics, Layers, X11HIDD and WindowManager
+=========================================================================================
+
+Use Cases
+=========
+
+Codebase needs to support following 3 use cases:
+
+1)  AxRT program opening an Intuition window on any Window Manager
+
+        This is the usual case when a AxRT program is started under Linux. In such case there is already a "native"
+        window manager running (like marco). Intution window becomes the child window of a window manager border
+        window. Intuition window in such case will not render any borders or gadgets. It will respond to close, move,
+        resize events correctly. It will follow window managers logic with regards to maximize and minimize. In short,
+        it will follow given window managers conventions, while rendering the "inner part" of window fully via
+        Intuition.
+
+2) Intuition acting as Window Manager for non AxRT programs
+
+        In this case Intuition (as Window Manager) will create border/parent window that will be following Intuition
+        conventions and will only render border area and gadgets. Client window will become child window. Intuition
+        border window will respond to close, move, resize, iconify events correctly. Intuition border window will have
+        a set of pre-defined gadgets matching closly window type requestest by the Client.
+
+3) AxRT program opening an Intuition window on Intuition acting as Window Manager
+
+        In this situation, there are actually two Intuition processes which work together to create seamless experience.
+        First process is started by AxRuntime on behalf of AxRT program - we will call this Intuition(A). Second
+        process is Intuition running as Window Manager - we will call this Intuition(B).
+
+        Intuition(B) will still create a parent window which is managed by Window Manager, however this window will be
+        borderless and will match exactly size of Intuition(A) window, as such Intuition(A) window will handle all
+        interactions. It will render both the border as well as "inner part" of window. It will allow for customs gadgets
+        to be rendered. It will respond to close, move, resize, iconify or any application-defined events correctly.
+
+Routing of Events
+=================
+
+Event              |                                                |                                                |
+-------------------|------------------------------------------------|------------------------------------------------|
+Close window       |                   USE CASE 1                   |                   USE CASE 2                   |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   | Window Manager detects click  on close button  | Intuition detects click on close gadget and    |
+                   | and sends XEvent of type ClientMessage of type | sends XEvent of type ClientMessage of type     |
+                   | WM_DELETE_WINDOW                               | _NET_CLOSE_WINDOW.                             |
+                   |                                                | XEvent is processed by internal window manager |
+                   |                                                | and results in sending XEvent of type          |
+                   |                                                | ClientMessage of type WM_DELETE_WINDOW to      |
+                   |                                                | client window (which is a non-AxRT program).   |
+                   |                                                |------------------------------------------------|
+                   |                                                | Program reacts to this by unmapping its window.|
+                   |                                                |------------------------------------------------|
+                   |                                                | This event is captured by internal window      |
+                   |                                                | manager which sends XEvent of type             |
+                   |                                                | ClientMessage of type WM_DELETE_WINDOW         |
+                   |------------------------------------------------|------------------------------------------------|
+                   | x11.hidd receives XEvent of type ClientMessage and pushes message to Intuition of type          |
+                   | FROMX11_CLOSEWINDOW. Intuition reacts to this message by firing IDCMP_CLOSEWINDOW message to    |
+                   | the program.                                                                                    |
+                   |------------------------------------------------|------------------------------------------------|
+                   | Program reacts to IDCMP_CLOSEWINDOW message by | Window loop in internal window manager reacts  |
+                   | calling CloseWindow function                   | to IDCMP_CLOSEWINDOW message by calling        |
+                   |                                                | CloseWindow function                           |
+                   |------------------------------------------------|------------------------------------------------|
+                   | As part of CloseWindow function, Intuition calls FreeBitMap on window's bitmap. This casuses    |
+                   | x11.hidd to remove X11 window associated with that bitmap from xwindowlist and call             |
+                   | XDestroyWindow                                                                                  |
+-------------------|------------------------------------------------|------------------------------------------------|
+Close window       |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   |                                                |                                                |
+-------------------|------------------------------------------------|------------------------------------------------|
