@@ -27,6 +27,7 @@
 #include "settings.h"
 #include "timing.h"
 #include "grab.h"
+#include "xintuition.h"
 
 #include <errno.h>
 
@@ -237,6 +238,7 @@ void EventLoop(void)
       if(JLIKELY(WaitForEvent(&event))) {
          ProcessEvent(&event);
       }
+      ProcessIntuiMessages();
    }
 
    /* Process events one last time. */
@@ -262,7 +264,7 @@ void EventLoop(void)
 void OpenConnection(void)
 {
 
-   display = JXOpenDisplay(displayString);
+   display = GetIntuitionDisplay();
    if(JUNLIKELY(!display)) {
       if(displayString) {
          printf("error: could not open display %s\n", displayString);
@@ -478,6 +480,7 @@ void Startup(void)
 {
 
    /* This order is important. */
+   StartupXIntuition();
 
    /* First we grab the server to prevent clients from changing things
     * while we're still loading. */
@@ -545,6 +548,7 @@ void Shutdown(void)
    ShutdownScreens();
    ShutdownSettings();
 
+   ShutdownXIntuition();
 }
 
 /** Clean up memory.

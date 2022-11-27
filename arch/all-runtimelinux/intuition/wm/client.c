@@ -21,6 +21,7 @@
 #include "timing.h"
 #include "grab.h"
 #include "desktop.h"
+#include "xintuition.h"
 
 static ClientNode *activeClient;
 
@@ -30,7 +31,9 @@ static void LoadFocus(void);
 static void RestackTransients(const ClientNode *np);
 static void MinimizeTransients(ClientNode *np, char lower);
 static void RestoreTransients(ClientNode *np, char raise);
+#if 0
 static void KillClientHandler(ClientNode *np);
+#endif
 static void UnmapClient(ClientNode *np);
 
 /** Load windows that are already mapped. */
@@ -879,6 +882,7 @@ void DeleteClient(ClientNode *np)
    }
 }
 
+#if 0
 /** Callback to kill a client after a confirm dialog. */
 void KillClientHandler(ClientNode *np)
 {
@@ -888,6 +892,7 @@ void KillClientHandler(ClientNode *np)
 
    JXKillClient(display, np->window);
 }
+#endif
 
 /** Kill a client window. */
 void KillClient(ClientNode *np)
@@ -1229,7 +1234,10 @@ void RemoveClient(ClientNode *np)
 
    /* Destroy the parent */
    if(np->parent) {
+#if 0
       JXDestroyWindow(display, np->parent);
+#endif
+      SendClientMessage(np->parent, ATOM_WM_PROTOCOLS, ATOM_WM_DELETE_WINDOW);
    }
 
    if(np->name) {
@@ -1362,10 +1370,14 @@ void ReparentClient(ClientNode *np)
       width += east + west;
       height += north + south;
 
+#if 0
       /* Create the frame window. */
       np->parent = JXCreateWindow(display, rootWindow, x, y, width, height,
                                   0, rootDepth, InputOutput,
                                   rootVisual, attrMask, &attr);
+#endif
+      np->parent = OpenBorderWindow(x, y, width, height, np->name);
+
       XSaveContext(display, np->parent, frameContext, (void*)np);
 
       JXSetWindowBorderWidth(display, np->window, 0);

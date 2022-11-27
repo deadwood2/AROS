@@ -139,6 +139,7 @@ char WaitForEvent(XEvent *event)
          break;
       case ClientMessage:
          HandleClientMessage(&event->xclient);
+         SendXEventToIntuition(event);
          handled = 1;
          break;
       case UnmapNotify:
@@ -1131,6 +1132,15 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
 
    } else {
+      np = FindClientByParent(event->window);
+      if (np) {
+         /* Requests coming from Intuition */
+         if(event->message_type == atoms[ATOM_NET_CLOSE_WINDOW]) {
+
+            DeleteClient(np);
+
+         }
+      }
 #ifdef DEBUG
          atomName = JXGetAtomName(display, event->message_type);
          Debug("ClientMessage to unknown window (0x%x): %s",

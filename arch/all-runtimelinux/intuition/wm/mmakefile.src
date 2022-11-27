@@ -2,9 +2,10 @@
 
 include $(SRCDIR)/config/aros.cfg
 
+USER_CFLAGS := -Wunused-variable -Wunused-function
 FILES   :=  main error screen cursor place settings misc border grab binding font color \
             client timing hint desktop event move resize outline clientlist debug \
-            group match gradient
+            group match xintuition
 
 EXEDIR  := $(AROS_C)
 
@@ -12,6 +13,6 @@ EXEDIR  := $(AROS_C)
 
 %build_prog mmake=workbench-c-intuition \
     progname=Intuition targetdir=$(EXEDIR) \
-    files="$(FILES)" uselibs="X11 Xft Xrender Xext Xmu Xinerama"
+    files="$(FILES)" uselibs="X11 Xft Xrender Xext Xmu Xinerama" usesdks="private config"
 
 %common
