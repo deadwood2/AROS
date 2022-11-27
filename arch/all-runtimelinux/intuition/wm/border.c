@@ -255,7 +255,7 @@ void ResetBorder(const ClientNode *np)
    Pixmap shapePixmap;
    GC shapeGC;
 #endif
-
+return;
    int north, south, east, west;
    int width, height;
 
@@ -1190,10 +1190,13 @@ void ExposeCurrentDesktop(void)
 /** Get the height of a window title bar. */
 unsigned GetTitleHeight(void)
 {
+#if 0
    if(JUNLIKELY(settings.titleHeight == 0)) {
       settings.titleHeight = GetStringHeight(FONT_BORDER) + 4;
    }
    return settings.titleHeight;
+#endif
+   return 31; // TODO: Fixme
 }
 
 /** Get the size of the borders for a client. */
@@ -1240,7 +1243,7 @@ void GetBorderSize(const ClientState *state,
 
       if(show_border) {
          *west = settings.borderWidth;
-         *east = settings.borderWidth;
+         *east = 24; // TODO: Fixme
       } else {
          *west = 0;
          *east = 0;
