@@ -10,7 +10,6 @@
 Window OpenBorderWindow(int x, int y, int width, int height, const char *title);
 Display *GetIntuitionDisplay();
 void SendXEventToIntuition(XEvent *event);
-void ProcessIntuiMessages();
 
 #define InitializeXIntuition()   (void)(0)
 void StartupXIntuition(void);

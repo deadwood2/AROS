@@ -238,7 +238,6 @@ void EventLoop(void)
       if(JLIKELY(WaitForEvent(&event))) {
          ProcessEvent(&event);
       }
-      ProcessIntuiMessages();
    }
 
    /* Process events one last time. */

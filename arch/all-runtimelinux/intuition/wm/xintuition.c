@@ -14,24 +14,30 @@
 #define X11_TYPES_H
 #include "../../../../arch/all-hosted/hidd/x11/x11.h"
 
+static void WindowTaskLoop();
+
 static struct MsgPort *replyport;
 
-// temp
-struct Window *intuiWin = NULL;
+static struct Task *windowTask;
+static struct MsgPort *windowPort;
 
 Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
 {
-        intuiWin = OpenWindowTags(NULL,
-        WA_Left, x,
-        WA_Top, y,
-        WA_Width, width,
-        WA_Height, height,
-        WA_DragBar, TRUE,
-        WA_CloseGadget, TRUE,
-        WA_SizeGadget, TRUE,
-        WA_DepthGadget, TRUE,
-        WA_Title, title,
-        WA_IDCMP, IDCMP_CLOSEWINDOW);
+    struct Window *intuiWin = OpenWindowTags(NULL,
+            WA_Left, x,
+            WA_Top, y,
+            WA_Width, width,
+            WA_Height, height,
+            WA_DragBar, TRUE,
+            WA_CloseGadget, TRUE,
+            WA_SizeGadget, TRUE,
+            WA_DepthGadget, TRUE,
+            WA_Title, title);
+
+    /* Use shared port for all windows */
+    intuiWin->UserPort = windowPort;
+
+    ModifyIDCMP(intuiWin, IDCMP_CLOSEWINDOW);
 
     return IW(intuiWin)->XWindow;
 }
@@ -40,11 +46,16 @@ void StartupXIntuition()
 {
     LockPubScreen(NULL);
     replyport = CreateMsgPort();
+    windowTask = NewCreateTask(
+            TASKTAG_PC, WindowTaskLoop,
+            TASKTAG_NAME, "WindowTask",
+            TAG_DONE);
 }
 
 void ShutdownXIntuition()
 {
     DeleteMsgPort(replyport);
+    Signal(windowTask, SIGBREAKF_CTRL_C);
 }
 
 Display *GetIntuitionDisplay()
@@ -68,32 +79,37 @@ void SendXEventToIntuition(XEvent *event)
     GetMsg(msg.execmsg.mn_ReplyPort);
 }
 
-void ProcessIntuiMessages()
+static void WindowTaskLoop()
 {
-    // Fixme: instead of this beeing called in context of main task, there
-    // should be a separate task that just process window messages from
-    // all opened windows.
-    struct IntuiMessage *msg;
-    BOOL quitme = FALSE;
+    windowPort = CreateMsgPort();
 
-    if (intuiWin == NULL)
-        return;
+    ULONG windowSig = 1L << windowPort->mp_SigBit;
 
-    while ((msg = (struct IntuiMessage *)GetMsg(intuiWin->UserPort)))
+    for (;;)
     {
-        switch(msg->Class)
-        {
-        case IDCMP_CLOSEWINDOW:
-            quitme = TRUE;
+        struct IntuiMessage *msg;
+
+        ULONG sigs = Wait(SIGBREAKF_CTRL_C | windowSig);
+
+        if (sigs & SIGBREAKF_CTRL_C)
             break;
+
+        while ((msg = (struct IntuiMessage *)GetMsg(windowPort)))
+        {
+            switch(msg->Class)
+            {
+            case IDCMP_CLOSEWINDOW:
+                {
+                struct Window *p = msg->IDCMPWindow;
+                ReplyMsg((struct Message *)msg);
+                p->UserPort = NULL;
+                CloseWindow(p);
+                break;
+                }
+            }
         }
-        ReplyMsg((struct Message *)msg);
     }
 
-    if (quitme)
-    {
-        CloseWindow(intuiWin);
-        intuiWin = NULL;
-    }
-
+    // TODO: close outstanding not-closed windows
+    // TODO: free port
 }
