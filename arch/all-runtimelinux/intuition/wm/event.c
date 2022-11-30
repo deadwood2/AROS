@@ -148,6 +148,7 @@ char WaitForEvent(XEvent *event)
          break;
       case Expose:
          handled = HandleExpose(&event->xexpose);
+         SendXEventToIntuition(event);
          break;
       case ColormapNotify:
          HandleColormapChange(&event->xcolormap);
