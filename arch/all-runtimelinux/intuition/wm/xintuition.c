@@ -32,7 +32,9 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
             WA_CloseGadget, TRUE,
             WA_SizeGadget, TRUE,
             WA_DepthGadget, TRUE,
-            WA_Title, title);
+            WA_Title, title,
+            WA_SmartRefresh, TRUE,
+            TAG_DONE);
 
     /* Use shared port for all windows */
     intuiWin->UserPort = windowPort;
