@@ -46,8 +46,19 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
 
 void StartupXIntuition()
 {
-    LockPubScreen(NULL);
+    struct notify_msg msg;
+    struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
+
     replyport = CreateMsgPort();
+
+    /* Take over reading XEvents from x11hidd */
+    msg.notify_type = 6;
+    msg.execmsg.mn_ReplyPort = replyport;
+    PutMsg(intuixchng->x11task_notify_port, &msg.execmsg);
+    WaitPort(msg.execmsg.mn_ReplyPort);
+    GetMsg(msg.execmsg.mn_ReplyPort);
+
+    LockPubScreen(NULL);
     windowTask = NewCreateTask(
             TASKTAG_PC, WindowTaskLoop,
             TASKTAG_NAME, "WindowTask",
