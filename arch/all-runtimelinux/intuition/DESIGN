@@ -28,15 +28,43 @@ Codebase needs to support following 3 use cases:
         First process is started by AxRuntime on behalf of AxRT program - we will call this Intuition(A). Second
         process is Intuition running as Window Manager - we will call this Intuition(B).
 
-        Intuition(B) will still create a parent window which is managed by Window Manager, however this window will be
-        borderless and will match exactly size of Intuition(A) window, as such Intuition(A) window will handle all
-        interactions. It will render both the border as well as "inner part" of window. It will allow for customs gadgets
-        to be rendered. It will respond to close, move, resize, iconify or any application-defined events correctly.
+        Intuition(B) will not create a parent window which is managed by Window Manager. assuch Intuition(A) window will
+        handle all interactions. It will render both the border as well as "inner part" of window. It will allow for
+        customs gadgets to be rendered. It will respond to close, move, resize, iconify or any application-defined
+        events correctly.
 
 Routing of Events
 =================
 
 Event              |                                                |                                                |
+-------------------|------------------------------------------------|------------------------------------------------|
+Open window        |                   USE CASE 1                   |                   USE CASE 2                   |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   | Intuition checks whether window manager is not | Intuition at startup marks X root window with  |
+                   | Intuition. If this is true, Intuition builds   | class "Intuition". When a client is connected, |
+                   | the window as BORDERLESS so that no gadgets    | it checks whether client window class is       |
+                   | are rendered and complete border rendering is  | "AxRuntime". If no, it opens a standarized     |
+                   | done by window manager.                        | Intuition window which will act as border      |
+                   |                                                | window for inner client window.                |
+                   |------------------------------------------------|------------------------------------------------|
+                   | Intuition calculates properties of new window. Then it calls XCreateWindow to create the window.|
+                   | Next it calls AllocBitmap passing the opened window as private parameter in order to create a   |
+                   | new bitmap that will be bound to the Rastport of this window.                                   |
+                   |------------------------------------------------|------------------------------------------------|
+                   | Bitmap allocation call goes to x11hidd, which adds the passed window to the list of it handled  |
+                   | windows and is ready to process XEvents coming for that window. x11hidd Maps the X window.      |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   | Intuition checks whether window manager is     | Intuition at startup marks X root window with  |
+                   | Intuition. If this is true, Intuition builds   | class "Intuition". When a client is connected, |
+                   | window as requested by user. Follows logic of  | it checks whether client window class is       |
+                   | Use Case 1 for rest of actions.                | "AxRuntime". If yes, it does not create an     |
+                   |                                                | outer window.                                  |
+-------------------|------------------------------------------------|------------------------------------------------|
+Change focus       |                   USE CASE 1                   |                   USE CASE 2                   |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   |                                                |                                                |
 -------------------|------------------------------------------------|------------------------------------------------|
 Close window       |                   USE CASE 1                   |                   USE CASE 2                   |
 -------------------|------------------------------------------------|------------------------------------------------|
