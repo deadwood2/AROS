@@ -314,6 +314,7 @@ void StartupConnection(void)
    Window win;
    XEvent event;
    int revert;
+   XClassHint *classhint;
 
    initializing = 1;
    OpenConnection();
@@ -380,6 +381,12 @@ void StartupConnection(void)
       | ButtonReleaseMask
       | PointerMotionMask | PointerMotionHintMask;
    JXChangeWindowAttributes(display, rootWindow, CWEventMask, &attr);
+
+   classhint = XAllocClassHint();
+   classhint->res_name = "Intuition";
+   classhint->res_class = "Intuition";
+   XSetClassHint(display, rootWindow, classhint);
+   JXFree(classhint);
 
    memset(&sa, 0, sizeof(sa));
    sa.sa_flags = 0;
