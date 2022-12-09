@@ -17,6 +17,7 @@
 #include "misc.h"
 #include "settings.h"
 #include "grab.h"
+#include "xintuition.h"
 
 static char *buttonNames[BI_COUNT];
 static IconNode *buttonIcons[BI_COUNT];
@@ -388,7 +389,17 @@ void DrawBorder(ClientNode *np)
 /** Helper method for drawing borders. */
 void DrawBorderHelper(const ClientNode *np)
 {
-return;
+   XEvent dummy;
+   dummy.xany.window = np->parent;
+
+   if(np->state.status & (STAT_ACTIVE | STAT_FLASH)) {
+      dummy.xany.type = FocusIn;
+   } else {
+      dummy.xany.type = FocusOut;
+   }
+
+   SendXEventToIntuition(&dummy);
+
 #if 0
    ColorType borderTextColor;
 
