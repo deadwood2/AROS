@@ -51,7 +51,7 @@ Open window        |                   USE CASE 1                   |           
                    | Next it calls AllocBitmap passing the opened window as private parameter in order to create a   |
                    | new bitmap that will be bound to the Rastport of this window.                                   |
                    |------------------------------------------------|------------------------------------------------|
-                   | Bitmap allocation call goes to x11hidd, which adds the passed window to the list of it handled  |
+                   | Bitmap allocation call goes to x11.hidd, which adds the passed window to the list of it handled |
                    | windows and is ready to process XEvents coming for that window. x11hidd Maps the X window.      |
 -------------------|------------------------------------------------|------------------------------------------------|
                    |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
@@ -64,7 +64,36 @@ Open window        |                   USE CASE 1                   |           
 -------------------|------------------------------------------------|------------------------------------------------|
 Change focus       |                   USE CASE 1                   |                   USE CASE 2                   |
 -------------------|------------------------------------------------|------------------------------------------------|
-                   |                                                |                                                |
+                   | Window Manager causes FocusIn or FocusOut      | Intuition detects click in title bar. It calls |
+                   | XEvents to be sent.                            | ActiveWindow which makes the window active and |
+                   |                                                | sends XEvent of type ClientMessage of type     |
+                   |                                                | _NET_ACTIVE_WINDOW.                            |
+                   |                                                | XEvent is processed by internal window manager |
+                   |                                                | and results in generating FocusIn XEvent for   |
+                   |                                                | client that sent _NET_ACTIVE_WINDOW and        |
+                   |                                                | FocusOut XEvent for previously active client.  |
+                   |                                                | Internal window menagers generates also fake   |
+                   |                                                | FocusIn and FocusOut XEvents and send them to  |
+                   |                                                | Intuition border window                        |
+                   |------------------------------------------------|------------------------------------------------|
+                   | x11.hidd listens to FocusIn and FocusOut XEvent and sends FROMX11_FOCUS message to Intuition.   |                                                |
+                   | Intuition either calls int_activatewindow or executes code related to making the current window |
+                   | inactive.                                                                                       |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
+-------------------|------------------------------------------------|------------------------------------------------|
+                   | Intuition detects click in title bar. It calls |                                                |
+                   | ActiveWindow which makes the window active and |                                                |
+                   | sends XEvent of type ClientMessage of type     |                                                |
+                   | _NET_ACTIVE_WINDOW.                            |                                                |
+                   |                                                | XEvent is processed by internal window manager |
+                   |                                                | and results in generating FocusIn XEvent for   |
+                   |                                                | client that sent _NET_ACTIVE_WINDOW and        |
+                   |                                                | FocusOut XEvent for previously active client.  |
+                   | x11.hidd listens to FocusIn XEvent and sends   |                                                |
+                   | FROMX11_FOCUS message to Intuition.            |                                                |
+                   | Intuition ignores the message if window is     |                                                |
+                   | already active.                                |                                                |
 -------------------|------------------------------------------------|------------------------------------------------|
 Close window       |                   USE CASE 1                   |                   USE CASE 2                   |
 -------------------|------------------------------------------------|------------------------------------------------|
