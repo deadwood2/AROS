@@ -1140,6 +1140,11 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
             DeleteClient(np);
 
+         } else if(event->message_type == atoms[ATOM_NET_ACTIVE_WINDOW]) {
+
+            RestoreClient(np, 1);
+            UnshadeClient(np);
+            FocusClient(np);
          }
       }
 #ifdef DEBUG
