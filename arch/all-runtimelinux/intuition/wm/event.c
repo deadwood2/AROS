@@ -892,11 +892,13 @@ void HandleEnterNotify(const XCrossingEvent *event)
    Cursor cur;
    np = FindClient(event->window);
    if(np) {
+#if 0
       if(  !(np->state.status & STAT_ACTIVE)
          && (settings.focusModel == FOCUS_SLOPPY
             || settings.focusModel == FOCUS_SLOPPY_TITLE)) {
          FocusClient(np);
       }
+#endif
       if(np->parent == event->window) {
          np->mouseContext = GetBorderContext(np, event->x, event->y);
          cur = GetFrameCursor(np->mouseContext);
