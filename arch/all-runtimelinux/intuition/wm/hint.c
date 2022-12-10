@@ -12,7 +12,6 @@
 #include "client.h"
 #include "desktop.h"
 #include "misc.h"
-#include "font.h"
 #include "settings.h"
 
 #include <X11/Xlibint.h>
@@ -746,7 +745,9 @@ void ReadWMName(ClientNode *np)
       memcpy(np->name, name, count);
       np->name[count] = 0;
       JXFree(name);
+#if 0
       np->name = ConvertFromUTF8(np->name);
+#endif
    }
 
 #ifdef USE_XUTF8

@@ -13,7 +13,6 @@
 #include "clientlist.h"
 #include "color.h"
 #include "icon.h"
-#include "font.h"
 #include "misc.h"
 #include "settings.h"
 #include "grab.h"

@@ -16,7 +16,6 @@
 #include "client.h"
 #include "color.h"
 #include "cursor.h"
-#include "font.h"
 #include "group.h"
 #include "binding.h"
 #include "icon.h"
@@ -469,7 +468,6 @@ void Initialize(void)
 #ifndef DISABLE_CONFIRM
    InitializeDialogs();
 #endif
-   InitializeFonts();
    InitializeGroups();
    InitializeHints();
    InitializeIcons();
@@ -497,7 +495,6 @@ void Startup(void)
 
    StartupGroups();
    StartupColors();
-   StartupFonts();
    StartupIcons();
    StartupCursors();
 
@@ -544,7 +541,6 @@ void Shutdown(void)
    ShutdownClients();
    ShutdownIcons();
    ShutdownCursors();
-   ShutdownFonts();
    ShutdownColors();
    ShutdownGroups();
    ShutdownDesktops();
@@ -571,7 +567,6 @@ void Destroy(void)
 #ifndef DISABLE_CONFIRM
    DestroyDialogs();
 #endif
-   DestroyFonts();
    DestroyGroups();
    DestroyHints();
    DestroyIcons();
