@@ -61,7 +61,9 @@ static void ToggleMaximized(ClientNode *np, MaxFlags flags);
 static void HandleKeyPress(const XKeyEvent *event);
 static void HandleKeyRelease(const XKeyEvent *event);
 static void HandleEnterNotify(const XCrossingEvent *event);
+#if 0
 static void HandleMotionNotify(const XMotionEvent *event);
+#endif
 static char HandleSelectionClear(const XSelectionClearEvent *event);
 
 static void HandleNetMoveResize(const XClientMessageEvent *event,
@@ -275,7 +277,9 @@ void ProcessEvent(XEvent *event)
    case MotionNotify:
       while(JXCheckTypedEvent(display, MotionNotify, event));
       UpdateTime(event);
+#if 0
       HandleMotionNotify(&event->xmotion);
+#endif
       break;
    case LeaveNotify:
    case DestroyNotify:
@@ -892,7 +896,9 @@ char HandleConfigureNotify(const XConfigureEvent *event)
 void HandleEnterNotify(const XCrossingEvent *event)
 {
    ClientNode *np;
+#if 0
    Cursor cur;
+#endif
    np = FindClient(event->window);
    if(np) {
 #if 0
@@ -903,9 +909,11 @@ void HandleEnterNotify(const XCrossingEvent *event)
       }
 #endif
       if(np->parent == event->window) {
+#if 0
          np->mouseContext = GetBorderContext(np, event->x, event->y);
          cur = GetFrameCursor(np->mouseContext);
          JXDefineCursor(display, np->parent, cur);
+#endif
       } else if(np->mouseContext != MC_NONE) {
          SetDefaultCursor(np->parent);
          np->mouseContext = MC_NONE;
@@ -1526,6 +1534,7 @@ void HandleFrameExtentsRequest(const XClientMessageEvent *event)
    WriteFrameExtents(event->window, &state);
 }
 
+#if 0
 /** Handle a motion notify event. */
 void HandleMotionNotify(const XMotionEvent *event)
 {
@@ -1548,6 +1557,7 @@ void HandleMotionNotify(const XMotionEvent *event)
    }
 
 }
+#endif
 
 /** Handle a shape event. */
 #ifdef USE_SHAPE
