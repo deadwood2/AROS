@@ -36,7 +36,9 @@ typedef struct {
 #define ACTION_MAX            13
 #define ACTION_SHADE          14
 #define ACTION_STICK          15
+#if 0
 #define ACTION_MOVE           16
+#endif
 #define ACTION_RESIZE         17
 #define ACTION_ROOT           18
 #define ACTION_WIN            19

@@ -16,7 +16,6 @@
 #include "desktop.h"
 #include "icon.h"
 #include "binding.h"
-#include "move.h"
 #include "place.h"
 #include "resize.h"
 #include "timing.h"
@@ -544,6 +543,7 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
          }
       }
       break;
+#if 0
    case ACTION_MOVE:
       if(np) {
          if(keyAction) {
@@ -553,6 +553,7 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
          }
       }
       break;
+#endif
    case ACTION_RESIZE:
       if(np) {
          /* Use provided context by default. */
@@ -1292,13 +1293,17 @@ void HandleNetWMMoveResize(const XClientMessageEvent *event, ClientNode *np)
       ResizeClient(np, MC_BORDER | MC_BORDER_W, x, y);
       break;
    case 8:  /* move */
+#if 0
       MoveClient(np, x, y);
+#endif
       break;
    case 9:  /* resize-keyboard */
       ResizeClientKeyboard(np, MC_BORDER | MC_BORDER_S | MC_BORDER_E);
       break;
    case 10: /* move-keyboard */
+#if 0
       MoveClientKeyboard(np);
+#endif
       break;
    case 11: /* cancel */
       if(np->controller) {

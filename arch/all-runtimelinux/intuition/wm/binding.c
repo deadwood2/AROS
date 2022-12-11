@@ -265,7 +265,9 @@ char ShouldGrab(ActionType action)
    case ACTION_MAX:
    case ACTION_SHADE:
    case ACTION_STICK:
+#if 0
    case ACTION_MOVE:
+#endif
    case ACTION_RESIZE:
    case ACTION_ROOT:
    case ACTION_WIN:

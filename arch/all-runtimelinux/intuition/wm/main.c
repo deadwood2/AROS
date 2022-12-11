@@ -170,8 +170,6 @@ int main(int argc, char *argv[])
       /* Parse the configuration file. */
       ActionType at_close = { ACTION_CLOSE, 0 };
       InsertMouseBinding(-1, NULL, MC_CLOSE, at_close , NULL);
-      ActionType at_move = { ACTION_MOVE, 0 };
-      InsertMouseBinding(1, NULL, MC_MOVE, at_move , NULL);
       ActionType at_resize = { ACTION_RESIZE, 0 };
       InsertMouseBinding(1, NULL, MC_BORDER, at_resize , NULL);
 
