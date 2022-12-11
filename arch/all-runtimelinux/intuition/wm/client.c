@@ -1042,7 +1042,7 @@ void RestackClient(ClientNode *np, Window above, int detail)
    }
    if(!inserted) {
 
-      if (detail == 5 /* FLIP */) {
+      if(detail == Opposite) {
          if (np->prev == NULL) {
             /* This is top window, make it bottom */
             detail = BottomIf;
