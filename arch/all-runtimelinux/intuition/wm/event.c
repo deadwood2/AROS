@@ -1147,6 +1147,11 @@ void HandleClientMessage(const XClientMessageEvent *event)
             RestoreClient(np, 1);
             UnshadeClient(np);
             FocusClient(np);
+
+         } else if(event->message_type == atoms[ATOM_NET_MOVERESIZE_WINDOW]) {
+
+            HandleNetMoveResize(event, np);
+
          }
       }
 #ifdef DEBUG
