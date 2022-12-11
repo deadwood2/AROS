@@ -351,6 +351,17 @@ void ResetBorder(const ClientNode *np)
 
    UngrabServer();
 
+   XEvent dummy;
+   dummy.xany.type          = ConfigureNotify;
+
+   dummy.xany.window        = np->parent;
+   dummy.xconfigure.window  = np->parent;
+   dummy.xconfigure.x       = np->x - west;
+   dummy.xconfigure.y       = np->y - north;
+   dummy.xconfigure.width   = np->width;
+   dummy.xconfigure.height  = np->height;
+
+   SendXEventToIntuition(&dummy);
 }
 
 /** Draw a client border. */
