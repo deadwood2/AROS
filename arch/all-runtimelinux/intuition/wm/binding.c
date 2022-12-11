@@ -260,7 +260,9 @@ char ShouldGrab(ActionType action)
    case ACTION_NEXTSTACK:
    case ACTION_PREV:
    case ACTION_PREVSTACK:
+#if 0
    case ACTION_CLOSE:
+#endif
    case ACTION_MIN:
    case ACTION_MAX:
    case ACTION_SHADE:

@@ -520,11 +520,13 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
       StartWindowStackWalk();
       WalkWindowStack(0);
       break;
+#if 0
    case ACTION_CLOSE:
       if(np) {
          DeleteClient(np);
       }
       break;
+#endif
    case ACTION_SHADE:
       if(np) {
          if(np->state.status & STAT_SHADED) {

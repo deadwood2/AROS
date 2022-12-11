@@ -31,7 +31,9 @@ typedef struct {
 #define ACTION_NEXTSTACK      8
 #define ACTION_PREV           9
 #define ACTION_PREVSTACK      10
+#if 0
 #define ACTION_CLOSE          11
+#endif
 #define ACTION_MIN            12
 #define ACTION_MAX            13
 #define ACTION_SHADE          14
