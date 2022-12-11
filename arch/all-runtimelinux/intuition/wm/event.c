@@ -1058,7 +1058,7 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
       } else if(event->message_type == atoms[ATOM_NET_ACTIVE_WINDOW]) {
 
-         RestoreClient(np, 1);
+         RestoreClient(np, 0);
          UnshadeClient(np);
          FocusClient(np);
 
@@ -1147,7 +1147,7 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
          } else if(event->message_type == atoms[ATOM_NET_ACTIVE_WINDOW]) {
 
-            RestoreClient(np, 1);
+            RestoreClient(np, 0);
             UnshadeClient(np);
             FocusClient(np);
 
