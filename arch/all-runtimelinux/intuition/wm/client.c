@@ -1042,6 +1042,15 @@ void RestackClient(ClientNode *np, Window above, int detail)
    }
    if(!inserted) {
 
+      if (detail == 5 /* FLIP */) {
+         if (np->prev == NULL) {
+            /* This is top window, make it bottom */
+            detail = BottomIf;
+         } else {
+            detail = TopIf;
+         }
+      }
+
       /* Insert absolute for the layer. */
       if(detail == Below || detail == BottomIf) {
 

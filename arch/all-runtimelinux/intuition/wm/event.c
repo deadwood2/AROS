@@ -1155,6 +1155,10 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
             HandleNetMoveResize(event, np);
 
+         } else if(event->message_type == atoms[ATOM_NET_RESTACK_WINDOW]) {
+
+            HandleNetRestack(event, np);
+
          }
       }
 #ifdef DEBUG
@@ -1324,6 +1328,7 @@ void HandleNetRestack(const XClientMessageEvent *event, ClientNode *np)
    const Window sibling = event->data.l[1];
    const int detail = event->data.l[2];
    RestackClient(np, sibling, detail);
+   Signal();
 }
 
 /** Handle a _NET_WM_STATE request. */
