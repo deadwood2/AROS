@@ -48,11 +48,11 @@ static void DrawMaxAButton(unsigned xoffset, unsigned yoffset,
                            Pixmap canvas, GC gc, long fg);
 static void DrawMinButton(unsigned xoffset, unsigned yoffset,
                           Pixmap canvas, GC gc, long fg);
-#endif
 
 #ifdef USE_SHAPE
 static void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
                                  int width, int height, int radius);
+#endif
 #endif
 
 /** Initialize structures. */
@@ -251,11 +251,12 @@ MouseContextType GetBorderContext(const ClientNode *np, int x, int y)
 /** Reset the shape of a window border. */
 void ResetBorder(const ClientNode *np)
 {
+#if 0
 #ifdef USE_SHAPE
    Pixmap shapePixmap;
    GC shapeGC;
 #endif
-return;
+#endif
    int north, south, east, west;
    int width, height;
 
@@ -283,7 +284,7 @@ return;
    }
    JXMoveResizeWindow(display, np->parent, np->x - west, np->y - north,
                       width, height);
-
+#if 0
 #ifdef USE_SHAPE
    if(settings.cornerRadius > 0 || (np->state.status & STAT_SHAPED)) {
 
@@ -345,6 +346,7 @@ return;
       JXFreeGC(display, shapeGC);
       JXFreePixmap(display, shapePixmap);
    }
+#endif
 #endif
 
    UngrabServer();
@@ -1337,6 +1339,7 @@ void DrawRoundedRectangle(Drawable d, GC gc, int x, int y,
 }
 
 /** Fill a rounded rectangle. */
+#if 0
 #ifdef USE_SHAPE
 void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
                           int width, int height, int radius)
@@ -1395,6 +1398,7 @@ void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
 #endif
 
 }
+#endif
 #endif
 
 /** Set the icon to use for a button. */
