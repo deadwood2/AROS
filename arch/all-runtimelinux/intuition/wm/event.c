@@ -1245,7 +1245,10 @@ void HandleNetMoveResize(const XClientMessageEvent *event, ClientNode *np)
 
    ConstrainSize(np);
    ResetBorder(np);
+#if 0
+   /* This does not seem to be needed, call to XMoveResizeWindow generates this already */
    SendConfigureEvent(np);
+#endif
    RequirePagerUpdate();
 
 }
