@@ -358,8 +358,8 @@ void ResetBorder(const ClientNode *np)
    dummy.xconfigure.window  = np->parent;
    dummy.xconfigure.x       = np->x - west;
    dummy.xconfigure.y       = np->y - north;
-   dummy.xconfigure.width   = np->width;
-   dummy.xconfigure.height  = np->height;
+   dummy.xconfigure.width   = width;
+   dummy.xconfigure.height  = height;
 
    SendXEventToIntuition(&dummy);
 }
