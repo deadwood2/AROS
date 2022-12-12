@@ -33,7 +33,12 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
             WA_SizeGadget, TRUE,
             WA_DepthGadget, TRUE,
             WA_Title, title,
-            WA_SmartRefresh, TRUE,
+            WA_SizeBBottom, TRUE,
+            WA_SizeBRight, TRUE,
+            WA_MinWidth, 10,
+            WA_MinHeight, 10,
+            WA_MaxWidth, -1,
+            WA_MaxHeight, -1,
             TAG_DONE);
 
     /* Use shared port for all windows */
