@@ -35,8 +35,8 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
             WA_Title, title,
             WA_SizeBBottom, TRUE,
             WA_SizeBRight, TRUE,
-            WA_MinWidth, 10,
-            WA_MinHeight, 10,
+            WA_MinWidth, 96,
+            WA_MinHeight, 96,
             WA_MaxWidth, -1,
             WA_MaxHeight, -1,
             TAG_DONE);
