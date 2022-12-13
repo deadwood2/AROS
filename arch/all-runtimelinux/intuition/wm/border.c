@@ -11,14 +11,15 @@
 #include "border.h"
 #include "client.h"
 #include "clientlist.h"
-#include "icon.h"
 #include "misc.h"
 #include "settings.h"
 #include "grab.h"
 #include "xintuition.h"
 
+#if 0
 static char *buttonNames[BI_COUNT];
 static IconNode *buttonIcons[BI_COUNT];
+#endif
 
 static char IsContextEnabled(MouseContextType context, const ClientNode *np);
 static void DrawBorderHelper(const ClientNode *np);
@@ -57,12 +58,15 @@ static void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
 /** Initialize structures. */
 void InitializeBorders(void)
 {
+#if 0
    memset(buttonNames, 0, sizeof(buttonNames));
+#endif
 }
 
 /** Initialize server resources. */
 void StartupBorders(void)
 {
+#if 0
    unsigned int i;
 
    for(i = 0; i < BI_COUNT; i++) {
@@ -79,11 +83,13 @@ void StartupBorders(void)
    if(buttonIcons[BI_MENU] == NULL) {
       buttonIcons[BI_MENU] = GetDefaultIcon();
    }
+#endif
 }
 
 /** Destroy structures. */
 void DestroyBorders(void)
 {
+#if 0
    unsigned i;
    for(i = 0; i < BI_COUNT; i++)
    {
@@ -92,6 +98,7 @@ void DestroyBorders(void)
          buttonNames[i] = NULL;
       }
    }
+#endif
 }
 
 /** Get the size of the icon to display on a window. */
@@ -1409,7 +1416,6 @@ void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
 
 }
 #endif
-#endif
 
 /** Set the icon to use for a button. */
 void SetBorderIcon(BorderIconType t, const char *name)
@@ -1419,4 +1425,4 @@ void SetBorderIcon(BorderIconType t, const char *name)
    }
    buttonNames[t] = CopyString(name);
 }
- 
+#endif

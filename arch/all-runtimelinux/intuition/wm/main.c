@@ -16,7 +16,6 @@
 #include "client.h"
 #include "cursor.h"
 #include "group.h"
-#include "icon.h"
 #include "screen.h"
 #include "desktop.h"
 #include "place.h"
@@ -459,7 +458,6 @@ void Initialize(void)
 #endif
    InitializeGroups();
    InitializeHints();
-   InitializeIcons();
    InitializePlacement();
    InitializeScreens();
    InitializeSettings();
@@ -483,7 +481,6 @@ void Startup(void)
    StartupScreens();
 
    StartupGroups();
-   StartupIcons();
    StartupCursors();
 
    StartupDesktops();
@@ -525,7 +522,6 @@ void Shutdown(void)
 
    ShutdownBorders();
    ShutdownClients();
-   ShutdownIcons();
    ShutdownCursors();
    ShutdownGroups();
    ShutdownDesktops();
@@ -553,7 +549,6 @@ void Destroy(void)
 #endif
    DestroyGroups();
    DestroyHints();
-   DestroyIcons();
    DestroyPlacement();
 
    DestroyScreens();

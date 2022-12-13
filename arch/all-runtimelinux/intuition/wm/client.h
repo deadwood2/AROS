@@ -153,9 +153,9 @@ typedef struct ClientNode {
 
 #if 0
    MouseContextType mouseContext;
-#endif
 
    struct IconNode *icon;     /**< Icon assigned to this window. */
+#endif
 
    /** Callback to stop move/resize. */
    void (*controller)(int wasDestroyed);

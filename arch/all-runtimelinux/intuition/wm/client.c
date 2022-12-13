@@ -10,7 +10,6 @@
 #include "jwm.h"
 #include "client.h"
 #include "clientlist.h"
-#include "icon.h"
 #include "group.h"
 #include "cursor.h"
 #include "screen.h"
@@ -167,9 +166,11 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
    }
 
    ApplyGroups(np);
+#if 0
    if(np->icon == NULL) {
       LoadIcon(np);
    }
+#endif
 
    /* We now know the layer, so insert */
    np->prev = NULL;
@@ -1274,7 +1275,9 @@ void RemoveClient(ClientNode *np)
       np->colormaps = cp;
    }
 
+#if 0
    DestroyIcon(np->icon);
+#endif
 
    Release(np);
 

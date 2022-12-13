@@ -10,7 +10,6 @@
 #include "jwm.h"
 #include "group.h"
 #include "client.h"
-#include "icon.h"
 #include "error.h"
 #include "match.h"
 #include "misc.h"
@@ -368,8 +367,10 @@ void ApplyGroup(const GroupType *gp, ClientNode *np)
          }
          break;
       case OPTION_ICON:
+#if 0
          DestroyIcon(np->icon);
          np->icon = LoadNamedIcon(lp->str, 1, 1);
+#endif
          break;
       case OPTION_PIGNORE:
          np->state.status |= STAT_PIGNORE;

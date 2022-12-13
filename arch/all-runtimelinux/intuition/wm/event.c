@@ -14,7 +14,6 @@
 #include "clientlist.h"
 #include "cursor.h"
 #include "desktop.h"
-#include "icon.h"
 #include "place.h"
 #include "timing.h"
 #include "settings.h"
@@ -1007,7 +1006,9 @@ char HandlePropertyNotify(const XPropertyEvent *event)
          } else if(event->atom == atoms[ATOM_WM_PROTOCOLS]) {
             ReadWMProtocols(np->window, &np->state);
          } else if(event->atom == atoms[ATOM_NET_WM_ICON]) {
+#if 0
             LoadIcon(np);
+#endif
             changed = 1;
          } else if(event->atom == atoms[ATOM_NET_WM_NAME]) {
             ReadWMName(np);
