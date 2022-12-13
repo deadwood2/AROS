@@ -1161,7 +1161,27 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
          } else if(event->message_type == atoms[ATOM_NET_MOVERESIZE_WINDOW]) {
 
-            HandleNetMoveResize(event, np);
+            /* This is coming from parent, so has parent expected position and size. We need to
+               revert this to client expected position and size for HandleNetMoveResize to work
+               correctly. Otherwise at each call the sizes are increased by border sizes */
+
+            int north, south, east, west;
+            long flags;
+            XClientMessageEvent dummy = *event;
+
+            flags = dummy.data.l[0] >> 8;
+
+            /* Determine the size of the window. */
+            GetBorderSize(&np->state, &north, &south, &east, &west);
+
+            // This is not needed, has something to do with interpreting gravity
+            // if(flags & (1 << 0)) dummy.data.l[1] += west;
+            // if(flags & (1 << 1)) dummy.data.l[2] += nort;
+
+            if(flags & (1 << 2)) dummy.data.l[3] -= east + west;
+            if(flags & (1 << 3)) dummy.data.l[4] -= north + south;
+
+            HandleNetMoveResize(&dummy, np);
 
          } else if(event->message_type == atoms[ATOM_NET_RESTACK_WINDOW]) {
 
