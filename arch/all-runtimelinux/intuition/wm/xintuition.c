@@ -21,6 +21,16 @@ static struct MsgPort *replyport;
 static struct Task *windowTask;
 static struct MsgPort *windowPort;
 
+struct List borderWinList;
+
+struct BorderWinNode
+{
+    struct Node     Node;
+    struct Window   *Window;
+    UWORD           Width;
+    UWORD           Height;
+};
+
 Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
 {
     struct Window *intuiWin = OpenWindowTags(NULL,
@@ -46,6 +56,13 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
 
     ModifyIDCMP(intuiWin, IDCMP_CLOSEWINDOW | IDCMP_NEWSIZE | IDCMP_CHANGEWINDOW);
 
+    struct BorderWinNode *bwn = AllocMem(sizeof(struct BorderWinNode), MEMF_PUBLIC | MEMF_CLEAR);
+    bwn->Window = intuiWin;
+    bwn->Width  = width;
+    bwn->Height = height;
+/* FIXME: this should be semaphore protected or be separate list that is added to main one by window loop task*/
+    AddTail(&borderWinList, &bwn->Node);
+
     return IW(intuiWin)->XWindow;
 }
 
@@ -53,6 +70,7 @@ void StartupXIntuition()
 {
     struct notify_msg msg;
     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
+    NEWLIST(&borderWinList);
 
     replyport = CreateMsgPort();
 
@@ -106,6 +124,7 @@ static void WindowTaskLoop()
     for (;;)
     {
         struct IntuiMessage *msg;
+        struct BorderWinNode *lastbwn = NULL;
 
         ULONG sigs = Wait(SIGBREAKF_CTRL_C | windowSig);
 
@@ -115,6 +134,29 @@ static void WindowTaskLoop()
         while ((msg = (struct IntuiMessage *)GetMsg(windowPort)))
         {
             struct Window *w = msg->IDCMPWindow;
+            struct BorderWinNode *bwn = NULL;
+            struct Node *nxt = NULL;
+
+            if (lastbwn && lastbwn->Window == w)
+                bwn = lastbwn;
+            else
+            {
+                ForeachNodeSafe(&borderWinList, bwn, nxt)
+                {
+                    if (bwn->Window == w)
+                    {
+                        lastbwn = bwn;
+                        break;
+                    }
+                }
+            }
+
+            if (bwn == NULL)
+            {
+                ReplyMsg((struct Message *)msg);
+                bug("WindowTaskLoop: Not registered window %p\n", w);
+                continue;
+            }
 
             switch(msg->Class)
             {
@@ -122,14 +164,21 @@ static void WindowTaskLoop()
                 ReplyMsg((struct Message *)msg);
                 w->UserPort = NULL;
                 CloseWindow(w);
+                Remove((struct Node *)bwn);
+                lastbwn = NULL;
+                FreeMem(bwn, sizeof(struct BorderWinNode));
                 break;
             case IDCMP_NEWSIZE:
             case IDCMP_CHANGEWINDOW:
-bug("IDCMP_CHANGEWINDOW or IDCMP_NEWSIZE\n");
-                ReplyMsg((struct Message *)msg);
-                BeginRefresh(w);
-                EndRefresh(w, TRUE);
-                RefreshWindowFrame(w);
+                if (bwn->Width != w->Width || bwn->Height != w->Height)
+                {
+                    ReplyMsg((struct Message *)msg);
+                    BeginRefresh(w);
+                    EndRefresh(w, TRUE);
+                    RefreshWindowFrame(w);
+                    bwn->Width = w->Width;
+                    bwn->Height = w->Height;
+                }
                 break;
             default:
                 bug("WindowTaskLoop: Not handled class %x\n", msg->Class);
