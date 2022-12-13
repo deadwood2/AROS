@@ -11,7 +11,6 @@
 #include "border.h"
 #include "client.h"
 #include "clientlist.h"
-#include "color.h"
 #include "icon.h"
 #include "misc.h"
 #include "settings.h"

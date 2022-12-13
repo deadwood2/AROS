@@ -14,7 +14,6 @@
 #include "group.h"
 #include "cursor.h"
 #include "screen.h"
-#include "color.h"
 #include "place.h"
 #include "event.h"
 #include "settings.h"
@@ -1325,9 +1324,13 @@ ClientNode *FindClientByParent(Window p)
 /** Reparent a client window. */
 void ReparentClient(ClientNode *np)
 {
+#if 0
    XSetWindowAttributes attr;
+#endif
    XEvent event;
+#if 0
    int attrMask;
+#endif
    int x, y, width, height;
    int north, south, east, west;
 
@@ -1348,6 +1351,7 @@ void ReparentClient(ClientNode *np)
          return;
       }
 
+#if 0
       attrMask = 0;
 
       /* We can't use PointerMotionHint mask here since the exact location
@@ -1373,6 +1377,7 @@ void ReparentClient(ClientNode *np)
 
       attrMask |= CWBorderPixel;
       attr.border_pixel = 0;
+#endif
 
       x = np->x;
       y = np->y;

@@ -14,7 +14,6 @@
 
 #include "border.h"
 #include "client.h"
-#include "color.h"
 #include "cursor.h"
 #include "group.h"
 #include "icon.h"
@@ -453,7 +452,6 @@ void Initialize(void)
 
    InitializeBorders();
    InitializeClients();
-   InitializeColors();
    InitializeCursors();
    InitializeDesktops();
 #ifndef DISABLE_CONFIRM
@@ -485,7 +483,6 @@ void Startup(void)
    StartupScreens();
 
    StartupGroups();
-   StartupColors();
    StartupIcons();
    StartupCursors();
 
@@ -530,7 +527,6 @@ void Shutdown(void)
    ShutdownClients();
    ShutdownIcons();
    ShutdownCursors();
-   ShutdownColors();
    ShutdownGroups();
    ShutdownDesktops();
 
@@ -550,7 +546,6 @@ void Destroy(void)
 {
    DestroyBorders();
    DestroyClients();
-   DestroyColors();
    DestroyCursors();
    DestroyDesktops();
 #ifndef DISABLE_CONFIRM
