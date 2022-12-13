@@ -17,7 +17,6 @@
 #include "icon.h"
 #include "binding.h"
 #include "place.h"
-#include "resize.h"
 #include "timing.h"
 #include "settings.h"
 #include "grab.h"
@@ -577,9 +576,13 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
             resizeContext = MC_BORDER | MC_BORDER_S | MC_BORDER_E;
          }
          if(keyAction) {
+#if 0
             ResizeClientKeyboard(np, resizeContext);
+#endif
          } else {
+#if 0
             ResizeClient(np, resizeContext, x, y);
+#endif
          }
       }
       break;
@@ -1303,28 +1306,44 @@ void HandleNetWMMoveResize(const XClientMessageEvent *event, ClientNode *np)
 
    switch(direction) {
    case 0:  /* top-left */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_N | MC_BORDER_W, x, y);
+#endif
       break;
    case 1:  /* top */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_N, x, y);
+#endif
       break;
    case 2:  /* top-right */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_N | MC_BORDER_E, x, y);
+#endif
       break;
    case 3:  /* right */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_E, x, y);
+#endif
       break;
    case 4:  /* bottom-right */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_S | MC_BORDER_E, x, y);
+#endif
       break;
    case 5:  /* bottom */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_S, x, y);
+#endif
       break;
    case 6:  /* bottom-left */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_S | MC_BORDER_W, x, y);
+#endif
       break;
    case 7:  /* left */
+#if 0
       ResizeClient(np, MC_BORDER | MC_BORDER_W, x, y);
+#endif
       break;
    case 8:  /* move */
 #if 0
@@ -1332,7 +1351,9 @@ void HandleNetWMMoveResize(const XClientMessageEvent *event, ClientNode *np)
 #endif
       break;
    case 9:  /* resize-keyboard */
+#if 0
       ResizeClientKeyboard(np, MC_BORDER | MC_BORDER_S | MC_BORDER_E);
+#endif
       break;
    case 10: /* move-keyboard */
 #if 0
