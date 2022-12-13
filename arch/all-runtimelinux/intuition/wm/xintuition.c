@@ -44,7 +44,7 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
     /* Use shared port for all windows */
     intuiWin->UserPort = windowPort;
 
-    ModifyIDCMP(intuiWin, IDCMP_CLOSEWINDOW);
+    ModifyIDCMP(intuiWin, IDCMP_CLOSEWINDOW | IDCMP_NEWSIZE | IDCMP_CHANGEWINDOW);
 
     return IW(intuiWin)->XWindow;
 }
@@ -114,16 +114,27 @@ static void WindowTaskLoop()
 
         while ((msg = (struct IntuiMessage *)GetMsg(windowPort)))
         {
+            struct Window *w = msg->IDCMPWindow;
+
             switch(msg->Class)
             {
             case IDCMP_CLOSEWINDOW:
-            {
-                struct Window *w = msg->IDCMPWindow;
                 ReplyMsg((struct Message *)msg);
                 w->UserPort = NULL;
                 CloseWindow(w);
                 break;
-            }
+            case IDCMP_NEWSIZE:
+            case IDCMP_CHANGEWINDOW:
+bug("IDCMP_CHANGEWINDOW or IDCMP_NEWSIZE\n");
+                ReplyMsg((struct Message *)msg);
+                BeginRefresh(w);
+                EndRefresh(w, TRUE);
+                RefreshWindowFrame(w);
+                break;
+            default:
+                bug("WindowTaskLoop: Not handled class %x\n", msg->Class);
+                ReplyMsg((struct Message *)msg);
+                break;
             }
         }
     }
