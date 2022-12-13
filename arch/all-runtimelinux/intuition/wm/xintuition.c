@@ -117,13 +117,13 @@ static void WindowTaskLoop()
             switch(msg->Class)
             {
             case IDCMP_CLOSEWINDOW:
-                {
-                struct Window *p = msg->IDCMPWindow;
+            {
+                struct Window *w = msg->IDCMPWindow;
                 ReplyMsg((struct Message *)msg);
-                p->UserPort = NULL;
-                CloseWindow(p);
+                w->UserPort = NULL;
+                CloseWindow(w);
                 break;
-                }
+            }
             }
         }
     }
