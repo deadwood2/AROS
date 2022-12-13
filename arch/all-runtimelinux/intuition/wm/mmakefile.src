@@ -3,7 +3,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 USER_CFLAGS := -Wunused-variable -Wunused-function
-FILES   :=  main error screen cursor place settings misc border grab binding color \
+FILES   :=  main error screen cursor place settings misc border grab color \
             client timing hint desktop event outline clientlist debug \
             group match xintuition
 

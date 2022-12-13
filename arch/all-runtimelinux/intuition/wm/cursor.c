@@ -46,7 +46,9 @@ static const unsigned int cursor_shapes[CURSOR_COUNT] = {
 
 static Cursor cursors[CURSOR_COUNT];
 
+#if 0
 static Cursor GetResizeCursor(MouseContextType context);
+#endif
 static Cursor CreateCursor(unsigned int shape);
 
 static int mousex;
@@ -86,6 +88,7 @@ void ShutdownCursors(void)
    }
 }
 
+#if 0
 /** Get the cursor for the specified location on the frame. */
 Cursor GetFrameCursor(MouseContextType context)
 {
@@ -153,6 +156,7 @@ char GrabMouseForResize(MouseContextType context)
       return 0;
    }
 }
+#endif
 
 /** Grab the mouse for moving a window. */
 char GrabMouseForMove(void)

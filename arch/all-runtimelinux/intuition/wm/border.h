@@ -10,7 +10,9 @@
 #ifndef BORDER_H
 #define BORDER_H
 
+#if 0
 #include "binding.h"
+#endif
 
 struct ClientNode;
 struct ClientState;
@@ -31,6 +33,7 @@ void StartupBorders(void);
 void DestroyBorders(void);
 /*@}*/
 
+#if 0
 /** Determine the mouse context for a location.
  * @param np The client.
  * @param x The x-coordinate of the mouse (frame relative).
@@ -39,6 +42,7 @@ void DestroyBorders(void);
  */
 MouseContextType GetBorderContext(const struct ClientNode *np,
                                   int x, int y);
+#endif
 
 /** Reset the shape of a window border.
  * @param np The client.

@@ -15,7 +15,6 @@
 #include "cursor.h"
 #include "desktop.h"
 #include "icon.h"
-#include "binding.h"
 #include "place.h"
 #include "timing.h"
 #include "settings.h"
@@ -56,7 +55,9 @@ static char HandleDestroyNotify(const XDestroyWindowEvent *event);
 static void HandleMapRequest(const XMapEvent *event);
 static void HandleUnmapNotify(const XUnmapEvent *event);
 static void HandleButtonEvent(const XButtonEvent *event);
+#if 0
 static void ToggleMaximized(ClientNode *np, MaxFlags flags);
+#endif
 static void HandleKeyPress(const XKeyEvent *event);
 static void HandleKeyRelease(const XKeyEvent *event);
 static void HandleEnterNotify(const XCrossingEvent *event);
@@ -458,6 +459,7 @@ void HandleButtonEvent(const XButtonEvent *event)
    }
 }
 
+#if 0
 /** Toggle maximized state. */
 void ToggleMaximized(ClientNode *np, MaxFlags flags)
 {
@@ -469,11 +471,13 @@ void ToggleMaximized(ClientNode *np, MaxFlags flags)
       }
    }
 }
+#endif
 
 /** Process a key or mouse binding. */
 void ProcessBinding(MouseContextType context, ClientNode *np,
                     unsigned state, int code, int x, int y)
 {
+#if 0
    const ActionType key = GetKey(context, state, code);
    const char keyAction = context == MC_NONE;
    unsigned int desktop;
@@ -718,6 +722,7 @@ void ProcessBinding(MouseContextType context, ClientNode *np,
    default:
       break;
    }
+#endif
    DiscardEnterEvents();
 }
 
@@ -733,6 +738,7 @@ void HandleKeyPress(const XKeyEvent *event)
 /** Handle a key release event. */
 void HandleKeyRelease(const XKeyEvent *event)
 {
+#if 0
    const ActionType key = GetKey(MC_NONE, event->state, event->keycode);
    if(   key.action != ACTION_NEXTSTACK
       && key.action != ACTION_NEXT
@@ -740,6 +746,7 @@ void HandleKeyRelease(const XKeyEvent *event)
       && key.action != ACTION_PREVSTACK) {
       StopWindowWalk();
    }
+#endif
 }
 
 /** Process a configure request. */
@@ -910,17 +917,19 @@ void HandleEnterNotify(const XCrossingEvent *event)
             || settings.focusModel == FOCUS_SLOPPY_TITLE)) {
          FocusClient(np);
       }
-#endif
+
       if(np->parent == event->window) {
-#if 0
          np->mouseContext = GetBorderContext(np, event->x, event->y);
          cur = GetFrameCursor(np->mouseContext);
          JXDefineCursor(display, np->parent, cur);
-#endif
+
       } else if(np->mouseContext != MC_NONE) {
+#endif
          SetDefaultCursor(np->parent);
+#if 0
          np->mouseContext = MC_NONE;
       }
+#endif
    }
 
 }

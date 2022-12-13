@@ -19,11 +19,13 @@ void ShutdownCursors(void);
 #define DestroyCursors()      (void)(0)
 /*@}*/
 
+#if 0
 /** Grab the mouse for resizing a window.
  * @param action The resize action.
  * @return 1 on success, 0 on failure.
  */
 char GrabMouseForResize(MouseContextType context);
+#endif
 
 /** Grab the mouse for moving a window.
  * @return 1 on success, 0 on failure.
@@ -40,11 +42,13 @@ char GrabMouse(Window w);
  */
 char GrabMouseForChoose(void);
 
+#if 0
 /** Get the cursor to use given a border action.
  * @param action The border action.
  * @return The cursor to use.
  */
 Cursor GetFrameCursor(MouseContextType action);
+#endif
 
 /** Move the mouse cursor.
  * @param win The window to act as an origin for the coordinates.

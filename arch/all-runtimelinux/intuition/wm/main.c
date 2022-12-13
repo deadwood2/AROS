@@ -17,7 +17,6 @@
 #include "color.h"
 #include "cursor.h"
 #include "group.h"
-#include "binding.h"
 #include "icon.h"
 #include "screen.h"
 #include "desktop.h"
@@ -168,9 +167,6 @@ int main(int argc, char *argv[])
       Initialize();
 
       /* Parse the configuration file. */
-      ActionType at_resize = { ACTION_RESIZE, 0 };
-      InsertMouseBinding(1, NULL, MC_BORDER, at_resize , NULL);
-
 
       /* Start up the JWM components. */
       Startup();
@@ -455,7 +451,6 @@ void HandleChild(int sig)
 void Initialize(void)
 {
 
-   InitializeBindings();
    InitializeBorders();
    InitializeClients();
    InitializeColors();
@@ -496,7 +491,6 @@ void Startup(void)
 
    StartupDesktops();
    StartupHints();
-   StartupBindings();
    StartupBorders();
    StartupPlacement();
    StartupClients();
@@ -532,7 +526,6 @@ void Shutdown(void)
       ShutdownDialogs();
 #  endif
 
-   ShutdownBindings();
    ShutdownBorders();
    ShutdownClients();
    ShutdownIcons();
@@ -566,7 +559,6 @@ void Destroy(void)
    DestroyGroups();
    DestroyHints();
    DestroyIcons();
-   DestroyBindings();
    DestroyPlacement();
 
    DestroyScreens();

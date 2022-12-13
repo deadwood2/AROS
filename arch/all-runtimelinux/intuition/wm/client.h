@@ -151,7 +151,9 @@ typedef struct ClientNode {
 
    ClientState state;         /**< Window state. */
 
+#if 0
    MouseContextType mouseContext;
+#endif
 
    struct IconNode *icon;     /**< Icon assigned to this window. */
 
