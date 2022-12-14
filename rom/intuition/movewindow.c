@@ -7,6 +7,7 @@
 
 #include "intuition_intern.h"
 #include "inputhandler_actions.h"
+#include "intuition_x.h"
 
 struct MoveWindowActionMsg
 {
@@ -85,7 +86,10 @@ static VOID int_movewindow(struct MoveWindowActionMsg *msg,
 
     if (!ResourceExisting(window, RESOURCE_WINDOW, IntuitionBase)) return;
 
+#if 0
     DoMoveSizeWindow(window,
                      window->LeftEdge + msg->dx, window->TopEdge + msg->dy,
                      window->Width, window->Height, FALSE, IntuitionBase);
+#endif
+    SendToWM_Move(window, window->LeftEdge + msg->dx, window->TopEdge + msg->dy, IntuitionBase);
 }

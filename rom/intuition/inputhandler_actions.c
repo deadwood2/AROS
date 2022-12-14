@@ -118,6 +118,25 @@ void CheckLayers(struct Screen *screen, struct IntuitionBase *IntuitionBase)
     UNLOCK_REFRESH(screen);
 }
 
+/* This function should always accompany CheckLayers, because window layers are not added to screen->LayerInfo */
+void CheckWindowLayers(struct Window *window, struct Screen *screen, struct IntuitionBase *IntuitionBase)
+{
+    struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
+    struct Layer *L;
+
+    LOCK_REFRESH(screen);
+
+    L = BLAYER(window);
+    if (L && L->Flags & LAYERREFRESH)
+        CheckLayerRefresh(L, screen, IntuitionBase);
+
+    L = WLAYER(window);
+    if (L->Flags & LAYERREFRESH)
+        CheckLayerRefresh(L, screen, IntuitionBase);
+
+    UNLOCK_REFRESH(screen);
+}
+
 void WindowSizeWillChange(struct Window *targetwindow, WORD dx, WORD dy,
                                  struct IntuitionBase *IntuitionBase)
 {
@@ -456,10 +475,12 @@ void DoMoveSizeWindow(struct Window *targetwindow, LONG NewLeftEdge, LONG NewTop
         if (BLAYER(targetwindow))
         {
             /* move outer window first */
-            MoveSizeLayer(BLAYER(targetwindow), pos_dx, pos_dy, size_dx, size_dy);
+            if (size_dx || size_dy) /* Layer position always stays at 0,0 */
+            MoveSizeLayer(BLAYER(targetwindow), 0 /* pos_dx */, 0 /* pos_dy */, size_dx, size_dy);
         }
 
-        MoveSizeLayer(targetlayer, pos_dx, pos_dy, size_dx, size_dy);
+        if (size_dx || size_dy) /* Layer position always stays at 0,0 */
+        MoveSizeLayer(targetlayer, 0 /* pos_dx */, 0 /* pos_dy */, size_dx, size_dy);
 
         for (req = targetwindow->FirstRequest; req; req = req->OlderRequest)
         {
@@ -550,6 +571,7 @@ void DoMoveSizeWindow(struct Window *targetwindow, LONG NewLeftEdge, LONG NewTop
     //    UNLOCK_REFRESH(targetwindow->WScreen);
 
     CheckLayers(targetwindow->WScreen, IntuitionBase);
+    CheckWindowLayers(targetwindow, targetwindow->WScreen, IntuitionBase);
 
     UNLOCK_REFRESH(targetwindow->WScreen);
     

@@ -28,6 +28,7 @@
 #include "inputhandler.h"
 #include "inputhandler_support.h"
 #include "inputhandler_actions.h"
+#include "intuition_x.h"
 
 #ifdef SKINS
 #include "intuition_customizesupport.h"
@@ -173,6 +174,7 @@ void MoveTask(struct dragbar_data *data,struct Window *w,struct Screen *screen,s
 
 /***********************************************************************************/
 
+#if 0
 static void cliprectfill(struct Screen *scr, struct RastPort *rp,
                          WORD x1, WORD y1, WORD x2, WORD y2,
                          struct IntuitionBase *IntuitionBase)
@@ -199,6 +201,7 @@ static void cliprectfill(struct Screen *scr, struct RastPort *rp,
     }
 
 }
+#endif
 
 /***********************************************************************************/
 
@@ -224,6 +227,9 @@ static void drawwindowframe(struct Screen *scr, struct RastPort *rp,
         y2 ^= y1;
     }
 
+    DrawOutline(x1, y1, x2, y2, IntuitionBase);
+
+#if 0
     if (((x2 - x1) < (DWF_THICK_X * 2)) ||
         ((y2 - y1) < (DWF_THICK_Y * 2)))
     {
@@ -236,6 +242,7 @@ static void drawwindowframe(struct Screen *scr, struct RastPort *rp,
         cliprectfill(scr, rp, x1, y2 - DWF_THICK_Y + 1, x2 - DWF_THICK_X, y2, IntuitionBase);
         cliprectfill(scr, rp, x1, y1 + DWF_THICK_Y, x1 + DWF_THICK_X - 1, y2 - DWF_THICK_Y, IntuitionBase);
     }
+#endif
 }
 
 /***********************************************************************************/
@@ -643,6 +650,7 @@ IPTR DragBarClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput *m
                         if ((data->isrendered) && (!(GetPrivIBase(IntuitionBase)->IControlPrefs.ic_Flags & ICF_OPAQUEMOVE)))
                         {
                             /* Erase old frame */
+#if 0
                             drawwindowframe(w->WScreen
                                             , data->rp
                                             , data->curleft
@@ -651,6 +659,8 @@ IPTR DragBarClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput *m
                                             , data->curtop  + w->Height - 1
                                             , IntuitionBase
                                             );
+#endif
+                            ClearOutline(IntuitionBase);
                         }
 
                         data->curleft = new_left;
@@ -662,6 +672,11 @@ IPTR DragBarClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput *m
 
                             if (newx || newy)
                             {
+                                SendToWM_Move(w, new_left, new_top, IntuitionBase);
+
+                                /* Update of positions and layers happens are results of processing messages
+                                from X server (see FROMX11_WINDOWPOSSIZE) */
+#if 0
                                 UQUAD currenttime;
                                 
                                 currenttime = ie->ie_TimeStamp.tv_secs;
@@ -741,6 +756,7 @@ IPTR DragBarClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput *m
 
                                     UnlockLayers(&w->WScreen->LayerInfo);
                                 }
+#endif
                             }
                         }
                         else
@@ -857,6 +873,7 @@ IPTR DragBarClass__GM_GOINACTIVE(Class *cl, struct Gadget *g, struct gpGoInactiv
         SetDrMd(data->rp, COMPLEMENT);
 
         /* Erase old frame */
+#if 0
         drawwindowframe(w->WScreen
                 , data->rp
                 , data->curleft
@@ -865,6 +882,8 @@ IPTR DragBarClass__GM_GOINACTIVE(Class *cl, struct Gadget *g, struct gpGoInactiv
                 , data->curtop  + w->Height - 1
                 , IntuitionBase
                    );
+#endif
+        ClearOutline(IntuitionBase);
 
     }
 
@@ -1388,6 +1407,7 @@ IPTR SizeButtonClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput
                         if (data->isrendered && !OPAQUESIZE)
                         {
                             /* Erase old frame */
+#if 0
                             drawwindowframe(w->WScreen
                                             , data->rp
                                             , data->left
@@ -1396,6 +1416,8 @@ IPTR SizeButtonClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput
                                             , data->top  + data->height - 1
                                             , IntuitionBase
                                             );
+#endif
+                            ClearOutline(IntuitionBase);
 
                         }
 
@@ -1501,6 +1523,11 @@ IPTR SizeButtonClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput
         #if USE_OPAQUESIZE
             if (OPAQUESIZE)
             {
+                SendClientMessageResize(w, data->width, data->height, IntuitionBase);
+                /* Update of sizes and layers happens are results of processing messages
+                from X server (see FROMX11_WINDOWPOSSIZE) */
+
+#if 0
                 data->drag_ticks --;
                 if (!data->drag_refreshed && !data->drag_ticks && WindowsReplied(w->WScreen,IntuitionBase))
                 {
@@ -1508,6 +1535,7 @@ IPTR SizeButtonClass__GM_HANDLEINPUT(Class *cl, struct Gadget *g, struct gpInput
                     data->drag_refreshed = TRUE;
                     data->drag_ticks = 2;
                 }
+#endif
             }
         #endif /* USE_OPAQUESIZE */
 
@@ -1553,6 +1581,7 @@ IPTR SizeButtonClass__GM_GOINACTIVE(Class *cl, struct Gadget *g, struct gpGoInac
 
         /* Erase old frame */
         if (!OPAQUESIZE)
+#if 0
             drawwindowframe(w->WScreen
                             , data->rp
                             , data->left
@@ -1561,6 +1590,8 @@ IPTR SizeButtonClass__GM_GOINACTIVE(Class *cl, struct Gadget *g, struct gpGoInac
                             , data->top  + data->height - 1
                             , IntuitionBase
                             );
+#endif
+            ClearOutline(IntuitionBase);
 
     }
     else
@@ -1603,15 +1634,23 @@ IPTR SizeButtonClass__GM_GOINACTIVE(Class *cl, struct Gadget *g, struct gpGoInac
     //jDc: workarounds refresh pb on GZZ window resize
     ((struct IIHData *)GetPrivIBase(IntuitionBase)->InputHandler->is_Data)->ActiveSysGadget->Flags &= ~GFLG_SELECTED;
 
+    /* Resize is always OPAQUESIZE, but the update of sizes and layers happens are results of processing messages
+       from X server (see FROMX11_WINDOWPOSSIZE) */
     if (!data->drag_canceled || OPAQUESIZE)
     {
         if (OPAQUESIZE && data->drag_canceled)
         {
+#if 0
             DoMoveSizeWindow(w,data->LeftEdge,data->TopEdge,data->Width,data->Height,TRUE,IntuitionBase);
+#endif
+            SendToWM_Resize(w, data->Width, data->Height, IntuitionBase);
         }
         else
         {
+#if 0
             DoMoveSizeWindow(w,data->left,data->top,data->width,data->height,TRUE,IntuitionBase);
+#endif
+            SendToWM_Resize(w, data->width, data->height, IntuitionBase);
         }
         //ChangeWindowBox(w,data->left,data->top,data->width,data->height);
     }
