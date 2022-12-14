@@ -20,6 +20,8 @@ include $(SRCDIR)/config/aros.cfg
 #MM  workbench-fonts \
 #MM  workbench-devs-AHI \
 #MM  workbench-c \
-#MM  workbench-s
+#MM  workbench-s \
+#MM  workbench-c-intuition \
+#MM  workbench-tools-quick
 
 %common
