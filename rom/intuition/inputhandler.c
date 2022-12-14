@@ -151,6 +151,25 @@ struct Interrupt *InitIIH(struct IntuitionBase *IntuitionBase)
                         GetPrivIBase(IntuitionBase)->IntuiReplyPort = iihdata->IntuiReplyPort;
                         GetPrivIBase(IntuitionBase)->IntuiActionQueue = &iihdata->IntuiActionQueue;
 
+                        //////////
+                        {
+                            struct Task *x11task = NULL;
+                            struct _t
+                            {
+                                struct MsgPort *port;
+                            };
+
+                            while ((x11task = FindTask("x11hidd task")) == NULL); // FindTask does not seem to work correctly in SMP!!
+                            GetPrivIBase(IntuitionBase)->intuixchng = x11task->tc_UserData;
+                            struct MsgPort *port = CreateMsgPort();
+                            FreeSignal(port->mp_SigBit);
+                            port->mp_SigBit  = -1;
+                            port->mp_Flags   = PA_IGNORE;
+                            port->mp_SigTask = NULL;
+                            ((struct _t *)GetPrivIBase(IntuitionBase)->intuixchng)->port = port;
+                        }
+                        ///////
+
                         ReturnPtr ("InitIIH", struct Interrupt *, iihandler);
                     } /* f (iihdata->MasterDragGadget && iihdata->MasterSizeGadget) */
 

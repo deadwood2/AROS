@@ -6,6 +6,7 @@
 */
 
 #include "intuition_intern.h"
+#include "intuition_x.h"
 
 /*****************************************************************************
 
@@ -103,6 +104,8 @@
             retval = FALSE;
     }
     
+    XWindowLimits(window, IntuitionBase);
+
     return retval;
     
     AROS_LIBFUNC_EXIT
