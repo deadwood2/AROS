@@ -6,6 +6,7 @@
 #include <proto/layers.h>
 #include "intuition_intern.h"
 #include "inputhandler_actions.h"
+#include "intuition_x.h"
 
 #ifdef __MORPHOS__
 #   include "renderwindowframe.h"
@@ -128,8 +129,11 @@ static VOID int_setwindowtitles(struct SetWindowTitlesActionMsg *msg,
         if (window->Flags & (WFLG_WINDOWACTIVE | WFLG_TOOLBOX))
         {
             if (screenTitle)
+            {
                 /* FIXME: Should we be strdup()ing this? */
                 window->WScreen->Title = (UBYTE *)screenTitle;
+                if (!(GetPrivIBase(IntuitionBase)->SBarScreen)) SendToWM_SetScreenBarTitle(window, IntuitionBase);
+            }
             else
                 window->WScreen->Title = window->WScreen->DefaultTitle;
 

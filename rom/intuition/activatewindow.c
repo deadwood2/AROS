@@ -160,6 +160,7 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
                 if (window->ScreenTitle)
                 {
                     scr->Screen.Title = window->ScreenTitle;
+                    if (!(GetPrivIBase(IntuitionBase)->SBarScreen)) SendToWM_SetScreenBarTitle(window, IntuitionBase);
                 }
                 else
                 {

@@ -642,6 +642,7 @@ struct IntIntuitionBase
     void *                       ExecLockBase;
 #endif
     APTR                intuixchng;
+    struct Screen       *SBarScreen;
 };
 
 struct SharedPointer
