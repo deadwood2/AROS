@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2019, The AROS Development Team. All rights reserved.
+    Copyright (C) 2019-2022, The AROS Development Team. All rights reserved.
 */
 
 #ifndef X11_INTUI_BRIDGE_H
@@ -18,13 +18,21 @@ struct FromX11Msg
     struct Message  base;
     ULONG           type;
     Window          xwindow;
-    LONG            A;
-    LONG            B;
+    union
+    {
+        LONG        X;
+        BOOL        In;
+    };
+
+    LONG            Y;
+    LONG            Width;
+    LONG            Height;
 };
 
-#define FROMX11_WINDOWPOS       (1)
-#define FROMX11_CLOSEWINDOW     (2)
-#define FROMX11_REFRESHWINDOW   (3)
-#define FROMX11_WINDOWSIZE      (4)
+#define FROMX11_WINDOWPOSSIZE       (1)
+#define FROMX11_CLOSEWINDOW         (2)
+#define FROMX11_REFRESHWINDOW       (3)
+#define FROMX11_FOCUS               (5)
+#define FROMX11_WINDOWBITMAPRESIZED (6)
 
 #endif
