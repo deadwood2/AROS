@@ -5,6 +5,7 @@
 
 #include "intuition_intern.h"
 #include "inputhandler_actions.h"
+#include "intuition_x.h"
 
 struct ZipWindowActionMsg
 {
@@ -128,10 +129,15 @@ static VOID int_zipwindow(struct ZipWindowActionMsg *msg,
         w->ZipHeight = w->window.Height;
     }
 
+#if 0
     DoMoveSizeWindow(window, NewLeftEdge, NewTopEdge, NewWidth, NewHeight, TRUE, IntuitionBase);
+#endif
 
     if (window->Flags & WFLG_ZOOMED)
         AROS_ATOMIC_AND(window->Flags, ~WFLG_ZOOMED);
     else
         AROS_ATOMIC_OR(window->Flags, WFLG_ZOOMED);
+
+    SendToWM_Move(window, NewLeftEdge, NewTopEdge, IntuitionBase);
+    SendToWM_Resize(window, NewWidth, NewHeight, IntuitionBase);
 }
