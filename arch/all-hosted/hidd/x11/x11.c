@@ -20,6 +20,7 @@
 extern struct intuixchng intuixchng;
 
 VOID X11BM_ExposeFB(APTR data, WORD x, WORD y, WORD width, WORD height);
+BOOL X11BM_ResizePMIfNeeded(OOP_Class *cl, OOP_Object *o, UWORD reqwidth, UWORD reqheight, UWORD *actwidth, UWORD *actheight);
 
 /****************************************************************************************/
 
@@ -140,6 +141,41 @@ static VOID x11task_process_xevent(struct x11_staticdata *xsd, struct MinList *x
         }
 #endif
 
+        case ConfigureNotify:
+        {
+            if (intuixchng.intuition_port)
+            {
+                XConfigureEvent *me;
+                me = (XConfigureEvent *)event;
+
+                {
+                    UWORD actwidth = 0, actheight = 0;
+
+                    D(bug("ConfigureNotify (w)(x,y,w,h) (%ld)(%d, %d, %d, %d)\n", me->window, me->x, me->y, me->width, me->height));
+                    if (X11BM_ResizePMIfNeeded(OOP_OCLASS(node->bmobj), node->bmobj, me->width, me->height, &actwidth, &actheight))
+                    {
+                        D(bug("ConfigureNotify, resized bitmap to %d, %d\n", actwidth, actheight));
+                        msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+                        msg->type   = FROMX11_WINDOWBITMAPRESIZED;
+                        msg->xwindow = me->window;
+                        msg->Width  = actwidth;
+                        msg->Height = actheight;
+                        PutMsg(intuixchng.intuition_port,(struct Message *)msg);
+                    }
+                    msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+                    msg->type   = FROMX11_WINDOWPOSSIZE;
+                    msg->xwindow = me->window;
+                    msg->LeftEdge   = -1; /* Coordinates are parent-relative, mark as invalid */
+                    msg->TopEdge    = -1;
+                    msg->Width  = me->width;
+                    msg->Height = me->height;
+                    PutMsg(intuixchng.intuition_port,(struct Message *)msg);
+                }
+
+            }
+
+            break;
+        }
         case ButtonPress:
             xsd->x_time = event->xbutton.time;
             D(bug("ButtonPress event\n"));
