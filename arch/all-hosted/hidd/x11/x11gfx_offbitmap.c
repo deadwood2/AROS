@@ -107,3 +107,44 @@ VOID X11BM_ClearPM(struct bitmap_data *data, HIDDT_Pixel bg)
     XCALL(XSetForeground, data->display, data->gc, bg);
     XCALL(XFillRectangle, data->display, DRAWABLE(data), data->gc, 0, 0, data->width, data->height);
 }
+
+/****************************************************************************************/
+
+BOOL X11BM_ResizePMIfNeeded(OOP_Class *cl, OOP_Object *o, UWORD reqwidth, UWORD reqheight, UWORD *actwidth, UWORD *actheight)
+{
+    struct bitmap_data *data = OOP_INST_DATA(cl, o);
+    ULONG newwidth = data->width, newheight = data->height;
+
+    while ((newwidth) < reqwidth) { newwidth *= 130; newwidth /= 100; }
+    while ((newheight) < reqheight) { newheight *= 130; newheight /= 100; }
+
+    if (data->width != newwidth || data->height != newheight)
+    {
+        Drawable newd = XCALL(XCreatePixmap, data->display, DRAWABLE(data), newwidth, newheight, DefaultDepth(data->display, data->screen));
+        Drawable oldd = DRAWABLE(data);
+
+        DRAWABLE(data) = newd;
+
+        XCALL(XSetFunction, data->display, data->gc, GXcopy);
+        XCALL(XCopyArea, data->display, oldd, newd, data->gc, 0, 0, data->width, data->height, 0, 0);
+
+        XCALL(XFreePixmap, GetSysDisplay(), oldd);
+        XCALL(XFlush, data->display);
+
+        struct TagItem attrs[] =
+        {
+            { aHidd_BitMap_Width, newwidth },
+            { aHidd_BitMap_Height, newheight},
+            { TAG_DONE, TAG_DONE }
+        };
+
+        OOP_SetAttrs(o, attrs);
+
+        *actwidth = data->width = newwidth;
+        *actheight = data->height = newheight;
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
