@@ -33,6 +33,7 @@
 
 #include "intuition_preferences.h"
 #include "intuition_intern.h"
+#include "intuition_x.h"
 
 #include "boopsigadgets.h"
 #include "showhide.h"
@@ -615,8 +616,38 @@ void CreateScreenBar(struct Screen *scr, struct IntuitionBase *IntuitionBase)
     if (!scr->BarLayer)
     {
         D(bug("[intuition] CreateScreenBar: No current BarLayer\n"));
+
+        struct Library *UtilityBase = _intuitionBase->UtilityBase;
+        struct Task *thisTask = FindTask(NULL);
+        char *tName = thisTask->tc_Node.ln_Name;
+        BOOL IsIntuitionWM = FALSE;
+
+        if (Stricmp(tName, "Intuition") == 0) IsIntuitionWM = TRUE;
+
         if (front)
         {
+            if (IsIntuitionWM)
+            {
+                struct BitMap *barBitMap = NULL;
+                struct Layer_Info *layerInfo = NULL;
+
+                OpenScreenBarXWindow(scr->RastPort.BitMap, &barBitMap, &layerInfo, scr->Width - 1, scr->BarHeight,
+                                IntuitionBase, GfxBase, LayersBase);
+
+                scr->BarLayer = CreateUpfrontHookLayer(layerInfo,
+                                                    barBitMap,
+                                                    0,
+                                                    ypos,
+                                                    scr->Width - 1,
+                                                    scr->BarHeight + ypos, /* 1 pixel heigher than scr->BarHeight */
+                                                    LAYERSIMPLE | backdrop,
+                                                    LAYERS_NOBACKFILL,
+                                                    NULL);
+
+                _intuitionBase->SBarScreen = scr;
+            }
+            else
+            {
             scr->BarLayer = CreateUpfrontHookLayer(&scr->LayerInfo,
                                                    scr->RastPort.BitMap,
                                                    0,
@@ -626,6 +657,7 @@ void CreateScreenBar(struct Screen *scr, struct IntuitionBase *IntuitionBase)
                                                    LAYERSIMPLE | backdrop,
                                                    LAYERS_NOBACKFILL,
                                                    NULL);
+            }
         }
         else
         {

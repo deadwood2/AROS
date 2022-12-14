@@ -165,6 +165,7 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
                 {
                     scr->Screen.Title = scr->Screen.DefaultTitle;
                 }
+                if (!(GetPrivIBase(IntuitionBase)->SBarScreen)) SendToWM_SetScreenBarTitle(window, IntuitionBase);
             }
 
             /* now set the ActiveScreen! */
