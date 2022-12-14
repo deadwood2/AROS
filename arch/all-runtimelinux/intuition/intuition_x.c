@@ -110,32 +110,6 @@ VOID HandleFromX11(struct IntuitionBase *IntuitionBase)
                                  IntuitionBase);
             break;
         }
-        case(FROMX11_REFRESHWINDOW):
-        {
-            if (win)
-            {
-                struct Layer        *L = (BLAYER(win)) ? BLAYER(win) : WLAYER(win);
-                struct Rectangle    rect;
-                struct GfxBase      *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
-
-                /* Mark whole layer as damanged */
-                rect.MinX = 0;
-                rect.MinY = 0;
-                rect.MaxX = win->Width - 1;
-                rect.MaxY = win->Height - 1;
-
-                OrRectRegion(L->DamageList, &rect);
-                L->Flags |= LAYERREFRESH;
-
-                ih_fire_intuimessage(win,
-                             IDCMP_REFRESHWINDOW,
-                             0,
-                             win,
-                             IntuitionBase);
-                int_refreshwindowframe(win, REFRESHGAD_BORDER, 0, IntuitionBase);
-            }
-            break;
-        }
         case(FROMX11_FOCUS):
         {
             if (win)

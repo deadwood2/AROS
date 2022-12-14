@@ -31,7 +31,6 @@ struct FromX11Msg
 
 #define FROMX11_WINDOWPOSSIZE       (1)
 #define FROMX11_CLOSEWINDOW         (2)
-#define FROMX11_REFRESHWINDOW       (3)
 #define FROMX11_FOCUS               (5)
 #define FROMX11_WINDOWBITMAPRESIZED (6)
 
