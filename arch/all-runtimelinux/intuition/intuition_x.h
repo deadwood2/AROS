@@ -23,7 +23,7 @@ VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct Intuiti
 VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase);
 VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase);
 
-VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
+VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
     struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase, struct LayersBase * LayersBase);
 VOID AdjustFlagsForWM(struct NewWindow *nw, struct IntuitionBase *IntuitionBase);
 VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *IntuitionBase);

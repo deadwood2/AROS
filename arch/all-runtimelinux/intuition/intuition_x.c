@@ -359,7 +359,7 @@ VOID AdjustFlagsForWM(struct NewWindow *nw, struct IntuitionBase *IntuitionBase)
     }
 }
 
-VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
+VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
         struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase, struct LayersBase * LayersBase)
 {
     Display *xd;
@@ -369,24 +369,24 @@ VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_In
     XClassHint *classhint;
     struct MsgPort *port;
     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
-    WORD ypos   = w->TopEdge;
-    WORD height = w->Height;
+    WORD ypos   = win->TopEdge;
+    WORD height = win->Height;
 
 #ifdef AXRTBARHACK
-    if (w->Flags & WFLG_BACKDROP)
+    if (win->Flags & WFLG_BACKDROP)
     {
-        ypos    += w->WScreen->BarHeight;
-        height  -= w->WScreen->BarHeight;
+        ypos    += win->WScreen->BarHeight;
+        height  -= win->WScreen->BarHeight;
     }
 #endif
 
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
 
     xs = DefaultScreen(xd);
-    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, ypos, w->Width, height, 0,
+    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), win->LeftEdge, ypos, win->Width, height, 0,
                             BlackPixel(xd, xs), WhitePixel(xd, xs));
-    if (w->Title)
-        XStoreName(xd, xw, w->Title);
+    if (win->Title)
+        XStoreName(xd, xw, win->Title);
 
     XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
             | KeyPressMask | KeyReleaseMask | FocusChangeMask);
@@ -398,11 +398,11 @@ VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_In
     // NOTE: Don't remove PPosition after fixing sizing!!!
     hints = XAllocSizeHints();
     hints->flags = PPosition | PSize;
-    // hints->x = w->LeftEdge;
-    // hints->y = w->TopEdge;
-    // hints->width = w->Width;
+    // hints->x = win->LeftEdge;
+    // hints->y = win->TopEdge;
+    // hints->width = win->Width;
     // hints->height = height;
-    // hints->min_width = hints->max_width = w->Width;
+    // hints->min_width = hints->max_width = win->Width;
     // hints->min_height = hints->max_height = height;
     XSetWMNormalHints(xd, xw, hints);
     XFree(hints);
@@ -414,14 +414,14 @@ VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_In
     XSetClassHint(xd, xw, classhint);
     XFree(classhint);
 
-    if (((w->Flags & WFLG_BORDERLESS) && !(w->Flags & WFLG_BORDERLESSNOTREALLY)) && !(w->Flags & WFLG_BACKDROP))
+    if (((win->Flags & WFLG_BORDERLESS) && !(win->Flags & WFLG_BORDERLESSNOTREALLY)) && !(win->Flags & WFLG_BACKDROP))
     {
         Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
         Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
         XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
     }
 
-    if (w->Flags & WFLG_BACKDROP)
+    if (win->Flags & WFLG_BACKDROP)
     {
         Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
         Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
@@ -432,11 +432,11 @@ VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_In
     {
         struct TagItem xwindowtags [] =
         {
-            {BMATags_Friend, (IPTR)w->WScreen->RastPort.BitMap },
+            {BMATags_Friend, (IPTR)win->WScreen->RastPort.BitMap },
             {BMATags_Private1, (IPTR)xw },
             {TAG_DONE}
         };
-        (*windowBitMap) = AllocBitMap(w->Width, height, w->WScreen->RastPort.BitMap->Depth,
+        (*windowBitMap) = AllocBitMap(win->Width, height, win->WScreen->RastPort.BitMap->Depth,
                 BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
     }
 
@@ -462,7 +462,7 @@ VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_In
         DeleteMsgPort(port);
     }
 
-    IW(w)->XWindow = xw;
+    IW(win)->XWindow = xw;
 
     /* Create layer info */
     (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
