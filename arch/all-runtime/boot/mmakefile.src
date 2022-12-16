@@ -22,6 +22,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  workbench-c \
 #MM  workbench-s \
 #MM  workbench-c-intuition \
-#MM  workbench-tools-quick
+#MM  workbench-tools-quick \
+#MM  workbench-tools-editor
 
 %common
