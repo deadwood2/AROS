@@ -365,6 +365,53 @@ VOID AdjustFlagsForWM(struct NewWindow *nw, struct IntuitionBase *IntuitionBase)
     }
 }
 
+static void int_completewindowopening(Window xw, struct BitMap *bm, WORD width, WORD height,
+        struct BitMap **windowBitMap, struct Layer_Info **layerInfo, struct IntuitionBase *IntuitionBase)
+{
+    struct MsgPort *port;
+    struct intuixchng *intuixchng = (struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng;
+    struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
+    struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
+
+    /* Create bitmap using this window */
+    {
+        struct TagItem xwindowtags [] =
+        {
+            {BMATags_Friend, (IPTR)bm },
+            {BMATags_Private1, (IPTR)xw },
+            {TAG_DONE}
+        };
+        (*windowBitMap) = AllocBitMap(width, height, bm->Depth,
+                BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
+    }
+
+    /*
+     * How this works:
+     * Previous call to AllocBitMap with BMATags_Private1 element got passed to x11gfx.hidd where
+     * this window became the backing buffer of bitmap. Window was also registered with
+     * NOTY_WINCREATE call (X11BM_InitPM->X11BM_NotifyFB). Sending the NOTY_MAPWINDOW message
+     * will map the window reply. We will only continue once window is mapped (WaitPort below)
+     * NOTE: this sequence requires OPTION_DELAYXWINMAPPING set in x11gfx.hidd.
+     */
+    {
+        port = CreateMsgPort();
+        struct notify_msg msg;
+
+        msg.notify_type = NOTY_MAPWINDOW;
+        msg.xdisplay = intuixchng->xdisplay;
+        msg.xwindow = xw;
+        msg.execmsg.mn_ReplyPort = port;
+        PutMsg(intuixchng->x11task_notify_port, &msg.execmsg);
+        WaitPort(msg.execmsg.mn_ReplyPort);
+        GetMsg(msg.execmsg.mn_ReplyPort);
+        DeleteMsgPort(port);
+    }
+
+    /* Create layer info */
+    (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
+    InitLayers(*layerInfo);
+}
+
 VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap, struct Layer_Info **layerInfo,
         WORD width, WORD height, struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase,
         struct LayersBase * LayersBase)
@@ -402,44 +449,7 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
     Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
     XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
 
-    /* Create bitmap using this window */
-    {
-        struct TagItem xwindowtags [] =
-        {
-            {BMATags_Friend, (IPTR)screenBitmap },
-            {BMATags_Private1, (IPTR)xw },
-            {TAG_DONE}
-        };
-        (*barBitMap) = AllocBitMap(width, height, screenBitmap->Depth,
-                BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
-    }
-
-    /*
-     * How this works:
-     * Previous call to AllocBitMap with BMATags_Private1 element got passed to x11gfx.hidd where
-     * this window became the backing buffer of bitmap. Window was also registered with
-     * NOTY_WINCREATE call (X11BM_InitPM->X11BM_NotifyFB). Sending the NOTY_MAPWINDOW message
-     * will map the window reply. We will only continue once window is mapped (WaitPort below)
-     * NOTE: this sequence requires OPTION_DELAYXWINMAPPING set in x11gfx.hidd.
-     */
-    {
-        port = CreateMsgPort();
-        struct notify_msg msg;
-
-        msg.notify_type = NOTY_MAPWINDOW;
-        msg.xdisplay = xd;
-        msg.xwindow = xw;
-        msg.execmsg.mn_ReplyPort = port;
-        PutMsg(intuixchng->x11task_notify_port, &msg.execmsg);
-        WaitPort(msg.execmsg.mn_ReplyPort);
-        GetMsg(msg.execmsg.mn_ReplyPort);
-        DeleteMsgPort(port);
-    }
-
-    /* Create layer info */
-    (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
-    InitLayers(*layerInfo);
-
+    int_completewindowopening(xw, screenBitmap, width, height, barBitMap, layerInfo, IntuitionBase);
 }
 
 VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
@@ -450,7 +460,6 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     int xs;
     XSizeHints *hints;
     XClassHint *classhint;
-    struct MsgPort *port;
     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
 
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
@@ -495,48 +504,11 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
         XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
     }
 
-    /* Create bitmap using this window */
-    {
-        struct TagItem xwindowtags [] =
-        {
-            {BMATags_Friend, (IPTR)win->WScreen->RastPort.BitMap },
-            {BMATags_Private1, (IPTR)xw },
-            {TAG_DONE}
-        };
-        (*windowBitMap) = AllocBitMap(win->Width, win->Height, win->WScreen->RastPort.BitMap->Depth,
-                BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
-    }
-
-    /*
-     * How this works:
-     * Previous call to AllocBitMap with BMATags_Private1 element got passed to x11gfx.hidd where
-     * this window became the backing buffer of bitmap. Window was also registered with
-     * NOTY_WINCREATE call (X11BM_InitPM->X11BM_NotifyFB). Sending the NOTY_MAPWINDOW message
-     * will map the window reply. We will only continue once window is mapped (WaitPort below)
-     * NOTE: this sequence requires OPTION_DELAYXWINMAPPING set in x11gfx.hidd.
-     */
-    {
-        port = CreateMsgPort();
-        struct notify_msg msg;
-
-        msg.notify_type = NOTY_MAPWINDOW;
-        msg.xdisplay = xd;
-        msg.xwindow = xw;
-        msg.execmsg.mn_ReplyPort = port;
-        PutMsg(intuixchng->x11task_notify_port, &msg.execmsg);
-        WaitPort(msg.execmsg.mn_ReplyPort);
-        GetMsg(msg.execmsg.mn_ReplyPort);
-        DeleteMsgPort(port);
-    }
+    int_completewindowopening(xw, win->WScreen->RastPort.BitMap, win->Width, win->Height, windowBitMap, layerInfo, IntuitionBase);
 
     IW(win)->XWindow = xw;
 
     XWindowLimits(win, IntuitionBase);
-
-    /* Create layer info */
-    (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
-    InitLayers(*layerInfo);
-
 }
 
 VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *IntuitionBase)
