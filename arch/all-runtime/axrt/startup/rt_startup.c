@@ -1,9 +1,10 @@
 /*
-    Copyright (C) 2019-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2019-2022, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/exec.h>
 #include <proto/dos.h>
+#include <proto/intuition.h>
 
 #include <sys/stat.h>
 #include <string.h>
@@ -22,7 +23,6 @@
 #include "shimsinit.h"
 #include "shimsbase.h"
 
-int main_AddDataTypes();
 int main_Decoration();
 int main_IPrefs();
 
@@ -222,6 +222,9 @@ static VOID RunProgram(APTR sysbase, APTR _m)
 
     main_IPrefs();
     main_Decoration();
+
+    /* Make sure Workbench screen is opened. Some programs expect a screen to be opened */
+    UnlockPubScreen(NULL, LockPubScreen(NULL));
 
     /* Run program specific Package-Startup script */
     BPTR pckgs = Open("PROGDIR:S/Package-Startup", MODE_OLDFILE);
