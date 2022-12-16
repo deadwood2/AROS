@@ -87,15 +87,21 @@ VOID HandleFromX11(struct IntuitionBase *IntuitionBase)
         {
             if (win)
             {
+                Display *xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+                int dest_x, dest_y;
+                Window child;
+
+                /* Translate (0, 0) position of XWindow into screen coordinates */
+                XTranslateCoordinates(xd, msg->xwindow, RootWindow(xd, DefaultScreen(xd)), 0, 0, &dest_x, &dest_y, &child);
+
                 if (win->Width == msg->Width && win->Height == msg->Height)
                 {
                     /* Only move */
-                    DoMoveSizeWindow(win, msg->X, msg->Y, win->Width, win->Height, FALSE, IntuitionBase);
+                    DoMoveSizeWindow(win, (WORD)dest_x, (WORD)dest_y, win->Width, win->Height, FALSE, IntuitionBase);
                 }
                 else
                 {
                     /* Only re-size */
-                    /* When resizing, X and Y are relative to border window and cannot be used!! */
                     DoMoveSizeWindow(win, win->LeftEdge, win->TopEdge, msg->Width, msg->Height, TRUE, IntuitionBase);
                 }
             }
