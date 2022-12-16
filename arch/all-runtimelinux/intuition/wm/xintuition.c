@@ -81,7 +81,6 @@ void StartupXIntuition()
     WaitPort(msg.execmsg.mn_ReplyPort);
     GetMsg(msg.execmsg.mn_ReplyPort);
 
-    UnlockPubScreen(NULL, LockPubScreen(NULL));
     windowTask = NewCreateTask(
             TASKTAG_PC, WindowTaskLoop,
             TASKTAG_NAME, "WindowTask",
