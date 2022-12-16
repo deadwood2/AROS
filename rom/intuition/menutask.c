@@ -25,6 +25,7 @@
 #include "inputhandler.h"
 #include "intuition_intern.h"
 #include <string.h>
+#include "intuition_x.h"
 
 #ifdef SKINS
 #include "intuition_customize.h"
@@ -265,7 +266,7 @@ static void HandleMouseMove(struct MenuHandlerData *mhd, struct IntuitionBase *I
     mhd->scrmousey = mhd->scr->MouseY;
 
     LockLayerInfo(&mhd->scr->LayerInfo);
-    lay = WhichLayer(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey);
+    lay = WhichLayer_X11(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey, IntuitionBase);
     UnlockLayerInfo(&mhd->scr->LayerInfo);
 
     if (lay)
@@ -388,7 +389,7 @@ static void HandleSelection(struct MenuHandlerData *mhd, struct IntuitionBase *I
     struct Layer *lay;
 
     LockLayerInfo(&mhd->scr->LayerInfo);
-    lay = WhichLayer(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey);
+    lay = WhichLayer_X11(&mhd->scr->LayerInfo, mhd->scrmousex, mhd->scrmousey, IntuitionBase);
     UnlockLayerInfo(&mhd->scr->LayerInfo);
 
     if (lay)
@@ -994,6 +995,12 @@ static void RenderMenuBar(struct MenuHandlerData *mhd, struct IntuitionBase *Int
                     RectFill(rp, win->Width - 1, 1, win->Width - 1, win->Height - 2);
                 }
             }
+            else
+            {
+                SetAPen(rp, mhd->dri->dri_Pens[BARTRIMPEN]);
+                RectFill(rp, 0, win->Height - 1, win->Width - 1, win->Height - 1);
+                RectFill(rp, win->Width - 1, 0, win->Width - 1, win->Height - 1);
+            }
         }
         
         for(; menu; menu = menu->NextMenu)
@@ -1527,7 +1534,7 @@ static void RenderMenuBG(struct Window *win, struct MenuHandlerData *mhd,
     struct RastPort *rp = win->RPort;
     WORD             borderx, bordery;
 
-    if (CustomDrawBackground(rp, win, 0, 0, win->Width - 1, win->Height - 1, 0, mhd, IntuitionBase)) return;
+    if (CustomDrawBackground(rp, win, 0, 0, win->Width, win->Height, 0, mhd, IntuitionBase)) return;
 
     if (MENUS_AMIGALOOK(IntuitionBase))
     {
