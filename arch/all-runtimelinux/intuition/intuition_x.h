@@ -25,6 +25,7 @@ VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height
 
 VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
     struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase, struct LayersBase * LayersBase);
+VOID XWindowLimits(struct Window *win, struct IntuitionBase *IntuitionBase);
 VOID AdjustFlagsForWM(struct NewWindow *nw, struct IntuitionBase *IntuitionBase);
 VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *IntuitionBase);
 

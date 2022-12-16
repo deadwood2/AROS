@@ -392,18 +392,12 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
             | KeyPressMask | KeyReleaseMask | FocusChangeMask);
     XSetWMProtocols(xd, xw, &((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->delete_win_atom, 1);
 
-    // FIXME: For now disable window size change because the initially created bitmap is not resizable and ConfigureEvent
-    // x,y positions are relative to border when re-sizing
-    // Need to think how to handle this? Whole screen bitmap for each window? ConfigureEvent remaping to root window coords?
-    // NOTE: Don't remove PPosition after fixing sizing!!!
     hints = XAllocSizeHints();
-    hints->flags = PPosition | PSize;
-    // hints->x = win->LeftEdge;
-    // hints->y = win->TopEdge;
-    // hints->width = win->Width;
-    // hints->height = height;
-    // hints->min_width = hints->max_width = win->Width;
-    // hints->min_height = hints->max_height = height;
+    hints->flags    = PPosition | PSize;
+    hints->x        = win->LeftEdge;
+    hints->y        = win->TopEdge;
+    hints->width    = win->Width;
+    hints->height   = height;
     XSetWMNormalHints(xd, xw, hints);
     XFree(hints);
 
@@ -464,6 +458,8 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
 
     IW(win)->XWindow = xw;
 
+    XWindowLimits(win, IntuitionBase);
+
     /* Create layer info */
     (*layerInfo) = AllocMem(sizeof(struct Layer_Info), MEMF_CLEAR);
     InitLayers(*layerInfo);
@@ -475,4 +471,24 @@ VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *Intui
     Display *xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
     *width = WidthOfScreen(DefaultScreenOfDisplay(xd));
     *height = HeightOfScreen(DefaultScreenOfDisplay(xd));
+}
+
+VOID XWindowLimits(struct Window *win, struct IntuitionBase *IntuitionBase)
+{
+    XSizeHints *hints;
+    Display *xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    Window xw =  IW(win)->XWindow;
+    long temp;
+
+    hints = XAllocSizeHints();
+    XGetWMNormalHints(xd, xw, hints, &temp);
+
+    hints->flags        |= PMinSize | PMaxSize;
+    hints->min_width    = win->MinWidth;
+    hints->min_height   = win->MinHeight;
+    hints->max_width    = win->MaxWidth;
+    hints->max_height   = win->MaxHeight;
+
+    XSetWMNormalHints(xd, xw, hints);
+    XFree(hints);
 }
