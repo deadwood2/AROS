@@ -182,6 +182,7 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
    }
    nodes[np->state.layer] = np;
 
+   /* AxRuntime client itself is rendering border */
    if (np->className != NULL && strcmp(np->className, "AxRuntime") == 0)
       np->state.border &= ~(BORDER_TITLE | BORDER_OUTLINE);
 
@@ -199,6 +200,11 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
                                   | PointerMotionMask
                                   | KeyPressMask
                                   | KeyReleaseMask;
+
+      /* Windows created by Intution WM need this */
+      if (np->className != NULL && strcmp(np->className, "AxRuntime Intuition") == 0)
+         sattr.event_mask |= ExposureMask;
+
       JXChangeWindowAttributes(display, np->window,
                                CWEventMask | CWDontPropagate, &sattr);
    }
