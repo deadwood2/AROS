@@ -452,21 +452,11 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     XClassHint *classhint;
     struct MsgPort *port;
     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
-    WORD ypos   = win->TopEdge;
-    WORD height = win->Height;
-
-#ifdef AXRTBARHACK
-    if (win->Flags & WFLG_BACKDROP)
-    {
-        ypos    += win->WScreen->BarHeight;
-        height  -= win->WScreen->BarHeight;
-    }
-#endif
 
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
 
     xs = DefaultScreen(xd);
-    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), win->LeftEdge, ypos, win->Width, height, 0,
+    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), win->LeftEdge, win->TopEdge, win->Width, win->Height, 0,
                             BlackPixel(xd, xs), WhitePixel(xd, xs));
     if (win->Title)
         XStoreName(xd, xw, win->Title);
@@ -480,7 +470,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     hints->x        = win->LeftEdge;
     hints->y        = win->TopEdge;
     hints->width    = win->Width;
-    hints->height   = height;
+    hints->height   = win->Height;
     XSetWMNormalHints(xd, xw, hints);
     XFree(hints);
 
@@ -513,7 +503,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
             {BMATags_Private1, (IPTR)xw },
             {TAG_DONE}
         };
-        (*windowBitMap) = AllocBitMap(win->Width, height, win->WScreen->RastPort.BitMap->Depth,
+        (*windowBitMap) = AllocBitMap(win->Width, win->Height, win->WScreen->RastPort.BitMap->Depth,
                 BMF_CHECKVALUE, (struct BitMap *)xwindowtags);
     }
 
