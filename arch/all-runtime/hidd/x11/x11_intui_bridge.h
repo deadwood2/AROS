@@ -20,11 +20,11 @@ struct FromX11Msg
     Window          xwindow;
     union
     {
-        LONG        X;
+        LONG        LeftEdge;
         BOOL        In;
     };
 
-    LONG            Y;
+    LONG            TopEdge;
     LONG            Width;
     LONG            Height;
 };
