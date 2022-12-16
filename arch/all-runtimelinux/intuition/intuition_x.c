@@ -383,7 +383,7 @@ VOID OpenXWindow(struct Window *w, struct BitMap **windowBitMap, struct Layer_In
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
 
     xs = DefaultScreen(xd);
-    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, ypos, w->Width, height, 1,
+    xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), w->LeftEdge, ypos, w->Width, height, 0,
                             BlackPixel(xd, xs), WhitePixel(xd, xs));
     if (w->Title)
         XStoreName(xd, xw, w->Title);
