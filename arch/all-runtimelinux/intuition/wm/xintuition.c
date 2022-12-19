@@ -174,7 +174,6 @@ static void WindowTaskLoop()
                     ReplyMsg((struct Message *)msg);
                     BeginRefresh(w);
                     EndRefresh(w, TRUE);
-                    RefreshWindowFrame(w);
                     bwn->Width = w->Width;
                     bwn->Height = w->Height;
                 }
