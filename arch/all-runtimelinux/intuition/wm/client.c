@@ -182,10 +182,6 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
    }
    nodes[np->state.layer] = np;
 
-   /* AxRuntime client itself is rendering border */
-   if (np->className != NULL && strcmp(np->className, "AxRuntime") == 0)
-      np->state.border &= ~(BORDER_TITLE | BORDER_OUTLINE);
-
    if(notOwner) {
       XSetWindowAttributes sattr;
       JXAddToSaveSet(display, np->window);
