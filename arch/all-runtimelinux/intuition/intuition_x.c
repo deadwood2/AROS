@@ -460,6 +460,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     int xs;
     XSizeHints *hints;
     XClassHint *classhint;
+    Atom wm_delete_window;
     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
 
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
@@ -472,7 +473,9 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
 
     XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
             | KeyPressMask | KeyReleaseMask | FocusChangeMask);
-    XSetWMProtocols(xd, xw, &((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->delete_win_atom, 1);
+
+    wm_delete_window = XInternAtom(xd, "WM_DELETE_WINDOW", FALSE);
+    XSetWMProtocols(xd, xw, &wm_delete_window, 1);
 
     hints = XAllocSizeHints();
     hints->flags    = PPosition | PSize;
