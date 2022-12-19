@@ -264,6 +264,7 @@ VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, stru
     event.xclient.data.l[2] = new_top;
 
     status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
+    XFlush(xd); /* Push event to X server immediatelly */
 }
 
 VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase)
