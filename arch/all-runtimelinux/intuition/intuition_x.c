@@ -341,31 +341,6 @@ struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct Intui
     return l;
 }
 
-VOID AdjustFlagsForWM(struct NewWindow *nw, struct IntuitionBase *IntuitionBase)
-{
-    XClassHint classhint;
-    Display *xd;
-    int xs;
-    struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
-
-    xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
-    xs = DefaultScreen(xd);
-
-    XGetClassHint(xd, RootWindow(xd, xs), &classhint);
-
-    if (classhint.res_class[0] != 'I' && classhint.res_name[0] != 'I')
-    {
-        /* Not running under Intuition, so border will come from window manager */
-        if (!(nw->Flags & WFLG_BORDERLESS))
-        {
-            nw->Flags &= ~(WFLG_SIZEBRIGHT|WFLG_SIZEBBOTTOM|WFLG_SIZEGADGET|WFLG_CLOSEGADGET|WFLG_DEPTHGADGET|WFLG_HASZOOM);
-            nw->Flags |= WFLG_BORDERLESS;
-            nw->Flags |= WFLG_BORDERLESSNOTREALLY;
-        }
-        /* else BORDELESS window actually requested, do nothing */
-    }
-}
-
 static void int_completewindowopening(Window xw, struct BitMap *bm, WORD width, WORD height,
         struct BitMap **windowBitMap, struct Layer_Info **layerInfo, struct IntuitionBase *IntuitionBase)
 {
@@ -494,7 +469,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     XSetClassHint(xd, xw, classhint);
     XFree(classhint);
 
-    if (((win->Flags & WFLG_BORDERLESS) && !(win->Flags & WFLG_BORDERLESSNOTREALLY)) && !(win->Flags & WFLG_BACKDROP))
+    if ((win->Flags & WFLG_BORDERLESS) && !(win->Flags & WFLG_BACKDROP))
     {
         Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
         Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
