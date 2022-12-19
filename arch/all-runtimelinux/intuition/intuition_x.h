@@ -33,5 +33,8 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
         WORD width, WORD height, struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase,
         struct LayersBase * LayersBase);
 
+void DrawOutline(WORD x1, WORD y1, WORD x2, WORD y2, struct IntuitionBase *IntuitionBase);
+void ClearOutline(struct IntuitionBase *IntuitionBase);
+
 #endif /* _INTUITION_X_H_ */
 

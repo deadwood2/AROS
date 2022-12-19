@@ -540,3 +540,51 @@ VOID XWindowLimits(struct Window *win, struct IntuitionBase *IntuitionBase)
     XSetWMNormalHints(xd, xw, hints);
     XFree(hints);
 }
+
+
+/* Functions DrawOutline and ClearOutline are (C) Joe Wingbermuehle, part of JWM, MIT License */
+
+static GC outlineGC = None;
+static int lastX, lastY;
+static int lastWidth, lastHeight;
+
+/** Draw an outline. */
+void DrawOutline(WORD x1, WORD y1, WORD x2, WORD y2, struct IntuitionBase *IntuitionBase)
+{
+    Display *display =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    Window rootWindow = DefaultRootWindow(display);
+    int height = y2 - y1 + 1;
+    int width = x2 - x1 + 1;
+    int x = x1;
+    int y = y1;
+
+    XGCValues gcValues;
+    gcValues.function = GXinvert;
+    gcValues.subwindow_mode = IncludeInferiors;
+    gcValues.line_width = 2;
+    outlineGC = XCreateGC(display, rootWindow,
+                            GCFunction | GCSubwindowMode | GCLineWidth,
+                            &gcValues);
+    XDrawRectangle(display, rootWindow, outlineGC, x, y, width, height);
+    lastX = x;
+    lastY = y;
+    lastWidth = width;
+    lastHeight = height;
+}
+
+/** Clear the last outline. */
+void ClearOutline(struct IntuitionBase *IntuitionBase)
+{
+    Display *display =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    Window rootWindow = DefaultRootWindow(display);
+
+    if(outlineGC != None) {
+        XDrawRectangle(display, rootWindow, outlineGC,
+                        lastX, lastY, lastWidth, lastHeight);
+
+        XFreeGC(display, outlineGC);
+        outlineGC = None;
+    }
+}
+
+/* Functions DrawOutline and ClearOutline are (C) Joe Wingbermuehle, part of JWM, MIT License */
