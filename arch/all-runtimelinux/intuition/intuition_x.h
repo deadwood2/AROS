@@ -29,7 +29,7 @@ VOID XWindowLimits(struct Window *win, struct IntuitionBase *IntuitionBase);
 VOID AdjustFlagsForWM(struct NewWindow *nw, struct IntuitionBase *IntuitionBase);
 VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *IntuitionBase);
 
-VOID OpenSreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap, struct Layer_Info **layerInfo,
+VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap, struct Layer_Info **layerInfo,
         WORD width, WORD height, struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase,
         struct LayersBase * LayersBase);
 
