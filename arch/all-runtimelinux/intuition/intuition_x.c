@@ -416,13 +416,13 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
         WORD width, WORD height, struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase,
         struct LayersBase * LayersBase)
 {
-     Display *xd;
-     Window xw;
-     int xs;
-     XSizeHints *hints;
-      XClassHint *classhint;
-     struct MsgPort *port;
-     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
+    Display *xd;
+    Window xw;
+    int xs;
+    XSizeHints *hints;
+    XClassHint *classhint;
+    struct MsgPort *port;
+    struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
 
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
 
