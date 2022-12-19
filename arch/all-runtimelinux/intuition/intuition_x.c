@@ -522,7 +522,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
         Atom _motif_wm_hints = XInternAtom(xd, "_MOTIF_WM_HINTS", False);
         mwmHints.flags = (1L << 1); /* DECORATIONS */
         mwmHints.decorations = 0; /* No decorations */
-        XChangeProperty(xd, xw, _motif_wm_hints, _motif_wm_hints, 32, PropModeReplace, (unsigned char *) &mwmHints, sizeof(mwmHints));
+        XChangeProperty(xd, xw, _motif_wm_hints, _motif_wm_hints, 32, PropModeReplace, (unsigned char *) &mwmHints, 5);
     }
 
     int_completewindowopening(xw, win->WScreen->RastPort.BitMap, win->Width, win->Height, windowBitMap, layerInfo, IntuitionBase);
