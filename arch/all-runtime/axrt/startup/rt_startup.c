@@ -370,8 +370,9 @@ static void check_runtimeroot(const char *runtimeroot)
 __attribute__((visibility("default"))) void __set_runtime_env(int __version, __set_runtime_env_arg_t *arg)
 {
     /* Paths needs to end with "/" */
-    char *RUNTIME_ROOT = NULL, *AXRTSYS = NULL, *USERSYS = NULL;
+    char *RUNTIME_ROOT = NULL, *AXRTSYS = NULL, *USERSYS = NULL, *USERHOME;
 
+    struct passwd *pw;
     const int _size = 512;
     char tstbuff[_size];
     char __usersys[_size];
@@ -382,6 +383,7 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version, __s
     RUNTIME_ROOT    = malloc(_size);
     AXRTSYS         = malloc(_size);
     USERSYS         = malloc(_size);
+    USERHOME        = malloc(_size);
 
     printf("<<INFO>>: AxRT %d.%d\n", RT_GET_VERSION(RT_VER), RT_GET_REVISION(RT_VER));
 
@@ -396,7 +398,6 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version, __s
     {
         /* Second priority, absolute */
         char *t;
-        struct passwd *pw;
         char buff[_size];
 
         printf("<<INFO>>: Using absolute paths.\n");
@@ -443,10 +444,19 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version, __s
     strcpy(USERSYS, "ROOT:");
     strcat(USERSYS, __usersys + 1);
 
+    /* Get users's home directory */
+
+    pw = getpwuid(getuid());
+    strcpy(USERHOME, "ROOT:");
+    strcat(USERHOME, pw->pw_dir + 1);
+    strcat(USERHOME, "/");
+
+
     /* Summary */
     printf("<<INFO>>: RUNTIME_ROOT: %s\n", RUNTIME_ROOT);
     printf("<<INFO>>: AXRTSYS     : %s\n", AXRTSYS);
     printf("<<INFO>>: USERSYS     : %s\n", USERSYS);
+    printf("<<INFO>>: USERHOME    : %s\n", USERHOME);
 
     /* Check if runtime is installed at selected RUNTIME_ROOT */
     check_runtimeroot(RUNTIME_ROOT);
@@ -457,6 +467,7 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version, __s
     setenv(ENV_AXRT_ROOT, RUNTIME_ROOT, 1);
     setenv("AXRTSYS", AXRTSYS, 1);
     setenv("USERSYS", USERSYS, 1);
+    setenv("USERHOME", USERHOME, 1);
 
     SB.sb_EnhPathMode = FALSE;
 
