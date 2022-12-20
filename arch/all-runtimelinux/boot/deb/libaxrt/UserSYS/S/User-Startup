@@ -1,0 +1,12 @@
+Path "C:" "S:" QUIET
+
+Assign "THEME:" "USERSYS:Prefs/Presets/Themes/pixblue"
+If EXISTS "THEME:Images"
+    Assign "IMAGES:"  "THEME:Images" PREPEND
+endif
+
+If NOT EXISTS "HOME:Work"
+    MakeDir "HOME:Work"
+EndIf
+
+Assign "WORK:" "HOME:Work"
