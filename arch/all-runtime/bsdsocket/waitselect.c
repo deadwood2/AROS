@@ -1,7 +1,8 @@
 /*
-    Copyright (C) 2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2020-2022, The AROS Development Team. All rights reserved.
 */
 
+#include <unistd.h>
 #include <sys/select.h>
 #include <proto/dos.h>
 #include <aros/debug.h>
@@ -55,9 +56,9 @@
     struct timeval _t;
     ULONG _tsmask = sigmask ? *sigmask : 0;
 
-     /* do pooling with some small sleep */
+     /* do pooling */
      _t.tv_sec  = 0;
-     _t.tv_usec = 20;
+     _t.tv_usec = 0;
 
     if (timeout)
     {
@@ -79,6 +80,7 @@
              * In both cases the value is good for returning even if there was signal raised
              */
         }
+        else usleep(20); /* sleep active pooling */
 
     }while (cont);
 
