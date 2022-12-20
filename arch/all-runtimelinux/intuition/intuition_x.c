@@ -290,6 +290,25 @@ VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height
     status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
 }
 
+VOID SendMessageMinimize(struct Window *win, struct IntuitionBase *IntuitionBase)
+{
+    XEvent event;
+    int status;
+    Window w = IW(win)->XWindow;
+
+    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    Atom wm_change_state = XInternAtom(xd, "WM_CHANGE_STATE", False);
+
+    memset(&event, 0, sizeof(event));
+    event.xclient.type = ClientMessage;
+    event.xclient.window = w;
+    event.xclient.message_type = wm_change_state;
+    event.xclient.format = 32;
+    event.xclient.data.l[0] = IconicState;
+
+    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
+}
+
 /****************************************************************************************/
 
 static struct Layer *SearchActiveScreen(Window w, struct IntuitionBase *IntuitionBase)
