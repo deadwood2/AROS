@@ -23,6 +23,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  workbench-s \
 #MM  workbench-c-intuition \
 #MM  workbench-tools-quick \
-#MM  workbench-tools-editor
+#MM  workbench-tools-editor \
+#MM  workbench-prefs-zune
 
 %common
