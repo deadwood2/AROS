@@ -176,6 +176,11 @@ static VOID x11task_process_xevent(struct x11_staticdata *xsd, struct MinList *x
             XCALL(XAutoRepeatOn, xsd->display);
             UNLOCK_X11
 #endif
+            msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+            msg->type = FROMX11_FOCUS;
+            msg->xwindow = event->xany.window;
+            msg->In = FALSE;
+            PutMsg(intuixchng.intuition_port,(struct Message *)msg);
             break;
 
         case FocusIn:
@@ -184,6 +189,11 @@ static VOID x11task_process_xevent(struct x11_staticdata *xsd, struct MinList *x
             {
                 xsd->activecallback(xsd->callbackdata, NULL);
             }
+            msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+            msg->type = FROMX11_FOCUS;
+            msg->xwindow = event->xany.window;
+            msg->In = TRUE;
+            PutMsg(intuixchng.intuition_port,(struct Message *)msg);
             break;
 
         case KeyPress:
