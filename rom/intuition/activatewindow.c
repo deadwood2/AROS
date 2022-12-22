@@ -18,6 +18,7 @@
 #include "menus.h"
 #include "monitorclass_private.h"
 #include <intuition/pointerclass.h>
+#include "intuition_x.h"
 
 struct ActivateWindowActionMsg
 {
@@ -80,6 +81,11 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
 
     msg.window = window;
     DoASyncAction((APTR)int_activatewindow, &msg.msg, sizeof(msg), IntuitionBase);
+
+    /* Window is activated immediatelly, not waiting for rountrip of messages Intuition->X->hidd->Intuition
+       The reason is that mouse move events keeps coming back and code in input handler expects activation happened
+       at return from ActivateWindow so that it now can select gadgets, etc */
+    SendClientMessageActive(window, IntuitionBase);
 
     AROS_LIBFUNC_EXIT
 
@@ -293,4 +299,12 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
     Permit();
 #endif
 
+}
+
+VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase)
+{
+    struct ActivateWindowActionMsg msg;
+
+    msg.window = window;
+    DoASyncAction((APTR)int_activatewindow, &msg.msg, sizeof(msg), IntuitionBase);
 }
