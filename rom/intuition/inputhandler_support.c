@@ -580,6 +580,7 @@ void HandleSysGadgetVerify(struct GadgetInfo *gi, struct Gadget *gadget,
         break;
 
     case GTYP_WDEPTH:
+#if 0
         if (!IsLayerHiddenBySibling(WLAYER(gi->gi_Window), FALSE)
             || (iihd->ActQualifier & (IEQUALIFIER_LSHIFT | IEQUALIFIER_RSHIFT)) != 0)
         {
@@ -591,6 +592,8 @@ void HandleSysGadgetVerify(struct GadgetInfo *gi, struct Gadget *gadget,
             /* Send window to front */
             WindowToFront(gi->gi_Window);
         }
+#endif
+        SendToWM_Restack(gi->gi_Window, 0, IntuitionBase);
         break;
 
     case GTYP_WZOOM:
@@ -659,6 +662,10 @@ struct Gadget *HandleCustomGadgetRetVal(IPTR retval, struct GadgetInfo *gi, stru
                     (gi->gi_Window))
                 {
                     DEBUG_HANDLECUSTOMRETVAL(dprintf("HandleCustomGadgetRetVal: Send IDCMP_GADGETUP\n"));
+                    // FIXME: route iconify to minimize for now, extremly lame, works with just default decoration!!!
+                    if (((gadget->Width == 20) && (gadget->Height == 31)))
+                        SendToWM_Minimize(gi->gi_Window, IntuitionBase);
+                    else
                     ih_fire_intuimessage(gi->gi_Window,
                                  IDCMP_GADGETUP,
                                  termination & 0x0000FFFF,

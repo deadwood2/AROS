@@ -62,6 +62,8 @@
 #define DEBUG_MOUSE(x)
 #define DEBUG_WINDOW(x)
 
+VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase);
+
 /****************************************************************************************/
 
 struct Interrupt *InitIIH(struct IntuitionBase *IntuitionBase)
@@ -2119,7 +2121,11 @@ AROS_UFH2(struct InputEvent *, IntuiInputHandler,
                    clears the iihdata->NewActWindow if it's the actually closed one. */
                 if (w == iihdata->NewActWindow)
                 {
-                    ActivateWindow(w);
+                    /* Immediate activation of window has to happen at this point, so that incoming mouse events
+                       are routed to right destination. We cannot wait for Intuition->WM->Intuition roundtrip. */
+                    int_activatewindowcall(w, IntuitionBase);
+                    if (w)
+                        SendToWM_Activate(w, IntuitionBase);
                 }
                 else
                 {
