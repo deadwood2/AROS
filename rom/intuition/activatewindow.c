@@ -18,6 +18,7 @@
 #include "menus.h"
 #include "monitorclass_private.h"
 #include <intuition/pointerclass.h>
+#include "intuition_x.h"
 
 struct ActivateWindowActionMsg
 {
@@ -73,6 +74,7 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
 {
     AROS_LIBFUNC_INIT
 
+#if 0
     struct ActivateWindowActionMsg msg;
 
     DEBUG_ACTIVATEWINDOW(dprintf("ActivateWindow: Window 0x%lx\n",
@@ -80,6 +82,11 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
 
     msg.window = window;
     DoASyncAction((APTR)int_activatewindow, &msg.msg, sizeof(msg), IntuitionBase);
+#endif
+
+    /* Activation that will be completed by processing FocusIn XEvent. */
+    if (window)
+        SendToWM_Activate(window, IntuitionBase);
 
     AROS_LIBFUNC_EXIT
 
@@ -293,4 +300,12 @@ static VOID int_activatewindow(struct ActivateWindowActionMsg *msg,
     Permit();
 #endif
 
+}
+
+VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase)
+{
+    struct ActivateWindowActionMsg msg;
+
+    msg.window = window;
+    DoASyncAction((APTR)int_activatewindow, &msg.msg, sizeof(msg), IntuitionBase);
 }
