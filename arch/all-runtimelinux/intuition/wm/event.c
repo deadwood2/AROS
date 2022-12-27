@@ -1068,10 +1068,7 @@ void HandleClientMessage(const XClientMessageEvent *event)
             SetClientWithdrawn(np);
             break;
          case IconicState:
-#if 0
-            /* This is desiabled for time being as there is no UI to restore clients yet */
             MinimizeClient(np, 1);
-#endif
             break;
          case NormalState:
             RestoreClient(np, 1);
