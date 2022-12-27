@@ -5,7 +5,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_CFLAGS := -Wunused-variable -Wunused-function
 FILES   :=  main error screen cursor place settings misc border grab \
             client timing hint desktop event clientlist debug \
-            group match xintuition
+            group match taskbar xintuition
 
 EXEDIR  := $(AROS_C)
 

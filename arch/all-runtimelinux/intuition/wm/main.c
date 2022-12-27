@@ -16,6 +16,7 @@
 #include "client.h"
 #include "cursor.h"
 #include "group.h"
+#include "taskbar.h"
 #include "screen.h"
 #include "desktop.h"
 #include "place.h"
@@ -461,6 +462,7 @@ void Initialize(void)
    InitializePlacement();
    InitializeScreens();
    InitializeSettings();
+   InitializeTaskBar();
 
 }
 
@@ -483,6 +485,7 @@ void Startup(void)
    StartupGroups();
    StartupCursors();
 
+   StartupTaskBar();
    StartupDesktops();
    StartupHints();
    StartupBorders();
@@ -520,6 +523,7 @@ void Shutdown(void)
       ShutdownDialogs();
 #  endif
 
+   ShutdownTaskBar();
    ShutdownBorders();
    ShutdownClients();
    ShutdownCursors();
@@ -553,6 +557,7 @@ void Destroy(void)
 
    DestroyScreens();
    DestroySettings();
+   DestroyTaskBar();
 }
 
 /** Send _JWM_RESTART to the root window. */

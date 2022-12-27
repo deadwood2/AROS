@@ -12,6 +12,7 @@
 #include "clientlist.h"
 #include "group.h"
 #include "cursor.h"
+#include "taskbar.h"
 #include "screen.h"
 #include "place.h"
 #include "event.h"
@@ -254,6 +255,9 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
    if(np->state.status & STAT_URGENT) {
       RegisterCallback(URGENCY_DELAY, SignalUrgent, np);
    }
+
+   /* Update task bars. */
+   AddClientToTaskBar(np);
 
    /* Make sure we're still in sync */
    WriteState(np);
@@ -1156,7 +1160,7 @@ void RestackClients(void)
    JXRestackWindows(display, stack, index);
 
    ReleaseStack(stack);
-
+   UpdateNetClientList();
    RequirePagerUpdate();
 
 }
@@ -1269,6 +1273,7 @@ void RemoveClient(ClientNode *np)
       Release(np->clientName);
    }
 
+   RemoveClientFromTaskBar(np);
    RemoveClientStrut(np);
 
    while(np->colormaps) {
