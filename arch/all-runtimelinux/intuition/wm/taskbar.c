@@ -9,24 +9,19 @@
 
 #include "jwm.h"
 #include "taskbar.h"
-#include "tray.h"
 #include "timing.h"
 #include "main.h"
 #include "client.h"
 #include "clientlist.h"
-#include "color.h"
-#include "popup.h"
-#include "button.h"
 #include "cursor.h"
-#include "icon.h"
 #include "error.h"
-#include "winmenu.h"
 #include "screen.h"
 #include "settings.h"
 #include "event.h"
 #include "misc.h"
 #include "desktop.h"
 
+#if 0
 typedef struct TaskBarType {
 
    TrayComponentType *cp;
@@ -45,6 +40,7 @@ typedef struct TaskBarType {
    int mousex, mousey;
 
 } TaskBarType;
+#endif
 
 typedef struct ClientEntry {
    ClientNode *client;
@@ -58,10 +54,13 @@ typedef struct TaskEntry {
    struct TaskEntry *prev;
 } TaskEntry;
 
+#if 0
 static TaskBarType *bars;
+#endif
 static TaskEntry *taskEntries;
 static TaskEntry *taskEntriesTail;
 
+#if 0
 static void ComputeItemSize(TaskBarType *tp);
 static char ShouldShowEntry(const TaskEntry *tp);
 static char ShouldFocusEntry(const TaskEntry *tp);
@@ -82,11 +81,14 @@ static void ProcessTaskMotionEvent(TrayComponentType *cp,
                                    int x, int y, int mask);
 static void SignalTaskbar(const TimeType *now, int x, int y, Window w,
                           void *data);
+#endif
 
 /** Initialize task bar data. */
 void InitializeTaskBar(void)
 {
+#if 0
    bars = NULL;
+#endif
    taskEntries = NULL;
    taskEntriesTail = NULL;
 }
@@ -94,15 +96,18 @@ void InitializeTaskBar(void)
 /** Shutdown the task bar. */
 void ShutdownTaskBar(void)
 {
+#if 0
    TaskBarType *bp;
    for(bp = bars; bp; bp = bp->next) {
       JXFreePixmap(display, bp->buffer);
    }
+#endif
 }
 
 /** Destroy task bar data. */
 void DestroyTaskBar(void)
 {
+#if 0
    TaskBarType *bp;
    while(bars) {
       bp = bars->next;
@@ -110,8 +115,10 @@ void DestroyTaskBar(void)
       Release(bars);
       bars = bp;
    }
+#endif
 }
 
+#if 0
 /** Create a new task bar tray component. */
 TrayComponentType *CreateTaskBar()
 {
@@ -623,6 +630,7 @@ void RunTaskBarCommand(MenuAction *action, unsigned button)
       RunWindowCommand(action, button);
    }
 }
+#endif
 
 /** Add a client to the task bar. */
 void AddClientToTaskBar(ClientNode *np)
@@ -702,6 +710,7 @@ void RemoveClientFromTaskBar(ClientNode *np)
    }
 }
 
+#if 0
 /** Update all task bars. */
 void UpdateTaskBar(void)
 {
@@ -1044,6 +1053,7 @@ void SetTaskBarLabeled(TrayComponentType *cp, char labeled)
    TaskBarType *bp = (TaskBarType*)cp->object;
    bp->labeled = labeled;
 }
+#endif
 
 /** Maintain the _NET_CLIENT_LIST[_STACKING] properties on the root. */
 void UpdateNetClientList(void)

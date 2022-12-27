@@ -20,8 +20,10 @@ void ShutdownTaskBar(void);
 void DestroyTaskBar(void);
 /*@}*/
 
+#if 0
 /** Create a new task bar tray component. */
 struct TrayComponentType *CreateTaskBar();
+#endif
 
 /** Add a client to the task bar(s).
  * @param np The client to add.
@@ -33,6 +35,7 @@ void AddClientToTaskBar(struct ClientNode *np);
  */
 void RemoveClientFromTaskBar(struct ClientNode *np);
 
+#if 0
 /** Update all task bars. */
 void UpdateTaskBar(void);
 
@@ -64,6 +67,7 @@ void SetTaskBarHeight(struct TrayComponentType *cp, const char *value);
  * @param value 1 if labeled, 0 if no label is to be shown.
  */
 void SetTaskBarLabeled(struct TrayComponentType *cp, char value);
+#endif
 
 /** Update the _NET_CLIENT_LIST property. */
 void UpdateNetClientList(void);
