@@ -13,6 +13,6 @@ EXEDIR  := $(AROS_C)
 
 %build_prog mmake=workbench-c-intuition \
     progname=Intuition targetdir=$(EXEDIR) \
-    files="$(FILES)" uselibs="X11 Xft Xrender Xext Xmu Xinerama" usesdks="private config"
+    files="$(FILES)" uselibs="X11 Xrender Xext Xinerama" usesdks="private config"
 
 %common

@@ -1288,6 +1288,7 @@ void GetBorderSize(const ClientState *state,
    }
 }
 
+#if 0
 /** Draw a rounded rectangle. */
 void DrawRoundedRectangle(Drawable d, GC gc, int x, int y,
                           int width, int height, int radius)
@@ -1356,7 +1357,6 @@ void DrawRoundedRectangle(Drawable d, GC gc, int x, int y,
 }
 
 /** Fill a rounded rectangle. */
-#if 0
 #ifdef USE_SHAPE
 void FillRoundedRectangle(Drawable d, GC gc, int x, int y,
                           int width, int height, int radius)

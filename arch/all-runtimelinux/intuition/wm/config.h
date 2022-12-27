@@ -202,13 +202,13 @@
 #define USE_XBM 1
 
 /* Define to enable Xft */
-#define USE_XFT 1
+/* #undef USE_XFT */
 
 /* Define to enable Xinerama */
 #define USE_XINERAMA 1
 
 /* Define to use Xmu */
-#define USE_XMU 1
+/* #undef USE_XMU */
 
 /* Define to enable XPM support */
 #define USE_XPM 1
