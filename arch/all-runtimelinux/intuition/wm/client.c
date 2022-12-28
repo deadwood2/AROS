@@ -198,9 +198,9 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
                                   | KeyPressMask
                                   | KeyReleaseMask;
 
-      /* Windows created by Intution WM need this */
+      /* Screen Bar window created by Intuition needs this */
       if (np->className != NULL && strcmp(np->className, "AxRuntime Intuition") == 0)
-         sattr.event_mask |= ExposureMask;
+         sattr.event_mask |= ExposureMask | ButtonReleaseMask | ButtonPressMask;
 
       JXChangeWindowAttributes(display, np->window,
                                CWEventMask | CWDontPropagate, &sattr);
