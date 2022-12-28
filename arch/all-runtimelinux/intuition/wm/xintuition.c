@@ -21,7 +21,8 @@ static struct MsgPort *replyport;
 static struct Task *windowTask;
 static struct MsgPort *windowPort;
 
-struct List borderWinList;
+static struct List borderWinList;
+static struct BorderWinNode *lastbwn;
 
 struct BorderWinNode
 {
@@ -114,6 +115,26 @@ void SendXEventToIntuition(XEvent *event)
     GetMsg(msg.execmsg.mn_ReplyPort);
 }
 
+static struct BorderWinNode *FindByIntuiWindow(struct Window *w)
+{
+    struct BorderWinNode *bwn = NULL;
+    struct Node *nxt = NULL;
+
+    if (lastbwn && lastbwn->Window == w)
+        return lastbwn;
+    else
+    {
+        ForeachNodeSafe(&borderWinList, bwn, nxt)
+        {
+            if (bwn->Window == w)
+            {
+                lastbwn = bwn;
+                return bwn;
+            }
+        }
+    }
+}
+
 static void WindowTaskLoop()
 {
     windowPort = CreateMsgPort();
@@ -123,7 +144,6 @@ static void WindowTaskLoop()
     for (;;)
     {
         struct IntuiMessage *msg;
-        struct BorderWinNode *lastbwn = NULL;
 
         ULONG sigs = Wait(SIGBREAKF_CTRL_C | windowSig);
 
@@ -134,21 +154,8 @@ static void WindowTaskLoop()
         {
             struct Window *w = msg->IDCMPWindow;
             struct BorderWinNode *bwn = NULL;
-            struct Node *nxt = NULL;
 
-            if (lastbwn && lastbwn->Window == w)
-                bwn = lastbwn;
-            else
-            {
-                ForeachNodeSafe(&borderWinList, bwn, nxt)
-                {
-                    if (bwn->Window == w)
-                    {
-                        lastbwn = bwn;
-                        break;
-                    }
-                }
-            }
+            bwn = FindByIntuiWindow(w);
 
             if (bwn == NULL)
             {
