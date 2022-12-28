@@ -1200,6 +1200,25 @@ void HandleClientMessage(const XClientMessageEvent *event)
 
             HandleNetRestack(event, np);
 
+         } else if(event->message_type == atoms[ATOM_WM_CHANGE_STATE]) {
+
+            if(np->controller) {
+               (np->controller)(0);
+            }
+
+            switch(event->data.l[0]) {
+            case WithdrawnState:
+               SetClientWithdrawn(np);
+               break;
+            case IconicState:
+               MinimizeClient(np, 1);
+               break;
+            case NormalState:
+               RestoreClient(np, 1);
+               break;
+            default:
+               break;
+            }
          }
       }
 #ifdef DEBUG
