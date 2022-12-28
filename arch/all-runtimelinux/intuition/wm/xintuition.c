@@ -24,6 +24,22 @@ static struct MsgPort *windowPort;
 static struct List borderWinList;
 static struct BorderWinNode *lastbwn;
 
+struct CommandMessage
+{
+    struct Message ExecMessage;
+
+    UBYTE   Type;
+    IPTR    Param1;
+    IPTR    Param2;
+};
+
+#define WMCMD_SET_TITLE     (1)
+
+static void CommandTaskLoop();
+static struct Task *commandTask;
+static struct MsgPort *commandTaskPort;
+
+
 struct BorderWinNode
 {
     struct Node     Node;
@@ -86,12 +102,19 @@ void StartupXIntuition()
             TASKTAG_PC, WindowTaskLoop,
             TASKTAG_NAME, "WindowTask",
             TAG_DONE);
+
+    commandTask = NewCreateTask(
+            TASKTAG_PC, CommandTaskLoop,
+            TASKTAG_NAME, "CommandTask",
+            TAG_DONE);
+
 }
 
 void ShutdownXIntuition()
 {
     DeleteMsgPort(replyport);
     Signal(windowTask, SIGBREAKF_CTRL_C);
+    Signal(commandTask, SIGBREAKF_CTRL_C);
 }
 
 Display *GetIntuitionDisplay()
@@ -133,6 +156,18 @@ static struct BorderWinNode *FindByIntuiWindow(struct Window *w)
             }
         }
     }
+}
+
+static struct BorderWinNode *FindByXWindow(Window w)
+{
+    struct BorderWinNode *bwn = NULL;
+    struct Node *nxt = NULL;
+
+    ForeachNodeSafe(&borderWinList, bwn, nxt)
+        if (IW(bwn->Window)->XWindow == w)
+            return bwn;
+
+    return NULL;
 }
 
 static void WindowTaskLoop()
@@ -195,4 +230,56 @@ static void WindowTaskLoop()
 
     // TODO: close outstanding not-closed windows
     // TODO: free port
+}
+
+/*  Commands are executed on separate task, not to cause deadlocks between Intuition and JWM main task.
+    This happens in following situation:
+        Window 1 active, Window 2 inactive, Window 2 is clicked and dragged
+        Window 2 locks layers for move
+            Window 1 becomes inactive which causes refresh of boarder on JWM side which refreshes title
+                Title refreshing blocks on layers. If this is JWM main task, then it stops pumping events
+                to x11gfx.hidd and move never finishes, never unlocking the layers
+*/
+
+static void CommandTaskLoop()
+{
+    commandTaskPort = CreateMsgPort();
+
+    ULONG commandSig = 1L << commandTaskPort->mp_SigBit;
+
+    for (;;)
+    {
+        struct CommandMessage *msg;
+
+        ULONG sigs = Wait(SIGBREAKF_CTRL_C | commandSig);
+
+        if (sigs & SIGBREAKF_CTRL_C)
+            break;
+
+        while ((msg = (struct CommandMessage *)GetMsg(commandTaskPort)))
+        {
+            switch(msg->Type)
+            {
+            case(WMCMD_SET_TITLE):
+                SetWindowTitles((struct Window *)msg->Param1, (CONST_STRPTR)msg->Param2, (CONST_STRPTR)~0L);
+                break;
+            }
+
+            FreeMem(msg, sizeof(struct CommandMessage));
+        }
+    }
+}
+
+void SetBorderWindowTitle(Window w, const char *title)
+{
+    struct BorderWinNode *bwn = FindByXWindow(w);
+
+    if (bwn)
+    {
+        struct CommandMessage *msg = AllocMem(sizeof(struct CommandMessage), MEMF_CLEAR);
+        msg->Type = WMCMD_SET_TITLE;
+        msg->Param1 = (IPTR)bwn->Window;
+        msg->Param2 = (IPTR)title;
+        PutMsg(commandTaskPort, &msg->ExecMessage);
+    }
 }
