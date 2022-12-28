@@ -227,8 +227,10 @@ void ShowDesktop(void)
                                   CurrentTime);
                }
                if(np->state.status & (STAT_MAPPED | STAT_SHADED)) {
+               if(np->state.windowType != WINDOW_TYPE_DESKTOP && np->state.windowType != WINDOW_TYPE_DOCK) {
                   MinimizeClient(np, 0);
                   np->state.status |= STAT_SDESKTOP;
+               }
                }
             }
          }
