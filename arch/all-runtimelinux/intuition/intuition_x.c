@@ -456,6 +456,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     XSizeHints *hints;
     XClassHint *classhint;
     Atom wm_delete_window;
+    Atom window_type_value;
     struct intuixchng *intuixchng = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng);
 
     xd =  intuixchng->xdisplay; /* Use display owned by x11gfx */
@@ -488,19 +489,17 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     XSetClassHint(xd, xw, classhint);
     XFree(classhint);
 
+    /* Set _NET_WM_WINDOW_TYPE */
+    window_type_value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_NORMAL", False);
+
     if ((win->Flags & WFLG_BORDERLESS) && !(win->Flags & WFLG_BACKDROP))
-    {
-        Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
-        Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
-        XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
-    }
+        window_type_value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
 
     if (win->Flags & WFLG_BACKDROP)
-    {
-        Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
-        Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
-        XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
-    }
+        window_type_value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
+
+    Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
+    XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &window_type_value, 1);
 
     /* Inform the window manager not to put any decorations on the window, they will be rendered by Intuition */
     {
