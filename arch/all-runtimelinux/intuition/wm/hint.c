@@ -691,6 +691,9 @@ ClientState ReadWindowState(Window win, char alreadyMapped)
       if(temp) {
          JXFree(temp);
       }
+   } else {
+      /* This is needed according to https://specifications.freedesktop.org/wm-spec/latest/index.html */
+      result.windowType = WINDOW_TYPE_NORMAL;
    }
 
    /* _NET_WM_USER_TIME_WINDOW */
