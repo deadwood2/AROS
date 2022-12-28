@@ -4,6 +4,7 @@
 
 #include <proto/exec.h>
 #include <proto/intuition.h>
+#include <intuition/extensions.h>
 
 #include "xintuition.h"
 
@@ -66,6 +67,7 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
             WA_MinHeight, 96,
             WA_MaxWidth, -1,
             WA_MaxHeight, -1,
+            WA_ExtraGadget_Iconify, TRUE,
             TAG_DONE);
 
     /* Use shared port for all windows */
