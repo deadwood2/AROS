@@ -424,7 +424,7 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
     xs = DefaultScreen(xd);
     xw = XCreateSimpleWindow(xd, RootWindow(xd, xs), 0, 0, width, height, 0, BlackPixel(xd, xs), WhitePixel(xd, xs));
 
-    XSelectInput(xd, xw, ExposureMask);
+    XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask);
 
     hints = XAllocSizeHints();
     hints->flags |= PMaxSize | PMinSize | PPosition;
