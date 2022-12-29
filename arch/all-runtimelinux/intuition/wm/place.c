@@ -41,6 +41,9 @@ static void SubtractStrutBounds(BoundingBox *box, const ClientNode *np);
 static void SubtractBounds(const BoundingBox *src, BoundingBox *dest);
 static void SetWorkarea(void);
 
+/* ScreenBar support */
+static int sbarHeight = 0;
+
 /** Startup placement. */
 void StartupPlacement(void)
 {
@@ -134,6 +137,11 @@ void ReadClientStrut(ClientNode *np)
    box.y = 0;
    box.width = 0;
    box.height = 0;
+
+   /* Special handling of screen bar window */
+   if (np->className != NULL && strcmp(np->className, "AxRuntime Intuition") == 0) {
+      sbarHeight = np->height;
+   }
 
    /* First try to read _NET_WM_STRUT_PARTIAL */
    /* Format is:
@@ -360,6 +368,15 @@ void SubtractStrutBounds(BoundingBox *box, const ClientNode *np)
       }
    }
 
+}
+
+void SubtractSBarHeight(BoundingBox *box, const ClientNode *np)
+{
+   if (np->state.windowType == WINDOW_TYPE_DESKTOP)
+   {
+      box->height -= sbarHeight;
+      box->y += sbarHeight;
+   }
 }
 
 /** Centered placement. */
@@ -663,6 +680,7 @@ char ConstrainSize(ClientNode *np)
    sp = GetCurrentScreen(np->x, np->y);
    GetScreenBounds(sp, &box);
    SubtractStrutBounds(&box, np);
+   SubtractSBarHeight(&box, np);
    GetBorderSize(&np->state, &north, &south, &east, &west);
    if(np->width + east + west > sp->width) {
       box.x += west;
@@ -727,6 +745,7 @@ void ConstrainPosition(ClientNode *np)
    box.width = rootWidth;
    box.height = rootHeight;
    SubtractStrutBounds(&box, np);
+   SubtractSBarHeight(&box, np);
 
    /* Fix the position. */
    GetBorderSize(&np->state, &north, &south, &east, &west);
