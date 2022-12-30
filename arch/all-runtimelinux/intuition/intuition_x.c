@@ -156,13 +156,18 @@ VOID HandleFromX11(struct IntuitionBase *IntuitionBase)
                     ULONG lock;
                     struct Window *oldactive;
 
+                    /* Code taken from ActivateWindow
+                       Code in #if 0 / #endif blocks is left for comparison with origal code only. The assuption is
+                       that activation of window has/will have taken care off all screen title operations, thus they
+                       are disabled in deactivation code path. */
                     lock = LockIBase(0UL);
                     oldactive = IntuitionBase->ActiveWindow == win ? win : NULL;
 
                     if (oldactive)
                     {
-                        /* Code taken from ActivateWindow */
+#if 0
                         struct IntScreen *scr = NULL;
+#endif
 
                         IntuitionBase->ActiveWindow = NULL;
 
@@ -172,8 +177,10 @@ VOID HandleFromX11(struct IntuitionBase *IntuitionBase)
                                     oldactive,
                                     IntuitionBase);
 
+#if 0
                         scr = GetPrivScreen(oldactive->WScreen);
                         scr->Screen.Title = scr->Screen.DefaultTitle;
+#endif
                     }
 
                     UnlockIBase(lock);
@@ -183,8 +190,10 @@ VOID HandleFromX11(struct IntuitionBase *IntuitionBase)
                         AROS_ATOMIC_AND(oldactive->Flags, ~WFLG_WINDOWACTIVE);
 
                         int_refreshwindowframe(oldactive, REFRESHGAD_BORDER, 0, IntuitionBase);
-                        if (1) /* !window is always TRUE */
+#if 0
+                        if (!window || oldactive->WScreen != window->WScreen)
                             RenderScreenBar(oldactive->WScreen, FALSE, IntuitionBase);
+#endif
                     }
 
                 }
