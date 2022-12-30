@@ -199,8 +199,9 @@ ClientNode *AddClientWindow(Window w, char alreadyMapped, char notOwner)
                                   | KeyReleaseMask;
 
       /* Screen Bar window created by Intuition needs this */
-      if (np->className != NULL && strcmp(np->className, "AxRuntime Intuition") == 0)
+      if (IsSBarWindow(np->className, np->instanceName)) {
          sattr.event_mask |= ExposureMask | ButtonReleaseMask | ButtonPressMask;
+      }
 
       JXChangeWindowAttributes(display, np->window,
                                CWEventMask | CWDontPropagate, &sattr);

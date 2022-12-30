@@ -15,6 +15,7 @@
 #include "settings.h"
 #include "clientlist.h"
 #include "misc.h"
+#include "xintuition.h"
 
 typedef struct Strut {
    ClientNode *client;
@@ -139,7 +140,7 @@ void ReadClientStrut(ClientNode *np)
    box.height = 0;
 
    /* Special handling of screen bar window */
-   if (np->className != NULL && strcmp(np->className, "AxRuntime Intuition") == 0) {
+   if (IsSBarWindow(np->className, np->instanceName)) {
       sbarHeight = np->height;
    }
 
