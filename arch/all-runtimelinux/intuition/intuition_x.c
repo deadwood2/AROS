@@ -39,6 +39,8 @@ enum
 
     ATOM__MOTIF_WM_HINTS,
 
+    ATOM__IWM_SCREEN_TITLE,
+
     ATOM_LAST
 };
 
@@ -231,6 +233,8 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
     atoms[ATOM__NET_WM_WINDOW_TYPE_DOCK]    = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
 
     atoms[ATOM__MOTIF_WM_HINTS]             = XInternAtom(xd, "_MOTIF_WM_HINTS", False);
+
+    atoms[ATOM__IWM_SCREEN_TITLE]           = XInternAtom(xd, "_IWM_SCREEN_TITLE", False);
 }
 
 
@@ -487,6 +491,15 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
     XChangeProperty(xd, xw, atoms[ATOM__NET_WM_WINDOW_TYPE], XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
 
     int_completewindowopening(xw, screenBitmap, width, height, barBitMap, layerInfo, IntuitionBase);
+}
+
+VOID SendToWM_SetScreenBarTitle(struct Window *win, struct IntuitionBase *IntuitionBase)
+{
+    Display *xd = sendeventxd;
+
+    XChangeProperty(xd, RootWindow(xd, DefaultScreen(xd)), atoms[ATOM__IWM_SCREEN_TITLE], XA_STRING, 8,
+        PropModeReplace, win->ScreenTitle, strlen(win->ScreenTitle));
+    XFlush(xd);
 }
 
 VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
