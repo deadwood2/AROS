@@ -119,6 +119,9 @@ typedef enum {
    ATOM_JWM_WM_STATE_MAXIMIZED_LEFT,
    ATOM_JWM_WM_STATE_MAXIMIZED_RIGHT,
 
+   /* IWM-specific atoms */
+   ATOM_IWM_SCREEN_TITLE,
+
    ATOM_COUNT
 } AtomType;
 

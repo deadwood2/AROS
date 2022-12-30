@@ -1043,6 +1043,31 @@ char HandlePropertyNotify(const XPropertyEvent *event)
       } else {
          return 1;
       }
+   } else if(event->window == rootWindow) {
+      if (event->atom == atoms[ATOM_IWM_SCREEN_TITLE]) {
+         unsigned long count;
+         int status;
+         unsigned long extra;
+         Atom realType;
+         int realFormat;
+         unsigned char *name;
+
+         status = JXGetWindowProperty(display, rootWindow,
+                                    atoms[ATOM_IWM_SCREEN_TITLE], 0, 1024, False,
+                                    XA_STRING, &realType,
+                                    &realFormat, &count, &extra, &name);
+         if(status == Success && realFormat != 0) {
+            char *p = malloc(count + 1);
+            memcpy(p, name, count);
+            p[count] = 0;
+            JXFree(name);
+
+            SetScreenTitle(p);
+
+            free(p);
+         }
+
+      }
    }
 
    return 1;
