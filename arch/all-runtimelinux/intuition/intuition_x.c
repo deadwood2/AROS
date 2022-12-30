@@ -235,13 +235,17 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
 
 /****************************************************************************************/
 
+static VOID sendxevent(XEvent *event, struct IntuitionBase *IntuitionBase)
+{
+    Display *xd = sendeventxd;
+    XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, event);
+    XFlush(xd);
+}
+
 VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
-    int status;
     Window w = IW(win)->XWindow;
-
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
@@ -251,16 +255,13 @@ VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionB
     event.xclient.data.l[0] = 0; // FIXME eventTime;
     event.xclient.data.l[1] = 2; //Pager
 
-    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
+    sendxevent(&event, IntuitionBase);
 }
 
 VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
-    int status;
     Window w = IW(win)->XWindow;
-
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
@@ -271,14 +272,7 @@ VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *Intuition
     event.xclient.data.l[1] = 0; // FIXME eventTime;
     event.xclient.data.l[2] = 0; // FIXME current active
 
-    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
-}
-
-static VOID sendxevent(XEvent *event, struct IntuitionBase *IntuitionBase)
-{
-    Display *xd = sendeventxd;
-    XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, event);
-    XFlush(xd);
+    sendxevent(&event, IntuitionBase);
 }
 
 VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase)
@@ -309,10 +303,7 @@ VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct Intuiti
 VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
-    int status;
     Window w = IW(win)->XWindow;
-
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
@@ -323,17 +314,13 @@ VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, stru
     event.xclient.data.l[1] = new_left;
     event.xclient.data.l[2] = new_top;
 
-    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
-    XFlush(xd); /* Push event to X server immediatelly */
+    sendxevent(&event, IntuitionBase);
 }
 
 VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
-    int status;
     Window w = IW(win)->XWindow;
-
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
@@ -346,16 +333,13 @@ VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height
     event.xclient.data.l[3] = new_width;
     event.xclient.data.l[4] = new_height;
 
-    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
+    sendxevent(&event, IntuitionBase);
 }
 
 VOID SendMessageMinimize(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
-    int status;
     Window w = IW(win)->XWindow;
-
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
@@ -364,7 +348,7 @@ VOID SendMessageMinimize(struct Window *win, struct IntuitionBase *IntuitionBase
     event.xclient.format = 32;
     event.xclient.data.l[0] = IconicState;
 
-    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
+    sendxevent(&event, IntuitionBase);
 }
 
 /****************************************************************************************/
