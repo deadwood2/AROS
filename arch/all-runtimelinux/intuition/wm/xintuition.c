@@ -34,7 +34,7 @@ struct CommandMessage
     IPTR    Param2;
 };
 
-#define WMCMD_SET_TITLE     (1)
+#define WMCMD_SET_WINDOW_TITLE  (1)
 
 static void CommandTaskLoop();
 static struct Task *commandTask;
@@ -269,7 +269,7 @@ static void CommandTaskLoop()
         {
             switch(msg->Type)
             {
-            case(WMCMD_SET_TITLE):
+            case(WMCMD_SET_WINDOW_TITLE):
                 SetWindowTitles((struct Window *)msg->Param1, (CONST_STRPTR)msg->Param2, (CONST_STRPTR)~0L);
                 break;
             }
@@ -289,7 +289,7 @@ void SetBorderWindowTitle(Window w, const char *title)
         bwn->NameBuffer = StrDup(title);
 
         struct CommandMessage *msg = AllocMem(sizeof(struct CommandMessage), MEMF_CLEAR);
-        msg->Type = WMCMD_SET_TITLE;
+        msg->Type = WMCMD_SET_WINDOW_TITLE;
         msg->Param1 = (IPTR)bwn->Window;
         msg->Param2 = (IPTR)bwn->NameBuffer;
         PutMsg(commandTaskPort, &msg->ExecMessage);
