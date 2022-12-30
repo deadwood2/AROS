@@ -1,146 +1,94 @@
-Design of interconnections between Intuition, Graphics, Layers, X11HIDD and WindowManager
-=========================================================================================
+Design of interconnections between Intuition, Graphics, x11gfx.hidd and WindowManager
+=====================================================================================
 
 Use Cases
 =========
 
-Codebase needs to support following 3 use cases:
+Codebase needs to support following 2 use cases:
 
 1)  AxRT program opening an Intuition window on any Window Manager
 
-        This is the usual case when a AxRT program is started under Linux. In such case there is already a "native"
-        window manager running (like marco). Intution window becomes the child window of a window manager border
-        window. Intuition window in such case will not render any borders or gadgets. It will respond to close, move,
-        resize events correctly. It will follow window managers logic with regards to maximize and minimize. In short,
-        it will follow given window managers conventions, while rendering the "inner part" of window fully via
-        Intuition.
+    This is the usual case when a AxRT program is started under Linux. In such case there is already a "native"
+    window manager running (like marco). Intution window will request handling it as undecorated window by
+    window manager via _MOTIF_WM_HINTS. Window responds to close, move, resize via native Intuition controls.
+    Additionally, "iconify" is mapped to "minimize". There is no "maximize" function. Customs gadgets will be
+    rendered and they will support any application-defined events correctly.
 
 2) Intuition acting as Window Manager for non AxRT programs
 
-        In this case Intuition (as Window Manager) will create border/parent window that will be following Intuition
-        conventions and will only render border area and gadgets. Client window will become child window. Intuition
-        border window will respond to close, move, resize, iconify events correctly. Intuition border window will have
-        a set of pre-defined gadgets matching closly window type requestest by the Client.
+    In this case Intuition (as Window Manager) will create border/parent window that will be following Intuition
+    conventions and will only render border area and gadgets. Client window will become child window. Intuition
+    border window will respond to close, move, resize, iconify events correctly. Intuition border window will have
+    a set of pre-defined gadgets matching closly window type requestest by the Client.
 
-3) AxRT program opening an Intuition window on Intuition acting as Window Manager
+Routing of Events - General Approach
+====================================
 
-        In this situation, there are actually two Intuition processes which work together to create seamless experience.
-        First process is started by AxRuntime on behalf of AxRT program - we will call this Intuition(A). Second
-        process is Intuition running as Window Manager - we will call this Intuition(B).
+Intuition is receiving raw mouse and keyboard events from X server. Based on those, it detects user interactions with
+gadgets and windows. It then, instead of directly acting on those interactions, sends messages to Window Manager.
+Window Manager processes those messages, applies its constraints and sends back X events. Intuition reacts to those
+events by "completing" the action.
 
-        Intuition(B) will not create a parent window which is managed by Window Manager. assuch Intuition(A) window will
-        handle all interactions. It will render both the border as well as "inner part" of window. It will allow for
-        customs gadgets to be rendered. It will respond to close, move, resize, iconify or any application-defined
-        events correctly.
+This approach requires the Window Manager to conform to Extended Window Manager Hints specification as described here:
+https://specifications.freedesktop.org/wm-spec/latest/index.html
 
-Routing of Events
-=================
+Tested window managers:
 
-Event              |                                                |                                                |
--------------------|------------------------------------------------|------------------------------------------------|
-Open window        |                   USE CASE 1                   |                   USE CASE 2                   |
--------------------|------------------------------------------------|------------------------------------------------|
-                   | Intuition checks whether window manager is not | Intuition at startup marks X root window with  |
-                   | Intuition. If this is true, Intuition builds   | class "Intuition". When a client is connected, |
-                   | the window as BORDERLESS so that no gadgets    | it checks whether client window class is       |
-                   | are rendered and complete border rendering is  | "AxRuntime". If no, it opens a standarized     |
-                   | done by window manager.                        | Intuition window which will act as border      |
-                   |                                                | window for inner client window.                |
-                   |------------------------------------------------|------------------------------------------------|
-                   | Intuition calculates properties of new window. Then it calls XCreateWindow to create the window.|
-                   | Next it calls AllocBitmap passing the opened window as private parameter in order to create a   |
-                   | new bitmap that will be bound to the Rastport of this window.                                   |
-                   |------------------------------------------------|------------------------------------------------|
-                   | Bitmap allocation call goes to x11.hidd, which adds the passed window to the list of it handled |
-                   | windows and is ready to process XEvents coming for that window. x11hidd Maps the X window.      |
--------------------|------------------------------------------------|------------------------------------------------|
-                   |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
--------------------|------------------------------------------------|------------------------------------------------|
-                   | Intuition checks whether window manager is     | Intuition at startup marks X root window with  |
-                   | Intuition. If this is true, Intuition builds   | class "Intuition". When a client is connected, |
-                   | window as requested by user. Follows logic of  | it checks whether client window class is       |
-                   | Use Case 1 for rest of actions.                | "AxRuntime". If yes, it does not create an     |
-                   |                                                | outer window.                                  |
--------------------|------------------------------------------------|------------------------------------------------|
-Change focus       |                   USE CASE 1                   |                   USE CASE 2                   |
--------------------|------------------------------------------------|------------------------------------------------|
-                   | Window Manager causes FocusIn or FocusOut      | Intuition detects click in title bar. It calls |
-                   | XEvents to be sent.                            | ActiveWindow which makes the window active and |
-                   |                                                | sends XEvent of type ClientMessage of type     |
-                   |                                                | _NET_ACTIVE_WINDOW.                            |
-                   |                                                | XEvent is processed by internal window manager |
-                   |                                                | and results in generating FocusIn XEvent for   |
-                   |                                                | client that sent _NET_ACTIVE_WINDOW and        |
-                   |                                                | FocusOut XEvent for previously active client.  |
-                   |                                                | Internal window menagers generates also fake   |
-                   |                                                | FocusIn and FocusOut XEvents and send them to  |
-                   |                                                | Intuition border window                        |
-                   |------------------------------------------------|------------------------------------------------|
-                   | x11.hidd listens to FocusIn and FocusOut XEvent and sends FROMX11_FOCUS message to Intuition.   |                                                |
-                   | Intuition either calls int_activatewindow or executes code related to making the current window |
-                   | inactive.                                                                                       |
--------------------|------------------------------------------------|------------------------------------------------|
-                   |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
--------------------|------------------------------------------------|------------------------------------------------|
-                   | Intuition detects click in title bar. It calls |                                                |
-                   | ActiveWindow which makes the window active and |                                                |
-                   | sends XEvent of type ClientMessage of type     |                                                |
-                   | _NET_ACTIVE_WINDOW.                            |                                                |
-                   |                                                | XEvent is processed by internal window manager |
-                   |                                                | and results in generating FocusIn XEvent for   |
-                   |                                                | client that sent _NET_ACTIVE_WINDOW and        |
-                   |                                                | FocusOut XEvent for previously active client.  |
-                   | x11.hidd listens to FocusIn XEvent and sends   |                                                |
-                   | FROMX11_FOCUS message to Intuition.            |                                                |
-                   | Intuition ignores the message if window is     |                                                |
-                   | already active.                                |                                                |
--------------------|------------------------------------------------|------------------------------------------------|
-Close window       |                   USE CASE 1                   |                   USE CASE 2                   |
--------------------|------------------------------------------------|------------------------------------------------|
-                   | Window Manager detects click  on close button  | Intuition detects click on close gadget and    |
-                   | and sends XEvent of type ClientMessage of type | sends XEvent of type ClientMessage of type     |
-                   | WM_DELETE_WINDOW                               | _NET_CLOSE_WINDOW.                             |
-                   |                                                | XEvent is processed by internal window manager |
-                   |                                                | and results in sending XEvent of type          |
-                   |                                                | ClientMessage of type WM_DELETE_WINDOW to      |
-                   |                                                | client window (which is a non-AxRT program).   |
-                   |                                                |------------------------------------------------|
-                   |                                                | Program reacts to this by unmapping its window.|
-                   |                                                |------------------------------------------------|
-                   |                                                | This event is captured by internal window      |
-                   |                                                | manager which sends XEvent of type             |
-                   |                                                | ClientMessage of type WM_DELETE_WINDOW         |
-                   |------------------------------------------------|------------------------------------------------|
-                   | x11.hidd receives XEvent of type ClientMessage and pushes message to Intuition of type          |
-                   | FROMX11_CLOSEWINDOW. Intuition reacts to this message by firing IDCMP_CLOSEWINDOW message to    |
-                   | the program.                                                                                    |
-                   |------------------------------------------------|------------------------------------------------|
-                   | Program reacts to IDCMP_CLOSEWINDOW message by | Window loop in internal window manager reacts  |
-                   | calling CloseWindow function                   | to IDCMP_CLOSEWINDOW message by calling        |
-                   |                                                | CloseWindow function                           |
-                   |------------------------------------------------|------------------------------------------------|
-                   | As part of CloseWindow function, Intuition calls FreeBitMap on window's bitmap. This casuses    |
-                   | x11.hidd to remove X11 window associated with that bitmap from xwindowlist and call             |
-                   | XDestroyWindow                                                                                  |
--------------------|------------------------------------------------|------------------------------------------------|
-Close window       |             USE CASE 3 Intuition(A)            |             USE CASE 3 Intuition(B)            |
--------------------|------------------------------------------------|------------------------------------------------|
-                   |                                                |                                                |
--------------------|------------------------------------------------|------------------------------------------------|
-Move  window       |                   USE CASE 1                   |                   USE CASE 2                   |
--------------------|------------------------------------------------|------------------------------------------------|
-                   |                                                | Uses _NET_MOVESIZE_WINDOW with only data.l[1]  |
-                   |                                                | and data.l[2] active, round trip via           |
-                   |                                                | ConfigureNotify XEvent                         |
--------------------|------------------------------------------------|------------------------------------------------|
-Restack window     |                   USE CASE 1                   |                   USE CASE 2                   |
--------------------|------------------------------------------------|------------------------------------------------|
-                   |                                                | Uses _NET_RESTACK_WINDOW, no round trip, but   |
-                   |                                                | can cause sending of Expose XEvent             |
--------------------|------------------------------------------------|------------------------------------------------|
-Resize  window     |                   USE CASE 1                   |                   USE CASE 2                   |
--------------------|------------------------------------------------|------------------------------------------------|
-                   |                                                | Uses _NET_MOVESIZE_WINDOW with only data.l[3]  |
-                   |                                                | and data.l[4] active, round trip via           |
-                   |                                                | ConfigureNotify XEvent                         |
--------------------|------------------------------------------------|------------------------------------------------|
+* marco (MATE Desktop's WM)
+* Intuition
+
+Routing of Events - Details
+===========================
+
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Operation          |           Intuition           |        Window Manager         |           Intuition           |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Move window        | Send _NET_MOVESIZE_WINDOW with| Move window and send          | Get screen coordinates via    |
+                    | only data.l[1] and data.l[2]  | ConfigureNotify XEvent        | XTranslateCoordinates call and|
+                    | active                        |                               | finish the move with call to  |
+                    |                               |                               | DoMoveSizeWindow passing new  |
+                    |                               |                               | position and old size         |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Resize window      | Send _NET_MOVESIZE_WINDOW with| Resize window and send        | If new size is bigger than    |
+                    | only data.l[3] and data.l[4]  | ConfigureNotify XEvent        | current bitmap size, enlarge  |
+                    | active                        |                               | bitmap and update window's    |
+                    |                               |                               | RastPort layer properties.    |
+                    |                               |                               | Finish the resize with call to|
+                    |                               |                               | DoMoveSizeWindow passing new  |
+                    |                               |                               | size and old position         |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Iconify window     | Send WM_CHANGE_STATE with     | Minimize window               |                               |
+                    | data.l[0] set to IconicState  |                               |                               |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Restack window     | Send _NET_RESTACK_WINDOW      | Restack window and possibly   | React to Expose XEvent by     |
+                    |                               | send Expose XEvent            | copying backing pixmap to     |
+                    |                               |                               | window                        |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Zoom window        | Send two _NET_MOVESIZE_WINDOW | See logic for Move window and | See logic for Move window and |
+                    | messages, one for position and| Resize window                 | Resize window                 |
+                    | another for size              |                               |                               |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Set window active  | Send _NET_ACTIVE_WINDOW with  | Activate selected window and  | React to FocusIn XEvent by    |
+                    | w set to this window          | send FocusIn XEvent to        | calling int_activatewindow    |
+                    |                               | selected window and FocusOut  | React to FocusOut XEvent by   |
+                    |                               | to previously active window   | making current active window  |
+                    |                               |                               | inactive                      |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+ Close window       | Send _NET_CLOSE_WINDOW with   | Send ClientMessage XEvent with| Send IDCMP_CLOSEWINDOW message|
+                    | w set to this window          | type WM_DELETE_WINDOW         | and expect application code   |
+                    |                               |                               | to call CloseWindow()         |
+--------------------|-------------------------------|-------------------------------|-------------------------------|
+
+OpenWindow / CloseWindow details:
+
+OpenWindow()
+                   
+Intuition calculates properties of new window. Then it calls XCreateWindow to create the window. Next it calls 
+AllocBitmap passing the opened window as private parameter in order to create a new bitmap that will be bound to the
+Rastport of this window. Bitmap allocation call goes to x11gfx.hidd, which adds the passed window to the list of it
+handled windows and is ready to process XEvents coming for that window. x11hidd Maps the X window.
+
+CloseWindow()
+
+As part of CloseWindow function, Intuition calls FreeBitMap on window's bitmap. This casuses x11.hidd to remove X11
+window associated with that bitmap from xwindowlist and call XDestroyWindow.
