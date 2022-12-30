@@ -285,3 +285,15 @@ void SetBorderWindowTitle(Window w, const char *title)
         PutMsg(commandTaskPort, &msg->ExecMessage);
     }
 }
+
+char IsSBarWindow(const char *className, const char *instanceName)
+{
+    if (className == NULL || instanceName == NULL)
+        return 0;
+
+    if (strcmp(className, "AxRT_Window") == 0)
+        if (strcmp(instanceName, "SBar_Window") == 0)
+            return 1;
+
+    return 0;
+}

@@ -21,6 +21,8 @@
 #define X11_TYPES_H
 #include "../../arch/all-hosted/hidd/x11/x11.h"
 
+#define INTUIXWINDOWCLASS "AxRT_Window"
+
 VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase);
 
 static struct Window *FindWindow(struct IntuitionBase *IntuitionBase, Window xwindow)
@@ -435,8 +437,8 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
 
     /* Set the window class */
     classhint = XAllocClassHint();
-    classhint->res_name = "AxRuntime Intuition";
-    classhint->res_class = "AxRuntime Intuition";
+    classhint->res_name = "SBar_Window";
+    classhint->res_class = INTUIXWINDOWCLASS;
     XSetClassHint(xd, xw, classhint);
     XFree(classhint);
 
@@ -484,8 +486,8 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
 
     /* Set the window class */
     classhint = XAllocClassHint();
-    classhint->res_name = "AxRuntime";
-    classhint->res_class = "AxRuntime";
+    classhint->res_name = NULL;
+    classhint->res_class = INTUIXWINDOWCLASS;
     XSetClassHint(xd, xw, classhint);
     XFree(classhint);
 
