@@ -171,8 +171,9 @@ static const AtomNode atomList[] = {
    { &atoms[ATOM_JWM_WM_STATE_MAXIMIZED_LEFT],
       "_JWM_WM_STATE_MAXIMIZED_LEFT" },
    { &atoms[ATOM_JWM_WM_STATE_MAXIMIZED_RIGHT],
-      "_JWM_WM_STATE_MAXIMIZED_RIGHT" }
+      "_JWM_WM_STATE_MAXIMIZED_RIGHT" },
 
+   { &atoms[ATOM_IWM_SCREEN_TITLE],         "_IWM_SCREEN_TITLE"            }
 };
 
 static char CheckShape(Window win);

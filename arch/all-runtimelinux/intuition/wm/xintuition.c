@@ -35,11 +35,13 @@ struct CommandMessage
 };
 
 #define WMCMD_SET_WINDOW_TITLE  (1)
+#define WMCMD_SET_SCREEN_TITLE  (2)
 
 static void CommandTaskLoop();
 static struct Task *commandTask;
 static struct MsgPort *commandTaskPort;
 
+static STRPTR screenTitleBuffer;
 
 struct BorderWinNode
 {
@@ -272,11 +274,29 @@ static void CommandTaskLoop()
             case(WMCMD_SET_WINDOW_TITLE):
                 SetWindowTitles((struct Window *)msg->Param1, (CONST_STRPTR)msg->Param2, (CONST_STRPTR)~0L);
                 break;
+            case(WMCMD_SET_SCREEN_TITLE):
+                struct Window dummy;
+                dummy.WScreen = (struct Screen *)msg->Param1;
+                dummy.Flags |= WFLG_WINDOWACTIVE;
+                SetWindowTitles(&dummy, (CONST_STRPTR)~0L, (CONST_STRPTR)msg->Param2);
+                break;
             }
 
             FreeMem(msg, sizeof(struct CommandMessage));
         }
     }
+}
+
+void SetScreenTitle(const char *title)
+{
+    if (screenTitleBuffer) FreeVec(screenTitleBuffer);
+    screenTitleBuffer = StrDup(title);
+
+    struct CommandMessage *msg2 = AllocMem(sizeof(struct CommandMessage), MEMF_CLEAR);
+    msg2->Type = WMCMD_SET_SCREEN_TITLE;
+    msg2->Param1 = (IPTR)GetPrivIBase(IntuitionBase)->SBarScreen;
+    msg2->Param2 = (IPTR)screenTitleBuffer;
+    PutMsg(commandTaskPort, &msg2->ExecMessage);
 }
 
 void SetBorderWindowTitle(Window w, const char *title)

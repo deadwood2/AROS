@@ -15,7 +15,9 @@ void ShutdownXIntuition(void);
 Window OpenBorderWindow(int x, int y, int width, int height, const char *title);
 Display *GetIntuitionDisplay();
 void SendXEventToIntuition(XEvent *event);
-void SetBorderWindowTitle(Window w, const char *title);
 char IsSBarWindow(const char *className, const char *instanceName);
+
+void SetBorderWindowTitle(Window w, const char *title);
+void SetScreenTitle(const char *title);
 
 #endif
