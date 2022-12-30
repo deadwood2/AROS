@@ -23,6 +23,27 @@
 
 #define INTUIXWINDOWCLASS "AxRT_Window"
 
+enum
+{
+    ATOM_WM_CHANGE_STATE,
+    ATOM_WM_DELETE_WINDOW,
+
+    ATOM__NET_CLOSE_WINDOW,
+    ATOM__NET_ACTIVE_WINDOW,
+    ATOM__NET_RESTACK_WINDOW,
+    ATOM__NET_MOVERESIZE_WINDOW,
+    ATOM__NET_WM_WINDOW_TYPE,
+    ATOM__NET_WM_WINDOW_TYPE_DESKTOP,
+    ATOM__NET_WM_WINDOW_TYPE_NORMAL,
+    ATOM__NET_WM_WINDOW_TYPE_DOCK,
+
+    ATOM__MOTIF_WM_HINTS,
+
+    ATOM_LAST
+};
+
+static Atom atoms[ATOM_LAST];
+
 VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase);
 
 static struct Window *FindWindow(struct IntuitionBase *IntuitionBase, Window xwindow)
@@ -187,6 +208,23 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
     port->mp_Flags   = PA_IGNORE;
     port->mp_SigTask = NULL;
     ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->intuition_port = port;
+
+    /* Cache Atoms */
+    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+
+    atoms[ATOM_WM_CHANGE_STATE]             = XInternAtom(xd, "WM_CHANGE_STATE", False);
+    atoms[ATOM_WM_DELETE_WINDOW]            = XInternAtom(xd, "WM_DELETE_WINDOW", False);
+
+    atoms[ATOM__NET_CLOSE_WINDOW]           = XInternAtom(xd, "_NET_CLOSE_WINDOW", False);
+    atoms[ATOM__NET_ACTIVE_WINDOW]          = XInternAtom(xd, "_NET_ACTIVE_WINDOW", False);
+    atoms[ATOM__NET_RESTACK_WINDOW]         = XInternAtom(xd, "_NET_RESTACK_WINDOW", False);
+    atoms[ATOM__NET_MOVERESIZE_WINDOW]      = XInternAtom(xd, "_NET_MOVERESIZE_WINDOW", False);
+    atoms[ATOM__NET_WM_WINDOW_TYPE]         = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
+    atoms[ATOM__NET_WM_WINDOW_TYPE_DESKTOP] = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
+    atoms[ATOM__NET_WM_WINDOW_TYPE_NORMAL]  = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_NORMAL", False);
+    atoms[ATOM__NET_WM_WINDOW_TYPE_DOCK]    = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
+
+    atoms[ATOM__MOTIF_WM_HINTS]             = XInternAtom(xd, "_MOTIF_WM_HINTS", False);
 }
 
 
@@ -199,12 +237,11 @@ VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionB
     Window w = IW(win)->XWindow;
 
     Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-    Atom _net_close_window = XInternAtom(xd, "_NET_CLOSE_WINDOW", False);
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
     event.xclient.window = w;
-    event.xclient.message_type = _net_close_window;
+    event.xclient.message_type = atoms[ATOM__NET_CLOSE_WINDOW];
     event.xclient.format = 32;
     event.xclient.data.l[0] = 0; // FIXME eventTime;
     event.xclient.data.l[1] = 2; //Pager
@@ -219,12 +256,11 @@ VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *Intuition
     Window w = IW(win)->XWindow;
 
     Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-    Atom _net_active_window = XInternAtom(xd, "_NET_ACTIVE_WINDOW", False);
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
     event.xclient.window = w;
-    event.xclient.message_type = _net_active_window;
+    event.xclient.message_type = atoms[ATOM__NET_ACTIVE_WINDOW];
     event.xclient.format = 32;
     event.xclient.data.l[0] = 2; //Pager
     event.xclient.data.l[1] = 0; // FIXME eventTime;
@@ -241,7 +277,6 @@ VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct Intuiti
     int detail;
 
     Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-    Atom _net_restack_window = XInternAtom(xd, "_NET_RESTACK_WINDOW", False);
 
     switch(topbottom)
     {
@@ -253,7 +288,7 @@ VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct Intuiti
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
     event.xclient.window = w;
-    event.xclient.message_type = _net_restack_window;
+    event.xclient.message_type = atoms[ATOM__NET_RESTACK_WINDOW];
     event.xclient.format = 32;
     event.xclient.data.l[0] = 2;
     event.xclient.data.l[1] = 0; /* absolute */
@@ -269,12 +304,11 @@ VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, stru
     Window w = IW(win)->XWindow;
 
     Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-    Atom _net_moveresize_window = XInternAtom(xd, "_NET_MOVERESIZE_WINDOW", False);
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
     event.xclient.window = w;
-    event.xclient.message_type = _net_moveresize_window;
+    event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
     event.xclient.format = 32;
     event.xclient.data.l[0] = 8961;
     event.xclient.data.l[1] = new_left;
@@ -291,12 +325,11 @@ VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height
     Window w = IW(win)->XWindow;
 
     Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-    Atom _net_moveresize_window = XInternAtom(xd, "_NET_MOVERESIZE_WINDOW", False);
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
     event.xclient.window = w;
-    event.xclient.message_type = _net_moveresize_window;
+    event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
     event.xclient.format = 32;
     event.xclient.data.l[0] = 11265;
     event.xclient.data.l[1] = 0;
@@ -314,12 +347,11 @@ VOID SendMessageMinimize(struct Window *win, struct IntuitionBase *IntuitionBase
     Window w = IW(win)->XWindow;
 
     Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
-    Atom wm_change_state = XInternAtom(xd, "WM_CHANGE_STATE", False);
 
     memset(&event, 0, sizeof(event));
     event.xclient.type = ClientMessage;
     event.xclient.window = w;
-    event.xclient.message_type = wm_change_state;
+    event.xclient.message_type = atoms[ATOM_WM_CHANGE_STATE];
     event.xclient.format = 32;
     event.xclient.data.l[0] = IconicState;
 
@@ -457,9 +489,8 @@ VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap
     XSetClassHint(xd, xw, classhint);
     XFree(classhint);
 
-    Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
-    Atom value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
-    XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
+    Atom value = atoms[ATOM__NET_WM_WINDOW_TYPE_DESKTOP];
+    XChangeProperty(xd, xw, atoms[ATOM__NET_WM_WINDOW_TYPE], XA_ATOM, 32, PropModeReplace, (unsigned char *) &value, 1);
 
     int_completewindowopening(xw, screenBitmap, width, height, barBitMap, layerInfo, IntuitionBase);
 }
@@ -487,7 +518,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     XSelectInput(xd, xw, ButtonPressMask | ButtonReleaseMask | ExposureMask | PointerMotionMask | StructureNotifyMask
             | KeyPressMask | KeyReleaseMask | FocusChangeMask);
 
-    wm_delete_window = XInternAtom(xd, "WM_DELETE_WINDOW", FALSE);
+    wm_delete_window = atoms[ATOM_WM_DELETE_WINDOW];
     XSetWMProtocols(xd, xw, &wm_delete_window, 1);
 
     hints = XAllocSizeHints();
@@ -507,16 +538,15 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     XFree(classhint);
 
     /* Set _NET_WM_WINDOW_TYPE */
-    window_type_value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_NORMAL", False);
+    window_type_value = atoms[ATOM__NET_WM_WINDOW_TYPE_NORMAL];
 
     if ((win->Flags & WFLG_BORDERLESS) && !(win->Flags & WFLG_BACKDROP))
-        window_type_value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
+        window_type_value = atoms[ATOM__NET_WM_WINDOW_TYPE_DOCK];
 
     if (win->Flags & WFLG_BACKDROP)
-        window_type_value = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
+        window_type_value = atoms[ATOM__NET_WM_WINDOW_TYPE_DESKTOP];
 
-    Atom window_type = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
-    XChangeProperty(xd, xw, window_type, XA_ATOM, 32, PropModeReplace, (unsigned char *) &window_type_value, 1);
+    XChangeProperty(xd, xw, atoms[ATOM__NET_WM_WINDOW_TYPE], XA_ATOM, 32, PropModeReplace, (unsigned char *) &window_type_value, 1);
 
     /* Inform the window manager not to put any decorations on the window, they will be rendered by Intuition */
     {
@@ -529,7 +559,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
             unsigned long status;
         } mwmHints;
 
-        Atom _motif_wm_hints = XInternAtom(xd, "_MOTIF_WM_HINTS", False);
+        Atom _motif_wm_hints = atoms[ATOM__MOTIF_WM_HINTS];
         mwmHints.flags = (1L << 1); /* DECORATIONS */
         mwmHints.decorations = 0; /* No decorations */
         XChangeProperty(xd, xw, _motif_wm_hints, _motif_wm_hints, 32, PropModeReplace, (unsigned char *) &mwmHints, 5);
