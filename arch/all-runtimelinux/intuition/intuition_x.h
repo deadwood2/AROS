@@ -12,6 +12,8 @@
 #   include <intuition/intuition.h>
 #endif
 
+VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase);
+
 VOID HandleFromX11(struct IntuitionBase *IntuitionBase);
 struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase);
 

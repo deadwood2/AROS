@@ -175,6 +175,21 @@ VOID HandleFromX11(struct IntuitionBase *IntuitionBase)
     }
 }
 
+VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
+{
+    struct Task *x11task = NULL;
+
+    while ((x11task = FindTask("x11hidd task")) == NULL); // FindTask does not seem to work correctly in SMP!!
+    GetPrivIBase(IntuitionBase)->intuixchng = x11task->tc_UserData;
+    struct MsgPort *port = CreateMsgPort();
+    FreeSignal(port->mp_SigBit);
+    port->mp_SigBit  = -1;
+    port->mp_Flags   = PA_IGNORE;
+    port->mp_SigTask = NULL;
+    ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->intuition_port = port;
+}
+
+
 /****************************************************************************************/
 
 VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionBase)
