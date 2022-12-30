@@ -45,12 +45,18 @@ struct BorderWinNode
 {
     struct Node     Node;
     struct Window   *Window;
+
     UWORD           Width;
     UWORD           Height;
+
+    STRPTR          NameBuffer;
 };
 
 Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
 {
+    struct BorderWinNode *bwn = AllocMem(sizeof(struct BorderWinNode), MEMF_PUBLIC | MEMF_CLEAR);
+    bwn->NameBuffer = StrDup(title);
+
     struct Window *intuiWin = OpenWindowTags(NULL,
             WA_Left, x,
             WA_Top, y,
@@ -60,7 +66,7 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
             WA_CloseGadget, TRUE,
             WA_SizeGadget, TRUE,
             WA_DepthGadget, TRUE,
-            WA_Title, title,
+            WA_Title, bwn->NameBuffer,
             WA_SizeBBottom, TRUE,
             WA_SizeBRight, TRUE,
             WA_MinWidth, 96,
@@ -75,10 +81,10 @@ Window OpenBorderWindow(int x, int y, int width, int height, const char *title)
 
     ModifyIDCMP(intuiWin, IDCMP_CLOSEWINDOW | IDCMP_NEWSIZE | IDCMP_CHANGEWINDOW);
 
-    struct BorderWinNode *bwn = AllocMem(sizeof(struct BorderWinNode), MEMF_PUBLIC | MEMF_CLEAR);
     bwn->Window = intuiWin;
     bwn->Width  = width;
     bwn->Height = height;
+
 /* FIXME: this should be semaphore protected or be separate list that is added to main one by window loop task*/
     AddTail(&borderWinList, &bwn->Node);
 
@@ -209,6 +215,7 @@ static void WindowTaskLoop()
                 CloseWindow(w);
                 Remove((struct Node *)bwn);
                 lastbwn = NULL;
+                FreeVec(bwn->NameBuffer);
                 FreeMem(bwn, sizeof(struct BorderWinNode));
                 break;
             case IDCMP_NEWSIZE:
@@ -278,10 +285,13 @@ void SetBorderWindowTitle(Window w, const char *title)
 
     if (bwn)
     {
+        FreeVec(bwn->NameBuffer);
+        bwn->NameBuffer = StrDup(title);
+
         struct CommandMessage *msg = AllocMem(sizeof(struct CommandMessage), MEMF_CLEAR);
         msg->Type = WMCMD_SET_TITLE;
         msg->Param1 = (IPTR)bwn->Window;
-        msg->Param2 = (IPTR)title;
+        msg->Param2 = (IPTR)bwn->NameBuffer;
         PutMsg(commandTaskPort, &msg->ExecMessage);
     }
 }
