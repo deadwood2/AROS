@@ -43,6 +43,7 @@ enum
 };
 
 static Atom atoms[ATOM_LAST];
+static Display *sendeventxd;
 
 VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase);
 
@@ -209,8 +210,12 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
     port->mp_SigTask = NULL;
     ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->intuition_port = port;
 
+    /* Use separate Display to send events. If the same display used as one for receiving, sometimes events are not
+       send immediately, even with XFlush() */
+    sendeventxd = XOpenDisplay(NULL);
+
     /* Cache Atoms */
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    Display *xd = sendeventxd;
 
     atoms[ATOM_WM_CHANGE_STATE]             = XInternAtom(xd, "WM_CHANGE_STATE", False);
     atoms[ATOM_WM_DELETE_WINDOW]            = XInternAtom(xd, "WM_DELETE_WINDOW", False);
@@ -269,14 +274,18 @@ VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *Intuition
     status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
 }
 
+static VOID sendxevent(XEvent *event, struct IntuitionBase *IntuitionBase)
+{
+    Display *xd = sendeventxd;
+    XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, event);
+    XFlush(xd);
+}
+
 VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
-    int status;
     Window w = IW(win)->XWindow;
     int detail;
-
-    Display *xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
 
     switch(topbottom)
     {
@@ -294,7 +303,7 @@ VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct Intuiti
     event.xclient.data.l[1] = 0; /* absolute */
     event.xclient.data.l[2] = detail;
 
-    status = XSendEvent(xd, RootWindow(xd, DefaultScreen(xd)), False, SubstructureNotifyMask | SubstructureRedirectMask, &event);
+    sendxevent(&event, IntuitionBase);
 }
 
 VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase)
