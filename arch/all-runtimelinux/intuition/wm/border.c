@@ -410,8 +410,6 @@ void DrawBorderHelper(const ClientNode *np)
    XEvent dummy;
    dummy.xany.window = np->parent;
 
-   SetBorderWindowTitle(np->parent, np->name);
-
    if(np->state.status & (STAT_ACTIVE | STAT_FLASH)) {
       dummy.xany.type = FocusIn;
    } else {

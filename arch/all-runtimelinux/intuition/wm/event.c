@@ -972,6 +972,7 @@ char HandlePropertyNotify(const XPropertyEvent *event)
       case XA_WM_NAME:
          ReadWMName(np);
          changed = 1;
+         SetBorderWindowTitle(np->parent, np->name);
          break;
       case XA_WM_NORMAL_HINTS:
          ReadWMNormalHints(np);
@@ -1013,6 +1014,7 @@ char HandlePropertyNotify(const XPropertyEvent *event)
          } else if(event->atom == atoms[ATOM_NET_WM_NAME]) {
             ReadWMName(np);
             changed = 1;
+            SetBorderWindowTitle(np->parent, np->name);
          } else if(event->atom == atoms[ATOM_NET_WM_STRUT_PARTIAL]) {
             ReadClientStrut(np);
          } else if(event->atom == atoms[ATOM_NET_WM_STRUT]) {
