@@ -209,6 +209,7 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
     port->mp_Flags   = PA_IGNORE;
     port->mp_SigTask = NULL;
     ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->intuition_port = port;
+    GetPrivIBase(IntuitionBase)->SBarScreen = NULL;
 
     /* Use separate Display to send events. If the same display used as one for receiving, sometimes events are not
        send immediately, even with XFlush() */
