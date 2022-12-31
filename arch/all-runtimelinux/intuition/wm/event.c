@@ -98,7 +98,7 @@ char WaitForEvent(XEvent *event)
 #endif
 
    /* Compute how long we should sleep. */
-   sleepTime = 10 * 1000;  /* 10 seconds. */
+   sleepTime = 50;  /* 50 milliseconds. */
    for(cp = callbacks; cp; cp = cp->next) {
       if(cp->freq > 0 && cp->freq < sleepTime) {
          sleepTime = cp->freq;
