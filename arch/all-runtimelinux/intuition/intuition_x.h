@@ -17,12 +17,12 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase);
 VOID HandleFromX11(struct IntuitionBase *IntuitionBase);
 struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase);
 
-VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionBase);
-VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *IntuitionBase);
-VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase);
-VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase);
-VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase);
-VOID SendMessageMinimize(struct Window *win, struct IntuitionBase *IntuitionBase);
+VOID SendToWM_Close(struct Window *win, struct IntuitionBase *IntuitionBase);
+VOID SendToWM_Activate(struct Window *win, struct IntuitionBase *IntuitionBase);
+VOID SendToWM_Restack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase);
+VOID SendToWM_Move(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase);
+VOID SendToWM_Resize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase);
+VOID SendToWM_Minimize(struct Window *win, struct IntuitionBase *IntuitionBase);
 VOID SendToWM_SetScreenBarTitle(struct Window *win, struct IntuitionBase *IntuitionBase);
 
 VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_Info **layerInfo,
