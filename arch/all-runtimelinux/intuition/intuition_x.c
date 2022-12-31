@@ -256,7 +256,7 @@ static VOID sendxevent(XEvent *event, struct IntuitionBase *IntuitionBase)
     XFlush(xd);
 }
 
-VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionBase)
+VOID SendToWM_Close(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
     Window w = IW(win)->XWindow;
@@ -272,7 +272,7 @@ VOID SendClientMessageClose(struct Window *win, struct IntuitionBase *IntuitionB
     sendxevent(&event, IntuitionBase);
 }
 
-VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *IntuitionBase)
+VOID SendToWM_Activate(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
     Window w = IW(win)->XWindow;
@@ -289,7 +289,7 @@ VOID SendClientMessageActive(struct Window *win, struct IntuitionBase *Intuition
     sendxevent(&event, IntuitionBase);
 }
 
-VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase)
+VOID SendToWM_Restack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
     Window w = IW(win)->XWindow;
@@ -314,7 +314,7 @@ VOID SendClientMessageRestack(struct Window *win, WORD topbottom, struct Intuiti
     sendxevent(&event, IntuitionBase);
 }
 
-VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase)
+VOID SendToWM_Move(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
     Window w = IW(win)->XWindow;
@@ -331,7 +331,7 @@ VOID SendClientMessageMove(struct Window *win, WORD new_left, WORD new_top, stru
     sendxevent(&event, IntuitionBase);
 }
 
-VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase)
+VOID SendToWM_Resize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
     Window w = IW(win)->XWindow;
@@ -350,7 +350,7 @@ VOID SendClientMessageResize(struct Window *win, WORD new_width, WORD new_height
     sendxevent(&event, IntuitionBase);
 }
 
-VOID SendMessageMinimize(struct Window *win, struct IntuitionBase *IntuitionBase)
+VOID SendToWM_Minimize(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
     XEvent event;
     Window w = IW(win)->XWindow;
