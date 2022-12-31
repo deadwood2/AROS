@@ -367,7 +367,7 @@ VOID SendToWM_Minimize(struct Window *win, struct IntuitionBase *IntuitionBase)
 
 /****************************************************************************************/
 
-static struct Layer *SearchActiveScreen(Window w, struct IntuitionBase *IntuitionBase)
+static struct Layer *int_searchactivescreen(Window w, struct IntuitionBase *IntuitionBase)
 {
     struct Window *win;
 
@@ -378,13 +378,41 @@ static struct Layer *SearchActiveScreen(Window w, struct IntuitionBase *Intuitio
     return NULL;
 }
 
-struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase)
+static struct Layer *int_searchchildren(Window w, struct IntuitionBase *IntuitionBase)
 {
     struct Layer *l = NULL;
     Display *xd;
     Window root, child, parent;
     Window *children = NULL;
     int count, i;
+
+    child = w;
+    xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+
+    XQueryTree(xd, child, &root, &parent, &children, &count);
+
+    for (i = count - 1; i >= 0; i--)
+    {
+        child = children[i];
+
+        l = int_searchactivescreen(child, IntuitionBase);
+
+        if (!l)
+            l = int_searchchildren(child, IntuitionBase);
+
+        if (l)
+            break;
+    }
+
+    XFree(children);
+    return l;
+}
+
+struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct IntuitionBase *IntuitionBase)
+{
+    struct Layer *l = NULL;
+    Display *xd;
+    Window root, child;
     int xt,yt,mask;
 
     xd = ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
@@ -398,20 +426,13 @@ struct Layer *WhichLayer_X11(struct Layer_Info *li, LONG x, LONG y, struct Intui
     if (child == 0)
         return NULL;
 
-    l = SearchActiveScreen(child, IntuitionBase);
+    l = int_searchactivescreen(child, IntuitionBase);
 
     if (l)
         return l; /* This is case b) or c) */
 
     /* This is case a). Intuition window is most likely a child (inner X11 window) */
-    XQueryTree(xd, child, &root, &parent, &children, &count);
-    for (i = count - 1; i >= 0; i--)
-    {
-        child = children[i];
-        l = SearchActiveScreen(child, IntuitionBase);
-    }
-
-    XFree(children);
+    l = int_searchchildren(child, IntuitionBase);
 
     return l;
 }
