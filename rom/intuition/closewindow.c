@@ -13,6 +13,7 @@
 #include "inputhandler_support.h"
 //#include "segtracker.h"
 #include <intuition/gadgetclass.h>
+#include "intuition_x.h"
 
 #ifndef DEBUG_CloseWindow
 #   define DEBUG_CloseWindow 1
@@ -324,6 +325,7 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
            active now. We first check whether we have a "parent",
            which is a window that was open before the one we're closing. */
         if (window->Parent)
+            if (!IsXWindowMinimized(window->Parent, IntuitionBase))
             ActivateWindow (window->Parent);
         else
         /* Otherwise, we find out which was the latest one, and activate it.
@@ -332,6 +334,7 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
         if ((win2 = window->Descendant))
         {
             for (;win2->Descendant; win2 = win2->Descendant);
+                if (!IsXWindowMinimized(win2, IntuitionBase))
                 ActivateWindow (win2);
         }
     }
@@ -455,7 +458,9 @@ VOID int_closewindow(struct CloseWindowActionMsg *msg,
 void intui_CloseWindow (struct Window * w,
                         struct IntuitionBase * IntuitionBase)
 {
+    struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
     struct LayersBase *LayersBase = GetPrivIBase(IntuitionBase)->LayersBase;
+    struct BitMap *bm = w->WLayer->rp->BitMap;
     KillWinSysGadgets(w, IntuitionBase);
 
     if (0 == (w->Flags & WFLG_GIMMEZEROZERO))
@@ -477,6 +482,9 @@ void intui_CloseWindow (struct Window * w,
         if (NULL != BLAYER(w))
             DeleteLayer(0, BLAYER(w));
     }
+
+    /* Freeing allocated BitMap will also close the window in x11gfx.hidd */
+    FreeBitMap(bm);
 
     if (IW(w)->free_pointer)
         DisposeObject(IW(w)->pointer);

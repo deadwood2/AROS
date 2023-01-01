@@ -10,6 +10,7 @@
 #include <proto/graphics.h>
 
 #include "intuition_intern.h"
+#include "intuition_x.h"
 
 static ULONG FindMode(ULONG width, ULONG height, ULONG depth, struct IntuitionBase *IntuitionBase)
 {
@@ -132,7 +133,9 @@ static ULONG FindMode(ULONG width, ULONG height, ULONG depth, struct IntuitionBa
         height = GetPrivIBase(IntuitionBase)->ScreenModePrefs->smp_Height;
         depth  = GetPrivIBase(IntuitionBase)->ScreenModePrefs->smp_Depth;
         modeid = GetPrivIBase(IntuitionBase)->ScreenModePrefs->smp_DisplayID;
-        
+
+        GetXScreenDimensions(&width, &height, IntuitionBase);
+
         D(bug("[OpenWorkbench] Requested size: %dx%d, depth: %d, ModeID: 0x%08lX\n", width, height, depth, modeid));
 
         /* First check if the specified ModeID exists in the system */
