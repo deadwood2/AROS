@@ -72,8 +72,11 @@ OOP_Object *X11BM__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *msg
         if (framebuffer)
         {
             /* Framebuffer is X11 window */
-            data->flags |= BMDF_FRAMEBUFFER;
-            ok = X11BM_InitFB(cl, o, msg->attrList);
+            //data->flags |= BMDF_FRAMEBUFFER;
+            //ok = X11BM_InitFB(cl, o, msg->attrList);
+
+            // have the onscreen bitmap (which is workbench screen) actually an offscreen so that the screen window does not show
+            ok = X11BM_InitPM(cl, o, msg->attrList);
         }
         else
         {

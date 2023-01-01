@@ -23,6 +23,7 @@
 #include "inputhandler.h"
 #include "inputhandler_actions.h"
 #include "boopsigadgets.h"
+#include "intuition_x.h"
 
 #ifdef SKINS
     #include "transplayers.h"
@@ -733,6 +734,7 @@ moreFlags |= (name); else moreFlags &= ~(name)
         w->BorderBottom = w->WScreen->WBorBottom;
     }
 
+    if (!(w->Flags & WFLG_BORDERLESS))
     if (nw.Title || (w->Flags & (WFLG_DRAGBAR | WFLG_CLOSEGADGET | WFLG_DEPTHGADGET)))
     {
         /* this is a hack. the correct way to "correct" (increase if necessary)
@@ -1243,6 +1245,10 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
     struct Hook   * shapehook = msg->shapehook;
     struct Layer  * parent = msg->parentlayer;
     BOOL            invisible = msg->invisible;
+    struct BitMap * windowBitMap = NULL;
+    struct Layer_Info * layerInfo = NULL;
+    WORD leftEdge = 0;
+    WORD topEdge = 0;
 
 #ifdef SKINS
     BOOL            installtransphook = FALSE;
@@ -1288,6 +1294,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
     D(bug("Window dims: (%d, %d, %d, %d)\n",
           w->LeftEdge, w->TopEdge, w->Width, w->Height));
+
+    /* Workaround: It is possible to open 0x0 Intuition window, but not X11 window */
+    /* Problem triggered by MUIBase */
+    if (w->Width == 0) w->Width = 1;
+    if (w->Height == 0) w->Height = 1;
+
+    OpenXWindow(w, &windowBitMap, &layerInfo, IntuitionBase, GfxBase, LayersBase);
 
 #ifdef SKINS
     //install transp layer hook!
@@ -1361,13 +1374,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
         /* First create outer window */
         struct Layer * L = CreateUpfrontLayerTagList(
-                                   &w->WScreen->LayerInfo
-                                   , w->WScreen->RastPort.BitMap
+                                   layerInfo
+                                   , windowBitMap
 #ifndef __MORPHOS
-                                   , w->RelLeftEdge
-                                   , w->RelTopEdge
-                                   , w->RelLeftEdge + w->Width - 1
-                                   , w->RelTopEdge  + w->Height - 1
+                                   , leftEdge
+                                   , topEdge
+                                   , leftEdge + w->Width - 1
+                                   , topEdge  + w->Height - 1
 #else
                                    , w->LeftEdge
                                    , w->TopEdge
@@ -1405,13 +1418,13 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
         }
 
         w->WLayer = CreateUpfrontLayerTagList(
-                &w->WScreen->LayerInfo
-                , w->WScreen->RastPort.BitMap
+                layerInfo
+                , windowBitMap
 #ifndef __MORPHOS__
-                , w->RelLeftEdge + w->BorderLeft
-                , w->RelTopEdge  + w->BorderTop
-                , w->RelLeftEdge + w->BorderLeft + w->GZZWidth - 1
-                , w->RelTopEdge  + w->BorderTop + w->GZZHeight - 1
+                , leftEdge + w->BorderLeft
+                , topEdge  + w->BorderTop
+                , leftEdge + w->BorderLeft + w->GZZWidth - 1
+                , topEdge  + w->BorderTop + w->GZZHeight - 1
 #else
                 , w->LeftEdge + w->BorderLeft
                 , w->TopEdge  + w->BorderTop
@@ -1464,13 +1477,14 @@ static VOID int_openwindow(struct OpenWindowActionMsg *msg,
 
         D(dprintf("CreateUpfrontLayerTagList(taglist 0x%lx)\n", &layertags));
 
-        w->WLayer = CreateUpfrontLayerTagList(      &w->WScreen->LayerInfo,
-                                w->WScreen->RastPort.BitMap,
+        w->WLayer = CreateUpfrontLayerTagList(
+                                layerInfo,
+                                windowBitMap,
 #ifndef __MORPHOS__
-                                w->RelLeftEdge,
-                                w->RelTopEdge,
-                                w->RelLeftEdge + w->Width - 1,
-                                w->RelTopEdge  + w->Height - 1,
+                                leftEdge,
+                                topEdge,
+                                leftEdge + w->Width - 1,
+                                topEdge  + w->Height - 1,
 #else
                                 w->LeftEdge,
                                 w->TopEdge,
