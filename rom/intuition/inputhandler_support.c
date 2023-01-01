@@ -566,11 +566,14 @@ void HandleSysGadgetVerify(struct GadgetInfo *gi, struct Gadget *gadget,
         else
         {
 #endif
+#if 0
             ih_fire_intuimessage(gi->gi_Window,
                          IDCMP_CLOSEWINDOW,
                          0,
                          gi->gi_Window,
                          IntuitionBase);
+#endif
+            SendToWM_Close(gi->gi_Window, IntuitionBase);
 #ifdef __MORPHOS__
         }
 #endif
