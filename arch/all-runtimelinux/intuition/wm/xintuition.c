@@ -275,11 +275,13 @@ static void CommandTaskLoop()
                 SetWindowTitles((struct Window *)msg->Param1, (CONST_STRPTR)msg->Param2, (CONST_STRPTR)~0L);
                 break;
             case(WMCMD_SET_SCREEN_TITLE):
+            {
                 struct Window dummy;
                 dummy.WScreen = (struct Screen *)msg->Param1;
                 dummy.Flags |= WFLG_WINDOWACTIVE;
                 SetWindowTitles(&dummy, (CONST_STRPTR)~0L, (CONST_STRPTR)msg->Param2);
                 break;
+            }
             }
 
             FreeMem(msg, sizeof(struct CommandMessage));
