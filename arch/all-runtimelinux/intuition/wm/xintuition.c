@@ -291,14 +291,18 @@ static void CommandTaskLoop()
 
 void SetScreenTitle(const char *title)
 {
-    if (screenTitleBuffer) FreeVec(screenTitleBuffer);
-    screenTitleBuffer = StrDup(title);
+    /* It is possible to use Intuition without visible screen bar */
+    if (GetPrivIBase(IntuitionBase)->SBarScreen != NULL)
+    {
+        if (screenTitleBuffer) FreeVec(screenTitleBuffer);
+        screenTitleBuffer = StrDup(title);
 
-    struct CommandMessage *msg2 = AllocMem(sizeof(struct CommandMessage), MEMF_CLEAR);
-    msg2->Type = WMCMD_SET_SCREEN_TITLE;
-    msg2->Param1 = (IPTR)GetPrivIBase(IntuitionBase)->SBarScreen;
-    msg2->Param2 = (IPTR)screenTitleBuffer;
-    PutMsg(commandTaskPort, &msg2->ExecMessage);
+        struct CommandMessage *msg2 = AllocMem(sizeof(struct CommandMessage), MEMF_CLEAR);
+        msg2->Type = WMCMD_SET_SCREEN_TITLE;
+        msg2->Param1 = (IPTR)GetPrivIBase(IntuitionBase)->SBarScreen;
+        msg2->Param2 = (IPTR)screenTitleBuffer;
+        PutMsg(commandTaskPort, &msg2->ExecMessage);
+    }
 }
 
 void SetBorderWindowTitle(Window w, const char *title)
