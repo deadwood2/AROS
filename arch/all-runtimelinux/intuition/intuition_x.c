@@ -530,7 +530,7 @@ VOID SendToWM_SetScreenBarTitle(struct Window *win, struct IntuitionBase *Intuit
     Display *xd = sendeventxd;
 
     XChangeProperty(xd, RootWindow(xd, DefaultScreen(xd)), atoms[ATOM__IWM_SCREEN_TITLE], XA_STRING, 8,
-        PropModeReplace, win->ScreenTitle, strlen(win->ScreenTitle));
+        PropModeReplace, win->WScreen->Title, strlen(win->WScreen->Title));
     XFlush(xd);
 }
 
