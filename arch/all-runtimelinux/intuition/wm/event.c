@@ -139,7 +139,8 @@ char WaitForEvent(XEvent *event)
          break;
       case ClientMessage:
          HandleClientMessage(&event->xclient);
-         SendXEventToIntuition(event);
+         if (event->xclient.data.l[0] == atoms[ATOM_WM_DELETE_WINDOW])
+            SendXEventToIntuition(event);
          handled = 1;
          break;
       case UnmapNotify:
