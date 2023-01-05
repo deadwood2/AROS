@@ -29,6 +29,7 @@ VOID OpenXWindow(struct Window *win, struct BitMap **windowBitMap, struct Layer_
     struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase, struct LayersBase * LayersBase);
 VOID XWindowLimits(struct Window *win, struct IntuitionBase *IntuitionBase);
 VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *IntuitionBase);
+BOOL IsXWindowMinimized(struct Window *win, struct IntuitionBase *IntuitionBase);
 
 VOID OpenScreenBarXWindow(struct BitMap *screenBitmap, struct BitMap **barBitMap, struct Layer_Info **layerInfo,
         WORD width, WORD height, struct IntuitionBase *IntuitionBase, struct GfxBase *GfxBase,

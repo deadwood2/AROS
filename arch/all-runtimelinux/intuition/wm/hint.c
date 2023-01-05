@@ -344,10 +344,16 @@ void WriteState(ClientNode *np)
 
    if(data[0] == WithdrawnState) {
       JXDeleteProperty(display, np->window, atoms[ATOM_WM_STATE]);
+      if (np->parent != None)
+         JXDeleteProperty(display, np->parent, atoms[ATOM_WM_STATE]);
    } else {
       JXChangeProperty(display, np->window, atoms[ATOM_WM_STATE],
                        atoms[ATOM_WM_STATE], 32, PropModeReplace,
                        (unsigned char*)data, 2);
+      if (np->parent != None)
+         JXChangeProperty(display, np->parent, atoms[ATOM_WM_STATE],
+                          atoms[ATOM_WM_STATE], 32, PropModeReplace,
+                          (unsigned char*)data, 2);
    }
 
    WriteNetState(np);

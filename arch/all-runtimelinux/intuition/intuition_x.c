@@ -27,6 +27,7 @@ enum
 {
     ATOM_WM_CHANGE_STATE,
     ATOM_WM_DELETE_WINDOW,
+    ATOM_WM_STATE,
 
     ATOM__NET_CLOSE_WINDOW,
     ATOM__NET_ACTIVE_WINDOW,
@@ -231,6 +232,7 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
 
     atoms[ATOM_WM_CHANGE_STATE]             = XInternAtom(xd, "WM_CHANGE_STATE", False);
     atoms[ATOM_WM_DELETE_WINDOW]            = XInternAtom(xd, "WM_DELETE_WINDOW", False);
+    atoms[ATOM_WM_STATE]                    = XInternAtom(xd, "WM_STATE", False);
 
     atoms[ATOM__NET_CLOSE_WINDOW]           = XInternAtom(xd, "_NET_CLOSE_WINDOW", False);
     atoms[ATOM__NET_ACTIVE_WINDOW]          = XInternAtom(xd, "_NET_ACTIVE_WINDOW", False);
@@ -614,6 +616,34 @@ VOID GetXScreenDimensions(WORD *width, WORD *height, struct IntuitionBase *Intui
     Display *xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
     *width = WidthOfScreen(DefaultScreenOfDisplay(xd));
     *height = HeightOfScreen(DefaultScreenOfDisplay(xd));
+}
+
+BOOL IsXWindowMinimized(struct Window *win, struct IntuitionBase *IntuitionBase)
+{
+    Display *xd =  ((struct intuixchng *)GetPrivIBase(IntuitionBase)->intuixchng)->xdisplay; // use display owned by x11gfx
+    Window xw =  IW(win)->XWindow;
+    BOOL _return = FALSE;
+
+    int status;
+    unsigned long count;
+    unsigned long extra;
+    Atom realType;
+    int realFormat;
+    unsigned long *temp;
+
+    count = 0;
+    status = XGetWindowProperty(xd, xw, atoms[ATOM_WM_STATE], 0, 2, False, atoms[ATOM_WM_STATE],
+                                &realType, &realFormat,&count, &extra, (unsigned char**)&temp);
+
+    if(status == Success && realFormat != 0)
+    {
+        if (temp[0] == IconicState)
+            _return = TRUE;
+
+        XFree(temp);
+    }
+
+    return _return;
 }
 
 VOID XWindowLimits(struct Window *win, struct IntuitionBase *IntuitionBase)
