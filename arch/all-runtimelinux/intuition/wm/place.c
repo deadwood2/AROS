@@ -369,14 +369,28 @@ void SubtractStrutBounds(BoundingBox *box, const ClientNode *np)
       }
    }
 
+   /* Place DOCK windows ignoring top structs - used for placing screen menu bar */
+   if(np != NULL && np->state.windowType == WINDOW_TYPE_DOCK)
+   {
+      box->height += box->y;
+      box->y = 0;
+   }
 }
 
 void SubtractSBarHeight(BoundingBox *box, const ClientNode *np)
 {
-   if (np->state.windowType == WINDOW_TYPE_DESKTOP)
+   if(np->state.windowType == WINDOW_TYPE_DESKTOP)
    {
-      box->height -= sbarHeight;
-      box->y += sbarHeight;
+      /* Move down at maximum by sbarHeight taking into account existing
+         struts. Since screen bar will always be at y = 0 (created before
+         WM), real desktop will "connect" to either screen bar or top panel
+         whichever is larger */
+      int ydiff = sbarHeight - box->y;
+      if(ydiff > 0)
+      {
+         box->height -= ydiff;
+         box->y += ydiff;
+      }
    }
 }
 
