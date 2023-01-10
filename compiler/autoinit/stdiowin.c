@@ -29,4 +29,4 @@ static void __startup_stdiowin(struct ExecBase *SysBase)
     StdIOWinExit(handles, WBenchMsg);
 }
 
-ADD2SET(__startup_stdiowin, PROGRAM_ENTRIES, -20);
+ADD2SET(__startup_stdiowin, PROGRAM_ENTRIES, -25);
