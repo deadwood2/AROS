@@ -21,6 +21,8 @@
 struct DosLibrary *DOSBase __attribute__((weak));
 extern const LONG __aros_libreq_DOSBase __attribute__((weak));
 
+struct Library *AutoinitBase;
+
 THIS_PROGRAM_HANDLES_SYMBOLSET(PROGRAM_ENTRIES)
 
 extern int main(int argc, char ** argv);
@@ -69,6 +71,8 @@ __startup AROS_PROCH(__startup_entry, argstr, argsize, SysBase)
     if (!DOSBase) return RETURN_FAIL;
     if (((struct Library *)DOSBase)->lib_Version < __aros_libreq_DOSBase)
         return RETURN_FAIL;
+    AutoinitBase = OpenLibrary("autoinit.library", 2);
+    if (!AutoinitBase) return RETURN_FAIL;
 
     __argstr  = (char *)argstr;
     __argsize = argsize;
@@ -77,6 +81,7 @@ __startup AROS_PROCH(__startup_entry, argstr, argsize, SysBase)
     __startup_entries_init();
     __startup_entries_next();
 
+    CloseLibrary(AutoinitBase);
     CloseLibrary((struct Library *)DOSBase);
 
     D(bug("Leaving __startup_entry\n"));
