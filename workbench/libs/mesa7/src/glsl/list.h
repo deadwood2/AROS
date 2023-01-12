@@ -279,7 +279,7 @@ private:
 #endif
 
 
-struct exec_list {
+struct __attribute__((__may_alias__)) exec_list {
    struct exec_node *head;
    struct exec_node *tail;
    struct exec_node *tail_pred;
