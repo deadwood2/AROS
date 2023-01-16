@@ -24,6 +24,7 @@ struct MsgPort
     UBYTE	mp_SigBit;  /* Signal bit number */
     void      * mp_SigTask; /* Object to be signalled */
     struct List mp_MsgList; /* Linked list of messages */
+    /* ABI_V0 compatibility */
 };
 
 #define mp_SoftInt mp_SigTask	/* Alias */
