@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: iso-8859-1 -*-
-# Copyright (C) 2013, The AROS Development Team. All rights reserved.
+# Copyright (C) 2013-2022, The AROS Development Team. All rights reserved.
 # $Id$
 
 """Generate Index.guide.
