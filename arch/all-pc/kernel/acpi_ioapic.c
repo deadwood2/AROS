@@ -670,7 +670,7 @@ void ACPI_IOAPIC_SUPPORT(struct PlatformData *pdata)
     struct ACPI_TABLE_HOOK *scanHook;
     struct TagItem *cmdTags = LibFindTagItem(KRN_CmdLine, BootMsg);
 
-    if (cmdTags && strstr((const char *)cmdTags->ti_Data, "noioapic"))
+    if (1) //cmdTags && strstr((const char *)cmdTags->ti_Data, "noioapic"))
     {
         D(bug("[Kernel:ACPI-IOAPIC] %s: IOAPIC Support Disabled\n", __func__));
         return;
