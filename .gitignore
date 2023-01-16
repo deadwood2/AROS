@@ -2491,6 +2491,9 @@
 # /workbench/libs/mesa/src/mesa/main/
 /workbench/libs/mesa/src/mesa/main/
 
+# /workbench/libs/mesa7/src/gallium/auxiliary/util/
+/workbench/libs/mesa7/src/gallium/auxiliary/util/__pycache__
+
 # /workbench/libs/muimaster/
 /workbench/libs/muimaster/*_end.c
 /workbench/libs/muimaster/*_endtag.c
