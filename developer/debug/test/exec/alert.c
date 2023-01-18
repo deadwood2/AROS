@@ -20,7 +20,8 @@
  * in hosted AROS are running on a simulated supervisor level for internal
  * purposes (in order to avoid nesting interrupts).
  */
-static AROS_INTH1(superAlert, APTR, interruptData)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(superAlert, APTR, interruptData)
 {
     AROS_INTFUNC_INIT
 
