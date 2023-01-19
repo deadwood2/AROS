@@ -1,5 +1,5 @@
-/boot/pc/kernel.gz
-/boot/pc/aros-bsp.pkg.gz
-/boot/aros-base.pkg.gz
-/boot/aros-fs.pkg.gz
-/boot/poseidon.pkg.gz
+/Arch/pc/kernel.gz
+/Arch/pc/aros-bsp.pkg.gz
+/Arch/aros-base.pkg.gz
+/Arch/aros-fs.pkg.gz
+/Arch/poseidon.pkg.gz
