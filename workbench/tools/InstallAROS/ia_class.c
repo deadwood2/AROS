@@ -111,22 +111,22 @@ AROS_UFH3S(BOOL, partradioHookFunc,
 
             if (data->instc_default_usb)
             {
-                sysName = USB_SYS_VOL_NAME;
-                workName = USB_WORK_VOL_NAME;
+                sysName = USB_SYS_PART_NAME;
+                workName = USB_WORK_PART_NAME;
             }
             else
             {
-                sysName = SYS_VOL_NAME;
-                workName = WORK_VOL_NAME;
+                sysName = SYS_PART_NAME;
+                workName = WORK_PART_NAME;
             }
             SET(check_sizesys, MUIA_Disabled, TRUE);
             SET(check_sizesys, MUIA_Selected, FALSE);
 
             /* Get the sys drives device name */
-            SET(sys_devname, MUIA_String_Contents, GetDevNameForVolume(sysName));
+            SET(sys_devname, MUIA_String_Contents, sysName);
 
             /* Get the work drives device name */
-            SET(work_devname, MUIA_String_Contents, GetDevNameForVolume(workName));
+            SET(work_devname, MUIA_String_Contents, workName);
 
             break;
         }
