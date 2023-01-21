@@ -38,6 +38,11 @@ USER_LDFLAGS := $(TARGET_CXX_LDFLAGS) \
 NOWARN_FLAGS := -Wno-unused-value -Wno-unused-variable
 USER_CFLAGS += $(NOWARN_FLAGS)
 
+# Workaround: since switch from GCC 4.6.4 to GCC 6.3.0, compiling with optimizations causes
+# the driver not to display signal. I don't have hardware needed to to properly debug this
+# problem
+USER_CFLAGS += -O0
+
 #MM- workbench-devs-monitors: devs-monitors-intelgma
 #MM devs-monitors-intelgma : hidd-i2c hidd-gallium intelgma-linklibs-gallium_i915 linklibs-galliumauxiliary
 
