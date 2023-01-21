@@ -15,6 +15,10 @@ The Initial Developer of the Original Code is Davy Wentzler.
 All Rights Reserved.
 */
 
+#ifdef __AROS__
+#include <aros/debug.h>
+#endif
+
 #include <config.h>
 
 #include <devices/ahi.h>
@@ -26,9 +30,7 @@ All Rights Reserved.
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <proto/utility.h>
-#ifdef __AROS__
-#include <aros/debug.h>
-#endif
+
 #include <string.h>
 
 #include "library.h"

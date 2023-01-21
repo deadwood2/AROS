@@ -15,6 +15,10 @@ The Initial Developer of the Original Code is Davy Wentzler.
 All Rights Reserved.
 */
 
+#ifdef __AROS__
+#include <aros/debug.h>
+#endif
+
 #include <config.h>
 
 #include <proto/expansion.h>
@@ -26,9 +30,6 @@ All Rights Reserved.
 #include "interrupt.h"
 #include "misc.h"
 #include "pci_wrapper.h"
-#ifdef __AROS__
-#include <aros/debug.h>
-#endif
 
 #define min(a,b) ((a)<(b)?(a):(b))
 
@@ -52,13 +53,16 @@ CardInterrupt( struct HDAudioChip* card )
 {
     ULONG intreq;
     LONG  handled = 0;
+    D(UWORD statests;)
     UBYTE rirb_status;
     int i;
 
     intreq = pci_inl(HD_INTSTS, card);
 
-    if (intreq & HD_INTCTL_GLOBAL)
+    D(bug("[HDAudio] %s(%08x)\n", __func__, intreq);)
+    if (intreq & HD_INTSTS_GIS)
     {
+        D(bug("[HDAudio] %s: Global Interrupt\n", __func__);)
         if (intreq & 0x3fffffff) // stream interrupt
         {
 //            ULONG position;
@@ -154,9 +158,9 @@ CardInterrupt( struct HDAudioChip* card )
             }
         }
 
-        if (intreq & HD_INTCTL_CIE)
+        if (intreq & HD_INTSTS_CIS)
         {
-            //D(bug("[HDAudio] CIE\n"));
+            D(bug("[HDAudio] %s: Controller Interrupt\n", __func__);)
             pci_outb(0x4, HD_INTSTS + 3, card); // only byte access allowed
            
   //          if (card->is_playing)
@@ -164,6 +168,7 @@ CardInterrupt( struct HDAudioChip* card )
         
             // check for RIRB status
             rirb_status = pci_inb(HD_RIRBSTS, card);
+            D(bug("[HDAudio] %s: RIRB = %02x\n", __func__, rirb_status);)
             if (rirb_status & 0x5)
             {
                 if (rirb_status & 0x4) // RIRBOIS
@@ -182,8 +187,12 @@ CardInterrupt( struct HDAudioChip* card )
                     //D(bug("[HDAudio] RIRB IRQ!\n"));
                 }
 
-                pci_outb(0x5, HD_RIRBSTS, card);
+                pci_outb(rirb_status, HD_RIRBSTS, card);
             }
+            D(
+              statests = pci_inw(HD_STATESTS, card);
+              bug("[HDAudio] %s: STATESTS = %04x\n", __func__, statests);
+            )
         }
         
         handled = 1;
