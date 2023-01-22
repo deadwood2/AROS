@@ -10,6 +10,7 @@
 #include <dos/dos.h>
 #include <proto/dos.h>
 
+#include <limits.h>
 #include <string.h>
 #include <errno.h>
 
@@ -25,7 +26,7 @@
     NAME */
 #include <dirent.h>
 
-	struct dirent *readdir(
+	struct dirent *__posixc_readdir(
 
 /*  SYNOPSIS */
 	DIR *dir)

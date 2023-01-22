@@ -17,7 +17,7 @@
     NAME */
 #include <sys/stat.h>
 
-	int stat(
+	int __posixc_stat(
 
 /*  SYNOPSIS */
 	const char *path,
