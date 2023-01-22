@@ -37,8 +37,11 @@ struct dirent
     __ino64_t d_ino;
     __off64_t d_off;
 #else
+/* ABI_V0 compatibility */
+/* Note: this change is only for binary compatibility of arosc.library. It should be removed
+   and arosc.library compiled with internal, compatible dirent, once switch of main C library
+   is done */
     __ino_t d_ino;
-    __off_t d_off;
 #endif
     unsigned short int d_reclen;
     unsigned char d_type;
