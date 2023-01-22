@@ -135,6 +135,9 @@ STDC_SHARED_SOURCES = \
 POSIXC_SHARED_SOURCES = \
     __rand48 \
     __stat \
+    __fopen \
+    __fseeko \
+    __ftello \
     basename \
     cfgetispeed \
     cfgetospeed \
