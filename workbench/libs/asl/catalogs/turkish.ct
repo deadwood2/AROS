@@ -1,67 +1,66 @@
-## version $VER: asl.catalog 2.0 (31.03.2016)
-## language czech
-## codeset 5
+## version $VER: asl.catalog 2.0 (26.12.2020)
+## language türkçe
+## codeset 12
 ;
 MSG_FILEREQ_TITLE
-Výbìr souboru
+Dosya Seç
 ; Select File
 ;
 MSG_FILEREQ_POSITIVE_GAD
-OK
+Tamam
 ; Ok
 ;
 MSG_FILEREQ_NEGATIVE_GAD
-Zru¹it
+Vazgeç
 ; Cancel
 ;
 MSG_FILEREQ_VOLUMES_GAD
-Média
+Veri Birimleri
 ; Volumes
 ;
 MSG_FILEREQ_PARENT_GAD
-Vy¹¹í
+Üst Dizin
 ; Parent
 ;
 MSG_FILEREQ_PATTERN_LABEL
-Maska
+Desen
 ; Pattern
 ;
 MSG_FILEREQ_DRAWER_LABEL
-Adresáø
+Çekmece
 ; Drawer
 ;
 MSG_FILEREQ_FILE_LABEL
-Soubor
+Dosya
 ; File
 ;
 MSG_FILEREQ_LV_DRAWER
-Adresáø
+Çekmece
 ; Drawer
 ;
 MSG_FILEREQ_LV_ASSIGN
-Pøiøazení
+Ata
 ; Assign
 ;
 MSG_FILEREQ_DELETE_TITLE
-Smazání objektu
+Dosya Sil
 ; Delete File
 ;
 MSG_FILEREQ_DELETE_MSG
-Upozornìní: Opravdu chcete smazat vybraný objekt\n\%s?
+Uyarý: Silinenleri geri alamazsýnýz!\n%s\n\ silinsin mi?
 ; Warning: you cannot get back\nwhat you delete! Ok to delete\n\%s?
 ;
 MSG_FILEREQ_DELETE_OKCANCEL
-Smazat|Zru¹it
+Sil|Vazgeç
 ; Delete|Cancel
 ;
 MSG_FILEREQ_FOREIGNER_TITLE
-Ikony z nìkolika rùzných adresáøù
+Simgeleri farklý çekmecelerden býrak
 ; Icons dropped from different drawers
 ;
 MSG_FILEREQ_FOREIGNER_MSG
-Upozornìní: Vybrané ikony nepocházejí z jednoho\n\
-adresáøe.\n\
-Následující soubory nelze zpracovat:\n\
+Uyarý: Býrakýlan simgelerin hepsi ayný çekmeceden gelmez.\n\
+Sistem istemi aþaðýdaki dosyalarý iþleyemedi:\n\
 %s
 ; Warning: The icons that have just been dropped\n\
 ; do not all come from the same drawer.\n\
@@ -69,147 +68,147 @@ Následující soubory nelze zpracovat:\n\
 ; %s
 ;
 MSG_FILEREQ_FOREIGNER_OK
-OK
+TAMAM
 ; OK
 ;
 MSG_FILEREQ_RENAME_TITLE
-Pøejmenování objektu
+Yeniden adlandýr
 ; Rename
 ;
 MSG_FILEREQ_RENAME_OK
-Pøejmenovat
+Yeniden adlandýr
 ; Rename
 ;
 MSG_FILEREQ_RENAME_CANCEL
-Zru¹it
+Vazgeç
 ; Cancel
 ;
 MSG_FILEREQ_CREATEDRAWER_TITLE
-Nový adresáø
+Çekmece Oluþtur
 ; Create Drawer
 ;
 MSG_FILEREQ_CREATEDRAWER_OK
-Vytvoøit
+Oluþtur
 ; Create
 ;
 MSG_FILEREQ_CREATEDRAWER_CANCEL
-Zru¹it
+Vazgeç
 ; Cancel
 ;
 MSG_FILEREQ_CREATEDRAWER_DEFNAME
-nový_adresáø
+Beni yeniden adlandýr
 ; Rename_Me
 ;
 MSG_FILEREQ_SELECT_TITLE
-Výbìr pomocí masky
+Desene göre seç
 ; Select by pattern
 ;
 MSG_FILEREQ_SELECT_OK
-Vybrat
+Seç
 ; Select
 ;
 MSG_FILEREQ_SELECT_CANCEL
-Zru¹it
+Vazgeç
 ; Cancel
 ;
 MSG_FILEREQ_MEN_CONTROL
-Projekt
+Kontrol
 ; Control
 ;
 MSG_FILEREQ_MEN_CONTROL_LASTNAME
-L\0Pøedchozí polo¾ka
+L\0Son Adý
 ; L\0Last Name
 ;
 MSG_FILEREQ_MEN_CONTROL_NEXTNAME
-N\0Následující polo¾ka
+N\0Sonraki Adý
 ; N\0Next Name
 ;
 MSG_FILEREQ_MEN_CONTROL_RESTORE
-R\0Obnovit pøedchozí
+R\0Kurtar
 ; R\0Restore
 ;
 MSG_FILEREQ_MEN_CONTROL_PARENT
-P\0Adresáø o úroveò vý¹
+p\0Üst dizin
 ; P\0Parent
 ;
 MSG_FILEREQ_MEN_CONTROL_VOLUMES
-V\0Seznam médií
+V\0Veri Birimleri
 ; V\0Volumes
 ;
 MSG_FILEREQ_MEN_CONTROL_UPDATE
-U\0Aktualizovat obsah
+U\0Güncelle
 ; U\0Update
 ;
 MSG_FILEREQ_MEN_CONTROL_DELETE
-D\0Smazat
+D\0Sil
 ; D\0Delete
 ;
 MSG_FILEREQ_MEN_CONTROL_CREATEDRAWER
-T\0Vytvoøit nový adresáø...
+T\0Yeni çekmece oluþtur...
 ; T\0Create new drawer...
 ;
 MSG_FILEREQ_MEN_CONTROL_RENAME
-E\0Pøejmenovat...
+E\0Yeniden adlandýr...
 ; E\0Rename...
 ;
 MSG_FILEREQ_MEN_CONTROL_SELECT
-#\0Vybrat polo¾ky...
+#\0Seç...
 ; #\0Select...
 ;
 MSG_FILEREQ_MEN_CONTROL_OK
-O\0Potvrdit
+O\0Tamam
 ; O\0Ok
 ;
 MSG_FILEREQ_MEN_CONTROL_CANCEL
-C\0Zru¹it
+C\0Vazgeç
 ; C\0Cancel
 ;
 MSG_FILEREQ_MEN_FILELIST
-Výpis
+Dosya listesi
 ; File list
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTNAME
-1\0Øadit dle názvu
+1\0Adýna göre sýrala
 ; 1\0Sort by name
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDATE
-2\0Øadit dle data
+2\0Tarihe göre sýrala
 ; 2\0Sort by date
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTSIZE
-3\0Øadit dle velikosti
+3\0Boyutuna göre sýrala
 ; 3\0Sort by size
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTUP
-+\0Øadit vzestupnì
++\0Artalana göre sýrala
 ; +\0Ascending order
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDOWN
--\0Øadit sestupnì
+-\0Azalana göre sýrala
 ; -\0Descending order
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDRAWERFIRST
-4\0Adresáøe jako první
+4\0Önce çekmeceleri göster
 ; 4\0Show drawers first
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDRAWERSAME
-5\0Adresáøe i soubory dohromady
+5\0Dosyalar ve çekmeceleri birlikte göster
 ; 5\0Show drawers with files
 ;
 MSG_FILEREQ_MEN_FILELIST_SORTDRAWERLAST
-6\0Adresáøe jako poslední
+6\0Çekmeceleri sonra göster
 ; 6\0Show drawers last
 ;
 MSG_MODEREQ_TITLE
-Výbìr rozli¹ení obrazovky
+Ekran Kipini Seç
 ; Select Screen Mode
 ;
 MSG_MODEREQ_POSITIVE_GAD
-Potvrdit
+TAMAM
 ; Ok
 ;
 MSG_MODEREQ_NEGATIVE_GAD
-Zru¹it
+Vazgeç
 ; Cancel
 ;
 MSG_MODEREQ_OVERSCAN_LABEL
@@ -217,206 +216,206 @@ Overscan
 ; Overscan
 ;
 MSG_MODEREQ_OVERSCAN_TEXT
-Textový re¾im
+Metin Boyutu
 ; Text Size
 ;
 MSG_MODEREQ_OVERSCAN_GRAPHICS
-Grafický re¾im
+Grafik Boyutu
 ; Graphics Size
 ;
 MSG_MODEREQ_OVERSCAN_EXTREME
-Zpracovatelné maximum
+Sýnýr Boyutu
 ; Extreme Size
 ;
 MSG_MODEREQ_OVERSCAN_MAXIMUM
-Zobrazitelné maximum
+Maksimum Boyut
 ; Maximum Size
 ;
 MSG_MODEREQ_WIDTH_LABEL
-©íøka
+Geniþlik
 ; Width
 ;
 MSG_MODEREQ_HEIGHT_LABEL
-Vý¹ka
+Yükseklik
 ; Height
 ;
 MSG_MODEREQ_COLORS_LABEL
-Poèet barev
+Renkler
 ; Colors
 ;
 MSG_MODEREQ_AUTOSCROLL_LABEL
-Rolování obrazovky
+Otomatik Kaydýr
 ; AutoScroll
 ;
 MSG_MODEREQ_AUTOSCROLL_OFF
-vyp
+KAPALI
 ; OFF
 ;
 MSG_MODEREQ_AUTOSCROLL_ON
-zap
+AÇIK
 ; ON
 ;
 MSG_MODEREQ_PROPERTIES_TITLE
-Pøehled vlastností
+Kip Özellikleri
 ; Mode Properties
 ;
 MSG_MODEREQ_PROPERTIES_NOTWB
-Nepodporuje Workbench
+Workbench tarafýndan desteklenmez
 ; Does not support Workbench
 ;
 MSG_MODEREQ_PROPERTIES_NOTGENLOCK
-Nepodporuje genlock
+Genlock tarafýndan desteklenmez
 ; Does not support genlock
 ;
 MSG_MODEREQ_PROPERTIES_NOTDRAG
-Nelze pøesouvat
+Sürüklenemez
 ; Not draggable
 ;
 MSG_MODEREQ_PROPERTIES_HAM
-Re¾im HAM
+Tut & Deðiþtir
 ; Hold & Modify
 ;
 MSG_MODEREQ_PROPERTIES_EHB
-Re¾im EHB
+Ekstra-YarýParlak
 ; Extra-HalfBright
 ;
 MSG_MODEREQ_PROPERTIES_LACE
-Prokládaný
+Taramalý
 ; Interlaced
 ;
 MSG_MODEREQ_PROPERTIES_ECS
-Vy¾aduje ECS
+ECS Gerektirir
 ; Requires ECS
 ;
 MSG_MODEREQ_PROPERTIES_WB
-Podporuje Workbench
+Workbench Desteði
 ; Supports Workbench
 ;
 MSG_MODEREQ_PROPERTIES_GENLOCK
-Podporuje genlock
+Genlock Desteði
 ; Supports genlock
 ;
 MSG_MODEREQ_PROPERTIES_DRAG
-Lze pøesouvat
+Sürüklenebilir
 ; Draggable
 ;
 MSG_MODEREQ_PROPERTIES_DPFPRI2
-DualPlayfield 2
+Ýkili Alan Önceliði 2
 ; DualPlayfield Priority 2
 ;
 MSG_MODEREQ_PROPERTIES_REFRESHRATE
-%ld Hz, %ld,%ld kHz
+%ldHz, %ld,%ldkHz
 ; %ldHz, %ld,%ldkHz
 ;
 MSG_MODEREQ_MEN_CONTROL
-Projekt
+Kontrol
 ; Control
 ;
 MSG_MODEREQ_MEN_CONTROL_LASTMODE
-L\0Pøedchozí polo¾ka
+L\0Son Kip
 ; L\0Last Mode
 ;
 MSG_MODEREQ_MEN_CONTROL_NEXTMODE
-N\0Následující polo¾ka
+N\0Sonraki Kip
 ; N\0Next Mode
 ;
 MSG_MODEREQ_MEN_CONTROL_PROPERTIES
-?\0Pøehled vlastností...
+?\0Özellik Listesi...
 ; ?\0Property List...
 ;
 MSG_MODEREQ_MEN_CONTROL_RESTORE
-R\0Obnovit pøedchozí
+R\0Kurtar
 ; R\0Restore
 ;
 MSG_MODEREQ_MEN_CONTROL_OK
-O\0Potvrdit
+O\0Tamam
 ; O\0Ok
 ;
 MSG_MODEREQ_MEN_CONTROL_CANCEL
-C\0Zru¹it
+C\0Vazgeç
 ; C\0Cancel
 ;
 MSG_FONTREQ_TITLE
-Výbìr písma
+Yazý tipi seç
 ; Select Font
 ;
 MSG_FONTREQ_POSITIVE_GAD
-Potvrdit
+Tamam
 ; Ok
 ;
 MSG_FONTREQ_NEGATIVE_GAD
-Zru¹it
+Vazgeç
 ; Cancel
 ;
 MSG_FONTREQ_MEN_CONTROL
-Projekt
+Kontrol
 ; Control
 ;
 MSG_FONTREQ_MEN_CONTROL_LASTFONT
-L\0Pøedchozí polo¾ka
+L\0 Son Yazý Tipi
 ; L\0Last Font
 ;
 MSG_FONTREQ_MEN_CONTROL_NEXTFONT
-N\0Následující polo¾ka
+N\0Sonraki Yazý Tipi
 ; N\0Next Font
 ;
 MSG_FONTREQ_MEN_CONTROL_RESTORE
-R\0Obnovit pøedchozí
+R\0Kurtar
 ; R\0Restore
 ;
 MSG_FONTREQ_MEN_CONTROL_RESCAN
-D\0Aktualizovat seznam
+D\0Diski Tekrar Tara
 ; D\0Rescan Disk
 ;
 MSG_FONTREQ_MEN_CONTROL_OK
-O\0Potvrdit
+O\0Tamam
 ; O\0Ok
 ;
 MSG_FONTREQ_MEN_CONTROL_CANCEL
-C\0Zru¹it
+C\0Vazgeç
 ; C\0Cancel
 ;
 MSG_FONTREQ_MODE_LABEL
-Re¾im
+Kip
 ; Mode
 ;
 MSG_FONTREQ_MODE_TEXT
-Text
+Metin
 ; Text
 ;
 MSG_FONTREQ_MODE_TEXTANDFIELD
-Text s pozadím
+Metin+Alan
 ; Text+Field
 ;
 MSG_FONTREQ_MODE_COMPLEMENT
-Komplementární
+Tamamlayýcý
 ; Complement
 ;
 MSG_FONTREQ_STYLE_LABEL
-Øez písma
+Sitil
 ; Style
 ;
 MSG_FONTREQ_STYLE_BOLD
-T
+B
 ; B
 ;
 MSG_FONTREQ_STYLE_ITALIC
-K
+I
 ; I
 ;
 MSG_FONTREQ_STYLE_UNDERLINED
-P
+U
 ; U
 ;
 MSG_FONTREQ_COLOR_LABEL_FG
-Barva
+Renk
 ; Color
 ;
 MSG_FONTREQ_COLOR_LABEL_BG
-Barva pozadí
+BG Renk
 ; BG Color
 ;
 MSG_FONTREQ_COLOR_LABEL_FGBG
-Barvy
+Renkler
 ; Colors
 ;

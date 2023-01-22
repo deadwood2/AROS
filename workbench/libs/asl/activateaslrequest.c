@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2007, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2007, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: english
 */
 
 
@@ -60,7 +58,7 @@
         {
             ActivateWindow(reqnode->rn_ReqWindow);
 
-            /* Not sure if we need to wait for it to actually become active here before returning or not?! */
+            /* No need to wait for it to actually become active - Piru */
 
         } /* if (reqnode->rn_ReqWindow) */
 

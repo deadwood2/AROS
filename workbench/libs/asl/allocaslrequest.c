@@ -1,9 +1,7 @@
 /*
-    Copyright © 1995-2007, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2007, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: english
 */
 
 
@@ -85,6 +83,9 @@
         if (req)
         {
             CopyMem(reqinfo->DefaultReq, intreq, reqinfo->IntReqSize);
+
+            if (ASLB(AslBase)->Prefs.ap_SizePosition & 0x10)
+                intreq->ir_Flags |= IF_SIZE_REL;
 
             if (intreq->ir_MemPoolPuddle)
             {
