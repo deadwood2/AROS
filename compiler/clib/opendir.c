@@ -14,6 +14,7 @@
 #ifndef ExNext_IS_WORKING_WITHOUT_ASSIGN
 #include <stdio.h>
 #endif
+#include <limits.h>
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
