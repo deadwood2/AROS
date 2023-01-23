@@ -179,16 +179,9 @@ static inline void __inline_Exec_RestoreTaskStorage(APTR __arg1, APTR __SysBase)
     me->pr_ReturnAddr = oldReturnAddr;
     me->pr_Arguments  = oldargs;
 
-    /* Flush the current CLI input stream
-     * NOTE: AmigaOS 3.1's C:Execute closes Input(),
-     *       so we need to catch that here.
-     */
-    if (Input())
-    {
-        struct FileHandle *in = (struct FileHandle *)BADDR(Input());
-        if (in->fh_Func3 != -1)
-            Flush(Input());
-    }
+    /* ABI_V0 compatibility */
+    /* Flush the current CLI input stream */
+    Flush(Input());
 
     FreeMem(stack,stacksize);
     
