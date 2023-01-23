@@ -29,6 +29,7 @@ struct functionhead *newfunctionhead(const char *name, enum libcall libcall)
         funchead->priv= 0;
         funchead->unusedlibbase = 0;
         funchead->deprecated = 0;
+        funchead->hidden = 0;
     }
     else
     {
@@ -265,6 +266,13 @@ void writefuncprotos(FILE *out, struct config *cfg, struct functionhead *funclis
                     cfg->includenameupper
             );
 
+            if (funclistit->hidden) {
+                fprintf(out,
+                        "\n"
+                        "#if defined(__ENABLE_HIDDEN_LIBAPI__)"
+                        "\n");
+            }
+
             if (funclistit->deprecated) {
                 fprintf(out,
                         "\n"
@@ -379,6 +387,13 @@ void writefuncprotos(FILE *out, struct config *cfg, struct functionhead *funclis
                 fprintf(out,
                         "\n"
                         "#endif /* defined(__AROS_GIMME_DEPRECATED__) */"
+                        "\n");
+            }
+
+            if (funclistit->hidden) {
+                fprintf(out,
+                        "\n"
+                        "#endif /* defined(__ENABLE_HIDDEN_LIBAPI__) */"
                         "\n");
             }
 

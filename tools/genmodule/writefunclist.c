@@ -98,6 +98,9 @@ void writefunclist(struct config *cfg)
                 if (funclistit->deprecated)
                     fprintf(out, ".deprecated\n");
 
+                if (funclistit->hidden)
+                    fprintf(out, ".hidden\n");
+
                 lvo = funclistit->lvo;
             }
         }

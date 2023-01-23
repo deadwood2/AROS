@@ -39,6 +39,7 @@ struct functionhead {
     int priv     : 1; /* Is function private */
     int unusedlibbase : 1; /* Libbase must no be made available internally */
     int deprecated : 1; /* Should function be avoided due to deprecation */
+    int hidden : 1; /* Is function not available to 3rd party developers */
 };
 
 struct functionhead *newfunctionhead(const char *name, enum libcall libcall);

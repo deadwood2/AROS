@@ -144,6 +144,14 @@ void writeincinline(struct config *cfg)
                 }
             }
 
+            if (funclistit->hidden)
+            {
+                fprintf(out,
+                        "\n"
+                        "#if defined(__ENABLE_HIDDEN_LIBAPI__)"
+                        "\n");
+            }
+
             writeinlineregister(out, funclistit, cfg, isvararg);
             if (!funclistit->novararg && isvararg)
             {
@@ -160,6 +168,15 @@ void writeincinline(struct config *cfg)
                         "#endif /* defined(__AROS_GIMME_DEPRECATED__) */"
                         "\n");
             }
+
+            if (funclistit->hidden)
+            {
+                fprintf(out,
+                        "\n"
+                        "#endif /* defined(__ENABLE_HIDDEN_LIBAPI__) */"
+                        "\n");
+            }
+
 
             fprintf(out,
                     "\n"
