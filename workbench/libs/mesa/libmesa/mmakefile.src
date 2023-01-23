@@ -10,7 +10,7 @@ include $(SRCDIR)/$(CURDIR)/../mesa.cfg
 -include $(GENDIR)/$(CURDIR)/../mesa3dgl/mesa3dgllibrary.entrypoints
 include $(top_srcdir)/$(CUR_MESADIR)/Makefile.sources
 
-#MM- mesa3dgl-linklibs : mesa3d-linklib-mesa
+##MM- mesa3dgl-linklibs : mesa3d-linklib-mesa
 
 USER_INCLUDES += \
             -iquote $(top_builddir)/$(CUR_MESADIR) \
