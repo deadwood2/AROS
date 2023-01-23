@@ -110,7 +110,7 @@ GLSL_C_SOURCES = \
             ralloc.c \
 
 USER_INCLUDES := \
-            -I$(AROS_DEVELOPER)/include/gallium \
+            -iquote $(SRCDIR)/$(CURDIR)/../../gallium/auxiliary \
             -I$(SRCDIR)/$(CURDIR)/../../../include \
             -I$(SRCDIR)/$(CURDIR)/../../../include/GL \
             -I$(SRCDIR)/$(CURDIR)/../../mesa \
@@ -130,7 +130,7 @@ USER_CPPFLAGS := -DMAPI_MODE_UTIL -DFEATURE_GL=1 \
                 -DMAPI_ABI_HEADER=\"glapi/glapi_mapi_tmp.h\"
 USER_CFLAGS := $(GLCOMMON_FLAGS)
 USER_CXXFLAGS := $(CFLAGS_NO_RTTI) $(CFLAGS_NO_EXCEPTIONS) $(GLCOMMON_FLAGS)
-USER_LDFLAGS := -static-libstdc++ -L$(top_libdir)
+USER_LDFLAGS := -static-libstdc++
 
 MESAGL_CORE_SOURCES = \
             $(addprefix mesa/, $(MESA_GALLIUM_SOURCES:.c=)) \
@@ -156,7 +156,7 @@ LIBRARY_SOURCES = \
 %build_module_library mmake=workbench-libs-mesa \
     modname=mesa3dgl modtype=library conffile=$(SRCDIR)/workbench/libs/gl/gl.conf \
     files="$(LIBRARY_SOURCES)" cxxfiles="$(CXX_SOURCES)" \
-    uselibs="galliumauxiliary gallium stdcio stdc"
+    uselibs="galliumauxiliary gallium stdcio stdc" usesdks="mesa"
 
 # NOTE: Both files have been generated and added to AROS repository. Once all
 # build machines support python 2.5 with libxml2, these targets can be enabled
