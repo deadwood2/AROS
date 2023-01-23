@@ -247,7 +247,7 @@ int main(int argc, char *argv[])
             End),
         TAG_DONE);
     optObjCheckDev = NewObject(iocMcc->mcc_Class, NULL,
-            MUIA_InstallOption_ID, (IPTR)"developer",
+            MUIA_InstallOption_ID, (IPTR)"development",
             MUIA_InstallOption_ValueTag, MUIA_Selected,
             MUIA_InstallOption_Obj, (IPTR)(ImageObject, BUTTONCOMMON
                 MUIA_Selected, FALSE,
@@ -963,7 +963,7 @@ int main(int argc, char *argv[])
     GET(optObjCheckLocale, MUIA_InstallOption_Obj, &install_opts->opt_locale);
     GET(optObjCheckCore, MUIA_InstallOption_Obj, &install_opts->opt_copycore);
     GET(optObjCheckExtras, MUIA_InstallOption_Obj, &install_opts->opt_copyextra);
-    GET(optObjCheckDev, MUIA_InstallOption_Obj, &install_opts->opt_developer);
+    GET(optObjCheckDev, MUIA_InstallOption_Obj, &install_opts->opt_development);
     GET(optObjCheckBootloader, MUIA_InstallOption_Obj, &install_opts->opt_bootloader);
     GET(optObjCheckReboot, MUIA_InstallOption_Obj, &install_opts->opt_reboot);
 
