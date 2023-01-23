@@ -92,5 +92,5 @@ USER_LDFLAGS += \
      modname=nouveau modtype=hidd \
      files="$(NOUVEAU_HIDD_C_SOURCES)" \
      cxxfiles="$(NOUVEAU_HIDD_CXX_SOURCES)" \
-     uselibs="" usesdks="private mesa"
+     uselibs="oop" usesdks="config private mesa"
 
