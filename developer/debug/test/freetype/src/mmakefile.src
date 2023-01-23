@@ -5,17 +5,17 @@ include $(SRCDIR)/config/aros.cfg
 #MM- test : test-freetype
 #MM- test-freetype : \
 #MM      test-freetype-ftstring \
-#MM      test-freetype-ftview
+##MM      test-freetype-ftview
 
 #MM- test-quick : test-freetype-quick
 #MM- test-freetype-quick : \
 #MM      test-freetype-ftstring-quick \
-#MM      test-freetype-ftview-quick
+##MM      test-freetype-ftview-quick
 
 #MM test-freetype-ftstring : includes linklibs \
 #MM     workbench-libs-freetype-linklib test-freetype-lib-graph
-#MM test-freetype-ftview : includes linklibs \
-#MM     workbench-libs-freetype-linklib test-freetype-lib-graph
+##MM test-freetype-ftview : includes linklibs \
+##MM     workbench-libs-freetype-linklib test-freetype-lib-graph
 
 USER_INCLUDES		:= -I$(SRCDIR)/$(CURDIR)/../graph
 EXEDIR := $(AROS_TESTS)/freetype
@@ -35,9 +35,9 @@ FREETYPETEST_COMMON := \
 
 USER_CPPFLAGS += -DFT2_BUILD_LIBRARY
 
-%build_prog mmake=test-freetype-ftview \
-    progname=ftview targetdir=$(EXEDIR) \
-    files="ftview $(FREETYPETEST_COMMON)" \
-    uselibs="freetype2.static graph" usesdks="misc"
+#%build_prog mmake=test-freetype-ftview \
+#    progname=ftview targetdir=$(EXEDIR) \
+#    files="ftview $(FREETYPETEST_COMMON)" \
+#    uselibs="freetype2.static graph" usesdks="misc"
 
 %common
