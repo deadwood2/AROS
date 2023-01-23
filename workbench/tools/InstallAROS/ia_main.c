@@ -843,7 +843,7 @@ int main(int argc, char *argv[])
     install_opts->opt_locale = check_locale;
     install_opts->opt_copycore = check_core;
     install_opts->opt_copyextra = check_extras;
-    install_opts->opt_developer = check_dev;
+    install_opts->opt_development = check_dev;
     install_opts->opt_bootloader = check_bootloader;
 
     install_opts->opt_reboot = check_reboot;
