@@ -7,8 +7,8 @@
 #include <proto/exec.h>
 #include <proto/gallium.h>
 
-#include <gallium/pipe/p_screen.h>
-#include <gallium/util/u_inlines.h>
+#include "pipe/p_screen.h"
+#include "util/u_inlines.h"
 
 #include "main/context.h"
 

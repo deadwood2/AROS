@@ -55,10 +55,9 @@ SOFTPIPE_HIDD_SOURCES := \
 USER_INCLUDES := \
             $(USER_INCLUDES) \
             -iquote $(GALLIUM_PATH)/drivers \
-            -iquote $(GALLIUM_PATH)/include \
             -iquote $(GALLIUM_PATH)/auxiliary \
             -iquote $(SRCDIR)/$(CURDIR) \
-            -I$(AROS_INCLUDES)/gallium
+            -I $(GALLIUM_PATH)/include \
 
 NOWARN_CFLAGS := $(NOWARN_MAYBE_UNINITIALIZED)
 USER_CFLAGS += $(NOWARN_CFLAGS)
