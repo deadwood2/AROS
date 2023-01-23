@@ -28,7 +28,6 @@ EXECPUBLICFILES :=		\
     semtorture		\
     stackswap 		\
     signaltest		\
-    taskstorage \
     tasktest		\
     timeport \
     traptest		\
