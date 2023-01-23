@@ -9,4 +9,4 @@ FILES := nforce handler unit
 %build_module mmake=workbench-devs-networks-nforce-i386 \
     modname=nforce modtype=device \
     files="nforce_init $(FILES)" \
-    moduledir=Devs/Networks uselibs="stdc hiddstubs"
+    moduledir=Devs/Networks uselibs="stdc hiddstubs" uselibs="oop stdc" usesdks="private"

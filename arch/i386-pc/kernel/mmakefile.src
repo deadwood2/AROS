@@ -23,7 +23,7 @@ USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
 
 %build_archspecific \
   mainmmake=kernel-kernel modname=kernel maindir=$(MAINDIR) \
-  arch=pc-i386 files="$(FILES) $(FUNCS)" asmfiles=$(ASMFILES) aflags=$(USER_AFLAGS) 
+  arch=pc-i386 files="$(FILES) $(FUNCS)" asmfiles=$(ASMFILES) aflags=$(USER_AFLAGS) usesdks="private config"
 
 # Build smpboot.bin.o in $(GENDIR)/$(MAINDIR)/arch, where it will be picked up
 # by the linker automatically (make.tmpl macros link in everything that is found there)
