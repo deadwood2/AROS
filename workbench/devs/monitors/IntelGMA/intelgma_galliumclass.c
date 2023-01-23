@@ -343,8 +343,7 @@ static int IntelGMA_WS_BatchbufferReloc(struct i915_winsys_batchbuffer *batch,
 }
 
 static void IntelGMA_WS_BatchbufferFlush(struct i915_winsys_batchbuffer *batch,
-                         struct pipe_fence_handle **fence,
-                         enum i915_winsys_flush_flags flags)
+                         struct pipe_fence_handle **fence)
 {
     struct IntelGMABatchBuffer *gmabatch;
 
@@ -518,7 +517,6 @@ static struct i915_winsys_buffer * IntelGMA_WS_BufferCreateTiled(struct i915_win
 
 static struct i915_winsys_buffer * IntelGMA_WS_BufferFromHandle(struct i915_winsys *iws,
                         struct winsys_handle *whandle,
-                        unsigned height,
                         enum i915_winsys_buffer_tile *tiling,
                         unsigned *stride)
 {
@@ -699,7 +697,6 @@ OOP_Object *METHOD(GalliumIntelGMA, Root, New)
         data->gma_winsys.fence_reference            = IntelGMA_WS_FenceReference;
         data->gma_winsys.fence_signalled            = IntelGMA_WS_FenceSignalled;
         data->gma_winsys.fence_finish               = IntelGMA_WS_FenceFinish;
-        data->gma_winsys.aperture_size              = IntelGMA_WS_ApertureSize;
     }
 
     return o;

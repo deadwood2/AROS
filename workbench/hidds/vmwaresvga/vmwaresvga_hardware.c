@@ -21,6 +21,34 @@
 
 #include "vmwaresvga_intern.h"
 
+/*
+ * 3D Hardware Version
+ *
+ *   The hardware version is stored in the SVGA_FIFO_3D_HWVERSION fifo
+ *   register.   Is set by the host and read by the guest.  This lets
+ *   us make new guest drivers which are backwards-compatible with old
+ *   SVGA hardware revisions.  It does not let us support old guest
+ *   drivers.  Good enough for now.
+ *
+ */
+
+#define SVGA3D_MAKE_HWVERSION(major, minor)      (((major) << 16) | ((minor) & 0xFF))
+#define SVGA3D_MAJOR_HWVERSION(version)          ((version) >> 16)
+#define SVGA3D_MINOR_HWVERSION(version)          ((version) & 0xFF)
+
+typedef enum {
+   SVGA3D_HWVERSION_WS5_RC1   = SVGA3D_MAKE_HWVERSION(0, 1),
+   SVGA3D_HWVERSION_WS5_RC2   = SVGA3D_MAKE_HWVERSION(0, 2),
+   SVGA3D_HWVERSION_WS51_RC1  = SVGA3D_MAKE_HWVERSION(0, 3),
+   SVGA3D_HWVERSION_WS6_B1    = SVGA3D_MAKE_HWVERSION(1, 1),
+   SVGA3D_HWVERSION_FUSION_11 = SVGA3D_MAKE_HWVERSION(1, 4),
+   SVGA3D_HWVERSION_WS65_B1   = SVGA3D_MAKE_HWVERSION(2, 0),
+   SVGA3D_HWVERSION_WS8_B1    = SVGA3D_MAKE_HWVERSION(2, 1),
+   SVGA3D_HWVERSION_CURRENT   = SVGA3D_HWVERSION_WS8_B1,
+} SVGA3dHardwareVersion;
+
+#define VMW_COMMAND_SIZE (64*1024)
+
 #if (DEBUG0)
 #define DIRQ(x)                         x
 #define DDMG(x)

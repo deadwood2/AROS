@@ -25,6 +25,7 @@
 #include <aros/symbolsets.h>
 
 #include "vmwaresvga_intern.h"
+#include <hidd/gallium.h>
 
 #include LC_LIBDEFS_FILE
 

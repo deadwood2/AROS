@@ -38,12 +38,10 @@
 {
     AROS_LIBFUNC_INIT
 
-    struct pHidd_Gallium_DestroyPipeScreen drmsg = {
-    mID : OOP_GetMethodID(IID_Hidd_Gallium, moHidd_Gallium_DestroyPipeScreen),
-    screen : pscreen,
-    };
-
-    OOP_DoMethod((OOP_Object *)pipe, (OOP_Msg)&drmsg);
+    if (pscreen)
+    {
+        pscreen->destroy(pscreen);
+    }
 
     AROS_LIBFUNC_EXIT
 }
