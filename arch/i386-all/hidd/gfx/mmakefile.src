@@ -11,6 +11,6 @@ USER_INCLUDES := -I$(SRCDIR)/rom/hidds/gfx
 %build_archspecific \
   mainmmake=kernel-hidd-gfx modname=gfx maindir=rom/hidds/gfx \
   asmfiles=$(AFILES) files=$(FILES) \
-  arch=i386
+  arch=i386 usesdks="private"
 
 %common
