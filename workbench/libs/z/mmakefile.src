@@ -2,12 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM workbench-libs-z-includes : \
-#MM     kernel-exec-includes \
-#MM     kernel-dos-includes \
-#MM     includes-copy
-
-#MM workbench-libs-z : workbench-libs-z-pc
+#MM- workbench-libs-z : workbench-libs-z-pc
 
 FILES := adler32 \
          crc32 \
@@ -28,14 +23,13 @@ FILES := adler32 \
          contrib/infback9/infback9 \
          contrib/infback9/inftree9
 
+#MM- linklibs: linklibs-z
 
 LIBZ_CPPFLAGS := -D_XOPEN_SOURCE=600 -DSTDC -DAMIGA -DZ_HAVE_UNISTD_H
 
 USER_CPPFLAGS := $(LIBZ_CPPFLAGS)
 
-%build_module mmake=workbench-libs-z \
-  modname=z1 modtype=library \
-  files="$(FILES)" linklibname=z usesdks="rel"
+%build_linklib mmake=linklibs-z libname=z files="$(FILES)"
 
 #MM- linklibs: linklibs-z-static
 
