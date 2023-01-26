@@ -9839,6 +9839,7 @@ case "$target_os" in
                 android_tool_prefix="arm-linux-androideabi"
                 android_ndk_arch="arm"
                 kernel_tool_prefix="arm-linux-gnueabihf-"
+                aros_kernel_includes="-isystem /usr/arm-linux-gnueabihf/include -isystem /usr/include"
                 ;;
             *arm*)
                 gcc_default_cpu="armv7-a"
