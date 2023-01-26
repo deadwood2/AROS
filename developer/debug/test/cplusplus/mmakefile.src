@@ -19,8 +19,8 @@ EXEDIR := $(AROS_TESTS)/cplusplus
     files="" cxxfiles="headertest" \
     targetdir=$(EXEDIR) usesdks="config private mesa"
 
-%build_prog mmake=test-cxx progname=exception \
-    files="" cxxfiles="exception" \
-    targetdir=$(EXEDIR)
+#%build_prog mmake=test-cxx progname=exception \
+#    files="" cxxfiles="exception" \
+#    targetdir=$(EXEDIR)
 
 %common

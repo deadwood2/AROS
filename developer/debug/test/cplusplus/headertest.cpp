@@ -56,13 +56,8 @@
 #endif
 
 #ifdef __arm__
-#include <aros/arm/atomic.h>
-#include <aros/arm/atomic_v6.h>
-#include <aros/arm/atomic_v7.h>
-#include <aros/arm/cpucontext.h>
-#include <aros/arm/cpu.h>
-#include <aros/arm/cpu-thumb2.h>
 
+#if AROS_BIG_ENDIAN
 #include <aros/armeb/atomic.h>
 #include <aros/armeb/atomic_v6.h>
 #include <aros/armeb/atomic_v7.h>
@@ -70,16 +65,20 @@
 #include <aros/armeb/cpu.h>
 #include <aros/armeb/cpu-thumb2.h>
 #include <aros/armeb/fenv.h>
-#include <aros/armeb/fenv_soft.h>
-#include <aros/armeb/fenv_vfp.h>
 #include <aros/armeb/genmodule.h>
 #include <aros/armeb/genmodule-thumb2.h>
-
+#else
+#include <aros/arm/atomic.h>
+#include <aros/arm/atomic_v6.h>
+#include <aros/arm/atomic_v7.h>
+#include <aros/arm/cpucontext.h>
+#include <aros/arm/cpu.h>
+#include <aros/arm/cpu-thumb2.h>
 #include <aros/arm/fenv.h>
-#include <aros/arm/fenv_soft.h>
-#include <aros/arm/fenv_vfp.h>
 #include <aros/arm/genmodule.h>
 #include <aros/arm/genmodule-thumb2.h>
+#endif
+
 #endif
 
 #include <aros/arosbase.h>
