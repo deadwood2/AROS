@@ -9,6 +9,8 @@ show_selection ()
     printf "    12) core-amiga-m68k\n"
     printf "    13) core-amiga-m68k (SERIAL DEBUG)\n"
     printf "    14) core-contrib-m68k\n"
+    printf "    21) toolchain-core-armhf\n"
+    printf "    22) core-linux-armhf (DEBUG)\n"
 }
 
 process_selection ()
@@ -76,6 +78,20 @@ process_selection ()
         MAKE_TARGET="tools"
         MAKE_TARGET_2="mmake"
         MAKE_TARGET_3="contrib"
+        ;;
+        21)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-armhf
+        BUILD_DIR=$(pwd)/toolchain-core-armhf-build
+        TOOLCHAIN_BUILD=yes
+        CONFIGURE_TARGET=linux-armhf
+        MAKE_TARGET="-s crosstools"
+        ;;
+        22)
+        TOOLCHAIN_DIR=$(pwd)/toolchain-core-armhf
+        BUILD_DIR=$(pwd)/core-linux-amrhf-d
+        CONFIGURE_TARGET=linux-armhf
+        CONFIGURE_OPTS="--with-aros-toolchain=yes --enable-debug"
+        ;;
     esac
 }
 
