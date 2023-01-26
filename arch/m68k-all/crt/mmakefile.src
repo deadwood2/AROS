@@ -23,7 +23,7 @@ STDLIB_M68K_ASMFILES := \
     ../stdc/setjmp
 
 # Add FPU based runtime-replacement math functions ..
-M_MATH_M68K_ASMFILES += \
+M_MATH_M68K_ASMFILES := \
     math/e_acos-881 \
     math/e_asin-881 \
     math/e_atanh-881 \

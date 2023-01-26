@@ -17,7 +17,7 @@ STDLIB_X8664_ASMFILES := \
     ../stdc/setjmp
 
 # Add replacement math functions ..
-M_MATH_X8664_ASMFILES += \
+M_MATH_X8664_ASMFILES := \
     ../stdc/math/e_fmod \
     ../stdc/math/e_fmodf \
     ../stdc/math/e_fmodl \
