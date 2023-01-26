@@ -17,6 +17,6 @@ FILES	:=	\
 
 %build_module mmake=kernel-hidd-linuxfb \
   modname=linuxfbgfx modtype=hidd \
-  files=$(FILES) archspecific=yes uselibs="oop" usesdks="private"
+  files=$(FILES) archspecific=yes uselibs="oop stdc.static" usesdks="private"
 
 %common
