@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2014, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2023, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/libcall.h>
@@ -43,3 +43,25 @@ struct PeropenerBase *, PeropenerBase, 8, Peropener)
     AROS_LIBFUNC_EXIT
 }
 
+#include "peropenervalue_extlibseg.h"
+
+AROS_LH1(void, PeropenerSetGlobalPeropenerValueReg,
+AROS_LHA(int, value, D0),
+struct PeropenerBase *, PeropenerBase, 11, Peropener)
+{
+    AROS_LIBFUNC_INIT
+
+    ((struct ExtLibSegJumpTable *)(PeropenerBase->jumptable))->SetGlobalValue(value);
+
+    AROS_LIBFUNC_EXIT
+}
+
+AROS_LH0(int, PeropenerGetGlobalPeropenerValueReg,
+struct PeropenerBase *, PeropenerBase, 12, Peropener)
+{
+    AROS_LIBFUNC_INIT
+
+    return ((struct ExtLibSegJumpTable *)(PeropenerBase->jumptable))->GetGlobalValue();
+
+    AROS_LIBFUNC_EXIT
+}

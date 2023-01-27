@@ -15,6 +15,9 @@ include $(SRCDIR)/config/aros.cfg
 #MM test-library-usereltest :  test-library-userellib
 #MM test-library-userellib: includes-peropener includes-single linklibs-peropener linklibs-single
 
+#MM test-library-peropenerlib-extlibseg : test-library-peropenerlib-extlib
+#MM test-library-peropenerlib : test-library-peropenerlib-extlibseg
+
 #MM- test-library-clean : \
 #MM       test-library-singletest-clean \
 #MM       test-library-singletest_auto-clean \
@@ -54,6 +57,15 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 
 # Libraries
 
+%build_linklib mmake=test-library-peropenerlib-extlib \
+    libname="extlib1" \
+    files="peropenervalue_extlib" \
+    libdir=$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
+
+%build_prog mmake=test-library-peropenerlib-extlibseg \
+    files="peropenervalue_extlibseg" progname="extlib1.seg" targetdir=$(TARGETDIR) \
+    uselibs="extlib1" usestartup=no
+
 %build_module mmake=test-library-singlelib \
     modname=single modtype=library \
     files="singlelib" \
@@ -61,7 +73,8 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 
 %build_module mmake=test-library-peropenerlib \
     modname=peropener modtype=library \
-    files="peropenervalue peropenernolib peropenernamechange" linklibfiles="peropenervalue_linklib" \
+    files="peropenervalue peropenernolib peropenernamechange peropenerinit" \
+    linklibfiles="peropenervalue_linklib" \
     prefix=$(TARGETDIR)
 
 %build_module mmake=test-library-userellib \
