@@ -328,15 +328,17 @@ static APTR PNG_LoadImageInternal(APTR handle, CONST_STRPTR const *chunkstoread,
 		png.png_format = PBPAFMT_RGB;
 		break;
 
-	    case PNG_COLOR_TYPE_RGB_ALPHA:
-		png.png_depth = 32;
-#if defined(PBPAFMT_RGBA)
-		png.png_format = PBPAFMT_RGBA;
-#else
-		png.png_format = PBPAFMT_ARGB;
-		png_set_swap_alpha(png.png_ptr);
-#endif
-		break;
+            case PNG_COLOR_TYPE_RGB_ALPHA:
+                png.png_depth = 32;
+                if (!makeARGB)
+                    png.png_format = PBPAFMT_RGBA;
+                else
+                {
+                    png.png_format = PBPAFMT_ARGB;
+                    png_set_swap_alpha(png.png_ptr);
+                }
+
+                break;
 
 	    default:
 		png_error(png.png_ptr, "Unknown PNG Color Type!");
