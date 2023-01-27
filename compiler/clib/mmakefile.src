@@ -162,11 +162,13 @@ POSIXC_SHARED_SOURCES = \
     fgetpos \
     fileno \
     fopen \
+    fopen64 \
     fprintf \
     fscanf \
     freopen \
     fsetpos \
     ftello \
+    ftello64 \
     ftime \
     gcvt \
     getcwd \
@@ -259,12 +261,15 @@ POSIXC_SHARED_SOURCES = \
     fread \
     fseek \
     fseeko \
+    fseeko64 \
     fstat \
+    fstat64 \
     ftell \
     ftruncate \
     fwrite \
     isatty \
     lseek \
+    lseek64 \
     pipe \
     popen \
     read \
