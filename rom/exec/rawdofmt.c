@@ -31,6 +31,10 @@
 
 #endif
 
+/* ABI_V0 compatibility */
+/* It was reviewed that both RawDoFmt and FormatString were expecting WORD for %d and
+   LONG %ld in ABIv0 (2009). The same behavior is present in current codebase. */
+
 /* Fetch the data from a va_list.
 
    Variables are allocated in the va_list using the default argument
