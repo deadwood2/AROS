@@ -415,7 +415,7 @@ void About(void)
     }
     es.es_TextFormat = fmtTemplate;
 
-    abouttxt = AllocVec(count * sizeof(IPTR), MEMF_ANY);
+    abouttxt = AllocVec(count * sizeof(IPTR), MEMF_ANY | MEMF_CLEAR);
 
     GetAttr(DTA_Name, dto, (IPTR *)&abouttxt[6]);
     if (abouttxt[6])
@@ -453,6 +453,9 @@ void About(void)
         }
     }
 
+    if (!abouttxt[10]) abouttxt[10] = (IPTR)"";
+    if (!abouttxt[11]) abouttxt[11] = (IPTR)StrDup("");
+
     es.es_StructSize   = sizeof(es);
     es.es_Flags        = 0;
     es.es_Title        = MSG(MSG_ABOUT_TITLE);
@@ -466,6 +469,8 @@ void About(void)
 
     if (classInfo)
         classInfo->aboutFunc(dto, (char **)&abouttxt[12]);
+    else
+        abouttxt[12] = (IPTR)"";
 
     EasyRequestArgs(win, &es, NULL, (RAWARG)abouttxt);
   
