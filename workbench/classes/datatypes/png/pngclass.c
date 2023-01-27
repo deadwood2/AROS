@@ -578,10 +578,10 @@ static BOOL SavePNG(struct IClass *cl, Object *o, struct dtWrite *dtw)
     D(bug("png.datatype/SavePNG()\n"));
 
     /* No filehandle is not an error, just NOP */
-    if (!dtw->dtw_FileHandle)
+    if (dtw->dtw_Mode == DTWM_RAW && !dtw->dtw_FileHandle)
     {
-	D(bug("png.datatype/SavePNG(): empty filehandle\n"));
-	PNG_Exit(&png, 0);
+        D(bug("png.datatype/SavePNG(): empty Filehandle - just testing\n"));
+        PNG_Exit(&png, 0);
         return TRUE;
     }
     filehandle = dtw->dtw_FileHandle;
