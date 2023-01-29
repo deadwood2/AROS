@@ -46,8 +46,8 @@ EXEDIR := $(AROS_TESTS)/crt/posix
 #MM- test-crt : test-crt-posixc test-crt-posixc-$(AROS_TARGET_CPU)
 #MM- test-crt-quick : test-crt-posixc-quick test-crt-posixc-$(AROS_TARGET_CPU)-quick
 
-#MM- test-crt-posixc : test-crt-posixc-general test-crt-posixc-nix test-crt-posixc-posix1
-#MM- test-crt-posixc-quick : test-crt-posixc-general-quick test-crt-posixc-nix-quick test-crt-posixc-posix1-quick
+#MM- test-crt-posixc : test-crt-posixc-general test-crt-posixc-nix test-crt-posixc-posix1 test-crt-posixc-cunit
+#MM- test-crt-posixc-quick : test-crt-posixc-general-quick test-crt-posixc-nix-quick test-crt-posixc-posix1-quick test-crt-posixc-cunit-quick
 
 #MM test-crt-posixc-general : includes includes-copy linklibs kernel
 #MM test-crt-posixc-nix : includes includes-copy linklibs kernel
@@ -106,3 +106,27 @@ USER_CPPFLAGS = -D_XOPEN_SOURCE=700
 %build_progs mmake=test-crt-posixc-general \
     files="$(POSIXC2K8TESTFILES)" targetdir=$(EXEDIR)
 
+#MM test-crt-posixc-cunit : test-crt-posixc-cunit-lfs test-crt-posixc-cunit-lfs-fob
+#MM test-crt-posixc-cunit-quick : test-crt-posixc-cunit-lfs-quick test-crt-posixc-cunit-lfs-fob-quick
+
+CUNITEXEDIR := $(AROS_TESTS)/cunit/crt/posix
+USER_CFLAGS := -ffloat-store $(NOWARN_CFLAGS)
+USER_CPPFLAGS :=
+
+%build_progs mmake=test-crt-posixc-cunit \
+    files="cunit-crt-types64" targetdir=$(CUNITEXEDIR) \
+    uselibs=""
+
+USER_CPPFLAGS := -D_LARGEFILE64_SOURCE
+
+%build_prog mmake=test-crt-posixc-cunit-lfs \
+    progname="cunit-crt-types64-lfs" \
+    files="cunit-crt-types64" targetdir=$(CUNITEXEDIR) \
+    uselibs="" objdir=$(GENDIR)/$(CURDIR)/lfs
+
+USER_CPPFLAGS := -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+
+%build_prog mmake=test-crt-posixc-cunit-lfs-fob \
+    progname="cunit-crt-types64-lfs-fob" \
+    files="cunit-crt-types64" targetdir=$(CUNITEXEDIR) \
+    uselibs="" objdir=$(GENDIR)/$(CURDIR)/lfs-fob
