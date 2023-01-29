@@ -12,6 +12,7 @@ If NOT WARN
     ; Peform basic 'genmodule' unit tests..
     If EXISTS "SYS:Development/Debug/Tests/Library/Libs"
         Assign "LIBS:" "SYS:Development/Debug/Tests/Library/Libs" ADD
+        Copy SYS:Development/Debug/Tests/Library/extlib1.seg SYS:
         Execute S/Test cunit/genmodule/library/cunit-genmodule-autoopen
         Execute S/Test cunit/genmodule/library/cunit-genmodule-library
         Execute S/Test cunit/genmodule/library/cunit-genmodule-relbase
