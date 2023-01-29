@@ -13,7 +13,7 @@
 #if (__WORDSIZE==64)
 typedef unsigned AROS_64BIT_TYPE __fpos_t;
 #else
-typedef unsigned AROS_32BIT_TYPE __fpos_t;
+typedef unsigned AROS_32BIT_TYPE __fpos_t; /* ABI_V0 compatibility */
 #endif
 typedef unsigned AROS_64BIT_TYPE __fpos64_t;
 
