@@ -42,6 +42,9 @@ If NOT WARN
     Execute S/Test cunit/crt/posix/cunit-crt-fread
     Copy SYS:Development/Debug/Tests/crt/posix/execl2_slave SYS:
     Execute S/Test cunit/crt/posix/cunit-crt-vfork
+    Execute S/Test cunit/crt/posix/cunit-crt-types64
+    Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs
+    Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs-fob
 
     ; Perform basic "Zune" unit tests...
     Execute S/Test cunit/zune/cunit-zune-handleevent
