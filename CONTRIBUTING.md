@@ -10,7 +10,7 @@ The master branch (representing Core targets) is periodically refreshed from mai
 
 * **Avoid deleting/moving/renaming files.** This again causes patch conflicts so be sure to have a good reason to do so. Resolving some compilation problems can be such reason, but "general cleaning up" should not be used as justification.
 
-* **Consider creating pull requests to AROS repository for changes committed to this repository.** This helps keep the divergence under control which is appreciated by master branch maintainer. This is not a hard requirement though.
+* **Consider creating pull requests to AROS repository (https://github.com/aros-development-team/) for changes committed to this repository.** This helps keep the divergence under control which is appreciated by master branch maintainer. This is not a hard requirement though.
 
 * **Remember that there are alternatives based on master branch**. Alternatives will try to limit the divergence with master branch by committing as much code as possible to master. This however can give impression that there is unused code in master branch. Always check alternatives before making any actions on such code.
 
