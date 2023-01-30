@@ -493,6 +493,8 @@ CRT := \
     crt_assert \
     crt_system \
     crt_wrapper \
+    __ino_t_32 \
+    __fpos_t_32 \
     $(SRCDIR)/compiler/posixc/__env \
     ../posixc/__fdesc \
     ../posixc/__fopen \
