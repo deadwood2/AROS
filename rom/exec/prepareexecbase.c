@@ -61,9 +61,17 @@ static void Exec_TaskFinaliser(void)
 
 void _aros_not_implemented(char *X)
 {
-    kprintf("Unsupported function at offset -0x%h in %s\n",
-            ABS(*(WORD *)((&X)[-1]-2)),
-            ((struct Library *)(&X)[-2])->lib_Node.ln_Name);
+    STRPTR modname = "unknown";
+#if __x86_64__
+    register struct Library *lib asm("r12"); asm volatile("":"=r"(lib):"0"(lib));
+    modname = lib->lib_Node.ln_Name;
+#endif
+
+    kprintf("Unsupported function at unknown LVO in %s\n", modname);
+
+#if __x86_64__
+    asm volatile("int3");
+#endif
 }
 
 struct Library *PrepareAROSSupportBase (struct MemHeader *mh)
