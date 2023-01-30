@@ -1595,7 +1595,7 @@ BDID := $(BDTARGETID)
 .PHONY : %(mmake)
 
 %gen_archspecificrules mainmmake=%(mmake)
-%gen_archspecificrules mainmmake=%(mmake) target=-quick
+%gen_archspecificrules mainmmake=%(mmake) subtarget=-quick
 
 %(mmake)_PROGNAME  := %(progname)
 %(mmake)_OBJDIR    := %(objdir)
@@ -1817,7 +1817,7 @@ endif
 .PHONY : %(mmake)
 
 %gen_archspecificrules mainmmake=%(mmake)
-%gen_archspecificrules mainmmake=%(mmake) target=-quick
+%gen_archspecificrules mainmmake=%(mmake) subtarget=-quick
 
 %(mmake)_OBJDIR    := %(objdir)
 %(mmake)_TARGETDIR := %(targetdir)
@@ -2193,10 +2193,10 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
 #%(build_library)%(build_abi) %(mmake)-kobj-quick : %(mmake)-includes-quick
 
 %gen_archspecificrules mainmmake=%(mmake)
-%gen_archspecificrules mainmmake=%(mmake) target=-linklib
-%gen_archspecificrules mainmmake=%(mmake) target=-kobj
-%gen_archspecificrules mainmmake=%(mmake) target=-kobj-quick
-%gen_archspecificrules mainmmake=%(mmake) target=-quick
+%gen_archspecificrules mainmmake=%(mmake) subtarget=-linklib
+%gen_archspecificrules mainmmake=%(mmake) subtarget=-kobj
+%gen_archspecificrules mainmmake=%(mmake) subtarget=-kobj-quick
+%gen_archspecificrules mainmmake=%(mmake) subtarget=-quick
 
 # All MetaMake targets defined by this macro
 %(mmake)%(flavour)_ALLTARGETS       := %(mmake) %(mmake)-quick %(mmake)-clean
