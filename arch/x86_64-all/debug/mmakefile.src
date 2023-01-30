@@ -1,2 +1,3 @@
 
 #MM- kernel-debug-x86_64 :  kernel-debug-i386
+#MM- kernel-debug-x86_64-quick :  kernel-debug-i386-quick
