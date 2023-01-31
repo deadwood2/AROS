@@ -3,6 +3,7 @@
     $Id$
 */
 
+#include <exec/types.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
