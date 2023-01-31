@@ -6,6 +6,6 @@ USER_INCLUDES := -I$(SRCDIR)/$(CURDIR) -I$(SRCDIR)/$(AROSSUPPORT_DIR)
 
 %build_archspecific \
   mainmmake=linklibs-arossupport maindir=$(AROSSUPPORT_DIR) arch=pc \
-  files="vkprintf"
+  files="vkprintf" usesdks="private config"
 
 %common
