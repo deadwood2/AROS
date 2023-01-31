@@ -2,9 +2,10 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- compiler-m-m68k : includes-asm_h
-#MM- compiler-stdlib-m68k : includes-asm_h
-#MM- compiler-crt-m68k : includes-asm_h
+#MM compiler-m-m68k : includes-asm_h
+#MM compiler-stdlib-m68k : includes-asm_h
+#MM compiler-crt-m68k : includes-asm_h
+#MM linklibs-romhack-m68k : includes-asm_h
 
 
 USER_AFLAGS 	:= -I$(GENINCDIR)
