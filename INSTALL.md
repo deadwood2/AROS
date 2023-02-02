@@ -10,8 +10,9 @@ For armhf build, please install additional packages:
 
 ## Clone & build
 
-    $ mkdir myrepo
-    $ cd myrepo
+    $ cd <myprojects>
+    $ mkdir arosbuilds
+    $ cd arosbuilds
     $ git clone https://github.com/deadw00d/AROS.git AROS
     $ cp ./AROS/scripts/rebuild.sh .
     $ ./rebuild.sh
@@ -28,6 +29,9 @@ Start AROS by:
     $ cd core-linux-x86_64-d/bin/linux-x86_64/AROS
     $ ./boot/linux/AROSBootstrap
 
+In order to use the cross-compiler built in step 1 for compiling your own projects (which don't use AROS builds system / mmakefile.src approach), you need to provide --sysroot parameter, for example:
+
+    $ <myprojects>/arosbuilds/toolchain-core-x86_64/x86_64-aros-gcc --sysroot=<myprojects>/arosbuilds/core-linux-x86_64-d/bin/linux-x86_64/AROS/Development
 
 ### Amiga-m68k
 
