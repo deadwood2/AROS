@@ -1,0 +1,18 @@
+# Copyright (C) 2004-2017, The AROS Development Team. All rights reserved.
+
+include $(SRCDIR)/config/aros.cfg
+
+BASEICONS := Sashimi
+ADDITIONALICONS :=
+
+#MM- iconset-Gorilla-wbench-icons-aros-clean : iconset-Gorilla-wbench-icons-aros-tools-debug-clean
+#MM- iconset-Gorilla-additional-icons-aros : iconset-Gorilla-additional-icons-aros-tools-debug-clean
+
+#MM- iconset-Gorilla-wbench-icons-aros : iconset-Gorilla-wbench-icons-aros-tools-debug
+#MM- iconset-Gorilla-additional-icons-aros : iconset-Gorilla-additional-icons-aros-tools-debug
+
+%build_icons mmake=iconset-Gorilla-wbench-icons-aros-tools-debug icons=$(BASEICONS) \
+             dir=$(AROS_TOOLS)/Debug
+
+%build_icons mmake=iconset-Gorilla-additional-icons-aros-tools-debug icons=$(ADDITIONALICONS) \
+             dir=$(AROS_TOOLS)/Debug
