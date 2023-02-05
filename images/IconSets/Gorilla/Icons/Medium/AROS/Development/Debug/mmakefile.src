@@ -3,7 +3,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 BASEICONS := Sashimi
-ADDITIONALICONS := Bifteck Hardware Tests 
+ADDITIONALICONS := Bifteck Tests
 
 #MM- iconset-Gorilla-wbench-icons-aros-clean : iconset-Gorilla-wbench-icons-aros-debug-clean
 #MM- iconset-Gorilla-additional-icons-aros : iconset-Gorilla-additional-icons-aros-debug-clean

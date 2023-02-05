@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 
 FILES = main pciids support locale saveinfo
 
-EXEDIR = $(AROSDIR)/Tools
+EXEDIR = $(AROS_TOOLS)/Hardware
 
 #MM- debug-tools : debug-tools-pcitool
 #MM debug-tools-pcitool : includes symlinks \
