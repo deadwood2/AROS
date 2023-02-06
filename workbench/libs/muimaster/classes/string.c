@@ -81,6 +81,7 @@ struct MUI_StringData
     struct MUI_PenSpec_intern cursor;
 
     BOOL is_active;
+    STRPTR AckBuffer;           /* pointer to buffer of MUIA_String_Acknowledge */
 };
 
 #define MSDF_ADVANCEONCR    (1<<0)
@@ -691,6 +692,10 @@ IPTR String__OM_GET(struct IClass *cl, Object *obj, struct opGet *msg)
 
     case MUIA_String_Secret:
         STORE = (IPTR) data->msd_useSecret;
+        return TRUE;
+
+    case MUIA_String_Acknowledge:
+        STORE = (IPTR) data->AckBuffer;
         return TRUE;
 
     case MUIA_String_Accept:
@@ -1721,6 +1726,7 @@ IPTR String__MUIM_HandleEvent(struct IClass *cl, Object *obj,
                 }
 
                 /* Notify listeners of new string value */
+                data->AckBuffer = buf;
                 set(obj, MUIA_String_Acknowledge, buf);
 
                 /* Notify listeners of new integer value (if any) */
@@ -2021,7 +2027,10 @@ IPTR String__MUIM_HandleEvent(struct IClass *cl, Object *obj,
 
     /* Trigger notification */
     if (edited)
+    {
+        data->AckBuffer = NULL;
         superset(cl, obj, MUIA_String_Contents, data->Buffer);
+    }
 
     if (update)
     {
