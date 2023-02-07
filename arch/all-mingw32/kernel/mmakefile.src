@@ -11,7 +11,7 @@ FILES := kernel_startup kernel_debug kernel_intr kernel_cpu cpu_$(CPU)
 %build_archspecific \
   mainmmake=kernel-kernel modname=kernel maindir=rom/kernel \
   arch=mingw32 \
-  files="$(FILES) $(FUNCS)"
+  files="$(FILES) $(FUNCS)" usesdks="private config"
 
 NATIVE_BINDIR := $(AROSDIR)/Libs/Host
 NATIVE_LIBDIR := $(AROS_DEVELOPMENT)/$(CPU)-mingw32/lib
