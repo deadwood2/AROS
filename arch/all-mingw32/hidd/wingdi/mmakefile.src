@@ -18,7 +18,7 @@ DISK_EXEDIR := $(AROS_DEVS)/Monitors
 
 %build_prog mmake=devs-monitors-gdi \
     progname=GDI targetdir=$(DISK_EXEDIR) \
-    files=$(DISK_FILES)
+    files=$(DISK_FILES) usesdks="private"
 
 NATIVE_BINDIR := $(AROSDIR)/Libs/Host
 NATIVE_LIBDIR := $(AROS_DEVELOPMENT)/$(CPU)-mingw32/lib
