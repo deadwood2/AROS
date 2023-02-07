@@ -35,11 +35,13 @@ MINGW32_RES	 := hostlib battclock processor task
 #MM			  linklibs			\
 #MM			  kernel-link-mingw32-quick
 
+KICK_LDFLAGS := $(LDFLAGS) -L$(GENDIR)/buildsdks/private/lib
+
 %link_kickstart mmake=kernel-link-mingw32 file=$(EXEDIR)/aros-bsp-mingw32 \
 	devs=$(MINGW32_DEVS) handlers=$(MINGW32_HANDLERS) hidds=$(MINGW32_HIDD) libs=$(MINGW32_LIBS) res=$(MINGW32_RES) \
 	startup=$(KOBJSDIR)/kernel_resource.o \
 	uselibs="hiddstubs" \
-	map=$(GENDIR)/boot/kernel-mingw32.map
+	map=$(GENDIR)/boot/kernel-mingw32.map ldflags=$(KICK_LDFLAGS)
 
 #MM
 kernel-boot-mingw32: $(EXEDIR)/AROSBootstrap.conf

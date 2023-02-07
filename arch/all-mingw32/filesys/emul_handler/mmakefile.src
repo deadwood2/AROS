@@ -13,7 +13,7 @@ FILES := emul_host_mingw32 emul_host filenames
 
 %build_archspecific mainmmake=kernel-fs-emul \
   modname=emul maindir=$(MAINDIR) \
-  arch=mingw32 files=$(FILES)
+  arch=mingw32 files=$(FILES) usesdks="private"
 
 NATIVE_BINDIR := $(AROSDIR)/Libs/Host
 NATIVE_LIBDIR := $(AROS_DEVELOPMENT)/$(CPU)-mingw32/lib
