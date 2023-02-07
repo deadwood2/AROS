@@ -5,4 +5,4 @@ USER_INCLUDES := -I$(SRCDIR)/arch/all-hosted/hostlib
 FUNCS := freeerrorstr
 
 %build_archspecific mainmmake=kernel-hostlib maindir=arch/all-hosted/hostlib \
-    arch=mingw32 files=$(FUNCS)
+    arch=mingw32 files=$(FUNCS) usesdks="private"
