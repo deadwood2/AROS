@@ -8,7 +8,7 @@ FILES := startup gdi_hostlib wingdi_hiddclass wingdi_bitmapclass wingdi_kbdclass
 
 %build_module mmake=kernel-hidd-wingdi \
   modname=wingdi modtype=hidd \
-  files=$(FILES) uselibs="hiddstubs"
+  files=$(FILES) uselibs="hiddstubs" usesdks="private config"
 
 DISK_FILES  := disk_startup
 DISK_EXEDIR := $(AROS_DEVS)/Monitors
