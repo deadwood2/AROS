@@ -13,8 +13,8 @@ TARGET_ISO := $(DISTDIR)/aros$(AROS_TARGET_SUFFIX)-pc-i386.iso
 #MM
 bootiso-pc-i386: $(TARGET_ISO)
 
-#MM- bootiso-pc-i386-quick: \
-#MM                              bootiso-pc-i386
+#MM
+bootiso-pc-i386-quick: $(TARGET_ISO)
 
 $(AROSDIR)/.backdrop: $(SRCDIR)/workbench/.backdrop
 		@$(CP) $< $@
