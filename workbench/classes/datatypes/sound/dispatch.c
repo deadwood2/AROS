@@ -72,7 +72,6 @@
 #include "aiff.h"
 
 #ifdef __AROS__
-#define DEBUG 1
 #include <aros/debug.h>
 #endif
 
@@ -152,7 +151,7 @@ ADD2LIBS("gadgets/tapedeck.gadget", -40, struct Library *, TapeDeckBase)
 #endif
 
 //#define DEBUG
-#ifdef DEBUG
+#if DEBUG
 #define dbug( x )	x
 #else
 #define dbug( x )
