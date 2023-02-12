@@ -107,7 +107,7 @@ IPTR __startup start64(struct TagItem *msg, ULONG magic)
  */
 static void boot_banner()
 {
-    bug("AROS64 - The AROS Research OS\n");
+    bug("AROS - The AROS Research OS\n");
     bug("64-bit " __BUILDSTRXTRA__ "build. Compiled %s\n", __DATE__);
 }
 
