@@ -5,9 +5,9 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM- boot-pc-x86_64        : bootloader-$(AROS_TARGET_BOOTLOADER)-pc-x86_64 kernel-bootstrap-pc-gz
 #MM- kernel-link-pc-x86_64 : kernel-pc-x86_64-kernel-gz \
-#MM                          kernel-bsp-pc-x86_64-gz kernel-legacy-pc-x86_64-gz \
-#MM                          kernel-package-base-gz  kernel-package-usb-gz      \
-#MM                          kernel-package-fs-gz
+#MM                          kernel-bsp-pc-x86_64 kernel-legacy-pc-x86_64 \
+#MM                          kernel-objs kernel-usb \
+#MM                          kernel-fs-xtra kernel-fs-core
 #MM- workbench-pc-x86_64   : workbench-drivers kernel-pc-i386-trackdisk
 
 # -------- x86_64-pc kernel --------
@@ -19,7 +19,7 @@ include $(SRCDIR)/config/aros.cfg
 
 # -------- x86_64-pc board support package --------
 
-#MM kernel-bsp-pc-x86_64 :	\
+#MM- kernel-bsp-pc-x86_64 :	\
 #MM			   linklibs-bootconsole		\
 #MM			   kernel-hidd-bus			\
 #MM			   kernel-hidd-base			\
@@ -50,14 +50,14 @@ KDEVS       := ata ahci nvme
 KDEVS_ARCH  := timer
 KHIDDS      := ata_pci bus i8042 parallel pci pcipc power serial vesagfx vgagfx storage system
 
-%make_package mmake=kernel-bsp-pc-x86_64 file=$(AROSARCHDIR)/aros-bsp.pkg \
-	devs=$(KDEVS) arch_devs=$(KDEVS_ARCH) hidds=$(KHIDDS) libs=$(KLIBS) \
-        arch_libs=$(KLIBS_ARCH) res=$(KRSRCS) arch_res=$(KRSRCS_ARCH)
+#%make_package mmake=kernel-bsp-pc-x86_64 file=$(AROSARCHDIR)/aros-bsp.pkg \
+#	devs=$(KDEVS) arch_devs=$(KDEVS_ARCH) hidds=$(KHIDDS) libs=$(KLIBS) \
+#        arch_libs=$(KLIBS_ARCH) res=$(KRSRCS) arch_res=$(KRSRCS_ARCH)
 
 # -------- ACPI drivers package --------
 
-#MM- kernel-link-pc-x86_64 : kernel-acpi-gz
-#MM kernel-acpi :	        \
+#MM- kernel-link-pc-x86_64 : kernel-acpi
+#MM- kernel-acpi :	        \
 #MM     kernel-hidd-acpibutton	        \
 #MM     kernel-hidd-acpiacad	        \
 #MM     kernel-hidd-acpibattery
@@ -66,8 +66,8 @@ ACPIDEVS        :=
 ACPIRSRCS      :=
 ACPIHIDDS      := acpiacad acpibattery acpibutton
 
-%make_package mmake=kernel-acpi file=$(AROSARCHDIR)/aros-acpi.pkg \
-	 devs=$(ACPIDEVS) res=$(ACPIRSRCS) hidds=$(ACPIHIDDS)
+#%make_package mmake=kernel-acpi file=$(AROSARCHDIR)/aros-acpi.pkg \
+#	 devs=$(ACPIDEVS) res=$(ACPIRSRCS) hidds=$(ACPIHIDDS)
 
 # -------- x86_64-pc legacy drivers package --------
 
@@ -78,7 +78,7 @@ ACPIHIDDS      := acpiacad acpibattery acpibutton
 LEGACY_DEVS  := trackdisk
 LEGACY_HIDDS := serialmouse
 
-%make_package mmake=kernel-legacy-pc-x86_64 file=$(AROSARCHDIR)/aros-legacy.pkg \
-	devs=$(LEGACY_DEVS) hidds=$(LEGACY_HIDDS)
+#%make_package mmake=kernel-legacy-pc-x86_64 file=$(AROSARCHDIR)/aros-legacy.pkg \
+#	devs=$(LEGACY_DEVS) hidds=$(LEGACY_HIDDS)
 
 %common
