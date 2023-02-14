@@ -686,8 +686,14 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
         {
             UQUAD calib_tsc;
 
-            D(bug("[Kernel:APIC-IA32.%03u] %s:     Calibrating TSC...\n", cpuNum, __func__);)
+            D(bug("[Kernel:APIC-IA32.%03u] %s:     Calibrating TSC...\n", cpuNum, __func__));
             calib_tsc = ia32_tsc_calibrate(cpuNum);
+            while(calib_tsc == 0)
+            {
+                /* This is happening on VirtualBox 7, ~10% of time */
+                bug("[Kernel:APIC-IA32.%03u] %s:     Failed. Repeating TSC calibration...\n", cpuNum, __func__);
+                calib_tsc = ia32_tsc_calibrate(cpuNum);
+            }
             apic->cores[cpuNum].cpu_TSCFreq = calib_tsc;
         }
         if (!apic->cores[cpuNum].cpu_TimerFreq)
