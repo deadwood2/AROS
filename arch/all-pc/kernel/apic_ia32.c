@@ -127,7 +127,7 @@ BOOL APICInt_Init(struct KernelBase *KernelBase, icid_t instanceCount)
      * most a single MSI device will request) then report that
      * we can use MSI
      */
-    if ((count > 31) && (acpiData->acpi_fadt))
+    if ((count > 31) && (acpiData) && (acpiData->acpi_fadt))
     {
         ACPI_TABLE_FADT *fadt = (ACPI_TABLE_FADT *)acpiData->acpi_fadt;
 

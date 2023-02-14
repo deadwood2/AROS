@@ -29,6 +29,9 @@ const char str_HWTypeMobile[] = "Mobile Device";
 #undef HWAttrBase
 #define HWAttrBase csd->hwAttrBase
 
+/* ACPICA is optional, disabled with noacpi switch */
+struct Library *ACPICABase = NULL;
+
 /* Parse a Battery device */
 static ACPI_STATUS ACPIBatteryCallback(ACPI_HANDLE handle, ULONG nesting_level,
     void *context, void **return_value)
@@ -46,7 +49,6 @@ static ACPI_STATUS ACPIBatteryCallback(ACPI_HANDLE handle, ULONG nesting_level,
 static int init_hiddclass(LIBBASETYPEPTR lh)
 {
     struct Library *OOPBase = GM_OOPBASE_FIELD(lh);
-    struct Library *ACPICABase;
     struct  class_static_data *csd;
     const char *sysTypeFmt = NULL, *hwType = NULL;
     struct TagItem hwTags[] =
