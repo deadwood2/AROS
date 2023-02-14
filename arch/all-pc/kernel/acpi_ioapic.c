@@ -567,7 +567,9 @@ BOOL IOAPICInt_AckIntr(APTR icPrivate, icid_t icInstance, icid_t intNum)
     }
     else
     {
+#if 0
         bug("[Kernel:IOAPIC] %s: trig == 0 ************************\n", __func__);
+#endif
     }
     APIC_REG(apic_base, APIC_EOI) = 0;
     return TRUE;
