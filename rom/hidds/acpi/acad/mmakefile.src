@@ -11,14 +11,14 @@ USER_CFLAGS      := $(NOWARN_FLAGS)
 USER_CPPFLAGS      := -DAROS_USE_OOP \
                     -D__OOP_NOLIBBASE__ \
                     -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS :=
+USER_LDFLAGS := -noclibs
 USER_CPPFLAGS += -DDEBUG=1
 
 #MM kernel-hidd-acpiacad : kernel-hidd-power-includes
 
 %build_module mmake=kernel-hidd-acpiacad \
   modname=acpiacad modtype=hidd \
-  files="$(FILES)" uselibs=acpica sdk=private usesdks="private"
+  files="$(FILES)" uselibs="acpica stdc.static" sdk=private usesdks="private"
 
 LIBNAME     := acpiacad
 
