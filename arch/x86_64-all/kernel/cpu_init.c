@@ -46,7 +46,7 @@ static int cpu_Init(struct KernelBase *KernelBase)
         "    cpuid\n\t"
         "    mov        %%ebx, %0\n\t\n"
         ".xscheck_done:\n\t"
-        : "=m"(XContextSize), "=m"(AVXOffs)
+        : "+m"(XContextSize), "+m"(AVXOffs)
         :
         : "%eax", "%ebx", "%ecx", "%edx"
     );
