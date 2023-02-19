@@ -553,6 +553,9 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
             /* Obtain/set the critical IRQs and Vectors */
             for (i = 0; i < X86_CPU_EXCEPT_COUNT; i++)
             {
+                if (i == 0x08)
+                    continue;
+
                 if (!core_SetIDTGate((apicidt_t *)apic->cores[cpuNum].cpu_IDT, i, (uintptr_t)IntrDefaultGates[i], TRUE, FALSE))
                 {
                     krnPanic(NULL, "Failed to set CPU Exception Vector\n"

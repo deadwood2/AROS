@@ -340,6 +340,9 @@ void kernel_cstart(const struct TagItem *start_msg)
     D(bug("[Kernel] %s:                IDT      : 0x%p\n", __func__, __KernBootPrivate->BOOTIDT);)
     core_SetupIDT(0, (apicidt_t *)__KernBootPrivate->BOOTIDT);
 
+    /* Handle double-faults as early as possible to prevent triple-faults which cannot be handled */
+    core_SetIDTGate((apicidt_t *)__KernBootPrivate->BOOTIDT, 0x08,  (uintptr_t)IntrDefaultGates[0x08], TRUE, FALSE);
+
     /* Set-up MMU */
     // Re-read mmap pointer, since we have modified it previously...
     mmap = (struct mb_mmap *)LibGetTagData(KRN_MMAPAddress, 0, BootMsg);
