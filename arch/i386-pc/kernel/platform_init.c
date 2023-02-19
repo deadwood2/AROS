@@ -74,6 +74,9 @@ static int PlatformInit(struct KernelBase *KernelBase)
     /* Restore IDT structure */
     core_SetupIDT(0, idt);
 
+    /* Handle double-faults as early as possible to prevent triple-faults which cannot be handled */
+    core_SetIDTGate(idt, 0x08,  (uintptr_t)IntrDefaultGates[0x08], TRUE, FALSE);
+
     // Set up the base syscall handler(s)
     NEWLIST(&data->kb_SysCallHandlers);
     if (!core_SetIDTGate(idt, APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_SYSCALL),
