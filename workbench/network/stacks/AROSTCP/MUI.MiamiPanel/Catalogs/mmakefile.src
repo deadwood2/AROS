@@ -1,9 +1,0 @@
-# Copyright (C) 2004, The AROS Development Team. All rights reserved.
-
-include $(SRCDIR)/config/aros.cfg
-
-CATALOGS:=
-
-%build_catalogs mmake=arostcp-libs-muimiamipanel-catalogs \
-    catalogs=$(CATALOGS) \
-    name=MUI.MiamiPanel subdir=System/System
