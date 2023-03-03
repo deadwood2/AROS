@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2018, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
 */
 
 #define __KERNEL_NOLIBBASE__
@@ -30,7 +29,7 @@ int core_SysCallHandler(struct ExceptionContext *regs, struct KernelBase *Kernel
 static int PlatformInit(struct KernelBase *KernelBase)
 {
     struct PlatformData *data;
-    struct tss	    *tss = __KernBootPrivate->TSS;
+    struct tss      *tss = __KernBootPrivate->TSS;
     apicidt_t *idt = __KernBootPrivate->BOOTIDT;
     struct segment_desc *GDT = __KernBootPrivate->BOOTGDT;
     int i;
@@ -47,8 +46,8 @@ static int PlatformInit(struct KernelBase *KernelBase)
 
     data = AllocMem(sizeof(struct PlatformData), MEMF_PUBLIC|MEMF_CLEAR);
     if (!data)
-	return FALSE;
-	
+        return FALSE;
+        
     D(bug("[Kernel:i386] %s: Allocated platform data at 0x%p\n", __func__, data));
     KernelBase->kb_PlatformData = data;
 
@@ -59,7 +58,7 @@ static int PlatformInit(struct KernelBase *KernelBase)
     SysBase->SysStkLower = AllocMem(0x10000, MEMF_PUBLIC);  /* 64KB of system stack */
 
     if (!SysBase->SysStkLower)
-	return FALSE;
+        return FALSE;
 
     tss->ssp_seg = KERNEL_DS; /* SSP segment descriptor */
     tss->cs      = USER_CS;
@@ -78,7 +77,7 @@ static int PlatformInit(struct KernelBase *KernelBase)
     // Set up the base syscall handler(s)
     NEWLIST(&data->kb_SysCallHandlers);
     if (!core_SetIDTGate(idt, APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_SYSCALL),
-                         (uintptr_t)IntrDefaultGates[APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_SYSCALL)], TRUE))
+                         (uintptr_t)IntrDefaultGates[APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_SYSCALL)], TRUE, FALSE))
     {
         krnPanic(NULL, "Failed to set BSP Syscall Vector\n"
                        "Vector #%02X\n",
@@ -98,8 +97,8 @@ static int PlatformInit(struct KernelBase *KernelBase)
      */
     asm
     (
-	"ltr %%ax\n\t"
-	::"ax"(TSS_SELECTOR)
+        "ltr %%ax\n\t"
+        ::"ax"(TSS_SELECTOR)
     );
 
     D(bug("[Kernel:i386] %s: System restored\n", __func__));
