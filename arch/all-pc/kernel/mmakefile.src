@@ -1,10 +1,12 @@
-# $Id$
 
 include $(SRCDIR)/config/aros.cfg
 
 FUNCS	 := \
              allocirq \
              addirqhandler \
+             getirq \
+             modifyirq \
+             exitinterrupt \
              displayalert \
              getcpucount \
              getcpunumber \
