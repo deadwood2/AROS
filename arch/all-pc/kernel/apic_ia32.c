@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2020, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2022, The AROS Development Team. All rights reserved.
 
     Desc: Intel IA-32 APIC driver.
 */
@@ -38,10 +37,10 @@
 #include "apic_ia32.h"
 
 #define D(x)
-#define DINT(x) 
+#define DINT(x)
 #define DWAKE(x)         /* Badly interferes with AP startup */
 #define DID(x)           /* Badly interferes with everything */
-#define DPIT(x) 
+#define DPIT(x)
 /* #define DEBUG_WAIT */
 
 /*
@@ -78,7 +77,7 @@ BOOL APICInt_Init(struct KernelBase *KernelBase, icid_t instanceCount)
     struct ACPIData *acpiData  = kernPlatD->kb_ACPI;
     struct APICData *apicPrivate = kernPlatD->kb_APIC;
     APTR ssp;
-    int irq, count = 0;
+    int irq, msibase = 0, count = 0, msiavailable = 0;
 
     DINT(bug("[Kernel:APIC-IA32] %s(%d)\n", __func__, instanceCount));
 
@@ -88,9 +87,17 @@ BOOL APICInt_Init(struct KernelBase *KernelBase, icid_t instanceCount)
         /* Set up the APIC IRQs for CPU #0 */
         for (irq = (APIC_IRQ_BASE - X86_CPU_EXCEPT_COUNT); irq < HW_IRQ_COUNT; irq++)
         {
-            if (!krnInitInterrupt(KernelBase, irq, APICInt_IntrController.ic_Node.ln_Type, 0))
+            if ((KERNELIRQ_LIST(irq).lh_Type != KBL_INTERNAL) || (!krnInitInterrupt(KernelBase, irq, APICInt_IntrController.ic_Node.ln_Type, 0)))
             {
-                D(bug("[Kernel:APIC-IA32] %s: failed to obtain IRQ %d\n", __func__, irq);)
+                D(
+                    if (KERNELIRQ_LIST(irq).lh_Type == KBL_INTERNAL)
+                    {
+                        bug("[Kernel:APIC-IA32] %s: failed to obtain IRQ %d\n", __func__, irq);
+                    }
+                )
+                if (count > 31)
+                    msiavailable += count;
+                count = 0;
             }
             else
             {
@@ -98,11 +105,20 @@ BOOL APICInt_Init(struct KernelBase *KernelBase, icid_t instanceCount)
                 if (!core_SetIDTGate((apicidt_t *)apicPrivate->cores[0].cpu_IDT, HW_IRQ_BASE + irq, (uintptr_t)IntrDefaultGates[HW_IRQ_BASE + irq], FALSE, FALSE))
                 {
                     bug("[Kernel:APIC-IA32] %s: failed to set IRQ %d's Vector gate\n", __func__, irq);
+                    if (count > 31)
+                        msiavailable += count;
+                    count = 0;
                 }
-                else
-                    count++;
+                else 
+                {
+                    if ((count++ > 31) && (msibase == 0))
+                        msibase = irq + 1 - count;
+                }
             }
         }
+        if ((count > 31) && (msiavailable == 0))
+            msiavailable = count;
+
         UserState(ssp);
     }
 
@@ -111,16 +127,20 @@ BOOL APICInt_Init(struct KernelBase *KernelBase, icid_t instanceCount)
      * most a single MSI device will request) then report that
      * we can use MSI
      */
-    if ((count > 32) && (acpiData->acpi_fadt))
+    if ((count > 31) && (acpiData->acpi_fadt))
     {
         ACPI_TABLE_FADT *fadt = (ACPI_TABLE_FADT *)acpiData->acpi_fadt;
 
         if ((!(fadt->BootFlags & ACPI_FADT_NO_MSI)) &&
             (!(kernPlatD->kb_PDFlags & PLATFORMF_HAVEMSI)))
         {
-            // TODO: Register the MSI interrupt controller..
             kernPlatD->kb_PDFlags |= PLATFORMF_HAVEMSI;
-            bug("[Kernel:APIC-IA32] MSI Interrupts enabled\n");
+            apicPrivate->msibase = msibase;
+            bug("[Kernel:APIC-IA32] MSI Interrupts Allocatable\n");
+            D(
+                bug("[Kernel:APIC-IA32]     start = %u\n", msibase);
+                bug("[Kernel:APIC-IA32]     total = %u\n", msiavailable);
+            )
         }
     }
     return TRUE;
@@ -197,7 +217,7 @@ struct IntrController APICInt_IntrController =
         .ln_Pri = -50
     },
     0,
-    AROS_MAKE_ID('A','P','I','C'),
+    IIC_ID_APIC,
     0,
     NULL,
     APICInt_Register,
@@ -261,94 +281,89 @@ static ULONG ia32_ipi_send(IPTR __APICBase, ULONG target, ULONG cmd)
  * initial value).  We run it 10 times to make up for cache setup discrepancies.
  */
 
+#define PIT_SAMPLECOUNT     10
+#define PIT_WAITTICKS       11931
 static UQUAD ia32_tsc_calibrate_pit(apicid_t cpuNum)
 {
-    UQUAD tsc_initial, tsc_final;
-    UQUAD calibrated_tsc = 0;
+    UQUAD tsc_initial, tsc_final, calibrated_tsc = 0;
+    UQUAD difftsc[PIT_SAMPLECOUNT];
+    UWORD pitresults[PIT_SAMPLECOUNT];
+    ULONG pit_total = 0;
     UWORD pit_final;
-    int iter = 10, i;
-    DPIT(
-        ULONG pitresults[10];
-        UQUAD difftsc[10];
-      )
+    int samples, iter, i;
 
-    for (i = 0; i < 10; i ++)
+    samples = iter = PIT_SAMPLECOUNT;
+
+    for (i = 0; i < PIT_SAMPLECOUNT; i++)
     {
         tsc_initial = RDTSC();
 
-        pit_final   = pit_wait(11931);
+        pit_final   = pit_wait(PIT_WAITTICKS);
 
         tsc_final = RDTSC();
 
-        /* Honour only the properly timed calculations */
-        if (pit_final >= 11931 && pit_final <= 12000)
+        /* Ignore results that are invalid, or wrap around. */
+        if ((pit_final >= PIT_WAITTICKS) && (tsc_final > tsc_initial))
         {
-            calibrated_tsc += ((tsc_final - tsc_initial) * 11931LL) / ((UQUAD)pit_final);
-            DPIT(
-                difftsc[i] = tsc_final - tsc_initial;
-                pitresults[i] = (pit_final);
-            )
+            difftsc[i] = tsc_final - tsc_initial;
+            pitresults[i] = pit_final;
+            pit_total += pit_final;
+            DPIT(bug("[Kernel:APIC-IA32.%03u] %s: %u, diff = %u\n", cpuNum, __func__, pitresults[i], difftsc[i]);)
         }
         else
         {
-            DPIT(
-                difftsc[i] = tsc_final - tsc_initial;
-                pitresults[i] = 0;
-              )
-            iter -= 1;
+            DPIT(bug("[Kernel:APIC-IA32.%03u] %s: ## %02u - ignoring pit_final = %u\n", cpuNum, __func__, (PIT_SAMPLECOUNT - samples), pit_final);)
+            pitresults[i] = 0;
+            samples -= 1;
         }
-
-#if 0
-        if (pit_final < 11931)
-        {
-            calibrated_tsc += ((tsc_final - tsc_initial) * 11931LL) / (11931LL - (UQUAD)pit_final);
-            DPIT(
-                difftsc[i] = tsc_final - tsc_initial;
-                pitresults[i] = (11931 - pit_final);
-              )
-        }
-        else if (pit_final != 11931)
-        {
-            calibrated_tsc += ((tsc_final - tsc_initial) * 11931LL) / (11931LL + (UQUAD)(0xFFFF - pit_final));
-            DPIT(
-                difftsc[i] = tsc_final - tsc_initial;
-                pitresults[i] = (11931 + (0xFFFF - pit_final));
-              )
-        }
-        else
-        {
-            DPIT(
-                difftsc[i] = tsc_final - tsc_initial;
-                pitresults[i] = 0;
-              )
-            iter -= 1;
-        }
-#endif
     }
 
-    DPIT(
-        for (i = 0; i < 10; i ++)
-        {
-          bug("[Kernel:APIC-IA32.%03u] %s: pit_final #%02u = %u (%llu)\n", cpuNum, __func__, i, pitresults[i], difftsc[i]);
-        }
-        bug("[Kernel:APIC-IA32.%03u] %s: iter: %u, freq: %llu\n", cpuNum, __func__, iter, (100 * calibrated_tsc) / iter);
-      )
+    if (samples > 0)
+    {
+        UWORD pit_avg = (pit_total / samples), pit_error = pit_avg - ((pit_avg * (100 - (pit_avg / PIT_WAITTICKS))) / 100);
 
-    return 100 * calibrated_tsc / iter;
+        DPIT(
+            bug("[Kernel:APIC-IA32.%03u] %s: PIT Avg %u, error %u\n", cpuNum, __func__, pit_avg, pit_error);
+            bug("[Kernel:APIC-IA32.%03u] %s:     Min %u\n", cpuNum, __func__, pit_avg - pit_error);
+            bug("[Kernel:APIC-IA32.%03u] %s:     Max %u\n", cpuNum, __func__, pit_avg + pit_error);
+        )
+
+        for (i = 0; i < PIT_SAMPLECOUNT; i++)
+        {
+            if ((pitresults[i] >= pit_avg - pit_error) && (pitresults[i] <= pit_avg + pit_error))
+                calibrated_tsc += (difftsc[i] * PIT_WAITTICKS) / pitresults[i];
+            else
+                iter -= 1;
+        }
+
+        if (iter > 0)
+        {
+            DPIT(
+                for (i = 0; i < PIT_SAMPLECOUNT; i++)
+                {
+                  bug("[Kernel:APIC-IA32.%03u] %s: pit_final #%02u = %u (%llu)\n", cpuNum, __func__, i, pitresults[i], difftsc[i]);
+                }
+                bug("[Kernel:APIC-IA32.%03u] %s: iter: %u, freq: %llu\n", cpuNum, __func__, iter, (10 * iter * calibrated_tsc) / iter);
+              )
+            calibrated_tsc = (10 * iter * calibrated_tsc / iter);
+        }
+    }
+
+    return calibrated_tsc;
 }
 
 static UQUAD ia32_lapic_calibrate_pit(apicid_t cpuNum, IPTR __APICBase)
 {
-    ULONG lapic_initial, lapic_final;
-    UQUAD calibrated = 0;
+    UQUAD lapic_initial, lapic_final, calibrated_lapic = 0;
+    UQUAD difflapic[PIT_SAMPLECOUNT];
+    UWORD pitresults[PIT_SAMPLECOUNT];
+    ULONG pit_total = 0;
     UWORD pit_final;
-    int iter = 10, i;
-    DPIT(
-        ULONG pitresults[10];
-        ULONG difflapic[10];
-      )
+    int samples, iter, i;
 
-    for (i = 0; i < 10; i ++)
+    samples = iter = PIT_SAMPLECOUNT;
+
+    for (i = 0; i < PIT_SAMPLECOUNT; i++)
     {
         lapic_initial = APIC_REG(__APICBase, APIC_TIMER_CCR);
 
@@ -356,63 +371,55 @@ static UQUAD ia32_lapic_calibrate_pit(apicid_t cpuNum, IPTR __APICBase)
 
         lapic_final = APIC_REG(__APICBase, APIC_TIMER_CCR);
 
-        /* Honour only the properly timed calculations */
-        if (pit_final >= 11931 && pit_final <= 12000)
+        /* Ignore results that are invalid, or wrap around. */
+        if ((pit_final >= PIT_WAITTICKS) && (lapic_initial > lapic_final))
         {
-            calibrated += (((UQUAD)(lapic_initial - lapic_final) * 11931LL)/((UQUAD)pit_final)) ;
-            DPIT(
-                difflapic[i] = lapic_initial - lapic_final;
-                pitresults[i] = pit_final;
-            )
+            difflapic[i] = lapic_initial - lapic_final;
+            pitresults[i] = pit_final;
+            pit_total += pit_final;
+            DPIT(bug("[Kernel:APIC-IA32.%03u] %s: %u, diff = %u\n", cpuNum, __func__, pitresults[i], difflapic[i]);)
         }
         else
         {
-            DPIT(
-                difflapic[i] = lapic_initial - lapic_final;
-                pitresults[i] = 0;
-              )
-            iter -= 1;
+            DPIT(bug("[Kernel:APIC-IA32.%03u] %s: ## %02u - ignoring pit_final = %u\n", cpuNum, __func__, (PIT_SAMPLECOUNT - samples), pit_final);)
+            pitresults[i] = 0;
+            samples -= 1;
         }
-
-#if 0
-        if (pit_final < 11931)
-        {
-            calibrated += (((UQUAD)(lapic_initial - lapic_final) * 11931LL)/(11931LL - (UQUAD)pit_final)) ;
-            DPIT(
-                difflapic[i] = lapic_initial - lapic_final;
-                pitresults[i] = (11931 - pit_final);
-              )
-        }
-        else if (pit_final != 11931)
-        {
-            calibrated += (((UQUAD)(lapic_initial - lapic_final) * 11931LL)/(11931LL + (UQUAD)(0xFFFF - pit_final))) ;
-            DPIT(
-                difflapic[i] = lapic_initial - lapic_final;
-                pitresults[i] = (11931 + (0xFFFF - pit_final));
-              )
-        }
-        else
-        {
-            DPIT(
-                difflapic[i] = lapic_initial - lapic_final;
-                pitresults[i] = 0;
-              )
-            iter -= 1;
-        }
-#endif
     }
 
-    DPIT(
-        for (i = 0; i < 10; i ++)
+    if (samples > 0)
+    {
+        UWORD pit_avg = (pit_total / samples), pit_error = pit_avg - ((pit_avg * (100 - (pit_avg / PIT_WAITTICKS))) / 100);
+
+        DPIT(
+            bug("[Kernel:APIC-IA32.%03u] %s: PIT Avg %u, error %u\n", cpuNum, __func__, pit_avg, pit_error);
+            bug("[Kernel:APIC-IA32.%03u] %s:     Min %u\n", cpuNum, __func__, pit_avg - pit_error);
+            bug("[Kernel:APIC-IA32.%03u] %s:     Max %u\n", cpuNum, __func__, pit_avg + pit_error);
+        )
+
+        for (i = 0; i < PIT_SAMPLECOUNT; i++)
         {
-          bug("[Kernel:APIC-IA32.%03u] %s: pit_final #%02u = %u (%u)\n", cpuNum, __func__, i, pitresults[i], difflapic[i]);
+            if ((pitresults[i] >= pit_avg - pit_error) && (pitresults[i] <= pit_avg + pit_error))
+                calibrated_lapic += (difflapic[i] * PIT_WAITTICKS) / pitresults[i];
+            else
+                iter -= 1;
         }
-        bug("[Kernel:APIC-IA32.%03u] %s: iter: %u, freq: %llu\n", cpuNum, __func__, iter, 100 * calibrated / iter);
-      )
 
-    return 100 * calibrated / iter;
+        if (iter > 0)
+        {
+            DPIT(
+                for (i = 0; i < PIT_SAMPLECOUNT; i++)
+                {
+                  bug("[Kernel:APIC-IA32.%03u] %s: pit_final #%02u = %u (%llu)\n", cpuNum, __func__, i, pitresults[i], difflapic[i]);
+                }
+                bug("[Kernel:APIC-IA32.%03u] %s: iter: %u, freq: %llu\n", cpuNum, __func__, iter, (10 * iter * calibrated_lapic) / iter);
+              )
+            calibrated_lapic = (10 * iter * calibrated_lapic / iter);
+        }
+    }
+
+    return calibrated_lapic;
 }
-
 
 static UQUAD ia32_tsc_calibrate(apicid_t cpuNum)
 {
@@ -471,6 +478,43 @@ static UQUAD ia32_lapic_calibrate(apicid_t cpuNum, IPTR __APICBase)
     return ia32_lapic_calibrate_pit(cpuNum, __APICBase);
 }
 
+static BOOL APIC_isMSHyperV(void)
+{
+        ULONG arg = 1;
+        ULONG res[4];
+
+        asm volatile (
+            "cpuid"
+                : "=c"(res[0])
+                : "a"(arg)
+                : "%ebx", "%edx"
+        );
+
+        if (res[0] & 0x80000000) {
+            /* Hypervisor Flag .. */
+            arg = 0x40000000;
+            asm volatile (
+                "cpuid"
+                    : "=a"(res[0]), "=b"(res[1]), "=c"(res[2]), "=d"(res[3])
+                    : "a"(arg)
+                    :
+            );
+            /*
+             * res[0]           contains the number of CPUID functions
+             * res[1 - 3]       contain the hypervisor signature...
+            */
+            if ((res[0] >= HYPERV_CPUID_MIN && res[0] <= HYPERV_CPUID_MAX) &&
+                (res[1] == 0x7263694d) &&       /* 'r','c','i','M' */
+                (res[2] == 0x666f736f) &&       /* 'f','o','s','o' */
+                (res[3] == 0x76482074))         /* 'v','H',' ','t' */
+            {
+                    return TRUE;
+            }
+        }
+        return FALSE;
+}
+
+
 /**********************************************************
                         Driver functions
  **********************************************************/
@@ -485,7 +529,7 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
 #ifdef CONFIG_LEGACY
     /* 82489DX doesn't report no. of LVT entries. */
     if (!APIC_INTEGRATED(apic_ver))
-    	maxlvt = 2;
+        maxlvt = 2;
 #endif
 
     D(
@@ -557,10 +601,12 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
         APIC_REG(__APICBase, APIC_DFR) = DFR_FLAT;
         APIC_REG(__APICBase, APIC_LDR) = 1 << LDR_ID_SHIFT;
 
-        /* Set Task Priority to 'accept all interrupts' */
-        APIC_REG(__APICBase, APIC_TPR) = 0;
-
-        /* Set spurious IRQ vector to 0xFF. APIC enabled, focus check disabled. */
+        /*
+         * Set spurious IRQ vector -:
+         *     APIC = enabled
+         *     Focus Check = disabled
+         *     EOI broadcast suppresion = disabled
+         */
         APIC_REG(__APICBase, APIC_SVR) = SVR_ASE|APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_SPURIOUS);
 
         /*
@@ -573,15 +619,22 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
         if (cpuNum == 0)
             APIC_REG(__APICBase, APIC_LINT0_VEC) = LVT_MT_EXT;
         else
-            APIC_REG(__APICBase, APIC_LINT0_VEC) = LVT_MASK | 0xff;
+            APIC_REG(__APICBase, APIC_LINT0_VEC) = LVT_MASK | LVT_VEC_MASK;
 
         APIC_REG(__APICBase, APIC_LINT1_VEC) = LVT_MT_NMI;
 
 #ifdef CONFIG_LEGACY
         /* Due to the Pentium erratum 3AP. */
         if (maxlvt > 3)
+        {
              APIC_REG(__APICBase, APIC_ESR) = 0;
+             APIC_REG(__APICBase, APIC_ESR) = 0;
+        }
 #endif
+
+        /* Disable performance counter overflow interrupts, if supported */
+        if (((APIC_REG(__APICBase, APIC_VERSION)>>16) & 0xFF) >= 4)
+            APIC_REG(__APICBase, APIC_PCOUNT_VEC) = LVT_MASK;
 
         D(bug("[Kernel:APIC-IA32.%03u] %s: APIC ESR before enabling vector: %08x\n", cpuNum, __func__, APIC_REG(__APICBase, APIC_ESR)));
 
@@ -590,7 +643,10 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
 
         /* spec says clear errors after enabling vector. */
         if (maxlvt > 3)
+        {
              APIC_REG(__APICBase, APIC_ESR) = 0;
+             APIC_REG(__APICBase, APIC_ESR) = 0;
+        }
 
         D(bug("[Kernel:APIC-IA32.%03u] %s: APIC ESR after enabling vector: %08x\n", cpuNum, __func__, APIC_REG(__APICBase, APIC_ESR)));
 
@@ -601,17 +657,51 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
         /* Set the timer to one-shot mode, no interrupt, 1:1 divisor */
         APIC_REG(__APICBase, APIC_TIMER_VEC) = LVT_MASK | APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_HEARTBEAT);
         APIC_REG(__APICBase, APIC_TIMER_DIV) = TIMER_DIV_1;
-        APIC_REG(__APICBase, APIC_TIMER_ICR) = 0x80000000;	/* Just some very large value */
+        APIC_REG(__APICBase, APIC_TIMER_ICR) = 0x80000000;      /* Just some very large value */
 
-        apic->cores[cpuNum].cpu_TSCFreq = ia32_tsc_calibrate(cpuNum);
+        D(bug("[Kernel:APIC-IA32.%03u] %s: Calibrating timers ...\n", cpuNum, __func__));
+
+        if (APIC_isMSHyperV())
+        {
+            if ((KrnIsSuper()) || ((ssp = SuperState()) != NULL))
+            {
+                ULONG res[2];
+
+                D(bug("[Kernel:APIC-IA32.%03u] %s: Reading Hypervisor TSC/APIC frequencies...\n", cpuNum, __func__));
+
+                asm volatile("rdmsr":"=a"(res[0]),"=d"(res[1]):"c"(0x40000022)); // Read TSC frequency
+                apic->cores[cpuNum].cpu_TSCFreq = 100 * res[0];
+                D(bug("[Kernel:APIC-IA32.%03u] %s:     MSR TSC frequency = %u\n", cpuNum, __func__, res[0]);)
+
+                asm volatile("rdmsr":"=a"(res[0]),"=d"(res[1]):"c"(0x40000023)); // Read APIC frequency
+                apic->cores[cpuNum].cpu_TimerFreq = res[0];
+                D(bug("[Kernel:APIC-IA32.%03u] %s:     MSR APIC frequency = %u...\n", cpuNum, __func__, res[0]);)
+
+                if (ssp)
+                    UserState(ssp);
+            }
+        }
+
+        if (!apic->cores[cpuNum].cpu_TSCFreq)
+        {
+            UQUAD calib_tsc;
+
+            D(bug("[Kernel:APIC-IA32.%03u] %s:     Calibrating TSC...\n", cpuNum, __func__);)
+            calib_tsc = ia32_tsc_calibrate(cpuNum);
+            apic->cores[cpuNum].cpu_TSCFreq = calib_tsc;
+        }
+        if (!apic->cores[cpuNum].cpu_TimerFreq)
+        {
+            ULONG calib_lapic;
+
+            D(bug("[Kernel:APIC-IA32.%03u] %s:     Calibrating LAPIC...\n", cpuNum, __func__);)
+            calib_lapic = ia32_lapic_calibrate(cpuNum, __APICBase);
+            apic->cores[cpuNum].cpu_TimerFreq = calib_lapic;
+        }
         D(
             bug("[Kernel:APIC-IA32.%03u] %s: TSC frequency should be %u kHz (%u MHz)\n", cpuNum, __func__, (ULONG)((apic->cores[cpuNum].cpu_TSCFreq + 500)/1000), (ULONG)((apic->cores[cpuNum].cpu_TSCFreq + 500000) / 1000000));
-          )
-        apic->cores[cpuNum].cpu_TimerFreq = ia32_lapic_calibrate(cpuNum, __APICBase);
-        D(
             bug("[Kernel:APIC-IA32.%03u] %s: LAPIC frequency should be %u Hz (%u MHz)\n", cpuNum, __func__, apic->cores[cpuNum].cpu_TimerFreq, (apic->cores[cpuNum].cpu_TimerFreq + 500000) / 1000000);
-          )
-
+        )
         /*
          * Once APIC timer has been calibrated -:
          * # Set it to run at its full frequency.
@@ -620,9 +710,12 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
          */
         if (cpuNum == 0)
         {
+            struct PlatformData *pdata = KernelBase->kb_PlatformData;
+
             KrnAddExceptionHandler(APIC_EXCEPT_HEARTBEAT, APICHeartbeatServer, KernelBase, SysBase);
             
             apic->flags |= APF_TIMER;
+            pdata->kb_PDFlags |= PLATFORMF_HAVEHEARTBEAT;
         }
 
         APIC_REG(__APICBase, APIC_TIMER_DIV) = TIMER_DIV_1;
@@ -657,6 +750,22 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
             APIC_REG(__APICBase, APIC_TIMER_ICR) = apic->cores[cpuNum].cpu_TimerFreq;
             APIC_REG(__APICBase, APIC_TIMER_VEC) = LVT_MASK | LVT_TMM_PERIOD | APIC_CPU_EXCEPT_TO_VECTOR(APIC_EXCEPT_HEARTBEAT);
         }
+
+        /* Clear error status register using back-to-back writes */
+        APIC_REG(__APICBase, APIC_ESR) = 0;
+        APIC_REG(__APICBase, APIC_ESR) = 0;
+
+        /* Ack any pending interrupts */
+        APIC_REG(__APICBase, APIC_EOI) = 0;
+
+        /* Send an Init Level De-Assert to synchronize arbitration ID's. */
+        APIC_REG(__APICBase, APIC_ICRH) = 0;
+        APIC_REG(__APICBase, APIC_ICRL) =  ICR_DSH_ALL | ICR_INT_LEVELTRIG | ICR_DM_INIT;
+        while (APIC_REG(__APICBase, APIC_ICRL) & ICR_DS)
+            ;
+
+        /* Set Task Priority to 'accept all interrupts' */
+        APIC_REG(__APICBase, APIC_TPR) = 0;
     }
 }
 
@@ -693,24 +802,24 @@ ULONG core_APIC_Wake(APTR wake_apicstartrip, apicid_t wake_apicid, IPTR __APICBa
      */
     if (!APIC_INTEGRATED(apic_ver))
     {
-    	/*
-    	 * BIOS warm reset magic, part one.
-    	 * Write real-mode bootstrap routine address to 40:67 (real-mode address) location.
-    	 * This is standard feature of IBM PC AT BIOS. If a warm reset condition is detected,
-    	 * the BIOS jumps to the given address.
-     	 */
-	DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: Setting BIOS vector for trampoline @ %p ..\n", cpuNo, __func__, wake_apicstartrip));
-	*((volatile unsigned short *)0x469) = (IPTR)wake_apicstartrip >> 4;
-	*((volatile unsigned short *)0x467) = 0; /* Actually wake_apicstartrip & 0x0F, it's page-aligned. */
+        /*
+         * BIOS warm reset magic, part one.
+         * Write real-mode bootstrap routine address to 40:67 (real-mode address) location.
+         * This is standard feature of IBM PC AT BIOS. If a warm reset condition is detected,
+         * the BIOS jumps to the given address.
+         */
+        DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: Setting BIOS vector for trampoline @ %p ..\n", cpuNo, __func__, wake_apicstartrip));
+        *((volatile unsigned short *)0x469) = (IPTR)wake_apicstartrip >> 4;
+        *((volatile unsigned short *)0x467) = 0; /* Actually wake_apicstartrip & 0x0F, it's page-aligned. */
 
-	/*
-	 * BIOS warm reset magic, part two.
-	 * This writes 0x0A into CMOS RAM, location 0x0F. This signals a warm reset condition to BIOS,
-	 * making part one work.
-	 */
-	DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: Setting warm reset code ..\n", cpuNo, __func__));
-	outb(0xf, 0x70);
-	outb(0xa, 0x71);
+        /*
+         * BIOS warm reset magic, part two.
+         * This writes 0x0A into CMOS RAM, location 0x0F. This signals a warm reset condition to BIOS,
+         * making part one work.
+         */
+        DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: Setting warm reset code ..\n", cpuNo, __func__));
+        outb(0xf, 0x70);
+        outb(0xa, 0x71);
     }
 #endif
 
@@ -718,22 +827,22 @@ ULONG core_APIC_Wake(APTR wake_apicstartrip, apicid_t wake_apicid, IPTR __APICBa
     wrcr(cr3, rdcr(cr3));
 
     /* First we send the INIT command (reset the core). Vector must be zero for this. */
-    status_ipisend = ia32_ipi_send(__APICBase, wake_apicid, ICR_INT_LEVELTRIG | ICR_INT_ASSERT | ICR_DM_INIT);    
+    status_ipisend = ia32_ipi_send(__APICBase, wake_apicid, ICR_INT_LEVELTRIG | ICR_INT_ASSERT | ICR_DM_INIT);
     if (status_ipisend)
     {
-    	bug("[Kernel:APIC-IA32.%03u] %s: Error asserting INIT\n", cpuNo, __func__);
-    	return status_ipisend;
+        bug("[Kernel:APIC-IA32.%03u] %s: Error asserting INIT\n", cpuNo, __func__);
+        return status_ipisend;
     }
 
     /* Deassert INIT after a small delay */
     krnClockSourceUdelay(10 * 1000);
 
     /* Deassert INIT to all - Intel docs says we should use shorthand here! */
-    status_ipisend = ia32_ipi_send(__APICBase, wake_apicid, (2 << 18) | ICR_INT_LEVELTRIG | ICR_DM_INIT);
+    status_ipisend = ia32_ipi_send(__APICBase, wake_apicid, ICR_DSH_ALL | ICR_INT_LEVELTRIG | ICR_DM_INIT);
     if (status_ipisend)
     {
-    	bug("[Kernel:APIC-IA32.%03u] %s: Error deasserting INIT\n", cpuNo, __func__);
-    	return status_ipisend;
+        bug("[Kernel:APIC-IA32.%03u] %s: Error deasserting INIT\n", cpuNo, __func__);
+        return status_ipisend;
     }
 
     /* memory barrier */
@@ -743,8 +852,8 @@ ULONG core_APIC_Wake(APTR wake_apicstartrip, apicid_t wake_apicid, IPTR __APICBa
     /* If it's 82489DX, we are done. */
     if (!APIC_INTEGRATED(apic_ver))
     {
-	DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: 82489DX detected, wakeup done\n", cpuNo, __func__));
-    	return 0;
+        DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: 82489DX detected, wakeup done\n", cpuNo, __func__));
+        return 0;
     }
 #endif
 
@@ -757,7 +866,7 @@ ULONG core_APIC_Wake(APTR wake_apicstartrip, apicid_t wake_apicid, IPTR __APICBa
     {
         DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: Attempting STARTUP .. %u\n", cpuNo, __func__, start_count));
 
-	/* Clear any pending error condition */
+        /* Clear any pending error condition */
         APIC_REG(__APICBase, APIC_ESR) = 0;
 
         /*
@@ -770,34 +879,34 @@ ULONG core_APIC_Wake(APTR wake_apicstartrip, apicid_t wake_apicid, IPTR __APICBa
         krnClockSourceUdelay(200);
 
 #ifdef CONFIG_LEGACY
-	/* Pentium erratum 3AP quirk */
+        /* Pentium erratum 3AP quirk */
         if (APIC_LVT(apic_ver) > 3)
             APIC_REG(__APICBase, APIC_ESR) = 0;
 #endif
 
         status_ipirecv = APIC_REG(__APICBase, APIC_ESR) & 0xEF;
 
-	/*
-	 * EXPERIMENTAL:
-	 * On my machine (macmini 3,1, as OS X system profiler says), the core starts up from first
-	 * attempt. The second attempt ends up in error (according to the documentation, the STARTUP
-	 * can be accepted only once, while the core in RESET or INIT state, and first STARTUP, if
-	 * successful, brings the core out of this state).
-	 * Here we try to detect this condition. If the core accepted STARTUP, we suggest that it has
-	 * started up, and break the loop.
-	 * A topic at osdev.org forum (http://forum.osdev.org/viewtopic.php?f=1&t=23018)
-	 * also tells about some problems with double STARTUP. According to it, the second STARTUP can
-	 * manage to re-run the core from the given address, leaving it in 64-bit mode, causing it to crash.
-	 *
-	 * If startup problems pops up (the core doesn't respond and AROS halts at "Launching APIC no X" stage),
-	 * the following two variations of this algorithm can be tried:
-	 * a) Always send STARTUP twice, but signal error condition only if both attempts failed.
-	 * b) Send first STARTUP, abort on error. Allow second attempt to fail and ignore its result.
-	 *
-	 *								Sonic <pavel_fedin@mail.ru>
-	 */
-	if (!status_ipisend && !status_ipirecv)
-	    break;
+        /*
+         * EXPERIMENTAL:
+         * On my machine (macmini 3,1, as OS X system profiler says), the core starts up from first
+         * attempt. The second attempt ends up in error (according to the documentation, the STARTUP
+         * can be accepted only once, while the core in RESET or INIT state, and first STARTUP, if
+         * successful, brings the core out of this state).
+         * Here we try to detect this condition. If the core accepted STARTUP, we suggest that it has
+         * started up, and break the loop.
+         * A topic at osdev.org forum (http://forum.osdev.org/viewtopic.php?f=1&t=23018)
+         * also tells about some problems with double STARTUP. According to it, the second STARTUP can
+         * manage to re-run the core from the given address, leaving it in 64-bit mode, causing it to crash.
+         *
+         * If startup problems pops up (the core doesn't respond and AROS halts at "Launching APIC no X" stage),
+         * the following two variations of this algorithm can be tried:
+         * a) Always send STARTUP twice, but signal error condition only if both attempts failed.
+         * b) Send first STARTUP, abort on error. Allow second attempt to fail and ignore its result.
+         *
+         *                                                              Sonic <pavel_fedin@mail.ru>
+         */
+        if (!status_ipisend && !status_ipirecv)
+            break;
     }
 
     DWAKE(bug("[Kernel:APIC-IA32.%03u] %s: STARTUP run status 0x%08X, error 0x%08X\n", cpuNo, __func__, status_ipisend, status_ipirecv));

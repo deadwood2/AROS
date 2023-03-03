@@ -1,6 +1,5 @@
 /*
-    Copyright © 1995-2018, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2022, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/arossupport.h>
@@ -13,7 +12,7 @@
 #include "kernel_debug.h"
 
 #include "apic.h"
-#include "i8259a.h"
+#include "pic_i8259a.h"
 
 #define D(x)
 
@@ -94,13 +93,13 @@ void ictl_Initialize(struct KernelBase *KernelBase)
 #if (__WORDSIZE==64)
     if (!pdata->kb_APIC)
     {
-    	/* We are x86-64, so we should always have APIC. */
-    	krnPanic(KernelBase, "Failed to allocate APIC descriptor.");
+        /* We are x86-64, so we should always have APIC. */
+        krnPanic(KernelBase, "Failed to allocate APIC descriptor.");
     }
 #endif
 
     /* Check if the 8259A has already been registered, if not probe for it */
-    if (!krnFindInterruptController(KernelBase, ICTYPE_I8259A))
+    if (!krnFindInterruptController(KernelBase, IIC_ID_I8259A))
     {
         D(__unused icintrid_t xtpicICInstID;)
 
