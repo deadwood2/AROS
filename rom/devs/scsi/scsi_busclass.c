@@ -59,7 +59,8 @@ static void Hidd_SCSIBus_HandleIRQ(UBYTE status, struct scsi_Bus *bus)
     });
 }
 
-static AROS_INTH1(ataBus_Reset, struct scsi_Bus *, bus)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ataBus_Reset, struct scsi_Bus *, bus)
 {
     AROS_INTFUNC_INIT
 

@@ -46,7 +46,8 @@ static void TimerInt(struct TimerBase *TimerBase, struct ExecBase *SysBase)
 
 /****************************************************************************************/
 
-static AROS_INTH1(ResetHandler, struct TimerBase *, LIBBASE)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ResetHandler, struct TimerBase *, LIBBASE)
 {
     AROS_INTFUNC_INIT
 
