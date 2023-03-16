@@ -39,9 +39,9 @@ static inline void core_Cause(unsigned char n, unsigned int mask)
 /* Call exec trap handler, if possible */
 static inline int core_Trap(ULONG code, void *regs)
 {
-    /* exec.library Alert() is inoperative without KernelBase,
-     * but SysBase should not be valid if KernelBase is
-     * not set up.
+    /* exec.library Alert() is inoperative without KernelBase.
+     * SysBase is setup before KernelBase is available. Check for
+     * SysBase->KernelBase before calling this function
      */
     if (SysBase)
     {
