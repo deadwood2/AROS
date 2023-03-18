@@ -6,6 +6,7 @@
 #include "genmodule.h"
 
 static void writeinlineregister(FILE *, struct functionhead *, struct config *);
+static void writeinlinestackcall(FILE *, struct functionhead *, struct config *);
 static void writeinlinevararg(FILE *, struct functionhead *, struct config *, char *);
 static void writealiases(FILE *, struct functionhead *, struct config *);
 
@@ -46,26 +47,9 @@ void writeincinline(struct config *cfg)
 
     for (funclistit = cfg->funclist; funclistit!=NULL; funclistit = funclistit->next)
     {
-        if (!funclistit->priv && (funclistit->lvo >= cfg->firstlvo) && funclistit->libcall != STACK)
+        if (!funclistit->priv && (funclistit->lvo >= cfg->firstlvo))
         {
             char *varargname = NULL, *lastname;
-
-            fprintf(out,
-                    "\n"
-                    "#if !defined(__%s_LIBAPI__) || (%d <= __%s_LIBAPI__)"
-                    "\n",
-                    cfg->includenameupper,
-                    funclistit->version,
-                    cfg->includenameupper
-            );
-
-            if (funclistit->deprecated)
-            {
-                fprintf(out,
-                        "\n"
-                        "#if defined(__AROS_GIMME_DEPRECATED__)"
-                        "\n");
-            }
 
             if ((!funclistit->novararg) && (funclistit->arguments))
             {
@@ -143,31 +127,53 @@ void writeincinline(struct config *cfg)
                 }
             }
 
-            writeinlineregister(out, funclistit, cfg);
-            if (!funclistit->novararg && funclistit->varargtype)
+            if (funclistit->libcall == STACK)
             {
-                writeinlinevararg(out, funclistit, cfg, varargname);
-                free(varargname);
             }
-
-            writealiases(out, funclistit, cfg);
-
-            if (funclistit->deprecated)
+            else
             {
                 fprintf(out,
                         "\n"
-                        "#endif /* defined(__AROS_GIMME_DEPRECATED__) */"
-                        "\n");
-            }
+                        "#if !defined(__%s_LIBAPI__) || (%d <= __%s_LIBAPI__)"
+                        "\n",
+                        cfg->includenameupper,
+                        funclistit->version,
+                        cfg->includenameupper
+                );
 
-            fprintf(out,
-                    "\n"
-                    "#endif /* !defined(__%s_LIBAPI__) || (%d <= __%s_LIBAPI__) */"
-                    "\n",
-                    cfg->includenameupper,
-                    funclistit->version,
-                    cfg->includenameupper
-            );
+                if (funclistit->deprecated)
+                {
+                    fprintf(out,
+                            "\n"
+                            "#if defined(__AROS_GIMME_DEPRECATED__)"
+                            "\n");
+                }
+
+                writeinlineregister(out, funclistit, cfg);
+                if (!funclistit->novararg && funclistit->varargtype)
+                {
+                    writeinlinevararg(out, funclistit, cfg, varargname);
+                    free(varargname);
+                }
+                writealiases(out, funclistit, cfg);
+
+                if (funclistit->deprecated)
+                {
+                    fprintf(out,
+                            "\n"
+                            "#endif /* defined(__AROS_GIMME_DEPRECATED__) */"
+                            "\n");
+                }
+
+                fprintf(out,
+                        "\n"
+                        "#endif /* !defined(__%s_LIBAPI__) || (%d <= __%s_LIBAPI__) */"
+                        "\n",
+                        cfg->includenameupper,
+                        funclistit->version,
+                        cfg->includenameupper
+                );
+            }
         }
     }
 
@@ -525,6 +531,130 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
         );
     }
 }
+
+
+void
+writeinlinestackcall(FILE *out, struct functionhead *funclistit, struct config *cfg)
+{
+    struct functionarg *arglistit;
+    int count, isvoid;
+
+    isvoid = strcmp(funclistit->type, "void") == 0
+        || strcmp(funclistit->type, "VOID") == 0;
+
+    fprintf(out,
+            "\n"
+            "static inline %s __inline_%s_%s(APTR __%s",
+            funclistit->type, cfg->basename, funclistit->name, cfg->libbase
+    );
+    for (arglistit = funclistit->arguments, count = 0;
+         arglistit != NULL;
+         arglistit = arglistit->next
+    )
+    {
+        if (strcmp(arglistit->type, "void") != 0)
+        {
+            fprintf(out, ", %s __arg%d",
+                arglistit->type, count + 1);
+            count++;
+        }
+    }
+    fprintf(out,
+            ")\n"
+            "{\n"
+    );
+#if (1)
+ fprintf(out,
+            "    %s (*__inline_cfunc_%s)(",
+            funclistit->type, funclistit->name
+    );
+    for (arglistit = funclistit->arguments, count = 0;
+         arglistit != NULL;
+         arglistit = arglistit->next
+    )
+    {
+        if (strcmp(arglistit->type, "void") != 0)
+        {
+            if (count > 0)
+                fprintf(out, ", ");
+            fprintf(out, "%s",
+                arglistit->type);
+            count++;
+        }
+    }
+    fprintf(out, ");\n");
+#endif
+    fprintf(out,
+        "    AROS_LIBREQ(%s, %d)\n",
+        cfg->libbase, funclistit->version
+    );
+    fprintf(out,
+        "    APTR *__%sA = (APTR *)__%s;\n",
+        cfg->libbase, cfg->libbase
+    );
+
+#if (1)
+    //TODO: Handle platforms that dont just stuff a pointer in the function table
+    fprintf(out,
+        "    __inline_cfunc_%s = __%sA[-%u];\n",
+        funclistit->name, cfg->libbase, funclistit->lvo
+    );
+#endif
+    fprintf(out,
+            "    %s__inline_cfunc_%s(",
+            (isvoid) ? "" : "return ",
+            funclistit->name
+     );
+
+    for (arglistit = funclistit->arguments, count = 0;
+         arglistit!=NULL;
+         arglistit = arglistit->next
+    )
+    {
+        if (strcmp(arglistit->type, "void") != 0)
+        {
+            if (count == 0)
+                fprintf(out, "\n");
+            fprintf(out, "       ");
+            if (count == 0)
+                fprintf(out, " ");
+            else
+                fprintf(out, ",");            
+            fprintf(out,
+                    " __arg%d\n",
+                    count + 1
+            );
+            count++;
+        }
+    }
+    fprintf(out,
+            "    );\n"
+            "}\n\n"
+    );
+
+    fprintf(out, "#define %s(", funclistit->name);
+    for (arglistit = funclistit->arguments, count = 0;
+         arglistit != NULL;
+         arglistit = arglistit->next, count++
+    )
+    {
+        if (strcmp(arglistit->type, "void") != 0)
+        {
+            if (arglistit != funclistit->arguments)
+                fprintf(out, ", ");
+            fprintf(out, "arg%d", count + 1);
+        }
+    }
+    fprintf(out, ") \\\n    __inline_%s_%s(__%s_LIBBASE", cfg->basename, funclistit->name, cfg->includenameupper);
+    for (arglistit = funclistit->arguments, count = 0;
+         arglistit != NULL;
+         arglistit = arglistit->next, count++
+    )
+        if (strcmp(arglistit->type, "void") != 0)
+            fprintf(out, ", (arg%d)", count + 1);
+    fprintf(out, ")\n");
+}
+
 
 void
 writealiases(FILE *out, struct functionhead *funclistit, struct config *cfg)
