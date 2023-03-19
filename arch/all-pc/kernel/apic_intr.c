@@ -152,6 +152,9 @@ BOOL core_SetIRQGate(void *idt, int IRQ, uintptr_t gate)
         bug("[Kernel] %s: gate @ 0x%p\n", __func__, gate);
     )
 
+    if ((HW_IRQ_BASE + IRQ == 32) || (HW_IRQ_BASE + IRQ == 33))
+        return core_SetIDTGate(IGATES, HW_IRQ_BASE + IRQ, gate, TRUE, TRUE);
+
     return core_SetIDTGate(IGATES, HW_IRQ_BASE + IRQ, gate, TRUE, FALSE);
 }
 
@@ -290,6 +293,21 @@ void core_IRQHandle(struct ExceptionContext *regs, unsigned long error_code, uns
                         (irqIC->ic_IntrEnable))
                         irqIC->ic_IntrEnable(irqIC->ic_Private, irqInt->ki_List.l_pad, irq_number);
                 }
+            }
+            else
+            {
+                /*  Workaround for WARM reboot
+                    --------------------------
+                    After first boot, devices start working and start issuing interrupt requests. One such device is
+                    timer. When WARM reboot happens, interrupts are disabled, and kernel reset happens. Timer however
+                    in the meantime issues and interrupt request. This request has to be handled (GATE.p = 1)
+                    otherwise FAULT 11 is generated. It also has to be acknowledge (code below), otherwise interrupt
+                    request that is generated after timer reset, is not recognized.
+                    Note 1: this problem can happen with any device
+                    Note 2: code below assumes IO-APIC was in use before reset, which is default.
+                */
+                if (irq_number == 0)
+                    APIC_REG(0xFEE00000, APIC_EOI) = 0;
             }
         }
 

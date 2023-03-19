@@ -74,6 +74,11 @@ static int PlatformInit(struct KernelBase *KernelBase)
     /* Restore IDT structure */
     core_SetupIDT(0, idt);
 
+    /* Workaround for WARM reboot, see apic_intr.c for description */
+    core_SetIDTGate(idt, 0x20,  (uintptr_t)IntrDefaultGates[0x20], TRUE, FALSE);
+    idt[33].p = 1;
+    /* END */
+
     /* Handle double-faults as early as possible to prevent triple-faults which cannot be handled */
     core_SetIDTGate(idt, 0x08,  (uintptr_t)IntrDefaultGates[0x08], TRUE, FALSE);
 
