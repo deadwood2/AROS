@@ -31,6 +31,7 @@ FILES  := test             \
 CUNITFILES := \
     cunit-zune-handleevent \
     cunit-zune-handleevent-2 \
+    cunit-zune-handleevent-3 \
     cunit-zune-list \
     cunit-zune-showhide \
     cunit-zune-sleep \
