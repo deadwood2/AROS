@@ -1,7 +1,6 @@
 /* pci_aros.c - pci access abstraction for AROS by Chris Hodges
 */
 
-#include <aros/bootloader.h>
 #include <aros/symbolsets.h>
 #include <exec/types.h>
 #include <oop/oop.h>
@@ -11,7 +10,6 @@
 #include <hidd/usb.h>
 #include <hidd/system.h>
 
-#include <proto/bootloader.h>
 #include <proto/oop.h>
 #include <proto/utility.h>
 #include <proto/exec.h>
@@ -22,12 +20,6 @@
 
 #include "uhwcmd.h"
 #include "ohciproto.h"
-
-#ifdef HAVE_ACPICA
-#include <proto/acpica.h>
-/* acpica.library is optional */
-struct Library *ACPICABase = NULL;
-#endif
 
 #define NewList NEWLIST
 
@@ -647,60 +639,3 @@ APTR pciGetPhysical(struct PCIController *hc, APTR virtaddr)
     return(HIDD_PCIDriver_CPUtoPCI(hc->hc_PCIDriverObject, virtaddr));
 }
 /* \\\ */
-
-/*
- * Process some AROS-specific arguments.
- * 'usbpoweron' helps to bring up USB ports on IntelMac,
- * whose firmware sets them up incorrectly.
- */
-static int getArguments(struct PCIDevice *base)
-{
-    APTR BootLoaderBase;
-#ifdef HAVE_ACPICA
-
-    if ((ACPICABase = OpenLibrary("acpica.library", 0))) {
-        /*
-         * Use ACPI IDs to identify known machines which need HDF_FORCEPOWER to work.
-         * Currently we know only MacMini.
-         */
-        ACPI_TABLE_HEADER *dsdt;
-        ACPI_STATUS err;
-
-        err = AcpiGetTable("DSDT", 1, &dsdt);
-        if (err == AE_OK) {
-            /* Yes, the last byte in ID is zero */
-            if (strcmp(dsdt->OemTableId, "Macmini") == 0)
-            {
-                base->hd_Flags = HDF_FORCEPOWER;
-                return TRUE;
-            }
-        }
-        CloseLibrary(ACPICABase);
-        ACPICABase = NULL;
-    }
-#endif
-
-    BootLoaderBase = OpenResource("bootloader.resource");
-    if (BootLoaderBase)
-    {
-        struct List *args = GetBootInfo(BL_Args);
-
-        if (args)
-        {
-            struct Node *node;
-
-            for (node = args->lh_Head; node->ln_Succ; node = node->ln_Succ)
-            {
-                if (stricmp(node->ln_Name, "forceusbpower") == 0)
-                {
-                    base->hd_Flags = HDF_FORCEPOWER;
-                    break;
-                }
-            }
-        }
-    }
-
-    return TRUE;
-}
-
-ADD2INITLIB(getArguments, 10)
