@@ -40,8 +40,9 @@ struct MUI_CustomClass *mcc_Button;
     } while (sigs == 0);                                    \
     Delay(2);
 
-LONG global_Pressed =   0;
-LONG global_EventRec =  0;
+LONG global_Pressed     =  0;
+LONG global_EventDown   =  0;
+LONG global_EventUp     =  0;
 
 IPTR mOM_NEW(struct IClass *cl, Object *obj, struct opSet *msg)
 {
@@ -108,7 +109,11 @@ static IPTR mHandleEvent(struct IClass *cl, Object *obj, struct  MUIP_HandleEven
 {
     if (msg->imsg->Class == IDCMP_MOUSEBUTTONS)
     {
-        global_EventRec = 1;
+        if (msg->imsg->Code == SELECTDOWN)
+            global_EventDown++;
+
+        if (msg->imsg->Code == SELECTUP)
+            global_EventUp++;
     }
 
     return 0;
@@ -167,8 +172,9 @@ CU_TEST_TEARDOWN()
 
 static void globalReset()
 {
-    global_Pressed =    0;
-    global_EventRec =   0;
+    global_Pressed      =   0;
+    global_EventDown    =   0;
+    global_EventUp      =   0;
 }
 
 /* While invisible objects will be receive events, they should only be handled
@@ -386,20 +392,25 @@ static void test_handleevent_hidden_object_ehf_guimode_does_not_receive_events()
             switch(j)
             {
             case 0:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 0);
+                CU_ASSERT(global_EventUp    == 1);
                 break;
             case 1:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 1);
+                CU_ASSERT(global_EventUp    == 1);
                 set(btn2, MUIA_ShowMe, FALSE);
                 break;
             case 2:
-                CU_ASSERT(global_EventRec == 0);
+                CU_ASSERT(global_EventDown  == 0);
+                CU_ASSERT(global_EventUp    == 0);
                 break;
             case 3:
-                CU_ASSERT(global_EventRec == 0);
+                CU_ASSERT(global_EventDown  == 0);
+                CU_ASSERT(global_EventUp    == 0);
                 break;
             case 4:
-                CU_ASSERT(global_EventRec == 0);
+                CU_ASSERT(global_EventDown  == 0);
+                CU_ASSERT(global_EventUp    == 0);
                 break;
             }
         }
@@ -409,12 +420,12 @@ static void test_handleevent_hidden_object_ehf_guimode_does_not_receive_events()
 }
 
 /* An event handler with priority lower than built-in classes will
-   received mouse button events even if processes by other objects */
-static void test_handleevent_area_does_not_eat_event()
+   receive mouse button selectup events even if processes by other objects */
+static void test_handleevent_area_does_not_eat_selectup_event()
 {
     Object *wnd;
     Object *app;
-    Object *aButton;
+    Object *aButton, *anOrdButton;
     const LONG xcoord[] = { 30, 65, 0, 30, 65};
 #if defined(__AROS__)
     const LONG ycoord[] = { 35, 35, 0, 35, 35};
@@ -438,7 +449,7 @@ static void test_handleevent_area_does_not_eat_event()
                     MUIA_FixHeightTxt, "BTN0",
                     MUIA_Rectangle_HBar, TRUE,
                 End,
-                Child, MUI_MakeObject(MUIO_Button,(IPTR)"BTN1"),
+                Child, anOrdButton = MUI_MakeObject(MUIO_Button,(IPTR)"BTN1"),
                 Child, aButton,
             End,
         End,
@@ -447,6 +458,12 @@ static void test_handleevent_area_does_not_eat_event()
     if (app)
     {
         ULONG sigs = 0;
+
+        DoMethod
+        (
+            anOrdButton, MUIM_Notify, MUIA_Pressed, FALSE,
+            (IPTR)anOrdButton, 3, MUIM_CallHook, &pressedhook, 7
+        );
 
         set(wnd,MUIA_Window_Open,TRUE);
 
@@ -459,20 +476,30 @@ static void test_handleevent_area_does_not_eat_event()
             switch(j)
             {
             case 0:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 1);
+                CU_ASSERT(global_EventUp    == 1);
+                CU_ASSERT(global_Pressed    == 0);
                 break;
             case 1:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 0);
+                CU_ASSERT(global_EventUp    == 1);
+                CU_ASSERT(global_Pressed    == 7);
                 set(aButton, MUIA_ShowMe, FALSE);
                 break;
             case 2:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 1);
+                CU_ASSERT(global_EventUp    == 1);
+                CU_ASSERT(global_Pressed    == 0);
                 break;
             case 3:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 1);
+                CU_ASSERT(global_EventUp    == 1);
+                CU_ASSERT(global_Pressed    == 0);
                 break;
             case 4:
-                CU_ASSERT(global_EventRec == 1);
+                CU_ASSERT(global_EventDown  == 0);
+                CU_ASSERT(global_EventUp    == 1);
+                CU_ASSERT(global_Pressed    == 7);
                 break;
             }
         }
@@ -483,8 +510,8 @@ static void test_handleevent_area_does_not_eat_event()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
-    CUNIT_CI_TEST(test_handleevent_area_does_not_eat_event);
+    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite_2", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CUNIT_CI_TEST(test_handleevent_area_does_not_eat_selectup_event);
     CUNIT_CI_TEST(test_handleevent_hidden_button_is_not_pressed);
     CUNIT_CI_TEST(test_handleevent_objects_samelocation);
     CUNIT_CI_TEST(test_handleevent_hidden_object_ehf_guimode_does_not_receive_events);
