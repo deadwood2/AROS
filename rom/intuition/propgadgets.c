@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2023, The AROS Development Team. All rights reserved.
     Copyright (C) 2001-2003, The MorphOS Development Team. All Rights Reserved.
 */
 
@@ -113,56 +113,6 @@ static void RenderPropBackground(struct Gadget *gad, struct Window *win, struct 
     }
 }
 
-static void RenderPropLabel(struct RastPort *rp, struct Gadget *gadget, struct BBox *bbox,
-                            struct DrawInfo *dri, struct IntuitionBase *IntuitionBase)
-{
-    struct GfxBase *GfxBase = GetPrivIBase(IntuitionBase)->GfxBase;
-    /* FIXME: Amiga handmade (non-boopsi) bool gadgets do not seem to know anything about
-     * GFLG_LABELSTRING/GFLG_LABELIMAGE. Instead they always assume GadgetText to
-     * point to a struct IntuiText!!!
-     */
-
-    if (gadget->GadgetText)
-    {
-        SetFont(rp, dri->dri_Font);
-
-        switch (gadget->Flags & GFLG_LABELMASK)
-        {
-            case GFLG_LABELITEXT:
-                PrintIText (rp, gadget->GadgetText, bbox->Left, bbox->Top);
-                break;
-
-            case GFLG_LABELSTRING:
-            {
-                STRPTR text = (STRPTR) gadget->GadgetText;
-                int    len, labelwidth, labelheight;
-
-                len = strlen (text);
-
-                labelwidth = LabelWidth (rp, text, len, IntuitionBase);
-                labelheight = rp->Font->tf_YSize;
-
-                SetAPen (rp, 1);
-                SetDrMd (rp, JAM1);
-
-                Move (rp, bbox->Left + bbox->Width  / 2 - labelwidth / 2,
-                    bbox->Top  + bbox->Height / 2 - labelheight / 2 + rp->Font->tf_Baseline);
-
-                RenderLabel (rp, text, len, IntuitionBase);
-                break;
-            }
-
-            case GFLG_LABELIMAGE:
-                DrawImageState (rp, (struct Image *)gadget->GadgetText,
-                                bbox->Left,
-                                bbox->Top,
-                                IDS_NORMAL,
-                                dri);
-                break;
-
-        } /* switch (gadget->Flags & GFLG_LABELMASK) */
-    } /* GadgetText */
-}
 
 VOID HandlePropSelectDown(struct Gadget *gadget, struct Window *w, struct Requester *req,
                           UWORD mouse_x, UWORD mouse_y, struct IntuitionBase *IntuitionBase)
@@ -487,73 +437,49 @@ void RefreshPropGadget (struct Gadget * gadget, struct Window * window,
         {
             for (;;)
             {
+                BOOL umn;
+
                 CalcBBox (window, req, gadget, &bbox);
                 kbox = bbox;
 
                 if (bbox.Width <= 0 || bbox.Height <= 0)
                     break;
 
-                RenderPropLabel(rp, gadget, &bbox, dri, IntuitionBase);
+                pi = (struct PropInfo *)gadget->SpecialInfo;
+                if (!pi)
+                    break;
 
-                if (CalcKnobSize (gadget, &kbox))
+                umn = CalcKnobSize (gadget, &kbox);
+
+                SetDrMd (rp, JAM2);
+                if (!(pi->Flags & PROPBORDERLESS))
                 {
-                    pi = (struct PropInfo *)gadget->SpecialInfo;
+                    SetAPen(rp,dri->dri_Pens[SHADOWPEN]);
+                    drawrect(rp,bbox.Left,
+                             bbox.Top,
+                             bbox.Left + bbox.Width - 1,
+                             bbox.Top + bbox.Height - 1,
+                             IntuitionBase);
+                             
+                    bbox.Left ++; bbox.Top ++;
+                    bbox.Width -= 2; bbox.Height -= 2;
+                }
 
-                    if (!pi)
-                        break;
-
-                    SetDrMd (rp, JAM2);
-
-                    if (!(pi->Flags & PROPBORDERLESS))
-                    {
-                        SetAPen(rp,dri->dri_Pens[SHADOWPEN]);
-                        drawrect(rp,bbox.Left,
-                                 bbox.Top,
-                                 bbox.Left + bbox.Width - 1,
-                                 bbox.Top + bbox.Height - 1,
-                                 IntuitionBase);
-                                 
-                        bbox.Left ++; bbox.Top ++;
-                        bbox.Width -= 2; bbox.Height -= 2;
-                    }
-
+                if (umn)
+                {
                     RefreshPropGadgetKnob (gadget, &bbox, &kbox, window, req, IntuitionBase);
                 }
                 else
                 {
+                    struct Rectangle tmprect;
+                    
+                    tmprect.MinX = bbox.Left;
+                    tmprect.MaxX = bbox.Left + bbox.Width - 1;
+                    tmprect.MinY = bbox.Top;
+                    tmprect.MaxY = bbox.Top + bbox.Height - 1;
 
-                    pi = (struct PropInfo *)gadget->SpecialInfo;
-
-                    if (!pi)
-                        break;
-
-                    SetDrMd (rp, JAM2);
-
-                    if (!(pi->Flags & PROPBORDERLESS))
-                    {
-                        SetAPen(rp,dri->dri_Pens[SHADOWPEN]);
-                        drawrect(rp,bbox.Left,
-                                 bbox.Top,
-                                 bbox.Left + bbox.Width - 1,
-                                 bbox.Top + bbox.Height - 1,
-                                 IntuitionBase);
-
-                        bbox.Left ++; bbox.Top ++;
-                        bbox.Width -= 2; bbox.Height -= 2;
-
-                    }
-
-                    {
-                        struct Rectangle tmprect;
-                        
-                        tmprect.MinX = bbox.Left;
-                        tmprect.MaxX = bbox.Left + bbox.Width - 1;
-                        tmprect.MinY = bbox.Top;
-                        tmprect.MaxY = bbox.Top + bbox.Height - 1;
-
-                        RenderPropBackground(gadget, window, dri, &tmprect, &tmprect, NULL,
-                                             pi, rp, onborder, IntuitionBase);
-                    }
+                    RenderPropBackground(gadget, window, dri, &tmprect, &tmprect, NULL,
+                                         pi, rp, onborder, IntuitionBase);
                 } // if (CalcKnob
                 break;
             }
