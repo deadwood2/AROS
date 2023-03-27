@@ -51,6 +51,7 @@ If NOT WARN
     Execute S/Test cunit/zune/cunit-zune-handleevent
     Execute S/Test cunit/zune/cunit-zune-handleevent-2
     Execute S/Test cunit/zune/cunit-zune-handleevent-3
+    Execute S/Test cunit/zune/cunit-zune-notify
     Execute S/Test cunit/zune/cunit-zune-list
     Execute S/Test cunit/zune/cunit-zune-showhide
     Execute S/Test cunit/zune/cunit-zune-sleep
