@@ -51,34 +51,45 @@ def main():
         if f.endswith("-Results.xml"):
             xml_files.append(os.path.join(args[0], f))
 
-    merge_results(xml_files)
+    test_suite_names = []
+
+    merge_results(xml_files, test_suite_names)
+
+    with open(os.path.join(args[0], "all-test-suites-out"), "w") as f:
+        for line in test_suite_names:
+            f.write(line + "\n")
 
 
-def merge_results(xml_files):
+def merge_results(xml_files, test_suite_names):
     failures = 0
     tests = 0
     errors = 0
     time = 0.0
-    cases = []
+    testsuites = []
 
     for file_name in xml_files:
         tree = ET.parse(file_name)
-        test_suite = tree.getroot()
-        failures += int(test_suite.attrib['failures'])
-        tests += int(test_suite.attrib['tests'])
-        errors += int(test_suite.attrib['errors'])
-        time += float(test_suite.attrib['time'])
-        cases.append(list(test_suite))
+        root = tree.getroot()
+        failures    += int(root.attrib['failures'])
+        tests       += int(root.attrib['tests'])
+        errors      += int(root.attrib['errors'])
+        time        += float(root.attrib['time'])
+        testsuites.append(list(root))
+
+        for testsuite in root:
+            test_suite_names.append(testsuite.attrib['name'])
 
     new_root = ET.Element('testsuites')
     new_root.attrib['failures'] = '%s' % failures
     new_root.attrib['tests'] = '%s' % tests
     new_root.attrib['errors'] = '%s' % errors
     new_root.attrib['time'] = '%s' % time
-    for case in cases:
-        new_root.extend(case)
+    for testsuite in testsuites:
+        new_root.extend(testsuite)
     new_tree = ET.ElementTree(new_root)
     ET.dump(new_tree)
+
+
 
 
 def usage():

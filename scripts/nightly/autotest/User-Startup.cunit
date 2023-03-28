@@ -4,18 +4,18 @@ If NOT WARN
     Echo "## Unit Test Output is redirected to DEBUG:" >DEBUG:
 
     ; Perform basic "Exec" type unit tests...
-    Execute S/Test cunit/exec/cunit-exec-types
+    Execute S/Test cunit/exec/cunit-exec-types                  ;BasicTypes_Suite
 
     ; Peform basic 'C' type unit tests..
-    Execute S/Test cunit/crt/stdc/cunit-crt-types
+    Execute S/Test cunit/crt/stdc/cunit-crt-types               ;StandardTypes_Suite
 
     ; Peform basic 'genmodule' unit tests..
     If EXISTS "SYS:Development/Debug/Tests/Library/Libs"
         Assign "LIBS:" "SYS:Development/Debug/Tests/Library/Libs" ADD
         Copy SYS:Development/Debug/Tests/Library/extlib1.seg SYS:
-        Execute S/Test cunit/genmodule/library/cunit-genmodule-autoopen
-        Execute S/Test cunit/genmodule/library/cunit-genmodule-library
-        Execute S/Test cunit/genmodule/library/cunit-genmodule-relbase
+        Execute S/Test cunit/genmodule/library/cunit-genmodule-autoopen ;AutoOpen_Suite
+        Execute S/Test cunit/genmodule/library/cunit-genmodule-library  ;Library_Suite
+        Execute S/Test cunit/genmodule/library/cunit-genmodule-relbase  ;Relbase_Suite
     EndIf
 
     ; Perform basic "exec.library" unit tests...
@@ -23,39 +23,39 @@ If NOT WARN
     ; Perform basic "utility.library" unit tests...
 
     ; Perform basic "dos.library" unit tests...
-    Execute S/Test cunit/dos/cunit-dos-createnewproc
-    Execute S/Test cunit/dos/cunit-dos-fileseek
-    Execute S/Test cunit/dos/cunit-dos-readargs
-    Execute S/Test cunit/dos/cunit-dos-smallcodemodel
-    Execute S/Test cunit/dos/cunit-dos-systemtags
+    Execute S/Test cunit/dos/cunit-dos-createnewproc            ;CreateNewProc_Suite
+    Execute S/Test cunit/dos/cunit-dos-fileseek                 ;FileSeek_Suite
+    Execute S/Test cunit/dos/cunit-dos-readargs                 ;ReadArgs_Suite
+    Execute S/Test cunit/dos/cunit-dos-smallcodemodel           ;SmallCodeModel_Suite
+    Execute S/Test cunit/dos/cunit-dos-systemtags               ;SystemTags_Suite
 
     ; Perform basic "locale.library" unit tests...
-    Execute S/Test cunit/locale/cunit-locale-formatstring
+    Execute S/Test cunit/locale/cunit-locale-formatstring       ;FormatString_Suite
 
     ; Perform basic "gfx.hidd" unit tests...
-    Execute S/Test cunit/hidds/gfx/cunit-convertpixels
+    Execute S/Test cunit/hidds/gfx/cunit-convertpixels          ;ConvertPixels_Suite
 
     ; Perform basic C library unit tests...
-    Execute S/Test cunit/crt/stdc/math/cunit-crt-math
-    Execute S/Test cunit/crt/stdc/cunit-crt-fileseek
-    Execute S/Test cunit/crt/stdc/cunit-crt-sscanf
-    Execute S/Test cunit/crt/stdc/cunit-crt-sxprintf
-    Execute S/Test cunit/crt/posix/cunit-crt-fread
+    Execute S/Test cunit/crt/stdc/math/cunit-crt-math           ;CrtMath_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-fileseek            ;FileSeek_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-sscanf              ;sscanf_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-sxprintf            ;sxprintf_Suite
+    Execute S/Test cunit/crt/posix/cunit-crt-fread              ;fread_Suite
     Copy SYS:Development/Debug/Tests/crt/posix/execl2_slave SYS:
-    Execute S/Test cunit/crt/posix/cunit-crt-vfork
-    Execute S/Test cunit/crt/posix/cunit-crt-types64
-    Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs
-    Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs-fob
+    Execute S/Test cunit/crt/posix/cunit-crt-vfork              ;vfork_Suite
+    Execute S/Test cunit/crt/posix/cunit-crt-types64            ;types64_Suite
+    Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs        ;types64-lfs_Suite
+    Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs-fob    ;types64-lfs-fob_Suite
 
     ; Perform basic "Zune" unit tests...
-    Execute S/Test cunit/zune/cunit-zune-handleevent
-    Execute S/Test cunit/zune/cunit-zune-handleevent-2
-    Execute S/Test cunit/zune/cunit-zune-handleevent-3
-    Execute S/Test cunit/zune/cunit-zune-notify
-    Execute S/Test cunit/zune/cunit-zune-list
-    Execute S/Test cunit/zune/cunit-zune-showhide
-    Execute S/Test cunit/zune/cunit-zune-sleep
-    Execute S/Test cunit/zune/cunit-zune-window
+    Execute S/Test cunit/zune/cunit-zune-handleevent            ;MUIM_HandleEvent_Suite
+    Execute S/Test cunit/zune/cunit-zune-handleevent-2          ;MUIM_HandleEvent_2_Suite
+    Execute S/Test cunit/zune/cunit-zune-handleevent-3          ;MUIM_HandleEvent_3_Suite
+    Execute S/Test cunit/zune/cunit-zune-notify                 ;MUIM_Notify_Suite
+    Execute S/Test cunit/zune/cunit-zune-list                   ;MUIC_List_Suite
+    Execute S/Test cunit/zune/cunit-zune-showhide               ;MUIA_ShowMe_Suite
+    Execute S/Test cunit/zune/cunit-zune-sleep                  ;MUIA_Sleep_Suite
+    Execute S/Test cunit/zune/cunit-zune-window                 ;MUIC_Window_Suite
 
 Endif
 
