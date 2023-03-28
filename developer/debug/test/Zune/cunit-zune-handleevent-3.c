@@ -235,7 +235,7 @@ static void test_handleevent_area_does_not_eat_selectup_event()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite_3", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_3_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
     CUNIT_CI_TEST(test_handleevent_area_does_not_eat_selectup_event);
     return CU_CI_RUN_SUITES();
 }
