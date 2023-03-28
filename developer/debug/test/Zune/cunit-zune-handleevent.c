@@ -57,7 +57,8 @@ static IPTR mCleanup(struct IClass *cl, Object *obj, Msg msg, Object *win)
 
 static IPTR mHandleEvent(struct IClass *cl, Object *obj, struct  MUIP_HandleEvent *msg)
 {
-    numMessages++;
+    if (msg->imsg->Class == IDCMP_INTUITICKS)
+        numMessages++;
 }
 
 BOOPSI_DISPATCHER(IPTR, dispatcher, cl, obj, msg)
@@ -148,9 +149,10 @@ static void test_handleevent_rectangle()
     Object *app = ApplicationObject, End;
     Object *win = WindowObject, MUIA_Window_RootObject, NewObject(mcc_Rectangle->mcc_Class, NULL, TAG_END), End;
     DoMethod(app, OM_ADDMEMBER, win);
-    set(win, MUIA_Window_Open, TRUE);
 
     numMessages = 0;
+
+    set(win, MUIA_Window_Open, TRUE);
 
     for (int j = 0; j < 10; j++) {
         sigs = 0;
@@ -165,7 +167,7 @@ static void test_handleevent_rectangle()
     MUI_DisposeObject(app);
 }
 
-static void test_handleevent_rectangle_hidden()
+static void test_handleevent_rectangle_on_not_visible_tab()
 {
     ULONG sigs;
     CONST_STRPTR tabs[] = { "First", "Second", NULL };
@@ -182,9 +184,10 @@ static void test_handleevent_rectangle_hidden()
     End;
 
     DoMethod(app, OM_ADDMEMBER, win);
-    set(win, MUIA_Window_Open, TRUE);
 
     numMessages = 0;
+
+    set(win, MUIA_Window_Open, TRUE);
 
     for (int j = 0; j < 10; j++) {
         sigs = 0;
@@ -205,9 +208,10 @@ static void test_handleevent_window()
     Object *app = ApplicationObject, End;
     Object *win = NewObject(mcc_Window->mcc_Class, NULL, MUIA_Window_RootObject, RectangleObject, End, TAG_END);
     DoMethod(app, OM_ADDMEMBER, win);
-    set(win, MUIA_Window_Open, TRUE);
 
     numMessages = 0;
+
+    set(win, MUIA_Window_Open, TRUE);
 
     for (int j = 0; j < 10; j++) {
         sigs = 0;
@@ -228,6 +232,6 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_handleevent_notify);
     CUNIT_CI_TEST(test_handleevent_rectangle);
     CUNIT_CI_TEST(test_handleevent_window);
-    CUNIT_CI_TEST(test_handleevent_rectangle_hidden);
+    CUNIT_CI_TEST(test_handleevent_rectangle_on_not_visible_tab);
     return CU_CI_RUN_SUITES();
 }
