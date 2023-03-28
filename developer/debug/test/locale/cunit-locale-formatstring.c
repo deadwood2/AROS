@@ -119,8 +119,8 @@ void testFORMATSTRINGFMTEXPLICITARG(void)
 {
     hook.h_Data = buffer;
 
-    CU_ASSERT(&args.arg5 == FormatString(NULL, (STRPTR)"Textformat %2$s %4$u", (RAWARG)&args, &hook));
-    CU_ASSERT(0 == strcmp("Textformat ARG2 50", buffer));
+    CU_ASSERT(&args.arg5 == FormatString(NULL, (STRPTR)"Textformat %2$s %4$u %1$s %3$c", (RAWARG)&args, &hook));
+    CU_ASSERT(0 == strcmp("Textformat ARG2 50 ARG1 N", buffer));
 }
 
 int main(void)
@@ -144,9 +144,9 @@ int main(void)
         (NULL == CU_add_test(pSuite, "test with format containing a single string specifier", testFORMATSTRINGSINGLESTRFMTARG)) ||
         (NULL == CU_add_test(pSuite, "test with format containing a single char specifier",testFORMATSTRINGSINGLECHRFMTARG)) ||
         (NULL == CU_add_test(pSuite, "test with format containing multiple specifiers",testFORMATSTRINGFMTMULTIARG)) ||
-        1 /* (NULL == CU_add_test(pSuite, "test with format containing explicit arg specifiers",testFORMATSTRINGFMTEXPLICITARG)) */
-        )
+        NULL == CU_add_test(pSuite, "test with format containing explicit arg specifiers",testFORMATSTRINGFMTEXPLICITARG))
     {
+
         CU_cleanup_registry();
         return CU_get_error();
     }
