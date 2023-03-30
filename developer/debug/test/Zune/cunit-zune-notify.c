@@ -561,6 +561,63 @@ static void test_custom_class_notifies_on_same_value_set()
     }
 }
 
+static void test_cycle_active_does_not_notify_on_same_value_when_everytime()
+{
+    Object *wnd;
+    Object *app;
+    Object *cyc;
+    CONST_STRPTR cyclestrings[] = { "Zero", "One", "Two", "Three", NULL };
+
+    app = ApplicationObject,
+        SubWindow, wnd = WindowObject,
+            MUIA_Window_Activate, TRUE,
+            WindowContents, HGroup,
+                GroupFrame,
+                Child, cyc = CycleObject,
+                    MUIA_Cycle_Entries, cyclestrings,
+                    MUIA_Cycle_Active,  0,
+                End,
+            End,
+        End,
+    End;
+
+    if (app)
+    {
+        IPTR tmp;
+
+        DoMethod
+        (
+            cyc, MUIM_Notify, MUIA_Cycle_Active, MUIV_EveryTime,
+            (IPTR)cyc, 3, MUIM_CallHook, &notifyhook, MUIV_TriggerValue
+        );
+
+        set(wnd,MUIA_Window_Open,TRUE);
+        globalReset();
+
+        get(cyc, MUIA_Cycle_Active, &tmp);
+        CU_ASSERT_EQUAL(0, tmp);
+
+        /* Set value several times */
+        set(cyc, MUIA_Cycle_Active, 1);
+        CU_ASSERT_EQUAL(1, global_NotifyHookVal);
+
+        set(cyc, MUIA_Cycle_Active, 2);
+        CU_ASSERT_EQUAL(3, global_NotifyHookVal);
+
+        set(cyc, MUIA_Cycle_Active, 2);
+        CU_ASSERT_EQUAL(3, global_NotifyHookVal);
+
+        set(cyc, MUIA_Cycle_Active, 3);
+        CU_ASSERT_EQUAL(6, global_NotifyHookVal);
+
+        set(wnd, MUIA_Window_Open, FALSE);
+        MUI_DisposeObject(app);
+    }
+    else
+    {
+        CU_ASSERT(0);
+    }
+}
 
 int main(int argc, char** argv)
 {
@@ -571,5 +628,6 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_string_integer_does_not_notify_on_same_value_when_everytime);
     CUNIT_CI_TEST(test_string_contents_does_not_notify_on_same_value);
     CUNIT_CI_TEST(test_custom_class_notifies_on_same_value_set);
+    CUNIT_CI_TEST(test_cycle_active_does_not_notify_on_same_value_when_everytime);
     return CU_CI_RUN_SUITES();
 }
