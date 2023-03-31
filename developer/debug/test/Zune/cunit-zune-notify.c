@@ -3,6 +3,8 @@
     All rights reserved.
 */
 
+#define MUI_OBSOLETE
+
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/muimaster.h>
@@ -619,6 +621,64 @@ static void test_cycle_active_does_not_notify_on_same_value_when_everytime()
     }
 }
 
+static void test_selected_does_not_notify_on_same_value_when_everytime()
+{
+    Object *wnd;
+    Object *app;
+    Object *cm;
+
+    app = ApplicationObject,
+        SubWindow, wnd = WindowObject,
+            MUIA_Window_Activate, TRUE,
+            WindowContents, HGroup,
+                GroupFrame,
+                Child, cm = CheckMark(FALSE),
+                    Child, Label1("Checkmark"),
+            End,
+        End,
+    End;
+
+    if (app)
+    {
+        IPTR tmp;
+
+        DoMethod
+        (
+            cm, MUIM_Notify, MUIA_Selected, MUIV_EveryTime,
+            (IPTR)cm, 3, MUIM_CallHook, &notifyhook, 15
+        );
+
+        set(wnd,MUIA_Window_Open,TRUE);
+        globalReset();
+
+        get(cm, MUIA_Selected, &tmp);
+        CU_ASSERT_EQUAL(0, tmp);
+
+        /* Set value several times */
+        set(cm, MUIA_Selected, TRUE);
+        CU_ASSERT_EQUAL(15, global_NotifyHookVal);
+
+        set(cm, MUIA_Selected, TRUE);
+        CU_ASSERT_EQUAL(15, global_NotifyHookVal);
+
+        set(cm, MUIA_Selected, FALSE);
+        CU_ASSERT_EQUAL(30, global_NotifyHookVal);
+
+        set(cm, MUIA_Selected, FALSE);
+        CU_ASSERT_EQUAL(30, global_NotifyHookVal);
+
+        set(cm, MUIA_Selected, TRUE);
+        CU_ASSERT_EQUAL(45, global_NotifyHookVal);
+
+        set(wnd, MUIA_Window_Open, FALSE);
+        MUI_DisposeObject(app);
+    }
+    else
+    {
+        CU_ASSERT(0);
+    }
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("MUIM_Notify_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
@@ -629,5 +689,6 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_string_contents_does_not_notify_on_same_value);
     CUNIT_CI_TEST(test_custom_class_notifies_on_same_value_set);
     CUNIT_CI_TEST(test_cycle_active_does_not_notify_on_same_value_when_everytime);
+    CUNIT_CI_TEST(test_selected_does_not_notify_on_same_value_when_everytime);
     return CU_CI_RUN_SUITES();
 }
