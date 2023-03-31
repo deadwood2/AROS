@@ -111,13 +111,15 @@
             ishunk = TRUE;
     }
 
-    if (!ishunk)
+    /* ABI_V0 compatibility */
+    if (0)
     {
         return NULL;
     }
 #if !AROS_BIG_ENDIAN || (__WORDSIZE != 32)
     else
     {
+        if (ishunk)
         if ((km_seg = parsekeymapseg(km_seg)) == BNULL)
             return NULL;
     }
