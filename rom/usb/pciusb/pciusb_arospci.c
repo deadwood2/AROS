@@ -104,6 +104,7 @@ AROS_UFH3(void, pciEnumerator,
         case HCITYPE_OHCI:
         case HCITYPE_EHCI:
         case HCITYPE_UHCI:
+        case HCITYPE_XHCI:
             KPRINTF(10, ("Setting up device...\n"));
 
             hc = AllocPooled(hd->hd_MemPool, sizeof(struct PCIController));
@@ -118,14 +119,18 @@ AROS_UFH3(void, pciEnumerator,
 
                 OOP_GetAttr(pciDevice, aHidd_PCIDevice_Driver, (IPTR *) &hc->hc_PCIDriverObject);
 
+                NewList(&hc->hc_PeriodicTDQueue);
+
                 NewList(&hc->hc_CtrlXFerQueue);
                 NewList(&hc->hc_IntXFerQueue);
                 NewList(&hc->hc_IsoXFerQueue);
                 NewList(&hc->hc_BulkXFerQueue);
                 NewList(&hc->hc_TDQueue);
                 NewList(&hc->hc_AbortQueue);
-                NewList(&hc->hc_PeriodicTDQueue);
                 NewList(&hc->hc_OhciRetireQueue);
+
+                NewMinList(&hc->hc_RTIsoHandlers);
+
                 AddTail(&hd->hd_TempHCIList, &hc->hc_Node);
 
                 handleQuirks(hc);
@@ -213,8 +218,16 @@ BOOL pciInit(struct PCIDevice *hd)
 
         NewList(&hu->hu_Controllers);
         NewList(&hu->hu_RHIOQueue);
+        NewMinList(&hu->hu_FreeRTIsoNodes);
+        for(cnt = 0; cnt < MAX_ROOT_PORTS; cnt++)
+        {
+            AddTail((struct List *) &hu->hu_FreeRTIsoNodes, (struct Node *)&hu->hu_RTIsoNodes[cnt].rtn_Node);
+        }
 
-        hu->hu_DevID = (ULONG)-1;
+        hc = (struct PCIController *) hd->hd_TempHCIList.lh_Head;
+        hu->hu_DevID = hc->hc_DevID;
+        huIntLine =  hc->hc_PCIIntLine;
+
         ForeachNodeSafe(&hd->hd_TempHCIList, hc, nexthc)
         {
             if (hu->hu_DevID == (ULONG)-1)
