@@ -27,6 +27,10 @@ USER_LDFLAGS := -noclibs -lstdc.static
 ifeq ($(ARCH),pc)
 USER_LDFLAGS += -lacpica
 endif
+USER_CPPFLAGS :=  \
+        -D__OOP_NOLIBBASE__ \
+        -D__OOP_NOMETHODBASES__ \
+        -D__OOP_NOATTRBASES__
 #USER_CPPFLAGS += -DDEBUG=1
 
 %build_module mmake=kernel-usb-pciusb \
