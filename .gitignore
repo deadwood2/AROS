@@ -433,6 +433,9 @@
 # /arch/all-pc/timer/
 /arch/all-pc/timer/mmakefile
 
+# /arch/all-pc/udis86/scripts/__pycache__/
+/arch/all-pc/udis86/scripts/__pycache__/*.pyc
+
 # /arch/all-unix/
 /arch/all-unix/*.err
 /arch/all-unix/makefile
