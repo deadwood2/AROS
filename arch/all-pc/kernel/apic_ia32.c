@@ -855,12 +855,13 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
             {
                 if ((cpuNum == 0) &&
                     ((i == APIC_EXCEPT_SYSCALL)||(i == APIC_EXCEPT_HEARTBEAT)||(i == APIC_EXCEPT_SPURIOUS)))
-                     continue;
+                    continue;
 
                 if (!core_SetIDTGate((x86vectgate_t *)apic->cores[cpuNum].cpu_IDT,
                                                 APIC_CPU_EXCEPT_TO_VECTOR(i),
                                                 (uintptr_t)IntrDefaultGates[APIC_CPU_EXCEPT_TO_VECTOR(i)],
                                                 TRUE, FALSE))
+                {
                     krnPanic(NULL, "Failed to set APIC Exception Vector\n"
                                     "Vector #$%02X\n", i);
                 }
