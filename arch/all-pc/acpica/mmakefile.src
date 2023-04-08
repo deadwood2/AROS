@@ -78,7 +78,7 @@ USER_INCLUDES += \
 
 %build_module mmake=kernel-acpica-sharedlib \
   modname=acpica modtype=library \
-  files="$(FILES)" usesdks="private"
+  files="$(FILES)" usesdks="private config"
 
 # Headers
 
