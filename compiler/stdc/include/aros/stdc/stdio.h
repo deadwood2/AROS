@@ -91,6 +91,9 @@ int fprintf(FILE * restrict stream, const char * restrict format, ...);
 int fscanf(FILE * restrict stream, const char * restrict format, ...);
 int printf(const char * restrict format, ...);
 int scanf(const char * restrict format, ...);
+#if defined(_GNU_SOURCE)
+int asprintf(char ** restrict str, const char * restrict format, ...);
+#endif
 int snprintf(char * restrict s, size_t n, const char * restrict format, ...);
 int sprintf(char * restrict s, const char * restrict format, ...);
 int sscanf(const char * restrict s, const char * restrict format, ...);
@@ -100,6 +103,10 @@ int vfscanf(FILE * restrict stream, const char * restrict format,
 	va_list arg);
 int vprintf(const char * restrict format, va_list arg);
 int vscanf(const char * restrict format, va_list arg);
+#if defined(_GNU_SOURCE)
+int vasprintf(char **restrict str, const char *restrict format,
+	va_list args);
+#endif
 int vsnprintf(char * restrict s, size_t n, const char * restrict format,
 	va_list arg);
 int vsprintf(char * restrict s, const char * restrict format,
