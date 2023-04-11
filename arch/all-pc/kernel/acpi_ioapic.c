@@ -162,7 +162,7 @@ void IOAPIC_IntDeliveryOptions(UBYTE base, UBYTE pin, UBYTE pol, UBYTE trig, UBY
     if (pol == 0)
     {
         if ((base < I8259A_IRQCOUNT) &&
-            ((base + pin) < I8259A_IRQCOUNT)
+            ((base + pin) < I8259A_IRQCOUNT))
             *rtPol = 0;
         else
             *rtPol = 1;
@@ -177,7 +177,7 @@ void IOAPIC_IntDeliveryOptions(UBYTE base, UBYTE pin, UBYTE pol, UBYTE trig, UBY
     if (trig == 0)
     {
         if ((base < I8259A_IRQCOUNT) &&
-            ((base + pin) < I8259A_IRQCOUNT)
+            ((base + pin) < I8259A_IRQCOUNT))
             *rtTrig = 0;
         else
             *rtTrig = 1;
