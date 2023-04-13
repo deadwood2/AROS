@@ -1,7 +1,7 @@
-diff -ruN cunit-3.2.6/CUnit/CMakeLists.txt cunit-3.2.6.aros/CUnit/CMakeLists.txt
---- cunit-3.2.6/CUnit/CMakeLists.txt	2020-04-16 17:55:15.000000000 +0000
-+++ cunit-3.2.6.aros/CUnit/CMakeLists.txt	2020-04-16 17:55:15.000000000 +0000
-@@ -11,7 +11,7 @@
+diff -ruN cunit-3.2.7/CUnit/CMakeLists.txt cunit-3.2.7.aros/CUnit/CMakeLists.txt
+--- cunit-3.2.7/CUnit/CMakeLists.txt	2020-04-16 17:55:15.000000000 +0000
++++ cunit-3.2.7.aros/CUnit/CMakeLists.txt	2020-04-16 17:55:15.000000000 +0000
+@@ -19,7 +19,7 @@
  
  if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
    # repeat here so consumers get more warnings
@@ -10,9 +10,9 @@ diff -ruN cunit-3.2.6/CUnit/CMakeLists.txt cunit-3.2.6.aros/CUnit/CMakeLists.txt
  endif()
  
  
-diff -ruN cunit-3.2.6/CUnit/Sources/Automated/AutomatedJUnitXml.c cunit-3.2.6.aros/CUnit/Sources/Automated/AutomatedJUnitXml.c
---- cunit-3.2.6/CUnit/Sources/Automated/AutomatedJUnitXml.c	2020-04-16 17:55:15.000000000 +0000
-+++ cunit-3.2.6.aros/CUnit/Sources/Automated/AutomatedJUnitXml.c	2023-03-28 10:10:39.271322155 +0000
+diff -ruN cunit-3.2.7/CUnit/Sources/Automated/AutomatedJUnitXml.c cunit-3.2.7.aros/CUnit/Sources/Automated/AutomatedJUnitXml.c
+--- cunit-3.2.7/CUnit/Sources/Automated/AutomatedJUnitXml.c	2020-04-16 17:55:15.000000000 +0000
++++ cunit-3.2.7.aros/CUnit/Sources/Automated/AutomatedJUnitXml.c	2021-01-11 16:47:21.700000000 +0000
 @@ -177,14 +177,17 @@
    return n;
  }
@@ -87,20 +87,3 @@ diff -ruN cunit-3.2.6/CUnit/Sources/Automated/AutomatedJUnitXml.c cunit-3.2.6.ar
  
        _dstr_puts(&dst, "  </testsuite>\n");
        free(esc_name);
-diff -ruN cunit-3.2.6/CUnit/Sources/Framework/TestRun.c cunit-3.2.6.aros/CUnit/Sources/Framework/TestRun.c
---- cunit-3.2.6/CUnit/Sources/Framework/TestRun.c	2020-04-16 17:55:15.000000000 +0000
-+++ cunit-3.2.6.aros/CUnit/Sources/Framework/TestRun.c	2020-04-16 17:55:15.000000000 +0000
-@@ -685,12 +685,11 @@
- 
- {
-   CU_pRunSummary s = &f_run_summary;
--  CU_pTestRegistry r = CU_get_registry();
-   size_t max_result_len = 8192;
-   char *result;
- 
-   assert(NULL != s);
--  assert(NULL != r);
-+  assert(NULL != CU_get_registry());
- 
-   result = CU_MALLOC(max_result_len);
-   if (result) {
