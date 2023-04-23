@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2008-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2008-2023, The AROS Development Team. All rights reserved.
 
     POSIX.1-2008 function execlp().
 */
