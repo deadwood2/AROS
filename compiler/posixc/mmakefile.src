@@ -142,6 +142,7 @@ POSIXC := \
     popen \
     posix_memalign \
     printf \
+    pselect \
     putchar \
     putenv \
     puts \
@@ -165,6 +166,7 @@ POSIXC := \
     scanf \
     seed48 \
     seekdir \
+    select \
     setbuf \
     setegid \
     setenv \

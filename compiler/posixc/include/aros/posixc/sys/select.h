@@ -8,10 +8,10 @@
     Desc: POSIX.1-2008 header file sys/select.h
 */
 
+#include <aros/system.h>
 #include <aros/cpu.h>
 
 #include <aros/types/timeval_s.h> /* get struct timeval */
-
 #include <aros/types/time_t.h>
 #include <aros/types/suseconds_t.h>
 #include <aros/types/sigset_t.h>
