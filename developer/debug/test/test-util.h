@@ -121,4 +121,10 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 
 #endif
 
+#define BASIC_EVENT_LOOP \
+    ULONG sigs; \
+    DoMethod(wnd, MUIM_Notify, MUIA_Window_CloseRequest, TRUE, (IPTR) app, 2, MUIM_Application_ReturnID, MUIV_Application_ReturnID_Quit); \
+    while (DoMethod(app, MUIM_Application_NewInput, (IPTR) &sigs) != MUIV_Application_ReturnID_Quit); \
+
+
 #endif
