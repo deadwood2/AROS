@@ -27,10 +27,19 @@ static inline void Click(struct Window *w, LONG x, LONG y)
     struct IntuiMessage *imsg = NULL;
 
     imsg = _AllocIntuiMessage(w);
+    imsg->Class = IDCMP_MOUSEMOVE;
+    imsg->Code = IECODE_NOBUTTON;
+    imsg->MouseX = (WORD)x;
+    imsg->MouseY = (WORD)y;
+    imsg->IAddress = w;
+    _SendIntuiMessage(w, imsg);
+
+    imsg = _AllocIntuiMessage(w);
     imsg->Class = IDCMP_MOUSEBUTTONS;
     imsg->Code = SELECTDOWN;
     imsg->MouseX = (WORD)x;
     imsg->MouseY = (WORD)y;
+    imsg->IAddress = w;
     _SendIntuiMessage(w, imsg);
 
     imsg = _AllocIntuiMessage(w);
@@ -38,6 +47,7 @@ static inline void Click(struct Window *w, LONG x, LONG y)
     imsg->Code = SELECTUP;
     imsg->MouseX = (WORD)x;
     imsg->MouseY = (WORD)y;
+    imsg->IAddress = w;
     _SendIntuiMessage(w, imsg);
 
 }
