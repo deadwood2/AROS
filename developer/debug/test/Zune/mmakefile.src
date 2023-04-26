@@ -29,6 +29,7 @@ FILES  := test             \
           mui4test
 
 CUNITFILES := \
+    cunit-zune-cycle \
     cunit-zune-handleevent \
     cunit-zune-handleevent-2 \
     cunit-zune-handleevent-3 \
