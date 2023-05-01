@@ -178,7 +178,7 @@ struct ETask
     void            *et_MemPool;                        /* Task's private memory pool                   */
     /* Internal fields follow */
     union {
-        IPTR        et_Reserved[2];                     /* MorphOS Private                              */
+        void        *et_Reserved[2];                    /* MorphOS Private                              */
         struct {
             IPTR    et_Rsrvd;
             IPTR    *et_TaskStorage;                    /* Task Storage Slots                           */
