@@ -18,10 +18,10 @@ DISK_EXEDIR := $(AROS_DEVS)/Monitors
 USER_CPPFLAGS := -DHOST_OS_$(ARCH)
 USER_INCLUDES := -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
 USER_CFLAGS := $(HOST_X11_CFLAGS)
-## The '-Wno-attributes' is here due to a gcc 4.5.x bug
-## where its strcmp() builtin generates a number of spurious
-## complaints with -O1 or higher optimizations enabled.
-USER_CFLAGS += -Wno-attributes
+# The flags are needed of some 64-bit hosts (Arch Linux) which
+# use SSE in 32-bit X library. The effectlivelly allign 32-bit
+# x11gfx.hidd stack to 16 bytes
+USER_CFLAGS += -mincoming-stack-boundary=2 -mstackrealign
 
 USER_LDFLAGS := -noclibs -lstdc.static
 
@@ -107,6 +107,6 @@ setup-x11keymaptable :
 	%mkdirs_q $(AROS_DEVS)/Keymaps $(AROS_DEVS)/Keymaps/X11
 		
 $(TOOLDIR)/makexkeytable: makexkeytable.c
-	$(HOST_CC) $(HOST_CFLAGS) $(USER_CFLAGS) $< -o $@ $(HOST_X11_LDFLAGS)
+	$(HOST_CC) $(HOST_CFLAGS) $(HOST_X11_CFLAGS) $< -o $@ $(HOST_X11_LDFLAGS)
 
 %common
