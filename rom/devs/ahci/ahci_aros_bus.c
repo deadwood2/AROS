@@ -210,9 +210,9 @@ void bus_dmamap_unload(bus_dma_tag_t tag, bus_dmamap_t map)
 
 struct resource *bus_alloc_resource_any(device_t dev, enum bus_resource_t type, int *rid, u_int flags)
 {
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     struct resource *resource;
     IPTR INTLine;
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
     OOP_AttrBase HiddPCIDeviceAttrBase = AHCIBase->ahci_HiddPCIDeviceAttrBase;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
@@ -267,7 +267,7 @@ struct resource *bus_alloc_resource_any(device_t dev, enum bus_resource_t type, 
 
 int bus_release_resource(device_t dev, enum bus_resource_t type, int rid, struct resource *res)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_AttrBase HiddPCIDeviceAttrBase = AHCIBase->ahci_HiddPCIDeviceAttrBase;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
@@ -307,13 +307,14 @@ AROS_INTH1(bus_intr_wrap, void **, fa)
 
 int bus_setup_intr(device_t dev, struct resource *r, int flags, driver_intr_t func, void *arg, void **cookiep, void *serializer)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
-    struct Interrupt *handler = AllocVec(sizeof(struct Interrupt)+sizeof(void *)*2, MEMF_PUBLIC | MEMF_CLEAR);
+    struct Interrupt *handler;
     void **fa;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
 
+    handler = AllocVec(sizeof(struct Interrupt)+sizeof(void *)*2, MEMF_PUBLIC | MEMF_CLEAR);
     if (handler == NULL)
         return ENOMEM;
 
@@ -349,7 +350,7 @@ int bus_setup_intr(device_t dev, struct resource *r, int flags, driver_intr_t fu
 
 int bus_teardown_intr(device_t dev, struct resource *r, void *cookie)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
 
     DDMA(bug("[AHCI] %s()\n", __func__));

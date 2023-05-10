@@ -93,7 +93,7 @@ int pci_alloc_1intr(device_t dev, int msi_enable,
 {
     if ((msi_enable) && (dev->dev_Object))
     {
-        struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+        struct AHCIBase *AHCIBase = dev->dev_Base;
         OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
 
         struct TagItem vectreqs[] =

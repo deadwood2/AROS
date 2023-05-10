@@ -225,7 +225,7 @@ ahci_nvidia_mcp_attach(device_t dev)
 static int
 ahci_pci_attach(device_t dev)
 {
-	struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+	struct AHCIBase *AHCIBase = dev->dev_Base;
 	struct ahci_softc *sc = device_get_softc(dev);
 	struct ahci_port *ap;
 #if !defined(__AROS__)

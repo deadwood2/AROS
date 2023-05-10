@@ -130,7 +130,7 @@ typedef u_int32_t pcireg_t;
 static inline u_int32_t pci_read_config(device_t dev, int reg, int width)
 {
     u_int32_t val = ~0;
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceMethodBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
     struct pHidd_PCIDevice_ReadConfigByte cb; 
     struct pHidd_PCIDevice_ReadConfigWord cw; 
@@ -162,7 +162,7 @@ static inline u_int32_t pci_read_config(device_t dev, int reg, int width)
 
 static inline void pci_write_config(device_t dev, int reg, u_int32_t val, int width)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceMethodBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
     struct pHidd_PCIDevice_WriteConfigByte cb; 
     struct pHidd_PCIDevice_WriteConfigWord cw; 
@@ -334,18 +334,18 @@ static inline int bus_space_subregion(bus_space_tag_t iot, bus_space_handle_t io
 static inline void bus_space_barrier(bus_space_tag_t iot, bus_space_handle_t ioh, unsigned offset, size_t size, unsigned flags)
 {
     /* FIXME: Sync bus area */
+    return;
 }
 
 static inline u_int32_t bus_space_read_4(bus_space_tag_t iot, bus_space_handle_t ioh, unsigned offset)
 {
-    return *(u_int32_t *)(ioh + offset);
+    return *(volatile u_int32_t *)(ioh + offset);
 }
 
 static inline void bus_space_write_4(bus_space_tag_t iot, bus_space_handle_t ioh, unsigned offset, u_int32_t val)
 {
-    *(u_int32_t *)(ioh + offset) = val;
+    *(volatile u_int32_t *)(ioh + offset) = val;
 }
-
 
 /* Generic device info */
 static inline void *device_get_softc(device_t dev)
@@ -369,6 +369,7 @@ static inline void lockinit(struct lock *lock, const char *name, unsigned flags,
 static inline void lockuninit(struct lock *lock)
 {
     /* Nothing needed */
+    return;
 }
 
 #define LK_RELEASE    (1 << 0)
@@ -428,7 +429,7 @@ struct sysctl_ctx_list {};
 #define TAILQ_ENTRY(type)       struct { struct type *tqe_next; struct type **tqe_prev; }
 #define TAILQ_FIRST(head)       ((head)->tqh_first)
 #define TAILQ_EMPTY(head)       (TAILQ_FIRST(head) == NULL)
-#define TAILQ_INIT(head)        do {                                    \
+#define TAILQ_INIT(head)                do {                            \
     (head)->tqh_first = NULL;                                           \
     (head)->tqh_last = &(head)->tqh_first;                              \
 } while (0)
@@ -476,6 +477,6 @@ static inline int ffs(unsigned int bits)
 struct ata_xfer;
 void ahci_ata_io_complete(struct ata_xfer *xa);
 int pci_alloc_1intr(device_t dev, int msi_enable,
-	    int *rid0, u_int *irq_flags);
+        int *rid0, u_int *irq_flags);
 
 #endif /* AHCI_AROS_H */

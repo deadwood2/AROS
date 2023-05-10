@@ -144,7 +144,7 @@ static void ahci_PortMonitor(struct Task *parent, struct Device *device, struct 
 
 static int ahci_RegisterPort(struct ahci_port *ap)
 {
-    struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_Base;
     struct cam_sim *unit;
     char name[64];
         D(bug("[AHCI] %s()\n", __func__));
@@ -177,8 +177,8 @@ static int ahci_RegisterPort(struct ahci_port *ap)
 
 static int ahci_UnregisterPort(struct ahci_port *ap)
 {
+    struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_Base;
     struct ahci_softc *sc = ap->ap_sc;
-    struct AHCIBase *AHCIBase;
     struct cam_sim *unit = ap->ap_sim;
 
     D(bug("[AHCI] ahci_UnregisterPort: %p\n", ap));
@@ -187,8 +187,6 @@ static int ahci_UnregisterPort(struct ahci_port *ap)
         D(bug("No softc?\n"));
         return 0;
     }
-
-    AHCIBase = sc->sc_dev->dev_AHCIBase;
 
     /* Stop the monitor, and wait for IOs to drain,
      * and users to CloseDevice() the unit.
@@ -262,7 +260,7 @@ static BOOL ahci_RegisterVolume(struct ahci_port *ap, struct ata_port *at, struc
 
     if (ExpansionBase)
     {
-        struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_AHCIBase;
+        struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_Base;
         TEXT dosdevname[4];
         struct TagItem AHCIIDTags[] =
         {
@@ -922,7 +920,7 @@ err:
                 if (atx == NULL)
                         ap->ap_probe = at->at_probe;
         } else {
-                struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_AHCIBase;
+                struct AHCIBase *AHCIBase = ap->ap_sc->sc_dev->dev_Base;
                 struct TagItem unitAttrs[] =
                 {
                     {aHidd_DriverData   , 0 },

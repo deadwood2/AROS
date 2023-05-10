@@ -51,7 +51,7 @@ int ahci_attach(device_t dev)
 
 void ahci_release(device_t dev)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
 
     HIDD_PCIDevice_Release(dev->dev_Object);
@@ -87,7 +87,7 @@ AROS_UFH3(void, ahci_PCIEnumerator_h,
     if (dev == NULL)
         return;
 
-    dev->dev_AHCIBase = AHCIBase;
+    dev->dev_Base = AHCIBase;
     dev->dev_Object   = Device;
     dev->dev_softc    = (void *)&dev[1];
     dev->dev_HostID   = AHCIBase->ahci_HostCount;
