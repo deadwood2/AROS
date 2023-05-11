@@ -628,9 +628,11 @@ void pciFreeUnit(struct PCIUnit *hu)
         hc->hc_Flags &= ~HCF_ONLINE;
         switch (hc->hc_HCIType)
         {
+#if defined(PCIUSB_ENABLEXHCI)
             case HCITYPE_XHCI:
                 xhciFree(hc, hu);
                 break;
+#endif
             case HCITYPE_EHCI:
                 ehciFree(hc, hu);
                 break;
