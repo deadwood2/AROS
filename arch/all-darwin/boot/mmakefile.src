@@ -2,6 +2,6 @@
 include $(SRCDIR)/config/aros.cfg
 
 #MM- distfiles-darwin-$(AROS_TARGET_CPU) : distfiles-system
-#MM- distfiles-quick-darwin-$(AROS_TARGET_CPU) : distfiles-system
+#MM- distfiles-darwin-$(AROS_TARGET_CPU)-quick : distfiles-system
 
 #MM- boot-darwin: iconset-$(AROS_TARGET_ICONSET)-icons-aros-darwin-system
