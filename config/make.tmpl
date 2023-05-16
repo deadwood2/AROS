@@ -2201,7 +2201,9 @@ $(%(mmake)_KOBJ) : $(%(mmake)_OBJS) $(%(mmake)_ENDOBJS)
 
 %gen_archspecificrules mainmmake=%(mmake)
 %gen_archspecificrules mainmmake=%(mmake) target=-kobj
+#MM- %(mmake)-kobj : %(mmake)-$(CPU)
 %gen_archspecificrules mainmmake=%(mmake) subtarget=-quick
+#MM- %(mmake)-kobj-quick : %(mmake)-$(CPU)-quick
 
 # All MetaMake targets defined by this macro
 %(mmake)%(flavour)_ALLTARGETS       := %(mmake) %(mmake)-quick %(mmake)-clean
