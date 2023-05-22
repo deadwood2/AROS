@@ -15,3 +15,11 @@ ADDITIONALICONS := Include Lib
 
 %build_icons mmake=iconset-Gorilla-additional-icons-aros-developer icons=$(ADDITIONALICONS) \
              dir=$(AROS_DEVELOPMENT)
+
+#MM- icons-developer : gorilla-icons-developer
+%build_icons mmake=gorilla-icons-developer icons=$(BASEICONS) \
+             dir=$(AROS_PRESETS)/Icons/Gorilla/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPMENT)
+
+#MM- icons-additional-developer : gorilla-icons-additional-developer
+%build_icons mmake=gorilla-icons-additional-developer icons=$(ADDITIONALICONS) \
+             dir=$(AROS_PRESETS)/Icons/Gorilla/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPMENT)
