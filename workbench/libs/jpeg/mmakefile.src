@@ -20,7 +20,7 @@ ARCHSRCDIR := $(PORTSDIR)/jpeg/$(ARCHDIR)
 #MM- includes-copy : \
 #MM     jpeg-fetch
 
-#MM workbench-libs-jpeg-includes : \
+#MM- workbench-libs-jpeg-includes : \
 #MM     kernel-exec-includes \
 #MM     kernel-dos-includes \
 #MM     includes-copy
@@ -41,9 +41,7 @@ USER_CPPFLAGS := -DNO_GETENV
 
 #MM- core-linklibs : linklibs-jpeg
 
-%build_module mmake=workbench-libs-jpeg \
-  modname=jfif modtype=library uselibs="crtmod" \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=jpeg
+%build_linklib mmake=linklibs-jpeg libname=jpeg files="$(addprefix $(ARCHSRCDIR)/,$(FILES))"
 
 INCLUDE_FILES := jerror.h jmorecfg.h jpeglib.h jconfig.h
 %copy_includes dir=$(ARCHSRCDIR)
