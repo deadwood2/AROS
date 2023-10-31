@@ -1202,8 +1202,8 @@ IPTR Install__MUIM_IC_CancelInstall
             &backupOptions->opt_copycore);
         GET(data->instc_options_main->opt_copyextra, MUIA_Disabled,
             &backupOptions->opt_copyextra);
-        GET(data->instc_options_main->opt_developer, MUIA_Disabled,
-            &backupOptions->opt_developer);
+        GET(data->instc_options_main->opt_development, MUIA_Disabled,
+            &backupOptions->opt_development);
         GET(data->instc_options_main->opt_bootloader, MUIA_Disabled,
             &backupOptions->opt_bootloader);
         GET(data->instc_options_main->opt_reboot, MUIA_Disabled,
@@ -1213,7 +1213,7 @@ IPTR Install__MUIM_IC_CancelInstall
         SET(data->instc_options_main->opt_locale, MUIA_Disabled, TRUE);
         SET(data->instc_options_main->opt_copycore, MUIA_Disabled, TRUE);
         SET(data->instc_options_main->opt_copyextra, MUIA_Disabled, TRUE);
-        SET(data->instc_options_main->opt_developer, MUIA_Disabled, TRUE);
+        SET(data->instc_options_main->opt_development, MUIA_Disabled, TRUE);
         SET(data->instc_options_main->opt_bootloader, MUIA_Disabled, TRUE);
         SET(data->instc_options_main->opt_reboot, MUIA_Disabled, TRUE);
         goto donecancel;
@@ -1293,8 +1293,8 @@ IPTR Install__MUIM_IC_ContinueInstall
             (BOOL) backupOptions->opt_copycore);
         SET(data->instc_options_main->opt_copyextra, MUIA_Disabled,
             (BOOL) backupOptions->opt_copyextra);
-        SET(data->instc_options_main->opt_developer, MUIA_Disabled,
-            (BOOL) backupOptions->opt_developer);
+        SET(data->instc_options_main->opt_development, MUIA_Disabled,
+            (BOOL) backupOptions->opt_development);
         SET(data->instc_options_main->opt_bootloader, MUIA_Disabled,
             (BOOL) backupOptions->opt_bootloader);
         SET(data->instc_options_main->opt_reboot, MUIA_Disabled,
@@ -1819,25 +1819,25 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
 
     DoMethod(data->installer, MUIM_Application_InputBuffered);
 
-    /* STEP : COPY DEVELOPER FILES */
+    /* STEP : COPY DEVELOPMENT FILES */
 
-    GET(data->instc_options_main->opt_developer, MUIA_Selected, &option);
+    GET(data->instc_options_main->opt_development, MUIA_Selected, &option);
     if (option && (data->inst_success == MUIV_Inst_InProgress))
     {
         ULONG srcLen = strlen(source_Path);
-        ULONG developerDirLen = srcLen + strlen("Developer") + 2;
-        TEXT developerDir[srcLen + developerDirLen];
+        ULONG developmentDirLen = srcLen + strlen("Development") + 2;
+        TEXT developmentDir[srcLen + developmentDirLen];
 
-        CopyMem(source_Path, &developerDir, srcLen + 1);
-        AddPart(developerDir, "Developer", srcLen + developerDirLen);
+        CopyMem(source_Path, &developmentDir, srcLen + 1);
+        AddPart(developmentDir, "Development", srcLen + developmentDirLen);
 
-        if ((lock = Lock(developerDir, SHARED_LOCK)) != BNULL)
+        if ((lock = Lock(developmentDir, SHARED_LOCK)) != BNULL)
         {
-            CONST_STRPTR developer_dirs[] = {
-                "Developer", "Developer",
+            CONST_STRPTR development_dirs[] = {
+                "Development", "Development",
                 NULL
             };
-            TEXT developerpath[100];
+            TEXT developmentpath[100];
             BOOL undoenabled = data->instc_copt_undoenabled;
 
             /* Explicitly disable undo. Some users might not have RAM for backup */
@@ -1846,26 +1846,26 @@ IPTR Install__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
             UnLock(lock);
 
             /* Copying Developer stuff */
-            D(bug("[InstallAROS:Inst] %s: Copying Developer Files...\n", __func__));
+            D(bug("[InstallAROS:Inst] %s: Copying Development Files...\n", __func__));
             SET(data->label, MUIA_Text_Contents, __(MSG_COPYDEVEL));
-            sprintf(developerpath, "%s:", extras_path);
-            CopyDirArray(CLASS, self, source_Path, developerpath,
-                developer_dirs, &SKIPLIST);
+            sprintf(developmentpath, "%s:", extras_path);
+            CopyDirArray(CLASS, self, source_Path, developmentpath,
+                development_dirs, &SKIPLIST);
 
             /* Set DEVELPATH environment variable */
-            AddPart(developerpath, "Developer", 100);
+            AddPart(developmentpath, "Development", 100);
             create_environment_variable(data->install_SysTarget, "DEVELPATH",
-                developerpath);
+                developmentpath);
 
-            /* Set Developer package var */
+            /* Set Development package var */
             create_environment_variable(data->install_SysTarget, "SYS/Packages/Development",
-                developerpath);
+                developmentpath);
 
             /* Restore undo state */
             data->instc_copt_undoenabled = undoenabled;
         }
         D(else
-           bug("[InstallAROS:Inst] %s: Couldn't locate Developer Files...\n", __func__);
+           bug("[InstallAROS:Inst] %s: Couldn't locate Development Files...\n", __func__);
         )
 
         ClearSkipList(&SKIPLIST);

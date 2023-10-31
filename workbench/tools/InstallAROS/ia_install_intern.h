@@ -16,7 +16,7 @@ struct Install_Options
     Object	                *opt_locale;
     Object	                *opt_copycore;
     Object	                *opt_copyextra;
-    Object	                *opt_developer;
+    Object	                *opt_development;
     Object	                *opt_bootloader;
 
     Object	                *opt_reboot;
@@ -39,7 +39,7 @@ struct optionstmp
     IPTR	                opt_locale;
     IPTR	                opt_copycore;
     IPTR	                opt_copyextra;
-    IPTR	                opt_developer;
+    IPTR	                opt_development;
     IPTR	                opt_bootloader;
     IPTR	                opt_reboot;
 };

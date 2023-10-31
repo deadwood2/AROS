@@ -964,7 +964,7 @@ int main(int argc, char *argv[])
     GET(optObjCheckLocale, MUIA_InstallOption_Obj, &install_opts->opt_locale);
     GET(optObjCheckCore, MUIA_InstallOption_Obj, &install_opts->opt_copycore);
     GET(optObjCheckExtras, MUIA_InstallOption_Obj, &install_opts->opt_copyextra);
-    GET(optObjCheckDev, MUIA_InstallOption_Obj, &install_opts->opt_developer);
+    GET(optObjCheckDev, MUIA_InstallOption_Obj, &install_opts->opt_development);
     GET(optObjCheckBootloader, MUIA_InstallOption_Obj, &install_opts->opt_bootloader);
     GET(optObjCheckReboot, MUIA_InstallOption_Obj, &install_opts->opt_reboot);
 
