@@ -55,7 +55,7 @@ endif
 
 %build_module mmake=workbench-libs-png \
     modname=png modtype=library \
-    files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) posixc_startup" linklibname="png" uselibs="z" usesdks="rel"
+    files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) posixc_startup" linklibname="png" linklibfiles="png_linklib" uselibs="z" usesdks="rel"
 
 #MM- linklibs: linklibs-png-nostdio
 #MM linklibs-png-nostdio : workbench-libs-png-generated
