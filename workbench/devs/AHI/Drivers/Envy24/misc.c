@@ -628,8 +628,8 @@ void pci_free_consistent(void* addr, struct DriverBase* AHIsubBase)
   FreeVec( addr );
 }
 
-
-static AROS_INTH1(ResetHandler, struct CardData *, card)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ResetHandler, struct CardData *, card)
 {
     AROS_INTFUNC_INIT
 
