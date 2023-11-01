@@ -1,0 +1,51 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language nederlands
+## codeset 0
+;
+MSG_WINDOW_TITLE
+ASL instellingen
+;
+MSG_GENERAL
+Algemeen
+;
+MSG_FILEREQUESTER
+Bestand requester
+;
+MSG_SIZE
+Grootte (% van zichtbare grootte):
+;
+MSG_OK
+Ok
+;
+MSG_DRAWERSFIRST
+Toon laden eerst
+;
+MSG_POSITION
+Positie:
+;
+MSG_POINTER
+Muiswijzer
+;
+MSG_CENTERWIN
+Centreer in venster
+;
+MSG_CENTERSCR
+Centreer op scherm
+;
+MSG_TOPLEFTWIN
+Links-boven in venster
+;
+MSG_TOPLEFTSCR
+Links-boven op scherm
+;
+MSG_OFFSET
+\33bPlaats
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

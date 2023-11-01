@@ -1,0 +1,65 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language français
+## codeset 0
+; Authors: Georges 'Melkor' Goncalves
+;
+MSG_WINDOW_TITLE
+Préférences: ASL
+; ASL Preferences
+;
+MSG_GENERAL
+Généralités
+; General
+;
+MSG_FILEREQUESTER
+Requête de fichiers
+; File Requester
+;
+MSG_SIZE
+Taille (% de la hauteur visible):
+; Size (% of visible height):
+;
+MSG_OK
+Valider
+;  Ok
+;
+MSG_DRAWERSFIRST
+Montrer d'abord les tiroirs
+; Display drawers first
+;
+MSG_POSITION
+Position:
+; Position:
+;
+MSG_POINTER
+Pointeur de la souris
+; Mouse pointer
+;
+MSG_CENTERWIN
+Centre dans la fenêtre
+; Center in window
+;
+MSG_CENTERSCR
+Centre à l'écran
+; Center on screen
+;
+MSG_TOPLEFTWIN
+Coin gauche de la fenêtre
+; Top left of window
+;
+MSG_TOPLEFTSCR
+Coin gauche de l'écran
+; Top left of screen
+;
+MSG_OFFSET
+\33bDécalage
+; \33bOffset
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

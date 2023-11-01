@@ -1,0 +1,52 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language svenska
+## codeset 0
+;
+MSG_WINDOW_TITLE
+ASLinställningar
+;
+MSG_GENERAL
+Diverse
+;
+MSG_FILEREQUESTER
+Filväljare
+;
+MSG_SIZE
+Storlek (% av synlig höjd):
+;
+MSG_OK
+Ok
+;
+;
+MSG_DRAWERSFIRST
+Visa lådor först
+;
+MSG_POSITION
+Läge:
+;
+MSG_POINTER
+Muspekare
+;
+MSG_CENTERWIN
+Centrerad i fönstret
+;
+MSG_CENTERSCR
+Centrerat på skärmen
+;
+MSG_TOPLEFTWIN
+Övre vänster hörn i fönster
+;
+MSG_TOPLEFTSCR
+Övre vänster hörn på skärm
+;
+MSG_OFFSET
+\33bOffset
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

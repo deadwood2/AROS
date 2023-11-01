@@ -1,0 +1,51 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language suomi
+## codeset 0
+;
+MSG_WINDOW_TITLE
+ASLsin asetukset
+;
+MSG_GENERAL
+Yleistä
+;
+MSG_FILEREQUESTER
+Tiedostonvalitsija
+;
+MSG_SIZE
+Koko (% näkyvästä korkeudesta):
+;
+MSG_OK
+Ok
+;
+MSG_DRAWERSFIRST
+Näytä hakemistot ensin
+;
+MSG_POSITION
+Paikka:
+;
+MSG_POINTER
+Hiiren osoitin
+;
+MSG_CENTERWIN
+Keskitä ikkunaan
+;
+MSG_CENTERSCR
+Keskitä näyttöön
+;
+MSG_TOPLEFTWIN
+Ikkunan vasen ylänurkka
+;
+MSG_TOPLEFTSCR
+Näytön vasen ylänurkka
+;
+MSG_OFFSET
+\33bSiirto
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

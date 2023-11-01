@@ -1,0 +1,51 @@
+;**************************
+;
+;   ASL Preferences
+;
+;**************************
+;
+MSG_WINDOW_TITLE (1//)
+ASL Preferences
+;
+MSG_GENERAL (//)
+General
+;
+MSG_FILEREQUESTER (//)
+File Requester
+;
+MSG_SIZE (//)
+Size (% of visible height):
+;
+MSG_OK (//)
+Ok
+;
+MSG_DRAWERSFIRST (//)
+Display drawers first
+;
+MSG_POSITION (//)
+Position:
+;
+MSG_POINTER (//)
+Mouse pointer
+;
+MSG_CENTERWIN (//)
+Center in window
+;
+MSG_CENTERSCR (//)
+Center on screen
+;
+MSG_TOPLEFTWIN (//)
+Top left of window
+;
+MSG_TOPLEFTSCR (//)
+Top left of screen
+;
+MSG_OFFSET (//)
+\33bOffset
+;
+MSG_CANT_OPEN_STREAM (//)
+Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR (//)
+Can't allocate IFF handle!
+;

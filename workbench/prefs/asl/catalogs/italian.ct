@@ -1,0 +1,52 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language italiano
+## codeset 0
+; Authors: Michele Giorato
+;
+MSG_WINDOW_TITLE
+Preferenze di ASL
+;
+MSG_GENERAL
+Generale
+;
+MSG_FILEREQUESTER
+Requester dei files
+;
+MSG_SIZE
+Dimensione (% dell'altezza utile):
+;
+MSG_OK
+Ok
+;
+MSG_DRAWERSFIRST
+Mostra prima i cassetti
+;
+MSG_POSITION
+Posizione
+;
+MSG_POINTER
+Puntatore del mouse
+;
+MSG_CENTERWIN
+Al centro della finestra
+;
+MSG_CENTERSCR
+Al centro dello schermo
+;
+MSG_TOPLEFTWIN
+In alto a sinistra finestra
+;
+MSG_TOPLEFTSCR
+In alto a sinistra schermo
+;
+MSG_OFFSET
+\33bMargini
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;

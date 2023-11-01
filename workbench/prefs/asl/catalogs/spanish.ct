@@ -1,0 +1,51 @@
+## version $VER: Asl.catalog 1.0 (28.06.2022)
+## language español
+## codeset 0
+;
+MSG_WINDOW_TITLE
+Preferencias de ~ASL~
+;
+MSG_GENERAL
+General
+;
+MSG_FILEREQUESTER
+Requerimiento de ficheros
+;
+MSG_SIZE
+Tamaño
+;
+MSG_OK
+Ok
+;
+MSG_DRAWERSFIRST
+Mostrar primero cajones
+;
+MSG_POSITION
+Posición:
+;
+MSG_POINTER
+Puntero de ratón
+;
+MSG_CENTERWIN
+Centrar en la ventana
+;
+MSG_CENTERSCR
+Centrar en la pantalla
+;
+MSG_TOPLEFTWIN
+Tope izquierdo de la ventana
+;
+MSG_TOPLEFTSCR
+Tope izquierdo de la pantalla
+;
+MSG_OFFSET
+\33bDesplaz.
+;
+MSG_CANT_OPEN_STREAM
+Can't open IFF stream!
+; Can't open IFF stream!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Can't allocate IFF handle!
+; Can't allocate IFF handle!
+;
