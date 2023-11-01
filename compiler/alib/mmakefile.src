@@ -18,7 +18,6 @@ FILES	:= \
     allocdosobjecttags \
     allocnamedobject \
     allocspritedata \
-    andrectrect \
     argarraydone \
     argarrayinit \
     argint \
@@ -37,7 +36,6 @@ FILES	:= \
     changeextsprite \
     checkrexxmsg \
     coercemethod \
-    copyregion \
     closeworkbenchobject \
     createextio \
     creategadget \
@@ -89,7 +87,6 @@ FILES	:= \
     newloadsegtags \
     newobject \
     newrawdofmt \
-    newrectregion \
     obtainbestpen \
     obtaininfo \
     openamigaguide \
