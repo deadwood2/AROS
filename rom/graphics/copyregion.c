@@ -3,19 +3,22 @@
 
     Desc: (AROS only) Graphics function CopyRegion()
 */
-
+#include "graphics_intern.h"
 #include <graphics/regions.h>
-#include <proto/graphics.h>
+#include "intregions.h"
 
 /*****************************************************************************
 
     NAME */
-#include <proto/alib.h>
+#include <proto/graphics.h>
 
-        struct Region *CopyRegion(
+        AROS_LH1(struct Region *, CopyRegion,
 
 /*  SYNOPSIS */
-        struct Region *region)
+        AROS_LHA(struct Region *, region, A0),
+
+/*  LOCATION */
+        struct GfxBase *, GfxBase, 188, Graphics)
 
 /*  FUNCTION
         Make a copy of the given Region.
@@ -40,6 +43,8 @@
 
 *****************************************************************************/
 {
+    AROS_LIBFUNC_INIT
+
     struct Region *nreg = NewRegion();
     
     if (nreg)
@@ -51,4 +56,7 @@
     }
     
     return NULL;
+
+    AROS_LIBFUNC_EXIT
+
 } /* CopyRegion */
