@@ -4,6 +4,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
+#MM- AROS :  compiler-autoinit
+
 # list of automatically linked libs - included by the gcc spec file.
 AUTOFILE := \
         auto
@@ -17,7 +19,6 @@ LIBHANDLINGFILES := \
 STARTUPFILES := \
         __showerror \
         commandline \
-        commandname \
         __stdiowin \
         _programname \
         stdiowin \
@@ -30,6 +31,15 @@ MISCFILES := \
         detach
 
 LINKLIBFILES := $(LIBBASEFILES) $(LIBHANDLINGFILES) $(STARTUPFILES) $(MISCFILES)
+LIBRARYFILES := \
+        stdiowininit \
+        stdiowinexit \
+        _programnameinit \
+        commandname \
+        commandlineinit \
+        commandlineexit \
+        fromwbinit \
+        fromwbexit \
 
 #MM- core-linklibs : linklibs-autoinit
 #MM- linklibs-autoinit : linklibs-autoinit-autofile
@@ -44,7 +54,7 @@ LINKLIBFILES := $(LIBBASEFILES) $(LIBHANDLINGFILES) $(STARTUPFILES) $(MISCFILES)
 
 %build_module mmake=compiler-autoinit \
     modname=autoinit modtype=library \
-    files="" \
+    files=$(LIBRARYFILES) \
     linklibfiles=$(LINKLIBFILES) \
 
 %common
