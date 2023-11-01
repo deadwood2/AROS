@@ -1,0 +1,24 @@
+## version $VER: BoingIconBar.catalog 2.1 (17.10.2021)
+## language türkçe
+## codeset 12
+;
+MSG_CX_NAME
+BoingIconBar
+; BoingIconBar
+;
+MSG_CX_TITLE
+Simge Araç çubuðu
+; Icon Toolbar
+;
+MSG_CX_DESC
+Programý Araç çubuðunda baþlat
+; Start Programs from Toolbar
+;
+MSG_MENU_SETTINGS
+Ayarlar
+; Settings
+;
+MSG_MENU_QUIT
+Çýkýþ
+; Quit
+;
