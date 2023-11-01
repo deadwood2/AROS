@@ -34,9 +34,9 @@ The Original Code is written by Davy Wentzler.
 
 #ifdef INTGW
 #define DebugPrintF bug
-INTGW(static, void, playbackinterrupt, PlaybackInterrupt);
-INTGW(static, void, recordinterrupt, RecordInterrupt);
-INTGW(static, ULONG, cardinterrupt, CardInterrupt);
+SOFTINTGW(static, void,   playbackinterrupt, PlaybackInterrupt); /* ABI_V0 compatibility */
+SOFTINTGW(static, void,   recordinterrupt,   RecordInterrupt); /* ABI_V0 compatibility */
+INTGW(static, ULONG, cardinterrupt,  CardInterrupt);
 #endif
 
 /* Global in Card.c */
