@@ -115,7 +115,8 @@ void GetGLVar(struct Library *base, const char *var, char **varstore)
 
     D(bug("[GL] %s()\n", __func__));
 
-    FreeVec(*varstore);
+    FreeVec(GLB(base)->glb_GLImpl);
+    GLB(base)->glb_GLImpl = NULL;
 
     Var_Length = GetVar(var,
               &Var_Value[0],
@@ -180,7 +181,7 @@ void SetupGLVarNotification(struct Library *base)
 
         if (GLB(base)->glb_Notify.nr_stuff.nr_Msg.nr_Port && !GLB(base)->glb_Notify.nr_FullName)
         {
-            GLB(base)->glb_Notify.nr_Flags = NRF_SEND_MESSAGE | NRF_NOTIFY_INITIAL;
+            GLB(base)->glb_Notify.nr_Flags = NRF_SEND_MESSAGE;
             StartNotify(&GLB(base)->glb_Notify);
             D(bug("[GL] %s: Started FS Notification for '%s'\n", __func__, GLB(base)->glb_Notify.nr_FullName));
         }
@@ -217,7 +218,9 @@ static AROS_UFH3(struct Library *, GM_UNIQUENAME(LibInit),
     memset(&GLB(base)->glb_Sem, 0,
         sizeof(struct SignalSemaphore) + sizeof(struct NotifyRequest));
     InitSemaphore(&GLB(base)->glb_Sem);
+    GLB(base)->glb_GLImpl = NULL;
 
+    GetGLVar(base, "SYS/GL", &GLB(base)->glb_GLImpl);
     SetupGLVarNotification(base);
 
     // return the library base as success
