@@ -2,7 +2,7 @@
 include $(SRCDIR)/config/aros.cfg
 include $(SRCDIR)/workbench/libs/mesa/mesa.cfg
 
-GALLIUM_PATH = $(top_srcdir)/src/gallium
+GALLIUM_PATH = $(SRCDIR)/workbench/libs/mesa7/src/gallium
 
 INCLUDE_FILES := $(call WILDCARD, include/*.h)
 USER_LDFLAGS := -static

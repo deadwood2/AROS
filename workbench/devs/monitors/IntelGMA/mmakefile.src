@@ -8,7 +8,7 @@ else
 EXEDIR := $(AROSDIR)/Devs/Monitors
 endif
 
-GALLIUM_PATH = $(top_srcdir)/src/gallium
+GALLIUM_PATH = $(SRCDIR)/workbench/libs/mesa7/src/gallium
 
 IGMA_HIDD_SOURCES := \
             intelgma_init \
@@ -27,10 +27,11 @@ IGMA_HIDD_SOURCES += \
 USER_INCLUDES += \
             -iquote $(GALLIUM_PATH)/drivers \
             -iquote $(GALLIUM_PATH)/include \
-            -iquote $(GALLIUM_PATH)/auxiliary
+            -iquote $(GALLIUM_PATH)/auxiliary \
+            -I$(AROS_INCLUDES)/gallium
 
 USER_LDFLAGS := $(TARGET_CXX_LDFLAGS) \
-  -lgallium_i915 -lgalliumauxiliary -lmesautil \
+  -lgallium_i915 -lgalliumauxiliary \
   -lhiddstubs -lpthread -lstdcio -lstdc
 
 # disable necessary warnings
