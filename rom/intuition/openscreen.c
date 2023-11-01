@@ -2392,6 +2392,10 @@ static const char THIS_FILE[] = __FILE__;
     {
         /* Copy the BitMap's info for compatability with existing AmigaOS apps */
         CopyMem(screen->Screen.RastPort.BitMap, &screen->Screen.BitMap_OBSOLETE, sizeof(struct BitMap));
+        /* ABI_V0 compatibility */
+        /* Enable GetBitMapAttr(&Screen->BitMap, BMA_DEPTH). Example: AmiStart */
+        screen->Screen.BitMap_OBSOLETE.Planes[0] = (APTR)0xfeedbaa1;
+        screen->Screen.BitMap_OBSOLETE.Planes[1] = (APTR)screen->Screen.RastPort.BitMap;
     }
 
     DEBUG_OPENSCREEN(dprintf("OpenScreen: return 0x%lx\n", screen));
