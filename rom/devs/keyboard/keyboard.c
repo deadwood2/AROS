@@ -105,7 +105,8 @@ static const UWORD SupportedCommands[] =
 /****************************************************************************************/
 
 VOID keyCallback(struct KeyboardBase *KBBase, KbdIrqData_t keyData);
-AROS_INTP(kbdSendQueuedEvents);
+/* ABI_V0 compatibility */
+AROS_SOFTINTP(kbdSendQueuedEvents);
 static BOOL writeEvents(struct IORequest *ioreq, struct KeyboardBase *KBBase);
     
 /****************************************************************************************/
@@ -509,7 +510,8 @@ static BOOL writeEvents(struct IORequest *ioreq, struct KeyboardBase *KBBase)
             {
                 /* We may be inside an interrupt when we come here. Maybe
                    we shall use some other technique? */
-                    AROS_INTC1(node->is_Code, node->is_Data);
+                /* ABI_V0 compatibility */
+                AROS_SOFTINTC1(node->is_Code, node->is_Data);
             }
         }
         else
@@ -637,7 +639,8 @@ VOID keyCallback(struct KeyboardBase *KBBase, KbdIrqData_t keyData)
     }
 
     if(!IsListEmpty(&KBBase->kb_PendingQueue))
-        AROS_INTC1(kbdSendQueuedEvents, KBBase);
+        /* ABI_V0 compatibility */
+        AROS_SOFTINTC1(kbdSendQueuedEvents, KBBase);
 
     Enable();
 }
@@ -654,7 +657,8 @@ VOID keyCallback(struct KeyboardBase *KBBase, KbdIrqData_t keyData)
 
 #undef SysBase
 
-AROS_INTH1(kbdSendQueuedEvents, struct KeyboardBase *, KBBase)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(kbdSendQueuedEvents, struct KeyboardBase *, KBBase)
 {
     AROS_INTFUNC_INIT
 
