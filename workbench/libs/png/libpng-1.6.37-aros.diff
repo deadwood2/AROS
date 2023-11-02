@@ -1,0 +1,23 @@
+diff -ruN libpng-1.6.37/png.c libpng-1.6.37.aros/png.c
+--- libpng-1.6.37/png.c	2019-04-14 18:10:32.000000000 +0000
++++ libpng-1.6.37.aros/png.c	2023-11-01 08:53:55.209239910 +0000
+@@ -700,7 +700,7 @@
+  * function of your own because "FILE *" isn't necessarily available.
+  */
+ void PNGAPI
+-png_init_io(png_structrp png_ptr, png_FILE_p fp)
++__png_init_io(png_structp png_ptr, png_FILE_p fp, png_rw_ptr read_data_fn, png_rw_ptr write_data_fn, png_flush_ptr output_flush_fn)
+ {
+    png_debug(1, "in png_init_io");
+ 
+@@ -708,6 +708,10 @@
+       return;
+ 
+    png_ptr->io_ptr = (png_voidp)fp;
++   if (png_ptr->mode & PNG_IS_READ_STRUCT)
++      png_set_read_fn(png_ptr, fp, read_data_fn);
++   else
++      png_set_write_fn(png_ptr, fp, write_data_fn, output_flush_fn);
+ }
+ #  endif
+ 
