@@ -11,4 +11,4 @@ USER_LDFLAGS :=
 
 %build_module mmake=workbench-datatypes-png \
     modname=png modtype=datatype \
-    files=$(FILES) uselibs="png z1"
+    files=$(FILES) uselibs="png z"
