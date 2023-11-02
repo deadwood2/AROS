@@ -93,7 +93,7 @@ FREETYPETEST_COMMON := \
 %build_prog mmake=test-freetype-ftstring-static \
     progname=ftstring-static targetdir=$(EXEDIR) \
     files="$(addprefix $(FT2SRCDIR)/src/,ftstring $(FREETYPETEST_COMMON))" \
-    uselibs="freetype2.static graph png z1 " objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
+    uselibs="freetype2.static graph png z " objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
 
 USER_CPPFLAGS += -DFT2_BUILD_LIBRARY
 
@@ -105,6 +105,6 @@ USER_CPPFLAGS += -DFT2_BUILD_LIBRARY
 %build_prog mmake=test-freetype-ftview-static \
     progname=ftview-static targetdir=$(EXEDIR) \
     files="$(addprefix $(FT2SRCDIR)/src/,ftview $(FREETYPETEST_COMMON))" \
-    uselibs="freetype2.static png z1 graph" objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
+    uselibs="freetype2.static png z graph" objdir="$(GENDIR)/$(CURDIR)/static" usesdks="misc"
 
 %common
