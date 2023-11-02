@@ -307,7 +307,8 @@ tools-crosstools-gcc :
 #MM	linklibs-exec            \
 #MM	linklibs-autoinit        \
 #MM	linklibs-libinit         \
-#MM	linklibs-pthread
+#MM	linklibs-pthread         \
+#MM	linklibs-arosc
 
 %fetch_and_build mmake=crosstools-gcc package=gcc version=$(GCC_VERSION) compiler=host \
 	package_repo="$(GCC_REPOSITORY)" suffixes="tar.bz2 tar.gz tar.xz" \

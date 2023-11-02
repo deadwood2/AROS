@@ -25,7 +25,7 @@ ARCHSRCDIR := $(PORTSDIR)/zlib/$(ARCHBASE)
 #MM     zlib-fetch \
 #MM     workbench-libs-z-pkgc
 
-#MM workbench-libs-z-includes : \
+#MM- workbench-libs-z-includes : \
 #MM     kernel-exec-includes \
 #MM     kernel-dos-includes \
 #MM     includes-copy
@@ -56,14 +56,14 @@ else
 FILES += simd_stub
 endif
 
+#MM- linklibs: linklibs-z
+
 LIBZ_CPPFLAGS := -D_XOPEN_SOURCE=600 -DSTDC -DAMIGA -DZ_HAVE_UNISTD_H
 USER_INCLUDES += -I$(ARCHSRCDIR)
 
 USER_CPPFLAGS := $(LIBZ_CPPFLAGS)
 
-%build_module mmake=workbench-libs-z \
-  modname=z1 modtype=library \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname=z usesdks="rel"
+%build_linklib mmake=linklibs-z libname=z files="$(addprefix $(ARCHSRCDIR)/,$(FILES))"
 
 #MM- linklibs: linklibs-z-static
 #MM linklibs-z-static : zlib-fetch
@@ -89,7 +89,7 @@ $(AROS_LIB)/pkgconfig/zlib.pc : $(SRCDIR)/$(CURDIR)/zlib.pc.aros
 
 %build_prog mmake=wokbench-libs-z-example \
     progname=example \
-    files=$(ARCHSRCDIR)/test/example targetdir=$(AROS_TESTS)/z uselibs="z1"
+    files=$(ARCHSRCDIR)/test/example targetdir=$(AROS_TESTS)/z uselibs="z"
 
 #MM wokbench-libs-z-example : \
 #MM        workbench-libs-z-linklib
@@ -99,7 +99,7 @@ $(AROS_LIB)/pkgconfig/zlib.pc : $(SRCDIR)/$(CURDIR)/zlib.pc.aros
 
 %build_prog mmake=wokbench-libs-z-minigzip \
     progname=minigzip \
-    files=$(ARCHSRCDIR)/test/minigzip targetdir=$(AROS_C) uselibs="z1"
+    files=$(ARCHSRCDIR)/test/minigzip targetdir=$(AROS_C) uselibs="z"
 
 #MM- workbench-c : \
 #MM        wokbench-libs-z-minigzip

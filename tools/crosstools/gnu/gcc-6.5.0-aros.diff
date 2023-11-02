@@ -407,7 +407,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.h gcc-6.5.0.aros/gcc/config/aros.h
 +
 +#undef	LIB_SPEC
 +#define LIB_SPEC \
-+  "--start-group -lmui -larossupport -lamiga %{!nostartfiles:%{!static:%{!nostdc:%{!noposixc:%{!deferposixc:-lposixc}} -lstdcio %{!noposixc:%{deferposixc:-lposixc}} -lstdc}}%{static:%{!nostdc:-lstdc.static}}} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{nostartfiles:%{static:-lstdc.static}} --end-group"
++  "--start-group -lmui -larossupport -lamiga %{!nostartfiles:%{!static:%{newclib:%{!nostdc:%{!noposixc:%{!deferposixc:-lposixc}} -lstdcio %{!noposixc:%{deferposixc:-lposixc}} -lstdc}} %{!newclib:%{!nostdc:-larosc}}} %{static:%{!nostdc:-lstdc.static}}} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit %{nostartfiles:%{static:-lstdc.static}} --end-group"
 +
 +#undef	LIBSTDCXX_STATIC
 +#define LIBSTDCXX_STATIC "pthread"
@@ -426,7 +426,7 @@ diff -ruN gcc-6.5.0/gcc/config/aros.h gcc-6.5.0.aros/gcc/config/aros.h
 diff -ruN gcc-6.5.0/gcc/config/aros.opt gcc-6.5.0.aros/gcc/config/aros.opt
 --- gcc-6.5.0/gcc/config/aros.opt	1970-01-01 00:00:00.000000000 +0000
 +++ gcc-6.5.0.aros/gcc/config/aros.opt	2020-11-03 18:50:34.855736269 +0000
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,44 @@
 +; Processor-independent options for AROS.
 +
 +; Copyright (C) 2015 Free Software Foundation, Inc.
@@ -466,6 +466,9 @@ diff -ruN gcc-6.5.0/gcc/config/aros.opt gcc-6.5.0.aros/gcc/config/aros.opt
 +Driver
 +
 +nix
++Driver
++
++newclib
 +Driver
 +
 diff -ruN gcc-6.5.0/gcc/config/aros-stdint.h gcc-6.5.0.aros/gcc/config/aros-stdint.h
