@@ -112,7 +112,7 @@ FT2FILES := $(addprefix $(FT2AROSBUILDDIR)/,$(FT2BASEARCHFILES)) $(addprefix $(F
     files=$(FT2FILES) objdir=$(OBJDIR)/freetype2_static
 
 %build_module mmake=workbench-libs-freetype-module modname=freetype2 \
-    modtype=library files="$(SHFILES) $(FT2FILES)" uselibs="png z1" conffile=freetype2.conf
+    modtype=library files="$(SHFILES) $(FT2FILES)" uselibs="png z crtmod" conffile=freetype2.conf
 
 #MM workbench-libs-freetype-module-linklib : workbench-libs-png-linklib
 
