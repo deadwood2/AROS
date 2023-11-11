@@ -68,5 +68,5 @@ Uygulama oluþturulamadý!
 ; Failed to create Application!
 ;
 MSG_OUTOFMEMORY
-RAM ayrýlamýyor!
+RAM bellek ayrýlamýyor!
 ; Can't allocate RAM!

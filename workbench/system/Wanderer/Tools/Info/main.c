@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2003-2016, The AROS Development Team. All rights reserved.
+    Copyright (C) 2003-2022, The AROS Development Team. All rights reserved.
 */
 
 #define MUIMASTER_YES_INLINE_STDARG
@@ -910,7 +910,7 @@ D(bug("[WBInfo] icon type is: %s\n", type));
         End;
     }
 
-	if (icon->do_Type!=WBDRAWER)
+        if (icon->do_Type!=WBDRAWER)
         {
             sprintf(pathname, "%s",lname);
         } else {
