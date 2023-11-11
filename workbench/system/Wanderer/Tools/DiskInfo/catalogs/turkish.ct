@@ -12,7 +12,7 @@ HATA
 ; ERROR
 ;
 MSG_ERROR_OK
-_TAMAM
+_Tamam
 ; _OK
 ;
 MSG_ERROR_LOCALE
@@ -112,6 +112,6 @@ Paket Stili aygýtý
 ; Packet Style device
 ;
 MSG_IOFSDEVICE
-IOFS Sitili aygýtý
+IOFS Sitil aygýtý
 ; IOFS Style device
 ;
