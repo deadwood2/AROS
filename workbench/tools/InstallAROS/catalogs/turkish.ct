@@ -1,0 +1,365 @@
+## version $VER: installaros.catalog 2.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_TITLE
+AROS Yükleyici
+; AROS Installer
+;
+MSG_DESCRIPTION
+AROS'u bir Sürücüye yükler.
+; Installs AROS on to a Drive.
+;
+MSG_WELCOME
+\033b\nAROS Research OS yükleyicisine hoþ geldiniz.\n\n\033nBu program, AROS'u bilgisayarýnýzýn\nsabit diskine veya baðlý bir USB sürücüsüne kurmanýza izin verir.\n\nLütfen bu yazýlýmýn kararlýlýðýnýn garanti\nedilemeyeceðini unutmayýn.\nDiðer iþletim sistemleri tarafýndan kullanýlanlar da dahil olmak üzere sisteminizdeki herhangi bir sürücüde \033veri kaybý\033n olabilir.\n
+; \033b\nWelcome to the AROS Research OS installer.\n\n\033nThis program allows you to install AROS\non your computer's hard disk or an attached USB drive.\n\nPlease be aware that the stability of this software\ncannot be guaranteed.\nIt is possible that \033bloss of data\033n may occur\non any drive in your system, including those\nused by other operating systems.\n
+;
+MSG_INSTALLOPTIONS
+\nLütfen bir kurulum seçeneði belirleyin.\n\n
+; \nPlease choose your installation options.\n\n
+;
+MSG_DESTOPTIONS
+\nLütfen AROS'u nereye kuracaðýnýzý seçin.\n\nEmin deðilseniz, varsayýlanlarý kullanýn.
+; \nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults.
+;
+MSG_ACCEPT
+Lisans Sözleþmesini Kabul Ediyor musunuz?
+; Accept License Agreement?
+;
+MSG_DRIVE
+\033bSürücü:\033n
+; \033bDrive:\033n
+;
+MSG_TYPE
+Tür:
+; Type:
+;
+MSG_DEVICE
+Aygýt:
+; Device:
+;
+MSG_UNIT
+Birim:
+; Unit:
+;
+MSG_NAME
+Adý:
+; Name:
+;
+MSG_FILESYSTEM
+Dosyasistemi:
+; Filesystem:
+;
+MSG_SIZE
+Boyut:
+; Size:
+;
+MSG_MENUMODE
+Menü Modu:
+; Menu Mode:
+;
+MSG_CREATE
+Oluþtur
+; Create
+;
+MSG_SPECIFYSIZE
+Boyutu Belirtin
+; Specify Size
+;
+MSG_DESTVOLUME
+Hedef Bölüm
+; Destination Partition
+;
+MSG_WORKVOLUME
+Work Bölümü
+; Work Partition
+;
+MSG_CHOOSELANG
+Dil Seçeneklerini Seçin
+; Choose Language Options
+;
+MSG_INSTALLCORE
+AROS Çekirdek Sistemini Kurun
+; Install AROS Core System
+;
+MSG_INSTALLEXTRA
+Ekstra Yazýlým Yükleyin
+; Install Extra Software
+;
+MSG_INSTALLDEVEL
+Hata Ayýklama araçlarý ve Geliþtirici Yazýlýmýný yükleyin
+; Install Debugging tools and Developer Software
+;
+MSG_INSTALLBOOT
+Önyükleyici'yi yükleyin
+; Install Bootloader
+;
+MSG_FORMATPART
+Bölümü Biçimlendir
+; Format Partition
+;
+MSG_USEWORK
+'Work' Bölümü Kullan
+; Use 'Work' Partition
+;
+MSG_USEWORKFOR
+Ekstralar ve Geliþtirici Dosyalarý için 'Work' Bölümünü Kullanýn
+; Use 'Work' Partition for Extras and Developer Files
+;
+MSG_BEGINWITHPARTITION
+Tamam, baþlamaya hazýrýz.\n\nEn az bir bölümü biçimlendirmeyi seçtiðiniz için,\nbu noktadan sonra deðiþiklikleri artýk geri alamazsýnýz.\n\nYüklemeye baþlamak için Devam Et'i seçin.
+; OK, we are ready to begin.\n\nSince you've chosen to format at least one partition,\nyou will no longer be able to undo changes\nafter this point.\n\nSelect Proceed to begin installation.
+;
+MSG_BEGINWITHOUTPARTITION
+Tamam, baþlamaya hazýrýz...\n\nBu bilgisayarda kuruluma baþlamak için\n\yeterli bilgi topladýk.\n\n\nYüklemeye baþlamak için Devam Et'i seçin.
+; OK, we are ready to begin...\n\nWe have collected enough information\nto begin installation on this computer.\n\n\nSelect Proceed to begin installation.
+;
+MSG_PARTITIONOPTIONS
+Þimdi hedef sürücüde AROS bölümleri oluþturacaðýz.\n\nLütfen nasýl devam etmek istediðinizi seçin.\n
+; We will now create AROS partitions on the destination drive.\n\nPlease select how you would like to proceed.\n
+;
+MSG_DESTPARTITION
+\033bSistem Bölümü:\033n
+; \033bSystem Partition:\033n
+;
+MSG_WORKPARTITION
+\033bWork Bölümü:\033n
+; \033bWork Partition:\033n
+;
+MSG_USEFREE
+Yalnýzca boþ alan kullanýn
+; Only use free space
+;
+MSG_WIPEDISK
+Diski sil
+; Wipe disk
+;
+MSG_USEEXISTING
+Mevcut AROS bölümlerini kullan (herhangi bir sürücüde)
+; Use existing AROS partitions (on any drive)
+;
+MSG_PARTITIONTOOBIG
+Ýstediðiniz bölüm boyutlarý çok büyük.\nBir SFS bölümünün maksimum boyutu %ld GB (%ld MB),\nbir FFS bölümünün maksimum boyutu %ld GB'dir (%ld MB).\nLütfen etkilenen bölümlerin boyutu küçültün.\n
+; The partition sizes you have requested are too large.\nThe maximum size of an SFS partition is %ld GB (%ld MB),\nwhile the maximum size of an FFS partition is %ld GB (%ld MB).\nPlease reduce the size of the affected partitions.\n
+;
+MSG_GRUBOPTIONS
+AROS, GRUB önyükleyicisini kullanýr.\n\nÇoðu durumda, GRUB'un önyükleme bloðu\nsisteminizdeki ilk sürücüye kurulmalýdýr.\nYükleyici bir Microsoft Windows kurulumu algýlarsa,\nbunu GRUB'un önyükleme menüsünde bir seçenek olarak eklenecektir.\n
+; AROS uses the GRUB bootloader.\n\nIn most cases, GRUB's bootblock should\nbe installed on the first drive in your system.\nIf the Installer detects a Microsoft Windows installation,\nit will be included as a choice in GRUB's boot menu.\n
+;
+MSG_GRUBDRIVE
+Önyükleme kilidini yüklemek için sürücü:
+; Drive to install Bootloader's bootblock on:
+;
+MSG_GRUBGOPTIONS
+GRUB Ayarlarý
+; GRUB Settings
+;
+MSG_GRUBGRUB
+GRUB dosyalarýnýn yolu:
+; Path to GRUB files:
+;
+MSG_NOGRUBDEVICE
+Lütfen GRUB'un önyükleme bloðunun yükleneceði sürücü için aygýt adýný ve birim numarasýný girin.\n
+; Please enter the device name and unit number for\nthe drive GRUB's bootblock should be installed on.\n
+;
+MSG_PARTITIONING
+Sürücüleriniz bölümleniyor...\n\n
+; Partitioning your drives...\n\n
+;
+MSG_FORMATTING
+'%s' biçimlendiriliyor...
+; Formatting '%s'...
+;
+MSG_INSTALL
+Dosyalar hedef sürücüye kopyalanýyor.\n\nBu biraz zaman alabilir...\n
+; Copying files to the destination drive.\n\nThis may take some time...\n
+;
+MSG_COPYCORE
+Çekirdek Sistem dosyalarý kopyalanýyor...
+; Copying Core System files...
+;
+MSG_COPYEXTRA
+Ekstra Yazýlým Kopyalanýyor...
+; Copying Extra Software...
+;
+MSG_COPYDEVEL
+Geliþtirici Dosyalarý Kopyalanýyor...
+; Copying Developer Files...
+;
+MSG_COPYBOOT
+Önyükleme dosyalarý kopyalanýyor...
+; Copying BOOT files...
+;
+MSG_BOOTLOADER
+Önyükleyici hedef sürücünüze\nkopyalanýyor ve yükleniyor...\n
+; Copying the bootloader to your\ndestination drive, and installing...\n
+;
+MSG_POSTINSTALL
+Yükleme sonrasý komut dosyasý çalýþtýrýlýyor...
+; Running post-install script...
+;
+MSG_POSTINSTALL2
+Harici yükleme sonrasý komut dosyasýný\nçalýþtýrtýrýlýyor. Lütfen bekleyin.\n
+; Running the external post-install\nscript. Please wait.\n
+;
+MSG_DONEREBOOT
+AROS bölümleri þimdi oluþturuldu!\nYüklemeye devam etmek için AROS'u\nyeniden baþlatmanýz ve bu yükleyici\nuygulamasýný yeniden çalýþtýrmanýz gerekir.\n\nBitirmek için Ýlerle'yi seçin.\n
+; AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
+;
+MSG_DONEUSB
+AROS bölümleri þimdi oluþturuldu!\nYüklemeye devam etmek için USB sürücünüzü çýkarýp\nyeniden takmanýz ve bu yükleyici\nuygulamasýný yeniden çalýþtýrmanýz gerekir.\n\nBitirmek için Devam Et'i seçin.n
+; AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application.\n\nSelect Proceed to finish.n
+;
+MSG_INSTALLING
+AROS yükleniyor...
+; Installing AROS...
+;
+MSG_INSTALLINGBOOT
+Önyükleyici yükleniyor...
+; Installing Bootloader...
+;
+MSG_DONE
+Tebrikler, artýk AROS'u kurdunuz!\n\nAROS'u hedef sürücüden baþlatmak için yükleme medyasýný*\nçýkarýn ve açma-kapama düðmesini\nveya sýfýrlama düðmesini\nkullanarak bilgisayarýnýzý yeniden baþlatýn.\n\nBitirmek için Devam Et'i seçin.\n
+; Congratulations, you now have AROS installed!\n\nTo boot AROS from the destination drive,\nremove the installation media and\nrestart your computer using the\npower switch or reset button.\n\nSelect Proceed to finish.\n
+;
+MSG_CANCELOK
+Bu yüklemeyi iptal etmek\nistediðinizden emin misiniz?\n
+; Are you sure you wish to cancel\nthis installation?\n
+;
+MSG_CANCELDANGER
+Sisteminizde geri dönüþü olmayan\ndeðiþiklikler yapýldý.\n\nÞimdi iptal etmek, bilgisayarýnýzý\nbaþlatýlamaz durumda býrakabilir.\n\nBu yüklemeyi iptal etmek\nistediðinizden emin misiniz?\n
+; Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state.\n\nAre you sure you wish to cancel\nthis installation?\n
+;
+MSG_BACK
+<< _Geri...
+; << _Back...
+;
+MSG_PROCEED
+_Devam Et
+; _Proceed
+;
+MSG_NOTALLFILESCOPIED
+'%s'\niçindeki tüm dosyalar kopyalanmadý.\nKurulum devam etmeli mi?\n
+; Not all files in '%s'\nwere copied.\nShould the installation continue?\n
+;
+MSG_PARTITIONINGFAILED
+Diskin bölümlenmesi baþarýsýz oldu. InstallAROS\nþimdi kapanacak.
+; Partitioning of disk failed. InstallAROS\nwill now quit.
+;
+MSG_GRUBNONFFSWARNING
+Sistem bölümü için FFS-Intl'den farklý bir\ndosya sistemi seçtiniz. AROS'un bu daðýtýmý\norijinal GRUB önyükleyici ile derlendiðinden,\nkurulumdan sonra sistemi önyükleyemeyeceksiniz.\nBölünme devam etmeli mi?\n
+; You have selected a filesystem different\nthan FFS-Intl for the system partition. Since\nthis distribution of AROS is compiled with the\noriginal GRUB bootloader, you will not be able to\nboot the system after installation.\n\nShould the partitioning continue?\n
+;
+MSG_CANCELINSTALL
+Kurulumu Ýptal Et...
+; Cancel Installation...
+;
+MSG_CONTINUECANCELINST
+*Yüklemeye Devam Et|Yüklemeyi Ýptal Et
+; *Continue Install|Cancel Install
+;
+MSG_CONTINUECANCELPART
+Bölümlemeye Devam Et|*Bölümlemeyi Ýptal Et
+; Continue Partitioning|*Cancel Partitionin
+;
+MSG_CONTINUEQUIT
+Devam Et|*Çýkýþ
+; Continue|*Quit
+;
+MSG_EXISTSRETRY
+Dosya Zaten Var\n%s Deðiþtirilsin mi?
+; File Already Exists\nReplace %s?
+;
+MSG_RETRY
+Tekrar dene
+; Retry
+;
+MSG_SCANRETRY
+%s taranýrken hata oluþtu\nYeniden denensin mi?
+; Error scanning %s\nRetry?
+;
+MSG_FINDRETRY
+%s bulunamadý\nYeniden denensin mi?
+; Could not find %s\nRetry?
+;
+MSG_COULDNTOPEN
+%s Açýlamadý
+; Couldn't Open %s
+;
+MSG_COULDNTWRITE
+%s'e Yazýlamadý
+; Couldn't Write to %s
+;
+MSG_DISKFULL
+%s'e Yazýlamadý\nDisk Dolu!
+; Couldn't Write to %s\nDisk Full!
+;
+MSG_TEXT
+Metin
+; Text
+;
+MSG_GFX
+Grafik
+; Graphics
+;
+MSG_YES
+Evet
+; Yes
+;
+MSG_YESALWAYS
+Evet [Her zaman]
+; Yes [Always]
+;
+MSG_NO
+Hayýr
+; No
+;
+MSG_SKIP
+Atla
+; Skip
+;
+MSG_OK
+Tamam
+; OK
+;
+MSG_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_CANCEL2
+_Vazgeç
+; _Cancel
+;
+MSG_QUIT
+Çýkýþ
+; Quit
+;
+MSG_QUIT2
+ÇIKIÞ
+; QUIT
+;
+MSG_ERROR
+Hata
+; Error
+;
+MSG_WARNING
+Uyarý
+; Warning
+;
+MSG_REBOOT
+AROS'u þimdi yeniden baþlatýn
+; Reboot AROS now
+;
+MSG_IOERROR
+G/Ç Hatasý oluþtu
+; IO Error has occured
+;
+MSG_NOTFILESYSTEM
+'%s' cihazý bir dosya sistemi içermiyor\n
+; device '%s' doesn't contain a file system\n
+;
+MSG_NOTDEVICE
+'%s' bir cihaz adý içermiyor\n
+; '%s' doesn't contain a device name\n
+;

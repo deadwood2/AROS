@@ -44,9 +44,6 @@
 
 struct ExpansionBase *ExpansionBase = NULL;
 
-char *boot_Device = NULL;
-ULONG boot_Unit = 0;
-
 char *source_Path = NULL;       /* full path to source "tree" */
 char *extras_source = NULL;
 
@@ -94,6 +91,8 @@ Object *reboot_group = NULL;
             MUIA_Image_FreeVert, TRUE, \
             MUIA_Background, MUII_ButtonBack, \
             MUIA_ShowSelState, FALSE,
+
+BOOL read_environment_variable(CONST_STRPTR envarchiveDisk, CONST_STRPTR name, STRPTR buffer, ULONG size);
 
 void SetOptObjNotificationFromOptObj(Object *optobjSrc, Object *optobjTgt, IPTR trigTag, IPTR trigVal, IPTR setTag, IPTR setVal)
 {
@@ -248,7 +247,7 @@ int main(int argc, char *argv[])
             End),
         TAG_DONE);
     optObjCheckDev = NewObject(iocMcc->mcc_Class, NULL,
-            MUIA_InstallOption_ID, (IPTR)"developer",
+            MUIA_InstallOption_ID, (IPTR)"development",
             MUIA_InstallOption_ValueTag, MUIA_Selected,
             MUIA_InstallOption_Obj, (IPTR)(ImageObject, BUTTONCOMMON
                 MUIA_Selected, FALSE,
@@ -413,8 +412,7 @@ int main(int argc, char *argv[])
     FreeVec(source_path);
 
     /* Get source location for Extras dir */
-    if (read_environment_variable(source_Path, "EXTRASPATH", extras_source,
-            256))
+    if (read_environment_variable(source_Path, "EXTRASPATH", extras_source, 256))
         *PathPart(extras_source) = '\0';
     else
         strcpy(extras_source, source_Path);
@@ -465,8 +463,8 @@ int main(int argc, char *argv[])
 
     Object *app = ApplicationObject,
         MUIA_Application_Title,       __(MSG_TITLE),
-        MUIA_Application_Version,     (IPTR) "$VER: InstallAROS 1.24 (6.1.2021)",
-        MUIA_Application_Copyright,   (IPTR) "Copyright © 2003-2020, The AROS Development Team. All rights reserved.",
+        MUIA_Application_Version,     (IPTR) "$VER: InstallAROS 1.25 (16.2.2023)",
+        MUIA_Application_Copyright,   (IPTR) "Copyright © 2003-2023, The AROS Development Team. All rights reserved.",
         MUIA_Application_Author,      (IPTR) "John \"Forgoil\" Gustafsson, Nick Andrews & Neil Cafferkey",
         MUIA_Application_Description, __(MSG_DESCRIPTION),
         MUIA_Application_Base,        (IPTR) "INSTALLER",
@@ -548,7 +546,7 @@ int main(int argc, char *argv[])
                                                 MUIA_InstallOption_ValueTag, MUIA_String_Contents,
                                                 MUIA_InstallOption_Obj, (IPTR)(StringObject,
                                                     MUIA_CycleChain, 1,
-                                                    MUIA_String_Contents, (IPTR) boot_Device,
+                                                    MUIA_String_Contents, "ahci.device",
                                                     MUIA_String_Reject, " \"\'*",
                                                     MUIA_Frame, MUIV_Frame_String,
                                                     MUIA_HorizWeight, 300,
@@ -578,6 +576,7 @@ int main(int argc, char *argv[])
                                                 MUIA_InstallOption_ValueTag, MUIA_String_Contents,
                                                 MUIA_InstallOption_Obj, (IPTR)(StringObject,
                                                     MUIA_CycleChain, 1,
+                                                    MUIA_String_Contents, SYS_PART_NAME,
                                                     MUIA_Disabled, TRUE,
                                                     MUIA_Frame, MUIV_Frame_String,
                                                 End),
@@ -861,23 +860,23 @@ int main(int argc, char *argv[])
 
     /* Notifications upon selection of drive type */
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestDevice,
-                                                    MUIA_Cycle_Active, 0, MUIA_String_Contents, "ahci.device");
+                                                    MUIA_Cycle_Active, 0, MUIA_String_Contents, (IPTR)"ahci.device");
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestDevice,
-                                                    MUIA_Cycle_Active, 1, MUIA_String_Contents, "ata.device");
+                                                    MUIA_Cycle_Active, 1, MUIA_String_Contents, (IPTR)"ata.device");
     SetOptObjNotificationFromObj(cycle_drivetype,  optObjDestDevice,
-                                                    MUIA_Cycle_Active, 2, MUIA_String_Contents, "scsi.device");
+                                                    MUIA_Cycle_Active, 2, MUIA_String_Contents, (IPTR)"scsi.device");
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestDevice,
-                                                    MUIA_Cycle_Active, 3, MUIA_String_Contents, "usbscsi.device");
+                                                    MUIA_Cycle_Active, 3, MUIA_String_Contents, (IPTR)"usbscsi.device");
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestUnit,
                                                     MUIA_Cycle_Active, MUIV_EveryTime, MUIA_String_Integer, 0);
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestVolumeName,
-                                                    MUIA_Cycle_Active, 0, MUIA_String_Contents, SYS_PART_NAME);
+                                                    MUIA_Cycle_Active, 0, MUIA_String_Contents, (IPTR)SYS_PART_NAME);
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestVolumeName,
-                                                    MUIA_Cycle_Active, 1, MUIA_String_Contents, SYS_PART_NAME);
+                                                    MUIA_Cycle_Active, 1, MUIA_String_Contents, (IPTR)SYS_PART_NAME);
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestVolumeName,
-                                                    MUIA_Cycle_Active, 2, MUIA_String_Contents, SYS_PART_NAME);
+                                                    MUIA_Cycle_Active, 2, MUIA_String_Contents, (IPTR)SYS_PART_NAME);
     SetOptObjNotificationFromObj(cycle_drivetype, optObjDestVolumeName,
-                                                    MUIA_Cycle_Active, 3, MUIA_String_Contents, USB_SYS_PART_NAME);
+                                                    MUIA_Cycle_Active, 3, MUIA_String_Contents, (IPTR)USB_SYS_PART_NAME);
 
     DoMethod(cycle_drivetype, MUIM_Notify, (IPTR) MUIA_Cycle_Active, 0,
         (IPTR) work_devname, 3, MUIM_Set, MUIA_String_Contents,
