@@ -4,9 +4,9 @@ include $(SRCDIR)/config/aros.cfg
 DEBUG_ACPI=no
 
 ACPICAPACKAGE      := acpica
-ACPICAVERSION      := 20201113
+ACPICAVERSION      := 20220331
 ACPICAREPOSITORIES := \
-    https://downloadmirror.intel.com/774851
+    https://downloadmirror.intel.com/774879
 ACPICAARCHBASE     := $(ACPICAPACKAGE)-unix-$(ACPICAVERSION)
 ACPICASRCDIR       := $(PORTSDIR)/acpica/$(ACPICAARCHBASE)
 
@@ -47,6 +47,7 @@ USER_LDFLAGS := -noclibs -lstdc.static
 # ACPICA debugging options
 ifeq ($(DEBUG_ACPI),yes)
 ACPICA_BASESOURCES +=  \
+       $(call WILDCARD, $(ACPICASRCDIR)/source/common/ahids.c $(ACPICASRCDIR)/source/common/ahuuids.c) \
        $(call WILDCARD, $(ACPICASRCDIR)/source/components/disassembler/*.c)
 USER_CPPFLAGS += -DACPI_DEBUG_OUTPUT=1 -DACPI_DISASSEMBLER=1
 # AROS Glue code debugging options
@@ -77,7 +78,7 @@ USER_INCLUDES += \
 
 %build_module mmake=kernel-acpica-sharedlib \
   modname=acpica modtype=library \
-  files="$(FILES)" usesdks="private"
+  files="$(FILES)" usesdks="private config"
 
 # Headers
 
