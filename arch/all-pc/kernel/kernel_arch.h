@@ -30,10 +30,12 @@ struct PlatformData
 {
     IPTR                kb_PDFlags;
     APTR                kb_APIC_TrampolineBase;	/* Starting address of secondary core bootstrap code	*/
+    APTR                kb_APICHeartBeat;
     struct List         kb_SysCallHandlers;
     struct ACPIData     *kb_ACPI;
     struct APICData     *kb_APIC;
     struct IOAPICData   *kb_IOAPIC;
+    struct Interrupt    kb_APICResetHandler;
     struct List         kb_FreeIPIHooks;
     struct List         kb_BusyIPIHooks;
     spinlock_t          kb_FreeIPIHooksLock;
