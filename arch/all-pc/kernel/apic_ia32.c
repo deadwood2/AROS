@@ -518,6 +518,63 @@ static BOOL APIC_isMSHyperV(void)
 /**********************************************************
                         Driver functions
  **********************************************************/
+int APICHeartbeatFinalizer(struct ExceptionContext *regs, struct KernelBase *LIBBASE, struct ExecBase *SysBase)
+{
+    struct PlatformData *pdata = LIBBASE->kb_PlatformData;
+
+    D(bug("[Kernel:APIC] %s(0x%p)\n", __func__, LIBBASE));
+
+    pdata->kb_PDFlags &= ~PLATFORMF_HAVEHEARTBEAT;
+}
+
+static AROS_INTH1(APICResetHandler, struct KernelBase *, KernelBase)
+{
+    AROS_INTFUNC_INIT
+
+    struct PlatformData *pdata = KernelBase->kb_PlatformData;
+    APTR ssp = NULL;
+
+    D(bug("[Kernel:APIC] %s(0x%p)\n", __func__, KernelBase));
+
+    /*
+     * End the APIC heartbeat.
+     */
+    Forbid();
+
+    KrnRemExceptionHandler(pdata->kb_APICHeartBeat);
+    pdata->kb_APICHeartBeat = KrnAddExceptionHandler(APIC_EXCEPT_HEARTBEAT, APICHeartbeatFinalizer, KernelBase, SysBase);
+
+    if ((KrnIsSuper()) || ((ssp = SuperState()) != NULL))
+    {
+        /* Cause the heartbeat to fire its last time .. */
+        IPTR __APICBase = core_APIC_GetBase();
+        APIC_REG(__APICBase, APIC_TIMER_ICR) = 0x0;
+
+        if (ssp)
+            UserState(ssp);
+    }
+
+    KrnSti();
+    KrnCli();
+
+    if ((KrnIsSuper()) || ((ssp = SuperState()) != NULL))
+    {
+        /* Now disable heartbeat timer */
+        IPTR __APICBase = core_APIC_GetBase();
+        APIC_REG(__APICBase, APIC_TIMER_VEC) = 0xFF;
+
+        if (ssp)
+            UserState(ssp);
+    }
+
+    Permit();
+
+    D(bug("[Kernel:APIC] %s: Timer shutdown complete\n", __func__);)
+    
+    return 0;
+
+    AROS_INTFUNC_EXIT
+}
 
 void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
 {
@@ -715,7 +772,13 @@ void core_APIC_Init(struct APICData *apic, apicid_t cpuNum)
         {
             struct PlatformData *pdata = KernelBase->kb_PlatformData;
 
-            KrnAddExceptionHandler(APIC_EXCEPT_HEARTBEAT, APICHeartbeatServer, KernelBase, SysBase);
+        pdata->kb_APICHeartBeat = KrnAddExceptionHandler(APIC_EXCEPT_HEARTBEAT, APICHeartbeatServer, KernelBase, SysBase);
+        pdata->kb_APICResetHandler.is_Node.ln_Pri = -62;
+        pdata->kb_APICResetHandler.is_Node.ln_Name =
+            KernelBase->kb_Node.ln_Name;
+        pdata->kb_APICResetHandler.is_Code = (VOID_FUNC)APICResetHandler;
+        pdata->kb_APICResetHandler.is_Data = KernelBase;
+        AddResetCallback(&pdata->kb_APICResetHandler);
             
             apic->flags |= APF_TIMER;
             pdata->kb_PDFlags |= PLATFORMF_HAVEHEARTBEAT;
