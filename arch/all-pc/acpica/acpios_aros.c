@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2020, The AROS Development Team
+ * Copyright (C) 2012-2023, The AROS Development Team
  * All right reserved.
  * Author: Jason S. McMullan <jason.mcmullan@gmail.com>
  *
@@ -10,7 +10,12 @@
 #define __ACPICA_NOLIBBASE__
 #endif /* !__ACPICA_NOLIBBASE__ */
 
+#ifndef __KERNEL_NOLIBBASE__
+#define __KERNEL_NOLIBBASE__
+#endif /* !__KERNEL_NOLIBBASE__ */
+
 #include <aros/debug.h>
+#include <aros/config.h>
 
 #include "acpica_intern.h"
 
@@ -38,22 +43,88 @@
 #undef __aros_getbase_ACPICABase
 struct Library *__aros_getbase_ACPICABase(void);
 
+struct AcpiOsInt {
+    struct MinNode      ai_Node;
+    struct Interrupt    ai_Interrupt;
+    ACPI_OSD_HANDLER    ai_Handler;
+    void                *ai_Context;
+};
+
+#if defined(ACPI_DISASSEMBLER)
+/* Stubs for the disassembler */
+void
+MpSaveGpioInfo (
+    ACPI_PARSE_OBJECT       *Op,
+    AML_RESOURCE            *Resource,
+    UINT32                  PinCount,
+    UINT16                  *PinList,
+    char                    *DeviceName)
+{
+    D(bug("[ACPI] %s()\n", __func__));
+}
+
+void
+MpSaveSerialInfo (
+    ACPI_PARSE_OBJECT       *Op,
+    AML_RESOURCE            *Resource,
+    char                    *DeviceName)
+{
+    D(bug("[ACPI] %s()\n", __func__));
+}
+#endif
+
+BOOL __aros_setoffsettable(char *base);
+char *__aros_getoffsettable(void);
+
+static AROS_INTH1(ACPICAResetHandler, struct ACPICABase *, ACPICABase)
+{
+    AROS_INTFUNC_INIT
+    ACPI_STATUS status;
+
+    D(bug("[ACPI] %s()\n", __func__);)
+
+    if (ACPICABase->ab_ResetInt.is_Node.ln_Type != SD_ACTION_WARMREBOOT)
+    {
+        D(bug("[ACPI] %s: Skipping ACPI shutdown (Not WARMREBOOT)\n", __func__);)
+        return FALSE;
+    }            
+    else
+    {
+        /* Install libbase into storage so that __aros_getbase_ACPICABase works on all architectures */
+        APTR ptr = __aros_getoffsettable();
+        __aros_setoffsettable((char *)ACPICABase);
+        status = AcpiTerminate();
+        __aros_setoffsettable(ptr);
+
+        if (ACPI_SUCCESS(status))
+        {
+            D(bug("[ACPI] %s: ACPI subsystem shutdown complete\n", __func__);)
+            return FALSE;
+        }
+    }
+    bug("[ACPI] %s: Failed to shutdown ACPI! (%08x)\n", __func__, status);
+    return TRUE;
+
+    AROS_INTFUNC_EXIT
+}
+
+
 ACPI_STATUS AcpiOsInitialize (void)
 {
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     if ((ACPICABase->ab_TimeMsgPort = CreateMsgPort())) {
         D(bug("[ACPI] %s: MsgPort @ %p\n", __func__, ACPICABase->ab_TimeMsgPort));
         if ((ACPICABase->ab_TimeRequest = CreateIORequest(ACPICABase->ab_TimeMsgPort, sizeof(*ACPICABase->ab_TimeRequest)))) {
             D(bug("[ACPI] %s: TimeRequest @ %p\n", __func__, ACPICABase->ab_TimeRequest));
 
-                        if (ACPICABase->ab_Flags & ACPICAF_TIMER)
-                                if (0 == OpenDevice(TIMERNAME, UNIT_MICROHZ, (struct IORequest *)ACPICABase->ab_TimeRequest, 0))
-                                {
-                                        ACPICABase->ab_TimerBase = (struct Library *)ACPICABase->ab_TimeRequest->tr_node.io_Device;
-                                }
+        if (ACPICABase->ab_Flags & ACPICAF_TIMER)
+            if (0 == OpenDevice(TIMERNAME, UNIT_MICROHZ, (struct IORequest *)ACPICABase->ab_TimeRequest, 0))
+            {
+                ACPICABase->ab_TimerBase = (struct Library *)ACPICABase->ab_TimeRequest->tr_node.io_Device;
+            }
 
             return AE_OK;
         }
@@ -69,13 +140,13 @@ ACPI_STATUS AcpiOsTerminate (void)
 {
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
-        if (ACPICABase->ab_TimeRequest->tr_node.io_Device)
-        {
-                ACPICABase->ab_TimerBase = NULL;
-                CloseDevice((struct IORequest *)ACPICABase->ab_TimeRequest);
-        }
+    if (ACPICABase->ab_TimeRequest->tr_node.io_Device)
+    {
+        ACPICABase->ab_TimerBase = NULL;
+        CloseDevice((struct IORequest *)ACPICABase->ab_TimeRequest);
+    }
 
     DeleteIORequest(ACPICABase->ab_TimeRequest);
     DeleteMsgPort(ACPICABase->ab_TimeMsgPort);
@@ -87,7 +158,7 @@ ACPI_PHYSICAL_ADDRESS AcpiOsGetRootPointer(void)
 {
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     if (ACPICABase->ab_RootPointer == 0) {
         struct Library *EFIBase = OpenResource("efi.resource");
@@ -100,6 +171,7 @@ ACPI_PHYSICAL_ADDRESS AcpiOsGetRootPointer(void)
             if (ACPICABase->ab_RootPointer == 0) {
                 ACPICABase->ab_RootPointer = (ACPI_PHYSICAL_ADDRESS)EFI_FindConfigTable(&acpi_10_guid);
             }
+            D(bug("[ACPI] %s: EFI ACPI RootPointer @ 0x%p\n", __func__, ACPICABase->ab_RootPointer));
         }
     }
 
@@ -107,6 +179,7 @@ ACPI_PHYSICAL_ADDRESS AcpiOsGetRootPointer(void)
      */
     if (ACPICABase->ab_RootPointer == 0) {
         AcpiFindRootPointer(&ACPICABase->ab_RootPointer);
+        D(bug("[ACPI] %s: ACPI RootPointer @ 0x%p\n", __func__, ACPICABase->ab_RootPointer));
     }
 
     return ACPICABase->ab_RootPointer;
@@ -205,7 +278,7 @@ void AcpiOsSleep(UINT64 Milliseconds)
 {
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     ACPICABase->ab_TimeRequest->tr_node.io_Command = TR_ADDREQUEST;
     ACPICABase->ab_TimeRequest->tr_time.tv_secs = Milliseconds / 1000;
@@ -217,7 +290,7 @@ void AcpiOsStall(UINT32 Microseconds)
 {
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     ACPICABase->ab_TimeRequest->tr_node.io_Command = TR_ADDREQUEST;
     ACPICABase->ab_TimeRequest->tr_time.tv_secs = Microseconds / 1000000;
@@ -368,11 +441,6 @@ void AcpiOsReleaseLock(ACPI_SPINLOCK Handle, ACPI_CPU_FLAGS Flags)
         UnlockSpin(Handle);
 }
 
-struct AcpiOsInt {
-    struct Interrupt ai_Interrupt;
-    ACPI_OSD_HANDLER ai_Handler;
-    void *ai_Context;
-};
 
 static AROS_INTH1(AcpiOsIntServer, struct AcpiOsInt *, ai)
 {
@@ -393,15 +461,17 @@ ACPI_STATUS AcpiOsInstallInterruptHandler(UINT32 InterruptLevel, ACPI_OSD_HANDLE
 {
     struct AcpiOsInt *ai;
 
-    D(bug("[ACPI] %s()\n", __func__));
+    D(bug("[ACPI] %s(%u)\n", __func__, InterruptLevel));
 
     if ((ai = ACPI_ALLOCATE(sizeof(*ai)))) {
+        struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
         ai->ai_Interrupt.is_Node.ln_Name = "ACPI";
         ai->ai_Interrupt.is_Code = (APTR)AcpiOsIntServer;
         ai->ai_Interrupt.is_Data = (APTR)ai;
         ai->ai_Handler = Handler;
         ai->ai_Context = Context;
         AddIntServer(INTB_KERNEL + InterruptLevel, &ai->ai_Interrupt);
+        AddTail((struct List *)&ACPICABase->ab_IntHandlers, (struct Node *)&ai->ai_Node);
         return AE_OK;
     }
 
@@ -410,9 +480,23 @@ ACPI_STATUS AcpiOsInstallInterruptHandler(UINT32 InterruptLevel, ACPI_OSD_HANDLE
 
 ACPI_STATUS AcpiOsRemoveInterruptHandler(UINT32 InterruptNumber, ACPI_OSD_HANDLER Handler)
 {
-    bug("[ACPI] %s: FIXME! (InterruptLevel=%d)\n", __func__, InterruptNumber);
+    struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
+    struct AcpiOsInt *ai, *tmp;
 
-    return AE_NOT_IMPLEMENTED;
+    D(bug("[ACPI] %s(%u)\n", __func__, InterruptNumber);)
+
+    ForeachNodeSafe(&ACPICABase->ab_IntHandlers, ai, tmp)
+    {
+        if (ai->ai_Handler == Handler)
+        {
+            Remove((struct Node *)&ai->ai_Node);
+            RemIntServer(INTB_KERNEL + InterruptNumber, &ai->ai_Interrupt);
+            ACPI_FREE(ai);
+            return AE_OK;
+        }
+    }
+
+    return AE_BAD_PARAMETER;
 }
 
 ACPI_STATUS AcpiOsReadMemory(ACPI_PHYSICAL_ADDRESS Address, UINT64 *Value, UINT32 Width)
@@ -465,12 +549,13 @@ ACPI_STATUS AcpiOsWritePort(ACPI_IO_ADDRESS Address, UINT32 Value, UINT32 Width)
 
 static UINT8 *find_pci(struct ACPICABase *ACPICABase, ACPI_PCI_ID *PciId)
 {
+    ACPI_MCFG_ALLOCATION *mcfg = (ACPI_MCFG_ALLOCATION *)ACPICABase->ab_MCFG.me_Un.meu_Addr;
     int i;
 
     D(bug("[ACPI] %s()\n", __func__));
 
-    for (i = 0; i < ACPICABase->ab_PCIs; i++) {
-        ACPI_MCFG_ALLOCATION *ma = &ACPICABase->ab_PCI[i];
+    for (i = 0; i < (ACPICABase->ab_MCFG.me_Length / sizeof(ACPI_MCFG_ALLOCATION)); i++) {
+        ACPI_MCFG_ALLOCATION *ma = &mcfg[i];
         if (PciId->Segment != ma->PciSegment)
             continue;
         if (PciId->Bus < ma->StartBusNumber ||
@@ -488,7 +573,7 @@ ACPI_STATUS AcpiOsReadPciConfiguration(ACPI_PCI_ID *PciId, UINT32 Register, UINT
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
     UINT8 *ecam;
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     if ((ecam = find_pci(ACPICABase, PciId))) {
         UINT32 offset = (PciId->Bus << 20) | (PciId->Device << 15) | (PciId->Function << 12) | Register;
@@ -511,7 +596,7 @@ ACPI_STATUS AcpiOsWritePciConfiguration(ACPI_PCI_ID *PciId, UINT32 Register, UIN
     struct ACPICABase *ACPICABase = (struct ACPICABase *)__aros_getbase_ACPICABase();
     UINT8 *ecam;
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     if ((ecam = find_pci(ACPICABase, PciId))) {
         UINT32 offset = (PciId->Bus << 20) | (PciId->Device << 15) | (PciId->Function << 12) | Register;
@@ -540,7 +625,11 @@ void AcpiOsPrintf(const char *Fmt, ...)
 
 void AcpiOsVprintf(const char *Format, va_list Args)
 {
-    vkprintf(Format, Args);
+    struct Library *KernelBase = OpenResource("kernel.resource");
+    if (KernelBase)
+        KrnBug(Format, Args);
+    else
+        vkprintf(Format, Args);
 }
 
 /* Return current time in 100ns units
@@ -552,7 +641,7 @@ UINT64 AcpiOsGetTimer(void)
     struct timeval tv;
     UINT64 retVal = 0;
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     if ((TimerBase = ACPICABase->ab_TimerBase))
     {
@@ -688,51 +777,131 @@ static void ACPICA_NotifyHandler (
     D(bug("[ACPI] %s: Received a notify 0x%x (device %p, context %p)\n", __func__, Value, Device, Context));
 }
 
-static int ACPICA_InitTask(struct ACPICABase *ACPICABase)
+static ACPI_STATUS InstallHandlers (void)
 {
-    ACPI_STATUS err;
-    const UINT8 initlevel = ACPI_FULL_INITIALIZATION;
-
-    D(bug("[ACPI] %s: Starting Full initialization...\n", __func__));
-
-    err = AcpiInitializeSubsystem();
-    if (ACPI_FAILURE(err)) {
-        D(bug("[ACPI] %s: AcpiInitializeSubsystem returned error %d\n", __func__, err));
-        return FALSE;
-    }
-
-    D(bug("[ACPI] %s: Subsystem Initialized\n", __func__));
-
-    err = AcpiLoadTables();
-    if (ACPI_FAILURE(err)) {
-        D(bug("[ACPI] %s: AcpiLoadTables returned error %d\n", __func__, err));
-        return FALSE;
-    }
-
-    D(bug("[ACPI] %s: Tables Initialized\n", __func__));
+    ACPI_STATUS             err;
 
     err = AcpiInstallNotifyHandler (ACPI_ROOT_OBJECT, ACPI_SYSTEM_NOTIFY,
                                         ACPICA_NotifyHandler, NULL);
     if (ACPI_FAILURE(err)) {
         D(bug("[ACPI] %s: AcpiInstallNotifyHandler returned error %d\n", __func__, err));
+        return err;
+    }
+
+   /* Install the default address space handlers. */
+   err = AcpiInstallAddressSpaceHandler(ACPI_ROOT_OBJECT,
+      ACPI_ADR_SPACE_SYSTEM_MEMORY, ACPI_DEFAULT_HANDLER, NULL, NULL);
+   if (ACPI_FAILURE(err)) {
+      D(bug("[ACPI] %s: Failed to initialise SystemMemory OpRegion handler, %s!", __func__,
+         AcpiFormatException(err)));
+        return err;
+   }
+
+   err = AcpiInstallAddressSpaceHandler(ACPI_ROOT_OBJECT,
+      ACPI_ADR_SPACE_SYSTEM_IO, ACPI_DEFAULT_HANDLER, NULL, NULL);
+   if (ACPI_FAILURE(err)) {
+        D(bug("[ACPI] %s: Failed to initialise SystemIO OpRegion handler, %s!", __func__,
+         AcpiFormatException(err)));
+        return err;
+   }
+
+   err = AcpiInstallAddressSpaceHandler(ACPI_ROOT_OBJECT,
+      ACPI_ADR_SPACE_PCI_CONFIG, ACPI_DEFAULT_HANDLER, NULL, NULL);
+   if (ACPI_FAILURE(err)) {
+        D(bug("[ACPI] %s: Failed to initialise PciConfig OpRegion handler, %s!", __func__,
+         AcpiFormatException(err)));
+        return err;
+   }
+
+    return (AE_OK);
+}
+
+
+ACPI_STATUS
+ExecuteOSI (
+    char                    *OsiString,
+    UINT64                  ExpectedResult)
+{
+    ACPI_OBJECT_LIST        argList;
+    ACPI_OBJECT             Arg[1];
+    ACPI_BUFFER             retval;
+    ACPI_STATUS             err;
+
+    argList.Count = 1;
+    argList.Pointer = Arg;
+
+    Arg[0].Type = ACPI_TYPE_STRING;
+    Arg[0].String.Pointer = OsiString;
+    Arg[0].String.Length = strlen(OsiString);
+
+    retval.Length = ACPI_ALLOCATE_BUFFER;
+
+    err = AcpiEvaluateObject (NULL, "\\_OSI", &argList, &retval);
+    if (ACPI_FAILURE (err))
+    {
+        bug("[ACPI] %s: Failed to execute _OSI, %s\n", __func__, AcpiFormatException(err));
+        return (AE_OK);
+    }
+    AcpiOsFree (retval.Pointer);
+    return (AE_OK);
+}
+
+static int ACPICA_InitTask(struct ACPICABase *ACPICABase)
+{
+    ACPI_STATUS err;
+    const UINT8 initlevel = ACPI_FULL_INITIALIZATION;
+
+    /* Install libbase into storage so that __aros_getbase_ACPICABase works on all architectures */
+    __aros_setoffsettable((char *)ACPICABase);
+
+    D(bug("[ACPI] %s: Starting Full initialization...\n", __func__);)
+
+    ACPICABase->ab_Flags &= ~ACPICAF_FULLINIT;
+
+    err = AcpiInitializeSubsystem();
+    if (ACPI_FAILURE(err)) {
+        bug("[ACPI] %s: AcpiInitializeSubsystem returned error %d\n", __func__, err);
         return FALSE;
     }
 
+    D(bug("[ACPI] %s: Subsystem Initialized\n", __func__));
+
+    err = InstallHandlers();
+    if (ACPI_FAILURE(err))
+    {
+        bug("[ACPI] %s: Failed to install handlers\n", __func__);
+        return FALSE;
+    }
+
+/* The following block will only work on native builds */
+#if (AROS_FLAVOUR & AROS_FLAVOUR_STANDALONE)
     err = AcpiEnableSubsystem(initlevel);
     if (ACPI_FAILURE(err)) {
-        D(bug("[ACPI] %s: AcpiEnableSubsystem(0x%02x) returned error %d\n", __func__, initlevel, err));
+        bug("[ACPI] %s: AcpiEnableSubsystem(0x%02x) returned error %d\n", __func__, initlevel, err);
         return FALSE;
     }
 
     D(bug("[ACPI] %s: Subsystem Enabled\n", __func__));
+    
+    err = AcpiLoadTables();
+    if (ACPI_FAILURE(err)) {
+        bug("[ACPI] %s: AcpiLoadTables returned error %d\n", __func__, err);
+        return FALSE;
+    }
+
+    D(bug("[ACPI] %s: Tables Initialized\n", __func__));
 
     err = AcpiInitializeObjects(initlevel);
     if (ACPI_FAILURE(err)) {
-        D(bug("[ACPI] %s: AcpiInitializeObjects(0x%02x) returned error %d\n", __func__, initlevel, err));
+        bug("[ACPI] %s: AcpiInitializeObjects(0x%02x) returned error %d\n", __func__, initlevel, err);
         return FALSE;
     }
 
     D(bug("[ACPI] %s: Full initialization complete\n", __func__));
+
+    ExecuteOSI("Windows 2009", 0);
+#endif
+    ACPICABase->ab_Flags |= ACPICAF_FULLINIT;
 
     return TRUE;
 }
@@ -743,7 +912,7 @@ int ACPICA_init(struct ACPICABase *ACPICABase)
     ACPI_STATUS err;
     struct Library *KernelBase;
 
-    D(bug("[ACPI] %s: ACPICABase=0x%p\n", __func__, ACPICABase));
+    D(bug("[ACPI] %s: ACPICABase @ 0x%p\n", __func__, ACPICABase));
 
     if ((KernelBase = OpenResource("kernel.resource"))) {
         struct TagItem *cmdline = LibFindTagItem(KRN_CmdLine, KrnGetBootInfo());
@@ -753,26 +922,36 @@ int ACPICA_init(struct ACPICABase *ACPICABase)
             return FALSE;
         }
     }
-    ACPICABase->ab_Flags |= ACPICAF_ENABLED;
-
     AcpiDbgLevel = ~0;
-
     ACPICABase->ab_RootPointer = 0;
 
-    err = AcpiInitializeTables(NULL, ACPI_MAX_INIT_TABLES, TRUE);
+    NewMinList(&ACPICABase->ab_IntHandlers);
+
+/* The following block will only work on native builds */
+#if (AROS_FLAVOUR & AROS_FLAVOUR_STANDALONE)
+    err = AcpiInitializeTables(NULL, ACPI_MAX_INIT_TABLES, FALSE);
     if (ACPI_FAILURE(err)) {
         D(bug("[ACPI] %s: AcpiInitializeTables returned error %d\n", __func__, err));
         return FALSE;
     }
-
-    ACPICABase->ab_Flags |= ACPICAF_INITIALISED;
+#endif
+    ACPICABase->ab_Flags |= ACPICAF_TABLEINIT;
 
     if (AcpiGetTable("MCFG", 1, (ACPI_TABLE_HEADER **)&mcfg) == AE_OK) {
-        ACPICABase->ab_PCIs = (mcfg->Header.Length - sizeof(*mcfg)) / sizeof(ACPI_MCFG_ALLOCATION);
-        ACPICABase->ab_PCI = (ACPI_MCFG_ALLOCATION *)&mcfg[1];
+        ACPICABase->ab_MCFG.me_Un.meu_Addr = (ACPI_MCFG_ALLOCATION *)&mcfg[1];
+        ACPICABase->ab_MCFG.me_Length = (mcfg->Header.Length - sizeof(*mcfg));
     } else {
-        ACPICABase->ab_PCIs = 0;
+        ACPICABase->ab_MCFG.me_Length = 0;
     }
+
+    ACPICABase->ab_Flags |= ACPICAF_ENABLED;
+
+    // Install warm-reset handler
+    ACPICABase->ab_ResetInt.is_Node.ln_Name = ACPICABase->ab_Lib.lib_Node.ln_Name;
+    ACPICABase->ab_ResetInt.is_Node.ln_Pri = -60; /* run just before the warm reboot */
+    ACPICABase->ab_ResetInt.is_Code = (VOID_FUNC)ACPICAResetHandler;
+    ACPICABase->ab_ResetInt.is_Data = ACPICABase;
+    AddResetCallback(&ACPICABase->ab_ResetInt);
 
     return TRUE;
 }
@@ -782,7 +961,7 @@ int ACPICA_expunge(struct ACPICABase *ACPICABase)
 {
     D(bug("[ACPI] %s()\n", __func__));
 
-    if ((ACPICABase->ab_Flags & (ACPICAF_ENABLED|ACPICAF_INITIALISED)) == (ACPICAF_ENABLED|ACPICAF_INITIALISED))
+    if ((ACPICABase->ab_Flags & (ACPICAF_ENABLED|ACPICAF_TABLEINIT)) == (ACPICAF_ENABLED|ACPICAF_TABLEINIT))
         AcpiTerminate();
 
     return TRUE;
@@ -896,20 +1075,20 @@ static AROS_UFH3 (APTR, ACPICATimerSetup,
     /* If ACPICA isn't available, don't run */
     ACPICABase = (struct ACPICABase *)OpenLibrary("acpica.library", 0);
     if (!ACPICABase) {
-        D(bug("[ACPI] %s(): Can't open acpica.library. Quitting\n", __func__));
+        D(bug("[ACPI] %s(): Failed to open acpica.library\n", __func__));
         return NULL;
     }
 
-        if (0 == OpenDevice(TIMERNAME, UNIT_MICROHZ, (struct IORequest *)ACPICABase->ab_TimeRequest, 0))
-        {
-                ACPICABase->ab_Flags |= ACPICAF_TIMER;
-                ACPICABase->ab_TimerBase = (struct Library *)ACPICABase->ab_TimeRequest->tr_node.io_Device;
-        }
+    if (0 == OpenDevice(TIMERNAME, UNIT_MICROHZ, (struct IORequest *)ACPICABase->ab_TimeRequest, 0))
+    {
+            ACPICABase->ab_Flags |= ACPICAF_TIMER;
+            ACPICABase->ab_TimerBase = (struct Library *)ACPICABase->ab_TimeRequest->tr_node.io_Device;
+    }
     D(bug("[ACPI] %s: Finished\n", __func__));
 
-    AROS_USERFUNC_EXIT
-
     return NULL;
+
+    AROS_USERFUNC_EXIT
 }
 
 void acpicatimer_end(void) { };
