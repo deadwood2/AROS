@@ -77,7 +77,7 @@ USER_CPPFLAGS := $(LIBZ_CPPFLAGS) -DNO_STRERROR -DNDEBUG
     files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" \
     objdir=$(GENDIR)/$(CURDIR)/static
 
-INCLUDE_FILES := zlib.h zconf.h zutil.h
+INCLUDE_FILES := zlib.h zconf.h
 %copy_includes dir=$(ARCHSRCDIR)
 
 #MM
