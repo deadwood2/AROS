@@ -13,9 +13,9 @@ If NOT WARN
     If EXISTS "SYS:Development/Debug/Tests/Library/Libs"
         Assign "LIBS:" "SYS:Development/Debug/Tests/Library/Libs" ADD
         Copy SYS:Development/Debug/Tests/Library/extlib1.seg SYS:
-        Execute S/Test cunit/genmodule/library/cunit-genmodule-autoopen ;AutoOpen_Suite
-        Execute S/Test cunit/genmodule/library/cunit-genmodule-library  ;Library_Suite
-        Execute S/Test cunit/genmodule/library/cunit-genmodule-relbase  ;Relbase_Suite
+        Execute S/Test cunit/library/cunit-library-autoopen ;AutoOpen_Suite
+        Execute S/Test cunit/library/cunit-library-library  ;Library_Suite
+        Execute S/Test cunit/library/cunit-library-relbase  ;Relbase_Suite
     EndIf
 
     ; Perform basic "exec.library" unit tests...

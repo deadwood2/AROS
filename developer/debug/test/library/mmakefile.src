@@ -3,57 +3,27 @@ include $(SRCDIR)/config/aros.cfg
 #MM- test : test-library
 
 #MM- test-library : \
-#MM      test-library-singletest \
-#MM      test-library-singletest_auto \
-#MM      test-library-peropenertest \
-#MM      test-library-usereltest \
-#MM      test-genmodule-library-cunit
+#MM      test-library-cunit
 
-#MM test-library-singletest : test-library-singlelib
-#MM test-library-singletest_auto : test-library-singlelib
-#MM test-library-peropenertest : test-library-peropenerlib
-#MM test-library-usereltest :  test-library-userellib
-#MM test-library-userellib: includes-peropener includes-single linklibs-peropener linklibs-single
+#MM test-library-userellib : includes-peropener includes-single linklibs-peropener linklibs-single
 
 #MM test-library-peropenerlib-extlibseg : test-library-peropenerlib-extlib
 #MM test-library-peropenerlib : test-library-peropenerlib-extlibseg
 
 #MM- test-library-clean : \
-#MM       test-library-singletest-clean \
-#MM       test-library-singletest_auto-clean \
-#MM       test-library-peropenertest-clean \
 #MM       test-library-singlelib-clean \
 #MM       test-library-peropenerlib-clean \
 #MM       test-library-userellib-clean
 
 
-#MM- test-cunit : test-genmodule-library-cunit
-#MM- test-cunit-quick : test-genmodule-library-cunit-quick
-#MM- test-genmodule-library-cunit-deps : linklibs-cunit test-library-userellib
+#MM- test-cunit : test-library-cunit
+#MM- test-cunit-quick : test-library-cunit-quick
 
 TARGETDIR := $(AROS_TESTS)/Library
-CUNITEXEDIR := $(AROS_TESTS)/cunit/genmodule/library
+CUNITEXEDIR := $(AROS_TESTS)/cunit/library
 
 USER_INCLUDES := -I$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/include
 USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
-
-# Test Progs
-
-%build_prog mmake=test-library-singletest \
-    progname=singletest targetdir=$(TARGETDIR) \
-    uselibs=single
-
-%build_prog mmake=test-library-singletest_auto \
-    files=singletest_auto progname=singletest_auto targetdir=$(TARGETDIR) \
-    uselibs=single
-
-%build_prog mmake=test-library-peropenertest \
-    progname=peropenertest targetdir=$(TARGETDIR) \
-    uselibs=peropener
-
-%build_prog mmake=test-library-usereltest \
-    progname=usereltest targetdir=$(TARGETDIR) \
-    uselibs="userel peropener"
 
 # Libraries
 
@@ -88,21 +58,21 @@ USER_INCLUDES +=
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 USER_LDFLAGS +=
 
-##MM- test-genmodule-library-relbase-cunit : test-genmodule-library-cunit-deps
+#MM test-library-relbase-cunit : linklibs-cunit test-library-userellib test-library-singlelib test-library-peropenerlib
 
-%build_prog mmake=test-genmodule-library-autoopen-cunit \
-    progname=cunit-genmodule-autoopen targetdir=$(CUNITEXEDIR) \
+%build_prog mmake=test-library-autoopen-cunit \
+    progname=cunit-library-autoopen targetdir=$(CUNITEXEDIR) \
     uselibs="single cunit"
 
-%build_prog mmake=test-genmodule-library-library-cunit \
-    progname=cunit-genmodule-library targetdir=$(CUNITEXEDIR) \
+%build_prog mmake=test-library-library-cunit \
+    progname=cunit-library-library targetdir=$(CUNITEXEDIR) \
     uselibs="single cunit"
 
-%build_prog mmake=test-genmodule-library-relbase-cunit \
-    progname=cunit-genmodule-relbase targetdir=$(CUNITEXEDIR) \
+%build_prog mmake=test-library-relbase-cunit \
+    progname=cunit-library-relbase targetdir=$(CUNITEXEDIR) \
     uselibs="userel peropener cunit"
 
-#MM- test-genmodule-library-cunit : test-genmodule-library-relbase-cunit test-genmodule-library-autoopen-cunit test-genmodule-library-library-cunit
-#MM- test-genmodule-library-cunit-quick : test-genmodule-library-relbase-cunit-quick test-genmodule-library-autoopen-cunit-quick test-genmodule-library-library-cunit-quick
+#MM- test-library-cunit : test-library-relbase-cunit test-library-autoopen-cunit test-library-library-cunit
+#MM- test-library-cunit-quick : test-library-relbase-cunit-quick test-library-autoopen-cunit-quick test-library-library-cunit-quick
 
 %common
