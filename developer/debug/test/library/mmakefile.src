@@ -72,7 +72,26 @@ USER_LDFLAGS +=
     progname=cunit-library-relbase targetdir=$(CUNITEXEDIR) \
     uselibs="userel peropener cunit"
 
-#MM- test-library-cunit : test-library-relbase-cunit test-library-autoopen-cunit test-library-library-cunit
-#MM- test-library-cunit-quick : test-library-relbase-cunit-quick test-library-autoopen-cunit-quick test-library-library-cunit-quick
+FILES :=    cunit-library-single-global \
+            cunit-library-single-global-reg-define \
+            cunit-library-single-global-reg-inline \
+            cunit-library-single-global-reg-linklib \
+            cunit-library-single-global-stack-linklib
+
+%build_prog mmake=test-library-single-global-cunit \
+    progname=cunit-library-single-global targetdir=$(CUNITEXEDIR) \
+    files=$(FILES) uselibs="single cunit"
+
+#MM- test-library-cunit : \
+#MM     test-library-relbase-cunit \
+#MM     test-library-autoopen-cunit \
+#MM     test-library-library-cunit \
+#MM     test-library-single-global-cunit
+
+#MM- test-library-cunit-quick : \
+#MM     test-library-relbase-cunit-quick \
+#MM     test-library-autoopen-cunit-quick \
+#MM     test-library-library-cunit-quick \
+#MM     test-library-single-global-cunit-quick
 
 %common
