@@ -12,6 +12,10 @@
 
 #include "cunit-library-single-global.h"
 
+/*
+    See arch/x86_64-all/ABI_SPECIFICATION for details
+*/
+
 struct Library *SingleBase = NULL;
 
 struct storage mystore;
