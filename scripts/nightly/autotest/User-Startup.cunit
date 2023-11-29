@@ -17,6 +17,7 @@ If NOT WARN
         Execute S/Test cunit/library/cunit-library-library  ;Library_Suite
         Execute S/Test cunit/library/cunit-library-relbase  ;Relbase_Suite
         Execute S/Test cunit/library/cunit-library-single-global    ;Library_Single_Global_Suite
+        Execute S/Test cunit/library/cunit-library-single-local     ;Library_Single_Local_Suite
     EndIf
 
     ; Perform basic "exec.library" unit tests...

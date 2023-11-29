@@ -82,16 +82,28 @@ FILES :=    cunit-library-single-global \
     progname=cunit-library-single-global targetdir=$(CUNITEXEDIR) \
     files=$(FILES) uselibs="single cunit"
 
+FILES :=    cunit-library-single-local \
+            cunit-library-single-local-reg-define \
+            cunit-library-single-local-reg-inline \
+            cunit-library-single-local-reg-linklib \
+            cunit-library-single-local-stack-linklib
+
+%build_prog mmake=test-library-single-local-cunit \
+    progname=cunit-library-single-local targetdir=$(CUNITEXEDIR) \
+    files=$(FILES) uselibs="single cunit"
+
 #MM- test-library-cunit : \
 #MM     test-library-relbase-cunit \
 #MM     test-library-autoopen-cunit \
 #MM     test-library-library-cunit \
-#MM     test-library-single-global-cunit
+#MM     test-library-single-global-cunit \
+#MM     test-library-single-local-cunit
 
 #MM- test-library-cunit-quick : \
 #MM     test-library-relbase-cunit-quick \
 #MM     test-library-autoopen-cunit-quick \
 #MM     test-library-library-cunit-quick \
-#MM     test-library-single-global-cunit-quick
+#MM     test-library-single-global-cunit-quick \
+#MM     test-library-single-local-cunit-quick
 
 %common
