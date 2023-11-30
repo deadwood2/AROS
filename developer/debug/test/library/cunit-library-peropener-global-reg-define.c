@@ -14,7 +14,7 @@ void test_peropener_global_reg_define(void)
     PeropenerSetValueReg(8);
 }
 
-#include "cunit-library-any-global.h"
+#include "cunit-library-any-any.h"
 
 extern struct storage mystore;
 

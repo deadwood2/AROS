@@ -10,7 +10,7 @@
 
 #include <CUnit/CUnitCI.h>
 
-#include "cunit-library-any-global.h"
+#include "cunit-library-any-any.h"
 
 /*
     See arch/x86_64-all/ABI_SPECIFICATION for details

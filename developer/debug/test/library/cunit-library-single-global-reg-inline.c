@@ -15,7 +15,7 @@ void test_single_global_reg_inline(void)
     RegSetValue(16);
 }
 
-#include "cunit-library-any-global.h"
+#include "cunit-library-any-any.h"
 
 extern struct storage mystore;
 
