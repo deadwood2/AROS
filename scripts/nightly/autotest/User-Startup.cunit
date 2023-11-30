@@ -20,6 +20,7 @@ If NOT WARN
         Execute S/Test cunit/library/cunit-library-single-local     ;Library_Single_Local_Suite
         Execute S/Test cunit/library/cunit-library-peropener-global ;Library_Peropener_Global_Suite
         Execute S/Test cunit/library/cunit-library-peropener-local  ;Library_Peropener_Local_Suite
+        Execute S/Test cunit/library/cunit-library-peropener-relative   ;Library_Peropener_Relative_Suite
     EndIf
 
     ; Perform basic "exec.library" unit tests...
