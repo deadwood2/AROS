@@ -14,6 +14,7 @@
 
 int OpenLib(struct PeropenerBase *PeropenerBase)
 {
+    PeropenerBase->value = 3;
     PeropenerBase->extlibseg = LoadSeg("extlib1.seg");
     if (PeropenerBase->extlibseg != BNULL)
     {
