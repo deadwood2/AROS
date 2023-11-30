@@ -102,13 +102,24 @@ FILES :=    cunit-library-peropener-global \
     progname=cunit-library-peropener-global targetdir=$(CUNITEXEDIR) \
     files=$(FILES) uselibs="peropener cunit"
 
+FILES :=    cunit-library-peropener-local \
+            cunit-library-peropener-local-reg-define \
+            cunit-library-peropener-local-reg-inline \
+            cunit-library-peropener-local-reg-linklib \
+            cunit-library-peropener-local-stack-linklib
+
+%build_prog mmake=test-library-peropener-local-cunit \
+    progname=cunit-library-peropener-local targetdir=$(CUNITEXEDIR) \
+    files=$(FILES) uselibs="peropener cunit"
+
 #MM- test-library-cunit : \
 #MM     test-library-relbase-cunit \
 #MM     test-library-autoopen-cunit \
 #MM     test-library-library-cunit \
 #MM     test-library-single-global-cunit \
 #MM     test-library-single-local-cunit \
-#MM     test-library-peropener-global-cunit
+#MM     test-library-peropener-global-cunit \
+#MM     test-library-peropener-local-cunit
 
 #MM- test-library-cunit-quick : \
 #MM     test-library-relbase-cunit-quick \
@@ -116,6 +127,7 @@ FILES :=    cunit-library-peropener-global \
 #MM     test-library-library-cunit-quick \
 #MM     test-library-single-global-cunit-quick \
 #MM     test-library-single-local-cunit-quick \
-#MM     test-library-peropener-global-cunit-quick
+#MM     test-library-peropener-global-cunit-quick \
+#MM     test-library-peropener-local-cunit-quick
 
 %common
