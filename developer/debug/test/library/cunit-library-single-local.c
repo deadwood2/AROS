@@ -16,23 +16,15 @@
 
 struct Library *SingleBase = NULL;
 
-void test_single_local_reg_define();
-void test_single_local_reg_inline();
-void test_single_local_reg_linklib();
-void test_single_local_stack_linklib();
-void test_single_local_redef_reg_define();
-void test_single_local_redef_reg_inline();
+void test_single_local_reg_define(struct Library *);
+void test_single_local_reg_inline(struct Library *);
+void test_single_local_reg_linklib(struct Library *);
+void test_single_local_stack_linklib(struct Library *);
+void test_single_local_redef_reg_define(struct Library *);
+void test_single_local_redef_reg_inline(struct Library *);
 
 CU_SUITE_SETUP()
 {
-    struct Library *SingleBase = OpenLibrary("single.library", 0L);
-    if (!SingleBase)
-        return CUE_SINIT_FAILED;
-
-    RegSetValue(5);
-
-    CloseLibrary(SingleBase);
-
     return CUE_SUCCESS;
 }
 
@@ -49,15 +41,47 @@ CU_TEST_TEARDOWN()
 {
 }
 
+void test_reg_calls()
+{
+    CU_ASSERT_EQUAL_FATAL(NULL, SingleBase);
+
+    struct Library * localSingleBase = OpenLibrary("single.library", 0L);
+    CU_ASSERT_NOT_EQUAL_FATAL(NULL, localSingleBase);
+
+#define SingleBase localSingleBase
+    RegSetValue(5);
+#undef SingleBase
+
+    test_single_local_reg_define(localSingleBase);
+
+    test_single_local_reg_inline(localSingleBase);
+
+    test_single_local_reg_linklib(localSingleBase);
+
+    CloseLibrary(localSingleBase);
+}
+
+void test_stack_calls_redef_reg_calls()
+{
+    CU_ASSERT_EQUAL_FATAL(NULL, SingleBase);
+
+    struct Library *localSingleBase = OpenLibrary("single.library", 0L);
+    CU_ASSERT_NOT_EQUAL_FATAL(NULL, localSingleBase);
+
+    test_single_local_stack_linklib(localSingleBase);
+
+    test_single_local_redef_reg_define(localSingleBase);
+
+    test_single_local_redef_reg_inline(localSingleBase);
+
+    CloseLibrary(localSingleBase);
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("Library_Single_Local_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
     /* Order of calls matter as they manipulate global variable */
-    CUNIT_CI_TEST(test_single_local_reg_define);
-    CUNIT_CI_TEST(test_single_local_reg_inline);
-    /* CUNIT_CI_TEST(test_single_local_reg_linklib); This is not possible due to linklib being pre-compiled with use of global variable */
-    /* CUNIT_CI_TEST(test_single_local_stack_linklib); This is not possible due to linklib being pre-compiled with use of global variable */
-    CUNIT_CI_TEST(test_single_local_redef_reg_define);
-    CUNIT_CI_TEST(test_single_local_redef_reg_inline);
+    CUNIT_CI_TEST(test_reg_calls);
+    CUNIT_CI_TEST(test_stack_calls_redef_reg_calls);
     return CU_CI_RUN_SUITES();
 }
