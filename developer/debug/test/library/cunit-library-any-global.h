@@ -8,5 +8,5 @@
 
 struct storage
 {
-    struct Library *mySingleBase;
+    struct Library *myBase;
 };

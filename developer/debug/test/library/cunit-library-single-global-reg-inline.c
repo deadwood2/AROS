@@ -15,7 +15,7 @@ void test_single_global_reg_inline(void)
     RegSetValue(16);
 }
 
-#include "cunit-library-single-global.h"
+#include "cunit-library-any-global.h"
 
 extern struct storage mystore;
 
@@ -24,12 +24,12 @@ void test_single_global_redef_reg_inline(void)
     SingleBase = NULL;
     CU_ASSERT_EQUAL(NULL, SingleBase);
 
-#define SingleBase mystore.mySingleBase
+#define SingleBase mystore.myBase
     CU_ASSERT_NOT_EQUAL_FATAL(NULL, SingleBase);
     CU_ASSERT_EQUAL(40, RegAdd4(0, 0, 0, 0));
     CU_ASSERT_EQUAL(45, RegAdd4(0, 0, 5, 0));
     RegSetValue(55);
 #undef SingleBase
 
-    SingleBase = mystore.mySingleBase;
+    SingleBase = mystore.myBase;
 }

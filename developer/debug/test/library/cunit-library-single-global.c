@@ -10,7 +10,7 @@
 
 #include <CUnit/CUnitCI.h>
 
-#include "cunit-library-single-global.h"
+#include "cunit-library-any-global.h"
 
 /*
     See arch/x86_64-all/ABI_SPECIFICATION for details
@@ -73,7 +73,7 @@ void test_stack_calls_redef_reg_calls()
 
     test_single_global_stack_linklib();
 
-    mystore.mySingleBase = SingleBase;
+    mystore.myBase = SingleBase;
 
     test_single_global_redef_reg_define();
 
