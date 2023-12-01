@@ -14,7 +14,7 @@
 #include <CUnit/CUnitCI.h>
 
 struct Library *PeropenerBase = NULL;
-struct Library *UserelBase = NULL;
+struct Library *UseRelBase = NULL;
 
 CU_SUITE_SETUP()
 {
@@ -38,13 +38,13 @@ void test_peropener_not_shareable()
 {
     /* Shows that when shareable mode is not enabled, binary and userel.library use separe peropener bases */
     CU_ASSERT_EQUAL_FATAL(NULL, PeropenerBase);
-    CU_ASSERT_EQUAL_FATAL(NULL, UserelBase);
+    CU_ASSERT_EQUAL_FATAL(NULL, UseRelBase);
 
     PeropenerBase = OpenLibrary("peropener.library", 0L);
     CU_ASSERT_NOT_EQUAL_FATAL(NULL, PeropenerBase);
 
-    UserelBase = OpenLibrary("userel.library", 0L);
-    CU_ASSERT_NOT_EQUAL_FATAL(NULL, UserelBase);
+    UseRelBase = OpenLibrary("userel.library", 0L);
+    CU_ASSERT_NOT_EQUAL_FATAL(NULL, UseRelBase);
 
     SetPeropenerLibraryValue(5);
     CU_ASSERT_EQUAL(5, GetPeropenerLibraryValue());
@@ -61,8 +61,8 @@ void test_peropener_not_shareable()
     CU_ASSERT_EQUAL(13, PeropenerGetValueStack());
     CU_ASSERT_EQUAL(13, peropenervalue);
 
-    CloseLibrary(UserelBase);
-    UserelBase = NULL;
+    CloseLibrary(UseRelBase);
+    UseRelBase = NULL;
 
     CloseLibrary(PeropenerBase);
     PeropenerBase = NULL;
@@ -72,13 +72,17 @@ void test_peropener_shareable()
 {
     /* Shows that when shareable mode is enabled, binary and userel.library use same peropener base */
     CU_ASSERT_EQUAL_FATAL(NULL, PeropenerBase);
-    CU_ASSERT_EQUAL_FATAL(NULL, UserelBase);
+    CU_ASSERT_EQUAL_FATAL(NULL, UseRelBase);
 
     PeropenerBase = OpenLibrary("peropener.library", 0L);
     CU_ASSERT_NOT_EQUAL_FATAL(NULL, PeropenerBase);
 
-    UserelBase = OpenLibrary("userel.library", 0L);
-    CU_ASSERT_NOT_EQUAL_FATAL(NULL, UserelBase);
+    Peropener_AllowShareable(PeropenerBase);
+
+    UseRelBase = OpenLibrary("userel.library", 0L);
+    CU_ASSERT_NOT_EQUAL_FATAL(NULL, UseRelBase);
+
+    Peropener_DisallowShareable(PeropenerBase);
 
     SetPeropenerLibraryValue(5);
     CU_ASSERT_EQUAL(5, GetPeropenerLibraryValue());
@@ -95,8 +99,8 @@ void test_peropener_shareable()
     CU_ASSERT_EQUAL(13, PeropenerGetValueStack());
     CU_ASSERT_EQUAL(13, peropenervalue);
 
-    CloseLibrary(UserelBase);
-    UserelBase = NULL;
+    CloseLibrary(UseRelBase);
+    UseRelBase = NULL;
 
     CloseLibrary(PeropenerBase);
     PeropenerBase = NULL;

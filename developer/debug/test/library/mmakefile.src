@@ -43,14 +43,18 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
 
 %build_module mmake=test-library-peropenerlib \
     modname=peropener modtype=library \
-    files="peropenervalue peropenernolib peropenernamechange peropenerinit" \
+    files="peropenervalue peropenernolib peropenernamechange peropenerinit peropenershareable" \
     linklibfiles="peropenervalue_linklib" \
     prefix=$(TARGETDIR)
 
+USER_CPPFLAGS := -D__PEROPENER_RELLIBBASE__
+
 %build_module mmake=test-library-userellib \
     modname=userel modtype=library \
-    files="userellib" \
-    prefix=$(TARGETDIR) uselibs="single"
+    files="userellib userelinit" \
+    prefix=$(TARGETDIR) uselibs="peropener_rel single"
+
+USER_CPPFLAGS :=
 
 # CUnit tests
 
@@ -126,11 +130,13 @@ FILES :=    cunit-library-peropener-relative \
             cunit-library-peropener-relative-reg-linklib \
             cunit-library-peropener-relative-stack-linklib
 
-USER_CPPFLAGS += -D__PEROPENER_RELLIBBASE__
+USER_CPPFLAGS := -D__PEROPENER_RELLIBBASE__
 
 %build_prog mmake=test-library-peropener-relative-cunit \
     progname=cunit-library-peropener-relative targetdir=$(CUNITEXEDIR) \
     files=$(FILES) uselibs="peropener_rel cunit"
+
+USER_CPPFLAGS :=
 
 #MM- test-library-cunit : \
 #MM     test-library-userel-cunit \
