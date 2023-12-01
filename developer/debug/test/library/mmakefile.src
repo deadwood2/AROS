@@ -72,6 +72,10 @@ USER_LDFLAGS +=
     progname=cunit-library-userel targetdir=$(CUNITEXEDIR) \
     uselibs="userel peropener cunit"
 
+%build_prog mmake=test-library-peropener-shareable-cunit \
+    progname=cunit-library-peropener-shareable targetdir=$(CUNITEXEDIR) \
+    uselibs="userel peropener cunit"
+
 FILES :=    cunit-library-single-global \
             cunit-library-single-global-reg-define \
             cunit-library-single-global-reg-inline \
@@ -132,7 +136,8 @@ USER_CPPFLAGS += -D__PEROPENER_RELLIBBASE__
 #MM     test-library-single-local-cunit \
 #MM     test-library-peropener-global-cunit \
 #MM     test-library-peropener-local-cunit \
-#MM     test-library-peropener-relative-cunit
+#MM     test-library-peropener-relative-cunit \
+#MM     test-library-peropener-shareable-cunit
 
 #MM- test-library-cunit-quick : \
 #MM     test-library-userel-cunit-quick \
@@ -142,6 +147,7 @@ USER_CPPFLAGS += -D__PEROPENER_RELLIBBASE__
 #MM     test-library-single-local-cunit-quick \
 #MM     test-library-peropener-global-cunit-quick \
 #MM     test-library-peropener-local-cunit-quick \
-#MM     test-library-peropener-relative-cunit-quick
+#MM     test-library-peropener-relative-cunit-quick \
+#MM     test-library-peropener-shareable-cunit-quick
 
 %common
