@@ -1,5 +1,5 @@
 /*
-    Copyright © 2021, The AROS Development Team. All rights reserved.
+    Copyright © 2021-2023, The AROS Development Team. All rights reserved.
     $Id$
 */
 
@@ -8,28 +8,27 @@
 #include <proto/dos.h>
 #include <proto/single.h>
 
-#include <CUnit/Basic.h>
-#include <CUnit/Automated.h>
+#include <CUnit/CUnitCI.h>
 
-struct Library *SingleBase;
-
-/* The suite initialization function.
-  * Returns zero on success, non-zero otherwise.
- */
-int init_suite(void)
+CU_SUITE_SETUP()
 {
-    return 0;
+    return CUE_SUCCESS;
 }
 
-/* The suite cleanup function.
-  * Returns zero on success, non-zero otherwise.
- */
-int clean_suite(void)
+CU_SUITE_TEARDOWN()
 {
-    return 0;
+    return CUE_SUCCESS;
 }
 
-void testOPEN(void)
+CU_TEST_SETUP()
+{
+}
+
+CU_TEST_TEARDOWN()
+{
+}
+
+void test_open(void)
 {
     SingleBase = OpenLibrary((STRPTR)"single.library",0);
 
@@ -43,7 +42,7 @@ void testOPEN(void)
     }
 }
 
-void testBASE(void)
+void test_base(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
     if(SingleBase != NULL)
@@ -55,7 +54,7 @@ void testBASE(void)
     }
 }
 
-void testREGCALL(void)
+void test_reg_call(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
 
@@ -76,7 +75,7 @@ void testREGCALL(void)
     CU_ASSERT_EQUAL(r3, e3);
 }
 
-void testSTACKCALL(void)
+void test_stack_call(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
 
@@ -110,7 +109,7 @@ void testSTACKCALL(void)
     CU_ASSERT_EQUAL(r6, e6);
 }
 
-void testCLOSE(void)
+void test_close(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
     if(SingleBase != NULL)
@@ -120,41 +119,14 @@ void testCLOSE(void)
     }
 }
 
-int main(void)
+int main(int argc, char** argv)
 {
-    CU_pSuite pSuite = NULL;
-
-    /* initialize the CUnit test registry */
-    if (CUE_SUCCESS != CU_initialize_registry())
-        return CU_get_error();
-
-   /* add a suite to the registry */
-    pSuite = CU_add_suite("Library_Suite", init_suite, clean_suite);
-    if (NULL == pSuite) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-   /* add the tests to the suite */
-    if ((NULL == CU_add_test(pSuite, "test of OpenLibrary() on genmodule generated library", testOPEN)) ||
-        (NULL == CU_add_test(pSuite, "test of opened library base", testBASE)) ||
-        (NULL == CU_add_test(pSuite, "test of calling reg-call functions of opened library", testREGCALL)) ||
-        (NULL == CU_add_test(pSuite, "test of calling stack-call functions of opened library", testSTACKCALL)) ||
-        (NULL == CU_add_test(pSuite, "test of CloseLibrary() on genmodule generated library", testCLOSE)))
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    /* Run all tests using the CUnit Basic & Automated interfaces */
-    CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    CU_basic_set_mode(CU_BRM_SILENT);
-    CU_automated_package_name_set("GenmoduleUnitTests");
-    CU_set_output_filename("Genmodule-Library");
-    CU_automated_enable_junit_xml(CU_TRUE);
-    CU_automated_run_tests();
-    CU_cleanup_registry();
-
-    return CU_get_error();
+    CU_CI_DEFINE_SUITE("Library_Single_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CUNIT_CI_TEST(test_open);
+    CUNIT_CI_TEST(test_base);
+    CUNIT_CI_TEST(test_reg_call);
+    CUNIT_CI_TEST(test_stack_call);
+    CUNIT_CI_TEST(test_close);
+    return CU_CI_RUN_SUITES();
 }
+

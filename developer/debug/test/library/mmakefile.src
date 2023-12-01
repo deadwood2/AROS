@@ -58,18 +58,18 @@ USER_INCLUDES +=
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 USER_LDFLAGS +=
 
-#MM test-library-relbase-cunit : linklibs-cunit test-library-userellib test-library-singlelib test-library-peropenerlib
+#MM test-library-userel-cunit : linklibs-cunit test-library-userellib test-library-singlelib test-library-peropenerlib
 
-%build_prog mmake=test-library-autoopen-cunit \
-    progname=cunit-library-autoopen targetdir=$(CUNITEXEDIR) \
+%build_prog mmake=test-library-single-autoopen-cunit \
+    progname=cunit-library-single-autoopen targetdir=$(CUNITEXEDIR) \
     uselibs="single cunit"
 
-%build_prog mmake=test-library-library-cunit \
-    progname=cunit-library-library targetdir=$(CUNITEXEDIR) \
+%build_prog mmake=test-library-single-cunit \
+    progname=cunit-library-single targetdir=$(CUNITEXEDIR) \
     uselibs="single cunit"
 
-%build_prog mmake=test-library-relbase-cunit \
-    progname=cunit-library-relbase targetdir=$(CUNITEXEDIR) \
+%build_prog mmake=test-library-userel-cunit \
+    progname=cunit-library-userel targetdir=$(CUNITEXEDIR) \
     uselibs="userel peropener cunit"
 
 FILES :=    cunit-library-single-global \
@@ -125,9 +125,9 @@ USER_CPPFLAGS += -D__PEROPENER_RELLIBBASE__
     files=$(FILES) uselibs="peropener_rel cunit"
 
 #MM- test-library-cunit : \
-#MM     test-library-relbase-cunit \
-#MM     test-library-autoopen-cunit \
-#MM     test-library-library-cunit \
+#MM     test-library-userel-cunit \
+#MM     test-library-single-autoopen-cunit \
+#MM     test-library-single-cunit \
 #MM     test-library-single-global-cunit \
 #MM     test-library-single-local-cunit \
 #MM     test-library-peropener-global-cunit \
@@ -135,9 +135,9 @@ USER_CPPFLAGS += -D__PEROPENER_RELLIBBASE__
 #MM     test-library-peropener-relative-cunit
 
 #MM- test-library-cunit-quick : \
-#MM     test-library-relbase-cunit-quick \
-#MM     test-library-autoopen-cunit-quick \
-#MM     test-library-library-cunit-quick \
+#MM     test-library-userel-cunit-quick \
+#MM     test-library-single-autoopen-cunit-quick \
+#MM     test-library-single-cunit-quick \
 #MM     test-library-single-global-cunit-quick \
 #MM     test-library-single-local-cunit-quick \
 #MM     test-library-peropener-global-cunit-quick \

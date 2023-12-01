@@ -6,7 +6,8 @@
 
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <proto/single.h>
+#include <proto/peropener.h>
+#include <proto/userel.h>
 
 #include <CUnit/CUnitCI.h>
 
@@ -30,20 +31,21 @@ CU_TEST_TEARDOWN()
 
 void test_add(void)
 {
-    RegSetValue(5);
+    CU_ASSERT_EQUAL(11, UseRelAdd2(8, 1, 2));
+}
 
-    LONG r1 = RegAdd4(1, 2, 3, 4);
+void test_gpbse(void)
+{
+    const int e5 = 7;
+    SetPeropenerLibraryValue(e5);
 
-    CU_ASSERT_EQUAL(15, r1);
-
-    int r5 = StackAdd4OrMore(6, 1, 2, 3, 4, 5, 6);
-
-    CU_ASSERT_EQUAL(26, r5);
+    CU_ASSERT(e5 == GetPeropenerLibraryValue());
 }
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_AutoOpen_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("Library_Userel_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
     CUNIT_CI_TEST(test_add);
+    CUNIT_CI_TEST(test_gpbse);
     return CU_CI_RUN_SUITES();
 }
