@@ -15,7 +15,7 @@ If NOT WARN
         Copy SYS:Development/Debug/Tests/Library/extlib1.seg SYS:
         Execute S/Test cunit/library/cunit-library-single-autoopen  ;Library_Single_AutoOpen_Suite
         Execute S/Test cunit/library/cunit-library-single           ;Library_Single_Suite
-        Execute S/Test cunit/library/cunit-library-userel           ;Library_Userel_Suite
+        Execute S/Test cunit/library/cunit-library-userel           ;Library_UseRel_Suite
         Execute S/Test cunit/library/cunit-library-single-global    ;Library_Single_Global_Suite
         Execute S/Test cunit/library/cunit-library-single-local     ;Library_Single_Local_Suite
         Execute S/Test cunit/library/cunit-library-peropener-global ;Library_Peropener_Global_Suite
