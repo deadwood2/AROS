@@ -61,9 +61,11 @@ If NOT WARN
     Execute S/Test cunit/zune/cunit-zune-handleevent-3          ;MUIM_HandleEvent_3_Suite
     Execute S/Test cunit/zune/cunit-zune-notify                 ;MUIM_Notify_Suite
     Execute S/Test cunit/zune/cunit-zune-list                   ;MUIC_List_Suite
+    Execute S/Test cunit/zune/cunit-zune-popstring              ;MUIC_Popstring_Suite
     Execute S/Test cunit/zune/cunit-zune-register               ;MUIC_Register_Suite
     Execute S/Test cunit/zune/cunit-zune-showhide               ;MUIA_ShowMe_Suite
     Execute S/Test cunit/zune/cunit-zune-sleep                  ;MUIA_Sleep_Suite
+    Execute S/Test cunit/zune/cunit-zune-string                 ;MUIC_String_Suite
     Execute S/Test cunit/zune/cunit-zune-window                 ;MUIC_Window_Suite
 
 Endif

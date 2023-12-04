@@ -97,12 +97,24 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 #define CU_ASSERT_EQUAL(expected, actual) \
     CU_ASSERT(expected == actual)
 
+#define CU_ASSERT_NOT_EQUAL_FATAL(expected, actual) \
+    CU_ASSERT_FATAL(expected != actual)
+
 #define CU_ASSERT(expr)                                 \
     if (!(expr))                                        \
     {                                                   \
         CONST_STRPTR f = __FILE__;                      \
         ULONG _tags[] = { (ULONG)f, __LINE__};          \
         VPrintf("Assertion failed %s:%ld\n", _tags);    \
+    }
+
+#define CU_ASSERT_FATAL(expr)                           \
+    if (!(expr))                                        \
+    {                                                   \
+        CONST_STRPTR f = __FILE__;                      \
+        ULONG _tags[] = { (ULONG)f, __LINE__};          \
+        VPrintf("Fatal assertion failed %s:%ld\n", _tags);  \
+        return;                                         \
     }
 
 #define CU_FAIL(msg)                                        \
