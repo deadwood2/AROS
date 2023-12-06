@@ -1,0 +1,62 @@
+#
+
+include $(SRCDIR)/config/aros.cfg
+
+#MM- compiler-m-i386 : includes-asm_h
+#MM- compiler-stdlib-i386 : includes-asm_h
+#MM- compiler-crt-i386 : includes-asm_h
+
+
+USER_AFLAGS 	:= -I$(GENINCDIR)
+
+M_MATH_I386_FILES := \
+    ../fenv
+
+M_MATH_I386_SSE_FILES := \
+    ../sse
+
+STDLIB_I386_ASMFILES := \
+    ../stdc/longjmp \
+    ../stdc/setjmp
+
+# Add replacement math functions ..
+M_MATH_I386_ASMFILES += \
+    ../stdc/math/e_fmod \
+    ../stdc/math/e_fmodf \
+    ../stdc/math/e_fmodl \
+    ../stdc/math/e_remainder \
+    ../stdc/math/e_remainderf \
+    ../stdc/math/e_remainderl \
+    ../stdc/math/e_sqrt \
+    ../stdc/math/e_sqrtf \
+    ../stdc/math/e_sqrtl \
+    ../stdc/math/s_llrint \
+    ../stdc/math/s_llrintf \
+    ../stdc/math/s_llrintl \
+    ../stdc/math/s_logbl \
+    ../stdc/math/s_lrint \
+    ../stdc/math/s_lrintf \
+    ../stdc/math/s_lrintl \
+    ../stdc/math/s_remquo \
+    ../stdc/math/s_remquof \
+    ../stdc/math/s_remquol \
+    ../stdc/math/s_rintl \
+    ../stdc/math/s_scalbn \
+    ../stdc/math/s_scalbnf \
+    ../stdc/math/s_scalbnl
+
+%build_archspecific \
+  mainmmake=compiler-m \
+  modname=m maindir=compiler/crt \
+  arch=i386 files="$(M_MATH_I386_FILES)" linklibfiles="$(M_MATH_I386_SSE_FILES)" asmfiles="$(M_MATH_I386_ASMFILES)"
+
+%build_archspecific \
+  mainmmake=compiler-stdlib \
+  modname=stdlib maindir=compiler/crt \
+  arch=i386 \
+  files="" asmfiles="$(STDLIB_I386_ASMFILES)"
+
+%build_archspecific \
+  mainmmake=compiler-crt maindir=compiler/crt \
+  modname=crt arch=i386 \
+  asmfiles="../posixc/siglongjmp ../posixc/sigsetjmp ../posixc/vfork ../posixc/vfork_longjmp"

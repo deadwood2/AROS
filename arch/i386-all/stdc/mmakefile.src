@@ -74,10 +74,10 @@ STDC_I386_ASMFILES += \
     math/s_scalbnl \
     math/s_truncl
 
-%build_archspecific \
-  mainmmake=compiler-stdc \
-  modname=stdc maindir=compiler/stdc \
-  arch=i386 \
-  files="$(STDC_I386_FILES)" linklibfiles="$(STDC_I386_SSE_FILES)" asmfiles="$(STDC_I386_ASMFILES)"
+#%build_archspecific \
+#  mainmmake=compiler-stdc \
+#  modname=stdc maindir=compiler/stdc \
+#  arch=i386 \
+#  files="$(STDC_I386_FILES)" linklibfiles="$(STDC_I386_SSE_FILES)" asmfiles="$(STDC_I386_ASMFILES)"
 
-#MM- compiler-stdc-i386 : includes-asm_h
+##MM- compiler-stdc-i386 : includes-asm_h
