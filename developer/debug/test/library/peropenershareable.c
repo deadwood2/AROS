@@ -45,7 +45,10 @@ struct Library * Peropener_GetShareable(struct Library *base)
     ForeachNode(&allowed, an)
     {
         if (an->a_Task == me)
+        {
+            ReleaseSemaphore(&sem);
             return an->a_Base;
+        }
     }
     ReleaseSemaphore(&sem);
 
