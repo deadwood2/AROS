@@ -3,7 +3,6 @@
     $Id$
 */
 
-#include <aros/config.h>
 #include <aros/symbolsets.h>
 #include <GL/gla.h>
 #include <aros/debug.h>

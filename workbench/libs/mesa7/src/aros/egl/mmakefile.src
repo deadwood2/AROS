@@ -50,7 +50,7 @@ LIBRARY_SOURCES = \
             $(addprefix ../../, $(SHARED_LIB_SOURCES))
 
 USER_INCLUDES := \
-            -I$(AROS_DEVELOPER)/include/gallium \
+            -iquote $(SRCDIR)/$(CURDIR)/../../gallium/auxiliary \
             -I$(SRCDIR)/$(CURDIR)/../../gallium/state_trackers/egl \
             -I$(SRCDIR)/$(CURDIR)/../../gallium/state_trackers/vega \
             -I$(SRCDIR)/$(CURDIR)/../../egl/main \
@@ -66,13 +66,10 @@ USER_CPPFLAGS :=  -DFEATURE_GL=1 \
                 -DHAVE_AROS_BACKEND \
                 -D_EGL_MAIN=_eglBuiltInDriverGALLIUM \
 
-USER_LDFLAGS := \
-  -L$(top_libdir)
-
 %build_module mmake=workbench-libs-egl \
     modname=egl modtype=library linklibname=EGL \
     files="$(LIBRARY_SOURCES)" \
-    uselibs="galliumauxiliary gallium GL OpenVG crtmod"
+    uselibs="galliumauxiliary gallium GL OpenVG crtmod" usesdks="mesa"
 
 %common
 
