@@ -188,9 +188,10 @@ GALLIUM_AUXILIARY_GENERATED_SOURCES = \
             $(GENDIR)/$(CURDIR)/util/u_half \
 
 USER_INCLUDES := \
-            -I$(AROS_DEVELOPER)/include/gallium \
             -I$(SRCDIR)/$(CURDIR)/util \
             -I$(SRCDIR)/$(CURDIR)/indices \
+            -I$(SRCDIR)/$(CURDIR)/../include \
+            -I$(SRCDIR)/$(CURDIR)
 
 NOWARN_CFLAGS := $(NOWARN_STRINGOP_OVERFLOW) $(NOWARN_ARRAY_BOUNDS)
 
@@ -198,7 +199,7 @@ USER_CFLAGS := -ffast-math
 USER_CFLAGS += $(NOWARN_CFLAGS)
 
 %build_linklib mmake=linklibs-galliumauxiliary libname=galliumauxiliary \
-    files="$(GALLIUM_AUXILIARY_SOURCES) $(GALLIUM_AUXILIARY_GENERATED_SOURCES)"
+    files="$(GALLIUM_AUXILIARY_SOURCES) $(GALLIUM_AUXILIARY_GENERATED_SOURCES)" sdk="mesa"
 
 USER_CPPFLAGS := -DHAVE_LLVM=0x0209 -D__STDC_CONSTANT_MACROS
 
