@@ -10,8 +10,8 @@
 #include <proto/gallium.h>
 
 #include <gallium/gallium.h>
-#include <gallium/pipe/p_context.h>
-#include <gallium/pipe/p_screen.h>
+#include "pipe/p_context.h"
+#include "pipe/p_screen.h"
 
 #include "mesa3dgl_support.h"
 #include "mesa3dgl_gallium.h"
