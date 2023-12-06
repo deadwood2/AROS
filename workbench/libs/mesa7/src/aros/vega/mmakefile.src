@@ -55,7 +55,7 @@ LIBRARY_SOURCES = \
 
 
 USER_INCLUDES := \
-            -I$(AROS_DEVELOPER)/include/gallium \
+            -iquote $(SRCDIR)/$(CURDIR)/../../gallium/auxiliary \
             -I$(SRCDIR)/$(CURDIR)/../../mapi \
             -I$(SRCDIR)/$(CURDIR)/../../gallium/include \
             -I$(SRCDIR)/$(CURDIR)/../.. \
@@ -80,7 +80,7 @@ $(GENDIR)/$(CURDIR)/vega/vgapi_tmp.h : $(SRCDIR)/$(CURDIR)/../../mapi/vgapi/vgap
 %build_module mmake=workbench-libs-vega \
     modname=vega modtype=library linklibname=OpenVG \
     files="$(LIBRARY_SOURCES)" \
-    uselibs="galliumauxiliary crtmod"
+    uselibs="galliumauxiliary crtmod" usesdks="mesa"
 
 %common
 

@@ -1,8 +1,6 @@
 #ifndef AROSMESA_INTERN_H
 #define AROSMESA_INTERN_H
 
-#include <aros/config.h>
-
 struct gl_func;
 extern struct gl_func gl_func;
 
