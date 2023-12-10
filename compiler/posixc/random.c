@@ -210,7 +210,7 @@ static void free_random_state(struct CrtIntBase *CrtBase)
     }
 }
 
-ADD2CLOSELIB(free_random_state, 0)
+ADD2CLOSELIB(free_random_state, 2)
 
 
 /*
