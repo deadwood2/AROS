@@ -12,6 +12,7 @@
 #include <aros/symbolsets.h>
 #include <unistd.h>
 
+int __posixc_set_environptr (char ***environptr);
 char **environ;
 
 static int __environ_init(struct ExecBase *SysBase)

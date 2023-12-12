@@ -8,7 +8,7 @@ include $(SRCDIR)/config/aros.cfg
 #   and a link library from the same source, with only a small amount of
 #   overlap.
 #
-USER_CPPFLAGS :=  -I$(SRCDIR)/$(CURDIR) -I$(SRCDIR)/$(CURDIR)/include \
+USER_CPPFLAGS :=  -I$(SRCDIR)/$(CURDIR) -isystem$(SRCDIR)/$(CURDIR)/include \
     -D__mb_cur_max=MB_CUR_MAX        \
     -DADATE="\"$(shell date '+%d.%m.%Y')\"" \
 
@@ -153,11 +153,6 @@ POSIXC_SHARED_SOURCES = \
     endgrent \
     endpwent \
     erand48 \
-    execl \
-    execlp \
-    execv \
-    execve \
-    execvp \
     fchown \
     fgetpos \
     fileno \
@@ -172,7 +167,6 @@ POSIXC_SHARED_SOURCES = \
     ftime \
     gcvt \
     getcwd \
-    getenv \
     getfsstat \
     getgrent \
     getgrgid \
@@ -308,6 +302,11 @@ SHARED    := \
     chown \
     clock_gettime \
     clock \
+    execl \
+    execlp \
+    execv \
+    execve \
+    execvp \
     exit \
     _exit \
     fchdir \
@@ -324,6 +323,7 @@ SHARED    := \
     getpid \
     getppid \
     getpwuid \
+    getenv \
     gets \
     gettimeofday \
     getuid \
@@ -550,16 +550,15 @@ MLIB := \
 #MM compiler-arosc-legacy : includes compiler-arosm-legacy \
 #MM      compiler-arosccommon-legacy linklibs-autoinit
 
-# This makes sure that code takes from posixc and stdc searches for includes in clib
-
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 
 CFLAGS_IQUOTE := -L
-USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/posixc/regex -iquote $(FMTPRINTFDIR)
+USER_CPPFLAGS += -DAROSC_BUILD
+USER_INCLUDES := -iquote $(SRCDIR)/$(CURDIR)/include -iquote $(SRCDIR)/compiler/posixc -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/posixc/regex -iquote $(FMTPRINTFDIR)
 
 %build_linklib mmake=compiler-arosccommon-legacy \
     libname=arosccommon files="$(COMMON_SOURCES)" \
-    libdir=$(OBJDIR) cflags="$(CFLAGS)"
+    cflags="$(CFLAGS)" sdk="private"
 
 AROSC_LINKLIB_OBJS := $(addsuffix .o, \
     $(addprefix $(OBJDIR)/,$(COMMON)) \
@@ -572,11 +571,12 @@ AROSC_LINKLIB_OBJS := $(addsuffix .o, \
 #MM- core-linklibs : linklibs-arosc
 #MM- linklibs-arosc : compiler-arosm-legacy compiler-arosccommon-legacy
 
-USER_LDFLAGS := -L$(OBJDIR) -nostdc -noposixc
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=compiler-arosc-legacy \
     modname=arosc modtype=library objdir=$(OBJDIR)/shared \
     cflags="$(CFLAGS) -DAROSC_SHARED" \
     files="$(SHARED) $(SHARED_ARCH)" \
-    linklibfiles=$(SHARED_LINKLIB) linklibobjs=$(AROSC_LINKLIB_OBJS) \
-    uselibs="arosccommon arosm"
+    uselibs="arosccommon arosm" sdk="private" usesdks="private"
+
+%common

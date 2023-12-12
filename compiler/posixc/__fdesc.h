@@ -1,3 +1,4 @@
+#ifndef AROSC_BUILD
 #ifndef ___FDESC_H
 #define ___FDESC_H
 
@@ -60,3 +61,6 @@ void __free_fdesc(fdesc *fdesc);
 void __close_on_exec_fdescs(void);
 
 #endif /* ___FDESC_H */
+#else
+#include "internal/__fdesc.h"
+#endif

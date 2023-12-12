@@ -17,6 +17,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "__arosc_privdata.h"
 #include "__fdesc.h"
