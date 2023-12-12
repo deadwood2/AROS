@@ -5,7 +5,7 @@
 */
 #include <sys/arosc.h>
 
-int *__stdc_geterrnoptr(void)
+int *___geterrnoptr(void)
 {
     return &(__get_arosc_userdata()->acud_errno);
 }

@@ -6,7 +6,7 @@
 */
 
 #include "__arosc_privdata.h"
-#include "__memalign.h"
+#include "../stdc/__memalign.h"
 
 #include <exec/memory.h>
 #include <proto/exec.h>

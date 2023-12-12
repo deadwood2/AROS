@@ -17,7 +17,7 @@
 #include <aros/debug.h>
 
 #include "__arosc_privdata.h"
-#include "__exitfunc.h"
+#include "../stdc/__exitfunc.h"
 
 /* ABI_V0 compatibility */
 
@@ -171,7 +171,7 @@ static void abiv0_delayed_startup()
         etask->et_Result1 = *aroscbase->acb_startup_error_ptr;
 
     if (!(aroscbase->acb_flags & ABNORMAL_EXIT))
-        __callexitfuncs();
+        __progonly_callexitfuncs();
 }
 
 /*****************************************************************************

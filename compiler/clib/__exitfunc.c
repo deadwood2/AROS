@@ -9,7 +9,7 @@
 #include <exec/lists.h>
 #include <proto/exec.h>
 #include <string.h>
-#include "__exitfunc.h"
+#include "../stdc/__exitfunc.h"
 
 static void __exitfuncsquirk(struct aroscbase *aroscbase)
 {
@@ -20,7 +20,7 @@ static void __exitfuncsquirk(struct aroscbase *aroscbase)
         ADDTAIL((struct List *)&aroscbase->acb_atexit_list, tmp);
     }
 }
-int __addexitfunc(struct AtExitNode *aen)
+int __progonly_addexitfunc(struct AtExitNode *aen)
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
     
@@ -36,7 +36,7 @@ int __init_atexit(struct aroscbase *aroscbase)
     return 1;
 }
 
-void __callexitfuncs(void)
+void __progonly_callexitfuncs(void)
 {
     struct aroscbase *aroscbase = __aros_getbase_aroscbase();
     struct AtExitNode *aen;
@@ -77,7 +77,7 @@ void __exit_atexit(void)
     if (!(aroscbase->acb_flags & (VFORK_PARENT | ACPD_NEWSTARTUP)))
     {
         if (!(aroscbase->acb_flags & ABNORMAL_EXIT))
-            __callexitfuncs();
+            __progonly_callexitfuncs();
     }
 }
 

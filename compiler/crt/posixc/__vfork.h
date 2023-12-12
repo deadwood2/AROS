@@ -1,3 +1,4 @@
+#ifndef AROSC_BUILD
 #ifndef __VFORK_H
 #define __VFORK_H
 
@@ -90,3 +91,6 @@ void vfork_longjmp (jmp_buf env, int val);
     })
 
 #endif /* __VFORK_H */
+#else
+#include "internal/__vfork.h"
+#endif
