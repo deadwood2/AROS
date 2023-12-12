@@ -1,3 +1,4 @@
+#ifndef AROSC_BUILD
 #ifndef ___STDIO_H
 #define ___STDIO_H
 
@@ -50,3 +51,6 @@ extern int __fseeko64 (FILE * stream, off64_t  offset, int    whence);
 extern off64_t __ftello64 (FILE *stream);
 #endif
 #endif /* ___STDIO_H */
+#else
+#include "internal/__stdio.h"
+#endif

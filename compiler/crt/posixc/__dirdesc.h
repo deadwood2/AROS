@@ -1,3 +1,4 @@
+#ifndef AROSC_BUILD
 #ifndef __DIRDESC_H
 #define __DIRDESC_H
 
@@ -15,3 +16,6 @@ struct __dirdesc
 };
 
 #endif /* __DIRDESC_H */
+#else
+#include "internal/__dirdesc.h"
+#endif

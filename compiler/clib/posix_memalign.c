@@ -6,7 +6,7 @@
 */
 
 #include "__arosc_privdata.h"
-#include "__memalign.h"
+#include "../stdc/__memalign.h"
 
 #include <errno.h>
 #include <dos/dos.h>

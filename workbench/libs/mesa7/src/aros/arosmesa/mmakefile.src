@@ -7,6 +7,6 @@ include $(SRCDIR)/config/aros.cfg
 %build_module mmake=workbench-libs-mesa-legacy \
     modname=mesa modtype=library conffile=arosmesa.conf \
     files="arosmesa_library_api arosmesa_extensions" \
-    uselibs="GL"
+    uselibs="GL" sdk="mesa"
 
 %common

@@ -14,6 +14,7 @@
 #include <errno.h>
 //#include <sys/types.h>
 #include <sys/wait.h>
+#include <string.h>
 
 #include "__fdesc.h"
 #include "__upath.h"

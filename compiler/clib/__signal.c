@@ -11,7 +11,7 @@
 #include <assert.h>
 
 #include "__arosc_privdata.h"
-#include "__signal.h"
+#include "../stdc/__signal.h"
 
 struct signal_func_data *__sig_getfuncdata(int signum)
 {
