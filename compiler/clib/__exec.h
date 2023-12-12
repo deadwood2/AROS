@@ -12,4 +12,5 @@ void __exec_do(APTR id);
 char *const *__exec_valist2array(const char *arg1, va_list list);
 void __exec_cleanup_array();
 
+char ***__posixc_get_environptr(void);
 #endif //__EXEC_H

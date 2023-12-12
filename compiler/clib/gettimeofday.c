@@ -16,6 +16,7 @@
 
 #include <time.h>
 #include <errno.h>
+#include <string.h>
 
 struct Device *TimerBase;
 void __init_timerbase(void);
