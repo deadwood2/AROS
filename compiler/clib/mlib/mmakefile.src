@@ -2,7 +2,7 @@
 #
 include $(SRCDIR)/config/aros.cfg
 
-STDC_MATH_PATH = $(SRCDIR)/compiler/stdc/math/
+STDC_MATH_PATH = $(SRCDIR)/compiler/crt/stdc/math/
 
 STDC_MATH_FILES = \
     e_acos \
@@ -196,15 +196,10 @@ FILES := \
 USER_CPPFLAGS := -D_IEEE_LIBM -Dlint '-D__FBSDID(x)='
 USER_CFLAGS := -Wno-uninitialized -Wno-parentheses
 
-# For pulling source files from stdc/math, each dummy source file
-# needs to have #include "stdc/math/..." so that direct includes in
-# the target file like #include "math.h" don't resolved to code in
-# stdc/math but to $(SRCDIR)/$(CURDIR)
-
 CFLAGS_IQUOTE := -L
-USER_INCLUDES := -I- -iquote $(SRCDIR)/$(CURDIR) -I $(SRCDIR)/compiler
+USER_INCLUDES := -iquote $(SRCDIR)/compiler/crt/stdc/math -I $(SRCDIR)/compiler
 
 %build_linklib mmake=compiler-arosm-legacy libname=arosm files=$(FILES) \
-    libdir=$(OBJDIR)/../
+    sdk="private"
 
 %common

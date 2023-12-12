@@ -1,3 +1,4 @@
+#ifndef AROSC_BUILD
 #ifndef STDC_DEBUG_H
 #define STDC_DEBUG_H
 
@@ -13,4 +14,7 @@
 #endif
 #endif
 
+#endif
+#else
+#include "internal/debug.h"
 #endif

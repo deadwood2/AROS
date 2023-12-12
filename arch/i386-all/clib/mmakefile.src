@@ -12,7 +12,7 @@ USER_AFLAGS 	:= -I$(GENINCDIR)
   arch=i386 \
   asmfiles="vfork vfork_longjmp"
 
-#MM- compiler-arosccommon-legacy-i386 : includes-asm_h-i386
-#MM- compiler-arosc-legacy-i386 : includes-asm_h-i386
+#MM- compiler-arosccommon-legacy-i386 : includes-asm_h
+#MM- compiler-arosc-legacy-i386 : includes-asm_h
 
 %common
