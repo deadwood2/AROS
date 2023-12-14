@@ -12,7 +12,7 @@ ifeq ($(AROS_TARGET_CPU),x86_64)
     ARCH_DEFS := -DMULTIBOOT_64BIT
     ARCH_LIBS := -L$(GENDIR)/lib32 -nostdlib
 else
-    ARCH_LIBS := -L$(AROS_DEVELOPMENT)/lib -L$(GENDIR)/lib
+    ARCH_LIBS := -L$(GENDIR)/lib -L$(GENDIR)/lib32 -nostdlib
 endif
 
 USER_CFLAGS  := -Wl,--oformat,elf_i386
@@ -27,7 +27,7 @@ kernel-bootstrap-pc_LINK := $(KERNEL_CC) $(SYSROOT_FLAG) $(KERNEL_LDFLAGS)
 
 %build_prog mmake=kernel-bootstrap-pc progname=$(EXENAME) \
 	files=$(FILES) targetdir=$(EXEDIR) \
-	uselibs="bootstrap bootconsole stdc.static" usestartup=no lto=no usesdks="private"
+	uselibs="bootstrap bootconsole stdc32.static" usestartup=no lto=no usesdks="private"
 
 %rule_link_binary mmake=kernel-bootstrap-pc file=$(OBJDIR)/vesa.bin.o name=vesa files=vesa \
 	start=0x1000 ldflags="-m elf_i386"

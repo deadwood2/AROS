@@ -667,5 +667,5 @@ endif
 USER_CPPFLAGS += -DSTDC_LIB32
 
 #%build_linklib mmake=linklibs-stdc-static32 \
-#    libname=stdc.static files="$(STDC_STATIC)" objs=$(ROM_COMMON_OBJ32) \
+#    libname=stdc32.static files="$(STDC_STATIC)" objs=$(ROM_COMMON_OBJ32) \
 #    objdir=$(GENDIR)/$(CURDIR)/32bit libdir=$(GENDIR)/lib32
