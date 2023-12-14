@@ -16,7 +16,7 @@
 %include_noerr <@AROS_BUILDDIR@/bin/@aros_target_arch@-@aros_target_cpu@@aros_target_suffix@/AROS/Development/lib/auto>
 
 *lib:
-%(autolib) %{!nostdc:%{!noposixc:-lposixc} -lstdcio -lstdc} %{!nosysbase:-lexec} %{nostdc:-lstdc.static}
+%(autolib) %{!nolibc: -lm -lstdlib -lcrt} %{!nosysbase:-lexec}
 
 *libgcc:
 @aros_c_libs@ -lgcc

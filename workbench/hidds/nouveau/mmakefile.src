@@ -140,7 +140,7 @@ USER_CFLAGS += $(NOWARN_FLAGS) -std=gnu99
 
 USER_LDFLAGS += \
   -lgalliumauxiliary \
-  -lhiddstubs -lstdcio -lstdc
+  -lhiddstubs -lstdlib -lcrtmod -lcrt
   
  %build_module mmake=hidd-nouveau \
      modname=nouveau modtype=hidd \
