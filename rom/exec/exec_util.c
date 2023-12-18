@@ -20,6 +20,18 @@
 #include "exec_util.h"
 #include "taskstorage.h"
 
+static inline struct Task * __inline_Exec_FindTaskByPID(ULONG __arg1, APTR __SysBase)
+{
+    AROS_LIBREQ(SysBase, 50)
+    return AROS_LC1(struct Task *, FindTaskByPID,\
+         AROS_LCA(ULONG, (__arg1), D0), \
+        struct ExecBase *, (__SysBase), 166, Exec    );
+}
+
+#define FindTaskByPID(arg1) \
+    __inline_Exec_FindTaskByPID((arg1), __EXEC_LIBBASE)
+
+
 /****************************************************************************
 
     NAME */

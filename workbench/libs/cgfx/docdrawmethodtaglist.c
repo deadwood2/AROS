@@ -9,6 +9,7 @@
 
 #include "cybergraphics_intern.h"
 #include "gfxfuncsupport.h"
+#include "gfxprivate.h"
 
 #include <proto/utility.h>
 

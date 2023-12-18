@@ -8,6 +8,18 @@
 #include "intuition_intern.h"
 #include "inputhandler_actions.h"
 
+static inline LONG __inline_Layers_ChangeLayerVisibility(struct Layer * __arg1, int __arg2, APTR __LayersBase)
+{
+    AROS_LIBREQ(LayersBase, 50)
+    return AROS_LC2(LONG, ChangeLayerVisibility,\
+         AROS_LCA(struct Layer *, (__arg1), A0), \
+         AROS_LCA(int, (__arg2), D0), \
+        struct Library *, (__LayersBase), 41, Layers    );
+}
+
+#define ChangeLayerVisibility(arg1, arg2) \
+    __inline_Layers_ChangeLayerVisibility((arg1), (arg2), __LAYERS_LIBBASE)
+
 struct HideWindowActionMsg
 {
     struct IntuiActionMsg  msg;

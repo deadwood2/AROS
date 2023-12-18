@@ -12,6 +12,7 @@
 
 #include "cybergraphics_intern.h"
 #include "gfxfuncsupport.h"
+#include "gfxprivate.h"
 
 struct extcol_render_data
 {

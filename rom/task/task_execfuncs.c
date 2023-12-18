@@ -181,6 +181,27 @@ AROS_LH1(void, RemTask,
     AROS_LIBFUNC_EXIT
 }
 
+static inline APTR __inline_Exec_SaveTaskStorage(APTR __SysBase)
+{
+    AROS_LIBREQ(SysBase, 51)
+    return AROS_LC0(APTR, SaveTaskStorage,\
+        struct ExecBase *, (__SysBase), 182, Exec    );
+}
+
+#define SaveTaskStorage() \
+    __inline_Exec_SaveTaskStorage(__EXEC_LIBBASE)
+
+static inline void __inline_Exec_RestoreTaskStorage(APTR __arg1, APTR __SysBase)
+{
+    AROS_LIBREQ(SysBase, 51)
+    AROS_LC1NR(void, RestoreTaskStorage,\
+         AROS_LCA(APTR, (__arg1), A0), \
+        struct ExecBase *, (__SysBase), 183, Exec    );
+}
+
+#define RestoreTaskStorage(arg1) \
+    __inline_Exec_RestoreTaskStorage((arg1), __EXEC_LIBBASE)
+
 /* Called from DOS:RunCommand */
 AROS_LH3(IPTR, NewStackSwap,
         AROS_LHA(struct StackSwapStruct *, sss, A0),
