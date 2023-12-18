@@ -5,7 +5,7 @@
     File descriptors handling internals.
 */
 
-#include LC_LIBDEFS_FILE
+#include "internal/arosc_libdefs.h"
 
 #include "__arosc_privdata.h"
 
