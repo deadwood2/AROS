@@ -1902,7 +1902,7 @@ endif
     cflags="$(CFLAGS)" dflags= \
     cxxflags="$(CXXFLAGS)" dxxflags= \
     objdir="$(OBJDIR)" moduledir= stripdebug="$(DEBUG)" \
-    uselibs= usehostlibs= compiler=target funcinstr="$(TARGET_FUNCINSTR)" lto="$(TARGET_LTO)"
+    uselibs= usehostlibs= compiler=target funcinstr="$(TARGET_FUNCINSTR)" lto="$(TARGET_LTO)" usesdks=
 
 # Define metamake targets and their dependencies
 #MM %(mmake) : core-linklibs includes-generate-deps
@@ -1956,6 +1956,9 @@ endif
 ifeq (%(funcinstr),yes)
 %(mmake)_FUNCINSTR := yes
 %(mmake)_CFLAGS    := $(strip $(FUNCINSTR_FLAGS) $(%(mmake)_CFLAGS))
+endif
+ifneq (%(usesdks),)
+%(mmake)_CPPFLAGS  += $(addprefix -I$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_INCLUDE),%(usesdks)))
 endif
 endif
 ifneq (%(dflags),)
@@ -2056,6 +2059,10 @@ ifeq (%(modname),con)
     %(mmake)_ERR := $(notdir $(%(mmake)_MODULE)).err
 else
     %(mmake)_ERR := %(modname).err
+endif
+
+ifneq (%(usesdks),)
+%(mmake)_LDFLAGS += $(addprefix -L$(AROS_BUILD_SDKS)/,$(addsuffix /$(AROS_DIR_LIB),%(usesdks)))
 endif
 
 %rule_linkmodule module="$(%(mmake)_MODULE)" objs="$(%(mmake)_OBJS)" \
