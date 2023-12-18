@@ -181,6 +181,8 @@ AROS_LH1(void, RemTask,
     AROS_LIBFUNC_EXIT
 }
 
+#if 0
+
 /* Called from DOS:RunCommand */
 AROS_LH3(IPTR, NewStackSwap,
         AROS_LHA(struct StackSwapStruct *, sss, A0),
@@ -218,3 +220,4 @@ AROS_LH3(IPTR, NewStackSwap,
 
     AROS_LIBFUNC_EXIT
 } /* NewStackSwap() */
+#endif
