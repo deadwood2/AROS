@@ -8,6 +8,7 @@
 #include <aros/debug.h>
 
 #include "cybergraphics_intern.h"
+#include "gfxprivate.h"
 
 struct render_data
 {

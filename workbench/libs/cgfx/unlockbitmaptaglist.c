@@ -14,7 +14,7 @@
 #include <hidd/gfx.h>
 
 #include "cybergraphics_intern.h"
-
+#include "gfxprivate.h"
 
 struct RectList
 {
