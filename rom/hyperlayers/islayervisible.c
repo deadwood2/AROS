@@ -22,7 +22,7 @@
         AROS_LHA(struct Layer *, l      , A0),
 
 /*  LOCATION */
-        struct LayersBase *, LayersBase, 43, Layers)
+        struct LayersBase *, LayersBase, 40, Layers)
 
 /*  FUNCTION
        Checks whether the layer is visible or not.
