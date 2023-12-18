@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include LC_LIBDEFS_FILE
+#include "internal/arosc_libdefs.h"
 
 /*****************************************************************************
 

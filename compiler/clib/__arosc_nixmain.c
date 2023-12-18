@@ -10,7 +10,7 @@
     Lang: english
 */
 
-#include LC_LIBDEFS_FILE
+#include "internal/arosc_libdefs.h"
 
 #include <proto/exec.h>
 #include <proto/dos.h>
