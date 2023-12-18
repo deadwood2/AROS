@@ -295,6 +295,8 @@ SHARED    := \
     __stdio \
     __upath \
     __vfork \
+    arosc_end \
+    arosc_start \
     abort \
     access \
     asctime \
@@ -573,10 +575,10 @@ AROSC_LINKLIB_OBJS := $(addsuffix .o, \
 
 USER_LDFLAGS := -noclibs
 
-%build_module mmake=compiler-arosc-legacy \
+%build_module_simple mmake=compiler-arosc-legacy \
     modname=arosc modtype=library objdir=$(OBJDIR)/shared \
     cflags="$(CFLAGS) -DAROSC_SHARED" \
     files="$(SHARED) $(SHARED_ARCH)" \
-    uselibs="arosccommon arosm" sdk="private" usesdks="private"
+    uselibs="arosccommon arosm" usesdks="private"
 
 %common
