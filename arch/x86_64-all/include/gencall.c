@@ -82,7 +82,7 @@ static void aros_call(int id, int flags)
            "    APTR __sto; \\\n"
            "    bt _bn = (bt)bn;\\\n"
            "    APTR __func = (APTR)a; \\\n"
-           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
+           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
     );
 
     aros_call_internal(id, flags);
@@ -109,7 +109,7 @@ static void aros_lh(int id, int is_ignored)
     }
     printf(") {");
     if (!is_ignored)
-        printf(" \\\n    register bt __attribute__((unused)) bn = ({register APTR __r asm(\"r12\");asm volatile(\"\":\"=r\"(__r):\"0\"(__r));(bt)__r;});");
+        printf(" \\\n    register bt __attribute__((unused)) bn = ({register APTR __r __asm__(\"r12\");__asm__ __volatile__(\"\":\"=r\"(__r):\"0\"(__r));(bt)__r;});");
     printf("\n");
     printf("#define AROS_LH%d%s __AROS_LH%d%s\n", id, is_ignored ? "I" : "", id, is_ignored ? "I" : "");
 }
@@ -253,25 +253,25 @@ int main(int argc, char **argv)
     printf("\n");
     printf("/* Reserver r12 from being used by compiler in compilation unit including \n");
     printf("   directly or indirectly libcall.h */\n");
-    printf("register void * __fixedreg asm(\"r12\");\n");
+    printf("register void * __fixedreg __asm__(\"r12\");\n");
     printf("\n");
 
     printf("#define AROS_LIBCALL_INIT(bn, o) \\\n"
            "    APTR __sto; \\\n"
            "    APTR _bn = (APTR)bn;\\\n"
            "    APTR __func = __AROS_GETVECADDR(_bn, o); \\\n"
-           "    asm volatile(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n"
+           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n"
            "\n"
     );
 
     printf("#define AROS_LIBCALL_EXIT \\\n"
-           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n"
+           "    __asm__ __volatile__(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n"
            "    __ret; \n"
            "\n"
     );
 
     printf("#define AROS_LIBCALLNR_EXIT \\\n"
-           "    asm volatile(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n"
+           "    __asm__ __volatile__(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\");\n"
            "\n"
     );
 
