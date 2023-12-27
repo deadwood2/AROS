@@ -21,7 +21,7 @@ struct PosixCBase
 };
 
 /* Some private structs */
-struct random_state;
+struct __random_state;
 struct __env_item;
 struct _fdesc;
 struct vfork_data;
@@ -38,7 +38,7 @@ struct PosixCIntBase
     struct MsgPort timerPort;
 
     /* random.c */
-    struct random_state *rs;
+    struct __random_state *rs;
 
     /* getpwuid.c */
     struct passwd pwd;
