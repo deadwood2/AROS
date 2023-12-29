@@ -24,7 +24,7 @@
 static BOOL installed   = FALSE;
 static APTR space32bit  = NULL;
 static char *nextpage   = NULL;
-#define SPACE32SIZE     (1 << 27) /* 128 MB */
+#define SPACE32SIZE     (1 << 28) /* 256 MB */
 /* Notes: implementation of MEMF_31BIT is good enough to support loading ELF objects into < 2GB address
    range a few times without restart but nothing more. Page memory is not re-used, so it can be
    exhaused*/
