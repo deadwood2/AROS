@@ -28,7 +28,29 @@
 static BPTR __attribute__((unused)) GM_UNIQUENAME(seglist);
 #define GM_SEGLIST_FIELD(LIBBASE) (GM_UNIQUENAME(seglist))
 #endif
-#define LIBBASESIZE (sizeof(LIBBASETYPE) + sizeof(struct Library *)*0)
+/* Required for TaskStorage manipulation */
+extern struct ExecBase *SysBase;
+#ifndef GM_ROOTBASE_FIELD
+static LIBBASETYPEPTR GM_UNIQUENAME(rootbase);
+#define GM_ROOTBASE_FIELD(LIBBASE) (GM_UNIQUENAME(rootbase))
+#endif
+struct __GM_DupBase {
+    LIBBASETYPE base;
+    ULONG taskopencount;
+    struct Task *task;
+    APTR retaddr;
+    LIBBASETYPEPTR oldpertaskbase;
+};
+static LONG __pertaskslot;
+static inline LIBBASETYPEPTR __GM_GetPerTaskBase(void)
+{
+    return (LIBBASETYPEPTR)GetTaskStorageSlot(__pertaskslot);
+}
+static inline void __GM_SetPerTaskBase(LIBBASETYPEPTR base)
+{
+    SetTaskStorageSlot(__pertaskslot, (IPTR)base);
+}
+#define LIBBASESIZE (sizeof(struct __GM_DupBase) + sizeof(struct Library *)*0)
 AROS_LD3(int, IoctlSocket,
          AROS_LDA(int, s, D0),
          AROS_LDA(unsigned long, request, D1),
@@ -212,7 +234,7 @@ AROS_UFH3 (LIBBASETYPEPTR, GM_UNIQUENAME(InitLib),
 
     int ok;
     int initcalled = 0;
-    struct ExecBase *SysBase = sysBase;
+    SysBase = sysBase;
 
 #ifdef GM_SYSBASE_FIELD
     GM_SYSBASE_FIELD(LIBBASE) = (APTR)SysBase;
@@ -228,8 +250,10 @@ AROS_UFH3 (LIBBASETYPEPTR, GM_UNIQUENAME(InitLib),
 #if defined(REVISION_NUMBER)
     ((struct Library *)LIBBASE)->lib_Revision = REVISION_NUMBER;
 #endif
+    __pertaskslot = AllocTaskStorageSlot();
     GM_SEGLIST_FIELD(LIBBASE) = segList;
-    if (set_call_funcs(SETNAME(INIT), 1, 1) &&1)
+    GM_ROOTBASE_FIELD(LIBBASE) = (LIBBASETYPEPTR)LIBBASE;
+    if (set_open_libraries() && set_call_funcs(SETNAME(INIT), 1, 1) &&1)
     {
         set_call_funcs(SETNAME(CTORS), -1, 0);
         set_call_funcs(SETNAME(INIT_ARRAY), 1, 0);
@@ -247,6 +271,7 @@ AROS_UFH3 (LIBBASETYPEPTR, GM_UNIQUENAME(InitLib),
         set_call_funcs(SETNAME(FINI_ARRAY), -1, 0);
         set_call_funcs(SETNAME(DTORS), 1, 0);
         set_call_funcs(SETNAME(EXIT), -1, 0);
+        set_close_libraries();
 
         __freebase(LIBBASE);
         return NULL;
@@ -266,14 +291,59 @@ AROS_LH1 (LIBBASETYPEPTR, GM_UNIQUENAME(OpenLib),
 {
     AROS_LIBFUNC_INIT
 
-    if ( set_call_libfuncs(SETNAME(OPENLIB), 1, 1, LIBBASE) )
+    struct Library *newlib = NULL;
+    UWORD possize = ((struct Library *)LIBBASE)->lib_PosSize;
+    struct Task *thistask = FindTask(NULL);
+    LIBBASETYPEPTR oldpertaskbase = __GM_GetPerTaskBase();
+    newlib = (struct Library *)oldpertaskbase;
+    if (newlib)
     {
-        ((struct Library *)LIBBASE)->lib_OpenCnt++;
-        ((struct Library *)LIBBASE)->lib_Flags &= ~LIBF_DELEXP;
-        return LIBBASE;
+        struct __GM_DupBase *dupbase = (struct __GM_DupBase *)newlib;
+        if (dupbase->task != thistask)
+            newlib = NULL;
+        else if (thistask->tc_Node.ln_Type == NT_PROCESS
+                 && dupbase->retaddr != ((struct Process *)thistask)->pr_ReturnAddr
+        )
+            newlib = NULL;
+        else
+            dupbase->taskopencount++;
     }
 
-    return NULL;
+    if (newlib == NULL)
+    {
+        newlib = MakeLibrary(GM_UNIQUENAME(InitTable).FuncTable,
+                             GM_UNIQUENAME(InitTable).DataTable,
+                             NULL,
+                             GM_UNIQUENAME(InitTable).Size,
+                             (BPTR)NULL
+        );
+        if (newlib == NULL)
+            return NULL;
+
+        CopyMem(LIBBASE, newlib, possize);
+        struct __GM_DupBase *dupbase = (struct __GM_DupBase *)newlib;
+        dupbase->task = thistask;
+        if (thistask->tc_Node.ln_Type == NT_PROCESS)
+             dupbase->retaddr = ((struct Process *)thistask)->pr_ReturnAddr;
+        dupbase->oldpertaskbase = oldpertaskbase;
+        dupbase->taskopencount = 1;
+        __GM_SetPerTaskBase((LIBBASETYPEPTR)newlib);
+
+        if (!(set_open_rellibraries(newlib)
+              && set_call_libfuncs(SETNAME(OPENLIB), 1, 1, newlib)
+             )
+        )
+        {
+            __GM_SetPerTaskBase(oldpertaskbase);
+            __freebase(newlib);
+            return NULL;
+        }
+
+        ((struct Library *)LIBBASE)->lib_OpenCnt++;
+        ((struct Library *)LIBBASE)->lib_Flags &= ~LIBF_DELEXP;
+    }
+
+    return (LIBBASETYPEPTR)newlib;
 
     AROS_LIBFUNC_EXIT
 }
@@ -284,8 +354,19 @@ AROS_LH0 (BPTR, GM_UNIQUENAME(CloseLib),
 {
     AROS_LIBFUNC_INIT
 
-    ((struct Library *)LIBBASE)->lib_OpenCnt--;
+    LIBBASETYPEPTR rootbase = GM_ROOTBASE_FIELD(LIBBASE);
+    struct __GM_DupBase *dupbase = (struct __GM_DupBase *)LIBBASE;
+    dupbase->taskopencount--;
+    if (dupbase->taskopencount != 0)
+        return BNULL;
+
     set_call_libfuncs(SETNAME(CLOSELIB), -1, 0, LIBBASE);
+    set_close_rellibraries(LIBBASE);
+    __GM_SetPerTaskBase(((struct __GM_DupBase *)LIBBASE)->oldpertaskbase);
+    __freebase(LIBBASE);
+    LIBBASE = rootbase;
+    ((struct Library *)LIBBASE)->lib_OpenCnt--;
+
     if
     (
         (((struct Library *)LIBBASE)->lib_OpenCnt == 0)
@@ -329,6 +410,12 @@ AROS_LH1 (BPTR, GM_UNIQUENAME(ExpungeLib),
         set_call_funcs(SETNAME(FINI_ARRAY), -1, 0);
         set_call_funcs(SETNAME(DTORS), 1, 0);
         set_call_funcs(SETNAME(EXIT), -1, 0);
+        set_close_libraries();
+#ifdef GM_OOPBASE_FIELD
+        CloseLibrary((struct Library *)GM_OOPBASE_FIELD(LIBBASE));
+#endif
+        FreeTaskStorageSlot(__pertaskslot);
+        __pertaskslot = 0;
 
         __freebase(LIBBASE);
 
