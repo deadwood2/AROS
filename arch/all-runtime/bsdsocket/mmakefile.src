@@ -4,6 +4,9 @@ include $(SRCDIR)/config/aros.cfg
 #MM runtime-bsdsocket : runtime-bsdsocket-includes-copy
 
 FILES := \
+    bsdsocket_end \
+    bsdsocket_getresident \
+    bsdsocket_start \
     closesocket \
     forwarders \
     ioctlsocket \
@@ -14,7 +17,7 @@ FILES := \
     waitselect \
     init
 
-%build_module_library mmake=runtime-bsdsocket modname=bsdsocket \
+%build_module_simple mmake=runtime-bsdsocket modname=bsdsocket \
   modtype=library files="$(FILES)"
 
 %common
