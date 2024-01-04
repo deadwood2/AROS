@@ -45,6 +45,7 @@ static CONST_STRPTR Kickstart [] =
         "Devs/dosboot.resource",
         "Devs/Drivers/x11gfx.hidd",
         "boot/runtimelinux/Devs/hostlib.resource",
+        "boot/runtimelinux/Devs/battclock.resource",
         "Devs/Drivers/mouse.hidd",
         "Devs/Drivers/keyboard.hidd",
         "Devs/FileSystem.resource",
