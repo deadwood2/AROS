@@ -25,6 +25,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM  workbench-c-intuition \
 #MM  workbench-tools-quick \
 #MM  workbench-tools-editor \
-#MM  workbench-prefs-zune
+#MM  workbench-prefs-zune \
+#MM  workbench-prefs-envarc-copyfiles
 
 %common
