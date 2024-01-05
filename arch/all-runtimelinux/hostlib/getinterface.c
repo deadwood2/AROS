@@ -74,7 +74,16 @@
 
     if (cnt)
     {
-        iface = AllocVec(cnt * sizeof(APTR), MEMF_ANY);
+/* Workaround */
+/* Trigger: call from battclock.resource -> HostLib_GetInterface with two symbols when loading gmplayer causes
+    memory crash on host side when next resident (gfx.hidd) allocates next chunk of memory. Reason is unknown, but
+    incresing memory to 32 bytes makes the problem go away. Note that AllocVec is doing other 16 bytes allocations
+    and they don't seem to be causing issues */
+
+        ULONG memsize = cnt * sizeof(APTR);
+        if (memsize < 32) memsize = 32;
+        iface = AllocVec(memsize, MEMF_ANY);
+/* End */
         if (iface)
         {
             ULONG bad = 0;
