@@ -61,6 +61,8 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     ULONG _tsmask = sigmask ? *sigmask : 0;
     int maxfd = nfds - 1;
     fd_set *pread = readfds; fd_set *pwrite = writefds; fd_set *perror = exceptfds;
+    int timeoutiters = 0;
+    const int ITER_SLEEP = 20;
 
     fd_set tmpreadfds;
     fd_set tmpwritefds;
@@ -69,6 +71,11 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
      /* do pooling */
      _t.tv_sec  = 0;
      _t.tv_usec = 0;
+
+    if (timeout)
+    {
+        timeoutiters = timeout->tv_usec / ITER_SLEEP;
+    }
 
     if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
     {
@@ -80,13 +87,12 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
         __fs_fsset_conv_aros_unix(exceptfds, nfds, &tmperrorfds, &maxfd);
 
         pread = &tmperrorfds; pwrite = &tmpwritefds; perror = &tmperrorfds;
-    }
 
-    if (timeout)
-    {
-        /* use counter = timeout/_t to exit with timeout after counter iterations of pooling */
-        (bug("<<WARN>>: Handling 'timeout' in WaitSelect is not implemented. Please submit issuet at https://github.com/deadw00d/AROS/issues.\n"));
-        return __selectresult;
+        if (timeout)
+        {
+            /* AROS timeval is 32-bit */
+            timeoutiters = timeout->tv_micro / ITER_SLEEP;
+        }
     }
 
     do
@@ -103,7 +109,13 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
              */
         }
 
-        if (cont) usleep(20); /* sleep active pooling */
+        if (timeout)
+        {
+            if (timeoutiters == 0) cont = FALSE;
+            else timeoutiters--;
+        }
+
+        if (cont) usleep(ITER_SLEEP); /* sleep active pooling */
 
     }while (cont);
 
