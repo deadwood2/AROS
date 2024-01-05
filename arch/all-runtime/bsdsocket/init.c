@@ -16,6 +16,7 @@ static int BSDSocket_Init(struct SocketBase *SocketBase)
     if (!UtilityBase) UtilityBase = (struct UtilityBase *)OpenLibrary("utility.library", 0L);
 
     SocketBase->sb_ErrnoPtr     = &SocketBase->sb_Errno;
+    SocketBase->sb_Flags        = 0;
 
     return 1;
 }

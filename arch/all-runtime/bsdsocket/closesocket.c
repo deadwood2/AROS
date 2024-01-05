@@ -1,8 +1,10 @@
 /*
-    Copyright (C) 2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2020-2024, The AROS Development Team. All rights reserved.
 */
 
 #include <unistd.h>
+
+#include "forwarders_support.h"
 
 /*****************************************************************************
 
@@ -15,7 +17,7 @@
         AROS_LHA(int, s, D0),
 
 /*  LOCATION */
-        struct Library *, SocketBase, 20, BSDSocket)
+        struct SocketBase *, SocketBase, 20, BSDSocket)
 
 /*  FUNCTION
 
@@ -41,6 +43,9 @@
 *****************************************************************************/
 {
     AROS_LIBFUNC_INIT
+
+    if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
+        s =__fs_release_mapping(s);
 
     return close(s);
 

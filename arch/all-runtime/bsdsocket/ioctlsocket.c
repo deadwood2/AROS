@@ -1,8 +1,10 @@
 /*
-    Copyright (C) 2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 2020-2024, The AROS Development Team. All rights reserved.
 */
 
 #include <sys/ioctl.h>
+
+#include "forwarders_support.h"
 
 /*****************************************************************************
 
@@ -17,7 +19,7 @@
         AROS_LHA(char *,        argp,    A0),
 
 /*  LOCATION */
-        struct Library *, SocketBase, 19, BSDSocket)
+        struct SocketBase *, SocketBase, 19, BSDSocket)
 
 /*  FUNCTION
 
@@ -43,6 +45,12 @@
 *****************************************************************************/
 {
     AROS_LIBFUNC_INIT
+
+    if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
+    {
+        s = __fs_translate_socket(s);
+        request = __fs_translate_ioctl_request(request);
+    }
 
     return ioctl(s, request, argp);
 

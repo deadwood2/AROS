@@ -12,6 +12,10 @@ struct SocketBase
     struct Library  sb_Base;
     int             sb_Errno;       /* default location of errnoptr bufffer */
     int            *sb_ErrnoPtr;
+    ULONG           sb_Flags;
 };
+
+
+#define SB_FLAG_CLIENT_IS_AROS_PROGRAM      0x1
 
 #endif

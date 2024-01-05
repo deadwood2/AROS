@@ -27,9 +27,11 @@
 
 AROS_LH1(struct hostent *, f_gethostbyname,
          AROS_LHA(const char *, name, A0),
-         struct Library *, SocketBase, 35, BSDSocket)
+         struct SocketBase *, SocketBase, 35, BSDSocket)
 {
     AROS_LIBFUNC_INIT
+
+    SocketBase->sb_Flags |= SB_FLAG_CLIENT_IS_AROS_PROGRAM;
 
     return gethostbyname(name);
 
@@ -40,11 +42,14 @@ AROS_LH3(int, f_socket,
          AROS_LHA(int, domain, D0),
          AROS_LHA(int, type, D1),
          AROS_LHA(int, protocol, D2),
-         struct Library *, SocketBase, 5, BSDSocket)
+         struct SocketBase *, SocketBase, 5, BSDSocket)
 {
     AROS_LIBFUNC_INIT
 
-    return socket(domain, type, protocol);
+    SocketBase->sb_Flags |= SB_FLAG_CLIENT_IS_AROS_PROGRAM;
+
+    int ret = socket(domain, type, protocol);
+    return __fs_obtain_mapping(ret);
 
     AROS_LIBFUNC_EXIT
 }
@@ -67,7 +72,7 @@ AROS_LH3(int, f_connect,
     tmp_name.sa_family    = name->sa_family;
     memcpy(&tmp_name.sa_data, &name->sa_data, sizeof(tmp_name.sa_data));
 
-    int ret = connect(s, &tmp_name, namelen);
+    int ret = connect(__fs_translate_socket(s), &tmp_name, namelen);
     if (ret == -1) __fs_translate_errno(errno, SocketBase);
 
     return ret;
@@ -110,9 +115,7 @@ AROS_LH5(int, f_getsockopt,
 {
     AROS_LIBFUNC_INIT
 
-    int res = getsockopt(s, _translate_level(level), _translate_optname(optname), optval, optlen);
-
-    return res;
+    return getsockopt(__fs_translate_socket(s), _translate_level(level), _translate_optname(optname), optval, optlen);
 
     AROS_LIBFUNC_EXIT
 }
@@ -127,7 +130,7 @@ AROS_LH5(int, f_setsockopt,
 {
     AROS_LIBFUNC_INIT
 
-    return setsockopt(s, _translate_level(level), _translate_optname(optname), optval, optlen);
+    return setsockopt(__fs_translate_socket(s), _translate_level(level), _translate_optname(optname), optval, optlen);
 
     AROS_LIBFUNC_EXIT
 }
@@ -141,8 +144,7 @@ AROS_LH3(int, f_getpeername,
     AROS_LIBFUNC_INIT
     struct sockaddr tmp_name = {0};
     int tmp_namelen = sizeof(struct sockaddr);
-
-    int res = getpeername(s, &tmp_name, &tmp_namelen);
+    int res = getpeername(__fs_translate_socket(s), &tmp_name, &tmp_namelen);
     name->sa_len = 0;
     name->sa_family = tmp_name.sa_family;
     memcpy(name->sa_data, tmp_name.sa_data, sizeof(name->sa_data));
@@ -162,8 +164,7 @@ AROS_LH3(int, f_getsockname,
     AROS_LIBFUNC_INIT
     struct sockaddr tmp_name = {0};
     int tmp_namelen = sizeof(struct sockaddr);
-
-    int res = getsockname(s, &tmp_name, &tmp_namelen);
+    int res = getsockname(__fs_translate_socket(s), &tmp_name, &tmp_namelen);
     name->sa_len = 0;
     name->sa_family = tmp_name.sa_family;
     memcpy(name->sa_data, tmp_name.sa_data, sizeof(name->sa_data));
@@ -183,7 +184,7 @@ AROS_LH4(int, f_send,
 {
     AROS_LIBFUNC_INIT
 
-    return send(s, msg, len, flags);
+    return send(__fs_translate_socket(s), msg, len, flags);
 
     AROS_LIBFUNC_EXIT
 }
@@ -197,7 +198,7 @@ AROS_LH4(int, f_recv,
 {
     AROS_LIBFUNC_INIT
 
-    int ret = recv(s, buf, len, flags);
+    int ret = recv(__fs_translate_socket(s), buf, len, flags);
     if (ret == -1) __fs_translate_errno(errno, SocketBase);
 
     return ret;
