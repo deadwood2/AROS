@@ -50,8 +50,11 @@
     {
         switch(tag->ti_Tag)
         {
-        case(0x80000031):
+        case(0x80000031): /* SBTC_ERRNOPTR(sizeof(errno)) */
             SocketBase->sb_ErrnoPtr = (int *)tag->ti_Data;
+            break;
+        case(0x80000017): /* SBTC_LOGTAGPTR */
+            /* Ignore */
             break;
         default:
             (bug("%s is not implemented for Tag(0x%x). Please submit issuet at https://github.com/deadw00d/AROS/issues.\n",
