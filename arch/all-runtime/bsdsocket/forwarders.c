@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2023, The AROS Development Team. All rights reserved.
+    Copyright (C) 2023-2024, The AROS Development Team. All rights reserved.
 */
 
 #include <aros/symbolsets.h>
@@ -9,6 +9,10 @@
 #include <netdb.h>
 #include <string.h>
 #include <netinet/tcp.h>
+#include <errno.h>
+
+#include "forwarders_support.h"
+#include "socketbase.h"
 
 /*
     AxRuntime programs use directly API of Linux-side network stack for common functions and bsdsocket.library for
@@ -16,6 +20,9 @@
     AROS x86_64 programs however expect full api of bsdsocket.library, including common network functions. This means
     some of the LVOs need to be forwarded to Linux-side network stack to provided the needed functionality. These
     functions are not exposed via genmodule build to make sure they are not visible as public API.
+
+    Any code in this file can safely assume it will only be called by AROS x86_64 programs and never by AxRuntime
+    programs
 */
 
 AROS_LH1(struct hostent *, f_gethostbyname,
@@ -52,7 +59,7 @@ AROS_LH3(int, f_connect,
          AROS_LHA(int, s, D0),
          AROS_LHA(struct f_sockaddr *, name, A0),
          AROS_LHA(socklen_t, namelen, D1),
-         struct Library *, SocketBase, 9, BSDSocket)
+         struct SocketBase *, SocketBase, 9, BSDSocket)
 {
     AROS_LIBFUNC_INIT
 
@@ -60,7 +67,10 @@ AROS_LH3(int, f_connect,
     tmp_name.sa_family    = name->sa_family;
     memcpy(&tmp_name.sa_data, &name->sa_data, sizeof(tmp_name.sa_data));
 
-    return connect(s, &tmp_name, namelen);
+    int ret = connect(s, &tmp_name, namelen);
+    if (ret == -1) __fs_translate_errno(errno, SocketBase);
+
+    return ret;
 
     AROS_LIBFUNC_EXIT
 }
@@ -183,11 +193,14 @@ AROS_LH4(int, f_recv,
          AROS_LHA(void *, buf, A0),
          AROS_LHA(int, len, D1),
          AROS_LHA(int, flags, D2),
-         struct Library *, SocketBase, 13, BSDSocket)
+         struct SocketBase *, SocketBase, 13, BSDSocket)
 {
     AROS_LIBFUNC_INIT
 
-    return recv(s, buf, len, flags);
+    int ret = recv(s, buf, len, flags);
+    if (ret == -1) __fs_translate_errno(errno, SocketBase);
+
+    return ret;
 
     AROS_LIBFUNC_EXIT
 }
@@ -206,5 +219,4 @@ static int BSDSocket_InitForwarders(struct Library *SocketBase)
     return 1;
 }
 
-
-ADD2INITLIB(BSDSocket_InitForwarders, 1);
+ADD2OPENLIB(BSDSocket_InitForwarders, 1);

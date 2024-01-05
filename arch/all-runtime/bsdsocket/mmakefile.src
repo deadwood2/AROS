@@ -8,6 +8,8 @@ FILES := \
     bsdsocket_getresident \
     bsdsocket_start \
     closesocket \
+    errno \
+    forwarders_support \
     forwarders \
     ioctlsocket \
     notimplemented \

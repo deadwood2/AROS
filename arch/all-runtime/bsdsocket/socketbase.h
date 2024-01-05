@@ -1,3 +1,7 @@
+/*
+    Copyright (C) 2024, The AROS Development Team. All rights reserved.
+*/
+
 #ifndef _SOCKET_BASE_H
 #define _SOCKET_BASE_H
 
@@ -5,6 +9,9 @@
 
 struct SocketBase
 {
-    struct Library isb_Base;
+    struct Library  sb_Base;
+    int             sb_Errno;       /* default location of errnoptr bufffer */
+    int            *sb_ErrnoPtr;
 };
+
 #endif

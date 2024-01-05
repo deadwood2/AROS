@@ -30,17 +30,6 @@ AROS_LH2(LONG, ReleaseSocket,
     AROS_LIBFUNC_EXIT
 }
 
-AROS_LH0(LONG, Errno,
-         struct Library *, SocketBase, 27, BSDSocket)
-{
-    AROS_LIBFUNC_INIT
-
-    NOT_IMPL
-    return 0;
-
-    AROS_LIBFUNC_EXIT
-}
-
 AROS_LH2(void, SetErrnoPtr,
          AROS_LHA(void *, ptr, A0),
          AROS_LHA(int, size, D0),

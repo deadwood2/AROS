@@ -5,18 +5,24 @@
 #include <aros/symbolsets.h>
 #include <proto/exec.h>
 
-#include LC_LIBDEFS_FILE
+#include "bsdsocket_libdefs.h"
 
 struct DosLibrary *DOSBase = NULL;
+struct UtilityBase *UtilityBase = NULL;
 
-static int BSDSocket_Init(struct Library *SocketBase)
+static int BSDSocket_Init(struct SocketBase *SocketBase)
 {
     if (!DOSBase) DOSBase = (struct DosLibrary *)OpenLibrary("dos.library", 0L);
+    if (!UtilityBase) UtilityBase = (struct UtilityBase *)OpenLibrary("utility.library", 0L);
+
+    SocketBase->sb_ErrnoPtr     = &SocketBase->sb_Errno;
+
     return 1;
 }
 
-static int BSDSocket_Expunge(struct Library *SocketBase)
+static int BSDSocket_Expunge(struct SocketBase *SocketBase)
 {
+    if (UtilityBase) CloseLibrary((struct Library *)UtilityBase);
     if (DOSBase) CloseLibrary((struct Library *)DOSBase);
     return 1;
 }
