@@ -32,7 +32,7 @@ USER_INCLUDES += \
 
 USER_LDFLAGS := $(TARGET_CXX_LDFLAGS) \
   -lgallium_i915 -lgalliumauxiliary \
-  -lhiddstubs -lpthread
+  -lhiddstubs -lpthread -nolibc
 
 # disable necessary warnings
 NOWARN_FLAGS := -Wno-unused-value -Wno-unused-variable
@@ -48,7 +48,7 @@ USER_CFLAGS += -O0
 
 %build_prog mmake=devs-monitors-intelgma \
            progname=IntelGMA targetdir=$(EXEDIR) \
-           files=$(IGMA_HIDD_SOURCES) uselibs="" usesdks="private mesa"
+           files=$(IGMA_HIDD_SOURCES) uselibs="m stdlib crtmod crt" usesdks="private mesa"
 
 
 %common
