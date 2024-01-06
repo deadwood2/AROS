@@ -24,6 +24,8 @@
 struct Library *OOPBase;
 struct Library *UtilityBase;
 struct Library *StdlibBase;
+struct Library *CrtBase;
+struct Library *MBase;
 
 OOP_AttrBase HiddPCIDeviceAttrBase;
 OOP_AttrBase HiddGMABitMapAttrBase;
@@ -104,8 +106,10 @@ int main(void)
     }
 
     UtilityBase = OpenLibrary("utility.library", 36);
-    StdlibBase = OpenLibrary("stdlib.library", 0);
-    if (UtilityBase == NULL || StdlibBase == NULL)
+    StdlibBase = OpenLibrary("stdlib.library", 1);
+    CrtBase = OpenLibrary("crt.library", 3);
+    MBase = OpenLibrary("m.library", 1);
+    if (UtilityBase == NULL || StdlibBase == NULL || CrtBase == NULL || MBase == NULL)
         success = FALSE;
 
     if (success)
@@ -275,6 +279,10 @@ int main(void)
         OOP_ReleaseAttrBases(attrbases);
     }
 
+    if (MBase != NULL)
+        CloseLibrary(MBase);
+    if (CrtBase != NULL)
+        CloseLibrary(CrtBase);
     if (StdlibBase != NULL)
         CloseLibrary(StdlibBase);
     if (UtilityBase != NULL)
