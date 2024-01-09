@@ -45,6 +45,13 @@ enum
     ATOM_LAST
 };
 
+#define GRAVITY_NORTHWEST   (1 << 0)
+#define VALID_X             (1 << 8)
+#define VALID_Y             (1 << 9)
+#define VALID_WIDTH         (1 << 10)
+#define VALID_HEIGHT        (1 << 11)
+#define CLIENT_PAGER        (1 << 13)
+
 static Atom atoms[ATOM_LAST];
 static Display *sendeventxd;
 
@@ -326,7 +333,7 @@ VOID SendToWM_Move(struct Window *win, WORD new_left, WORD new_top, struct Intui
     event.xclient.window = w;
     event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
     event.xclient.format = 32;
-    event.xclient.data.l[0] = 8961;
+    event.xclient.data.l[0] = CLIENT_PAGER | VALID_Y | VALID_X | GRAVITY_NORTHWEST;
     event.xclient.data.l[1] = new_left;
     event.xclient.data.l[2] = new_top;
 
@@ -343,7 +350,7 @@ VOID SendToWM_Resize(struct Window *win, WORD new_width, WORD new_height, struct
     event.xclient.window = w;
     event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
     event.xclient.format = 32;
-    event.xclient.data.l[0] = 11265;
+    event.xclient.data.l[0] = CLIENT_PAGER | VALID_WIDTH | VALID_HEIGHT | GRAVITY_NORTHWEST;
     event.xclient.data.l[1] = 0;
     event.xclient.data.l[2] = 0;
     event.xclient.data.l[3] = new_width;
