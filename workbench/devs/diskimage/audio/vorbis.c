@@ -40,6 +40,9 @@
 
 #define ID_OggS MAKE_ID('O','g','g','S')
 
+extern struct Library *SysBase;
+extern struct Library *DOSBase;
+
 BOOL VORBIS_header(CONST_APTR p) {
 	return rbe32(p) == ID_OggS;
 }

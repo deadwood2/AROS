@@ -37,6 +37,9 @@
 
 #define ID_fLaC MAKE_ID('f','L','a','C')
 
+extern struct Library *SysBase;
+extern struct Library *DOSBase;
+
 BOOL FLAC_header(CONST_APTR p) {
 	return rbe32(p) == ID_fLaC;
 }

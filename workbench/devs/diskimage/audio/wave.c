@@ -35,6 +35,9 @@
 #define NO_ERROR 0
 #define ZERO MKBADDR(NULL)
 
+extern struct Library *SysBase;
+extern struct Library *DOSBase;
+
 #pragma pack(1)
 
 typedef struct {
