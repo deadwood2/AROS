@@ -28,6 +28,7 @@ enum
     ATOM_WM_CHANGE_STATE,
     ATOM_WM_DELETE_WINDOW,
     ATOM_WM_STATE,
+    ATOM_WM_PROTOCOLS,
 
     ATOM__NET_CLOSE_WINDOW,
     ATOM__NET_ACTIVE_WINDOW,
@@ -52,8 +53,12 @@ enum
 #define VALID_HEIGHT        (1 << 11)
 #define CLIENT_PAGER        (1 << 13)
 
+#define likely(x)           __builtin_expect(!!(x), 1)
+
 static Atom atoms[ATOM_LAST];
 static Display *sendeventxd;
+
+static BOOL WSL_workaround = FALSE;
 
 VOID int_activatewindowcall(struct Window *window, struct IntuitionBase *IntuitionBase);
 
@@ -237,23 +242,29 @@ VOID StartupIntuitionX(struct IntuitionBase *IntuitionBase)
     /* Cache Atoms */
     Display *xd = sendeventxd;
 
-    atoms[ATOM_WM_CHANGE_STATE]             = XInternAtom(xd, "WM_CHANGE_STATE", False);
-    atoms[ATOM_WM_DELETE_WINDOW]            = XInternAtom(xd, "WM_DELETE_WINDOW", False);
-    atoms[ATOM_WM_STATE]                    = XInternAtom(xd, "WM_STATE", False);
+    atoms[ATOM_WM_CHANGE_STATE]             = XInternAtom(xd, "WM_CHANGE_STATE",                True);
+    atoms[ATOM_WM_DELETE_WINDOW]            = XInternAtom(xd, "WM_DELETE_WINDOW",               True);
+    atoms[ATOM_WM_STATE]                    = XInternAtom(xd, "WM_STATE",                       True);
+    atoms[ATOM_WM_PROTOCOLS]                = XInternAtom(xd, "WM_PROTOCOLS",                   True);
 
-    atoms[ATOM__NET_CLOSE_WINDOW]           = XInternAtom(xd, "_NET_CLOSE_WINDOW", False);
-    atoms[ATOM__NET_ACTIVE_WINDOW]          = XInternAtom(xd, "_NET_ACTIVE_WINDOW", False);
-    atoms[ATOM__NET_RESTACK_WINDOW]         = XInternAtom(xd, "_NET_RESTACK_WINDOW", False);
-    atoms[ATOM__NET_MOVERESIZE_WINDOW]      = XInternAtom(xd, "_NET_MOVERESIZE_WINDOW", False);
-    atoms[ATOM__NET_WM_WINDOW_TYPE]         = XInternAtom(xd, "_NET_WM_WINDOW_TYPE", False);
-    atoms[ATOM__NET_WM_WINDOW_TYPE_DESKTOP] = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP", False);
-    atoms[ATOM__NET_WM_WINDOW_TYPE_NORMAL]  = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_NORMAL", False);
-    atoms[ATOM__NET_WM_WINDOW_TYPE_DOCK]    = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK", False);
+    atoms[ATOM__NET_CLOSE_WINDOW]           = XInternAtom(xd, "_NET_CLOSE_WINDOW",              True);
+    atoms[ATOM__NET_ACTIVE_WINDOW]          = XInternAtom(xd, "_NET_ACTIVE_WINDOW",             True);
+    atoms[ATOM__NET_RESTACK_WINDOW]         = XInternAtom(xd, "_NET_RESTACK_WINDOW",            True);
+    atoms[ATOM__NET_MOVERESIZE_WINDOW]      = XInternAtom(xd, "_NET_MOVERESIZE_WINDOW",         True);
+    atoms[ATOM__NET_WM_WINDOW_TYPE]         = XInternAtom(xd, "_NET_WM_WINDOW_TYPE",            True);
+    atoms[ATOM__NET_WM_WINDOW_TYPE_DESKTOP] = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DESKTOP",    True);
+    atoms[ATOM__NET_WM_WINDOW_TYPE_NORMAL]  = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_NORMAL",     True);
+    atoms[ATOM__NET_WM_WINDOW_TYPE_DOCK]    = XInternAtom(xd, "_NET_WM_WINDOW_TYPE_DOCK",       True);
 
-    atoms[ATOM__MOTIF_WM_HINTS]             = XInternAtom(xd, "_MOTIF_WM_HINTS", False);
+    atoms[ATOM__MOTIF_WM_HINTS]             = XInternAtom(xd, "_MOTIF_WM_HINTS",                True);
 
     atoms[ATOM__IWM_SCREEN_TITLE]           = XInternAtom(xd, "_IWM_SCREEN_TITLE",              True);
 
+    if ((atoms[ATOM__NET_CLOSE_WINDOW] == None) && (atoms[ATOM__NET_MOVERESIZE_WINDOW] == None))
+    {
+        WSL_workaround = TRUE;
+        bug("<<INFO>>: WSL workaround enabled in Intuition\n");
+    }
 }
 
 
@@ -268,18 +279,38 @@ static VOID sendxevent(XEvent *event, struct IntuitionBase *IntuitionBase)
 
 VOID SendToWM_Close(struct Window *win, struct IntuitionBase *IntuitionBase)
 {
-    XEvent event;
     Window w = IW(win)->XWindow;
 
-    memset(&event, 0, sizeof(event));
-    event.xclient.type = ClientMessage;
-    event.xclient.window = w;
-    event.xclient.message_type = atoms[ATOM__NET_CLOSE_WINDOW];
-    event.xclient.format = 32;
-    event.xclient.data.l[0] = 0; // FIXME eventTime;
-    event.xclient.data.l[1] = 2; //Pager
+    if (likely(WSL_workaround == FALSE))
+    {
+        XEvent event;
 
-    sendxevent(&event, IntuitionBase);
+        memset(&event, 0, sizeof(event));
+        event.xclient.type = ClientMessage;
+        event.xclient.window = w;
+        event.xclient.message_type = atoms[ATOM__NET_CLOSE_WINDOW];
+        event.xclient.format = 32;
+        event.xclient.data.l[0] = 0; // FIXME eventTime;
+        event.xclient.data.l[1] = 2; //Pager
+
+        sendxevent(&event, IntuitionBase);
+    }
+    else
+    {
+        Display *xd = sendeventxd;
+        XEvent event;
+
+        memset(&event, 0, sizeof(event));
+        event.xclient.type = ClientMessage;
+        event.xclient.window = w;
+        event.xclient.message_type = atoms[ATOM_WM_PROTOCOLS];
+        event.xclient.format = 32;
+        event.xclient.data.l[0] = atoms[ATOM_WM_DELETE_WINDOW];
+        event.xclient.data.l[1] = 0; // FIXME eventTime;
+
+        XSendEvent(xd, w, False, NoEventMask, &event);
+        XFlush(xd);
+    }
 }
 
 VOID SendToWM_Activate(struct Window *win, struct IntuitionBase *IntuitionBase)
@@ -301,63 +332,88 @@ VOID SendToWM_Activate(struct Window *win, struct IntuitionBase *IntuitionBase)
 
 VOID SendToWM_Restack(struct Window *win, WORD topbottom, struct IntuitionBase *IntuitionBase)
 {
-    XEvent event;
-    Window w = IW(win)->XWindow;
-    int detail;
-
-    switch(topbottom)
+    if (atoms[ATOM__NET_RESTACK_WINDOW] != None)
     {
-        case(-1): detail = BottomIf; break;
-        case(1): detail = TopIf; break;
-        default: detail = Opposite; break;
+        XEvent event;
+        Window w = IW(win)->XWindow;
+        int detail;
+
+        switch(topbottom)
+        {
+            case(-1): detail = BottomIf; break;
+            case(1): detail = TopIf; break;
+            default: detail = Opposite; break;
+        }
+
+        memset(&event, 0, sizeof(event));
+        event.xclient.type = ClientMessage;
+        event.xclient.window = w;
+        event.xclient.message_type = atoms[ATOM__NET_RESTACK_WINDOW];
+        event.xclient.format = 32;
+        event.xclient.data.l[0] = 2;
+        event.xclient.data.l[1] = 0; /* absolute */
+        event.xclient.data.l[2] = detail;
+
+        sendxevent(&event, IntuitionBase);
     }
-
-    memset(&event, 0, sizeof(event));
-    event.xclient.type = ClientMessage;
-    event.xclient.window = w;
-    event.xclient.message_type = atoms[ATOM__NET_RESTACK_WINDOW];
-    event.xclient.format = 32;
-    event.xclient.data.l[0] = 2;
-    event.xclient.data.l[1] = 0; /* absolute */
-    event.xclient.data.l[2] = detail;
-
-    sendxevent(&event, IntuitionBase);
 }
 
 VOID SendToWM_Move(struct Window *win, WORD new_left, WORD new_top, struct IntuitionBase *IntuitionBase)
 {
-    XEvent event;
     Window w = IW(win)->XWindow;
 
-    memset(&event, 0, sizeof(event));
-    event.xclient.type = ClientMessage;
-    event.xclient.window = w;
-    event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
-    event.xclient.format = 32;
-    event.xclient.data.l[0] = CLIENT_PAGER | VALID_Y | VALID_X | GRAVITY_NORTHWEST;
-    event.xclient.data.l[1] = new_left;
-    event.xclient.data.l[2] = new_top;
+    if (likely(WSL_workaround == FALSE))
+    {
+        XEvent event;
 
-    sendxevent(&event, IntuitionBase);
+        memset(&event, 0, sizeof(event));
+        event.xclient.type = ClientMessage;
+        event.xclient.window = w;
+        event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
+        event.xclient.format = 32;
+        event.xclient.data.l[0] = CLIENT_PAGER | VALID_Y | VALID_X | GRAVITY_NORTHWEST;
+        event.xclient.data.l[1] = new_left;
+        event.xclient.data.l[2] = new_top;
+
+        sendxevent(&event, IntuitionBase);
+    }
+    else
+    {
+        Display *xd = sendeventxd;
+
+        XMoveWindow(xd, w, new_left, new_top);
+        XFlush(xd);
+    }
 }
 
 VOID SendToWM_Resize(struct Window *win, WORD new_width, WORD new_height, struct IntuitionBase *IntuitionBase)
 {
-    XEvent event;
     Window w = IW(win)->XWindow;
 
-    memset(&event, 0, sizeof(event));
-    event.xclient.type = ClientMessage;
-    event.xclient.window = w;
-    event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
-    event.xclient.format = 32;
-    event.xclient.data.l[0] = CLIENT_PAGER | VALID_WIDTH | VALID_HEIGHT | GRAVITY_NORTHWEST;
-    event.xclient.data.l[1] = 0;
-    event.xclient.data.l[2] = 0;
-    event.xclient.data.l[3] = new_width;
-    event.xclient.data.l[4] = new_height;
+    if (likely(WSL_workaround == FALSE))
+    {
+        XEvent event;
 
-    sendxevent(&event, IntuitionBase);
+        memset(&event, 0, sizeof(event));
+        event.xclient.type = ClientMessage;
+        event.xclient.window = w;
+        event.xclient.message_type = atoms[ATOM__NET_MOVERESIZE_WINDOW];
+        event.xclient.format = 32;
+        event.xclient.data.l[0] = CLIENT_PAGER | VALID_WIDTH | VALID_HEIGHT | GRAVITY_NORTHWEST;
+        event.xclient.data.l[1] = 0;
+        event.xclient.data.l[2] = 0;
+        event.xclient.data.l[3] = new_width;
+        event.xclient.data.l[4] = new_height;
+
+        sendxevent(&event, IntuitionBase);
+    }
+    else
+    {
+        Display *xd = sendeventxd;
+
+        XResizeWindow(xd, w, new_width, new_height);
+        XFlush(xd);
+    }
 }
 
 VOID SendToWM_Minimize(struct Window *win, struct IntuitionBase *IntuitionBase)
