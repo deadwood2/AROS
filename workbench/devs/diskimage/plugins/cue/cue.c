@@ -122,8 +122,10 @@ struct DIPluginIFace *IPlugin;
 #ifndef USE_MPG123
 struct Library *MPEGABase;
 #endif
-#if defined(USE_MPG123) && defined(__AROS__)
+#if defined(__AROS__)
 struct Library *StdlibBase;
+struct Library *CrtBase;
+struct Library *MBase;
 #endif
 
 #ifdef USE_MPG123
@@ -136,26 +138,38 @@ BOOL CUE_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
 	DOSBase = data->DOSBase;
 	UtilityBase = data->UtilityBase;
 	IPlugin = data->IPlugin;
-#ifdef USE_MPG123
 #ifdef __AROS__
-	StdlibBase = data->StdlibBase;
+	StdlibBase = OpenLibrary("stdlib.library", 0L);
+	CrtBase = OpenLibrary("crt.library", 0L);
+	MBase = OpenLibrary("m.library", 0L);
 #endif
+#ifdef USE_MPG123
 	if (!malloc_init()) {
 		return FALSE;
 	}
+#if 0
 	if (mpg123_init() != MPG123_OK) {
 		malloc_exit();
 		return FALSE;
 	}
+#endif
 #endif
 	return TRUE;
 }
 
 void CUE_Exit (struct DiskImagePlugin *Self) {
 #ifdef USE_MPG123
+#if 0
 	mpg123_exit();
+#endif
 	malloc_exit();
 #endif
+#ifdef __AROS__
+	CloseLibrary(StdlibBase);
+	CloseLibrary(CrtBase);
+	CloseLibrary(MBase);
+#endif
+
 }
 
 BOOL CUE_CheckImage (struct DiskImagePlugin *Self, BPTR file, CONST_STRPTR name, QUAD file_size,
@@ -298,7 +312,9 @@ APTR CUE_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file,
 						}
 						MPEGABase = image->mpegabase;
 #endif
+#if 0
 						cue_file->f.aud.stream = (AUDIO_STREAM *)MP3_open(argv[1]);
+#endif
 					} else {
 						error = ERROR_OBJECT_WRONG_TYPE;
 						error_string = MSG_UNKNCOMPMETHOD;

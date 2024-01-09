@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-USER_CPPFLAGS := -DMIN_OS_VERSION=39 $(BASE_CFLAGS) -DCATCOMP_NUMBERS -D__NOLIBBASE__ -DUSE_FLAC -DUSE_MPG123 -DUSE_VORBIS -DUSE_WAVPACK
+USER_CPPFLAGS := -DMIN_OS_VERSION=39 $(BASE_CFLAGS) -DCATCOMP_NUMBERS -D__NOLIBBASE__ -DUSE_FLAC -DUSE_MPG123 -DUSE_VORBIS
 USER_INCLUDES := -I$(AROS_INCLUDES)/SDI \
                  -I$(SRCDIR)/$(CURDIR)/../include -I$(SRCDIR)/$(CURDIR)/../dms
 USER_LDFLAGS := -noclibs -lstdc.static
@@ -79,12 +79,12 @@ TARGETDIR := $(AROS_DEVS)/DiskImage
 %build_prog mmake=workbench-devs-diskimage-cpc progname=CPC files="stub_aros cpc" \
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no usesdks="diskimage"
 
-CFILES := cue/cue cue/flac cue/wavpack audio/aiff audio/flac \
-	audio/mp3_mpg123 audio/vorbis audio/wave audio/wavpack cue/malloc \
+CFILES := cue/cue cue/c_flac ../audio/aiff ../audio/flac \
+	../audio/vorbis ../audio/wave cue/malloc \
 	cue/fdio cue/string cue/stdio cue/select
 
 %build_prog mmake=workbench-devs-diskimage-cue progname=CUE files="stub_aros $(CFILES)" \
-    targetdir=$(TARGETDIR) uselibs="mpg123 FLAC wavpack vorbisfile vorbis ogg diskimagesupport" usestartup=no usesdks="diskimage"
+    targetdir=$(TARGETDIR) uselibs="FLAC vorbisfile vorbis ogg diskimagesupport stdlib m crtmod crt" usestartup=no usesdks="diskimage"
 
 #MM workbench-devs-diskimage-daa : workbench-libs-z-linklib
 

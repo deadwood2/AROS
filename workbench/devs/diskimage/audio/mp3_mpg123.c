@@ -39,6 +39,9 @@
 #define MPG123_SEEK_CUR SEEK_CUR
 #define MPG123_SEEK_END SEEK_END
 
+extern struct Library *SysBase;
+extern struct Library *DOSBase;
+
 static void MP3_close(MP3_STREAM *stream);
 static LONG MP3_read(MP3_STREAM *stream, APTR buffer, ULONG offset, ULONG length);
 
