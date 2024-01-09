@@ -75,9 +75,6 @@ struct DiskImageBase {
 	struct Library *DOSBase;
 	struct Library *UtilityBase;
 	struct Library *IntuitionBase;
-#ifdef __AROS__
-	struct Library *StdlibBase;
-#endif
 };
 
 enum {
