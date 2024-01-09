@@ -466,11 +466,7 @@ static APTR LibReserved (void) {
 #endif
 
 #ifdef __AROS__
-#ifdef ABIV1
 #define LIB_ENTRY(a,b) AROS_SLIB_ENTRY(a, DiskImage, b)
-#else
-#define LIB_ENTRY(a,b) AROS_SLIB_ENTRY(a, DiskImage)
-#endif
 #else
 #define LIB_ENTRY(a,b) a
 #endif

@@ -507,11 +507,7 @@ static void Expat_MemFree(REG(a0, XML_Parser parser), REG(a1, void * ptr));
 #endif
 
 #ifdef __AROS__
-#ifdef ABIV1
 #define LIB_ENTRY(a,b) AROS_SLIB_ENTRY(a, Expat, b)
-#else
-#define LIB_ENTRY(a,b) AROS_SLIB_ENTRY(a, Expat)
-#endif
 #else
 #define LIB_ENTRY(a,b) Expat_##a
 #endif

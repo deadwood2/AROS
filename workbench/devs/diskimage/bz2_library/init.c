@@ -146,11 +146,7 @@ static LONG BZlib_BuffToBuffDecompress(REG(a0, APTR dest), REG(a1, ULONG *destLe
 #endif
 
 #ifdef __AROS__
-#ifdef ABIV1
 #define LIB_ENTRY(a,b) AROS_SLIB_ENTRY(a, BZlib, b)
-#else
-#define LIB_ENTRY(a,b) AROS_SLIB_ENTRY(a, BZlib)
-#endif
 #else
 #define LIB_ENTRY(a,b) BZlib_##a
 #endif
