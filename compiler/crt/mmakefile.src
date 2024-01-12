@@ -748,6 +748,7 @@ CRT := \
 
 CRT_LINKLIB := \
     ../posixc/getopt \
+    ../posixc/getopt_long
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
