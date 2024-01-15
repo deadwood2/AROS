@@ -85,7 +85,7 @@ $(GENINCDIR)/exec/execbase.h : $(SRCDIR)/$(CURDIR)/exec/execbase.inc
 	@$(ECHO) "Copying    C   includes to $(GENINCDIR)..."
 	@$(CP) $< $@
 ifneq ($(strip $(SMPREADY)),"")
-	$(SED) -i -e 's/.*ThisTask;.*/    IPTR         Private1;/' -e 's/.*Quantum;.*/    WORD         Private2;/' -e 's/.*Elapsed;.*/    WORD         Private3;/' -e 's/.*IDNestCnt;.*/    UBYTE        Private4;/' -e 's/.*TDNestCnt;.*/    UBYTE        Private5;/' $@
+	$(SED) -i -e 's/.*ThisTask;.*/    IPTR         Private1;/' -e 's/.*Quantum;.*/    UWORD        Private2;/' -e 's/.*Elapsed;.*/    UWORD        Private3;/' -e 's/.*IDNestCnt;.*/    BYTE         Private4;/' -e 's/.*TDNestCnt;.*/    BYTE         Private5;/' $@
 endif
 
 $(AROS_INCLUDES)/exec/execbase.h : $(GENINCDIR)/exec/execbase.h
@@ -129,7 +129,7 @@ includes-asm_h-$(CPU) : $(GENINCDIR)/aros/$(CPU)/asm.h
 #MM includes-asm_h : includes-copy includes-asm_h-$(CPU)
 #MM
 includes-asm_h:
-	$(NOP)
+	@$(NOP)
 
 ifeq ($(AROS_TOOLCHAIN),gnu)
 GREPTOKEN := ".asciz"

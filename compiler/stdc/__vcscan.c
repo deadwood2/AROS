@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2013, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2022, The AROS Development Team. All rights reserved.
 
     Function to scan a string like scanf().
 */
@@ -398,7 +398,7 @@ const static struct vcs_ieeetype undef[3] = /* Undefined numeric values, IEEE */
                 size=1; /* fake a valid argument */
                 break;
             default:
-            { 
+            {
                 unsigned long v1=0;
                 unsigned long long llv1=0;
                 int base;
@@ -508,7 +508,7 @@ const static struct vcs_ieeetype undef[3] = /* Undefined numeric values, IEEE */
                     }
                 }
                 else
-                { 
+                {
                     signed long long v2=v1;
                     if(lltype==1) v2=llv1;
                     if(min=='-') v2=-v2;
