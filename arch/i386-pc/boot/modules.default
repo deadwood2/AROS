@@ -49,6 +49,7 @@
 /Libs/aros.library
 /Libs/debug.library
 /Libs/dos.library
+/Libs/gadtools.library
 /Libs/graphics.library
 /Libs/intuition.library
 /Libs/keymap.library
