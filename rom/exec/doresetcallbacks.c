@@ -35,6 +35,10 @@ void Exec_DoResetCallbacks(struct IntExecBase *IntSysBase, UBYTE action)
             i->is_Node.ln_Name));
         i->is_Node.ln_Type = action;
         if (KrnIsSuper()) i->is_Node.ln_Type |= 0x80; /* Set the "supervisor" flag */
-        AROS_INTC1(i->is_Code, i->is_Data);
+        /* ABI_V0 compatibility */
+        AROS_UFC3(void, i->is_Code,
+                AROS_UFCA(APTR, i->is_Data, A1),
+                AROS_UFCA(APTR, i->is_Code, A5),
+                AROS_UFCA(struct ExecBase *, &IntSysBase->pub, A6));
     }
 }
