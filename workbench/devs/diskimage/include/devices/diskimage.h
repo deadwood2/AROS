@@ -144,7 +144,11 @@ struct DiskImagePluginTable plugin_table = { \
 #ifdef __GNUC__
 #define PLUGIN_NODE(pri,name) { .ln_Name = name, .ln_Pri = pri }
 #else
+#if defined(__AROS__) && defined(__i386__)
+#define PLUGIN_NODE(pri,name) { NULL, NULL, name, 0, pri }
+#else
 #define PLUGIN_NODE(pri,name) { NULL, NULL, 0, pri, name }
+#endif
 #endif
 
 #ifdef USED_PLUGIN_API_VERSION
