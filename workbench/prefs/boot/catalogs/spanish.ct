@@ -115,7 +115,7 @@ Habilitar tranferencias 32 bit
 ; Enable 32-bit Data Transfers
 ;
 MSG_ATA_POLL
-Detectar por encuesta el fin del estado ocupado  
+Detectar por encuesta el fin del estado ocupado
 ; Use Polling to Detect End of Busy State
 ;
 MSG_ATA_MULTI
@@ -179,7 +179,7 @@ Periferico DOS:
 ; DOS Device:
 ;
 MSG_DEVICE_DELAY
-Boot Delay: 
+Boot Delay:
 ; Boot Delay:
 ;
 MSG_DEVICE_SECONDS
