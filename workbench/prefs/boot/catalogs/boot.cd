@@ -115,8 +115,8 @@ Debug USB
 MSG_MISC (//)
 Miscellaneous
 ;
-MSG_USB_ENABLE (//)
-Enable USB
+MSG_IOAPIC_ENABLE (//)
+Enable IOAPIC
 ;
 MSG_ACPI_ENABLE (//)
 Enable ACPI

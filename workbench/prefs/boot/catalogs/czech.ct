@@ -159,9 +159,9 @@ MSG_MISC
 Rùzné
 ; Miscellaneous
 ;
-MSG_USB_ENABLE
-Zapnout USB
-; Enable USB
+MSG_IOAPIC_ENABLE
+Zapnout IOAPIC
+; Enable IOAPIC
 ;
 MSG_ACPI_ENABLE
 Zapnout ACPI

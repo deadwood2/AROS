@@ -158,9 +158,9 @@ MSG_MISC
 Çeþitli
 ; Miscellaneous
 ;
-MSG_USB_ENABLE
-USB Etkinleþtir
-; Enable USB
+MSG_IOAPIC_ENABLE
+IOAPIC Etkinleþtir
+; Enable IOAPIC
 ;
 MSG_ACPI_ENABLE
 ACPI Etkinleþtir

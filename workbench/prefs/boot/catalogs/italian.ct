@@ -158,9 +158,9 @@ MSG_MISC
 Varie
 ; Miscellaneous
 ;
-MSG_USB_ENABLE
-Abilita USB
-; Enable USB
+MSG_IOAPIC_ENABLE
+Abilita IOAPIC
+; Enable IOAPIC
 ;
 MSG_ACPI_ENABLE
 Abilita ACPI
