@@ -226,3 +226,15 @@ MSG_BAD_MODULE
 Ошибка в пути модуля "%s"
 ;Bad module path "%s"
 ;
+MSG_ENABLE
+Enable
+;Enable
+;
+MSG_NOTE_INFO
+Note: This application edits only first entry in GRUB configuration file.
+;Note: This application edits only first entry in GRUB configuration file.
+;
+MSG_AHCI_GENERATION
+Force generation:
+;Force generation:
+;
