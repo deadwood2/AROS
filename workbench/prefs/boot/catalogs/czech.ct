@@ -159,9 +159,9 @@ MSG_MISC
 Rùzné
 ; Miscellaneous
 ;
-MSG_USB_ENABLE
-Zapnout USB
-; Enable USB
+MSG_IOAPIC_ENABLE
+Zapnout IOAPIC
+; Enable IOAPIC
 ;
 MSG_ACPI_ENABLE
 Zapnout ACPI
@@ -226,4 +226,16 @@ Zpìt
 MSG_BAD_MODULE
 Chybná cesta k modulu "%s"
 ;Bad module path "%s"
+;
+MSG_ENABLE
+Enable
+;Enable
+;
+MSG_NOTE_INFO
+Note: This application edits only first entry in GRUB configuration file.
+;Note: This application edits only first entry in GRUB configuration file.
+;
+MSG_AHCI_GENERATION
+Force generation:
+;Force generation:
 ;

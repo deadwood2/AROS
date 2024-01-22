@@ -115,8 +115,8 @@ Debug USB
 MSG_MISC (//)
 Miscellaneous
 ;
-MSG_USB_ENABLE (//)
-Enable USB
+MSG_IOAPIC_ENABLE (//)
+Enable IOAPIC
 ;
 MSG_ACPI_ENABLE (//)
 Enable ACPI
@@ -165,4 +165,13 @@ Cancel
 ;
 MSG_BAD_MODULE (//)
 Bad module path "%s"
+;
+MSG_ENABLE (//)
+Enable
+;
+MSG_NOTE_INFO (//)
+Note: This application edits only first entry in GRUB configuration file.
+;
+MSG_AHCI_GENERATION (//)
+Force generation:
 ;

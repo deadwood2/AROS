@@ -1,33 +1,33 @@
-## version $VER: Boot.catalog 1.0 (19.01.2021)
-## language español
-## codeset 0
+## version $VER: Boot.catalog 1.0 (07.11.2021)
+## language türkçe
+## codeset 12
 ;
 MSG_NAME
-Preferencias de inicio
+Önyükleme Tecihleri
 ; Boot Preferences
 ;
 MSG_DESCRIPTION
-Configurar preferencias de inicio
+Önyükleme tercihlerini yönet
 ; Manage boot preferences
 ;
 MSG_GFX
-Gráficos
+Grafik
 ; Graphics
 ;
 MSG_GFX_COMPOSITION
-Habilitar composición
+Birleþtirme etkin
 ; Enable composition
 ;
 MSG_GFX_TYPE
-Tipo:
+Tür:
 ; Type:
 ;
 MSG_GFX_TYPE_AUTO
-Automatico
+Otomatik
 ; Automatic
 ;
 MSG_GFX_TYPE_NATIVE
-Nativo
+Doðal
 ; Native
 ;
 MSG_GFX_TYPE_VESA
@@ -39,35 +39,35 @@ VGA
 ; VGA
 ;
 MSG_GFX_VESAMODE
-Modo VESA
+VESA Modu
 ; VESA Mode
 ;
 MSG_GFX_WIDTH
-Ancho:
+Geniþlik:
 ; Width:
 ;
 MSG_GFX_HEIGHT
-Alto:
+Yükseklik:
 ; Height:
 ;
 MSG_GFX_DEPTH
-Profundidad de color:
+Renk Derinliði:
 ; Colour Depth:
 ;
 MSG_GFX_DEPTH_TRUE
-Color verdadero
+Gerçek Renkler
 ; True Colour
 ;
 MSG_GFX_DEPTH_HIGH
-ALta densidad
+Yüksek Renkler
 ; High Colour
 ;
 MSG_GFX_DEPTH_LOW
-256 Colores
+256 Renkli
 ; 256 Colours
 ;
 MSG_GFX_REFRESH
-Tasa de refresco:
+Tarama Hýzý:
 ; Refresh Rate:
 ;
 MSG_GFX_HERTZ
@@ -75,11 +75,11 @@ Hz
 ; Hz
 ;
 MSG_GFX_DEFAULTREFRESH
-Usar tasa de refresco por defecto
+Varsayýlan Tarama Hýzýný Kullan
 ; Use Default Refresh Rate
 ;
 MSG_GFX_BESTRES
-Usar la resolución mas alta disponible
+Mevcut En Yüksek Çözünürlüðü Kullan
 ; Use Highest Available Resolution
 ;
 MSG_ATA
@@ -87,7 +87,7 @@ ATA
 ; ATA
 ;
 MSG_ATA_BUSES
-Buses habilitados:
+Etkin Veri Yollarý:
 ; Enabled Buses:
 ;
 MSG_ATA_BUS_PCI
@@ -95,135 +95,135 @@ PCI
 ; PCI
 ;
 MSG_ATA_BUS_LEGACY
-Legacy
+Eski
 ; Legacy
 ;
 MSG_ATA_BUS_ALL
-Todos
+Tümü
 ; All
 ;
 MSG_ATA_BUS_NONE
-Ninguno
+Hiçbiri
 ; None
 ;
 MSG_ATA_DMA
-Habilitar transferencias DMA
+DMA Veri Aktarýmlarýný Etkinleþtir
 ; Enable DMA Data Transfers
 ;
 MSG_ATA_32BIT
-Habilitar tranferencias 32 bit
+32-bit Veri Aktarýmlarýný Etkinleþtir
 ; Enable 32-bit Data Transfers
 ;
 MSG_ATA_POLL
-Detectar por encuesta el fin del estado ocupado
+Meþgul Durumunun Sonunu Algýlamak için Yoklamayý Kullan
 ; Use Polling to Detect End of Busy State
 ;
 MSG_ATA_MULTI
-Habilitar transferencias multisector
+Çok Sektörlü Veri Aktarýmlarýný Etkinleþtir
 ; Enable Multisector Data Transfers
 ;
 MSG_ATA_AHCI
-Habilitar AHCI nativo
+Doðal AHCI Etkinleþtir
 ; Enable Native AHCI
 ;
 MSG_DEBUG
-Debugging
+Hata Ayýklama
 ; Debugging
 ;
 MSG_DEBUG_OUTPUT
-Salida:
+Çýktý:
 ; Output:
 ;
 MSG_DEBUG_OUTPUT_NONE
-Ninguna
+Hiçbiri
 ; None
 ;
 MSG_DEBUG_OUTPUT_MEMORY
-Buffer de memoria
+Bellek Tamponu
 ; Memory Buffer
 ;
 MSG_DEBUG_OUTPUT_SERIAL
-Puerto serie
+Seri Port
 ; Serial Port
 ;
 MSG_DEBUG_MUNGWALL
-Habilitar Mungwall
+Mungwall'u Etkinleþtir
 ; Enable Mungwall
 ;
 MSG_DEBUG_USB
-Debug USB
+USB Hata ayýklama
 ; Debug USB
 ;
 MSG_MISC
-Miscelanea
+Çeþitli
 ; Miscellaneous
 ;
 MSG_IOAPIC_ENABLE
-Habilitar IOAPIC
+IOAPIC Etkinleþtir
 ; Enable IOAPIC
 ;
 MSG_ACPI_ENABLE
-Habilitar ACPI
+ACPI Etkinleþtir
 ; Enable ACPI
 ;
 MSG_FLOPPY_ENABLE
-Habilitar disquetera
+Disket Sürücüyü Etkinleþtir
 ; Enable Floppy Disk Drive
 ;
 MSG_DEVICE
-Periferico de arranque
+Önyükleme Aygýtý
 ; Boot Device
 ;
 MSG_DEVICE_NAME
-Periferico DOS:
+DOS Aygýtý:
 ; DOS Device:
 ;
 MSG_DEVICE_DELAY
-Boot Delay:
+Önyükleme Geçikmesi:
 ; Boot Delay:
 ;
 MSG_DEVICE_SECONDS
-segundos
+saniye
 ; seconds
 ;
 MSG_DEVICE_DEFAULTDELAY
-Usar Boot Delay predeterminado
+Varsayýlan Önyükleme Gecikmesini Kullan
 ; Use Default Boot Delay
 ;
 MSG_OPTIONS
-Opciones
+Seçenekler
 ; Options
 ;
 MSG_MODULES
-Modulos
+Modüller
 ; Modules
 ;
 MSG_ACTIVE
-Activo
+Aktif
 ; Active
 ;
 MSG_PATH
-Ruta
+Yol
 ; Path
 ;
 MSG_ADD
-Añadir
+Ekle
 ; Add
 ;
 MSG_REMOVE
-Quitar
+Kaldýr
 ; Remove
 ;
 MSG_OK
-Ok
+Tamam
 ; OK
 ;
 MSG_CANCEL
-Cancelar
+Vazgeç
 ; Cancel
 ;
 MSG_BAD_MODULE
-Ruta de modulo incorrecta "%s"
+Hatalý modül yolu "%s"
 ; Bad module path "%s"
 ;
 MSG_ENABLE
