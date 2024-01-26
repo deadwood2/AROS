@@ -1502,19 +1502,6 @@ diff -ruN gcc-6.5.0/libgcc/gthr.h gcc-6.5.0.aros/libgcc/gthr.h
  #ifndef GTHREAD_USE_WEAK
  #define GTHREAD_USE_WEAK 1
  #endif
-diff -ruN gcc-6.5.0/libgcc/unwind-dw2.c gcc-6.5.0.aros/libgcc/unwind-dw2.c
---- gcc-6.5.0/libgcc/unwind-dw2.c	2016-01-04 14:30:50.000000000 +0000
-+++ gcc-6.5.0.aros/libgcc/unwind-dw2.c	2020-11-03 18:50:34.855736269 +0000
-@@ -1542,7 +1542,9 @@
- static inline void
- init_dwarf_reg_size_table (void)
- {
-+#ifdef MD_FALLBACK_FRAME_STATE_FOR
-   __builtin_init_dwarf_reg_size_table (dwarf_reg_size_table);
-+#endif
- }
- 
- static void __attribute__((noinline))
 diff -ruN gcc-6.5.0/libgcc/unwind-dw2-fde.c gcc-6.5.0.aros/libgcc/unwind-dw2-fde.c
 --- gcc-6.5.0/libgcc/unwind-dw2-fde.c	2016-01-04 14:30:50.000000000 +0000
 +++ gcc-6.5.0.aros/libgcc/unwind-dw2-fde.c	2020-11-03 18:50:34.855736269 +0000
