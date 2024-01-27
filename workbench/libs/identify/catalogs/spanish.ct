@@ -1,4 +1,4 @@
-## version $VER: Identify.catalog 1.0 (25.01.2021)
+## version $VER: Identify.catalog 1.1 (11.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -126,7 +126,7 @@ MSG_EXP_IDEHDRAM
 RAM de controladora IDE
 ; IDE controller RAM
 MSG_EXP_SCSIHD
-Contoladora SCSI
+Controladora SCSI
 ; SCSI host adapter
 MSG_EXP_RAMSCSIHD
 RAM de controladora SCSI
@@ -155,7 +155,7 @@ MSG_EXP_SCANIF
 Interfaz escaner
 ; scanner interface
 MSG_EXP_TABLET
-Interfaz tarjeta de dibujo
+Interfaz tableta de dibujo
 ; drawing tablet interface
 ;
 MSG_EXP_RAM
@@ -341,16 +341,16 @@ MSG_ACPU_SPURIOUS
 Error de interrupción espúrea
 ; Spurious interrupt error
 MSG_ACPU_TRACE
-Error Trace
+Error Traza
 ; Trace error
 MSG_ACPU_TRAPV
-Error de instruccion TrapV
+Error de instrucción TrapV
 ; TrapV instruction error
 MSG_AN_ADDSWGADGET
 Añadir gadgets SW, sin memoria
 ; Add SW gadgets, no memory
 MSG_AN_ASYNCPKT
-Recibido paquete inexperado
+Recibido paquete inesperado
 ; Unexpected packet received
 MSG_AN_AUDIODEV
 Problema Periférico de Audio
@@ -359,13 +359,13 @@ MSG_AN_BADCHKSUM
 Checksum no válido
 ; Invalid checksum
 MSG_AN_BADEXPANSIONFREE
-Liberada una region libre
+Liberada una región libre
 ; Freeed free region
 MSG_AN_BADFREEADDR
 Cabecera de memoria no reservada
 ; Memory header not located
 MSG_AN_BADGADGET
-Froma de recuperación de AN_GadgetType
+Forma de recuperación de AN_GadgetType
 ; Recovery form of AN_GadgetType
 MSG_AN_BADINITFUNC
 Paquete de inicio incorrecto para cli/shell
@@ -440,7 +440,7 @@ MSG_AN_DRINTNOACT
 Interrupción: sin unidad activa
 ; Interrupt: no active unit
 MSG_AN_ENDTASK
-EndTask didn't
+EndTask no
 ; EndTask didn't
 MSG_AN_EXCPTVECT
 Checksum vector de excepciones 68000
@@ -479,7 +479,7 @@ MSG_AN_GFXNOLCM
 Memoria de emergencia no disponible
 ; Emergency memory not available
 MSG_AN_GFXNOMEM
-Graficos sin memoria
+Gráficos sin memoria
 ; Graphics out of memory
 MSG_AN_GFXNOMEMMSPC
 Asign. MonitorSpec, sin memoria
@@ -629,7 +629,7 @@ MSG_AN_UTILITYLIB
 Problema utility.library
 ; utility.library trouble
 MSG_AN_WBBADIOMSG
-MEnsaje E/S incorrecto (cod. hacker?)
+Mensaje E/S incorrecto (cod. hacker?)
 ; Bad IO message (hacker code?)
 MSG_AN_WBBADSTARTUPMSG2
 Mensaje de inicio incorrecto 2
@@ -659,10 +659,10 @@ MSG_AN_HIDDNOROOT
 No puedo crear la raiz del periférico
 ; Could not create root device
 MSG_AN_NOALERT
-NO ha ocurrido alerta
+No ha ocurrido alerta
 ; No alert occured
 MSG_ACPU_EMUINTR
-Interrupcion del emulador
+Interrupción del emulador
 ; Emulator interrupt
 MSG_ACPU_UNIMPLEA
 Dirección efectiva sin implemantar
@@ -909,7 +909,7 @@ MSG_HW_620
 ; 620
 ;
 MSG_HW_RAMCAS_NORMAL
-Normla
+Normal
 ; Normal
 MSG_HW_RAMCAS_DOUBLE
 Doble

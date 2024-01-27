@@ -23,7 +23,7 @@ Nie mo¿na pobraæ VisualInfo!
 ; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE
-Nie mo¿na utowrzyæ obrazów SYSICLASS!
+Nie mo¿na utworzyæ obrazów SYSICLASS!
 ; Can't create SYSICLASS images!
 ;
 MSG_CANT_CREATE_GADGET
@@ -31,7 +31,7 @@ Nie mo¿na utworzyæ gad¿etów!
 ; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
-Nie mo¿na utowrzyæ menu!
+Nie mo¿na utworzyæ menu!
 ; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
@@ -75,7 +75,7 @@ MSG_MEN_PROJECT_ABOUT
 ; ?\0About...
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0Skoñcz
+Q\0Zakoñcz
 ; Q\0Quit
 ;
 MSG_MEN_EDIT
@@ -187,8 +187,8 @@ Zapisz plik jako
 ; Select File to Save to
 ;
 MSG_ABOUT
-MultiView %ld.%ld (%s)\ndatatypes.library %s\n\n%s %s
-; MultiView %ld.%ld (%s)\ndatatypes.library %s\n\n%s %s
+
+; 
 ;
 MSG_ABOUT_TITLE
 MultiView

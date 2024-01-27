@@ -1,104 +1,125 @@
-## version $VER: JanoPrefs.catalog 1.0 (24.02.2001)
+## version $VER: JanoPrefs.catalog 1.0 (13.05.2023)
 ## codeset 0
 ## language italiano
-;
-; *****************************
-;  NewMenu strings
-; *****************************
-;
-; Edit Menu
+; Authors: AMIGASYSTEM
 ;
 MSG_RESETDEFAULT
 Valori predefiniti
+; Last saved values
 ;
 MSG_LASTSAVED
 Ultimi valori salvati
-;
-; *********************
-;   Preference window 
-; *********************
+; Last saved values
 ;
 MSG_TITLEWIN
-Preferenze
+Impostazioni
+; Main setup
 ;
 MSG_TAB
 Tabulatori:
+; Tabulation:
 ;
 MSG_SEPARATORS
 Separatori:
+; Separators:
 ;
 MSG_TXTFONT
-Font testo:
+Carattere testo:
+; Text font:
 ;
 MSG_SCRFONT
-Font schermo:
+Carattere schermo:
+; Screen font:
 ;
 MSG_PUBSCREEN
 Modalitù schermo:
+; Screen mode:
 ;
 MSG_BACKDROP
 Sfondo
+; Backdrop
 ;
 MSG_LEFTMARGIN
 Margine sinistro
+; Left margin
 ;
 MSG_AUTOINDENT
-Rientranza automatica
+Rientro automatico
+; Auto indent
 ;
 MSG_EXTEND
 Tastierino numerico esteso
+; Extended numeric pad
 ;
 MSG_PREFSSAVE
 Salva
+; Save
 ;
 MSG_USEPREFS
 Usa
+; Use
 ;
 MSG_DISCARDPREFS
 Annulla
+; Cancel
 ;
 MSG_USEDEF
 Valori predefiniti
+; Use Default
 ;
 MSG_CHOOSEIT
 Scegli tra...
+; Choose one...
 ;
 MSG_CLONEPARENT
 Clona superiore
+; Clone parent
 ;
 MSG_COLOR_BACK
 Sfondo
+; Background
 ;
 MSG_COLOR_TEXT
 Testo standard
+; Standard text
 ;
 MSG_COLOR_FILLTXT
-Selezione
+Testo selezionato
+; Selected fill text
 ;
 MSG_COLOR_FILLSEL
 Testo selezionato
+; Selected text
 ;
 MSG_COLOR_MARGINBACK
-Margine dello sfondo
+Margine sfondo
+; Margin background
 ;
 MSG_COLOR_MARGINTXT
 Margine del testo
+; Margin text
 ;
 MSG_COLOR_SHINE
-Pannello
+Bordo pannello
+; Panel shine
 ;
 MSG_COLOR_SHADE
-Ombra del pannello
+Sfumatura Pannello
+; Panel shade
 ;
 MSG_COLOR_PANELBACK
-Retro del pannello
+ Pannello posteriore
+; Panel back
 ;
 MSG_COLOR_PANELTEXT
-Testo del pannello
+Testo pannello
+; Panel text
 ;
 MSG_COLOR_GLYPH
-Sezione del pannello
+Ornamento pannello
+; Panel glyph
 ;
 MSG_COLOR_MARKEDLINES
 Pannello attivo
+; Active panel
 ;

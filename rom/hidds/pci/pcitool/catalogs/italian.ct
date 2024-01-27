@@ -1,7 +1,7 @@
-## version $VER: pcitool.catalog 1.1 (06.02.2004)
+## version $VER: pcitool.catalog 2.0 (16.05.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_TITLE
 PCI Tool
@@ -40,7 +40,7 @@ Bus diretto:
 ;Direct bus:
 ;
 MSG_HARDWARE_INFO
-Info sull'hardware:
+Informazioni hardware:
 ;Hardware info:
 ;
 MSG_PCI_DEVICE_INFO
@@ -59,6 +59,10 @@ MSG_PRODUCTNAME
 Nome:
 ;ProductID:
 ;
+MSG_SUBSYSTEM
+Sottosistema:
+; Subsystem:
+;
 MSG_VENDORID
 ID produttore:
 ;VendorID:
@@ -68,7 +72,7 @@ ID prodotto:
 ;ProductID:
 ;
 MSG_REVISIONID
-Revisione:
+Revisione ID:
 ;RevisionID:
 ;
 MSG_INTERFACE
@@ -96,7 +100,7 @@ dimens. ROM:
 ;ROM Size:
 ;
 MSG_BRIDGE
-Bridge per bus %d (ISA %sattivo, VGA %sattivo)
+Bridge per bus %d (ISA %s attivo, VGA %s attivo)
 ;Bridge handles bus %d (ISA %senabled, VGA %senabled)
 ;
 MSG_MEMORY_RANGE
@@ -144,14 +148,38 @@ no
 ;not
 ;
 MSG_SIZE4
-%s%s a 0x04x (dim. 0x%04x)
-;%s%s at 0x%04x (size 0x%04x)
+%s at 0x%04x (dimensione 0x%04x)
+; %s at 0x%04x (dimensione 0x%04x)
 ;
 MSG_SIZE8
-%s%s a 0x08x (dim. 0x%08x)
-;%s%s at 0x%08x (size 0x%08x)
+%s at 0x%08x (size 0x%08x)
+; %s at 0x%08x (size 0x%08x)
+;
+MSG_SAVETORAMDISK
+Salva informazioni dispositivo su Disco RAM
+; Save Device Information to RAM Disk
+;
+MSG_SAVEALLTORAMDISK
+Salva informazioni PCI complete su Disco RAM
+; Save complete PCI Information to RAM Disk
 ;
 MSG_UNUSED
---inutile--
-;--unused--
+--Inutilizzato--
+; --unused--
+;
+MSG_IO_BASE
+Base I/O:
+; I/O base:
+;
+MSG_OWNER
+Utilizzato da:
+; Used by:
+;
+MSG_PCIE_DEVICE_INFO
+Informazioni su PCIe
+; PCIe device info
+;
+MSG_PCIE_SERIAL_NUMBER
+Numero Seriale PCIe
+; PCIe Serial Number
 ;

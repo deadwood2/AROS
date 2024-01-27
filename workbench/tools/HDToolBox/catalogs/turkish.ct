@@ -1,0 +1,177 @@
+## version $VER: hdtoolbox.catalog 2.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+WORD_Active
+Aktif
+; Active
+;
+WORD_AddEntry
+Girdi Ekle
+; Add Entry
+;
+WORD_All
+Tümü
+; All
+;
+WORD_Automount
+Otomatik Baðla
+; Automount
+;
+WORD_Bootable
+Önyüklenebilir
+; Bootable
+;
+WORD_BootPri
+Önyükleme Önceliði
+; Boot Priority
+;
+WORD_Cancel
+Vazgeç
+; Cancel
+;
+WORD_Changed
+Deðiþti
+; Changed
+;
+WORD_Change_Type
+Türü Deðiþtir
+; Change Type
+;
+WORD_Create_Table
+Tablo Oluþtur
+; Create Table
+;
+WORD_Devices
+Aygýtlar
+; Devices
+;
+WORD_DosEnvec
+DosEnvec
+; DosEnvec
+;
+WORD_Exit
+Çýkýþ
+; Exit
+;
+WORD_Geometry
+Geometri
+; Geometry
+;
+WORD_Name
+Adý
+; Name
+;
+WORD_Switches
+Anahtarlar
+; Switches
+;
+WORD_Ok
+Tamam
+; Ok
+;
+WORD_Parent
+Sahibi
+; Parent
+;
+WORD_Partitions
+Bölümler
+; Partitions
+;
+WORD_Partition_Table
+Bölüm Tablosu
+; Partition Table
+;
+WORD_Partition_Table_Type
+Bölüm Tablosu Türü
+; Partition Table Type
+;
+WORD_Partition_Type
+Bölüm Türü
+; Partition Type
+;
+WORD_RemoveEntry
+Girdiyi Kaldýr
+; Remove Entry
+;
+WORD_Rename
+Yeniden adlandýr
+; Rename
+;
+WORD_Resize_Move
+Yeniden boyutlandýr/Taþý
+; Resize/Move
+;
+WORD_Save_Changes
+Deðiþklikleri Kaydet
+; Save Changes
+;
+WORD_Size
+Boyut
+; Size
+;
+WORD_Unit
+Birim
+; Unit
+;
+WORD_Units
+Birimler
+; Units
+;
+WORD_Unknown
+Bilinmiyor
+; Unknown
+;
+WORD_MENU_Project
+Proje
+; Project
+;
+WORD_MENU_About
+Hakkýnda
+; About
+;
+WORD_MENU_Quit
+Çýkýþ
+; Quit
+;
+MSG_ASK_SAVE
+Deðiþtirilen bölümlerdeki tüm Veriler yok edilecek!\n'%s' bölüm tablosundaki deðiþiklikleri yazacaðýnýzdan emin misiniz?
+; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
+;
+MSG_NO_MEMORY
+Yetersiz belle
+; Not enough memory
+;
+MSG_PARTITION_TABLE_FULL
+Bölüm tablosu dolu
+; Partition table full
+;
+MSG_Select_Empty_Area
+Boþ alaný seç
+; Select empty area
+;
+MSG_Select_Partition_Resize_Move
+Bir bölüm seçin ve yeniden boyutlandýrýn/taþýyýn
+; Select a partition and resize/move it
+;
+MSG_Welcome
+Bölümleme aracýna hoþ geldiniz
+; Welcome to the partitioning tool
+;
+MSG_WriteTableError
+Bölüm tablosu yazarken hata
+; Error while writing partition table
+;
+MSG_CreateTableError
+Bölüm tablosu oluþturulurken hata oluþtu
+; Error while creating partition table
+;
+WORD_MENU_Partition
+Bölüm
+; Partition
+;
+WORD_MENU_CreateMountlist
+Baðlama listesi oluþtur...
+; Create mountlist...
+;

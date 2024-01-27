@@ -1,0 +1,77 @@
+## version $VER: Appearance.catalog 2.1 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_WINTITLE
+Görünüm Terçihleri
+; Appearance Preferences
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_ENABLETHEMES
+Tema oluþturmayý etkinleþtir
+; Enable theming
+;
+MSG_PREVIEW
+Önizleme
+; Preview
+;
+MSG_NOPREVIEW
+-Önizleme Kullanýlamýyor-
+; -Preview Unavailable-
+;
+MSG_SELECTEDTHEME
+Tema:
+; Theme:
+;
+MSG_ENABLEZUNEPREFS
+Geçerli Zune yapýlandýrmasý deðiþtirilsin mi?
+; Replace current Zune configuration?
+;
+MSG_ENABLEWANDPREFS
+Mevcut Wanderer konfigürasyonu deðiþtirilsin mi?
+; Replace current Wanderer configuration?
+;
+MSG_ENABLEPALETTEPREFS
+Mevcut Palet yapýlandýrmasý deðiþtirilsin mi?
+; Replace current Palette configuration?
+;
+MSG_ENABLEFONTPREFS
+Mevcut Yazý Tipi yapýlandýrmasý deðiþtirilsin mi?
+; Replace current Font configuration?
+;
+MSG_ENABLEPOINTERPREFS
+Mevcut Ýþaretçi yapýlandýrmasý deðiþtirilsin mi?
+; Replace current Pointer configuration?
+;
+MSG_SEC_THEMING
+Tema yapýlandýrýlýr
+; Theming
+;
+MSG_SEC_COMPOSITING
+Birleþtiriliyor
+; Compositing
+;
+MSG_ENABLE_SCREEN_COMPOSITION
+Ekran kompozisyonunu etkinleþtir
+; Enable screen composition
+;
+MSG_COMPOSITE_BELOW
+Aþaðýdaki ile birleþtir
+; Composite below
+;
+MSG_COMPOSITE_LEFT
+Soldaki ile birleþtir
+; Composite left
+;
+MSG_COMPOSITE_RIGHT
+Saðdaki ile birleþtir
+; Composite right
+;
+MSG_ENABLE_COMPOSITE_WITH_ALPHA
+Alfa ile birleþtirmeyi etkinleþtir
+; Enable compositing with alpha
+;

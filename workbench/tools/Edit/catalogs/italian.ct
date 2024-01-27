@@ -1,183 +1,233 @@
-## version $VER: JanoEditor.catalog 1.1 (17.03.2017).
+## version $VER: JanoEditor.catalog 1.1 (12.05.2023)
 ## codeset 0
 ## language italiano
-;
-;
-; *****************************
-;  NewMenu strings
-; *****************************
+; Authors: AMIGASYSTEM
 ;
 ; Project Menu
 ;
 MSG_PROJECTTITLE
 Progetto
+; Project
 ;
 MSG_NEWEMPTYFILE
 Nuovo
+; New
 ;
 MSG_OPENNEWFILE
 Apri...
+; Open file...; Open file...
 ;
 MSG_LOADINPRJ
-Carica...
+Apri file...
+; Load file...
 ;
 MSG_SAVEFILE
 Salva
+; Save
 ;
 MSG_SAVEFILEAS
 Salva come...
+; Save as...
 ;
 MSG_SAVECHANGES
 Salva modifiche
+; Save changes
 ;
 MSG_PRINTFILE
 Stampa
+; Print
 ;
 MSG_INFORMATION
 Informazioni...
+; Information...
 ;
 MSG_CLOSE
 Chiudi
+; Close
 ;
 MSG_QUIT
 Esci
+; Quit
 ;
 ; Edit Menu
 ;
 MSG_EDITTITLE
 Modifica
+; Edit
 ;
 MSG_CUT
 Taglia
+; Cut
 ;
 MSG_COPY
 Copia
+; Copy
 ;
 MSG_PASTE
 Incolla
+; Paste
 ;
 MSG_MARK
-Seleziona paragrafo
+Seleziona
+; Mark
 ;
 MSG_MARKCOLUMN
 Seleziona colonna
+; Mark column
 ;
 MSG_SELECTALL
 Seleziona tutto
+; Select all
 ;
 MSG_DELLINE
 Elimina riga
+; Delete line
 ;
 MSG_SUBTOOLS
 Strumenti
+; Tools
 ;
 MSG_INDENT
-Aggiungi tabulazione
+Rientro
+; Indent
 ;
 MSG_UNINDENT
-Elimina tabulazione
+Elimina rientro
+; Unindent
 ;
 MSG_UPPERCASE
 Maiuscolo
+; Upper case
 ;
 MSG_LOWERCASE
 Minuscolo
+; Lower case
 ;
 MSG_TOGGLECASE
-Inverti Mai./Min.
+Maiuscolo/Minuscolo
+; Toggle case
 ;
 MSG_INSERTFILE
 Inserisci file...
+; Insert file...
 ;
 MSG_UNDO
 Annulla
+; Undo
 ;
 MSG_REDO
 Ripeti
+; Redo
 ;
 ; Search Menu
 ;
 MSG_SEARCHTITLE
 Cerca
+; Search
 ;
 MSG_FIND
-Trova...
+Trova ...
+; Find...
 ;
 MSG_REPLACE
-Sostituisci...
+Sostituisci ...
+; Replace...
 ;
 MSG_SUBFIND
 Cerca
+; Find
 ;
 MSG_NEXTFIND
 Prossimo
+; Next
 ;
 MSG_PREVFIND
 Precedente
+; Previous
 ;
 MSG_NEXTREPLACE
 Reinserisci
+; Replace
 ;
 MSG_PREVPAGE
 Pagina precedente
+; Previous page
 ;
 MSG_NEXTPAGE
 Pagina successiva
+; Next page
 ;
 MSG_GOTOLINE
 Vai alla riga...
+; Goto line...
 ;
 MSG_FINDBRACKET
 Verifica parentesi
+; Matching bracket
 ;
 MSG_LASTMODIF
 Ultima modifica
+; Last modification
 ;
 MSG_BEGOFLINE
 Inizio riga
+; Start of line
 ;
 MSG_ENDOFLINE
 Fine riga
+; End of line
 ;
 ; Macro Menu
 ;
 MSG_MACROTITLE
 Macro
+; Macro
 ;
 MSG_STARTRECORD
 Avvia registrazione
+; Start recording
 ;
 MSG_STOPRECORD
 Fine registrazione
+; Stop recording
 ;
 MSG_PLAYMACRO
 Esegui macro
+; Execute macro
 ;
 MSG_REPEATMACRO
 Ripeti macro...
+; Repeat macro...
 ;
 ; Environment Menu
 ;
 MSG_ENVTITLE
 Ambiente
+; Environment
 ;
 MSG_SCRMODE
 Modalità schermo...
+; Screen mode...
 ;
 MSG_FONTS
-Font...
+Carattere...
+; Fonts...
 ;
 MSG_PREFS
 Preferenze...
+; General preferences...
 ;
 MSG_LOADPREFS
 Carica preferenze...
+; Load preferences..
 ;
 MSG_SAVEPREFS
 Salva preferenze
+; Save preferences
 ;
 MSG_SAVEPREFSAS
 Salva preferenze come...
+; Save preferences as...
 ;
 ;
 ;
@@ -186,74 +236,97 @@ Salva preferenze come...
 ; *****************************
 ;
 ERR_BADOS
-Sistema obsoleto. Aggiorna a nuova versione.
+Sistema obsoleto. Aggiorna versione.
+; Obsolete OS. Install v2.0 or better.
 ;
 ERR_NOASLREQ
 Impossibile aprire finestra dialogo file!
+; Cannot alloc ASL requester!
 ;
 ERR_NOMEM
-Non c'è abbastanza memoria!
+Memoria esaurita!
+; Out of memory!
 ;
 ERR_NOGUI
-Impossibile aprire l'interfaccia utente!
+Impossibile aprire interfaccia utente!
+; Main interface failed to open!
 ;
 ERR_NONAME
 Senza Titolo
+; No title
 ; Not really an error but simplify translation
 ;
 ERR_WRITECLIP
-Impossibile scrivere sul documento!
+Impossibile scrivere nella Clipboard!
+; Write error into clipboard device
 ;
 ERR_OPENCLIP
-Impossibile aprire il documento!
+Impossibile aprire la Clipboard!
+; Unable to open clipboard!
 ;
 ERR_LOADFILE
-Impossibile accedere al file!
+Impossibile aprire il file!
+; Unable to load requested file
 ;
 ERR_NOTXTINCLIP
-Il documento è vuoto!
+Nessun testo nella Clipboard!
+; No text in clipboard
 ;
 ERR_WRONG_TYPE
 L'oggetto è una directory!
+; Object is a directory!
 ;
 ERR_READCLIP
-Lettura incompleta del docuemnto. Forse manca la memoria.
+Lettura incompleta
+; Read operation incomplete
 ;
 ERR_NOBRACKET
 Nessuna parentesi sotto il cursore!
+; No parenthesis under cursor!
 ;
 ERR_NOT_FOUND
-Stringa `%s' irreperibile.
+Stringa `%s' non trovata.
+; Pattern `%s' not found
 ;
 ERR_LOADFONT
-Impossibile aprire il font selezionato!
+Impossibile aprire carattere!
+; Can't open desired font!
 ;
 ERR_NOPREFEDITOR
-Impossibile trovare l'editor delle preferenze!
+Impossibile trovare l'editor preferenze!
+; Can't find preference editor!
 ;
 ERR_BADPREFSFILE
 File preferenze invalido.
+; Bad preference file format.
 ;
 ERR_FILEMODIFIED
-%s è stato modificato.\nChiudere lo stesso il documento?
+%s è stato modificato.\nChiudere il documento?
+; %s has been modified.\nAre you sure want to close it?
 ;
 ERR_SLC
 Salva|Chiudi|Annulla
+; Save|Close|Cancel
 ;
 ERR_NOSEARCHTEXT
-Non c'è nessun testo da cercare!
+Nessun testo da cercare!
+; No text to search for!
 ;
 ERR_FILEEXISTS
-Questo file esiste già. Sovrascrivere il documento?
+Questo file esiste già. Sovrascrivere?
+; This file already exists. Overwrite it?
 ;
 ERR_OC
 Sì|No!
+; Yes|No!
 ;
 WARN_RECORD
-Registrazione della macro in corso
+Registrazione macro in corso
+; Start recording macro
 ;
 WARN_RECORDED
 Macro registrata
+; Macro recorded
 ;
 WARN_REC
 [ENR]
@@ -265,24 +338,31 @@ WARN_REC
 ;
 MSG_ABOUT
 Informazioni
+; Information
 ;
 MSG_FORMATINFO
 %s\nConçu di T.Pierron et C.Guillaume © 2000\n\nDocumento attuale: %s\nLunghezza: %iu %s, %iu %s.
+; %s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
 ;
 MSG_CONTINUE
 Continua
+; Continue
 ;
 MSG_BYTE
-carattere
+Carattere
+; byte
 ;
 MSG_BYTES
-caratteri
+Caratteri
+; Bytes
 ;
 MSG_LINE
-linea
+Linea
+; line
 ;
 MSG_LINES
-linee
+Linee
+; lines
 ;
 ;
 ; *************************
@@ -290,47 +370,61 @@ linee
 ; *************************
 ;
 MSG_SEARCHWINDOW
-Ricerca del testo
+Ricerca testo
+; Search pattern
 ;
 MSG_REPLACEWINDOW
 Trova e sostituisci
+; Search & Replace
 ;
 MSG_SEARCHSTRING
-Trova:
+Cerca:
+; Locate:
 ;
 MSG_REPLACESTRING
-Sostituisci con:
+Sostituisci:
+; Replace:
 ;
 MSG_OPTCASE
-Modi conformi
+Maiuscolo/Minuscolo
+; Match case
 ;
 MSG_OPTWORDS
 Parola intera
+; Whole words
 ;
 MSG_BUTTONREPLACE
-_Rimpiazza
+_Sostituisci
+; _Replace
 ;
 MSG_BUTTONREPALL
-Rimpi_azza tutti
+Sostituisci_tutti
+; Replace _All
 ;
 MSG_BUTTONSEARCH
 Cerca
+; Search
 ;
 MSG_NEXTSEARCH
 _Precedente
+; _Previous
 ;
 MSG_USESEARCH
 _Usa
+; _Use
 ;
 MSG_CANCELSEARCH
 Annulla
+; _Cancel
 ;
 MSG_REPLACEALL
-Sostituzione di %iu %s con `%s'.
+%iu %s of `%s' sostituisci
+; %iu %s of `%s' replaced
 ;
 MSG_OCCURENCY
 occorrenza
+; occurency
 ;
 MSG_OCCURENCIES
-occorrenze
+; occurencies
 ;

@@ -1,16 +1,25 @@
-## version $VER: clock.catalog 2.0 (30.03.2016)
-## codeset 0
+## version $VER: clock.catalog 2.1 (02.05.2023)
 ## language español
+## codeset 0
+;
 ;
 MSG_ERROR_CANT_CREATE_APPLICATION
-*** Error: ¡No puedo crear objeto de aplicación!
+Error: ¡No puedo crear objeto de aplicación!
 ; Error: Can't create application object.
 ;
 MSG_WINDOW_TITLE
 Reloj
 ; Clock
 ;
+MSG_DESCRIPTION
+El reloj de Wanderer
+; Wanderer Clock
+;
 MSG_OK
 Ok
 ; Ok
+;
+MSG_ERROR_DISKOBJECT
+No puedo crear diskobject
+; Error: Can't create diskobject
 ;

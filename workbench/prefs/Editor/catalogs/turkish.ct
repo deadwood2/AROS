@@ -1,0 +1,138 @@
+## version $VER: JanoPrefs.catalog 1.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+; Catalog description for JanoPrefs
+; JanoPrefs.cd
+;
+; *****************************
+;  NewMenu strings
+; *****************************
+;
+; Edit Menu
+;
+MSG_RESETDEFAULT
+Varsayýlan deðerler
+; Default values
+;
+MSG_LASTSAVED
+Son kayýt edilen deðerler
+; Last saved values
+;
+; *******************
+;  Preference window
+; *******************
+;
+MSG_TITLEWIN
+Ana kurulum
+; Main setup
+;
+MSG_TAB
+Tablolama:
+; Tabulation:
+;
+MSG_SEPARATORS
+Ayýrýcýlar:
+; Separators:
+;
+MSG_TXTFONT
+Metin yazý tipi:
+; Text font:
+;
+MSG_SCRFONT
+Ekran yazý tipi:
+; Screen font:
+;
+MSG_PUBSCREEN
+Ekran kipi:
+; Screen mode:
+;
+MSG_BACKDROP
+Zemin
+; Backdrop
+;
+MSG_LEFTMARGIN
+Sol boþluk
+; Left margin
+;
+MSG_AUTOINDENT
+Otomatik girinti
+; Auto indent
+;
+MSG_EXTEND
+Geniþletilmiþ sayýsal tuþ takýmý
+; Extended numeric pad
+;
+MSG_PREFSSAVE
+Kaydet
+; Save
+;
+MSG_USEPREFS
+Kullan
+; Use
+;
+MSG_DISCARDPREFS
+Vazgeç
+; Cancel
+;
+MSG_USEDEF
+Varsayýlaný Kullan
+; Use Default
+;
+MSG_CHOOSEIT
+Birini seç...
+; Choose one...
+;
+MSG_CLONEPARENT
+Üst öðeyi klonla
+; Clone parent
+;
+MSG_COLOR_BACK
+Arkaplan
+; Background
+;
+MSG_COLOR_TEXT
+Standart metin
+; Standard text
+;
+MSG_COLOR_FILLTXT
+Seçilen dolgu metni
+; Selected fill text
+;
+MSG_COLOR_FILLSEL
+Seçili metin
+; Selected text
+;
+MSG_COLOR_MARGINBACK
+Kenar boþluðu arka planý
+; Margin background
+;
+MSG_COLOR_MARGINTXT
+Kenar boþluðu metni
+; Margin text
+;
+MSG_COLOR_SHINE
+Panel parlaklýðý
+; Panel shine
+;
+MSG_COLOR_SHADE
+Panel gölgesi
+; Panel shade
+;
+MSG_COLOR_PANELBACK
+Panel arkasý
+; Panel back
+;
+MSG_COLOR_PANELTEXT
+Panel metni
+; Panel text
+;
+MSG_COLOR_GLYPH
+Panel glif
+; Panel glyph
+;
+MSG_COLOR_MARKEDLINES
+Aktif panel
+; Active panel
+;

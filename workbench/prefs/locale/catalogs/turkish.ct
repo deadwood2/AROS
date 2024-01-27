@@ -24,7 +24,7 @@ Araç takýmlarý oluþturulamadý!
 ; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
-Menüler oluþturulamadý!
+Men?ler oluþturulamadý!
 ; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
@@ -140,7 +140,7 @@ Varsayýlan karakter seti
 ; Default character set
 ;
 MSG_NOT_SPECIFIED
-Belirtilmemiþ
+Belirtilmemi?
 ; Not specified
 ;
 MSG_GMT_CLOCK

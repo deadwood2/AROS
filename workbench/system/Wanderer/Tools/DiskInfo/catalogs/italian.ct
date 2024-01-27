@@ -1,8 +1,8 @@
-## version $VER: diskinfo.catalog 1.0 (21.02.2004)
+## version $VER: diskinfo.catalog 2.1 (02.05.2023)
 ## language italiano
 ## codeset 0
-;
-; FIXME: there are two missing strings at the end of this file
+; Authors: AMIGASYSTEM
+; 
 ;
 MSG_TITLE
 Informazioni
@@ -25,7 +25,7 @@ Impossibile inizializzare classi personalizzate.
 ; Can't initialize custom classes.
 ;
 MSG_DESCRIPTION
-Informazioni sull'icona
+Informazioni Icona
 ; Disk Icon Informations
 ;
 MSG_PERCENTFULL
@@ -65,11 +65,11 @@ Dimenszione blocco
 ; Block size
 ;
 MSG_BLOCKS
-blocchi
+Blocchi
 ; blocks
 ;
 MSG_BYTES
-byte
+Byte
 ; bytes
 ;
 MSG_STATUS
@@ -81,7 +81,7 @@ Lettura
 ; Readable
 ;
 MSG_READABLE_WRITABLE
-Lettura/scrittura
+Lettura/Scrittura
 ; Readable/writable
 ;
 MSG_VALIDATING
@@ -93,7 +93,7 @@ Nome volume
 ; Volume Name
 ;
 MSG_UNIT
-unità
+Unità
 ; unit
 ;
 MSG_DOSDEVICE
@@ -109,14 +109,10 @@ FileSystem:
 ; FileSystem:
 ;
 MSG_PACKETDEVICE
-
+Dispositivo Stile Pacchetto
 ; Packet Style device
 ;
-; ***NEW***
-;
 MSG_IOFSDEVICE
-
+Dispositivo Stile IOFS
 ; IOFS Style device
-;
-; ***NEW***
 ;

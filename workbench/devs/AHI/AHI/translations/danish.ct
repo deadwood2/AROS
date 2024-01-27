@@ -266,7 +266,7 @@ AHI-indstillinger
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Ikke i stand til at åbne vindue.
@@ -282,7 +282,7 @@ Kan ikke finde '%s'!
 ;
 msgTextNoOpen
 Kan ikke åbne '%s' version %ld.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

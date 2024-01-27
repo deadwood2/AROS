@@ -1,4 +1,4 @@
-## version $VER: screenmodeprefs.catalog 2.0 (29.09.2007)
+## version $VER: screenmodeprefs.catalog 2.1 (02.05.2023)
 ## language español
 ## codeset 0
 ;
@@ -45,17 +45,49 @@ Atributos del modo
 ;
 MSG_VISIBLE_SIZE
 Tamaño visible:
-; Visible Size:
+; Visible Size
 ;
 MSG_MINIMUM_SIZE
 Tamaño mínimo:
-; Minimum Size:
+; Minimum Size
 ;
 MSG_MAXIMUM_SIZE
 Tamaño máximo:
-; Maximum Size:
+; Maximum Size
 ;
 MSG_MAXIMUM_COLORS
 Máximo de colores: 
-; Maximum Colors:
+; Maximum Colors
+;
+MSG_FREQUENCY
+Frecuencia
+; Frequency
+;
+MSG_INTERLACED
+Entrelazado\n
+; Interlaced\n
+;
+MSG_WANTS_ECS
+Requiere ECS\n
+; Requires ECS\n
+;
+MSG_DUALP
+Dual playfields\n
+; Dual playfields\n
+;
+MSG_GENLOCK
+Soporta genlock\n
+; Supports genlock\n
+;
+MSG_DRAGGABLE
+Arrastrable\n
+; Draggable\n
+;
+MSG_PANELLED
+Panelado para conversion del escaneo\n
+; Panelled for scan conversion\n
+;
+MSG_BEAM_SYNC
+Soporta sincronización del haz\n
+; Supports beam synchronization\n
 ;

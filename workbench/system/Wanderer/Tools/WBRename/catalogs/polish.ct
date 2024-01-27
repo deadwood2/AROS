@@ -1,4 +1,4 @@
-## version $VER: wbrename.catalog 1.0 (29.04.2010)
+## version $VER: wbrename.catalog 2.0 (03.06.2023)
 ## codeset 5
 ## language polski
 ;
@@ -11,20 +11,20 @@ Zmienia nazwy plików i katalogów
 ; Renames files and drawers
 ;
 MSG_COPYRIGHT
-(C)2006, AROS dev Team
-; ©2006, AROS Dev Team
+(C) 2012-2019, The AROS Development Team
+; \xa9 2012-2019, The AROS Development Team
 ;
 MSG_WINDOW_TITLE
 Zmiana nazwy
 ; Rename
 ;
 MSG_LINE
-Wprowad¼ now± nazwê
-; Enter a new name
+Wprowad¼ now± nazwê dla: '%s'
+; Enter a new name for: '%s'
 ;
 MSG_NAME
-Nowa nazwa:
-; New name:
+\33bNowa nazwa: \33n
+; \33bNew name: \33n
 ;
 MSG_OK
 _OK
@@ -39,16 +39,15 @@ B³±d
 ; Error
 ;
 MSG_ALREADY_EXIST
-\"%s\" ju¿ istnieje!
+'%s' ju¿ istnieje!
 ; '%s' already exists!
 ;
 MSG_FAILED
-Zmiana nazwy elementu \"%s\" nie powiod³a siê, zakoñczono b³êdem:\n\
-\"%s\"!
+Zmiana nazwy elementu '%s' nie powiod³a siê, zakoñczono b³êdem:\n'%s'!
 ; Rename of '%s' failed with error:\n'%s'!
 ;
 MSG_ILLEGAL_CHARS
-\"%s\" zawiera niedozwolone znaki!
+'%s' zawiera niedozwolone znaki!
 ; '%s' contains illegal characters!
 ;
 MSG_NEEDS_MORE_ARGS
@@ -68,6 +67,6 @@ Nie mo¿na utworzyæ aplikacji!
 ; Failed to create Application!
 ;
 MSG_OUTOFMEMORY
-Nie mo¿na zaalokowaæ pamiêci RAM!
+Nie mo¿na przydzieliæ pamiêci RAM!
 ; Can't allocate RAM!
 ;

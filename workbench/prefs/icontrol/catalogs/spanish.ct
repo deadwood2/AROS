@@ -1,4 +1,4 @@
-## version $VER: icontrolprefs.catalog 2.0 (05.01.2021)
+## version $VER: icontrolprefs.catalog 2.1 (03.05.2023)
 ## language español
 ## codeset 0
 ;
@@ -44,16 +44,20 @@ Ventanas
 ; Windows
 ;
 MSG_OFFSCREEN_MOVE
-Mover afuera de la pantalla:
+Mover fuera de la pantalla:
 ; Offscreen move:
 ;
 MSG_SCREENS
 Pantallas
 ; Screens
 ;
+MSG_PUBLIC_SCREENS
+Pantallas públicas
+; Public Screens
+;
 MSG_FRONTMOST_DEFAULT
 La del frente es la pant. públ. predet.:
-; Frontmost set as default public screen:
+; Set Frontmost as default
 ;
 MSG_OFFSCREEN_DESC
 Dejar que las ventanas salgan\ndel área visible
@@ -63,25 +67,33 @@ MSG_FRONTMOST_DEFAULT_DESC
 Que la pant. públ. del frente\nsea la pant. públ. predet.
 ; Make the frontmost public screen\nthe default public screen
 ;
+MSG_DRAG
+Arrastre de pantalla
+; Screen Dragging
+;
+MSG_DRAG_BOUNDS
+Limitar arrastre a los límites de la pantalla
+; Limit dragging to Displays bounds...
+;
 MSG_BOUND_LEFT_DRAG
 No descubrir a la izquierda
-; Bound drag in left direction
+; on the left
 ;
 MSG_BOUND_RIGHT_DRAG
 No descubrir a la derecha
-; Bound drag in right direction
+; on the right
 ;
 MSG_BOUND_TOP_DRAG
 No descubrir hacia arriba
-; Bound drag in top direction
+; at the top
 ;
 MSG_BOUND_BOTTOM_DRAG
 No descubrir hacia abajo
-; Bound drag in bottom direction
+; at the bottom
 ;
 MSG_META_DRAG
 Combinacion de teclas para mover la pantalla
-; Drag keys
+; Drag control key(s)
 ;
 MSG_MENUS_STICKY
 Menus pegajosos

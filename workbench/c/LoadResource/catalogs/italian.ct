@@ -1,9 +1,13 @@
-## version $VER: loadresource.catalog 1.0 (27.01.2005)
+## version $VER: loadresource.catalog 2.0 (10.05.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_ERROR_OPEN_LIBRARY
 Impossibile aprire la libreria %s.
 ; Couldn't open library %s.
+;
+MSG_ERROR_OPEN_DEVICE
+Impossibile aprire il dispositivo %s
+; Couldn't open device %s.
 ;

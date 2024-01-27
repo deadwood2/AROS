@@ -1,0 +1,30 @@
+## version $VER: Installer.catalog 1.0 (08.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+;
+MSG_OK
+Tamam
+; OK
+;
+MSG_CANCEL
+Vazgeç
+; Cancel
+;
+MSG_MESSAGE
+Ýleti
+; Message
+;
+MSG_PROMPT
+Ýstem
+; Prompt
+;
+MSG_YES
+Evet
+; Yes
+;
+MSG_NO
+Hayýr
+; No
+;

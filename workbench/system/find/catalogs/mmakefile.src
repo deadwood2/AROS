@@ -1,8 +1,8 @@
-# Copyright (C) 2019, The AROS Development Team. All rights reserved.
+# Copyright (C) 2019-2023, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:=german czech french norwegian polish russian spanish
+CATALOGS:=czech french german italian norwegian polish spanish russian
 
 %build_catalogs mmake=workbench-system-find-catalogs \
     catalogs=$(CATALOGS) \

@@ -1,135 +1,176 @@
-## version $VER: hdtoolbox.catalog 1.0 (19.02.2004)
+## version $VER: hdtoolbox.catalog 2.0 (15.05.2023)
 ## codeset 0
 ## language italiano
+; Authors: AMIGASYSTEM
 ;
 WORD_Active
 Attiva
+; Active
 ;
 WORD_AddEntry
-Aggiungi una voce
+Aggiungi
+; Add Entry
 ;
 WORD_All
 Tutte
+; All
 ;
 WORD_Automount
-Monta automaticamente
+Auto montaggio
+; Automount
 ;
 WORD_Bootable
 Avviabile
+; Bootable
 ;
 WORD_BootPri
-Priorità d'avvio
+Priorità Avvio
+; Boot Priority
 ;
 WORD_Cancel
 Annulla
+; Cancel
 ;
 WORD_Changed
 Modifica
+; Changed
 ;
 WORD_Change_Type
-Cambia tipo
+Cambia Tipo
+; Change Type
 ;
 WORD_Create_Table
-Crea tavola
+Crea Tabella
+; Create Table
 ;
 WORD_Devices
-Unità
+Dispositivo
+; Devices
 ;
 WORD_DosEnvec
 DosEnvec
+; DosEnvec
 ;
 WORD_Exit
 Esci
+; Exit
 ;
 WORD_Geometry
-Geometria
+Geometrie
+; Geometry
 ;
 WORD_Name
 Nome
+; Name
 ;
 WORD_Switches
-Proprietà
+Commuta
+; Switches
+;
+WORD_Ok
+Ok
+; Ok
 ;
 WORD_Parent
 Indietro
 ;
-WORD_Ok
-Ok
-;
 WORD_Partitions
 Partizioni
+; Partitions
 ;
 WORD_Partition_Table
-Tavola delle partizioni
+Tabella delle partizioni
+; Partition Table
 ;
 WORD_Partition_Table_Type
-Tipo di tavola delle partizioni
+Tipo tabella partizioni
+; Partition Table Type
 ;
 WORD_Partition_Type
 Tipo di partizione
+; Partition Type
 ;
 WORD_RemoveEntry
-Rimuovi voce
+Rimuovi
+; Partition Type
 ;
 WORD_Rename
 Rinomina
+; Rename
 ;
 WORD_Resize_Move
 Ridimensiona/Sposta
+; Resize/Move
 ;
 WORD_Save_Changes
 Salva le modifiche
+; Save Changes
 ;
 WORD_Size
 Dimensioni
+; Size
 ;
 WORD_Unit
 Unità
+; Unit
 ;
 WORD_Units
 Unità
+; Units
 ;
 WORD_Unknown
 Sconosciuta
+; Unknown
 ;
 WORD_MENU_Project
 Progetto
+; Project
 ;
 WORD_MENU_About
 Informazioni
+; About
 ;
 WORD_MENU_Quit
 Esci
+; Quit
 ;
 MSG_ASK_SAVE
-Il contenuto delle partizioni verrà aliminato\n Siete sicuri di voler apportare le modifiche alle partizioni '%s' ?
-;Alle Daten auf modifizierten Partitionen werden zerstört!\nBist du dir sicher die Änderungen der Partitionstabelle '%s' zu speichern?
+Il contenuto delle partizioni verrà eliminato\n Sicuri di scrivere le modifiche sulla tabella delle partizioni? '%s' ?
+; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
 ;
 MSG_NO_MEMORY
 Non c'è abbastanza memoria
-;Nicht genug Speicher vorhanden
+; Not enough memory
 ;
 MSG_PARTITION_TABLE_FULL
 La tavola delle partizioni è piena
-;Partitionstabelle voll
+; Partition table full
 ;
 MSG_Select_Empty_Area
-Scegliere un'area vuota
-;Wähle eine freien Bereich
+Scegli spazio libero
+; Select empty area
 ;
 MSG_Select_Partition_Resize_Move
-Scegliere la partizione da ridimensionare o spostare
-;Wähle eine Partition und ändere die Größe bzw. bewege sie
+Scegliere partizione da dimensionare/spostare
+;Select a partition and resize/move it
 ;
 MSG_Welcome
 Benvenuti nel programma di partizionamento
-;Willkommen zum Partitionierungswerkzeug
+;Welcome to the partitioning tool
 ;
 MSG_WriteTableError
-Impossibile scrivere la tavola delle partizioni
-;Fehler beim Schreiben der Partitionstabelle
+Impossibile scrivere tabella partizioni
+; Error while writing partition table
 ;
 MSG_CreateTableError
-Impossibile creare la tavola delle partizioni
-;Fehler beim Erstellen der Partitionstabelle
+Impossibile creare tabella partizioni
+; Error while creating partition table
+;
+WORD_MENU_Partition
+Partizione
+; Partition
+;
+WORD_MENU_CreateMountlist
+Crea Mountlist ...
+;Create mountlist...
 ;

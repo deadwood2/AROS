@@ -1,4 +1,4 @@
-## version $VER: wanderer.catalog 1.2 (29.04.2010)
+## version $VER: wanderer.catalog 4.0 (01.06.2023)
 ## language polski
 ## codeset 5
 ;
@@ -15,11 +15,11 @@ Wanderer %s pamiêci graficznej %s pamiêci pozosta³ej
 ; Wanderer %s graphics mem %s other mem
 ;
 MSG_MEM_B
-b
+B
 ; B
 ;
 MSG_MEM_K
-k
+K
 ; K
 ;
 MSG_MEM_M
@@ -123,7 +123,7 @@ Utrwal pozycjê
 ; Snapshot
 ;
 MSG_MEN_ALL
-wszystko
+Wszystko
 ; All
 ;
 MSG_MEN_VIEW
@@ -131,7 +131,7 @@ Wy¶wietl
 ; View
 ;
 MSG_MEN_ICVIEW
-ikonki
+Ikonki
 ; Icon view
 ;
 MSG_MEN_DCVIEW
@@ -163,7 +163,7 @@ wg daty
 ; By date
 ;
 MSG_MEN_BYSIZE
-wg wielko¶ci
+wg rozmiaru
 ; By size
 ;
 MSG_MEN_BYTYPE
@@ -286,17 +286,33 @@ MSG_MEN_PUT_AWAY
 Schowaj
 ; Put away
 ;
+MSG_MEN_SC_PUT_AWAY
+P
+; P
+;
 MSG_MEN_LEAVE_OUT
 Wyjmij na blat
 ; Leave out
+;
+MSG_MEN_SC_LEAVE_OUT
+L
+; L
 ;
 MSG_MEN_UNSNAPSHOT
 Uwolnij pozycjê
 ; Unsnapshot
 ;
+MSG_MEN_SC_UNSNAPSHOT
+U
+; U
+;
 MSG_MEN_SNAPSHOT
 Utrwal pozycjê
 ; Snapshot
+;
+MSG_MEN_SC_SNAPSHOT
+S
+; S
 ;
 MSG_REQU_DELETE
 Skasuj...
@@ -375,15 +391,15 @@ w katalogu
 ; located in
 ;
 MSG_NOFILEACCESS_E
-niemo¿liwy
-;  
+ niemo¿liwy 
+; 
 ;
 MSG_NODRAWERACCESS_S
-Dostêp do katalogu  
+Dostêp do katalogu
 ; Can't access drawer
 ;
 MSG_NODRAWERACCESS_E
-niemo¿liwy
+ niemo¿liwy 
 ;  
 ;
 MSG_REQU_FILEUNPROTECT_S
@@ -427,11 +443,11 @@ Kopiuj do
 ; Copy to
 ;
 MSG_WANDERER_FILEACCESS_FILE
-plik
+Plik
 ; File
 ;
 MSG_WANDERER_FILEACCESS_TRAFFIC
-szybko¶æ transmisji danych
+Szybko¶æ przesy³ania danych
 ; Data transfer rate
 ;
 MSG_WANDERER_FILEACCESS_DELETEFROM
@@ -442,15 +458,63 @@ MSG_WANDERER_FILEACCESS_FILETODELETE
 Plik do skasowania
 ; File to delete
 ;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Usuwanie pliku
+; Deleting file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES
-Przetwarzane pliki:
+Przetworzone pliki:
 ; Processed files:
 ;
 MSG_WANDERER_FILEACCESS_ACTUAL
-Wielko¶æ bie¿±cego pliku:
+Rozmiar bie¿±cego pliku:
 ; Size of current file:
 ;
 MSG_WANDERER_FILEACCESS_TOTAL
-Wielko¶æ ³±czna:
+Ca³kowity rozmiar:
 ; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Wyst±pi³ b³±d podczas wykonywania operacji na pliku
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Nie mo¿na przydzieliæ %d bajtów pamiêci
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Wyst±pi³ b³±d podczas odczytu z pliku: %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Wyst±pi³ b³±d podczas zapisywania do pliku: %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Nie uda³o siê odczytaæ bloku informacji o pliku: %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Nie mo¿na utworzyæ katalogu: %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Wyst±pi³ b³±d podczas usuwania pliku: %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Nie mo¿na zablokowaæ ¶cie¿ki: %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Wyst±pi³ b³±d podczas odczytu z katalogu: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Wyst±pi³ b³±d podczas przenoszenia pliku: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+B³±d
+; Errormessage
 ;

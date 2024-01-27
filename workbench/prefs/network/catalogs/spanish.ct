@@ -1,4 +1,4 @@
-## version $VER: networkprefs.catalog 4.0 (20.01.2021)
+## version $VER: networkprefs.catalog 4.1 (19.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -19,7 +19,7 @@ Activo
 ; Active
 ;
 MSG_DEVICE
-Periferico
+Periférico
 ; Device
 ;
 MSG_UNIT
@@ -35,7 +35,7 @@ Dirección
 ; Address
 ;
 MSG_MASK
-Mascara de red
+Máscara de red
 ; Net Mask
 ;
 MSG_GATE
@@ -59,7 +59,7 @@ Nombre y aliases de host
 ; Host Name and Aliases
 ;
 MSG_DOMAIN_NAME
-Dominio/grupo de trabajo
+Domínio/grupo de trabajo
 ; Domain/Workgroup
 ;
 MSG_SERIAL_DEVICE
@@ -239,7 +239,7 @@ Password
 ; Password
 ;
 MSG_WORKGROUP
-Dominio/grupo de trabajo
+Domínio/grupo de trabajo
 ; Domain/Workgroup
 ;
 MSG_SERVICE

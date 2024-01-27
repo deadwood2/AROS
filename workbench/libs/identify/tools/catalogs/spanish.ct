@@ -1,4 +1,4 @@
-## version $VER: IdentifyTools.catalog 1.0 (18.01.2021)
+## version $VER: IdentifyTools.catalog 1.1 (18.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -44,7 +44,7 @@ MSG_LISTEXP_HAIL
 MSG_LISTEXP_HELP
 Plantilla:\n\n\
   FULL/S\t\tlista todas las commodities\n\
-  MID=MANUFID/K/N\tinformación del constructor\n\
+  MID=MANUFID/K/N\tinformación del fabricante\n\
   PID=PRODID/K/N\ty su producto\n\n\
 Por favor, lea la documentación para mas información.\n
 ; Template:\n\n\
@@ -58,7 +58,7 @@ Rango erroneo! (ManufID=0..65535 ProdID=0..255)\n\n
 ; Bad range! (ManufID=0..65535 ProdID=0..255)\n\n
 ;
 MSG_LISTEXP_SPECBOARD
-Constructor: %s\n\
+Fabricante: %s\n\
 Producto:    %s\n\
 Clase:       %s\n\n
 ;  Manufacturer: %s\n\
@@ -85,7 +85,7 @@ Agnus:   %s (Mode: %s)\n\
 Denise:  %s (Rev: %s)\n\
 AmigaOS: %s (%s, BoingBag %s, SetPatch %s)\n\
          Exec %s   Workbench %s\n\
-Support: GraphicOS: %s, AudioOS: %s, TCP/IP: %s\n\
+Soporta: GraphicOS: %s, AudioOS: %s, TCP/IP: %s\n\
 Clock:   Power %s, VBlank %s, E-Clock %s\n\
 RAM:     Motherboard %s bit, %s, %s CAS, %sx Bandwidth\n\
 \n\
@@ -109,7 +109,7 @@ Memoria:\t\t   CHIP\t   FAST\t  TOTAL\tROM = %s\tSLOW = %s\n\
 ;
 MSG_LISTEXP_LISTTITLE
 ** EXPANSIONES **\n\n\
-Nr ID      Address  Size Manufacturer         Product\n\
+Nr ID      Direci.  Tam. Fabricante           Producto\n\
 ----------------------------------------------------------------------------\n
 ; ** EXPANSIONS **\n\n\
 ; Nr ID      Address  Size Manufacturer         Product\n\
@@ -188,13 +188,13 @@ No ha ocurrido un Guru aun...\n\n
 ;================================================================
 ;
 MSG_FUNC_HAIL
--- Function V%s -- Richard Koerber <%s>\n\n
+-- Función V%s -- Richard Koerber <%s>\n\n
 ; -- Function V%s -- Richard Koerber <%s>\n\n
 ;
 MSG_FUNC_HELP
 Platilla:\n\n\
    LN=LIBNAME/A\tnombre de la biblioteca\n\
-   O=OFFSET/N/A\toffset de la funcion\n\n\
+   O=OFFSET/N/A\toffset de la función\n\n\
 Por favor, lea la documentación para mas información.\n
 ; Template:\n\n\
 ;   LN=LIBNAME/A\tname of the library\n\

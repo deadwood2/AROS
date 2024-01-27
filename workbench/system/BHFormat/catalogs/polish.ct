@@ -1,4 +1,4 @@
-## version $VER: format.catalog 1.0 (29.04.2010)
+## version $VER: format.catalog 2.0 (07.06.2023)
 ## codeset 5
 ## language polski
 ;
@@ -11,16 +11,17 @@ Poniechaj
 ; Cancel
 ;
 MSG_INSERT_DISK
-W³ó¿ dysk do sformatowania w urz±dzenie %s.\nNaci¶nij ENTER aby rozpocz±æ formatowanie\nlub CTRL-C aby przerwaæ: \0
+W³ó¿ dysk do sformatowania w urz±dzenie %s.\n\
+Naci¶nij ENTER aby rozpocz±æ formatowanie\nlub CTRL-C aby przerwaæ: 
 ; Insert disk to be formatted in device %s\n\
 ; Press RETURN to begin formatting or CTRL-C to abort: 
 ;
 MSG_FORMATTING
-\rFormatowanie cylindra %lu, %lu do koñca  \0
+\rFormatowanie cylindra %lu, %lu do koñca 
 ; \rFormatting cylinder %lu, %lu to go 
 ;
 MSG_VERIFYING
-\rWeryfikacja \0
+\rWeryfikacja 
 ; \rVerifying 
 ;
 MSG_INITIALIZING
@@ -100,8 +101,8 @@ Narzêdzie do formatowania dysków
 ; Disk Formatting Utility
 ;
 MSG_COPYRIGHT
-Copyright (c) 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
-; Copyright © 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+Copyright (C) 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+; Copyright \xa9 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
 ;
 MSG_AUTHOR
 Ben Hutchings, Pavel Fedin, The AROS Development Team
@@ -176,7 +177,7 @@ Niepowodzenie
 ; Failure
 ;
 MSG_FORMAT
-Format
+Format 
 ; Format 
 ;
 MSG_ERROR_INVALID_DOSTYPE
@@ -205,7 +206,7 @@ Aby jej u¿ywaæ musisz zainstalowaæ co najmniej wersjê 40 amigowego systemu plikó
 ;
 MSG_ERROR_TOO_LARGE_4
 Ta partycja jest ustawiona do u¿ywania buforów pamiêci, które mog± \
-byæ niepubliczne. To mo¿e powodowaæ nie3stabilno¶æ pracy komputera \
+byæ niepubliczne. To mo¿e powodowaæ niestabilno¶æ pracy komputera \
 podczas u¿ywania systemu pamiêci wirtualnej. By temu zapobiec powiniene¶ dodaæ 1 do \
 ustawienia BufMemType dla tej partycji.
 ; This device is set to use buffers in memory that may not be\

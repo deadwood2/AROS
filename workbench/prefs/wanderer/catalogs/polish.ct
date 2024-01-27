@@ -43,11 +43,11 @@ Pasek narzêdzi
 ; Toolbar
 ;
 MSG_CLASSIC
-klasyczna
+Klasyczna
 ; Classic
 ;
 MSG_ENHANCED
-rozszerzona
+Rozszerzona
 ; Enhanced
 ;
 MSG_NAVIGATION
@@ -79,11 +79,11 @@ Tryb wy¶wietlania ikon
 ; Icon listmode
 ;
 MSG_ICONLISTMODE_PLAIN
-p³ynne
+P³ynne
 ; List icons plainly
 ;
 MSG_ICONLISTMODE_GRID
-uszeregowane
+Uszeregowane
 ; List icons by grid
 ;
 MSG_ICONTEXTMODE
@@ -91,15 +91,15 @@ Tryb pisma etykiet
 ; Icons text drawmode
 ;
 MSG_ICONTEXTMODE_OUTLINE
-kontur
+Kontur
 ; Outline
 ;
 MSG_ICONTEXTMODE_PLAIN
-zwyk³y
+Zwyk³y
 ; Plain
 ;
 MSG_ICONTEXTMODE_SHADOW
-cieñ
+Cieñ
 ; Drop shadow
 ;
 MSG_ICONTEXTLENGTH
@@ -137,7 +137,7 @@ MSG_BUBBLESCREENTITLE
 ; %wv = Exact workbench.library version
 ;
 MSG_TILEMODE
-Tryb powielania:
+Tryb kafelków:
 ; Tile mode :
 ;
 MSG_XOFFSET
@@ -185,19 +185,19 @@ Wysoko¶æ ramki etykiety
 ; Label Frame Height
 ;
 MSG_TILED
-powielanie
+Kafelki
 ; Tiled
 ;
 MSG_SCALED
-skalowanie
+Skalowanie
 ; Scaled
 ;
 MSG_FLOATING
-p³ynne
+P³ynne
 ; Floating
 ;
 MSG_FIXED
-uszeregowane
+Uszeregowane
 ; Fixed
 ;
 MSG_LABELLINELENGTH
@@ -253,7 +253,7 @@ Tytu³ ekranu Wanderera
 ; Wanderer ScreenTitle
 ;
 MSG_ADVANCED
-zaawansowane
+Zaawansowane
 ; Advanced
 ;
 MSG_USE
@@ -281,15 +281,15 @@ Etykiety
 ; Labels
 ;
 MSG_ICONSORTMODE_BYNAME
-alfabetycznie
+Alfabetycznie
 ; By name
 ;
 MSG_ICONSORTMODE_BYDATE
-wed³ug daty
+Wed³ug daty
 ; By date
 ;
 MSG_ICONSORTMODE_BYSIZE
-wed³ug wielko¶ci
+Wed³ug rozmiaru
 ; By size
 ;
 MSG_DEFAULT_ICONSORTMODE
@@ -297,7 +297,7 @@ Porz±dek domy¶lny
 ; Default sort order
 ;
 MSG_ICON_AUTOSORT_ENABLED
-Sortowanie automayczne
+Sortowanie automatyczne
 ; Autosorting enabled
 ;
 MSG_ICON_DRAG_TRANSPARENT
@@ -309,10 +309,22 @@ Tryb domy¶lny
 ; Default view mode
 ;
 MSG_ICONVIEWMODE_ALL
-wszystkie pliki
+Wszystkie pliki
 ; All files
 ;
 MSG_ICONVIEWMODE_ICONS
-tylko ikony
+Tylko ikony
 ; Icons only
+;
+MSG_ICONDROPMODE
+Kopiuj lub przenie¶ pliki umieszczone na tym samym urz±dzeniu
+; Copy or move files placed on same device
+;
+MSG_ICONDROPMODE_MOVE
+Przenie¶
+; Move
+;
+MSG_ICONDROPMODE_COPY
+Kopiuj
+; Copy
 ;

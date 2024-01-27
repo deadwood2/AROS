@@ -1,33 +1,52 @@
-## version $VER: SystemPrefsWindow.catalog 1.0 (19.02.2004)
-## codeset 0
+## version $VER: SystemPrefsWindow.catalog 2.0 (30.04.2023)
 ## language italiano
-;
-; TODO: update me and set version to 2
+## codeset 0
+; Authors: AMIGASYSTEM
 ;
 MSG_MENU_PREFS
 Preferenze
-;Preferences
+; Preferences
 ;
 MSG_MENU_PREFS_IMPORT
 I\0Importa...
-;I\0Import...
+; I\0Import...
 ;
 MSG_MENU_PREFS_EXPORT
 E\0Esporta...
-;E\0Export...
+; E\0Export...
 ;
 MSG_MENU_PREFS_TEST
 T\0Test
+; T\0Test
 ;
 MSG_MENU_PREFS_REVERT
 R\0Ripristina
+; R\0Revert
 ;
 MSG_MENU_PREFS_SAVE
-S\0Sava
+S\0Salva
+; S\0Save
 ;
 MSG_MENU_PREFS_USE
 U\0Usa
+; U\0Use
 ;
 MSG_MENU_PREFS_CANCEL
 A\0Annulla
+; C\0Cancel
 ;
+MSG_MENU_PREFS_EXPORT_WITH_ICON
+Esporta con icona...
+; Export with Icon...
+;
+MSG_MENU_RESET_TO_DEFAULTS
+Ripristina impostazioni predefinite
+; Reset to Defaults
+;
+MSG_FILEREQ_EXPORT_TITLE
+Esporta
+; Export
+;
+MSG_FILEREQ_IMPORT_TITLE
+Importa
+; Import

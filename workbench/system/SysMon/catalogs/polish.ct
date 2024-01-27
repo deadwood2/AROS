@@ -3,7 +3,6 @@
 ## codeset 5
 ;
 ;
-;
 MSG_APP_NAME
 SysMon
 ; SysMon
@@ -17,7 +16,7 @@ Monitor Systemu
 ; System Monitor
 ;
 MSG_USAGE
-Utylizacja
+Wykorzystanie
 ; Usage
 ;
 MSG_FREQUENCY
@@ -117,7 +116,7 @@ Projekt
 ; Project
 ;
 MSG_REFRESH_SPEED
-Predko¶æ Od¶wierzania
+Prêdko¶æ Od¶wie¿ania
 ; Refresh Speed
 ;
 MSG_FAST
@@ -142,25 +141,25 @@ MSG_TASK_UNKNOWN
 ;
 MSG_WINDOW_GART
 GART
-;GART
+; GART
 ;
 MSG_DISPLAY_MODE
 Tryb Wy¶wietlania
-;Display Mode
+; Display Mode
 ;
 MSG_LOAD
-Utylizacja Procesora
-;Processor Load
+U¿ycie Procesora
+; Processor Load
 ;
 MSG_GUAGE
-Rozmiar
-;Gauge
+Miernik
+; Gauge
 ;
 MSG_GRAPH
 Wykres
-;Graph
+; Graph
 ;
 MSG_GRAPH_PER_PROC
 Wykres per Procesor
-;Graph Per Processor
+; Graph Per Processor
 ;

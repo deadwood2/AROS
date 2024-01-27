@@ -7,7 +7,7 @@ Nie mo¿na otworzyæ %s w wersji %ld!\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_CREATE_APP
-Nie mo¿na uworzyæ obiektu aplikacji!
+Nie mo¿na utworzyæ obiektu aplikacji!
 ; Can't create application object!
 ;
 MSG_WINTITLE
@@ -19,7 +19,7 @@ Projekt
 ; Project
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0Skoñcz
+Q\0Zakoñcz
 ; Q\0Quit
 ;
 MSG_MEN_EDIT

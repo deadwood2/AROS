@@ -1,0 +1,196 @@
+## version $VER: diskimagegui.catalog 1.1 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+MSG_UNIT_LBL
+Birim
+; Unit
+;
+MSG_DEVICE_LBL
+Aygýt
+; Device
+;
+MSG_FILENAME_LBL
+Disk Ýmajý
+; Disk Image
+;
+MSG_WRITEPROTECT_LBL
+WP
+; WP
+;
+MSG_NO_DISK
+Disk yok
+; No disk present
+;
+MSG_APPDESCRIPTION
+diskimage.device için GUI'yi kontrol edin
+; Control GUI for diskimage.device
+;
+MSG_PRIORITY_LBL
+Öncelik
+; Pri
+;
+MSG_PLUGIN_LBL
+Eklenti
+; Plugin
+;
+MSG_PLUGIN_GAD
+Eklenti kullan
+; Use plugin
+;
+MSG_AUTO_LBL
+(Otomatik)
+; (Auto)
+;
+MSG_WRITESUPPORT_LBL
+W
+; W
+;
+MSG_PROJECT_ABOUT
+Hakkýnda...
+; About...
+;
+MSG_PROJECT_HIDE
+Gizle
+; Hide
+;
+MSG_PROJECT_ICONIFY
+Simge durumu
+; Iconify
+;
+MSG_PROJECT_SNAPSHOT
+Anlýk görüntü
+; Snapshot
+;
+MSG_PROJECT_QUIT
+Çýkýþ
+; Quit
+;
+MSG_SETTINGS_MENU
+Ayarlar
+; Settings
+;
+MSG_SETTINGS_CHANGETEMPDIR
+Temp dizinini deðiþtir...
+; Change temp directory...
+;
+MSG_SETTINGS_SAVE
+Ayarlarý kaydet
+; Save settings
+;
+MSG_SETTINGS_PLUGINS
+Eklentiler...
+; Plugins...
+;
+MSG_PROJECT_CLOSE
+Kapat
+; Close
+;
+MSG_OK_GAD
+Tamam
+; Ok
+;
+MSG_ABOUT_REQ
+%s sürüm %ld.%ld\n\
+%s sürüm %ld.%ld\n\n\
+Telif Hakký (C) 2007-2010 Fredrik Wikstrom\n\
+Websitesi: http://a500.org\n\
+E-posta: fredrik@a500.org
+; %s version %ld.%ld\n\
+; %s version %ld.%ld\n\n\
+; Copyright (C) 2007-2010 Fredrik Wikstrom\n\
+; Website: http://a500.org\n\
+; E-mail: fredrik@a500.org
+;
+MSG_ERROR
+Hata
+; Error
+;
+MSG_NOAISS_REQ
+AISS atamasý bulunamadý.\n\n\
+En son sürümü buradan indirin\n\
+ve kurun: http://masonicons.de 
+; AISS assign not found.\n\n\
+; Download and install the latest version\n\
+; from here: http://masonicons.de
+;
+MSG_OLDAISS_REQ
+AISS v%ld.%ld veya daha yenisi gerekli.\n\n\
+En son sürümü buradan indirin\n\
+ve kurun: http://masonicons.de 
+; AISS v%ld.%ld or newer required.\n\n\
+; Download and install the latest version\n\
+; from here: http://masonicons.de
+;
+MSG_IMAGENOTFOUND_REQ
+'%s' imaj dosyasý bulunamadý.
+; Image file '%s' not found.
+;
+MSG_CANCEL_GAD
+_Vazgeç
+; _Cancel
+;
+MSG_SAVE_GAD
+_Kaydet
+; _Save
+;
+MSG_USE_GAD
+K_ullan
+; _Use
+;
+MSG_INSERT_GAD
+Tak
+; Insert
+;
+MSG_EJECT_GAD
+Çýkar
+; Eject
+;
+MSG_WRITEPROTECT_GAD
+Yazma Korumalý
+; Write Protect
+;
+MSG_REFRESH_GAD
+Tazele
+; Refresh
+;
+MSG_PLUGINS_WND
+Eklentiler
+; Plugins
+;
+MSG_MAIN_WND
+%s: Kýsayol Tuþu = <%s>
+; %s: Hot Key = <%s>
+;
+MSG_ABOUT_WND
+Hakkýnda - %s
+; About - %s
+;
+MSG_ERROR_WND
+Hata - %s
+; Error - %s
+;
+MSG_SETDEVICETYPE_GAD
+Aygýt Türünü Ayarla
+; Set Device Type
+;
+MSG_SETDEVICETYPE_WND
+Birim: %ld - Aygýt Türü
+; Unit: %ld - Device Type
+;
+MSG_DEVICETYPE_GAD
+Aygýt Türü
+; Device Type
+;
+MSG_DEVICETYPE_DIRECT_ACCESS
+Doðrudan Eriþim (Varsayýlan ayar)
+; Direct Access (Default setting)
+;
+MSG_DEVICETYPE_CDROM
+CD-ROM
+; CD-ROM
+;
+MSG_DEVICETYPE_OPTICAL_DISK
+Optik Disk
+; Optical Disk
+;

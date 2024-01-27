@@ -1,4 +1,4 @@
-## version $VER: multiview.catalog 1.0 (23.12.2020)
+## version $VER: multiview.catalog 2.0 (23.12.2020)
 ## language türkçe
 ## codeset 12
 ;
@@ -8,7 +8,7 @@ MSG_CANT_OPEN_LIB
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_CREATE_IC
-Ara baðlantý nesneleri oluþturalamadý!
+Ara baðlantý nesneleri oluþturulamadý!
 ; Can't create interconnection objects!
 ;
 MSG_CANT_LOCK_SCR
@@ -44,7 +44,7 @@ Mesaj portu oluþturulamadý!
 ; Can't create message port!
 ;
 MSG_CANT_ADD_APPWINDOW
-Pencereyi bir uygulama penceresi olarak tanýmlanamadý!
+Pencereyi bir uygulama penceresi olarak tanýmlayamadý!
 ; Can't promote window as an AppWindow!
 ;
 MSG_SAVE_FAILED
@@ -116,7 +116,7 @@ MSG_MEN_WINDOW_NORMAL
 ;  \0Normal
 ;
 MSG_MEN_WINDOW_MAXIMIZE
-\0Büyüt
+\0Büyült
 ;  \0Maximize
 ;
 MSG_MEN_SETTINGS
@@ -124,7 +124,7 @@ Ayarlar
 ; Settings
 ;
 MSG_MEN_SETTINGS_SAVEDEF
-D\0Varsayýlan Olarak Kaydet
+D\0Varssayýlan Olarak Kaydet
 ; D\0Save As Defaults
 ;
 MSG_MEN_PICT
@@ -132,11 +132,11 @@ Resim
 ; Picture
 ;
 MSG_MEN_PICT_ZOOM_IN
-\0Yakýnlaþ
+\0Yakýnlaþtýr
 ;  \0Zoom in
 ;
 MSG_MEN_PICT_ZOOM_OUT
-\0Uzaklaþ
+\0Uzaklaþtýr
 ;  \0Zoom out
 ;
 MSG_MEN_PICT_RESET
@@ -164,7 +164,7 @@ Metin
 ; Text
 ;
 MSG_MEN_TEXT_WORDWRAP
-\0Kelime Kaydýrmayý Etkinleþtir
+\0Kelime Kaydýrmayý etkinleþtir
 ;  \0Enable Word Wrap
 ;
 MSG_MEN_TEXT_SEARCH
@@ -180,11 +180,11 @@ MSG_MEN_TEXT_SEARCH_NEXT
 ;  \0Search for next
 ;
 MSG_ASL_OPEN_TITLE
-Açýlacak Dosyayý Seçin
+Açýlacak Dosyayý Seç
 ; Select File to Open
 ;
 MSG_ASL_SAVE_TITLE
-Kaydedilecek Dosyayý Seçin
+Kaydedilecek Dosyayý Seç
 ; Select File to Save to
 ;
 MSG_ABOUT

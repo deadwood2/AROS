@@ -140,7 +140,7 @@ _Kanäle
 ;
 msgOptNoChannels
 Selbsttätig
-;Automatic 
+; 
 ;
 msgOptVolume
 _Lautstärke
@@ -266,7 +266,7 @@ AHI-Einstellungen
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright ©%s\nDeutsche Übersetzung von Uwe Bojartschuk
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Kann Fenster nicht öffnen.
@@ -282,7 +282,7 @@ Kann `%s' nicht finden!
 ;
 msgTextNoOpen
 Kann `%s' Version %ld nicht öffnen.
-; Unable to open `%s' version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

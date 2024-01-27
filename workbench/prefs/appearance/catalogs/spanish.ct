@@ -1,4 +1,4 @@
-## version $VER: Appearance.catalog 2.1 (11.02.2021)
+## version $VER: Appearance.catalog 2.2 (14.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -20,7 +20,7 @@ Previsualización
 ; Preview
 ;
 MSG_NOPREVIEW
-Previsualizacion no disponible
+Previsualización no disponible
 ; -Preview Unavailable-
 ;
 MSG_SELECTEDTHEME
@@ -40,10 +40,12 @@ Reemplazar la configuración de Paleta
 ;Replace current Palette configuration?
 ;
 MSG_ENABLEFONTPREFS
-Replace current Font configuration?
+Reemplazar la configuración de fuente?
+;Replace current Font configuration?
 ;
 MSG_ENABLEPOINTERPREFS
-Replace current Pointer configuration?
+Reemplazar la configuración del puntero?
+;Replace current Pointer configuration?
 ;
 MSG_SEC_THEMING
 Decoración

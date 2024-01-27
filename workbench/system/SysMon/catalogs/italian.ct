@@ -1,0 +1,165 @@
+## version $VER: SysMon.catalog 1.1 (19.05.2023)
+## language italiano
+## codeset 0
+;
+;
+MSG_APP_NAME
+SysMon
+; SysMon
+;
+MSG_APP_TITLE
+Monitor Sistema
+; System Monitor
+;
+MSG_WINDOW_TITLE
+Monitor Sistema
+; System Monitor
+;
+MSG_USAGE
+In Uso
+; Usage
+;
+MSG_FREQUENCY
+Frequenza
+; Frequency
+;
+MSG_TAB_TASKS
+Attività
+; Tasks
+;
+MSG_TAB_CPU
+Processori
+; Processors
+;
+MSG_SIMULATED_CPU
+Processore Simulato
+; Simulated AROS processor
+;
+MSG_PROCESSOR
+Processore #%id: %s
+; Processor #%id: %s
+;
+MSG_TASK
+Attività
+; Task
+;
+MSG_PROCESS
+Processo
+; Process
+;
+MSG_TASK_NAME
+Nome
+; Name
+;
+MSG_TASK_PRIORITY
+Priorità
+; Priority
+;
+MSG_TASK_TYPE
+Tipo
+; Type
+;
+MSG_TASK_READY_WAIT_INIT
+- Pronto, - Attesa
+; - ready, - waiting
+;
+MSG_TASK_READY_WAIT
+%ld Pronto, %ld Attesa
+; %ld ready, %ld waiting
+;
+MSG_TAB_SYSTEM
+Sistema
+; System
+;
+MSG_MEMORY_SIZE
+Memoria Sistema
+; Memory Size
+;
+MSG_MEMORY_FREE
+Memoria Libera
+; Memory Free
+;
+MSG_VIDEO_SIZE
+Video
+; Video Size
+;
+MSG_VIDEO_FREE
+Video
+; Video Free
+;
+MSG_TOTAL_RAM
+Totale Memoria
+; Total Memory
+;
+MSG_CHIP_RAM
+Memoria Chip
+; Chip Memory
+;
+MSG_FAST_RAM
+Memoria Fast
+; Fast Memory
+;
+MSG_VIDEO_RAM
+Memoria Video
+; Video Memory
+;
+MSG_VIDEO_WINDOW_TMPL
+%s
+; %s Window
+;
+MSG_CANT_OPEN_TASK_RESOURCE
+Non puoi aprire task.resource\n
+; Can't open task.resource\n
+;
+MSG_PROJECT
+Progetto
+; Project
+;
+MSG_REFRESH_SPEED
+Frequenza Aggiornamento
+; Refresh Speed
+;
+MSG_FAST
+Veloce
+; Fast
+;
+MSG_NORMAL
+Normale
+; Normal
+;
+MSG_SLOW
+Lenta
+; Slow
+;
+MSG_TASK_TOMBSTONE
+<Inerte>
+; <tombstone>
+;
+MSG_TASK_UNKNOWN
+<Sconosciuto>
+; <unknown>
+;
+MSG_WINDOW_GART
+GART
+; GART
+;
+MSG_DISPLAY_MODE
+Moalirtà Schermo
+; Display Mode
+;
+MSG_LOAD
+Carico processore
+; Processor Load
+;
+MSG_GUAGE
+Misurare
+; Gauge
+;
+MSG_GRAPH
+Grafico
+; Graph
+;
+MSG_GRAPH_PER_PROC
+Grafico Attività Processore
+; Graph Per Processor
+;

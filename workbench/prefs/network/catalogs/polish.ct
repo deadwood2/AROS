@@ -71,11 +71,11 @@ Jednostka
 ; Unit
 ;
 MSG_IP_MODE_MANUAL
-rêczne
+Rêczne
 ; Manual
 ;
 MSG_IP_MODE_DHCP
-automatyczne przez DHCP
+Automatyczne przez DHCP
 ; Automatic
 ;
 MSG_ENC_NONE
@@ -143,7 +143,7 @@ Za³o¿one udzia³y
 ; Mounted Shares
 ;
 MSG_AUTOSTART_STACK
-W³±czaj sieæ podczas wczytywania systemu.
+W³±czaj sieæ podczas wczytywania systemu
 ; Start networking during system boot
 ;
 MSG_ERR_UNKNOWN_ERROR
@@ -151,15 +151,15 @@ Nieznany b³±d
 ; Unknown error
 ;
 MSG_ERR_NOT_RESTARTED_STACK
-Uruchomienie sieci nie powiod³o siê.
+Uruchomienie sieci nie powiod³o siê
 ; Failed to restart network stack
 ;
 MSG_ERR_NOT_RESTARTED_WIRELESS
-Uruchomienie sieci bezprzewodowej nie powiod³o siê.
+Uruchomienie sieci bezprzewodowej nie powiod³o siê
 ; Failed to restart wireless networking
 ;
 MSG_ERR_NOT_RESTARTED_MOBILE
-Uruchomienie modemu nie powiod³o siê.
+Uruchomienie modemu nie powiod³o siê
 ; Failed to restart ModemManager
 ;
 MSG_BUTTON_OK
@@ -195,11 +195,11 @@ Ostrze¿enie
 ; Warning
 ;
 MSG_ERR_NOT_SAVED_PREFS
-Zapisywanie ustawieñ w %s zakoñczone niepowodzeniem.
+Zapisywanie ustawieñ w %s zakoñczone niepowodzeniem
 ; Network preferences not saved to %s
 ;
 MSG_ERR_NOT_COPIED_FILES
-Kopiowanie dodatkowych plików do %s zakoñczone niepowodzeniem.
+Kopiowanie dodatkowych plików do %s zakoñczone niepowodzeniem
 ; Additional files not copied to %s
 ;
 MSG_WARN_MULTIPLE_IFACES

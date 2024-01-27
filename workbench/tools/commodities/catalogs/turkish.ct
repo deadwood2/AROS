@@ -1,0 +1,358 @@
+## version $VER: Commodities.catalog 3.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_CANT_OPEN_LIB
+%s V%ld açýlamýyor!\n
+; Can't open %s V%ld!\n
+;
+MSG_CANT_OPEN_INPUTDEVICE
+'input.device' açýlamadý
+; Can't open 'input.device'
+;
+MSG_CANT_OPEN_CLIPDEVICE
+'clipboard.device' açýlamadý
+; Can't open 'clipboard.device'
+;
+MSG_CANT_LOCK_SCR
+Genel ekran kilitlenemiyor!\n
+; Can't lock public screen!\n
+;
+MSG_CANT_GET_VI
+VisualInfo! alýnamadý\n
+; Can't get VisualInfo!\n
+;
+MSG_CANT_CREATE_GADGET
+Araç takýmlarý oluþturulamýyor!\n
+; Can't create gadgets!\n
+;
+MSG_CANT_CREATE_MENUS
+Menüler oluþturulamadý!\n
+; Can't create menus!\n
+;
+MSG_CANT_LAYOUT_MENUS
+Menüler düzenlenemiyor!\n
+; Can't layout menus!\n
+;
+MSG_CANT_CREATE_WIN
+Pencere oluþturulamýyor!\n
+; Can't create window!\n
+;
+MSG_CANT_ALLOCATE_MEM
+Uygulama belleði ayrýlamaz!\n
+; Can't allocate application memory!\n
+;
+MSG_CANT_CREATE_MSGPORT
+Mesaj baðlantý noktasý oluþturulamýyor!\n
+; Can't create message port!\n
+;
+MSG_CANT_ALLOCATE_SIGNAL
+Sinyal tahsis edilemiyor!\n
+; Can't allocate signal!\n
+;
+MSG_CANT_CREATE_BROKER
+CxBroker nesnesi oluþturulamýyor!\n
+; Can't create CxBroker object!\n
+;
+MSG_CANT_CREATE_CUSTOM
+CxCustom nesnesi oluþturulamýyor!\n
+; Can't create CxCustom object!\n
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_MEN_PROJECT
+Project
+; Project
+;
+MSG_MEN_PROJECT_HIDE
+H\0Gizle
+; H\0Hide
+;
+MSG_MEN_PROJECT_ICONIFY
+I\0Simge durumu
+; I\0Iconify
+;
+MSG_MEN_PROJECT_QUIT
+Q\0Çýkýþ
+; Q\0Quit
+;
+; ===============================================
+; EXCHANGE
+;
+MSG_EXCHANGE_CXNAME
+Exchange
+; Exchange
+;
+MSG_EXCHANGE_CXTITLE
+Araç takýmlarý Exchange
+; Commodities Exchange
+;
+MSG_EXCHANGE_CXDESCR
+Sistem araç takýmlarýný kontrol eder
+; Controls system commodities
+;
+MSG_EXCHANGE_WINTITLE
+Exchange: Kýsayol Tuþu = <%s>
+; Exchange: Hot Key = <%s>
+;
+MSG_EXCHANGE_LISTVIEW
+Mevcut Araç takýmlarý
+; Available commodities
+;
+MSG_EXCHANGE_INFO
+Bilgi
+; Information
+;
+MSG_EXCHANGE_GAD_SHOW
+Göster
+; Show
+;
+MSG_EXCHANGE_GAD_HIDE
+Gizle
+; Hide
+;
+MSG_EXCHANGE_GAD_REMOVE
+Kaldýr
+; Remove
+;
+MSG_EXCHANGE_CYCLE_ACTIVE
+Aktif
+; Active
+;
+MSG_EXCHANGE_CYCLE_INACTIVE
+Aktif deðil
+; Inactive
+;
+; ===============================================
+; BLANKER
+;
+MSG_BLANKER_CXNAME
+Ekran Koruyucu
+; Blanker
+;
+MSG_BLANKER_CXTITLE
+Sistem Ekran Koruyucu
+; System Screen Blanker
+;
+MSG_BLANKER_CXDESCR
+Sistem etkin olmadýðýnda ekran Koruyucusu
+; Blanks screen when system inactive
+;
+; ===============================================
+; CLICK2FNT
+;
+MSG_CLICK2FNT_CXNAME
+ÖneTýkla 
+; ClickToFront
+;
+MSG_CLICK2FNT_CXTITLE
+Ön Týklama Programa Yardýmcýsý
+; Click To Front Utility
+;
+MSG_CLICK2FNT_CXDESCR
+Pencereleri öne doðru týklayýn
+; Click windows to front
+;
+; ===============================================
+; OPAQUE
+;
+MSG_OPAQUE_CXNAME
+Opaklýk
+; Opaque
+;
+MSG_OPAQUE_CXTITLE
+Katý Pencereler
+; Solid Windows
+;
+MSG_OPAQUE_CXDESCR
+Pencerelerin gerçek zamanlý taþýnmasý
+; Realtime moving of windows
+;
+; ===============================================
+; AUTOPOINT
+;
+MSG_AUTOPOINT_CXNAME
+Otomatik Nokta
+; AutoPoint
+;
+MSG_AUTOPOINT_CXTITLE
+Otomatik iþaretleyici
+; Autopointer
+;
+MSG_AUTOPOINT_CXDESCR
+Farenin altýndaki pencereyi etkinleþtirir
+; Activates the window under the mouse
+;
+; ===============================================
+; STARTMENU
+;
+MSG_STARTMENU_CXNAME
+BaþlatMenüsü
+; StartMenu
+;
+MSG_STARTMENU_CXTITLE
+Sistem Programý Baþlatýcý
+; System Program Starter
+;
+MSG_STARTMENU_CXDESCR
+Araç takýmý program çalýþtýrýcýsý
+; Program launch commodity
+;
+; ===============================================
+; FKEY
+;
+MSG_FKEY_CXNAME
+Fkey
+; FKey
+;
+MSG_FKEY_CXTITLE
+Ýþlev Tuþlarý:
+; Function To Keys:
+;
+MSG_FKEY_CXDESCR
+Tuþlara özel iþlevler ekleyin
+; Attach special functions to keys
+;
+MSG_FKEY_WINTITLE
+FKey: Kýsayol Tuþu = <%s>
+; FKey: Hot Key = <%s>
+;
+MSG_FKEY_DEFINED_KEYS
+Tanýmlý Tuþlar
+; Defined Keys
+;
+MSG_FKEY_NEW_KEY
+Ye_ni Tuþ
+; _New Key
+;
+MSG_FKEY_DELETE_KEY
+_Tuþ Sil
+; _Delete Key
+;
+MSG_FKEY_SAVE_KEY
+Tanýmlý Tuþlarý Kaydet
+; Save Defined Keys
+;
+MSG_FKEY_COMMAND
+Komut
+; Command
+;
+MSG_FKEY_COMMAND_PARAMS
+Komut Parametreleri
+; Command Parameters
+;
+MSG_FKEY_CMD_CYCLE_WIN
+Pencereler arasýnda geçiþ yap
+; Cycle Windows
+;
+MSG_FKEY_CMD_CYCLE_SCR
+Ekranlar arasýnda geçiþ yap
+; Cycle Screens
+;
+MSG_FKEY_CMD_ENLARGE_WIN
+Pencereyi Büyüt
+; Enlarge Window
+;
+MSG_FKEY_CMD_SHRINK_WIN
+Pencereyi Küçült
+; Shrink Window
+;
+MSG_FKEY_CMD_TOGGLE_WIN_SIZE
+Pencere Boyutunu Deðiþtir
+; Toggle Window Size
+;
+MSG_FKEY_CMD_RESCUE_WIN
+Kurtarma penceresi
+; Rescue Window
+;
+MSG_FKEY_CMD_INSERT_TEXT
+Metin Ekle
+; Insert Text
+;
+MSG_FKEY_CMD_RUN_PROG
+Program Çalýþtýr
+; Run Program
+;
+MSG_FKEY_CMD_RUN_AREXX
+Arexx Betiði Çalýþtýr
+; Run Arexx Script
+;
+MSG_FKEY_MEN_PROJECT_SAVE
+S\0Tanýmlý Tuþlarý Kaydet
+; S\0Save Defined Keys
+;
+; ===============================================
+; NOCAPSLOCK
+;
+MSG_NOCAPSLOCK_CXNAME
+NoCapsLock
+; NoCapsLock
+;
+MSG_NOCAPSLOCK_CXTITLE
+NoCapsLock:
+; NoCapsLock:
+;
+MSG_NOCAPSLOCK_CXDESCR
+CAPS LOCK tuþunu etkisiz hale getirir
+; Renders the CAPS LOCK key ineffective
+;
+; ===============================================
+; DepthMenu
+;
+MSG_DEPTHMENU_CXNAME
+DepthMenu
+; DepthMenu
+;
+MSG_DEPTHMENU_CXTITLE
+DepthMenu:
+; DepthMenu:
+;
+MSG_DEPTHMENU_CXDESCR
+Derinlik gadget'larý için açýlýr menü
+; Popup menu for depth gadgets
+;
+; ===============================================
+; AltKeyQ
+;
+MSG_ALTKEYQ_CXNAME
+AltKeyQ
+; AltKeyQ
+;
+MSG_ALTKEYQ_CXTITLE
+Numaraya göre karakter giriþi
+; Character input by number
+;
+MSG_ALTKEYQ_CXDESCR
+MS-DOS Stili Alt tuþ kullanýmý
+; MS-DOS Style Alt key usage
+;
+; ===============================================
+; ASCIITable
+;
+MSG_ASCIITABLE_CXNAME
+ASCIITable
+; ASCIITable
+;
+MSG_ASCIITABLE_CXTITLE
+ASCIITable:
+; ASCIITable:
+;
+MSG_ASCIITABLE_CXDESCR
+GUI'den anahtarlarý seçin
+; Select keys from a GUI
+;
+MSG_ASCIITABLE_WINTITLE
+ASCIITable: Kýsayol Tuþu = <%s>
+; ASCIITable: Hot Key = <%s>
+;
+MSG_ASCIITABLE_GAD_COPY
+Kopyala
+; Copy
+;
+MSG_ASCIITABLE_GAD_CLEAR
+Temizle
+; Clear
+;

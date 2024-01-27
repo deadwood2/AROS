@@ -32,7 +32,7 @@ Wygl±d
 ; Look
 ;
 MSG_MENUS_LOOK_CLASSIC
-klasyczny
+Klasyczny
 ; Classic
 ;
 MSG_MENUS_LOOK_3D
@@ -52,7 +52,7 @@ Ekrany
 ; Screens
 ;
 MSG_PUBLIC_SCREENS
-Ekrany Publiczny
+Ekrany Publiczne
 ; Public Screens
 ;
 MSG_FRONTMOST_DEFAULT
@@ -69,11 +69,11 @@ Aktywny ekran jako domy¶lny publiczny
 ; Make the frontmost public screen\nthe default public screen
 ;
 MSG_DRAG
-Screen Dragging
+Przeci±ganie ekranu
 ; Screen Dragging
 ;
 MSG_DRAG_BOUNDS
-Limit dragging to Displays bounds...
+Ogranicz przeci±ganie do granic ekranu...
 ; Limit dragging to Displays bounds...
 ;
 MSG_BOUND_LEFT_DRAG
@@ -93,8 +93,8 @@ Przeci±ganie w dó³
 ; Bound drag in bottom direction
 ;
 MSG_META_DRAG
-Klawisze skrótu przeci±gania
-;Drag keys
+Klawisze przeci±gania
+; Drag keys
 ;
 MSG_MENUS_STICKY
 Przypiête

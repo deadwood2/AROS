@@ -12,11 +12,11 @@ Kontrola okien
 ; Window Manipulator
 ;
 MSG_APP_ABOUT
-WiMP - Program kontroli okien\n\nCopyright \xa9 2000-2019 by The AROS Development Team
+WiMP - Program kontroli okien\n\nCopyright (C) 2000-2019 by The AROS Development Team
 ; WiMP - The Window Manipulation Program\n\nCopyright \xa9 2000-2019 by The AROS Development Team
 ;
 MSG_APP_COPYRIGHT
-Copyright \xa9 1995-2019, The AROS Development Team
+Copyright (C) 1995-2019, The AROS Development Team
 ; Copyright \xa9 1995-2019, The AROS Development Team
 ;
 MSG_APP_AUTOR
@@ -60,11 +60,11 @@ Do przodu
 ; To _Front
 ;
 MSG_BTN_BACK
-Do tylu
+Do ty³u
 ; To _Back
 ;
 MSG_BTN_MOVE
-Pwróæ do _oryginal³u
+Przesuñ do p_ocz±tku
 ; Move to _Origin
 ;
 MSG_BTN_ACTIVATE
@@ -112,7 +112,7 @@ Projekt
 ; Project
 ;
 MSG_MENU_ABOUT
-Przy okazji...
+O programie...
 ; About...
 ;
 MSG_MENU_QUIT
@@ -140,7 +140,7 @@ Do ty³u
 ; To Back
 ;
 MSG_MENU_TO_ORIGIN
-Wróc
+Do pocz±tku
 ; To Origin
 ;
 MSG_MENU_ACTIVATE
@@ -176,7 +176,7 @@ Poka¿ wszystko
 ; Show All
 ;
 MSG_MENU_RETHINGDISPLAY
-Repenser l'affichage
+Przemy¶l Uk³ad
 ; RethinkDisplay
 ;
 MSG_ARRAY_WINDOW
@@ -220,15 +220,15 @@ Adres
 ; Address
 ;
 MSG_COL_SCR_LEFTEDGE
-Lewy brzeg
+Lewa krawêd¼
 ; LeftEdge
 ;
 MSG_COL_SCR_TOPEDGE
-Górny brzeg
+Górna krawêd¼
 ; TopEdge
 ;
 MSG_COL_SCR_WIDTH
-Szerokos¶æ
+Szeroko¶æ
 ; Width
 ;
 MSG_COL_SCR_HEIGHT
@@ -244,7 +244,7 @@ Tytu³
 ; Title
 ;
 MSG_COL_SCR_DEFAULTIT
-Tytu³ défaut
+Tytu³ domy¶lny
 ; DefaultTitle
 ;
 MSG_COL_SCR_FRSTWIN
@@ -264,11 +264,11 @@ Nastêpne okno
 ; NextWindow
 ;
 MSG_COL_WIN_LEFTEDGE
-Lewy brzeg
+Lewa krawêd¼
 ; LeftEdge
 ;
 MSG_COL_WIN_TOPEDGE
-Górny brzeg
+Górna krawêd¼
 ; TopEdge
 ;
 MSG_COL_WIN_WIDTH
@@ -316,19 +316,19 @@ Ekran
 ; WScreen
 ;
 MSG_COL_WIN_BORDERLEFT
-Lewy brzeg
+Lewe obramowanie
 ; BorderLeft
 ;
 MSG_COL_WIN_BORDERTOP
-Górny brzeg
+Górne obramowanie
 ; BorderTop
 ;
 MSG_COL_WIN_BORDERRIGHT
-Prawy brzeg
+Prawe obramowanie
 ; BorderRight
 ;
 MSG_COL_WIN_BORDERBOTTOM
-Dolny brzeg
+Dolne obramowanie
 ; BoderBottom
 ;
 MSG_COL_WIN_PARENTWIN

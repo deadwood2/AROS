@@ -1,148 +1,209 @@
-## version $VER: multiview.catalog 1.0 (23.09.2000)
-## codeset 0
+## version $VER: multiview.catalog 2.1 (08.05.2023)
 ## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
 ;
 MSG_CANT_OPEN_LIB
 Impossibile aprire %s V%ld!\n
+; Can't open %s V%ld!\n
 ;
 MSG_CANT_CREATE_IC
 Impossibile creare oggetti di interconnessione!
+; Can't create interconnection objects!
 ;
 MSG_CANT_LOCK_SCR
-Impossibile lockare il public screen!
+Impossibile bloccare lo schermo pubblico!
+; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
-Impossibile ottenere la DrawInfo!
+Impossibile ottenere DrawInfo!
+; Can't get DrawInfo!
 ;
 MSG_CANT_GET_VI
-Impossibile ottenere la VisualInfo!
+Impossibile ottenere VisualInfo!
+; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE
-Impossibile creare le immagini di sistema!
+Impossibile creare immagini di sistema!
+; Can't create SYSICLASS images!
 ;
 MSG_CANT_CREATE_GADGET
-Impossibilie creare i gadgets!
+Impossibilie creare gadgets!
+; Can't create gadgets!
 ;
 MSG_CANT_CREATE_MENUS
-Impossibile creare i menu!
+Impossibile creare menu!
+; Can't create menus!
 ;
 MSG_CANT_CREATE_WIN
 Impossibile creare la finestra!
+; Can't create window!
+;
+MSG_CANT_CREATE_MSGPORT
+Impossibile creare una porta messaggi!
+; Can't create message port!
+;
+MSG_CANT_ADD_APPWINDOW
+Impossibile promuovere la finestra come AppWindow!
+; Can't promote window as an AppWindow!
 ;
 MSG_SAVE_FAILED
 Salvataggio fallito!
+; Saving to file failed!
 ;
 MSG_MEN_PROJECT
 Progetto
+; Project
 ;
 MSG_MEN_PROJECT_OPEN
 O\0Apri...
+; O\0Open...
 ;
 MSG_MEN_PROJECT_EXPORT
-A\0Salva come...
+A\0Esporta...
+; A\0Export...
 ;
 MSG_MEN_PROJECT_SAVEAS_IFF
-I\0Salva come IFF...
+A\0Salva come...
+; I\0Save as IFF...
 ;
 MSG_MEN_PROJECT_PRINT
 P\0Stampa
+; P\0Print
 ;
 MSG_MEN_PROJECT_ABOUT
 ?\0Informazioni...
+; ?\0About...
 ;
 MSG_MEN_PROJECT_QUIT
 Q\0Esci
+; Q\0Quit
 ;
 MSG_MEN_EDIT
 Modifica
+; Edit
 ;
 MSG_MEN_EDIT_MARK
-M\0Marca
+B\0Evidenzia
+; B\0Mark
 ;
 MSG_MEN_EDIT_COPY
 C\0Copia
+; C\0Copy
 ;
 MSG_MEN_EDIT_SELECTALL
-S\0Seleziona tutto
+L\0Seleziona tutto
+; [\0Select All
 ;
 MSG_MEN_EDIT_CLEARSELECTED
 Z\0Annulla selezione
+; ]\0Clear Selected
 ;
 MSG_MEN_WINDOW
 Finestra
+; Window
 ;
 MSG_MEN_WINDOW_SEPSCREEN
  \0Usa schermo autonomo
+;  \0Use Separate Screen
 ;
 MSG_MEN_WINDOW_MINIMIZE
  \0Dimensione minima
+;  \0Minimize
 ;
 MSG_MEN_WINDOW_NORMAL
  \0Dimensione normale
+;  \0Normal
 ;
 MSG_MEN_WINDOW_MAXIMIZE
  \0Dimensione massima
+;  \0Maximize
 ;
 MSG_MEN_SETTINGS
 Impostazioni
+; Settings
 ;
 MSG_MEN_SETTINGS_SAVEDEF
 D\0Salva come predefinite
+; D\0Save As Defaults
 ;
 MSG_MEN_PICT
 Immagine
+; Picture
 ;
 MSG_MEN_PICT_ZOOM_IN
-Z\0Zoom in
++\0Zoom in
+;  \0Zoom in
 ;
 MSG_MEN_PICT_ZOOM_OUT
- \0Zoom Out
+-\0Zoom Out
+;  \0Zoom out
 ;
 MSG_MEN_PICT_RESET
  \0Ripristina originale
+;  \0Reset Size
 ;
 MSG_MEN_PICT_FIT_WIN
  \0Grandezza finestra
+;  \0Fit to Window
 ;
 MSG_MEN_PICT_KEEP_ASPECT
  \0Mantieni proporzioni
+;  \0Keep Aspect Ratio
 ;
 MSG_MEN_PICT_FORCE_MAP
- \0Forza colori
+ \0Forza colore
+;  \0Force Palette Mapping
 ;
 MSG_MEN_PICT_DITHER
- \0Dithering
+\ 0Retinatura
+;  \0Dithering
 ;
 MSG_MEN_TEXT
 Testo
+; Text
 ;
 MSG_MEN_TEXT_WORDWRAP
  \0A capo automatico
+;  \0Enable Word Wrap
 ;
 MSG_MEN_TEXT_SEARCH
  \0Cerca testo...
+;  \0Search for...
 ;
 MSG_MEN_TEXT_SEARCH_PREV
  \0Occorrenza precedente
+;  \0Search for previous
 ;
 MSG_MEN_TEXT_SEARCH_NEXT
- \0Occorrenza successiva
+\0Occorrenza successiva
+;  \0Search for next
 ;
 MSG_ASL_OPEN_TITLE
-Scegli fila da caricare
+Scegli file
+; Select File to Open
 ;
 MSG_ASL_SAVE_TITLE
-Scegli file in cui salvare
+Salva file
+; Select File to Save to
 ;
 MSG_ABOUT
 MultiView %ld.%ld (%s)\ndatatypes.library %s\n\n%s %s
+; 
 ;
 MSG_ABOUT_TITLE
 MultiView
+; MultiView
 ;
 MSG_CONTINUE
 Continua
+; Continue
 ;
 MSG_OK
-Ok
+Aceptar
+; Ok
+;
+MSG_SHORTCUT_EDITOR
+E
+; E
 ;

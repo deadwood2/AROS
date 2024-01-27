@@ -3,7 +3,7 @@
 ## codeset 12
 ;
 MSG_AppDescription
-Klavye Düzenini Gösterir
+Klavye Düzenini Göster
 ; Show Keyboard Layout
 ;
 MSG_AppCopyright
@@ -15,7 +15,7 @@ KeyShow
 ; KeyShow
 ;
 MSG_OK
-_TAMAM
+_Tamam
 ; _OK
 ;
 ; Error messages
@@ -95,7 +95,7 @@ MSG_KEY_BACKSP
 ; ^H
 ;
 MSG_KEY_TAB
-
+^I
 ; ^I
 ;
 MSG_KEY_ESC

@@ -1,0 +1,97 @@
+## version $VER: KeyShow.catalog 1.1 (26.02.2012)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_AppDescription
+Mappatura Tastiera
+;Show Keyboard Layout
+;
+MSG_AppCopyright
+Copyright © 2012 The AROS Development Team
+;
+MSG_WI_TITLE
+KeyShow
+;
+MSG_OK
+_OK
+;
+; Error messages
+;
+MSG_ERR
+Errore
+;Error
+;
+MSG_ERR_NO_APPLICATION
+Impossibile creare applicazione
+;Can't create application
+;
+MSG_ERR_NO_MEM
+Memoria esaurita
+;Out of memory
+;
+; Key descriptions
+;
+MSG_KEY_SHIFT
+Shift
+;
+MSG_KEY_CTRL
+Ctrl
+;
+MSG_KEY_ALT
+Alt
+;
+MSG_KEY_LOCK
+Lock
+;
+MSG_KEY_HELP
+Help
+;
+MSG_KEY_A
+A
+;
+MSG_KEY_INSERT
+Ins
+;
+MSG_KEY_HOME
+Home
+;
+MSG_KEY_PAGEUP
+Pag ^
+;
+MSG_KEY_DELETE
+Canc
+;
+MSG_KEY_END
+Fine
+;
+MSG_KEY_PAGEDOWN
+Pag v
+;
+MSG_KEY_NUM
+Num
+;
+MSG_KEY_RETURN
+^M
+;
+MSG_KEY_BACKSP
+^H
+;
+MSG_KEY_TAB
+^I
+;
+MSG_KEY_ESC
+^[
+;
+MSG_KEY_NUM_ENTER
+^M
+;
+MSG_KEY_PRTSCREEN
+Stamp
+;
+MSG_KEY_SCRLOCK
+Bloc Scorr
+;
+MSG_KEY_PAUSE
+Pausa
+;

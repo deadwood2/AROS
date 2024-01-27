@@ -1,0 +1,349 @@
+## version $VER: wimp.catalog 1.1 (01.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_APP_NAME
+WiMP
+; WiMP
+;
+MSG_APP_TITLE
+Gestione Finestre
+; Window Manipulator
+;
+MSG_APP_ABOUT
+WiMP - Programma gestione finestre\n\nCopyright \xa9 2000-2019 The AROS Development Team
+; WiMP - The Window Manipulation Program\n\nCopyright \xa9 2000-2019 by The AROS Development Team
+;
+MSG_APP_COPYRIGHT
+Copyright \xa9 1995-2019, The AROS Development Team
+; Copyright \xa9 1995-2019, The AROS Development Team
+;
+MSG_APP_AUTOR
+The AROS Development Team
+; The AROS Development Team
+;
+MSG_APP_BASE
+WIMP
+; WIMP
+;
+MSG_WINDOW_TITLE
+WiMP - Programma gestione finestre
+; WiMP - The Window Manipulation Program
+;
+MSG_INFO_TITLE
+WiMP - Info Finestre
+; WiMP - InfoWindow
+;
+MSG_CLOSE_SCREEN
+Chiudere lo schermo selezionato?
+; Do you really want to Close the selected Screen?
+;
+MSG_CLOSE_WINDOW
+Vuoi chiudere la finestre selezionata?
+; Do you really want to Close the selected Window?
+;
+MSG_YES_NO
+Si.|No!
+; Yes.|No!
+;
+MSG_CONTINUE
+Continua
+; Continue
+;
+MSG_BTN_KILL
+\033iTermina
+; \033iKill
+;
+MSG_BTN_FRONT
+A _vanti
+; To _Front
+;
+MSG_BTN_BACK
+I_ndietro
+; To _Back
+;
+MSG_BTN_MOVE
+_Riposiziona
+; Move to _Origin
+;
+MSG_BTN_ACTIVATE
+_Attiva
+; _Activate
+;
+MSG_BTN_ZIP
+_Zip
+; _Zip
+;
+MSG_BTN_HIDE
+_Nascondi
+; _Hide
+;
+MSG_BTN_SHOW
+_Visualizza
+; _Show
+;
+MSG_BTN_UPDATE_LIST
+_Aggiorna Elenco
+; _Update List
+;
+MSG_BTN_RESCUE_ALL
+_Salva tutte le Finestre
+; _Rescue all Windows
+;
+MSG_BTN_SHOW_ALL
+Visualizza tutte le Finestre
+; Show all Windows
+;
+MSG_BTN_RETHING
+Ridisegna Schermata
+; Rethink Display
+;
+MSG_BTN_ABOUT
+Informazioni
+; About
+;
+MSG_SCREEN_WINDOW_LIST
+Schermo/Elenco Finestre
+; Screen/Window List
+;
+MSG_MENU_PROJECT
+Progetto
+; Project
+;
+MSG_MENU_ABOUT
+Informazioni...
+; About...
+;
+MSG_MENU_QUIT
+Esci
+; Quit
+;
+MSG_MENU_WIN_LIST
+Elenco Winestre
+; Window List
+;
+MSG_MENU_UPDATE_LIST
+Aggiorna Elenco
+; Update List
+;
+MSG_MENU_KILL
+Termina
+; Kill
+;
+MSG_MENU_TO_FRONT
+Avanti
+; To Front
+;
+MSG_MENU_TO_BACK
+Dietro
+; To Back
+;
+MSG_MENU_TO_ORIGIN
+Riposiziona
+; To Origin
+;
+MSG_MENU_ACTIVATE
+Attiva
+; Activate
+;
+MSG_MENU_ZIP
+Zip
+; Zip
+;
+MSG_MENU_HIDE
+Nascondi
+; Hide
+;
+MSG_MENU_SHOW
+Visualizza
+; Show
+;
+MSG_MENU_INFO
+Informazioni
+; Info
+;
+MSG_MENU_GENERIC
+Generico
+; Generic
+;
+MSG_MENU_RESCUE_ALL
+Salva Tutto
+; Rescue All
+;
+MSG_MENU_SHOW_ALL
+Visualizza Tutto
+; Show All
+;
+MSG_MENU_RETHINGDISPLAY
+Ridisegna Schermata
+; RethinkDisplay
+;
+MSG_ARRAY_WINDOW
+\033bFinestra
+;   \033bWindow
+;
+MSG_ARRAY_SCREEN
+\033b\033uSchermo
+; \033b\033uScreen
+;
+MSG_ARRAY_0_TYPE
+Tipo
+; Type
+;
+MSG_ARRAY_1_ADDRESS
+Indirizzo
+; Address
+;
+MSG_ARRAY_2_SIZE
+Dimensione
+; Size
+;
+MSG_ARRAY_3_POSITION
+Posizione
+; Position
+;
+MSG_ARRAY_4_STATUS
+Stato
+; Status
+;
+MSG_ARRAY_5_TITLE
+Titolo
+; Title
+;
+MSG_COL_SCREEN
+Schermo
+; Screen
+;
+MSG_COL_SCR_ADDRESS
+Indirizzo
+; Address
+;
+MSG_COL_SCR_LEFTEDGE
+Bordo Sinistro
+; LeftEdge
+;
+MSG_COL_SCR_TOPEDGE
+Bordo Superiore
+; TopEdge
+;
+MSG_COL_SCR_WIDTH
+Larghezza
+; Width
+;
+MSG_COL_SCR_HEIGHT
+Altezza
+; Height
+;
+MSG_COL_SCR_FLAGS
+Contrassegno
+; Flags
+;
+MSG_COL_SCR_TITLE
+Titolo
+; Title
+;
+MSG_COL_SCR_DEFAULTIT
+Titolo Predefinito
+; DefaultTitle
+;
+MSG_COL_SCR_FRSTWIN
+Finestra Precedente
+; FirstWindow
+;
+MSG_COL_WIDOW
+Finestra
+; Window
+;
+MSG_COL_WIN_ADDRESS
+Indirizzo
+; Address
+;
+MSG_COL_WIN_NEXTWIN
+Finestra Successiva
+; NextWindow
+;
+MSG_COL_WIN_LEFTEDGE
+Bordo Sinistro
+; LeftEdge
+;
+MSG_COL_WIN_TOPEDGE
+Bordo Superiore
+; TopEdge
+;
+MSG_COL_WIN_WIDTH
+Larghezza
+; Width
+;
+MSG_COL_WIN_HEIGHT
+Altezza
+; Height
+;
+MSG_COL_WIN_MINWIDTH
+Larghezza Minima
+; MinWidth
+;
+MSG_COL_WIN_MINHEIGHT
+Altezza Minima
+; MinHeight
+;
+MSG_COL_WIN_MAXWIDTH
+Larghezza Massima
+; MaxWidth
+;
+MSG_COL_WIN_MAXHEIGHT
+Altezza Massima
+; MaxHeight
+;
+MSG_COL_WIN_FLAGS
+Contrassegno
+; Flags
+;
+MSG_COL_WIN_IDCMPFLAGS
+Contrassegno IDCMP
+; IDCMPFlags
+;
+MSG_COL_WIN_TITLE
+Titolo
+; Title
+;
+MSG_COL_WIN_REQCOUNT
+Conteggio
+; ReqCount
+;
+MSG_COL_WIN_WSCREEN
+Schermo
+; WScreen
+;
+MSG_COL_WIN_BORDERLEFT
+Bordo Sinistro
+; BorderLeft
+;
+MSG_COL_WIN_BORDERTOP
+Bordo Superiore
+; BorderTop
+;
+MSG_COL_WIN_BORDERRIGHT
+Borde Destro
+; BorderRight
+;
+MSG_COL_WIN_BORDERBOTTOM
+Bordo Inferiore
+; BoderBottom
+;
+MSG_COL_WIN_PARENTWIN
+Finestra Precedente
+; Parent Window
+;
+MSG_COL_WIN_FIRSTCHILD
+Precedente
+; First Child
+;
+MSG_COL_WIN_PARENT
+Principale
+; Parent
+;
+MSG_COL_WIN_DESCENDANT
+Discendente
+; Descendant
+;

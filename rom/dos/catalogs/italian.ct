@@ -1,189 +1,190 @@
-## version $VER: dos.catalog 1.0 (02.02.2005)
+## version $VER: dos.catalog 1.1 (12.05.2023)
 ## language italiano
 ## codeset 0
+; Authors: AMIGASYSTEM
 ;
 MSG_ERROR_NO_FREE_STORE
-memoria insufficiente
+Memoria insufficiente
 ; not enough memory available
 ;
 MSG_ERROR_TASK_TABLE_FULL
-tavola dei processi completa
+Tavola processi completa
 ; process table full
 ;
 MSG_ERROR_BAD_TEMPLATE
-template errato
+Modello errato
 ; bad template
 ;
 MSG_ERROR_BAD_NUMBER
-numero errato
+Numero errato
 ; bad number
 ;
 MSG_ERROR_REQUIRED_ARG_MISSING
-manca un argomento necessario
+Manca argomento necessario
 ; required argument missing
 ;
 MSG_ERROR_KEY_NEEDS_ARG
-manca un valore dopo la keyword
+Nessun valore dopo la parola chiave
 ; value after keyword missing
 ;
 MSG_ERROR_TOO_MANY_ARGS
-numero di argomenti errato
+Numero argomenti errato
 ; wrong number of arguments
 ;
 MSG_ERROR_UNMATCHED_QUOTES
-unmatched quotes
+Virgolette non corrisposte
 ; unmatched quotes
 ;
 MSG_ERROR_LINE_TOO_LONG
-linea degli argomenti non valida o troppo lunga
+Argomenti in linea non validi o troppo lunghi
 ; argument line invalid or too long
 ;
 MSG_ERROR_FILE_NOT_OBJECT
-il file non è eseguibile
+File non eseguibile
 ; file is not executable
 ;
 MSG_ERROR_INVALID_RESIDENT_LIBRARY
-libreria residente non valida
+Libreria residente non valida
 ; invalid resident library
 ;
 MSG_ERROR_NO_DEFAULT_DIR
-errore 201
+Nessuna cartella predefinita
 ; no default directory
 ;
 MSG_ERROR_OBJECT_IN_USE
-l'oggetto è in uso
+Oggetto in uso
 ; object is in use
 ;
 MSG_ERROR_OBJECT_EXISTS
-l'oggetto esiste già
+Oggetto già esistente
 ; object already exists
 ;
 MSG_ERROR_DIR_NOT_FOUND
-directory non trovata
+Cartella non trovata
 ; directory not found
 ;
 MSG_ERROR_OBJECT_NOT_FOUND
-oggetto non trovato
+Oggetto non trovato
 ; object not found
 ;
 MSG_ERROR_BAD_STREAM_NAME
-descrizione della finestra invalida
+Descrizione finestra non valida
 ; invalid window description
 ;
 MSG_ERROR_OBJECT_TOO_LARGE
-oggetto troppo grande
+Oggetto troppo grande
 ; object too large
 ;
 MSG_ERROR_ACTION_NOT_KNOWN
-tipo di azione sconosciuto del filesystem
+Azione sconosciuta del filesystem
 ; filesystem action type unknown
 ;
 MSG_ERROR_INVALID_COMPONENT_NAME
-nome dell'oggetto invalido
+Nome non valido
 ; object name invalid
 ;
 MSG_ERROR_INVALID_LOCK
-blocco dell'oggetto invalido
+Blocco oggetto non valido
 ; invalid object lock
 ;
 MSG_ERROR_OBJECT_WRONG_TYPE
-L'oggetto non è della tipologia richiesta
+Oggetto non è del tipo richiesto
 ; object is not of required type
 ;
 MSG_ERROR_DISK_NOT_VALIDATED
-disco non convalidato
+Disco non validato
 ; disk not validated
 ;
 MSG_ERROR_DISK_WRITE_PROTECTED
-disco protetto dalla scrittura
+Disco protetto da scrittura
 ; disk is write-protected
 ;
 MSG_ERROR_RENAME_ACROSS_DEVICES
-tentativo di rinominazione invalida
+Tentativo di rinominazione non valida
 ; rename across devices attempted
 ;
 MSG_ERROR_DIRECTORY_NOT_EMPTY
-la directory non è vuota
+La cartella non è vuota
 ; directory not empty
 ;
 MSG_ERROR_TOO_MANY_LEVELS
-troppi livelli
+Troppi livelli
 ; too many levels
 ;
 MSG_ERROR_DEVICE_NOT_MOUNTED
-dispositivo (o volume) non montato
+Dispositivo (o volume) non montato
 ; device (or volume) is not mounted
 ;
 MSG_ERROR_SEEK_ERROR
-ricerca fallita
+Ricerca fallita
 ; seek failure
 ;
 MSG_ERROR_COMMENT_TOO_BIG
-commento troppo lungo
+Commento troppo lungo
 ; comment is too long
 ;
 MSG_ERROR_DISK_FULL
-il disco è pieno
+Disco pieno
 ; disk is full
 ;
 MSG_ERROR_DELETE_PROTECTED
-oggetto protetto dalla cancellazione
+Oggetto protetto da cancellazione
 ; object is protected from deletion
 ;
 MSG_ERROR_WRITE_PROTECTED
-file protetto dalla scrittura
+File protetto da scrittura
 ; file is write protected
 ;
 MSG_ERROR_READ_PROTECTED
-file protetto dalla lettura
+File protetto da lettura
 ; file is read protected
 ;
 MSG_ERROR_NOT_A_DOS_DISK
-disco DOS non valido
+Disco DOS non valido
 ; not a valid DOS disk
 ;
 MSG_ERROR_NO_DISK
-manca il disco
+Nessun disco nel lettore
 ; no disk in drive
 ;
 MSG_ERROR_NO_MORE_ENTRIES
-la directory è piena
+La cartella è piena
 ; no more entries in directory
 ;
 MSG_ERROR_IS_SOFT_LINK
-l'oggetto è un collegamento semplice
+Collegamento oggetto semplice
 ; object is soft link
 ;
 MSG_ERROR_OBJECT_LINKED
-l'oggetto è collegato
+Oggetto collegato
 ; object is linked
 ;
 MSG_ERROR_BAD_HUNK
-descrizione del file corrotta
+Hunk file caricato corrotto
 ; bad loadfile hunk
 ;
 MSG_ERROR_NOT_IMPLEMENTED
-funzione non ancora supportata
+Funzione non supportata
 ; function not implemented
 ;
 MSG_ERROR_RECORD_NOT_LOCKED
-record non bloccato
+Record non bloccato
 ; record not locked
 ;
 MSG_ERROR_LOCK_COLLISION
-collisione del blocco del record
+Collisione blocco record
 ; record lock collision
 ;
 MSG_ERROR_LOCK_TIMEOUT
-tempo esaurito per blocco record
+Tempo esaurito blocco record
 ; record lock timeout
 ;
 MSG_ERROR_UNLOCK_ERROR
-errore nello sblocco del record
+Errore nel sblocco record
 ; record unlock error
 ;
 MSG_ERROR_BUFFER_OVERFLOW
-buffer overflow
+Sovraccarico buffer
 ; buffer overflow
 ;
 MSG_ERROR_BREAK
@@ -191,11 +192,11 @@ MSG_ERROR_BREAK
 ; ***Break
 ;
 MSG_ERROR_NOT_EXECUTABLE
-file non eseguibile
+File non eseguibile
 ; file not executable
 ;
 MSG_STRING_DISK_NOT_VALIDATED
-Volume "%s" non convalidato
+Volume "%s" non validato
 ; Volume "%s" is not validated
 ;
 MSG_STRING_DISK_WRITE_PROTECTED
@@ -203,15 +204,15 @@ Volume "%s" protetto da scrittura
 ; Volume "%s" is write protected
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_INSERT
-Prego inserire il volume "%s" in qualsiasi unità
+Inserire il volume "%s" in qualsiasi unità
 ; Please insert volume "%s" in any drive
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE
-Prego reinserire il volume "%s" in qualsiasi unità
+Reinserire il volume "%s" in qualsiasi unità
 ; Please replace volume "%s" in any drive
 ;
 MSG_STRING_DEVICE_NOT_MOUNTED_REPLACE_TARGET
-Prego reinserire il volume "%s" in "%s"
+Reinserire il volume "%s" in "%s"
 ; Please replace volume "%s" in "%s"
 ;
 MSG_STRING_DISK_FULL
@@ -223,11 +224,11 @@ Disco DOS non valido in "%s"
 ; Not a DOS disk in "%s"
 ;
 MSG_STRING_NO_DISK
-manca il disco in "%s"
+Nessun disco nel "%s"
 ; No disk present in "%s"
 ;
 MSG_STRING_ABORT_BUSY
-È assolutamente necessario reinserire "%s" in "%s"!
+ È necessario il reinserimento "%s" in "%s"!
 ; You MUST replace volume "%s" in "%s"!
 ;
 MSG_STRING_ABORT_DISK_ERROR
@@ -243,18 +244,18 @@ Annulla
 ; Cancel
 ;
 MSG_STRING_REQUESTTITLE
-Richiesta di sistema
+Richiesto dal sistema
 ; System requester
 ;
 MSG_ERROR_NO_MATCHING_ELSEENDIF
-manca corrispettivo Else o EndIf
+Manca corrispondenti Else o EndIf
 ; no matching Else or EndIf
 ;
 MSG_ERROR_SCRIPT_ONLY
-questo comando può essere usato solo in file di comando
+Questo comando può essere usato solo da uno script
 ; this command is supposed to be used in command files only
 ;
 MSG_ERROR_UNKNOWN
-errore indefinito
+Errore indefinito
 ; undefined error
 ;

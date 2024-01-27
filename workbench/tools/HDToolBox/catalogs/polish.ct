@@ -1,4 +1,4 @@
-## version $VER: hdtoolbox.catalog 1.0 (29.04.2010)
+## version $VER: hdtoolbox.catalog 2.0 (03.06.2023)
 ## codeset 5
 ## language polski
 ;
@@ -19,11 +19,11 @@ Przy³±czana automatycznie
 ; Automount
 ;
 WORD_Bootable
-Botowalna
+Startowa
 ; Bootable
 ;
 WORD_BootPri
-Priorytet botowania
+Priorytet rozruchu
 ; Boot Priority
 ;
 WORD_Cancel
@@ -99,7 +99,7 @@ Zmieñ nazwê
 ; Rename
 ;
 WORD_Resize_Move
-Zmieñ wielko¶æ/pzrenie¶
+Zmieñ rozmiar/przenie¶
 ; Resize/Move
 ;
 WORD_Save_Changes
@@ -107,7 +107,7 @@ Zapisz zmiany
 ; Save Changes
 ;
 WORD_Size
-Wielko¶æ
+Rozmiar
 ; Size
 ;
 WORD_Unit
@@ -131,12 +131,11 @@ O programie
 ; About
 ;
 WORD_MENU_Quit
-Skoñcz
+Zakoñcz
 ; Quit
 ;
 MSG_ASK_SAVE
-Wszystkie dane na modyfikowanych parycjach zostan± usuniête!\n\
-Czy na pewno zapisaæ zmiany w tabeli partycji \"%s\"?
+Wszystkie dane na modyfikowanych parycjach zostan± usuniête!\nCzy na pewno zapisaæ zmiany w tabeli partycji '%s'?
 ; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
 ;
 MSG_NO_MEMORY
@@ -166,4 +165,12 @@ B³±d podczas odczytu tabeli partycji
 MSG_CreateTableError
 B³±d podczas tworzenia tabeli partycji
 ; Error while creating partition table
+;
+WORD_MENU_Partition
+Partycja
+; Partition
+;
+WORD_MENU_CreateMountlist
+Stwórz mountlistê...
+; Create mountlist...
 ;

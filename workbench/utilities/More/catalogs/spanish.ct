@@ -1,4 +1,4 @@
-## version $VER: more.catalog 2.0 (08.01.2020)
+## version $VER: more.catalog 2.1 (19.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -16,11 +16,11 @@ MSG_CANT_LOCK_SCR
 ; Can't lock public screen!
 ;
 MSG_CANT_GET_DRI
-Can't get DrawInfo!
+¡No puedo abrir DrawInfo!
 ; Can't get DrawInfo!
 ;
 MSG_CANT_GET_VI
-Can't get VisualInfo!
+¡No puedo abrir VisualInfo!
 ; Can't get VisualInfo!
 ;
 MSG_CANT_CREATE_SYSIMAGE
@@ -108,7 +108,7 @@ More
 ; More
 ;
 MSG_CONTINUE
-Proseguir
+Continuar
 ; Continue
 ;
 MSG_JUMP_TITLE

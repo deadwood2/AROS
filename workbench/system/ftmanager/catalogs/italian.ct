@@ -1,0 +1,265 @@
+## version $VER: FTManager.catalog 1.1 (19.03.2023)
+## language italiano
+## codeset 0
+;
+;
+MSG_APP_NAME
+FTManager
+; FTManager
+;
+MSG_APP_TITLE
+Gestione Caratteri FreeType
+; FreeType font manager
+;
+MSG_WINDOW_TITLE
+Gestione Caratteri FreeType
+; FreeType font manager
+;
+MSG_LABEL_SOURCE
+Sorgente
+; Source
+;
+MSG_ASL_FONTS_TRUETYPE
+Fonts:TrueType
+; Fonts:TrueType
+;
+MSG_LABEL_DESTINATION
+Destinazione
+; Destination
+;
+MSG_ASL_FONTS
+Fonts:
+; Fonts:
+;
+MSG_LABEL_CODEPAGE
+Codepage
+; Codepage
+;
+MSG_QUIT
+_Esci
+; _Quit
+;
+MSG_BUTTON_INSTALL
+_Installa
+; _Install
+;
+MSG_BUTTON_CLOSE
+_Chiudi
+; _Close
+;
+MSG_WEIGHT_ULTRATHIN
+Ultra Sottile
+; UltraThin
+;
+MSG_WEIGHT_EXTRATHIN
+Extra Sottile
+; ExtraThin
+;
+MSG_WEIGHT_THIN
+Sottile
+; Thin
+;
+MSG_WEIGHT_EXTRALIGHT
+Extra Chiaro
+; ExtraLight
+;
+MSG_WEIGHT_LIGHT
+Chiaro
+; Light
+;
+MSG_WEIGHT_DEMILIGHT
+Mezzo chiaro
+; DemiLight
+;
+MSG_WEIGHT_SEMILIGHT
+Semi Chiaro
+; SemiLight
+;
+MSG_WEIGHT_BOOK
+Libro
+; Book
+;
+MSG_WEIGHT_MEDIUM
+Medio
+; Medium
+;
+MSG_WEIGHT_SEMIBOLD
+Semi Grassetto
+; SemiBold
+;
+MSG_WEIGHT_DEMIBOLD
+Mezzo Grassetto
+; DemiBold
+;
+MSG_WEIGHT_BOLD
+Grassetto
+; Bold
+;
+MSG_WEIGHT_EXTRABOLD
+Extra Grassetto
+; ExtraBold
+;
+MSG_WEIGHT_BLACK
+Nero
+; Black
+;
+MSG_WEIGHT_EXTRABLACK
+Extra Nero
+; ExtraBlack
+;
+MSG_WEIGHT_ULTRABLACK
+Ultra Nero
+; UltraBlack
+;
+MSG_WEIGHT_CUSTOM
+Personalizzato
+; Custom
+;
+MSG_STYLE_UPRIGHT
+Verticale
+; Upright
+;
+MSG_STYLE_ITALIC
+Corsivo
+; Italic
+;
+MSG_STYLE_LEFTITALIC
+Corsivo Sinistro
+; LeftItalic
+;
+MSG_HSTYLE_ULTRACOMPRESSED
+Ultra Compresso
+; UltraCompressed
+;
+MSG_HSTYLE_EXTRACOMPRESSED
+Extra Compresso
+; ExtraCompressed
+;
+MSG_HSTYLE_COMPRESSED
+Compresso
+; Compressed
+;
+MSG_HSTYLE_CONDENSED
+Condensada
+; Condensed
+;
+MSG_HSTYLE_NORMAL
+Normale
+; Normal
+;
+MSG_HSTYLE_SEMIEXPANDED
+Semi Espanso
+; SemiExpanded
+;
+MSG_HSTYLE_EXPANDED
+Espanso
+; Expanded
+;
+MSG_HSTYLE_EXTRAEXPANDED
+Extra Espanso
+; ExtraExpanded
+;
+MSG_HSTYLE_CUSTOM
+Personalizzato
+; Custom
+;
+MSG_METRIC_GLOBALBOUNDINGBOX
+Delimitazione Globale
+; Global bounding box
+;
+MSG_METRIC_RAWFONTMETRIC
+Metrica Carattere Grezzo
+; Raw font metric
+;
+MSG_METRIC_ASCENDER
+Ascendente
+; Ascender
+;
+MSG_METRIC_TYPOASCENDER
+Tipo Ascendente
+; Typo ascender
+;
+MSG_METRIC_USWINASCENDER
+Ascendente USWin
+; USWin ascender
+;
+MSG_METRIC_CUSTOMBOUNDINGBOX
+Personalizzato
+; Custom bounding box
+;
+MSG_LABEL_EXTRAFILE
+Extra File
+; Extra file
+;
+MSG_LABEL_FACENUM
+Modello
+; Face num
+;
+MSG_LABEL_NAME
+Nome
+; Name
+;
+MSG_LABEL_FAMILY
+Famiglia
+; Family
+;
+MSG_LABEL_METRIC
+Metrica
+; Metric
+;
+MSG_LABEL_BOUNDINGBOX
+Delimitazione Casella
+; Bounding box
+;
+MSG_LABEL_YMIN
+yMinimo
+; yMin
+;
+MSG_LABEL_YMAX
+yMassimo
+; yMax
+;
+MSG_LABEL_SIZEFACTOR
+Fattore Dimensione
+; Size factor
+;
+MSG_LABEL_SPACEWIDTH
+Larhezza Spazio
+; Space width
+;
+MSG_LABEL_FIXEDWIDTH
+Larghezza Fissa
+; Fixed width
+;
+MSG_LABEL_SERIF
+Graziato
+; Serif
+;
+MSG_LABEL_STEMWEIGHT
+Formato Gambo
+; Stem weight
+;
+MSG_LABEL_SLANTSTYLE
+Stile Inclinato
+; Slant style
+;
+MSG_LABEL_HORIZSTYLE
+Stile Orizzontale
+; Horiz style
+;
+MSG_FRAME_PREVIEW
+Anteprima
+; Preview
+;
+MSG_PREVIEW_STRING
+La volpe bruna veloce balzò sul cane pigro.
+; The quick brown fox jumped over the lazy dog.
+;
+MSG_LABEL_SIZE
+Dimensione
+; Size
+;
+MSG_LABEL_ANTIALIASING
+Anti-aliasing
+; Anti-aliasing
+;

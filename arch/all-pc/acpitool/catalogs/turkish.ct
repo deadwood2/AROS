@@ -1,0 +1,441 @@
+## version $VER: acpitool.catalog 2.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_TITLE
+ACPI Aracý
+; ACPI Tool
+;
+MSG_WINTITLE
+ACPI Aracý
+; ACPI Tool
+;
+MSG_DESCRIPTION
+ACPI sorgulama ve yönetimi
+; ACPI querying and managment
+;
+MSG_ERROR_LOCALE
+Yerel ayar açýlamýyor
+; Can't open locale
+;
+MSG_ERROR_OK
+Tamam
+; Ok
+;
+MSG_ERROR_HEADER
+HATA
+; ERROR
+;
+MSG_ERROR_NO_ACPI
+Bu makinede ACPI yok, veya ACPI desteði devre dýþý býrakýlmýþ
+; This machine has no ACPI, or ACPI support has been disabled
+;
+MSG_UNKNOWN
+Bilinmiyor
+; Unknown
+;
+MSG_TABLE_SIGNATURE
+Tablo imzasý
+; Table signature
+;
+MSG_REVISION
+Revizyon
+; Revision
+;
+MSG_OEM_ID
+OEM ID
+; OEM ID
+;
+MSG_OEM_TABLE_ID
+OEM Tablo ID
+; OEM Table ID
+;
+MSG_CREATOR_ID
+Ýçerik Oluþturucu ID
+; Creator ID
+;
+MSG_PM_PROFILE
+Tercih edilen sistem profili
+; Preferred system profile
+;
+MSG_SCI_INT
+SCI kesintisi
+; SCI interrupt
+;
+MSG_SMI_CMD
+SMI komut kaydý
+; SMI command register
+;
+MSG_ACPI_ENABLE
+ACPI Etkinleþtir komutu
+; ACPI Enable command
+;
+MSG_ACPI_DISABLE
+ACPI Devredýþý komutu
+; ACPI Disable command
+;
+MSG_S4BIOS
+S4BIOS durum komutunu girin
+; Enter S4BIOS state command
+;
+MSG_PSTATE
+Ýþlemci performans durumu komutu
+; Processor performance state command
+;
+MSG_FLUSH_SIZE
+CPU Önbellek boþaltma boyutu
+; CPU Cache flush size
+;
+MSG_FLUSH_STRIDE
+CPU Önbelleði temizleme adýmý
+; CPU Cache flush stride
+;
+MSG_RTC_DAY_ALARM
+RTC alarm günü ofseti
+; RTC alarm day offset
+;
+MSG_RTC_MON_ALARM
+RTC alarmý ay ofseti
+; RTC alarm month offset
+;
+MSG_RTC_CENTURY
+RTC yüzyýl ofseti
+; RTC century offset
+;
+MSG_RESET_REG
+Kayýt adresini sýfýrla
+; Reset register address
+;
+MSG_RESET_VAL
+Deðeri sýfýrla
+; Reset value
+;
+MSG_UNKNOWN_SIZE
+Bilinmeyen boyut
+; Unknown size
+;
+MSG_AT
+at
+; at
+;
+MSG_BITS
+bit
+; bits
+;
+MSG_SPACE_FIXED
+Sabit donaným
+; Fixed hardware
+;
+MSG_SPACE_OEM
+OEM boþluðu
+; OEM space
+;
+MSG_SPACE_UNKNOWN
+Bilinmeyen boþluk
+; Unknown space
+;
+MSG_FMT_UNKNOWN_SPACE
+bilinmeyen uzayda (%u)
+;  in unknown space (%u)
+;
+MSG_FMT_KNOWN_SPACE
+%s içinde
+;  in %s
+;
+MSG_YES
+Evet
+; Yes
+;
+MSG_NO
+Hayýr
+; No
+;
+MSG_PC_FLAGS
+PC Mimarisi bayraklarý
+; PC Architecture flags
+;
+MSG_FF_FLAGS
+Sabit Özellik bayraklarý
+; Fixed Feature flags
+;
+MSG_LAPIC_ADDR
+Yerel APIC adresleri
+; Local APIC address
+;
+MSG_PCAT_COMPAT
+8259 PC-AT PIC'e sahiptir
+; Has 8259 PC-AT PIC
+;
+MSG_LOCAL_APIC
+Yerel APIC
+; Local APIC
+;
+MSG_CPU_ID
+ACPI Ýþlemci ID
+; ACPI Processor ID
+;
+MSG_LAPIC_ID
+Yerel APIC ID
+; Local APIC ID
+;
+MSG_ENABLED
+Etkin
+; Enabled
+;
+MSG_IOAPIC
+I/O APIC
+; I/O APIC
+;
+MSG_ID
+ID
+; ID
+;
+MSG_ADDRESS
+Adres
+; Address
+;
+MSG_IRQ_BASE
+Küresel sistem IRQ tabaný
+; Global system IRQ base
+;
+MSG_INT_SRC_OVR
+Kesinti kaynaðý geçersiz kýlma
+; Interrupt source override
+;
+MSG_BUS
+Bus
+;   Bus
+;
+MSG_BUS_IRQ
+Bus IRQ
+; Bus IRQ
+;
+MSG_GLOBAL_IRQ
+Küresel sistem IRQ
+; Global system IRQ
+;
+MSG_POLARITY
+Polarite
+;   Polarity
+;
+MSG_TRIGGER
+Tetikleme
+;   Trigger
+;
+MSG_NMI_SRC
+NMI kaynaðý
+; NMI source
+;
+MSG_LAPIC_NMI
+Yerek APIC NMI
+; Local APIC NMI
+;
+MSG_DEST_ID
+Hedef iþlemci ACPI ID
+; Destination processor ACPI ID
+;
+MSG_ALL
+Tümü
+; All
+;
+MSG_LINT
+Yerel kesme giriþi
+; Local interrupt input
+;
+MSG_LAPIC_ADDR_OVR
+Yerel APIC adresi geçersiz kýlma
+; Local APIC address override
+;
+MSG_IOSAPIC
+I/O SAPIC
+; I/O SAPIC
+;
+MSG_LSAPIC
+Yerel SAPIC
+; Local SAPIC
+;
+MSG_LSAPIC_ID
+Yerel SAPIC ID
+; Local SAPIC ID
+;
+MSG_LSAPIC_EID
+Yerel SAPIC EID
+; Local SAPIC EID
+;
+MSG_PLAT_INT_SRC
+Platform kesme kaynaðý
+; Platform interrupt source
+;
+MSG_PLAT_INT_TYPE
+Kesme türü
+;   Interrupt type
+;
+MSG_DEST_LSAPIC_ID
+Hedef LSAPIC ID
+; Destination LSAPIC ID
+;
+MSG_DEST_EID
+Hedef LSAPIC EID
+; Destination LSAPIC EID
+;
+MSG_IOSAPIC_VECTOR
+I/O SAPIC vektörü
+; I/O SAPIC vector
+;
+MSG_CPEI_PROC_OVR
+CPE kesme iþlemcisini geçersiz kýlma
+; CPE interrupt processor override
+;
+MSG_LOCAL_X2APIC
+Yerel X2APIC
+; Local X2APIC
+;
+MSG_X2APIC_ID
+Yerel X2APIC ID
+; Local X2APIC ID
+;
+MSG_CPU_UID
+ACPI Ýþlemci UID
+; ACPI Processor UID
+;
+MSG_X2APIC_NMI
+X2APIC NMI
+; X2APIC NMI
+;
+MSG_UNKNOWN_ENTRY
+Bilinmeyen girdi (%u), %u bayt
+; Unknown entry (%u), %u bytes
+;
+MSG_RSDP_ADDR
+RSDP adresi
+; RSDP address
+;
+MSG_SYSTEM_OEM_ID
+Sistem OEM ID
+; System OEM ID
+;
+MSG_ACPI_REVISION
+ACPI Revizyonu
+; ACPI Revision
+;
+MSG_HW_REVISION
+Donaným Revizyonu
+; Hardware Revision
+;
+MSG_NUM_COMPARATORS
+Karþýlaþtýrýcý sayýsý
+; Number of comparators
+;
+MSG_64BIT_COUNTER
+64-bit sayaç
+; 64-bit counter
+;
+MSG_LEGACY_REPLACEMENT
+Eski deðiþtirme özelliði
+; Legacy replacement capable
+;
+MSG_PCI_VENDOR
+PCI Üretici ID
+; PCI Vendor ID
+;
+MSG_BASE_ADDRESS
+Temek adres
+; Base address
+;
+MSG_NUMBER
+Numara
+; Number
+;
+MSG_MIN_TICK
+Minimum saat tiki
+; Minimum clock tick
+;
+MSG_PAGE_PROTECT
+Sayfa korumasý
+; Page protection
+;
+MSG_OEM_ATTRS
+OEM Özellikleri
+; OEM Attributes
+;
+MSG_SHOW_MODE
+Göster:
+; Show:
+;
+MSG_SAVE_DATA
+Verileri kaydet
+; Save data
+;
+MSG_MENU_PROJECT
+Proje
+; Project
+;
+MSG_MENU_QUIT
+Çýkýþ
+; Quit
+;
+MSG_MENU_DUMP
+Tam döküm
+; Full dump
+;
+MSG_MENU_DUMP_PARSED
+Ayrýþtýrýlmýþ veri
+; Parsed data
+;
+MSG_MENU_DUMP_RAW
+Ham döküm
+; Raw dump
+;
+MSG_BATT_WARN
+Uyarý seviyesi
+; Warning level
+;
+MSG_BATT_LOW
+Düþük seviye
+; Low level
+;
+MSG_BATT_CRITICAL
+Kritik seviye
+; Critical level
+;
+MSG_MWH
+mWh
+; mWh
+;
+MSG_CMD_REG
+Komut/durum kaydý
+; Command/status register
+;
+MSG_DATA_REG
+Veri kaydý
+; Data register
+;
+MSG_UID
+Eþsiz ID
+; Unique ID
+;
+MSG_SCI_GPE_BIT
+SCI GPE bit
+; SCI GPE bit
+;
+MSG_NAMESPACE_ID
+Alan adý ID
+; Namespace ID
+;
+MSG_MCFG_BASE_ADDRESS
+Temel adres
+; Base address
+;
+MSG_MCFG_SEGMENT
+PCI segment grup numarasý
+; PCI segment group number
+;
+MSG_MCFG_START_BUS_NUMBER
+PCI Bus numarasýný baþlatma
+; Starting PCI Bus number
+;
+MSG_MCFG_END_BUS_NUMBER
+Son PCI Veri Yolu numarasý
+; Final PCI Bus number
+;

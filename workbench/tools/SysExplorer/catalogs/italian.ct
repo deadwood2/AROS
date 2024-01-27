@@ -1,0 +1,177 @@
+## version $VER: sysexplorer.catalog 2.0 (05.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_TITLE
+Esplora Sistema
+; System Explorer
+;
+MSG_WINTITLE
+Esplora sistema
+; System Explorer
+;
+MSG_DESCRIPTION
+Informazioni su sistema e hardware
+; System and hardware information tool
+;
+MSG_MENU_PROJECT
+Progetto
+; Project
+;
+MSG_MENU_PROPERTIES
+Proprietà
+; Properties
+;
+MSG_MENU_EXPANDALL
+Espandi tutto
+; Expand All
+;
+MSG_MENU_COLLAPSEALL
+Chiudi tutto
+; Collapse All
+;
+MSG_MENU_QUIT
+Esci
+; Quit
+;
+MSG_HIDD_TREE
+Álbero HIDD
+; HIDD tree
+;
+MSG_PROPERTIES
+Prorietà
+; Properties
+;
+MSG_LABEL_DRIVER
+Nome istanza driver
+; Driver instance name
+;
+MSG_LABEL_HW_DESCRIPTION
+Descrizione hardware
+; Hardware description
+;
+MSG_LABEL_VENDOR
+Informazioni fornitore
+; Vendor information
+;
+MSG_SYSTEM_PROPERTIES
+Proprietà sistema
+; System properties
+;
+MSG_VERSION
+Versione
+; Version
+;
+MSG_PROCESSORS
+Processore
+; Processors
+;
+MSG_HPET
+HPET
+; HPET
+;
+MSG_RAM
+Memoria
+; Memory
+;
+MSG_BOOTLOADER
+Boot loader
+; Boot loader
+;
+MSG_ARGUMENTS
+Argomenti Boot
+; Boot Arguments
+;
+MSG_AVAILABLE
+Disponible
+; Available for use
+;
+MSG_GENERAL
+Generale
+; General
+;
+MSG_NAME
+Nome
+; Name
+;
+MSG_HARDWARE_NAME
+Nome Hardware
+; Hardware Name
+;
+MSG_PRODUCT_ID
+ID produttore
+; Product ID
+;
+MSG_PRODUCER_NAME
+Nome fornitore
+; Vendor Name
+;
+MSG_PRODUCER_ID
+ID fornitore
+; Vendor ID
+;
+MSG_DEVICE_PROPERTIES
+Proprietà device
+; Device properties
+;
+MSG_ATA_PROPERTIES
+Propietà bus IDE
+; IDE bus properties
+;
+MSG_ATA
+IDE
+; IDE
+;
+MSG_USE_IOALT
+Supporta registri alternativi
+; Supports alternate registers
+;
+MSG_USE_32BIT
+Supporta PIO 32 bits
+; Supports 32-bit PIO
+;
+MSG_USE_DMA
+Supporta DMA
+; Supports DMA
+;
+MSG_USE_80WIRE
+Cavo 80 fili
+; 80-wire cable
+;
+MSG_ATA_UNIT_PROPERTIES
+Proprietà dispositivo IDE
+; IDE device properties
+;
+MSG_UNIT_NUMBER
+Numero unità
+; Unit number
+;
+MSG_MODEL
+Modello
+; Model
+;
+MSG_REVISION
+Revisione
+; Revision
+;
+MSG_SERIAL
+Seriale
+; Serial
+;
+MSG_TRANSFER_MODES
+Modalità supportate
+; Supported modes
+;
+MSG_MULTISECTOR
+Límite multisettoriale
+; Multisector limit
+;
+MSG_REMOVABLE
+Rimovibile
+; Removable
+;
+MSG_CONFIG_MODES
+Modalità configurate
+; Configured modes
+;

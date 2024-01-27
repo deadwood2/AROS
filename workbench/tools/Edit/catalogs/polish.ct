@@ -43,7 +43,7 @@ Zamknij
 ; Close
 ;
 MSG_QUIT
-Skoñcz
+Zakoñcz
 ; Quit
 ;
 MSG_EDITTITLE
@@ -223,7 +223,7 @@ Przestarza³a wersja systemu. Zainstaluj wersjê v2.0 lub nowsz±.
 ; Obsolete OS. Install v2.0 or better.
 ;
 ERR_NOASLREQ
-Nie mo¿na zaalokowaæ komunikatu ASL!
+Nie mo¿na przydzieliæ requestera ASL!
 ; Cannot alloc ASL requester!
 ;
 ERR_NOMEM
@@ -235,11 +235,11 @@ Nie mo¿na otworzyæ interfejsu programu!
 ; Main interface failed to open!
 ;
 ERR_NONAME
-brak nazwy
+Brak nazwy
 ; No title
 ;
 ERR_WRITECLIP
-B³±d zapisu do schowka.
+B³±d zapisu do schowka
 ; Write error into clipboard device
 ;
 ERR_OPENCLIP
@@ -247,11 +247,11 @@ Nie mo¿na otworzyæ schowka!
 ; Unable to open clipboard!
 ;
 ERR_LOADFILE
-Nie mo¿na otworzyæ pliku.
+Nie mo¿na otworzyæ pliku
 ; Unable to load requested file
 ;
 ERR_NOTXTINCLIP
-Brak tekstu w schowku.
+Brak tekstu w schowku
 ; No text in clipboard
 ;
 ERR_WRONG_TYPE
@@ -259,7 +259,7 @@ Obiekt jest katalogiem!
 ; Object is a directory!
 ;
 ERR_READCLIP
-Operacja odczytu zakoñczona niepowodzeniem.
+Operacja odczytu zakoñczona niepowodzeniem
 ; Read operation incomplete
 ;
 ERR_NOBRACKET
@@ -267,7 +267,7 @@ Brak nawiasu pod kursorem!
 ; No parenthesis under cursor!
 ;
 ERR_NOT_FOUND
-Wzorzec \"%s\" nie zosta³ znaleziony.
+Wzorzec '%s' nie zosta³ znaleziony
 ; Pattern `%s' not found
 ;
 ERR_LOADFONT
@@ -319,7 +319,7 @@ Informacja
 ; Information
 ;
 MSG_FORMATINFO
-%s\nAutorzy: T.Pierron i C.Guillaume\nCopyright (C) 2000\n\nEdytowany plik: %s\Wielko¶æ: %iu %s, %iu %s.
+%s\nAutorzy: T.Pierron i C.Guillaume (C) 2000\n\nEdytowany plik: %s\nWielko¶æ: %iu %s, %iu %s.
 ; %s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
 ;
 MSG_CONTINUE
@@ -391,7 +391,7 @@ Ponie_chaj
 ; _Cancel
 ;
 MSG_REPLACEALL
-Zmieniono %iu %s tekstu \"%s\".
+Zmieniono %iu %s tekstu '%s'.
 ; %iu %s of `%s' replaced
 ;
 MSG_OCCURENCY

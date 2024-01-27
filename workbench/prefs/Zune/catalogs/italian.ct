@@ -1,7 +1,7 @@
-## version $VER: Zune.catalog 1.2 (23.12.2019)
+## version $VER: zune.catalog 2.1 (27.04.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 ; buttonsp.c
 ;-----------
@@ -10,11 +10,11 @@ Impostazioni generali
 ; General
 ;
 MSG_BACKGROUND_COLON
-Sfondo:
+Sfondo\nNormale:
 ; Background:
 ;
 MSG_BACKGROUND_PRESSED
-Selezione sfondo
+Sfondo\nPremuto:
 ; Background in\npressed state:
 ;
 MSG_TEXT_BUTTONS
@@ -22,7 +22,7 @@ Testo pulsanti
 ; Text Buttons
 ;
 MSG_FRAME_COLON
-Quadro
+Cornice:
 ; Frame:
 ;
 MSG_FONT
@@ -34,7 +34,7 @@ Immagine pulsanti
 ; Image Buttons
 ;
 MSG_ADJUST_FRAME
-Regolare il quadro
+Regola cornice
 ; Adjust Frame
 ;
 MSG_CHECKMARKS
@@ -50,11 +50,11 @@ Marcatura
 ; Checkmark
 ;
 MSG_RADIO_BUTTONS
-Circolari
+Opzione pulsante radio
 ; Radio Buttons
 ;
 MSG_RADIOBUTTON
-Circolare
+Pulsanti Radio
 ; Radiobutton
 ;
 MSG_LOOK
@@ -62,7 +62,7 @@ Aspetto
 ; Look
 ;
 MSG_H
-O
+H
 ; H
 ;
 MSG_V
@@ -81,7 +81,7 @@ Sotto
 ; below
 ;
 MSG_ON_ACTIVE
-Sopra la selezione
+Selezionato
 ; on active
 ;
 MSG_CYCLE_GADGET_DESIGN
@@ -101,7 +101,7 @@ Posizione:
 ; Position:
 ;
 MSG_LEVEL
-Nuovo :
+Livello :
 ; Level:
 ;
 MSG_SPEED
@@ -113,7 +113,7 @@ Aspetto
 ; Popup Menu Design
 ;
 MSG_FRAME
-Quadro
+Cornice
 ; Frame
 ;
 MSG_ADJUST_BACKGROUND
@@ -136,23 +136,23 @@ Sotto
 ; above
 ;
 MSG_CENTERED
-centrato
+Centrato
 ; centered
 ;
 MSG_STANDARD
-normale
+Predefinito
 ; standard
 ;
 MSG_HILITE
-sottolineato
+Sottolineato
 ; hilite
 ;
 MSG_3D
-3d
+3D
 ; 3d
 ;
 MSG_OUTLINE
-contorno
+Contorno
 ; outline
 ;
 MSG_TITLE
@@ -160,7 +160,7 @@ Titolo
 ; Title
 ;
 MSG_COLOR
-Coulore:
+Colore:
 ; Color:
 ;
 MSG_HORIZONTAL
@@ -176,11 +176,11 @@ Registro
 ; Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-Troncare i titoli
+Dimensione predefinita titoli troncati
 ; Default size truncate titles
 ;
 MSG_NORMAL
-Normale
+Predefinito
 ; Normal
 ;
 MSG_VIRTUAL
@@ -188,7 +188,7 @@ Virtuale
 ; Virtual
 ;
 MSG_FRAMED
-Nel riquadro
+Riquadro
 ; Framed
 ;
 MSG_PAGE
@@ -199,19 +199,19 @@ Pagina
 ; listviewsp.c
 ;-------------
 MSG_SHIFTED
-spostato
+Cambia
 ; shifted
 ;
 MSG_ALWAYS
-sempre
+Sempre
 ; always
 ;
 MSG_LINEAR
-lineare
+Lineare
 ; linear
 ;
 MSG_MIXED
-mescolato
+Tutto
 ; mixed
 ;
 MSG_CONTROL
@@ -223,11 +223,11 @@ Multi:
 ; Multi:
 ;
 MSG_REFRESH
-Aggiornamento:
+Aggiorna:
 ; Refresh:
 ;
 MSG_SMOOTH
-Dolce:
+Spianare:
 ; Smooth:
 ;
 MSG_FONTS
@@ -235,7 +235,7 @@ Caratteri
 ; Fonts
 ;
 MSG_NORMAL_COLON
-Normale:
+Predefinito
 ; Normal:
 ;
 MSG_FIXED
@@ -243,7 +243,7 @@ Fisso:
 ; Fixed:
 ;
 MSG_LEADING
-All'inizio
+inizio
 ; Leading
 ;
 MSG_DESIGN
@@ -251,15 +251,15 @@ Design
 ; Design
 ;
 MSG_INPUT_LISTS
-Input \nLists:
+Lista Input:
 ; Input \nLists:
 ;
 MSG_READONLY_LISTS
-Readonly \nLists:
+Lista Sola lettura:
 ; Readonly \nLists:
 ;
 MSG_CURSOR
-Cursore
+Cursori
 ; Cursor
 ;
 MSG_ACTIVE
@@ -294,7 +294,7 @@ Sempre trasparente
 ; always ghosted
 ;
 MSG_SHOW_FRAMES
-Sotto i quadri
+Mostra cornici
 ; show frames
 ;
 MSG_SHOW_OBJECTS
@@ -306,7 +306,7 @@ Premere:
 ; Press:
 ;
 MSG_KL_TOGGLE
-Scambiare:
+Scambia:
 ; Toggle:
 ;
 MSG_KL_UP
@@ -334,11 +334,11 @@ Fine:
 ; Bottom:
 ;
 MSG_KL_LEFT
-a sinistra:
+A sinistra:
 ; Left:
 ;
 MSG_KL_RIGHT
-a destra:
+A destra:
 ; Right:
 ;
 MSG_KL_WORD_LEFT
@@ -374,7 +374,7 @@ Chiudi finestra:
 ; Close window:
 ;
 MSG_KL_NEXT_WINDOW
-Finestra successiva:
+Chiudi finestra:
 ; Next window:
 ;
 MSG_KL_PREV_WINDOW
@@ -406,7 +406,7 @@ Avvio automatico:
 ; Autostart:
 ;
 MSG_PIXEL
-%ld pixel
+%ld Pixel
 ; %ld pixel
 ;
 MSG_BALANCING_GROUPS
@@ -418,15 +418,15 @@ Esempio:
 ; Example:
 ;
 MSG_TRY_WITH
-Prova con
+Prova
 ; Try with
 ;
 MSG_SHIFT
-shift
+Cambia
 ; shift
 ;
 MSG_TOO
-pure!
+Anche
 ; too!
 ;
 MSG_KEYBOARD_CONTROL
@@ -434,7 +434,7 @@ Tastiera
 ; Keyboard Control
 ;
 MSG_COLOR_ACTIVE_OBJ
-Colore dell'oggetto selezionato:
+Colore oggetto attivo:
 ; Color of active object:
 ;
 MSG_NEWLOOK
@@ -462,11 +462,11 @@ Freccia giù
 ; Arrow down
 ;
 MSG_DOWN
-giù
+Giù
 ; down
 ;
 MSG_LEFT
-sinistra
+Sinistra
 ; left
 ;
 MSG_ARROW_LEFT
@@ -478,7 +478,7 @@ Freccia destra
 ; Arrow right
 ;
 MSG_RIGHT
-destra
+Destra
 ; right
 ;
 MSG_BAR
@@ -486,7 +486,7 @@ Barra
 ; Bar
 ;
 MSG_GADGET_TYPE
-Design:
+Tipo gadget:
 ; Gadget Type:
 ;
 MSG_SCROLLER
@@ -505,11 +505,11 @@ Sistemazione
 ; slidersp.c
 ;-----------
 MSG_CONTAINER_DESIGN
-Contenitore
+Sottofondo Cursore
 ; Container Design
 ;
 MSG_KNOB_DESIGN
-Manopola
+Colore Cursore
 ; Knob Design
 ;
 MSG_EXAMPLE_SLIDERS
@@ -520,15 +520,15 @@ Esempio
 ; specialp.c
 ;-----------
 MSG_TEXT_FIELDS
-Caselle di testo
+Caselle testo
 ; Text fields
 ;
 MSG_EXAMPLE_TEXTFIELD
-Esempio di caselle testo
+Esempio caselle testo
 ; Example Textfield
 ;
 MSG_PROGRESS_INDICATOR
-Barra di progressione
+Barra progressione
 ; Progress Indicator
 ;
 MSG_DEVICE_IMAGES
@@ -540,7 +540,7 @@ Cassetto
 ; Drawer
 ;
 MSG_HARDDISK
-Disco fisso
+Harddisk
 ; Harddisk
 ;
 MSG_DISK
@@ -564,42 +564,42 @@ Assign
 ; Assign
 ;
 MSG_TAPE_IMAGES
-Lettore
+Riproduttore
 ; Tape Images
 ;
 MSG_TAPE_PLAY
-leggere
+Riproduzione
 ; Tape play
 ;
 MSG_TAPE_PLAYBACK
-riavvolgere
+Riavvolgere
 ; Tape playback
 ;
 MSG_TAPE_PAUSE
-pausa
+Pausa
 ; Tape pause
 ;
 MSG_TAPE_STOP
-stop
+Stop
 ; Tape stop
 ;
 MSG_TAPE_RECORD
-registrare
+Registra
 ; Tape record
 ;
 MSG_TAPE_UP
-all'inizio
+Inizio
 ; Tape up
 ;
 MSG_TAPE_DOWN
-avanti
+Band nach unten
 ; Tape down
 ;
 ;=============================
 ; stringsp.c
 ;-----------
 MSG_STRING_FRAME
-Quadro
+Stringa cornice
 ; String Frame
 ;
 MSG_SPECIAL_POPUP_BUTTONS
@@ -627,7 +627,7 @@ Popup cassetto
 ; Popup drawer
 ;
 MSG_INACTIVE_STRING_COLORS
-Normale
+Stringa colorata inattiva
 ; Inactive String Colors
 ;
 MSG_TEXT
@@ -635,46 +635,46 @@ Testo
 ; Text
 ;
 MSG_ACTIVE_STRING_COLORS
-Selezionato
+Stringa colorata attiva
 ; Active String Colors
 ;
 MSG_MARKED_STRING_COLORS
-Selezione
+Selezione stringa
 ; Marked String Colors
 ;
 MSG_EXAMPLE_STRING_GADGET
-Esempio di gadget testuale
+Esempio gadget testuale
 ; Example String Gadget
 ;
 ;=============================
 ; windowp.c
 ;----------
 MSG_FORGET_ON_EXIT
-Dimenticare
+Dimentica in uscita
 ; forget on exit
 ;
 MSG_REMEMBER_ON_EXIT
-Ricordare
+Ricorda in uscita
 ; remember on exit
 ;
 MSG_SAVE_ON_EXIT
-Salvare
+Salva in uscita
 ; save on exit
 ;
 MSG_SMART
-smart
+Intelligente
 ; smart
 ;
 MSG_SIMPLE
-semplice
+Semplice
 ; simple
 ;
 MSG_WITHOUT_CLEAR
-conservare
+Nessuna modifica
 ; without clear
 ;
 MSG_WITH_CLEAR
-chiaro
+Ripulire
 ; with clear
 ;
 MSG_POSITIONS
@@ -682,7 +682,7 @@ Posizione:
 ; Positions:
 ;
 MSG_REDRAW
-Aggiornare:
+Ridisegna:
 ; Redraw:
 ;
 MSG_TINY
@@ -706,7 +706,7 @@ L
 ; L
 ;
 MSG_T
-T
+O
 ; T
 ;
 MSG_R
@@ -714,14 +714,12 @@ R
 ; R
 ;
 MSG_B
-B
+U
 ; B
 ;
 MSG_BUTTONS
-
+Pulsanti
 ; Buttons
-;
-; ***NEW***
 ;
 ;=============================
 ; zune.c
@@ -759,7 +757,7 @@ A
 ; A
 ;
 MSG_MEN_ABOUT
-Informazioni su Zune...
+Informazioni ...
 ; About Zune ...
 ;
 MSG_MEN_ABOUT_SC
@@ -775,11 +773,11 @@ Q
 ; Q
 ;
 MSG_FRAME_CLIPBOARD
-Quadro clipboard
+Clipboard cornice
 ; Frame Clipboard
 ;
 MSG_IMAGE_CLIPBOARD
-Immagine clipboard
+Clipboard immagine
 ; Image Clipboard
 ;
 MSG_GAD_TEST
@@ -798,6 +796,10 @@ MSG_GAD_CANCEL
 _Annulla
 ; _Cancel
 ;
+MSG_DSC_SYSTEM
+Sistema
+; System
+;
 MSG_DSC_WINDOWS
 Finestre
 ; Windows
@@ -815,11 +817,11 @@ Cicli
 ; Cycles
 ;
 MSG_DSC_SLIDERS
-Slider
+Cursori
 ; Sliders
 ;
 MSG_DSC_SCROLLBARS
-Barre di scorrimento
+Barre
 ; Scrollbars
 ;
 MSG_DSC_LISTVIEWS
@@ -831,7 +833,7 @@ Testi
 ; Strings
 ;
 MSG_DSC_NAVIGATION
-Navigazione
+Navigare
 ; Navigation
 ;
 MSG_DSC_SPECIAL
@@ -839,10 +841,8 @@ Speciale
 ; Special
 ;
 MSG_DSC_FRAMES
-
+Cornice
 ; Frames
-;
-; ***NEW***
 ;
 ;=============================
 ; zunestuff.c
@@ -855,8 +855,69 @@ Matita
 ; framesp.c
 ;----------
 MSG_CUSTOMFRAMES
-
+Cornici personalizzate
 ; Customframes
 ;
-; ***NEW***
+;=============================
+; systemp.c
+;----------
+MSG_PUBLIC_SCREEN
+Schermo Pubblico
+; Public Screen
+;
+MSG_NAME
+Nome:
+; Name:
+;
+MSG_CALL_INSPECTOR
+Imposta
+; Call Inspector
+;
+MSG_POP_TO_FRONT
+Pop frontale:
+; Pop to front:
+;
+MSG_ICONIFICATION
+Iconizza
+; Iconification
+;
+MSG_HOTKEY
+Tasti Funzione:
+; Hotkey:
+;
+MSG_SHOW
+Mostra:
+; Show:
+;
+MSG_ICON
+Icone
+; Icon
+;
+MSG_MENU
+Menu
+; Menu
+;
+MSG_ON_STARTUP
+All'avvio
+; On Startup:
+;
+MSG_INTERFACES
+Interfacce
+; Interfaces
+;
+MSG_AREXX
+ARexx:
+; ARexx:
+;
+MSG_BUBBLE_HELP
+Help Bubble
+; Bubble Help
+;
+MSG_FIRST_BUBBLE
+Primo Bubble:
+; First Bubble:
+;
+MSG_NEXT_BUBBLE
+Successivo Bubble:
+; Next Bubble:
 ;

@@ -14,7 +14,13 @@ MSG_FILEREQUESTER (//)
 File Requester
 ;
 MSG_SIZE (//)
-Size (% of visible height):
+Size:
+;
+MSG_SIZE_WIDTH (//)
+Width (% of visible width):
+;
+MSG_SIZE_HEIGHT (//)
+Height (% of visible height):
 ;
 MSG_OK (//)
 Ok

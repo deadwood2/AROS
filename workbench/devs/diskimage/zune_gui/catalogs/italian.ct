@@ -1,0 +1,197 @@
+## version $VER: diskimagegui.catalog 1.1 (10.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_UNIT_LBL
+Unità
+; Unit
+;
+MSG_DEVICE_LBL
+Dispositivo
+; Device
+;
+MSG_FILENAME_LBL
+Immagine Disco
+; Disk Image
+;
+MSG_WRITEPROTECT_LBL
+WP
+; WP
+;
+MSG_NO_DISK
+Disco non presente
+; No disk present
+;
+MSG_APPDESCRIPTION
+Interfaccia diskimage.device
+; Control GUI for diskimage.device
+;
+MSG_PRIORITY_LBL
+Pri
+; Pri
+;
+MSG_PLUGIN_LBL
+Plugin
+; Plugin
+;
+MSG_PLUGIN_GAD
+Utilizza plugin
+; Use plugin
+;
+MSG_AUTO_LBL
+(Auto)
+; (Auto)
+;
+MSG_WRITESUPPORT_LBL
+W
+; W
+;
+MSG_PROJECT_ABOUT
+Informazioni...
+; About...
+;
+MSG_PROJECT_HIDE
+Nascondi
+; Hide
+;
+MSG_PROJECT_ICONIFY
+Iconifica
+; Iconify
+;
+MSG_PROJECT_SNAPSHOT
+Fissa
+; Snapshot
+;
+MSG_PROJECT_QUIT
+Esci
+; Quit
+;
+MSG_SETTINGS_MENU
+Settaggi
+; Settings
+;
+MSG_SETTINGS_CHANGETEMPDIR
+Cambia cartella temp...
+; Change temp directory...
+;
+MSG_SETTINGS_SAVE
+Salva settaggi
+; Save settings
+;
+MSG_SETTINGS_PLUGINS
+Plugins...
+; Plugins...
+;
+MSG_PROJECT_CLOSE
+Chiudi
+; Close
+;
+MSG_OK_GAD
+Ok
+; Ok
+;
+MSG_ABOUT_REQ
+%s version %ld.%ld\n\
+%s version %ld.%ld\n\n\
+Copyright © 2007-2010 Fredrik Wikstrom\n\
+Site Web : http://a500.org\n\
+E-mail : fredrik@a500.org
+; %s version %ld.%ld\n\
+; %s version %ld.%ld\n\n\
+; Copyright © 2007-2010 Fredrik Wikstrom\n\
+; Website: http://a500.org\n\
+; E-mail: fredrik@a500.org
+;
+MSG_ERROR
+Errore
+; Error
+;
+MSG_NOAISS_REQ
+Manca Assegnazione AISS.\n\n\
+Scarica e installa ultima versione\n\
+da questo link: http://masonicons.de
+; AISS assign not found.\n\n\
+; Download and install the latest version\n\
+; from here: http://masonicons.de
+;
+MSG_OLDAISS_REQ
+AISS v%ld.%ld o versione più recente.\n\n\
+Scarica e installa ultima versione\n\
+da questo link: http://masonicons.de
+; AISS v%ld.%ld or newer required.\n\n\
+; Download and install the latest version\n\
+; from here: http://masonicons.de
+;
+MSG_IMAGENOTFOUND_REQ
+Immagine file '%s' non trovato
+; Image file '%s' not found.
+;
+MSG_CANCEL_GAD
+_Annulla
+; _Cancel
+;
+MSG_SAVE_GAD
+_Salva
+; _Save
+;
+MSG_USE_GAD
+_Utilizza
+; _Use
+;
+MSG_INSERT_GAD
+Inserire
+; Insert
+;
+MSG_EJECT_GAD
+Espelli
+; Eject
+;
+MSG_WRITEPROTECT_GAD
+Solo lettura
+; Write Protect
+;
+MSG_REFRESH_GAD
+Aggiorna
+; Refresh
+;
+MSG_PLUGINS_WND
+Plugins
+; Plugins
+;
+MSG_MAIN_WND
+%s : Tasti Funzione = <%s>
+; %s: Hot Key = <%s>
+;
+MSG_ABOUT_WND
+Informazioni - %s
+; About - %s
+;
+MSG_ERROR_WND
+Erreur - %s
+; Error - %s
+;
+MSG_SETDEVICETYPE_GAD
+Imposta Tipo Dispositivo.
+; Set Device Type
+;
+MSG_SETDEVICETYPE_WND
+Unité : %ld - Tipo Dispositivo..
+; Unit: %ld - Device Type
+;
+MSG_DEVICETYPE_GAD
+Tipo Dispositivo.
+; Device Type
+;
+MSG_DEVICETYPE_DIRECT_ACCESS
+Accesso Diretto (impostazione predefinita)
+; Direct Access (Default setting)
+;
+MSG_DEVICETYPE_CDROM
+CD-ROM
+; CD-ROM
+;
+MSG_DEVICETYPE_OPTICAL_DISK
+Disco Ottico
+; Optical Disk
+;

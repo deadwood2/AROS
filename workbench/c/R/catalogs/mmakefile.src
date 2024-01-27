@@ -1,9 +1,8 @@
-# Copyright (C) 2020, The AROS Development Team. All rights reserved.
-# $Id: mmakefile.src
+# Copyright (C) 2020-2023, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:=german russian spanish
+CATALOGS:=german italian russian spanish
 # other catalogs need update to version 2
 
 %build_catalogs mmake=workbench-c-r-catalogs \

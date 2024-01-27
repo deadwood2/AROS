@@ -1,0 +1,53 @@
+## version $VER: executestartup.catalog 1.0 (14.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_ERROR
+Errore
+;Error
+;
+MSG_WARNING
+Avvertenza
+;Warning
+;
+MSG_OK
+OK
+;OK
+;
+MSG_ERROR_GETDISKOBJECT
+Esegui Avvio\nGetDiskObject fallito:\n%s
+; ExecuteStartup\nGetDiskObject failed for:\n%s
+;
+MSG_ERROR_INFONODE
+Esegui Avvio\nMemoria esaurita per InfoNode
+; ExecuteStartup\nOut of memory for InfoNode
+;
+MSG_ERROR_LNNAME
+Esegui Avvio\nMemoria esaurita per ln_Name
+; ExecuteStartup\nOut of memory for ln_Name
+;
+MSG_ERROR_SCANNING
+Esegui Avvio\nErrore %ld verificato durante scansione directory
+; ExecuteStartup\nError %ld occured while scanning directory
+;
+MSG_ERROR_ANCHORPATH
+Esegui Avvio\nMemoria esaurita per AnchorPath
+; ExecuteStartup\nOut of memory for AnchorPath
+;
+MSG_ERROR_FILEINFOBLOCK
+Esegui Avvio\nMemoria esaurita per FileInfoBlock
+; ExecuteStartup\nOut of memory for FileInfoBlock
+;
+MSG_ERROR_MEMORYPOOL
+Esegui Avvio\nImpossibile creare pool memoria
+; ExecuteStartup\nCouldn't create pool memory
+;
+MSG_ERROR_EXAMINE
+Esegui Avvio\nImpossibile esaminare 
+; ExecuteStartup\nCouldn't examine
+;Note final space!
+MSG_WARNING_OPENWBOBJECT
+ExecuteStartup\nOpenWorkbenchObject fallito:\n%s
+;ExecuteStartup\nOpenWorkbenchObject failed for:\n%s
+;

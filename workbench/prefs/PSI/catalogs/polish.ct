@@ -23,7 +23,7 @@ O programie...
 ; About...
 ;
 MSG_MENU_PROJECT_QUIT
-Skoñcz
+Zakoñcz
 ; Quit
 ;
 MSG_MENU_EDIT
@@ -51,19 +51,19 @@ Kolory
 ; Colors
 ;
 MSG_MENU_COLORS_PRESETS
-ustawienia predefiniowane
+Ustawienia predefiniowane
 ; Presets
 ;
 MSG_MENU_COLORS_PRESETS_2COL
-ustawienia monochromatyczne
+Ustawienia monochromatyczne
 ; Monochrome Settings
 ;
 MSG_MENU_COLORS_PRESETS_4COL
-ustawienia 4 kolorowe
+Ustawienia 4 kolorowe
 ; 4-Color Settings
 ;
 MSG_MENU_COLORS_PRESETS_8COL
-ustawienia MagicWB
+Ustawienia MagicWB
 ; MagicWB Settings
 ;
 MSG_BUTTON_OK
@@ -207,7 +207,7 @@ O_bszar ekranu:
 ; O_verscan:
 ;
 MSG_LABEL_SIZE
-_Wielko¶æ:
+_Rozmiar:
 ; _Size:
 ;
 MSG_LABEL_CROSS
@@ -359,39 +359,39 @@ Zestaw kolorów
 ; Color Presets
 ;
 MSG_PALPRES_STANDARD
-0\0standardowy
+0\0Standardowy
 ; 0\0Standard
 ;
 MSG_PALPRES_TINT
-1\0zabarwiony
+1\0Zabarwiony
 ; 1\0Tint
 ;
 MSG_PALPRES_PHARAO
-2\0faraon
+2\0Faraon
 ; 2\0Pharao
 ;
 MSG_PALPRES_SUNSET
-3\0wschód s³oñca
+3\0Wschód s³oñca
 ; 3\0Sunset
 ;
 MSG_PALPRES_OCEAN
-4\0ocean
+4\0Ocean
 ; 4\0Ocean
 ;
 MSG_PALPRES_STEEL
-5\0stalo
+5\0Stal
 ; 5\0Steel
 ;
 MSG_PALPRES_CHOCOLATE
-6\0czekolada
+6\0Czekolada
 ; 6\0Chocolate
 ;
 MSG_PALPRES_PEWTER
-7\0niebieskawoszary
+7\0Niebieskawoszary
 ; 7\0Pewter
 ;
 MSG_PALPRES_WINE
-8\0wino
+8\0Wino
 ; 8\0Wine
 ;
 MSG_PALPRES_MAGICWB
@@ -399,7 +399,7 @@ MSG_PALPRES_MAGICWB
 ; 9\0MagicWB
 ;
 MSG_PALPRES_CLONEWB
-klonuj paletê WB
+Klonuj paletê WB
 ; Clone WB
 ;
 MSG_OVERSCAN_TEXT
@@ -437,7 +437,7 @@ dla grupy pisaków.
 ;
 MSG_HELP_INFO
 Informacje o trybie\n\
-i wielko¶ci.
+i rozmiarze.
 ; Information about\nmode & size.
 ;
 MSG_HELP_NAME
@@ -602,7 +602,7 @@ ekran publiczny.
 ;
 MSG_HELP_SAVE
 Opuszcza program\n\
-i zapisuje zmiany
+i zapisuje zmiany.
 ; Exit and save\nchanges to disk.
 ;
 MSG_HELP_USE

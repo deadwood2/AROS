@@ -1,0 +1,105 @@
+## version $VER: icontrolprefs.catalog 2.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_WINTITLE
+IControl Tercihleri
+; IControl Preferences
+;
+MSG_OK
+Tamam
+; Ok
+;
+MSG_MENUS_GROUP
+Menüler
+; Menus
+;
+MSG_MENUS_TYPE
+Tür
+; Type
+;
+MSG_MENUS_TYPE_PULLDOWN
+Aþaðý açýlýr
+; Pull-Down
+;
+MSG_MENUS_TYPE_POPUP
+Açýlýr
+; Pop-Up
+;
+MSG_MENUS_LOOK
+Görünüm
+; Look
+;
+MSG_MENUS_LOOK_CLASSIC
+Klasik
+; Classic
+;
+MSG_MENUS_LOOK_3D
+3D
+; 3D
+;
+MSG_WINDOWS
+Pencereler
+; Windows
+;
+MSG_OFFSCREEN_MOVE
+Ekran dýþý hareket:
+; Offscreen move:
+;
+MSG_SCREENS
+Ekranlar
+; Screens
+;
+MSG_PUBLIC_SCREENS
+Özel Ekranlar
+; Public Screens
+;
+MSG_FRONTMOST_DEFAULT
+En Öndekini varsayýlan olarak ayarla
+; Set Frontmost as default
+;
+MSG_OFFSCREEN_DESC
+Pencerelerin görünür alanýn dýþýna\ntaþýnmasýna izin ver
+; Allow windows to be moved out of\nthe visible area
+;
+MSG_FRONTMOST_DEFAULT_DESC
+En öndeki genel ekraný varsayýlan\ngenel ekran yapýn
+; Make the frontmost public screen\nthe default public screen
+;
+MSG_DRAG
+Ekran Sürükleme
+; Screen Dragging
+;
+MSG_DRAG_BOUNDS
+Sürükleme sýnýrlarýný görüntülenen ile sýnýrla...
+; Limit dragging to Displays bounds...
+;
+MSG_BOUND_LEFT_DRAG
+soldaki
+; on the left
+;
+MSG_BOUND_RIGHT_DRAG
+saðdaki
+; on the right
+;
+MSG_BOUND_TOP_DRAG
+üsteki
+; at the top
+;
+MSG_BOUND_BOTTOM_DRAG
+alttaki
+; at the bottom
+;
+MSG_META_DRAG
+Sürükleme kontrol tuþ(larý)
+; Drag control key(s)
+;
+MSG_MENUS_STICKY
+Sapýþkan
+; Sticky
+;
+MSG_MENUS_TITLEPOPUP
+Ekran Baþlýðýnda Aþaðý Açýlan
+; Pull-Down on Screen Title
+;

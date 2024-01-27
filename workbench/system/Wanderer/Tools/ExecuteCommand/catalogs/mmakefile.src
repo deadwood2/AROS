@@ -1,8 +1,8 @@
-# Copyright (C) 2019, The AROS Development Team. All rights reserved.
+# Copyright (C) 2023, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:=croatian czech danish french german polish portuguese russian \
+CATALOGS:=croatian czech danish french german italian polish portuguese russian \
     spanish norwegian turkish
 # other catalogs need update to version 2
 

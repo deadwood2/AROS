@@ -7,15 +7,15 @@ Snoopy
 ; Snoopy
 ;
 MSG_COPYRIGHT
-(c) 2006-2010, The AROS Development Team
-; © 2006-2008, The AROS Development Team
+(C) 2006-2010, The AROS Development Team
+; \xa9 2006-2008, The AROS Development Team
 ;
 MSG_AUTHOR
 The AROS Development Team
 ; The AROS Development Team
 ;
 MSG_PORTNAME
-SNOPPY
+SNOOPY
 ; SNOOPY
 ;
 MSG_DESCRIPTION
@@ -115,11 +115,11 @@ Niepowodzenie
 ; Fail
 ;
 MSG_ERROR_SAVE
-Podczas zapisywania %s wyst±pi³ b³±d.
+Podczas zapisywania %s wyst±pi³ b³±d
 ; An error happened when saving to %s
 ;
 MSG_ERROR_LOAD
-Podczas wczytywania %s wyst±pi³ b³±d.
+Podczas wczytywania %s wyst±pi³ b³±d
 ; An error happened when loading from %s
 ;
 MSG_RESET_PATCHES
@@ -135,8 +135,8 @@ Usuñ|Zachowaj
 ; Remove|Keep
 ;
 MSG_ASK_REMOVE
-Czy na pewno chcesz usun±æ proces programu SNoppy?\n\
-Mo¿e to byæ niebezpieczne, je¶li inne zadanie za³ata³o ³atki Snoppy'ego.
+Czy na pewno chcesz usun±æ proces programu Snoopy?\n\
+Mo¿e to byæ niebezpieczne, je¶li inne zadanie za³ata³o ³atki Snoopy'ego.
 ; Do you really want to remove the Snoopy process?\n\
 ; This can be quite dangerous when another task has patched Snoopy's patches.
 ;
@@ -181,6 +181,6 @@ Wersja %ld
 ; Version %ld
 ;
 MSG_SIZE
-Wielko¶æ %d
+Rozmiar %d
 ; Size %d
 ;

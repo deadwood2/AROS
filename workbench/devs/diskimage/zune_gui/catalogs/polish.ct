@@ -30,10 +30,6 @@ MSG_APPDESCRIPTION
 Interfejs diskimage.device
 ; Control GUI for diskimage.device
 ;
-; ******************
-; ** Plugins list **
-; ******************
-;
 MSG_PRIORITY_LBL
 Priorytet
 ; Pri
@@ -43,7 +39,7 @@ Plugin
 ; Plugin
 ;
 MSG_PLUGIN_GAD
-U¿yj Pluginu
+U¿yj pluginu
 ; Use plugin
 ;
 MSG_AUTO_LBL
@@ -53,10 +49,6 @@ MSG_AUTO_LBL
 MSG_WRITESUPPORT_LBL
 Zapisywalny
 ; W
-;
-; *****************
-; ** Menu labels **
-; *****************
 ;
 MSG_PROJECT_ABOUT
 O...
@@ -91,32 +83,36 @@ Zapisz ustawienia
 ; Save settings
 ;
 MSG_SETTINGS_PLUGINS
-Plugins...
+Pluginy...
 ; Plugins...
 ;
 MSG_PROJECT_CLOSE
 Zamknij
 ; Close
 ;
-; ****************
-; ** Requesters **
-; ****************
-;
 MSG_OK_GAD
-Ok
+OK
 ; Ok
 ;
 MSG_ABOUT_REQ
-%s Wersja %ld.%ld\n%s Wersja %ld.%ld\n\nCopyright © 2007-2010 Fredrik Wikstrom\nWebseite: http://a500.org\nE-Mail: fredrik@a500.org
-; %s version %ld.%ld\n%s version %ld.%ld\n\nCopyright © 2007-2010 Fredrik Wikstrom\nWebsite: http://a500.org\nE-mail: fredrik@a500.org
+%s wersja %ld.%ld\n\
+%s Wersja %ld.%ld\n\n\
+Copyright (C) 2007-2010 Fredrik Wikstrom\n\
+Webseite: http://a500.org\n\
+E-mail: fredrik@a500.org
+; %s version %ld.%ld\n\
+; %s version %ld.%ld\n\n\
+; Copyright (C) 2007-2010 Fredrik Wikstrom\n\
+; Website: http://a500.org\n\
+; E-mail: fredrik@a500.org
 ;
 MSG_ERROR
 B³±d
 ; Error
 ;
 MSG_NOAISS_REQ
-Nie znalleziono przypisania AISS.\n\n\
-Zainstaluj najnowsza wersjê\n\
+Nie znaleziono przypisania AISS.\n\n\
+Zainstaluj najnowsz± wersjê\n\
 st±d: http://masonicons.de
 ; AISS assign not found.\n\n\
 ; Download and install the latest version\n\
@@ -124,7 +120,7 @@ st±d: http://masonicons.de
 ;
 MSG_OLDAISS_REQ
 Wymagany AISS V%ld.%ld albo nowszy.\n\n\
-Zainstaluj najnowsza wersjê\n\
+Zainstaluj najnowsz± wersjê\n\
 st±d: http://masonicons.de
 ; AISS v%ld.%ld or newer required.\n\n\
 ; Download and install the latest version\n\
@@ -133,10 +129,6 @@ st±d: http://masonicons.de
 MSG_IMAGENOTFOUND_REQ
 Nie znaleziono pliku obrazu '%s'.
 ; Image file '%s' not found.
-;
-; *******************
-; ** Speedbar help **
-; *******************
 ;
 MSG_CANCEL_GAD
 _Poniechaj
@@ -151,7 +143,7 @@ _U¿yj
 ; _Use
 ;
 MSG_INSERT_GAD
-Wló¿
+W³ó¿
 ; Insert
 ;
 MSG_EJECT_GAD
@@ -163,15 +155,11 @@ Bez zapisu
 ; Write Protect
 ;
 MSG_REFRESH_GAD
-Zaktualizuj
+Od¶wie¿
 ; Refresh
 ;
-; *******************
-; ** Window titles **
-; *******************
-;
 MSG_PLUGINS_WND
-Plugins
+Pluginy
 ; Plugins
 ;
 MSG_MAIN_WND
@@ -191,7 +179,7 @@ Wybierz typ urz±dzenia
 ; Set Device Type
 ;
 MSG_SETDEVICETYPE_WND
-Jednostka : %ld - Gerätetyp
+Jednostka: %ld - Typ urz±dzenia
 ; Unit: %ld - Device Type
 ;
 MSG_DEVICETYPE_GAD
@@ -199,7 +187,7 @@ Typ urz±dzenia
 ; Device Type
 ;
 MSG_DEVICETYPE_DIRECT_ACCESS
-Dostêp bezpo¶redni (ustawienie standardowe)
+Dostêp bezpo¶redni (Ustawienie standardowe)
 ; Direct Access (Default setting)
 ;
 MSG_DEVICETYPE_CDROM
@@ -207,6 +195,6 @@ CD-ROM
 ; CD-ROM
 ;
 MSG_DEVICETYPE_OPTICAL_DISK
-Optyczny dysk
+Dysk optyczny
 ; Optical Disk
 ;

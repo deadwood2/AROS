@@ -1,0 +1,118 @@
+## version $VER: find.catalog 1.1 (02.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_APP_TITLE
+Cerca
+; Find
+;
+MSG_APP_DESCRIPTION
+Strumento ricerca file
+; File search tool
+;
+MSG_APP_COPYRIGHT
+Copyright \xa9 2016 The AROS Development Team
+; Copyright \xa9 2016 The AROS Development Team
+;
+MSG_WI_TITLE
+Cerca
+; Find
+;
+MSG_OK
+OK
+; OK
+;
+MSG_LST_FULLPATH
+Percorso completo
+; Full Path
+;
+MSG_LST_SIZE
+Dimensione
+; Size
+;
+MSG_LST_ATTRIBUTES
+Attributi
+; Attributes
+;
+MSG_LST_DATE
+Data
+; Date
+;
+MSG_LST_TIME
+Ora
+; Time
+;
+MSG_LST_COMMENT
+Commento
+; Comment
+;
+MSG_LBL_PATH
+Percorso
+; Path
+;
+MSG_LBL_PATTERN
+Nome
+; Pattern
+;
+MSG_LBL_CONTENTS
+Contenuto
+; Contents
+;
+MSG_BTN_START
+Inizia
+; Start
+;
+MSG_BTN_STOP
+Stop
+; Stop
+;
+MSG_BTN_OPEN
+Apri
+; Open
+;
+MSG_BTN_VIEW
+Visualizza
+; View
+;
+MSG_BTN_DRAWER
+Cassetto
+; Drawer
+;
+; Error messages
+;
+MSG_ERR
+Errore
+; Error
+;
+MSG_ERR_NO_APPLICATION
+Impossibile creare l'applicazione.
+; Can't create application.
+;
+MSG_ERR_READARGS
+Impossibile leggere gli argomenti sulla riga di comando.
+; Can't read commandline arguments.
+;
+MSG_ERR_NO_MEM
+Errore:\nImpossibile allocare memoria.
+; Error:\nCan't allocate memory.
+;
+MSG_ERR_NO_WINDOW
+Errore:\nImpossibile aprire la finestra.
+; Error:\nCan't open window.
+;
+MSG_ERR_DOS
+Errore DOS:\n%s
+; DOS Error:\n%s
+;
+MSG_ERR_NO_FILE
+Errore:\nImpossibile aprire il file\n\"%s\".
+; Error:\nCan't open file\n\"%s\".
+;
+MSG_ERR_NO_DIR
+Errore\nImpossibile aprire il cassetto\n\"%s\".
+; Error:\nCan't open directory\n\"%s\".
+;
+MSG_ERR_PATTERN
+Errore:\nNome file non trovato.
+; Error:\nCan't parse pattern.

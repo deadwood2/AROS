@@ -1,4 +1,4 @@
-## version $VER: PSI.catalog 19.0 (24.01.2021)
+## version $VER: PSI.catalog 19.1 (24.01.2021)
 ## language español
 ## codeset 0
 ;
@@ -147,11 +147,11 @@ MSG_LIST_FOREIGNSCREEN
 ; (foreign)
 ;
 MSG_LABEL_PUBLICNAME
-_Nombre Publico: 
+_Nombre Público: 
 ; Public _Name:
 ;
 MSG_LABEL_SCREENTITLE
-_Titulo de la pantalla:
+_Título de la pantalla:
 ; Screen _Title:
 ;
 MSG_LABEL_DISPLAYMODE
@@ -279,7 +279,7 @@ Fallo al abrir muimaster.library V11 (20).\n
 ; Failed to open muimaster.library V11 (20).\n
 ;
 MSG_ABOUT_NUMBEROFSCREENS
-Numero de pantallas:
+Número de pantallas:
 ; Number of screens:
 ;
 MSG_TEXT_UNKNOWNMODE
@@ -287,7 +287,7 @@ Modo de visualización desconocido
 ; Unknown Display Mode
 ;
 MSG_TEXT_FOREIGNSCREEN
-Pantalla publica extranjera
+Pantalla pública extranjera
 ; Foreign public screen
 ;
 MSG_PALETTE_TITLE
@@ -439,7 +439,7 @@ Información sobre\nmodo y tamaño.
 ; Information about\nmode & size.
 ;
 MSG_HELP_NAME
-Nombre d el apantalla pública.\nWildcards allowed for\nforeign screens.
+Nombre de la pantalla pública.\nSe permiten comodines\nen pantallas extranjeras.
 ; Name of Public Screen.\nWildcards allowed for\nforeign screens.
 ;
 MSG_HELP_TITLE
@@ -511,7 +511,7 @@ Profundidad de pantalla,\nmedida en planos.
 ; Depth of screen,\nmeasured in planes.
 ;
 MSG_HELP_PENLIST
-Sistema de lápices, desplazable\na otro bote de color.
+Lápices de sistema, desplazable\na otro bote de color.
 ; System pens, draggable\nto different color pot.
 ;
 MSG_HELP_COLORFIELD
@@ -535,7 +535,7 @@ Salir y \33bdescartar\33n\ncambios para esta pantalla.
 ; Exit and \33bdiscard\33n\nchanges for this screen.
 ;
 MSG_HELP_SCREENLIST
-Lista de las pantallas\npublicas definidas.
+Lista de las pantallas\npúblicas definidas.
 ; List of defined\npublic screens.
 ;
 MSG_HELP_NEWSCREEN

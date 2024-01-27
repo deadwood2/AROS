@@ -1,0 +1,49 @@
+## version $VER: BoingIconBar.catalog 2.0 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;
+MSG_APP
+BIB Terçihleri
+; BIBPrefs
+;
+MSG_DESCRIPTION
+BoingIconBar Terçihleri
+; BoingIconBar Preferences
+;
+MSG_TITLE
+BoingIconBar Terçihleri
+; BoingIconBar Preferences
+;
+MSG_DOCK
+\33cDock
+; \33cDock
+;
+MSG_ADD_DOCK
+Ekle
+; Add
+;
+MSG_DEL_DOCK
+Sil
+; Delete
+;
+MSG_SAVE
+Kaydet
+; Save
+;
+MSG_PROGRAMS
+\33cProgramlar
+; \33cPrograms
+;
+MSG_ADD_P
+Program ekle
+; Add program
+;
+MSG_DEL_P
+Program sil
+; Del program
+;
+MSG_OK
+TAMAM
+; OK
+;

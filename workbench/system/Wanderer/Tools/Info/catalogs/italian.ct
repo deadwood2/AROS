@@ -1,18 +1,18 @@
-## version $VER: info.catalog 1.1 (13.08.2003)
+## version $VER: info.catalog 1.4 (16.05.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_TITLE
 Informazioni
 ; Informations
 ;
 MSG_DESCRIPTION
-Informazioni sull'icona
+Icona Informazioni
 ; Icon informations
 ;
 MSG_COPYRIGHT
-Icon informations\n©AROS Dev Team
+Icona Informazioni\n©AROS Dev Team
 ; Icon informations\n©AROS Dev Team
 ;
 MSG_ICON
@@ -56,7 +56,7 @@ Progetto
 ; Project
 ;
 MSG_GARBAGE
-Immondizia
+Cestino
 ; Garbage
 ;
 MSG_DEVICE
@@ -64,7 +64,7 @@ Dispositivo
 ; Device
 ;
 MSG_KICK
-Kick
+Kickstart
 ; Kick
 ;
 MSG_APPICON
@@ -84,11 +84,11 @@ Tooltypes
 ; Tooltypes
 ;
 MSG_ERROR_SHELLSTART
-Errore: non si può avviare da shell
+Errore: Impossibile avviare da Shell
 ; Error: Cannot be started from shell
 ;
 MSG_ABOUT
-Informazioni su...
+Informazioni...
 ; About...
 ;
 MSG_QUIT
@@ -108,7 +108,7 @@ Esecuzione
 ; Execute
 ;
 MSG_DELETE
-Eliminazione
+Cancellazione
 ; Delete
 ;
 MSG_SCRIPT
@@ -178,4 +178,12 @@ _Annulla
 MSG_OK
 Ok
 ; Ok
+;
+MSG_PATH
+Percorso
+; Path
+;
+MSG_BTNPATH
+Apri percorso...
+; Open path...
 ;

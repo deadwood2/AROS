@@ -1,0 +1,351 @@
+## version $VER: ahiprefs.catalog 4.6 (07.11.2021)
+## language türkçe
+## codeset 12
+;
+;#language english
+;#version 4
+;
+;    AHI - Hardware independent audio subsystem
+;    Copyright (C) 1996-2005 Martin Blom <martin@blom.org>
+;     
+;    This library is free software; you can redistribute it and/or
+;    modify it under the terms of the GNU Library General Public
+;    License as published by the Free Software Foundation; either
+;    version 2 of the License, or (at your option) any later version.
+;     
+;    This library is distributed in the hope that it will be useful,
+;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;    Library General Public License for more details.
+;     
+;    You should have received a copy of the GNU Library General Public
+;    License along with this library; if not, write to the
+;    Free Software Foundation, Inc., 59 Temple Place - Suite 330, Cambridge,
+;    MA 02139, USA.
+;
+; *** Menus ***
+;
+msgMenuProject
+\000Proje
+; \000Project
+;
+msgItemOpen
+O\000Aç...
+; O\000Open...
+;
+msgItemSaveAs
+A\000Farklý Kaydet...
+; A\000Save As...
+;
+msgItemAbout
+?\000Hakkýnda...
+; ?\000About...
+;
+msgItemQuit
+Q\000Çýkýþ
+; Q\000Quit
+;
+msgMenuEdit
+\000Düzen
+; \000Edit
+;
+msgItemDefaults
+D\000Varsayýlana Dön
+; D\000Reset To Defaults
+;
+msgItemLastSaved
+L\000Son Kayýt Edilen
+; L\000Last Saved
+;
+msgItemRestore
+R\000Geri Al
+; R\000Restore
+;
+msgMenuSettings
+\000Ayarlar
+; \000Settings
+;
+msgItemCreateIcons
+I\000Simge Oluþtur?
+; I\000Create Icons?
+;
+msgMenuHelp
+\000Yardým
+; \000Help
+;
+msgItemHelp
+Help\000Yardým...
+; Help\000Help...
+;
+msgItemUsersGuide
+H\000AHI Kullaným kýlavuzu...
+; H\000AHI User's guide...
+;
+msgItemConceptIndex
+\000Konsept Ýndeksi...
+; \000Concept Index...
+;
+; *** The pages ***
+;
+msgPageMode
+Mod ayarlarý
+; Mode settings
+;
+msgPageAdvanced
+Geliþmiþ ayarlar
+; Advanced settings
+;
+; *** The units ***
+;
+msgUnitDevice
+Birim %ld
+; Unit %ld
+;
+msgUnitMusic
+Müzük birimi
+; Music unit
+;
+; *** Properties box ***
+;
+msgProperties
+Mod Kimliði\nKayýt\nYazar\nTelif Hakký\nSürücü\nSürüm\nEk Açýklama
+; Mode ID\nRecording\nAuthor\nCopyright\nDriver\nVersion\nAnnotation
+;
+msgPropRecordFull
+Tam dubleks
+; Full duplex
+;
+msgPropRecordHalf
+Yarým dubleks
+; Half duplex
+;
+msgPropRecordNone
+Hayýr
+; Nope
+;
+; *** Options ***
+;
+msgOptions
+Seçenek
+; Options
+;
+msgOptFrequency
+_Frekans
+; _Frequency
+;
+msgOptChannels
+_Kanal
+; C_hannels
+;
+msgOptNoChannels
+
+; 
+;
+msgOptVolume
+_Ses Seviyesi
+; _Volume
+;
+msgOptMonitor
+_Monitör
+; _Monitor
+;
+msgOptGain
+_Kazanç
+; _Gain
+;
+msgOptMuted
+Sessiz
+; Muted
+;
+msgOptInput
+G_iriþ
+; _Input
+;
+msgOptNoInputs
+Giriþ yok
+; No inputs
+;
+msgOptOutput
+_Çýkýþ
+; _Output
+;
+msgOptNoOutputs
+Çýkýþ yok
+; No outputs
+;
+;
+; *** Global Options ***
+;
+msgGlobalOptions
+Evrensel seçenekler
+; Global options
+;
+msgGlobOptDebugLevel
+Hata ayýklama _düzeyi
+; _Debug level
+;
+msgGlobOptEcho
+_Eko
+; _Echo
+;
+msgGlobOptSurround
+"_Hýzlý" modlarýnda surround
+; Surround in "_Fast" modes
+;
+msgGlobOptCPULimit
+CPU kullaným _limiti
+; CPU usage _limit
+;
+; *** Debug levels ***
+;
+msgDebugNone
+Hiçbiri
+; None
+;
+msgDebugLow
+Düþük
+; Low
+;
+msgDebugHigh
+Yüksek
+; High
+;
+msgDebugFull
+Tam
+; Full
+;
+; *** Echo ***
+;
+msgEchoEnabled
+Etkin
+; Enabled
+;
+msgEchoFast
+Hýzlý
+; Fast
+;
+msgEchoDisabled
+Devredýþý
+; Disabled
+;
+; *** Surround ***
+;
+msgSurroundEnabled
+Etkin
+; Enabled
+;
+msgSurroundDisabled
+Devredýþý
+; Disabled
+;
+; *** Buttons ***
+;
+msgButtonSave
+_Kaydet
+; _Save
+;
+msgButtonUse
+K_ullan
+; _Use
+;
+msgButtonCancel
+_Vazgeçç
+; _Cancel
+;
+msgButtonOK
+TAMAM
+; OK
+;
+; *** Texts ***
+;
+msgTextProgramName
+AHI terçihleri
+; AHI preferences
+;
+;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
+msgTextCopyright
+%s%s\nTelif Hakký (C)%sTürkçe çeviri Serkan DURSUN
+; %s%s\nCopyright (C)%s
+;
+msgTextNoWindow
+Pencere açýklamadý.
+; Unable to open window.
+;
+msgTextNoFileRequester
+Dosya isteçisi ayrýþtýrýlamýyor.
+; Unable to allocate file requester.
+;
+msgTextNoFind
+`%s' bulunamadý!
+; Unable to find `%s'!
+;
+msgTextNoOpen
+'%s' sürümü %ld açýlamýyor.
+; Unable to open '%s' version %ld.
+;
+; *** Additions
+;
+msgGlobOptMasterVol
+_Ana ses
+; _Master volume
+;
+msgMVNoClip
+Kýrpma olmadan
+; Without clipping
+;
+msgMVClip
+Kýrpma ile
+; With clipping
+;
+msgGlobOptACTime
+Varsayýlan týklama-önleme süresi
+; Default anti-click time
+;
+msgButtonPlay
+_Bir test sesi çal
+; _Play a test sound
+;
+msgOptScalemode
+S_es ölçekleme
+; Volume sc_aling
+;
+msgSMFixedSafe
+Güvenli
+; Safe
+;
+msgSMDynSafe
+Güvenli, dinamik
+; Safe, dynamic
+;
+msgSM0dB
+Tam ses
+; Full volume
+;
+msgSM3dB
+-3 dB
+; -3 dB
+;
+msgSM6dB
+-6 dB
+; -6 dB
+;
+msgFreqFmt
+%ld Hz
+; %ld Hz
+;
+msgChanFmt
+%ld
+; %ld
+;
+msgVolFmt
+%+4.1f dB
+; %+4.1f dB
+;
+msgACTimeFmt
+%ld ms
+; %ld ms
+;
+msgPercentFmt
+%ld%%
+; %ld%%
+;
