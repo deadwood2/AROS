@@ -35,7 +35,7 @@ Format
 ; Format
 ;
 MSG_UNKNOWN
-nieznany
+Nieznany
 ; Unknown
 ;
 MSG_AUTHOR
@@ -43,8 +43,8 @@ Olivier Adam
 ; Olivier Adam
 ;
 MSG_COPYRIGHT
-(c) 2006-2010 AROS Dev Team
-; ©2006-2009 AROS Dev Team
+(C) 2006-2019, The AROS Development Team
+; \xa9 2006-2019, The AROS Development Team
 ;
 MSG_USED
 Zajête
@@ -59,7 +59,7 @@ Pojemno¶æ
 ; Capacity
 ;
 MSG_BLOCK_SIZE
-Wielko¶æ bloku
+Rozmiar bloku
 ; Block size
 ;
 MSG_BLOCKS
@@ -75,15 +75,15 @@ Stan
 ; Status
 ;
 MSG_READABLE
-odczytywalny
+Odczytywalny
 ; Readable
 ;
 MSG_READABLE_WRITABLE
-odczytywalny/zapisywalny
+Odczytywalny/zapisywalny
 ; Readable/writable
 ;
 MSG_VALIDATING
-uaktualniany
+Uaktualniany
 ; Validating
 ;
 MSG_NAME
@@ -95,7 +95,7 @@ jednostka
 ; unit
 ;
 MSG_DOSDEVICE
-Sterownik DOS-u:
+Urz±dzenie DOS:
 ; DOS Device:
 ;
 MSG_DEVICEINFO

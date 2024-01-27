@@ -1,7 +1,7 @@
-## version $VER: About.catalog 1.0 (12.08.2003)
+## version $VER: About.catalog 2.0 (10.05.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_TITLE
 Informazioni su AROS
@@ -20,7 +20,7 @@ Snapshot
 ; Snapshot
 ;
 MSG_MILESTONE
-Milestone
+Pietra miliare
 ; Milestone
 ;
 MSG_RELEASE
@@ -28,15 +28,15 @@ Edizione
 ; Release
 ;
 MSG_COPYRIGHT
-Copyright © 1995-2023, The AROS Development Team. Tutti i diritti riservati.
-; Copyright © 1995-2023, The AROS Development Team. All rights reserved.
+Copyright © 1995-2024, The AROS Development Team. Tutti i diritti riservati.
+; Copyright © 1995-2024, The AROS Development Team. All rights reserved.
 ;
 MSG_LICENSE_1
 Rilasciato secondo i termini della
 ; Released under the terms of the
 ;
 MSG_LICENSE_2
-AROS Public License
+ AROS Public License
 ; AROS Public License
 ;
 MSG_LICENSE_3
@@ -136,7 +136,14 @@ Sito Internet
 ; Website
 ;
 MSG_SECTION_DATATYPES
-
+Datatypes
 ; Datatypes
 ;
-; ***NEW***
+MSG_SECTION_TESTING
+Test
+; Testing
+;
+MSG_BUILD_CPU
+Questa versione AROS è stata realizzata per %s processori.
+; This version of AROS has been built for %s processors.
+;

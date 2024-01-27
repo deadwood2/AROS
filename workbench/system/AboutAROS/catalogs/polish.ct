@@ -1,4 +1,4 @@
-## version $VER: About.catalog 1.1 (29.04.2010)
+## version $VER: About.catalog 2.0 (03.06.2023)
 ## language polski
 ## codeset 5
 ;
@@ -27,8 +27,8 @@ Wydanie
 ; Release
 ;
 MSG_COPYRIGHT
-Copyright (c) 1995-2023, The AROS Development Team. Wszystkie prawa zastrze¿one.
-; Copyright © 1995-2023, The AROS Development Team. All rights reserved.
+Copyright (C) 1995-2024, The AROS Development Team. Wszystkie prawa zastrze¿one.
+; Copyright \xa9 1995-2024, The AROS Development Team. All rights reserved.
 ;
 MSG_LICENSE_1
 Wydany zgodnie z postanowieniami
@@ -67,7 +67,7 @@ Wsparcie duchowe
 ; Evangelism
 ;
 MSG_SECTION_HIDD
-Podsystem HIDD 
+Podsystem HIDD
 ; HIDD subsystem
 ;
 MSG_SECTION_INTUITION
@@ -137,4 +137,12 @@ Strona internetowa
 MSG_SECTION_DATATYPES
 Datatype'y
 ; Datatypes
+;
+MSG_SECTION_TESTING
+Testowanie
+; Testing
+;
+MSG_BUILD_CPU
+Ta wersja AROS-a zosta³a stworzona dla procesorów %s.
+; This version of AROS has been built for %s processors.
 ;

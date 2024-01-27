@@ -1,22 +1,22 @@
-## version $VER: BoingIconBar.catalog 2.1 (15.06.2017)
+## version $VER: BoingIconBar.catalog 2.1 (15.06.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_APP
-BIBPrefs
+BIB Impostazioni
 ; BIBPrefs
 ;
 MSG_DESCRIPTION
-Preferenze di BoingIconBar
+Impostazioni BoingIconBar
 ; BoingIconBar Preferences
 ;
 MSG_TITLE
-Preferenze di BoingIconBar
+Impostazioni BoingIconBar
 ; BoingIconBar Preferences
 ;
 MSG_DOCK
-\33cDock
+\33cBarra Applicazioni
 ; \33cDock
 ;
 MSG_ADD_DOCK
@@ -32,15 +32,15 @@ Salva
 ; Save
 ;
 MSG_PROGRAMS
-\33cProgrammi
+\33cApplicazioni
 ; \33cPrograms
 ;
 MSG_ADD_P
-Aggiungi programma
+Aggiungi Applicazioni
 ; Add program
 ;
 MSG_DEL_P
-Rimuovi programma
+Rimuovi Applicazione
 ; Del program
 ;
 MSG_OK

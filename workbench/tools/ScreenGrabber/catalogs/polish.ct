@@ -15,7 +15,7 @@ Informacje o ekranie
 ; Screen info
 ;
 MSG_SIZE
-Wielko¶æ
+Rozmiar
 ; Size
 ;
 MSG_TITLE
@@ -55,8 +55,7 @@ MSG_SCREEN_PARM
 ; %d x %d, depth=%d
 ;
 MSG_OVERWRITE
-Plik \"%s\" ju¿ istnieje.\n\
-Czy na pewno chcesz go nadpisaæ?
+Plik '%s' ju¿ istnieje.\nCzy na pewno chcesz go nadpisaæ?
 ; File '%s' already exists.\nDo you really want to overwrite it?
 ;
 MSG_ERROR_TITLE
@@ -80,11 +79,11 @@ Nie mo¿na przydzieliæ pamiêci RAM!
 ; Can't allocate RAM!
 ;
 MSG_ERR_DATATYPEIO
-Zapisywanie \"%s\" zakoñczone b³êdem we/wy %ld!
+Zapisywanie '%s' zakoñczone b³êdem we/wy %ld!
 ; Writing of '%s' failed with IO Error %ld!
 ;
 MSG_ERR_OPENFILE
-Nie mo¿na otworzyæ pliku \"%s\" do zapisu!
+Nie mo¿na otworzyæ pliku '%s' do zapisu!
 ; Can't open file '%s' for output!
 ;
 MSG_ERR_APP

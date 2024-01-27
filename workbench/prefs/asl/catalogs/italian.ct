@@ -1,52 +1,73 @@
-## version $VER: Asl.catalog 1.0 (28.06.2022)
+## version $VER: asl.catalog 2.0 (30.04.2023)
 ## language italiano
 ## codeset 0
-; Authors: Michele Giorato
+; Authors: AMIGASYSTEM
 ;
 MSG_WINDOW_TITLE
-Preferenze di ASL
+ASL Preferenze
+;ASL Preferences
 ;
 MSG_GENERAL
 Generale
+;General
 ;
 MSG_FILEREQUESTER
-Requester dei files
+Richiesta file
+;File Requester
 ;
 MSG_SIZE
-Dimensione (% dell'altezza utile):
+Dimensione:
+;Size:
+;
+MSG_SIZE_WIDTH
+Dimensione (% Largezza):
+;Width (% of visible width):
+;
+MSG_SIZE_HEIGHT
+Dimensione (% Altezza):
+;Height (% of visible height):
 ;
 MSG_OK
 Ok
+; Ok
 ;
 MSG_DRAWERSFIRST
 Mostra prima i cassetti
+;Display drawers first
 ;
 MSG_POSITION
 Posizione
+;Position:
 ;
 MSG_POINTER
-Puntatore del mouse
+Puntatore mouse
+; Mouse pointer
 ;
 MSG_CENTERWIN
-Al centro della finestra
+Centro finestra
+; Center in window
 ;
 MSG_CENTERSCR
-Al centro dello schermo
+Centro schermo
+;Center on screen
 ;
 MSG_TOPLEFTWIN
-In alto a sinistra finestra
+Finestra In alto a sinistra
+;Top left of window
 ;
 MSG_TOPLEFTSCR
-In alto a sinistra schermo
+Schermo In alto a sinistra
+;Top left of screen
 ;
 MSG_OFFSET
 \33bMargini
+;\33bOffset
 ;
 MSG_CANT_OPEN_STREAM
-Can't open IFF stream!
-; Can't open IFF stream!
+Impossibile aprire il flusso IFF!!
+;Can't open IFF stream!
 ;
 MSG_CANT_ALLOCATE_IFFPTR
-Can't allocate IFF handle!
-; Can't allocate IFF handle!
+Imposibile allocare IFF handle!
+;Can't allocate IFF handle!
 ;

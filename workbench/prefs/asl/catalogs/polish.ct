@@ -1,4 +1,4 @@
-## version $VER: Asl.catalog 1.0 (28.06.2022)
+## version $VER: Asl.catalog 2.0 (05.06.2023)
 ## language polski
 ## codeset 5
 ;
@@ -15,12 +15,20 @@ Okno wyboru plików
 ; File Requester
 ;
 MSG_SIZE
-Wielko¶æ (% wysoko¶ci ekranu):
-; Size (% of visible height):
+Rozmiar:
+; Size:
+;
+MSG_SIZE_WIDTH
+Szeroko¶æ (% widocznej szeroko¶ci):
+; Width (% of visible width):
+;
+MSG_SIZE_HEIGHT
+Wysoko¶æ (% widocznej wysoko¶ci):
+; Height (% of visible height):
 ;
 MSG_OK
-Ok
-;  Ok
+OK
+; Ok
 ;
 MSG_DRAWERSFIRST
 Wy¶wietl katalogi na pocz±tku
@@ -31,23 +39,23 @@ Pozycja:
 ; Position:
 ;
 MSG_POINTER
-w/g wska¼nika myszki
+Wg wska¼nika myszki
 ; Mouse pointer
 ;
 MSG_CENTERWIN
-¶rodek okna
+¦rodek okna
 ; Center in window
 ;
 MSG_CENTERSCR
-¶rodek ekranu
+¦rodek ekranu
 ; Center on screen
 ;
 MSG_TOPLEFTWIN
-lewy górny róg okna
+Lewy górny róg okna
 ; Top left of window
 ;
 MSG_TOPLEFTSCR
-lewy górny róg ekranu
+Lewy górny róg ekranu
 ; Top left of screen
 ;
 MSG_OFFSET

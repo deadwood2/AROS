@@ -1,7 +1,7 @@
-## version $VER: wanderer.catalog 3.0 (08.06.2017)
+## version $VER: wanderer.catalog 4.0 (29.04.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_TITLE
 Wanderer
@@ -196,7 +196,7 @@ Apri
 ; Open
 ;
 MSG_MEN_SC_OPEN
-A
+O
 ; O
 ;
 MSG_MEN_RENAME
@@ -284,7 +284,7 @@ Svuota cestino
 ; Empty trash
 ;
 MSG_MEN_PUT_AWAY
-Riponi
+Elimina Collegamento
 ; Put away
 ;
 MSG_MEN_SC_PUT_AWAY
@@ -292,7 +292,7 @@ P
 ; P
 ;
 MSG_MEN_LEAVE_OUT
-Sul desktop
+Collegamento su Wanderer
 ; Leave out
 ;
 MSG_MEN_SC_LEAVE_OUT
@@ -324,23 +324,23 @@ _Sì|Elimina _Tutti|_No|No _Per Tutti
 ; _Yes|Yes to _all|_No|No _to all
 ;
 MSG_REQU_DELETE_DRAWER_S
-Eliminare davvero il cassetto
+Eliminare cassetto
 ; Really delete drawer
 ;
 MSG_REQU_DELETE_DRAWER_E
-?
+Vuoi eliminare cartella?
 ; ?
 ;
 MSG_REQU_DELETE_FILE_S
-Eliminare davvero il file
+Eliminare il file
 ; Really delete file
 ;
 MSG_REQU_DELETE_FILE_M
-contenuto in
+Contenuto in
 ; located in
 ;
 MSG_REQU_DELETE_FILE_E
-?
+Eliminare file?
 ; ?
 ;
 MSG_REQU_OVERWRITE
@@ -348,15 +348,15 @@ Sovrascrivi file ...
 ; Overwrite file...
 ;
 MSG_REQU_OVERWRITE_S
-Sovrascrivere davvero il file
+Sovrascrivere il file
 ; Really overwrite file
 ;
 MSG_REQU_OVERWRITE_M
-contenuto in
+Contenuto in
 ; located in
 ;
 MSG_REQU_OVERWRITE_E
-?
+Sovrascrivere il file?
 ; ?
 ;
 MSG_REQU_OVERWRITE_YESNO
@@ -380,7 +380,7 @@ Liberare il cassetto
 ; Do you wish to unprotect drawer
 ;
 MSG_REQU_PROTECTION_UNPROTECTDRAWER_E
-?
+Sbloccare?
 ; ?
 ;
 MSG_NOFILEACCESS_S
@@ -388,31 +388,31 @@ Impossibile accedere al file
 ; Can't access file
 ;
 MSG_NOFILEACCESS_M
-presente in
+Presente in
 ; located in
 ;
 MSG_NOFILEACCESS_E
- 
-;  
+Impossibile accedere al file 
+; Can't access file 
 ;
 MSG_NODRAWERACCESS_S
 Impossibile accedere al cassetto
 ; Can't access drawer
 ;
 MSG_NODRAWERACCESS_E
- 
+kann nicht zugegriffen werden 
 ;  
 ;
 MSG_REQU_FILEUNPROTECT_S
-Vuoi liberare il file
+Liberare il file
 ; Do you wish to unprotect file
 ;
 MSG_REQU_FILEUNPROTECT_M
-presente in
+Presente in
 ; located in
 ;
 MSG_REQU_FILEUNPROTECT_E
-?
+Sbloccare?
 ; ?
 ;
 MSG_WANDERER_FILEACCESS
@@ -459,6 +459,10 @@ MSG_WANDERER_FILEACCESS_FILETODELETE
 File da eliminare
 ; File to delete
 ;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Elimina file
+; Deleting file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 File elaborati:
 ; Processed files:
@@ -470,4 +474,48 @@ Dimensioni del file corrente:
 MSG_WANDERER_FILEACCESS_TOTAL
 Dimensioni totali:
 ; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Errore durante l'esecuzione di un'operazione sui file
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Impossibile allocare %d byte di memoria
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Errore durante la lettura del file: %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Errore durante la scrittura sul file: %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Impossibile leggere le informazioni blocco file: %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Impossibile creare la directory:: %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Errore durante l'eliminazione del file: %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Impossibile bloccare il percorso: %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Errore visualizzazione directory: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Errore durante lo spostamento del file: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+Errore
+; Errormessage
 ;

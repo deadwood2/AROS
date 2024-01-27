@@ -1,15 +1,15 @@
-## version $VER: wanderer.catalog 1.0 (14.02.2004)
+## version $VER: wanderer.catalog 3.1 (25.04.2023)
 ## language italiano
 ## codeset 0
-;
-; TODO: update me and set version to 2
+; Authors: AMIGASYSTEM
 ;
 MSG_NAME
-Preferenze di Wanderer
+Preferenze Wanderer
+; Wanderer Prefs
 ;
 MSG_DESCRIPTION
-Impostazioni di Wanderer
-;Wanderer preferences
+Impostazioni Wanderer
+; Wanderer preferences
 ;
 MSG_BACKGROUNDS
 Sfondi
@@ -24,85 +24,308 @@ Cassetti
 ; Drawers
 ;
 MSG_SELECT_WORKBENCH_BACKGROUND
-Scegli uno sfondo per il Workbench
+Seleziona sfondo per il Workbench
 ; Select Workbench Background
 ;
 MSG_SELECT_DRAWER_BACKGROUND
-Scegli uno sfondo per i cassetti
+Seleziona sfondo per i cassetti
 ; Select Drawer Background
 ;
 MSG_GENERAL
-Generali
-;General
+Generale
+; General
 ;
 MSG_APPEARANCE
 Aspetto
-;Appearance
+; Appearance
 ;
 MSG_TOOLBAR
-Barra degli strumenti
-;Toolbar
+Barra strumenti
+; Toolbar
 ;
 MSG_CLASSIC
 Classica
-;Classic
+; Classic
 ;
 MSG_ENHANCED
 Moderna
-;Enhanced
+; Enhanced
 ;
 MSG_NAVIGATION
 Navigazione
-;Navigation
+; Navigation
 ;
 MSG_METHOD
 Metodo
-;Method
+; Method
 ;
 MSG_OBJECTS
 Oggetti
+;  Objects
 ;
 MSG_PREVIEW
 Anteprima
+; Preview
 ;
 MSG_TOOLBAR_ENABLED
 Barra strumenti attiva
+; Toolbar Enabled
 ;
 MSG_ICONSPREFS
 Aspetto e comportamento delle icone
+; Icons look and feel
 ;
 MSG_ICONLISTMODE
-Modalità di elencazione
+Modalità elencazione
+; Icon listmode
 ;
 MSG_ICONLISTMODE_PLAIN
 Elenco icone normale
+; List icons plainly
 ;
 MSG_ICONLISTMODE_GRID
 Elenco icone a griglia
+; List icons by grid
 ;
 MSG_ICONTEXTMODE
 Modalità testo
+; Icons text drawmode
 ;
 MSG_ICONTEXTMODE_OUTLINE
 Bordo esterno
+; Outline
 ;
 MSG_ICONTEXTMODE_PLAIN
 Normale
+; Plain
+;
+MSG_ICONTEXTMODE_SHADOW
+Ombreggiatura
+; Drop shadow
 ;
 MSG_ICONTEXTLENGTH
 Lunghezza massima del testo
+; Max icon textlength
 ;
 MSG_DOUBLEBUFFERED
-doppio buffering
+Doppio buffering
+; double buffering
 ;
 MSG_MISC
-miscellanea
+Miscellanea
+; misc
 ;
 MSG_BUBBLESCREENTITLE 
-%pc = Chip Ram\n\
-%pf = Fast Ram\n\
-%os = Versione di AROS\n\
-%wb = Versione di Wanderer\n\
-%ov = Versione esatta di AROS\n\
-%wv = Versione di workbench.library 
+%pc = Memoria Chip libera\n\
+%pf = Memoria Fast libera\n\
+%pt = Memoria libera totale\n\
+%PC = Memia Chip\n\
+%PF = Memoria Fast\n\
+%PT = Memoria RAM totale\n\
+%os = Versione AROS\n\
+%wb = Versione Wanderer\n\
+%ov = Versione esatta AROS\n\
+%wv = Versione esatta workbench.library
+; %pc = Chip Ram libera\n\
+; %pf = Fast Ram libera\n\
+; %pt = Total Ram libera\n\
+; %PC = Chip Ram\n\
+; %PF = Fast Ram\n\
+; %PT = Totale Ram\n\
+; %os = Versione AROS\n\
+; %wb = Versione Wanderer\n\
+; %ov = Exact AROS version\n\
+; %wv = Exact workbench.library version
+;
+MSG_TILEMODE
+Modalità tessera :
+; Tile mode :
+;
+MSG_XOFFSET
+Distanza X :
+; X Offset :
+;
+MSG_YOFFSET
+Distanza Y :
+; Y Offset :
+;
+MSG_ICONLABELFONT
+Font icona testo...
+; Icon Label Font...
+;
+MSG_ICONINFOFONT
+Font icona info...
+; Icon Info Font...
+;
+MSG_HORIZSPACINGICON
+Spaziatura orizzontale tra le icone
+; Horizontal spacing between icons
+;
+MSG_VERTSPACINGICON
+Spaziatura verticale tra le icone
+; Vertical spacing between icons
+;
+MSG_PADDINGICONIMAGELABEL
+Distanza tra la grafica dell'icona e il testo
+; Padding between Icon Image and Label
+;
+MSG_HORIZPADDINGLABELTEXT
+Distanza orizzontale tra cornice testo e il testo
+; Horizontal Padding between Label Frame and Text
+;
+MSG_VERTPADDINGLABELTEXT
+Distanza verticale tra cornice testo e il testo
+; Vertical Padding between Label Frame and Text
+;
+MSG_FRAMEWIDTH
+Larghezza cornice del testo
+; Label Frame Width
+;
+MSG_FRAMEHEIGHT
+Altezza cornice del testo
+; Label Frame Height
+;
+MSG_TILED
+Tessera
+; Tiled
+;
+MSG_SCALED
+Scalare
+; Scaled
+;
+MSG_FLOATING
+Fluttuante
+; Floating
+;
+MSG_FIXED
+Corretta
+; Fixed
+;
+MSG_LABELLINELENGTH
+Max. Lunghezza testo...
+; Max. Label line length...
+;
+MSG_USEMULTILINELABELS
+Usa testo multilinea
+; Use MultiLine Labels
+;
+MSG_SHOWFOCUSEDICON
+Mostra solo per le icone focalizzate
+; Only show for Focus(ed) Icon
+;
+MSG_NDISPLAYLINES
+Numero linee da visualizzare...
+; No. of lines to display...
+;
+MSG_TILEMODEOPTIONS
+Opzioni modalità tessera...
+; Tile Mode Options...
+;
+MSG_SCALEMODEOPTIONS
+Opzioni modalità scalare...
+; Scale Mode Options...
+;
+MSG_ADVANCEDOPTIONS
+Opzioni avanzate...
+; Advanced Options...
+;
+MSG_BACKGROUNDOPTIONS
+Opzioni sfondo...
+; Background Options...
+;
+MSG_DRAWMODE
+Modalità disegno :
+; Draw mode :
+;
+MSG_USERFILEONWB
+Cartella dei file utente su Workbench
+; User Files Folder on Workbench
+;
+MSG_NETWORKONWB
+Browser di rete su Workbench
+; Network Browser on Workbench
+;
+MSG_VIEWSETTINGS
+Impostazioni del display
+; View Settings
+;
+MSG_WANDERERSCREENTITLE
+Titolo schermo Wanderer
+; Wanderer ScreenTitle
+;
+MSG_ADVANCED
+Opzioni avanzate
+; Advanced
+;
+MSG_USE
+_Usa
+; _Use
+;
+MSG_CANCEL
+_Annulla
+; C_ancel
+;
+MSG_LABELSPREFS
+Aspetto testi
+; Labels look and feel
+;
+MSG_ADVANCEDBACKGROUND
+Sfondo
+; Background
+;
+MSG_ADVANCEDICONS
+Icone
+; Icons
+;
+MSG_ADVANCEDLABELS
+Testi
+; Labels
+;
+MSG_ICONSORTMODE_BYNAME
+Per nome
+; By name
+;
+MSG_ICONSORTMODE_BYDATE
+Per data
+; By date
+;
+MSG_ICONSORTMODE_BYSIZE
+Per dimensione
+; By size
+;
+MSG_DEFAULT_ICONSORTMODE
+Ordinamento predefinito
+; Default sort order
+;
+MSG_ICON_AUTOSORT_ENABLED
+Ordinamento automatico
+; Autosorting enabled
+;
+MSG_ICON_DRAG_TRANSPARENT
+Usa la trasparenza quando si trascinano le icone
+; Use transparency when draging icons
+;
+MSG_DEFAULT_ICONVIEWMODE
+Visualizzazione predefinita
+; Default view mode
+;
+MSG_ICONVIEWMODE_ALL
+Tutti i file
+; All files
+;
+MSG_ICONVIEWMODE_ICONS
+Solo icone
+; Icons only
+;
+MSG_ICONDROPMODE
+Copia o sposta file sullo stesso volume
+; Copy of move files placed on same device
+;
+MSG_ICONDROPMODE_MOVE
+Sposta
+; Move
+;
+MSG_ICONDROPMODE_COPY
+Copia
+; Copy
 ;

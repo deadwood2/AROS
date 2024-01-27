@@ -56,15 +56,15 @@ Mysz leworêczna
 ; Left-handed mouse
 ;
 MSG_GAD_MOUSE_SPEED_SLOW
-powolna
+Powolna
 ; Slow
 ;
 MSG_GAD_MOUSE_SPEED_NORMAL
-zwyk³a
+Normalna
 ; Normal
 ;
 MSG_GAD_MOUSE_SPEED_FAST
-szybka
+Szybka
 ; Fast
 ;
 MSG_GAD_KEY_DEF  
@@ -76,7 +76,7 @@ Opcjonalne
 ; Alternate
 ;
 MSG_GAD_KEY_SET
-wybierz
+Wybierz
 ; Set
 ;
 MSG_GAD_KEY_SWITCH

@@ -17,7 +17,7 @@ Przeszukiwanie i zarz±dzanie ACPI
 ;ACPI querying and managment
 ;
 MSG_ERROR_LOCALE
-Nie mo¿na otworzyc lokalizacji
+Nie mo¿na otworzyæ lokalizacji
 ;Can't open locale
 ;
 MSG_ERROR_OK
@@ -29,7 +29,7 @@ B³±d
 ;ERROR
 ;
 MSG_ERROR_NO_ACPI
-Maszyna nie wyposa¿ona w ACPI, lub wsparcie ACPI nie jest aktywne
+Maszyna nie wyposa¿ona w ACPI lub wsparcie ACPI nie jest aktywne
 ;This machine has no ACPI, or ACPI support has been disabled
 ;
 MSG_UNKNOWN
@@ -37,23 +37,23 @@ Nieznana
 ;Unknown
 ;
 MSG_TABLE_SIGNATURE
-Sygnatura tabeli
+Sygnatura tablicy
 ;Table signature
 ;
 MSG_REVISION
-Rewizja
+Numer wydania
 ;Revision
 ;
 MSG_OEM_ID
-Identyfikator dystrybutora
+Identyfikator OEM
 ;OEM ID
 ;
 MSG_OEM_TABLE_ID
-Identyfikator tabeli dystrybutora
+Identyfikator tablicy OEM
 ;OEM Table ID
 ;
 MSG_CREATOR_ID
-Identyfikator producenta
+Identyfikator twórcy
 ;Creator ID
 ;
 MSG_PM_PROFILE
@@ -85,11 +85,11 @@ Polecenie stanu wydajno¶ci procesora
 ;Processor performance state command
 ;
 MSG_FLUSH_SIZE
-Taille du cache CPU
+Rozmiar opró¿niania pamiêci podrêcznej CPU
 ;CPU Cache flush size
 ;
 MSG_FLUSH_STRIDE
-Krok opró¿niania pamiêci podrêcznej procesora
+Krok opró¿niania pamiêci podrêcznej CPU
 ;CPU Cache flush stride
 ;
 MSG_RTC_DAY_ALARM
@@ -101,7 +101,7 @@ Przesuniêcie miesi±ca alarmu RTC
 ;RTC alarm month offset
 ;
 MSG_RTC_CENTURY
-Przesuniêcie RTC w ci±gu wieku 
+Przesuniêcie RTC w ci±gu wieku
 ;RTC century offset
 ;
 MSG_RESET_REG
@@ -129,7 +129,7 @@ Sta³y sprzêt
 ;Fixed hardware
 ;
 MSG_SPACE_OEM
-Przestrzeñ dystrybutora
+Przestrzeñ OEM
 ;OEM space
 ;
 MSG_SPACE_UNKNOWN
@@ -157,7 +157,7 @@ Flagi architektury PC
 ;PC Architecture flags
 ;
 MSG_FF_FLAGS
-Sta³e w³a¶ciwo¶ci 
+Sta³e w³a¶ciwo¶ci
 ;Fixed Feature flags
 ;
 MSG_LAPIC_ADDR
@@ -189,7 +189,7 @@ APIC I/O
 ;I/O APIC
 ;
 MSG_ID
-Identyfikacja
+Identyfikator
 ;ID
 ;
 MSG_ADDRESS
@@ -293,11 +293,11 @@ Lokalny X2APIC
 ;Local X2APIC
 ;
 MSG_X2APIC_ID
-Lokalna identyfikacja X2APIC
+Lokalny identyfikator X2APIC
 ;Local X2APIC ID
 ;
 MSG_CPU_UID
-Identyfikacja procesora ACPI UID
+Identyfikator procesora ACPI UID
 ;ACPI Processor UID
 ;
 MSG_X2APIC_NMI
@@ -313,11 +313,11 @@ Adres RSDP
 ;RSDP address
 ;
 MSG_SYSTEM_OEM_ID
-Identyfikacja dystrybutora systemu
+Identyfikator systemu OEM
 ;System OEM ID
 ;
 MSG_ACPI_REVISION
-Rewizja ACPI
+Numer wydania ACPI
 ;ACPI Revision
 ;
 MSG_HW_REVISION
@@ -357,11 +357,11 @@ Ochrona strony
 ;Page protection
 ;
 MSG_OEM_ATTRS
-Atrybuty dystrybutora
+Atrybuty OEM
 ;OEM Attributes
 ;
 MSG_SHOW_MODE
-Poka¿ :
+Poka¿:
 ;Show:
 ;
 MSG_SAVE_DATA

@@ -1,4 +1,4 @@
-## version $VER: ahiprefs.catalog 4.8 (14.04.2010) C Marcin Or³owski <carlos@wfmh.man.szczecin.pl> mod. Tomasz Paul<forest@aros.org>
+## version $VER: ahiprefs.catalog 4.8 (11.06.2023)
 ## language polski
 ## codeset 5
 ;
@@ -35,55 +35,55 @@ O\000Otwórz...
 ; O\000Open...
 ;
 msgItemSaveAs
-A\000Zapisz jako...
+S\000Zapisz jako...
 ; A\000Save As...
 ;
 msgItemAbout
-?\0O programie...
+?\000O programie...
 ; ?\000About...
 ;
 msgItemQuit
-Q\0Skoñcz
+Q\000Zakoñcz
 ; Q\000Quit
 ;
 msgMenuEdit
-\0Edycja
+\000Edycja
 ; \000Edit
 ;
 msgItemDefaults
-D\0Ustawienia standardowe
+D\000Ustawienia standardowe
 ; D\000Reset To Defaults
 ;
 msgItemLastSaved
-L\0Ustawienia ostatnio zapisane
+L\000Ustawienia ostatnio zapisane
 ; L\000Last Saved
 ;
 msgItemRestore
-R\0Anuluj zmiany ustawieñ
+A\000Anuluj zmiany ustawieñ
 ; R\000Restore
 ;
 msgMenuSettings
-\0Ustawienia
+\000Ustawienia
 ; \000Settings
 ;
 msgItemCreateIcons
-I\0Zapisuj ikonki
+I\000Zapisuj ikonki
 ; I\000Create Icons?
 ;
 msgMenuHelp
-\0Pomoc
+\000Pomoc
 ; \000Help
 ;
 msgItemHelp
-Help\0Pomoc...
+Help\000Pomoc...
 ; Help\000Help...
 ;
 msgItemUsersGuide
-H\0Przewodnik u¿ytkownika...
+H\000Przewodnik u¿ytkownika...
 ; H\000AHI User's guide...
 ;
 msgItemConceptIndex
-\0Indeks...
+\000Indeks...
 ; \000Concept Index...
 ;
 ; *** The pages ***
@@ -109,13 +109,7 @@ Jedn. muzyczna
 ; *** Properties box ***
 ;
 msgProperties
-Tryb\n\
-Zapisywanie\n\
-Autor\n\
-Prawa autorskie\n\
-Sterownik\n\
-Wersja\n\
-Opis
+ID Trybu\nZapisywanie\nAutor\nPrawa autorskie\nSterownik\nWersja\nOpis
 ; Mode ID\nRecording\nAuthor\nCopyright\nDriver\nVersion\nAnnotation
 ;
 msgPropRecordFull
@@ -188,7 +182,7 @@ Ustawienia globalne
 ; Global options
 ;
 msgGlobOptDebugLevel
-_Debug
+Poziom _debugowania
 ; _Debug level
 ;
 msgGlobOptEcho
@@ -260,7 +254,7 @@ Ponie_chaj
 ; _Cancel
 ;
 msgButtonOK
-Ok
+OK
 ; OK
 ;
 ; *** Texts ***
@@ -272,9 +266,9 @@ Preferencje AHI
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nCopyright (C) %s\n\
-Polska wersja jêzykowa\n\
+Polska wersja jêzykowa:\n\
 Marcin Or³owski\n\
-<carlos@inet.com.pl>
+modyfikacje Andrzej Subocz
 ; %s%s\nCopyright ©%s
 ;
 msgTextNoWindow
@@ -282,21 +276,21 @@ Nie mogê otworzyæ okna.
 ; Unable to open window.
 ;
 msgTextNoFileRequester
-Nie mogê zaalokowaæ requestera wyboru plików.
+Nie mogê przydzieliæ requestera wyboru plików.
 ; Unable to allocate file requester.
 ;
 msgTextNoFind
-Nie mogê znale¼æ \"%s\"!
+Nie mogê znale¼æ '%s'!
 ; Unable to find `%s'!
 ;
 msgTextNoOpen
-Nie mogê otworzyæ \"%s\" w wersji %ld.
+Nie mogê otworzyæ '%s' w wersji %ld.
 ; Unable to open `%s´ version %ld.
 ;
 ; *** Additions
 ;
 msgGlobOptMasterVol
-G³o¶no¶æ g³ó_wna
+G³o¶no¶æ g³ów_na
 ; _Master volume
 ;
 msgMVNoClip
@@ -356,6 +350,6 @@ msgACTimeFmt
 ; %ld ms
 ;
 msgPercentFmt
-%ld %%
+%ld%%
 ; %ld%%
 ;

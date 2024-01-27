@@ -147,7 +147,7 @@ obrysowane
 ; outline
 ;
 MSG_TITLE
-Nazwa
+Tytu³
 ; Title
 ;
 MSG_COLOR
@@ -167,7 +167,7 @@ Zarejestruj
 ; Register
 ;
 MSG_DEFAULT_SIZE_TRUNCATE_TITLES
-Skracaj nag³ówki\ndo doomy¶lnej szeroko¶ci
+Skracaj nag³ówki\ndo domy¶lnej szeroko¶ci
 ; Default size truncate titles
 ;
 MSG_NORMAL
@@ -735,7 +735,7 @@ MSG_MEN_ABOUT_SC
 ; ?
 ;
 MSG_MEN_QUIT
-Skoñcz
+Zakoñcz
 ; Quit
 ;
 MSG_MEN_QUIT_SC
@@ -843,7 +843,7 @@ Ikonifikacja
 ; Iconification
 ;
 MSG_HOTKEY
-Klawisz:
+Klawisz skrótu:
 ; Hotkey:
 ;
 MSG_SHOW
@@ -851,11 +851,11 @@ Poka¿:
 ; Show:
 ;
 MSG_ICON
-ikonkê
+Ikonkê
 ; Icon
 ;
 MSG_MENU
-menu
+Menu
 ; Menu
 ;
 MSG_ON_STARTUP

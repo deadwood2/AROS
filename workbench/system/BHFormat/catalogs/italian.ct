@@ -1,0 +1,300 @@
+## version $VER: format.catalog 2.0 (15.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_CANCEL
+Annulla
+; Cancel
+;
+; ===========================================================
+; cli.c
+;
+MSG_INSERT_DISK
+Inserire il disco da formattare nel lettore %s\n\
+Premere RETURN per iniziare formattazione o CTRL+C per bloccare: 
+; Insert disk to be formatted in device %s\n\
+; Press RETURN to begin formatting or CTRL-C to abort: 
+;
+MSG_FORMATTING
+\rFormattazione cilindro %lu, %lu procedere 
+; \rFormatting cylinder %lu, %lu to go
+;
+MSG_VERIFYING
+\rVerifica
+; \rVerifying
+;
+MSG_INITIALIZING
+Inizializzazione disco...\n
+; Initializing disk...\n
+;
+; ===========================================================
+; gui.c
+;
+MSG_SELECTDEVICE
+Scegli Dispositivo Da Formattare
+; Select Device To Format
+;
+MSG_GUI_FORMATTING
+Formattazione disco...
+; Formatting Disk...
+;
+MSG_GUI_INITIALIZING
+Inizializzazione disco...
+; Initializing Disk...
+;
+MSG_IN_DEVICE
+Nel dispositivo %s
+; in device %s
+;
+MSG_FORMAT_REQUEST_TITLE
+Richiesta formattazione
+; Format Request
+;
+MSG_FORMAT_REQUEST_GADGETS
+Formatta|Cancella
+; Format|Cancel
+;
+MSG_FORMAT_REQUEST_TEXT
+Formattare il volume\n\
+%s?\n\n\
+ATTENZIONE!\n\n\
+Tutti i dati saranno distrutti!\n\
+(%s)
+; OK to format volume\n\
+; %s?\n\n\
+; WARNING!\n\n\
+; All data will be lost!\n\
+; (%s)
+;
+MSG_UNITS
+KMGTPE
+; KMGTPE
+; Kilo, Mega ...
+;
+MSG_CAPACITY_USED
+Spazio %lu%lc, %lu%% disponibile
+; %lu%lc spazio, %lu%% utilizzato
+;
+MSG_CAPACITY
+Capacità %lu%lc
+; %lu%lc capacity
+;
+MSG_ERROR_WANDERER
+Deve essere avviato da Wanderer da icona selezionata\n
+; Must be started from Wanderer with a selected icon\n
+;
+MSG_WINDOW_TITLE
+Formatta - %s
+; Format - %s
+;
+MSG_DEVICE
+Dispositivo %s
+; Device '%s'
+;
+MSG_VOLUME
+Volume '%b'
+; Volume '%b'
+;
+MSG_APPLICATION_TITLE
+Formatta
+; Format
+;
+MSG_DESCRIPTION
+Utilità formattazione disco
+; Disk Formatting Utility
+;
+MSG_COPYRIGHT
+Copyright © 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+; Copyright © 1999 Ben Hutchings, 2008 Pavel Fedin, 2008 The AROS Development Team
+;
+MSG_AUTHOR
+Ben Hutchings, Pavel Fedin, The AROS Development Team
+; Ben Hutchings, Pavel Fedin, The AROS Development Team
+;
+MSG_LABEL_CURRENT_INFORMATION
+Informazioni:
+; Current Information:
+;
+MSG_LABEL_NEW_VOLUME_NAME
+Nuovo Nome Volume:
+; New Volume Name:
+;
+MSG_DEFAULT_VOLUME_NAME
+Vuoto
+; Empty
+;
+MSG_LABEL_PUT_TRASHCAN
+Aggiungere cestino:
+; Put Trashcan:
+;
+MSG_LABEL_FFS
+Fast File System :
+; Fast File System:
+;
+MSG_LABEL_INTL
+Modo internazionale:
+; International Mode:
+;
+MSG_LABEL_CACHE
+Directory Cache:
+; Directory Cache:
+;
+MSG_BTN_FORMAT
+Formatta
+; Format
+;
+MSG_BTN_QFORMAT
+Formattazione rapida
+; Quick Format
+;
+MSG_BTN_CANCEL
+Cancella
+; Cancel
+;
+MSG_BTN_STOP
+Blocca
+; Stop
+;
+MSG_ERROR_NO_APPLICATION
+Impossibile creare applicazione\n
+; Can't create application\n
+;
+MSG_ERROR_NO_WINDOW
+Impossibile aprire finestra\n
+; Can't open window\n
+;
+MSG_REQ_ERROR_TITLE
+Errore
+; Error
+;
+; ===========================================================
+; main.c
+;
+MSG_ERRORS_WARNING
+Attenzione
+; Warning
+;
+MSG_ERRORS_ERROR
+Errore
+; Error
+;
+MSG_ERRORS_FAILURE
+Insuccesso
+; Failure
+;
+MSG_FORMAT
+Format 
+;
+MSG_ERROR_INVALID_DOSTYPE
+Specifiche DosType non valide
+; Invalid DosType specification
+;
+MSG_ERROR_TOO_LARGE_1
+Questo dispositivo ha dimensioni superiori a 4GB. Il\
+file system non può gestire un dispositivo così grande.
+; This device is larger than 4 gigabytes in size. The\
+; Amiga file-system cannot handle a device this large.
+;
+MSG_ERROR_TOO_LARGE_2
+Questo dispositivo va oltre i primi 4 gigabyte del disco\
+per potere utilizzare questo disco, è necessario installare\
+la versione 43 o successiva del file system.
+; This device extends beyond the first 4 gigabytes of the\
+; disk it is on.  In order to use it, you must install\
+;
+MSG_ERROR_TOO_LARGE_3
+Questo dispositivo ha una dimensione superiore a 2GB. Per\
+utilizzarlo, è necessario installare la versione 40 o successiva\
+del file system.
+; This device is larger than 2 gigabytes in size. In order to\
+; use it, you must install version 40 or later of the Amiga\
+; file-system.
+;
+MSG_ERROR_TOO_LARGE_4
+Questa periferica è configurata per utilizzare buffer di memoria.\
+Questo potrebbe causare un arresto anomalo se si utilizza\
+un sistema di memoria virtuale. Per evitare questo è necessario\
+aggiungere 1 al parametro BufMemType
+; This device is set to use buffers in memory that may not be\
+;  \"public\". This can cause your computer to crash if you use a\
+;  virtual memory system. You should add 1 to the BufMemType\
+;  setting for this device to avoid this.
+;
+MSG_ERROR_DEVICE
+Il dispositivo aperto ha restituito un errore%ld.
+; Device open returned error %ld
+;
+MSG_ERROR_IDE
+Il dispositivo sembra essere un'unità IDE\
+utilizzando un vecchio driver IDE Commodore\
+potrebbe causare lunghi tempi di trasferimenti dati\
+che in alcune unità IDE non possono essere corrette.\
+Per evitare il rischio di perdita di dati, si consiglia di\
+cambiare le impostazioni del dispositivo\
+e Impostare il MaxTransfer su 0x10000.
+; This device appears to be on an IDE drive\
+;  using an old Commodore IDE driver.  This driver may\
+;  attempt to perform long data transfers that some IDE\
+;  drives do not carry out correctly.  To avoid the risk\
+;  of data loss, you should change this device's\
+;  MaxTransfer setting to 0x10000.
+;
+MSG_ERROR_DEVICE_QUERY
+Il Dispositivo (NSCMD_DEVICEQUERY) ha restituito un errore %ld.
+; Device query (NSCMD_DEVICEQUERY) returned error %ld
+;
+MSG_ERROR_64BIT
+Questo dispositivo si estende oltre i primi 4GB del disco.\
+Per poter utilizzare questo dispositivo, è necessario utilizzare\
+un driver che supporta i comandi NSD a 64 bit o installare\
+ed eseguire l'applicazione NSDPatch.
+; This device extends beyond the first 4 gigabytes of the disk.\
+; In order to use this device, you must either use a driver\
+; that supports the NSD 64-bit commands or install and run the\
+; NSDPatch program.
+;
+MSG_ERROR_DEVICE_RETURN
+Dispositivo %s ha restituito un errore %ld.
+; Device %s returned error %ld
+;
+MSG_ERROR_FLUSH
+flush (CMD_UPDATE)
+; flush (CMD_UPATE)
+;
+MSG_ERROR_INVALIDATE
+invalidato (CMD_CLEAR)
+; invalidate (CMD_CLEAR)
+;
+MSG_ERROR_VERIFY
+Verifica errori
+;Verify error
+;
+MSG_COMMAND_FORMAT64
+Formatta (NSCMD_TD_FORMAT64)
+; format (NSCMD_TD_FORMAT64)
+;
+MSG_COMMAND_FORMAT
+Formatta (TD_FORMAT)
+; format (TD_FORMAT)
+;
+MSG_COMMAND_READ64
+Lettura (NSCMD_TD_READ64)
+; read (NSCMD_TD_READ64)
+;
+MSG_COMMAND_READ
+lettura (CMD_READ)
+; read (CMD_READ)
+;
+MSG_ERROR_TRASHCAN
+Impossibile creare un cestino sul volume\n%s
+; Couldn't create trashcan on volume\n%s
+;
+MSG_ERROR_ICON
+Impossibile creare un'icona disco sul volume\n%s
+;Couldn't create disk icon on volume\n%s
+;

@@ -1,4 +1,4 @@
-## version $VER: palette.catalog 2.0 (08.01.2021)
+## version $VER: palette.catalog 2.1 (03.05.2023)
 ## language español
 ## codeset 0
 ;
@@ -11,34 +11,58 @@ Ok
 ; Ok
 ;
 MSG_PEN0
-Pincel 0
-; Pen 0
+Pincel detalle
+; Detail Pen
 ;
 MSG_PEN1
-Pincel 1
-; Pen 1
+Pincel bloque
+; Block Pen
 ;
 MSG_PEN2
-Pincel 2
-; Pen 2
+Pincel texto
+; Text Pen
 ;
 MSG_PEN3
-Pincel 3
-; Pen 3
+Pincel resaltador
+; Shine Pen
 ;
 MSG_PEN4
-Pincel 4
-; Pen 4
+Pincel sombra
+; Shadow Pen
 ;
 MSG_PEN5
-Pincel 5
-; Pen 5
+Pincel relleno
+; Fill Pen
 ;
 MSG_PEN6
-Pincel 6
-; Pen 6
+Pincel relleno texto
+; Fill Text Pen
 ;
 MSG_PEN7
-Pincel 7
-; Pen 7
+Pincel fondo
+; Background Pen
+;
+MSG_PEN8
+Pincel resaltador texto
+; Highlight Text Pen
+;
+MSG_PEN9
+Pincel barra detalle
+; Bar Detail Pen
+;
+MSG_PEN10
+Pincel barra bloque 
+; Bar Block Pen
+;
+MSG_PEN11
+Pincel barra recortada
+; Bar Trim Pen
+;
+MSG_4COLOR
+Ajustes 4 colores
+; 4 Color Settings
+;
+MSG_MULTICOLOR
+Ajustes multicolor
+; Multicolor Settings
 ;

@@ -1,4 +1,4 @@
-## version $VER: Commodities.catalog 3.0 (18.01.2021)
+## version $VER: Commodities.catalog 3.1 (19.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -48,7 +48,7 @@ MSG_CANT_CREATE_MSGPORT
 ; Can't create message port!\n
 ;
 MSG_CANT_ALLOCATE_SIGNAL
-No puedo asignar la señal!\n
+¡No puedo asignar la señal!\n
 ; Can't allocate signal!\n
 ;
 MSG_CANT_CREATE_BROKER
@@ -160,7 +160,7 @@ Traer al primer plano con un click
 ; OPAQUE
 ;
 MSG_OPAQUE_CXNAME
-Opaque
+Opaco
 ; Opaque
 ;
 MSG_OPAQUE_CXTITLE
@@ -209,7 +209,7 @@ FKey
 ; FKey
 ;
 MSG_FKEY_CXTITLE
-Asigna funciones a teclas
+Funciones a teclas:
 ; Function To Keys:
 ;
 MSG_FKEY_CXDESCR
@@ -241,7 +241,7 @@ Comando
 ; Command
 ;
 MSG_FKEY_COMMAND_PARAMS
-Parametros del comando
+Parámetros del comando
 ; Command Parameters
 ;
 MSG_FKEY_CMD_CYCLE_WIN
@@ -326,7 +326,7 @@ Entrada de caracteres por número
 ; Character input by number
 ;
 MSG_ALTKEYQ_CXDESCR
-USo de tecla Alt como en MS-DOS
+Uso de tecla Alt como en MS-DOS
 ; MS-DOS Style Alt key usage
 ;
 ; ===============================================

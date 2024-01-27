@@ -1,4 +1,4 @@
-## version $VER: pcitool.catalog 1.0 (29.04.2010)
+## version $VER: pcitool.catalog 2.0 (22.05.2023)
 ## codeset 5
 ## language polski
 ;
@@ -165,4 +165,20 @@ Zapisz kompletne informacje o urz±dzeniach PCI do RAM dysku
 MSG_UNUSED
 -- nieu¿ywane ---
 ; --unused--
+;
+MSG_IO_BASE
+Adres bazowy I/O:
+; I/O base:
+;
+MSG_OWNER
+U¿ywane przez:
+; Used by:
+;
+MSG_PCIE_DEVICE_INFO
+Informacje o urz±dzeniu PCIe
+; PCIe device info
+;
+MSG_PCIE_SERIAL_NUMBER
+Numer seryjny PCIe
+; PCIe Serial Number
 ;

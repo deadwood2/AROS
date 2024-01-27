@@ -1,34 +1,39 @@
-## version $VER: wanderer.catalog 1.0 (30.09.2007)
+## version $VER: wanderer.catalog 4.0 (21.04.2023)
 ## language español
 ## codeset 0
 ;
-; Translated by ahg
 ;
 MSG_TITLE
 Wanderer
+; Wanderer
 ;
 MSG_DESCRIPTION
-Administrador de Archivos
-; File Manager
+Administrador de Ficheros
+; File manager
 ;
 MSG_SCREENTITLE
-Wanderer: Memoria Gráfica %s | Otra Memoria %s
+Wanderer %s memoria gráfica %s otra memoria
 ; Wanderer %s graphics mem %s other mem
 ;
 MSG_MEM_B
 B
+; B
 ;
 MSG_MEM_K
 K
+; K
 ;
 MSG_MEM_M
 M
+; M
 ;
 MSG_MEM_G
 G
+; G
 ;
 MSG_MEN_WANDERER
 Wanderer
+; Wanderer
 ;
 MSG_MEN_BACKDROP
 Telón de fondo
@@ -36,6 +41,7 @@ Telón de fondo
 ;
 MSG_MEN_SC_BACKDROP
 B
+; B
 ;
 MSG_MEN_EXECUTE
 Ejecutar...
@@ -43,19 +49,22 @@ Ejecutar...
 ;
 MSG_MEN_SC_EXECUTE
 E
+; E
 ;
 MSG_MEN_SHELL
-Shell...
+Shell
+; Shell
 ;
 MSG_MEN_SC_SHELL
 W
+; W
 ;
 MSG_MEN_GUISET
-Configs. de la GUI
-; GUI Settings...
+Config. de la GUI
+; GUI settings...
 ;
 MSG_MEN_ABOUT
-Acerca de ...
+Acerca de...
 ; About...
 ;
 MSG_MEN_QUIT
@@ -64,21 +73,23 @@ Salir...
 ;
 MSG_MEN_SC_QUIT
 Q
+; Q
 ;
 MSG_MEN_WINDOW
 Ventana
 ; Window
 ;
 MSG_MEN_NEWDRAW
-Nuevo Cajón...
-; New Drawer...
+Cajón Nuevo...
+; New drawer...
 ;
 MSG_MEN_SC_NEWDRAW
 N
+; N
 ;
 MSG_MEN_OPENPAR
 Abrir el Anterior
-; Open Parent
+; Open parent
 ;
 MSG_MEN_CLOSE
 Cerrar
@@ -86,27 +97,30 @@ Cerrar
 ;
 MSG_MEN_SC_CLOSE
 K
+; K
 ;
 MSG_MEN_UPDATE
 Actualizar
 ; Update
 ;
 MSG_MEN_CONTENTS
-Elegir Contenidos
-; Select Contents
+Seleccionar contenidos
+; Select contents
 ;
 MSG_MEN_SC_CONTENTS
 A
+; A
 ;
 MSG_MEN_CLRSEL
-Borrar la elección
+Deseleccionar
 ; Clear selection
 ;
 MSG_MEN_SC_CLRSEL
 Z
+; Z
 ;
 MSG_MEN_SNAPSHT
-Instantánea
+Congelar
 ; Snapshot
 ;
 MSG_MEN_ALL
@@ -118,13 +132,11 @@ Ver
 ; View
 ;
 MSG_MEN_ICVIEW
-Ver como íconos
-; Vista con íconos
-;Icon view
+Ver como iconos
+; Icon view
 ;
 MSG_MEN_DCVIEW
 Ver con detalles
-; Vista con detalles
 ; Detail view
 ;
 MSG_MEN_ALLFIL
@@ -133,15 +145,15 @@ Todos los archivos
 ;
 MSG_MEN_SORTIC
 Ordenar
-; Ordenado
-;Sorted
+; Sort
 ;
 MSG_MEN_CLNUP
 Limpiar
-; Clean Up
+; Clean up
 ;
 MSG_MEN_SC_CLNUP
-U
+.
+; .
 ;
 MSG_MEN_BYNAME
 Por nombre
@@ -149,11 +161,15 @@ Por nombre
 ;
 MSG_MEN_BYDATE
 Por fecha
-; By Date
+; By date
 ;
 MSG_MEN_BYSIZE
 Por tamaño
 ; By size
+;
+MSG_MEN_BYTYPE
+Por tipo
+; By type
 ;
 MSG_MEN_REVERSE
 Revertir
@@ -164,7 +180,7 @@ Primero los cajones
 ; Drawers first
 ;
 MSG_MEN_ICON
-Ícono
+Icono
 ; Icon
 ;
 MSG_MEN_FIND
@@ -181,6 +197,7 @@ Abrir
 ;
 MSG_MEN_SC_OPEN
 O
+; O
 ;
 MSG_MEN_RENAME
 Renombrar...
@@ -188,6 +205,7 @@ Renombrar...
 ;
 MSG_MEN_SC_RENAME
 R
+; R
 ;
 MSG_MEN_INFO
 Información...
@@ -195,17 +213,30 @@ Información...
 ;
 MSG_MEN_SC_INFO
 I
+; I
 ;
 MSG_MEN_DELETE
 Borrar...
 ; Delete...
 ;
-MSG_MEN_TOOLS 
+MSG_MEN_TOOLS
 Herramientas
 ; Tools
 ;
+MSG_MEN_ICONSORTING
+Ordenado automático de Iconos
+; Enable Automatic Icon Sorting
+;
+MSG_MEN_GROUPICONS
+Agrupar iconos
+; Group Icons
+;
+MSG_MEN_ICONSCLOSE
+Cerrar
+; Close
+;
 MSG_REALLYQUIT
-¿Quieres salir del Wanderer?
+¿Quieres salir de Wanderer?
 ; Do you really want to quit Wanderer?
 ;
 MSG_YESNO
@@ -214,8 +245,274 @@ MSG_YESNO
 ;
 MSG_DUMMY
 DUMMY
+; DUMMY
 ; DUMMY :)
 MSG_USERSCREENTITLE
-Wanderer: Memoria Gráfica %pc - Otra memoria %f
+Wanderer %pc Memoria Gráfica %pf otra memoria
 ; Wanderer %pc graphics mem %pf other mem
 ;
+MSG_MEN_FORMAT
+Formatear disco...
+; Format disk...
+;
+MSG_MEN_SHUTDOWN
+Apagar...
+; Shut down...
+;
+MSG_SHUTDOWN_TITLE
+Apagar el sistema
+; System shutdown
+;
+MSG_SHUTDOWN_BODY
+¿Que deseas hacer?
+; What would you like to do?
+;
+MSG_SHUTDOWN_BUTTONS
+Apagar|Reiniciar sistema|Reiniciar AROS|*Cancelar
+; Power Off|Restart Computer|Restart AROS|*Cancel
+;
+MSG_ACTION_NOT_SUPPORTED
+Tu sistema no permite la acción seleccionada
+; The selected action is not supported by your system.
+;
+MSG_OK
+Ok
+; *OK
+;
+MSG_EMPTY_TRASH
+Vaciar la papelera
+; Empty trash
+;
+MSG_MEN_PUT_AWAY
+Quitar
+; Put away
+;
+MSG_MEN_SC_PUT_AWAY
+P
+; P
+;
+MSG_MEN_LEAVE_OUT
+Dejar Fuera
+; Leave out
+;
+MSG_MEN_SC_LEAVE_OUT
+L
+; L
+;
+MSG_MEN_UNSNAPSHOT
+Descongelar
+; Unsnapshot
+;
+MSG_MEN_SC_UNSNAPSHOT
+U
+; U
+;
+MSG_MEN_SNAPSHOT
+Congelar
+; Snapshot
+;
+MSG_MEN_SC_SNAPSHOT
+S
+; S
+;
+MSG_REQU_DELETE
+Borrar Fichero...
+; Delete file...
+;
+MSG_REQU_DELETE_YESNO
+_Si|Si a _todo|_No|No _a todo
+; _Yes|Yes to _all|_No|No _to all
+;
+MSG_REQU_DELETE_DRAWER_S
+Seguro que quieres borrar el Cajón
+; Really delete drawer
+;
+MSG_REQU_DELETE_DRAWER_E
+?
+; ?
+;
+MSG_REQU_DELETE_FILE_S
+Seguro que quieres borrar el fichero
+; Really delete file
+;
+MSG_REQU_DELETE_FILE_M
+en
+; located in
+;
+MSG_REQU_DELETE_FILE_E
+?
+; ?
+;
+MSG_REQU_OVERWRITE
+Sobreescribir...
+; Overwrite file...
+;
+MSG_REQU_OVERWRITE_S
+Seguro que quieres sobreescribir el fichero
+; Really overwrite file
+;
+MSG_REQU_OVERWRITE_M
+en
+; located in
+;
+MSG_REQU_OVERWRITE_E
+?
+; ?
+;
+MSG_REQU_OVERWRITE_YESNO
+_Sobreescribir|Sobreescribir _todos|_No|No _a todos
+; _Overwrite|Overwrite _all|_No|No _to all
+;
+MSG_REQU_OVERWRITE_SKIPABORT
+_Saltar|_Abortar
+; _Skip|_Abort
+;
+MSG_REQU_PROTECTION
+Protección de fichero
+; File Protection
+;
+MSG_REQU_PROTECTION_UNPROTECT
+_Desproteger|Desproteger _todos|_No|No _a todos
+; _Unprotect|Unprotect _All|_No|No _to ALL
+;
+MSG_REQU_PROTECTION_UNPROTECTDRAWER_S
+Quieres desproteger el cajón
+; Do you wish to unprotect drawer
+;
+MSG_REQU_PROTECTION_UNPROTECTDRAWER_E
+?
+; ?
+;
+MSG_NOFILEACCESS_S
+No se puede acceder al fichero
+; Can't access file
+;
+MSG_NOFILEACCESS_M
+en
+; located in
+;
+MSG_NOFILEACCESS_E
+? 
+;
+MSG_NODRAWERACCESS_S
+No se puede acceder al cajón
+; Can't access drawer
+;
+MSG_NODRAWERACCESS_E
+?  
+;
+MSG_REQU_FILEUNPROTECT_S
+Quieres desproteger el fichero
+; Do you wish to unprotect file
+;
+MSG_REQU_FILEUNPROTECT_M
+en
+; located in
+;
+MSG_REQU_FILEUNPROTECT_E
+?
+; ?
+;
+MSG_WANDERER_FILEACCESS
+Acceso de ficheros de Wanderer
+; Wanderer file access
+;
+MSG_WANDERER_FILEACCESS_PROCESSING
+Procesando...
+; Processing...
+;
+MSG_WANDERER_FILEACCESS_STOP
+Parar
+; Stop
+;
+MSG_WANDERER_FILEACCESS_MOVEFROM
+Mover desde
+; Move from
+;
+MSG_WANDERER_FILEACCESS_MOVETO
+Mover a
+; Move to
+;
+MSG_WANDERER_FILEACCESS_COPYFROM
+Copiar desde
+; Copy from
+;
+MSG_WANDERER_FILEACCESS_COPYTO
+Copiar a
+; Copy to
+;
+MSG_WANDERER_FILEACCESS_FILE
+Fichero
+; File
+;
+MSG_WANDERER_FILEACCESS_TRAFFIC
+Tasa de transferencia
+; Data transfer rate
+;
+MSG_WANDERER_FILEACCESS_DELETEFROM
+Borrar del cajón
+; Delete from drawer
+;
+MSG_WANDERER_FILEACCESS_FILETODELETE
+Fichero a borrar
+; File to delete
+;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Borrando fichero
+; Deleting file
+;
+MSG_WANDERER_FILEACCESS_NOOFFILES
+Ficheros procesados:
+; Processed files:
+;
+MSG_WANDERER_FILEACCESS_ACTUAL
+Tamaño del fichero actual:
+; Size of current file:
+;
+MSG_WANDERER_FILEACCESS_TOTAL
+Tamaño total:
+; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Error durante la operación
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Fallo al asignar %d bytes de memoria
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Error mientras se leía el fichero: %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Error mientras se escribía al fichero: %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Fallo al leer el bloque de información del fichero: %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Fallo al crear el directorio: %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Fallo al borrar el fichero: %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Fallo al bloquear el camino: %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Error leyendo el directorio: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Error moviendo el fichero: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+Mensajedeerror
+; Errormessage

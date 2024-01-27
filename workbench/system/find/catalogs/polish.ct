@@ -1,4 +1,4 @@
-## version $VER: Find.catalog 1.0 (29.09.2016)
+## version $VER: Find.catalog 1.2 (01.06.2023)
 ## language polski
 ## codeset 5
 ;
@@ -11,7 +11,7 @@ Wyszukiwarka
 ; File search tool
 ;
 MSG_APP_COPYRIGHT
-Copyright \xa9 2016 The AROS Development Team
+Copyright (C) 2016 The AROS Development Team
 ; Copyright \xa9 2016 The AROS Development Team
 ;
 MSG_WI_TITLE
@@ -19,7 +19,7 @@ Find
 ; Find
 ;
 MSG_OK
-Ok
+OK
 ; OK
 ;
 MSG_LST_FULLPATH
@@ -93,25 +93,25 @@ Nie mo¿na odczytaæ argumentów wiersza poleceñ.
 ; Can't read commandline arguments.
 ;
 MSG_ERR_NO_MEM
-Chyba:\nNie mo¿na zalokowac pamiêci.
+B³±d:\nNie mo¿na przydzieliæ pamiêci.
 ; Error:\nCan't allocate memory.
 ;
 MSG_ERR_NO_WINDOW
-Chyba:\nNie mo¿na otworzyæ okna.
+B³±d:\nNie mo¿na otworzyæ okna.
 ; Error:\nCan't open window.
 ;
 MSG_ERR_DOS
-Chyba DOS:\n%s
+B³±d DOS:\n%s
 ; DOS Error:\n%s
 ;
 MSG_ERR_NO_FILE
-Chyba:\nNie mo¿na otworzyæ pliku\n\"%s\".
+B³±d:\nNie mo¿na otworzyæ pliku\n\"%s\".
 ; Error:\nCan't open file\n\"%s\".
 ;
 MSG_ERR_NO_DIR
-Chyba:\nNie mo¿na otworzyæ szuflady\n\"%s\".
+B³±d:\nNie mo¿na otworzyæ szuflady\n\"%s\".
 ; Error:\nCan't open directory\n\"%s\".
 ;
 MSG_ERR_PATTERN
-Chyba:\nNie mo¿na przeanalizowaæ wzoru.
+B³±d:\nNie mo¿na przeanalizowaæ wzoru.
 ; Error:\nCan't parse pattern.

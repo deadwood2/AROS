@@ -1,4 +1,4 @@
-## version $VER: SysMon.catalog 1.0 (18.01.2021)
+## version $VER: SysMon.catalog 1.1 (02.05.2023)
 ## language español
 ## codeset 0
 ;
@@ -72,7 +72,7 @@ Sistema
 ; System
 ;
 MSG_MEMORY_SIZE
-TamaÃ±o de memoria
+Tamaño de memoria
 ; Memory Size
 ;
 MSG_MEMORY_FREE
@@ -80,7 +80,7 @@ Memoria libre
 ; Memory Free
 ;
 MSG_VIDEO_SIZE
-TamaÃ±o de video
+Tamaño de video
 ; Video Size
 ;
 MSG_VIDEO_FREE
@@ -156,10 +156,10 @@ Medidor
 ; Gauge
 ;
 MSG_GRAPH
-Grafico
+Gráfico
 ; Graph
 ;
 MSG_GRAPH_PER_PROC
-Grafico por procesador
+Gráfico por procesador
 ; Graph Per Processor
 ;

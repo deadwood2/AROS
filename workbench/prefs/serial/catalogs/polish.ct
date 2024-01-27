@@ -47,7 +47,7 @@ A\0Zapisz jako...
 ; A\0Save As...
 ;
 MSG_MEN_PROJECT_QUIT
-Q\0Skoñcz
+Q\0Zakoñcz
 ; Q\0Quit
 ;
 MSG_MEN_EDIT
@@ -71,7 +71,7 @@ Ustawienia
 ; Settings
 ;
 MSG_MEN_SETTINGS_CREATEICONS
-I\0Twórz ikony
+I\0Twórzyæ ikony?
 ; I\0Create Icons?
 ;
 MSG_ASL_OPEN_TITLE
@@ -123,22 +123,22 @@ Wielko¶æ bufora wyj¶cia
 ; Output Buffer Size
 ;
 MSG_PARITY_NONE
-brak
+Brak
 ; None
 ;
 MSG_PARITY_EVEN
-parzyste
+Parzyste
 ; Even
 ;
 MSG_PARITY_ODD
-nieparzyste
+Nieparzyste
 ; Odd
 ;
 MSG_PARITY_MARK
-znacznik
+Znacznik
 ; Mark
 ;
 MSG_PARITY_SPACE
-odstêp
+Odstêp
 ; Space
 ;

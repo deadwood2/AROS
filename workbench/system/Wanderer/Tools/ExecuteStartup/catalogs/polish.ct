@@ -12,7 +12,7 @@ Ostrze¿enie
 ; Warning
 ;
 MSG_OK
-Ok
+OK
 ; OK
 ;
 MSG_ERROR_GETDISKOBJECT
@@ -32,7 +32,7 @@ ExecuteStartup\nB³±d %ld wyst±pi³ podczas skanowania katalogu
 ; ExecuteStartup\nError %ld occured while scanning directory
 ;
 MSG_ERROR_ANCHORPATH
-ExecuteStartup\nNiedostatek pamiêci dla pro AnchorPath
+ExecuteStartup\nNiedostatek pamiêci dla AnchorPath
 ; ExecuteStartup\nOut of memory for AnchorPath
 ;
 MSG_ERROR_FILEINFOBLOCK
@@ -44,7 +44,7 @@ ExecuteStartup\nNie mo¿na utworzyæ bloku pamiêci
 ; ExecuteStartup\nCouldn't create pool memory
 ;
 MSG_ERROR_EXAMINE
-ExecuteStartup\nNie mo¿na zbadaæ
+ExecuteStartup\nNie mo¿na zbadaæ 
 ; ExecuteStartup\nCouldn't examine 
 ;Note final space!
 MSG_WARNING_OPENWBOBJECT

@@ -1,4 +1,4 @@
-## version $VER: SysExplorer.catalog 2.0 (18.01.2021)
+## version $VER: SysExplorer.catalog 2.1 (19.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -12,7 +12,7 @@ Explorador del sistema
 ; System Explorer
 ;
 MSG_DESCRIPTION
-Herramienta de informacion del sistema y hardware
+Herramienta de información del sistema y hardware
 ; System and hardware information tool
 ;
 MSG_MENU_PROJECT
@@ -80,7 +80,7 @@ Boot loader
 ; Boot loader
 ;
 MSG_ARGUMENTS
-Parametros de inicio
+Parámetros de inicio
 ; Boot Arguments
 ;
 MSG_AVAILABLE
@@ -140,11 +140,11 @@ Cable 80 hilos
 ; 80-wire cable
 ;
 MSG_ATA_UNIT_PROPERTIES
-Popiedades periferico IDE
+Propiedades periférico IDE
 ; IDE device properties
 ;
 MSG_UNIT_NUMBER
-Numero de unidad
+Número de unidad
 ; Unit number
 ;
 MSG_MODEL

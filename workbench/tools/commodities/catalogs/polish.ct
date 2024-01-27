@@ -87,7 +87,7 @@ Exchange
 ; Commodities Exchange
 ;
 MSG_EXCHANGE_CXDESCR
-Mened¿er programów typu commodity.
+Mened¿er programów typu commodity
 ; Controls system commodities
 ;
 MSG_EXCHANGE_WINTITLE
@@ -143,7 +143,7 @@ ClickToFront
 ; Click To Front Utility
 ;
 MSG_CLICK2FNT_CXDESCR
-Klikniêcie przenosi okienka do przodu.
+Klikniêcie przenosi okienka do przodu
 ; Click windows to front
 ;
 MSG_OPAQUE_CXNAME
@@ -167,7 +167,7 @@ Automatyczny aktywator okienek
 ; Autopointer
 ;
 MSG_AUTOPOINT_CXDESCR
-Aktywuje okno pod wska¼nikiem myszki.
+Aktywuje okno pod wska¼nikiem myszki
 ; Activates the window under the mouse
 ;
 MSG_STARTMENU_CXNAME
@@ -179,7 +179,7 @@ Systemowe menu start
 ; System Program Starter
 ;
 MSG_STARTMENU_CXDESCR
-Program uruchoamiaj±cy inne programy.
+Program uruchamiaj±cy inne programy
 ; Program launch commodity
 ;
 MSG_FKEY_CXNAME
@@ -191,7 +191,7 @@ Funkcje klawiszy:
 ; Function To Keys:
 ;
 MSG_FKEY_CXDESCR
-Dodaje specjalne funkcje klawiszom.
+Dodaje specjalne funkcje klawiszom
 ; Attach special functions to keys
 ;
 MSG_FKEY_WINTITLE
@@ -271,7 +271,7 @@ NoCapsLock:
 ; NoCapsLock:
 ;
 MSG_NOCAPSLOCK_CXDESCR
-Dezaktywuje klawisz CapsLock.
+Dezaktywuje klawisz CapsLock
 ; Renders the CAPS LOCK key ineffective
 ;
 MSG_DEPTHMENU_CXNAME
@@ -279,11 +279,11 @@ DepthMenu
 ; DepthMenu
 ;
 MSG_DEPTHMENU_CXTITLE
-SepthMenu:
+DepthMenu:
 ; DepthMenu:
 ;
 MSG_DEPTHMENU_CXDESCR
-Menu podrêczne ga gad¿ecie g³êbii.
+Menu podrêczne na gad¿ecie g³êbii
 ; Popup menu for depth gadgets
 ;
 MSG_ALTKEYQ_CXNAME
@@ -295,7 +295,7 @@ Wprowadzanie znaków przy pomocy cyfr
 ; Character input by number
 ;
 MSG_ALTKEYQ_CXDESCR
-U¿ywanie klawisza Alt w stylu MS-DOS.
+U¿ywanie klawisza Alt w stylu MS-DOS
 ; MS-DOS Style Alt key usage
 ;
 MSG_ASCIITABLE_CXNAME
@@ -307,7 +307,7 @@ ASCIITable:
 ; ASCIITable:
 ;
 MSG_ASCIITABLE_CXDESCR
-Wybiera klawisze z GUI.
+Wybiera klawisze z GUI
 ; Select keys from a GUI
 ;
 MSG_ASCIITABLE_WINTITLE

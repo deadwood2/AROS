@@ -1,4 +1,4 @@
-## version $VER: MUI.MiamiPanel.catalog 1.0 (29.01.2021)
+## version $VER: MUI.MiamiPanel.catalog 1.1 (14.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -56,7 +56,7 @@ T\0Salir
 ; Use the same shortcut of MSG_Button_Quit
 ;
 MSG_Menu_Prefs
-Preferences
+Preferencias
 ; Preferences
 ;
 MSG_Menu_Edit
@@ -162,7 +162,7 @@ Velocidad:
 ; Speed:
 ;
 MSG_IF_Title_Traffic
-Traffico:
+Tráfico:
 ; Traffic:
 ;
 MSG_IF_Button_Online
@@ -178,7 +178,7 @@ Pasando a online...
 ; Going online...
 ;
 MSG_IF_Status_GoingOffline
-PAsando a offline...
+Pasando a offline...
 ; Going offline...
 ;
 MSG_IF_Status_Suspending
@@ -273,7 +273,7 @@ _Grupo
 ;
 MSG_Prefs_IF_Traffic_Grouping_Help
 Seleccionado se agrupan\n\
-los digitos del tráfico.
+los dígitos del tráfico.
 ; If selected, traffic\n\
 ; digits are grouped.
 ;
@@ -469,7 +469,7 @@ Ic_onificar
 MSG_Prefs_OnIconify_Help
 Acción al iconificar:\n\
 Salir - salir del panel\n\
-Ocltar - iconificar el panel
+Ocultar - iconificar el panel
 ; Action to take on iconify:\n\
 ; Quit - quit the panel\n\
 ; Hide - iconify the panel

@@ -1,9 +1,13 @@
-## version $VER: executecommand.catalog 1.1 (13.08.2003)
+## version $VER: executecommand.catalog 2.0 (15.05.2023)
 ## language italiano
 ## codeset 0
-;
+; Authors: AMIGASYSTEM
 ;
 MSG_TITLE
+Esegui
+; Execute Command
+;
+MSG_DESCRIPTION
 Esegui comando
 ; Execute Command
 ;
@@ -32,7 +36,7 @@ MSG_ERROR_OK
 ; *OK
 ;
 MSG_ERROR_LOCALE
-Impossibile inizializzare locale.
+Impossibile localizzare.
 ; Can't initialize locale.
 ;
 MSG_ERROR_CLASSES
@@ -40,7 +44,7 @@ Impossibile inizializzare classi.
 ; Can't initialize classes.
 ;
 MSG_ERROR_OPEN_CONSOLE
-Impossibile aprire la console di comando.
+Impossibile aprire console comando.
 ; Can't open console window.
 ;
 MSG_ERROR_EXECUTE

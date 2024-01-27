@@ -1,4 +1,4 @@
-## version $VER: diskinfo.catalog 2.0 (03.01.2021)
+## version $VER: diskinfo.catalog 2.1 (19.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -75,7 +75,7 @@ Estado
 ; Status
 ;
 MSG_READABLE
-Leible
+Leíble
 ; Readable
 ;
 MSG_READABLE_WRITABLE
@@ -107,10 +107,10 @@ Sistema de ficheros:
 ; FileSystem:
 ;
 MSG_PACKETDEVICE
-periferico tipo Paquete
+Periférico tipo paquete
 ; Packet Style device
 ;
 MSG_IOFSDEVICE
-Periferico tipo IOFS
+Periférico tipo IOFS
 ; IOFS Style device
 ;

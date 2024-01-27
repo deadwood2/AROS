@@ -3,7 +3,7 @@
 ## language polski
 ;
 MSG_NAME
-Ustawienia rozdzielczosci ekranu
+Ustawienia rozdzielczo¶ci ekranu
 ; ScreenMode Preferences
 ;
 MSG_WIDTH
@@ -43,15 +43,15 @@ Informacje o trybie
 ; Mode Attributes
 ;
 MSG_VISIBLE_SIZE
-Wielko¶æ widoczna
+Rozmiar widoczny
 ; Visible Size
 ;
 MSG_MINIMUM_SIZE
-Wielko¶æ minimalna
+Rozmiar minimalny
 ; Minimum Size
 ;
 MSG_MAXIMUM_SIZE
-Wielko¶æ maksymalna
+Rozmiar maksymalny
 ; Maximum Size
 ;
 MSG_MAXIMUM_COLORS

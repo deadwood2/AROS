@@ -1,4 +1,4 @@
-## version $VER: find.catalog 1.0 (05.01.2021)
+## version $VER: find.catalog 1.1 (19.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -7,7 +7,7 @@ Find
 ; Find
 ;
 MSG_APP_DESCRIPTION
-Herramienta de busqueda de ficheros
+Herramienta de búsqueda de ficheros
 ; File search tool
 ;
 MSG_APP_COPYRIGHT
@@ -15,7 +15,7 @@ Copyright \xa9 2016 The AROS Development Team
 ; Copyright \xa9 2016 The AROS Development Team
 ;
 MSG_WI_TITLE
-Find
+Buscar
 ; Find
 ;
 MSG_OK
@@ -51,7 +51,7 @@ Ruta
 ; Path
 ;
 MSG_LBL_PATTERN
-Patron
+Patrón
 ; Pattern
 ;
 MSG_LBL_CONTENTS
@@ -85,7 +85,7 @@ Error
 ; Error
 ;
 MSG_ERR_NO_APPLICATION
-No puedo crear la aplicacion
+No puedo crear la aplicación
 ; Can't create application.
 ;
 MSG_ERR_READARGS
@@ -113,5 +113,5 @@ Error:\nNo puedo abrir el directorio\n\"%s\".
 ; Error:\nCan't open directory\n\"%s\".
 ;
 MSG_ERR_PATTERN
-Error:\nNo puedo tratar el patron.
+Error:\nNo puedo tratar el patrón.
 ; Error:\nCan't parse pattern.

@@ -1,95 +1,145 @@
-## version $VER: ReqTools.catalog 3.0 (30.06.2017)
+## version $VER: ReqTools.catalog 3.1 (29.04.2023)
 ## language italiano
 ## codeset 0
-; Authors: Michele Giorato
+; Authors: AMIGASYSTEM
 ;
 MSG_WINDOW_TITLE
-Preferenze di ReqTools
+ReqTools Preferenze
+; ReqTools Preferences
 ;
 MSG_GENERAL
 Generale
+; General
 ;
 MSG_FILEREQUESTER
-Requester dei files
+Richiesta file
+; File Requester
 ;
 MSG_SIZE
 Dimensione (% dell'altezza utile):
+; Size (% of visible height):
 ;
 MSG_OK
 Ok
+;  Ok
 ;
 MSG_POPSCREEN
-Porta schermo in 1° piano
+Schermo in primo piano
+; Pop screen to front
 ;
 MSG_IMMEDIATESORT
-Riordina subito
+Riordina
+; Immediate sort
 ;
 MSG_DRAWERSFIRST
 Mostra prima i cassetti
+; Display drawers first
 ;
 MSG_DRAWERSMIXED
 Mischia files e cassetti
+; Mix files and drawers
 ;
 MSG_LED
-LED attività disco
+LED Attività disco
+; Disk activity LED
 ;
 MSG_DEFAULTFONT
 Caratteri di sistema
+; Use system default font
 ;
 MSG_FKEYS
 Usa tasti funzione
+; Use function keys
+;
+MSG_DOWHEEL
+Ruota Colori:
+; Color wheel:
+;
+MSG_WHEEL_NONE
+Nessuno
+; None
+;
+MSG_WHEEL_SIMPLE
+Semplice
+; Simple
+;
+MSG_WHEEL_FANCY
+Elabora
+; Fancy
+;
+MSG_MMB_PARENT
+MMB Torna
+; MMB gives parent
 ;
 MSG_DEFAULTS
-Formato standard
+Predefinito
+; Defaults
 ;
 MSG_REQUESTER
-\33bRequester:
+\33bApri:
+; \33bRequester:
 ;
 MSG_FILEREQ
-Files
+File
+; File
 ;
 MSG_FONTREQ
 Caratteri
+; Font
 ;
 MSG_PALETTEREQ
 Colori
+; Palette
 ;
 MSG_SCRMODEREQ
 Modo schermo
+; Screen Mode
 ;
 MSG_VOLUMEREQ
 Volumi
+; Volume
 ;
 MSG_OTHERREQ
-Altri
+Altro
+; Other
 ;
 MSG_POSITION
 Posizione
+; Position:
 ;
 MSG_POINTER
-Puntatore del mouse
+Puntatore mouse
+; Mouse pointer
 ;
 MSG_CENTERWIN
-Al centro della finestra
+Centro della finestra
+; Center in window
 ;
 MSG_CENTERSCR
-Al centro dello schermo
+Centro dello schermo
+; Center on screen
 ;
 MSG_TOPLEFTWIN
-In alto a sinistra finestra
+Finestra in alto a sinistra
+; Top left of window
 ;
 MSG_TOPLEFTSCR
-In alto a sinistra schermo
+Schermo in alto a sinistra
+; Top left of screen
 ;
 MSG_OFFSET
 \33bMargini
+; \33bOffset
 ;
 MSG_NR_OF_ENTRIES
 \33bNumero di righe visibili
+; \33bNumber of visible entries
 ;
 MSG_MIN
 Minimo:
+; Minimum:
 ;
 MSG_MAX
 Massimo:
+; Maximum:
 ;

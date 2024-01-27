@@ -1,31 +1,34 @@
-## version $VER: Commodities.catalog 2.0 (17.08.2006)
+## version $VER: Commodities.catalog 3.0 (02.05.2023)
 ## language italiano
 ## codeset 0
-;
-; FIXME: This file requires updating. When done, bump version to 3
+; Authors: AMIGASYSTEM
 ;
 MSG_CANT_OPEN_LIB
 Impossibile aprire %s V%ld !\n
 ; Can't open %s V%ld!\n
 ;
 MSG_CANT_OPEN_INPUTDEVICE
-Impossibile aprire 'input.device'
+Impossibile aprire 'input.device
 ; Can't open 'input.device'
+;
+MSG_CANT_OPEN_CLIPDEVICE
+Impossibile aprire 'clipboard.device
+; Can't open 'clipboard.device'
 ;
 MSG_CANT_LOCK_SCR
 Impossibile accedere allo schermo pubblico!
 ; Can't lock public screen!\n
 ;
 MSG_CANT_GET_VI
-Impossibile aprire la struttura VisualInfo!
+Impossibile aprire VisualInfo!\n
 ; Can't get VisualInfo!\n
 ;
 MSG_CANT_CREATE_GADGET
-Impossibile creare i gadget!
+Impossibile creare i gadget!\n
 ; Can't create gadgets!\n
 ;
 MSG_CANT_CREATE_MENUS
-Impossibile creare i menu!
+Impossibile creare i menu!\n
 ; Can't create menus!\n
 ;
 MSG_CANT_LAYOUT_MENUS
@@ -44,16 +47,20 @@ MSG_CANT_CREATE_MSGPORT
 Impossibile creare porta messaggio!\n
 ; Can't create message port!\n
 ;
+MSG_CANT_ALLOCATE_SIGNAL
+Impossibile allocare il segnale!\n
+; Can't allocate signal!\n
+;
 MSG_CANT_CREATE_BROKER
 Impossibile creare oggetto CxBroker!\n
 ; Can't create CxBroker object!\n
 ;
 MSG_CANT_CREATE_CUSTOM
-Impossibile creare oggetto CxCustom!\n
+Impossibile creare oggetto CxCustom!!\n
 ; Can't create CxCustom object!\n
 ;
 MSG_OK
-OK
+Ok
 ; Ok
 ;
 MSG_MEN_PROJECT
@@ -61,11 +68,11 @@ Progetto
 ; Project
 ;
 MSG_MEN_PROJECT_HIDE
-Nascondi
+O\0Nascondi
 ; H\0Hide
 ;
 MSG_MEN_PROJECT_ICONIFY
-Riduci a icona
+I\0Riduci a icona
 ; I\0Iconify
 ;
 MSG_MEN_PROJECT_QUIT
@@ -76,7 +83,7 @@ Q\0Esci
 ; EXCHANGE
 ;
 MSG_EXCHANGE_CXNAME
-Exchange
+Cambia
 ; Exchange
 ;
 MSG_EXCHANGE_CXTITLE
@@ -88,7 +95,7 @@ Controlla commodity di sistema
 ; Controls system commodities
 ;
 MSG_EXCHANGE_WINTITLE
-Exchange
+Exchange: Tasto funzione = <%s>
 ; Exchange: Hot Key = <%s>
 ;
 MSG_EXCHANGE_LISTVIEW
@@ -100,7 +107,7 @@ Informazioni
 ; Information
 ;
 MSG_EXCHANGE_GAD_SHOW
-Mostra
+Visualizza
 ; Show
 ;
 MSG_EXCHANGE_GAD_HIDE
@@ -131,7 +138,7 @@ Salvaschermo
 ; System Screen Blanker
 ;
 MSG_BLANKER_CXDESCR
-Attiva il Salvaschermo quando il sistema è a riposo
+Attiva Salvaschermo a sistema inattivo
 ; Blanks screen when system inactive
 ;
 ; ===============================================
@@ -146,22 +153,22 @@ Porta avanti
 ; Click To Front Utility
 ;
 MSG_CLICK2FNT_CXDESCR
-Porta in primo piano la finestra su cui si clicca
+Primo piano finestra cliccata
 ; Click windows to front
 ;
 ; ===============================================
 ; OPAQUE
 ;
 MSG_OPAQUE_CXNAME
-Opaque
+Opaco
 ; Opaque
 ;
 MSG_OPAQUE_CXTITLE
-Finestre complete
+Finestre Solida
 ; Solid Windows
 ;
 MSG_OPAQUE_CXDESCR
-Sposta le finestre con tutto il contenuto
+Sposta finestre con il suo contenuto
 ; Realtime moving of windows
 ;
 ; ===============================================
@@ -176,7 +183,7 @@ Auto-focus
 ; Autopointer
 ;
 MSG_AUTOPOINT_CXDESCR
-Attiva la finestra su cui si trova il puntatore
+Attiva la finestra sotto il puntatore
 ; Activates the window under the mouse
 ;
 ; ===============================================
@@ -187,11 +194,11 @@ StartMenu
 ; StartMenu
 ;
 MSG_STARTMENU_CXTITLE
-Esecutore di applicazioni
+Avvio applicazioni
 ; System Program Starter
 ;
 MSG_STARTMENU_CXDESCR
-Lancia le applicazioni preferite 
+Avvia applicazioni preferite
 ; Program launch commodity
 ;
 ; ===============================================
@@ -206,11 +213,11 @@ Tasti funzione:
 ; Function To Keys:
 ;
 MSG_FKEY_CXDESCR
-Assegna funzioni speciali ai tasti
+Assegna speciali funzioni ai tasti
 ; Attach special functions to keys
 ;
 MSG_FKEY_WINTITLE
-FKey: Hot Key = <%s>
+FKey: Tasti Funzione = <%s>
 ; FKey: Hot Key = <%s>
 ;
 MSG_FKEY_DEFINED_KEYS
@@ -226,7 +233,7 @@ _Elimina tasto
 ; _Delete Key
 ;
 MSG_FKEY_SAVE_KEY
-Salva i tasti definiti
+Salva tasti definiti
 ; Save Defined Keys
 ;
 MSG_FKEY_COMMAND
@@ -254,7 +261,7 @@ Comprimi la finestra
 ; Shrink Window
 ;
 MSG_FKEY_CMD_TOGGLE_WIN_SIZE
-Modifica la dimensione della finestra
+Modifica dimensione della finestra
 ; Toggle Window Size
 ;
 MSG_FKEY_CMD_RESCUE_WIN
@@ -266,15 +273,15 @@ Inserisci testo
 ; Insert Text
 ;
 MSG_FKEY_CMD_RUN_PROG
-Lancia applicazione
+Esegui Applicazione
 ; Run Program
 ;
 MSG_FKEY_CMD_RUN_AREXX
-Lancia script Arexx
+Esegui script Arexx
 ; Run Arexx Script
 ;
 MSG_FKEY_MEN_PROJECT_SAVE
-S\0Salva i tasti definiti
+G\0Salva tasti definiti
 ; S\0Save Defined Keys
 ;
 ; ===============================================
@@ -289,6 +296,63 @@ Elimina blocca maiuscole:
 ; NoCapsLock:
 ;
 MSG_NOCAPSLOCK_CXDESCR
-Disattiva il tasto BlocMaiusc
+Disattiva tasto BlocMaiusc
 ; Renders the CAPS LOCK key ineffective
+;
+; ===============================================
+; DepthMenu
+;
+MSG_DEPTHMENU_CXNAME
+Profilo Menu
+; DepthMenu
+;
+MSG_DEPTHMENU_CXTITLE
+Profilo Menu:
+; DepthMenu:
+;
+MSG_DEPTHMENU_CXDESCR
+Menú de los gadgets profundidad
+; Popup menu for depth gadgets
+;
+; ===============================================
+; AltKeyQ
+;
+MSG_ALTKEYQ_CXNAME
+AltKeyQ
+; AltKeyQ
+;
+MSG_ALTKEYQ_CXTITLE
+Immissione di caratteri per numero
+; Character input by number
+;
+MSG_ALTKEYQ_CXDESCR
+Utilizzo del tasto Alt in stile MS-DOS
+; MS-DOS Style Alt key usage
+;
+; ===============================================
+; ASCIITable
+;
+MSG_ASCIITABLE_CXNAME
+Tabella ASCII
+; ASCIITable
+;
+MSG_ASCIITABLE_CXTITLE
+Tabella ASCII:
+; ASCIITable:
+;
+MSG_ASCIITABLE_CXDESCR
+Selezionare i tasti dalla GUI
+; Select keys from a GUI
+;
+MSG_ASCIITABLE_WINTITLE
+Tabella ASCII: Tasti Funzione = <%s>
+; ASCIITable: Hot Key = <%s>
+;
+MSG_ASCIITABLE_GAD_COPY
+Copia
+; Copy
+;
+MSG_ASCIITABLE_GAD_CLEAR
+Pulisci
+; Clear
 ;

@@ -1,0 +1,41 @@
+## version $VER: pointer.catalog 2.0 (27.04.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_WINTITLE
+Preferenze Puntatore
+; Pointer Preferences
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_HOTSPOT
+Punto Attivo
+;  Hotspot
+;
+MSG_ALPHA
+Trasparente
+; Alpha
+;
+MSG_FILENAME
+Nome File
+; Filename
+;
+MSG_TYPE
+Tipo
+; Type
+;
+MSG_TYPE_NORMAL
+Normale
+; Normal
+;
+MSG_TYPE_BUSY
+Ocupato
+; Busy
+;
+MSG_SETVIEW
+Imposta / Visualizza
+; Set / View
+;

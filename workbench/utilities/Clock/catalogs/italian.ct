@@ -3,14 +3,22 @@
 ## language italiano
 ;
 MSG_ERROR_CANT_CREATE_APPLICATION
-*** Errore: impossibile aprire l'applicazione.
+Errore: Impossibile creare applicazione.
 ; Error: Can't create application object.
 ;
 MSG_WINDOW_TITLE
-Ora corrente
+Orologio
 ; Clock
+;
+MSG_DESCRIPTION
+Orologio Wanderer
+;Wanderer Clock
 ;
 MSG_OK
 Ok
 ; Ok
+;
+MSG_ERROR_DISKOBJECT
+Errore: Impossible creare DiskObject
+;Error: Can't create diskobject
 ;

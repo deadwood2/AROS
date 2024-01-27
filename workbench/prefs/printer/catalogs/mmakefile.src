@@ -1,10 +1,9 @@
-# Copyright (C) 2003-2021, The AROS Development Team. All rights reserved.
+# Copyright (C) 2003-2023, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:=czech french norwegian polish russian spanish
+CATALOGS:=czech french italian norwegian polish russian spanish
 
-# The need to update french catalog 
 
 %build_catalogs mmake=workbench-prefs-printer-catalogs \
     catalogs=$(CATALOGS) \

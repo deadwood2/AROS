@@ -1,22 +1,93 @@
-## version $VER: ScreenMode.catalog 1.0 (02.02.2005)
-## language italiano
+## version $VER: screenmode.catalog 2.1 (29.04.2023)
 ## codeset 0
+## language italiano
+; Authors: AMIGASYSTEM
 ;
 MSG_NAME
-Preferenze dello schermo
-; 
+Preferenze Schermo
+; ScreenMode Preferences
+;
 MSG_WIDTH
 \33lLarghezza:
+; \33lWidth:
 ;
 MSG_DEFAULT
 \33l_Predefinito
+; \33l_default
 ;
 MSG_HEIGHT
 \33lAltezza:
+; \33lHeight:
 ;
 MSG_DEPTH
 \33lProfondità:
+; \33lDepth:
 ;
 MSG_AUTOSCROLL
 \33lScorrimento automatico
+; \33lAutoscroll
+;
+MSG_DISPLAY_MODE
+Modalità di visualizzazione
+; Display Mode
+;
+MSG_MODE_ID
+Modalità ID
+; Mode ID
+;
+MSG_DESCRIPTION
+Descrizione
+; Description
+;
+MSG_MODE_ATTRIBUTES
+Modalità Attributi
+; Mode Attributes
+;
+MSG_VISIBLE_SIZE
+Area Visibile
+; Visible Size
+;
+MSG_MINIMUM_SIZE
+Dimensione Minima
+; Minimum Size
+;
+MSG_MAXIMUM_SIZE
+Dimensione Massima
+; Maximum Size
+;
+MSG_MAXIMUM_COLORS
+Massimo Numero Colori
+; Maximum Colors
+;
+MSG_FREQUENCY
+Frequenza
+; Frequency
+;
+MSG_INTERLACED
+Interlacciato\n
+; Interlaced\n
+;
+MSG_WANTS_ECS
+Richiede ECS\n
+; Requires ECS\n
+;
+MSG_DUALP
+Dual Playfields\n
+; Dual playfields\n
+;
+MSG_GENLOCK
+Supporta Genlock\n
+; Supports genlock\n
+;
+MSG_DRAGGABLE
+Trascinabile\n
+; Draggable\n
+;
+MSG_PANELLED
+Pannello conversioni scansioni\n
+; Panelled for scan conversion\n
+;
+MSG_BEAM_SYNC
+Supporta sincronizzazione luce\n
+; Supports beam synchronization\n
 ;

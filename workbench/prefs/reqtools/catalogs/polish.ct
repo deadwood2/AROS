@@ -15,12 +15,12 @@ Okno wyboru plików
 ; File Requester
 ;
 MSG_SIZE
-Wielko¶æ (% wysoko¶ci ekranu):
+Rozmiar (% widocznej wysoko¶ci):
 ; Size (% of visible height):
 ;
 MSG_OK
-Ok
-;  Ok
+OK
+; Ok
 ;
 MSG_POPSCREEN
 Umie¶æ ekran na wierzchu
@@ -55,15 +55,15 @@ Ko³o kolorów:
 ; Color wheel:
 ;
 MSG_WHEEL_NONE
-Wy³±czony
+Wy³±czone
 ; None
 ;
 MSG_WHEEL_SIMPLE
-proste
+Proste
 ; Simple
 ;
 MSG_WHEEL_FANCY
-wybajerzone
+Wybajerzone
 ; Fancy
 ;
 MSG_MMB_PARENT
@@ -71,11 +71,11 @@ MSG_MMB_PARENT
 ; MMB gives parent
 ;
 MSG_DEFAULTS
-Ustawienie
+Ustawienia domy¶lne
 ; Defaults
 ;
 MSG_REQUESTER
-\33bOkna:
+\33bDla okna:
 ; \33bRequester:
 ;
 MSG_FILEREQ
@@ -87,19 +87,19 @@ Czcionka
 ; Font
 ;
 MSG_PALETTEREQ
-Palety kolorów
+Paleta kolorów
 ; Palette
 ;
 MSG_SCRMODEREQ
-Trybów ekranu
+Tryb ekranu
 ; Screen Mode
 ;
 MSG_VOLUMEREQ
-Wolumenów
+Wolumen
 ; Volume
 ;
 MSG_OTHERREQ
-pozosta³ych
+Pozosta³e
 ; Other
 ;
 MSG_POSITION
@@ -107,23 +107,23 @@ Pozycja:
 ; Position:
 ;
 MSG_POINTER
-w/g wska¼nika myszki
+Wg wska¼nika myszki
 ; Mouse pointer
 ;
 MSG_CENTERWIN
-¶rodek okna
+¦rodek okna
 ; Center in window
 ;
 MSG_CENTERSCR
-¶rodek ekranu
+¦rodek ekranu
 ; Center on screen
 ;
 MSG_TOPLEFTWIN
-lewy górny róg okna
+Lewy górny róg okna
 ; Top left of window
 ;
 MSG_TOPLEFTSCR
-lewy górny róg ekranu
+Lewy górny róg ekranu
 ; Top left of screen
 ;
 MSG_OFFSET

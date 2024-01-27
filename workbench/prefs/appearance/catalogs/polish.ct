@@ -7,11 +7,11 @@ Ustawienia Motywów Graficznych
 ; Appearance Preferences
 ;
 MSG_OK
-Ok
+OK
 ; Ok
 ;
 MSG_ENABLETHEMES
-Uaktywnij Motywy Graficzne
+Uaktywnij motywy graficzne
 ; Enable Theme'ing?
 ;
 MSG_PREVIEW
@@ -27,22 +27,24 @@ Motyw
 ; Theme
 ;
 MSG_ENABLEZUNEPREFS
-Skopiuj Ustawienia Zune?
-;Replace current Zune configuration?
+Zast±piæ bie¿±c± konfiguracjê Zune?
+; Replace current Zune configuration?
 ;
 MSG_ENABLEWANDPREFS
-Skopiuj Ustawienia Wanderera?
-;Replace current Wanderer configuration?
+Zast±piæ bie¿±c± konfiguracjê Wanderera?
+; Replace current Wanderer configuration?
 ;
 MSG_ENABLEPALETTEPREFS
-Skopiuj Ustawienia Wanderera?
-;Replace current Palette configuration?
+Zast±piæ bie¿±c± konfiguracjê Palety?
+; Replace current Palette configuration?
 ;
 MSG_ENABLEFONTPREFS
-Replace current Font configuration?
+Zast±piæ bie¿±c± konfiguracjê Czcionek?
+; Replace current Font configuration?
 ;
 MSG_ENABLEPOINTERPREFS
-Replace current Pointer configuration?
+Zast±piæ bie¿±c± konfiguracjê Wska¼nika?
+; Replace current Pointer configuration?
 ;
 MSG_SEC_THEMING
 Motywy
@@ -53,22 +55,22 @@ Kompozycja
 ; Compositing
 ;
 MSG_ENABLE_SCREEN_COMPOSITION
-Uaktywnij Komponowanie Ekranu
+W³±cz kompozycjê ekranu
 ; Enable Screen Composition
 ;
 MSG_COMPOSITE_BELOW
-Nak³adaæ Poni¿ej
+Kompozycja poni¿ej
 ; Composite Below
 ;
 MSG_COMPOSITE_LEFT
-Nak³adaæ po Lewej
+Kompozycja po lewej
 ; Composite Left
 ;
 MSG_COMPOSITE_RIGHT
-Nak³adaæ po Prawej
+Kompozycja po prawej
 ; Composite Right
 ;
 MSG_ENABLE_COMPOSITE_WITH_ALPHA
-Uaktywnij Kompozycjê z Przezroczysto¶ci±
+Uaktywnij kompozycjê z przezroczysto¶ci±
 ; Enable Compositing with Alpha
 ;

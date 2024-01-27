@@ -1,4 +1,4 @@
-## version $VER: Printer.catalog 2.0 (18.01.2021)
+## version $VER: Printer.catalog 2.1 (20.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -36,7 +36,7 @@ Unidad:
 ; Unit:
 ;
 MSG_PRINTER_CUSTOM_DEVICE
-Periferico personalizado:
+Periférico personalizado:
 ; Custom device:
 ;
 MSG_PRINTER_DEVICE_UNIT
@@ -80,7 +80,7 @@ Espaciado
 ; Spacing:
 ;
 MSG_TISK_LEFT_MARGIN
-Margen izquerdo:
+Margen izquierdo:
 ; Left Margin:
 ;
 MSG_TISK_RIGHT_MARGIN
@@ -124,11 +124,11 @@ Offset (
 ; Offset (
 ;
 MSG_TISK_CENTER_IMAGE
-Centrar Imagen:
+Centrar imagen:
 ; Center Image:
 ;
 MSG_TISK_ANTIALIAS
-Antialias:
+AntiAlias:
 ; AntiAlias:
 ;
 MSG_TISK_INTEGER_SCALING
@@ -160,7 +160,7 @@ Horizontal
 ; Landscape
 ;
 MSG_TISK_BW
-Blanco y negro
+Blanco y Negro
 ; Black & White
 ;
 MSG_TISK_GRAY

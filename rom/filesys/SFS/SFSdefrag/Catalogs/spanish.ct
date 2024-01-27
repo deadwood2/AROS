@@ -1,10 +1,10 @@
-## version $VER: sfsdefrag.catalog 1.1 (06.07.2021)
+## version $VER: sfsdefrag.catalog 1.2 (19.03.2023)
 ## language español
 ## codeset 0
 ;
 ;
 MSG_DESCRIPTION
-Defragmentador SFS 
+Desfragmentador SFS 
 ; SFS Defragmenter
 ;
 MSG_BITMAP

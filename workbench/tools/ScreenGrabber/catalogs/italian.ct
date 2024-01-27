@@ -1,6 +1,7 @@
-## version $VER: ScreenGrabber.catalog 1.0 (27.01.2005)
+## version $VER: ScreenGrabber.catalog 2.0 (16.05.2023)
 ## language italiano
 ## codeset 0
+; Authors: AMIGASYSTEM
 ;
 MSG_WINDOW_TITLE
 Cattura Schermo
@@ -8,6 +9,7 @@ Cattura Schermo
 ;
 MSG_REFRESH
 Aggiorna
+; Refresh list
 ;
 MSG_SCREEN_INFO
 Informazioni schermo
@@ -50,5 +52,42 @@ Cattura
 ;Screenshot
 ;
 MSG_SCREEN_PARM
-%d x %d, tiefe=%d
+%d x %d, depth=%d
 ;%d x %d, depth=%d
+;
+MSG_OVERWRITE
+File '%s' già esistente.\nVuoi sovrascrivere?
+; File '%s' already exists.\nDo you really want to overwrite it?
+;
+MSG_ERROR_TITLE
+Errore Cattura Schermo
+; Screengrabber Error
+;
+MSG_GAD_OK
+_OK
+; _OK
+;
+MSG_GAD_YESNO
+Su|No
+; YES|NO
+;
+MSG_ERR_DATATYPE
+Impossibile creare oggetto!
+; Can't create datatype object!
+;
+MSG_NORAM
+Impossibile allocare la RAM!
+; Can't allocate RAM!
+;
+MSG_ERR_DATATYPEIO
+Scrittura '%s' fallita errore IO%ld!
+; Writing of '%s' failed with IO Error %ld!
+;
+MSG_ERR_OPENFILE
+Impossibile aprire file '%s' da esaminare!
+; Can't open file '%s' for output!
+;
+MSG_ERR_APP
+Impossibile creare applicazione!
+; Can't create application object!
+;

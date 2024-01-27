@@ -1,4 +1,4 @@
-## version $VER: wimp.catalog 1.0 (24.01.2021)
+## version $VER: wimp.catalog 1.1 (20.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -32,7 +32,7 @@ WiMP - El programa de manipulación de ventanas
 ; WiMP - The Window Manipulation Program
 ;
 MSG_INFO_TITLE
-WiMP - Ventana de informaciones
+WiMP - InfoWindow
 ; WiMP - InfoWindow
 ;
 MSG_CLOSE_SCREEN
@@ -104,7 +104,7 @@ Sobre
 ; About
 ;
 MSG_SCREEN_WINDOW_LIST
-Lista de PAntallas/Ventanas
+Lista de Pantallas/Ventanas
 ; Screen/Window List
 ;
 MSG_MENU_PROJECT

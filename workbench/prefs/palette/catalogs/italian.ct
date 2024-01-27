@@ -1,0 +1,69 @@
+## version $VER: palette.catalog 2.0 (19.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_WINTITLE
+Impostazioni Colori
+; Palette Preferences
+;
+MSG_OK
+OK
+; Ok
+;
+MSG_PEN0
+Dettagli
+; Detail Pen
+;
+MSG_PEN1
+Blocco
+; Block Pen
+;
+MSG_PEN2
+Testo
+; Text Pen
+;
+MSG_PEN3
+Lucido
+; Shine Pen
+;
+MSG_PEN4
+Ombrato
+; Shadow Pen
+;
+MSG_PEN5
+Riempimento
+; Fill Pen
+;
+MSG_PEN6
+Riempimento Testo
+; Fill Text Pen
+;
+MSG_PEN7
+Sfondo
+; Background Pen
+;
+MSG_PEN8
+Evidenziatura
+; Highlight Text Pen
+;
+MSG_PEN9
+Dettaglio Barre
+; Bar Detail Pen
+;
+MSG_PEN10
+Blocco Barre
+; Bar Block Pen
+;
+MSG_PEN11
+Bordo Barre
+; Bar Trim Pen
+;
+MSG_4COLOR
+4 Colori
+; 4 Color Settings
+;
+MSG_MULTICOLOR
+Multicolore
+; Multicolor Settings
+;

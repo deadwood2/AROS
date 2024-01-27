@@ -1,4 +1,4 @@
-## version $VER: acpitool.catalog 2.0 (24.01.2021)
+## version $VER: acpitool.catalog 2.1 (07.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -232,7 +232,7 @@ APIC NMI local
 ; Local APIC NMI
 ;
 MSG_DEST_ID
-ID del procesador ACPI destion
+ID del procesador ACPI destino
 ; Destination processor ACPI ID
 ;
 MSG_ALL
@@ -244,7 +244,7 @@ Entrada de interrupción local
 ; Local interrupt input
 ;
 MSG_LAPIC_ADDR_OVR
-Invalidar la direccion local del APIC 
+Invalidar la dirección local del APIC 
 ; Local APIC address override
 ;
 MSG_IOSAPIC
@@ -308,7 +308,7 @@ Entrada desconocida (%u), %u bytes
 ; Unknown entry (%u), %u bytes
 ;
 MSG_RSDP_ADDR
-Direccion RSDP
+Dirección RSDP
 ; RSDP address
 ;
 MSG_SYSTEM_OEM_ID
@@ -324,7 +324,7 @@ Revisión de hardware
 ; Hardware Revision
 ;
 MSG_NUM_COMPARATORS
-Numero de comparadores
+Número de comparadores
 ; Number of comparators
 ;
 MSG_64BIT_COUNTER
@@ -352,7 +352,7 @@ Tick mínimo de reloj
 ; Minimum clock tick
 ;
 MSG_PAGE_PROTECT
-Proteccion de página
+Protección de página
 ; Page protection
 ;
 MSG_OEM_ATTRS

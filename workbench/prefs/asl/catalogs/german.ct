@@ -1,52 +1,78 @@
-## version $VER: Asl.catalog 1.0 (28.06.2022)
+## version $VER: Asl.catalog 2.0 (30.04.2023)
 ## language deutsch
 ## codeset 0
-; Authors: Steffen Salzmann
+;
+;**************************
+;
+;   ASL Preferences
+;
+;**************************
 ;
 MSG_WINDOW_TITLE
 ASL-Einstellungen
+; ASL Preferences
 ;
 MSG_GENERAL
 Allgemeines
+; General
 ;
 MSG_FILEREQUESTER
 Datei-Auswahlfenster
+; File Requester
 ;
 MSG_SIZE
-Größe (% der sichtbaren Höhe):
+Größe:
+; Size:
+;
+MSG_SIZE_WIDTH
+Breite (% der sichtbaren Breite):
+; Width (% of visible width):
+;
+MSG_SIZE_HEIGHT
+Höhe (% der sichtbaren Höhe):
+; Height (% of visible height):
 ;
 MSG_OK
 Ok
+; Ok
 ;
 MSG_DRAWERSFIRST
 Schubladen zuerst anzeigen
+; Display drawers first
 ;
 MSG_POSITION
 Position:
+; Position:
 ;
 MSG_POINTER
 Mauszeiger
+; Mouse pointer
 ;
 MSG_CENTERWIN
 Zentrieren im Fenster
+; Center in window
 ;
 MSG_CENTERSCR
 Zentrieren auf Bildschirm
+; Center on screen
 ;
 MSG_TOPLEFTWIN
 Oben links vom Fenster
+; Top left of window
 ;
 MSG_TOPLEFTSCR
 Oben links auf Bildschirm
+; Top left of screen
 ;
 MSG_OFFSET
 \33bAbstand
+; \33bOffset
 ;
 MSG_CANT_OPEN_STREAM
-Can't open IFF stream!
+Kann den IFF-Stream nicht öffnen!
 ; Can't open IFF stream!
 ;
 MSG_CANT_ALLOCATE_IFFPTR
-Can't allocate IFF handle!
+Kann den IFF-handle nicht allozieren!
 ; Can't allocate IFF handle!
 ;

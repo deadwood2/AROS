@@ -1,0 +1,65 @@
+## version $VER: R.catalog 2.1 (10.05.2023)
+## language italiano
+## codeset 0
+; Authors: AMIGASYSTEM
+;
+MSG_APP_TITLE
+R
+; R
+;
+MSG_APP_DESCRIPTION
+Generatore GUI
+; GUI Generator
+;
+MSG_WIN_TITLE
+R : %s
+; R : %s
+;
+MSG_OK
+Ok
+; OK
+;
+MSG_CANCEL
+Cancella
+; Cancel
+;
+MSG_ERROR_ALLOCATE
+Impossibile allocare struttura Req\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_RETURN
+\"%s\" Codice ritorno fallito %ld\n
+; \"%s\" failed, return code %ld\n
+;
+MSG_ERROR_POOL
+Impossibile creare pool memoria\n
+; Can't create poolmem\n
+;
+MSG_ERROR_STRUCT
+Impossibile allocare struttura Req\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_ARGS
+Impossibile analizzare argomenti\n
+; Failed to parse arguments\n
+;
+MSG_ERROR_NOTFOUND
+Comando non trovato\n
+; Command not found\n
+;
+MSG_ERROR_TMPLT_GET
+Impossibile ottenere un modello\n
+; Failed to get template\n
+;
+MSG_ERROR_TMPLT_PARSE
+Impossibile analizzare il modello\n
+; Failed to parse the template\n
+;
+MSG_ERROR_GUI
+Impossibile creare oggetto applicazione\n
+; Failed to create application object\n
+;
+MSG_ERROR_DEFAULTS
+Impossibile impostare i valori di default\n
+; Failed to set the default values\n
+;

@@ -1,8 +1,8 @@
-# Copyright (C) 2003, The AROS Development Team. All rights reserved.
+# Copyright (C) 2003-2023, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:=czech french german norwegian polish russian spanish
+CATALOGS:=czech french german italian norwegian polish russian spanish
 # other catalogs need update to version 3
 
 %build_catalogs mmake=workbench-tools-commodities-catalogs \
