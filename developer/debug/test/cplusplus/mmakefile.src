@@ -13,7 +13,10 @@ include $(SRCDIR)/config/aros.cfg
 #MM workbench-libs-uuid-includes workbench-libs-version-includes kernel-hidd-bus-includes kernel-hidd-storage-includes \
 #MM workbench-libs-expat-lib-includes
 
+#MM test-cxx : test-cxx-cunit
+
 EXEDIR := $(AROS_TESTS)/cplusplus
+CUNITEXEDIR := $(AROS_TESTS)/cunit/cplusplus
 
 %build_prog mmake=test-cxx progname=headertest \
     files="" cxxfiles="headertest" \
@@ -23,4 +26,7 @@ EXEDIR := $(AROS_TESTS)/cplusplus
     files="" cxxfiles="exception" \
     targetdir=$(EXEDIR)
 
+%build_prog mmake=test-cxx-cunit progname=cunit-cplusplus-exception \
+    cxxfiles="cunit-cplusplus-exception" targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
 %common

@@ -68,6 +68,9 @@ If NOT WARN
     Execute S/Test cunit/zune/cunit-zune-string                 ;MUIC_String_Suite
     Execute S/Test cunit/zune/cunit-zune-window                 ;MUIC_Window_Suite
 
+    ; Perform basic "C++" unit tests...
+    Execute S/Test cunit/cplusplus/cunit-cplusplus-exception    ;CPlusPlus_Exception_Suite
+
 Endif
 
 ; All done!
