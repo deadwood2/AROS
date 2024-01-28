@@ -1,4 +1,4 @@
-## version $VER: FTManager.catalog 1.0 (07.11.2021)
+## version $VER: FTManager.catalog 2.0 (28.01.2024)
 ## language türkçe
 ## codeset 12
 ;
@@ -19,17 +19,9 @@ MSG_LABEL_SOURCE
 Kaynak
 ; Source
 ;
-MSG_ASL_FONTS_TRUETYPE
-Yazýtipi:TrueType
-; Fonts:TrueType
-;
 MSG_LABEL_DESTINATION
 Hedef
 ; Destination
-;
-MSG_ASL_FONTS
-Fonts:
-; Fonts:
 ;
 MSG_LABEL_CODEPAGE
 Kod sayfasý
