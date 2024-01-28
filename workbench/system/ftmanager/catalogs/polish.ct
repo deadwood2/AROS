@@ -1,201 +1,256 @@
-## version $VER: FTManager.catalog 1.0 (02.02.2020)
+## version $VER: FTManager.catalog 2.0 (28.01.2024)
 ## language polski
 ## codeset 5
 ;
-;
-;
 MSG_APP_NAME
 FTManager
+; FTManager
 ;
 MSG_APP_TITLE
 Mened¿er czcionek FreeType
+; FreeType font manager
 ;
 MSG_WINDOW_TITLE
 Mened¿er czcionek FreeType
+; FreeType font manager
 ; 
 MSG_LABEL_SOURCE
 ¬ród³o
-;
-MSG_ASL_FONTS_TRUETYPE
-Czcionki:TrueType
+; Source
 ;
 MSG_LABEL_DESTINATION
 Cel
-;
-MSG_ASL_FONTS
-Czcionki:
+; Destination
 ;
 MSG_LABEL_CODEPAGE
 Strona kodowa
+; Codepage
 ;
 MSG_QUIT
-Porzuæ
+_Zakoñcz
+; _Quit
 ;
 MSG_BUTTON_INSTALL
 _Instaluj
+; _Install
 ;
 MSG_BUTTON_CLOSE
-Zamknij
+_Zamknij
+; _Close
 ;
 MSG_WEIGHT_ULTRATHIN
-Ultra fine
+Ultra cienka
+; UltraThin
 ;
 MSG_WEIGHT_EXTRATHIN
-Extra fine
+Extra cienka
+; ExtraThin
 ;
 MSG_WEIGHT_THIN
-Fine
+Cienka
+; Thin
 ;
 MSG_WEIGHT_EXTRALIGHT
 Extra lekka
+; ExtraLight
 ;
 MSG_WEIGHT_LIGHT
 Lekka
+; Light
 ;
 MSG_WEIGHT_DEMILIGHT
 Demi lekka
+; DemiLight
 ;
 MSG_WEIGHT_SEMILIGHT
 Semi lekka
+; SemiLight
 ;
 MSG_WEIGHT_BOOK
 Normalna
+; Book
 ;
 MSG_WEIGHT_MEDIUM
 ¦rednia
+; Medium
 ;
 MSG_WEIGHT_SEMIBOLD
 Semi pogrubiona
+; SemiBold
 ;
 MSG_WEIGHT_DEMIBOLD
 Demi pogrubiona
+; DemiBold
 ;
 MSG_WEIGHT_BOLD
 Pogrubiona
+; Bold
 ;
 MSG_WEIGHT_EXTRABOLD
 Extra pogrubiona
+; ExtraBold
 ;
 MSG_WEIGHT_BLACK
 Czarna
+; Black
 ;
 MSG_WEIGHT_EXTRABLACK
 Extra czarna
+; ExtraBlack
 ;
 MSG_WEIGHT_ULTRABLACK
 Ultra czarna
+; UltraBlack
 ;
 MSG_WEIGHT_CUSTOM
 Dostosowana
+; Custom
 ;
 MSG_STYLE_UPRIGHT
 Prosta
+; Upright
 ;
 MSG_STYLE_ITALIC
 Kursywa
+; Italic
 ;
 MSG_STYLE_LEFTITALIC
 Lewa kursywa
+; LeftItalic
 ;
 MSG_HSTYLE_ULTRACOMPRESSED
 Ultra skomprymowana
+; UltraCompressed
 ;
 MSG_HSTYLE_EXTRACOMPRESSED
 Extra skomprymowana
+; ExtraCompressed
 ;
 MSG_HSTYLE_COMPRESSED
 Skomprymowana
+; Compressed
 ;
 MSG_HSTYLE_CONDENSED
 Skondensowana
+; Condensed
 ;
 MSG_HSTYLE_NORMAL
 Regularna
+; Normal
 ;
 MSG_HSTYLE_SEMIEXPANDED
 Semi rozszerzona
+; SemiExpanded
 ;
 MSG_HSTYLE_EXPANDED
 Rozszerzona
+; Expanded
 ;
 MSG_HSTYLE_EXTRAEXPANDED
-extra rozszerzona
+Extra rozszerzona
+; ExtraExpanded
 ;
 MSG_HSTYLE_CUSTOM
 Dostosowana
+; Custom
 ;
 MSG_METRIC_GLOBALBOUNDINGBOX
 Obwód globalny
+; Global bounding box
 ;
 MSG_METRIC_RAWFONTMETRIC
 Dane surowej czcionki
+; Raw font metric
 ;
 MSG_METRIC_ASCENDER
-Ascender
+Wzniesienie
+; Ascender
 ;
 MSG_METRIC_TYPOASCENDER
 Typo ascender
+; Typo ascender
 ;
 MSG_METRIC_USWINASCENDER
 USWin ascender
+; USWin ascender
 ;
 MSG_METRIC_CUSTOMBOUNDINGBOX
 Obwód dostosowany
+; Custom bounding box
 ;
 MSG_LABEL_EXTRAFILE
 Plik dodatkowy
+; Extra file
 ;
 MSG_LABEL_FACENUM
-Krój
+Numer kroju
+; Face num
 ;
 MSG_LABEL_NAME
 Nazwa
+; Name
 ;
 MSG_LABEL_FAMILY
 Rodzina
+; Family
 ;
 MSG_LABEL_METRIC
 Metryczny
+; Metric
 ;
 MSG_LABEL_BOUNDINGBOX
 Obwód
+; Bounding box
 ;
 MSG_LABEL_YMIN
 yMin
+; yMin
 ;
 MSG_LABEL_YMAX
 yMax
+; yMax
 ;
 MSG_LABEL_SIZEFACTOR
-Wielko¶æ
+Wspó³czynnik rozmiaru
+; Size factor
 ;
 MSG_LABEL_SPACEWIDTH
-Szeroko¶æ pauzy
+Szeroko¶æ spacji
+; Space width
 ;
 MSG_LABEL_FIXEDWIDTH
 Sta³a szeroko¶æ
+; Fixed width
 ;
 MSG_LABEL_SERIF
 Szeryfowa
+; Serif
 ;
 MSG_LABEL_STEMWEIGHT
 Waga
+; Stem weight
 ;
 MSG_LABEL_SLANTSTYLE
-Sko¶ny styl
+Styl sko¶ny
+; Slant style
 ;
 MSG_LABEL_HORIZSTYLE
-Poziomy styl
+Styl poziomy
+; Horiz style
 ;
 MSG_FRAME_PREVIEW
 Podgl±d
+; Preview
 ;
 MSG_PREVIEW_STRING
 Mê¿ny b±d¼, chroñ pu³k twój i sze¶æ flag.
+; The quick brown fox jumped over the lazy dog.
 ;
 MSG_LABEL_SIZE
 Rozmiar
+; Size
 ;
 MSG_LABEL_ANTIALIASING
 Wyg³adzanie krawêdzi
+; Anti-aliasing
 ;

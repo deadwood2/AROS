@@ -1,4 +1,4 @@
-## version $VER: FTManager.catalog 1.0 (08.01.2011)
+## version $VER: FTManager.catalog 2.0 (28.01.2024)
 ## language français
 ## codeset 0
 ;
@@ -16,14 +16,8 @@ Gestionnaire des fontes FreeType
 MSG_LABEL_SOURCE
 Source
 ;
-MSG_ASL_FONTS_TRUETYPE
-Fonts:TrueType
-;
 MSG_LABEL_DESTINATION
 Destination
-;
-MSG_ASL_FONTS
-Fonts:
 ;
 MSG_LABEL_CODEPAGE
 Codepage

@@ -11,14 +11,8 @@ FreeType font manager
 MSG_LABEL_SOURCE (//)
 Source
 ;
-MSG_ASL_FONTS_TRUETYPE (//)
-Fonts:TrueType
-;
 MSG_LABEL_DESTINATION (//)
 Destination
-;
-MSG_ASL_FONTS (//)
-Fonts:
 ;
 MSG_LABEL_CODEPAGE (//)
 Codepage
