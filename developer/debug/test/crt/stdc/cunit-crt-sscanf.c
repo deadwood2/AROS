@@ -171,6 +171,16 @@ static void test_signed()
     CU_ASSERT_EQUAL(-10000010, u);
 }
 
+static void test_ignore()
+{
+    char path[100];
+    int cnt = sscanf("file:///bookmarks.html", "%*15[^\n/:]:%[^\n]", path);
+
+    CU_ASSERT_EQUAL_FATAL(cnt, 1);
+    CU_ASSERT_STRING_EQUAL(path, "///bookmarks.html");
+
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("sscanf_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
@@ -179,6 +189,7 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_float);
     CUNIT_CI_TEST(test_unsigned);
     CUNIT_CI_TEST(test_signed);
+    CUNIT_CI_TEST(test_ignore);
 
     return CU_CI_RUN_SUITES();
 }
