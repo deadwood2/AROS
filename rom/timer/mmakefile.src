@@ -24,10 +24,10 @@ FUNCS := abortio addtime beginio cmptime getsystime subtime readeclock getuptime
 
 USER_CPPFLAGS += \
                -DUSE_EXEC_DEBUG
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-timer \
   modname=timer modtype=device version=$(AROS_TARGET_PLATFORM) \
-  files="$(FUNCS) $(FILES)" archspecific=yes usesdks="private config"
+  files="$(FUNCS) $(FILES)" archspecific=yes usesdks="private config" uselibs="stdc.static"
 
 %common

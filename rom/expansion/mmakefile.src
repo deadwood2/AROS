@@ -27,9 +27,9 @@ endif
 
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-expansion \
   modname=expansion modtype=library version=$(VERSION) \
-  files="expansion_init $(FUNCS)" archspecific=yes usesdks="config"
+  files="expansion_init $(FUNCS)" archspecific=yes usesdks="config" uselibs="stdc.static"
 
