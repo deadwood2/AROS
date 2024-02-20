@@ -254,3 +254,11 @@ MSG_SERVICETYPE_CIFS
 CIFS/SMB
 ; CIFS/SMB
 ;
+MSG_TETHERING_WARNING
+\33lJe¶li po restarcie tethering nie dzia³a, sprawd¼ ¿e jest on w³±czony na telefonie\n a nastêpnie otwórz Ustawienia sieciowe i kliknik U¿yj
+;\33lIf the tethering is not working after reboot, check that it is enabled on your phone\nand then open Network prefs and click Use
+;
+MSG_TAB_TETHERING
+Tethering
+;Tethering
+;

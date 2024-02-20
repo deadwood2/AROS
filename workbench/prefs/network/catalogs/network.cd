@@ -187,3 +187,9 @@ Service Type
 MSG_SERVICETYPE_CIFS (//)
 CIFS/SMB
 ;
+MSG_TETHERING_WARNING (//)
+\33lIf the tethering is not working after reboot, check that it is enabled on your phone\nand then open Network prefs and click Use
+;
+MSG_TAB_TETHERING (//)
+Tethering
+;
