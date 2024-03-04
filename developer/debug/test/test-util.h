@@ -60,6 +60,7 @@ static inline void Click(struct Window *w, LONG x, LONG y)
 #define STDARGS     __stdargs
 #define INTERRUPT   __interrupt
 #define IPTR        ULONG
+#define BNULL       (0)
 
 #define BOOPSI_DISPATCHER(type, func, cl, obj, msg) \
 static ULONG SAVEDS func(REG(a0, struct IClass *cl), \

@@ -59,6 +59,7 @@ CUNITDOSTESTFILES := \
     cunit-dos-createnewproc \
     cunit-dos-fileseek \
     cunit-dos-readargs \
+    cunit-dos-samelock \
     cunit-dos-systemtags \
     cunit-dos-systemtags-stack-slave
 
