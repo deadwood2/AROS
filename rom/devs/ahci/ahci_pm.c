@@ -38,55 +38,6 @@
 
 #include "ahci.h"
 
-static const char *str_empty = "";
-static const char *str_support = "HW indicates support";
-static const char *str_fnosupport = "HW indicates no-support, force";
-static const char *str_nosupport = "HW indicates no-support";
-static const char *str_enablesucc = ", enable succeeded";
-static const char *str_enablefail = ", enable failed";
-
-static const char *str_failed = "failed";
-static const char *str_unsupp = "unsupported";
-static const char *str_retrying = "retrying";
-static const char *str_giveup = "giving up";
-
-static const char *str_portmultfis = "%s: FBS Cap detected: %s%s%s\n";
-
-static const char *str_pmprobefail = "%s: PMPROBE cannot start port\n";
-static const char *str_pmprobeclo = "%s: PMPROBE CLO %s, need port reset\n";
-static const char *str_pmprobeno1 = "%s: PMPROBE(1) No Port Multiplier was found.\n";
-static const char *str_pmprobefis = "%s: PMPROBE Busy after first FIS\n";
-static const char *str_pmprobeno2 = "%s: PMPROBE(2) No Port Multiplier was found.\n";
-
-static const char *str_pmidentfail = "%s: PM - cannot identify port multiplier\n";
-static const char *str_pmprobeportnr = "%s: PM probe: port will not come ready\n";
-static const char *str_pmchip = "%s: Port multiplier: chip=%08x rev=0x%b nports=%d\n";
-static const char *str_pmignore = "%s: Port multiplier: Ignoring dummy port #%d\n";
-static const char *str_pmwarnfeat = "%s: Port multiplier: Warning, cannot read feature register\n";
-static const char *str_pmfeat = "%s: Port multiplier features: 0x%b\n";
-static const char *str_pmdefaults = "%s: Port multiplier defaults: 0x%b\n";
-static const char *str_pmasyncfail = "%s: Port multiplier: AsyncNotify cannot be enabled\n";
-static const char *str_pmasyncebfail = "%s: Port mulltiplier: AsyncNotify unable to enable error info bits\n";
-static const char *str_pmasyncenabled = "%s: Port multiplier: AsyncNotify enabled\n";
-static const char *str_pmnoident = "%s: Port multiplier cannot be identified\n";
-static const char *str_cannotclear = "%s: (A)Cannot clear phy status\n";
-static const char *str_unplugged = "%s.%d: Port appears to be unplugged\n";
-static const char *str_powereddown = "%s: Device may be powered down\n";
-static const char *str_detected = "%s.%d: Device detected data=%08x\n";
-static const char *str_softreset = "%s: soft reset\n";
-static const char *str_cannotclear2 = "%s: (B)Cannot clear phy status\n";
-static const char *str_pmsoftresetfail = "%s: Soft-reset through PM failed, %s\n";
-
-static const char *str_pmsoftresetfail2 = "%s: Soft-reset(2) through PM failed, %s\n";
-static const char *str_cannotclear3 = "%s: (C)Cannot clear phy status\n";
-static const char *str_sigchange = "%s: device signature unexpectedly changed\n";
-static const char *str_cannotclrserr = "%s: ahci_pm_softreset unable to clear SERR\n";
-static const char *str_cannotreadeinfo = "%s: Port multiplier EINFO could not be read\n";
-static const char *str_pmcannotclearserr = "%s: Port multiplier: SERR could not be cleared\n";
-static const char *str_cannotaccessssts = "%s: Unable to access PM SSTS register target %d\n";
-static const char *str_hotplugremove = "%s: HOTPLUG (PM) - Device removed\n";
-static const char *str_hotpluginsert = "%s: HOTPLUG (PM) - Device inserted\n";
-static const char *str_readscafail = "%s.%d pm_read SCA[%d] failed\n";
 
 static void ahci_pm_dummy_done(struct ata_xfer *xa);
 
@@ -150,35 +101,37 @@ retry:
 	 * to write to the FBS register.
 	 */
 	if (ap->ap_sc->sc_cap & AHCI_REG_CAP_FBSS) {
-		const char *str1 = str_empty;
-		const char *str2 = str_empty;
-		const char *str3 = str_empty;
+		const char *str1 = "";
+		const char *str2 = "";
+		const char *str3 = "";
 
 		if (cmd & AHCI_PREG_CMD_FBSCP) {
-			str1 = str_support;
+			str1 = "HW indicates support";
 		} else if (ap->ap_sc->sc_flags & AHCI_F_FORCE_FBSS) {
 			cmd |= AHCI_PREG_CMD_FBSCP;	/* Force on */
-			str1 = str_fnosupport;
+			str1 = "HW indicates no-support, force";
 		} else {
-			str1 = str_nosupport;
+			str1 = "HW indicates no-support";
 		}
 		if (cmd & AHCI_PREG_CMD_FBSCP) {
 			fbs = ahci_pread(ap, AHCI_PREG_FBS);
 			ahci_pwrite(ap, AHCI_PREG_FBS, fbs | AHCI_PREG_FBS_EN);
 			fbs = ahci_pread(ap, AHCI_PREG_FBS);
 			if (fbs & AHCI_PREG_FBS_EN) {
-				str2 = str_enablesucc;
+				str2 = ", enable succeeded";
 				fbsmode = 1;
 			} else {
-				str2 = str_enablefail;
+				str2 = ", enable failed";
 			}
+
 			/*
 			 * Must be off during the PM probe, we will enable
 			 * it at the end.
 			 */
 			ahci_pwrite(ap, AHCI_PREG_FBS, fbs & ~AHCI_PREG_FBS_EN);
 		}
-		kprintf(str_portmultfis, PORTNAME(ap), str1, str2, str3);
+		kprintf("%s: FBS Cap detected: %s%s%s\n",
+			PORTNAME(ap), str1, str2, str3);
 	}
 
 	/*
@@ -196,7 +149,8 @@ retry:
 	ahci_flush_tfd(ap);
 	ahci_port_clo(ap);
 	if (ahci_port_start(ap)) {
-		kprintf(str_pmprobefail, PORTNAME(ap));
+		kprintf("%s: PMPROBE cannot start port\n",
+		        PORTNAME(ap));
 		error = EIO;
 		goto err;
 	}
@@ -221,7 +175,6 @@ retry:
 		}
 		kprintf("%s: PMPROBE BUSY, giving up\n",
 			PORTNAME(ap));
-
 		error = EBUSY;
 		goto err;
 	}
@@ -279,7 +232,8 @@ retry:
 	 * the _C_
 	 */
 	if (ahci_poll(ccb, 1000, ahci_quick_timeout) != ATA_S_COMPLETE) {
-		kprintf(str_pmprobeno1, PORTNAME(ap));
+		kprintf("%s: PMPROBE(1) No Port Multiplier was found.\n",
+			PORTNAME(ap));
 		if (--count) {
 			rstcount = 2;
 			ahci_put_err_ccb(ccb);
@@ -300,7 +254,7 @@ retry:
 	 */
 	if (ahci_pwait_clr(ap, AHCI_PREG_TFD,
 			       AHCI_PREG_TFD_STS_BSY | AHCI_PREG_TFD_STS_DRQ)) {
-		kprintf(str_pmprobefis, PORTNAME(ap));
+		kprintf("%s: PMPROBE Busy after first FIS\n", PORTNAME(ap));
 	} else if (bootverbose) {
 		kprintf("%s: PMPROBE Clean after first FIS\n", PORTNAME(ap));
 	}
@@ -347,7 +301,8 @@ retry:
 	 * slot #0 behind the PM.
 	 */
 	if (ahci_poll(ccb, 5000, ahci_quick_timeout) != ATA_S_COMPLETE) {
-		kprintf(str_pmprobeno2, PORTNAME(ap));
+		kprintf("%s: PMPROBE(2) No Port Multiplier was found.\n",
+			PORTNAME(ap));
 		if (--count) {
 			rstcount = 2;
 			ahci_put_err_ccb(ccb);
@@ -356,6 +311,7 @@ retry:
 		error = EBUSY;
 		goto err;
 	}
+
 	/*
 	 * Some controllers return completion for the second FIS before
 	 * updating the signature register.  Sleep a bit to allow for it.
@@ -399,8 +355,9 @@ err:
 	if (error == 0 && ahci_pm_identify(ap)) {
 		ahci_os_sleep(500);
 		if (ahci_pm_identify(ap)) {
-                        kprintf(str_pmidentfail, PORTNAME(ap));
-		error = EBUSY;
+			kprintf("%s: PM - cannot identify port multiplier\n",
+				PORTNAME(ap));
+			error = EBUSY;
 		} else {
 			kprintf("%s: PM - Had to identify twice\n",
 				PORTNAME(ap));
@@ -428,6 +385,7 @@ err:
 		}
 	}
 
+
 	/*
 	 * If we probed the PM reset the state for the targets behind
 	 * it so they get probed by the state machine.
@@ -454,7 +412,8 @@ err:
 	if (orig_error == 0) {
 		if (ahci_pwait_clr(ap, AHCI_PREG_TFD,
 			    AHCI_PREG_TFD_STS_BSY | AHCI_PREG_TFD_STS_DRQ)) {
-			kprintf(str_pmprobeportnr, PORTNAME(ap));
+			kprintf("%s: PM probe: port will not come ready\n",
+				PORTNAME(ap));
 			orig_error = EBUSY;
 			ahci_port_init(ap);
 		}
@@ -509,29 +468,24 @@ ahci_pm_identify(struct ahci_port *ap)
 			--nports;
 	}
 
-	kprintf(str_pmchip,
-		PORTNAME(ap),
-		chipid,
-		rev, SATA_PFMT_PM_REV,
-		nports);
+	kprintf("%s: Port multiplier: chip=%08x rev=0x%pb%i nports=%d\n",
+		PORTNAME(ap), chipid, SATA_PFMT_PM_REV, rev, nports);
 	if (has_dummy_port) {
-		kprintf(str_pmignore, PORTNAME(ap), nports);
+		kprintf("%s: Port multiplier: Ignoring dummy port #%d\n",
+		PORTNAME(ap), nports);
 	}
 	ap->ap_pmcount = nports;
 
 	if (ahci_pm_read(ap, 15, SATA_PMREG_FEA, &data1)) {
-		kprintf(str_pmwarnfeat, PORTNAME(ap));
+		kprintf("%s: Port multiplier: Warning, "
+			"cannot read feature register\n", PORTNAME(ap));
 	} else {
-		kprintf(str_pmfeat,
-			PORTNAME(ap),
-			data1,
-			SATA_PFMT_PM_FEA);
+		kprintf("%s: Port multiplier features: 0x%pb%i\n",
+			PORTNAME(ap), SATA_PFMT_PM_FEA, data1);
 	}
 	if (ahci_pm_read(ap, 15, SATA_PMREG_FEAEN, &data2) == 0) {
-		kprintf(str_pmdefaults,
-			PORTNAME(ap),
-			data2,
-			SATA_PFMT_PM_FEA);
+		kprintf("%s: Port multiplier defaults: 0x%pb%i\n",
+			PORTNAME(ap), SATA_PFMT_PM_FEA, data2);
 	}
 
 	/*
@@ -546,17 +500,20 @@ ahci_pm_identify(struct ahci_port *ap)
 				      AHCI_PREG_SERR_DIAG_X;
 		data2 |= SATA_PMFEA_ASYNCNOTIFY;
 		if (ahci_pm_write(ap, 15, SATA_PMREG_FEAEN, data2)) {
-			kprintf(str_pmasyncfail, PORTNAME(ap));
+			kprintf("%s: Port multiplier: AsyncNotify cannot be "
+				"enabled\n", PORTNAME(ap));
 		} else if (ahci_pm_write(ap, 15, SATA_PMREG_EEENA, serr_bits)) {
-			kprintf(str_pmasyncebfail, PORTNAME(ap));
+			kprintf("%s: Port mulltiplier: AsyncNotify unable "
+				"to enable error info bits\n", PORTNAME(ap));
 		} else {
-			kprintf(str_pmasyncenabled, PORTNAME(ap));
+			kprintf("%s: Port multiplier: AsyncNotify enabled\n",
+				PORTNAME(ap));
 		}
 	}
 
 	return (0);
 err:
-	kprintf(str_pmnoident, PORTNAME(ap));
+	kprintf("%s: Port multiplier cannot be identified\n", PORTNAME(ap));
 	return (EIO);
 }
 
@@ -628,7 +585,8 @@ ahci_pm_hardreset(struct ahci_port *ap, int target, int hard)
 	ahci_os_sleep(100);
 
 	if (ahci_pm_phy_status(ap, target, &data)) {
-		kprintf(str_cannotclear, ATANAME(ap ,at));
+		kprintf("%s: (A)Cannot clear phy status\n",
+			ATANAME(ap ,at));
 	}
 
 	/*
@@ -656,7 +614,8 @@ ahci_pm_hardreset(struct ahci_port *ap, int target, int hard)
 		ahci_os_sleep(100);
 	}
 	if (loop == 0) {
-		kprintf(str_unplugged, PORTNAME(ap), target);
+		kprintf("%s.%d: Port appears to be unplugged\n",
+			PORTNAME(ap), target);
 		error = ENODEV;
 		goto err;
 	}
@@ -677,7 +636,8 @@ ahci_pm_hardreset(struct ahci_port *ap, int target, int hard)
 	 * Device not detected
 	 */
 	if (loop == 0) {
-		kprintf(str_powereddown, PORTNAME(ap));
+		kprintf("%s: Device may be powered down\n",
+			PORTNAME(ap));
 		error = ENODEV;
 		goto err;
 	}
@@ -685,7 +645,8 @@ ahci_pm_hardreset(struct ahci_port *ap, int target, int hard)
 	/*
 	 * Device detected
 	 */
-	kprintf(str_detected, PORTNAME(ap), target, data);
+	kprintf("%s.%d: Device detected data=%08x\n",
+		PORTNAME(ap), target, data);
 	/*
 	 * Clear SERR on the target so we get a new NOTIFY event if a hot-plug
 	 * or hot-unplug occurs.  Clear any spurious IFS that may have
@@ -727,7 +688,7 @@ ahci_pm_softreset(struct ahci_port *ap, int target)
 	error = EIO;
 	at = ap->ap_ata[target];
 
-	DPRINTF(AHCI_D_VERBOSE, str_softreset, PORTNAME(ap));
+	DPRINTF(AHCI_D_VERBOSE, "%s: soft reset\n", PORTNAME(ap));
 
 	count = 2;
 retry:
@@ -739,7 +700,8 @@ retry:
 	 *	 softreset FISs.  It's now or never.
 	 */
 	if (ahci_pm_phy_status(ap, target, &data)) {
-		kprintf(str_cannotclear2, ATANAME(ap ,at));
+		kprintf("%s: (B)Cannot clear phy status\n",
+			ATANAME(ap ,at));
 	}
 	ahci_pm_write(ap, target, SATA_PMREG_SERR, -1);
 
@@ -787,9 +749,9 @@ retry:
 	ap->ap_flags &= ~AP_F_IFS_IGNORED;
 
 	if (ahci_poll(ccb, 1000, ahci_ata_cmd_timeout) != ATA_S_COMPLETE) {
-		kprintf(str_pmsoftresetfail,
+		kprintf("%s: Soft-reset through PM failed, %s\n",
 			ATANAME(ap, at),
-			(count > 1 ? str_retrying : str_giveup));
+			(count > 1 ? "retrying" : "giving up"));
 		ahci_put_err_ccb(ccb);
 		if (--count) {
 			if (ap->ap_flags & AP_F_IFS_IGNORED)
@@ -840,9 +802,9 @@ retry:
 	ap->ap_flags &= ~AP_F_IFS_IGNORED;
 
 	if (ahci_poll(ccb, 1000, ahci_ata_cmd_timeout) != ATA_S_COMPLETE) {
-		kprintf(str_pmsoftresetfail2,
+		kprintf("%s: Soft-reset(2) through PM failed, %s\n",
 			ATANAME(ap, at),
-			(count > 1 ? str_retrying : str_giveup));
+			(count > 1 ? "retrying" : "giving up"));
 		if (--count) {
 			ahci_os_sleep(1000);
 			ahci_put_err_ccb(ccb);
@@ -860,7 +822,7 @@ retry:
 
 	ahci_pm_write(ap, target, SATA_PMREG_SERR, -1);
 	if (ahci_pm_phy_status(ap, target, &data)) {
-		kprintf(str_cannotclear3,
+		kprintf("%s: (C)Cannot clear phy status\n",
 			ATANAME(ap ,at));
 	}
 	ahci_pm_write(ap, target, SATA_PMREG_SERR, -1);
@@ -885,7 +847,8 @@ retry:
 		at->at_type = ahci_port_signature_detect(ap, at);
 	} else {
 		if (ahci_port_signature_detect(ap, at) != at->at_type) {
-			kprintf(str_sigchange, ATANAME(ap, at));
+			kprintf("%s: device signature unexpectedly "
+				"changed\n", ATANAME(ap, at));
 			error = EBUSY; /* XXX */
 		}
 	}
@@ -902,7 +865,8 @@ err:
 	 * Clear error status so we can detect removal.
 	 */
 	if (ahci_pm_write(ap, target, SATA_PMREG_SERR, -1)) {
-		kprintf(str_cannotclrserr, ATANAME(ap, at));
+		kprintf("%s: ahci_pm_softreset unable to clear SERR\n",
+			ATANAME(ap, at));
 	}
 	ahci_pwrite(ap, AHCI_PREG_SERR, -1);
 	ahci_pwrite(ap, AHCI_PREG_IS, AHCI_PREG_IS_IFS);
@@ -950,11 +914,13 @@ ahci_pm_check_good(struct ahci_port *ap, int target)
 	 * to allow the PM to generate a new event.
 	 */
 	if (ahci_pm_read(ap, 15, SATA_PMREG_EINFO, &data)) {
-		kprintf(str_cannotreadeinfo, PORTNAME(ap));
+		kprintf("%s: Port multiplier EINFO could not be read\n",
+			PORTNAME(ap));
 	}
 
 	if (ahci_pm_write(ap, target, SATA_PMREG_SERR, -1)) {
-		kprintf(str_pmcannotclearserr, PORTNAME(ap));
+		kprintf("%s: Port multiplier: SERR could not be cleared\n",
+			PORTNAME(ap));
 	}
 
 	if (target == ~0 || target >= ap->ap_pmcount)
@@ -974,7 +940,8 @@ ahci_pm_check_good(struct ahci_port *ap, int target)
 	 * Read the detect status
 	 */
 	if (ahci_pm_read(ap, target, SATA_PMREG_SSTS, &data)) {
-		kprintf(str_cannotaccessssts, PORTNAME(ap), target);
+		kprintf("%s: Unable to access PM SSTS register target %d\n",
+			PORTNAME(ap), target);
 		return;
 	}
 	if ((data & AHCI_PREG_SSTS_DET) != AHCI_PREG_SSTS_DET_DEV) {
@@ -983,13 +950,15 @@ ahci_pm_check_good(struct ahci_port *ap, int target)
 			at->at_probe = ATA_PROBE_FAILED;
 			at->at_type = ATA_PORT_T_NONE;
 			at->at_features |= ATA_PORT_F_RESCAN;
-			kprintf(str_hotplugremove, ATANAME(ap, at));
+			kprintf("%s: HOTPLUG (PM) - Device removed\n",
+				ATANAME(ap, at));
 		}
 	} else {
 		if (at->at_probe == ATA_PROBE_FAILED) {
 			at->at_probe = ATA_PROBE_NEED_HARD_RESET;
 			at->at_features |= ATA_PORT_F_RESCAN;
-			kprintf(str_hotpluginsert, ATANAME(ap, at));
+			kprintf("%s: HOTPLUG (PM) - Device inserted\n",
+				ATANAME(ap, at));
 		}
 	}
 }
@@ -1022,7 +991,8 @@ ahci_pm_read(struct ahci_port *ap, int target, int which, u_int32_t *datap)
 		       (xa->rfis.lba_mid << 16) | (xa->rfis.lba_high << 24);
 		error = 0;
 	} else {
-		kprintf(str_readscafail, PORTNAME(ap), target, which);
+		kprintf("%s.%d pm_read SCA[%d] failed\n",
+			PORTNAME(ap), target, which);
 		*datap = 0;
 		error = EIO;
 	}

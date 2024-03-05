@@ -56,10 +56,6 @@
 
 extern CONST_STRPTR ahciDeviceName;
 
-static const char *str_gen1 = "1 (1.5Gbps)";
-static const char *str_gen2 = "2 (3Gbps)";
-static const char *str_gen3 = "3 (6Gbps)";
-static const char *str_genunk = "unknown";
 
 static int	ahci_vt8251_attach(device_t);
 static int	ahci_ati_sb600_attach(device_t);
@@ -446,16 +442,16 @@ ahci_pci_attach(device_t dev)
 
 	switch (cap & AHCI_REG_CAP_ISS) {
 	case AHCI_REG_CAP_ISS_G1:
-		gen = str_gen1;
+		gen = "1 (1.5Gbps)";
 		break;
 	case AHCI_REG_CAP_ISS_G2:
-		gen = str_gen2;
+		gen = "2 (3Gbps)";
 		break;
 	case AHCI_REG_CAP_ISS_G3:
-		gen = str_gen3;
+		gen = "3 (6Gbps)";
 		break;
 	default:
-		gen = str_genunk;
+		gen = "unknown";
 		break;
 	}
 
@@ -667,7 +663,6 @@ ahci_pci_detach(device_t dev)
 	struct ahci_softc *sc = device_get_softc(dev);
 	struct ahci_port *ap;
 	int	i;
-
 
 	/*
 	 * Disable the controller and de-register the interrupt, if any.
