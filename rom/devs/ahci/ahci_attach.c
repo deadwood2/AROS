@@ -225,15 +225,14 @@ ahci_pci_attach(device_t dev)
 # define gen			dev->dev_gen
 #endif
 	uint16_t vid, did;
-	u_int32_t pi;
+	u_int32_t pi, reg;
 	u_int32_t cap, cap2;
+	u_int32_t chip;
 	u_int irq_flags;
 	bus_addr_t addr;
 	int i, error, msi_enable, rev, fbs;
+	char revbuf[32];
 
-        vid = pci_get_vendor(dev);
-        did = pci_get_device(dev);
-    
 	if (pci_read_config(dev, PCIR_COMMAND, 2) & 0x0400) {
 		device_printf(dev, "BIOS disabled PCI interrupt, "
 				   "re-enabling\n");
@@ -247,7 +246,10 @@ ahci_pci_attach(device_t dev)
 	 * chipsets (aka Marvell) either don't have the bits at all or they
 	 * implement them poorly.
 	 */
-	switch((did << 16) | vid) {
+	chip = ((uint16_t)pci_get_device(dev) << 16) |
+		(uint16_t)pci_get_vendor(dev);
+
+	switch(chip) {
 	case 0x91721b4b:
 		device_printf(dev,
 			      "Enable 88SE9172 workarounds for broken chip\n");
@@ -280,6 +282,8 @@ ahci_pci_attach(device_t dev)
 	 */
 	msi_enable = ahci_msi_enable;
 
+	vid = pci_get_vendor(dev);
+	did = pci_get_device(dev);
 	rev = pci_get_revid(dev);
 	for (i = 0; i < NELEM(ahci_msi_blacklist); ++i) {
 		const struct ahci_pciid *id = &ahci_msi_blacklist[i];
@@ -447,23 +451,33 @@ ahci_pci_attach(device_t dev)
 	}
 
 	/* check the revision */
-	sc->sc_vers = ahci_read(sc, AHCI_REG_VS);
-	if (sc->sc_vers >= AHCI_REG_VS_1_3) {
+	reg = ahci_read(sc, AHCI_REG_VS);
+
+	if (reg & 0x0000FF) {
+		ksnprintf(revbuf, sizeof(revbuf), "AHCI %d.%d.%d",
+			  (reg >> 16), (uint8_t)(reg >> 8), (uint8_t)reg);
+	} else {
+		ksnprintf(revbuf, sizeof(revbuf), "AHCI %d.%d",
+			  (reg >> 16), (uint8_t)(reg >> 8));
+	}
+	sc->sc_vers = reg;
+
+	if (reg >= AHCI_REG_VS_1_3) {
 		cap2 = ahci_read(sc, AHCI_REG_CAP2);
 		device_printf(dev,
-			      "%s cap 0x%b cap2 0x%b, %d ports, "
+			      "%s cap 0x%pb%i cap2 0x%pb%i, %d ports, "
 			      "%d tags/port, gen %s\n",
-			      dev->dev_revision,
-			      cap, AHCI_FMT_CAP,
-			      cap2, AHCI_FMT_CAP2,
+			      revbuf,
+			      AHCI_FMT_CAP, cap,
+			      AHCI_FMT_CAP2, cap2,
 			      AHCI_REG_CAP_NP(cap), sc->sc_ncmds, gen);
 	} else {
 		cap2 = 0;
 		device_printf(dev,
-			      "%s cap 0x%b, %d ports, "
+			      "%s cap 0x%pb%i, %d ports, "
 			      "%d tags/port, gen %s\n",
-			      dev->dev_revision,
-			      cap, AHCI_FMT_CAP,
+			      revbuf,
+			      AHCI_FMT_CAP, cap,
 			      AHCI_REG_CAP_NP(cap), sc->sc_ncmds, gen);
 	}
 	sc->sc_cap2 = cap2;
@@ -523,12 +537,11 @@ noccc:
 	 * order.
 	 */
 	for (i = 0; error == 0 && i < AHCI_MAX_PORTS; i++) {
-            D(bug("[AHCI] %s: checking port %d\n", __func__, i)); 
-            if ((pi & (1 << i)) == 0) {
-                /* dont allocate stuff if the port isnt implemented */
-                continue;
-            }
-            error = ahci_port_alloc(sc, i);
+		if ((pi & (1 << i)) == 0) {
+			/* dont allocate stuff if the port isnt implemented */
+			continue;
+		}
+		error = ahci_port_alloc(sc, i);
             if (error == 0)
             {
                 struct TagItem attrs[] =
@@ -688,6 +701,12 @@ ahci_pci_detach(device_t dev)
 				     sc->sc_rid_irq, sc->sc_irq);
 		sc->sc_irq = NULL;
 	}
+
+#if 0
+	if (sc->sc_irq_type == PCI_INTR_TYPE_MSI)
+		pci_release_msi(dev);
+#endif
+
 	if (sc->sc_regs) {
 		bus_release_resource(dev, SYS_RES_MEMORY,
 				     sc->sc_rid_regs, sc->sc_regs);

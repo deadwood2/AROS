@@ -17,13 +17,13 @@
  */
 
 #if defined(__DragonFly__)
-#  include   "ahci_dragonfly.h"
-#  include   "atascsi.h"
+#include "ahci_dragonfly.h"
+#include "atascsi.h"
 #elif defined(__AROS__)
-#  include   "ahci_aros.h"
-#  include   <devices/atascsi.h>
+#include   "ahci_aros.h"
+#include   <devices/atascsi.h>
 #else
-#  error   "build for OS unknown"
+#error "build for OS unknown"
 #endif
 #include "pmreg.h"
 
@@ -37,7 +37,7 @@
 #define AHCI_D_VERBOSE		0x01
 #define AHCI_D_INTR		0x02
 #define AHCI_D_XFER		0x08
-static const int ahcidebug = 0xff;
+int ahcidebug = AHCI_D_VERBOSE;
 #else
 #define DPRINTF(m, f...)
 #endif
@@ -567,9 +567,6 @@ struct ahci_softc {
 	u_int32_t		sc_ccc_ports;
 	u_int32_t		sc_ccc_ports_cur;
 #endif
-
-	struct sysctl_ctx_list	sysctl_ctx;
-	struct sysctl_oid	*sysctl_tree;
 };
 #define DEVNAME(_s)		"ahci.device"
 

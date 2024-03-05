@@ -104,7 +104,6 @@ ahci_init(struct ahci_softc *sc)
 	 * AHCI version.
 	 */
 	vers = ahci_read(sc, AHCI_REG_VS);
-	(void)vers; // Unused (for now: jmcmullan)
 
 	/*
 	 * save BIOS initialised parameters, enable staggered spin up
@@ -2697,7 +2696,6 @@ process_error:
 #define OFFSETINTTYPE   intmax_t
 #endif
 				OFFSETINTTYPE offset;
-
 				struct ata_fis_d2h *rfis;
 
 				ccb_at = ccb->ccb_xa.at;

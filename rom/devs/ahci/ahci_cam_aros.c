@@ -684,6 +684,12 @@ ahci_cam_probe(struct ahci_port *ap, struct ata_port *atx)
 	error = EIO;
 
 	/*
+	 * Delayed CAM attachment for initial probe, sim may be NULL
+	 */
+	if (ap->ap_sim == NULL)
+		return(0);
+
+	/*
 	 * A NULL atx indicates a probe of the directly connected device.
 	 * A non-NULL atx indicates a device connected via a port multiplier.
 	 * We need to preserve atx for calls to ahci_ata_get_xfer().
@@ -752,6 +758,9 @@ ahci_cam_probe(struct ahci_port *ap, struct ata_port *atx)
 	ahci_ata_put_xfer(xa);
 
 	ata_fix_identify(&at->at_identify);
+
+	if (at->at_type == ATA_PORT_T_DISK && at->at_identify.nomrota_rate == 1)
+		type = "SSD";
 
 	/*
 	 * Read capacity using SATA probe info.

@@ -38,6 +38,7 @@
 
 #include "ahci.h"
 
+#define CAM_TARGET_WILDCARD ((int)~0)
 
 static void ahci_pm_dummy_done(struct ata_xfer *xa);
 
@@ -90,10 +91,12 @@ retry:
 	ahci_port_stop(ap, 0);
 	ap->ap_state = AP_S_NORMAL;
 	cmd = ahci_pread(ap, AHCI_PREG_CMD) & ~AHCI_PREG_CMD_ICC;
+#if 1
 	if ((cmd & AHCI_PREG_CMD_PMA) == 0) {
 		cmd |= AHCI_PREG_CMD_PMA;
 		ahci_pwrite(ap, AHCI_PREG_CMD, cmd);
 	}
+#endif
 
 	/*
 	 * Check to see if FBS is supported by checking the cap and the
@@ -406,9 +409,11 @@ err:
 	 */
 	ahci_port_stop(ap, 0);
 	ahci_port_clo(ap);
+#if 1
 	cmd = ahci_pread(ap, AHCI_PREG_CMD) & ~AHCI_PREG_CMD_ICC;
 	cmd &= ~AHCI_PREG_CMD_PMA;
 	ahci_pwrite(ap, AHCI_PREG_CMD, cmd);
+#endif
 	if (orig_error == 0) {
 		if (ahci_pwait_clr(ap, AHCI_PREG_TFD,
 			    AHCI_PREG_TFD_STS_BSY | AHCI_PREG_TFD_STS_DRQ)) {
@@ -923,7 +928,7 @@ ahci_pm_check_good(struct ahci_port *ap, int target)
 			PORTNAME(ap));
 	}
 
-	if (target == ~0 || target >= ap->ap_pmcount)
+	if (target == CAM_TARGET_WILDCARD || target >= ap->ap_pmcount)
 		return;
 	at = ap->ap_ata[target];
 
