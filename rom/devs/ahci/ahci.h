@@ -261,10 +261,10 @@ static const int ahcidebug = 0xff;
 #define  AHCI_PREG_SCTL_IPM_NOSLUMBER	0x200
 #define  AHCI_PREG_SCTL_IPM_NODEVSLP	0x400
 #define	 AHCI_PREG_SCTL_SPM		0xf000	/* Select Power Management */
-#define	 AHCI_PREG_SCTL_SPM_NONE	0x0000  /* not used by AHCI */
-#define	 AHCI_PREG_SCTL_SPM_NOPARTIAL	0x1000  /* not used by AHCI */
-#define	 AHCI_PREG_SCTL_SPM_NOSLUMBER	0x2000  /* not used by AHCI */
-#define	 AHCI_PREG_SCTL_SPM_DISABLED	0x3000  /* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_NONE	0x0000	/* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_NOPARTIAL	0x1000	/* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_NOSLUMBER	0x2000	/* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_DISABLED	0x3000	/* not used by AHCI */
 #define  AHCI_PREG_SCTL_PMP		0xf0000	/* Set PM port for xmit FISes */
 #define  AHCI_PREG_SCTL_PMP_SHIFT	16
 
@@ -440,11 +440,11 @@ struct ahci_ccb {
 };
 
 struct ahci_port {
-        OOP_Object              *ap_Object;
+	OOP_Object		*ap_Object;
 	struct ahci_softc	*ap_sc;
 	bus_space_handle_t	ap_ioh;
 
-        struct Node             *ap_IDNode;
+	struct Node		*ap_IDNode;
 
 	int			ap_num;
 	int			ap_pmcount;

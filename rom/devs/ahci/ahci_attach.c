@@ -65,24 +65,24 @@ static int	ahci_pci_attach(device_t);
 static int	ahci_pci_detach(device_t);
 
 static const struct ahci_device ahci_devices[] = {
-    { PCI_VENDOR_VIATECH,	PCI_PRODUCT_VIATECH_VT8251_SATA,
-        ahci_vt8251_attach, ahci_pci_detach, "ViaTech-VT8251-SATA" },
-    { PCI_VENDOR_ATI,	PCI_PRODUCT_ATI_SB600_SATA,
-        ahci_ati_sb600_attach, ahci_pci_detach, "ATI-SB600-SATA" },
-    { PCI_VENDOR_ATI,	PCI_PRODUCT_ATI_SB700_AHCI,
-        ahci_ati_sb700_attach, ahci_pci_detach, "ATI-SB700-SATA" },
-    { PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP65_AHCI_2,
-        ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP65-SATA" },
-    { PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP67_AHCI_1,
-        ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP67-SATA" },
-    { PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP77_AHCI_5,
-        ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP77-SATA" },
-    { PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP79_AHCI_1,
-        ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP79-SATA" },
-    { PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP79_AHCI_9,
-        ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP79-SATA" },
-    { 0, 0,
-        ahci_pci_attach, ahci_pci_detach, "AHCI-PCI-SATA" }
+	{ PCI_VENDOR_VIATECH,	PCI_PRODUCT_VIATECH_VT8251_SATA,
+	    ahci_vt8251_attach, ahci_pci_detach, "ViaTech-VT8251-SATA" },
+	{ PCI_VENDOR_ATI,	PCI_PRODUCT_ATI_SB600_SATA,
+	    ahci_ati_sb600_attach, ahci_pci_detach, "ATI-SB600-SATA" },
+	{ PCI_VENDOR_ATI,	PCI_PRODUCT_ATI_SB700_AHCI,
+	    ahci_ati_sb700_attach, ahci_pci_detach, "ATI-SB700-SATA" },
+	{ PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP65_AHCI_2,
+	    ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP65-SATA" },
+	{ PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP67_AHCI_1,
+	    ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP67-SATA" },
+	{ PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP77_AHCI_5,
+	    ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP77-SATA" },
+	{ PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP79_AHCI_1,
+	    ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP79-SATA" },
+	{ PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP79_AHCI_9,
+	    ahci_nvidia_mcp_attach, ahci_pci_detach, "NVidia-MCP79-SATA" },
+	{ 0, 0,
+	    ahci_pci_attach, ahci_pci_detach, "AHCI-PCI-SATA" }
 };
 
 struct ahci_pciid {
@@ -126,36 +126,36 @@ int	ahci_synchronous_boot = 1;
 const struct ahci_device *
 ahci_lookup_device(device_t dev)
 {
-    const struct ahci_device *ad;
-    u_int16_t vendor = pci_get_vendor(dev);
-    u_int16_t product = pci_get_device(dev);
-    u_int8_t class = pci_get_class(dev);
-    u_int8_t subclass = pci_get_subclass(dev);
-    u_int8_t progif = pci_read_config(dev, PCIR_PROGIF, 1);
-    int is_ahci;
+	const struct ahci_device *ad;
+	u_int16_t vendor = pci_get_vendor(dev);
+	u_int16_t product = pci_get_device(dev);
+	u_int8_t class = pci_get_class(dev);
+	u_int8_t subclass = pci_get_subclass(dev);
+	u_int8_t progif = pci_read_config(dev, PCIR_PROGIF, 1);
+	int is_ahci;
 
-    /*
-     * Generally speaking if the pci device does not identify as
-     * AHCI we skip it.
-     */
-    if (class == PCIC_STORAGE && subclass == PCIS_STORAGE_SATA &&
-        progif == PCIP_STORAGE_SATA_AHCI_1_0) {
-            is_ahci = 1;
-    } else {
-            is_ahci = 0;
-    }
+	/*
+	 * Generally speaking if the pci device does not identify as
+	 * AHCI we skip it.
+	 */
+	if (class == PCIC_STORAGE && subclass == PCIS_STORAGE_SATA &&
+	    progif == PCIP_STORAGE_SATA_AHCI_1_0) {
+		is_ahci = 1;
+	} else {
+		is_ahci = 0;
+	}
 
-    for (ad = &ahci_devices[0]; ad->ad_vendor; ++ad) {
-            if (ad->ad_vendor == vendor && ad->ad_product == product)
-                    return (ad);
-    }
+	for (ad = &ahci_devices[0]; ad->ad_vendor; ++ad) {
+		if (ad->ad_vendor == vendor && ad->ad_product == product)
+			return (ad);
+	}
 
-    /*
-     * Last ad is the default match if the PCI device matches SATA.
-     */
-    if (is_ahci == 0)
-            ad = NULL;
-    return (ad);
+	/*
+	 * Last ad is the default match if the PCI device matches SATA.
+	 */
+	if (is_ahci == 0)
+		ad = NULL;
+	return (ad);
 }
 
 /*
@@ -164,53 +164,53 @@ ahci_lookup_device(device_t dev)
 static int
 ahci_vt8251_attach(device_t dev)
 {
-    struct ahci_softc *sc = device_get_softc(dev);
+	struct ahci_softc *sc = device_get_softc(dev);
 
-    sc->sc_flags |= AHCI_F_NO_NCQ;
-    return (ahci_pci_attach(dev));
+	sc->sc_flags |= AHCI_F_NO_NCQ;
+	return (ahci_pci_attach(dev));
 }
 
 static int
 ahci_ati_sb600_attach(device_t dev)
 {
-    struct ahci_softc *sc = device_get_softc(dev);
-    pcireg_t magic;
-    u_int8_t subclass = pci_get_subclass(dev);
-    u_int8_t revid;
+	struct ahci_softc *sc = device_get_softc(dev);
+	pcireg_t magic;
+	u_int8_t subclass = pci_get_subclass(dev);
+	u_int8_t revid;
 
-    if (subclass == PCIS_STORAGE_IDE) {
-        revid = pci_read_config(dev, PCIR_REVID, 1);
-        magic = pci_read_config(dev, AHCI_PCI_ATI_SB600_MAGIC, 4);
-        pci_write_config(dev, AHCI_PCI_ATI_SB600_MAGIC,
-                         magic | AHCI_PCI_ATI_SB600_LOCKED, 4);
-        pci_write_config(dev, PCIR_REVID,
-                         (PCIC_STORAGE << 24) |
-                         (PCIS_STORAGE_SATA << 16) |
-                         (PCIP_STORAGE_SATA_AHCI_1_0 << 8) |
-                         revid, 4);
-        pci_write_config(dev, AHCI_PCI_ATI_SB600_MAGIC, magic, 4);
-    }
+	if (subclass == PCIS_STORAGE_IDE) {
+		revid = pci_read_config(dev, PCIR_REVID, 1);
+		magic = pci_read_config(dev, AHCI_PCI_ATI_SB600_MAGIC, 4);
+		pci_write_config(dev, AHCI_PCI_ATI_SB600_MAGIC,
+				 magic | AHCI_PCI_ATI_SB600_LOCKED, 4);
+		pci_write_config(dev, PCIR_REVID,
+				 (PCIC_STORAGE << 24) |
+				 (PCIS_STORAGE_SATA << 16) |
+				 (PCIP_STORAGE_SATA_AHCI_1_0 << 8) |
+				 revid, 4);
+		pci_write_config(dev, AHCI_PCI_ATI_SB600_MAGIC, magic, 4);
+	}
 
-    sc->sc_flags |= AHCI_F_IGN_FR;
-    return (ahci_pci_attach(dev));
+	sc->sc_flags |= AHCI_F_IGN_FR;
+	return (ahci_pci_attach(dev));
 }
 
 static int
 ahci_ati_sb700_attach(device_t dev)
 {
-    struct ahci_softc *sc = device_get_softc(dev);
+	struct ahci_softc *sc = device_get_softc(dev);
 
-    sc->sc_flags |= AHCI_F_IGN_FR;
-    return (ahci_pci_attach(dev));
+	sc->sc_flags |= AHCI_F_IGN_FR;
+	return (ahci_pci_attach(dev));
 }
 
 static int
 ahci_nvidia_mcp_attach(device_t dev)
 {
-    struct ahci_softc *sc = device_get_softc(dev);
+	struct ahci_softc *sc = device_get_softc(dev);
 
-    sc->sc_flags |= AHCI_F_IGN_FR;
-    return (ahci_pci_attach(dev));
+	sc->sc_flags |= AHCI_F_IGN_FR;
+	return (ahci_pci_attach(dev));
 }
 
 static int
@@ -591,14 +591,14 @@ noccc:
 	if (error == 0) {
 		error = bus_setup_intr(dev, sc->sc_irq, INTR_MPSAFE |
 							INTR_HIFREQ,
-                                   ahci_intr, sc,
-                                   &sc->sc_irq_handle, NULL);
+				       ahci_intr, sc,
+				       &sc->sc_irq_handle, NULL);
 	}
 
 	if (error) {
-            device_printf(dev, "unable to install interrupt\n");
-            ahci_pci_detach(dev);
-            return (ENXIO);
+		device_printf(dev, "unable to install interrupt\n");
+		ahci_pci_detach(dev);
+		return (ENXIO);
 	}
 
 	/*
@@ -608,10 +608,10 @@ noccc:
 	 * may try to process the port before it has been initialized.
 	 */
 	for (i = 0; i < AHCI_MAX_PORTS; i++) {
-            if ((ap = sc->sc_ports[i]) != NULL) {
-                while (ap->ap_signal & AP_SIGF_THREAD_SYNC)
-                    ahci_os_sleep(1000);
-            }
+		if ((ap = sc->sc_ports[i]) != NULL) {
+			while (ap->ap_signal & AP_SIGF_THREAD_SYNC)
+				ahci_os_sleep(1000);
+		}
 	}
 
 	/*
@@ -634,7 +634,7 @@ noccc:
 	for (i = 0; i < AHCI_MAX_PORTS && ahci_synchronous_boot; i++) {
 		if ((ap = sc->sc_ports[i]) != NULL) {
 			while (ap->ap_signal & AP_SIGF_INIT)
-			    ahci_os_sleep(1000);
+				ahci_os_sleep(1000);
 			ahci_os_lock_port(ap);
 			if (ahci_cam_attach(ap) == 0) {
 				ahci_cam_changed(ap, NULL, -1);
