@@ -236,12 +236,11 @@ typedef struct bus_dma_tag *bus_dma_tag_t;
 typedef IPTR bus_space_tag_t;
 typedef APTR bus_dmamap_t;
 typedef IPTR bus_space_handle_t;
-typedef int bus_dma_filter_t(void *arg, bus_addr_t paddr);
 
 #define BUS_SPACE_MAXADDR       ~0
 #define BUS_SPACE_MAXADDR_32BIT ((ULONG)~0)
 
-int bus_dma_tag_create(bus_dma_tag_t parent, bus_size_t alignment, bus_size_t boundary, bus_addr_t lowaddr, bus_addr_t highaddr, bus_dma_filter_t *filter, void *filterarg, bus_size_t maxsize, int nsegments, bus_size_t maxsegsz, int flags, bus_dma_tag_t *dmat);
+int bus_dma_tag_create(bus_dma_tag_t parent, bus_size_t alignment, bus_size_t boundary, bus_addr_t lowaddr, bus_addr_t highaddr, bus_size_t maxsize, int nsegments, bus_size_t maxsegsz, int flags, bus_dma_tag_t *dmat);
 
 int bus_dma_tag_destroy(bus_dma_tag_t tag);
 
