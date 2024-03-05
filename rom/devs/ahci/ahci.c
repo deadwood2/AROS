@@ -345,7 +345,8 @@ ahci_port_alloc(struct ahci_softc *sc, u_int port)
 
 	/* Setup RFIS base address */
 	ap->ap_rfis = (struct ahci_rfis *) AHCI_DMA_KVA(ap->ap_dmamem_rfis);
-	memset(ap->ap_rfis, 0, sc->sc_rfis_size);
+	bzero(ap->ap_rfis, sc->sc_rfis_size);
+
 	dva = AHCI_DMA_DVA(ap->ap_dmamem_rfis);
 	ahci_pwrite(ap, AHCI_PREG_FB, (u_int32_t)dva);
 	ahci_pwrite(ap, AHCI_PREG_FBU, (u_int32_t)(dva >> 32));
@@ -403,7 +404,8 @@ nomem:
 	/* Split CCB allocation into CCBs and assign to command header/table */
 	hdr = AHCI_DMA_KVA(ap->ap_dmamem_cmd_list);
 	table = AHCI_DMA_KVA(ap->ap_dmamem_cmd_table);
-	memset(hdr, 0, sc->sc_cmdlist_size);
+	bzero(hdr, sc->sc_cmdlist_size);
+
 	for (i = 0; i < sc->sc_ncmds; i++) {
 		ccb = &ap->ap_ccbs[i];
 
@@ -1260,7 +1262,7 @@ ahci_port_softreset(struct ahci_port *ap)
 	cmd_slot = ccb->ccb_cmd_hdr;
 
 	fis = ccb->ccb_cmd_table->cfis;
-	memset(fis, 0, sizeof(ccb->ccb_cmd_table->cfis));
+	bzero(fis, sizeof(ccb->ccb_cmd_table->cfis));
 	fis[0] = ATA_FIS_TYPE_H2D;
 	fis[15] = ATA_FIS_CONTROL_SRST|ATA_FIS_CONTROL_4BIT;
 
@@ -1294,7 +1296,7 @@ ahci_port_softreset(struct ahci_port *ap)
 	 */
 	ccb->ccb_xa.flags = ATA_F_POLL | ATA_F_AUTOSENSE | ATA_F_EXCLUSIVE;
 
-	memset(fis, 0, sizeof(ccb->ccb_cmd_table->cfis));
+	bzero(fis, sizeof(ccb->ccb_cmd_table->cfis));
 	fis[0] = ATA_FIS_TYPE_H2D;
 	fis[15] = ATA_FIS_CONTROL_4BIT;
 
@@ -3424,7 +3426,7 @@ ahci_port_read_ncq_error(struct ahci_port *ap, int target)
 	ccb->ccb_xa.at = ap->ap_ata[target];
 
 	fis = (struct ata_fis_h2d *)ccb->ccb_cmd_table->cfis;
-	memset(fis, 0, sizeof(*fis));
+	bzero(fis, sizeof(*fis));
 	fis->type = ATA_FIS_TYPE_H2D;
 	fis->flags = ATA_H2D_FLAGS_CMD | target;
 	fis->command = ATA_C_READ_LOG_EXT;
@@ -3665,7 +3667,7 @@ ahci_ata_get_xfer(struct ahci_port *ap, struct ata_port *at)
 	DPRINTF(AHCI_D_XFER, "%s: ahci_ata_get_xfer got slot %d\n",
 	    PORTNAME(ap), ccb->ccb_slot);
 
-	memset(ccb->ccb_xa.fis, 0, sizeof(*ccb->ccb_xa.fis));
+	bzero(ccb->ccb_xa.fis, sizeof(*ccb->ccb_xa.fis));
 	ccb->ccb_xa.at = at;
 	ccb->ccb_xa.fis->type = ATA_FIS_TYPE_H2D;
 
