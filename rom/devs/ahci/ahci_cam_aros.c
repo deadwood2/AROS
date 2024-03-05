@@ -427,7 +427,6 @@ ata_fix_identify(struct ata_identify *id)
 {
         u_int16_t       *swap;
         int             i;
-        D(bug("[AHCI] %s()\n", __func__));
 
         swap = (u_int16_t *)id->serial;
         for (i = 0; i < sizeof(id->serial) / sizeof(u_int16_t); i++)
@@ -465,7 +464,6 @@ ahci_set_xfer(struct ahci_port *ap, struct ata_port *atx)
         struct ata_xfer *xa;
         u_int16_t mode;
         u_int16_t mask;
-        D(bug("[AHCI] %s()\n", __func__));
 
         at = atx ? atx : ap->ap_ata[0];
 
@@ -520,7 +518,6 @@ ahci_cam_probe_disk(struct ahci_port *ap, struct ata_port *atx)
 {
         struct ata_port *at;
         struct ata_xfer *xa;
-        D(bug("[AHCI] %s()\n", __func__));
 
         at = atx ? atx : ap->ap_ata[0];
 
@@ -650,7 +647,6 @@ ahci_cam_probe_disk(struct ahci_port *ap, struct ata_port *atx)
 static int
 ahci_cam_probe_atapi(struct ahci_port *ap, struct ata_port *atx)
 {
-        D(bug("[AHCI] %s()\n", __func__));
         ahci_set_xfer(ap, atx);
         return(0);
 }
@@ -684,7 +680,6 @@ ahci_cam_probe(struct ahci_port *ap, struct ata_port *atx)
         const char      *scstr;
         const char      *type;
 
-        D(bug("[AHCI] %s()\n", __func__));
         error = EIO;
 
         /*

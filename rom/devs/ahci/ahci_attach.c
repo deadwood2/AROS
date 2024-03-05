@@ -137,7 +137,6 @@ ahci_lookup_device(device_t dev)
     u_int8_t subclass = pci_get_subclass(dev);
     u_int8_t progif = pci_read_config(dev, PCIR_PROGIF, 1);
     int is_ahci;
-    D(bug("[AHCI] %s()\n", __func__)); 
 
     /*
      * Generally speaking if the pci device does not identify as
@@ -170,7 +169,6 @@ static int
 ahci_vt8251_attach(device_t dev)
 {
     struct ahci_softc *sc = device_get_softc(dev);
-    D(bug("[AHCI] %s()\n", __func__)); 
 
     sc->sc_flags |= AHCI_F_NO_NCQ;
     return (ahci_pci_attach(dev));
@@ -183,7 +181,6 @@ ahci_ati_sb600_attach(device_t dev)
     pcireg_t magic;
     u_int8_t subclass = pci_get_subclass(dev);
     u_int8_t revid;
-    D(bug("[AHCI] %s()\n", __func__)); 
 
     if (subclass == PCIS_STORAGE_IDE) {
         revid = pci_read_config(dev, PCIR_REVID, 1);
@@ -206,7 +203,6 @@ static int
 ahci_ati_sb700_attach(device_t dev)
 {
     struct ahci_softc *sc = device_get_softc(dev);
-    D(bug("[AHCI] %s()\n", __func__)); 
 
     sc->sc_flags |= AHCI_F_IGN_FR;
     return (ahci_pci_attach(dev));
@@ -216,7 +212,6 @@ static int
 ahci_nvidia_mcp_attach(device_t dev)
 {
     struct ahci_softc *sc = device_get_softc(dev);
-    D(bug("[AHCI] %s()\n", __func__)); 
 
     sc->sc_flags |= AHCI_F_IGN_FR;
     return (ahci_pci_attach(dev));
@@ -239,8 +234,6 @@ ahci_pci_attach(device_t dev)
 	u_int irq_flags;
 	bus_addr_t addr;
 	int i, error, msi_enable, rev, fbs;
-
-        D(bug("[AHCI] %s()\n", __func__)); 
 
         vid = pci_get_vendor(dev);
         did = pci_get_device(dev);
@@ -661,8 +654,7 @@ noccc:
 #if defined(__AROS__)
 # undef	gen
 #endif
-        
-        D(bug("[AHCI] %s: done\n", __func__)); 
+
 	return(0);
 }
 
@@ -676,7 +668,6 @@ ahci_pci_detach(device_t dev)
 	struct ahci_port *ap;
 	int	i;
 
-        D(bug("[AHCI] %s()\n", __func__)); 
 
 	/*
 	 * Disable the controller and de-register the interrupt, if any.
