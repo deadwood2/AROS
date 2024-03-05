@@ -322,7 +322,6 @@ ahci_pci_attach(device_t dev)
 	/*
 	 * Initialize the chipset and then set the interrupt vector up
 	 */
-	device_printf(dev, "device flags 0x%x\n", sc->sc_flags);
 	error = ahci_init(sc);
 	if (error) {
 		ahci_pci_detach(dev);
@@ -501,7 +500,7 @@ ahci_pci_attach(device_t dev)
 		sc->sc_ccc_mask = 1 << AHCI_REG_CCC_CTL_INT(ccc_ctl);
 		if (pi & sc->sc_ccc_mask) {
 			/* A conflict with the implemented port list? */
-			kprintf("%s: coalescing interrupt/implemented port list "
+			printf("%s: coalescing interrupt/implemented port list "
 			    "conflict, PI: %08x, ccc_mask: %08x\n",
 			    DEVNAME(sc), pi, sc->sc_ccc_mask);
 			sc->sc_ccc_mask = 0;

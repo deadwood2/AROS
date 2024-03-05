@@ -212,8 +212,8 @@ retry:
 	ccb->ccb_xa.state = ATA_S_PENDING;
 
 	if (bootverbose) {
-		kprintf("%s: PMPROBE PreStatus 0x%b\n", PORTNAME(ap),
-			ahci_pread(ap, AHCI_PREG_TFD), AHCI_PFMT_TFD_STS);
+		kprintf("%s: PMPROBE PreStatus 0x%pb%i\n", PORTNAME(ap),
+			AHCI_PFMT_TFD_STS, ahci_pread(ap, AHCI_PREG_TFD));
 	}
 
 	/*
@@ -244,8 +244,8 @@ retry:
 	}
 
 	if (bootverbose) {
-		kprintf("%s: PMPROBE PosStatus 0x%b\n", PORTNAME(ap),
-			ahci_pread(ap, AHCI_PREG_TFD), AHCI_PFMT_TFD_STS);
+		kprintf("%s: PMPROBE PosStatus 0x%pb%i\n", PORTNAME(ap),
+			AHCI_PFMT_TFD_STS, ahci_pread(ap, AHCI_PREG_TFD));
 	}
 #if 0
 	/*

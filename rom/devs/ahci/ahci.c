@@ -97,8 +97,8 @@ ahci_init(struct ahci_softc *sc)
 	int		i;
 	struct ahci_port *ap;
 
-	DPRINTF(AHCI_D_VERBOSE, " GHC 0x%b%i",
-		ahci_read(sc, AHCI_REG_GHC), AHCI_FMT_GHC);
+	DPRINTF(AHCI_D_VERBOSE, " GHC 0x%pb%i",
+		AHCI_FMT_GHC, ahci_read(sc, AHCI_REG_GHC));
 
 	/*
 	 * AHCI version.
@@ -289,7 +289,7 @@ ahci_port_alloc(struct ahci_softc *sc, u_int port)
 			at->at_probe = ATA_PROBE_NEED_INIT;
 			at->at_features |= ATA_PORT_F_RESCAN;
 			ksnprintf(at->at_name, sizeof(at->at_name),
-				  "%s.%d", PORTNAME(ap), i);
+				  "%s.%d", ap->ap_name, i);
 		}
 	}
 	if (bus_space_subregion(sc->sc_iot, sc->sc_ioh,
@@ -589,7 +589,7 @@ ahci_port_link_pwr_mgmt(struct ahci_port *ap, int link_pwr_mgmt)
 	if (link_pwr_mgmt == AHCI_LINK_PWR_MGMT_AGGR &&
 	    (ap->ap_sc->sc_cap & AHCI_REG_CAP_SSC)) {
 		if (bootverbose)
-		    kprintf("%s: enabling aggressive link power management.\n",
+		kprintf("%s: enabling aggressive link power management.\n",
 			PORTNAME(ap));
 
 		ap->link_pwr_mgmt = link_pwr_mgmt;
@@ -620,11 +620,10 @@ ahci_port_link_pwr_mgmt(struct ahci_port *ap, int link_pwr_mgmt)
 		cmd |= AHCI_PREG_CMD_ASP;
 		cmd |= AHCI_PREG_CMD_ALPE;
 		ahci_pwrite(ap, AHCI_PREG_CMD, cmd);
-
 	} else if (link_pwr_mgmt == AHCI_LINK_PWR_MGMT_MEDIUM &&
-		   (ap->ap_sc->sc_cap & AHCI_REG_CAP_PSC)) {
+	           (ap->ap_sc->sc_cap & AHCI_REG_CAP_PSC)) {
 		if (bootverbose)
-		    kprintf("%s: enabling medium link power management.\n",
+		kprintf("%s: enabling medium link power management.\n",
 			PORTNAME(ap));
 
 		ap->link_pwr_mgmt = link_pwr_mgmt;
@@ -646,7 +645,7 @@ ahci_port_link_pwr_mgmt(struct ahci_port *ap, int link_pwr_mgmt)
 
 	} else if (link_pwr_mgmt == AHCI_LINK_PWR_MGMT_NONE) {
 		if (bootverbose)
-		    kprintf("%s: disabling link power management.\n",
+		kprintf("%s: disabling link power management.\n",
 			PORTNAME(ap));
 
 		/* Disable device initiated link power management */
@@ -734,7 +733,7 @@ ahci_port_state_machine(struct ahci_port *ap, int initial)
 	{
 		if (initial == 0 && ap->ap_probe <= ATA_PROBE_NEED_HARD_RESET) {
 			if (bootverbose)
-			    kprintf("%s: Waiting 5 seconds on insertion\n",
+			kprintf("%s: Waiting 5 seconds on insertion\n",
 				PORTNAME(ap));
 			ahci_os_sleep(5000);
 			initial = 1;
@@ -820,7 +819,7 @@ ahci_port_state_machine(struct ahci_port *ap, int initial)
 				) {
 					didsleep = 1;
 					if (bootverbose)
-					    kprintf("%s: Waiting 5 seconds on insertion\n", PORTNAME(ap));
+					kprintf("%s: Waiting 5 seconds on insertion\n", PORTNAME(ap));
 					ahci_os_sleep(5000);
 				}
 			}
@@ -889,7 +888,7 @@ ahci_port_state_machine(struct ahci_port *ap, int initial)
 		}
 		if (data) {
 			if (bootverbose)
-			    kprintf("%s: WARNING (PM): extra bits set in "
+			kprintf("%s: WARNING (PM): extra bits set in "
 				"EINFO: %08x\n", PORTNAME(ap), data);
 			while (target < AHCI_MAX_PMPORTS) {
 				ahci_pm_check_good(ap, target);
@@ -1026,13 +1025,13 @@ ahci_port_start(struct ahci_port *ap)
 		is = ahci_pread(ap, AHCI_PREG_IS);
 		tfd = ahci_pread(ap, AHCI_PREG_TFD);
 		kprintf("%s: Cannot start command DMA\n"
-			"NCMP=%b NSERR=%b\n"
-			"NEWIS=%b\n"
-			"NEWTFD=%b\n",
+			"NCMP=%pb%i NSERR=%pb%i\n"
+			"NEWIS=%pb%i\n"
+		        "NEWTFD=%pb%i\n",
 			PORTNAME(ap),
-			r, AHCI_PFMT_CMD, s, AHCI_PFMT_SERR,
-			is, AHCI_PFMT_IS,
-			tfd, AHCI_PFMT_TFD_STS);
+			AHCI_PFMT_CMD, r, AHCI_PFMT_SERR, s,
+			AHCI_PFMT_IS, is,
+			AHCI_PFMT_TFD_STS, tfd);
 		return (1);
 	}
 
@@ -1190,8 +1189,8 @@ ahci_port_softreset(struct ahci_port *ap)
 	error = EIO;
 
 	if (bootverbose) {
-		kprintf("%s: START SOFTRESET %b\n", PORTNAME(ap),
-			ahci_pread(ap, AHCI_PREG_CMD), AHCI_PFMT_CMD);
+		kprintf("%s: START SOFTRESET %pb%i\n", PORTNAME(ap),
+			AHCI_PFMT_CMD, ahci_pread(ap, AHCI_PREG_CMD));
 	}
 
 	DPRINTF(AHCI_D_VERBOSE, "%s: soft reset\n", PORTNAME(ap));
@@ -1312,8 +1311,8 @@ ahci_port_softreset(struct ahci_port *ap)
 	if (ahci_pwait_clr(ap, AHCI_PREG_TFD,
 			    AHCI_PREG_TFD_STS_BSY | AHCI_PREG_TFD_STS_DRQ)) {
 		kprintf("%s: device didn't come ready after reset, "
-			"TFD: 0x%b\n", PORTNAME(ap),
-			ahci_pread(ap, AHCI_PREG_TFD), AHCI_PFMT_TFD_STS);
+			"TFD: 0x%pb%i\n", PORTNAME(ap),
+			AHCI_PFMT_TFD_STS, ahci_pread(ap, AHCI_PREG_TFD));
 		error = EBUSY;
 		goto err;
 	}
@@ -1595,8 +1594,8 @@ retry:
 	ahci_flush_tfd(ap);
 	if (ahci_pwait_clr_to(ap, 8000, AHCI_PREG_TFD,
 			    AHCI_PREG_TFD_STS_BSY | AHCI_PREG_TFD_STS_DRQ)) {
-		kprintf("%s: Device BUSY: %b\n", PORTNAME(ap),
-			ahci_pread(ap, AHCI_PREG_TFD), AHCI_PFMT_TFD_STS);
+		kprintf("%s: Device BUSY: %pb%i\n", PORTNAME(ap),
+			AHCI_PFMT_TFD_STS, ahci_pread(ap, AHCI_PREG_TFD));
 		if (retries == 0) {
 			kprintf("%s: Retrying\n", PORTNAME(ap));
 			retries = 1;
@@ -1695,7 +1694,7 @@ ahci_port_hardreset(struct ahci_port *ap, int hard)
 			break;
 		default:
 			if (bootverbose)
-			    kprintf("%s: No device detected\n",
+			kprintf("%s: No device detected\n",
 				PORTNAME(ap));
 			break;
 		}
@@ -1898,7 +1897,7 @@ restart:
 	r |= AHCI_PREG_SCTL_DET_INIT;
 	if (AhciForceGen1 & (1 << ap->ap_num)) {
 		if (bootverbose)
-		    kprintf("%s: Force 1.5Gbits\n", PORTNAME(ap));
+		kprintf("%s: Force 1.5Gbits\n", PORTNAME(ap));
 		r |= AHCI_PREG_SCTL_SPD_GEN1;
 	} else {
 		r |= AHCI_PREG_SCTL_SPD_ANY;
@@ -2111,11 +2110,12 @@ ahci_poll(struct ahci_ccb *ccb, int timeout,
 	} while (timeout > 0);
 
 	if  ((bootverbose) && ((ccb->ccb_xa.flags & ATA_F_SILENT) == 0)) {
-		kprintf("%s: Poll timeout slot %d CMD: %b TFD: 0x%b SERR: %b\n",
+		kprintf("%s: Poll timeout slot %d "
+			"CMD: %pb%i TFD: 0x%pb%i SERR: %pb%i\n",
 			ATANAME(ap, ccb->ccb_xa.at), ccb->ccb_slot,
-			ahci_pread(ap, AHCI_PREG_CMD), AHCI_PFMT_CMD,
-			ahci_pread(ap, AHCI_PREG_TFD), AHCI_PFMT_TFD_STS,
-			ahci_pread(ap, AHCI_PREG_SERR), AHCI_PFMT_SERR);
+			AHCI_PFMT_CMD, ahci_pread(ap, AHCI_PREG_CMD),
+			AHCI_PFMT_TFD_STS, ahci_pread(ap, AHCI_PREG_TFD),
+			AHCI_PFMT_SERR, ahci_pread(ap, AHCI_PREG_SERR));
 	}
 
 	timeout_fn(ccb);
@@ -2260,7 +2260,7 @@ ahci_issue_pending_commands(struct ahci_port *ap, struct ahci_ccb *ccb)
 			return;
 		if (ap->ap_flags & AP_F_ERR_CCB_RESERVED) {
 			if (bootverbose)
-			    kprintf("DELAY CCB slot %d\n", ccb->ccb_slot);
+			kprintf("DELAY CCB slot %d\n", ccb->ccb_slot);
 			return;
 		}
 	}
@@ -2625,7 +2625,7 @@ process_error:
 		ahci_os_hardsleep(10);
 		if (tfd & (AHCI_PREG_TFD_STS_BSY | AHCI_PREG_TFD_STS_DRQ)) {
 			if (bootverbose)
-			    kprintf("%s: Issuing CLO\n", PORTNAME(ap));
+			kprintf("%s: Issuing CLO\n", PORTNAME(ap));
 			ahci_port_clo(ap);
 		}
 
@@ -2723,21 +2723,19 @@ process_error:
 
 				/* NOTE: expect type == 0x34 */
 				if (bootverbose)
-				{
-				    kprintf("%s: TFES ccb=%p slot=%d RFIS-%02x "
-					    "flg=%02x "
-					    "st=%02x err=%02x dev=%02x "
-					    "off=%jd/%d\n",
-					    PORTNAME(ap),
-					    ccb->ccb_xa.atascsi_private,
-					    ccb->ccb_slot,
-					    rfis->type,
-					    rfis->flags,
-					    rfis->status,
-					    rfis->error,
-					    rfis->device,
-					    offset, bytes);
-				}
+				kprintf("%s: TFES ccb=%p slot=%d RFIS-%02x "
+					"flg=%02x "
+					"st=%02x err=%02x dev=%02x "
+					"off=%jd/%d\n",
+					PORTNAME(ap),
+					ccb->ccb_xa.atascsi_private,
+					ccb->ccb_slot,
+					rfis->type,
+					rfis->flags,
+					rfis->status,
+					rfis->error,
+					rfis->device,
+					offset, bytes);
 			} else {
 				kprintf("%s: Cannot copy rfis, CCB slot "
 					"%d is not on-chip (state=%d)\n",
@@ -2808,13 +2806,9 @@ finish_error:
 			err_slot = AHCI_PREG_CMD_CCS(
 						ahci_pread(ap, AHCI_PREG_CMD));
 			ccb = &ap->ap_ccbs[err_slot];
-			if (bootverbose)
-			{
-			    kprintf("%s: DHRS tfd=%b err_slot=%d cmd=%02x\n",
-				    PORTNAME(ap),
-				    tfd, AHCI_PFMT_TFD_STS,
-				    err_slot, ccb->ccb_xa.fis->command);
-			}
+			kprintf("%s: DHRS tfd=%pb%i err_slot=%d cmd=%02x\n",
+				PORTNAME(ap), AHCI_PFMT_TFD_STS, tfd,
+				err_slot, ccb->ccb_xa.fis->command);
 			goto process_error;
 		}
 		/*
@@ -2845,10 +2839,8 @@ finish_error:
 				ahci_pwrite(ap, AHCI_PREG_IS,
 						AHCI_PREG_IS_SDBS);
 				if (bootverbose)
-				{
-				    kprintf("%s: NOTIFY %08x\n",
-					    PORTNAME(ap), data);
-				}
+				kprintf("%s: NOTIFY %08x\n",
+					PORTNAME(ap), data);
 				ahci_pwrite(ap, AHCI_PREG_SERR,
 						AHCI_PREG_SERR_DIAG_N);
 				ahci_pwrite(ap, AHCI_PREG_SNTF, data);
@@ -2872,12 +2864,10 @@ finish_error:
 		u_int32_t serr = ahci_pread(ap, AHCI_PREG_SERR);
 		if ((ap->ap_flags & AP_F_IFS_IGNORED) == 0) {
 			if (bootverbose)
-			{
-			    kprintf("%s: IFS during PM probe (ignored) "
-				    "IS=%b, SERR=%b\n", PORTNAME(ap),
-				    is, AHCI_PFMT_IS, 
-				    serr, AHCI_PFMT_SERR);
-			}
+			kprintf("%s: IFS during PM probe (ignored) "
+				"IS=%pb%i, SERR=%pb%i\n", PORTNAME(ap),
+				AHCI_PFMT_IS, is,
+				AHCI_PFMT_SERR, serr);
 			ap->ap_flags |= AP_F_IFS_IGNORED;
 		}
 
@@ -2957,8 +2947,8 @@ finish_error:
 			ahci_os_sleep(1000);
 			goto failall;
 		}
-		kprintf("%s: Transient Errors: %b (%d)\n",
-			PORTNAME(ap), is, AHCI_PFMT_IS, ap->ap_probe);
+		kprintf("%s: Transient Errors: %pb%i (%d)\n",
+			PORTNAME(ap), AHCI_PFMT_IS, is, ap->ap_probe);
 		is &= ~(AHCI_PREG_IS_PCS | AHCI_PREG_IS_PRCS);
 		ahci_os_sleep(200);
 
@@ -3014,9 +3004,9 @@ skip_pcs:
 				  AHCI_PREG_IS_IFS | AHCI_PREG_IS_OFS |
 				  AHCI_PREG_IS_UFS));
 		serr = ahci_pread(ap, AHCI_PREG_SERR);
-		kprintf("%s: Unrecoverable errors (IS: %b, SERR: %b), "
+		kprintf("%s: Unrecoverable errors (IS: %pb%i, SERR: %pb%i), "
 			"disabling port.\n", PORTNAME(ap),
-			is, AHCI_PFMT_IS, serr, AHCI_PFMT_SERR);
+			AHCI_PFMT_IS, is, AHCI_PFMT_SERR, serr);
 		is &= ~(AHCI_PREG_IS_TFES | AHCI_PREG_IS_HBFS |
 			AHCI_PREG_IS_IFS | AHCI_PREG_IS_OFS |
 		        AHCI_PREG_IS_UFS);
@@ -3205,7 +3195,7 @@ failall:
 		ci_saved &= ~ap->ap_expired;
 		if (ci_saved) {
 			if (bootverbose)
-			    kprintf("%s: Restart %08x\n", PORTNAME(ap), ci_saved);
+			kprintf("%s: Restart %08x\n", PORTNAME(ap), ci_saved);
 			ahci_issue_saved_commands(ap, ci_saved);
 		}
 
@@ -3241,10 +3231,8 @@ failall:
 		 */
 		if ((ap->ap_flags & AP_F_IN_RESET) == 0) {
 			if (bootverbose)
-			{
-			    kprintf("%s: HOTPLUG - Device inserted\n",
-				    PORTNAME(ap));
-			}
+			kprintf("%s: HOTPLUG - Device inserted\n",
+				PORTNAME(ap));
 			ap->ap_probe = ATA_PROBE_NEED_INIT;
 			ahci_cam_changed(ap, NULL, -1);
 		}
@@ -3259,10 +3247,8 @@ failall:
 		 */
 		if ((ap->ap_flags & AP_F_IN_RESET) == 0) {
 			if (bootverbose)
-			{
-			    kprintf("%s: HOTPLUG - Device removed\n",
-				    PORTNAME(ap));
-			}
+			kprintf("%s: HOTPLUG - Device removed\n",
+				PORTNAME(ap));
 			ahci_port_hardstop(ap);
 			/* ap_probe set to failed */
 			ahci_cam_changed(ap, NULL, -1);
@@ -3326,7 +3312,7 @@ ahci_get_err_ccb(struct ahci_port *ap)
 	ci = ahci_pread(ap, AHCI_PREG_CI);
 	if (ci) {
 		kprintf("%s: ahci_get_err_ccb: ci not 0 (%08x)\n",
-			PORTNAME(ap), ci);
+			ap->ap_name, ci);
 	}
 	KKASSERT(ci == 0);
 	KKASSERT((ap->ap_flags & AP_F_ERR_CCB_RESERVED) == 0);
@@ -3370,7 +3356,7 @@ ahci_put_err_ccb(struct ahci_ccb *ccb)
 	if (ap->ap_sc->sc_cap & AHCI_REG_CAP_SNCQ) {
 		sact = ahci_pread(ap, AHCI_PREG_SACT);
 		if (sact) {
-			panic("ahci_port_err_ccb(%d) but SACT %08x != 0\n",
+			panic("ahci_port_err_ccb(%d) but SACT %08x != 0",
 			      ccb->ccb_slot, sact);
 		}
 	}
@@ -3470,11 +3456,9 @@ ahci_port_read_ncq_error(struct ahci_port *ap, int target)
 		ccb2 = &ap->ap_ccbs[err_slot];
 		if (ccb2->ccb_xa.state == ATA_S_ONCHIP) {
 			if (bootverbose)
-			{
-			    kprintf("%s: read NCQ error page slot=%d\n",
-				    ATANAME(ap, ccb2->ccb_xa.at),
-				    err_slot);
-			}
+			kprintf("%s: read NCQ error page slot=%d\n",
+				ATANAME(ap, ccb2->ccb_xa.at),
+				err_slot);
 			memcpy(&ccb2->ccb_xa.rfis, &log->err_regs,
 				sizeof(struct ata_fis_d2h));
 			ccb2->ccb_xa.rfis.type = ATA_FIS_TYPE_D2H;
@@ -3490,10 +3474,8 @@ ahci_port_read_ncq_error(struct ahci_port *ap, int target)
 err:
 	ahci_put_err_ccb(ccb);
 	if (bootverbose)
-	{
-	    kprintf("%s: DONE log page target %d err_slot=%d\n",
-		    PORTNAME(ap), target, err_slot);
-	}
+	kprintf("%s: DONE log page target %d err_slot=%d\n",
+		PORTNAME(ap), target, err_slot);
 	return (err_slot);
 }
 
@@ -3806,25 +3788,24 @@ ahci_ata_cmd_timeout(struct ahci_ccb *ccb)
 	at = ccb->ccb_xa.at;
 
 	if (bootverbose)
-	{
-	    kprintf("%s: CMD TIMEOUT state=%d slot=%d\n"
-		    "\tglb-status 0x%08x\n"
-		    "\tcmd-reg 0x%b\n"
-		    "\tport_status 0x%b\n"
-		    "\tsactive=%08x active=%08x expired=%08x\n"
-		    "\t   sact=%08x     ci=%08x\n"
-		    "\t    STS=%b\n",
-		    ATANAME(ap, at),
-		    ccb->ccb_xa.state, ccb->ccb_slot,
-		    ahci_read(ap->ap_sc, AHCI_REG_IS),
-		    ahci_pread(ap, AHCI_PREG_CMD), AHCI_PFMT_CMD,
-		    ahci_pread(ap, AHCI_PREG_IS), AHCI_PFMT_IS,
-		    ap->ap_sactive, ap->ap_active, ap->ap_expired,
-		    ahci_pread(ap, AHCI_PREG_SACT),
-		    ahci_pread(ap, AHCI_PREG_CI),
-		    ahci_pread(ap, AHCI_PREG_TFD), AHCI_PFMT_TFD_STS
-	    );
-	}
+	kprintf("%s: CMD TIMEOUT state=%d slot=%d\n"
+		"\tglb-status 0x%08x\n"
+		"\tcmd-reg 0x%pb%i\n"
+		"\tport_status 0x%pb%i\n"
+		"\tsactive=%08x active=%08x expired=%08x\n"
+		"\t   sact=%08x     ci=%08x\n"
+		"\t    STS=%pb%i\n",
+		ATANAME(ap, at),
+		ccb->ccb_xa.state, ccb->ccb_slot,
+		ahci_read(ap->ap_sc, AHCI_REG_IS),
+		AHCI_PFMT_CMD, ahci_pread(ap, AHCI_PREG_CMD),
+		AHCI_PFMT_IS, ahci_pread(ap, AHCI_PREG_IS),
+		ap->ap_sactive, ap->ap_active, ap->ap_expired,
+		ahci_pread(ap, AHCI_PREG_SACT),
+		ahci_pread(ap, AHCI_PREG_CI),
+		AHCI_PFMT_TFD_STS, ahci_pread(ap, AHCI_PREG_TFD)
+	);
+
 
 	/*
 	 * NOTE: Timeout will not be running if the command was polled.
