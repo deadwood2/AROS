@@ -244,7 +244,7 @@ const LONG ycoord[] = { 40, 40, 20, 40, 40};
 
         struct Window *w = _window(firstButton);
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
 
             EVENT_LOOP
 
@@ -315,7 +315,7 @@ static void test_handleevent_hidden_button_is_not_pressed()
 
         struct Window *w = _window(btn2);
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
 
             EVENT_LOOP
 
@@ -385,7 +385,7 @@ static void test_handleevent_hidden_object_ehf_guimode_does_not_receive_events()
 
         struct Window *w = _window(btn2);
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
 
             EVENT_LOOP
 
@@ -469,7 +469,7 @@ static void test_handleevent_area_does_not_eat_selectup_event()
 
         struct Window *w = _window(aButton);
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
 
             EVENT_LOOP
 
