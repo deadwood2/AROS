@@ -9,8 +9,6 @@
     Lang: English.
 */
 
-#define __OOP_NOMETHODBASES__
-
 #include <exec/libraries.h>
 #include <oop/oop.h>
 #include <exec/semaphores.h>
