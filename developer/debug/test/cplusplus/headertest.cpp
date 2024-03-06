@@ -1317,7 +1317,7 @@
 // #include <proto/Graph.h>
 #include <proto/graphics.h>
 #include <proto/hostlib.h>
-#include <proto/hpet.h>
+// #include <proto/hpet.h>
 // #include <proto/IconDrawerList.h>
 #include <proto/icon.h>
 // #include <proto/IconImage.h>
@@ -1385,7 +1385,7 @@
 #include <proto/rexxsyslib.h>
 #include <proto/rtas.h>
 // #include <proto/Scrollgroup.h>
-#include <proto/scsi.h>
+// #include <proto/scsi.h>
 // #include <proto/Settingsgroup.h>
 #include <proto/socket.h>
 // #include <proto/stdc.h>

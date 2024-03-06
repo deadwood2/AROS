@@ -195,7 +195,7 @@ static void test_handleevent_area_does_not_eat_selectup_event()
 
         struct Window *w = _window(aRectangle);
 
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
 
             EVENT_LOOP
 

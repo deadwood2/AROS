@@ -192,7 +192,7 @@ Exec_InitETask(struct Task *task, struct Task *parent, struct ExecBase *SysBase)
 #if defined(__AROSEXEC_SMP__)
         EXEC_SPINLOCK_LOCK(&IntETask(parentEtask)->iet_TaskLock, NULL, SPINLOCK_MODE_WRITE);
 #endif
-        AddHead(&parentEtask->et_Children, et);
+        AddHead((struct List *)&parentEtask->et_Children, &et->et_Message.mn_Node);
 #if defined(__AROSEXEC_SMP__)
         EXEC_SPINLOCK_UNLOCK(&IntETask(parentEtask)->iet_TaskLock);
 #endif
