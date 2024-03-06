@@ -5,7 +5,6 @@
 */
 
 #include <aros/asmcall.h>
-#include <aros/config.h>
 #include <dos/dos.h>
 #include <dos/stdio.h>
 #include <proto/dos.h>
@@ -67,47 +66,10 @@ static AROS_UFH3(void, FreeFunc,
     AROS_USERFUNC_EXIT
 }
 
-/*****************************************************************************
+BPTR InternalLoadSeg32(BPTR fh, BPTR table, LONG_FUNC *funcarray, LONG *stack, struct DosLibrary *DOSBase);
 
-    NAME */
-#include <proto/dos.h>
-
-        AROS_LH1(BPTR, LoadSeg,
-
-/*  SYNOPSIS */
-        AROS_LHA(CONST_STRPTR, name, D1),
-
-/*  LOCATION */
-        struct DosLibrary *, DOSBase, 25, Dos)
-
-/*  FUNCTION
-        Loads an executable file into memory. Each hunk of the loadfile
-        is loaded into its own memory section and a handle on all of them
-        is returned. The segments can be freed with UnLoadSeg().
-
-    INPUTS
-        name - NUL terminated name of the file.
-
-    RESULT
-        Handle to the loaded executable or NULL if the load failed.
-        IoErr() gives additional information in that case.
-
-    NOTES
-        This function is built on top of InternalLoadSeg()
-
-    EXAMPLE
-
-    BUGS
-
-    SEE ALSO
-        UnLoadSeg()
-
-    INTERNALS
-
-*****************************************************************************/
+BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase)
 {
-    AROS_LIBFUNC_INIT
-
     BPTR file, segs=0;
     SIPTR err;
     LONG_FUNC FunctionArray[] = {
@@ -126,13 +88,13 @@ static AROS_UFH3(void, FreeFunc,
         D(bug("[LoadSeg] Loading '%s'...\n", name));
 
         SetVBuf(file, NULL, BUF_FULL, 4096);
-        segs = InternalLoadSeg(file, BNULL, FunctionArray, NULL);
+        segs = InternalLoadSeg32(file, BNULL, FunctionArray, NULL, DOSBase);
         /* We cache the IoErr(), since Close() will alter it */
         err = IoErr();
 
         D(if (segs == BNULL)
             bug("[LoadSeg] Failed to load '%s'\n", name));
-#if (AROS_FLAVOUR & AROS_FLAVOUR_BINCOMPAT)
+#if 0
         /* overlayed executables return -segs and handle must not be closed */
         if ((LONG)segs > 0)
             Close(file);
@@ -150,5 +112,4 @@ static AROS_UFH3(void, FreeFunc,
     /* And return */
     return segs;
 
-    AROS_LIBFUNC_EXIT
 } /* LoadSeg */
