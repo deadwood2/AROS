@@ -1,0 +1,14 @@
+# Copyright (C) 2024, The AROS Development Team. All rights reserved.
+
+include $(SRCDIR)/config/aros.cfg
+
+FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32
+EXEDIR := $(AROS_C)
+USER_INCLUDES := -I$(SRCDIR)/rom/dos
+USER_CPPFLAGS := -DDEBUG=1
+
+%build_prog mmake=local-aoa \
+    progname=AoA targetdir=$(EXEDIR) \
+    files=$(FILES)
+
+%common
