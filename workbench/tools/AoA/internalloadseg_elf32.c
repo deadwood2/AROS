@@ -14,6 +14,7 @@
 #include <aros/asmcall.h>
 #include <aros/macros.h>
 #include <exec/memory.h>
+#define ELF_32BIT
 #include <dos/elf.h>
 #include <dos/dosasl.h>
 #include <libraries/debug.h>
@@ -112,7 +113,7 @@ static void *load_block
     D(bug("[ELF Loader] (size=%d)\n",size));
     D(bug("[ELF Loader] (funcarray=0x%x)\n",funcarray));
     D(bug("[ELF Loader] (funcarray[1]=0x%x)\n",funcarray[1]));
-    void *block = ilsAllocMem(size, MEMF_ANY);
+    void *block = ilsAllocMem(size, MEMF_31BIT | MEMF_PUBLIC);
     if (block)
     {
         if (!elf_read_block(file, offset, block, size, funcarray, srb, DOSBase))
@@ -257,6 +258,8 @@ static int __attribute__ ((noinline)) load_hunk
         hunk->next = 0;
         hunk->size = hunk_size;
 
+#warning TODO should hunk have 64-bit or 32-bit format?
+
         /* In case we are required to honour alignment, and If this section contains
            executable code, create a trampoline to its beginning, so that even if the
            alignment requirements make the actual code go much after the end of the
@@ -286,7 +289,7 @@ static int __attribute__ ((noinline)) load_hunk
         *next_hunk_ptr = (APTR)((IPTR)hunk + offsetof(struct hunk, next));
 
         if (sh->type != SHT_NOBITS)
-            return !elf_read_block(file, sh->offset, sh->addr, sh->size, funcarray, srb, DOSBase);
+            return !elf_read_block(file, sh->offset, (APTR)(IPTR)sh->addr, sh->size, funcarray, srb, DOSBase);
 
         return 1;
 
@@ -310,8 +313,8 @@ static int relocate
     struct sheader *shsymtab = &sh[shrel->link];
     struct sheader *toreloc  = &sh[shrel->info];
 
-    struct symbol *symtab   = (struct symbol *)shsymtab->addr;
-    struct relo   *rel      = (struct relo *)shrel->addr;
+    struct symbol *symtab   = (struct symbol *)(APTR)(IPTR)shsymtab->addr;
+    struct relo   *rel      = (struct relo *)(APTR)(IPTR)shrel->addr;
 
     /*
      * Ignore relocs if the target section has no allocation. that can happen
@@ -327,7 +330,7 @@ static int relocate
     {
         struct symbol *sym;
         ULONG *p;
-        IPTR s;
+        ULONG s;
         ULONG shindex;
 
 #ifdef __arm__
@@ -341,7 +344,7 @@ static int relocate
 #endif
 
         sym = &symtab[ELF_R_SYM(rel->info)];
-        p = toreloc->addr + rel->offset;
+        p = (APTR)(IPTR)toreloc->addr + rel->offset;
 
         DB2(bug("[ELF Loader] Processing symbol %s\n", sh[shsymtab->link].addr + sym->name));
 
@@ -349,7 +352,7 @@ static int relocate
         {
             case SHN_COMMON:
                 bug("[ELF Loader] COMMON symbol '%s'\n",
-                      (STRPTR)sh[shsymtab->link].addr + sym->name);
+                      (STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name);
                       SetIoErr(ERROR_BAD_HUNK);
                 return 0;
 
@@ -360,7 +363,7 @@ static int relocate
             case SHN_UNDEF:
                 if (ELF_R_TYPE(rel->info) != 0) {
                     bug("[ELF Loader] Undefined symbol '%s'\n",
-                      (STRPTR)sh[shsymtab->link].addr + sym->name);
+                      (STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name);
                     SetIoErr(ERROR_BAD_HUNK);
                     return 0;
                 }
@@ -375,21 +378,21 @@ static int relocate
                         SetIoErr(ERROR_BAD_HUNK);
                         return 0;
                     }
-                    shindex = ((ULONG *)symtab_shndx->addr)[ELF_R_SYM(rel->info)];
+                    shindex = ((ULONG *)(APTR)(IPTR)symtab_shndx->addr)[ELF_R_SYM(rel->info)];
                 }
                 s = (IPTR)sh[shindex].addr + sym->value;
         }
 
         switch (ELF_R_TYPE(rel->info))
         {
-            #if defined(__i386__)
+            #if defined(ELF_32BIT)
 
             case R_386_32: /* 32bit absolute */
                 *p += s;
                 break;
 
             case R_386_PC32: /* 32bit PC relative */
-                *p += s - (ULONG)p;
+                *p += s - (ULONG)(IPTR)p;
                 break;
 
             case R_386_NONE:
@@ -923,7 +926,7 @@ BPTR InternalLoadSeg_ELF
         */
         if (sh[i].type == SHT_SYMTAB || sh[i].type == SHT_STRTAB || sh[i].type == SHT_SYMTAB_SHNDX)
         {
-            sh[i].addr = load_block(file, sh[i].offset, sh[i].size, funcarray, &srb, DOSBase);
+            sh[i].addr = (ULONG)(IPTR)load_block(file, sh[i].offset, sh[i].size, funcarray, &srb, DOSBase);
             if (!sh[i].addr)
                 goto error;
 
@@ -966,7 +969,7 @@ BPTR InternalLoadSeg_ELF
                 if (sh[i].flags & SHF_EXECINSTR)
                     exec_hunk_seen = TRUE;
 
-                if (!load_hunk(file, &next_hunk_ptr, &sh[i], strtab ? strtab->addr : NULL, funcarray, exec_hunk_seen, &srb, DOSBase))
+                if (!load_hunk(file, &next_hunk_ptr, &sh[i], strtab ? (APTR)(IPTR)strtab->addr : NULL, funcarray, exec_hunk_seen, &srb, DOSBase))
                     goto error;
             }
         }
@@ -978,16 +981,17 @@ BPTR InternalLoadSeg_ELF
         /* Does this relocation section refer to a hunk? If so, addr must be != 0 */
         if ((sh[i].type == AROS_ELF_REL) && sh[sh[i].info].addr)
         {
-            sh[i].addr = load_block(file, sh[i].offset, sh[i].size, funcarray, &srb, DOSBase);
+            sh[i].addr = (ULONG)(IPTR)load_block(file, sh[i].offset, sh[i].size, funcarray, &srb, DOSBase);
             if (!sh[i].addr || !relocate(&eh, sh, i, symtab_shndx, DOSBase))
                 goto error;
 
-            ilsFreeMem(sh[i].addr, sh[i].size);
-            sh[i].addr = NULL;
+            ilsFreeMem((APTR)(IPTR)sh[i].addr, sh[i].size);
+            sh[i].addr = 0;
         }
     }
 
-    register_elf(file, hunks, &eh, sh, DOSBase);
+#warning TODO enable
+    // register_elf(file, hunks, &eh, sh, DOSBase);
     goto end;
 
 error:
@@ -1015,8 +1019,8 @@ end:
     /* deallocate the symbol tables */
     for (i = 0; i < int_shnum; i++)
     {
-        if (((sh[i].type == SHT_SYMTAB) || (sh[i].type == SHT_STRTAB)) && (sh[i].addr != NULL))
-            ilsFreeMem(sh[i].addr, sh[i].size);
+        if (((sh[i].type == SHT_SYMTAB) || (sh[i].type == SHT_STRTAB)) && (sh[i].addr != 0))
+            ilsFreeMem((APTR)(IPTR)sh[i].addr, sh[i].size);
     }
 
     /* Free the section headers */
