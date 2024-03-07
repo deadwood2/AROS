@@ -3,6 +3,36 @@
 #include <proto/dos.h>
 #include <proto/exec.h>
 
+typedef ULONG APTR32;
+
+struct __mayalias NodeV0;
+struct NodeV0
+{
+    APTR32  ln_Succ;
+    APTR32  ln_Pred;
+    APTR32  ln_Name;
+    UBYTE   ln_Type;
+    BYTE    ln_Pri;
+};
+
+struct LibraryV0 {
+    struct  NodeV0 lib_Node;
+    UBYTE   lib_Flags;
+    UBYTE   lib_pad;
+    UWORD   lib_NegSize;	    /* number of bytes before library */
+    UWORD   lib_PosSize;	    /* number of bytes after library */
+    UWORD   lib_Version;	    /* major */
+    UWORD   lib_Revision;	    /* minor */
+#ifdef AROS_NEED_LONG_ALIGN
+    UWORD   lib_pad1;		    /* make sure it is longword aligned */
+#endif
+    APTR32  lib_IdString;	    /* ASCII identification */
+    ULONG   lib_Sum;		    /* the checksum */
+    UWORD   lib_OpenCnt;	    /* how many people use us right now? */
+#ifdef AROS_NEED_LONG_ALIGN
+    UWORD   lib_pad2;		    /* make sure it is longword aligned */
+#endif
+};
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -11,12 +41,13 @@ struct ExecBaseABIv0
     LONG dummy;
 };
 
-struct DosLibraryABIv0
+struct DosLibraryV0
 {
-    LONG dummy;
+    /* A normal library-base as defined in <exec/libraries.h>. */
+    struct LibraryV0 dl_lib;
 };
 
-struct DosLibraryABIv0 *abiv0DOSBase;
+struct DosLibraryV0 *abiv0DOSBase;
 
 #define EXTER_PROXY(name)       \
 __asm__ volatile(               \
@@ -118,6 +149,7 @@ int main()
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
+    abiv0DOSBase->dl_lib.lib_Version = DOSBase->dl_lib.lib_Version;
 
     lvo = ((APTR)abiv0DOSBase - 0x278);
     *((ULONG *)lvo) = (ULONG)(IPTR)&proxy_PutStr;
