@@ -18,68 +18,69 @@ struct DosLibraryABIv0
 
 struct DosLibraryABIv0 *abiv0DOSBase;
 
+#define EXTER_PROXY(name)       \
+__asm__ volatile(               \
+    "   .code32\n"              \
+    "proxy_" #name ":\n"
+
+#define LEAVE_PROXY             \
+    "   ret\n"                  \
+    "   .code64\n"              \
+    ::);
+
+#define ENTER64                 \
+    "   push $0x33\n"           \
+    "   lea 1f, %%ecx\n"        \
+    "   push %%ecx\n"           \
+    "   lret\n"                 \
+    "   .code64\n"              \
+    "1:\n"
+
+#define ENTER32                 \
+    "   subq $8, %%rsp\n"       \
+    "   movl $0x23, 4(%%rsp)\n" \
+    "   lea 2f,%%ecx\n"         \
+    "   movl %%ecx, (%%rsp)\n"  \
+    "   lret\n"                 \
+    "   .code32\n"              \
+    "2:\n"
+
+#define CALL_IMPL64(name)       \
+    "   call abiv0_" #name "\n"
+
+#define COPY_ARG_1              \
+    "   movl 4(%%rsp), %%edi\n"
+
 APTR abiv0_OpenLibrary()
 {
     return abiv0DOSBase;
 }
 
 void proxy_OpenLibrary();
-
 void dummy_OpenLibrary()
 {
-    __asm__ volatile(
-    "   .code32\n"
-    "   .globl proxy_OpenLibrary\n"
-    "proxy_OpenLibrary:\n"
-    "   push $0x33\n"
-    "   lea swTO64A, %%ecx\n"
-    "   push %%ecx\n"
-    "   lret\n"
-    "   .code64\n"
-    "swTO64A:\n"
-    "   call abiv0_OpenLibrary\n"
-    "   subq $8, %%rsp\n"
-    "   movl $0x23, 4(%%rsp)\n"
-    "   lea swTO32A, %%ecx\n"
-    "   movl %%ecx, (%%rsp)\n"
-    "   lret\n"
-    "   .code32\n"
-    "swTO32A:\n"
-    "   ret\n"
-    "   .code64\n"
-    ::);
+    EXTER_PROXY(OpenLibrary)
+    ENTER64
+    COPY_ARG_1
+    CALL_IMPL64(OpenLibrary)
+    ENTER32
+    LEAVE_PROXY
 }
 
-void abiv0_PutStr()
+void abiv0_PutStr(CONST_STRPTR text)
 {
-    PutStr("Boo!\n");
+    PutStr(text);
 }
 
 void proxy_PutStr();
-
 void dummy_PutStr()
 {
-    __asm__ volatile(
-    "   .code32\n"
-    "   .globl proxy_PutStr\n"
-    "proxy_PutStr:\n"
-    "   push $0x33\n"
-    "   lea swTO64B, %%ecx\n"
-    "   push %%ecx\n"
-    "   lret\n"
-    "   .code64\n"
-    "swTO64B:\n"
-    "   call abiv0_PutStr\n"
-    "   subq $8, %%rsp\n"
-    "   movl $0x23, 4(%%rsp)\n"
-    "   lea swTO32B, %%ecx\n"
-    "   movl %%ecx, (%%rsp)\n"
-    "   lret\n"
-    "   .code32\n"
-    "swTO32B:\n"
-    "   ret\n"
-    "   .code64\n"
-    ::);
+    EXTER_PROXY(PutStr)
+    ENTER64
+    COPY_ARG_1
+    CALL_IMPL64(PutStr)
+    ENTER32
+    LEAVE_PROXY
 }
 
 void abiv0_CloseLibrary()
@@ -87,30 +88,14 @@ void abiv0_CloseLibrary()
 }
 
 void proxy_CloseLibrary();
-
 void dummy_CloseLibrary()
 {
-    __asm__ volatile(
-    "   .code32\n"
-    "   .globl proxy_CloseLibrary\n"
-    "proxy_CloseLibrary:\n"
-    "   push $0x33\n"
-    "   lea swTO64C, %%ecx\n"
-    "   push %%ecx\n"
-    "   lret\n"
-    "   .code64\n"
-    "swTO64C:\n"
-    "   call abiv0_CloseLibrary\n"
-    "   subq $8, %%rsp\n"
-    "   movl $0x23, 4(%%rsp)\n"
-    "   lea swTO32C, %%ecx\n"
-    "   movl %%ecx, (%%rsp)\n"
-    "   lret\n"
-    "   .code32\n"
-    "swTO32C:\n"
-    "   ret\n"
-    "   .code64\n"
-    ::);
+    EXTER_PROXY(CloseLibrary)
+    ENTER64
+    COPY_ARG_1
+    CALL_IMPL64(CloseLibrary)
+    ENTER32
+    LEAVE_PROXY
 }
 
 int main()
