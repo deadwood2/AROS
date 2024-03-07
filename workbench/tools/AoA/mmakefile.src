@@ -2,13 +2,15 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32
+FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 \
+        $(SRCDIR)/rom/dos/internalloadseg_support
+
 EXEDIR := $(AROS_C)
 USER_INCLUDES := -I$(SRCDIR)/rom/dos
 USER_CPPFLAGS := -DDEBUG=1
 
 %build_prog mmake=local-aoa \
     progname=AoA targetdir=$(EXEDIR) \
-    files=$(FILES)
+    files=$(FILES) usesdks="config"
 
 %common

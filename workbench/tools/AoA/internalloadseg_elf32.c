@@ -854,6 +854,39 @@ static BOOL ARM_ParseAttrs(UBYTE *data, ULONG len, struct DosLibrary *DOSBase)
 
 #endif
 
+struct elfheader64
+{
+    UBYTE         ident[16];
+    UWORD         type;
+    UWORD         machine;
+    ULONG         version;
+    APTR          entry;
+    IPTR          phoff;
+    IPTR          shoff;
+    ULONG         flags;
+    UWORD         ehsize;
+    UWORD         phentsize;
+    UWORD         phnum;
+    UWORD         shentsize;
+    UWORD         shnum;
+    UWORD         shstrndx;
+};
+
+struct sheader64
+{
+    ULONG         name;
+    ULONG         type;
+    IPTR          flags;
+    APTR          addr;
+    IPTR          offset;
+    IPTR          size;
+    ULONG         link;
+    ULONG         info;
+    IPTR          addralign;
+    IPTR          entsize;
+};
+
+
 BPTR InternalLoadSeg_ELF
 (
     BPTR               file,
@@ -990,8 +1023,24 @@ BPTR InternalLoadSeg_ELF
         }
     }
 
-#warning TODO enable
-    // register_elf(file, hunks, &eh, sh, DOSBase);
+    struct elfheader64 eh_d;
+    memset(&eh_d, 0, sizeof(eh_d));
+    eh_d.shnum      = eh.shnum;
+    eh_d.shstrndx   = eh.shstrndx;
+
+    struct sheader64 *sh_d = AllocVec(int_shnum * sizeof(struct sheader64), MEMF_ANY | MEMF_CLEAR);
+
+    for (i = 0; i < int_shnum; i++)
+    {
+        sh_d[i].flags   = sh[i].flags;
+        sh_d[i].size    = sh[i].size;
+        sh_d[i].addr    = (APTR)(IPTR)sh[i].addr;
+        sh_d[i].type    = sh[i].type;
+        sh_d[i].name    = sh[i].name;
+    }
+
+    register_elf(file, hunks, (struct elfheader*)&eh_d, (struct sheader *)sh_d, DOSBase);
+    FreeVec(sh_d);
     goto end;
 
 error:
