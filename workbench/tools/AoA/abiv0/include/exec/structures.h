@@ -57,7 +57,12 @@ struct ResidentV0
 
 #define RTC_MATCHWORD  (0x4AFC)
 
-struct ExecBaseABIv0
+#define RTF_AUTOINIT   (1<<7)
+
+#define RTF_EXTENDED   (1<<6) /* MorphOS extension: extended
+                                 structure fields are valid */
+
+struct ExecBaseV0
 {
     LONG dummy;
 };
