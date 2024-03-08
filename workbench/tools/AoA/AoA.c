@@ -2,9 +2,12 @@
 #include <exec/types.h>
 #include <proto/dos.h>
 #include <proto/exec.h>
+#include <aros/debug.h>
 
+#include <stdio.h>
+#include <string.h>
 
-#include "includes/structures.h"
+#include "exec/functions.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -43,9 +46,69 @@ __asm__ volatile(               \
 #define COPY_ARG_1              \
     "   movl 4(%%rsp), %%edi\n"
 
-APTR abiv0_OpenLibrary()
+#define COPY_ARG_3              \
+    "   movl 8(%%rsp), %%esi\n"
+
+#define COPY_ARG_2              \
+    "   movl 12(%%rsp), %%edx\n"
+
+APTR abiv0_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
-    return abiv0DOSBase;
+    bug("abiv0_OpenLibrary: %s\n", name);
+    TEXT buff[64];
+
+    if (strcmp(name, "dos.library") == 0)
+        return abiv0DOSBase;
+
+    sprintf(buff, "SYS:Libs32/%s", name);
+
+    BPTR seglist = LoadSeg32(buff, DOSBase);
+
+
+    BPTR seg = seglist;
+
+    /* we may not have any extension fields */
+    const int sizeofresident = offsetof(struct ResidentV0, rt_Init) + sizeof(APTR);
+
+    while(seg)
+    {
+        STRPTR addr = (STRPTR)((IPTR)BADDR(seg) - sizeof(ULONG));
+        ULONG size = *(ULONG *)addr;
+
+        for(
+            addr += sizeof(BPTR) + sizeof(ULONG),
+                size -= sizeof(BPTR) + sizeof(ULONG);
+            size >= sizeofresident;
+            size -= 2, addr += 2
+        )
+        {
+            struct ResidentV0 *res = (struct ResidentV0 *)addr;
+            if(    res->rt_MatchWord == RTC_MATCHWORD
+                && res->rt_MatchTag == (APTR32)(IPTR)res )
+            {
+                (bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
+                /* AOS compatibility requirement.
+                 * Ramlib ignores InitResident() return code.
+                 * After InitResident() it checks if lib/dev appeared
+                 * in Exec lib/dev list via FindName().
+                 *
+                 * Evidently InitResident()'s return code was not
+                 * reliable for some early AOS libraries.
+                 */
+                // Forbid();
+                abiv0_InitResident(res, seglist, SysBaseV0);
+                // node = FindName(list, res->rt_Name);
+                // Permit();
+                D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), node));
+
+                // return (struct Library*)node;
+                return NULL;
+            }
+        }
+        seg = *(BPTR *)BADDR(seg);
+    }
+
+    return NULL;
 }
 
 void proxy_OpenLibrary();
@@ -54,6 +117,8 @@ void dummy_OpenLibrary()
     EXTER_PROXY(OpenLibrary)
     ENTER64
     COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
     CALL_IMPL64(OpenLibrary)
     ENTER32
     LEAVE_PROXY

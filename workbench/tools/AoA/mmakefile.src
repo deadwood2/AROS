@@ -3,10 +3,11 @@
 include $(SRCDIR)/config/aros.cfg
 
 FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 \
-        $(SRCDIR)/rom/dos/internalloadseg_support
+        $(SRCDIR)/rom/dos/internalloadseg_support \
+        abiv0/exec/initresident
 
 EXEDIR := $(AROS_C)
-USER_INCLUDES := -I$(SRCDIR)/rom/dos -I$(SRCDIR)/$(CURDIR)/abiv0
+USER_INCLUDES := -I$(SRCDIR)/rom/dos -I$(SRCDIR)/$(CURDIR)/abiv0/include
 USER_LDFLAGS := -noclibs
 
 %build_prog mmake=local-aoa \
