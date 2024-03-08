@@ -4,5 +4,6 @@
 #include "exec/structures.h"
 
 APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
+APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0);
 
 #endif
