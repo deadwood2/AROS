@@ -6,11 +6,11 @@ FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 \
         $(SRCDIR)/rom/dos/internalloadseg_support
 
 EXEDIR := $(AROS_C)
-USER_INCLUDES := -I$(SRCDIR)/rom/dos
-USER_CPPFLAGS := -DDEBUG=1
+USER_INCLUDES := -I$(SRCDIR)/rom/dos -I$(SRCDIR)/$(CURDIR)/abiv0
+USER_LDFLAGS := -noclibs
 
 %build_prog mmake=local-aoa \
     progname=AoA targetdir=$(EXEDIR) \
-    files=$(FILES) usesdks="config"
+    files=$(FILES) usesdks="config" uselibs="stdc.static"
 
 %common
