@@ -52,6 +52,11 @@ __asm__ volatile(               \
 #define COPY_ARG_2              \
     "   movl 12(%%rsp), %%edx\n"
 
+APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
+{
+    return AllocMem(byteSize, requirements | MEMF_31BIT);
+}
+
 APTR abiv0_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
     bug("abiv0_OpenLibrary: %s\n", name);
