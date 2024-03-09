@@ -9,6 +9,7 @@
 
 #include "abiv0/include/exec/functions.h"
 #include "abiv0/include/aros/asm.h"
+#include "abiv0/include/aros/cpu.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -141,24 +142,20 @@ int main()
     /* Set start at first instruction (skip Seg header) */
     start = (APTR)((IPTR)start + 13);
 
-    APTR tmp, lvo;
+    APTR tmp;
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     struct ExecBaseV0 *sysbase = (tmp + 1024);
     NEWLISTV0(&sysbase->LibList);
 
-    lvo = ((APTR)sysbase - 0x170);
-    *((ULONG *)lvo) = (ULONG)(IPTR)&proxy_OpenLibrary;
-    lvo = ((APTR)sysbase - 0x114);
-    *((ULONG *)lvo) = (ULONG)(IPTR)&proxy_CloseLibrary;
+    __AROS_SETVECADDRV0(sysbase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
+    __AROS_SETVECADDRV0(sysbase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
     abiv0DOSBase->dl_lib.lib_Version = DOSBase->dl_lib.lib_Version;
 
-    lvo = ((APTR)abiv0DOSBase - 0x278);
-    *((ULONG *)lvo) = (ULONG)(IPTR)&proxy_PutStr;
-
+    __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
