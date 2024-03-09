@@ -9,12 +9,13 @@ __asm__ volatile(               \
 #define LEAVE_PROXY             \
     "   ret\n"                  \
     "   .code64\n"              \
-    ::);
+    :::"%ecx");
 
 #define ENTER64                 \
-    "   push $0x33\n"           \
-    "   lea 1f, %%ecx\n"        \
-    "   push %%ecx\n"           \
+    "   subl $8, %%esp\n"       \
+    "   movl $0x33, 4(%%esp)\n" \
+    "   lea 1f,%%ecx\n"         \
+    "   movl %%ecx, (%%esp)\n"  \
     "   lret\n"                 \
     "   .code64\n"              \
     "1:\n"
