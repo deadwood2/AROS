@@ -4,10 +4,16 @@ include $(SRCDIR)/config/aros.cfg
 
 FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 \
         $(SRCDIR)/rom/dos/internalloadseg_support \
-        abiv0/exec/initresident
+        abiv0/exec/initresident \
+        abiv0/exec/makelibrary \
+        abiv0/exec/makefunctions \
+        abiv0/exec/addlibrary \
+        abiv0/exec/enqueue \
+        abiv0/exec/findname \
+        abiv0/exec/openlibrary \
 
 EXEDIR := $(AROS_C)
-USER_INCLUDES := -I$(SRCDIR)/rom/dos -I$(SRCDIR)/$(CURDIR)/abiv0/include
+USER_INCLUDES := -I$(SRCDIR)/rom/dos
 USER_LDFLAGS := -noclibs
 
 %build_prog mmake=local-aoa \

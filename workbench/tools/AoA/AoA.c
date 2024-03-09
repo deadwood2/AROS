@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "exec/functions.h"
-#include "aros/asm.h"
+#include "abiv0/include/exec/functions.h"
+#include "abiv0/include/aros/asm.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -21,14 +21,22 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
     return AllocMem(byteSize, requirements | MEMF_31BIT);
 }
 
-APTR abiv0_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
+APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
     bug("abiv0_OpenLibrary: %s\n", name);
     TEXT buff[64];
+    struct LibraryV0 *_ret;
 
+    /* Special case */
     if (strcmp(name, "dos.library") == 0)
         return abiv0DOSBase;
 
+    /* Call Exec function, maybe the library is already available */
+    _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
+    if (_ret)
+        return _ret;
+
+    /* Try loading from disk */
     sprintf(buff, "SYS:Libs32/%s", name);
 
     BPTR seglist = LoadSeg32(buff, DOSBase);
@@ -55,6 +63,7 @@ APTR abiv0_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysB
             if(    res->rt_MatchWord == RTC_MATCHWORD
                 && res->rt_MatchTag == (APTR32)(IPTR)res )
             {
+
                 (bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
                 /* AOS compatibility requirement.
                  * Ramlib ignores InitResident() return code.
@@ -66,12 +75,11 @@ APTR abiv0_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysB
                  */
                 // Forbid();
                 abiv0_InitResident(res, seglist, SysBaseV0);
-                // node = FindName(list, res->rt_Name);
+                _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
                 // Permit();
                 D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), node));
 
-                // return (struct Library*)node;
-                return NULL;
+                return _ret;
             }
         }
         seg = *(BPTR *)BADDR(seg);
@@ -88,7 +96,7 @@ void dummy_OpenLibrary()
     COPY_ARG_1
     COPY_ARG_2
     COPY_ARG_3
-    CALL_IMPL64(OpenLibrary)
+    CALL_IMPL64(DOS_OpenLibrary)
     ENTER32
     LEAVE_PROXY
 }
@@ -126,7 +134,8 @@ void dummy_CloseLibrary()
 
 int main()
 {
-    BPTR seg = LoadSeg32("SYS:helloabi", DOSBase);
+    BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
+    // BPTR seg = LoadSeg32("SYS:helloabi", DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
     /* Set start at first instruction (skip Seg header) */
@@ -134,8 +143,9 @@ int main()
 
     APTR tmp, lvo;
 
-    tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
-    struct ExecBaseABIv0 *sysbase = (tmp + 512);
+    tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
+    struct ExecBaseV0 *sysbase = (tmp + 1024);
+    NEWLISTV0(&sysbase->LibList);
 
     lvo = ((APTR)sysbase - 0x170);
     *((ULONG *)lvo) = (ULONG)(IPTR)&proxy_OpenLibrary;
