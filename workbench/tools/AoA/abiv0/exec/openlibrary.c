@@ -5,69 +5,24 @@
 */
 
 #include <aros/debug.h>
-#include <exec/execbase.h>
-#include <exec/lists.h>
-#include <exec/libraries.h>
-#include <aros/libcall.h>
-#include <proto/exec.h>
 
-#include "exec_intern.h"
-#include "exec_debug.h"
-#include "exec_locks.h"
+#include "../include/exec/functions.h"
+#include "../include/aros/asm.h"
+#include "../include/aros/cpu.h"
 
-
-/*****************************************************************************
-
-    NAME */
-
-        AROS_LH2(struct Library *, OpenLibrary,
-
-/*  SYNOPSIS */
-        AROS_LHA(CONST_STRPTR,  libName, A1),
-        AROS_LHA(ULONG,         version, D0),
-
-/*  LOCATION */
-        struct ExecBase *, SysBase, 92, Exec)
-
-/*  FUNCTION
-        Opens a library given by name and revision. If the library does not
-        exist in the current system shared library list, the first the
-        system ROMTag module list is tried. If this fails, and the DOS is
-        running, then the library will be loaded from disk.
-
-    INPUTS
-        libName - Pointer to the library's name.
-        version - the library's version number.
-
-    RESULT
-        Pointer to library structure or NULL.
-
-    NOTES
-
-    EXAMPLE
-
-    BUGS
-
-    SEE ALSO
-        CloseLibrary()
-
-    INTERNALS
-
-*****************************************************************************/
+struct LibraryV0 * abiv0_OpenLibrary(CONST_STRPTR libName, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
-    AROS_LIBFUNC_INIT
+    struct LibraryV0 * library;
 
-    struct Library * library;
-
-    DRAMLIB("OpenLibrary(\"%s\", %ld)", libName, version);
+    D(bug("OpenLibrary(\"%s\", %ld)", libName, version));
 
     /* Arbitrate for the library list */
-    EXEC_LOCK_LIST_READ_AND_FORBID(&SysBase->LibList);
+    // EXEC_LOCK_LIST_READ_AND_FORBID(&SysBase->LibList);
     
     /* Look for the library in our list */
-    library = (struct Library *) FindName (&SysBase->LibList, libName);
+    library = (struct LibraryV0 *) abiv0_FindName (&SysBaseV0->LibList, libName, SysBaseV0);
 
-    EXEC_UNLOCK_LIST(&SysBase->LibList);
+    // EXEC_UNLOCK_LIST(&SysBase->LibList);
 
     /* Something found ? */
     if(library!=NULL)
@@ -76,14 +31,23 @@
         if(library->lib_Version>=version)
         {
             /* Call Open vector */
-            library=AROS_LVO_CALL1(struct Library *,
-                AROS_LCA(ULONG,version,D0),
-                struct Library *,library,1,lib
-            );
+            __asm__ volatile (
+                "subq $8, %%rsp\n"
+                "movl %0, %%eax\n"
+                "movl %%eax, 4(%%rsp)\n"
+                "movl %2, %%eax\n"
+                "movl %%eax, (%%rsp)\n"
+                "movl %1, %%eax\n"
+                ENTER32
+                "call *%%eax\n"
+                ENTER64
+                "addq $8, %%rsp\n"
+                "movl %%eax, %0\n"
+            :"+m" (library):"m"(__AROS_GETVECADDRV0(library, 1)), "m"(version): "%rax", "%rcx");
         }
         else
         {
-            DRAMLIB("Version mismatch (have %ld, wanted %ld)", library->lib_Version, version);
+            D(bug("Version mismatch (have %ld, wanted %ld)", library->lib_Version, version));
             library = NULL;
         }
     }
@@ -95,10 +59,9 @@
      */
 
     /* All done. */
-    Permit();
+    // Permit();
 
-    DRAMLIB("OpenLibrary(\"%s\", %ld) = %p", libName, version, library);
+    D(bug("OpenLibrary(\"%s\", %ld) = %p", libName, version, library));
     return library;
 
-    AROS_LIBFUNC_EXIT
 } /* OpenLibrary */

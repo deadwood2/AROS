@@ -6,58 +6,11 @@
 #include <string.h>
 #include <aros/debug.h>
 
-#include "exec_intern.h"
-#include "exec_debug.h"
+#include "../include/exec/structures.h"
 
-/*****************************************************************************
-
-    NAME */
-#include <exec/lists.h>
-#include <proto/exec.h>
-
-        AROS_LH2I(struct Node *, FindName,
-
-/*  SYNOPSIS */
-        AROS_LHA(struct List *, list, A0),
-        AROS_LHA(CONST_STRPTR, name, A1),
-
-/*  LOCATION */
-        struct ExecBase *, SysBase, 46, Exec)
-
-/*  FUNCTION
-        Look for a node with a certain name in a list.
-
-    INPUTS
-        list - Search this list.
-        name - This is the name to look for.
-
-    RESULT
-
-    NOTES
-        The search is case-sensitive, so "Hello" will not find a node
-        named "hello".
-
-        The list must contain complete Nodes and no MinNodes.
-
-        When supplied with a NULL list argument, defaults to the exec port list.
-
-    EXAMPLE
-        struct List * list;
-        struct Node * node;
-
-        // Look for a node with the name "Hello"
-        node = FindName (list, "Hello");
-
-    BUGS
-
-    SEE ALSO
-
-    INTERNALS
-
-******************************************************************************/
+struct NodeV0 * abiv0_FindName(struct ListV0 *list, CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
-    AROS_LIBFUNC_INIT
-    struct Node * node;
+    struct NodeV0 * node;
 /* FIX !
         FindName supplied with a NULL list defaults to the exec port list
         Changed in lists.c as well....
@@ -67,20 +20,20 @@
 #if defined(__AROSEXEC_SMP__)
         bug("[EXEC] %s: called with NULL list!\n", __func__);
 #endif
-        list = &SysBase->PortList;
+        list = &SysBaseV0->PortList;
     }
 
 /*    ASSERT(list != NULL); */
     ASSERT(name);
 
     /* Look through the list */
-    for (node=GetHead(list); node; node=GetSucc(node))
+    for (node=GetHeadV0(list); node; node=GetSuccV0(node))
     {
         /* Only compare the names if this node has one. */
         if(node->ln_Name)
         {
             /* Check the node. If we found it, stop. */
-            if (!strcmp (node->ln_Name, name))
+            if (!strcmp ((APTR)(IPTR)node->ln_Name, name))
                 break;
         }
     }
@@ -91,6 +44,5 @@
         empty or because we tried all nodes in the list)
     */
     return node;
-    AROS_LIBFUNC_EXIT
 } /* FindName */
 

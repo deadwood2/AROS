@@ -6,7 +6,8 @@
 
 #include <aros/debug.h>
 
-#include "exec/structures.h"
+#include "../include/exec/functions.h"
+#include "../include/aros/asm.h"
 
 
 APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
@@ -39,9 +40,8 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
             Make the library. Don't call the Init routine yet, but delay
             that until we can copy stuff from the tag to the libbase.
         */
-asm("int3");
-        // library = MakeLibrary(init->vectors, init->structure,
-        //                       NULL, init->dSize, segList);
+        library = abiv0_MakeLibrary(init->vectors, init->structure,
+                              (APTR32)(IPTR)NULL, init->dSize, segList, SysBaseV0);
 
         if(library != NULL)
         {
@@ -74,12 +74,21 @@ asm("int3");
             */
             if(init->init)
             {
-asm("int3");
-                // library = AROS_UFC3(struct Library *, init->init,
-                //     AROS_UFCA(struct Library *,  library, D0),
-                //     AROS_UFCA(BPTR,              segList, A0),
-                //     AROS_UFCA(struct ExecBase *, SysBase, A6)
-                // );
+                __asm__ volatile (
+                    "subq $12, %%rsp\n"
+                    "movl %2, %%eax\n"
+                    "movl %%eax, 8(%%rsp)\n"
+                    "movl %3, %%eax\n"
+                    "movl %%eax, 4(%%rsp)\n"
+                    "movl %0, %%eax\n"
+                    "movl %%eax, (%%rsp)\n"
+                    "movl %1, %%eax\n"
+                    ENTER32
+                    "call *%%eax\n"
+                    ENTER64
+                    "addq $12, %%rsp\n"
+                    "movl %%eax, %0\n"
+                :"+m" (library):"m"(init->init), "m"(SysBaseV0), "m"(segList): "%rax", "%rcx");
             }
 
             /*
@@ -99,8 +108,7 @@ asm("int3");
                         break;
                     case NT_LIBRARY:
                     case NT_HIDD:   /* XXX Remove when new Hidd system ok. */
-                    asm("int3");
-                        // AddLibrary(library);
+                        abiv0_AddLibrary(library, SysBaseV0);
                         break;
                     case NT_RESOURCE:
                     asm("int3");
