@@ -1,5 +1,5 @@
-#ifndef AROS_ASM_H
-#define AROS_ASM_H
+#ifndef _AROS_ASM_H
+#define _AROS_ASM_H
 
 #define EXTER_PROXY(name)       \
 __asm__ volatile(               \

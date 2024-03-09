@@ -15,6 +15,54 @@ struct NodeV0
     BYTE    ln_Pri;
 };
 
+struct __mayalias ListV0;
+struct ListV0
+{
+    APTR32  lh_Head;
+    APTR32  lh_Tail;
+    union
+    {
+        APTR32 lh_TailPred;
+        APTR32 lh_TailPred_;
+    };
+    UBYTE	  lh_Type;
+    UBYTE	  l_pad;
+};
+
+#define ForeachNodeV0(list, node)                        \
+for                                                    \
+(                                                      \
+    *(void **)&node = (void *)(IPTR)(((struct ListV0 *)(list))->lh_Head); \
+    ((struct NodeV0 *)(node))->ln_Succ;                  \
+    *(void **)&node = (void *)(IPTR)(((struct NodeV0 *)(node))->ln_Succ)  \
+)
+
+#define NEWLISTV0(_l)                                     \
+do                                                      \
+{                                                       \
+    struct ListV0 *__aros_list_tmp = (struct ListV0 *)(_l), \
+                *l = __aros_list_tmp;                   \
+                                                        \
+    l->lh_TailPred_= (APTR32)(IPTR)l;                   \
+    l->lh_Tail     = 0;                                 \
+    l->lh_Head     = (APTR32)(IPTR)(struct NodeV0 *)&l->lh_Tail; \
+} while (0)
+
+#define GetHeadV0(_l)                                   \
+({                                                      \
+    struct ListV0 *__aros_list_tmp = (struct ListV0 *)(_l), \
+                *l = __aros_list_tmp;                   \
+                                                        \
+   ((struct NodeV0 *)(IPTR)l->lh_Head)->ln_Succ ? (struct NodeV0 *)(IPTR)l->lh_Head : (struct NodeV0 *)0; \
+})
+
+#define GetSuccV0(_n)                                    \
+({                                                       \
+    struct NodeV0 *__aros_node_tmp = (struct NodeV0 *)(_n),  \
+                *n = __aros_node_tmp;                    \
+                                                         \
+    (n && n->ln_Succ && ((struct NodeV0 *)(IPTR)n->ln_Succ)->ln_Succ) ? (struct NodeV0 *)(IPTR)n->ln_Succ : (struct NodeV0 *)0; \
+})
 struct LibraryV0 {
     struct  NodeV0 lib_Node;
     UBYTE   lib_Flags;
@@ -62,9 +110,64 @@ struct ResidentV0
 #define RTF_EXTENDED   (1<<6) /* MorphOS extension: extended
                                  structure fields are valid */
 
+struct IntVectorV0
+{
+    APTR32        iv_Data;
+    APTR32     (* iv_Code)();
+    APTR32        iv_Node;
+};
+
+
+/* Most fields are PRIVATE */
 struct ExecBaseV0
 {
-    LONG dummy;
+/* Standard Library Structure */
+    struct LibraryV0 LibNode;
+
+/* System Constants */
+    UWORD SoftVer;      /* OBSOLETE */
+    WORD  LowMemChkSum;
+    ULONG  ChkBase;
+    APTR32 ColdCapture;
+    APTR32 CoolCapture;
+    APTR32 WarmCapture;
+    APTR32 SysStkUpper;  /* System Stack Bounds */
+    APTR32 SysStkLower;
+    ULONG  MaxLocMem;    /* Top address of Chip memory + 1, or Chip RAM size. Amiga-specific */
+    APTR32 DebugEntry;
+    APTR32 DebugData;
+    APTR32 AlertData;
+    APTR32 MaxExtMem;    /* Top address of "Slow memory" + 1 (A500 only) */
+    UWORD ChkSum;       /* SoftVer to MaxExtMem */
+
+/* Interrupts */
+    struct IntVectorV0 IntVects[16];
+
+/* System Variables */
+    APTR32       ThisTask;       /* Pointer to currently running task (readable) */
+    ULONG        IdleCount;      /* Incremented when system goes idle            */
+    ULONG        DispCount;      /* Incremented when a task is dispatched        */
+    UWORD        Quantum;        /* # of ticks, a task may run                   */
+    UWORD        Elapsed;        /* # of ticks, the current task has run         */
+    UWORD        SysFlags;       /* Private flags                                */
+    BYTE         IDNestCnt;      /* Disable() nesting count                      */
+    BYTE         TDNestCnt;      /* Forbid() nesting count                       */
+    UWORD        AttnFlags;      /* Attention Flags (readable, see below)        */
+    UWORD        AttnResched;    /* Private scheduler flags                      */
+    APTR32       ResModules;     /* Resident modules list                        */
+    APTR32       TaskTrapCode;   /* Trap handling code                           */
+    APTR32       TaskExceptCode; /* User-mode exception handling code            */
+    APTR32       TaskExitCode;   /* Termination code                             */
+    ULONG        TaskSigAlloc;   /* Allocated signals bitmask                    */
+    UWORD        TaskTrapAlloc;  /* Allocated traps bitmask                      */
+
+/* PRIVATE Lists */
+    struct ListV0      MemList;
+    struct ListV0      ResourceList;
+    struct ListV0      DeviceList;
+    struct ListV0      IntrList;
+    struct ListV0      LibList;
+    struct ListV0      PortList;
 };
 
 struct DosLibraryV0
