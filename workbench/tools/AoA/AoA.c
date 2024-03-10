@@ -36,6 +36,26 @@ void dummy_AllocMem()
     LEAVE_PROXY
 }
 
+APTR abiv0_CreatePool(ULONG requirements, ULONG puddleSize, ULONG threshSize, struct ExecBaseV0 *SysBaseV0)
+{
+asm("int3");
+// this is wrong returning 64-bit address which will be truncated
+    return CreatePool(requirements | MEMF_31BIT, puddleSize, threshSize);
+}
+
+void proxy_CreatePool();
+void dummy_CreatePool()
+{
+    EXTER_PROXY(CreatePool)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
+    CALL_IMPL64(CreatePool)
+    ENTER32
+    LEAVE_PROXY
+}
+
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
     /* we may not have any extension fields */
@@ -76,9 +96,6 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
     /* Special case */
     if (strcmp(name, "dos.library") == 0)
         return abiv0DOSBase;
-
-    if (strcmp(name, "stdlib.library") == 0)
-        asm("int3");
 
     /* Call Exec function, maybe the library is already available */
     _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
@@ -229,6 +246,40 @@ void dummy_OpenResource()
     LEAVE_PROXY
 }
 
+void proxy_MakeLibrary();
+void dummy_MakeLibrary()
+{
+    EXTER_PROXY(MakeLibrary)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
+    COPY_ARG_4
+    COPY_ARG_5
+    COPY_ARG_6
+    CALL_IMPL64(MakeLibrary)
+    ENTER32
+    LEAVE_PROXY
+}
+
+void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
+{
+    return CopyMem(source, dest, size);
+}
+
+void proxy_CopyMem();
+void dummy_CopyMem()
+{
+    EXTER_PROXY(CopyMem)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
+    CALL_IMPL64(CopyMem)
+    ENTER32
+    LEAVE_PROXY
+}
+
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
@@ -278,6 +329,9 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 83, (APTR32)(IPTR)proxy_OpenResource);
     __AROS_SETVECADDRV0(sysbase, 93, execfunctable[92]); // InitSemaphore
     __AROS_SETVECADDRV0(sysbase, 33, (APTR32)(IPTR)proxy_AllocMem);
+    __AROS_SETVECADDRV0(sysbase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
+    __AROS_SETVECADDRV0(sysbase,104, (APTR32)(IPTR)proxy_CopyMem);
+    __AROS_SETVECADDRV0(sysbase,116, (APTR32)(IPTR)proxy_CreatePool);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);

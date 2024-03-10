@@ -41,4 +41,13 @@ __asm__ volatile(               \
 #define COPY_ARG_3              \
     "   movl 12(%%rsp), %%edx\n"
 
+#define COPY_ARG_4              \
+    "   movl 16(%%rsp), %%ecx\n"
+
+#define COPY_ARG_5              \
+    "   movl 20(%%rsp), %%r8d\n"
+
+#define COPY_ARG_6              \
+    "   movl 24(%%rsp), %%r9d\n"
+
 #endif
