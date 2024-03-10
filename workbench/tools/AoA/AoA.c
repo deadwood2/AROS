@@ -133,7 +133,7 @@ void dummy_CloseLibrary()
     LEAVE_PROXY
 }
 
-int main()
+LONG_FUNC run_emulation()
 {
     BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
     // BPTR seg = LoadSeg32("SYS:helloabi", DOSBase);
@@ -186,6 +186,18 @@ int main()
     "   .code64\n"
     "finished:"
         :: "m"(start), "m" (sysbase) :);
+}
+
+int main()
+{
+    /* Run emulation code with stack allocated in 31-bit memory */
+    APTR stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
+    struct StackSwapStruct sss;
+    sss.stk_Lower = stack31bit;
+    sss.stk_Upper = sss.stk_Lower + 64 * 1024;
+    sss.stk_Pointer = sss.stk_Upper;
+
+    NewStackSwap(&sss, run_emulation, NULL);
 
     return 0;
 }
