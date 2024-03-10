@@ -23,6 +23,19 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
     return AllocMem(byteSize, requirements | MEMF_31BIT);
 }
 
+void proxy_AllocMem();
+void dummy_AllocMem()
+{
+    EXTER_PROXY(AllocMem)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
+    CALL_IMPL64(AllocMem)
+    ENTER32
+    LEAVE_PROXY
+}
+
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
     /* we may not have any extension fields */
@@ -179,6 +192,22 @@ void dummy_SetTaskStorageSlot()
     LEAVE_PROXY
 }
 
+ULONG abiv0_GetTaskStorageSlot(LONG id)
+{
+    return GetTaskStorageSlot(id);
+}
+
+void proxy_GetTaskStorageSlot();
+void dummy_GetTaskStorageSlot()
+{
+    EXTER_PROXY(GetTaskStorageSlot)
+    ENTER64
+    COPY_ARG_1
+    CALL_IMPL64(GetTaskStorageSlot)
+    ENTER32
+    LEAVE_PROXY
+}
+
 APTR abiv0_OpenResource(CONST_STRPTR name)
 {
     if (strcmp(name, "kernel.resource") == 0)
@@ -245,8 +274,10 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 49, (APTR32)(IPTR)proxy_FindTask);
     __AROS_SETVECADDRV0(sysbase,180, (APTR32)(IPTR)proxy_AllocTaskStorageSlot);
     __AROS_SETVECADDRV0(sysbase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
+    __AROS_SETVECADDRV0(sysbase,185, (APTR32)(IPTR)proxy_GetTaskStorageSlot);
     __AROS_SETVECADDRV0(sysbase, 83, (APTR32)(IPTR)proxy_OpenResource);
     __AROS_SETVECADDRV0(sysbase, 93, execfunctable[92]); // InitSemaphore
+    __AROS_SETVECADDRV0(sysbase, 33, (APTR32)(IPTR)proxy_AllocMem);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
