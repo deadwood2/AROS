@@ -362,10 +362,14 @@ static int relocate
 
             case SHN_UNDEF:
                 if (ELF_R_TYPE(rel->info) != 0) {
+                    STRPTR name = (STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name;
+                    if (!(name[0] == 'S' && name[3] == 'B')) // SysBase is known undef symbol in 'kernel'
+                    {
                     bug("[ELF Loader] Undefined symbol '%s'\n",
                       (STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name);
                     SetIoErr(ERROR_BAD_HUNK);
                     return 0;
+                    }
                 }
                 /* fall through */
 
@@ -381,6 +385,14 @@ static int relocate
                     shindex = ((ULONG *)(APTR)(IPTR)symtab_shndx->addr)[ELF_R_SYM(rel->info)];
                 }
                 s = (IPTR)sh[shindex].addr + sym->value;
+
+                /* UGLY HACK TO GET FUNC TABLE OF EXEC */
+                if (strcmp((STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name, "Exec_FuncTable") == 0)
+                {
+                    extern ULONG *execfunctable;
+                    execfunctable = (APTR)(IPTR)s;
+                }
+
         }
 
         switch (ELF_R_TYPE(rel->info))
