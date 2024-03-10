@@ -226,4 +226,24 @@ struct MsgPortV0
     struct ListV0 mp_MsgList; /* Linked list of messages */
 };
 
+/* Message */
+struct MessageV0
+{
+    struct NodeV0    mn_Node;
+    APTR32           mn_ReplyPort;  /* message reply port */
+    UWORD	     mn_Length;     /* total message length, in bytes */
+				    /* (include the size of the Message
+				       structure in the length) */
+};
+
+struct IORequestV0
+{
+    struct MessageV0 io_Message;
+    APTR32          io_Device;
+    APTR32          io_Unit;
+    UWORD           io_Command;
+    UBYTE           io_Flags;
+    BYTE            io_Error;
+};
+
 #endif
