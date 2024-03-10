@@ -133,6 +133,26 @@ void dummy_CloseLibrary()
     LEAVE_PROXY
 }
 
+struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
+{
+    static struct ProcessV0 *dummy = NULL;
+    if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
+    dummy->pr_CLI = 0x1; //fake
+    return (struct TaskV0 *)dummy;
+}
+
+void proxy_FindTask();
+void dummy_FindTask()
+{
+    EXTER_PROXY(FindTask)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    CALL_IMPL64(FindTask)
+    ENTER32
+    LEAVE_PROXY
+}
+
 LONG_FUNC run_emulation()
 {
     BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
@@ -150,6 +170,7 @@ LONG_FUNC run_emulation()
 
     __AROS_SETVECADDRV0(sysbase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
     __AROS_SETVECADDRV0(sysbase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
+    __AROS_SETVECADDRV0(sysbase, 49, (APTR32)(IPTR)proxy_FindTask);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
