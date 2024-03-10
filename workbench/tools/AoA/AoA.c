@@ -23,7 +23,7 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
     return AllocMem(byteSize, requirements | MEMF_31BIT);
 }
 
-struct ResidentV0 * findResident(BPTR seg)
+struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
     /* we may not have any extension fields */
     const int sizeofresident = offsetof(struct ResidentV0, rt_Init) + sizeof(APTR);
@@ -44,6 +44,9 @@ struct ResidentV0 * findResident(BPTR seg)
             if(    res->rt_MatchWord == RTC_MATCHWORD
                 && res->rt_MatchTag == (APTR32)(IPTR)res )
             {
+                if ((name != NULL) && (strcmp((char *)(IPTR)res->rt_Name, name) != 0))
+                    continue;
+
                 return res;
             }
         }
@@ -74,7 +77,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
     BPTR seglist = LoadSeg32(buff, DOSBase);
 
-    struct ResidentV0 *res = findResident(seglist);
+    struct ResidentV0 *res = findResident(seglist, NULL);
 
     if (res)
     {
@@ -217,6 +220,8 @@ void dummy_FindTask()
     LEAVE_PROXY
 }
 
+ULONG *execfunctable;
+
 LONG_FUNC run_emulation()
 {
     BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
@@ -227,6 +232,8 @@ LONG_FUNC run_emulation()
     start = (APTR)((IPTR)start + 13);
 
     APTR tmp;
+
+    BPTR kernelseg = LoadSeg32("SYS:Libs32/exec/kernel", DOSBase);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     struct ExecBaseV0 *sysbase = (tmp + 1024);
@@ -239,6 +246,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase,180, (APTR32)(IPTR)proxy_AllocTaskStorageSlot);
     __AROS_SETVECADDRV0(sysbase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
     __AROS_SETVECADDRV0(sysbase, 83, (APTR32)(IPTR)proxy_OpenResource);
+    __AROS_SETVECADDRV0(sysbase, 93, execfunctable[92]); // InitSemaphore
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
