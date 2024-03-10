@@ -36,10 +36,27 @@ void dummy_AllocMem()
     LEAVE_PROXY
 }
 
-APTR abiv0_CreatePool(ULONG requirements, ULONG puddleSize, ULONG threshSize, struct ExecBaseV0 *SysBaseV0)
+APTR abiv0_AllocVec(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
 {
 asm("int3");
-// this is wrong returning 64-bit address which will be truncated
+    return AllocVec(byteSize, requirements | MEMF_31BIT);
+}
+
+void proxy_AllocVec();
+void dummy_AllocVec()
+{
+    EXTER_PROXY(AllocVec)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
+    CALL_IMPL64(AllocVec)
+    ENTER32
+    LEAVE_PROXY
+}
+
+APTR abiv0_CreatePool(ULONG requirements, ULONG puddleSize, ULONG threshSize, struct ExecBaseV0 *SysBaseV0)
+{
     return CreatePool(requirements | MEMF_31BIT, puddleSize, threshSize);
 }
 
@@ -52,6 +69,23 @@ void dummy_CreatePool()
     COPY_ARG_2
     COPY_ARG_3
     CALL_IMPL64(CreatePool)
+    ENTER32
+    LEAVE_PROXY
+}
+
+APTR abiv0_AllocPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *SysBaseV0)
+{
+    return AllocPooled(poolHeader, memSize);
+}
+
+void proxy_AllocPooled();
+void dummy_AllocPooled()
+{
+    EXTER_PROXY(AllocPooled)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    CALL_IMPL64(AllocPooled)
     ENTER32
     LEAVE_PROXY
 }
@@ -225,9 +259,9 @@ void dummy_GetTaskStorageSlot()
     LEAVE_PROXY
 }
 
-APTR abiv0_OpenResource(CONST_STRPTR name)
+APTR abiv0_OpenResource(CONST_STRPTR resName)
 {
-    if (strcmp(name, "kernel.resource") == 0)
+    if (strcmp(resName, "kernel.resource") == 0)
         return NULL;
 
 asm("int3");
@@ -242,6 +276,31 @@ void dummy_OpenResource()
     COPY_ARG_1
     COPY_ARG_2
     CALL_IMPL64(OpenResource)
+    ENTER32
+    LEAVE_PROXY
+}
+
+LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest)
+{
+    if (strcmp(devName, "timer.device") == 0)
+    {
+        iORequest->io_Device = (APTR32)0;
+        return 0;
+    }
+
+asm("int3");
+    return 0;
+}
+
+void proxy_OpenDevice();
+void dummy_OpenDevice()
+{
+    EXTER_PROXY(OpenDevice)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    COPY_ARG_3
+    CALL_IMPL64(OpenDevice)
     ENTER32
     LEAVE_PROXY
 }
@@ -332,6 +391,9 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
     __AROS_SETVECADDRV0(sysbase,104, (APTR32)(IPTR)proxy_CopyMem);
     __AROS_SETVECADDRV0(sysbase,116, (APTR32)(IPTR)proxy_CreatePool);
+    __AROS_SETVECADDRV0(sysbase, 74, (APTR32)(IPTR)proxy_OpenDevice);
+    __AROS_SETVECADDRV0(sysbase,118, (APTR32)(IPTR)proxy_AllocPooled);
+    __AROS_SETVECADDRV0(sysbase,114, (APTR32)(IPTR)proxy_AllocVec);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
