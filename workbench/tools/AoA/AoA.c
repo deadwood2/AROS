@@ -10,6 +10,7 @@
 #include "abiv0/include/exec/functions.h"
 #include "abiv0/include/aros/asm.h"
 #include "abiv0/include/aros/cpu.h"
+#include "abiv0/include/dos/structures.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -22,29 +23,8 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
     return AllocMem(byteSize, requirements | MEMF_31BIT);
 }
 
-APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
+struct ResidentV0 * findResident(BPTR seg)
 {
-    bug("abiv0_OpenLibrary: %s\n", name);
-    TEXT buff[64];
-    struct LibraryV0 *_ret;
-
-    /* Special case */
-    if (strcmp(name, "dos.library") == 0)
-        return abiv0DOSBase;
-
-    /* Call Exec function, maybe the library is already available */
-    _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
-    if (_ret)
-        return _ret;
-
-    /* Try loading from disk */
-    sprintf(buff, "SYS:Libs32/%s", name);
-
-    BPTR seglist = LoadSeg32(buff, DOSBase);
-
-
-    BPTR seg = seglist;
-
     /* we may not have any extension fields */
     const int sizeofresident = offsetof(struct ResidentV0, rt_Init) + sizeof(APTR);
 
@@ -64,26 +44,56 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
             if(    res->rt_MatchWord == RTC_MATCHWORD
                 && res->rt_MatchTag == (APTR32)(IPTR)res )
             {
-
-                (bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
-                /* AOS compatibility requirement.
-                 * Ramlib ignores InitResident() return code.
-                 * After InitResident() it checks if lib/dev appeared
-                 * in Exec lib/dev list via FindName().
-                 *
-                 * Evidently InitResident()'s return code was not
-                 * reliable for some early AOS libraries.
-                 */
-                // Forbid();
-                abiv0_InitResident(res, seglist, SysBaseV0);
-                _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
-                // Permit();
-                D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), node));
-
-                return _ret;
+                return res;
             }
         }
         seg = *(BPTR *)BADDR(seg);
+    }
+}
+
+APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
+{
+    bug("abiv0_OpenLibrary: %s\n", name);
+    TEXT buff[64];
+    struct LibraryV0 *_ret;
+
+    /* Special case */
+    if (strcmp(name, "dos.library") == 0)
+        return abiv0DOSBase;
+
+    if (strcmp(name, "stdlib.library") == 0)
+        asm("int3");
+
+    /* Call Exec function, maybe the library is already available */
+    _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
+    if (_ret)
+        return _ret;
+
+    /* Try loading from disk */
+    sprintf(buff, "SYS:Libs32/%s", name);
+
+    BPTR seglist = LoadSeg32(buff, DOSBase);
+
+    struct ResidentV0 *res = findResident(seglist);
+
+    if (res)
+    {
+        (bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
+        /* AOS compatibility requirement.
+            * Ramlib ignores InitResident() return code.
+            * After InitResident() it checks if lib/dev appeared
+            * in Exec lib/dev list via FindName().
+            *
+            * Evidently InitResident()'s return code was not
+            * reliable for some early AOS libraries.
+            */
+        // Forbid();
+        abiv0_InitResident(res, seglist, SysBaseV0);
+        _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
+        // Permit();
+        (bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
+
+        return _ret;
     }
 
     return NULL;
@@ -133,6 +143,60 @@ void dummy_CloseLibrary()
     LEAVE_PROXY
 }
 
+ULONG abiv0_AllocTaskStorageSlot()
+{
+    return AllocTaskStorageSlot();
+}
+
+void proxy_AllocTaskStorageSlot();
+void dummy_AllocTaskStorageSlot()
+{
+    EXTER_PROXY(AllocTaskStorageSlot)
+    ENTER64
+    COPY_ARG_1
+    CALL_IMPL64(AllocTaskStorageSlot)
+    ENTER32
+    LEAVE_PROXY
+}
+
+BOOL abiv0_SetTaskStorageSlot(LONG slot, ULONG value)
+{
+    return SetTaskStorageSlot(slot, value);
+}
+
+void proxy_SetTaskStorageSlot();
+void dummy_SetTaskStorageSlot()
+{
+    EXTER_PROXY(SetTaskStorageSlot)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    CALL_IMPL64(SetTaskStorageSlot)
+    ENTER32
+    LEAVE_PROXY
+}
+
+APTR abiv0_OpenResource(CONST_STRPTR name)
+{
+    if (strcmp(name, "kernel.resource") == 0)
+        return NULL;
+
+asm("int3");
+    return (APTR)0x1;
+}
+
+void proxy_OpenResource();
+void dummy_OpenResource()
+{
+    EXTER_PROXY(OpenResource)
+    ENTER64
+    COPY_ARG_1
+    COPY_ARG_2
+    CALL_IMPL64(OpenResource)
+    ENTER32
+    LEAVE_PROXY
+}
+
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
@@ -167,10 +231,14 @@ LONG_FUNC run_emulation()
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     struct ExecBaseV0 *sysbase = (tmp + 1024);
     NEWLISTV0(&sysbase->LibList);
+    sysbase->LibNode.lib_Version = 51;
 
     __AROS_SETVECADDRV0(sysbase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
     __AROS_SETVECADDRV0(sysbase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
     __AROS_SETVECADDRV0(sysbase, 49, (APTR32)(IPTR)proxy_FindTask);
+    __AROS_SETVECADDRV0(sysbase,180, (APTR32)(IPTR)proxy_AllocTaskStorageSlot);
+    __AROS_SETVECADDRV0(sysbase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
+    __AROS_SETVECADDRV0(sysbase, 83, (APTR32)(IPTR)proxy_OpenResource);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
