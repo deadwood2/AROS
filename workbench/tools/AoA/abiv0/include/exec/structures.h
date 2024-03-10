@@ -1,5 +1,5 @@
-#ifndef ABIV0_STRUCTURES_H
-#define ABIV0_STRUCTURES_H
+#ifndef ABIV0_EXEC_STRUCTURES_H
+#define ABIV0_EXEC_STRUCTURES_H
 
 #include <exec/types.h>
 
@@ -27,6 +27,18 @@ struct ListV0
     };
     UBYTE	  lh_Type;
     UBYTE	  l_pad;
+};
+
+struct __mayalias MinListV0;
+struct MinListV0
+{
+    APTR32 mlh_Head;
+    APTR32 mlh_Tail;
+    union
+    {
+        APTR32 mlh_TailPred;
+        APTR32 mlh_TailPred_;
+    };
 };
 
 #define ForeachNodeV0(list, node)                        \
@@ -170,10 +182,48 @@ struct ExecBaseV0
     struct ListV0      PortList;
 };
 
-struct DosLibraryV0
+/* You must use Exec functions to modify task structure fields. */
+struct TaskV0
 {
-    /* A normal library-base as defined in <exec/libraries.h>. */
-    struct LibraryV0 dl_lib;
+    struct NodeV0 tc_Node;
+    UBYTE	tc_Flags;
+    UBYTE	tc_State;
+    BYTE	tc_IDNestCnt;	/* Interrupt disabled nesting */
+    BYTE	tc_TDNestCnt;	/* Task disabled nesting */
+    ULONG	tc_SigAlloc;	/* Allocated signals */
+    ULONG	tc_SigWait;	/* Signals we are waiting for */
+    ULONG	tc_SigRecvd;	/* Received signals */
+    ULONG	tc_SigExcept;	/* Signals we will take exceptions for */
+    union
+    {
+	struct
+	{
+	    UWORD tc_ETrapAlloc;   /* Allocated traps */
+	    UWORD tc_ETrapAble;    /* Enabled traps */
+	} tc_ETrap;
+	APTR32  tc_ETask;	   /* Valid if TF_ETASK is set */
+    }		tc_UnionETask;
+    APTR32	tc_ExceptData;	/* Exception data */
+    APTR32	tc_ExceptCode;	/* Exception code */
+    APTR32	tc_TrapData;	/* Trap data */
+    APTR32	tc_TrapCode;	/* Trap code */
+    APTR32	tc_SPReg;	/* Stack pointer */
+    APTR32	tc_SPLower;	/* Stack lower bound */
+    APTR32	tc_SPUpper;	/* Stack upper bound */
+    APTR32  tc_Switch;   /* Task loses CPU */
+    APTR32  tc_Launch;   /* Task gets CPU */
+    struct ListV0 tc_MemEntry;	/* Allocated memory. Freed by RemTask(). */
+    APTR32	tc_UserData;	/* For use by the task; no restrictions! */
+};
+
+/* MsgPort */
+struct MsgPortV0
+{
+    struct NodeV0 mp_Node;
+    UBYTE	mp_Flags;
+    UBYTE	mp_SigBit;  /* Signal bit number */
+    APTR32  mp_SigTask; /* Object to be signalled */
+    struct ListV0 mp_MsgList; /* Linked list of messages */
 };
 
 #endif
