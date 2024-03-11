@@ -26,7 +26,6 @@ MAKE_PROXY_ARG_3(AllocMem)
 
 APTR abiv0_AllocVec(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
 {
-asm("int3");
     return AllocVec(byteSize, requirements | MEMF_31BIT);
 }
 MAKE_PROXY_ARG_3(AllocVec)
@@ -42,6 +41,12 @@ APTR abiv0_AllocPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *SysBas
     return AllocPooled(poolHeader, memSize);
 }
 MAKE_PROXY_ARG_3(AllocPooled)
+
+ULONG abiv0_TypeOfMem(APTR address, struct ExecBaseV0 *SysBaseV0)
+{
+    return TypeOfMem(address);
+}
+MAKE_PROXY_ARG_2(TypeOfMem)
 
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
@@ -196,10 +201,21 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
     if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
+    dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
     dummy->pr_CLI = 0x1; //fake
+    dummy->pr_CIS = 0x1; //fake
+    dummy->pr_CES = 0x1; //fake
     return (struct TaskV0 *)dummy;
 }
 MAKE_PROXY_ARG_2(FindTask)
+
+LONG abiv0_SetVBuf()
+{
+asm("int3");
+    return 0;
+}
+MAKE_PROXY_ARG_5(SetVBuf)
+
 
 ULONG *execfunctable;
 ULONG *dosfunctable;
@@ -216,7 +232,8 @@ LONG_FUNC run_emulation()
 
     APTR tmp;
 
-    BPTR kernelseg = LoadSeg32("SYS:Libs32/exec/kernel", DOSBase);
+    /* Keep it! This fills global variable */
+    LoadSeg32("SYS:Libs32/exec/kernel", DOSBase);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     struct ExecBaseV0 *sysbase = (tmp + 1024);
@@ -230,7 +247,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
     __AROS_SETVECADDRV0(sysbase,185, (APTR32)(IPTR)proxy_GetTaskStorageSlot);
     __AROS_SETVECADDRV0(sysbase, 83, (APTR32)(IPTR)proxy_OpenResource);
-    __AROS_SETVECADDRV0(sysbase, 93, execfunctable[92]); // InitSemaphore
+    __AROS_SETVECADDRV0(sysbase, 93, execfunctable[92]);    // InitSemaphore
     __AROS_SETVECADDRV0(sysbase, 33, (APTR32)(IPTR)proxy_AllocMem);
     __AROS_SETVECADDRV0(sysbase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
     __AROS_SETVECADDRV0(sysbase,104, (APTR32)(IPTR)proxy_CopyMem);
@@ -238,6 +255,11 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 74, (APTR32)(IPTR)proxy_OpenDevice);
     __AROS_SETVECADDRV0(sysbase,118, (APTR32)(IPTR)proxy_AllocPooled);
     __AROS_SETVECADDRV0(sysbase,114, (APTR32)(IPTR)proxy_AllocVec);
+    __AROS_SETVECADDRV0(sysbase, 46, execfunctable[45]);    // FindName
+    __AROS_SETVECADDRV0(sysbase,135, execfunctable[134]);   // TaggedOpenLibrary
+    __AROS_SETVECADDRV0(sysbase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
+    __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);   // AddTail
+
     /* Keep it! This fills global variable */
     LoadSeg32("SYS:Libs32/dos.library", DOSBase);
 
@@ -257,6 +279,9 @@ LONG_FUNC run_emulation()
         ::"m"(sysbase), "m"(dosinitlist[1]) : "%rax", "%rcx");
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
+    __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
+    __AROS_SETVECADDRV0(abiv0DOSBase,  10, dosfunctable[9]);    // Output
+    __AROS_SETVECADDRV0(abiv0DOSBase,  61, (APTR32)(IPTR)proxy_SetVBuf);
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */

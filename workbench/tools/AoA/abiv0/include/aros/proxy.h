@@ -58,6 +58,22 @@ void dummy_##fname()            \
     LEAVE_PROXY                 \
 }
 
+#define MAKE_PROXY_ARG_5(fname) \
+void proxy_##fname();           \
+void dummy_##fname()            \
+{                               \
+    EXTER_PROXY(fname)          \
+    ENTER64                     \
+    COPY_ARG_1                  \
+    COPY_ARG_2                  \
+    COPY_ARG_3                  \
+    COPY_ARG_4                  \
+    COPY_ARG_5                  \
+    CALL_IMPL64(fname)          \
+    ENTER32                     \
+    LEAVE_PROXY                 \
+}
+
 #define MAKE_PROXY_ARG_6(fname) \
 void proxy_##fname();           \
 void dummy_##fname()            \
