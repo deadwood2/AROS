@@ -125,7 +125,7 @@ struct ResidentV0
 struct IntVectorV0
 {
     APTR32        iv_Data;
-    APTR32     (* iv_Code)();
+    APTR32        iv_Code;
     APTR32        iv_Node;
 };
 
