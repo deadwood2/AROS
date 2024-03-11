@@ -8,7 +8,7 @@
 #include <string.h>
 
 #include "abiv0/include/exec/functions.h"
-#include "abiv0/include/aros/asm.h"
+#include "abiv0/include/aros/proxy.h"
 #include "abiv0/include/aros/cpu.h"
 #include "abiv0/include/dos/structures.h"
 
@@ -22,73 +22,26 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
 {
     return AllocMem(byteSize, requirements | MEMF_31BIT);
 }
-
-void proxy_AllocMem();
-void dummy_AllocMem()
-{
-    EXTER_PROXY(AllocMem)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
-    CALL_IMPL64(AllocMem)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_3(AllocMem)
 
 APTR abiv0_AllocVec(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
 {
 asm("int3");
     return AllocVec(byteSize, requirements | MEMF_31BIT);
 }
-
-void proxy_AllocVec();
-void dummy_AllocVec()
-{
-    EXTER_PROXY(AllocVec)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
-    CALL_IMPL64(AllocVec)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_3(AllocVec)
 
 APTR abiv0_CreatePool(ULONG requirements, ULONG puddleSize, ULONG threshSize, struct ExecBaseV0 *SysBaseV0)
 {
     return CreatePool(requirements | MEMF_31BIT, puddleSize, threshSize);
 }
-
-void proxy_CreatePool();
-void dummy_CreatePool()
-{
-    EXTER_PROXY(CreatePool)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
-    CALL_IMPL64(CreatePool)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_4(CreatePool)
 
 APTR abiv0_AllocPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *SysBaseV0)
 {
     return AllocPooled(poolHeader, memSize);
 }
-
-void proxy_AllocPooled();
-void dummy_AllocPooled()
-{
-    EXTER_PROXY(AllocPooled)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    CALL_IMPL64(AllocPooled)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_3(AllocPooled)
 
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
@@ -183,81 +136,30 @@ void abiv0_PutStr(CONST_STRPTR text)
 {
     PutStr(text);
 }
-
-void proxy_PutStr();
-void dummy_PutStr()
-{
-    EXTER_PROXY(PutStr)
-    ENTER64
-    COPY_ARG_1
-    CALL_IMPL64(PutStr)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_2(PutStr)
 
 void abiv0_CloseLibrary()
 {
 }
-
-void proxy_CloseLibrary();
-void dummy_CloseLibrary()
-{
-    EXTER_PROXY(CloseLibrary)
-    ENTER64
-    COPY_ARG_1
-    CALL_IMPL64(CloseLibrary)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_2(CloseLibrary)
 
 ULONG abiv0_AllocTaskStorageSlot()
 {
     return AllocTaskStorageSlot();
 }
-
-void proxy_AllocTaskStorageSlot();
-void dummy_AllocTaskStorageSlot()
-{
-    EXTER_PROXY(AllocTaskStorageSlot)
-    ENTER64
-    COPY_ARG_1
-    CALL_IMPL64(AllocTaskStorageSlot)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_2(AllocTaskStorageSlot)
 
 BOOL abiv0_SetTaskStorageSlot(LONG slot, ULONG value)
 {
     return SetTaskStorageSlot(slot, value);
 }
-
-void proxy_SetTaskStorageSlot();
-void dummy_SetTaskStorageSlot()
-{
-    EXTER_PROXY(SetTaskStorageSlot)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    CALL_IMPL64(SetTaskStorageSlot)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_3(SetTaskStorageSlot)
 
 ULONG abiv0_GetTaskStorageSlot(LONG id)
 {
     return GetTaskStorageSlot(id);
 }
-
-void proxy_GetTaskStorageSlot();
-void dummy_GetTaskStorageSlot()
-{
-    EXTER_PROXY(GetTaskStorageSlot)
-    ENTER64
-    COPY_ARG_1
-    CALL_IMPL64(GetTaskStorageSlot)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_2(GetTaskStorageSlot)
 
 APTR abiv0_OpenResource(CONST_STRPTR resName)
 {
@@ -267,18 +169,7 @@ APTR abiv0_OpenResource(CONST_STRPTR resName)
 asm("int3");
     return (APTR)0x1;
 }
-
-void proxy_OpenResource();
-void dummy_OpenResource()
-{
-    EXTER_PROXY(OpenResource)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    CALL_IMPL64(OpenResource)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_2(OpenResource)
 
 LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest)
 {
@@ -291,53 +182,15 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
 asm("int3");
     return 0;
 }
+MAKE_PROXY_ARG_4(OpenDevice)
 
-void proxy_OpenDevice();
-void dummy_OpenDevice()
-{
-    EXTER_PROXY(OpenDevice)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
-    CALL_IMPL64(OpenDevice)
-    ENTER32
-    LEAVE_PROXY
-}
-
-void proxy_MakeLibrary();
-void dummy_MakeLibrary()
-{
-    EXTER_PROXY(MakeLibrary)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
-    COPY_ARG_4
-    COPY_ARG_5
-    COPY_ARG_6
-    CALL_IMPL64(MakeLibrary)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_6(MakeLibrary)
 
 void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 {
     return CopyMem(source, dest, size);
 }
-
-void proxy_CopyMem();
-void dummy_CopyMem()
-{
-    EXTER_PROXY(CopyMem)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
-    CALL_IMPL64(CopyMem)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_4(CopyMem)
 
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
@@ -346,18 +199,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     dummy->pr_CLI = 0x1; //fake
     return (struct TaskV0 *)dummy;
 }
-
-void proxy_FindTask();
-void dummy_FindTask()
-{
-    EXTER_PROXY(FindTask)
-    ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    CALL_IMPL64(FindTask)
-    ENTER32
-    LEAVE_PROXY
-}
+MAKE_PROXY_ARG_2(FindTask)
 
 ULONG *execfunctable;
 
