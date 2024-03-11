@@ -17,7 +17,9 @@
     "   movl %%ecx, (%%rsp)\n"  \
     "   lret\n"                 \
     "   .code32\n"              \
-    "2:\n"
+    "2:\n"                      \
+    "   push $0x2b\n"           \
+    "   pop %%ds\n"
 
 #define COPY_ARG_1              \
     "   movl 4(%%rsp), %%edi\n"
