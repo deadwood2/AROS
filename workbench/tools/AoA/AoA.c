@@ -202,6 +202,8 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 MAKE_PROXY_ARG_2(FindTask)
 
 ULONG *execfunctable;
+ULONG *dosfunctable;
+ULONG *dosinitlist;
 
 LONG_FUNC run_emulation()
 {
@@ -236,10 +238,23 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 74, (APTR32)(IPTR)proxy_OpenDevice);
     __AROS_SETVECADDRV0(sysbase,118, (APTR32)(IPTR)proxy_AllocPooled);
     __AROS_SETVECADDRV0(sysbase,114, (APTR32)(IPTR)proxy_AllocVec);
+    /* Keep it! This fills global variable */
+    LoadSeg32("SYS:Libs32/dos.library", DOSBase);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
     abiv0DOSBase->dl_lib.lib_Version = DOSBase->dl_lib.lib_Version;
+
+    __asm__ volatile (
+        "subq $4, %%rsp\n"
+        "movl %0, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %1, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $4, %%rsp\n"
+        ::"m"(sysbase), "m"(dosinitlist[1]) : "%rax", "%rcx");
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
 
