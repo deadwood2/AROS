@@ -72,6 +72,19 @@ struct DosLibraryV0
 {
     /* A normal library-base as defined in <exec/libraries.h>. */
     struct LibraryV0 dl_lib;
-};
 
+    APTR32 dl_Root;
+
+    /* private BCPL fields. Do not use. */
+    APTR32  dl_GV;
+    APTR32  dl_A2;
+    APTR32  dl_A5;
+    APTR32  dl_A6;
+
+    /* The following fields are PRIVATE! */
+    APTR32 dl_Errors;
+    APTR32 dl_TimeReq;
+    APTR32 dl_UtilityBase;
+    APTR32 dl_IntuitionBase;
+};
 #endif
