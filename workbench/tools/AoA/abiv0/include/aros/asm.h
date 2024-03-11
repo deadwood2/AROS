@@ -1,15 +1,5 @@
-#ifndef _AROS_ASM_H
-#define _AROS_ASM_H
-
-#define EXTER_PROXY(name)       \
-__asm__ volatile(               \
-    "   .code32\n"              \
-    "proxy_" #name ":\n"
-
-#define LEAVE_PROXY             \
-    "   ret\n"                  \
-    "   .code64\n"              \
-    :::"%ecx");
+#ifndef ABIV0_AROS_ASM_H
+#define ABIV0_AROS_ASM_H
 
 #define ENTER64                 \
     "   subl $8, %%esp\n"       \
@@ -28,9 +18,6 @@ __asm__ volatile(               \
     "   lret\n"                 \
     "   .code32\n"              \
     "2:\n"
-
-#define CALL_IMPL64(name)       \
-    "   call abiv0_" #name "\n"
 
 #define COPY_ARG_1              \
     "   movl 4(%%rsp), %%edi\n"

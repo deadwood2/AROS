@@ -1,5 +1,5 @@
-#ifndef _AROS_CPU_H
-#define _AROS_CPU_H
+#ifndef ABIV0_AROS_CPU_H
+#define ABIV0_AROS_CPU_H
 
 struct JumpVecV0
 {
