@@ -3,6 +3,7 @@
 #include <proto/dos.h>
 #include <proto/exec.h>
 #include <aros/debug.h>
+#include <proto/timer.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -11,6 +12,7 @@
 #include "abiv0/include/aros/proxy.h"
 #include "abiv0/include/aros/cpu.h"
 #include "abiv0/include/dos/structures.h"
+#include "abiv0/include/timer/structures.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -216,6 +218,12 @@ asm("int3");
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
+void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
+{
+asm("int3");
+    return GetSysTime(dest);
+}
+MAKE_PROXY_ARG_2(GetSysTime)
 
 ULONG *execfunctable;
 ULONG *dosfunctable;
@@ -260,12 +268,19 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
     __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);   // AddTail
 
+    tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
+    struct LibraryV0 *abiv0TimerBase = (tmp + 512);
+    __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
+
+
     /* Keep it! This fills global variable */
     LoadSeg32("SYS:Libs32/dos.library", DOSBase);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
     abiv0DOSBase->dl_lib.lib_Version = DOSBase->dl_lib.lib_Version;
+    abiv0DOSBase->dl_TimeReq = (APTR32)(IPTR)AllocMem(sizeof(struct timerequestV0), MEMF_31BIT | MEMF_CLEAR);
+    ((struct timerequestV0 *)(IPTR)abiv0DOSBase->dl_TimeReq)->tr_node.io_Device = (APTR32)(IPTR)abiv0TimerBase;
 
     __asm__ volatile (
         "subq $4, %%rsp\n"
@@ -282,6 +297,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
     __AROS_SETVECADDRV0(abiv0DOSBase,  10, dosfunctable[9]);    // Output
     __AROS_SETVECADDRV0(abiv0DOSBase,  61, (APTR32)(IPTR)proxy_SetVBuf);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  32, dosfunctable[31]);   // DateStamp
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
@@ -314,8 +330,14 @@ LONG_FUNC run_emulation()
         :: "m"(start), "m" (sysbase) :);
 }
 
+struct timerequest tr;
+struct Device *TimerBase;
+
 int main()
 {
+    OpenDevice("timer.device", UNIT_VBLANK, &tr.tr_node, 0);
+    TimerBase = tr.tr_node.io_Device;
+
     /* Run emulation code with stack allocated in 31-bit memory */
     APTR stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
     struct StackSwapStruct sss;
