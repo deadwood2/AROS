@@ -393,6 +393,18 @@ static int relocate
                     execfunctable = (APTR)(IPTR)s;
                 }
 
+                if ((name[0] == 'D') && (strcmp(name, "Dos_FuncTable") == 0))
+                {
+                    extern ULONG *dosfunctable;
+                    dosfunctable = (APTR)(IPTR)s;
+                }
+
+                if ((name[0] == '_') && (strcmp(name, "__INIT_LIST__") == 0))
+                {
+                    extern ULONG* dosinitlist;
+                    dosinitlist = (APTR)(IPTR)s;
+                }
+
         }
 
         switch (ELF_R_TYPE(rel->info))
