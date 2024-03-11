@@ -345,6 +345,7 @@ static int relocate
 
         sym = &symtab[ELF_R_SYM(rel->info)];
         p = (APTR)(IPTR)toreloc->addr + rel->offset;
+        STRPTR name = (STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name;
 
         DB2(bug("[ELF Loader] Processing symbol %s\n", sh[shsymtab->link].addr + sym->name));
 
@@ -362,7 +363,6 @@ static int relocate
 
             case SHN_UNDEF:
                 if (ELF_R_TYPE(rel->info) != 0) {
-                    STRPTR name = (STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name;
                     if (!(name[0] == 'S' && name[3] == 'B')) // SysBase is known undef symbol in 'kernel'
                     {
                     bug("[ELF Loader] Undefined symbol '%s'\n",
@@ -386,8 +386,8 @@ static int relocate
                 }
                 s = (IPTR)sh[shindex].addr + sym->value;
 
-                /* UGLY HACK TO GET FUNC TABLE OF EXEC */
-                if (strcmp((STRPTR)(APTR)(IPTR)sh[shsymtab->link].addr + sym->name, "Exec_FuncTable") == 0)
+                /* UGLY HACK TO GET FUNC TABLE OF EXEC AND DOS*/
+                if ((name[0] == 'E') && (strcmp(name, "Exec_FuncTable") == 0))
                 {
                     extern ULONG *execfunctable;
                     execfunctable = (APTR)(IPTR)s;
