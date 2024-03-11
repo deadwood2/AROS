@@ -101,6 +101,9 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
     BPTR seglist = LoadSeg32(buff, DOSBase);
 
+    if (seglist == BNULL)
+        return NULL;
+
     struct ResidentV0 *res = findResident(seglist, NULL);
 
     if (res)
@@ -204,26 +207,39 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     static struct ProcessV0 *dummy = NULL;
     if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
     dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
+    dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
+    strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
     dummy->pr_CLI = 0x1; //fake
     dummy->pr_CIS = 0x1; //fake
     dummy->pr_CES = 0x1; //fake
+    dummy->pr_COS = 0x1; //fake
+
     return (struct TaskV0 *)dummy;
 }
 MAKE_PROXY_ARG_2(FindTask)
 
 LONG abiv0_SetVBuf()
 {
-asm("int3");
     return 0;
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
-asm("int3");
     return GetSysTime(dest);
 }
 MAKE_PROXY_ARG_2(GetSysTime)
+
+LONG abiv0_FPutC(BPTR file, LONG character, struct DosLibraryV0 DOSBaseV0)
+{
+    if ((IPTR)file == 0x1)
+    {
+        return FPutC(Output(), character);
+    }
+
+asm("int3");
+}
+MAKE_PROXY_ARG_3(FPutC)
 
 ULONG *execfunctable;
 ULONG *dosfunctable;
@@ -267,6 +283,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase,135, execfunctable[134]);   // TaggedOpenLibrary
     __AROS_SETVECADDRV0(sysbase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
     __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);   // AddTail
+    __AROS_SETVECADDRV0(sysbase, 87, execfunctable[86]);   // RawDoFmt
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     struct LibraryV0 *abiv0TimerBase = (tmp + 512);
@@ -298,6 +315,9 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  10, dosfunctable[9]);    // Output
     __AROS_SETVECADDRV0(abiv0DOSBase,  61, (APTR32)(IPTR)proxy_SetVBuf);
     __AROS_SETVECADDRV0(abiv0DOSBase,  32, dosfunctable[31]);   // DateStamp
+    __AROS_SETVECADDRV0(abiv0DOSBase,  82, dosfunctable[81]);   // Cli
+    __AROS_SETVECADDRV0(abiv0DOSBase, 159, dosfunctable[158]);  // VPrintf
+    __AROS_SETVECADDRV0(abiv0DOSBase,  52, (APTR32)(IPTR)proxy_FPutC);
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
