@@ -121,11 +121,24 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
     else
     {
         D(bug("InitResident !RTF_AUTOINIT"));
-asm("int3");
-        // /* ...or let the library do it. */
-        // if (resident->rt_Init) {
-        //     ExecDoInitResident(library, resident->rt_Init, segList);
-        // }
+        /* ...or let the library do it. */
+        if (resident->rt_Init) {
+            __asm__ volatile (
+                "subq $12, %%rsp\n"
+                "movl %2, %%eax\n"
+                "movl %%eax, 8(%%rsp)\n"
+                "movl %3, %%eax\n"
+                "movl %%eax, 4(%%rsp)\n"
+                "movl $0, %%eax\n"
+                "movl %%eax, (%%rsp)\n"
+                "movl %1, %%eax\n"
+                ENTER32
+                "call *%%eax\n"
+                ENTER64
+                "addq $12, %%rsp\n"
+                "movl %%eax, %0\n"
+            :"=m" (library):"m"(resident->rt_Init), "m"(SysBaseV0), "m"(segList): "%rax", "%rcx");
+        }
     }
 
     D(bug("InitResident end 0x%p (\"%s\"), result 0x%p", resident, resident->rt_Name, library));
