@@ -26,6 +26,12 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
 }
 MAKE_PROXY_ARG_3(AllocMem)
 
+void abiv0_FreeMem(APTR memoryBlock, ULONG byteSize, struct ExecBaseV0 *SysBaseV0)
+{
+    return FreeMem(memoryBlock, byteSize);
+}
+MAKE_PROXY_ARG_3(FreeMem)
+
 APTR abiv0_AllocVec(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
 {
     return AllocVec(byteSize, requirements | MEMF_31BIT);
@@ -284,6 +290,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
     __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);   // AddTail
     __AROS_SETVECADDRV0(sysbase, 87, execfunctable[86]);   // RawDoFmt
+    __AROS_SETVECADDRV0(sysbase, 35, (APTR32)(IPTR)proxy_FreeMem);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     struct LibraryV0 *abiv0TimerBase = (tmp + 512);
