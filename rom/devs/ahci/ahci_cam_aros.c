@@ -31,27 +31,6 @@
 
 #include LC_LIBDEFS_FILE
 
-static const char *str_typedisk = "DISK";
-static const char *str_typeatapi = "ATAPI";
-static const char *str_typeunk = "UNKNOWN(ATAPI?)";
-
-static const char *str_enabled = "enabled";
-static const char *str_disabled = "disabled";
-static const char *str_enabling = "enabling";
-static const char *str_frozen = "frozen";
-static const char *str_unfrozen = "unfrozen";
-static const char *str_disabled2 = "<disabled>";
-static const char *str_freezing = "freezing";
-static const char *str_unsupported = "notsupp";
-
-static const char *str_yes = "YES";
-static const char *str_no = "NO";
-
-static const char *str_found = "%s: Found %s \"%*.*s %*.*s\" serial=\"%*.*s\"\n"
-                "%s: tags=%d/%d satacap=%04x satafea=%04x NCQ=%s "
-                "capacity=%lld.%02dMB\n";
-static const char *str_found2 = "%s: f85=%04x f86=%04x f87=%04x WC=%s RA=%s SEC=%s\n";
-static const char *str_unabletoident = "%s: Detected %s device but unable to IDENTIFY\n";
 /*
  * Execute a SCSI TEST UNIT READY every 250ms, to see
  * if the medium has changed.
