@@ -7,7 +7,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM debug-tools-bifteck : includes linklibs
 
 %build_prog mmake=debug-tools-bifteck \
-    progname=Bifteck targetdir=$(AROS_DEBUG) \
+    progname=Bifteck targetdir=$(AROS_TOOLS)/Debug\
     files=Bifteck
 
 %common
