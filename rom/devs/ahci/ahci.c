@@ -85,6 +85,8 @@ static void ahci_empty_done(struct ahci_ccb *ccb);
 static void ahci_ata_cmd_done(struct ahci_ccb *ccb);
 static u_int32_t ahci_pactive(struct ahci_port *ap);
 
+extern int ahci_icc_bug;
+
 /*
  * Initialize the global AHCI hardware.  This code does not set up any of
  * its ports.
@@ -1431,6 +1433,7 @@ ahci_comreset(struct ahci_port *ap, int *pmdetectp)
 	cmd |= AHCI_PREG_CMD_SUD | AHCI_PREG_CMD_POD;
 	cmd |= AHCI_PREG_CMD_ICC_ACTIVE;
 	ahci_pwrite(ap, AHCI_PREG_CMD, cmd);
+	if (!ahci_icc_bug)
 	ahci_pwait_clr(ap, AHCI_PREG_CMD, AHCI_PREG_CMD_ICC);
 
 	/*
@@ -1811,6 +1814,7 @@ ahci_port_hardstop(struct ahci_port *ap)
 	       AHCI_PREG_CMD_SUD |
 	       AHCI_PREG_CMD_ICC_ACTIVE;
 	ahci_pwrite(ap, AHCI_PREG_CMD, cmd);
+	if (!ahci_icc_bug)
 	ahci_pwait_clr(ap, AHCI_PREG_CMD, AHCI_PREG_CMD_ICC);
 
 	/*
