@@ -420,16 +420,23 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 114, intuitionjmp[165 - 114]);  // AddClass
 
     /* Call CLASSESINIT_LIST */
-    __asm__ volatile (
-        "subq $4, %%rsp\n"
-        "movl %0, %%eax\n"
-        "movl %%eax, (%%rsp)\n"
-        "movl %1, %%eax\n"
-        ENTER32
-        "call *%%eax\n"
-        ENTER64
-        "addq $4, %%rsp\n"
-        ::"m"(abiv0IntuitionBase), "m"(segclassesinitlist[1]) : "%rax", "%rcx");
+    ULONG pos = 1;
+    APTR32 func = segclassesinitlist[pos];
+    while (func != 0)
+    {
+        __asm__ volatile (
+            "subq $4, %%rsp\n"
+            "movl %0, %%eax\n"
+            "movl %%eax, (%%rsp)\n"
+            "movl %1, %%eax\n"
+            ENTER32
+            "call *%%eax\n"
+            ENTER64
+            "addq $4, %%rsp\n"
+            ::"m"(abiv0IntuitionBase), "m"(func) : "%rax", "%rcx");
+        pos++;
+        func = segclassesinitlist[pos];
+    }
 
 
     BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
