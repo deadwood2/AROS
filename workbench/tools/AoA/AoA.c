@@ -299,6 +299,7 @@ MAKE_PROXY_ARG_3(FPutC)
 ULONG *execfunctable;
 ULONG *dosfunctable;
 ULONG *dosinitlist;
+APTR32 global_SysBaseV0Ptr;
 
 LONG_FUNC run_emulation()
 {
@@ -311,11 +312,13 @@ LONG_FUNC run_emulation()
 
     APTR tmp;
 
+    tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
+    struct ExecBaseV0 *sysbase = (tmp + 1024);
+    global_SysBaseV0Ptr = (APTR32)(IPTR)&sysbase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
+
     /* Keep it! This fills global variable */
     LoadSeg32("SYS:Libs32/exec/kernel", DOSBase);
 
-    tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
-    struct ExecBaseV0 *sysbase = (tmp + 1024);
     NEWLISTV0(&sysbase->LibList);
     sysbase->LibNode.lib_Version = 51;
 
