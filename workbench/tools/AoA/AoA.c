@@ -18,6 +18,43 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
 struct DosLibraryV0 *abiv0DOSBase;
 
+struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
+{
+    struct LibraryV0 *library = NULL;
+
+    D(bug("InitResident begin 0x%p (\"%s\")", resident, resident->rt_Name));
+
+    /* Check for validity */
+    if(resident->rt_MatchWord != RTC_MATCHWORD ||
+       resident->rt_MatchTag != (APTR32)(IPTR)resident)
+        return NULL;
+
+    /* Depending on the autoinit flag... */
+    if(resident->rt_Flags & RTF_AUTOINIT)
+    {
+        /* ...initialize automatically... */
+        struct init
+        {
+            ULONG dSize;
+            APTR32 vectors;
+            APTR32 structure;
+            APTR32 init;
+        };
+        struct init *init = (struct init *)(IPTR)resident->rt_Init;
+        init->init = 0;
+
+        library = abiv0_InitResident(resident, segList, SysBaseV0);
+    }
+    else
+    {
+        D(bug("InitResident !RTF_AUTOINIT"));
+asm("int3");
+    }
+
+    D(bug("InitResident end 0x%p (\"%s\"), result 0x%p", resident, resident->rt_Name, library));
+
+    return library;
+} /* shallow_InitResident32 */
 
 
 APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
@@ -306,6 +343,7 @@ LONG_FUNC run_emulation()
     abiv0DOSBase->dl_TimeReq = (APTR32)(IPTR)AllocMem(sizeof(struct timerequestV0), MEMF_31BIT | MEMF_CLEAR);
     ((struct timerequestV0 *)(IPTR)abiv0DOSBase->dl_TimeReq)->tr_node.io_Device = (APTR32)(IPTR)abiv0TimerBase;
 
+    /* Call SysBase_autoinit */
     __asm__ volatile (
         "subq $4, %%rsp\n"
         "movl %0, %%eax\n"
@@ -325,6 +363,16 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  82, dosfunctable[81]);   // Cli
     __AROS_SETVECADDRV0(abiv0DOSBase, 159, dosfunctable[158]);  // VPrintf
     __AROS_SETVECADDRV0(abiv0DOSBase,  52, (APTR32)(IPTR)proxy_FPutC);
+
+
+    BPTR cgfxseg = LoadSeg32("SYS:Libs32/cybergraphics.library", DOSBase);
+    struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
+    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, sysbase);
+    /* Remove all vectors for now (leave LibOpen) */
+    for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
+
+
+
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
