@@ -3,7 +3,52 @@
 
 #include "../exec/structures.h"
 
-typedef ULONG BPTR32;
+typedef ULONG   BPTR32;
+typedef APTR32  BSTR32;
+
+/* Structure used for CLIs and Shells. Allocate this structure with
+   AllocDosObject() only! */
+struct CommandLineInterfaceV0
+{
+      /* Secondary error code, set by last command. */
+    LONG cli_Result2;
+      /* Name of the current directory. */
+    BSTR32 cli_SetName;
+      /* Lock of the first directory in path. (struct FileLock *) */
+    BPTR32 cli_CommandDir;
+      /* Error code, the last command returned. See <dos/dos.h> for
+         definitions. */
+    LONG cli_ReturnCode;
+      /* Name of the command that is currently executed. */
+    BSTR32 cli_CommandName;
+      /* Fail-Level as set by the command "FailAt". */
+    LONG cli_FailLevel;
+      /* Current prompt in the CLI window. */
+    BSTR32 cli_Prompt;
+      /* Standard/Default input file. (struct FileLock *) */
+    BPTR32 cli_StandardInput;
+      /* Current input file. (struct FileLock *) */
+    BPTR32 cli_CurrentInput;
+      /* Name of the file that is currently executed. */
+    BSTR32 cli_CommandFile;
+      /* TRUE if the currently CLI is connected to a controlling terminal,
+         otherwise FALSE. */
+    LONG cli_Interactive;
+      /* FALSE if there is no controlling terminal, otherwise TRUE. */
+    LONG cli_Background;
+      /* Current output file. (struct FileLock *) */
+    BPTR32 cli_CurrentOutput;
+      /* Default stack size as set by the command "Stack". */
+    LONG cli_DefaultStack;
+      /* Standard/Default output file. (struct FileLock *) */
+    BPTR32 cli_StandardOutput;
+      /* SegList of currently loaded command. */
+    BPTR32 cli_Module;
+
+       /* Here begins the aros specific part */
+      /* Standard/Default Error file. (struct FileLock *) */
+    BPTR32 cli_StandardError;
+};
 
 /* Standard process structure. Processes are just extended tasks. */
 struct ProcessV0

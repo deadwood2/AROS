@@ -284,7 +284,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
     dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
     strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
-    dummy->pr_CLI = 0x1; //fake
+    dummy->pr_CLI = (BPTR32)(IPTR)abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
     dummy->pr_CIS = 0x1; //fake
     dummy->pr_CES = 0x1; //fake
     dummy->pr_COS = 0x1; //fake
@@ -298,6 +298,12 @@ LONG abiv0_SetVBuf()
     return 0;
 }
 MAKE_PROXY_ARG_5(SetVBuf)
+
+struct ProcessV0 *abiv0_CreateNewProc()
+{
+    return (APTR)0x1;
+}
+MAKE_PROXY_ARG_2(CreateNewProc)
 
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
@@ -410,6 +416,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  82, dosfunctable[81]);   // Cli
     __AROS_SETVECADDRV0(abiv0DOSBase, 159, dosfunctable[158]);  // VPrintf
     __AROS_SETVECADDRV0(abiv0DOSBase,  52, (APTR32)(IPTR)proxy_FPutC);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  83, (APTR32)(IPTR)proxy_CreateNewProc);
 
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
