@@ -17,6 +17,7 @@
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
 struct DosLibraryV0 *abiv0DOSBase;
+struct LibraryV0 *abiv0TimerBase;
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -92,6 +93,18 @@ ULONG abiv0_TypeOfMem(APTR address, struct ExecBaseV0 *SysBaseV0)
     return TypeOfMem(address);
 }
 MAKE_PROXY_ARG_2(TypeOfMem)
+
+VOID abiv0_Forbid(struct ExecBaseV0 *SysBaseV0)
+{
+    Forbid();
+}
+MAKE_PROXY_ARG_1(Forbid)
+
+VOID abiv0_Permit(struct ExecBaseV0 *SysBaseV0)
+{
+    Permit();
+}
+MAKE_PROXY_ARG_1(Permit)
 
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
@@ -228,7 +241,7 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
 {
     if (strcmp(devName, "timer.device") == 0)
     {
-        iORequest->io_Device = (APTR32)0;
+        iORequest->io_Device = (APTR32)(IPTR)abiv0TimerBase;
         return 0;
     }
 
@@ -353,9 +366,11 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 40, execfunctable[39]);    // AddHead
     __AROS_SETVECADDRV0(sysbase, 95, execfunctable[94]);    // ReleaseSemaphore
     __AROS_SETVECADDRV0(sysbase, 81, (APTR32)(IPTR)proxy_AddResource);
+    __AROS_SETVECADDRV0(sysbase, 22, (APTR32)(IPTR)proxy_Forbid);
+    __AROS_SETVECADDRV0(sysbase, 23, (APTR32)(IPTR)proxy_Permit);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
-    struct LibraryV0 *abiv0TimerBase = (tmp + 512);
+    abiv0TimerBase = (tmp + 512);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
 
 
