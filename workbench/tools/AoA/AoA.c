@@ -277,6 +277,12 @@ struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0* GfxBaseV0)
 }
 MAKE_PROXY_ARG_2(Gfx_OpenLib)
 
+struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0* LayersBaseV0)
+{
+    return LayersBaseV0;
+}
+MAKE_PROXY_ARG_2(Layers_OpenLib)
+
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
@@ -450,6 +456,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 112, intuitionjmp[165 - 112]);  // FindClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 114, intuitionjmp[165 - 114]);  // AddClass
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 106, intuitionjmp[165 - 106]);  // NewObjectA
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
@@ -470,6 +477,8 @@ LONG_FUNC run_emulation()
         func = segclassesinitlist[pos];
     }
 
+    /* Set internal Intuition pointer of utility */
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, sysbase);
 
     BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
@@ -478,6 +487,12 @@ LONG_FUNC run_emulation()
     for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
 
+    BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
+    struct ResidentV0 *layersres = findResident(layersseg, NULL);
+    struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, sysbase);
+    /* Remove all vectors for now */
+    for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
+    __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
