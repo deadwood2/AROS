@@ -4,69 +4,24 @@
     Desc: Add a resource to the public list of resources.
 */
 
-#include <aros/kernel.h>
-#include <exec/execbase.h>
-#include <exec/rawfmt.h>
-#include <proto/exec.h>
+#include <aros/debug.h>
+#include "../include/exec/functions.h"
 
-#include <string.h>
-
-#include "exec_intern.h"
-#include "exec_debug.h"
-#include "exec_locks.h"
-
-/* Kludge for old kernels */
-#ifndef KrnStatMemory
-#define KrnStatMemory(...)
-#endif
-
-/*****************************************************************************
-
-    NAME */
-
-        AROS_LH1(void, AddResource,
-
-/*  SYNOPSIS */
-        AROS_LHA(APTR, resource, A1),
-
-/*  LOCATION */
-        struct ExecBase *, SysBase, 81, Exec)
-
-/*  FUNCTION
-        Adds a given resource to the system's resource list.
-
-    INPUTS
-        resource - Pointer to a ready for use resource.
-
-    RESULT
-
-    NOTES
-
-    EXAMPLE
-
-    BUGS
-
-    SEE ALSO
-        RemResource(), OpenResource()
-
-    INTERNALS
-
-******************************************************************************/
+void  abiv0_AddResource(APTR resource, struct ExecBaseV0 *SysBaseV0)
 {
-    AROS_LIBFUNC_INIT
     ASSERT_VALID_PTR(resource);
 
     /* Just in case the user forgot them */
-    ((struct Node *)resource)->ln_Type=NT_RESOURCE;
+    ((struct NodeV0 *)resource)->ln_Type=NT_RESOURCE;
 
     /* Arbitrate for the resource list */
-    EXEC_LOCK_LIST_WRITE_AND_FORBID(&SysBase->ResourceList);
+    // EXEC_LOCK_LIST_WRITE_AND_FORBID(&SysBase->ResourceList);
 
     /* And add the resource */
-    Enqueue(&SysBase->ResourceList,(struct Node *)resource);
+    abiv0_Enqueue(&SysBaseV0->ResourceList,(struct NodeV0 *)resource, SysBaseV0);
 
     /* All done. */
-    EXEC_UNLOCK_LIST_AND_PERMIT(&SysBase->ResourceList);
+    // EXEC_UNLOCK_LIST_AND_PERMIT(&SysBase->ResourceList);
     
     /*
      * A tricky part.
@@ -80,30 +35,29 @@
      * To do this its startup code needs to be changed to call AddResource()
      * itself. Right after this exec's pool manager will be up and running.
      */
-    if (!strcmp(((struct Node *)resource)->ln_Name, "kernel.resource"))
-    {
-        KernelBase = resource;
-        DINIT("Post-kernel init");
+    // if (!strcmp(((struct Node *)resource)->ln_Name, "kernel.resource"))
+    // {
+    //     KernelBase = resource;
+    //     DINIT("Post-kernel init");
 
-        /* If there's no MMU support, PageSize will stay zero */
-        KrnStatMemory(0, KMS_PageSize, &PrivExecBase(SysBase)->PageSize, TAG_DONE);
+    //     /* If there's no MMU support, PageSize will stay zero */
+    //     KrnStatMemory(0, KMS_PageSize, &PrivExecBase(SysBase)->PageSize, TAG_DONE);
 
-        /*
-         * On MMU-less hardware kernel.resource will report zero page size.
-         * In this case we use MEMCHUNK_TOTAL as allocation granularity.
-         * This is because our Allocate() relies on the fact that all chunks
-         * are at least MemChunk-aligned, otherwise we end up in
-         * "Corrupt memory list" alert.
-         */
-        if (!PrivExecBase(SysBase)->PageSize)
-            PrivExecBase(SysBase)->PageSize = MEMCHUNK_TOTAL;
+    //     /*
+    //      * On MMU-less hardware kernel.resource will report zero page size.
+    //      * In this case we use MEMCHUNK_TOTAL as allocation granularity.
+    //      * This is because our Allocate() relies on the fact that all chunks
+    //      * are at least MemChunk-aligned, otherwise we end up in
+    //      * "Corrupt memory list" alert.
+    //      */
+    //     if (!PrivExecBase(SysBase)->PageSize)
+    //         PrivExecBase(SysBase)->PageSize = MEMCHUNK_TOTAL;
 
-        DINIT("Memory page size: %lu", PrivExecBase(SysBase)->PageSize);
+    //     DINIT("Memory page size: %lu", PrivExecBase(SysBase)->PageSize);
 
-        /* We print the notice here because kprintf() works only after KernelBase is set up */
-        if (PrivExecBase(SysBase)->IntFlags & EXECF_MungWall)
-            RawDoFmt("[exec] Mungwall enabled\n", NULL, (VOID_FUNC)RAWFMTFUNC_SERIAL, NULL);
-    }
+    //     /* We print the notice here because kprintf() works only after KernelBase is set up */
+    //     if (PrivExecBase(SysBase)->IntFlags & EXECF_MungWall)
+    //         RawDoFmt("[exec] Mungwall enabled\n", NULL, (VOID_FUNC)RAWFMTFUNC_SERIAL, NULL);
+    // }
 
-    AROS_LIBFUNC_EXIT
 } /* AddResource */
