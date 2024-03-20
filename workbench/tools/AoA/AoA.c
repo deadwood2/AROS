@@ -238,6 +238,7 @@ asm("int3");
 MAKE_PROXY_ARG_4(OpenDevice)
 
 MAKE_PROXY_ARG_6(MakeLibrary)
+MAKE_PROXY_ARG_2(AddResource)
 
 void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 {
@@ -323,6 +324,7 @@ LONG_FUNC run_emulation()
     LoadSeg32("SYS:Libs32/partial/kernel", DOSBase);
 
     NEWLISTV0(&sysbase->LibList);
+    NEWLISTV0(&sysbase->ResourceList);
     sysbase->LibNode.lib_Version = 51;
 
     __AROS_SETVECADDRV0(sysbase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
@@ -350,6 +352,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 94, execfunctable[93]);    // ObtainSemaphore
     __AROS_SETVECADDRV0(sysbase, 40, execfunctable[39]);    // AddHead
     __AROS_SETVECADDRV0(sysbase, 95, execfunctable[94]);    // ReleaseSemaphore
+    __AROS_SETVECADDRV0(sysbase, 81, (APTR32)(IPTR)proxy_AddResource);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     struct LibraryV0 *abiv0TimerBase = (tmp + 512);
