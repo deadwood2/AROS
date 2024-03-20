@@ -17,13 +17,13 @@
  */
 
 #if defined(__DragonFly__)
-#  include   "ahci_dragonfly.h"
-#  include   "atascsi.h"
+#include "ahci_dragonfly.h"
+#include "atascsi.h"
 #elif defined(__AROS__)
-#  include   "ahci_aros.h"
-#  include   <devices/atascsi.h>
+#include   "ahci_aros.h"
+#include   <devices/atascsi.h>
 #else
-#  error   "build for OS unknown"
+#error "build for OS unknown"
 #endif
 #include "pmreg.h"
 
@@ -37,7 +37,7 @@
 #define AHCI_D_VERBOSE		0x01
 #define AHCI_D_INTR		0x02
 #define AHCI_D_XFER		0x08
-static const int ahcidebug = 0xff;
+int ahcidebug = AHCI_D_VERBOSE;
 #else
 #define DPRINTF(m, f...)
 #endif
@@ -261,10 +261,10 @@ static const int ahcidebug = 0xff;
 #define  AHCI_PREG_SCTL_IPM_NOSLUMBER	0x200
 #define  AHCI_PREG_SCTL_IPM_NODEVSLP	0x400
 #define	 AHCI_PREG_SCTL_SPM		0xf000	/* Select Power Management */
-#define	 AHCI_PREG_SCTL_SPM_NONE	0x0000  /* not used by AHCI */
-#define	 AHCI_PREG_SCTL_SPM_NOPARTIAL	0x1000  /* not used by AHCI */
-#define	 AHCI_PREG_SCTL_SPM_NOSLUMBER	0x2000  /* not used by AHCI */
-#define	 AHCI_PREG_SCTL_SPM_DISABLED	0x3000  /* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_NONE	0x0000	/* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_NOPARTIAL	0x1000	/* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_NOSLUMBER	0x2000	/* not used by AHCI */
+#define	 AHCI_PREG_SCTL_SPM_DISABLED	0x3000	/* not used by AHCI */
 #define  AHCI_PREG_SCTL_PMP		0xf0000	/* Set PM port for xmit FISes */
 #define  AHCI_PREG_SCTL_PMP_SHIFT	16
 
@@ -440,11 +440,11 @@ struct ahci_ccb {
 };
 
 struct ahci_port {
-        OOP_Object              *ap_Object;
+	OOP_Object		*ap_Object;
 	struct ahci_softc	*ap_sc;
 	bus_space_handle_t	ap_ioh;
 
-        struct Node             *ap_IDNode;
+	struct Node		*ap_IDNode;
 
 	int			ap_num;
 	int			ap_pmcount;
@@ -567,9 +567,6 @@ struct ahci_softc {
 	u_int32_t		sc_ccc_ports;
 	u_int32_t		sc_ccc_ports_cur;
 #endif
-
-	struct sysctl_ctx_list	sysctl_ctx;
-	struct sysctl_oid	*sysctl_tree;
 };
 #define DEVNAME(_s)		"ahci.device"
 
@@ -668,6 +665,7 @@ void	ahci_os_unlock_port(struct ahci_port *ap);
 extern u_int32_t AhciForceGen;
 extern u_int32_t AhciNoFeatures;
 extern int ahci_synchronous_boot;
+extern u_int32_t AhciStartDelay;
 
 enum {AHCI_LINK_PWR_MGMT_NONE, AHCI_LINK_PWR_MGMT_MEDIUM,
       AHCI_LINK_PWR_MGMT_AGGR};

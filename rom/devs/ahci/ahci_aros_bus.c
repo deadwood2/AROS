@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2018, The AROS Development Team.  All rights reserved.
+ * Copyright (C) 2012-2023, The AROS Development Team.  All rights reserved.
  * Author: Jason S. McMullan <jason.mcmullan@gmail.com>
  *
  * Licensed under the AROS PUBLIC LICENSE (APL) Version 1.1
@@ -29,7 +29,7 @@ struct bus_dma_tag {
     TAILQ_HEAD(, bus_dma_tag_slab) dt_slabs;
 };
 
-int bus_dma_tag_create(bus_dma_tag_t parent, bus_size_t alignment, bus_size_t boundary, bus_addr_t lowaddr, bus_addr_t highaddr, bus_dma_filter_t *filter, void *filterarg, bus_size_t maxsize, int nsegments, bus_size_t maxsegsz, int flags, bus_dma_tag_t *dmat)
+int bus_dma_tag_create(bus_dma_tag_t parent, bus_size_t alignment, bus_size_t boundary, bus_addr_t lowaddr, bus_addr_t highaddr, bus_size_t maxsize, int nsegments, bus_size_t maxsegsz, int flags, bus_dma_tag_t *dmat)
 {
     bus_dma_tag_t tag;
 
@@ -175,14 +175,13 @@ void bus_dmamem_free(bus_dma_tag_t tag, void *vaddr, bus_dmamap_t map)
 int bus_dmamap_create(bus_dma_tag_t tag, unsigned flags, bus_dmamap_t *map)
 {
     DDMA(bug("[AHCI] %s()\n", __func__));
-    bus_dmamem_alloc(tag, NULL, 0, map);
+    *map = NULL;
     return 0;
 }
 
 void bus_dmamap_destroy(bus_dma_tag_t tag, bus_dmamap_t map)
 {
     DDMA(bug("[AHCI] %s()\n", __func__));
-    bus_dmamem_free(tag, NULL, map);
 }
 
 int bus_dmamap_load(bus_dma_tag_t tag, bus_dmamap_t map, void *data, size_t len, bus_dmamap_callback_t *callback, void *info, unsigned flags)
@@ -198,6 +197,10 @@ void bus_dmamap_sync(bus_dma_tag_t tag, bus_dmamap_t map, unsigned flags)
 
     DDMA(bug("[AHCI] %s()\n", __func__));
 
+    /* Note: this works for rfis, cmd_list and cmd_table, because the go through bus_dmamem_alloc which is implemented
+       to set map to vaddr. In case of prdt, the memory DMAed with device comes from outside and should actually be
+       "assigned" to map in bus_dmamap_load so that it can be used here */
+
     if (!(flags & (1 << 31)))
         CachePreDMA(map, &len, flags);
     else
@@ -210,9 +213,9 @@ void bus_dmamap_unload(bus_dma_tag_t tag, bus_dmamap_t map)
 
 struct resource *bus_alloc_resource_any(device_t dev, enum bus_resource_t type, int *rid, u_int flags)
 {
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     struct resource *resource;
     IPTR INTLine;
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
     OOP_AttrBase HiddPCIDeviceAttrBase = AHCIBase->ahci_HiddPCIDeviceAttrBase;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
@@ -223,8 +226,14 @@ struct resource *bus_alloc_resource_any(device_t dev, enum bus_resource_t type, 
 
     switch (type) {
     case SYS_RES_IRQ:
-        OOP_GetAttr(dev->dev_Object, aHidd_PCIDevice_INTLine, &INTLine);
-        resource->res_tag = INTLine;
+        if (*rid == 0)
+        {
+            OOP_GetAttr(dev->dev_Object, aHidd_PCIDevice_INTLine, &INTLine);
+            resource->res_tag = INTLine;
+        }
+        else
+            resource->res_tag = *rid;
+
         break;
     case SYS_RES_MEMORY:
         resource->res_tag = pci_read_config(dev, *rid, 4);
@@ -244,8 +253,14 @@ struct resource *bus_alloc_resource_any(device_t dev, enum bus_resource_t type, 
         map.PCIAddress = (APTR)resource->res_tag;
         map.Length = resource->res_size;
         resource->res_handle = OOP_DoMethod(Driver, (OOP_Msg)&map);
-    } else {
-        /* FIXME: Map IRQ? */
+    } else if (type == SYS_RES_IRQ) {
+        resource->res_handle = (bus_space_handle_t)AllocMem(sizeof(struct irq_handle), MEMF_ANY);
+        ((struct irq_handle *)resource->res_handle)->irq_flags = flags;
+        ((struct irq_handle *)resource->res_handle)->irq_handle = 0;
+        resource->res_size = 1;
+    }
+    else
+    {
         resource->res_handle = resource->res_tag;
         resource->res_size = 1;
     }
@@ -255,7 +270,7 @@ struct resource *bus_alloc_resource_any(device_t dev, enum bus_resource_t type, 
 
 int bus_release_resource(device_t dev, enum bus_resource_t type, int rid, struct resource *res)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_AttrBase HiddPCIDeviceAttrBase = AHCIBase->ahci_HiddPCIDeviceAttrBase;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
@@ -269,6 +284,10 @@ int bus_release_resource(device_t dev, enum bus_resource_t type, int rid, struct
         unmap.CPUAddress = (APTR)res->res_handle;
         unmap.Length = res->res_size;
         OOP_DoMethod(Driver, (OOP_Msg)&unmap);
+
+    } else if (type == SYS_RES_IRQ) {
+        if (res->res_handle)
+            FreeMem((APTR)res->res_handle, sizeof(struct irq_handle));
     }
     FreePooled(AHCIBase->ahci_MemPool, res, sizeof(*res));
     return 0;
@@ -291,30 +310,42 @@ AROS_INTH1(bus_intr_wrap, void **, fa)
 
 int bus_setup_intr(device_t dev, struct resource *r, int flags, driver_intr_t func, void *arg, void **cookiep, void *serializer)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
-    struct Interrupt *handler = AllocVec(sizeof(struct Interrupt)+sizeof(void *)*2, MEMF_PUBLIC | MEMF_CLEAR);
+    struct Interrupt *handler;
     void **fa;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
 
+    handler = AllocVec(sizeof(struct Interrupt)+sizeof(void *)*2, MEMF_PUBLIC | MEMF_CLEAR);
     if (handler == NULL)
         return ENOMEM;
 
     handler->is_Node.ln_Pri = 10;
     handler->is_Node.ln_Name = device_get_name(dev);
     handler->is_Code = (VOID_FUNC)bus_intr_wrap;
+
     fa = (void **)&handler[1];
     fa[0] = func;
     fa[1] = arg;
+
     handler->is_Data = fa;
 
-    if (!HIDD_PCIDevice_AddInterrupt(dev->dev_Object, handler))
+    if (((struct irq_handle *)r->res_handle)->irq_flags == 0)
     {
-        FreeVec(handler);
-        return ENOMEM;
+        if (!HIDD_PCIDevice_AddInterrupt(dev->dev_Object, handler))
+        {
+            FreeVec(handler);
+            return ENOMEM;
+        }
+    }
+    else
+    {
+        AddIntServer(INTB_KERNEL + r->res_tag,
+            handler);
     }
 
+    ((struct irq_handle *)r->res_handle)->irq_handle = (bus_space_handle_t)handler;
     *cookiep = handler;
     
     return 0;
@@ -322,12 +353,22 @@ int bus_setup_intr(device_t dev, struct resource *r, int flags, driver_intr_t fu
 
 int bus_teardown_intr(device_t dev, struct resource *r, void *cookie)
 {
-    struct AHCIBase *AHCIBase = dev->dev_AHCIBase;
+    struct AHCIBase *AHCIBase = dev->dev_Base;
     OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
 
     DDMA(bug("[AHCI] %s()\n", __func__));
 
-    HIDD_PCIDevice_RemoveInterrupt(dev->dev_Object, cookie);
+    if (((struct irq_handle *)r->res_handle)->irq_handle == (bus_space_handle_t)cookie)
+    {
+        if (((struct irq_handle *)r->res_handle)->irq_flags == 0)
+        {
+            HIDD_PCIDevice_RemoveInterrupt(dev->dev_Object, cookie);
+        }
+        else
+        {
+            RemIntServer(INTB_KERNEL + r->res_tag, cookie);
+        }
+    }
     FreeVec(cookie);
 
     return 0;
