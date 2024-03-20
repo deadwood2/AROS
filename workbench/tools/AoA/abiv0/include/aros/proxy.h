@@ -16,6 +16,18 @@ __asm__ volatile(               \
 #define CALL_IMPL64(name)       \
     "   call abiv0_" #name "\n"
 
+#define MAKE_PROXY_ARG_1(fname) \
+void proxy_##fname();           \
+void dummy_##fname()            \
+{                               \
+    EXTER_PROXY(fname)          \
+    ENTER64                     \
+    COPY_ARG_1                  \
+    CALL_IMPL64(fname)          \
+    ENTER32                     \
+    LEAVE_PROXY                 \
+}
+
 #define MAKE_PROXY_ARG_2(fname) \
 void proxy_##fname();           \
 void dummy_##fname()            \
