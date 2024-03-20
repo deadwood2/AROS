@@ -407,8 +407,14 @@ static int relocate
 
                 if ((name[0] == '_') && (strcmp(name, "__INIT_LIST__") == 0))
                 {
-                    extern ULONG* dosinitlist;
-                    dosinitlist = (APTR)(IPTR)s;
+                    extern ULONG* seginitlist;
+                    seginitlist = (APTR)(IPTR)s;
+                }
+
+                if ((name[0] == '_') && (strcmp(name, "__CLASSESINIT_LIST__") == 0))
+                {
+                    extern ULONG* segclassesinitlist;
+                    segclassesinitlist = (APTR)(IPTR)s;
                 }
 
         }
