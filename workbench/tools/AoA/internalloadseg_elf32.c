@@ -370,6 +370,12 @@ static int relocate
                     SetIoErr(ERROR_BAD_HUNK);
                     return 0;
                     }
+                    else
+                    {
+                        extern ULONG global_SysBaseV0Ptr;
+                        s = global_SysBaseV0Ptr;
+                    }
+                    break;
                 }
                 /* fall through */
 
