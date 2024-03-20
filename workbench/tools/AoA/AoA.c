@@ -106,6 +106,12 @@ VOID abiv0_Permit(struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_1(Permit)
 
+VOID abiv0_AddMemHandler(APTR memHandler, struct ExecBaseV0 *SysBaseV0)
+{
+    bug("abiv0_AddMemHandler ignored\n");
+}
+MAKE_PROXY_ARG_2(AddMemHandler)
+
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 {
     /* we may not have any extension fields */
@@ -368,6 +374,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 81, (APTR32)(IPTR)proxy_AddResource);
     __AROS_SETVECADDRV0(sysbase, 22, (APTR32)(IPTR)proxy_Forbid);
     __AROS_SETVECADDRV0(sysbase, 23, (APTR32)(IPTR)proxy_Permit);
+    __AROS_SETVECADDRV0(sysbase,129, (APTR32)(IPTR)proxy_AddMemHandler);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
