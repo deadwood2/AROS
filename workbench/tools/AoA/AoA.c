@@ -298,7 +298,10 @@ MAKE_PROXY_ARG_3(FPutC)
 
 ULONG *execfunctable;
 ULONG *dosfunctable;
-ULONG *dosinitlist;
+
+ULONG *seginitlist;
+ULONG *segclassesinitlist;
+
 APTR32 global_SysBaseV0Ptr;
 
 LONG_FUNC run_emulation()
@@ -340,9 +343,13 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 46, execfunctable[45]);    // FindName
     __AROS_SETVECADDRV0(sysbase,135, execfunctable[134]);   // TaggedOpenLibrary
     __AROS_SETVECADDRV0(sysbase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
-    __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);   // AddTail
-    __AROS_SETVECADDRV0(sysbase, 87, execfunctable[86]);   // RawDoFmt
+    __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);    // AddTail
+    __AROS_SETVECADDRV0(sysbase, 87, execfunctable[86]);    // RawDoFmt
     __AROS_SETVECADDRV0(sysbase, 35, (APTR32)(IPTR)proxy_FreeMem);
+    __AROS_SETVECADDRV0(sysbase,113, execfunctable[112]);   // ObtainSemaphoreShared
+    __AROS_SETVECADDRV0(sysbase, 94, execfunctable[93]);    // ObtainSemaphore
+    __AROS_SETVECADDRV0(sysbase, 40, execfunctable[39]);    // AddHead
+    __AROS_SETVECADDRV0(sysbase, 95, execfunctable[94]);    // ReleaseSemaphore
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     struct LibraryV0 *abiv0TimerBase = (tmp + 512);
@@ -368,7 +375,7 @@ LONG_FUNC run_emulation()
         "call *%%eax\n"
         ENTER64
         "addq $4, %%rsp\n"
-        ::"m"(sysbase), "m"(dosinitlist[1]) : "%rax", "%rcx");
+        ::"m"(sysbase), "m"(seginitlist[1]) : "%rax", "%rcx");
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
@@ -390,9 +397,40 @@ LONG_FUNC run_emulation()
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
     struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, sysbase);
     /* Remove all vectors for now */
+    const ULONG intuitionjmpsize = 165 * sizeof(APTR32);
+    APTR32 *intuitionjmp = AllocMem(intuitionjmpsize, MEMF_CLEAR);
+    CopyMem((APTR)abiv0IntuitionBase - intuitionjmpsize, intuitionjmp, intuitionjmpsize);
     for (int i = 1; i <= 164; i++) __AROS_SETVECADDRV0(abiv0IntuitionBase, i, 0);
 
+    /* Call SysBase_autoinit */
+    __asm__ volatile (
+        "subq $4, %%rsp\n"
+        "movl %0, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %1, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $4, %%rsp\n"
+        ::"m"(sysbase), "m"(seginitlist[1]) : "%rax", "%rcx");
+
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 112, intuitionjmp[165 - 112]);  // FindClass
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 114, intuitionjmp[165 - 114]);  // AddClass
+
+    /* Call CLASSESINIT_LIST */
+    __asm__ volatile (
+        "subq $4, %%rsp\n"
+        "movl %0, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %1, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $4, %%rsp\n"
+        ::"m"(abiv0IntuitionBase), "m"(segclassesinitlist[1]) : "%rax", "%rcx");
+
 
     BPTR graphicsseg = LoadSeg32("SYS:Libs32/graphics.library", DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
