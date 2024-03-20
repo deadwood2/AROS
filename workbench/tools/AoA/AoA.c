@@ -387,6 +387,8 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(sysbase, 22, (APTR32)(IPTR)proxy_Forbid);
     __AROS_SETVECADDRV0(sysbase, 23, (APTR32)(IPTR)proxy_Permit);
     __AROS_SETVECADDRV0(sysbase,129, (APTR32)(IPTR)proxy_AddMemHandler);
+    __AROS_SETVECADDRV0(sysbase, 70, execfunctable[69]);    // SetFunction
+    __AROS_SETVECADDRV0(sysbase, 71, execfunctable[70]);    // SumLibrary
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
@@ -423,6 +425,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase, 159, dosfunctable[158]);  // VPrintf
     __AROS_SETVECADDRV0(abiv0DOSBase,  52, (APTR32)(IPTR)proxy_FPutC);
     __AROS_SETVECADDRV0(abiv0DOSBase,  83, (APTR32)(IPTR)proxy_CreateNewProc);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  77, dosfunctable[76]);   // SetIoErr
 
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
