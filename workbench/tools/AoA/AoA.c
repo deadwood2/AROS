@@ -245,6 +245,18 @@ void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 }
 MAKE_PROXY_ARG_4(CopyMem)
 
+struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0* IntuitionBaseV0)
+{
+    return IntuitionBaseV0;
+}
+MAKE_PROXY_ARG_2(Intuition_OpenLib)
+
+struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0* GfxBaseV0)
+{
+    return GfxBaseV0;
+}
+MAKE_PROXY_ARG_2(Gfx_OpenLib)
+
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
@@ -371,7 +383,20 @@ LONG_FUNC run_emulation()
     /* Remove all vectors for now (leave LibOpen) */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
 
+    BPTR intuitionseg = LoadSeg32("SYS:Libs32/intuition.library", DOSBase);
+    struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
+    struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, sysbase);
+    /* Remove all vectors for now */
+    for (int i = 1; i <= 164; i++) __AROS_SETVECADDRV0(abiv0IntuitionBase, i, 0);
 
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
+
+    BPTR graphicsseg = LoadSeg32("SYS:Libs32/graphics.library", DOSBase);
+    struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
+    struct LibraryV0 *abiv0GfxBase = shallow_InitResident32(graphicsres, graphicsseg, sysbase);
+    /* Remove all vectors for now */
+    for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
+    __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
 
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
