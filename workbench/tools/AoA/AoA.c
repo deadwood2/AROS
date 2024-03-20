@@ -320,7 +320,7 @@ LONG_FUNC run_emulation()
     global_SysBaseV0Ptr = (APTR32)(IPTR)&sysbase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
 
     /* Keep it! This fills global variable */
-    LoadSeg32("SYS:Libs32/exec/kernel", DOSBase);
+    LoadSeg32("SYS:Libs32/partial/kernel", DOSBase);
 
     NEWLISTV0(&sysbase->LibList);
     sysbase->LibNode.lib_Version = 51;
@@ -357,7 +357,7 @@ LONG_FUNC run_emulation()
 
 
     /* Keep it! This fills global variable */
-    LoadSeg32("SYS:Libs32/dos.library", DOSBase);
+    LoadSeg32("SYS:Libs32/partial/dos.library", DOSBase);
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
@@ -387,13 +387,13 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  52, (APTR32)(IPTR)proxy_FPutC);
 
 
-    BPTR cgfxseg = LoadSeg32("SYS:Libs32/cybergraphics.library", DOSBase);
+    BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, sysbase);
     /* Remove all vectors for now (leave LibOpen) */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
 
-    BPTR intuitionseg = LoadSeg32("SYS:Libs32/intuition.library", DOSBase);
+    BPTR intuitionseg = LoadSeg32("SYS:Libs32/partial/intuition.library", DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
     struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, sysbase);
     /* Remove all vectors for now */
@@ -432,7 +432,7 @@ LONG_FUNC run_emulation()
         ::"m"(abiv0IntuitionBase), "m"(segclassesinitlist[1]) : "%rax", "%rcx");
 
 
-    BPTR graphicsseg = LoadSeg32("SYS:Libs32/graphics.library", DOSBase);
+    BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
     struct LibraryV0 *abiv0GfxBase = shallow_InitResident32(graphicsres, graphicsseg, sysbase);
     /* Remove all vectors for now */
