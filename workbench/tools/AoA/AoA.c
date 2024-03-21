@@ -101,6 +101,12 @@ APTR abiv0_AllocPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *SysBas
 }
 MAKE_PROXY_ARG_3(AllocPooled)
 
+APTR abiv0_AllocVecPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *SysBaseV0)
+{
+    return AllocVecPooled(poolHeader, memSize);
+}
+MAKE_PROXY_ARG_3(AllocVecPooled)
+
 ULONG abiv0_TypeOfMem(APTR address, struct ExecBaseV0 *SysBaseV0)
 {
     return TypeOfMem(address);
@@ -264,10 +270,33 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
         return 0;
     }
 
+    if (strcmp(devName, "input.device") == 0)
+    {
+bug("abiv0_OpenDevice: input.device STUB\n");
+        iORequest->io_Device = 0;
+        return 0;
+    }
+
+
 asm("int3");
     return 0;
 }
 MAKE_PROXY_ARG_4(OpenDevice)
+
+struct MsgPortV0 * abiv0_CreateMsgPort(struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_CreateMsgPort: STUB\n");
+    return (struct MsgPortV0 *)0x6;
+}
+MAKE_PROXY_ARG_1(CreateMsgPort)
+
+LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_DoIO: STUB\n");
+    return 0;
+}
+MAKE_PROXY_ARG_2(DoIO)
+
 
 MAKE_PROXY_ARG_6(MakeLibrary)
 MAKE_PROXY_ARG_2(AddResource)
@@ -374,7 +403,26 @@ LONG abiv0_IsInteractive(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(IsInteractive)
 
+LONG abiv0_Read(BPTR file, APTR buffer, LONG length, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return Read(fhp->fileHandle, buffer, length);
+}
+MAKE_PROXY_ARG_4(Read)
 
+LONG abiv0_Seek(BPTR file, LONG position, LONG mode, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return Seek(fhp->fileHandle, position, mode);
+}
+MAKE_PROXY_ARG_4(Seek)
+
+BOOL abiv0_Close(BPTR file, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return Close(fhp->fileHandle);
+}
+MAKE_PROXY_ARG_2(Close)
 
 APTR abiv0_OpenFont(APTR textAttr, struct LibraryV0 *GfxBaseV0)
 {
@@ -446,6 +494,11 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0SysBase, 45, execfunctable[44]);    // Enqueue
     __AROS_SETVECADDRV0(abiv0SysBase, 34, (APTR32)(IPTR)proxy_AllocAbs);
     __AROS_SETVECADDRV0(abiv0SysBase,115, (APTR32)(IPTR)proxy_FreeVec);
+    __AROS_SETVECADDRV0(abiv0SysBase,111, (APTR32)(IPTR)proxy_CreateMsgPort);
+    __AROS_SETVECADDRV0(abiv0SysBase,109, execfunctable[108]);  // CreateIORequest
+    __AROS_SETVECADDRV0(abiv0SysBase, 42, execfunctable[41]);   // Remove
+    __AROS_SETVECADDRV0(abiv0SysBase,149, (APTR32)(IPTR)proxy_AllocVecPooled);
+    __AROS_SETVECADDRV0(abiv0SysBase, 76, (APTR32)(IPTR)proxy_DoIO);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
@@ -492,6 +545,9 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  51, (APTR32)(IPTR)proxy_FGetC);
     __AROS_SETVECADDRV0(abiv0DOSBase, 135, dosfunctable[134]);  // ReadItem
     __AROS_SETVECADDRV0(abiv0DOSBase, 143, dosfunctable[142]);  // FreeArgs
+    __AROS_SETVECADDRV0(abiv0DOSBase,   7, (APTR32)(IPTR)proxy_Read);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  11, (APTR32)(IPTR)proxy_Seek);
+    __AROS_SETVECADDRV0(abiv0DOSBase,   6, (APTR32)(IPTR)proxy_Close);
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
@@ -527,6 +583,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 106, intuitionjmp[165 - 106]);  // NewObjectA
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 108, intuitionjmp[165 - 108]);  // SetAttrs
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 109, intuitionjmp[165 - 109]);  // GetAttr
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 111, intuitionjmp[165 - 111]);  // NextObject
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
