@@ -18,6 +18,7 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
 struct DosLibraryV0 *abiv0DOSBase;
 struct LibraryV0 *abiv0TimerBase;
+struct ExecBaseV0 *abiv0SysBase;
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -348,47 +349,47 @@ LONG_FUNC run_emulation()
     APTR tmp;
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
-    struct ExecBaseV0 *sysbase = (tmp + 1024);
-    global_SysBaseV0Ptr = (APTR32)(IPTR)&sysbase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
+    abiv0SysBase = (tmp + 1024);
+    global_SysBaseV0Ptr = (APTR32)(IPTR)&abiv0SysBase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
 
     /* Keep it! This fills global variable */
     LoadSeg32("SYS:Libs32/partial/kernel", DOSBase);
 
-    NEWLISTV0(&sysbase->LibList);
-    NEWLISTV0(&sysbase->ResourceList);
-    sysbase->LibNode.lib_Version = 51;
+    NEWLISTV0(&abiv0SysBase->LibList);
+    NEWLISTV0(&abiv0SysBase->ResourceList);
+    abiv0SysBase->LibNode.lib_Version = 51;
 
-    __AROS_SETVECADDRV0(sysbase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
-    __AROS_SETVECADDRV0(sysbase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
-    __AROS_SETVECADDRV0(sysbase, 49, (APTR32)(IPTR)proxy_FindTask);
-    __AROS_SETVECADDRV0(sysbase,180, (APTR32)(IPTR)proxy_AllocTaskStorageSlot);
-    __AROS_SETVECADDRV0(sysbase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
-    __AROS_SETVECADDRV0(sysbase,185, (APTR32)(IPTR)proxy_GetTaskStorageSlot);
-    __AROS_SETVECADDRV0(sysbase, 83, (APTR32)(IPTR)proxy_OpenResource);
-    __AROS_SETVECADDRV0(sysbase, 93, execfunctable[92]);    // InitSemaphore
-    __AROS_SETVECADDRV0(sysbase, 33, (APTR32)(IPTR)proxy_AllocMem);
-    __AROS_SETVECADDRV0(sysbase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
-    __AROS_SETVECADDRV0(sysbase,104, (APTR32)(IPTR)proxy_CopyMem);
-    __AROS_SETVECADDRV0(sysbase,116, (APTR32)(IPTR)proxy_CreatePool);
-    __AROS_SETVECADDRV0(sysbase, 74, (APTR32)(IPTR)proxy_OpenDevice);
-    __AROS_SETVECADDRV0(sysbase,118, (APTR32)(IPTR)proxy_AllocPooled);
-    __AROS_SETVECADDRV0(sysbase,114, (APTR32)(IPTR)proxy_AllocVec);
-    __AROS_SETVECADDRV0(sysbase, 46, execfunctable[45]);    // FindName
-    __AROS_SETVECADDRV0(sysbase,135, execfunctable[134]);   // TaggedOpenLibrary
-    __AROS_SETVECADDRV0(sysbase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
-    __AROS_SETVECADDRV0(sysbase, 41, execfunctable[40]);    // AddTail
-    __AROS_SETVECADDRV0(sysbase, 87, execfunctable[86]);    // RawDoFmt
-    __AROS_SETVECADDRV0(sysbase, 35, (APTR32)(IPTR)proxy_FreeMem);
-    __AROS_SETVECADDRV0(sysbase,113, execfunctable[112]);   // ObtainSemaphoreShared
-    __AROS_SETVECADDRV0(sysbase, 94, execfunctable[93]);    // ObtainSemaphore
-    __AROS_SETVECADDRV0(sysbase, 40, execfunctable[39]);    // AddHead
-    __AROS_SETVECADDRV0(sysbase, 95, execfunctable[94]);    // ReleaseSemaphore
-    __AROS_SETVECADDRV0(sysbase, 81, (APTR32)(IPTR)proxy_AddResource);
-    __AROS_SETVECADDRV0(sysbase, 22, (APTR32)(IPTR)proxy_Forbid);
-    __AROS_SETVECADDRV0(sysbase, 23, (APTR32)(IPTR)proxy_Permit);
-    __AROS_SETVECADDRV0(sysbase,129, (APTR32)(IPTR)proxy_AddMemHandler);
-    __AROS_SETVECADDRV0(sysbase, 70, execfunctable[69]);    // SetFunction
-    __AROS_SETVECADDRV0(sysbase, 71, execfunctable[70]);    // SumLibrary
+    __AROS_SETVECADDRV0(abiv0SysBase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
+    __AROS_SETVECADDRV0(abiv0SysBase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
+    __AROS_SETVECADDRV0(abiv0SysBase, 49, (APTR32)(IPTR)proxy_FindTask);
+    __AROS_SETVECADDRV0(abiv0SysBase,180, (APTR32)(IPTR)proxy_AllocTaskStorageSlot);
+    __AROS_SETVECADDRV0(abiv0SysBase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
+    __AROS_SETVECADDRV0(abiv0SysBase,185, (APTR32)(IPTR)proxy_GetTaskStorageSlot);
+    __AROS_SETVECADDRV0(abiv0SysBase, 83, (APTR32)(IPTR)proxy_OpenResource);
+    __AROS_SETVECADDRV0(abiv0SysBase, 93, execfunctable[92]);    // InitSemaphore
+    __AROS_SETVECADDRV0(abiv0SysBase, 33, (APTR32)(IPTR)proxy_AllocMem);
+    __AROS_SETVECADDRV0(abiv0SysBase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
+    __AROS_SETVECADDRV0(abiv0SysBase,104, (APTR32)(IPTR)proxy_CopyMem);
+    __AROS_SETVECADDRV0(abiv0SysBase,116, (APTR32)(IPTR)proxy_CreatePool);
+    __AROS_SETVECADDRV0(abiv0SysBase, 74, (APTR32)(IPTR)proxy_OpenDevice);
+    __AROS_SETVECADDRV0(abiv0SysBase,118, (APTR32)(IPTR)proxy_AllocPooled);
+    __AROS_SETVECADDRV0(abiv0SysBase,114, (APTR32)(IPTR)proxy_AllocVec);
+    __AROS_SETVECADDRV0(abiv0SysBase, 46, execfunctable[45]);    // FindName
+    __AROS_SETVECADDRV0(abiv0SysBase,135, execfunctable[134]);   // TaggedOpenLibrary
+    __AROS_SETVECADDRV0(abiv0SysBase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
+    __AROS_SETVECADDRV0(abiv0SysBase, 41, execfunctable[40]);    // AddTail
+    __AROS_SETVECADDRV0(abiv0SysBase, 87, execfunctable[86]);    // RawDoFmt
+    __AROS_SETVECADDRV0(abiv0SysBase, 35, (APTR32)(IPTR)proxy_FreeMem);
+    __AROS_SETVECADDRV0(abiv0SysBase,113, execfunctable[112]);   // ObtainSemaphoreShared
+    __AROS_SETVECADDRV0(abiv0SysBase, 94, execfunctable[93]);    // ObtainSemaphore
+    __AROS_SETVECADDRV0(abiv0SysBase, 40, execfunctable[39]);    // AddHead
+    __AROS_SETVECADDRV0(abiv0SysBase, 95, execfunctable[94]);    // ReleaseSemaphore
+    __AROS_SETVECADDRV0(abiv0SysBase, 81, (APTR32)(IPTR)proxy_AddResource);
+    __AROS_SETVECADDRV0(abiv0SysBase, 22, (APTR32)(IPTR)proxy_Forbid);
+    __AROS_SETVECADDRV0(abiv0SysBase, 23, (APTR32)(IPTR)proxy_Permit);
+    __AROS_SETVECADDRV0(abiv0SysBase,129, (APTR32)(IPTR)proxy_AddMemHandler);
+    __AROS_SETVECADDRV0(abiv0SysBase, 70, execfunctable[69]);    // SetFunction
+    __AROS_SETVECADDRV0(abiv0SysBase, 71, execfunctable[70]);    // SumLibrary
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
@@ -414,7 +415,7 @@ LONG_FUNC run_emulation()
         "call *%%eax\n"
         ENTER64
         "addq $4, %%rsp\n"
-        ::"m"(sysbase), "m"(seginitlist[1]) : "%rax", "%rcx");
+        ::"m"(abiv0SysBase), "m"(seginitlist[1]) : "%rax", "%rcx");
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
@@ -430,13 +431,13 @@ LONG_FUNC run_emulation()
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
-    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, sysbase);
+    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, abiv0SysBase);
     /* Remove all vectors for now (leave LibOpen) */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
 
     BPTR intuitionseg = LoadSeg32("SYS:Libs32/partial/intuition.library", DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
-    struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, sysbase);
+    struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, abiv0SysBase);
     /* Remove all vectors for now */
     const ULONG intuitionjmpsize = 165 * sizeof(APTR32);
     APTR32 *intuitionjmp = AllocMem(intuitionjmpsize, MEMF_CLEAR);
@@ -453,7 +454,7 @@ LONG_FUNC run_emulation()
         "call *%%eax\n"
         ENTER64
         "addq $4, %%rsp\n"
-        ::"m"(sysbase), "m"(seginitlist[1]) : "%rax", "%rcx");
+        ::"m"(abiv0SysBase), "m"(seginitlist[1]) : "%rax", "%rcx");
 
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
@@ -481,18 +482,18 @@ LONG_FUNC run_emulation()
     }
 
     /* Set internal Intuition pointer of utility */
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, sysbase);
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
 
     BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
-    struct LibraryV0 *abiv0GfxBase = shallow_InitResident32(graphicsres, graphicsseg, sysbase);
+    struct LibraryV0 *abiv0GfxBase = shallow_InitResident32(graphicsres, graphicsseg, abiv0SysBase);
     /* Remove all vectors for now */
     for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
 
     BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
-    struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, sysbase);
+    struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, abiv0SysBase);
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
@@ -525,7 +526,7 @@ LONG_FUNC run_emulation()
     "   lret\n"
     "   .code64\n"
     "finished:"
-        :: "m"(start), "m" (sysbase) :);
+        :: "m"(start), "m" (abiv0SysBase) :);
 }
 
 struct timerequest tr;
