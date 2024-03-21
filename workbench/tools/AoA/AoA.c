@@ -525,6 +525,8 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 112, intuitionjmp[165 - 112]);  // FindClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 114, intuitionjmp[165 - 114]);  // AddClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 106, intuitionjmp[165 - 106]);  // NewObjectA
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 108, intuitionjmp[165 - 108]);  // SetAttrs
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 109, intuitionjmp[165 - 109]);  // GetAttr
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
