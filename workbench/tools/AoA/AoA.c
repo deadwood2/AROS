@@ -83,6 +83,12 @@ APTR abiv0_AllocVec(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
 }
 MAKE_PROXY_ARG_3(AllocVec)
 
+void abiv0_FreeVec(APTR memoryBlock, struct ExecBaseV0 *SysBaseV0)
+{
+    FreeVec(memoryBlock);
+}
+MAKE_PROXY_ARG_2(FreeVec)
+
 APTR abiv0_CreatePool(ULONG requirements, ULONG puddleSize, ULONG threshSize, struct ExecBaseV0 *SysBaseV0)
 {
     return CreatePool(requirements | MEMF_31BIT, puddleSize, threshSize);
@@ -290,6 +296,10 @@ struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBa
 }
 MAKE_PROXY_ARG_2(Layers_OpenLib)
 
+struct FileHandleProxy
+{
+    BPTR fileHandle;
+};
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
@@ -298,9 +308,11 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
     strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
     dummy->pr_CLI = (BPTR32)(IPTR)abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
-    dummy->pr_CIS = 0x1; //fake
-    dummy->pr_CES = 0x1; //fake
-    dummy->pr_COS = 0x1; //fake
+    struct FileHandleProxy *cis = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, SysBaseV0);
+    cis->fileHandle = Input();
+    dummy->pr_CIS = (BPTR32)(IPTR)cis;
+    dummy->pr_CES = 0x2; //fake
+    dummy->pr_COS = 0x3; //fake
 
     return (struct TaskV0 *)dummy;
 }
@@ -326,7 +338,7 @@ MAKE_PROXY_ARG_2(GetSysTime)
 
 LONG abiv0_FPutC(BPTR file, LONG character, struct DosLibraryV0 *DOSBaseV0)
 {
-    if ((IPTR)file == 0x1)
+    if ((IPTR)file == 0x3)
     {
         return FPutC(Output(), character);
     }
@@ -335,10 +347,12 @@ asm("int3");
 }
 MAKE_PROXY_ARG_3(FPutC)
 
-struct FileHandleProxy
+LONG abiv0_FGetC(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
-    BPTR fileHandle;
-};
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return FGetC(fhp->fileHandle);
+}
+MAKE_PROXY_ARG_2(FGetC)
 
 BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
@@ -351,14 +365,21 @@ BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBase
     fhp->fileHandle = tmp;
     return (BPTR)fhp;
 }
-
 MAKE_PROXY_ARG_3(Open)
+
+LONG abiv0_IsInteractive(BPTR file, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return IsInteractive(fhp->fileHandle);
+}
+MAKE_PROXY_ARG_2(IsInteractive)
+
+
 
 APTR abiv0_OpenFont(APTR textAttr, struct LibraryV0 *GfxBaseV0)
 {
     return NULL;
 }
-
 MAKE_PROXY_ARG_3(OpenFont)
 
 ULONG *execfunctable;
@@ -424,6 +445,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0SysBase, 71, execfunctable[70]);    // SumLibrary
     __AROS_SETVECADDRV0(abiv0SysBase, 45, execfunctable[44]);    // Enqueue
     __AROS_SETVECADDRV0(abiv0SysBase, 34, (APTR32)(IPTR)proxy_AllocAbs);
+    __AROS_SETVECADDRV0(abiv0SysBase,115, (APTR32)(IPTR)proxy_FreeVec);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
@@ -451,6 +473,8 @@ LONG_FUNC run_emulation()
         "addq $4, %%rsp\n"
         ::"m"(abiv0SysBase), "m"(seginitlist[1]) : "%rax", "%rcx");
 
+    abiv0DOSBase->dl_UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
+
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
     __AROS_SETVECADDRV0(abiv0DOSBase,  10, dosfunctable[9]);    // Output
@@ -462,7 +486,12 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  83, (APTR32)(IPTR)proxy_CreateNewProc);
     __AROS_SETVECADDRV0(abiv0DOSBase,  77, dosfunctable[76]);   // SetIoErr
     __AROS_SETVECADDRV0(abiv0DOSBase,   5, (APTR32)(IPTR)proxy_Open);
-
+    __AROS_SETVECADDRV0(abiv0DOSBase, 133, dosfunctable[132]);  // ReadArgs
+    __AROS_SETVECADDRV0(abiv0DOSBase,  36, (APTR32)(IPTR)proxy_IsInteractive);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  56, dosfunctable[55]);   // FGets
+    __AROS_SETVECADDRV0(abiv0DOSBase,  51, (APTR32)(IPTR)proxy_FGetC);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 135, dosfunctable[134]);  // ReadItem
+    __AROS_SETVECADDRV0(abiv0DOSBase, 143, dosfunctable[142]);  // FreeArgs
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
