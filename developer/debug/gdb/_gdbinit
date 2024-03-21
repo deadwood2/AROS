@@ -624,11 +624,13 @@ end
 define inspectthis
     set $rip = *((int *)$rsp)
     loadframe 0
+    f 0
 end
 
 define inspectprev
     set $rip = *((int *)($rbp + 4))
     loadframe 0
+    f 0
 end
 
 document semowner
