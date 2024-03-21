@@ -329,6 +329,25 @@ asm("int3");
 }
 MAKE_PROXY_ARG_3(FPutC)
 
+struct FileHandleProxy
+{
+    BPTR fileHandle;
+};
+
+BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 DOSBaseV0)
+{
+    BPTR tmp = Open(name, accessMode);
+
+    if (tmp == BNULL)
+        return BNULL;
+
+    struct FileHandleProxy *fhp = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, abiv0SysBase);
+    fhp->fileHandle = tmp;
+    return (BPTR)fhp;
+}
+
+MAKE_PROXY_ARG_3(Open)
+
 ULONG *execfunctable;
 ULONG *dosfunctable;
 
@@ -427,6 +446,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  52, (APTR32)(IPTR)proxy_FPutC);
     __AROS_SETVECADDRV0(abiv0DOSBase,  83, (APTR32)(IPTR)proxy_CreateNewProc);
     __AROS_SETVECADDRV0(abiv0DOSBase,  77, dosfunctable[76]);   // SetIoErr
+    __AROS_SETVECADDRV0(abiv0DOSBase,   5, (APTR32)(IPTR)proxy_Open);
 
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
