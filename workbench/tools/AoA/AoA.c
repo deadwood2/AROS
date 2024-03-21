@@ -65,6 +65,12 @@ APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBa
 }
 MAKE_PROXY_ARG_3(AllocMem)
 
+APTR abiv0_AllocAbs(ULONG byteSize, APTR location, struct ExecBaseV0 *SysBaseV0)
+{
+    return NULL;
+}
+MAKE_PROXY_ARG_3(AllocAbs)
+
 void abiv0_FreeMem(APTR memoryBlock, ULONG byteSize, struct ExecBaseV0 *SysBaseV0)
 {
     return FreeMem(memoryBlock, byteSize);
@@ -348,6 +354,13 @@ BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBase
 
 MAKE_PROXY_ARG_3(Open)
 
+APTR abiv0_OpenFont(APTR textAttr, struct LibraryV0 *GfxBaseV0)
+{
+    return NULL;
+}
+
+MAKE_PROXY_ARG_3(OpenFont)
+
 ULONG *execfunctable;
 ULONG *dosfunctable;
 
@@ -410,6 +423,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0SysBase, 70, execfunctable[69]);    // SetFunction
     __AROS_SETVECADDRV0(abiv0SysBase, 71, execfunctable[70]);    // SumLibrary
     __AROS_SETVECADDRV0(abiv0SysBase, 45, execfunctable[44]);    // Enqueue
+    __AROS_SETVECADDRV0(abiv0SysBase, 34, (APTR32)(IPTR)proxy_AllocAbs);
 
     tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
@@ -511,6 +525,7 @@ LONG_FUNC run_emulation()
     /* Remove all vectors for now */
     for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);
 
     BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
