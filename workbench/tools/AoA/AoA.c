@@ -266,19 +266,19 @@ void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 }
 MAKE_PROXY_ARG_4(CopyMem)
 
-struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0* IntuitionBaseV0)
+struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *IntuitionBaseV0)
 {
     return IntuitionBaseV0;
 }
 MAKE_PROXY_ARG_2(Intuition_OpenLib)
 
-struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0* GfxBaseV0)
+struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
 {
     return GfxBaseV0;
 }
 MAKE_PROXY_ARG_2(Gfx_OpenLib)
 
-struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0* LayersBaseV0)
+struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBaseV0)
 {
     return LayersBaseV0;
 }
@@ -318,7 +318,7 @@ void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 }
 MAKE_PROXY_ARG_2(GetSysTime)
 
-LONG abiv0_FPutC(BPTR file, LONG character, struct DosLibraryV0 DOSBaseV0)
+LONG abiv0_FPutC(BPTR file, LONG character, struct DosLibraryV0 *DOSBaseV0)
 {
     if ((IPTR)file == 0x1)
     {
@@ -334,7 +334,7 @@ struct FileHandleProxy
     BPTR fileHandle;
 };
 
-BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 DOSBaseV0)
+BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
     BPTR tmp = Open(name, accessMode);
 
