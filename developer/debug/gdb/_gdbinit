@@ -620,6 +620,17 @@ define semowner
         end
     end
 end
+
+define inspectthis
+    set $rip = *((int *)$rsp)
+    loadframe 0
+end
+
+define inspectprev
+    set $rip = *((int *)($rbp + 4))
+    loadframe 0
+end
+
 document semowner
 Shows the owner of the given Exec Semaphore and the Wait Queue
 end
