@@ -15,6 +15,14 @@ struct NodeV0
     BYTE    ln_Pri;
 };
 
+struct __mayalias MinNodeV0;
+struct MinNodeV0
+{
+    APTR32 mln_Succ;
+    APTR32 mln_Pred;
+};
+
+
 struct __mayalias ListV0;
 struct ListV0
 {
@@ -244,6 +252,23 @@ struct IORequestV0
     UWORD           io_Command;
     UBYTE           io_Flags;
     BYTE            io_Error;
+};
+
+struct SemaphoreRequestV0
+{
+    struct MinNodeV0            sr_Link;
+    APTR32                      sr_Waiter;
+};
+
+
+struct SignalSemaphoreV0
+{
+    struct NodeV0               ss_Link;
+    WORD                        ss_NestCount;
+    struct MinListV0            ss_WaitQueue;
+    struct SemaphoreRequestV0   ss_MultipleLink;
+    APTR32                      ss_Owner;
+    WORD                        ss_QueueCount;
 };
 
 #endif
