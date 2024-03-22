@@ -176,4 +176,91 @@ struct TextAttrV0
     UBYTE  ta_Flags;
 };
 
+struct GfxBaseV0
+{
+    struct LibraryV0 LibNode;				/* Standard Library Node */
+
+    APTR32          ActiView;				/* Currently displayed View */
+    APTR32          copinit;				/* Initial copperlist */
+    APTR32          cia;
+    APTR32          blitter;
+    APTR32          LOFlist;				/* Copperlists currently on display (pointers to raw instruction streams) */
+    APTR32          SHFlist;
+    APTR32          blthd;
+    APTR32          blttl;
+    APTR32          bsblthd;
+    APTR32          bsblttl;
+    struct InterruptV0 vbsrv;				/* VBLank IntServer */
+    struct InterruptV0 timsrv;				/* Timer IntServer */
+    struct InterruptV0 bltsrv;				/* Blitter IntServer */
+
+/* Fonts */
+    struct ListV0     TextFonts;
+    APTR32            DefaultFont;			/* System default font */
+
+    UWORD Modes;					/* Modes of current display (taken from ActiView->Modes) */
+    BYTE  VBlank;
+    BYTE  Debug;
+    WORD  BeamSync;
+    WORD  system_bplcon0;
+    UBYTE SpriteReserved;
+    UBYTE bytereserved;
+    UWORD Flags;
+    WORD  BlitLock;
+    WORD  BlitNest;
+
+    struct ListV0 BlitWaitQ;
+    APTR32        BlitOwner;
+    struct ListV0 TOF_WaitQ;
+
+    UWORD                  DisplayFlags;  		/* see below */
+    APTR32                 SimpleSprites;
+
+    UWORD MaxDisplayRow;
+    UWORD MaxDisplayColumn;
+    UWORD NormalDisplayRows;
+    UWORD NormalDisplayColumns;
+    UWORD NormalDPMX;
+    UWORD NormalDPMY;
+
+    APTR32 LastChanceMemory;
+
+    APTR32  LCMptr;
+    UWORD   MicrosPerLine;
+    UWORD   MinDisplayColumn;
+    UBYTE   ChipRevBits0;     				/* see below */
+    UBYTE   MemType;					/* CHIP memory type, see below */
+    UBYTE   crb_reserved[4];
+    UWORD   monitor_id;
+
+    ULONG hedley[8];
+    ULONG hedley_sprites[8];
+    ULONG hedley_sprites1[8];
+    WORD  hedley_count;
+    UWORD hedley_flags;
+    WORD  hedley_tmp;
+
+    APTR32 hash_table;					/* Hashtable used for GfxAssociate() and GfxLookup() (private!) */
+    UWORD  current_tot_rows;
+    UWORD  current_tot_cclks;
+    UBYTE  hedley_hint;
+    UBYTE  hedley_hint2;
+    ULONG  nreserved[4];
+    APTR32 a2024_sync_raster;
+    UWORD  control_delta_pal;
+    UWORD  control_delta_ntsc;
+
+    APTR32                  current_monitor;		/* MonitorSpec used for current display   */
+    struct ListV0           MonitorList;		/* List of all MonitorSpecs in the system */
+    APTR32                  default_monitor;		/* MonitorSpec of "default.monitor"	  */
+    APTR32                  MonitorListSemaphore;	/* Semaphore for MonitorList access       */
+
+    APTR32                  DisplayInfoDataBase;	/* NULL, unused by AROS			  */
+    UWORD                   TopLine;
+    APTR32                  ActiViewCprSemaphore;	/* Semaphore for active view access	  */
+
+    APTR32                  UtilBase;				/* Library Bases */
+    APTR32                  ExecBase;
+};
+
 #endif

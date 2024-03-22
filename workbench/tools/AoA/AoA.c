@@ -17,6 +17,7 @@
 #include "abiv0/include/dos/structures.h"
 #include "abiv0/include/timer/structures.h"
 #include "abiv0/include/intuition/structures.h"
+#include "abiv0/include/utility/structures.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -337,8 +338,16 @@ MAKE_PROXY_ARG_2(Layers_OpenLib)
 
 struct FileHandleProxy
 {
-    BPTR fileHandle;
+    BPTR native;
 };
+
+static struct FileHandleProxy *makeFileHandleProxy(BPTR native)
+{
+    struct FileHandleProxy *proxy = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, abiv0SysBase);
+    proxy->native = native;
+    return proxy;
+}
+
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     static struct ProcessV0 *dummy = NULL;
@@ -347,11 +356,13 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
     strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
     dummy->pr_CLI = (BPTR32)(IPTR)abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
-    struct FileHandleProxy *cis = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, SysBaseV0);
-    cis->fileHandle = Input();
-    dummy->pr_CIS = (BPTR32)(IPTR)cis;
+    dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input());
     dummy->pr_CES = 0x2; //fake
-    dummy->pr_COS = 0x3; //fake
+    dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
+    struct FileHandleProxy *v0homedir = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, SysBaseV0);
+    v0homedir->native = GetProgramDir();
+    dummy->pr_HomeDir = (BPTR32)(IPTR)v0homedir;
+
 
     return (struct TaskV0 *)dummy;
 }
@@ -377,19 +388,15 @@ MAKE_PROXY_ARG_2(GetSysTime)
 
 LONG abiv0_FPutC(BPTR file, LONG character, struct DosLibraryV0 *DOSBaseV0)
 {
-    if ((IPTR)file == 0x3)
-    {
-        return FPutC(Output(), character);
-    }
-
-asm("int3");
+    struct FileHandleProxy *proxy = (struct FileHandleProxy *)file;
+    return FPutC(proxy->native, character);
 }
 MAKE_PROXY_ARG_3(FPutC)
 
 LONG abiv0_FGetC(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
-    return FGetC(fhp->fileHandle);
+    return FGetC(fhp->native);
 }
 MAKE_PROXY_ARG_2(FGetC)
 
@@ -401,7 +408,7 @@ BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBase
         return BNULL;
 
     struct FileHandleProxy *fhp = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, abiv0SysBase);
-    fhp->fileHandle = tmp;
+    fhp->native = tmp;
     return (BPTR)fhp;
 }
 MAKE_PROXY_ARG_3(Open)
@@ -409,30 +416,180 @@ MAKE_PROXY_ARG_3(Open)
 LONG abiv0_IsInteractive(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
-    return IsInteractive(fhp->fileHandle);
+    return IsInteractive(fhp->native);
 }
 MAKE_PROXY_ARG_2(IsInteractive)
 
 LONG abiv0_Read(BPTR file, APTR buffer, LONG length, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
-    return Read(fhp->fileHandle, buffer, length);
+    return Read(fhp->native, buffer, length);
 }
 MAKE_PROXY_ARG_4(Read)
 
 LONG abiv0_Seek(BPTR file, LONG position, LONG mode, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
-    return Seek(fhp->fileHandle, position, mode);
+    return Seek(fhp->native, position, mode);
 }
 MAKE_PROXY_ARG_4(Seek)
 
 BOOL abiv0_Close(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
-    return Close(fhp->fileHandle);
+    return Close(fhp->native);
 }
 MAKE_PROXY_ARG_2(Close)
+
+struct FileLockProxy
+{
+    BPTR native;
+};
+
+static struct FileLockProxy *makeFileLockProxy(BPTR native)
+{
+    struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_ANY, abiv0SysBase);
+    proxy->native = native;
+    return proxy;
+}
+
+BPTR abiv0_Lock(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
+{
+    BPTR tmp = Lock(name, accessMode);
+    if (tmp == BNULL)
+        return BNULL;
+
+    return (BPTR)makeFileLockProxy(tmp);
+}
+MAKE_PROXY_ARG_3(Lock)
+
+struct DevProcProxy
+{
+    struct DevProcV0 base;
+    struct DevProc *native;
+};
+struct DevProcV0 *abiv0_GetDeviceProc(CONST_STRPTR name, struct DevProcV0 *dp, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct DevProc *nativedp = NULL;
+    if (dp) nativedp = ((struct DevProcProxy *)dp)->native;
+    struct DevProc *nativeret = GetDeviceProc(name, nativedp);
+    if (nativeret == NULL)
+        return NULL;
+
+    struct DevProcProxy *proxy = abiv0_AllocMem(sizeof(struct DevProcProxy), MEMF_CLEAR, abiv0SysBase);
+    proxy->base.dvp_Lock = (BPTR32)(IPTR)makeFileLockProxy(nativeret->dvp_Lock);
+    proxy->native = nativeret;
+    return (struct DevProcV0 *)proxy;
+}
+MAKE_PROXY_ARG_3(GetDeviceProc)
+
+void abiv0_FreeDeviceProc(struct DevProcV0 *dp, struct DosLibraryV0 *DOSBaseV0)
+{
+    if (dp)
+    {
+        struct DevProcProxy *proxy = (struct DevProcProxy *)dp;
+        FreeDeviceProc(proxy->native);
+        abiv0_FreeMem(proxy, sizeof(struct DevProcProxy), abiv0SysBase);
+    }
+}
+MAKE_PROXY_ARG_2(FreeDeviceProc)
+
+BPTR abiv0_DupLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
+    BPTR dup = DupLock(proxy->native);
+    return (BPTR)makeFileLockProxy(dup);
+    /* ABI_V0 compatibility MISSING*/
+    /* Up to 2010-12-03 DupLockFromFH was an alias/define to DupLock */
+}
+MAKE_PROXY_ARG_2(DupLock)
+
+struct FileInfoBlockProxy
+{
+    struct FileInfoBlockV0 base;
+    struct FileInfoBlock *native;
+};
+
+struct ExAllControlProxy
+{
+    struct ExAllControlV0 base;
+    struct ExAllControl *native;
+};
+
+APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosLibraryV0 *DOSBaseV0)
+{
+    if (type == DOS_FIB && tags == NULL)
+    {
+        struct FileInfoBlock *fib = AllocDosObject(type, NULL);
+        struct FileInfoBlockProxy *proxy = abiv0_AllocMem(sizeof(struct FileInfoBlockProxy), MEMF_CLEAR, abiv0SysBase);
+        proxy->native = fib;
+        return proxy;
+    }
+    else if (type == DOS_EXALLCONTROL && tags == NULL)
+    {
+        struct ExAllControl *eac = AllocDosObject(type, NULL);
+        struct ExAllControlProxy *proxy = abiv0_AllocMem(sizeof(struct ExAllControlProxy), MEMF_CLEAR, abiv0SysBase);
+        proxy->native = eac;
+        return proxy;
+    }
+asm("int3");
+}
+MAKE_PROXY_ARG_3(AllocDosObject)
+
+void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
+{
+    if (type == DOS_FIB)
+    {
+        struct FileInfoBlockProxy *proxy = (struct FileInfoBlockProxy *)ptr;
+        FreeDosObject(type, proxy->native);
+        abiv0_FreeMem(proxy, sizeof(struct FileInfoBlockProxy), abiv0SysBase);
+        return;
+    } else if (type == DOS_EXALLCONTROL)
+    {
+        struct ExAllControlProxy *proxy = (struct ExAllControlProxy *)ptr;
+        FreeDosObject(type, proxy->native);
+        abiv0_FreeMem(proxy, sizeof(struct ExAllControlProxy), abiv0SysBase);
+        return;
+    }
+asm("int3");
+}
+MAKE_PROXY_ARG_3(FreeDosObject)
+
+LONG abiv0_Examine(BPTR lock, struct FileInfoBlockV0 *fib, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
+    struct FileInfoBlockProxy *fibproxy = (struct FileInfoBlockProxy *)fib;
+    LONG res = Examine(flproxy->native, fibproxy->native);
+    if (res)
+    {
+        fibproxy->base.fib_Date = fibproxy->native->fib_Date;
+bug("abiv0_Examine: STUB\n");
+    }
+    return res;
+}
+MAKE_PROXY_ARG_3(Examine)
+
+BPTR abiv0_CurrentDir(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
+    BPTR old = CurrentDir(flproxy->native);
+    return (BPTR)makeFileLockProxy(old);
+}
+MAKE_PROXY_ARG_2(CurrentDir)
+
+BOOL abiv0_ExAll(BPTR lock, struct ExAllDataV0 *buffer, LONG size, LONG type, struct ExAllControlV0 *control, struct DosLibraryV0 *DOSBaseV0)
+{
+bug("abiv0_ExAll: STUB\n");
+    return FALSE;
+}
+MAKE_PROXY_ARG_6(ExAll)
+
+SIPTR abiv0_IoErr(struct DosLibraryV0 *DOSBaseV0)
+{
+bug("abiv0_IoErr: STUB\n");
+    return ERROR_NO_MORE_ENTRIES;
+}
+MAKE_PROXY_ARG_1(IoErr)
 
 APTR abiv0_OpenFont(APTR textAttr, struct LibraryV0 *GfxBaseV0)
 {
@@ -470,7 +627,9 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     v0font->ta_YSize    = scr->Font->ta_YSize;
     v0font->ta_Flags    = scr->Font->ta_Flags;
     v0font->ta_Style    = scr->Font->ta_Style;
-    v0font->ta_Name     = 0;
+    STRPTR v0font_name = abiv0_AllocMem(strlen(scr->Font->ta_Name) + 1, MEMF_CLEAR, abiv0SysBase);
+    CopyMem(scr->Font->ta_Name, v0font_name, strlen(scr->Font->ta_Name) + 1);
+    v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
     ret->base.Font = (APTR32)(IPTR)v0font;
 
 bug("abiv0_LockPubScreen: STUB\n");
@@ -511,21 +670,39 @@ asm("int3");
 }
 MAKE_PROXY_ARG_3(GetBitMapAttr)
 
-void abiv0_GetRGB32(struct ColorMapV0 * cm, ULONG firstcolor, ULONG ncolors, ULONG * table, struct LibraryV0 *GfxBaseV0)
+void abiv0_GetRGB32(struct ColorMapV0 * cm, ULONG firstcolor, ULONG ncolors, ULONG *table, struct LibraryV0 *GfxBaseV0)
 {
     struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
     return GetRGB32(proxy->native, firstcolor, ncolors, table);
 }
 MAKE_PROXY_ARG_5(GetRGB32)
 
-LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, APTR tags, struct LibraryV0 *GfxBaseV0)
+LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, struct TagItemV0 *tags, struct LibraryV0 *GfxBaseV0)
 {
+    struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
+
     if (tags == NULL)
     {
-        struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
         return ObtainBestPenA(proxy->native, r, g, b, NULL);
     }
+    else
+    {
+        if (tags[0].ti_Tag == OBP_FailIfBad)
+        {
+            struct TagItem tagtmp[] =
+            {
+                { OBP_FailIfBad, FALSE },
+                { TAG_DONE, 0L}
+            };
+
+            tagtmp[0].ti_Data = tags[0].ti_Data;
+            return ObtainBestPenA(proxy->native, r, g, b, tagtmp);
+        }
+        else
+        {
 asm("int3");
+        }
+    }
     return 0;
 }
 MAKE_PROXY_ARG_6(ObtainBestPenA)
@@ -650,6 +827,17 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0DOSBase,  11, (APTR32)(IPTR)proxy_Seek);
     __AROS_SETVECADDRV0(abiv0DOSBase,   6, (APTR32)(IPTR)proxy_Close);
     __AROS_SETVECADDRV0(abiv0DOSBase, 145, dosfunctable[144]);  // FilePart
+    __AROS_SETVECADDRV0(abiv0DOSBase, 100, dosfunctable[ 99]);  // GetProgramDir
+    __AROS_SETVECADDRV0(abiv0DOSBase,  14, (APTR32)(IPTR)proxy_Lock);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 107, (APTR32)(IPTR)proxy_GetDeviceProc);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  16, (APTR32)(IPTR)proxy_DupLock);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  38, (APTR32)(IPTR)proxy_AllocDosObject);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  17, (APTR32)(IPTR)proxy_Examine);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  21, (APTR32)(IPTR)proxy_CurrentDir);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  72, (APTR32)(IPTR)proxy_ExAll);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  22, (APTR32)(IPTR)proxy_IoErr);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  39, (APTR32)(IPTR)proxy_FreeDosObject);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 108, (APTR32)(IPTR)proxy_FreeDeviceProc);
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
@@ -716,14 +904,22 @@ LONG_FUNC run_emulation()
 
     BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
-    struct LibraryV0 *abiv0GfxBase = shallow_InitResident32(graphicsres, graphicsseg, abiv0SysBase);
+    struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, abiv0SysBase);
     /* Remove all vectors for now */
+    const ULONG graphicsjmpsize = 202 * sizeof(APTR32);
+    APTR32 *graphicsjmp = AllocMem(graphicsjmpsize, MEMF_CLEAR);
+    CopyMem((APTR)abiv0GfxBase - graphicsjmpsize, graphicsjmp, graphicsjmpsize);
     for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
+    abiv0GfxBase->ExecBase = (APTR32)(IPTR)abiv0SysBase;
+    *(ULONG *)((IPTR)abiv0GfxBase + 0x4b0) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
+
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
     __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);
     __AROS_SETVECADDRV0(abiv0GfxBase, 160, (APTR32)(IPTR)proxy_GetBitMapAttr);
     __AROS_SETVECADDRV0(abiv0GfxBase, 150, (APTR32)(IPTR)proxy_GetRGB32);
     __AROS_SETVECADDRV0(abiv0GfxBase, 140, (APTR32)(IPTR)proxy_ObtainBestPenA);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  33, graphicsjmp[202 -  33]);  // InitRastPort
+    __AROS_SETVECADDRV0(abiv0GfxBase,  11, graphicsjmp[202 -  11]);  // SetFont
 
     BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
