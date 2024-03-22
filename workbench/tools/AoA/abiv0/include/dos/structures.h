@@ -113,6 +113,89 @@ struct ProcessV0
     BPTR32   pr_CES;
 };
 
+/* Devices process structure as returned by GetDeviceProc(). */
+struct DevProcV0
+{
+    APTR32 dvp_Port;
+    BPTR32	     dvp_Lock;    /* struct FileLock * */
+    ULONG	     dvp_Flags;   /* see below */
+    APTR32 dvp_DevNode; /* PRIVATE */
+};
+
+struct FileInfoBlockV0
+{
+    ULONG	     fib_DiskKey;
+      /* See <dos/dosextens.h> for definitions. Generally: if this is >= 0
+         the file described is a directory, otherwise it is a plain file. */
+    LONG	     fib_DirEntryType;
+      /* The filename.
+       *
+       *       User applications should always treat this as ASCIIZ.
+       *
+       * NOTE: This is created as a BCPL string in the ACTION_EXAMINE_*
+       *       filesystem handler code, but is converted to a C style
+       *       '\0'-terminated string by the Dos/Examine???() functions.
+       *
+       */
+    UBYTE	     fib_FileName[MAXFILENAMELENGTH];
+    LONG	     fib_Protection;   /* The protection bits (see below). */
+    LONG	     fib_EntryType;
+    LONG	     fib_Size;         /* The size of the file. */
+    LONG	     fib_NumBlocks;    /* Number of blocks used for file. */
+    struct DateStamp fib_Date;         /* Date of last change to file. */
+    /* The filecomment. Follows the same BSTR/CSTR rules as fib_FileName */
+    UBYTE	     fib_Comment[MAXCOMMENTLENGTH];
+    UWORD	     fib_OwnerUID;     /* UserID of fileowner. */
+    UWORD	     fib_OwnerGID;     /* GroupID of fileowner. */
+    UBYTE	     fib_Reserved[32]; /* PRIVATE */
+};
+
+/* Structure as used for controlling ExAll(). Allocate this structure by using
+   AllocDosObject(DOS_EXALLCONTROL,...) only. All fields must be initialized
+   to 0, before using this structure. (AllocDosObject() does that for you.)
+   After calling ExAll() the first time, this structure is READ-ONLY. */
+struct ExAllControlV0
+{
+      /* The number of entries that were returned in the buffer. */
+    ULONG         eac_Entries;
+    ULONG         eac_LastKey;     /* PRIVATE */
+      /* Parsed pattern string, as created by ParsePattern(). This may be NULL.
+      */
+    APTR32        eac_MatchString;
+      /* You may supply a hook, which is called for each entry. This hook
+         should return TRUE, if the current entry is to be included in
+         the file list and FALSE, if it should be ignored. */
+    APTR32        eac_MatchFunc;
+};
+
+/* Structure (as used in ExAll()), containing information about a file. This
+   structure is only as long as it need to be. If is for example ED_SIZE was
+   specified, when calling ExAll(), this structure only consists of the fields
+   ed_Name through ed_Size. Therefore you can use the ED_ definitions below
+   as longword offsets into this structure. */
+
+struct ExAllDataV0
+{
+    APTR32 ed_Next;
+
+    APTR32 ed_Name;     /* Name of the file. */
+    LONG    ed_Type;     /* Type of file. See <dos/dosextens.h>. */
+    ULONG   ed_Size;     /* Size of file. */
+    ULONG   ed_Prot;     /* Protection bits. */
+
+    /* The following three fields are de facto an embedded datestamp
+       structure (see <dos/dos.h>), which describes the last modification
+       date. */
+    ULONG ed_Days;
+    ULONG ed_Mins;
+    ULONG ed_Ticks;
+
+    APTR32 ed_Comment;  /* The file comment. */
+
+    UWORD ed_OwnerUID; /* The owner ID. */
+    UWORD ed_OwnerGID; /* The group-owner ID. */
+};
+
 struct DosLibraryV0
 {
     /* A normal library-base as defined in <exec/libraries.h>. */

@@ -130,6 +130,13 @@ struct ResidentV0
 #define RTF_EXTENDED   (1<<6) /* MorphOS extension: extended
                                  structure fields are valid */
 
+struct InterruptV0
+{
+    struct NodeV0 is_Node;
+    APTR32        is_Data;
+    APTR32        is_Code; /* server code entry */
+};
+
 struct IntVectorV0
 {
     APTR32        iv_Data;
