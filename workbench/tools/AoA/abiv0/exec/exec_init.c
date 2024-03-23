@@ -13,7 +13,6 @@
 #include "../include/dos/structures.h"
 
 extern struct DosLibraryV0 *abiv0DOSBase;
-struct ExecBaseV0 *abiv0SysBase;
 extern struct LibraryV0 *abiv0TimerBase;
 
 APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
@@ -288,8 +287,9 @@ MAKE_PROXY_ARG_2(FindTask)
 
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
+struct ExecBaseV0 *abiv0SysBase;
 
-void init_exec()
+struct ExecBaseV0 *init_exec()
 {
     APTR tmp;
 
@@ -344,4 +344,6 @@ void init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,149, (APTR32)(IPTR)proxy_AllocVecPooled);
     __AROS_SETVECADDRV0(abiv0SysBase, 76, (APTR32)(IPTR)proxy_DoIO);
     __AROS_SETVECADDRV0(abiv0SysBase,119, (APTR32)(IPTR)proxy_FreePooled);
+
+    return abiv0SysBase;
 }
