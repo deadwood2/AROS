@@ -7,6 +7,7 @@
 
 APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0);
+void abiv0_FreeMem(APTR memoryBlock, ULONG byteSize, struct ExecBaseV0 *SysBaseV0);
 struct LibraryV0 * abiv0_MakeLibrary(APTR32 funcInit, APTR32 structInit, APTR32 libInit, ULONG dataSize,
     BPTR segList, struct ExecBaseV0 * SysBaseV0);
 ULONG  abiv0_MakeFunctions(APTR target, APTR32 functionArray, APTR32 funcDispBase, struct ExecBaseV0 *SysBaseV0);
