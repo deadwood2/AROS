@@ -302,6 +302,7 @@ static int __attribute__ ((noinline)) load_hunk
 
 ULONG *segclassesinitlist;
 ULONG *seginitlist;
+ULONG *dosfunctable;
 
 static int relocate
 (
@@ -404,7 +405,6 @@ static int relocate
 
                 if ((name[0] == 'D') && (strcmp(name, "Dos_FuncTable") == 0))
                 {
-                    extern ULONG *dosfunctable;
                     dosfunctable = (APTR)(IPTR)s;
                 }
 
