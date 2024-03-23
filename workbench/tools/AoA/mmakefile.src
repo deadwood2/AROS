@@ -12,6 +12,7 @@ FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 \
         abiv0/exec/findname \
         abiv0/exec/openlibrary \
         abiv0/exec/addresource \
+        abiv0/graphics/graphics_init \
 
 EXEDIR := $(AROS_C)
 USER_INCLUDES := -I$(SRCDIR)/rom/dos

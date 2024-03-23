@@ -18,6 +18,7 @@
 #include "abiv0/include/timer/structures.h"
 #include "abiv0/include/intuition/structures.h"
 #include "abiv0/include/utility/structures.h"
+#include "abiv0/include/graphics/proxy_structures.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -324,12 +325,6 @@ struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *Intui
 }
 MAKE_PROXY_ARG_2(Intuition_OpenLib)
 
-struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
-{
-    return GfxBaseV0;
-}
-MAKE_PROXY_ARG_2(Gfx_OpenLib)
-
 struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBaseV0)
 {
     return LayersBaseV0;
@@ -591,22 +586,13 @@ bug("abiv0_IoErr: STUB\n");
 }
 MAKE_PROXY_ARG_1(IoErr)
 
-APTR abiv0_OpenFont(APTR textAttr, struct LibraryV0 *GfxBaseV0)
-{
-    return NULL;
-}
-MAKE_PROXY_ARG_3(OpenFont)
-
 struct ScreenProxy
 {
     struct ScreenV0 base;
     struct Screen   *native;
 };
 
-struct ColorMapProxy
-{
-    struct ColorMap *native;
-};
+
 
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -659,54 +645,6 @@ bug("abiv0_GetScreenDrawInfo: STUB\n");
 }
 MAKE_PROXY_ARG_2(GetScreenDrawInfo)
 
-ULONG abiv0_GetBitMapAttr(struct BitMapV0 *bitmap, ULONG attribute, struct LibraryV0 *GfxBaseV0)
-{
-bug("abiv0_GetBitMapAttr: STUB\n");
-    if (attribute == BMA_DEPTH)
-    {
-        return 24;
-    }
-asm("int3");
-}
-MAKE_PROXY_ARG_3(GetBitMapAttr)
-
-void abiv0_GetRGB32(struct ColorMapV0 * cm, ULONG firstcolor, ULONG ncolors, ULONG *table, struct LibraryV0 *GfxBaseV0)
-{
-    struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
-    return GetRGB32(proxy->native, firstcolor, ncolors, table);
-}
-MAKE_PROXY_ARG_5(GetRGB32)
-
-LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, struct TagItemV0 *tags, struct LibraryV0 *GfxBaseV0)
-{
-    struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
-
-    if (tags == NULL)
-    {
-        return ObtainBestPenA(proxy->native, r, g, b, NULL);
-    }
-    else
-    {
-        if (tags[0].ti_Tag == OBP_FailIfBad)
-        {
-            struct TagItem tagtmp[] =
-            {
-                { OBP_FailIfBad, FALSE },
-                { TAG_DONE, 0L}
-            };
-
-            tagtmp[0].ti_Data = tags[0].ti_Data;
-            return ObtainBestPenA(proxy->native, r, g, b, tagtmp);
-        }
-        else
-        {
-asm("int3");
-        }
-    }
-    return 0;
-}
-MAKE_PROXY_ARG_6(ObtainBestPenA)
-
 ULONG *execfunctable;
 ULONG *dosfunctable;
 
@@ -714,6 +652,8 @@ ULONG *seginitlist;
 ULONG *segclassesinitlist;
 
 APTR32 global_SysBaseV0Ptr;
+
+void init_graphics();
 
 LONG_FUNC run_emulation()
 {
@@ -902,24 +842,7 @@ LONG_FUNC run_emulation()
     /* Set internal Intuition pointer of utility */
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
 
-    BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
-    struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
-    struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, abiv0SysBase);
-    /* Remove all vectors for now */
-    const ULONG graphicsjmpsize = 202 * sizeof(APTR32);
-    APTR32 *graphicsjmp = AllocMem(graphicsjmpsize, MEMF_CLEAR);
-    CopyMem((APTR)abiv0GfxBase - graphicsjmpsize, graphicsjmp, graphicsjmpsize);
-    for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
-    abiv0GfxBase->ExecBase = (APTR32)(IPTR)abiv0SysBase;
-    *(ULONG *)((IPTR)abiv0GfxBase + 0x4b0) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
-
-    __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 160, (APTR32)(IPTR)proxy_GetBitMapAttr);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 150, (APTR32)(IPTR)proxy_GetRGB32);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 140, (APTR32)(IPTR)proxy_ObtainBestPenA);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  33, graphicsjmp[202 -  33]);  // InitRastPort
-    __AROS_SETVECADDRV0(abiv0GfxBase,  11, graphicsjmp[202 -  11]);  // SetFont
+    init_graphics();
 
     BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
