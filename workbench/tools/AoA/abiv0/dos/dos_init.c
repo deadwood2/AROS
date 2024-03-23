@@ -12,7 +12,7 @@
 #include "../include/utility/structures.h"
 #include "../include/timer/structures.h"
 
-extern struct ExecBaseV0 *abiv0SysBase;
+struct ExecBaseV0 *DOS_SysBaseV0;
 extern struct LibraryV0 *abiv0TimerBase;
 
 struct DosLibraryV0 *abiv0DOSBase;
@@ -29,7 +29,7 @@ struct FileHandleProxy
 
 struct FileHandleProxy *makeFileHandleProxy(BPTR native)
 {
-    struct FileHandleProxy *proxy = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, abiv0SysBase);
+    struct FileHandleProxy *proxy = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, DOS_SysBaseV0);
     proxy->native = native;
     return proxy;
 }
@@ -73,7 +73,7 @@ BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBase
     if (tmp == BNULL)
         return BNULL;
 
-    struct FileHandleProxy *fhp = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, abiv0SysBase);
+    struct FileHandleProxy *fhp = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, DOS_SysBaseV0);
     fhp->native = tmp;
     return (BPTR)fhp;
 }
@@ -109,7 +109,7 @@ MAKE_PROXY_ARG_2(Close)
 
 static struct FileLockProxy *makeFileLockProxy(BPTR native)
 {
-    struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_ANY, abiv0SysBase);
+    struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_ANY, DOS_SysBaseV0);
     proxy->native = native;
     return proxy;
 }
@@ -137,7 +137,7 @@ struct DevProcV0 *abiv0_GetDeviceProc(CONST_STRPTR name, struct DevProcV0 *dp, s
     if (nativeret == NULL)
         return NULL;
 
-    struct DevProcProxy *proxy = abiv0_AllocMem(sizeof(struct DevProcProxy), MEMF_CLEAR, abiv0SysBase);
+    struct DevProcProxy *proxy = abiv0_AllocMem(sizeof(struct DevProcProxy), MEMF_CLEAR, DOS_SysBaseV0);
     proxy->base.dvp_Lock = (BPTR32)(IPTR)makeFileLockProxy(nativeret->dvp_Lock);
     proxy->native = nativeret;
     return (struct DevProcV0 *)proxy;
@@ -150,7 +150,7 @@ void abiv0_FreeDeviceProc(struct DevProcV0 *dp, struct DosLibraryV0 *DOSBaseV0)
     {
         struct DevProcProxy *proxy = (struct DevProcProxy *)dp;
         FreeDeviceProc(proxy->native);
-        abiv0_FreeMem(proxy, sizeof(struct DevProcProxy), abiv0SysBase);
+        abiv0_FreeMem(proxy, sizeof(struct DevProcProxy), DOS_SysBaseV0);
     }
 }
 MAKE_PROXY_ARG_2(FreeDeviceProc)
@@ -182,14 +182,14 @@ APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosL
     if (type == DOS_FIB && tags == NULL)
     {
         struct FileInfoBlock *fib = AllocDosObject(type, NULL);
-        struct FileInfoBlockProxy *proxy = abiv0_AllocMem(sizeof(struct FileInfoBlockProxy), MEMF_CLEAR, abiv0SysBase);
+        struct FileInfoBlockProxy *proxy = abiv0_AllocMem(sizeof(struct FileInfoBlockProxy), MEMF_CLEAR, DOS_SysBaseV0);
         proxy->native = fib;
         return proxy;
     }
     else if (type == DOS_EXALLCONTROL && tags == NULL)
     {
         struct ExAllControl *eac = AllocDosObject(type, NULL);
-        struct ExAllControlProxy *proxy = abiv0_AllocMem(sizeof(struct ExAllControlProxy), MEMF_CLEAR, abiv0SysBase);
+        struct ExAllControlProxy *proxy = abiv0_AllocMem(sizeof(struct ExAllControlProxy), MEMF_CLEAR, DOS_SysBaseV0);
         proxy->native = eac;
         return proxy;
     }
@@ -203,13 +203,13 @@ void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
     {
         struct FileInfoBlockProxy *proxy = (struct FileInfoBlockProxy *)ptr;
         FreeDosObject(type, proxy->native);
-        abiv0_FreeMem(proxy, sizeof(struct FileInfoBlockProxy), abiv0SysBase);
+        abiv0_FreeMem(proxy, sizeof(struct FileInfoBlockProxy), DOS_SysBaseV0);
         return;
     } else if (type == DOS_EXALLCONTROL)
     {
         struct ExAllControlProxy *proxy = (struct ExAllControlProxy *)ptr;
         FreeDosObject(type, proxy->native);
-        abiv0_FreeMem(proxy, sizeof(struct ExAllControlProxy), abiv0SysBase);
+        abiv0_FreeMem(proxy, sizeof(struct ExAllControlProxy), DOS_SysBaseV0);
         return;
     }
 asm("int3");
@@ -258,7 +258,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 extern ULONG *dosfunctable;
 extern ULONG *seginitlist;
 
-void init_dos()
+void init_dos(struct ExecBaseV0 *SysBaseV0)
 {
     /* Keep it! This fills global variable */
     LoadSeg32("SYS:Libs32/partial/dos.library", DOSBase);
@@ -268,6 +268,7 @@ void init_dos()
     abiv0DOSBase->dl_lib.lib_Version = DOSBase->dl_lib.lib_Version;
     abiv0DOSBase->dl_TimeReq = (APTR32)(IPTR)AllocMem(sizeof(struct timerequestV0), MEMF_31BIT | MEMF_CLEAR);
     ((struct timerequestV0 *)(IPTR)abiv0DOSBase->dl_TimeReq)->tr_node.io_Device = (APTR32)(IPTR)abiv0TimerBase;
+    DOS_SysBaseV0 = SysBaseV0;
 
     /* Call SysBase_autoinit */
     __asm__ volatile (
@@ -279,9 +280,9 @@ void init_dos()
         "call *%%eax\n"
         ENTER64
         "addq $4, %%rsp\n"
-        ::"m"(abiv0SysBase), "m"(seginitlist[1]) : "%rax", "%rcx");
+        ::"m"(SysBaseV0), "m"(seginitlist[1]) : "%rax", "%rcx");
 
-    abiv0DOSBase->dl_UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
+    abiv0DOSBase->dl_UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input

@@ -12,7 +12,7 @@
 #include "../include/intuition/structures.h"
 #include "../include/graphics/proxy_structures.h"
 
-extern struct ExecBaseV0 *abiv0SysBase;
+struct ExecBaseV0 *Intuition_SysBaseV0;
 
 struct ScreenProxy
 {
@@ -32,20 +32,20 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     if (scr == NULL)
         return NULL;
 
-    struct ScreenProxy *ret = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, abiv0SysBase);
+    struct ScreenProxy *ret = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     ret->base.Width     = scr->Width;
     ret->base.Height    = scr->Height;
     ret->native         = scr;
 
-    struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, abiv0SysBase);
+    struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     cmproxy->native = scr->ViewPort.ColorMap;
     ret->base.ViewPort.ColorMap = (APTR32)(IPTR)cmproxy;
 
-    struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, abiv0SysBase);
+    struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
     v0font->ta_YSize    = scr->Font->ta_YSize;
     v0font->ta_Flags    = scr->Font->ta_Flags;
     v0font->ta_Style    = scr->Font->ta_Style;
-    STRPTR v0font_name = abiv0_AllocMem(strlen(scr->Font->ta_Name) + 1, MEMF_CLEAR, abiv0SysBase);
+    STRPTR v0font_name = abiv0_AllocMem(strlen(scr->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(scr->Font->ta_Name, v0font_name, strlen(scr->Font->ta_Name) + 1);
     v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
     ret->base.Font = (APTR32)(IPTR)v0font;
@@ -68,8 +68,8 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     if (dri == NULL)
         return NULL;
 
-    struct DrawInfoV0 *ret = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, abiv0SysBase);
-    ret->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, abiv0SysBase);
+    struct DrawInfoV0 *ret = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    ret->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(dri->dri_Pens, (APTR)(IPTR)ret->dri_Pens, NUMDRIPENS * sizeof(UWORD));
 
 bug("abiv0_GetScreenDrawInfo: STUB\n");
@@ -85,11 +85,13 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 extern ULONG* segclassesinitlist;
 extern ULONG *seginitlist;
 
-void init_intuition()
+void init_intuition(struct ExecBaseV0 *SysBaseV0)
 {
     BPTR intuitionseg = LoadSeg32("SYS:Libs32/partial/intuition.library", DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
-    struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, abiv0SysBase);
+    struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);
+    Intuition_SysBaseV0 = SysBaseV0;
+
     /* Remove all vectors for now */
     const ULONG intuitionjmpsize = 165 * sizeof(APTR32);
     APTR32 *intuitionjmp = AllocMem(intuitionjmpsize, MEMF_CLEAR);
@@ -106,7 +108,7 @@ void init_intuition()
         "call *%%eax\n"
         ENTER64
         "addq $4, %%rsp\n"
-        ::"m"(abiv0SysBase), "m"(seginitlist[1]) : "%rax", "%rcx");
+        ::"m"(Intuition_SysBaseV0), "m"(seginitlist[1]) : "%rax", "%rcx");
 
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
@@ -142,5 +144,5 @@ void init_intuition()
     }
 
     /* Set internal Intuition pointer of utility */
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
 }

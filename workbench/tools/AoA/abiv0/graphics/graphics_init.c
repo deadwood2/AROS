@@ -12,7 +12,7 @@
 #include "../include/graphics/proxy_structures.h"
 #include "../include/utility/structures.h"
 
-extern struct ExecBaseV0 *abiv0SysBase;
+struct ExecBaseV0 *Gfx_SysBaseV0;
 
 struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
 {
@@ -80,18 +80,19 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
-void init_graphics()
+void init_graphics(struct ExecBaseV0 *SysBaseV0)
 {
     BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
-    struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, abiv0SysBase);
+    struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, SysBaseV0);
+    Gfx_SysBaseV0 = SysBaseV0;
     /* Remove all vectors for now */
     const ULONG graphicsjmpsize = 202 * sizeof(APTR32);
     APTR32 *graphicsjmp = AllocMem(graphicsjmpsize, MEMF_CLEAR);
     CopyMem((APTR)abiv0GfxBase - graphicsjmpsize, graphicsjmp, graphicsjmpsize);
     for (int i = 1; i <= 201; i++) __AROS_SETVECADDRV0(abiv0GfxBase, i, 0);
-    abiv0GfxBase->ExecBase = (APTR32)(IPTR)abiv0SysBase;
-    *(ULONG *)((IPTR)abiv0GfxBase + 0x4b0) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, abiv0SysBase);
+    abiv0GfxBase->ExecBase = (APTR32)(IPTR)SysBaseV0;
+    *(ULONG *)((IPTR)abiv0GfxBase + 0x4b0) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
 
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
     __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);

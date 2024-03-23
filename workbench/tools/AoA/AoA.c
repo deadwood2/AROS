@@ -10,7 +10,6 @@
 #include "abiv0/include/aros/cpu.h"
 
 struct LibraryV0 *abiv0TimerBase;
-extern struct ExecBaseV0 *abiv0SysBase;
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -66,35 +65,35 @@ MAKE_PROXY_ARG_2(GetSysTime)
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
-void init_graphics();
-void init_intuition();
-void init_dos();
-void init_exec();
+void init_graphics(struct ExecBaseV0 *);
+void init_intuition(struct ExecBaseV0 *);
+void init_dos(struct ExecBaseV0 *);
+struct ExecBaseV0 *init_exec();
 
 LONG_FUNC run_emulation()
 {
     /* Init ROM */
-    init_exec();
+    struct ExecBaseV0 *SysBaseV0 = init_exec();
 
     APTR tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
 
-    init_dos();
+    init_dos(SysBaseV0);
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
-    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, abiv0SysBase);
+    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
     /* Remove all vectors for now (leave LibOpen) */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
 
-    init_intuition();
+    init_intuition(SysBaseV0);
 
-    init_graphics();
+    init_graphics(SysBaseV0);
 
     BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
-    struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, abiv0SysBase);
+    struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, SysBaseV0);
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
@@ -138,7 +137,7 @@ LONG_FUNC run_emulation()
     "   lret\n"
     "   .code64\n"
     "finished:"
-        :: "m"(start), "m" (abiv0SysBase) :);
+        :: "m"(start), "m" (SysBaseV0) :);
 }
 
 struct timerequest tr;
