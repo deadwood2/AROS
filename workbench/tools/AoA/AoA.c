@@ -73,13 +73,7 @@ void init_exec();
 
 LONG_FUNC run_emulation()
 {
-    BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
-    // BPTR seg = LoadSeg32("SYS:helloabi", DOSBase);
-    APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
-
-    /* Set start at first instruction (skip Seg header) */
-    start = (APTR)((IPTR)start + 13);
-
+    /* Init ROM */
     init_exec();
 
     APTR tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
@@ -104,6 +98,17 @@ LONG_FUNC run_emulation()
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
+
+
+
+    /* Start Program */
+
+    BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
+    // BPTR seg = LoadSeg32("SYS:helloabi", DOSBase);
+    APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
+
+    /* Set start at first instruction (skip Seg header) */
+    start = (APTR)((IPTR)start + 13);
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
