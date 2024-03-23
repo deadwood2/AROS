@@ -303,6 +303,7 @@ static int __attribute__ ((noinline)) load_hunk
 ULONG *segclassesinitlist;
 ULONG *seginitlist;
 ULONG *dosfunctable;
+ULONG *execfunctable;
 
 static int relocate
 (
@@ -399,7 +400,6 @@ static int relocate
                 /* UGLY HACK TO GET FUNC TABLE OF EXEC AND DOS*/
                 if ((name[0] == 'E') && (strcmp(name, "Exec_FuncTable") == 0))
                 {
-                    extern ULONG *execfunctable;
                     execfunctable = (APTR)(IPTR)s;
                 }
 

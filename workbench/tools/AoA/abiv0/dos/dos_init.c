@@ -252,9 +252,7 @@ bug("abiv0_IoErr: STUB\n");
 }
 MAKE_PROXY_ARG_1(IoErr)
 
-// struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
-// struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
 extern ULONG *dosfunctable;
