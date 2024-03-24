@@ -353,6 +353,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,119, (APTR32)(IPTR)proxy_FreePooled);
     __AROS_SETVECADDRV0(abiv0SysBase,107, (APTR32)(IPTR)proxy_CacheClearE);
     __AROS_SETVECADDRV0(abiv0SysBase, 39, execfunctable[38]);   // Insert
+    __AROS_SETVECADDRV0(abiv0SysBase, 44, execfunctable[43]);   // RemTail
 
     return abiv0SysBase;
 }

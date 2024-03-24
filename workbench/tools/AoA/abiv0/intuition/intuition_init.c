@@ -11,6 +11,7 @@
 #include "../include/aros/proxy.h"
 #include "../include/intuition/structures.h"
 #include "../include/graphics/proxy_structures.h"
+#include "../include/utility/structures.h"
 
 struct ExecBaseV0 *Intuition_SysBaseV0;
 
@@ -71,11 +72,24 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     struct DrawInfoV0 *ret = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
     ret->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(dri->dri_Pens, (APTR)(IPTR)ret->dri_Pens, NUMDRIPENS * sizeof(UWORD));
+    ret->dri_Font = proxy->base.Font;
 
 bug("abiv0_GetScreenDrawInfo: STUB\n");
     return ret;
 }
 MAKE_PROXY_ARG_2(GetScreenDrawInfo)
+
+void abiv0_FreeScreenDrawInfo(struct ScreenV0 *screen, struct DrawInfoV0 *drawInfo, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_FreeScreenDrawInfo: STUB\n");
+}
+MAKE_PROXY_ARG_3(FreeScreenDrawInfo)
+
+struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
+{
+asm("int3");
+}
+MAKE_PROXY_ARG_3(OpenWindowTagList)
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
@@ -123,6 +137,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 131, (APTR32)(IPTR)proxy_ScreenDepth);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 115, (APTR32)(IPTR)proxy_GetScreenDrawInfo);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 107, intuitionjmp[165 - 107]);  // DisposeObject
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 116, (APTR32)(IPTR)proxy_FreeScreenDrawInfo);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 101, (APTR32)(IPTR)proxy_OpenWindowTagList);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
