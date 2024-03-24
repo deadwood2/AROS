@@ -15,5 +15,6 @@ void abiv0_AddLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0);
 void abiv0_Enqueue(struct ListV0 *list, struct NodeV0 *node, struct ExecBaseV0 *SysBaseV0);
 struct NodeV0 * abiv0_FindName(struct ListV0 *list, CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0);
 struct LibraryV0 * abiv0_OpenLibrary(CONST_STRPTR libName, ULONG version, struct ExecBaseV0 *SysBaseV0);
+void abiv0_InitSemaphore(struct SignalSemaphoreV0 *sigSem, struct ExecBaseV0 *SysBaseV0);
 
 #endif

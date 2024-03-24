@@ -283,6 +283,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
         ::"m"(SysBaseV0), "m"(seginitlist[1]) : "%rax", "%rcx");
 
     abiv0DOSBase->dl_UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
+    abiv0_InitSemaphore(&((struct IntDosBaseV0 *)abiv0DOSBase)->segsem, SysBaseV0);
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
