@@ -258,6 +258,7 @@ MAKE_PROXY_ARG_2(DoIO)
 
 MAKE_PROXY_ARG_6(MakeLibrary)
 MAKE_PROXY_ARG_2(AddResource)
+MAKE_PROXY_ARG_2(InitSemaphore)
 
 void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 {
@@ -311,7 +312,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
     __AROS_SETVECADDRV0(abiv0SysBase,185, (APTR32)(IPTR)proxy_GetTaskStorageSlot);
     __AROS_SETVECADDRV0(abiv0SysBase, 83, (APTR32)(IPTR)proxy_OpenResource);
-    __AROS_SETVECADDRV0(abiv0SysBase, 93, execfunctable[92]);    // InitSemaphore
+    __AROS_SETVECADDRV0(abiv0SysBase, 93, (APTR32)(IPTR)proxy_InitSemaphore);
     __AROS_SETVECADDRV0(abiv0SysBase, 33, (APTR32)(IPTR)proxy_AllocMem);
     __AROS_SETVECADDRV0(abiv0SysBase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
     __AROS_SETVECADDRV0(abiv0SysBase,104, (APTR32)(IPTR)proxy_CopyMem);
