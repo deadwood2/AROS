@@ -21,6 +21,12 @@ struct ScreenProxy
     struct Screen   *native;
 };
 
+struct WindowProxy
+{
+    struct WindowV0 base;
+    struct Window   *native;
+};
+
 struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *IntuitionBaseV0)
 {
     return IntuitionBaseV0;
@@ -85,11 +91,108 @@ bug("abiv0_FreeScreenDrawInfo: STUB\n");
 }
 MAKE_PROXY_ARG_3(FreeScreenDrawInfo)
 
+static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
+{
+    if (!(*tagListPtr))
+        return NULL;
+
+    while(1)
+    {
+        switch(((*tagListPtr)->ti_Tag))
+        {
+            case TAG_MORE:
+asm("int3");
+                if (!((*tagListPtr) = (struct TagItemV0 *)(IPTR)(*tagListPtr)->ti_Data))
+                    return NULL;
+                continue;
+
+            case TAG_IGNORE:
+                break;
+
+            case TAG_END:
+                (*tagListPtr) = 0;
+                return NULL;
+
+            case TAG_SKIP:
+asm("int3");
+                (*tagListPtr) += (*tagListPtr)->ti_Data + 1;
+                continue;
+
+            default:
+                return (*tagListPtr)++;
+
+        }
+
+        (*tagListPtr)++;
+    }
+}
+
+static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
+{
+    struct TagItem *newList;
+    LONG numTags = 1;
+
+    struct TagItemV0 *tmp;
+
+    tmp = (struct TagItemV0 *)tagList;
+    while (LibNextTagItemV0 (&tmp) != NULL)
+        numTags++;
+
+    newList = AllocMem(sizeof(struct TagItem) * numTags, MEMF_CLEAR);
+
+    LONG pos = 0;
+    tmp = (struct TagItemV0 *)tagList;
+    while (LibNextTagItemV0 (&tmp) != NULL)
+    {
+        newList[pos].ti_Tag = tmp->ti_Tag;
+        newList[pos].ti_Data = tmp->ti_Data;
+        pos++;
+    }
+
+    return newList;
+
+}
+
 struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
-asm("int3");
+    if (newWindow != NULL) asm("int3");
+
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tagList);
+    struct Window *wndnative = OpenWindowTagList(NULL, tagListNative);
+
+    struct WindowProxy *proxy = abiv0_AllocMem(sizeof(struct WindowProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+    *((IPTR *)&rpv0->longreserved) = (IPTR)wndnative->RPort;
+    proxy->base.RPort = (APTR32)(IPTR)rpv0;
+
+    proxy->base.BorderLeft          = wndnative->BorderLeft;
+    proxy->base.BorderTop           = wndnative->BorderTop;
+    proxy->base.BorderRight         = wndnative->BorderRight;
+    proxy->base.BorderBottom        = wndnative->BorderBottom;
+    proxy->base.Width               = wndnative->Width;
+    proxy->base.Height              = wndnative->Height;
+
+    proxy->native = wndnative;
+
+bug("abiv0_OpenWindowTagList: STUB\n");
+    return (struct WindowV0 *)proxy;
 }
 MAKE_PROXY_ARG_3(OpenWindowTagList)
+
+BOOL abiv0_WindowLimits(struct WindowV0 *window, WORD MinWidth, WORD MinHeight, UWORD MaxWidth, UWORD MaxHeight, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    return WindowLimits(proxy->native, MinWidth, MinHeight, MaxWidth, MaxHeight);
+}
+MAKE_PROXY_ARG_6(WindowLimits)
+
+BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    return ModifyIDCMP(proxy->native, flags);
+}
+MAKE_PROXY_ARG_2(ModifyIDCMP);
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
@@ -139,6 +242,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 107, intuitionjmp[165 - 107]);  // DisposeObject
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 116, (APTR32)(IPTR)proxy_FreeScreenDrawInfo);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 101, (APTR32)(IPTR)proxy_OpenWindowTagList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  53, (APTR32)(IPTR)proxy_WindowLimits);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  25, (APTR32)(IPTR)proxy_ModifyIDCMP);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;

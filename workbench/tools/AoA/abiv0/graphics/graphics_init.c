@@ -75,6 +75,27 @@ asm("int3");
 }
 MAKE_PROXY_ARG_6(ObtainBestPenA)
 
+void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    SetDrMd(rpnative, drawMode);
+}
+MAKE_PROXY_ARG_3(SetDrMd)
+
+void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    SetAPen(rpnative, pen);
+}
+MAKE_PROXY_ARG_3(SetAPen)
+
+void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    RectFill(rpnative, xMin, yMin, xMax, yMax);
+}
+MAKE_PROXY_ARG_6(RectFill)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -106,4 +127,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 136, graphicsjmp[202 - 136]);  // ExtendFont
     __AROS_SETVECADDRV0(abiv0GfxBase,  80, graphicsjmp[202 -  80]);  // AddFont
     __AROS_SETVECADDRV0(abiv0GfxBase,   9, graphicsjmp[202 -   9]);  // TextLength
+    __AROS_SETVECADDRV0(abiv0GfxBase,  59, (APTR32)(IPTR)proxy_SetDrMd);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  57, (APTR32)(IPTR)proxy_SetAPen);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  51, (APTR32)(IPTR)proxy_RectFill);
 }
