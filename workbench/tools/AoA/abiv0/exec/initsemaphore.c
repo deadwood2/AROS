@@ -4,52 +4,17 @@
     Desc: Initialize a SignalSemaphore
 */
 
-#include "exec_intern.h"
-#include <exec/semaphores.h>
-#include <proto/exec.h>
+#include "../include/exec/structures.h"
 
-/*****************************************************************************
+#define NT_SIGNALSEM    15
 
-    NAME */
-
-        AROS_LH1I(void, InitSemaphore,
-
-/*  SYNOPSIS */
-        AROS_LHA(struct SignalSemaphore *, sigSem, A0),
-
-/*  LOCATION */
-        struct ExecBase *, SysBase, 93, Exec)
-
-/*  FUNCTION
-        Prepares a semaphore structure for use by the exec semaphore system,
-        i.e. this function must be called after allocating the semaphore and
-        before using it or the semaphore functions will fail.
-
-    INPUTS
-        sigSem - Pointer to semaphore structure
-
-    RESULT
-
-    NOTES
-        Semaphores are shared between the tasks that use them and must
-        therefore lie in public (or at least shared) memory.
-
-    EXAMPLE
-
-    BUGS
-
-    SEE ALSO
-
-    INTERNALS
-
-*****************************************************************************/
+void abiv0_InitSemaphore(struct SignalSemaphoreV0 *sigSem, struct ExecBaseV0 *SysBaseV0)
 {
-    AROS_LIBFUNC_INIT
 
     /* Clear list of wait messages */
-    sigSem->ss_WaitQueue.mlh_Head     = (struct MinNode *)&sigSem->ss_WaitQueue.mlh_Tail;
+    sigSem->ss_WaitQueue.mlh_Head     = (APTR32)(IPTR)&sigSem->ss_WaitQueue.mlh_Tail;
     sigSem->ss_WaitQueue.mlh_Tail     = NULL;
-    sigSem->ss_WaitQueue.mlh_TailPred = (struct MinNode *)&sigSem->ss_WaitQueue.mlh_Head;
+    sigSem->ss_WaitQueue.mlh_TailPred = (APTR32)(IPTR)&sigSem->ss_WaitQueue.mlh_Head;
 
     /* Set type of Semaphore */
     sigSem->ss_Link.ln_Type = NT_SIGNALSEM;
@@ -63,6 +28,5 @@
     /* Semaphore has no queue */
     sigSem->ss_QueueCount = -1;
 
-    AROS_LIBFUNC_EXIT
 } /* InitSemaphore */
 
