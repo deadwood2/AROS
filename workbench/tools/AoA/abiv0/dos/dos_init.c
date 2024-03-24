@@ -2,6 +2,7 @@
 #include <proto/dos.h>
 #include <aros/debug.h>
 
+#include <string.h>
 
 #include "../include/exec/structures.h"
 #include "../include/exec/functions.h"
@@ -95,8 +96,8 @@ MAKE_PROXY_ARG_4(Read)
 
 LONG abiv0_Seek(BPTR file, LONG position, LONG mode, struct DosLibraryV0 *DOSBaseV0)
 {
-    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
-    return Seek(fhp->native, position, mode);
+    struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)file;
+    return Seek(fhproxy->native, position, mode);
 }
 MAKE_PROXY_ARG_4(Seek)
 
@@ -224,11 +225,35 @@ LONG abiv0_Examine(BPTR lock, struct FileInfoBlockV0 *fib, struct DosLibraryV0 *
     if (res)
     {
         fibproxy->base.fib_Date = fibproxy->native->fib_Date;
+        fibproxy->base.fib_Size = fibproxy->native->fib_Size;
 bug("abiv0_Examine: STUB\n");
     }
     return res;
 }
 MAKE_PROXY_ARG_3(Examine)
+
+BOOL abiv0_ExamineFH(BPTR fh, struct FileInfoBlockV0 *fib, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)fh;
+    struct FileInfoBlockProxy *fibproxy = (struct FileInfoBlockProxy *)fib;
+    BOOL res = ExamineFH(fhproxy->native, fibproxy->native);
+    if (res)
+    {
+        fibproxy->base.fib_Date = fibproxy->native->fib_Date;
+        fibproxy->base.fib_Size = fibproxy->native->fib_Size;
+bug("abiv0_ExamineFH: STUB\n");
+    }
+    return res;
+}
+MAKE_PROXY_ARG_3(ExamineFH)
+
+LONG abiv0_Flush(BPTR file, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)file;
+    return Flush(fhproxy->native);
+
+}
+MAKE_PROXY_ARG_2(Flush)
 
 BPTR abiv0_CurrentDir(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 {
@@ -240,17 +265,74 @@ MAKE_PROXY_ARG_2(CurrentDir)
 
 BOOL abiv0_ExAll(BPTR lock, struct ExAllDataV0 *buffer, LONG size, LONG type, struct ExAllControlV0 *control, struct DosLibraryV0 *DOSBaseV0)
 {
+    struct ExAllControlProxy *eacproxy = (struct ExAllControlProxy *)control;
+    struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)lock;
+
+if (type != ED_DATE) asm("int3"); // Copying assumes ED_DATE sizes of structures!!!!
+
+    if (eacproxy->base.eac_LastKey == 0)
+    {
+        eacproxy->native->eac_LastKey = 0;
+        eacproxy->base.eac_LastKey = 0xbaadf00d;
+    }
+
+    APTR buffernative = AllocMem(size, MEMF_CLEAR);
+
+    BOOL res = ExAll(fhproxy->native, buffernative , size, type, eacproxy->native);
+    eacproxy->base.eac_Entries = eacproxy->native->eac_Entries;
+
+    if (eacproxy->native->eac_Entries > 0)
+    {
+        struct ExAllData *eadnativeit = (struct ExAllData *)buffernative;
+        struct ExAllDataV0 *writeit = buffer;
+        APTR writenext = NULL;
+        APTR writename = NULL;
+        for (; eadnativeit != NULL; eadnativeit = eadnativeit->ed_Next)
+        {
+            int namelen = strlen(eadnativeit->ed_Name) + 1;
+            writename = (APTR)writeit + 8; // only up to ED_DATE
+            if (eadnativeit->ed_Next == NULL)
+                writenext = NULL;
+            else
+                writenext = writename + namelen;
+
+            writeit->ed_Next    = (APTR32)(IPTR)writenext;
+            writeit->ed_Name    = (APTR32)(IPTR)writename;
+            writeit->ed_Type    = eadnativeit->ed_Type;
+            writeit->ed_Size    = eadnativeit->ed_Size;
+            writeit->ed_Prot    = eadnativeit->ed_Prot;
+            writeit->ed_Days    = eadnativeit->ed_Days;
+            writeit->ed_Mins    = eadnativeit->ed_Mins;
+            writeit->ed_Ticks   = eadnativeit->ed_Ticks;
+            // ed_Comment, ed_OwnerUID, ed_OwnerGUI missing
+            CopyMem(eadnativeit->ed_Name, writename, namelen);
+
+            writeit = (struct ExAllDataV0 *)writenext;
+        }
+    }
+
 bug("abiv0_ExAll: STUB\n");
-    return FALSE;
+    FreeMem(buffernative, size);
+    return res;
 }
 MAKE_PROXY_ARG_6(ExAll)
 
 SIPTR abiv0_IoErr(struct DosLibraryV0 *DOSBaseV0)
 {
-bug("abiv0_IoErr: STUB\n");
-    return ERROR_NO_MORE_ENTRIES;
+// possibly copy Result2 to task proxy as well
+    return IoErr();
 }
 MAKE_PROXY_ARG_1(IoErr)
+
+struct IntDosBaseV0
+{
+    struct DosLibraryV0         pub;
+    APTR32                      debugBase;
+    BYTE                        rootNode[108]  __attribute__((aligned(4)));
+    BYTE                        errors[8]  __attribute__((aligned(4)));
+    struct SignalSemaphoreV0    segsem;
+    struct ListV0               segdata;
+};
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
@@ -283,6 +365,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
         ::"m"(SysBaseV0), "m"(seginitlist[1]) : "%rax", "%rcx");
 
     abiv0DOSBase->dl_UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
+    NEWLISTV0(&((struct IntDosBaseV0 *)abiv0DOSBase)->segdata);
     abiv0_InitSemaphore(&((struct IntDosBaseV0 *)abiv0DOSBase)->segsem, SysBaseV0);
 
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
@@ -317,4 +400,12 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  22, (APTR32)(IPTR)proxy_IoErr);
     __AROS_SETVECADDRV0(abiv0DOSBase,  39, (APTR32)(IPTR)proxy_FreeDosObject);
     __AROS_SETVECADDRV0(abiv0DOSBase, 108, (APTR32)(IPTR)proxy_FreeDeviceProc);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 123, dosfunctable[122]);  // CompareDates
+    __AROS_SETVECADDRV0(abiv0DOSBase,  65, (APTR32)(IPTR)proxy_ExamineFH);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  60, (APTR32)(IPTR)proxy_Flush);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  25, dosfunctable[ 24]);  // LoadSeg              // This is tricky becaused on LoadSeg32
+    __AROS_SETVECADDRV0(abiv0DOSBase, 126, dosfunctable[125]);  // InternalLoadSeg
+    __AROS_SETVECADDRV0(abiv0DOSBase,  26, dosfunctable[ 25]);  // UnLoadSeg            // This is tricky becaused on LoadSeg32
+    __AROS_SETVECADDRV0(abiv0DOSBase, 127, dosfunctable[126]);  // InternalUnLoadSeg
+    __AROS_SETVECADDRV0(abiv0DOSBase, 136, dosfunctable[135]);  // StrToLong
 }

@@ -220,6 +220,12 @@ asm("int3");
 }
 MAKE_PROXY_ARG_2(OpenResource)
 
+void abiv0_CacheClearE(APTR address, IPTR length, ULONG caches, struct ExecBaseV0 *SysBaseV0)
+{
+    CacheClearE(address, length, caches);
+}
+MAKE_PROXY_ARG_4(CacheClearE)
+
 LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest)
 {
     if (strcmp(devName, "timer.device") == 0)
@@ -345,6 +351,8 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,149, (APTR32)(IPTR)proxy_AllocVecPooled);
     __AROS_SETVECADDRV0(abiv0SysBase, 76, (APTR32)(IPTR)proxy_DoIO);
     __AROS_SETVECADDRV0(abiv0SysBase,119, (APTR32)(IPTR)proxy_FreePooled);
+    __AROS_SETVECADDRV0(abiv0SysBase,107, (APTR32)(IPTR)proxy_CacheClearE);
+    __AROS_SETVECADDRV0(abiv0SysBase, 39, execfunctable[38]);   // Insert
 
     return abiv0SysBase;
 }
