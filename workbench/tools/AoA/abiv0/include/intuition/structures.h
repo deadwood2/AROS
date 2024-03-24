@@ -49,6 +49,85 @@ struct ScreenV0
     APTR32         UserData;
 };
 
+struct WindowV0
+{
+    APTR32 NextWindow;
+
+    WORD LeftEdge;
+    WORD TopEdge;
+    WORD Width;
+    WORD Height;
+
+    WORD MouseX; /* ABI_V0 compatibility */
+    WORD MouseY; /* ABI_V0 compatibility */
+
+    WORD MinWidth;
+    WORD MinHeight;
+    UWORD MaxWidth;
+    UWORD MaxHeight;
+
+    ULONG Flags;
+
+    APTR32 MenuStrip;
+    APTR32 Title;
+    APTR32 FirstRequest;
+    APTR32 DMRequest;
+
+    WORD ReqCount;
+
+    APTR32 WScreen;
+    APTR32 RPort;
+
+    BYTE	      BorderLeft;
+    BYTE	      BorderTop;
+    BYTE	      BorderRight;
+    BYTE	      BorderBottom;
+    APTR32 BorderRPort;
+
+    APTR32 FirstGadget;
+    APTR32 Parent;
+    APTR32 Descendant;
+
+    APTR32 Pointer;
+    BYTE    PtrHeight;
+    BYTE    PtrWidth;
+    BYTE    XOffset;
+    BYTE    YOffset;
+
+    ULONG		  IDCMPFlags;
+    APTR32 UserPort;
+    APTR32 WindowPort;
+    APTR32 MessageKey;
+
+    UBYTE	   DetailPen;
+    UBYTE	   BlockPen;
+    APTR32 CheckMark;
+    APTR32 ScreenTitle;
+
+    WORD GZZMouseX;
+    WORD GZZMouseY;
+    WORD GZZWidth;
+    WORD GZZHeight;
+
+    APTR32 ExtData;
+    APTR32 UserData;
+
+    APTR32 WLayer;
+    APTR32 IFont;
+
+    ULONG MoreFlags;
+    
+    WORD RelLeftEdge; // relative coordinates of the window
+    WORD RelTopEdge;  // to its parent window. If it is 
+                      // a window on the screen then these
+                      // are the same as LeftEdge and TopEdge.
+    
+    APTR32 firstchild;  // pointer to first child
+    APTR32 prevchild;   // if window is a child of a window
+    APTR32 nextchild;   // then they are concatenated here.
+    APTR32 parent;      // parent of this window
+};
+
 struct DrawInfoV0
 {
     UWORD             dri_Version; /* see below */

@@ -408,4 +408,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  26, dosfunctable[ 25]);  // UnLoadSeg            // This is tricky becaused on LoadSeg32
     __AROS_SETVECADDRV0(abiv0DOSBase, 127, dosfunctable[126]);  // InternalUnLoadSeg
     __AROS_SETVECADDRV0(abiv0DOSBase, 136, dosfunctable[135]);  // StrToLong
+    __AROS_SETVECADDRV0(abiv0DOSBase, 134, dosfunctable[133]);  // FindArg
 }
