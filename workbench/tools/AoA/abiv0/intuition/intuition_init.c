@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "../include/exec/structures.h"
+#include "../include/exec/proxy_structures.h"
 #include "../include/exec/functions.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
@@ -172,6 +173,10 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
     proxy->base.BorderBottom        = wndnative->BorderBottom;
     proxy->base.Width               = wndnative->Width;
     proxy->base.Height              = wndnative->Height;
+    proxy->base.MaxHeight           = wndnative->MaxHeight;
+    proxy->base.MinHeight           = wndnative->MinHeight;
+    proxy->base.MaxWidth            = wndnative->MaxWidth;
+    proxy->base.MinWidth            = wndnative->MinWidth;
     proxy->base.GZZHeight           = wndnative->GZZHeight;
     proxy->base.GZZWidth            = wndnative->GZZWidth;
 
@@ -191,8 +196,13 @@ MAKE_PROXY_ARG_6(WindowLimits)
 
 BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *IntuitionBaseV0)
 {
-    struct WindowProxy *proxy = (struct WindowProxy *)window;
-    return ModifyIDCMP(proxy->native, flags);
+    struct WindowProxy *winproxy = (struct WindowProxy *)window;
+    struct MsgPortProxy *msgpproxy = (struct MsgPortProxy *)(IPTR)winproxy->base.UserPort;
+    if (msgpproxy != NULL)
+    {
+        winproxy->native->UserPort = msgpproxy->native;
+    }
+    return ModifyIDCMP(winproxy->native, flags);
 }
 MAKE_PROXY_ARG_2(ModifyIDCMP);
 
