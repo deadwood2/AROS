@@ -14,6 +14,12 @@
 
 struct ExecBaseV0 *Gfx_SysBaseV0;
 
+struct RegionProxy
+{
+    struct RegionV0 base;
+    struct Region   *native;
+};
+
 struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
 {
     return GfxBaseV0;
@@ -96,6 +102,56 @@ void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LON
 }
 MAKE_PROXY_ARG_6(RectFill)
 
+void abiv0_Move(struct RastPortV0 *rp, WORD x, WORD y, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    Move(rpnative, x, y);
+}
+MAKE_PROXY_ARG_4(Move)
+
+void abiv0_Draw(struct RastPortV0 *rp, WORD x, WORD y, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    Draw(rpnative, x, y);
+}
+MAKE_PROXY_ARG_4(Draw)
+
+void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    Text(rpnative, string, count);
+}
+MAKE_PROXY_ARG_4(Text)
+
+struct RegionV0 *abiv0_NewRegion(struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Gfx_SysBaseV0);
+    proxy->native = NewRegion();
+    return (struct RegionV0 *)proxy;
+}
+MAKE_PROXY_ARG_1(NewRegion)
+
+BOOL abiv0_OrRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy = (struct RegionProxy *)Reg;
+    return OrRectRegion(proxy->native, Rect);
+}
+MAKE_PROXY_ARG_3(OrRectRegion)
+
+void abiv0_DisposeRegion(struct RegionV0 *region, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy = (struct RegionProxy *)region;
+    return DisposeRegion(proxy->native);
+}
+MAKE_PROXY_ARG_2(DisposeRegion)
+
+BOOL abiv0_ClearRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy = (struct RegionProxy *)Reg;
+    return ClearRectRegion(proxy->native, Rect);
+}
+MAKE_PROXY_ARG_3(ClearRectRegion)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -130,4 +186,13 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  59, (APTR32)(IPTR)proxy_SetDrMd);
     __AROS_SETVECADDRV0(abiv0GfxBase,  57, (APTR32)(IPTR)proxy_SetAPen);
     __AROS_SETVECADDRV0(abiv0GfxBase,  51, (APTR32)(IPTR)proxy_RectFill);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  86, (APTR32)(IPTR)proxy_NewRegion);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  85, (APTR32)(IPTR)proxy_OrRectRegion);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  89, (APTR32)(IPTR)proxy_DisposeRegion);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  40, (APTR32)(IPTR)proxy_Move);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  41, (APTR32)(IPTR)proxy_Draw);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  14, graphicsjmp[202 -  14]);  // AskSoftStyle
+    __AROS_SETVECADDRV0(abiv0GfxBase,  15, graphicsjmp[202 -  15]);  // SetSoftStyle
+    __AROS_SETVECADDRV0(abiv0GfxBase,  10, (APTR32)(IPTR)proxy_Text);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  87, (APTR32)(IPTR)proxy_ClearRectRegion);
 }

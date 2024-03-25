@@ -166,6 +166,21 @@ BPTR abiv0_DupLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(DupLock)
 
+LONG abiv0_SameLock(BPTR lock1, BPTR lock2, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *proxy1 = (struct FileLockProxy *)lock1;
+    struct FileLockProxy *proxy2 = (struct FileLockProxy *)lock2;
+    return SameLock(proxy1->native, proxy2->native);
+}
+MAKE_PROXY_ARG_3(SameLock)
+
+BOOL abiv0_UnLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
+    return UnLock(proxy->native);
+}
+MAKE_PROXY_ARG_2(UnLock)
+
 struct FileInfoBlockProxy
 {
     struct FileInfoBlockV0 base;
@@ -409,4 +424,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 127, dosfunctable[126]);  // InternalUnLoadSeg
     __AROS_SETVECADDRV0(abiv0DOSBase, 136, dosfunctable[135]);  // StrToLong
     __AROS_SETVECADDRV0(abiv0DOSBase, 134, dosfunctable[133]);  // FindArg
+    __AROS_SETVECADDRV0(abiv0DOSBase, 146, dosfunctable[145]);  // PathPart
+    __AROS_SETVECADDRV0(abiv0DOSBase,  70, (APTR32)(IPTR)proxy_SameLock);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  15, (APTR32)(IPTR)proxy_UnLock);
 }

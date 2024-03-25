@@ -176,6 +176,12 @@ struct TextAttrV0
     UBYTE  ta_Flags;
 };
 
+struct RegionV0
+{
+    struct Rectangle         bounds;
+    APTR32                   RegionRectangle;
+};
+
 struct GfxBaseV0
 {
     struct LibraryV0 LibNode;				/* Standard Library Node */
