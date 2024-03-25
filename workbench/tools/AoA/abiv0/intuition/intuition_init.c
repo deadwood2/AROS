@@ -154,6 +154,9 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 
 }
 
+struct WindowV0 *g_v0window;
+struct Window   *g_nativewindow;
+
 struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     if (newWindow != NULL) asm("int3");
@@ -182,6 +185,9 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
 
     proxy->native = wndnative;
 
+    g_v0window = &proxy->base;
+    g_nativewindow = wndnative;
+
 bug("abiv0_OpenWindowTagList: STUB\n");
     return (struct WindowV0 *)proxy;
 }
@@ -194,6 +200,32 @@ BOOL abiv0_WindowLimits(struct WindowV0 *window, WORD MinWidth, WORD MinHeight, 
 }
 MAKE_PROXY_ARG_6(WindowLimits)
 
+static struct MessageV0 *Intuition_Translate(struct Message *native)
+{
+    struct IntuiMessage *imsg = (struct IntuiMessage *)native;
+
+    if (native == NULL)
+        return NULL;
+
+    if (imsg->Class == IDCMP_CLOSEWINDOW)
+    {
+        struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+        v0msg->Class = imsg->Class;
+        if (imsg->IDCMPWindow == g_nativewindow)
+            v0msg->IDCMPWindow = (APTR32)(IPTR)g_v0window;
+
+        /* Store original message in Node of v0msg for now */
+        *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
+
+        return (struct MessageV0 *)v0msg;
+    }
+
+bug("Intuition_Translate - missing code\n");
+
+    return NULL;
+}
+
 BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *winproxy = (struct WindowProxy *)window;
@@ -201,6 +233,7 @@ BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *I
     if (msgpproxy != NULL)
     {
         winproxy->native->UserPort = msgpproxy->native;
+        msgpproxy->translate = Intuition_Translate;
     }
     return ModifyIDCMP(winproxy->native, flags);
 }
