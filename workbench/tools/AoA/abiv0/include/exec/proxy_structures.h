@@ -7,6 +7,7 @@ struct MsgPortProxy
 {
     struct MsgPortV0 base;
     struct MsgPort   *native;
+    struct MessageV0 *(*translate)(struct Message *);
 };
 
 #endif
