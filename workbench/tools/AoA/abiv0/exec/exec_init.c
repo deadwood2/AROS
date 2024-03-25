@@ -52,6 +52,12 @@ APTR abiv0_CreatePool(ULONG requirements, ULONG puddleSize, ULONG threshSize, st
 }
 MAKE_PROXY_ARG_4(CreatePool)
 
+void abiv0_DeletePool(APTR poolHeader, struct ExecBaseV0 *SysBaseV0)
+{
+    DeletePool(poolHeader);
+}
+MAKE_PROXY_ARG_2(DeletePool)
+
 APTR abiv0_AllocPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *SysBaseV0)
 {
     return AllocPooled(poolHeader, memSize);
@@ -248,17 +254,32 @@ asm("int3");
 }
 MAKE_PROXY_ARG_4(OpenDevice)
 
+void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_CloseDevice: STUB\n");
+}
+MAKE_PROXY_ARG_2(CloseDevice)
+
 struct MsgPortV0 * abiv0_CreateMsgPort(struct ExecBaseV0 *SysBaseV0)
 {
     struct MsgPortProxy *proxy = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, SysBaseV0);
     struct MsgPort *native = CreateMsgPort();
+
     proxy->base.mp_SigBit = native->mp_SigBit;
+    NEWLISTV0(&proxy->base.mp_MsgList);
+
     proxy->native = native;
 
     return (struct MsgPortV0 *)proxy;
 }
 MAKE_PROXY_ARG_1(CreateMsgPort)
 
+void abiv0_DeleteMsgPort(struct MsgPortV0 * port, struct ExecBaseV0 *SysBaseV0)
+{
+    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    DeleteMsgPort(proxy->native);
+}
+MAKE_PROXY_ARG_2(DeleteMsgPort)
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
     struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
@@ -399,6 +420,10 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 62, (APTR32)(IPTR)proxy_GetMsg);
     __AROS_SETVECADDRV0(abiv0SysBase, 53, (APTR32)(IPTR)proxy_Wait);
     __AROS_SETVECADDRV0(abiv0SysBase, 63, (APTR32)(IPTR)proxy_ReplyMsg);
+    __AROS_SETVECADDRV0(abiv0SysBase,117, (APTR32)(IPTR)proxy_DeletePool);
+    __AROS_SETVECADDRV0(abiv0SysBase,112, (APTR32)(IPTR)proxy_DeleteMsgPort);
+    __AROS_SETVECADDRV0(abiv0SysBase, 75, (APTR32)(IPTR)proxy_CloseDevice);
+    __AROS_SETVECADDRV0(abiv0SysBase,110, execfunctable[109]);  // DeleteIORequest
 
     return abiv0SysBase;
 }

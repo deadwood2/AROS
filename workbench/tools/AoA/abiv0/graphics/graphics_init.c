@@ -51,6 +51,12 @@ bug("abiv0_OpenFont: STUB\n");
 }
 MAKE_PROXY_ARG_3(OpenFont)
 
+void abiv0_CloseFont(APTR textFont, struct GfxBaseV0 *GfxBaseV0)
+{
+bug("abiv0_CloseFont: STUB\n");
+}
+MAKE_PROXY_ARG_3(CloseFont)
+
 LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, struct TagItemV0 *tags, struct LibraryV0 *GfxBaseV0)
 {
     struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
@@ -80,6 +86,13 @@ asm("int3");
     return 0;
 }
 MAKE_PROXY_ARG_6(ObtainBestPenA)
+
+void abiv0_ReleasePen(struct ColorMapV0 *cm, ULONG n, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
+    ReleasePen(proxy->native, n);
+}
+MAKE_PROXY_ARG_3(ReleasePen)
 
 void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
@@ -203,4 +216,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  10, (APTR32)(IPTR)proxy_Text);
     __AROS_SETVECADDRV0(abiv0GfxBase,  87, (APTR32)(IPTR)proxy_ClearRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase,  54, (APTR32)(IPTR)proxy_WritePixel);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 158, (APTR32)(IPTR)proxy_ReleasePen);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  13, (APTR32)(IPTR)proxy_CloseFont);
 }
