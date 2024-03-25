@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "../include/exec/structures.h"
+#include "../include/exec/proxy_structures.h"
 #include "../include/exec/functions.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
@@ -249,10 +250,27 @@ MAKE_PROXY_ARG_4(OpenDevice)
 
 struct MsgPortV0 * abiv0_CreateMsgPort(struct ExecBaseV0 *SysBaseV0)
 {
-bug("abiv0_CreateMsgPort: STUB\n");
-    return (struct MsgPortV0 *)0x6;
+    struct MsgPortProxy *proxy = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, SysBaseV0);
+    struct MsgPort *native = CreateMsgPort();
+    proxy->base.mp_SigBit = native->mp_SigBit;
+    proxy->native = native;
+
+    return (struct MsgPortV0 *)proxy;
 }
 MAKE_PROXY_ARG_1(CreateMsgPort)
+
+struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_GetMsg: STUB\n");
+    return NULL;
+}
+MAKE_PROXY_ARG_2(GetMsg)
+
+ULONG abiv0_Wait(ULONG signalSet, struct ExecBaseV0 *SysBaseV0)
+{
+    return Wait(signalSet);
+}
+MAKE_PROXY_ARG_2(Wait)
 
 LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
 {
@@ -355,6 +373,8 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 39, execfunctable[38]);   // Insert
     __AROS_SETVECADDRV0(abiv0SysBase, 44, execfunctable[43]);   // RemTail
     __AROS_SETVECADDRV0(abiv0SysBase, 43, execfunctable[42]);   // RemHead
+    __AROS_SETVECADDRV0(abiv0SysBase, 62, (APTR32)(IPTR)proxy_GetMsg);
+    __AROS_SETVECADDRV0(abiv0SysBase, 53, (APTR32)(IPTR)proxy_Wait);
 
     return abiv0SysBase;
 }
