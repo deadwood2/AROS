@@ -228,7 +228,9 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
     if (native == NULL)
         return NULL;
 
-    if (imsg->Class == IDCMP_CLOSEWINDOW)
+    if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
+        imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
+        imsg->Class == IDCMP_CHANGEWINDOW)
     {
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
@@ -236,13 +238,20 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
         if (imsg->IDCMPWindow == g_nativewindow)
             v0msg->IDCMPWindow = (APTR32)(IPTR)g_v0window;
 
+        v0msg->Code         = imsg->Code;
+        v0msg->Qualifier    = imsg->Qualifier;
+        v0msg->MouseX       = imsg->MouseX;
+        v0msg->MouseY       = imsg->MouseY;
+        v0msg->Seconds      = imsg->Seconds;
+        v0msg->Micros       = imsg->Micros;
+
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
 
         return (struct MessageV0 *)v0msg;
     }
 
-bug("Intuition_Translate - missing code\n");
+bug("Intuition_Translate - missing code for class %d\n", imsg->Class);
 
     return NULL;
 }
