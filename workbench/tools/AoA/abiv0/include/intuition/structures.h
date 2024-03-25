@@ -158,4 +158,24 @@ struct DrawInfoV0
     ULONG          dri_Reserved[3];
 };
 
+		       /***** Intuition Message *****/
+
+struct IntuiMessageV0
+{
+    struct MessageV0 ExecMessage;
+
+    ULONG Class;
+    UWORD Code;
+    UWORD Qualifier;
+    APTR32  IAddress;
+
+    WORD  MouseX;
+    WORD  MouseY;
+    ULONG Seconds;
+    ULONG Micros;
+
+    APTR32 IDCMPWindow;
+    APTR32 SpecialLink;
+};
+
 #endif

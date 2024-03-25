@@ -261,10 +261,33 @@ MAKE_PROXY_ARG_1(CreateMsgPort)
 
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
+    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    struct Message *msg = GetMsg(proxy->native);
+
+    if (proxy->translate)
+    {
+        return proxy->translate(msg);
+    }
+
+    if (msg)
+    {
 bug("abiv0_GetMsg: STUB\n");
+asm("int3");
+    }
+
     return NULL;
 }
 MAKE_PROXY_ARG_2(GetMsg)
+
+void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
+{
+    if (message)
+    {
+        struct Message *native = (struct Message *)*(IPTR*)&message->mn_Node;
+        ReplyMsg(native);
+    }
+}
+MAKE_PROXY_ARG_2(ReplyMsg)
 
 ULONG abiv0_Wait(ULONG signalSet, struct ExecBaseV0 *SysBaseV0)
 {
@@ -375,6 +398,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 43, execfunctable[42]);   // RemHead
     __AROS_SETVECADDRV0(abiv0SysBase, 62, (APTR32)(IPTR)proxy_GetMsg);
     __AROS_SETVECADDRV0(abiv0SysBase, 53, (APTR32)(IPTR)proxy_Wait);
+    __AROS_SETVECADDRV0(abiv0SysBase, 63, (APTR32)(IPTR)proxy_ReplyMsg);
 
     return abiv0SysBase;
 }
