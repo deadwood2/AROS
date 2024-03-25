@@ -172,6 +172,8 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
     proxy->base.BorderBottom        = wndnative->BorderBottom;
     proxy->base.Width               = wndnative->Width;
     proxy->base.Height              = wndnative->Height;
+    proxy->base.GZZHeight           = wndnative->GZZHeight;
+    proxy->base.GZZWidth            = wndnative->GZZWidth;
 
     proxy->native = wndnative;
 
