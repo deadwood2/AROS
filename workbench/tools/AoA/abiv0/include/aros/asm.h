@@ -39,4 +39,13 @@
 #define COPY_ARG_6              \
     "   movl 24(%%rsp), %%r9d\n"
 
+#define ALIGN_STACK64           \
+    "   push %%r12\n"           \
+    "   movq %%rsp, %%r12\n"    \
+    "   andq $-16, %%rsp\n"     \
+
+#define RESTORE_STACK64         \
+    "   movq %%r12, %%rsp\n"    \
+    "   popq %%r12\n"           \
+
 #endif

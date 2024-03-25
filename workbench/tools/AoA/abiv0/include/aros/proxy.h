@@ -23,7 +23,9 @@ void dummy_##fname()            \
     EXTER_PROXY(fname)          \
     ENTER64                     \
     COPY_ARG_1                  \
+    ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
+    RESTORE_STACK64             \
     ENTER32                     \
     LEAVE_PROXY                 \
 }
@@ -36,7 +38,9 @@ void dummy_##fname()            \
     ENTER64                     \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
+    ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
+    RESTORE_STACK64             \
     ENTER32                     \
     LEAVE_PROXY                 \
 }
@@ -50,7 +54,9 @@ void dummy_##fname()            \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
     COPY_ARG_3                  \
+    ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
+    RESTORE_STACK64             \
     ENTER32                     \
     LEAVE_PROXY                 \
 }
@@ -65,7 +71,9 @@ void dummy_##fname()            \
     COPY_ARG_2                  \
     COPY_ARG_3                  \
     COPY_ARG_4                  \
+    ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
+    RESTORE_STACK64             \
     ENTER32                     \
     LEAVE_PROXY                 \
 }
@@ -81,7 +89,9 @@ void dummy_##fname()            \
     COPY_ARG_3                  \
     COPY_ARG_4                  \
     COPY_ARG_5                  \
+    ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
+    RESTORE_STACK64             \
     ENTER32                     \
     LEAVE_PROXY                 \
 }
@@ -98,7 +108,9 @@ void dummy_##fname()            \
     COPY_ARG_4                  \
     COPY_ARG_5                  \
     COPY_ARG_6                  \
+    ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
+    RESTORE_STACK64             \
     ENTER32                     \
     LEAVE_PROXY                 \
 }
