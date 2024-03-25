@@ -123,6 +123,13 @@ void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct 
 }
 MAKE_PROXY_ARG_4(Text)
 
+LONG abiv0_WritePixel(struct RastPortV0 *rp, LONG x, LONG y, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    return WritePixel(rpnative, x, y);
+}
+MAKE_PROXY_ARG_4(WritePixel)
+
 struct RegionV0 *abiv0_NewRegion(struct GfxBaseV0 *GfxBaseV0)
 {
     struct RegionProxy *proxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Gfx_SysBaseV0);
@@ -195,4 +202,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  15, graphicsjmp[202 -  15]);  // SetSoftStyle
     __AROS_SETVECADDRV0(abiv0GfxBase,  10, (APTR32)(IPTR)proxy_Text);
     __AROS_SETVECADDRV0(abiv0GfxBase,  87, (APTR32)(IPTR)proxy_ClearRectRegion);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  54, (APTR32)(IPTR)proxy_WritePixel);
 }

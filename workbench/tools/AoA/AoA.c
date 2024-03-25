@@ -61,6 +61,15 @@ void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 }
 MAKE_PROXY_ARG_2(GetSysTime)
 
+#include <proto/cybergraphics.h>
+#include "abiv0/include/graphics/structures.h"
+
+ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG pixel)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    return FillPixelArray(rpnative, destx, desty, width, height, pixel);
+}
+MAKE_PROXY_ARG_6(FillPixelArray)
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -81,12 +90,6 @@ LONG_FUNC run_emulation()
 
     init_dos(SysBaseV0);
 
-    BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
-    struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
-    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
-    /* Remove all vectors for now (leave LibOpen) */
-    for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
-
     init_intuition(SysBaseV0);
 
     init_graphics(SysBaseV0);
@@ -97,6 +100,14 @@ LONG_FUNC run_emulation()
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
+
+    BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
+    struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
+    struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
+    /* Remove all vectors for now (leave LibOpen) */
+    for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
+
 
 
 
