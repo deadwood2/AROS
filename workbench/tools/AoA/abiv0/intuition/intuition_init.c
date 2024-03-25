@@ -265,6 +265,11 @@ BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *I
         winproxy->native->UserPort = msgpproxy->native;
         msgpproxy->translate = Intuition_Translate;
     }
+    else
+    {
+        winproxy->native->UserPort = NULL;
+    }
+
     return ModifyIDCMP(winproxy->native, flags);
 }
 MAKE_PROXY_ARG_2(ModifyIDCMP);
