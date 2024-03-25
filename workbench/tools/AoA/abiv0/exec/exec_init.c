@@ -323,6 +323,32 @@ bug("abiv0_DoIO: STUB\n");
 }
 MAKE_PROXY_ARG_2(DoIO)
 
+void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_SendIO: STUB\n");
+}
+MAKE_PROXY_ARG_2(SendIO)
+
+struct IORequestV0 *abiv0_CheckIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_CheckIO: STUB\n");
+    return NULL;
+}
+MAKE_PROXY_ARG_2(CheckIO)
+
+LONG abiv0_AbortIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_AbortIO: STUB\n");
+    return 0;
+}
+MAKE_PROXY_ARG_2(AbortIO)
+
+LONG abiv0_WaitIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
+{
+bug("abiv0_WaitIO: STUB\n");
+    return 0;
+}
+MAKE_PROXY_ARG_2(WaitIO)
 
 MAKE_PROXY_ARG_6(MakeLibrary)
 MAKE_PROXY_ARG_2(AddResource)
@@ -424,6 +450,10 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,112, (APTR32)(IPTR)proxy_DeleteMsgPort);
     __AROS_SETVECADDRV0(abiv0SysBase, 75, (APTR32)(IPTR)proxy_CloseDevice);
     __AROS_SETVECADDRV0(abiv0SysBase,110, execfunctable[109]);  // DeleteIORequest
+    __AROS_SETVECADDRV0(abiv0SysBase, 77, (APTR32)(IPTR)proxy_SendIO);
+    __AROS_SETVECADDRV0(abiv0SysBase, 78, (APTR32)(IPTR)proxy_CheckIO);
+    __AROS_SETVECADDRV0(abiv0SysBase, 80, (APTR32)(IPTR)proxy_AbortIO);
+    __AROS_SETVECADDRV0(abiv0SysBase, 79, (APTR32)(IPTR)proxy_WaitIO);
 
     return abiv0SysBase;
 }
