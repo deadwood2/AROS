@@ -63,6 +63,13 @@ bug("abiv0_LockPubScreen: STUB\n");
 }
 MAKE_PROXY_ARG_2(LockPubScreen)
 
+void abiv0_UnlockPubScreen(UBYTE *name, struct ScreenV0 *screen, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct ScreenProxy *proxy = (struct ScreenProxy *)screen;
+    UnlockPubScreen(name, proxy->native);
+}
+MAKE_PROXY_ARG_3(UnlockPubScreen)
+
 void abiv0_ScreenDepth(struct ScreenV0 *screen, ULONG flags, APTR reserved, struct LibraryV0 *IntuitionBaseV0)
 {
 bug("abiv0_ScreenDepth: STUB\n");
@@ -200,6 +207,20 @@ BOOL abiv0_WindowLimits(struct WindowV0 *window, WORD MinWidth, WORD MinHeight, 
 }
 MAKE_PROXY_ARG_6(WindowLimits)
 
+void abiv0_ClearMenuStrip(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    return ClearMenuStrip(proxy->native);
+}
+MAKE_PROXY_ARG_2(ClearMenuStrip)
+
+void abiv0_CloseWindow(struct Window *window, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    return CloseWindow(proxy->native);
+}
+MAKE_PROXY_ARG_2(CloseWindow)
+
 static struct MessageV0 *Intuition_Translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -289,6 +310,11 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 101, (APTR32)(IPTR)proxy_OpenWindowTagList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  53, (APTR32)(IPTR)proxy_WindowLimits);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  25, (APTR32)(IPTR)proxy_ModifyIDCMP);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,   9, (APTR32)(IPTR)proxy_ClearMenuStrip);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  12, (APTR32)(IPTR)proxy_CloseWindow);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  86, (APTR32)(IPTR)proxy_UnlockPubScreen);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 119, intuitionjmp[165 - 119]);  // FreeClass
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 118, intuitionjmp[165 - 118]);  // RemoveClass
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
