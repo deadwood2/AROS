@@ -174,23 +174,40 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
     struct WindowProxy *proxy = abiv0_AllocMem(sizeof(struct WindowProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
-    *((IPTR *)&rpv0->longreserved) = (IPTR)wndnative->RPort;
+    proxy->native = wndnative;
+
+    *((IPTR *)&rpv0->longreserved) = (IPTR)proxy->native->RPort;
     proxy->base.RPort = (APTR32)(IPTR)rpv0;
 
-    proxy->base.BorderLeft          = wndnative->BorderLeft;
-    proxy->base.BorderTop           = wndnative->BorderTop;
-    proxy->base.BorderRight         = wndnative->BorderRight;
-    proxy->base.BorderBottom        = wndnative->BorderBottom;
-    proxy->base.Width               = wndnative->Width;
-    proxy->base.Height              = wndnative->Height;
-    proxy->base.MaxHeight           = wndnative->MaxHeight;
-    proxy->base.MinHeight           = wndnative->MinHeight;
-    proxy->base.MaxWidth            = wndnative->MaxWidth;
-    proxy->base.MinWidth            = wndnative->MinWidth;
-    proxy->base.GZZHeight           = wndnative->GZZHeight;
-    proxy->base.GZZWidth            = wndnative->GZZWidth;
+    proxy->base.BorderLeft          = proxy->native->BorderLeft;
+    proxy->base.BorderTop           = proxy->native->BorderTop;
+    proxy->base.BorderRight         = proxy->native->BorderRight;
+    proxy->base.BorderBottom        = proxy->native->BorderBottom;
+    proxy->base.Width               = proxy->native->Width;
+    proxy->base.Height              = proxy->native->Height;
+    proxy->base.MaxHeight           = proxy->native->MaxHeight;
+    proxy->base.MinHeight           = proxy->native->MinHeight;
+    proxy->base.MaxWidth            = proxy->native->MaxWidth;
+    proxy->base.MinWidth            = proxy->native->MinWidth;
+    proxy->base.GZZHeight           = proxy->native->GZZHeight;
+    proxy->base.GZZWidth            = proxy->native->GZZWidth;
+    proxy->base.Flags               = proxy->native->Flags;
 
-    proxy->native = wndnative;
+
+
+
+    struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    lproxy->native = proxy->native->WLayer;
+    proxy->base.WLayer = (APTR32)(IPTR)lproxy;
+
+    if (proxy->native->WLayer == proxy->native->RPort->Layer)
+    {
+        ((struct RastPortV0 *)(IPTR)proxy->base.RPort)->Layer = (APTR32)(IPTR)lproxy;
+    }
+    else
+    {
+asm("int3");
+    }
 
     g_v0window = &proxy->base;
     g_nativewindow = wndnative;
