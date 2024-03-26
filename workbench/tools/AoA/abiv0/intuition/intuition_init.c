@@ -34,20 +34,23 @@ struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *Intui
 }
 MAKE_PROXY_ARG_2(Intuition_OpenLib)
 
+struct ScreenV0 *g_v0screen;
+struct Screen   *g_nativescreen;
+
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
     struct Screen *scr = LockPubScreen(name);
     if (scr == NULL)
         return NULL;
 
-    struct ScreenProxy *ret = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    ret->base.Width     = scr->Width;
-    ret->base.Height    = scr->Height;
-    ret->native         = scr;
+    struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    proxy->base.Width   = scr->Width;
+    proxy->base.Height  = scr->Height;
+    proxy->native       = scr;
 
     struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     cmproxy->native = scr->ViewPort.ColorMap;
-    ret->base.ViewPort.ColorMap = (APTR32)(IPTR)cmproxy;
+    proxy->base.ViewPort.ColorMap = (APTR32)(IPTR)cmproxy;
 
     struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
     v0font->ta_YSize    = scr->Font->ta_YSize;
@@ -56,10 +59,15 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     STRPTR v0font_name = abiv0_AllocMem(strlen(scr->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(scr->Font->ta_Name, v0font_name, strlen(scr->Font->ta_Name) + 1);
     v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
-    ret->base.Font = (APTR32)(IPTR)v0font;
+    proxy->base.Font = (APTR32)(IPTR)v0font;
+
+    *(IPTR *)(&proxy->base.LayerInfo.PrivateReserve1) = (IPTR)&scr->LayerInfo;
+
+    g_nativescreen = scr;
+    g_v0screen = &proxy->base;
 
 bug("abiv0_LockPubScreen: STUB\n");
-    return (struct ScreenV0 *)ret;
+    return (struct ScreenV0 *)proxy;
 }
 MAKE_PROXY_ARG_2(LockPubScreen)
 
@@ -164,6 +172,11 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 struct WindowV0 *g_v0window;
 struct Window   *g_nativewindow;
 
+static void syncLayerV0(struct LayerProxy *lproxy)
+{
+    lproxy->base.Flags              = lproxy->native->Flags;
+}
+
 struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     if (newWindow != NULL) asm("int3");
@@ -193,13 +206,22 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
     proxy->base.GZZWidth            = proxy->native->GZZWidth;
     proxy->base.Flags               = proxy->native->Flags;
 
-
+    if (proxy->native->WScreen == g_nativescreen)
+    {
+        proxy->base.WScreen = (APTR32)(IPTR)g_v0screen;
+    }
+    else
+    {
+        asm("int3");
+    }
 
 
     struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     lproxy->native = proxy->native->WLayer;
-    proxy->base.WLayer = (APTR32)(IPTR)lproxy;
+    syncLayerV0(lproxy);
 
+
+    proxy->base.WLayer = (APTR32)(IPTR)lproxy;
     if (proxy->native->WLayer == proxy->native->RPort->Layer)
     {
         ((struct RastPortV0 *)(IPTR)proxy->base.RPort)->Layer = (APTR32)(IPTR)lproxy;
@@ -238,6 +260,20 @@ void abiv0_CloseWindow(struct Window *window, struct LibraryV0 *IntuitionBaseV0)
 }
 MAKE_PROXY_ARG_2(CloseWindow)
 
+void abiv0_BeginRefresh(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    BeginRefresh(proxy->native);
+}
+MAKE_PROXY_ARG_2(BeginRefresh)
+
+void abiv0_EndRefresh(struct WindowV0 *window, BOOL complete, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    EndRefresh(proxy->native, complete);
+}
+MAKE_PROXY_ARG_3(EndRefresh)
+
 static struct MessageV0 *Intuition_Translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -254,6 +290,8 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
         v0msg->Class = imsg->Class;
         if (imsg->IDCMPWindow == g_nativewindow)
             v0msg->IDCMPWindow = (APTR32)(IPTR)g_v0window;
+        else
+            asm("int3");
 
         v0msg->Code         = imsg->Code;
         v0msg->Qualifier    = imsg->Qualifier;
@@ -264,6 +302,8 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
 
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
+        syncLayerV0((struct LayerProxy *)(IPTR)g_v0window->WLayer);
+
 
         return (struct MessageV0 *)v0msg;
     }
@@ -346,6 +386,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  86, (APTR32)(IPTR)proxy_UnlockPubScreen);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 119, intuitionjmp[165 - 119]);  // FreeClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 118, intuitionjmp[165 - 118]);  // RemoveClass
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  59, (APTR32)(IPTR)proxy_BeginRefresh);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  61, (APTR32)(IPTR)proxy_EndRefresh);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;

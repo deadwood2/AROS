@@ -73,6 +73,21 @@ struct RegionV0 *abiv0_InstallClipRegion(struct LayerV0  *l, struct RegionV0 *re
 }
 MAKE_PROXY_ARG_3(InstallClipRegion)
 
+void abiv0_LockLayerInfo(struct Layer_InfoV0 *li, struct LibraryV0 *LayersBaseV0)
+{
+    struct Layer_Info *linative = (struct Layer_Info *)*(IPTR *)(&li->PrivateReserve1);
+    LockLayerInfo(linative);
+}
+MAKE_PROXY_ARG_2(LockLayerInfo)
+
+void abiv0_UnlockLayerInfo(struct Layer_InfoV0 *li, struct LibraryV0 *LayersBaseV0)
+{
+    struct Layer_Info *linative = (struct Layer_Info *)*(IPTR *)(&li->PrivateReserve1);
+    UnlockLayerInfo(linative);
+}
+MAKE_PROXY_ARG_2(UnlockLayerInfo)
+
+
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
     return GetSysTime(dest);
@@ -118,6 +133,8 @@ LONG_FUNC run_emulation()
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,  29, (APTR32)(IPTR)proxy_InstallClipRegion);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  20, (APTR32)(IPTR)proxy_LockLayerInfo);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  23, (APTR32)(IPTR)proxy_UnlockLayerInfo);
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
