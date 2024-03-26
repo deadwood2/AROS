@@ -162,9 +162,6 @@ LONG_FUNC run_emulation()
     BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
-    /* Set start at first instruction (skip Seg header) */
-    start = (APTR)((IPTR)start + 13);
-
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
     __asm__ volatile(

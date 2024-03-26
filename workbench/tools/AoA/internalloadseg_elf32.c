@@ -201,6 +201,27 @@ static int load_header(BPTR file, struct elfheader *eh, SIPTR *funcarray, struct
     return 1;
 }
 
+/*
+    One entry in a library's jumptable. For assembler compatibility, the
+    field jmp should contain the code for an absolute jmp to a 32bit
+    address. There are also a couple of macros which you should use to
+    access the vector table from C.
+*/
+struct FullJumpVecV0
+{
+    unsigned char jmp;
+    unsigned int  vec;
+} __attribute__((packed));
+
+#define __AROS_SET_FULLJMPV0(v,a) \
+do \
+{  \
+    struct FullJumpVecV0 *_v = v; \
+    _v->jmp = 0xE9; \
+    _v->vec = (unsigned int) ((ULONG)(IPTR)(a) - (ULONG)(IPTR)(_v) - 5);\
+} while (0)
+
+
 static int __attribute__ ((noinline)) load_hunk
 (
     BPTR                 file,
@@ -258,8 +279,6 @@ static int __attribute__ ((noinline)) load_hunk
         hunk->next = 0;
         hunk->size = hunk_size;
 
-#warning TODO should hunk have 64-bit or 32-bit format?
-
         /* In case we are required to honour alignment, and If this section contains
            executable code, create a trampoline to its beginning, so that even if the
            alignment requirements make the actual code go much after the end of the
@@ -268,17 +287,17 @@ static int __attribute__ ((noinline)) load_hunk
         {
             if (sh->flags & SHF_EXECINSTR)
             {
-                sh->addr = (char *)AROS_ROUNDUP2
+                sh->addr = (ULONG)(IPTR)(char *)AROS_ROUNDUP2
                 (
-                    (IPTR)hunk->data + sizeof(struct FullJumpVec), sh->addralign
+                    (IPTR)hunk->data + sizeof(struct FullJumpVecV0), sh->addralign
                 );
-                __AROS_SET_FULLJMP((struct FullJumpVec *)hunk->data, sh->addr);
+                __AROS_SET_FULLJMPV0((struct FullJumpVecV0 *)hunk->data, (void *)(IPTR)sh->addr);
             }
             else
-                sh->addr = (char *)AROS_ROUNDUP2((IPTR)hunk->data, sh->addralign);
+                sh->addr = (ULONG)(IPTR)(char *)AROS_ROUNDUP2((IPTR)hunk->data, sh->addralign);
         }
         else
-            sh->addr = hunk->data;
+            sh->addr = (ULONG)(IPTR)hunk->data;
 
         /* Link the previous one with the new one */
         BPTR2HUNK(*next_hunk_ptr)->next = HUNK2BPTR(hunk);
