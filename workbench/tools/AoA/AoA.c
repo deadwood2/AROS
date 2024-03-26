@@ -55,6 +55,24 @@ struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBa
 }
 MAKE_PROXY_ARG_2(Layers_OpenLib)
 
+#include <proto/layers.h>
+
+#include "abiv0/include/graphics/structures.h"
+#include "abiv0/include/graphics/proxy_structures.h"
+
+struct RegionV0 *abiv0_InstallClipRegion(struct LayerV0  *l, struct RegionV0 *region, struct LibraryV0 *LayersBaseV0)
+{
+    struct LayerProxy *lproxy = (struct LayerProxy *)l;
+    struct RegionProxy *regionproxy = (struct RegionProxy *)region;
+    if (regionproxy)
+        InstallClipRegion(lproxy->native, regionproxy->native);
+    else
+        InstallClipRegion(lproxy->native, NULL);
+
+    return NULL; /* FIXME */
+}
+MAKE_PROXY_ARG_3(InstallClipRegion)
+
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
     return GetSysTime(dest);
@@ -62,7 +80,6 @@ void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 MAKE_PROXY_ARG_2(GetSysTime)
 
 #include <proto/cybergraphics.h>
-#include "abiv0/include/graphics/structures.h"
 
 ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG pixel)
 {
@@ -100,6 +117,7 @@ LONG_FUNC run_emulation()
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  29, (APTR32)(IPTR)proxy_InstallClipRegion);
 
     BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);

@@ -14,12 +14,6 @@
 
 struct ExecBaseV0 *Gfx_SysBaseV0;
 
-struct RegionProxy
-{
-    struct RegionV0 base;
-    struct Region   *native;
-};
-
 struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
 {
     return GfxBaseV0;
