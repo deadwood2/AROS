@@ -172,9 +172,26 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 struct WindowV0 *g_v0window;
 struct Window   *g_nativewindow;
 
-static void syncLayerV0(struct LayerProxy *lproxy)
+static void syncLayerV0(struct LayerProxy *proxy)
 {
-    lproxy->base.Flags              = lproxy->native->Flags;
+    proxy->base.Flags               = proxy->native->Flags;
+}
+
+static void syncWindowV0(struct WindowProxy *proxy)
+{
+    proxy->base.BorderLeft          = proxy->native->BorderLeft;
+    proxy->base.BorderTop           = proxy->native->BorderTop;
+    proxy->base.BorderRight         = proxy->native->BorderRight;
+    proxy->base.BorderBottom        = proxy->native->BorderBottom;
+    proxy->base.Width               = proxy->native->Width;
+    proxy->base.Height              = proxy->native->Height;
+    proxy->base.MaxHeight           = proxy->native->MaxHeight;
+    proxy->base.MinHeight           = proxy->native->MinHeight;
+    proxy->base.MaxWidth            = proxy->native->MaxWidth;
+    proxy->base.MinWidth            = proxy->native->MinWidth;
+    proxy->base.GZZHeight           = proxy->native->GZZHeight;
+    proxy->base.GZZWidth            = proxy->native->GZZWidth;
+    proxy->base.Flags               = proxy->native->Flags;
 }
 
 struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
@@ -192,19 +209,7 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
     *((IPTR *)&rpv0->longreserved) = (IPTR)proxy->native->RPort;
     proxy->base.RPort = (APTR32)(IPTR)rpv0;
 
-    proxy->base.BorderLeft          = proxy->native->BorderLeft;
-    proxy->base.BorderTop           = proxy->native->BorderTop;
-    proxy->base.BorderRight         = proxy->native->BorderRight;
-    proxy->base.BorderBottom        = proxy->native->BorderBottom;
-    proxy->base.Width               = proxy->native->Width;
-    proxy->base.Height              = proxy->native->Height;
-    proxy->base.MaxHeight           = proxy->native->MaxHeight;
-    proxy->base.MinHeight           = proxy->native->MinHeight;
-    proxy->base.MaxWidth            = proxy->native->MaxWidth;
-    proxy->base.MinWidth            = proxy->native->MinWidth;
-    proxy->base.GZZHeight           = proxy->native->GZZHeight;
-    proxy->base.GZZWidth            = proxy->native->GZZWidth;
-    proxy->base.Flags               = proxy->native->Flags;
+    syncWindowV0(proxy);
 
     if (proxy->native->WScreen == g_nativescreen)
     {
@@ -274,6 +279,13 @@ void abiv0_EndRefresh(struct WindowV0 *window, BOOL complete, struct LibraryV0 *
 }
 MAKE_PROXY_ARG_3(EndRefresh)
 
+void abiv0_RefreshWindowFrame(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    RefreshWindowFrame(proxy->native);
+}
+MAKE_PROXY_ARG_2(RefreshWindowFrame)
+
 static struct MessageV0 *Intuition_Translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -302,6 +314,7 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
 
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
+        syncWindowV0((struct WindowProxy *)g_v0window);
         syncLayerV0((struct LayerProxy *)(IPTR)g_v0window->WLayer);
 
 
@@ -388,6 +401,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 118, intuitionjmp[165 - 118]);  // RemoveClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  59, (APTR32)(IPTR)proxy_BeginRefresh);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  61, (APTR32)(IPTR)proxy_EndRefresh);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  76, (APTR32)(IPTR)proxy_RefreshWindowFrame);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
