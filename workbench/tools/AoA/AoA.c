@@ -2,7 +2,7 @@
 #include <exec/types.h>
 #include <aros/debug.h>
 #include <proto/timer.h>
-
+#include <exec/rawfmt.h>
 #include <proto/dos.h>
 
 #include "abiv0/include/exec/functions.h"
@@ -10,6 +10,12 @@
 #include "abiv0/include/aros/cpu.h"
 
 struct LibraryV0 *abiv0TimerBase;
+
+#if 1
+CONST_STRPTR SYSNAME = "SYS";
+#else
+CONST_STRPTR SYSNAME = "WORK";
+#endif
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -113,6 +119,8 @@ struct ExecBaseV0 *init_exec();
 
 LONG_FUNC run_emulation()
 {
+    TEXT path[128];
+
     /* Init ROM */
     struct ExecBaseV0 *SysBaseV0 = init_exec();
 
@@ -126,7 +134,8 @@ LONG_FUNC run_emulation()
 
     init_graphics(SysBaseV0);
 
-    BPTR layersseg = LoadSeg32("SYS:Libs32/partial/layers.library", DOSBase);
+    NewRawDoFmt("%s:Libs32/partial/layers.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    BPTR layersseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
     struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, SysBaseV0);
     /* Remove all vectors for now */
@@ -136,7 +145,8 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0LayersBase,  20, (APTR32)(IPTR)proxy_LockLayerInfo);
     __AROS_SETVECADDRV0(abiv0LayersBase,  23, (APTR32)(IPTR)proxy_UnlockLayerInfo);
 
-    BPTR cgfxseg = LoadSeg32("SYS:Libs32/partial/cybergraphics.library", DOSBase);
+    NewRawDoFmt("%s:Libs32/partial/cybergraphics.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    BPTR cgfxseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
     /* Remove all vectors for now (leave LibOpen) */
@@ -147,9 +157,9 @@ LONG_FUNC run_emulation()
 
 
     /* Start Program */
-
-    BPTR seg = LoadSeg32("SYS:Calculator", DOSBase);
-    // BPTR seg = LoadSeg32("SYS:helloabi", DOSBase);
+    NewRawDoFmt("%s:ABIv0/Calculator", RAWFMTFUNC_STRING, path, SYSNAME);
+    //NewRawDoFmt("%s:ABIv0/helloabi", RAWFMTFUNC_STRING, path, SYSNAME);
+    BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
     /* Set start at first instruction (skip Seg header) */

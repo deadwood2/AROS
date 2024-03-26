@@ -2,6 +2,7 @@
 #include <proto/dos.h>
 #include <aros/debug.h>
 #include <proto/intuition.h>
+#include <exec/rawfmt.h>
 
 #include <string.h>
 
@@ -351,10 +352,13 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
 extern ULONG* segclassesinitlist;
 extern ULONG *seginitlist;
+extern CONST_STRPTR SYSNAME;
 
 void init_intuition(struct ExecBaseV0 *SysBaseV0)
 {
-    BPTR intuitionseg = LoadSeg32("SYS:Libs32/partial/intuition.library", DOSBase);
+    TEXT path[64];
+    NewRawDoFmt("%s:Libs32/partial/intuition.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    BPTR intuitionseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
     struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);
     Intuition_SysBaseV0 = SysBaseV0;

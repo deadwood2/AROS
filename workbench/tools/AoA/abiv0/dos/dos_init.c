@@ -1,6 +1,7 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <aros/debug.h>
+#include <exec/rawfmt.h>
 
 #include <string.h>
 
@@ -354,11 +355,14 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
 extern ULONG *dosfunctable;
 extern ULONG *seginitlist;
+extern CONST_STRPTR SYSNAME;
 
 void init_dos(struct ExecBaseV0 *SysBaseV0)
 {
+    TEXT path[64];
+    NewRawDoFmt("%s:Libs32/partial/dos.library", RAWFMTFUNC_STRING, path, SYSNAME);
     /* Keep it! This fills global variable */
-    LoadSeg32("SYS:Libs32/partial/dos.library", DOSBase);
+    LoadSeg32(path, DOSBase);
 
     APTR tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);

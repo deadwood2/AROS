@@ -1,8 +1,8 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <aros/debug.h>
+#include <exec/rawfmt.h>
 
-#include <stdio.h>
 #include <string.h>
 
 #include "../include/exec/structures.h"
@@ -133,6 +133,8 @@ struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
     }
 }
 
+extern CONST_STRPTR SYSNAME;
+
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
     bug("abiv0_OpenLibrary: %s\n", name);
@@ -149,7 +151,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
         return _ret;
 
     /* Try loading from disk */
-    sprintf(buff, "SYS:Libs32/%s", name);
+    NewRawDoFmt("%s:Libs32/%s", RAWFMTFUNC_STRING, buff, SYSNAME, name);
 
     BPTR seglist = LoadSeg32(buff, DOSBase);
 
@@ -387,13 +389,15 @@ struct ExecBaseV0 *abiv0SysBase;
 struct ExecBaseV0 *init_exec()
 {
     APTR tmp;
+    TEXT path[64];
 
     tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0SysBase = (tmp + 1024);
     global_SysBaseV0Ptr = (APTR32)(IPTR)&abiv0SysBase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
 
     /* Keep it! This fills global variable */
-    LoadSeg32("SYS:Libs32/partial/kernel", DOSBase);
+    NewRawDoFmt("%s:Libs32/partial/kernel", RAWFMTFUNC_STRING, path, SYSNAME);
+    LoadSeg32(path, DOSBase);
 
     NEWLISTV0(&abiv0SysBase->LibList);
     NEWLISTV0(&abiv0SysBase->ResourceList);
