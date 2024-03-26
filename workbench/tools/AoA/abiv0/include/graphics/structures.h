@@ -143,6 +143,56 @@ struct BitMapV0
     APTR32   Planes[8];
 };
 
+struct LayerV0
+{
+    APTR32                    front;
+    APTR32                    back;
+    APTR32                    ClipRect;
+    APTR32                    rp;
+    struct Rectangle          bounds;
+
+    APTR32                    parent; 	    	    	/* PRIVATE !!! */
+    UWORD   	    	      priority;
+    UWORD   	    	      Flags;
+
+    APTR32                    SuperBitMap;
+    APTR32                    SuperClipRect;
+
+    APTR32  	    	      Window;
+    WORD    	    	      Scroll_X;
+    WORD    	    	      Scroll_Y;
+
+    APTR32                    cr;
+    APTR32                    cr2;
+    APTR32                    crnew;
+    APTR32                    SuperSaveClipRects;
+    APTR32                    _cliprects;
+
+    APTR32                    LayerInfo;
+    struct SignalSemaphoreV0  Lock;
+    APTR32                    BackFill;
+
+    APTR32                    VisibleRegion; 	    	/* PRIVATE !!! */
+
+    APTR32                    ClipRegion;
+    APTR32                    saveClipRects;
+
+    WORD    	    	      Width;
+    WORD    	    	      Height;
+
+    APTR32                    shape;	    	    	/* PRIVATE !!! */
+    APTR32                    shaperegion;  	    	/* PRIVATE !!! */
+    APTR32                    visibleshape; 	    	/* PRIVATE !!! */
+
+    UWORD   	    	      nesting;	    	    	/* PRIVATE !!! */
+    UBYTE   	    	      SuperSaveClipRectCounter;	/* PRIVATE !!! */
+    UBYTE   	    	      visible;	    	    	/* PRIVATE !!! */
+
+    UBYTE   	    	      reserved2[2]; 
+
+    APTR32                    DamageList;
+};
+
 struct Layer_InfoV0
 {
     APTR32 top_layer;

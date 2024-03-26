@@ -6,4 +6,16 @@ struct ColorMapProxy
     struct ColorMap *native;
 };
 
+struct LayerProxy
+{
+    struct LayerV0  base;
+    struct Layer    *native;
+};
+
+struct RegionProxy
+{
+    struct RegionV0 base;
+    struct Region   *native;
+};
+
 #endif
