@@ -2,6 +2,7 @@
 #include <proto/dos.h>
 #include <proto/graphics.h>
 #include <aros/debug.h>
+#include <exec/rawfmt.h>
 
 
 #include "../include/exec/structures.h"
@@ -171,9 +172,13 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
+extern CONST_STRPTR SYSNAME;
+
 void init_graphics(struct ExecBaseV0 *SysBaseV0)
 {
-    BPTR graphicsseg = LoadSeg32("SYS:Libs32/partial/graphics.library", DOSBase);
+    TEXT path[64];
+    NewRawDoFmt("%s:Libs32/partial/graphics.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    BPTR graphicsseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
     struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, SysBaseV0);
     Gfx_SysBaseV0 = SysBaseV0;
