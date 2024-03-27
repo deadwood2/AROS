@@ -21,23 +21,33 @@
     "   push $0x2b\n"           \
     "   pop %%ds\n"
 
+#define STORE_ESI_EDI           \
+    "   push %%edi\n"           \
+    "   push %%esi\n"           \
+
+#define RESTORE_ESI_EDI         \
+    "   pop %%esi\n"            \
+    "   pop %%edi\n"            \
+
+/* +8 because of stored esi/edi */
+
 #define COPY_ARG_1              \
-    "   movl 4(%%rsp), %%edi\n"
+    "   movl  4+8(%%rsp), %%edi\n"
 
 #define COPY_ARG_2              \
-    "   movl 8(%%rsp), %%esi\n"
+    "   movl  8+8(%%rsp), %%esi\n"
 
 #define COPY_ARG_3              \
-    "   movl 12(%%rsp), %%edx\n"
+    "   movl 12+8(%%rsp), %%edx\n"
 
 #define COPY_ARG_4              \
-    "   movl 16(%%rsp), %%ecx\n"
+    "   movl 16+8(%%rsp), %%ecx\n"
 
 #define COPY_ARG_5              \
-    "   movl 20(%%rsp), %%r8d\n"
+    "   movl 20+8(%%rsp), %%r8d\n"
 
 #define COPY_ARG_6              \
-    "   movl 24(%%rsp), %%r9d\n"
+    "   movl 24+8(%%rsp), %%r9d\n"
 
 #define ALIGN_STACK64           \
     "   push %%r12\n"           \
