@@ -223,6 +223,13 @@ ULONG abiv0_GetTaskStorageSlot(LONG id)
 }
 MAKE_PROXY_ARG_2(GetTaskStorageSlot)
 
+ULONG abiv0_GetParentTaskStorageSlot(LONG id)
+{
+    IPTR val = GetParentTaskStorageSlot(id);
+    return val;
+}
+MAKE_PROXY_ARG_2(GetParentTaskStorageSlot)
+
 APTR abiv0_OpenResource(CONST_STRPTR resName)
 {
     if (strcmp(resName, "kernel.resource") == 0)
@@ -388,6 +395,9 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
         dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
         dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
 
+        dummy->pr_Task.tc_Flags |= TF_ETASK;
+        dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
+
         g_v0Task = (struct TaskV0 *)dummy;
     }
 
@@ -471,6 +481,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 78, (APTR32)(IPTR)proxy_CheckIO);
     __AROS_SETVECADDRV0(abiv0SysBase, 80, (APTR32)(IPTR)proxy_AbortIO);
     __AROS_SETVECADDRV0(abiv0SysBase, 79, (APTR32)(IPTR)proxy_WaitIO);
+    __AROS_SETVECADDRV0(abiv0SysBase,186, (APTR32)(IPTR)proxy_GetParentTaskStorageSlot);
 
     return abiv0SysBase;
 }
