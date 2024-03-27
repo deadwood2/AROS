@@ -187,12 +187,16 @@ void proxy_OpenLibrary();
 void dummy_OpenLibrary()
 {
     EXTER_PROXY(OpenLibrary)
+    STORE_ESI_EDI
     ENTER64
     COPY_ARG_1
     COPY_ARG_2
     COPY_ARG_3
+    ALIGN_STACK64
     CALL_IMPL64(DOS_OpenLibrary)
+    RESTORE_STACK64
     ENTER32
+    RESTORE_ESI_EDI
     LEAVE_PROXY
 }
 

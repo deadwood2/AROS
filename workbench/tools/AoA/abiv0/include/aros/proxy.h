@@ -21,12 +21,14 @@ void proxy_##fname();           \
 void dummy_##fname()            \
 {                               \
     EXTER_PROXY(fname)          \
+    STORE_ESI_EDI               \
     ENTER64                     \
     COPY_ARG_1                  \
     ALIGN_STACK64               \
     CALL_IMPL64(fname)          \
     RESTORE_STACK64             \
     ENTER32                     \
+    RESTORE_ESI_EDI             \
     LEAVE_PROXY                 \
 }
 
@@ -35,6 +37,7 @@ void proxy_##fname();           \
 void dummy_##fname()            \
 {                               \
     EXTER_PROXY(fname)          \
+    STORE_ESI_EDI               \
     ENTER64                     \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
@@ -42,6 +45,7 @@ void dummy_##fname()            \
     CALL_IMPL64(fname)          \
     RESTORE_STACK64             \
     ENTER32                     \
+    RESTORE_ESI_EDI             \
     LEAVE_PROXY                 \
 }
 
@@ -50,6 +54,7 @@ void proxy_##fname();           \
 void dummy_##fname()            \
 {                               \
     EXTER_PROXY(fname)          \
+    STORE_ESI_EDI               \
     ENTER64                     \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
@@ -58,6 +63,7 @@ void dummy_##fname()            \
     CALL_IMPL64(fname)          \
     RESTORE_STACK64             \
     ENTER32                     \
+    RESTORE_ESI_EDI             \
     LEAVE_PROXY                 \
 }
 
@@ -66,6 +72,7 @@ void proxy_##fname();           \
 void dummy_##fname()            \
 {                               \
     EXTER_PROXY(fname)          \
+    STORE_ESI_EDI               \
     ENTER64                     \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
@@ -75,6 +82,7 @@ void dummy_##fname()            \
     CALL_IMPL64(fname)          \
     RESTORE_STACK64             \
     ENTER32                     \
+    RESTORE_ESI_EDI             \
     LEAVE_PROXY                 \
 }
 
@@ -83,6 +91,7 @@ void proxy_##fname();           \
 void dummy_##fname()            \
 {                               \
     EXTER_PROXY(fname)          \
+    STORE_ESI_EDI               \
     ENTER64                     \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
@@ -93,6 +102,7 @@ void dummy_##fname()            \
     CALL_IMPL64(fname)          \
     RESTORE_STACK64             \
     ENTER32                     \
+    RESTORE_ESI_EDI             \
     LEAVE_PROXY                 \
 }
 
@@ -101,6 +111,7 @@ void proxy_##fname();           \
 void dummy_##fname()            \
 {                               \
     EXTER_PROXY(fname)          \
+    STORE_ESI_EDI               \
     ENTER64                     \
     COPY_ARG_1                  \
     COPY_ARG_2                  \
@@ -112,6 +123,7 @@ void dummy_##fname()            \
     CALL_IMPL64(fname)          \
     RESTORE_STACK64             \
     ENTER32                     \
+    RESTORE_ESI_EDI             \
     LEAVE_PROXY                 \
 }
 
