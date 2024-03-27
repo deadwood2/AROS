@@ -431,4 +431,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 146, dosfunctable[145]);  // PathPart
     __AROS_SETVECADDRV0(abiv0DOSBase,  70, (APTR32)(IPTR)proxy_SameLock);
     __AROS_SETVECADDRV0(abiv0DOSBase,  15, (APTR32)(IPTR)proxy_UnLock);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 142, dosfunctable[141]);  // ErrorOutput
 }

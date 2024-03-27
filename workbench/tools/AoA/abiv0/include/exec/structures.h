@@ -251,6 +251,26 @@ struct MessageV0
 				       structure in the length) */
 };
 
+/* Extended Task structure */
+struct ETaskV0
+{
+    struct MessageV0  et_Message;
+    APTR32	    et_Parent;	     /* Pointer to parent task		*/
+    ULONG	    et_UniqueID;
+    struct MinListV0  et_Children;     /* List of children		*/
+    UWORD	    et_TrapAlloc;
+    UWORD	    et_TrapAble;
+    ULONG	    et_Result1;	    /* First result			*/
+    APTR32	    et_Result2;	    /* Result data pointer (AllocVec)	*/
+    struct MsgPortV0  et_TaskMsgPort;
+    APTR32	    et_Compatibility[4]; /* ABI_V0 compatibility: Reserve this space for compiled software to access iet_startup and iet_acpd */
+    APTR32	    et_MemPool;	    /* Task's private memory pool	*/
+    APTR32	    et_Reserved[1]; /* MorphOS Private                  */
+    APTR32	    et_TaskStorage; /* Task Storage Slots		*/
+    APTR32	    et_RegFrame;
+    /* Internal fields follow */
+};
+
 struct IORequestV0
 {
     struct MessageV0 io_Message;
