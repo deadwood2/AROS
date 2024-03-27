@@ -94,6 +94,37 @@ VOID abiv0_Permit(struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_1(Permit)
 
+void nss_trampoline();
+static void dummy_nss_trampoline()
+{
+    __asm__ volatile(
+    "nss_trampoline:\n"
+    ENTER32
+    "   push %%esi\n"
+    "   call *%%edi\n"
+    "   add $4, %%esp\n"
+    ENTER64
+    "   ret\n"
+    :::);
+}
+
+IPTR abiv0_NewStackSwap(struct StackSwapStructV0 *sss, LONG_FUNC entry, struct StackSwapArgsV0 *args, struct ExecBaseV0 *SysBaseV0)
+{
+    struct StackSwapStruct sssnative;
+    sssnative.stk_Pointer   = (APTR)(IPTR)sss->stk_Upper;
+    sssnative.stk_Lower     = (APTR)(IPTR)sss->stk_Lower;
+    sssnative.stk_Upper     = (APTR)(IPTR)sss->stk_Upper;
+
+    struct StackSwapArgs argsnative;
+    argsnative.Args[0]      = (IPTR)entry;
+    argsnative.Args[1]      = args->Args[0];
+
+bug("abiv0_NewStackSwap: STUB\n");
+
+    return NewStackSwap(&sssnative, nss_trampoline, &argsnative);
+}
+MAKE_PROXY_ARG_4(NewStackSwap)
+
 VOID abiv0_AddMemHandler(APTR memHandler, struct ExecBaseV0 *SysBaseV0)
 {
     bug("abiv0_AddMemHandler ignored\n");
@@ -261,6 +292,13 @@ bug("abiv0_OpenDevice: input.device STUB\n");
         return 0;
     }
 
+    if (strcmp(devName, "console.device") == 0)
+    {
+bug("abiv0_OpenDevice: input.device STUB\n");
+        iORequest->io_Device = 0;
+        return 0;
+    }
+
 
 asm("int3");
     return 0;
@@ -322,6 +360,33 @@ void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
     }
 }
 MAKE_PROXY_ARG_2(ReplyMsg)
+
+/// hack just for NList
+struct MsgPortV0 *rport;
+
+void abiv0_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
+{
+    rport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
+    message->mn_Node.ln_Name = 0x1;
+bug("abiv0_PutMsg: STUB\n");
+}
+MAKE_PROXY_ARG_3(PutMsg)
+
+struct MessageV0 *abiv0_WaitPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
+{
+    if (port == rport)
+    {
+bug("abiv0_WaitPort: STUB\n");
+        rport = NULL;
+        struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
+        ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
+        return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
+    }
+asm("int3");
+    return NULL;
+}
+MAKE_PROXY_ARG_2(WaitPort)
+///
 
 ULONG abiv0_Wait(ULONG signalSet, struct ExecBaseV0 *SysBaseV0)
 {
@@ -482,6 +547,9 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 80, (APTR32)(IPTR)proxy_AbortIO);
     __AROS_SETVECADDRV0(abiv0SysBase, 79, (APTR32)(IPTR)proxy_WaitIO);
     __AROS_SETVECADDRV0(abiv0SysBase,186, (APTR32)(IPTR)proxy_GetParentTaskStorageSlot);
+    __AROS_SETVECADDRV0(abiv0SysBase, 61, (APTR32)(IPTR)proxy_PutMsg);
+    __AROS_SETVECADDRV0(abiv0SysBase, 64, (APTR32)(IPTR)proxy_WaitPort);
+    __AROS_SETVECADDRV0(abiv0SysBase,134, (APTR32)(IPTR)proxy_NewStackSwap);
 
     return abiv0SysBase;
 }

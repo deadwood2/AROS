@@ -83,6 +83,22 @@ do                                                      \
                                                          \
     (n && n->ln_Succ && ((struct NodeV0 *)(IPTR)n->ln_Succ)->ln_Succ) ? (struct NodeV0 *)(IPTR)n->ln_Succ : (struct NodeV0 *)0; \
 })
+
+#define ADDHEADV0(_l,_n)                                  \
+do                                                      \
+{                                                       \
+    struct NodeV0 *__aros_node_tmp = (struct NodeV0 *)(_n), \
+                *n = __aros_node_tmp;                   \
+    struct ListV0 *__aros_list_tmp = (struct ListV0 *)(_l), \
+                *l = __aros_list_tmp;                   \
+                                                        \
+    n->ln_Succ          = l->lh_Head;                   \
+    n->ln_Pred          = (APTR32)(IPTR)(struct Node *)&l->lh_Head;   \
+    ((struct NodeV0 *)(IPTR)l->lh_Head)->ln_Pred = (APTR32)(IPTR)n;                            \
+    l->lh_Head          = (APTR32)(IPTR)n;                            \
+} while (0)
+
+
 struct LibraryV0 {
     struct  NodeV0 lib_Node;
     UBYTE   lib_Flags;
@@ -195,6 +211,19 @@ struct ExecBaseV0
     struct ListV0      IntrList;
     struct ListV0      LibList;
     struct ListV0      PortList;
+};
+
+/* Stack swap structure as passed to StackSwap() */
+struct StackSwapStructV0
+{
+    APTR32  stk_Lower;   /* Lowest byte of stack */
+    APTR32  stk_Upper;   /* Upper end of stack (size + Lowest) */
+    APTR32  stk_Pointer; /* Stack pointer at switch point */
+};
+
+struct StackSwapArgsV0
+{
+    ULONG Args[8];          /* The C function arguments */
 };
 
 /* You must use Exec functions to modify task structure fields. */
