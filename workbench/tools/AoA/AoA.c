@@ -177,6 +177,8 @@ LONG_FUNC run_emulation()
     "   .code32\n"
     "   push $0x2b\n"
     "   pop %%ds\n"
+    "   push $0x2b\n"
+    "   pop %%es\n"
     "   mov $0x0, %%eax\n"
     "   push %%edx\n" //SysBase
     "   push %%eax\n" //argsize
