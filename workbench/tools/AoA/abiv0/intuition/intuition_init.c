@@ -343,6 +343,13 @@ void abiv0_RefreshWindowFrame(struct WindowV0 *window, struct LibraryV0 *Intuiti
 }
 MAKE_PROXY_ARG_2(RefreshWindowFrame)
 
+BOOL abiv0_SetMenuStrip(struct WindowV0 *window, APTR32 menu, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_SetMenuStrip: STUB\n");
+    return TRUE;
+}
+MAKE_PROXY_ARG_3(SetMenuStrip)
+
 static struct MessageV0 *Intuition_Translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -463,6 +470,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  59, (APTR32)(IPTR)proxy_BeginRefresh);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  61, (APTR32)(IPTR)proxy_EndRefresh);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  76, (APTR32)(IPTR)proxy_RefreshWindowFrame);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  44, (APTR32)(IPTR)proxy_SetMenuStrip);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
