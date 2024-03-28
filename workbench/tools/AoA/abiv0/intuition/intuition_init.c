@@ -226,9 +226,6 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 
 }
 
-struct WindowV0 *g_v0window;
-struct Window   *g_nativewindow;
-
 static void syncLayerV0(struct LayerProxy *proxy)
 {
     proxy->base.Flags               = proxy->native->Flags;
@@ -249,6 +246,47 @@ static void syncWindowV0(struct WindowProxy *proxy)
     proxy->base.GZZHeight           = proxy->native->GZZHeight;
     proxy->base.GZZWidth            = proxy->native->GZZWidth;
     proxy->base.Flags               = proxy->native->Flags;
+}
+
+struct WindowProxy *wmarray[100];
+
+static void wmAdd(struct WindowProxy *proxy)
+{
+    for (LONG i = 0; i < 100; i++)
+    {
+        if (wmarray[i] == NULL)
+        {
+            wmarray[i] = proxy;
+            return;
+        }
+    }
+asm("int3");
+}
+
+static void wmRemove(struct WindowProxy *proxy)
+{
+    for (LONG i = 0; i < 100; i++)
+    {
+        if (wmarray[i] == proxy)
+        {
+            wmarray[i] = NULL;
+            return;
+        }
+    }
+asm("int3");
+}
+
+static struct WindowProxy * wmGetByWindow(struct Window *native)
+{
+    for (LONG i = 0; i < 100; i++)
+    {
+        if (wmarray[i]->native == native)
+        {
+            return wmarray[i];
+        }
+    }
+asm("int3");
+    return NULL;
 }
 
 struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
@@ -293,8 +331,7 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
 asm("int3");
     }
 
-    g_v0window = &proxy->base;
-    g_nativewindow = wndnative;
+    wmAdd(proxy);
 
 bug("abiv0_OpenWindowTagList: STUB\n");
     return (struct WindowV0 *)proxy;
@@ -318,6 +355,7 @@ MAKE_PROXY_ARG_2(ClearMenuStrip)
 void abiv0_CloseWindow(struct Window *window, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *proxy = (struct WindowProxy *)window;
+    wmRemove(proxy);
     return CloseWindow(proxy->native);
 }
 MAKE_PROXY_ARG_2(CloseWindow)
@@ -350,7 +388,7 @@ bug("abiv0_SetMenuStrip: STUB\n");
 }
 MAKE_PROXY_ARG_3(SetMenuStrip)
 
-static struct MessageV0 *Intuition_Translate(struct Message *native)
+static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
 
@@ -364,8 +402,9 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
         v0msg->Class = imsg->Class;
-        if (imsg->IDCMPWindow == g_nativewindow)
-            v0msg->IDCMPWindow = (APTR32)(IPTR)g_v0window;
+        struct WindowProxy *proxy = wmGetByWindow(imsg->IDCMPWindow);
+        if (proxy != NULL)
+            v0msg->IDCMPWindow = (APTR32)(IPTR)proxy;
         else
             asm("int3");
 
@@ -378,8 +417,8 @@ static struct MessageV0 *Intuition_Translate(struct Message *native)
 
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
-        syncWindowV0((struct WindowProxy *)g_v0window);
-        syncLayerV0((struct LayerProxy *)(IPTR)g_v0window->WLayer);
+        syncWindowV0((struct WindowProxy *)proxy);
+        syncLayerV0((struct LayerProxy *)(IPTR)proxy->base.WLayer);
 
 
         return (struct MessageV0 *)v0msg;
@@ -397,7 +436,7 @@ BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *I
     if (msgpproxy != NULL)
     {
         winproxy->native->UserPort = msgpproxy->native;
-        msgpproxy->translate = Intuition_Translate;
+        msgpproxy->translate = IntuiMessage_translate;
     }
     else
     {
