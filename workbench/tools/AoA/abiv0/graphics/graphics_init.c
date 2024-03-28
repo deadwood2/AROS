@@ -24,13 +24,24 @@ MAKE_PROXY_ARG_2(Gfx_OpenLib)
 ULONG abiv0_GetBitMapAttr(struct BitMapV0 *bitmap, ULONG attribute, struct LibraryV0 *GfxBaseV0)
 {
 bug("abiv0_GetBitMapAttr: STUB\n");
+
     if (attribute == BMA_DEPTH)
     {
         return 24;
+    } else if (attribute == BMA_WIDTH)
+    {
+        return 32;
     }
 asm("int3");
 }
 MAKE_PROXY_ARG_3(GetBitMapAttr)
+
+struct ExtSprite *abiv0_AllocSpriteDataA(struct BitMapV0 *bitmap, struct TagItemV0 *tagList, struct LibraryV0 *GfxBaseV0)
+{
+bug("abiv0_AllocSpriteDataA: STUB\n");
+    return NULL;
+}
+MAKE_PROXY_ARG_3(AllocSpriteDataA)
 
 void abiv0_GetRGB32(struct ColorMapV0 * cm, ULONG firstcolor, ULONG ncolors, ULONG *table, struct LibraryV0 *GfxBaseV0)
 {
@@ -102,6 +113,13 @@ void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0
     SetAPen(rpnative, pen);
 }
 MAKE_PROXY_ARG_3(SetAPen)
+
+void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    SetABPenDrMd(rpnative, apen, bpen, drawMode);
+}
+MAKE_PROXY_ARG_5(SetABPenDrMd)
 
 void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
@@ -217,4 +235,8 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  54, (APTR32)(IPTR)proxy_WritePixel);
     __AROS_SETVECADDRV0(abiv0GfxBase, 158, (APTR32)(IPTR)proxy_ReleasePen);
     __AROS_SETVECADDRV0(abiv0GfxBase,  13, (APTR32)(IPTR)proxy_CloseFont);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 170, (APTR32)(IPTR)proxy_AllocSpriteDataA);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 127, graphicsjmp[202 - 127]);  // FontExtent
+    __AROS_SETVECADDRV0(abiv0GfxBase, 115, graphicsjmp[202 - 115]);  // TextExtent
+    __AROS_SETVECADDRV0(abiv0GfxBase, 149, (APTR32)(IPTR)proxy_SetABPenDrMd);
 }
