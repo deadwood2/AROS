@@ -19,7 +19,10 @@
     "   .code32\n"              \
     "2:\n"                      \
     "   push $0x2b\n"           \
-    "   pop %%ds\n"
+    "   pop %%ds\n"             \
+    "   push $0x2b\n"           \
+    "   pop %%es\n"
+
 
 #define STORE_ESI_EDI           \
     "   push %%edi\n"           \
