@@ -76,6 +76,12 @@ APTR abiv0_AllocVecPooled(APTR poolHeader, ULONG memSize, struct ExecBaseV0 *Sys
 }
 MAKE_PROXY_ARG_3(AllocVecPooled)
 
+void abiv0_FreeVecPooled(APTR poolHeader, APTR memory, struct ExecBaseV0 *SysBaseV0)
+{
+    return FreeVecPooled(poolHeader, memory);
+}
+MAKE_PROXY_ARG_3(FreeVecPooled)
+
 ULONG abiv0_TypeOfMem(APTR address, struct ExecBaseV0 *SysBaseV0)
 {
     return TypeOfMem(address);
@@ -551,6 +557,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 61, (APTR32)(IPTR)proxy_PutMsg);
     __AROS_SETVECADDRV0(abiv0SysBase, 64, (APTR32)(IPTR)proxy_WaitPort);
     __AROS_SETVECADDRV0(abiv0SysBase,134, (APTR32)(IPTR)proxy_NewStackSwap);
+    __AROS_SETVECADDRV0(abiv0SysBase,150, (APTR32)(IPTR)proxy_FreeVecPooled);
 
     return abiv0SysBase;
 }
