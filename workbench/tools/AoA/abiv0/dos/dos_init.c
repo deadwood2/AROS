@@ -19,6 +19,8 @@ extern struct LibraryV0 *abiv0TimerBase;
 
 struct DosLibraryV0 *abiv0DOSBase;
 
+extern ULONG *dosfunctable;
+
 struct FileLockProxy
 {
     BPTR native;
@@ -209,6 +211,25 @@ APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosL
         struct ExAllControlProxy *proxy = abiv0_AllocMem(sizeof(struct ExAllControlProxy), MEMF_CLEAR, DOS_SysBaseV0);
         proxy->native = eac;
         return proxy;
+    } else if (type == DOS_RDARGS && tags == NULL)
+    {
+        /* Call original function */
+        __asm__ volatile (
+            "subq $12, %%rsp\n"
+            "movl %3, %%eax\n"
+            "movl %%eax, 8(%%rsp)\n"
+            "movl %2, %%eax\n"
+            "movl %%eax, 4(%%rsp)\n"
+            "movl %1, %%eax\n"
+            "movl %%eax, (%%rsp)\n"
+            "movl %0, %%eax\n"
+            ENTER32
+            "call *%%eax\n"
+            ENTER64
+            "addq $12, %%rsp\n"
+            "leave\n"
+            "ret\n"
+            ::"m"(dosfunctable[37]), "m"(type), "m"(tags), "m"(DOSBaseV0) : "%rax", "%rcx");
     }
 asm("int3");
 }
@@ -228,6 +249,25 @@ void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
         FreeDosObject(type, proxy->native);
         abiv0_FreeMem(proxy, sizeof(struct ExAllControlProxy), DOS_SysBaseV0);
         return;
+    } else if (type == DOS_RDARGS)
+    {
+        /* Call original function */
+        __asm__ volatile (
+            "subq $12, %%rsp\n"
+            "movl %3, %%eax\n"
+            "movl %%eax, 8(%%rsp)\n"
+            "movl %2, %%eax\n"
+            "movl %%eax, 4(%%rsp)\n"
+            "movl %1, %%eax\n"
+            "movl %%eax, (%%rsp)\n"
+            "movl %0, %%eax\n"
+            ENTER32
+            "call *%%eax\n"
+            ENTER64
+            "addq $12, %%rsp\n"
+            "leave\n"
+            "ret\n"
+            ::"m"(dosfunctable[38]), "m"(type), "m"(ptr), "m"(DOSBaseV0) : "%rax", "%rcx");
     }
 asm("int3");
 }
@@ -353,7 +393,6 @@ struct IntDosBaseV0
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
-extern ULONG *dosfunctable;
 extern ULONG *seginitlist;
 extern CONST_STRPTR SYSNAME;
 
