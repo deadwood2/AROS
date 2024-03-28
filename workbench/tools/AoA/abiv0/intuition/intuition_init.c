@@ -38,34 +38,69 @@ MAKE_PROXY_ARG_2(Intuition_OpenLib)
 struct ScreenV0 *g_v0screen;
 struct Screen   *g_nativescreen;
 
+struct TextFontV0 *makeTextFontV0(struct TextFont *native)
+{
+    struct TextFontV0 *v0tf = abiv0_AllocMem(sizeof(struct TextFontV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    v0tf->tf_YSize          = native->tf_YSize;
+    v0tf->tf_Style          = native->tf_Style;
+    v0tf->tf_Flags          = native->tf_Flags;
+    v0tf->tf_XSize          = native->tf_XSize;
+    v0tf->tf_Baseline       = native->tf_Baseline;
+    v0tf->tf_BoldSmear      = native->tf_BoldSmear;
+    v0tf->tf_Accessors      = native->tf_Accessors;
+    v0tf->tf_LoChar         = native->tf_LoChar;
+    v0tf->tf_HiChar         = native->tf_HiChar;
+    v0tf->tf_CharData       = (APTR32)(IPTR)NULL;
+    v0tf->tf_Modulo         = native->tf_Modulo;
+
+    LONG arrlen = v0tf->tf_HiChar - v0tf->tf_LoChar + 1;
+    APTR buff;
+
+    buff = abiv0_AllocMem(arrlen * sizeof(LONG), MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(native->tf_CharLoc, buff, arrlen * sizeof(LONG));
+    v0tf->tf_CharLoc        = (APTR32)(IPTR)buff;
+
+    buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(native->tf_CharSpace, buff, arrlen * sizeof(WORD));
+    v0tf->tf_CharSpace      = (APTR32)(IPTR)buff;
+
+
+    buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(native->tf_CharKern, buff, arrlen * sizeof(WORD));
+    v0tf->tf_CharKern       = (APTR32)(IPTR)buff;
+
+}
+
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
-    struct Screen *scr = LockPubScreen(name);
-    if (scr == NULL)
+    struct Screen *native = LockPubScreen(name);
+    if (native == NULL)
         return NULL;
 
     struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    proxy->base.Width   = scr->Width;
-    proxy->base.Height  = scr->Height;
-    proxy->native       = scr;
+    proxy->base.Width   = native->Width;
+    proxy->base.Height  = native->Height;
+    proxy->native       = native;
 
     struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    cmproxy->native = scr->ViewPort.ColorMap;
+    cmproxy->native = native->ViewPort.ColorMap;
     proxy->base.ViewPort.ColorMap = (APTR32)(IPTR)cmproxy;
 
     struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
-    v0font->ta_YSize    = scr->Font->ta_YSize;
-    v0font->ta_Flags    = scr->Font->ta_Flags;
-    v0font->ta_Style    = scr->Font->ta_Style;
-    STRPTR v0font_name = abiv0_AllocMem(strlen(scr->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(scr->Font->ta_Name, v0font_name, strlen(scr->Font->ta_Name) + 1);
+    v0font->ta_YSize    = native->Font->ta_YSize;
+    v0font->ta_Flags    = native->Font->ta_Flags;
+    v0font->ta_Style    = native->Font->ta_Style;
+    STRPTR v0font_name = abiv0_AllocMem(strlen(native->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(native->Font->ta_Name, v0font_name, strlen(native->Font->ta_Name) + 1);
     v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
 
     proxy->base.Font = (APTR32)(IPTR)v0font;
 
-    *(IPTR *)(&proxy->base.LayerInfo.PrivateReserve1) = (IPTR)&scr->LayerInfo;
+    *(IPTR *)(&proxy->base.LayerInfo.PrivateReserve1) = (IPTR)&native->LayerInfo;
 
-    g_nativescreen = scr;
+    proxy->base.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font);
+
+    g_nativescreen = native;
     g_v0screen = &proxy->base;
 
 bug("abiv0_LockPubScreen: STUB\n");
@@ -93,13 +128,15 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     if (dri == NULL)
         return NULL;
 
-    struct DrawInfoV0 *ret = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
-    ret->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(dri->dri_Pens, (APTR)(IPTR)ret->dri_Pens, NUMDRIPENS * sizeof(UWORD));
-    ret->dri_Font = proxy->base.Font;
+    struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(dri->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
+
+
+    v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font);
 
 bug("abiv0_GetScreenDrawInfo: STUB\n");
-    return ret;
+    return v0dri;
 }
 MAKE_PROXY_ARG_2(GetScreenDrawInfo)
 
