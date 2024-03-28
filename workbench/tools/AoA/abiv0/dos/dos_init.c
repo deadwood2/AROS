@@ -111,6 +111,12 @@ BOOL abiv0_Close(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(Close)
 
+BOOL abiv0_IsFileSystem(CONST_STRPTR devicename, struct DosLibraryV0 *DOSBaseV0)
+{
+    return IsFileSystem(devicename);
+}
+MAKE_PROXY_ARG_2(IsFileSystem)
+
 static struct FileLockProxy *makeFileLockProxy(BPTR native)
 {
     struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_ANY, DOS_SysBaseV0);
@@ -471,4 +477,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  70, (APTR32)(IPTR)proxy_SameLock);
     __AROS_SETVECADDRV0(abiv0DOSBase,  15, (APTR32)(IPTR)proxy_UnLock);
     __AROS_SETVECADDRV0(abiv0DOSBase, 142, dosfunctable[141]);  // ErrorOutput
+    __AROS_SETVECADDRV0(abiv0DOSBase, 118, (APTR32)(IPTR)proxy_IsFileSystem);
 }
