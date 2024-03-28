@@ -217,6 +217,25 @@ struct Layer_InfoV0
     APTR32 LayerInfo_extra;
 };
 
+struct TextFontV0
+{
+    struct MessageV0 tf_Message;
+    UWORD	   tf_YSize;
+    UBYTE	   tf_Style;
+    UBYTE	   tf_Flags;
+    UWORD	   tf_XSize;
+    UWORD	   tf_Baseline;
+    UWORD	   tf_BoldSmear;
+    UWORD	   tf_Accessors;
+    UBYTE	   tf_LoChar;
+    UBYTE	   tf_HiChar;
+    APTR32	   tf_CharData;
+    UWORD	   tf_Modulo;
+    APTR32	   tf_CharLoc;
+    APTR32	   tf_CharSpace;
+    APTR32	   tf_CharKern;
+};
+
 /* Text Attributes */
 struct TextAttrV0
 {
