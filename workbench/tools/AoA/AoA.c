@@ -161,6 +161,11 @@ LONG_FUNC run_emulation()
     BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
+    /* Make sure PROGDIR: is correct */
+    *(PathPart(path)) = '\0';
+    BPTR progdir = Lock(path, SHARED_LOCK);
+    BPTR oldprogdir = SetProgramDir(progdir);
+
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
     __asm__ volatile(
@@ -192,6 +197,9 @@ LONG_FUNC run_emulation()
     "   .code64\n"
     "finished:"
         :: "m"(start), "m" (SysBaseV0) :);
+
+    SetProgramDir(oldprogdir);
+    UnLock(progdir);
 }
 
 struct timerequest tr;
