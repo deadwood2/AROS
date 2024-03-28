@@ -60,6 +60,7 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     STRPTR v0font_name = abiv0_AllocMem(strlen(scr->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(scr->Font->ta_Name, v0font_name, strlen(scr->Font->ta_Name) + 1);
     v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
+
     proxy->base.Font = (APTR32)(IPTR)v0font;
 
     *(IPTR *)(&proxy->base.LayerInfo.PrivateReserve1) = (IPTR)&scr->LayerInfo;
@@ -363,6 +364,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);
     Intuition_SysBaseV0 = SysBaseV0;
 
+
     /* Remove all vectors for now */
     const ULONG intuitionjmpsize = 165 * sizeof(APTR32);
     APTR32 *intuitionjmp = AllocMem(intuitionjmpsize, MEMF_CLEAR);
@@ -428,4 +430,5 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
 
     /* Set internal Intuition pointer of utility */
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x64) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
 }

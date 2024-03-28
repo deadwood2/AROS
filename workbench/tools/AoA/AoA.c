@@ -130,8 +130,6 @@ LONG_FUNC run_emulation()
 
     init_dos(SysBaseV0);
 
-    init_intuition(SysBaseV0);
-
     init_graphics(SysBaseV0);
 
     NewRawDoFmt("%s:Libs32/partial/layers.library", RAWFMTFUNC_STRING, path, SYSNAME);
@@ -153,7 +151,7 @@ LONG_FUNC run_emulation()
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
 
-
+    init_intuition(SysBaseV0);
 
 
     /* Start Program */
