@@ -171,13 +171,14 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
     bug("abiv0_OpenLibrary: %s\n", name);
     TEXT buff[64];
     struct LibraryV0 *_ret;
+    STRPTR stripped_name = FilePart(name);
 
     /* Special case */
-    if (strcmp(name, "dos.library") == 0)
+    if (strcmp(stripped_name, "dos.library") == 0)
         return abiv0DOSBase;
 
     /* Call Exec function, maybe the library is already available */
-    _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
+    _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
     if (_ret)
         return _ret;
 
@@ -204,7 +205,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
             */
         // Forbid();
         abiv0_InitResident(res, seglist, SysBaseV0);
-        _ret = abiv0_OpenLibrary(name, version, SysBaseV0);
+        _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
         // Permit();
         (bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
 
