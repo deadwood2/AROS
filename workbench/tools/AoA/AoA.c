@@ -109,6 +109,14 @@ ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWOR
 }
 MAKE_PROXY_ARG_6(FillPixelArray)
 
+ULONG abiv0_WritePixelArrayAlpha(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, struct RastPortV0 *rp,
+    UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG globalalpha)
+{
+bug("abiv0_WritePixelArrayAlpha: STUB\n");
+    return 1;
+}
+MAKE_PROXY_ARG_6(WritePixelArrayAlpha)
+
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
@@ -150,6 +158,7 @@ LONG_FUNC run_emulation()
     /* Remove all vectors for now (leave LibOpen) */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);
 
     init_intuition(SysBaseV0);
 
