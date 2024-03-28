@@ -121,6 +121,23 @@ bug("abiv0_ScreenDepth: STUB\n");
 }
 MAKE_PROXY_ARG_4(ScreenDepth)
 
+
+struct ImageV0 *makeImageV0(struct Image *native)
+{
+    struct ImageV0 *v0img = abiv0_AllocMem(sizeof(struct ImageV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    v0img->LeftEdge     = native->LeftEdge;
+    v0img->TopEdge      = native->TopEdge;
+    v0img->Width        = native->Width;
+    v0img->Height       = native->Height;
+    v0img->Depth        = native->Depth;
+    v0img->ImageData    = (APTR32)(IPTR)NULL;
+    v0img->PlanePick    = native->PlanePick;
+    v0img->PlaneOnOff   = native->PlaneOnOff;
+    v0img->NextImage    = (APTR32)(IPTR)NULL;
+
+    return v0img;
+}
+
 struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct LibraryV0 *IntuitionBaseV0)
 {
     struct ScreenProxy *proxy = (struct ScreenProxy *)screen;
@@ -132,6 +149,7 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(dri->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
 
+    v0dri->dri_AmigaKey = (APTR32)(IPTR)makeImageV0(dri->dri_AmigaKey);
 
     v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font);
 

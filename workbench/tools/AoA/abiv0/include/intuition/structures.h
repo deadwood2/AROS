@@ -128,6 +128,23 @@ struct WindowV0
     APTR32 parent;      // parent of this window
 };
 
+			   /***** Images *****/
+
+struct ImageV0
+{
+    WORD LeftEdge;
+    WORD TopEdge;
+    WORD Width;
+    WORD Height;
+
+    WORD    Depth;
+    APTR32 ImageData;
+    UBYTE   PlanePick;
+    UBYTE   PlaneOnOff;
+
+    APTR32 NextImage;
+};
+
 struct DrawInfoV0
 {
     UWORD             dri_Version; /* see below */
