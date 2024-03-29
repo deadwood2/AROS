@@ -93,6 +93,19 @@ void abiv0_UnlockLayerInfo(struct Layer_InfoV0 *li, struct LibraryV0 *LayersBase
 }
 MAKE_PROXY_ARG_2(UnlockLayerInfo)
 
+void abiv0_LockLayer(LONG dummy, struct LayerV0 *layer, struct LibraryV0 *LayersBaseV0)
+{
+    struct LayerProxy *proxy = (struct LayerProxy *)layer;
+    LockLayer(dummy, proxy->native);
+}
+MAKE_PROXY_ARG_3(LockLayer)
+
+void abiv0_UnlockLayer(struct LayerV0 *layer, struct LibraryV0 *LayersBaseV0)
+{
+    struct LayerProxy *proxy = (struct LayerProxy *)layer;
+    UnlockLayer(proxy->native);
+}
+MAKE_PROXY_ARG_2(UnlockLayer)
 
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
@@ -150,6 +163,8 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0LayersBase,  29, (APTR32)(IPTR)proxy_InstallClipRegion);
     __AROS_SETVECADDRV0(abiv0LayersBase,  20, (APTR32)(IPTR)proxy_LockLayerInfo);
     __AROS_SETVECADDRV0(abiv0LayersBase,  23, (APTR32)(IPTR)proxy_UnlockLayerInfo);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  16, (APTR32)(IPTR)proxy_LockLayer);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  17, (APTR32)(IPTR)proxy_UnlockLayer);
 
     NewRawDoFmt("%s:Libs32/partial/cybergraphics.library", RAWFMTFUNC_STRING, path, SYSNAME);
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
