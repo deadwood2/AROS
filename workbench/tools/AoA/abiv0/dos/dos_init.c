@@ -175,6 +175,15 @@ BPTR abiv0_DupLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(DupLock)
 
+BOOL abiv0_NameFromLock(BPTR lock, STRPTR buffer, LONG length, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
+    /* ABI_V0 compatibility MISSING */
+    /* Up to 2010-12-03 NameFromFH was an alias/define to NameFromLock. Example: HFinder */
+    return NameFromLock(proxy->native, buffer, length);
+}
+MAKE_PROXY_ARG_4(NameFromLock)
+
 LONG abiv0_SameLock(BPTR lock1, BPTR lock2, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileLockProxy *proxy1 = (struct FileLockProxy *)lock1;
@@ -478,4 +487,6 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  15, (APTR32)(IPTR)proxy_UnLock);
     __AROS_SETVECADDRV0(abiv0DOSBase, 142, dosfunctable[141]);  // ErrorOutput
     __AROS_SETVECADDRV0(abiv0DOSBase, 118, (APTR32)(IPTR)proxy_IsFileSystem);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  67, (APTR32)(IPTR)proxy_NameFromLock);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 161, dosfunctable[160]);  // ParsePatternNoCase
 }

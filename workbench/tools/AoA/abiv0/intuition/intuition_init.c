@@ -163,7 +163,8 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
     CopyMem(dri->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
 
-    v0dri->dri_AmigaKey = (APTR32)(IPTR)makeImageV0(dri->dri_AmigaKey);
+    v0dri->dri_AmigaKey     = (APTR32)(IPTR)makeImageV0(dri->dri_AmigaKey);
+    v0dri->dri_CheckMark    = (APTR32)(IPTR)makeImageV0(dri->dri_CheckMark);
     v0dri->dri_Version  = dri->dri_Version;
     v0dri->dri_Flags    = dri->dri_Flags;
     v0dri->dri_Font     = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font);
@@ -306,6 +307,13 @@ asm("int3");
     return NULL;
 }
 
+static struct RastPortV0 *makeRastPortV0(struct RastPort *native)
+{
+    struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    *((IPTR *)&rpv0->longreserved) = (IPTR)native;
+    return rpv0;
+}
+
 struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     if (newWindow != NULL) asm("int3");
@@ -314,12 +322,9 @@ struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow,
     struct Window *wndnative = OpenWindowTagList(NULL, tagListNative);
 
     struct WindowProxy *proxy = abiv0_AllocMem(sizeof(struct WindowProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Intuition_SysBaseV0);
-
     proxy->native = wndnative;
 
-    *((IPTR *)&rpv0->longreserved) = (IPTR)proxy->native->RPort;
-    proxy->base.RPort = (APTR32)(IPTR)rpv0;
+    proxy->base.RPort = (APTR32)(IPTR)makeRastPortV0(proxy->native->RPort);
 
     syncWindowV0(proxy);
 
@@ -476,6 +481,36 @@ BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *I
 }
 MAKE_PROXY_ARG_2(ModifyIDCMP);
 
+#include <intuition/cghooks.h>
+
+struct RastPortV0 *abiv0_ObtainGIRPort(struct GadgetInfoV0 *gInfo, struct LibraryV0 *IntuitionBaseV0)
+{
+    if (gInfo && gInfo->gi_RastPort)
+    {
+        struct RastPortV0 *v0girp = (struct RastPortV0 *)(IPTR)gInfo->gi_RastPort;
+        struct RastPort *girpnative = (struct RastPort *)*(IPTR *)&v0girp->longreserved;
+        struct GadgetInfo *ginative = AllocMem(sizeof(struct GadgetInfo), MEMF_CLEAR);
+        ginative->gi_RastPort = girpnative;
+
+        struct RastPort *rpnative = ObtainGIRPort(ginative);
+        FreeMem(ginative, sizeof(struct GadgetInfo));
+
+        return makeRastPortV0(rpnative);
+    }
+    else
+    {
+        return NULL;
+    }
+}
+MAKE_PROXY_ARG_2(ObtainGIRPort);
+
+BOOL abiv0_ActivateGadget(struct Gadget *gadget, struct WindowV0 *window, struct Requester *requester, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_ActivateGadget: STUB\n");
+    return TRUE;
+}
+MAKE_PROXY_ARG_2(ActivateGadget);
+
 APTR32 *intuitionjmp;
 
 APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0)
@@ -567,6 +602,10 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  44, (APTR32)(IPTR)proxy_SetMenuStrip);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 136, (APTR32)(IPTR)proxy_SetWindowPointerA);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  17, (APTR32)(IPTR)proxy_DoubleClick);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 110, intuitionjmp[165 - 110]);  // SetGadgetAttrs
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  93, (APTR32)(IPTR)proxy_ObtainGIRPort);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 145, intuitionjmp[165 - 145]);  // DoNotify
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  77, (APTR32)(IPTR)proxy_ActivateGadget);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;

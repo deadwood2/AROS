@@ -195,4 +195,24 @@ struct IntuiMessageV0
     APTR32 SpecialLink;
 };
 
+struct GadgetInfoV0
+{
+    APTR32              gi_Screen;
+    APTR32              gi_Window;
+    APTR32              gi_Requester;
+    APTR32              gi_RastPort;
+    APTR32              gi_Layer;
+    struct IBox         gi_Domain;
+
+    struct
+    {
+        UBYTE DetailPen;
+        UBYTE BlockPen;
+    } gi_Pens;
+
+    APTR32              gi_DrInfo;
+
+    ULONG gi_Reserved[6];
+};
+
 #endif
