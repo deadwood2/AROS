@@ -17,10 +17,20 @@
 
 struct ExecBaseV0 *Intuition_SysBaseV0;
 
+struct IntScreenV0 // 596
+{
+    struct ScreenV0         Screen; // 364
+    BYTE                    pad1[188];
+
+    APTR32                  WinDecorObj;
+
+    BYTE                    pad2[40];
+};
+
 struct ScreenProxy
 {
-    struct ScreenV0 base;
-    struct Screen   *native;
+    struct IntScreenV0  base;
+    struct Screen       *native;
 };
 
 struct WindowProxy
@@ -35,8 +45,8 @@ struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *Intui
 }
 MAKE_PROXY_ARG_2(Intuition_OpenLib)
 
-struct ScreenV0 *g_v0screen;
-struct Screen   *g_nativescreen;
+struct IntScreenV0  *g_v0screen;
+struct Screen       *g_nativescreen;
 
 struct TextFontV0 *makeTextFontV0(struct TextFont *native)
 {
@@ -71,6 +81,7 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native)
 
 }
 
+APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0);
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
     struct Screen *native = LockPubScreen(name);
@@ -78,13 +89,13 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
         return NULL;
 
     struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    proxy->base.Width   = native->Width;
-    proxy->base.Height  = native->Height;
-    proxy->native       = native;
+    proxy->base.Screen.Width    = native->Width;
+    proxy->base.Screen.Height   = native->Height;
+    proxy->native               = native;
 
     struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     cmproxy->native = native->ViewPort.ColorMap;
-    proxy->base.ViewPort.ColorMap = (APTR32)(IPTR)cmproxy;
+    proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
 
     struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
     v0font->ta_YSize    = native->Font->ta_YSize;
@@ -94,11 +105,14 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     CopyMem(native->Font->ta_Name, v0font_name, strlen(native->Font->ta_Name) + 1);
     v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
 
-    proxy->base.Font = (APTR32)(IPTR)v0font;
+    proxy->base.Screen.Font     = (APTR32)(IPTR)v0font;
 
-    *(IPTR *)(&proxy->base.LayerInfo.PrivateReserve1) = (IPTR)&native->LayerInfo;
+    *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
 
-    proxy->base.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font);
+    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font);
+
+    /* TODO: this should be a proxy to native intuition class */
+    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);
 
     g_nativescreen = native;
     g_v0screen = &proxy->base;
@@ -150,8 +164,11 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     CopyMem(dri->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
 
     v0dri->dri_AmigaKey = (APTR32)(IPTR)makeImageV0(dri->dri_AmigaKey);
+    v0dri->dri_Version  = dri->dri_Version;
+    v0dri->dri_Flags    = dri->dri_Flags;
+    v0dri->dri_Font     = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font);
+    v0dri->dri_Screen   = (APTR32)(IPTR)&proxy->base;
 
-    v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font);
 
 bug("abiv0_GetScreenDrawInfo: STUB\n");
     return v0dri;
@@ -459,6 +476,32 @@ BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *I
 }
 MAKE_PROXY_ARG_2(ModifyIDCMP);
 
+APTR32 *intuitionjmp;
+
+APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0)
+{
+    /* Call original function */
+    __asm__ volatile (
+        "subq $16, %%rsp\n"
+        "movl %4, %%eax\n"
+        "movl %%eax,12(%%rsp)\n"
+        "movl %3, %%eax\n"
+        "movl %%eax, 8(%%rsp)\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %1, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %0, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $16, %%rsp\n"
+        "leave\n"
+        "ret\n"
+        ::"m"(intuitionjmp[165 - 106]), "m"(classPtr), "m"(classID), "m"(tagList), "m"(IntuitionBaseV0) : "%rax", "%rcx");
+}
+MAKE_PROXY_ARG_4(NewObjectA)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -480,7 +523,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
 
     /* Remove all vectors for now */
     const ULONG intuitionjmpsize = 165 * sizeof(APTR32);
-    APTR32 *intuitionjmp = AllocMem(intuitionjmpsize, MEMF_CLEAR);
+    intuitionjmp = AllocMem(intuitionjmpsize, MEMF_CLEAR);
     CopyMem((APTR)abiv0IntuitionBase - intuitionjmpsize, intuitionjmp, intuitionjmpsize);
     for (int i = 1; i <= 164; i++) __AROS_SETVECADDRV0(abiv0IntuitionBase, i, 0);
 
@@ -500,7 +543,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 112, intuitionjmp[165 - 112]);  // FindClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 114, intuitionjmp[165 - 114]);  // AddClass
-    __AROS_SETVECADDRV0(abiv0IntuitionBase, 106, intuitionjmp[165 - 106]);  // NewObjectA
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 106, (APTR32)(IPTR)proxy_NewObjectA);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 108, intuitionjmp[165 - 108]);  // SetAttrs
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 109, intuitionjmp[165 - 109]);  // GetAttr
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 111, intuitionjmp[165 - 111]);  // NextObject
