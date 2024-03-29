@@ -388,6 +388,18 @@ bug("abiv0_SetMenuStrip: STUB\n");
 }
 MAKE_PROXY_ARG_3(SetMenuStrip)
 
+void abiv0_SetWindowPointerA(struct WindowV0 *window, struct TagItemV0 *taglist, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_SetWindowPointerA: STUB\n");
+}
+MAKE_PROXY_ARG_3(SetWindowPointerA)
+
+BOOL abiv0_DoubleClick(ULONG sSeconds, ULONG sMicros, ULONG cSeconds, ULONG cMicros, struct LibraryV0 *IntuitionBaseV0)
+{
+    return DoubleClick(sSeconds, sMicros, cSeconds, cMicros);
+}
+MAKE_PROXY_ARG_5(DoubleClick)
+
 static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -510,6 +522,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  61, (APTR32)(IPTR)proxy_EndRefresh);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  76, (APTR32)(IPTR)proxy_RefreshWindowFrame);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  44, (APTR32)(IPTR)proxy_SetMenuStrip);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 136, (APTR32)(IPTR)proxy_SetWindowPointerA);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  17, (APTR32)(IPTR)proxy_DoubleClick);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
