@@ -233,12 +233,12 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 
     LONG pos = 0;
     tmp = (struct TagItemV0 *)tagList;
-    while (LibNextTagItemV0 (&tmp) != NULL)
+    do
     {
         newList[pos].ti_Tag = tmp->ti_Tag;
         newList[pos].ti_Data = tmp->ti_Data;
         pos++;
-    }
+    } while (LibNextTagItemV0 (&tmp) != NULL);
 
     return newList;
 
