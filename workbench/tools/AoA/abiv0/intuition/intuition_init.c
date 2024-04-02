@@ -314,12 +314,45 @@ static struct RastPortV0 *makeRastPortV0(struct RastPort *native)
     return rpv0;
 }
 
-struct WindowV0 *abiv0_OpenWindowTagList(APTR /*struct NewWindowV0 **/newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
+struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
-    if (newWindow != NULL) asm("int3");
+    struct NewWindow *newWindowNative = NULL;
+    if (newWindow != NULL)
+    {
+        newWindowNative = AllocMem(sizeof(struct NewWindow), MEMF_CLEAR);
+        newWindowNative->LeftEdge   = newWindow->LeftEdge;
+        newWindowNative->TopEdge    = newWindow->TopEdge;
+        newWindowNative->Width      = newWindow->Width;
+        newWindowNative->Height     = newWindow->Height;
+        newWindowNative->Title      = (UBYTE *)(IPTR)newWindow->Title;
+        newWindowNative->Flags      = newWindow->Flags;
+        newWindowNative->IDCMPFlags = newWindow->IDCMPFlags;
+
+        if (newWindow->FirstGadget != 0 || newWindow->CheckMark != 0 || newWindow->Screen != 0 || newWindow->BitMap != 0) asm("int3");
+    }
 
     struct TagItem *tagListNative = CloneTagItemsV02Native(tagList);
-    struct Window *wndnative = OpenWindowTagList(NULL, tagListNative);
+
+    struct TagItem *tagNative = tagListNative;
+
+    while (tagNative->ti_Tag != TAG_DONE)
+    {
+        if (tagNative->ti_Tag == WA_CustomScreen)
+        {
+            if (tagNative->ti_Data == (IPTR)g_v0screen)
+            {
+                tagNative->ti_Data = (IPTR)g_nativescreen;
+            }
+            else asm("int3");
+        }
+
+        tagNative++;
+    }
+
+
+    struct Window *wndnative = OpenWindowTagList(newWindowNative, tagListNative);
+
+    if (newWindowNative) FreeMem(newWindowNative, sizeof(struct NewWindow));
 
     struct WindowProxy *proxy = abiv0_AllocMem(sizeof(struct WindowProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     proxy->native = wndnative;
@@ -359,6 +392,34 @@ bug("abiv0_OpenWindowTagList: STUB\n");
     return (struct WindowV0 *)proxy;
 }
 MAKE_PROXY_ARG_3(OpenWindowTagList)
+
+
+UWORD abiv0_AddGList(struct WindowV0 *window, APTR /*struct GadgetV0 **/ gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/ requester,
+    struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_AddGList: STUB\n");
+    return 0;
+}
+MAKE_PROXY_ARG_6(AddGList)
+
+void abiv0_RefreshGList(APTR /*struct GadgetV0 **/ gadgets, struct WindowV0 *window, APTR /*struct Requester **/ requester, LONG numGad,
+    struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_RefreshGList: STUB\n");
+}
+MAKE_PROXY_ARG_5(RefreshGList)
+
+ULONG abiv0_LockIBase(ULONG What, struct LibraryV0 *IntuitionBaseV0)
+{
+    return LockIBase(What);
+}
+MAKE_PROXY_ARG_2(LockIBase)
+
+void abiv0_UnlockIBase(ULONG ibLock, struct LibraryV0 *IntuitionBaseV0)
+{
+    UnlockIBase(ibLock);
+}
+MAKE_PROXY_ARG_2(UnlockIBase)
 
 BOOL abiv0_WindowLimits(struct WindowV0 *window, WORD MinWidth, WORD MinHeight, UWORD MaxWidth, UWORD MaxHeight, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -431,7 +492,7 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 
     if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
         imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
-        imsg->Class == IDCMP_CHANGEWINDOW)
+        imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW)
     {
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
@@ -606,6 +667,10 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  93, (APTR32)(IPTR)proxy_ObtainGIRPort);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 145, intuitionjmp[165 - 145]);  // DoNotify
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  77, (APTR32)(IPTR)proxy_ActivateGadget);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  73, (APTR32)(IPTR)proxy_AddGList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  72, (APTR32)(IPTR)proxy_RefreshGList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  69, (APTR32)(IPTR)proxy_LockIBase);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  70, (APTR32)(IPTR)proxy_UnlockIBase);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
