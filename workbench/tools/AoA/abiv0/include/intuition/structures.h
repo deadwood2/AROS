@@ -215,4 +215,31 @@ struct GadgetInfoV0
     ULONG gi_Reserved[6];
 };
 
+struct NewWindowV0
+{
+    WORD LeftEdge;
+    WORD TopEdge;
+    WORD Width;
+    WORD Height;
+
+    UBYTE DetailPen;
+    UBYTE BlockPen;
+
+    ULONG IDCMPFlags;
+    ULONG Flags;
+
+    APTR32 FirstGadget;
+    APTR32 CheckMark;
+    APTR32 Title;
+    APTR32 Screen;    /* ignored if Type != CUSTOMSCREEN */
+    APTR32 BitMap;
+
+    WORD  MinWidth;
+    WORD  MinHeight;
+    UWORD MaxWidth;
+    UWORD MaxHeight;
+
+    UWORD Type;
+};
+
 #endif
