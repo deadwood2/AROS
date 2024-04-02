@@ -18,4 +18,16 @@ struct RegionProxy
     struct Region   *native;
 };
 
+struct BitMapProxy
+{
+    struct BitMapV0 base;
+    struct BitMap   *native;
+};
+
+struct TextFontProxy
+{
+    struct TextFontV0   base;
+    struct TextFont     *native;
+};
+
 #endif

@@ -3,6 +3,7 @@
 #include <aros/debug.h>
 #include <proto/intuition.h>
 #include <exec/rawfmt.h>
+#include <proto/graphics.h>
 
 #include <string.h>
 
@@ -50,7 +51,9 @@ struct Screen       *g_nativescreen;
 
 struct TextFontV0 *makeTextFontV0(struct TextFont *native)
 {
-    struct TextFontV0 *v0tf = abiv0_AllocMem(sizeof(struct TextFontV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    struct TextFontV0 *v0tf = &proxy->base;
+
     v0tf->tf_YSize          = native->tf_YSize;
     v0tf->tf_Style          = native->tf_Style;
     v0tf->tf_Flags          = native->tf_Flags;
@@ -79,6 +82,7 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native)
     CopyMem(native->tf_CharKern, buff, arrlen * sizeof(WORD));
     v0tf->tf_CharKern       = (APTR32)(IPTR)buff;
 
+    proxy->native = native;
 }
 
 APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0);
@@ -386,6 +390,10 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
 asm("int3");
     }
 
+    struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    bmproxy->native = proxy->native->RPort->BitMap;
+    ((struct RastPortV0 *)(IPTR)proxy->base.RPort)->BitMap = (APTR32)(IPTR)bmproxy;
+
     wmAdd(proxy);
 
 bug("abiv0_OpenWindowTagList: STUB\n");
@@ -551,6 +559,21 @@ struct RastPortV0 *abiv0_ObtainGIRPort(struct GadgetInfoV0 *gInfo, struct Librar
         struct RastPortV0 *v0girp = (struct RastPortV0 *)(IPTR)gInfo->gi_RastPort;
         struct RastPort *girpnative = (struct RastPort *)*(IPTR *)&v0girp->longreserved;
         struct GadgetInfo *ginative = AllocMem(sizeof(struct GadgetInfo), MEMF_CLEAR);
+
+        if (girpnative == NULL)
+        {
+bug("abiv0_ObtainGIRPort: !!NULL girpnative, creating!!");
+            girpnative = AllocMem(sizeof(struct RastPort), MEMF_CLEAR);
+            struct LayerProxy *lproxy = (struct LayerProxy *)(IPTR)v0girp->Layer;
+            girpnative->Layer = lproxy->native;
+            struct BitMapProxy *bmproxy = (struct BitMapProxy *)(IPTR)v0girp->BitMap;
+            girpnative->BitMap = bmproxy->native;
+            struct TextFontProxy *tfproxy = (struct TextFontProxy *)(IPTR)v0girp->Font;
+            SetFont(girpnative, tfproxy->native);
+
+            *(IPTR *)&v0girp->longreserved = (IPTR)girpnative;
+        }
+
         ginative->gi_RastPort = girpnative;
 
         struct RastPort *rpnative = ObtainGIRPort(ginative);
