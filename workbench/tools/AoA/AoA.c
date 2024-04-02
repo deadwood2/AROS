@@ -130,6 +130,13 @@ bug("abiv0_WritePixelArrayAlpha: STUB\n");
 }
 MAKE_PROXY_ARG_6(WritePixelArrayAlpha)
 
+LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod, struct RastPortV0 *rp,
+    APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat)
+{
+bug("abiv0_WriteLUTPixelArray: STUB\n");
+}
+MAKE_PROXY_ARG_6(WriteLUTPixelArray)
+
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
@@ -174,12 +181,15 @@ LONG_FUNC run_emulation()
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 33, (APTR32)(IPTR)proxy_WriteLUTPixelArray);
 
     init_intuition(SysBaseV0);
 
 
     /* Start Program */
     NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
+    // NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
+    // NewRawDoFmt("%s:ABIv0/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/Calculator", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/helloabi", RAWFMTFUNC_STRING, path, SYSNAME);
     BPTR seg = LoadSeg32(path, DOSBase);

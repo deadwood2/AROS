@@ -1,6 +1,7 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <proto/graphics.h>
+#include <proto/alib.h>
 #include <aros/debug.h>
 #include <exec/rawfmt.h>
 
@@ -171,6 +172,14 @@ struct RegionV0 *abiv0_NewRegion(struct GfxBaseV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_1(NewRegion)
 
+struct RegionV0 *abiv0_NewRectRegion(WORD MinX, WORD MinY, WORD MaxX, WORD MaxY, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Gfx_SysBaseV0);
+    proxy->native = NewRectRegion(MinX, MinY, MaxX, MaxY);
+    return (struct RegionV0 *)proxy;
+}
+MAKE_PROXY_ARG_5(NewRectRegion)
+
 BOOL abiv0_OrRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RegionProxy *proxy = (struct RegionProxy *)Reg;
@@ -248,4 +257,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 149, (APTR32)(IPTR)proxy_SetABPenDrMd);
     __AROS_SETVECADDRV0(abiv0GfxBase,  58, (APTR32)(IPTR)proxy_SetBPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 116, graphicsjmp[202 - 116]);  // TextFit
+    __AROS_SETVECADDRV0(abiv0GfxBase, 194, (APTR32)(IPTR)proxy_NewRectRegion);
 }
