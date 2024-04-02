@@ -402,20 +402,12 @@ bug("abiv0_OpenWindowTagList: STUB\n");
 MAKE_PROXY_ARG_3(OpenWindowTagList)
 
 
-UWORD abiv0_AddGList(struct WindowV0 *window, APTR /*struct GadgetV0 **/ gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/ requester,
-    struct LibraryV0 *IntuitionBaseV0)
+void abiv0_DrawImageState(struct RastPortV0 *rp, struct ImageV0 *image, LONG leftOffset, LONG topOffset, ULONG state, struct DrawInfoV0 *drawInfo)
 {
-bug("abiv0_AddGList: STUB\n");
-    return 0;
+    // TODO: use original code!!!!
+bug("abiv0_DrawImageState: STUB\n");
 }
-MAKE_PROXY_ARG_6(AddGList)
-
-void abiv0_RefreshGList(APTR /*struct GadgetV0 **/ gadgets, struct WindowV0 *window, APTR /*struct Requester **/ requester, LONG numGad,
-    struct LibraryV0 *IntuitionBaseV0)
-{
-bug("abiv0_RefreshGList: STUB\n");
-}
-MAKE_PROXY_ARG_5(RefreshGList)
+MAKE_PROXY_ARG_6(DrawImageState)
 
 ULONG abiv0_LockIBase(ULONG What, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -562,7 +554,7 @@ struct RastPortV0 *abiv0_ObtainGIRPort(struct GadgetInfoV0 *gInfo, struct Librar
 
         if (girpnative == NULL)
         {
-bug("abiv0_ObtainGIRPort: !!NULL girpnative, creating!!");
+bug("abiv0_ObtainGIRPort: !!NULL girpnative, creating!!\n");
             girpnative = AllocMem(sizeof(struct RastPort), MEMF_CLEAR);
             struct LayerProxy *lproxy = (struct LayerProxy *)(IPTR)v0girp->Layer;
             girpnative->Layer = lproxy->native;
@@ -587,6 +579,13 @@ bug("abiv0_ObtainGIRPort: !!NULL girpnative, creating!!");
     }
 }
 MAKE_PROXY_ARG_2(ObtainGIRPort);
+
+void abiv0_ReleaseGIRPort(struct RastPortV0 *rp, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    ReleaseGIRPort(rpnative);
+}
+MAKE_PROXY_ARG_2(ReleaseGIRPort);
 
 BOOL abiv0_ActivateGadget(struct Gadget *gadget, struct WindowV0 *window, struct Requester *requester, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -690,10 +689,13 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  93, (APTR32)(IPTR)proxy_ObtainGIRPort);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 145, intuitionjmp[165 - 145]);  // DoNotify
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  77, (APTR32)(IPTR)proxy_ActivateGadget);
-    __AROS_SETVECADDRV0(abiv0IntuitionBase,  73, (APTR32)(IPTR)proxy_AddGList);
-    __AROS_SETVECADDRV0(abiv0IntuitionBase,  72, (APTR32)(IPTR)proxy_RefreshGList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  73, intuitionjmp[165 -  73]);  // AddGList
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 135, intuitionjmp[165 - 135]);  // DoGadgetMethodA
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  72, intuitionjmp[165 -  72]);  // RefreshGList
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  69, (APTR32)(IPTR)proxy_LockIBase);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  70, (APTR32)(IPTR)proxy_UnlockIBase);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  94, (APTR32)(IPTR)proxy_ReleaseGIRPort);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 103, (APTR32)(IPTR)proxy_DrawImageState);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
