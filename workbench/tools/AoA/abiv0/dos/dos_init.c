@@ -31,6 +31,12 @@ struct FileHandleProxy
     BPTR native;
 };
 
+struct DosListProxy
+{
+    struct DosListV0    base;
+    struct DosList      *native;
+};
+
 struct FileHandleProxy *makeFileHandleProxy(BPTR native)
 {
     struct FileHandleProxy *proxy = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, DOS_SysBaseV0);
@@ -388,6 +394,56 @@ bug("abiv0_ExAll: STUB\n");
 }
 MAKE_PROXY_ARG_6(ExAll)
 
+struct DosListV0 *abiv0_LockDosList(ULONG flags, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct DosList *native = LockDosList(flags);
+
+    if (native)
+    {
+        struct DosListProxy *proxy = abiv0_AllocMem(sizeof(struct DosListProxy), MEMF_CLEAR, DOS_SysBaseV0);
+        proxy->base.dol_Type = native->dol_Type;
+        proxy->native = native;
+bug("abiv0_LockDosList: STUB\n");
+        return (struct DosListV0 *)proxy;
+    }
+
+    return NULL;
+}
+MAKE_PROXY_ARG_2(LockDosList)
+
+struct DosListV0 *abiv0_NextDosEntry(struct DosListV0 *dlist, ULONG flags, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct DosListProxy *proxy = (struct DosListProxy *)dlist;
+    struct DosList *native = NextDosEntry(proxy->native, flags);
+
+    if (native)
+    {
+        struct DosListProxy *proxy = abiv0_AllocMem(sizeof(struct DosListProxy), MEMF_CLEAR, DOS_SysBaseV0);
+        proxy->base.dol_Type = native->dol_Type;
+        proxy->base.dol_Task = (APTR32)(IPTR)native->dol_Task; /* treat this as just a "marker" for now */
+
+        LONG nlen = AROS_BSTR_strlen(native->dol_Name);
+        char *v0name = abiv0_AllocMem(nlen + 1, MEMF_CLEAR, DOS_SysBaseV0);
+        CopyMem(native->dol_Name, v0name, nlen + 1);
+        proxy->base.dol_Name = (APTR32)(IPTR)v0name;
+
+        proxy->native = native;
+
+bug("abiv0_NextDosEntry: STUB\n");
+
+        return (struct DosListV0 *)proxy;
+    }
+
+    return NULL;
+}
+MAKE_PROXY_ARG_3(NextDosEntry)
+
+void abiv0_UnLockDosList(ULONG flags, struct DosLibraryV0 *DOSBaseV0)
+{
+    UnLockDosList(flags);
+}
+MAKE_PROXY_ARG_2(UnLockDosList);
+
 SIPTR abiv0_IoErr(struct DosLibraryV0 *DOSBaseV0)
 {
 // possibly copy Result2 to task proxy as well
@@ -489,4 +545,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 118, (APTR32)(IPTR)proxy_IsFileSystem);
     __AROS_SETVECADDRV0(abiv0DOSBase,  67, (APTR32)(IPTR)proxy_NameFromLock);
     __AROS_SETVECADDRV0(abiv0DOSBase, 161, dosfunctable[160]);  // ParsePatternNoCase
+    __AROS_SETVECADDRV0(abiv0DOSBase, 109, (APTR32)(IPTR)proxy_LockDosList);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 115, (APTR32)(IPTR)proxy_NextDosEntry);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 110, (APTR32)(IPTR)proxy_UnLockDosList);
 }
