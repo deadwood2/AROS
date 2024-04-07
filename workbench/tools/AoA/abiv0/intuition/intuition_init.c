@@ -735,12 +735,12 @@ ULONG abiv0_DoMethodA(APTR object, APTR message)
 }
 
 
-static struct GadgetInfoV0 *composeGadgetInfoV0(struct GadgetInfo *nativegi)
+static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, BOOL nowin)
 {
     struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
     v0gi->gi_Domain         = nativegi->gi_Domain;
-    if (nativegi->gi_Window)
+    if (!nowin && nativegi->gi_Window)
         v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativegi->gi_Window);
     if (nativegi->gi_RastPort)
         v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativegi->gi_RastPort);
@@ -752,6 +752,11 @@ static struct GadgetInfoV0 *composeGadgetInfoV0(struct GadgetInfo *nativegi)
     else if (nativegi->gi_Screen != NULL) asm("int3");
 
     return v0gi;
+}
+
+static struct GadgetInfoV0 *composeGadgetInfoV0(struct GadgetInfo *nativegi)
+{
+    return composeGadgetInfoV0Int(nativegi, FALSE);
 }
 
 void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
@@ -780,7 +785,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct GadgetV0 *v0g = data->wrapped;
 
             struct gpHitTestV0 *v0msg = abiv0_AllocMem(sizeof(struct gpHitTestV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 * v0gi = composeGadgetInfoV0(nativemsg->gpht_GInfo);
+            struct GadgetInfoV0 * v0gi = composeGadgetInfoV0Int(nativemsg->gpht_GInfo, TRUE); /* workaround for trash gi_Window */
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpht_GInfo   = (APTR32)(IPTR)v0gi;
