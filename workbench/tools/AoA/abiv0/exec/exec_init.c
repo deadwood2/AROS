@@ -496,6 +496,7 @@ struct ExecBaseV0 *init_exec()
 
     NEWLISTV0(&abiv0SysBase->LibList);
     NEWLISTV0(&abiv0SysBase->ResourceList);
+    abiv0SysBase->LibNode.lib_Node.ln_Name = 0x0000E0EC;
     abiv0SysBase->LibNode.lib_Version = 51;
 
     __AROS_SETVECADDRV0(abiv0SysBase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
