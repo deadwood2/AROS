@@ -457,6 +457,33 @@ bug("abiv0_NextDosEntry: STUB\n");
 }
 MAKE_PROXY_ARG_3(NextDosEntry)
 
+struct DosListV0 *abiv0_FindDosEntry(struct DosListV0 *dlist, CONST_STRPTR name, ULONG flags, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct DosListProxy *proxy = (struct DosListProxy *)dlist;
+    struct DosList *native = FindDosEntry(proxy->native, name, flags);
+
+    if (native)
+    {
+        struct DosListProxy *proxy = abiv0_AllocMem(sizeof(struct DosListProxy), MEMF_CLEAR, DOS_SysBaseV0);
+        proxy->base.dol_Type = native->dol_Type;
+        proxy->base.dol_Task = (APTR32)(IPTR)native->dol_Task; /* treat this as just a "marker" for now */
+
+        LONG nlen = AROS_BSTR_strlen(native->dol_Name);
+        char *v0name = abiv0_AllocMem(nlen + 1, MEMF_CLEAR, DOS_SysBaseV0);
+        CopyMem(native->dol_Name, v0name, nlen + 1);
+        proxy->base.dol_Name = (APTR32)(IPTR)v0name;
+
+        proxy->native = native;
+
+bug("abiv0_FindDosEntry: STUB\n");
+
+        return (struct DosListV0 *)proxy;
+    }
+
+    return NULL;
+}
+MAKE_PROXY_ARG_4(FindDosEntry)
+
 void abiv0_UnLockDosList(ULONG flags, struct DosLibraryV0 *DOSBaseV0)
 {
     UnLockDosList(flags);
@@ -567,4 +594,8 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 109, (APTR32)(IPTR)proxy_LockDosList);
     __AROS_SETVECADDRV0(abiv0DOSBase, 115, (APTR32)(IPTR)proxy_NextDosEntry);
     __AROS_SETVECADDRV0(abiv0DOSBase, 110, (APTR32)(IPTR)proxy_UnLockDosList);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  69, dosfunctable[68]);   // SplitName
+    __AROS_SETVECADDRV0(abiv0DOSBase, 114, (APTR32)(IPTR)proxy_FindDosEntry);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  18, (APTR32)(IPTR)proxy_ExNext);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 162, dosfunctable[161]);  // MatchPatternNoCase
 }

@@ -156,7 +156,7 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
 void init_graphics(struct ExecBaseV0 *);
-void init_intuition(struct ExecBaseV0 *);
+void init_intuition(struct ExecBaseV0 *, struct LibraryV0 *);
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
 
@@ -200,7 +200,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 33, (APTR32)(IPTR)proxy_WriteLUTPixelArray);
 
-    init_intuition(SysBaseV0);
+    init_intuition(SysBaseV0, abiv0TimerBase);
 
 
     /* Start Program */

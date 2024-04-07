@@ -754,6 +754,13 @@ static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, 
         v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativegi->gi_Window);
     if (nativegi->gi_RastPort)
         v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativegi->gi_RastPort);
+    if (nativegi->gi_Layer)
+    {
+        struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+        lproxy->native = nativegi->gi_Layer;
+        syncLayerV0(lproxy);
+        v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
+    }
 
     if (nativegi->gi_Screen && nativegi->gi_Screen == g_nativescreen)
     {
@@ -773,6 +780,8 @@ void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
 {
     if (v0gi->gi_RastPort)
         abiv0_FreeMem((APTR)(IPTR)v0gi->gi_RastPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
+    if (v0gi->gi_Layer)
+        abiv0_FreeMem((APTR)(IPTR)v0gi->gi_Layer, sizeof(struct LayerProxy), Intuition_SysBaseV0);
 
     abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
 }
@@ -913,14 +922,10 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct gpRenderV0 *v0msg = abiv0_AllocMem(sizeof(struct gpRenderV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpr_GInfo);
 
-            struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
             CopyMem(nativemsg->gpr_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
 
-            lproxy->native = nativemsg->gpr_GInfo->gi_Layer;
-            syncLayerV0(lproxy);
-            v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
             v0msg->MethodID     = nativemsg->MethodID;
@@ -933,7 +938,6 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             abiv0_FreeMem((APTR)(IPTR)v0msg->gpr_RPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
-            abiv0_FreeMem(lproxy, sizeof(struct LayerProxy), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpRenderV0), Intuition_SysBaseV0);
 
@@ -974,7 +978,7 @@ static void init_gadget_wrapper_class()
     gadgetwrappercl->cl_Dispatcher.h_SubEntry = NULL;
 }
 
-void init_intuition(struct ExecBaseV0 *SysBaseV0)
+void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 {
     TEXT path[64];
     NewRawDoFmt("%s:Libs32/partial/intuition.library", RAWFMTFUNC_STRING, path, SYSNAME);
@@ -1044,6 +1048,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  74, (APTR32)(IPTR)proxy_RemoveGList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 146, intuitionjmp[165 - 146]);  // FreeICData
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  41, intuitionjmp[165 -  41]);  // ScreenToBack
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  14, intuitionjmp[165 -  14]);  // CurrentTime
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
@@ -1064,9 +1069,10 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
         func = segclassesinitlist[pos];
     }
 
-    /* Set internal Intuition pointer of utility */
+    /* Set internal Intuition pointer of utility, graphics and timer */
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x64) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x74) = (APTR32)(IPTR)timerBase;
 
     init_gadget_wrapper_class();
 }
