@@ -117,6 +117,13 @@ BOOL abiv0_Close(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(Close)
 
+LONG abiv0_SetFileSize(BPTR file, LONG offset, LONG mode, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return SetFileSize(fhp->native, offset, mode);
+}
+MAKE_PROXY_ARG_4(SetFileSize)
+
 BOOL abiv0_IsFileSystem(CONST_STRPTR devicename, struct DosLibraryV0 *DOSBaseV0)
 {
     return IsFileSystem(devicename);
@@ -497,6 +504,109 @@ SIPTR abiv0_IoErr(struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_1(IoErr)
 
+static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
+{
+    if (!(*tagListPtr))
+        return NULL;
+
+    while(1)
+    {
+        switch(((*tagListPtr)->ti_Tag))
+        {
+            case TAG_MORE:
+asm("int3");
+                if (!((*tagListPtr) = (struct TagItemV0 *)(IPTR)(*tagListPtr)->ti_Data))
+                    return NULL;
+                continue;
+
+            case TAG_IGNORE:
+                break;
+
+            case TAG_END:
+                (*tagListPtr) = 0;
+                return NULL;
+
+            case TAG_SKIP:
+asm("int3");
+                (*tagListPtr) += (*tagListPtr)->ti_Data + 1;
+                continue;
+
+            default:
+                return (*tagListPtr)++;
+
+        }
+
+        (*tagListPtr)++;
+    }
+}
+
+static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
+{
+    struct TagItem *newList;
+    LONG numTags = 1;
+
+    struct TagItemV0 *tmp;
+
+    tmp = (struct TagItemV0 *)tagList;
+    while (LibNextTagItemV0 (&tmp) != NULL)
+        numTags++;
+
+    newList = AllocMem(sizeof(struct TagItem) * numTags, MEMF_CLEAR);
+
+    LONG pos = 0;
+    tmp = (struct TagItemV0 *)tagList;
+    do
+    {
+        newList[pos].ti_Tag = tmp->ti_Tag;
+        newList[pos].ti_Data = tmp->ti_Data;
+        pos++;
+    } while (LibNextTagItemV0 (&tmp) != NULL);
+
+    return newList;
+
+}
+
+LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+
+    struct TagItem *tagNative = tagListNative;
+
+    while (tagNative->ti_Tag != TAG_DONE)
+    {
+        if (tagNative->ti_Tag == SYS_Dummy + 10) /* ABI_V0 compatibility: SYS_Error had value SYS_Dummy + 10 */
+            tagNative->ti_Tag = SYS_Error;
+
+        switch(tagNative->ti_Tag)
+        {
+            case(SYS_Input):
+            case(SYS_Output):
+            case(SYS_ScriptInput):
+            case SYS_Error:
+            {
+                if (tagNative->ti_Data)
+                {
+                    BPTR fh = (BPTR)tagNative->ti_Data;
+                    struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)fh;
+                    tagNative->ti_Data = (IPTR)fhproxy->native;
+                }
+                break;
+            }
+            case(SYS_UserShell):
+                break;
+            default:
+                bug("%x\n", tagNative->ti_Tag);
+                asm("int3");
+        }
+
+        tagNative++;
+    }
+
+bug("abiv0_SystemTagList: STUB\n");
+    return SystemTagList(command, tagListNative);
+}
+MAKE_PROXY_ARG_3(SystemTagList)
+
 struct IntDosBaseV0
 {
     struct DosLibraryV0         pub;
@@ -599,4 +709,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 114, (APTR32)(IPTR)proxy_FindDosEntry);
     __AROS_SETVECADDRV0(abiv0DOSBase,  18, (APTR32)(IPTR)proxy_ExNext);
     __AROS_SETVECADDRV0(abiv0DOSBase, 162, dosfunctable[161]);  // MatchPatternNoCase
+    __AROS_SETVECADDRV0(abiv0DOSBase, 147, dosfunctable[146]);  // AddPart
+    __AROS_SETVECADDRV0(abiv0DOSBase,  76, (APTR32)(IPTR)proxy_SetFileSize);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 101, (APTR32)(IPTR)proxy_SystemTagList);
 }
