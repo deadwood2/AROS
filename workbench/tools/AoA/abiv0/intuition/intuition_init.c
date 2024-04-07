@@ -302,7 +302,7 @@ static struct WindowProxy * wmGetByWindow(struct Window *native)
 {
     for (LONG i = 0; i < 100; i++)
     {
-        if (wmarray[i]->native == native)
+        if (wmarray[i] && wmarray[i]->native == native)
         {
             return wmarray[i];
         }
@@ -640,6 +640,18 @@ struct GadgetWrapperData
     struct GadgetV0 *wrapped;
 };
 
+static void syncGadgetNative(struct Gadget *nativeg, struct GadgetV0 *v0g)
+{
+    nativeg->Flags         = v0g->Flags;
+    nativeg->Activation    = v0g->Activation;
+    nativeg->TopEdge       = v0g->TopEdge;
+    nativeg->LeftEdge      = v0g->LeftEdge;
+    nativeg->Width         = v0g->Width;
+    nativeg->Height        = v0g->Height;
+    nativeg->GadgetID      = v0g->GadgetID;
+    nativeg->GadgetType    = v0g->GadgetType;
+}
+
 UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
         struct LibraryV0 *IntuitionBaseV0)
 {
@@ -652,14 +664,7 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
         struct GadgetWrapperData *data = INST_DATA(gadgetwrappercl, gwrapper);
 
         data->wrapped = gadget;
-        gwrapper->Flags         = gadget->Flags;
-        gwrapper->Activation    = gadget->Activation;
-        gwrapper->TopEdge       = gadget->TopEdge;
-        gwrapper->LeftEdge      = gadget->LeftEdge;
-        gwrapper->Width         = gadget->Width;
-        gwrapper->Height        = gadget->Height;
-        gwrapper->GadgetID      = gadget->GadgetID;
-        gwrapper->GadgetType    = gadget->GadgetType;
+        syncGadgetNative(gwrapper, gadget);
 
         if (gadFirst == NULL) gadFirst = gwrapper;
         if (gadPrev != NULL) gadPrev->NextGadget = gwrapper;
@@ -729,6 +734,34 @@ ULONG abiv0_DoMethodA(APTR object, APTR message)
         ::"m"(clhook->h_Entry), "m"(clhook), "m"(object), "m"(message) : "%rax", "%rcx");
 }
 
+
+static struct GadgetInfoV0 *composeGadgetInfoV0(struct GadgetInfo *nativegi)
+{
+    struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+    v0gi->gi_Domain         = nativegi->gi_Domain;
+    if (nativegi->gi_Window)
+        v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativegi->gi_Window);
+    if (nativegi->gi_RastPort)
+        v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativegi->gi_RastPort);
+
+    if (nativegi->gi_Screen && nativegi->gi_Screen == g_nativescreen)
+    {
+        v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
+    }
+    else if (nativegi->gi_Screen != NULL) asm("int3");
+
+    return v0gi;
+}
+
+void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
+{
+    if (v0gi->gi_RastPort)
+        abiv0_FreeMem((APTR)(IPTR)v0gi->gi_RastPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
+
+    abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+}
+
 /*
  * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
  * the forwarded to 32-bit gadget method. This method needs to be executed on 31-bit stack, not on original stack.
@@ -741,19 +774,13 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
     switch (message->MethodID)
     {
         case OM_NEW: return DoSuperMethodA(CLASS, self, message);
-        // case OM_SET: case OM_UPDATE: return (IPTR)GroupGClass__OM_SET(CLASS, (Object *)self, (Msg) message);
-        // case OM_DISPOSE: return (IPTR)GroupGClass__OM_DISPOSE(CLASS, (Object *)self, (Msg) message);
-        // case OM_ADDMEMBER: return (IPTR)GroupGClass__OM_ADDMEMBER(CLASS, (Object *)self, (Msg) message);
-        // case OM_REMMEMBER: return (IPTR)GroupGClass__OM_REMMEMBER(CLASS, (Object *)self, (Msg) message);
         case GM_HITTEST:
         {
             struct gpHitTest *nativemsg = (struct gpHitTest *)message;
             struct GadgetV0 *v0g = data->wrapped;
 
             struct gpHitTestV0 *v0msg = abiv0_AllocMem(sizeof(struct gpHitTestV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
-
-            v0gi->gi_Domain     = nativemsg->gpht_GInfo->gi_Domain;
+            struct GadgetInfoV0 * v0gi = composeGadgetInfoV0(nativemsg->gpht_GInfo);
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpht_GInfo   = (APTR32)(IPTR)v0gi;
@@ -762,7 +789,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
 
-            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpHitTestV0), Intuition_SysBaseV0);
 
             return ret;
@@ -773,15 +800,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct GadgetV0 *v0g = data->wrapped;
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
-
-            v0gi->gi_Domain     = nativemsg->gpi_GInfo->gi_Domain;
-            v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpi_GInfo->gi_RastPort);
-            if (nativemsg->gpi_GInfo->gi_Screen == g_nativescreen)
-            {
-                v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
-            }
-            else asm("int3");
+            struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpi_GInfo);
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpi_GInfo    = (APTR32)(IPTR)v0gi;
@@ -790,16 +809,9 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
 
-            nativeg->Flags      = v0g->Flags;
-            nativeg->Activation = v0g->Activation;
-            nativeg->TopEdge    = v0g->TopEdge;
-            nativeg->LeftEdge   = v0g->LeftEdge;
-            nativeg->Width      = v0g->Width;
-            nativeg->Height     = v0g->Height;
-            nativeg->GadgetID   = v0g->GadgetID;
-            nativeg->GadgetType = v0g->GadgetType;
+            syncGadgetNative(nativeg, v0g);
 
-            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
 
             return ret;
@@ -813,16 +825,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             LONG gpi_Termination = *nativemsg->gpi_Termination;
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpi_GInfo);
             struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
-
-            v0gi->gi_Domain     = nativemsg->gpi_GInfo->gi_Domain;
-            v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpi_GInfo->gi_RastPort);
-            if (nativemsg->gpi_GInfo->gi_Screen == g_nativescreen)
-            {
-                v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
-            }
-            else asm("int3");
 
             v0ie->ie_Class      = nativemsg->gpi_IEvent->ie_Class;
             v0ie->ie_SubClass   = nativemsg->gpi_IEvent->ie_SubClass;
@@ -839,19 +843,12 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
 
-            nativeg->Flags      = v0g->Flags;
-            nativeg->Activation = v0g->Activation;
-            nativeg->TopEdge    = v0g->TopEdge;
-            nativeg->LeftEdge   = v0g->LeftEdge;
-            nativeg->Width      = v0g->Width;
-            nativeg->Height     = v0g->Height;
-            nativeg->GadgetID   = v0g->GadgetID;
-            nativeg->GadgetType = v0g->GadgetType;
+            syncGadgetNative(nativeg, v0g);
 
             *nativemsg->gpi_Termination = gpi_Termination;
 
             abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
-            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
 
             return ret;
@@ -878,10 +875,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct GadgetV0 *v0g = data->wrapped;
 
             struct gpLayoutV0 *v0msg = abiv0_AllocMem(sizeof(struct gpLayoutV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
-
-            v0gi->gi_Domain     = nativemsg->gpl_GInfo->gi_Domain;
-            v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativemsg->gpl_GInfo->gi_Window);
+            struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpl_GInfo);
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpl_GInfo    = (APTR32)(IPTR)v0gi;
@@ -889,16 +883,9 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
 
-            nativeg->Flags      = v0g->Flags;
-            nativeg->Activation = v0g->Activation;
-            nativeg->TopEdge    = v0g->TopEdge;
-            nativeg->LeftEdge   = v0g->LeftEdge;
-            nativeg->Width      = v0g->Width;
-            nativeg->Height     = v0g->Height;
-            nativeg->GadgetID   = v0g->GadgetID;
-            nativeg->GadgetType = v0g->GadgetType;
+            syncGadgetNative(nativeg, v0g);
 
-            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpLayoutV0), Intuition_SysBaseV0);
 
             return ret;
@@ -909,7 +896,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct GadgetV0 *v0g = data->wrapped;
 
             struct gpRenderV0 *v0msg = abiv0_AllocMem(sizeof(struct gpRenderV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpr_GInfo);
+
             struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
@@ -917,15 +905,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             lproxy->native = nativemsg->gpr_GInfo->gi_Layer;
             syncLayerV0(lproxy);
-            v0gi->gi_Domain     = nativemsg->gpr_GInfo->gi_Domain;
             v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
-            v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativemsg->gpr_GInfo->gi_Window);
-            if (nativemsg->gpr_GInfo->gi_Screen == g_nativescreen)
-            {
-                v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
-            }
-            else asm("int3");
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpr_Redraw   = nativemsg->gpr_Redraw;
@@ -938,7 +919,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             abiv0_FreeMem(lproxy, sizeof(struct LayerProxy), Intuition_SysBaseV0);
-            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpRenderV0), Intuition_SysBaseV0);
 
             return ret;
