@@ -227,10 +227,10 @@ void dummy_OpenLibrary()
     EXTER_PROXY(OpenLibrary)
     STORE_ESI_EDI
     ENTER64
-    COPY_ARG_1
-    COPY_ARG_2
-    COPY_ARG_3
     ALIGN_STACK64
+    SET_ARG64__3_FROM32
+    SET_ARG64__2_FROM32
+    SET_ARG64__1_FROM32
     CALL_IMPL64(DOS_OpenLibrary)
     RESTORE_STACK64
     ENTER32

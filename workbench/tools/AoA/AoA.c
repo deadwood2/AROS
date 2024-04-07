@@ -137,19 +137,20 @@ ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWOR
 MAKE_PROXY_ARG_6(FillPixelArray)
 
 ULONG abiv0_WritePixelArrayAlpha(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, struct RastPortV0 *rp,
-    UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG globalalpha)
+    UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG globalalpha, struct LibraryV0 *CyberGfxBaseV0)
 {
-bug("abiv0_WritePixelArrayAlpha: STUB\n");
-    return 1;
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    return WritePixelArrayAlpha(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, globalalpha);
 }
-MAKE_PROXY_ARG_6(WritePixelArrayAlpha)
+MAKE_PROXY_ARG_12(WritePixelArrayAlpha)
 
 LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod, struct RastPortV0 *rp,
-    APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat)
+    APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat, struct LibraryV0 *CyberGfxBaseV0)
 {
-bug("abiv0_WriteLUTPixelArray: STUB\n");
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    return WriteLUTPixelArray(srcRect, SrcX, SrcY, SrcMod, rpnative, CTable, DestX, DestY, SizeX, SizeY, CTabFormat);
 }
-MAKE_PROXY_ARG_6(WriteLUTPixelArray)
+MAKE_PROXY_ARG_12(WriteLUTPixelArray)
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
