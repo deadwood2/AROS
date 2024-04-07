@@ -612,25 +612,31 @@ APTR32 *intuitionjmp;
 
 APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0)
 {
+    APTR ret = NULL;
+
+    /* pointerclass needs internal support, disable for now */
+    if (classID && classID[0] == 'p' && classID[6] == 'r') return ret;
+
     /* Call original function */
     __asm__ volatile (
         "subq $16, %%rsp\n"
-        "movl %4, %%eax\n"
+        "movl %5, %%eax\n"
         "movl %%eax,12(%%rsp)\n"
-        "movl %3, %%eax\n"
+        "movl %4, %%eax\n"
         "movl %%eax, 8(%%rsp)\n"
-        "movl %2, %%eax\n"
+        "movl %3, %%eax\n"
         "movl %%eax, 4(%%rsp)\n"
-        "movl %1, %%eax\n"
+        "movl %2, %%eax\n"
         "movl %%eax, (%%rsp)\n"
-        "movl %0, %%eax\n"
+        "movl %1, %%eax\n"
         ENTER32
         "call *%%eax\n"
         ENTER64
         "addq $16, %%rsp\n"
-        "leave\n"
-        "ret\n"
-        ::"m"(intuitionjmp[165 - 106]), "m"(classPtr), "m"(classID), "m"(tagList), "m"(IntuitionBaseV0) : "%rax", "%rcx");
+        "movl %%eax, %0\n"
+        :"=m"(ret):"m"(intuitionjmp[165 - 106]), "m"(classPtr), "m"(classID), "m"(tagList), "m"(IntuitionBaseV0) : "%rax", "%rcx");
+
+    return ret;
 }
 MAKE_PROXY_ARG_4(NewObjectA)
 
