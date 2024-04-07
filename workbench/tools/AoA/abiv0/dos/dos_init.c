@@ -522,6 +522,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
 
     APTR tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
+    abiv0DOSBase->dl_lib.lib_Node.ln_Name = 0x0000D0FF;
     abiv0DOSBase->dl_lib.lib_Version = DOSBase->dl_lib.lib_Version;
     abiv0DOSBase->dl_TimeReq = (APTR32)(IPTR)AllocMem(sizeof(struct timerequestV0), MEMF_31BIT | MEMF_CLEAR);
     ((struct timerequestV0 *)(IPTR)abiv0DOSBase->dl_TimeReq)->tr_node.io_Device = (APTR32)(IPTR)abiv0TimerBase;
