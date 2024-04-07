@@ -361,6 +361,8 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
     struct WindowProxy *proxy = abiv0_AllocMem(sizeof(struct WindowProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     proxy->native = wndnative;
 
+    proxy->base.WindowPort = 0xBAADF00D;
+
     proxy->base.RPort = (APTR32)(IPTR)makeRastPortV0(proxy->native->RPort);
 
     syncWindowV0(proxy);
@@ -492,7 +494,8 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 
     if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
         imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
-        imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW)
+        imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW || imsg->Class == IDCMP_GADGETUP ||
+        imsg->Class == IDCMP_ACTIVEWINDOW)
     {
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
@@ -509,6 +512,14 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
         v0msg->MouseY       = imsg->MouseY;
         v0msg->Seconds      = imsg->Seconds;
         v0msg->Micros       = imsg->Micros;
+
+        if (imsg->Class == IDCMP_GADGETUP)
+        {
+            struct Gadget *nativeg = (struct Gadget *)imsg->IAddress;
+            // hacky way of struct GadgetWrapperData *data = INST_DATA(CLASS, self);data->wrapped
+            struct GadgetV0 *v0g = (struct GadgetV0 *)(*(IPTR *)((char *)nativeg + 0x80));
+            v0msg->IAddress = (APTR32)(IPTR)v0g;
+        }
 
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
@@ -537,6 +548,9 @@ BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *I
     {
         winproxy->native->UserPort = NULL;
     }
+
+    // TODO: instead of duplicating logic on 32-bit side call original function
+    winproxy->base.IDCMPFlags = flags;
 
     return ModifyIDCMP(winproxy->native, flags);
 }
@@ -620,6 +634,57 @@ APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0
 }
 MAKE_PROXY_ARG_4(NewObjectA)
 
+struct IClass *gadgetwrappercl;
+struct GadgetWrapperData
+{
+    struct GadgetV0 *wrapped;
+};
+
+UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
+        struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *winproxy = (struct WindowProxy *)window;
+    struct Gadget *gadPrev = NULL, *gadFirst = NULL;
+
+    for ( ; gadget && numGad; gadget = (APTR)(IPTR)gadget->NextGadget, numGad--)
+    {
+        struct Gadget *gwrapper = NewObjectA(gadgetwrappercl, NULL, NULL);
+        struct GadgetWrapperData *data = INST_DATA(gadgetwrappercl, gwrapper);
+
+        data->wrapped = gadget;
+        gwrapper->Flags         = gadget->Flags;
+        gwrapper->Activation    = gadget->Activation;
+        gwrapper->TopEdge       = gadget->TopEdge;
+        gwrapper->LeftEdge      = gadget->LeftEdge;
+        gwrapper->Width         = gadget->Width;
+        gwrapper->Height        = gadget->Height;
+        gwrapper->GadgetID      = gadget->GadgetID;
+        gwrapper->GadgetType    = gadget->GadgetType;
+
+        if (gadFirst == NULL) gadFirst = gwrapper;
+        if (gadPrev != NULL) gadPrev->NextGadget = gwrapper;
+        gadPrev = gwrapper;
+    }
+
+bug("abiv0_AddGList: STUB\n");
+
+    return AddGList(winproxy->native, gadFirst, position, numGad, NULL);
+}
+MAKE_PROXY_ARG_6(AddGList)
+
+void abiv0_RefreshGList(struct GadgetV0 *gadgets, struct WindowV0 *window, APTR /*struct Requester **/requester, LONG numGad,
+    struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_RefreshGList: STUB\n");
+}
+MAKE_PROXY_ARG_5(RefreshGList)
+
+UWORD abiv0_RemoveGList(struct WindowV0 *remPtr, struct GadgetV0 *gadget, LONG numGad, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_RemoveGList: STUB\n");
+}
+MAKE_PROXY_ARG_4(RemoveGList)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -628,6 +693,290 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 extern ULONG* segclassesinitlist;
 extern ULONG *seginitlist;
 extern CONST_STRPTR SYSNAME;
+
+struct _ObjectV0
+{
+    struct MinNodeV0  o_Node;  /* PRIVATE */
+    APTR32 o_Class;
+};
+
+#define _OBJV0(obj) ((struct _ObjectV0 *)(obj))
+#define _OBJECTV0(obj) (_OBJV0(obj) - 1)
+
+#define OCLASSV0(obj) ((_OBJECTV0(obj))->o_Class)
+
+ULONG abiv0_DoMethodA(APTR object, APTR message)
+{
+    struct HookV0 *clhook = (struct HookV0 *)(IPTR)OCLASSV0(object);
+
+    __asm__ volatile (
+        "pushq %%rbx\n"
+        "subq $12, %%rsp\n"
+        "movl %3, %%eax\n"
+        "movl %%eax, 8(%%rsp)\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %1, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %0, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $12, %%rsp\n"
+        "popq %%rbx\n"
+        "leave\n"
+        "ret\n"
+        ::"m"(clhook->h_Entry), "m"(clhook), "m"(object), "m"(message) : "%rax", "%rcx");
+}
+
+/*
+ * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
+ * the forwarded to 32-bit gadget method. This method needs to be executed on 31-bit stack, not on original stack.
+ */
+static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, Msg message)
+{
+    struct GadgetWrapperData *data = INST_DATA(CLASS, self);
+    struct Gadget *nativeg = (struct Gadget *)self;
+
+    switch (message->MethodID)
+    {
+        case OM_NEW: return DoSuperMethodA(CLASS, self, message);
+        // case OM_SET: case OM_UPDATE: return (IPTR)GroupGClass__OM_SET(CLASS, (Object *)self, (Msg) message);
+        // case OM_DISPOSE: return (IPTR)GroupGClass__OM_DISPOSE(CLASS, (Object *)self, (Msg) message);
+        // case OM_ADDMEMBER: return (IPTR)GroupGClass__OM_ADDMEMBER(CLASS, (Object *)self, (Msg) message);
+        // case OM_REMMEMBER: return (IPTR)GroupGClass__OM_REMMEMBER(CLASS, (Object *)self, (Msg) message);
+        case GM_HITTEST:
+        {
+            struct gpHitTest *nativemsg = (struct gpHitTest *)message;
+            struct GadgetV0 *v0g = data->wrapped;
+
+            struct gpHitTestV0 *v0msg = abiv0_AllocMem(sizeof(struct gpHitTestV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+            v0gi->gi_Domain     = nativemsg->gpht_GInfo->gi_Domain;
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->gpht_GInfo   = (APTR32)(IPTR)v0gi;
+            v0msg->gpht_Mouse.X = nativemsg->gpht_Mouse.X;
+            v0msg->gpht_Mouse.Y = nativemsg->gpht_Mouse.Y;
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0msg, sizeof(struct gpHitTestV0), Intuition_SysBaseV0);
+
+            return ret;
+        }
+        case GM_GOACTIVE:
+        {
+            struct gpInput *nativemsg = (struct gpInput *)message;
+            struct GadgetV0 *v0g = data->wrapped;
+
+            struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+            v0gi->gi_Domain     = nativemsg->gpi_GInfo->gi_Domain;
+            v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpi_GInfo->gi_RastPort);
+            if (nativemsg->gpi_GInfo->gi_Screen == g_nativescreen)
+            {
+                v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
+            }
+            else asm("int3");
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->gpi_GInfo    = (APTR32)(IPTR)v0gi;
+            v0msg->gpi_Mouse.X  = nativemsg->gpi_Mouse.X;
+            v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            nativeg->Flags      = v0g->Flags;
+            nativeg->Activation = v0g->Activation;
+            nativeg->TopEdge    = v0g->TopEdge;
+            nativeg->LeftEdge   = v0g->LeftEdge;
+            nativeg->Width      = v0g->Width;
+            nativeg->Height     = v0g->Height;
+            nativeg->GadgetID   = v0g->GadgetID;
+            nativeg->GadgetType = v0g->GadgetType;
+
+            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
+
+            return ret;
+
+        }
+
+        case GM_HANDLEINPUT:
+        {
+            struct gpInput *nativemsg = (struct gpInput *)message;
+            struct GadgetV0 *v0g = data->wrapped;
+            LONG gpi_Termination = *nativemsg->gpi_Termination;
+
+            struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+            v0gi->gi_Domain     = nativemsg->gpi_GInfo->gi_Domain;
+            v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpi_GInfo->gi_RastPort);
+            if (nativemsg->gpi_GInfo->gi_Screen == g_nativescreen)
+            {
+                v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
+            }
+            else asm("int3");
+
+            v0ie->ie_Class      = nativemsg->gpi_IEvent->ie_Class;
+            v0ie->ie_SubClass   = nativemsg->gpi_IEvent->ie_SubClass;
+            v0ie->ie_Code       = nativemsg->gpi_IEvent->ie_Code;
+            v0ie->ie_Qualifier  = nativemsg->gpi_IEvent->ie_Qualifier;
+            v0ie->ie_TimeStamp  = nativemsg->gpi_IEvent->ie_TimeStamp;
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->gpi_GInfo    = (APTR32)(IPTR)v0gi;
+            v0msg->gpi_IEvent   = (APTR32)(IPTR)v0ie;
+            v0msg->gpi_Mouse.X  = nativemsg->gpi_Mouse.X;
+            v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
+            v0msg->gpi_Termination = (APTR32)(IPTR)&gpi_Termination;
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            nativeg->Flags      = v0g->Flags;
+            nativeg->Activation = v0g->Activation;
+            nativeg->TopEdge    = v0g->TopEdge;
+            nativeg->LeftEdge   = v0g->LeftEdge;
+            nativeg->Width      = v0g->Width;
+            nativeg->Height     = v0g->Height;
+            nativeg->GadgetID   = v0g->GadgetID;
+            nativeg->GadgetType = v0g->GadgetType;
+
+            *nativemsg->gpi_Termination = gpi_Termination;
+
+            abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
+
+            return ret;
+
+        }
+        case GM_GOINACTIVE:
+        {
+            struct gpGoInactive *nativemsg = (struct gpGoInactive *)message;
+
+            struct gpGoInactiveV0 *v0msg = abiv0_AllocMem(sizeof(struct gpGoInactiveV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->gpgi_Abort   = nativemsg->gpgi_Abort;
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            abiv0_FreeMem(v0msg, sizeof(struct gpGoInactiveV0), Intuition_SysBaseV0);
+
+            return ret;
+        }
+        case GM_LAYOUT:
+        {
+            struct gpLayout *nativemsg = (struct gpLayout *)message;
+            struct GadgetV0 *v0g = data->wrapped;
+
+            struct gpLayoutV0 *v0msg = abiv0_AllocMem(sizeof(struct gpLayoutV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+            v0gi->gi_Domain     = nativemsg->gpl_GInfo->gi_Domain;
+            v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativemsg->gpl_GInfo->gi_Window);
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->gpl_GInfo    = (APTR32)(IPTR)v0gi;
+            v0msg->gpl_Initial  = nativemsg->gpl_Initial;
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            nativeg->Flags      = v0g->Flags;
+            nativeg->Activation = v0g->Activation;
+            nativeg->TopEdge    = v0g->TopEdge;
+            nativeg->LeftEdge   = v0g->LeftEdge;
+            nativeg->Width      = v0g->Width;
+            nativeg->Height     = v0g->Height;
+            nativeg->GadgetID   = v0g->GadgetID;
+            nativeg->GadgetType = v0g->GadgetType;
+
+            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0msg, sizeof(struct gpLayoutV0), Intuition_SysBaseV0);
+
+            return ret;
+        }
+        case GM_RENDER:
+        {
+            struct gpRender *nativemsg = (struct gpRender *)message;
+            struct GadgetV0 *v0g = data->wrapped;
+
+            struct gpRenderV0 *v0msg = abiv0_AllocMem(sizeof(struct gpRenderV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+            struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
+            CopyMem(nativemsg->gpr_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
+
+            lproxy->native = nativemsg->gpr_GInfo->gi_Layer;
+            syncLayerV0(lproxy);
+            v0gi->gi_Domain     = nativemsg->gpr_GInfo->gi_Domain;
+            v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
+            v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
+            v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativemsg->gpr_GInfo->gi_Window);
+            if (nativemsg->gpr_GInfo->gi_Screen == g_nativescreen)
+            {
+                v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
+            }
+            else asm("int3");
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->gpr_Redraw   = nativemsg->gpr_Redraw;
+            v0msg->gpr_GInfo    = (APTR32)(IPTR)v0gi;
+            v0msg->gpr_RPort    = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpr_RPort);
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            abiv0_FreeMem((APTR)(IPTR)v0msg->gpr_RPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
+            abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(lproxy, sizeof(struct LayerProxy), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0msg, sizeof(struct gpRenderV0), Intuition_SysBaseV0);
+
+            return ret;
+        }
+        default:
+asm("int3");
+            return DoSuperMethodA(CLASS, self, message);
+    }
+
+    return (IPTR) NULL;
+}
+
+BOOPSI_DISPATCHER(IPTR, GadgetWrapperClass_Dispatcher, CLASS, self, message)
+{
+    static APTR stack31bit = NULL;
+    struct StackSwapStruct sss;
+    struct StackSwapArgs ssa;
+
+    if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
+
+    sss.stk_Lower = stack31bit;
+    sss.stk_Upper = sss.stk_Lower + 64 * 1024;
+    sss.stk_Pointer = sss.stk_Upper;
+
+    ssa.Args[0] = (IPTR)CLASS;
+    ssa.Args[1] = (IPTR)self;
+    ssa.Args[2] = (IPTR)message;
+
+    return NewStackSwap(&sss, process_message_on_31bit_stack, &ssa);
+}
+BOOPSI_DISPATCHER_END
+
+static void init_gadget_wrapper_class()
+{
+    gadgetwrappercl = MakeClass(NULL, GADGETCLASS, NULL, sizeof(struct GadgetWrapperData), 0);
+    gadgetwrappercl->cl_Dispatcher.h_Entry = (APTR)GadgetWrapperClass_Dispatcher;
+    gadgetwrappercl->cl_Dispatcher.h_SubEntry = NULL;
+}
 
 void init_intuition(struct ExecBaseV0 *SysBaseV0)
 {
@@ -689,13 +1038,16 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  93, (APTR32)(IPTR)proxy_ObtainGIRPort);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 145, intuitionjmp[165 - 145]);  // DoNotify
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  77, (APTR32)(IPTR)proxy_ActivateGadget);
-    __AROS_SETVECADDRV0(abiv0IntuitionBase,  73, intuitionjmp[165 -  73]);  // AddGList
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  73, (APTR32)(IPTR)proxy_AddGList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 135, intuitionjmp[165 - 135]);  // DoGadgetMethodA
-    __AROS_SETVECADDRV0(abiv0IntuitionBase,  72, intuitionjmp[165 -  72]);  // RefreshGList
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  72, (APTR32)(IPTR)proxy_RefreshGList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  69, (APTR32)(IPTR)proxy_LockIBase);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  70, (APTR32)(IPTR)proxy_UnlockIBase);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  94, (APTR32)(IPTR)proxy_ReleaseGIRPort);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 103, (APTR32)(IPTR)proxy_DrawImageState);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  74, (APTR32)(IPTR)proxy_RemoveGList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 146, intuitionjmp[165 - 146]);  // FreeICData
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  41, intuitionjmp[165 -  41]);  // ScreenToBack
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
@@ -719,4 +1071,6 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0)
     /* Set internal Intuition pointer of utility */
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x64) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
+
+    init_gadget_wrapper_class();
 }

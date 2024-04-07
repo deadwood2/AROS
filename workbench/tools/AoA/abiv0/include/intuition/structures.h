@@ -242,4 +242,135 @@ struct NewWindowV0
     UWORD Type;
 };
 
+			   /***** Gadgets *****/
+
+struct GadgetV0
+{
+    APTR32 NextGadget;
+
+    WORD LeftEdge;
+    WORD TopEdge;
+    WORD Width;
+    WORD Height;
+
+    UWORD Flags;      /* see below */
+    UWORD Activation; /* see below */
+    UWORD GadgetType; /* see below */
+
+    APTR32       GadgetRender;
+    APTR32       SelectRender;
+    APTR32       GadgetText;
+
+    ULONG MutualExclude; /* OBSOLETE */
+
+    APTR32  SpecialInfo;
+    UWORD GadgetID;
+    APTR32  UserData;
+};
+
+#define STACKEDV0 __attribute__((aligned(4)))
+
+struct gpRenderV0
+{
+    STACKEDV0 ULONG   MethodID;   /* GM_RENDER */
+    STACKEDV0 APTR32  gpr_GInfo;  /* see <intuition/cghooks.h> */
+    STACKEDV0 APTR32  gpr_RPort;  /* RastPort (see <graphics/rastport.h>) to
+                                       render into. */
+    STACKEDV0 LONG		gpr_Redraw; /* see below */
+};
+
+struct gpLayoutV0
+{
+    STACKEDV0 ULONG		 MethodID;    /* GM_LAYOUT */
+    STACKEDV0 APTR32 gpl_GInfo;   /* see <intuition/cghooks.h> */
+      /* Boolean that indicated, if this method was invoked, when you are added
+         to a window (TRUE) or if it is called, because the window was resized
+         (FALSE). */
+    STACKEDV0 ULONG		 gpl_Initial;
+};
+
+struct gpHitTestV0
+{
+    STACKEDV0 ULONG		MethodID;   /* GM_HITEST or GM_HELPTEST */
+    STACKEDV0 APTR32 gpht_GInfo; /* see <intuition/cghooks.h> */
+
+      /* These values are relative to the gadget select box for GM_HITTEST. For
+         GM_HELPTEST they are relative to the bounding box (which is often
+         equal to the select box). */
+    STACKEDV0 struct
+    {
+	STACKEDV0 WORD X;
+	STACKEDV0 WORD Y;
+    }			gpht_Mouse;
+};
+
+struct gpInputV0
+{
+    STACKEDV0 ULONG		 MethodID;        /* GM_GOACTIVE or GM_HANDLEINPUT */
+    STACKEDV0 APTR32 gpi_GInfo;       /* see <intuition/cghooks.h> */
+      /* Pointer to the InputEvent (see <devices/inputevent.h>) that caused
+         the method to be invoked. */
+    STACKEDV0 APTR32 gpi_IEvent;
+      /* Pointer to a variable that is to be set by the gadget class, if
+         GMR_VERIFY is returned. The lower 16 bits of this value are returned
+         in the Code field of the IntuiMessage (see <intuition/intuition.h>)
+         passed back to the application. */
+    STACKEDV0 APTR32 gpi_Termination;
+
+      /* This struct defines the current mouse position, relative to the
+         gadgets' bounding box. */
+    STACKEDV0 struct
+    {
+	STACKEDV0 WORD X;
+	STACKEDV0 WORD Y;
+    }			gpi_Mouse;
+      /* Pointer to TabletData structure (see <intuition/intuition.h>) or NULL,
+         if this input event did not originate from a tablet that is capable of
+         sending IESUBCLASS_NEWTABLET events. */
+    STACKEDV0 APTR32 gpi_TabletData;
+};
+
+struct gpGoInactiveV0
+{
+    STACKEDV0 ULONG		MethodID;   /* GM_GOINACTIVE */
+    STACKEDV0 APTR32 gpgi_GInfo; /* see <intuition/cghooks.h> */
+      /* Boolean field to indicate, who wanted the gadget to go inactive. If
+         this is 1 this method was sent, because intution wants the gadget to
+         go inactive, if it is 0, it was the gadget itself that wanted it. */
+    STACKEDV0 ULONG		gpgi_Abort;
+};
+
+struct InputEventV0
+{
+    APTR32 ie_NextEvent;
+
+    UBYTE ie_Class;     /* see below for definitions */
+    UBYTE ie_SubClass;  /* see below for definitions */
+    UWORD ie_Code;      /* see below for definitions */
+    UWORD ie_Qualifier; /* see below for definitions */
+
+    union
+    {
+        struct
+        {
+            WORD ie_x;
+            WORD ie_y;
+        } ie_xy;
+
+        APTR32 ie_addr;
+
+        struct
+        {
+            UBYTE ie_prev1DownCode;
+            UBYTE ie_prev1DownQual;
+            UBYTE ie_prev2DownCode;
+            UBYTE ie_prev2DownQual;
+        } ie_dead;
+    } ie_position;
+
+    /* This is guaranteed to be increasing with time, but not guaranteed
+       to contain absolute time */
+    struct timeval32    ie_TimeStamp;
+};
+
 #endif
