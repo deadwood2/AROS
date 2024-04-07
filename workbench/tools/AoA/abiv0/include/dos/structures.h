@@ -196,6 +196,53 @@ struct ExAllDataV0
     UWORD ed_OwnerGID; /* The group-owner ID. */
 };
 
+/* This structure is returned by LockDosList() and similar calls. This
+ * structure is identical to the AmigaOS one, but this structure is PRIVATE
+ * anyway. Use system-calls for dos list-handling.
+ */
+struct DosListV0
+{
+      /* PRIVATE pointer to next entry. */
+    BPTR32 dol_Next;
+      /* Type of the current node (see below). */
+    LONG             dol_Type;
+      /* Filesystem task handling this entry (for old-style filesystems) */
+    APTR32 dol_Task;
+      /* The lock passed to AssignLock(). Only set if the type is
+         DLT_DIRECTORY. */
+    BPTR32           dol_Lock;
+
+      /* This union combines all the different types. */
+    union {
+          /* See struct DevInfo below. */
+        struct {
+            BSTR32    dol_Handler;
+            LONG    dol_StackSize;
+            LONG    dol_Priority;
+            BPTR32    dol_Startup;
+            BPTR32    dol_SegList;
+            BPTR32    dol_GlobVec;
+        } dol_handler;
+          /* See struct DeviceList below. */
+        struct {
+            struct DateStamp dol_VolumeDate;
+            BPTR32             dol_LockList;
+            LONG             dol_DiskType;
+            BPTR32             dol_unused;
+        } dol_volume;
+          /* Structure used for assigns. */
+        struct {
+              /* The name for the late or nonbinding assign. */
+            APTR32 dol_AssignName;
+              /* A list of locks, used by AssignAdd(). */
+            APTR32 dol_List;
+        } dol_assign;
+    } dol_misc;
+
+    /* Name as a BCPL string */
+    BSTR32 dol_Name;
+};
+
 struct DosLibraryV0
 {
     /* A normal library-base as defined in <exec/libraries.h>. */
