@@ -62,9 +62,12 @@ struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBa
 MAKE_PROXY_ARG_2(Layers_OpenLib)
 
 #include <proto/layers.h>
+#include <graphics/regions.h>
 
 #include "abiv0/include/graphics/structures.h"
 #include "abiv0/include/graphics/proxy_structures.h"
+
+struct ExecBaseV0 *Layers_SysBaseV0;
 
 struct RegionV0 *abiv0_InstallClipRegion(struct LayerV0  *l, struct RegionV0 *region, struct LibraryV0 *LayersBaseV0)
 {
@@ -97,6 +100,48 @@ void abiv0_LockLayer(LONG dummy, struct LayerV0 *layer, struct LibraryV0 *Layers
 {
     struct LayerProxy *proxy = (struct LayerProxy *)layer;
     LockLayer(dummy, proxy->native);
+
+    if (proxy->native->DamageList)
+    {
+        struct RegionProxy *rproxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Layers_SysBaseV0);
+        rproxy->native  = proxy->native->DamageList;
+
+        rproxy->base.bounds.MaxX    = rproxy->native->bounds.MaxX;
+        rproxy->base.bounds.MinX    = rproxy->native->bounds.MinX;
+        rproxy->base.bounds.MaxY    = rproxy->native->bounds.MaxY;
+        rproxy->base.bounds.MinY    = rproxy->native->bounds.MinY;
+
+        struct RegionRectangle *rrnative = rproxy->native->RegionRectangle;
+        struct RegionRectangleV0 *rrv0prev = NULL, *rrv0first = NULL;
+        while(rrnative)
+        {
+            struct RegionRectangleV0 *rrv0 = abiv0_AllocMem(sizeof(struct RegionRectangleV0), MEMF_CLEAR, Layers_SysBaseV0);
+            rrv0->bounds.MaxX = rrnative->bounds.MaxX;
+            rrv0->bounds.MinX = rrnative->bounds.MinX;
+            rrv0->bounds.MaxY = rrnative->bounds.MaxY;
+            rrv0->bounds.MinY = rrnative->bounds.MinY;
+            if (rrv0prev)
+            {
+                rrv0prev->Next = (APTR32)(IPTR)rrv0;
+                rrv0->Prev = (APTR32)(IPTR)rrv0prev;
+                rrv0prev = rrv0;
+            }
+            if (!rrv0prev)
+            {
+                rrv0first = rrv0prev = rrv0;
+            }
+
+            rrnative = rrnative->Next;
+        }
+
+        rproxy->base.RegionRectangle = (APTR32)(IPTR)rrv0first;
+        proxy->base.DamageList  = (APTR32)(IPTR)rproxy;
+    }
+    else
+    {
+        if (proxy->base.DamageList) bug("abiv0_LockLayer: MEMORY LEAK\n");
+        proxy->base.DamageList = (APTR32)(IPTR)NULL;
+    }
 }
 MAKE_PROXY_ARG_3(LockLayer)
 
@@ -179,6 +224,7 @@ LONG_FUNC run_emulation()
     BPTR layersseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
     struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, SysBaseV0);
+    Layers_SysBaseV0 = SysBaseV0;
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
