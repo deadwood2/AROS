@@ -251,6 +251,14 @@ struct RegionV0
     APTR32                   RegionRectangle;
 };
 
+struct RegionRectangleV0
+{
+    APTR32 Next;
+    APTR32 Prev;
+    struct Rectangle         bounds;
+};
+
+
 struct GfxBaseV0
 {
     struct LibraryV0 LibNode;				/* Standard Library Node */
