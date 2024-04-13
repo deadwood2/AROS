@@ -24,7 +24,6 @@
 ** POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define NO_POSIX_WRAPPERS
 #include <stdio.h>
 
 int fprintf(FILE *stream, const char *format, ...) {

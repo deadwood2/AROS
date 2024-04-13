@@ -204,10 +204,4 @@
 #define         __USE_LARGEFILE64       1
 #endif
 
-#if (!defined(_XOPEN_SOURCE) && \
-     !defined(_POSIX_SOURCE) && \
-     !defined(_BSD_SOURCE))
-#define NO_POSIX_WRAPPERS
-#endif
-
 #endif

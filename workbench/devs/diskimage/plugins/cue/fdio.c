@@ -24,7 +24,6 @@
 ** POSSIBILITY OF SUCH DAMAGE.
 */
 
-#define NO_POSIX_WRAPPERS
 #include <fcntl.h>
 #include <sys/types.h>
 
