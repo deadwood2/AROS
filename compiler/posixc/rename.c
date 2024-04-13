@@ -18,13 +18,13 @@
     NAME */
 #include <stdio.h>
 
-/*      int rename (
+        int rename (
 
-    SYNOPSIS
-        const char * oldpath
-        const char * newpath
+/*  SYNOPSIS */
+        const char * oldpath,
+        const char * newpath)
 
-    FUNCTION
+/*  FUNCTION
         Renames a file or directory.
 
     INPUTS
@@ -43,10 +43,8 @@
     SEE ALSO
 
     INTERNALS
-        Uses stdcio.library rename() function after path name conversion
 
 ******************************************************************************/
-int __posixc_rename (const char * oldpath, const char * newpath)
 {
           STRPTR aoldpath = (STRPTR)strdup((const char*)__path_u2a(oldpath));
     CONST_STRPTR anewpath = __path_u2a(newpath);
@@ -63,7 +61,7 @@ int __posixc_rename (const char * oldpath, const char * newpath)
         }
     }
 
-    ret = rename(aoldpath, anewpath);
+    ret = __stdc_rename(aoldpath, anewpath);
 
     free(aoldpath);
 

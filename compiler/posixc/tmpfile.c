@@ -82,7 +82,7 @@
 
 
     SEE ALSO
-        __posixc_fopen(), mkstemp()
+        fopen(), mkstemp()
 
     INTERNALS
 

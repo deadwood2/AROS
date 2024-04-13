@@ -11,7 +11,7 @@
     NAME */
 #include <dirent.h>
 
-        int __posixc_alphasort (
+        int alphasort (
 
 /*  SYNOPSIS */
         const struct dirent **a,
@@ -32,7 +32,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_scandir()
+        scandir()
 
     INTERNALS
 

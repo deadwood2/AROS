@@ -43,7 +43,7 @@
         nblocks. Otherwise examine errno for the reason of the error.
 
     SEE ALSO
-        __posixc_fopen()
+        fopen()
 
 ******************************************************************************/
 {

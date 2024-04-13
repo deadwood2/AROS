@@ -11,8 +11,6 @@
 
 __BEGIN_DECLS
 
-char * __posixc_strerror (int n);
-
 __END_DECLS
 
 #endif /* _POSIXC_STRING_H_ */

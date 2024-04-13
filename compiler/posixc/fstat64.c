@@ -42,7 +42,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_stat()
+        stat()
 
     INTERNALS
         Consult stat64() documentation for details.

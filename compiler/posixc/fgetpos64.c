@@ -38,7 +38,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_fsetpos()
+        fsetpos()
 
     INTERNALS
 

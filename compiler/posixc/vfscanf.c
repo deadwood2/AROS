@@ -98,7 +98,7 @@ static int __ungetc(int c, void *_h);
 
     Flush (fdesc->fcb->handle);
     
-    return __vcscan (stream,  __posixc_fgetc, ungetc, format, args);
+    return __vcscan (stream,  fgetc, ungetc, format, args);
        
 #endif
 } /* vfscanf */

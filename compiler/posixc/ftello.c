@@ -9,7 +9,7 @@
     NAME */
 #include <stdio.h>
 
-        off_t __posixc_ftello (
+        off_t ftello (
 
 /*  SYNOPSIS */
         FILE *stream)
@@ -41,4 +41,4 @@
 
     return __ftello(stream);
 
-} /* __posixc_ftello */
+} /* ftello */
