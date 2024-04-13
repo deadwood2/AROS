@@ -400,7 +400,6 @@ STDLIB := \
     ../stdc/gmtime_r \
     ../stdc/imaxabs \
     ../stdc/imaxdiv \
-    ../stdc/localtime_r \
     ../stdc/localeconv \
     ../stdc/longjmp \
     ../stdc/mblen \
@@ -523,7 +522,6 @@ CRT := \
     ../posixc/chmod \
     ../posixc/chown \
     ../posixc/clearerr \
-    ../posixc/clock_gettime \
     ../posixc/close \
     ../posixc/closedir \
     ../posixc/creat \
@@ -603,7 +601,6 @@ CRT := \
     ../posixc/getpwuid \
     ../posixc/getrlimit \
     ../posixc/gets \
-    ../posixc/gettimeofday \
     ../posixc/getuid \
     ../posixc/ioctl \
     ../posixc/isatty \
@@ -713,10 +710,7 @@ CRT := \
     ../stdc/__exitfunc \
     ../stdc/__optionallibs \
     ../stdc/__signal \
-    ../stdc/__stdc_geterrnoptr \
-    ../stdc/__stdc_getsigngamptr \
     ../stdc/__stdc_ioerr2errno \
-    ../stdc/__stdc_mb_cur_max \
     ../stdc/_exit \
     ../stdc/abort \
     ../stdc/asctime \

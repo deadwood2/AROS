@@ -82,9 +82,9 @@ __BEGIN_DECLS
    This way errno.h include file can be kept clean without
    exposing AROS specific defines as defined in exec/types.h etc.
 */
-int *__stdc_geterrnoptr(void);
+int *___geterrnoptr(void);
 #ifndef errno
-#define errno (*__stdc_geterrnoptr())
+#define errno (*___geterrnoptr())
 #endif
 
 /* AROS specific functions to translate DOS error numbers to errno.

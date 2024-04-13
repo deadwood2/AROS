@@ -74,7 +74,7 @@ static int __init_timerbase(struct StdlibIntBase *StdlibBase);
     GetSysTime(&tv);
     tv.tv_sec += 2922 * 1440 * 60;
 
-    tv.tv_sec += __stdc_gmtoffset() * 60;
+    tv.tv_sec += ___gmtoffset() * 60;
 
     if (tloc)
         *tloc = tv.tv_sec;
