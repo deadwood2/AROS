@@ -56,7 +56,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_fclose(), __posixc_fread(), __posixc_fwrite(), pipe(), pclose()
+        fclose(), fread(), fwrite(), pipe(), pclose()
 
     INTERNALS
 

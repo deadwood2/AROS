@@ -42,7 +42,7 @@
     BUGS
 
     SEE ALSO
-        open(), read(), __posixc_fread()
+        open(), read(), fread()
 
     INTERNALS
 

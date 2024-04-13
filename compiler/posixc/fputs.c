@@ -37,7 +37,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_puts(), __posixc_fputc(), putc()
+        puts(), fputc(), putc()
 
     INTERNALS
 

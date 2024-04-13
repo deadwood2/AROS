@@ -39,8 +39,8 @@
     BUGS
 
     SEE ALSO
-        __posixc_fputs(), __posixc_printf(), __posixc_fprintf(),
-        putc(), __posixc_fputc()
+        fputs(),printf(), fprintf(),
+        putc(), fputc()
 
     INTERNALS
 

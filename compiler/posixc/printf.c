@@ -255,7 +255,7 @@
         often impossible to assure.
 
     SEE ALSO
-        __posixc_fprintf(), __posixc_vprintf(), __posixc_vfprintf(),
+        fprintf(), vprintf(), vfprintf(),
         stdc.library/sprintf(), stdc.library/vsprintf(), stdc.library/vsnprintf()
 
     INTERNALS

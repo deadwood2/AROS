@@ -54,7 +54,7 @@
         implementation fails with EISDIR for directory file descriptors.
 
     SEE ALSO
-        fopen(), __posixc_fwrite()
+        fopen(), fwrite()
 
     INTERNALS
 

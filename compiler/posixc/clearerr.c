@@ -34,7 +34,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_ferror()
+        ferror()
 
     INTERNALS
 

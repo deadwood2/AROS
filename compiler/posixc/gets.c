@@ -44,7 +44,7 @@
         if it has not encountered a newline or EOF yet. Use fgets() instead.
 
     SEE ALSO
-        __posixc_fgets()
+        fgets()
 
     INTERNALS
 

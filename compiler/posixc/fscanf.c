@@ -37,7 +37,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_scanf()
+        scanf()
 
     INTERNALS
 

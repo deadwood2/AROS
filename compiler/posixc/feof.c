@@ -35,7 +35,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_ferror(), clearerr()
+        ferror(), clearerr()
 
     INTERNALS
 

@@ -32,7 +32,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_fscanf(), __posixc_vscanf(), __posixc_vfscanf(),
+        fscanf(), vscanf(), vfscanf(),
         stdc.library/sscanf(), stdc.library/vsscanf()
 
     INTERNALS

@@ -48,7 +48,7 @@
     BUGS
 
     SEE ALSO
-         open(), __posixc_fclose(), fileno()
+         open(), fclose(), fileno()
 
     INTERNALS
 

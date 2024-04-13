@@ -46,7 +46,7 @@
     BUGS
 
     SEE ALSO
-        fopen(), __posixc_fwrite()
+        fopen(), fwrite()
 
     INTERNALS
 

@@ -45,7 +45,7 @@
     BUGS
 
     SEE ALSO
-        fgetc(), getc(), __posixc_fputc(), putc()
+        fgetc(), getc(), fputc(), putc()
 
     INTERNALS
 
