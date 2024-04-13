@@ -46,7 +46,7 @@
         fputs(": ", stderr);
     }
 
-    fputs(__posixc_strerror(errno), stderr);
+    fputs(strerror(errno), stderr);
     fputs("\n", stderr);
 
 } /* perror */

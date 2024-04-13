@@ -23,7 +23,7 @@ static BPTR __lock(
 
 #include <sys/stat.h>
 
-        int __posixc_lstat(
+        int lstat(
 
 /*  SYNOPSIS */
         const char  *path,
@@ -50,7 +50,7 @@ static BPTR __lock(
     BUGS
 
     SEE ALSO
-        __posixc_stat(), __posixc_fstat()
+        stat(), fstat()
 
     INTERNALS
         Consult stat() documentation for details.

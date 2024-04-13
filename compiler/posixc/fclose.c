@@ -40,7 +40,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_fopen(), open(), close()
+        fopen(), open(), close()
 
     INTERNALS
 

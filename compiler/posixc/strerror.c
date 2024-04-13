@@ -14,7 +14,7 @@ static const char * _errstrings[];
     NAME */
 #include <string.h>
 
-        char * __posixc_strerror (
+        char * strerror (
 
 /*  SYNOPSIS */
         int n)

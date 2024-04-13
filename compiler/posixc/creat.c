@@ -9,7 +9,7 @@
     NAME */
 #include <fcntl.h>
 
-        int __posixc_creat (
+        int creat (
 
 /*  SYNOPSIS */
         const char * pathname,
@@ -39,12 +39,12 @@
     BUGS
 
     SEE ALSO
-        open(), close(), write(), __posixc_fopen()
+        open(), close(), write(), fopen()
 
     INTERNALS
 
 ******************************************************************************/
 {
     return open (pathname, O_CREAT|O_WRONLY|O_TRUNC, mode);
-} /* __posixc_creat */
+} /* creat */
 

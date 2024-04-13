@@ -40,7 +40,7 @@
     BUGS
 
     SEE ALSO
-        close(), opendir(), __posixc_readdir(), rewinddir(), seekdir(),
+        close(), opendir(), readdir(), rewinddir(), seekdir(),
         telldir()
 
     INTERNALS

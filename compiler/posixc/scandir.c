@@ -13,7 +13,7 @@
     NAME */
 #include <dirent.h>
 
-        int __posixc_scandir (
+        int scandir (
 
 /*  SYNOPSIS */
         const char *dir,
@@ -44,7 +44,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_alphasort()
+        alphasort()
 
     INTERNALS
 

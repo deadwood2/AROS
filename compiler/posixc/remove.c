@@ -13,12 +13,12 @@
     NAME */
 #include <stdio.h>
 
-/*      int remove (
+        int remove (
 
-    SYNOPSIS
+/*  SYNOPSIS */
         const char * pathname)
 
-    FUNCTION
+/*  FUNCTION
         Deletes a file or directory.
 
     INPUTS
@@ -38,12 +38,10 @@
         unlink()
 
     INTERNALS
-        Uses stdcio.library remove() function after path name conversion
 
 ******************************************************************************/
-int __posixc_remove(const char * pathname)
 {
-    return remove(__path_u2a(pathname));
+    return __stdc_remove(__path_u2a(pathname));
 } /* remove */
 
 

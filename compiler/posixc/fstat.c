@@ -15,7 +15,7 @@
 
 #include <sys/stat.h>
 
-        int __posixc_fstat(
+        int fstat(
 
 /*  SYNOPSIS */
         int fd,
@@ -42,7 +42,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_stat()
+        stat()
 
     INTERNALS
         Consult stat() documentation for details.

@@ -30,7 +30,7 @@ int __fstat_ino_t_32(int fd, struct stat_ino_t_32 *sb)
     int res;
     struct stat _tmp;
 
-    res = __posixc_fstat(fd, &_tmp);
+    res = fstat(fd, &_tmp);
 
     sb->st_dev      = _tmp.st_dev;
     sb->st_ino      = (int32_t)_tmp.st_ino;
@@ -56,7 +56,7 @@ int __stat_ino_t_32(const char * restrict path, struct stat_ino_t_32 * restrict 
     int res = 0;
     struct stat _tmp;
 
-    res = __posixc_stat(path, &_tmp);
+    res = stat(path, &_tmp);
 
     sb->st_dev      = _tmp.st_dev;
     sb->st_ino      = (int32_t)_tmp.st_ino;
@@ -82,7 +82,7 @@ int __lstat_ino_t_32(const char * restrict path, struct stat_ino_t_32 * restrict
     int res;
     struct stat _tmp;
 
-    res = __posixc_lstat(path, &_tmp);
+    res = lstat(path, &_tmp);
 
     sb->st_dev      = _tmp.st_dev;
     sb->st_ino      = (int32_t)_tmp.st_ino;
@@ -120,7 +120,7 @@ struct dirent *__readdir_ino_t_32(DIR *dir)
 {
     struct dirent *ret;
 
-    ret = __posixc_readdir(dir);
+    ret = readdir(dir);
     if (ret)
     {
         /* This is a no-op. Left for reference. */

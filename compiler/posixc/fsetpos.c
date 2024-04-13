@@ -11,7 +11,7 @@
     NAME */
 #include <stdio.h>
 
-        int __posixc_fsetpos (
+        int fsetpos (
 
 /*  SYNOPSIS */
         FILE            * stream,
@@ -38,7 +38,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_fgetpos()
+        fgetpos()
 
     INTERNALS
 
@@ -55,5 +55,5 @@
     retval = fseek (stream, *pos, SEEK_SET);
 
     return retval;
-} /* __posixc_fsetpos */
+} /* fsetpos */
 

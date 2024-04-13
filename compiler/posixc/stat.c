@@ -16,7 +16,7 @@
     NAME */
 #include <sys/stat.h>
 
-        int __posixc_stat(
+        int stat(
 
 /*  SYNOPSIS */
         const char *path,
@@ -56,7 +56,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_lstat(), __posixc_fstat()
+        lstat(), fstat()
 
     INTERNALS
         Value of st_ino field is computed as hash from the canonical path of

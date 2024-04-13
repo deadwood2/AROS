@@ -138,8 +138,6 @@ __BEGIN_DECLS
 int chmod(const char *path, mode_t mode);
 int fchmod(int fildes, mode_t mode);
 /* NOTIMPL int fchmodat(int, const char *, mode_t, int); */
-#if !defined(NO_POSIX_WRAPPERS)
-int __posixc_fstat(int fd, struct stat *sb);
 int fstat64(int fd, struct stat64 *sb);
 #if defined(__USE_FILE_OFFSET64)
 static __inline__  int fstat(int fd, struct stat *sb)
@@ -148,18 +146,10 @@ static __inline__  int fstat(int fd, struct stat *sb)
     return fstat64(fd, _sb64);
 }
 #else
-static __inline__  int fstat(int fd, struct stat *sb)
-{
-    return __posixc_fstat(fd, sb);
-}
-#endif
-#else  /* NO_POSIX_WRAPPERS */
 int fstat(int fd, struct stat *sb);
-#endif /* NO_POSIX_WRAPPERS */
+#endif
 /* NOTIMPL int fstatat(int, const char *restrict, struct stat *restrict, int); */
 /* NOTIMPL int futimens(int, const struct timespec [2]); */
-#if !defined(NO_POSIX_WRAPPERS)
-int __posixc_lstat(const char * restrict path, struct stat * restrict sb);
 int lstat64(const char * restrict path, struct stat64 * restrict sb);
 #if defined(__USE_FILE_OFFSET64)
 static __inline__  int lstat(const char * restrict path, struct stat * restrict sb)
@@ -168,22 +158,14 @@ static __inline__  int lstat(const char * restrict path, struct stat * restrict 
     return lstat64(path, _sb64);
 }
 #else
-static __inline__  int lstat(const char * restrict path, struct stat * restrict sb)
-{
-    return __posixc_lstat(path, sb);
-}
-#endif
-#else  /* NO_POSIX_WRAPPERS */
 int lstat(const char * restrict path, struct stat * restrict sb);
-#endif /* NO_POSIX_WRAPPERS */
+#endif
 int mkdir(const char *path, mode_t mode);
 /* NOTIMPL int mkdirat(int, const char *, mode_t); */
 /* NOTIMPL int mkfifo(const char *path, mode_t mode); */
 /* NOTIMPL int mkfifoat(int, const char *, mode_t); */
 int mknod(const char *path, mode_t mode, dev_t dev);
 /* NOTIMPL int mknodat(int, const char *, mode_t, dev_t); */
-#if !defined(NO_POSIX_WRAPPERS)
-int __posixc_stat(const char * restrict path, struct stat * restrict sb);
 int stat64(const char * restrict path, struct stat64 * restrict sb);
 #if defined(__USE_FILE_OFFSET64)
 static __inline__  int stat(const char * restrict path, struct stat * restrict sb)
@@ -192,14 +174,8 @@ static __inline__  int stat(const char * restrict path, struct stat * restrict s
     return stat64(path, _sb64);
 }
 #else
-static __inline__  int stat(const char * restrict path, struct stat * restrict sb)
-{
-    return __posixc_stat(path, sb);
-}
-#endif
-#else  /* NO_POSIX_WRAPPERS */
 int stat(const char * restrict path, struct stat * restrict sb);
-#endif /* NO_POSIX_WRAPPERS */
+#endif
 mode_t umask(mode_t numask);
 /* NOTIMPL int utimensat(int, const char *, const struct timespec [2], int); */
 

@@ -44,7 +44,7 @@
     BUGS
 
     SEE ALSO
-        __posixc_alphasort()
+        alphasort()
 
     INTERNALS
 

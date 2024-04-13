@@ -40,5 +40,5 @@
 ******************************************************************************/
 {
     /* FIXME: Shouldn't we check if pathname is actually a directory ? */
-    return remove(__path_u2a(pathname));
+    return __stdc_remove(__path_u2a(pathname));
 } /* rmdir() */

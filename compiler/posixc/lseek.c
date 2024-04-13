@@ -16,7 +16,7 @@
     NAME */
 #include <unistd.h>
 
-        off_t __posixc_lseek (
+        off_t lseek (
 
 /*  SYNOPSIS */
         int    filedes,
@@ -54,7 +54,7 @@
         implementation fails with EISDIR for directory file descriptors.
 
     SEE ALSO
-        __posixc_fopen(), __posixc_fwrite()
+        fopen(), __posixc_fwrite()
 
     INTERNALS
 
@@ -153,4 +153,4 @@
 error:
     errno = __stdc_ioerr2errno (IoErr ());
     return (off_t) -1;
-} /* __posixc_lseek */
+} /* lseek */
