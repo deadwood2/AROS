@@ -26,4 +26,6 @@
 #include "../stdc/stch_l.c"
 #include "../stdc/stco_l.c"
 
+#define __stdc_gmtoffset(a) ___gmtoffset(a)
+#include "../stdc/localtime_r.c"
 

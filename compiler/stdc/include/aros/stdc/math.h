@@ -174,9 +174,9 @@ typedef long double float_t;
  * to just declare extern int signgam; in the program but this is not
  * supported.
  */
-int *__stdc_getsigngamptr(void);
+int *___getsigngamptr(void);
 #ifndef signgam
-#define signgam (*__stdc_getsigngamptr())
+#define signgam (*___getsigngamptr())
 #endif
 /* #endif __BSD_VISIBLE || __XSI_VISIBLE */
 

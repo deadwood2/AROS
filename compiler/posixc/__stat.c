@@ -825,7 +825,7 @@ static void __fill_statbuffer(
        st_atim, st_mtim and st_ctim */
     sb->st_atime   =
     sb->st_ctime   =
-    sb->st_mtime   = (fib->fib_Date.ds_Days * 24*60 + fib->fib_Date.ds_Minute + __stdc_gmtoffset()) * 60 +
+    sb->st_mtime   = (fib->fib_Date.ds_Days * 24*60 + fib->fib_Date.ds_Minute + ___gmtoffset()) * 60 +
                       fib->fib_Date.ds_Tick / TICKS_PER_SECOND + OFFSET_FROM_1970;
     sb->st_uid     = __id_a2u(fib->fib_OwnerUID);
     sb->st_gid     = __id_a2u(fib->fib_OwnerGID);
@@ -915,7 +915,7 @@ static void __fill_stat64buffer(
        st_atim, st_mtim and st_ctim */
     sb->st_atime   =
     sb->st_ctime   =
-    sb->st_mtime   = (fib->fib_Date.ds_Days * 24*60 + fib->fib_Date.ds_Minute + __stdc_gmtoffset()) * 60 +
+    sb->st_mtime   = (fib->fib_Date.ds_Days * 24*60 + fib->fib_Date.ds_Minute + ___gmtoffset()) * 60 +
                       fib->fib_Date.ds_Tick / TICKS_PER_SECOND + OFFSET_FROM_1970;
     sb->st_uid     = __id_a2u(fib->fib_OwnerUID);
     sb->st_gid     = __id_a2u(fib->fib_OwnerGID);

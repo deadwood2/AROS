@@ -1,6 +1,6 @@
 int errno;
 
-int *__stdc_geterrnoptr(void)
+int *___geterrnoptr(void)
 {
     return &errno;
 }

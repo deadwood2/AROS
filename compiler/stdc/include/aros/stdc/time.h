@@ -55,7 +55,7 @@ struct tm *gmtime_r(const time_t *, struct tm *);
 struct tm *localtime_r(const time_t *, struct tm *);
 
 /* AROS extension */
-int __stdc_gmtoffset(void);
+int ___gmtoffset(void);
 
 __END_DECLS
 
