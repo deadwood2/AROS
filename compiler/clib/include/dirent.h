@@ -81,8 +81,8 @@ __BEGIN_DECLS
 
 DIR *opendir (const char *filename);
 int closedir(DIR *dir);
-#if !defined(NO_POSIX_WRAPPERS)
-struct dirent *__posixc_readdir (DIR *dir);
+
+
 #if defined(__USE_LARGEFILE64)
 struct dirent64 *readdir64 (DIR *dir);
 #endif
@@ -92,25 +92,16 @@ static __inline__  struct dirent *readdir(DIR *dir)
     return (struct dirent *)readdir64(dir);
 }
 #else
-static __inline__  struct dirent *readdir(DIR *dir)
-{
-    return __posixc_readdir(dir);
-}
+struct dirent *readdir (DIR *dir);
 #endif
 
-/* NOTIMPL int __posixc_readdir_r (DIR *dir, struct dirent *entry, struct dirent **result); */
+/* NOTIMPL int readdir_r (DIR *dir, struct dirent *entry, struct dirent **result); */
 # ifdef __USE_LARGEFILE64
 /* NOTIMPL 
 int readdir64_r (DIR *dir,
                         struct dirent64 *entry,
                         struct dirent64 **result) */
 # endif
-#else /* NO_POSIX_WRAPPERS */
-struct dirent *readdir(DIR *dir);
-#if defined(__USE_LARGEFILE64)
-struct dirent64 *readdir64 (DIR *dir);
-#endif
-#endif /* NO_POSIX_WRAPPERS */
 
 #ifdef __USE_XOPEN2K8
 int dirfd(DIR *dir);
