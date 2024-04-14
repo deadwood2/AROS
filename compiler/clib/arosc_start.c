@@ -113,7 +113,7 @@ struct aroscbase *__aros_getbase_aroscbase(void)
 {
     return (struct aroscbase *)__aros_getoffsettable();
 }
-FILE * __posixc_fopen(const char * restrict filename, const char * restrict mode);
+FILE * fopen(const char * restrict filename, const char * restrict mode);
 FILE * fdopen(int filedes, const char *mode);
 int fclose(FILE *stream);
 int printf(const char * restrict format, ...);
@@ -148,8 +148,8 @@ int vsscanf(const char * restrict s, const char * restrict format, va_list arg);
 int fseek(FILE *stream, long int offset, int whence);
 long int ftell(FILE *stream);
 void rewind(FILE *stream);
-int __posixc_fgetpos(FILE * restrict stream, fpos_t * restrict pos);
-int __posixc_fsetpos(FILE *stream, const fpos_t *pos);
+int fgetpos(FILE * restrict stream, fpos_t * restrict pos);
+int fsetpos(FILE *stream, const fpos_t *pos);
 int remove(const char *filename);
 void setbuf(FILE * restrict stream, char * restrict buf);
 void setlinebuf(FILE *stream);
@@ -162,13 +162,13 @@ int dup(int oldfd);
 int dup2(int oldfd, int newfd);
 char * getcwd(char *buf, size_t size);
 int isatty(int fd);
-off_t __posixc_lseek(int filedes, off_t offset, int whence);
+off_t lseek(int filedes, off_t offset, int whence);
 ssize_t read(int d, void *buf, size_t nbytes);
 int truncate(const char *path, off_t length);
 int unlink(const char *path);
 ssize_t write(int fd, const void *buf, size_t nbytes);
 int open(const char * filename, int flags, ...);
-int __posixc_creat(const char * filename, int mode);
+int creat(const char * filename, int mode);
 int utime(const char *filename, const struct utimbuf *buf);
 int abs(int j);
 long labs(long j);
@@ -206,10 +206,10 @@ char * mktemp(char *);
 int system(const char *string);
 char * gcvt(double number, int ndigit, char *buf);
 int mkdir(const char *path, mode_t mode);
-int __posixc_stat(const char * restrict path, struct stat * restrict sb);
-int __posixc_fstat(int fd, struct stat *sb);
+int stat(const char * restrict path, struct stat * restrict sb);
+int fstat(int fd, struct stat *sb);
 DIR * opendir(const char *filename);
-struct dirent * __posixc_readdir(DIR *dir);
+struct dirent * readdir(DIR *dir);
 void rewinddir(DIR *dir);
 int closedir(DIR *dir);
 long telldir(DIR *dir);
@@ -360,12 +360,12 @@ intmax_t strtoimax(const char *nptr, char **endptr, int base);
 uintmax_t strtoumax(const char *nptr, char **endptr, int base);
 void sharecontextwithchild(int share);
 long sysconf(int name);
-int __posixc_lstat(const char *path, struct stat *sb);
+int lstat(const char *path, struct stat *sb);
 void __arosc_program_startup_abiv0(void);
 void __arosc_program_end(void);
 int nanosleep(const struct timespec *req, struct timespec *rem);
-int __posixc_fseeko(FILE *stream, off_t offset, int whence);
-off_t __posixc_ftello(FILE *stream);
+int fseeko(FILE *stream, off_t offset, int whence);
+off_t ftello(FILE *stream);
 long pathconf(const char *path, int name);
 char * realpath(const char *path, char *resolved_path);
 void sync();
@@ -379,7 +379,7 @@ const struct arosc_ctype * __get_arosc_ctype(void);
 int getrlimit(int resource, struct rlimit *rlp);
 int setrlimit(int resource, const struct rlimit *rlp);
 int __posixc_set_environptr(char ***environptr);
-int __stdc_gmtoffset(void);
+int ___gmtoffset(void);
 int * __arosc_set_errorptr(int *errorptr);
 void __arosc_set_exitjmp(jmp_buf exitjmp, jmp_buf previousjmp);
 void __arosc_jmp2exit(int normal, int retcode);
@@ -393,7 +393,7 @@ int fseeko64(FILE *, off64_t, int);
 off64_t ftello64(FILE *);
 int fstat64(int fd, struct stat64 *sb);
 off64_t lseek64(int filedes, off64_t offset, int whence);
-AROS_GM_STACKCALL(__posixc_fopen,Arosc,5);
+AROS_GM_STACKCALL(fopen,Arosc,5);
 AROS_GM_STACKCALL(fdopen,Arosc,6);
 AROS_GM_STACKCALL(fclose,Arosc,7);
 AROS_GM_STACKCALL(printf,Arosc,8);
@@ -428,8 +428,8 @@ AROS_GM_STACKCALL(vsscanf,Arosc,36);
 AROS_GM_STACKCALL(fseek,Arosc,37);
 AROS_GM_STACKCALL(ftell,Arosc,38);
 AROS_GM_STACKCALL(rewind,Arosc,39);
-AROS_GM_STACKCALL(__posixc_fgetpos,Arosc,40);
-AROS_GM_STACKCALL(__posixc_fsetpos,Arosc,41);
+AROS_GM_STACKCALL(fgetpos,Arosc,40);
+AROS_GM_STACKCALL(fsetpos,Arosc,41);
 AROS_GM_STACKCALL(remove,Arosc,42);
 AROS_GM_STACKCALL(setbuf,Arosc,43);
 AROS_GM_STACKCALL(setlinebuf,Arosc,44);
@@ -442,13 +442,13 @@ AROS_GM_STACKCALL(dup,Arosc,50);
 AROS_GM_STACKCALL(dup2,Arosc,51);
 AROS_GM_STACKCALL(getcwd,Arosc,52);
 AROS_GM_STACKCALL(isatty,Arosc,53);
-AROS_GM_STACKCALL(__posixc_lseek,Arosc,54);
+AROS_GM_STACKCALL(lseek,Arosc,54);
 AROS_GM_STACKCALL(read,Arosc,55);
 AROS_GM_STACKCALL(truncate,Arosc,56);
 AROS_GM_STACKCALL(unlink,Arosc,57);
 AROS_GM_STACKCALL(write,Arosc,58);
 AROS_GM_STACKCALL(open,Arosc,59);
-AROS_GM_STACKCALL(__posixc_creat,Arosc,60);
+AROS_GM_STACKCALL(creat,Arosc,60);
 AROS_GM_STACKCALL(utime,Arosc,61);
 AROS_GM_STACKCALL(abs,Arosc,62);
 AROS_GM_STACKCALL(labs,Arosc,63);
@@ -486,10 +486,10 @@ AROS_GM_STACKCALL(mktemp,Arosc,94);
 AROS_GM_STACKCALL(system,Arosc,95);
 AROS_GM_STACKCALL(gcvt,Arosc,96);
 AROS_GM_STACKCALL(mkdir,Arosc,97);
-AROS_GM_STACKCALL(__posixc_stat,Arosc,98);
-AROS_GM_STACKCALL(__posixc_fstat,Arosc,99);
+AROS_GM_STACKCALL(stat,Arosc,98);
+AROS_GM_STACKCALL(fstat,Arosc,99);
 AROS_GM_STACKCALL(opendir,Arosc,100);
-AROS_GM_STACKCALL(__posixc_readdir,Arosc,101);
+AROS_GM_STACKCALL(readdir,Arosc,101);
 AROS_GM_STACKCALL(rewinddir,Arosc,102);
 AROS_GM_STACKCALL(closedir,Arosc,103);
 AROS_GM_STACKCALL(telldir,Arosc,104);
@@ -634,12 +634,12 @@ AROS_GM_STACKCALL(strtoimax,Arosc,265);
 AROS_GM_STACKCALL(strtoumax,Arosc,266);
 AROS_GM_STACKCALL(sharecontextwithchild,Arosc,267);
 AROS_GM_STACKCALL(sysconf,Arosc,268);
-AROS_GM_STACKCALL(__posixc_lstat,Arosc,269);
+AROS_GM_STACKCALL(lstat,Arosc,269);
 AROS_GM_STACKCALL(__arosc_program_startup_abiv0,Arosc,270);
 AROS_GM_STACKCALL(__arosc_program_end,Arosc,271);
 AROS_GM_STACKCALL(nanosleep,Arosc,272);
-AROS_GM_STACKCALL(__posixc_fseeko,Arosc,273);
-AROS_GM_STACKCALL(__posixc_ftello,Arosc,274);
+AROS_GM_STACKCALL(fseeko,Arosc,273);
+AROS_GM_STACKCALL(ftello,Arosc,274);
 AROS_GM_STACKCALL(pathconf,Arosc,275);
 AROS_GM_STACKCALL(realpath,Arosc,276);
 AROS_GM_STACKCALL(sync,Arosc,277);
@@ -653,7 +653,7 @@ AROS_GM_STACKCALL(__get_arosc_ctype,Arosc,284);
 AROS_GM_STACKCALL(getrlimit,Arosc,285);
 AROS_GM_STACKCALL(setrlimit,Arosc,286);
 AROS_GM_STACKCALL(__posixc_set_environptr,Arosc,287);
-AROS_GM_STACKCALL(__stdc_gmtoffset,Arosc,288);
+AROS_GM_STACKCALL(___gmtoffset,Arosc,288);
 AROS_GM_STACKCALL(__arosc_set_errorptr,Arosc,289);
 AROS_GM_STACKCALL(__arosc_set_exitjmp,Arosc,290);
 AROS_GM_STACKCALL(__arosc_jmp2exit,Arosc,291);
@@ -1007,7 +1007,7 @@ __section(".text.romtag") const APTR GM_UNIQUENAME(FuncTable)[]=
     &AROS_SLIB_ENTRY(GM_UNIQUENAME(CloseLib),Arosc,2),
     &AROS_SLIB_ENTRY(GM_UNIQUENAME(ExpungeLib),Arosc,3),
     &AROS_SLIB_ENTRY(GM_UNIQUENAME(ExtFuncLib),Arosc,4),
-    &AROS_SLIB_ENTRY(__posixc_fopen,Arosc,5),
+    &AROS_SLIB_ENTRY(fopen,Arosc,5),
     &AROS_SLIB_ENTRY(fdopen,Arosc,6),
     &AROS_SLIB_ENTRY(fclose,Arosc,7),
     &AROS_SLIB_ENTRY(printf,Arosc,8),
@@ -1042,8 +1042,8 @@ __section(".text.romtag") const APTR GM_UNIQUENAME(FuncTable)[]=
     &AROS_SLIB_ENTRY(fseek,Arosc,37),
     &AROS_SLIB_ENTRY(ftell,Arosc,38),
     &AROS_SLIB_ENTRY(rewind,Arosc,39),
-    &AROS_SLIB_ENTRY(__posixc_fgetpos,Arosc,40),
-    &AROS_SLIB_ENTRY(__posixc_fsetpos,Arosc,41),
+    &AROS_SLIB_ENTRY(fgetpos,Arosc,40),
+    &AROS_SLIB_ENTRY(fsetpos,Arosc,41),
     &AROS_SLIB_ENTRY(remove,Arosc,42),
     &AROS_SLIB_ENTRY(setbuf,Arosc,43),
     &AROS_SLIB_ENTRY(setlinebuf,Arosc,44),
@@ -1056,13 +1056,13 @@ __section(".text.romtag") const APTR GM_UNIQUENAME(FuncTable)[]=
     &AROS_SLIB_ENTRY(dup2,Arosc,51),
     &AROS_SLIB_ENTRY(getcwd,Arosc,52),
     &AROS_SLIB_ENTRY(isatty,Arosc,53),
-    &AROS_SLIB_ENTRY(__posixc_lseek,Arosc,54),
+    &AROS_SLIB_ENTRY(lseek,Arosc,54),
     &AROS_SLIB_ENTRY(read,Arosc,55),
     &AROS_SLIB_ENTRY(truncate,Arosc,56),
     &AROS_SLIB_ENTRY(unlink,Arosc,57),
     &AROS_SLIB_ENTRY(write,Arosc,58),
     &AROS_SLIB_ENTRY(open,Arosc,59),
-    &AROS_SLIB_ENTRY(__posixc_creat,Arosc,60),
+    &AROS_SLIB_ENTRY(creat,Arosc,60),
     &AROS_SLIB_ENTRY(utime,Arosc,61),
     &AROS_SLIB_ENTRY(abs,Arosc,62),
     &AROS_SLIB_ENTRY(labs,Arosc,63),
@@ -1100,10 +1100,10 @@ __section(".text.romtag") const APTR GM_UNIQUENAME(FuncTable)[]=
     &AROS_SLIB_ENTRY(system,Arosc,95),
     &AROS_SLIB_ENTRY(gcvt,Arosc,96),
     &AROS_SLIB_ENTRY(mkdir,Arosc,97),
-    &AROS_SLIB_ENTRY(__posixc_stat,Arosc,98),
-    &AROS_SLIB_ENTRY(__posixc_fstat,Arosc,99),
+    &AROS_SLIB_ENTRY(stat,Arosc,98),
+    &AROS_SLIB_ENTRY(fstat,Arosc,99),
     &AROS_SLIB_ENTRY(opendir,Arosc,100),
-    &AROS_SLIB_ENTRY(__posixc_readdir,Arosc,101),
+    &AROS_SLIB_ENTRY(readdir,Arosc,101),
     &AROS_SLIB_ENTRY(rewinddir,Arosc,102),
     &AROS_SLIB_ENTRY(closedir,Arosc,103),
     &AROS_SLIB_ENTRY(telldir,Arosc,104),
@@ -1271,12 +1271,12 @@ __section(".text.romtag") const APTR GM_UNIQUENAME(FuncTable)[]=
     &AROS_SLIB_ENTRY(strtoumax,Arosc,266),
     &AROS_SLIB_ENTRY(sharecontextwithchild,Arosc,267),
     &AROS_SLIB_ENTRY(sysconf,Arosc,268),
-    &AROS_SLIB_ENTRY(__posixc_lstat,Arosc,269),
+    &AROS_SLIB_ENTRY(lstat,Arosc,269),
     &AROS_SLIB_ENTRY(__arosc_program_startup_abiv0,Arosc,270),
     &AROS_SLIB_ENTRY(__arosc_program_end,Arosc,271),
     &AROS_SLIB_ENTRY(nanosleep,Arosc,272),
-    &AROS_SLIB_ENTRY(__posixc_fseeko,Arosc,273),
-    &AROS_SLIB_ENTRY(__posixc_ftello,Arosc,274),
+    &AROS_SLIB_ENTRY(fseeko,Arosc,273),
+    &AROS_SLIB_ENTRY(ftello,Arosc,274),
     &AROS_SLIB_ENTRY(pathconf,Arosc,275),
     &AROS_SLIB_ENTRY(realpath,Arosc,276),
     &AROS_SLIB_ENTRY(sync,Arosc,277),
@@ -1291,7 +1291,7 @@ __section(".text.romtag") const APTR GM_UNIQUENAME(FuncTable)[]=
     &AROS_SLIB_ENTRY(getrlimit,Arosc,285),
     &AROS_SLIB_ENTRY(setrlimit,Arosc,286),
     &AROS_SLIB_ENTRY(__posixc_set_environptr,Arosc,287),
-    &AROS_SLIB_ENTRY(__stdc_gmtoffset,Arosc,288),
+    &AROS_SLIB_ENTRY(___gmtoffset,Arosc,288),
     &AROS_SLIB_ENTRY(__arosc_set_errorptr,Arosc,289),
     &AROS_SLIB_ENTRY(__arosc_set_exitjmp,Arosc,290),
     &AROS_SLIB_ENTRY(__arosc_jmp2exit,Arosc,291),

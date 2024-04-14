@@ -103,7 +103,6 @@ STDC_SHARED_SOURCES = \
     gmtime_r \
     labs \
     localeconv \
-    localtime_r \
     mktime \
     on_exit \
     qsort \
@@ -283,6 +282,7 @@ SHARED    := \
     __arosc_nixmain \
     __arosc_startup \
     __arosc_userdata \
+    __arosc_wrapper \
     __assert \
     __ctype \
     __get_default_file \
