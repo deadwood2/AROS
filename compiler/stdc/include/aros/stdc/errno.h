@@ -87,11 +87,6 @@ int *___geterrnoptr(void);
 #define errno (*___geterrnoptr())
 #endif
 
-/* AROS specific functions to translate DOS error numbers to errno.
- */
-int ioerr2errno(int ioerr);
-int __stdc_ioerr2errno(int ioerr); 
-
 __END_DECLS
 
 #endif /* _STDC_ERRNO_H_ */

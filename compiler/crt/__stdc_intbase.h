@@ -50,5 +50,7 @@ struct StdCIntBase
 };
 
 struct StdCBase *__aros_getbase_StdCBase(void);
+int __stdc_ioerr2errno(int ioerr);
+char *__stdc_strerror(int n);
 
 #endif
