@@ -495,7 +495,7 @@ ssize_t read(int fd, void *buff, size_t len)
     return Read((BPTR)fd, buff, (LONG)len);
 }
 
-off_t __posixc_lseek(int fd, off_t offset, int whence)
+off_t lseek(int fd, off_t offset, int whence)
 {
     LONG mode = SEEK_SET;
     LONG err;
