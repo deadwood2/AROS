@@ -122,7 +122,7 @@ void writemakefile(struct config *cfg)
     fprintf(out, "%s_CPPFLAGS  +=", moduleversname);
     for (s = cfg->rellibs; s ; s = s->next)
         fprintf(out, " -D__%s_RELLIBBASE__", upname(s->s));
-    if (cfg->options & OPTION_RELLINKLIB)
+    if (cfg->options & OPTION_DUPBASE)
         fprintf(out, " -D__%s_NOLIBBASE__", upname(cfg->modulename));
     fprintf(out, "\n");
     fprintf(out, "%s_LINKLIBCPPFLAGS  +=", moduleversname);
