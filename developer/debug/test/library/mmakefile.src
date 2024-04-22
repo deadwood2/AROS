@@ -41,9 +41,12 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
     files="singlelib" \
     prefix=$(TARGETDIR)
 
+FILES := peropenervalue peropenernolib peropenernamechange peropenerinit peropenershareable \
+         peropenervalue_intralib
+
 %build_module mmake=test-library-peropenerlib \
     modname=peropener modtype=library \
-    files="peropenervalue peropenernolib peropenernamechange peropenerinit peropenershareable" \
+    files="$(FILES)" \
     linklibfiles="peropenervalue_linklib" \
     prefix=$(TARGETDIR)
 
@@ -82,6 +85,10 @@ USER_LDFLAGS +=
 
 %build_prog mmake=test-library-peropener-varsglobal-cunit \
     progname=cunit-library-peropener-varsglobal targetdir=$(CUNITEXEDIR) \
+    uselibs="peropener cunit"
+
+%build_prog mmake=test-library-peropener-intralib-cunit \
+    progname=cunit-library-peropener-intralib targetdir=$(CUNITEXEDIR) \
     uselibs="peropener cunit"
 
 FILES :=    cunit-library-single-global \
@@ -148,7 +155,8 @@ USER_CPPFLAGS :=
 #MM     test-library-peropener-local-cunit \
 #MM     test-library-peropener-relative-cunit \
 #MM     test-library-peropener-shareable-cunit \
-#MM     test-library-peropener-varsglobal-cunit
+#MM     test-library-peropener-varsglobal-cunit \
+#MM     test-library-peropener-intralib-cunit \
 
 #MM- test-library-cunit-quick : \
 #MM     test-library-userel-cunit-quick \
@@ -160,6 +168,7 @@ USER_CPPFLAGS :=
 #MM     test-library-peropener-local-cunit-quick \
 #MM     test-library-peropener-relative-cunit-quick \
 #MM     test-library-peropener-shareable-cunit-quick \
-#MM     test-library-peropener-varsglobal-cunit-quick
+#MM     test-library-peropener-varsglobal-cunit-quick \
+#MM     test-library-peropener-intralib-cunit-quick \
 
 %common
