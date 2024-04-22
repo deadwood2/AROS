@@ -13,7 +13,8 @@ include $(SRCDIR)/config/aros.cfg
 #MM- test-library-clean : \
 #MM       test-library-singlelib-clean \
 #MM       test-library-peropenerlib-clean \
-#MM       test-library-userellib-clean
+#MM       test-library-userellib-clean \
+#MM       test-library-noincludeslib-clean
 
 
 #MM- test-cunit : test-library-cunit
@@ -41,6 +42,11 @@ USER_LDFLAGS := -L$(TARGETDIR)/$(AROS_DIR_DEVELOPMENT)/lib
     files="singlelib" \
     prefix=$(TARGETDIR)
 
+%build_module mmake=test-library-noincludeslib \
+    modname=noincludes modtype=library \
+    files="noincludeslib" \
+    prefix=$(TARGETDIR)
+
 FILES := peropenervalue peropenernolib peropenernamechange peropenerinit peropenershareable \
          peropenervalue_intralib
 
@@ -66,6 +72,7 @@ USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 USER_LDFLAGS +=
 
 #MM test-library-userel-cunit : linklibs-cunit test-library-userellib test-library-singlelib test-library-peropenerlib
+#MM test-library-noincludes-cunit : linklibs-cunit test-library-noincludeslib
 
 %build_prog mmake=test-library-single-autoopen-cunit \
     progname=cunit-library-single-autoopen targetdir=$(CUNITEXEDIR) \
@@ -74,6 +81,10 @@ USER_LDFLAGS +=
 %build_prog mmake=test-library-single-cunit \
     progname=cunit-library-single targetdir=$(CUNITEXEDIR) \
     uselibs="single cunit"
+
+%build_prog mmake=test-library-noincludes-cunit \
+    progname=cunit-library-noincludes targetdir=$(CUNITEXEDIR) \
+    uselibs="noincludes cunit"
 
 %build_prog mmake=test-library-userel-cunit \
     progname=cunit-library-userel targetdir=$(CUNITEXEDIR) \
@@ -157,6 +168,7 @@ USER_CPPFLAGS :=
 #MM     test-library-peropener-shareable-cunit \
 #MM     test-library-peropener-varsglobal-cunit \
 #MM     test-library-peropener-intralib-cunit \
+#MM     test-library-noincludes-cunit
 
 #MM- test-library-cunit-quick : \
 #MM     test-library-userel-cunit-quick \
@@ -170,5 +182,6 @@ USER_CPPFLAGS :=
 #MM     test-library-peropener-shareable-cunit-quick \
 #MM     test-library-peropener-varsglobal-cunit-quick \
 #MM     test-library-peropener-intralib-cunit-quick \
+#MM     test-library-noincludes-cunit-quick
 
 %common

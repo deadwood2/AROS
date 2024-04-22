@@ -24,6 +24,7 @@ If NOT WARN
         Execute S/Test cunit/library/cunit-library-peropener-shareable  ;Library_Peropener_Shareable_Suite
         Execute S/Test cunit/library/cunit-library-peropener-varsglobal ;Library_Peropener_VarsGlobal_Suite
         Execute S/Test cunit/library/cunit-library-peropener-intralib   ;Library_Peropener_IntraLib_Suite
+        Execute S/Test cunit/library/cunit-library-noincludes       ;Library_Noincludes_Suite
     EndIf
 
     ; Perform basic "exec.library" unit tests...
