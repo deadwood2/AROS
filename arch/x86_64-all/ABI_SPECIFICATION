@@ -12,26 +12,26 @@ Caller-side (Regular caller: program or library storing called library base in v
 Type of call            How base is fetched at caller                  ==>                  How base and arguments are passed to library
 REGCALL
   inline
-    regular             Passed to inline function as result of __aros_getbase_LibBase()     R12 for base    / SysV x86_64 ABI for arguments
+    regular             Passed to inline function as value of __LIB_LIBBASE                 R12 for base    / SysV x86_64 ABI for arguments
                         defined by default to (LibBase) global or local variable.
                         (LibBase) can be re-defined by caller.
 
   define
-    regular             Passed to macro as result of __aros_getbase_LibBase()               R12 for base    / SysV x86_64 ABI for arguments
+    regular             Passed to macro as value of __LIB_LIBBASE                           R12 for base    / SysV x86_64 ABI for arguments
                         defined by default to (LibBase) global or local variable.
                         (LibBase) cab be re-defined by caller.
 
   linklib
-    regular             Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
-                        __aros_getbase_LibBase() which is compiled as (LibBase) global
+    regular             Fetched in stub function as value of __LIB_LIBBASE                  R12 for base    / SysV x86_64 ABI for arguments
+                        which is compiled as (LibBase) global
                         variable. Re-defining (LibBase) by caller has no effect, as
                         stub function is already compiled.
 
 STACKCALL
   linklib
     non-varargs
-      regular           Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
-                        __aros_getbase_LibBase() which is compiled as (LibBase) global
+      regular           Fetched in stub function as value of __LIB_LIBBASE                  R12 for base    / SysV x86_64 ABI for arguments
+                        which is compiled as (LibBase) global
                         variable. Re-defining (LibBase) by caller has no effect, as
                         stub function is already compiled.
 
@@ -102,15 +102,15 @@ REGCALL
     base-relative       Disabled                                                            Disabled
 
   define
-    base-relative       Passed to macro as result of __aros_getbase_LibBase()               R12 for base    / SysV x86_64 ABI for arguments
+    base-relative       Passed to macro as value of __LIB_LIBBASE                           R12 for base    / SysV x86_64 ABI for arguments
                         defined by default as result of __aros_getoffsettable() offsetted
                         by __aros_rellib_offset_LibBase global constant. Caller must
                         implement or define __aros_getoffsettable() returning
                         caller's library base.
 
   linklib
-    base-relative       Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
-                        __aros_getbase_LibBase() which is compiled as result of
+    base-relative       Fetched in stub function as value of __LIB_LIBBASE                  R12 for base    / SysV x86_64 ABI for arguments
+                        which is compiled as result of
                         __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
                         global constant. Caller must implement __aros_getoffsettable()
                         returning caller's library base.
@@ -118,8 +118,8 @@ REGCALL
 STACKCALL
   linklib
     non-varargs
-      base-relative     Fetched in stub function as results of                              R12 for base    / SysV x86_64 ABI for arguments
-                        __aros_getbase_LibBase() which is compiled as result of
+      base-relative     Fetched in stub function as value of __LIB_LIBBASE                  R12 for base    / SysV x86_64 ABI for arguments
+                        which is compiled as result of
                         __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
                         global constant. Caller must implement __aros_getoffsettable()
                         returning caller's library base.

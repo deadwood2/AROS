@@ -80,11 +80,11 @@ void writeincproto(struct config *cfg)
     fprintf(out,
             "  #endif\n"
             " #endif\n"
-            " #ifndef __aros_getbase_%s\n"
-            "  #define __aros_getbase_%s() (%s)\n"
+            " #ifndef __%s_LIBBASE\n"
+            "  #define __%s_LIBBASE (%s)\n"
             " #endif\n",
-            cfg->libbase,
-            cfg->libbase, cfg->libbase
+            cfg->includenameupper,
+            cfg->includenameupper, cfg->libbase
     );
 
     if (cfg->options & OPTION_RELLINKLIB)
@@ -93,23 +93,29 @@ void writeincproto(struct config *cfg)
                 " extern const IPTR __aros_rellib_offset_%s;\n"
                 " #define AROS_RELLIB_OFFSET_%s __aros_rellib_offset_%s\n"
                 " #define AROS_RELLIB_BASE_%s __aros_rellib_base_%s\n"
-                " #ifndef __aros_getbase_%s\n"
+                " #ifndef __%s_LIBBASE\n"
                 "  #ifndef __aros_getoffsettable\n"
                 "   char *__aros_getoffsettable(void);\n"
                 "  #endif\n"
-                "  #define __aros_getbase_%s() (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
+                "  #define __%s_LIBBASE (*(%s*)(__aros_getoffsettable()+__aros_rellib_offset_%s))\n"
                 " #endif\n"
                 "#endif\n",
                 cfg->includenameupper,
                 cfg->libbase,
                 cfg->includenameupper, cfg->libbase,
                 cfg->includenameupper, cfg->libbase,
-                cfg->libbase,
-                cfg->libbase, cfg->libbasetypeptrextern, cfg->libbase
+                cfg->includenameupper,
+                cfg->includenameupper, cfg->libbasetypeptrextern, cfg->libbase
         );
 
-    fprintf(out, "\n");
-
+    fprintf(out,
+            "#ifndef __aros_getbase_%s\n"
+            "extern %s__aros_getbase_%s(void);\n"
+            "#endif\n"
+            "\n",
+            cfg->libbase,
+            cfg->libbasetypeptrextern, cfg->libbase
+    );
     // define name must not start with a digit
     // this solves a problem with proto/8svx.h
     if (isdigit(cfg->includenameupper[0]))

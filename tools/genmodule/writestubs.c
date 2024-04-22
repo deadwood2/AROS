@@ -149,10 +149,19 @@ static void writeheader(struct config *cfg, int is_rel, FILE *out)
         for (linelistit = cfg->cdefprivatelines; linelistit!=NULL; linelistit = linelistit->next)
             fprintf(out, "%s\n", linelistit->s);
 
+        fprintf(out, "\n");
+
         fprintf(out,
-            "\n"
-            "%s__aros_getbase_%s(void);\n"
+            "#if !defined(__%s_LIBBASE)\n"
+            "#define __%s_LIBBASE __aros_getbase_%s()\n"
+            "#endif\n"
+            "#ifndef __aros_getbase_%s\n"
+            "extern %s__aros_getbase_%s(void);\n"
+            "#endif\n"
             "\n",
+            cfg->includenameupper,
+            cfg->includenameupper, cfg->libbase,
+            cfg->libbase,
             cfg->libbasetypeptrextern, cfg->libbase
         );
     }
@@ -272,8 +281,8 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
             }
         }
 
-        fprintf(out, "                    %s, __aros_getbase_%s(), %u, %s);\n}\n",
-                cfg->libbasetypeptrextern, cfg->libbase, funclistit->lvo, cfg->basename
+        fprintf(out, "                    %s, __%s_LIBBASE, %u, %s);\n}\n",
+                cfg->libbasetypeptrextern, cfg->includenameupper, funclistit->lvo, cfg->basename
         );
     }
     else /* libcall==STACK */
@@ -336,9 +345,9 @@ static void writefuncstub(struct config *cfg, int is_rel, FILE *out, struct func
         fprintf(out,
                 "%s"
                 "    ({\n"
-                "        AROS_LIBCALL_INIT(__aros_getbase_%s(), %d)\n",
+                "        AROS_LIBCALL_INIT(__%s_LIBBASE, %d)\n",
                 isvoid ? "" : "    return\n",
-                cfg->libbase, funclistit->lvo
+                cfg->includenameupper, funclistit->lvo
         );
 
         fprintf(out,

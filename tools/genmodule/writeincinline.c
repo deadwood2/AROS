@@ -43,6 +43,19 @@ void writeincinline(struct config *cfg)
             "\n",
             cfg->includenameupper, cfg->includenameupper, banner, cfg->modulename
     );
+    fprintf(out,
+            "#if !defined(__%s_LIBBASE)\n"
+            "#define __%s_LIBBASE __aros_getbase_%s()\n"
+            "#endif\n"
+            "#ifndef __aros_getbase_%s\n"
+            "extern %s__aros_getbase_%s(void);\n"
+            "#endif\n"
+            "\n",
+            cfg->includenameupper,
+            cfg->includenameupper, cfg->libbase,
+            cfg->libbase,
+            cfg->libbasetypeptrextern, cfg->libbase
+    );
     freeBanner(banner);
 
     for (funclistit = cfg->funclist; funclistit!=NULL; funclistit = funclistit->next)
@@ -309,7 +322,7 @@ writeinlineregister(FILE *out, struct functionhead *funclistit, struct config *c
          arglistit = arglistit->next, count++
     )
         fprintf(out, "(arg%d), ", count);
-    fprintf(out, "__aros_getbase_%s())\n", cfg->libbase);
+    fprintf(out, "__%s_LIBBASE)\n", cfg->includenameupper);
 }
 
 void
@@ -436,9 +449,9 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
                 "    __inline_%s_%s(",
                 cfg->basename, varargname
         );
-        fprintf(out, "(%s)__aros_getbase_%s(), ",
+        fprintf(out, "(%s)__%s_LIBBASE, ",
                 cfg->libbasetypeptrextern,
-                cfg->libbase);
+                cfg->includenameupper);
         for (arglistit = funclistit->arguments, count = 1;
              arglistit != NULL && arglistit->next != NULL && arglistit->next->next != NULL;
              arglistit = arglistit->next, count++
@@ -515,9 +528,9 @@ writeinlinevararg(FILE *out, struct functionhead *funclistit, struct config *cfg
                 "    __inline_%s_%s(",
                 cfg->basename, varargname
         );
-        fprintf(out, "(%s)__aros_getbase_%s(), ",
+        fprintf(out, "(%s)__%s_LIBBASE, ",
                 cfg->libbasetypeptrextern,
-                cfg->libbase);
+                cfg->includenameupper);
         for (arglistit = funclistit->arguments, count = 1;
              arglistit != NULL && arglistit->next != NULL && arglistit->next->next != NULL;
              arglistit = arglistit->next, count++
