@@ -10,6 +10,7 @@
 
 #include <assert.h>
 #include <setjmp.h>
+#include <stdio.h>
 
 #include <aros/debug.h>
 

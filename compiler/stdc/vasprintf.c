@@ -3,7 +3,6 @@
 
     GNU function vasprintf().
 */
-#include <libraries/stdcio.h>
 
 #include <aros/debug.h>
 #if DEBUG

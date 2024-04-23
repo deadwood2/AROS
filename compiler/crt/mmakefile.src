@@ -714,6 +714,7 @@ CRT := \
     ../stdc/_exit \
     ../stdc/abort \
     ../stdc/asctime \
+    ../stdc/asprintf \
     ../stdc/atexit \
     ../stdc/calloc \
     ../stdc/clock \
@@ -738,7 +739,8 @@ CRT := \
     ../stdc/strtoul \
     ../stdc/strtoull \
     ../stdc/strtoll \
-    ../stdc/strtoumax
+    ../stdc/strtoumax \
+    ../stdc/vasprintf
 
 CRT_LINKLIB := \
     ../posixc/getopt \

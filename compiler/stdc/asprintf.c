@@ -6,8 +6,6 @@
 
 #define _GNU_SOURCE
 
-#include <libraries/stdcio.h>
-
 #include <aros/debug.h>
 #if DEBUG
 #include <aros/libcall.h>

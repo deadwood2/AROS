@@ -11,9 +11,12 @@
 
 #include <limits.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <sys/stat.h>
 #include <pwd.h>
+
+/* don't include stdio.h as it will make it include in each .c file before defines can take action */
+struct __sFILE;
+typedef struct __sFILE FILE;
 
 struct PosixCBase
 {
