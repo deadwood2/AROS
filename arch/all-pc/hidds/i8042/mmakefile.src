@@ -18,4 +18,4 @@ USER_INCLUDES := -I$(SRCDIR)/$(CURDIR) -I$(SRCDIR)/rom/hidds/i8042
 %build_archspecific \
   mainmmake=kernel-hidd-i8042 maindir=rom/hidds/i8042 \
   arch=pc modname=i8042 \
-  files="$(FILES)"
+  files="$(FILES)" usesdks="private"

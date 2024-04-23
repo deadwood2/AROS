@@ -16,4 +16,4 @@ FILES := \
 
 %build_module mmake=kernel-hidd-i8042 \
     modname=i8042 modtype=hidd \
-    files="$(FILES)" uselibs="hiddstubs" usesdks="private"
+    files="$(FILES)" uselibs="hiddstubs acpica" usesdks="private"
