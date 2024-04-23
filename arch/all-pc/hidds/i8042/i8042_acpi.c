@@ -18,6 +18,8 @@
 
 #include LC_LIBDEFS_FILE
 
+struct Library *ACPICABase = NULL;
+
 static ACPI_STATUS ACPIFoundCallback(ACPI_HANDLE handle, ULONG nesting_level,
     void *context, void **return_value)
 {
@@ -34,8 +36,6 @@ static ACPI_STATUS ACPIFoundCallback(ACPI_HANDLE handle, ULONG nesting_level,
 
 static int init_i8042acpi(LIBBASETYPEPTR lh)
 {
-    struct Library *ACPICABase;
-
     D(bug("[i8042:ACPI] %s()\n", __func__));
 
     /*
