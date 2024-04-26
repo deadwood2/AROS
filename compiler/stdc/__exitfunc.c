@@ -6,12 +6,20 @@
 #include <aros/symbolsets.h>
 #include <exec/lists.h>
 #include "__exitfunc.h"
+#include "../crt/__crt_intbase.h"
 #include "../crt/__crt_progonly.h"
 
 int __progonly_addexitfunc(struct AtExitNode *aen)
 {
     struct CrtProgCtx *ProgCtx = __aros_get_ProgCtx();
-    
+
+    if (ProgCtx == NULL) /* In C++ atexit() can be called from CTORS set, before CrtProgCtx is created */
+    {
+        struct CrtIntBase *CrtBase = (struct CrtIntBase *)__aros_getbase_CrtBase();
+        ADDHEAD((struct List *)&CrtBase->early_atexit_list, (struct Node *)aen);
+        return 0;
+    }
+
     ADDHEAD((struct List *)&ProgCtx->atexit_list, (struct Node *)aen);
 
     return 0;
@@ -20,6 +28,18 @@ int __progonly_addexitfunc(struct AtExitNode *aen)
 int __progonly_init_atexit(struct CrtProgCtx *ProgCtx)
 {
     NEWLIST((struct List *)&ProgCtx->atexit_list);
+
+    struct CrtIntBase *CrtBase = (struct CrtIntBase *)__aros_getbase_CrtBase();
+    if (CrtBase) /* CrtBase is NULL during vfork launcher */
+    {
+        struct AtExitNode *aen;
+
+        /* Move atexit nodes from "early" list to main list */
+        while ((aen = (struct AtExitNode *) REMHEAD((struct List *) &CrtBase->early_atexit_list)))
+        {
+            ADDHEAD((struct List *)&ProgCtx->atexit_list, (struct Node *)aen);
+        }
+    }
 
     return 1;
 }
@@ -48,3 +68,12 @@ void __progonly_callexitfuncs(void)
         }
     }
 }
+
+int __init_early_atexit(struct CrtIntBase *CrtBase)
+{
+    NEWLIST((struct List *)&CrtBase->early_atexit_list);
+
+    return 1;
+}
+
+ADD2OPENLIB(__init_early_atexit, 100);

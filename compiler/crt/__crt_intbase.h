@@ -21,6 +21,9 @@ struct CrtIntBase
     struct PosixCIntBase    *PosixCBase;
 
     struct CrtIntBase       *fakevforkbase;
+
+    /* atexit.c */
+    struct MinList          early_atexit_list;
 };
 
 struct Library * __aros_getbase_CrtBase();

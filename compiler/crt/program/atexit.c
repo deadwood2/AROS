@@ -10,5 +10,5 @@ AROS_IMPORT_ASM_SYM(int, dummy, __includecrtprogramstartuphandling);
 
 int atexit(void (*func)(void))
 {
-    __progonly_atexit(func);
+    return __progonly_atexit(func);
 }
