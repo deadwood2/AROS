@@ -16,24 +16,6 @@
 struct Library *PeropenerBase = NULL;
 struct Library *UseRelBase = NULL;
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 void test_peropener_not_shareable()
 {
     /* Shows that when shareable mode is not enabled, binary and userel.library use separe peropener bases */
@@ -108,7 +90,7 @@ void test_peropener_shareable()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Peropener_Shareable_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("Library_Peropener_Shareable_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_peropener_not_shareable);
     CUNIT_CI_TEST(test_peropener_shareable);
     return CU_CI_RUN_SUITES();

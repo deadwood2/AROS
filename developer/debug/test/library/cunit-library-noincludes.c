@@ -9,24 +9,6 @@
 
 #include <CUnit/CUnitCI.h>
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 void RegSetValue(LONG v);
 int StackGetValue();
 
@@ -38,7 +20,7 @@ void test_basic(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Noincludes_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("Library_Noincludes_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_basic);
     return CU_CI_RUN_SUITES();
 }

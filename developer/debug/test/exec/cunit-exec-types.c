@@ -11,22 +11,6 @@
 #include <CUnit/Basic.h>
 #include <CUnit/Automated.h>
 
-/* The suite initialization function.
-  * Returns zero on success, non-zero otherwise.
- */
-int init_suite(void)
-{
-    return 0;
-}
-
-/* The suite cleanup function.
-  * Returns zero on success, non-zero otherwise.
- */
-int clean_suite(void)
-{
-    return 0;
-}
-
 void testBYTE(void)
 {
     CU_ASSERT(1 == sizeof(BYTE));
@@ -78,7 +62,7 @@ int main(void)
         return CU_get_error();
 
    /* add a suite to the registry */
-    pSuite = CU_add_suite("BasicTypes_Suite", init_suite, clean_suite);
+    pSuite = CU_add_suite("BasicTypes_Suite", NULL, NULL);
     if (NULL == pSuite) {
         CU_cleanup_registry();
         return CU_get_error();

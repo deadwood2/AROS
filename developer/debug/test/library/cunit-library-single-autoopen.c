@@ -10,24 +10,6 @@
 
 #include <CUnit/CUnitCI.h>
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 void test_add(void)
 {
     RegSetValue(5);
@@ -43,7 +25,7 @@ void test_add(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Single_AutoOpen_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("Library_Single_AutoOpen_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_add);
     return CU_CI_RUN_SUITES();
 }

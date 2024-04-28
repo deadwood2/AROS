@@ -7,24 +7,6 @@
 
 #include <CUnit/CUnitCI.h>
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 #define TESTSTRING1 "1.3 1 string"
 #define TESTSTRING2 "NO_NUMBERS_TEXT"
 #define TESTSTRING3 "FSOMETHING"
@@ -183,7 +165,7 @@ static void test_ignore()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("sscanf_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("sscanf_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_integer);
     CUNIT_CI_TEST(test_multi);
     CUNIT_CI_TEST(test_float);

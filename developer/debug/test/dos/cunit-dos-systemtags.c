@@ -30,14 +30,6 @@ CU_SUITE_TEARDOWN()
     return CUE_SUCCESS;
 }
 
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 static void test_passing_stack_to_program()
 {
     char buff[64];
@@ -61,7 +53,7 @@ static void test_passing_stack_to_program()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("SystemTags_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("SystemTags_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_passing_stack_to_program);
 
 

@@ -120,14 +120,6 @@ CU_SUITE_TEARDOWN()
     return CUE_SUCCESS;
 }
 
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 static void globalReset()
 {
     global_NotifyHookVal  =   0;
@@ -681,7 +673,7 @@ static void test_selected_does_not_notify_on_same_value_when_everytime()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_Notify_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("MUIM_Notify_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_basic_functionality);
     CUNIT_CI_TEST(test_cascade_of_notifies);
     CUNIT_CI_TEST(test_string_integer_does_not_notify_on_same_value_when_defined_value);

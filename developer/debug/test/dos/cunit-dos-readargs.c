@@ -20,24 +20,6 @@ enum
     ARG_CNT
 };
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 /* test of ReadArgs() with a /N parameter and a number.
  */
 void test_readargs_number(void)
@@ -127,7 +109,7 @@ void test_readargs_number_space(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("ReadArgs_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("ReadArgs_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_readargs_number);
     CUNIT_CI_TEST(test_readargs_number_space);
     return CU_CI_RUN_SUITES();

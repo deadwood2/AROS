@@ -77,14 +77,6 @@ CU_SUITE_TEARDOWN()
     return CUE_SUCCESS;
 }
 
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 static void test_popstring_string_acknowledged_when_closed_with_success()
 {
     Object *wnd;
@@ -171,7 +163,7 @@ static void test_popstring_string_acknowledged_when_closed_with_success()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_Popstring_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("MUIC_Popstring_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_popstring_string_acknowledged_when_closed_with_success);
     return CU_CI_RUN_SUITES();
 }

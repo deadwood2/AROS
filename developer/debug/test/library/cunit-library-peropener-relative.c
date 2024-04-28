@@ -38,24 +38,6 @@ void test_peropener_relative_stack_linklib();
 void test_peropener_relative_redef_reg_define();
 void test_peropener_relative_redef_reg_inline();
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 void test_reg_calls()
 {
     CU_ASSERT_EQUAL_FATAL(NULL, PeropenerBase);
@@ -96,7 +78,7 @@ void test_stack_calls_redef_reg_calls()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Peropener_Relative_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("Library_Peropener_Relative_Suite", NULL, NULL, NULL, NULL);
     /* Order of calls matter as they manipulate relative variable */
     CUNIT_CI_TEST(test_reg_calls);
     CUNIT_CI_TEST(test_stack_calls_redef_reg_calls);

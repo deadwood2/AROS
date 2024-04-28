@@ -13,24 +13,6 @@
 
 #include <CUnit/CUnitCI.h>
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 /* Values validated on GNU Linux x86_64 */
 #if (__WORDSIZE==64)
 #if defined(__USE_LARGEFILE64)
@@ -170,7 +152,7 @@ const char *suitename = "types64_Suite";
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE(suitename, __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE(suitename, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_ino_t);
     CUNIT_CI_TEST(test_off_t);
     CUNIT_CI_TEST(test_blkcnt_t);

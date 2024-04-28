@@ -23,24 +23,6 @@ void test_single_local_stack_linklib(struct Library *);
 void test_single_local_redef_reg_define(struct Library *);
 void test_single_local_redef_reg_inline(struct Library *);
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 void test_reg_calls()
 {
     CU_ASSERT_EQUAL_FATAL(NULL, SingleBase);
@@ -79,7 +61,7 @@ void test_stack_calls_redef_reg_calls()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Single_Local_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("Library_Single_Local_Suite", NULL, NULL, NULL, NULL);
     /* Order of calls matter as they manipulate global variable */
     CUNIT_CI_TEST(test_reg_calls);
     CUNIT_CI_TEST(test_stack_calls_redef_reg_calls);

@@ -24,22 +24,6 @@ double	nextafter(double, double);
 double	nexttoward(double, long double);
 #endif
 
-/* The suite initialization function.
- * Returns zero on success, non-zero otherwise.
- */
-int init_suite1(void)
-{
-    return 0;
-}
-
-/* The suite cleanup function.
- * Returns zero on success, non-zero otherwise.
- */
-int clean_suite1(void)
-{
-    return 0;
-}
-
 void testSIN(void)
 {
     CU_ASSERT_DOUBLE_EQUAL(sin(0), 0.0, GRANULARITY);
@@ -559,7 +543,7 @@ int main()
         return CU_get_error();
 
     /* add a suite to the registry */
-    pSuite = CU_add_suite("CrtMath_Suite", init_suite1, clean_suite1);
+    pSuite = CU_add_suite("CrtMath_Suite", NULL, NULL);
     if (NULL == pSuite)
     {
         CU_cleanup_registry();

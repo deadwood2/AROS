@@ -7,24 +7,6 @@
 
 #include <CUnit/CUnitCI.h>
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 static void test_sprintf_float_double()
 {
     char buffer[50];
@@ -226,7 +208,7 @@ static void test_sprintf_x()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("sxprintf_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("sxprintf_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_sprintf_float_double);
     CUNIT_CI_TEST(test_snprintf);
     CUNIT_CI_TEST(test_sprintf_long_varargs);

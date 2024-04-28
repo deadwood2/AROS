@@ -92,10 +92,6 @@ CU_TEST_SETUP()
     clear_stack_values();
 }
 
-CU_TEST_TEARDOWN()
-{
-}
-
 static void test_main_process()
 {
     save_stack_values();
@@ -175,7 +171,7 @@ static void test_combined_1()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("CreateNewProc_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("CreateNewProc_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, NULL);
     CUNIT_CI_TEST(test_main_process);
     CUNIT_CI_TEST(test_nostack_nocli);
     CUNIT_CI_TEST(test_nostack_cli);

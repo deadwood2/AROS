@@ -20,32 +20,6 @@
 #include <CUnit/CUnitCI.h>
 #endif
 
-struct Library *MUIMasterBase = NULL;
-
-CU_SUITE_SETUP()
-{
-    MUIMasterBase = OpenLibrary((STRPTR)MUIMASTER_NAME, 0);
-    if (!MUIMasterBase)
-        CUE_SINIT_FAILED;
-
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    CloseLibrary(MUIMasterBase);
-    return CUE_SUCCESS;
-}
-
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
-
 /* While invisible objects will be receive events, they should only be handled
    by currently visibile ones. This test creates two buttons on two tabs. At
    any point in time only one button is visible and it should be the one that
@@ -95,7 +69,7 @@ static void test_register_not_copying_titles()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_Register_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("MUIC_Register_Suite", NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_register_not_copying_titles);
     return CU_CI_RUN_SUITES();
 }

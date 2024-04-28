@@ -17,16 +17,6 @@ int child_3_enter;
 int parent__enter;
 int parent__fail;
 
-CU_SUITE_SETUP()
-{
-    return CUE_SUCCESS;
-}
-
-CU_SUITE_TEARDOWN()
-{
-    return CUE_SUCCESS;
-}
-
 CU_TEST_SETUP()
 {
     parent__enter   = 0;
@@ -35,10 +25,6 @@ CU_TEST_SETUP()
     child_1_fail    = 0;
     child_2_enter   = 0;
     child_3_enter   = 0;
-}
-
-CU_TEST_TEARDOWN()
-{
 }
 
 static void test_parent_child()
@@ -185,7 +171,7 @@ static void test_vfork_non_existing_program()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("vfork_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("vfork_Suite", NULL, NULL, __cu_test_setup, NULL);
     CUNIT_CI_TEST(test_parent_child);
     CUNIT_CI_TEST(test_parent_child_child_child);
     CUNIT_CI_TEST(test_vfork_execl_share_filedescriptors);

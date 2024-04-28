@@ -94,14 +94,6 @@ CU_SUITE_TEARDOWN()
     return CUE_SUCCESS;
 }
 
-CU_TEST_SETUP()
-{
-}
-
-CU_TEST_TEARDOWN()
-{
-}
-
 static void test_handleevent_rectangle()
 {
     ULONG sigs;
@@ -187,7 +179,7 @@ static void test_handleevent_window()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite", __cu_suite_setup, __cu_suite_teardown, __cu_test_setup, __cu_test_teardown);
+    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_handleevent_rectangle);
     CUNIT_CI_TEST(test_handleevent_window);
     CUNIT_CI_TEST(test_handleevent_rectangle_on_not_visible_tab);
