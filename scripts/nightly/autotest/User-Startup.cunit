@@ -73,6 +73,7 @@ If NOT WARN
 
     ; Perform basic "C++" unit tests...
     Execute S/Test cunit/cplusplus/cunit-cplusplus-exception    ;CPlusPlus_Exception_Suite
+    Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
 Endif
 

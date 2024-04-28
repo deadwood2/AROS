@@ -29,4 +29,9 @@ CUNITEXEDIR := $(AROS_TESTS)/cunit/cplusplus
 %build_prog mmake=test-cxx-cunit progname=cunit-cplusplus-exception \
     cxxfiles="cunit-cplusplus-exception" targetdir=$(CUNITEXEDIR) \
     uselibs="cunit"
+
+%build_prog mmake=test-cxx-cunit progname=cunit-cplusplus-static \
+    cxxfiles="cunit-cplusplus-static" targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
+
 %common
