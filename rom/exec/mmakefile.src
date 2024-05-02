@@ -76,6 +76,8 @@ endif
 # for load-time linking by the bootstrap.
 RESIDENT_BEGIN := $(KICKSTART_BEGIN)
 
+%gen_archspecificrules mainmmake=kernel-exec target=-set-archincludes
+
 %build_module mmake=kernel-exec \
   modname=exec modtype=library version=$(AROS_TARGET_PLATFORM) archspecific=yes \
   linklibfiles=exec_autoinit files="$(INIT_FILES) $(ALL_FUNCTIONS) $(FILES)" \

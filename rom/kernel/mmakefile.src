@@ -62,6 +62,8 @@ ifeq ($(USE_MMU),1)
     FILES += $(MMU_FILES) $(ALLOCATOR)
 endif
 
+%gen_archspecificrules mainmmake=kernel-kernel target=-set-archincludes
+
 %build_module mmake=kernel-kernel \
   modname=kernel modtype=resource version=$(AROS_TARGET_PLATFORM) \
   files="$(FILES) $(FUNCS)" nostartup=no archspecific=yes sdk=private usesdks="private config"
