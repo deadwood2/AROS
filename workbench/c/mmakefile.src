@@ -6,7 +6,6 @@ FILES := \
     AddBuffers \
     Automount \
     Avail \
-    Break \
     ChangeTaskPri \
     CheckMem \
     ConClip \
@@ -121,7 +120,7 @@ $(OBJDIR)/evalParser.tab.c : evalParser.y
     uselibs="uuid debug" coverageinstr=no
 
 %build_progs mmake=workbench-c-private \
-    files="TaskList" targetdir=$(AROS_C) \
+    files="TaskList Break" targetdir=$(AROS_C) \
     uselibs="" usesdks="private"
 
 $(workbench-c_DEPS) : $(OBJDIR)/evalParser.tab.c
