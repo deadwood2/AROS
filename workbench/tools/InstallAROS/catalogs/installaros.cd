@@ -9,7 +9,7 @@ MSG_WELCOME (//)
 \033b\nWelcome to the AROS Research OS installer.\n\n\033nThis program allows you to install AROS\non your computer's hard disk or an attached USB drive.\n\nPlease be aware that the stability of this software\ncannot be guaranteed.\nIt is possible that \033bloss of data\033n may occur\non any drive in your system, including those\nused by other operating systems.\n
 ;
 MSG_INSTALLOPTIONS (//)
-\nPlease choose your installation options.\n\n
+\033bComponent Selection\033n\nPlease choose your installation options.\n\n
 ;
 MSG_DESTOPTIONS (//)
 \nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults.
@@ -78,19 +78,19 @@ MSG_USEWORKFOR (//)
 Use 'Work' Partition for Extras and Developer Files
 ;
 MSG_BEGINWITHPARTITION (//)
-OK, we are ready to begin.\n\nSince you've chosen to format at least one partition,\nyou will no longer be able to undo changes\nafter this point.\n\nSelect Proceed to begin installation.
+InstallAROS is ready to begin.\n\nThe options you have chosen will result in destructive changes to your drive contents,\nand so you will no longer be able to undo changes\nafter this point.\n\nSelect Proceed to begin installation.
 ;
 MSG_BEGINWITHOUTPARTITION (//)
-OK, we are ready to begin...\n\nWe have collected enough information\nto begin installation on this computer.\n\n\nSelect Proceed to begin installation.
+InstallAROS is ready to begin...\n\nEnough information has been collected\nto begin installation on this computer.\n\n\nSelect Proceed to begin installation.
 ;
 MSG_PARTITIONOPTIONS (//)
-We will now create AROS partitions on the destination drive.\n\nPlease select how you would like to proceed.\n
+\033bDrive(s) & Partitioning\033n\nInstallAROS will now create suitable partitions on the destination drive.\n\nPlease select how you would like to proceed.\n
 ;
 MSG_DESTPARTITION (//)
-\033bSystem Partition:\033n
+\033bAROS System Partition\033n
 ;
 MSG_WORKPARTITION (//)
-\033bWork Partition:\033n
+\033bCreate Work Partition\033n
 ;
 MSG_USEFREE (//)
 Only use free space
@@ -99,7 +99,7 @@ MSG_WIPEDISK (//)
 Wipe disk
 ;
 MSG_USEEXISTING (//)
-Use existing AROS partitions (on any drive)
+Use existing AROS partitions
 ;
 MSG_PARTITIONTOOBIG (//)
 The partition sizes you have requested are too large.\nThe maximum size of an SFS partition is %ld GB (%ld MB),\nwhile the maximum size of an FFS partition is %ld GB (%ld MB).\nPlease reduce the size of the affected partitions.\n
@@ -171,7 +171,7 @@ MSG_CANCELDANGER (//)
 Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state.\n\nAre you sure you wish to cancel\nthis installation?\n
 ;
 MSG_BACK (//)
-<< _Back...
+_Back...
 ;
 MSG_PROCEED (//)
 _Proceed
@@ -268,4 +268,25 @@ device '%s' doesn't contain a file system\n
 ;
 MSG_NOTDEVICE (//)
 '%s' doesn't contain a device name\n
+;
+MSG_PARTSCHEME (//)
+\033bPartitioning Scheme\033n
+;
+MSG_EFIESP (//)
+\033bCreate EFI ESP\033n
+;
+MSG_HELP_DESTDRIVE (//)
+Select the destination drive to install AROS on
+;
+MSG_HELP_EFIESP (//)
+EFI based systems require a separate FAT32 partition to install the bootloader to.
+;
+MSG_HELP_PARTRDB (//)
+Select the partitioning scheme to use on the drive\nNB -: MBR/EBR & GPT partition schemes cannot be booted by AmigaOS
+;
+MSG_HELP_PARTNORDB (//)
+Select the partitioning scheme to use on the drive\nNB -: RDB partition schemes cannot be booted on this architecture
+;
+MSG_HELP_PARTITION (//)
+Click to adjust the partitions filesystem and/or size.
 ;
