@@ -1,0 +1,52 @@
+Purpose
+=======
+
+The purpose of the emulator is to allow creation of 64-bit distributions with only a minor loss of compatibility
+compared to existing 32-bit distributions without need of fixing and recompiling existing 3rd party software.
+
+
+Assumptions
+===========
+
+A) Emulator is not aimed at supporting 100% of sofware. Software that is part of AROS, contrib or ports repositories
+already has 64-bit builds so it's better to spend time fixing those builds rather then make the emulator support
+them. The target for 3rd party software is "above 80% support level"
+
+B) Emulator will use as much as possible the existing 32-bit libraries to provide emulation. It is not the goal to
+provide a more efficient (= 64 bit) execution enviroment (like PowerPC is doing for m68k). By using existing
+libraries, the amount of code in the emulator itself will be limited.
+
+Design
+======
+
+Emulator creates following proxy libraries each time it is started: exec, dos, graphics, intuition, utility, cybergraphics
+
+The role of the proxy libraries is to take calls from 32-bit code and forward them to 64-bit kernel. This allows for
+integration of 32-bit programs within 64-bit enviroment. For example 32-bit program opening an Intuition window will
+actually open a 64-bit Intuition window and emulator will provide translation of arguments and data structures back and
+forth.
+
+Message Ports
+-------------
+
+Translation of messages from 64-bit to 32-bit (for example 64-bit Intuition processed in 32-bit code) requires knowledge
+about structure of message. GetMsg call which retrieves the message is in Exec and does not know what the structure of
+message is. To overcome this, the proxy call (proxy_GetMsg) forwards the call into "translate" vector which can be
+set at creation of the message port. In most cases this creation happens in code which understands the structure of
+messages and can provide such "translate" function.
+
+32-bit -> 64-bit call
+---------------------
+
+Making a call from 32-bit code into 64-bit code requires a sequence of actions:
+
+  1) storing EDI and ESI registers
+  2) switching cpu to 64-bit mode
+  3) aligning stack for 64-bit
+  3) copying arguments into registers (or stack where needed)
+  4) calling 64-bit code
+  5) restoring stack to state before alignment
+  6) switching cpu into 32-bit mode
+  7) restoring EDI and ESI registers
+
+For actaual implementation of these steps, check includes/aros/proxy.h
