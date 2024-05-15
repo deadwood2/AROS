@@ -318,6 +318,9 @@ static struct RastPortV0 *makeRastPortV0(struct RastPort *native)
     return rpv0;
 }
 
+UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
+        struct LibraryV0 *IntuitionBaseV0);
+
 struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     struct NewWindow *newWindowNative = NULL;
@@ -335,6 +338,8 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
         if (newWindow->FirstGadget != 0 || newWindow->CheckMark != 0 || newWindow->Screen != 0 || newWindow->BitMap != 0) asm("int3");
     }
 
+    struct GadgetV0 *firstGadgetV0 = NULL;
+
     struct TagItem *tagListNative = CloneTagItemsV02Native(tagList);
 
     struct TagItem *tagNative = tagListNative;
@@ -348,6 +353,22 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
                 tagNative->ti_Data = (IPTR)g_nativescreen;
             }
             else asm("int3");
+        }
+
+        if (tagNative->ti_Tag == WA_PubScreen)
+        {
+            if (tagNative->ti_Data == (IPTR)g_v0screen)
+            {
+                tagNative->ti_Data = (IPTR)g_nativescreen;
+            }
+            else asm("int3");
+        }
+
+        if (tagNative->ti_Tag == WA_Gadgets)
+        {
+            /* Gadgets cannot be added at native window creation time. See comment at end of function */
+            firstGadgetV0 = (struct GadgetV0 *)tagNative->ti_Data;
+            tagNative->ti_Tag = TAG_IGNORE;
         }
 
         tagNative++;
@@ -397,6 +418,16 @@ asm("int3");
     ((struct RastPortV0 *)(IPTR)proxy->base.RPort)->BitMap = (APTR32)(IPTR)bmproxy;
 
     wmAdd(proxy);
+
+    /* Adding gadgets means issuing GM_RENDER call and this needs translation from native to v0 window via
+       wmGetByWindow and this needs registering first via wmAdd */
+    if (firstGadgetV0)
+    {
+        LONG numGad = 0;
+        struct GadgetV0 *gadget = firstGadgetV0;
+        for ( ; gadget; gadget = (APTR)(IPTR)gadget->NextGadget) numGad++;
+        abiv0_AddGList((struct WindowV0 *)proxy, firstGadgetV0, 0, numGad, NULL, IntuitionBaseV0);
+    }
 
 bug("abiv0_OpenWindowTagList: STUB\n");
     return (struct WindowV0 *)proxy;
