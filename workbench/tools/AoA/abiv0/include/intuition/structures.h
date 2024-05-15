@@ -270,6 +270,13 @@ struct GadgetV0
 
 #define STACKEDV0 __attribute__((aligned(4)))
 
+struct opGetV0
+{
+    STACKEDV0 ULONG   MethodID;
+    STACKEDV0 Tag     opg_AttrID;
+    STACKEDV0 APTR32  opg_Storage;
+};
+
 struct gpRenderV0
 {
     STACKEDV0 ULONG   MethodID;   /* GM_RENDER */

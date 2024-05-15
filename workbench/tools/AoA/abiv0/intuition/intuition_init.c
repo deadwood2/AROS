@@ -819,7 +819,7 @@ void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
 
 /*
  * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
- * the forwarded to 32-bit gadget method. This method needs to be executed on 31-bit stack, not on original stack.
+ * then forwarded to 32-bit gadget method. This method needs to be executed on 31-bit stack, not on original stack.
  */
 static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, Msg message)
 {
@@ -829,6 +829,24 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
     switch (message->MethodID)
     {
         case OM_NEW: return DoSuperMethodA(CLASS, self, message);
+        case OM_GET:
+        {
+            struct opGet *nativemsg = (struct opGet *)message;
+            ULONG storage;
+
+            struct opGetV0 *v0msg = abiv0_AllocMem(sizeof(struct opGetV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->opg_AttrID   = nativemsg->opg_AttrID;
+            v0msg->opg_Storage  = (APTR32)(IPTR)&storage;
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+
+            *nativemsg->opg_Storage = (IPTR)storage;
+
+            abiv0_FreeMem(v0msg, sizeof(struct opGetV0), Intuition_SysBaseV0);
+
+            return ret;
+        }
         case GM_HITTEST:
         {
             struct gpHitTest *nativemsg = (struct gpHitTest *)message;
@@ -1080,6 +1098,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 146, intuitionjmp[165 - 146]);  // FreeICData
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  41, intuitionjmp[165 -  41]);  // ScreenToBack
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  14, intuitionjmp[165 -  14]);  // CurrentTime
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  98, intuitionjmp[165 -  98]);  // EasyRequestArgs
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  99, intuitionjmp[165 -  99]);  // BuildEasyRequestArgs
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
