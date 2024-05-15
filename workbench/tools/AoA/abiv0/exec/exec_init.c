@@ -457,15 +457,22 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     if (g_v0Task == NULL)
     {
         struct ProcessV0 *dummy = NULL;
+        struct CommandLineInterfaceV0 *cli = NULL;
+
         if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
         dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
         dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
         strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
-        dummy->pr_CLI = (BPTR32)(IPTR)abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
         dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input());
         dummy->pr_CES = 0x2; //fake
         dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
         dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
+
+        cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
+        cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
+        strcpy((char *)(IPTR)cli->cli_CommandName, "emulator");
+
+        dummy->pr_CLI = (BPTR32)(IPTR)cli;
 
         dummy->pr_Task.tc_Flags |= TF_ETASK;
         dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
@@ -476,6 +483,12 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     return g_v0Task;
 }
 MAKE_PROXY_ARG_2(FindTask)
+
+BYTE abiv0_AllocSignal(LONG signalNum, struct ExecBaseV0 *SysBaseV0)
+{
+    return AllocSignal(signalNum);
+}
+MAKE_PROXY_ARG_2(AllocSignal)
 
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
@@ -559,6 +572,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 64, (APTR32)(IPTR)proxy_WaitPort);
     __AROS_SETVECADDRV0(abiv0SysBase,134, (APTR32)(IPTR)proxy_NewStackSwap);
     __AROS_SETVECADDRV0(abiv0SysBase,150, (APTR32)(IPTR)proxy_FreeVecPooled);
+    __AROS_SETVECADDRV0(abiv0SysBase, 55, (APTR32)(IPTR)proxy_AllocSignal);
 
     return abiv0SysBase;
 }
