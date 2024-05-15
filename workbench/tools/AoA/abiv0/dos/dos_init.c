@@ -712,4 +712,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 147, dosfunctable[146]);  // AddPart
     __AROS_SETVECADDRV0(abiv0DOSBase,  76, (APTR32)(IPTR)proxy_SetFileSize);
     __AROS_SETVECADDRV0(abiv0DOSBase, 101, (APTR32)(IPTR)proxy_SystemTagList);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  96, dosfunctable[ 95]);  // GetProgramName
 }
