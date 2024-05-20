@@ -381,15 +381,17 @@ MAKE_PROXY_ARG_3(PutMsg)
 
 struct MessageV0 *abiv0_WaitPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
-    if (port == rport)
-    {
 bug("abiv0_WaitPort: STUB\n");
+    if (rport != NULL && port == rport)
+    {
         rport = NULL;
         struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
         ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
         return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
     }
-asm("int3");
+
+    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    WaitPort(proxy->native);
     return NULL;
 }
 MAKE_PROXY_ARG_2(WaitPort)

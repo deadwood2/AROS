@@ -51,12 +51,65 @@ void abiv0_GetRGB32(struct ColorMapV0 * cm, ULONG firstcolor, ULONG ncolors, ULO
 }
 MAKE_PROXY_ARG_5(GetRGB32)
 
-APTR abiv0_OpenFont(APTR textAttr, struct LibraryV0 *GfxBaseV0)
+struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0)
 {
-bug("abiv0_OpenFont: STUB\n");
-    return NULL;
+    struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontV0), MEMF_CLEAR, sysBaseV0);
+    struct TextFontV0 *v0tf = &proxy->base;
+
+    v0tf->tf_YSize          = native->tf_YSize;
+    v0tf->tf_Style          = native->tf_Style;
+    v0tf->tf_Flags          = native->tf_Flags;
+    v0tf->tf_XSize          = native->tf_XSize;
+    v0tf->tf_Baseline       = native->tf_Baseline;
+    v0tf->tf_BoldSmear      = native->tf_BoldSmear;
+    v0tf->tf_Accessors      = native->tf_Accessors;
+    v0tf->tf_LoChar         = native->tf_LoChar;
+    v0tf->tf_HiChar         = native->tf_HiChar;
+    v0tf->tf_CharData       = (APTR32)(IPTR)NULL;
+    v0tf->tf_Modulo         = native->tf_Modulo;
+
+    LONG arrlen = v0tf->tf_HiChar - v0tf->tf_LoChar + 1;
+    APTR buff;
+
+    if (native->tf_CharLoc)
+    {
+        buff = abiv0_AllocMem(arrlen * sizeof(LONG), MEMF_CLEAR, sysBaseV0);
+        CopyMem(native->tf_CharLoc, buff, arrlen * sizeof(LONG));
+        v0tf->tf_CharLoc        = (APTR32)(IPTR)buff;
+    }
+
+    if (native->tf_CharSpace)
+    {
+        buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, sysBaseV0);
+        CopyMem(native->tf_CharSpace, buff, arrlen * sizeof(WORD));
+        v0tf->tf_CharSpace      = (APTR32)(IPTR)buff;
+    }
+
+    if (native->tf_CharKern)
+    {
+        buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, sysBaseV0);
+        CopyMem(native->tf_CharKern, buff, arrlen * sizeof(WORD));
+        v0tf->tf_CharKern       = (APTR32)(IPTR)buff;
+    }
+
+    proxy->native = native;
 }
-MAKE_PROXY_ARG_3(OpenFont)
+
+struct TextFontV0 *abiv0_OpenFont(struct TextAttrV0 *textAttr, struct LibraryV0 *GfxBaseV0)
+{
+    struct TextAttr tanative;
+    tanative.ta_Flags   = textAttr->ta_Flags;
+    tanative.ta_Style   = textAttr->ta_Style;
+    tanative.ta_YSize   = textAttr->ta_YSize;
+    tanative.ta_Name    = (STRPTR)(IPTR)textAttr->ta_Name;
+
+    struct TextFont *tfnative = OpenFont(&tanative);
+    if (tfnative == NULL)
+        return NULL;
+    else
+        return makeTextFontV0(tfnative, Gfx_SysBaseV0);
+}
+MAKE_PROXY_ARG_2(OpenFont)
 
 void abiv0_CloseFont(APTR textFont, struct GfxBaseV0 *GfxBaseV0)
 {
