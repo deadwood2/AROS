@@ -120,6 +120,15 @@ MAKE_PROXY_ARG_4(Seek)
 BOOL abiv0_Close(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    struct FileLock *fl = (struct FileLock *)BADDR(fhp->native);
+    /* ABI_V0 compatibility */
+    /* Up to 2010-12-03 UnLock was an alias/define to Close */
+    if ((fl->fl_Access  == SHARED_LOCK) ||
+            (fl->fl_Access == EXCLUSIVE_LOCK))
+    {
+        return UnLock(fhp->native);
+    }
+
     return Close(fhp->native);
 }
 MAKE_PROXY_ARG_2(Close)
