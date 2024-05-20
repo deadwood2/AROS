@@ -996,8 +996,11 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
     proxy->native               = native;
 
     struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    cmproxy->base.VPModeID = native->ViewPort.ColorMap->VPModeID;
     cmproxy->native = native->ViewPort.ColorMap;
     proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
+
+    *((IPTR *)&proxy->base.Screen.ViewPort.DspIns) = (IPTR)&native->ViewPort;
 
     struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
     v0font->ta_YSize    = native->Font->ta_YSize;
