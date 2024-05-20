@@ -472,7 +472,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 
         cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
         cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
-        strcpy((char *)(IPTR)cli->cli_CommandName, "emulator");
+        strcpy((char *)(IPTR)cli->cli_CommandName, "HFinder");
 
         dummy->pr_CLI = (BPTR32)(IPTR)cli;
 
@@ -491,6 +491,12 @@ BYTE abiv0_AllocSignal(LONG signalNum, struct ExecBaseV0 *SysBaseV0)
     return AllocSignal(signalNum);
 }
 MAKE_PROXY_ARG_2(AllocSignal)
+
+void abiv0_FreeSignal(LONG signalNum, struct ExecBaseV0 *SysBaseV0)
+{
+    FreeSignal(signalNum);
+}
+MAKE_PROXY_ARG_2(FreeSignal)
 
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
@@ -575,6 +581,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,134, (APTR32)(IPTR)proxy_NewStackSwap);
     __AROS_SETVECADDRV0(abiv0SysBase,150, (APTR32)(IPTR)proxy_FreeVecPooled);
     __AROS_SETVECADDRV0(abiv0SysBase, 55, (APTR32)(IPTR)proxy_AllocSignal);
+    __AROS_SETVECADDRV0(abiv0SysBase, 56, (APTR32)(IPTR)proxy_FreeSignal);
 
     return abiv0SysBase;
 }
