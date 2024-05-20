@@ -46,50 +46,29 @@ struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *Intui
 }
 MAKE_PROXY_ARG_2(Intuition_OpenLib)
 
-struct IntScreenV0  *g_v0screen;
-struct Screen       *g_nativescreen;
+struct IntScreenV0  *g_mainv0screen;
+struct Screen       *g_mainnativescreen;
 
 extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 
 APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0);
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
+    if (name != NULL) asm("int3");
+
     struct Screen *native = LockPubScreen(name);
+
     if (native == NULL)
         return NULL;
 
-    struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    proxy->base.Screen.Width    = native->Width;
-    proxy->base.Screen.Height   = native->Height;
-    proxy->native               = native;
-
-    struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    cmproxy->native = native->ViewPort.ColorMap;
-    proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
-
-    struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
-    v0font->ta_YSize    = native->Font->ta_YSize;
-    v0font->ta_Flags    = native->Font->ta_Flags;
-    v0font->ta_Style    = native->Font->ta_Style;
-    STRPTR v0font_name = abiv0_AllocMem(strlen(native->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(native->Font->ta_Name, v0font_name, strlen(native->Font->ta_Name) + 1);
-    v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
-
-    proxy->base.Screen.Font     = (APTR32)(IPTR)v0font;
-
-    *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
-
-    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
-    *((IPTR *)&proxy->base.Screen.RastPort.longreserved) = (IPTR)&native->RastPort;
-
-    /* TODO: this should be a proxy to native intuition class */
-    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);
-
-    g_nativescreen = native;
-    g_v0screen = &proxy->base;
-
 bug("abiv0_LockPubScreen: STUB\n");
-    return (struct ScreenV0 *)proxy;
+
+    if (native == g_mainnativescreen)
+        return (struct ScreenV0 *)g_mainv0screen;
+    else
+        asm("int3");
+
+    return NULL;
 }
 MAKE_PROXY_ARG_2(LockPubScreen)
 
@@ -366,18 +345,18 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
     {
         if (tagNative->ti_Tag == WA_CustomScreen)
         {
-            if (tagNative->ti_Data == (IPTR)g_v0screen)
+            if (tagNative->ti_Data == (IPTR)g_mainv0screen)
             {
-                tagNative->ti_Data = (IPTR)g_nativescreen;
+                tagNative->ti_Data = (IPTR)g_mainnativescreen;
             }
             else asm("int3");
         }
 
         if (tagNative->ti_Tag == WA_PubScreen)
         {
-            if (tagNative->ti_Data == (IPTR)g_v0screen)
+            if (tagNative->ti_Data == (IPTR)g_mainv0screen)
             {
-                tagNative->ti_Data = (IPTR)g_nativescreen;
+                tagNative->ti_Data = (IPTR)g_mainnativescreen;
             }
             else asm("int3");
         }
@@ -406,9 +385,9 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
 
     syncWindowV0(proxy);
 
-    if (proxy->native->WScreen == g_nativescreen)
+    if (proxy->native->WScreen == g_mainnativescreen)
     {
-        proxy->base.WScreen = (APTR32)(IPTR)g_v0screen;
+        proxy->base.WScreen = (APTR32)(IPTR)g_mainv0screen;
     }
     else
     {
@@ -773,9 +752,9 @@ static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, 
         v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
     }
 
-    if (nativegi->gi_Screen && nativegi->gi_Screen == g_nativescreen)
+    if (nativegi->gi_Screen && nativegi->gi_Screen == g_mainnativescreen)
     {
-        v0gi->gi_Screen     = (APTR32)(IPTR)g_v0screen;
+        v0gi->gi_Screen     = (APTR32)(IPTR)g_mainv0screen;
     }
     else if (nativegi->gi_Screen != NULL) asm("int3");
 
@@ -1007,6 +986,43 @@ static void init_gadget_wrapper_class()
     gadgetwrappercl->cl_Dispatcher.h_SubEntry = NULL;
 }
 
+static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
+{
+    struct Screen *native = LockPubScreen(NULL);
+
+    struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    proxy->base.Screen.Width    = native->Width;
+    proxy->base.Screen.Height   = native->Height;
+    proxy->native               = native;
+
+    struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    cmproxy->native = native->ViewPort.ColorMap;
+    proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
+
+    struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    v0font->ta_YSize    = native->Font->ta_YSize;
+    v0font->ta_Flags    = native->Font->ta_Flags;
+    v0font->ta_Style    = native->Font->ta_Style;
+    STRPTR v0font_name = abiv0_AllocMem(strlen(native->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(native->Font->ta_Name, v0font_name, strlen(native->Font->ta_Name) + 1);
+    v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
+
+    proxy->base.Screen.Font     = (APTR32)(IPTR)v0font;
+
+    *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
+
+    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
+    *((IPTR *)&proxy->base.Screen.RastPort.longreserved) = (IPTR)&native->RastPort;
+
+    /* TODO: this should be a proxy to native intuition class */
+    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);
+
+    g_mainnativescreen = native;
+    g_mainv0screen = &proxy->base;
+
+    UnlockPubScreen(NULL, native);
+}
+
 void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 {
     TEXT path[64];
@@ -1107,5 +1123,9 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x6C) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x74) = (APTR32)(IPTR)timerBase;
 
+
     init_gadget_wrapper_class();
+
+    init_first_screen(abiv0IntuitionBase);
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x40) = (APTR32)(IPTR)g_mainv0screen;
 }
