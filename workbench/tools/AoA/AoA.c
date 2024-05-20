@@ -168,9 +168,15 @@ MAKE_PROXY_ARG_3(BeginUpdate)
 
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
-    return GetSysTime(dest);
+    GetSysTime(dest);
 }
 MAKE_PROXY_ARG_2(GetSysTime)
+
+void abiv0_SubTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *TimerBaseV0)
+{
+    SubTime(dest, src);
+}
+MAKE_PROXY_ARG_3(SubTime)
 
 #include <proto/cybergraphics.h>
 
@@ -223,6 +229,7 @@ LONG_FUNC run_emulation()
     APTR tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
+    __AROS_SETVECADDRV0(abiv0TimerBase,  8, (APTR32)(IPTR)proxy_SubTime);
 
     init_dos(SysBaseV0);
 
@@ -257,10 +264,9 @@ LONG_FUNC run_emulation()
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 
-
     /* Start Program */
-    NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
-    // NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
+    // NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/Calculator", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/helloabi", RAWFMTFUNC_STRING, path, SYSNAME);

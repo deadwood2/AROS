@@ -178,6 +178,22 @@ MAKE_PROXY_ARG_3(SetBPen)
 void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    if (rpnative == NULL)
+    {
+        // HFinder allocating local rastport and bitmap
+        rpnative = AllocMem(sizeof(struct RastPort), MEMF_ANY | MEMF_CLEAR);
+        InitRastPort(rpnative);
+        *(IPTR *)&rp->longreserved = (IPTR)rpnative;
+        struct BitMap *bmnative = AllocMem(sizeof(struct BitMap), MEMF_ANY | MEMF_CLEAR);
+        struct BitMapV0 *bmv0 = (struct BitMapV0 *)(IPTR)rp->BitMap;
+        bmnative->BytesPerRow = bmv0->BytesPerRow;
+        bmnative->Depth = bmv0->Depth;
+        bmnative->Flags = bmv0->Flags;
+        bmnative->Rows = bmv0->Rows;
+        bmnative->Planes[0] = (APTR)(IPTR)bmv0->Planes[0];
+        rpnative->BitMap = bmnative;
+    }
+
     SetABPenDrMd(rpnative, apen, bpen, drawMode);
 }
 MAKE_PROXY_ARG_5(SetABPenDrMd)
@@ -268,6 +284,28 @@ bug("abiv0_GetDisplayInfoData: STUB\n");
 }
 MAKE_PROXY_ARG_6(GetDisplayInfoData)
 
+void  abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
+{
+bug("abiv0_SetRPAttrsA: STUB\n");
+}
+MAKE_PROXY_ARG_3(SetRPAttrsA)
+
+BOOL abiv0_AndRegionRegion(struct RegionV0 *R1, struct RegionV0 *R2, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy1 = (struct RegionProxy *)R1;
+    struct RegionProxy *proxy2 = (struct RegionProxy *)R2;
+    return AndRegionRegion(proxy1->native, proxy2->native);
+}
+MAKE_PROXY_ARG_3(AndRegionRegion)
+
+void abiv0_BltTemplate(PLANEPTR source, LONG xSrc, LONG srcMod, struct RastPortV0 *destRP, LONG xDest, LONG yDest, LONG xSize,
+    LONG ySize, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
+    BltTemplate(source, xSrc, srcMod, rpnative, xDest, yDest, xSize, ySize);
+}
+MAKE_PROXY_ARG_12(BltTemplate)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -327,4 +365,9 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 194, (APTR32)(IPTR)proxy_NewRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase, 132, (APTR32)(IPTR)proxy_GetVPModeID);
     __AROS_SETVECADDRV0(abiv0GfxBase, 126, (APTR32)(IPTR)proxy_GetDisplayInfoData);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 173, (APTR32)(IPTR)proxy_SetRPAttrsA);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 104, (APTR32)(IPTR)proxy_AndRegionRegion);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  65, graphicsjmp[202 -  65]);  // InitBitmap
+    __AROS_SETVECADDRV0(abiv0GfxBase,   6, (APTR32)(IPTR)proxy_BltTemplate);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  38, graphicsjmp[202 -  38]);  // WaitBlit
 }

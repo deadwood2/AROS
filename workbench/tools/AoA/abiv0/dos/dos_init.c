@@ -110,6 +110,13 @@ LONG  abiv0_FRead(BPTR fh, APTR block, ULONG blocklen, ULONG number, struct DosL
 }
 MAKE_PROXY_ARG_5(FRead)
 
+LONG abiv0_FWrite(BPTR fh, CONST_APTR block, ULONG blocklen, ULONG numblocks, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)fh;
+    return FWrite(fhp->native, block, blocklen, numblocks);
+}
+MAKE_PROXY_ARG_5(FWrite)
+
 LONG abiv0_Seek(BPTR file, LONG position, LONG mode, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)file;
@@ -231,6 +238,14 @@ BOOL abiv0_UnLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
     return UnLock(proxy->native);
 }
 MAKE_PROXY_ARG_2(UnLock)
+
+BPTR abiv0_ParentDir(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
+    BPTR plock = ParentDir(proxy->native);
+    return (BPTR)makeFileLockProxy(plock);
+}
+MAKE_PROXY_ARG_2(ParentDir)
 
 struct FileInfoBlockProxy
 {
@@ -734,4 +749,6 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 101, (APTR32)(IPTR)proxy_SystemTagList);
     __AROS_SETVECADDRV0(abiv0DOSBase,  96, dosfunctable[ 95]);  // GetProgramName
     __AROS_SETVECADDRV0(abiv0DOSBase,  54, (APTR32)(IPTR)proxy_FRead);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  35, (APTR32)(IPTR)proxy_ParentDir);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  55, (APTR32)(IPTR)proxy_FWrite);
 }
