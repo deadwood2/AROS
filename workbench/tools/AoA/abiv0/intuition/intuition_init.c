@@ -49,41 +49,7 @@ MAKE_PROXY_ARG_2(Intuition_OpenLib)
 struct IntScreenV0  *g_v0screen;
 struct Screen       *g_nativescreen;
 
-struct TextFontV0 *makeTextFontV0(struct TextFont *native)
-{
-    struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontV0), MEMF_CLEAR, Intuition_SysBaseV0);
-    struct TextFontV0 *v0tf = &proxy->base;
-
-    v0tf->tf_YSize          = native->tf_YSize;
-    v0tf->tf_Style          = native->tf_Style;
-    v0tf->tf_Flags          = native->tf_Flags;
-    v0tf->tf_XSize          = native->tf_XSize;
-    v0tf->tf_Baseline       = native->tf_Baseline;
-    v0tf->tf_BoldSmear      = native->tf_BoldSmear;
-    v0tf->tf_Accessors      = native->tf_Accessors;
-    v0tf->tf_LoChar         = native->tf_LoChar;
-    v0tf->tf_HiChar         = native->tf_HiChar;
-    v0tf->tf_CharData       = (APTR32)(IPTR)NULL;
-    v0tf->tf_Modulo         = native->tf_Modulo;
-
-    LONG arrlen = v0tf->tf_HiChar - v0tf->tf_LoChar + 1;
-    APTR buff;
-
-    buff = abiv0_AllocMem(arrlen * sizeof(LONG), MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(native->tf_CharLoc, buff, arrlen * sizeof(LONG));
-    v0tf->tf_CharLoc        = (APTR32)(IPTR)buff;
-
-    buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(native->tf_CharSpace, buff, arrlen * sizeof(WORD));
-    v0tf->tf_CharSpace      = (APTR32)(IPTR)buff;
-
-
-    buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(native->tf_CharKern, buff, arrlen * sizeof(WORD));
-    v0tf->tf_CharKern       = (APTR32)(IPTR)buff;
-
-    proxy->native = native;
-}
+extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 
 APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0);
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
@@ -113,7 +79,8 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
 
     *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
 
-    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font);
+    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
+    *((IPTR *)&proxy->base.Screen.RastPort.longreserved) = (IPTR)&native->RastPort;
 
     /* TODO: this should be a proxy to native intuition class */
     proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);
@@ -171,7 +138,7 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     v0dri->dri_CheckMark    = (APTR32)(IPTR)makeImageV0(dri->dri_CheckMark);
     v0dri->dri_Version  = dri->dri_Version;
     v0dri->dri_Flags    = dri->dri_Flags;
-    v0dri->dri_Font     = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font);
+    v0dri->dri_Font     = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font, Intuition_SysBaseV0);
     v0dri->dri_Screen   = (APTR32)(IPTR)&proxy->base;
 
 
@@ -321,6 +288,57 @@ static struct RastPortV0 *makeRastPortV0(struct RastPort *native)
 UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
         struct LibraryV0 *IntuitionBaseV0);
 
+static struct MessageV0 *IntuiMessage_translate(struct Message *native)
+{
+    struct IntuiMessage *imsg = (struct IntuiMessage *)native;
+
+    if (native == NULL)
+        return NULL;
+
+    if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
+        imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
+        imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW || imsg->Class == IDCMP_GADGETUP ||
+        imsg->Class == IDCMP_ACTIVEWINDOW || imsg->Class == IDCMP_RAWKEY)
+    {
+        struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+        v0msg->Class = imsg->Class;
+        struct WindowProxy *proxy = wmGetByWindow(imsg->IDCMPWindow);
+        if (proxy != NULL)
+            v0msg->IDCMPWindow = (APTR32)(IPTR)proxy;
+        else
+            asm("int3");
+
+        v0msg->Code         = imsg->Code;
+        v0msg->Qualifier    = imsg->Qualifier;
+        v0msg->MouseX       = imsg->MouseX;
+        v0msg->MouseY       = imsg->MouseY;
+        v0msg->Seconds      = imsg->Seconds;
+        v0msg->Micros       = imsg->Micros;
+        v0msg->IAddress     = (APTR32)(IPTR)NULL;
+
+        if (imsg->Class == IDCMP_GADGETUP)
+        {
+            struct Gadget *nativeg = (struct Gadget *)imsg->IAddress;
+            // hacky way of struct GadgetWrapperData *data = INST_DATA(CLASS, self);data->wrapped
+            struct GadgetV0 *v0g = (struct GadgetV0 *)(*(IPTR *)((char *)nativeg + 0x80));
+            v0msg->IAddress = (APTR32)(IPTR)v0g;
+        }
+
+        /* Store original message in Node of v0msg for now */
+        *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
+        syncWindowV0((struct WindowProxy *)proxy);
+        syncLayerV0((struct LayerProxy *)(IPTR)proxy->base.WLayer);
+
+
+        return (struct MessageV0 *)v0msg;
+    }
+
+bug("Intuition_Translate - missing code for class %d\n", imsg->Class);
+
+    return NULL;
+}
+
 struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     struct NewWindow *newWindowNative = NULL;
@@ -416,6 +434,18 @@ asm("int3");
     struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     bmproxy->native = proxy->native->RPort->BitMap;
     ((struct RastPortV0 *)(IPTR)proxy->base.RPort)->BitMap = (APTR32)(IPTR)bmproxy;
+
+    if (proxy->native->UserPort)
+    {
+        struct MsgPortProxy *mpproxy = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+
+        mpproxy->base.mp_SigBit = proxy->native->UserPort->mp_SigBit;
+        NEWLISTV0(&mpproxy->base.mp_MsgList);
+
+        mpproxy->native = proxy->native->UserPort;
+        mpproxy->translate = IntuiMessage_translate;
+        proxy->base.UserPort = (APTR32)(IPTR)mpproxy;
+    }
 
     wmAdd(proxy);
 
@@ -515,56 +545,6 @@ BOOL abiv0_DoubleClick(ULONG sSeconds, ULONG sMicros, ULONG cSeconds, ULONG cMic
     return DoubleClick(sSeconds, sMicros, cSeconds, cMicros);
 }
 MAKE_PROXY_ARG_5(DoubleClick)
-
-static struct MessageV0 *IntuiMessage_translate(struct Message *native)
-{
-    struct IntuiMessage *imsg = (struct IntuiMessage *)native;
-
-    if (native == NULL)
-        return NULL;
-
-    if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
-        imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
-        imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW || imsg->Class == IDCMP_GADGETUP ||
-        imsg->Class == IDCMP_ACTIVEWINDOW)
-    {
-        struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
-
-        v0msg->Class = imsg->Class;
-        struct WindowProxy *proxy = wmGetByWindow(imsg->IDCMPWindow);
-        if (proxy != NULL)
-            v0msg->IDCMPWindow = (APTR32)(IPTR)proxy;
-        else
-            asm("int3");
-
-        v0msg->Code         = imsg->Code;
-        v0msg->Qualifier    = imsg->Qualifier;
-        v0msg->MouseX       = imsg->MouseX;
-        v0msg->MouseY       = imsg->MouseY;
-        v0msg->Seconds      = imsg->Seconds;
-        v0msg->Micros       = imsg->Micros;
-
-        if (imsg->Class == IDCMP_GADGETUP)
-        {
-            struct Gadget *nativeg = (struct Gadget *)imsg->IAddress;
-            // hacky way of struct GadgetWrapperData *data = INST_DATA(CLASS, self);data->wrapped
-            struct GadgetV0 *v0g = (struct GadgetV0 *)(*(IPTR *)((char *)nativeg + 0x80));
-            v0msg->IAddress = (APTR32)(IPTR)v0g;
-        }
-
-        /* Store original message in Node of v0msg for now */
-        *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
-        syncWindowV0((struct WindowProxy *)proxy);
-        syncLayerV0((struct LayerProxy *)(IPTR)proxy->base.WLayer);
-
-
-        return (struct MessageV0 *)v0msg;
-    }
-
-bug("Intuition_Translate - missing code for class %d\n", imsg->Class);
-
-    return NULL;
-}
 
 BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -1100,6 +1080,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  14, intuitionjmp[165 -  14]);  // CurrentTime
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  98, intuitionjmp[165 -  98]);  // EasyRequestArgs
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  99, intuitionjmp[165 -  99]);  // BuildEasyRequestArgs
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 100, intuitionjmp[165 - 100]);  // SysReqHandler
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
@@ -1123,6 +1104,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     /* Set internal Intuition pointer of utility, graphics and timer */
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x64) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
+    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x6C) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x74) = (APTR32)(IPTR)timerBase;
 
     init_gadget_wrapper_class();
