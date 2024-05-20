@@ -262,6 +262,7 @@ LONG_FUNC run_emulation()
     *(PathPart(path)) = '\0';
     BPTR progdir = Lock(path, SHARED_LOCK);
     BPTR oldprogdir = SetProgramDir(progdir);
+    BPTR oldcurdir = CurrentDir(DupLock(progdir));
 
     /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
         Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
@@ -295,6 +296,7 @@ LONG_FUNC run_emulation()
     "finished:"
         :: "m"(start), "m" (SysBaseV0) :);
 
+    CurrentDir(oldcurdir);
     SetProgramDir(oldprogdir);
     UnLock(progdir);
 }

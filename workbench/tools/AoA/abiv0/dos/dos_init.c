@@ -103,6 +103,13 @@ LONG abiv0_Read(BPTR file, APTR buffer, LONG length, struct DosLibraryV0 *DOSBas
 }
 MAKE_PROXY_ARG_4(Read)
 
+LONG  abiv0_FRead(BPTR fh, APTR block, ULONG blocklen, ULONG number, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)fh;
+    return FRead(fhp->native, block, blocklen, number);
+}
+MAKE_PROXY_ARG_5(FRead)
+
 LONG abiv0_Seek(BPTR file, LONG position, LONG mode, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)file;
@@ -191,8 +198,12 @@ MAKE_PROXY_ARG_2(DupLock)
 BOOL abiv0_NameFromLock(BPTR lock, STRPTR buffer, LONG length, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
-    /* ABI_V0 compatibility MISSING */
+    /* ABI_V0 compatibility */
     /* Up to 2010-12-03 NameFromFH was an alias/define to NameFromLock. Example: HFinder */
+    struct FileLock *fl = (struct FileLock *)BADDR(proxy->native);
+    if ((fl->fl_Access != SHARED_LOCK) && (fl->fl_Access != EXCLUSIVE_LOCK))
+        return NameFromFH(proxy->native, buffer, length);
+
     return NameFromLock(proxy->native, buffer, length);
 }
 MAKE_PROXY_ARG_4(NameFromLock)
@@ -713,4 +724,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  76, (APTR32)(IPTR)proxy_SetFileSize);
     __AROS_SETVECADDRV0(abiv0DOSBase, 101, (APTR32)(IPTR)proxy_SystemTagList);
     __AROS_SETVECADDRV0(abiv0DOSBase,  96, dosfunctable[ 95]);  // GetProgramName
+    __AROS_SETVECADDRV0(abiv0DOSBase,  54, (APTR32)(IPTR)proxy_FRead);
 }
