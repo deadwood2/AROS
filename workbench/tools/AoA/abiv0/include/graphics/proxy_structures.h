@@ -3,7 +3,8 @@
 
 struct ColorMapProxy
 {
-    struct ColorMap *native;
+    struct ColorMapV0   base;
+    struct ColorMap     *native;
 };
 
 struct LayerProxy
