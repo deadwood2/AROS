@@ -83,7 +83,9 @@ static ULONG dt[] =
 
     ID_CDFS_DISK,
     ID_HSIERRA_DISK,
-    ID_ISO9660_DISK
+    ID_ISO9660_DISK,
+    ID_ISO9660RR_DISK,
+    ID_ISO9660JOL_DISK
 };
 
 static CONST_STRPTR disktypelist[] =
@@ -126,7 +128,9 @@ static CONST_STRPTR disktypelist[] =
 
     "CD-ROM",
     "High Sierra CDFS",
-    "ISO9660 CDFS"
+    "ISO9660 CDFS",
+    "ISO9660 + RockRidge CDFS",
+    "ISO9660 + Joliet CDFS"
 };
 
 /*** Instance data **********************************************************/
