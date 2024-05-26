@@ -184,21 +184,17 @@ void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG dra
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
     if (rpnative == NULL)
     {
-        // HFinder allocating local rastport and bitmap
-        rpnative = AllocMem(sizeof(struct RastPort), MEMF_ANY | MEMF_CLEAR);
-        InitRastPort(rpnative);
-        *(IPTR *)&rp->longreserved = (IPTR)rpnative;
-        struct BitMap *bmnative = AllocMem(sizeof(struct BitMap), MEMF_ANY | MEMF_CLEAR);
-        struct BitMapV0 *bmv0 = (struct BitMapV0 *)(IPTR)rp->BitMap;
-        bmnative->BytesPerRow = bmv0->BytesPerRow;
-        bmnative->Depth = bmv0->Depth;
-        bmnative->Flags = bmv0->Flags;
-        bmnative->Rows = bmv0->Rows;
-        bmnative->Planes[0] = (APTR)(IPTR)bmv0->Planes[0];
-        rpnative->BitMap = bmnative;
+        /* HFinder operates on locally created 1-bit RastPort/BitMap */
+        /* TODO: call 32bit code? */
+        rp->FgPen     = apen;
+        rp->BgPen     = bpen;
+        rp->DrawMode  = drawMode;
+        rp->linpatcnt = 15;
+#define RPF_NO_PENS	    	(1L << 14)	/* Are pens disabled?				*/
+        rp->Flags    &= ~RPF_NO_PENS;
     }
-
-    SetABPenDrMd(rpnative, apen, bpen, drawMode);
+    else
+        SetABPenDrMd(rpnative, apen, bpen, drawMode);
 }
 MAKE_PROXY_ARG_5(SetABPenDrMd)
 
@@ -230,17 +226,59 @@ void  abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gf
 }
 MAKE_PROXY_ARG_3(SetRPAttrsA)
 
+static void RecreteNativeRastPort(struct RastPortV0 *rpv0, struct RastPort *rptmp, struct BitMap *bmtmp)
+{
+    struct BitMapV0 *bmv0 = (struct BitMapV0 *)(APTR)(IPTR)rpv0->BitMap;
+    InitRastPort(rptmp);
+
+    rptmp->FgPen        = rpv0->FgPen;
+    rptmp->BgPen        = rpv0->BgPen;
+    rptmp->DrawMode     = rpv0->DrawMode;
+    rptmp->linpatcnt    = rpv0->linpatcnt;
+    rptmp->Flags        = rpv0->Flags;
+    rptmp->cp_x         = rpv0->cp_x;
+    rptmp->cp_y         = rpv0->cp_y;
+
+    bmtmp->BytesPerRow  = bmv0->BytesPerRow;
+    bmtmp->Depth        = bmv0->Depth;
+    bmtmp->Flags        = bmv0->Flags;
+    bmtmp->Rows         = bmv0->Rows;
+    bmtmp->Planes[0]    = (APTR)(IPTR)bmv0->Planes[0];
+
+    rptmp->BitMap       = bmtmp;
+}
+
 void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    RectFill(rpnative, xMin, yMin, xMax, yMax);
+    if (rpnative == NULL)
+    {
+        /* HFinder operates on locally created 1-bit RastPort/BitMap */
+        struct RastPort rptmp;
+        struct BitMap bmtmp;
+        RecreteNativeRastPort(rp, &rptmp, &bmtmp);
+
+        RectFill(&rptmp, xMin, yMin, xMax, yMax);
+    }
+    else
+        RectFill(rpnative, xMin, yMin, xMax, yMax);
 }
 MAKE_PROXY_ARG_6(RectFill)
 
 void abiv0_Move(struct RastPortV0 *rp, WORD x, WORD y, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    Move(rpnative, x, y);
+
+    if (rpnative == NULL)
+    {
+        /* HFinder operates on locally created 1-bit RastPort/BitMap */
+        /* TODO: call 32bit code? */
+        rp->cp_x        = x;
+        rp->cp_y        = y;
+        rp->linpatcnt   = 15;
+    }
+    else
+        Move(rpnative, x, y);
 }
 MAKE_PROXY_ARG_4(Move)
 
@@ -254,7 +292,19 @@ MAKE_PROXY_ARG_4(Draw)
 void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    Text(rpnative, string, count);
+
+    if (rpnative == NULL)
+    {
+        /* HFinder operates on locally created 1-bit RastPort/BitMap */
+        struct RastPort rptmp;
+        struct BitMap bmtmp;
+        RecreteNativeRastPort(rp, &rptmp, &bmtmp);
+
+        /* TODO: actually call 32-bit code without creating native objects ? */
+        Text(&rptmp, string, count);
+    }
+    else
+        Text(rpnative, string, count);
 }
 MAKE_PROXY_ARG_4(Text)
 
@@ -328,7 +378,19 @@ void abiv0_BltTemplate(PLANEPTR source, LONG xSrc, LONG srcMod, struct RastPortV
     LONG ySize, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
-    BltTemplate(source, xSrc, srcMod, rpnative, xDest, yDest, xSize, ySize);
+
+    if (rpnative == NULL)
+    {
+        /* HFinder operates on locally created 1-bit RastPort/BitMap */
+        struct RastPort rptmp;
+        struct BitMap bmtmp;
+        RecreteNativeRastPort(destRP, &rptmp, &bmtmp);
+
+        /* TODO: actually call 32-bit code without creating native objects ? */
+        BltTemplate(source, xSrc, srcMod, &rptmp, xDest, yDest, xSize, ySize);
+    }
+    else
+        BltTemplate(source, xSrc, srcMod, rpnative, xDest, yDest, xSize, ySize);
 }
 MAKE_PROXY_ARG_12(BltTemplate)
 
