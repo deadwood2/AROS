@@ -996,9 +996,14 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
     struct Screen *native = LockPubScreen(NULL);
 
     struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    proxy->base.Screen.Width    = native->Width;
-    proxy->base.Screen.Height   = native->Height;
-    proxy->native               = native;
+
+    proxy->base.Screen.Width        = native->Width;
+    proxy->base.Screen.Height       = native->Height;
+    proxy->base.Screen.WBorLeft     = native->WBorLeft;
+    proxy->base.Screen.WBorTop      = native->WBorTop;
+    proxy->base.Screen.WBorRight    = native->WBorRight;
+    proxy->base.Screen.WBorBottom   = native->WBorBottom;
+    proxy->native                   = native;
 
     struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     cmproxy->base.VPModeID = native->ViewPort.ColorMap->VPModeID;
