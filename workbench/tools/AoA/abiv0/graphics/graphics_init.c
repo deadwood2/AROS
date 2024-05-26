@@ -1,5 +1,6 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
+#include <graphics/rpattr.h>
 #include <proto/graphics.h>
 #include <proto/alib.h>
 #include <aros/debug.h>
@@ -175,6 +176,9 @@ void abiv0_SetBPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0
 }
 MAKE_PROXY_ARG_3(SetBPen)
 
+extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
+extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+
 void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
@@ -197,6 +201,34 @@ void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG dra
     SetABPenDrMd(rpnative, apen, bpen, drawMode);
 }
 MAKE_PROXY_ARG_5(SetABPenDrMd)
+
+void  abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+   struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+
+    struct TagItem *tagNative = tagListNative;
+
+    while (tagNative->ti_Tag != TAG_DONE)
+    {
+        if (tagNative->ti_Tag == RPTAG_Font)
+        {
+            asm("int3");
+        }
+
+        if (tagNative->ti_Tag == RPTAG_ClipRectangle)
+        {
+            asm("int3");
+        }
+
+        tagNative++;
+    }
+
+    SetRPAttrsA(rpnative, tagListNative);
+
+    FreeClonedV02NativeTagItems(tagListNative);
+}
+MAKE_PROXY_ARG_3(SetRPAttrsA)
 
 void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
@@ -283,12 +315,6 @@ bug("abiv0_GetDisplayInfoData: STUB\n");
     return 0;
 }
 MAKE_PROXY_ARG_6(GetDisplayInfoData)
-
-void  abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
-{
-bug("abiv0_SetRPAttrsA: STUB\n");
-}
-MAKE_PROXY_ARG_3(SetRPAttrsA)
 
 BOOL abiv0_AndRegionRegion(struct RegionV0 *R1, struct RegionV0 *R2, struct GfxBaseV0 *GfxBaseV0)
 {
