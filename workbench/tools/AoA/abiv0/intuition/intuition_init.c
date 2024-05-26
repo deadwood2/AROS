@@ -168,7 +168,7 @@ asm("int3");
     }
 }
 
-static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
+struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 {
     struct TagItem *newList;
     LONG numTags = 1;
@@ -179,7 +179,7 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
     while (LibNextTagItemV0 (&tmp) != NULL)
         numTags++;
 
-    newList = AllocMem(sizeof(struct TagItem) * numTags, MEMF_CLEAR);
+    newList = AllocVec(sizeof(struct TagItem) * numTags, MEMF_CLEAR);
 
     LONG pos = 0;
     tmp = (struct TagItemV0 *)tagList;
@@ -192,6 +192,11 @@ static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
 
     return newList;
 
+}
+
+void FreeClonedV02NativeTagItems(struct TagItem *tagList)
+{
+    FreeVec(tagList);
 }
 
 static void syncLayerV0(struct LayerProxy *proxy)
