@@ -220,6 +220,10 @@ static void syncWindowV0(struct WindowProxy *proxy)
     proxy->base.GZZHeight           = proxy->native->GZZHeight;
     proxy->base.GZZWidth            = proxy->native->GZZWidth;
     proxy->base.Flags               = proxy->native->Flags;
+    proxy->base.MouseX              = proxy->native->MouseX;
+    proxy->base.MouseY              = proxy->native->MouseY;
+    proxy->base.LeftEdge            = proxy->native->LeftEdge;
+    proxy->base.TopEdge             = proxy->native->TopEdge;
 }
 
 struct WindowProxy *wmarray[100];
