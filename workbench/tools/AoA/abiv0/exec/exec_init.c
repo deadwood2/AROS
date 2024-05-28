@@ -15,6 +15,7 @@
 
 extern struct DosLibraryV0 *abiv0DOSBase;
 extern struct LibraryV0 *abiv0TimerBase;
+struct ExecBaseV0 *abiv0SysBase;
 
 APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
 {
@@ -284,7 +285,20 @@ void abiv0_CacheClearE(APTR address, IPTR length, ULONG caches, struct ExecBaseV
 }
 MAKE_PROXY_ARG_4(CacheClearE)
 
-LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest)
+#define DEVPROXY_TYPE_INPUT (1)
+
+struct DeviceProxy
+{
+    struct LibraryV0    base;
+    struct IOStdReq     *io;
+    struct MsgPort      *mp;
+
+    ULONG               type;
+    APTR                user1;
+    APTR                user2;
+};
+
+LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest, ULONG flags, struct ExecBaseV0 *SysBaseV0)
 {
     if (strcmp(devName, "timer.device") == 0)
     {
@@ -294,8 +308,14 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
 
     if (strcmp(devName, "input.device") == 0)
     {
-bug("abiv0_OpenDevice: input.device STUB\n");
-        iORequest->io_Device = 0;
+        struct DeviceProxy *proxy = abiv0_AllocMem(sizeof(struct DeviceProxy), MEMF_CLEAR, SysBaseV0);
+        proxy->mp = CreateMsgPort();
+        proxy->io = (struct IOStdReq *)CreateIORequest(proxy->mp, sizeof(struct IOStdReq));
+        proxy->type = DEVPROXY_TYPE_INPUT;
+
+        OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
+
+        iORequest->io_Device = (APTR32)(IPTR)proxy;
         return 0;
     }
 
@@ -310,10 +330,19 @@ bug("abiv0_OpenDevice: input.device STUB\n");
 asm("int3");
     return 0;
 }
-MAKE_PROXY_ARG_4(OpenDevice)
+MAKE_PROXY_ARG_5(OpenDevice)
 
 void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
+    struct DeviceProxy *proxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
+    if (proxy->type == DEVPROXY_TYPE_INPUT)
+    {
+        CloseDevice((struct IORequest *)proxy->io);
+        DeleteIORequest((struct IORequest *)proxy->io);
+        DeleteMsgPort(proxy->mp);
+        FreeMem(proxy, sizeof(struct DeviceProxy));
+        return;
+    }
 bug("abiv0_CloseDevice: STUB\n");
 }
 MAKE_PROXY_ARG_2(CloseDevice)
@@ -341,6 +370,7 @@ MAKE_PROXY_ARG_2(DeleteMsgPort)
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
     struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+
     struct Message *msg = GetMsg(proxy->native);
 
     if (proxy->translate)
@@ -403,8 +433,150 @@ ULONG abiv0_Wait(ULONG signalSet, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(Wait)
 
+#include "../include/input/structures.h"
+
+void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
+{
+    __asm__ volatile (
+        "pushq %%rbx\n"
+        "subq $8, %%rsp\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %1, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %0, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $8, %%rsp\n"
+        "popq %%rbx\n"
+        "leave\n"
+        "ret\n"
+        ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data) : "%rax", "%rcx");
+}
+
+AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
+          AROS_UFHA(struct InputEvent *,      oldchain,       A0),
+          AROS_UFHA(struct DeviceProxy *,       proxy,        A1)
+         )
+{
+    AROS_USERFUNC_INIT
+ 
+    struct InputEvent *next_ie = oldchain;
+
+    ULONG count = 0;
+
+    while(next_ie) { count++; next_ie = next_ie->ie_NextEvent; }
+    struct InputEventV0 *v0chain = abiv0_AllocMem(count * sizeof(struct InputEventV0), MEMF_CLEAR, abiv0SysBase);
+
+    next_ie = oldchain;
+
+    ULONG pos = 0;
+    struct InputEventV0 *v0event = NULL;
+    while (next_ie)
+    {
+        v0event = &v0chain[pos];
+        v0event->ie_NextEvent   = (APTR32)(IPTR)&v0chain[pos + 1];
+
+        v0event->ie_Class       = next_ie->ie_Class;
+        v0event->ie_SubClass    = next_ie->ie_SubClass;
+        v0event->ie_Code        = next_ie->ie_Code;
+        v0event->ie_Qualifier   = next_ie->ie_Qualifier;
+
+        v0event->ie_position.ie_xy.ie_x = next_ie->ie_position.ie_xy.ie_x;
+        v0event->ie_position.ie_xy.ie_y = next_ie->ie_position.ie_xy.ie_y;
+
+        v0event->ie_TimeStamp   = next_ie->ie_TimeStamp;
+
+        next_ie = next_ie->ie_NextEvent;
+        pos++;
+    }
+    v0event->ie_NextEvent = (APTR32)(IPTR)NULL; /* Last event */
+
+    /* Switch to 31-bit stack, because handler is in 32-bit code */
+    static APTR stack31bit = NULL;
+    struct StackSwapStruct sss;
+    struct StackSwapArgs ssa;
+
+    if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
+
+    sss.stk_Lower = stack31bit;
+    sss.stk_Upper = sss.stk_Lower + 64 * 1024;
+    sss.stk_Pointer = sss.stk_Upper;
+
+    struct InterruptV0 *v0handler = (struct InterruptV0 *)proxy->user1;
+
+    ssa.Args[0] = (IPTR)v0handler;
+    ssa.Args[1] = (IPTR)v0chain;
+
+    NewStackSwap(&sss, call_handler_on_31bit_stack, &ssa);
+
+    FreeMem(v0chain, count * sizeof(struct InputEventV0));
+
+    return oldchain;
+
+    AROS_USERFUNC_EXIT
+}
+
 LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
 {
+    struct DeviceProxy *proxy = (struct DeviceProxy *)(IPTR)IORequest->io_Device;
+
+    if (proxy->type == DEVPROXY_TYPE_INPUT)
+    {
+bug("abiv0_DoIO: STUB\n");
+return 0;
+//         if (IORequest->io_Command == 9 /* IND_ADDHANDLER */)
+//         {
+//             struct InterruptV0 *v0handler = (APTR)(IPTR)((struct IOStdReqV0 *)IORequest)->io_Data;
+//             if (((char *)(IPTR)v0handler->is_Node.ln_Name)[0] == 'c')
+//             {
+// bug("abiv0_DoIO: STUB\n");
+//                 return 0; /* don't install commodities handler yet, it generates crash */
+//             }
+
+//             struct Interrupt *inputhandler = AllocMem(sizeof (struct Interrupt), MEMF_PUBLIC | MEMF_CLEAR);
+//             inputhandler->is_Code = (VOID_FUNC)AROS_ASMSYMNAME(EmulatorInputHandler);
+//             inputhandler->is_Data = proxy;
+//             inputhandler->is_Node.ln_Pri = 0;
+//             inputhandler->is_Node.ln_Name = "emulator input handler";
+
+//             proxy->io->io_Command = 9;
+//             proxy->io->io_Data = inputhandler;
+
+//             proxy->user1 = v0handler;
+//             proxy->user2 = inputhandler;
+
+//             DoIO((struct IORequest *)proxy->io);
+
+//             IORequest->io_Error = proxy->io->io_Error;
+//             return proxy->io->io_Error;
+//         }
+//         else if (IORequest->io_Command == 10 /* IND_REMHANDLER */)
+//         {
+//             struct InterruptV0 *v0handler = (APTR)(IPTR)((struct IOStdReqV0 *)IORequest)->io_Data;
+
+//             proxy->io->io_Command = 10;
+//             proxy->io->io_Data = proxy->user2;
+
+//             if (((char *)(IPTR)v0handler->is_Node.ln_Name)[0] == 'c')
+//             {
+// bug("abiv0_DoIO: STUB\n");
+//                 return 0; /* don't install commodities handler yet, it generates crash */
+//             }
+
+//             DoIO((struct IORequest *)proxy->io);
+
+//             FreeMem(proxy->user1, sizeof(struct Interrupt));
+//             proxy->user1 = NULL;
+
+//             IORequest->io_Error = proxy->io->io_Error;
+//             return proxy->io->io_Error;
+//         }
+// asm("int3");
+    }
+
+
 bug("abiv0_DoIO: STUB\n");
     return 0;
 }
@@ -500,7 +672,6 @@ MAKE_PROXY_ARG_2(FreeSignal)
 
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
-struct ExecBaseV0 *abiv0SysBase;
 
 struct ExecBaseV0 *init_exec()
 {
