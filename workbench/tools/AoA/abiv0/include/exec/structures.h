@@ -310,6 +310,21 @@ struct IORequestV0
     BYTE            io_Error;
 };
 
+struct IOStdReqV0
+{
+    struct MessageV0 io_Message;
+    APTR32          io_Device;
+    APTR32          io_Unit;
+    UWORD           io_Command;
+    UBYTE           io_Flags;
+    BYTE            io_Error;
+/* fields that are different from IORequest */
+    ULONG           io_Actual;
+    ULONG           io_Length;
+    APTR32          io_Data;
+    ULONG           io_Offset;
+};
+
 struct SemaphoreRequestV0
 {
     struct MinNodeV0            sr_Link;

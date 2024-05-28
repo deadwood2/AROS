@@ -15,6 +15,7 @@
 #include "../include/intuition/structures.h"
 #include "../include/graphics/proxy_structures.h"
 #include "../include/utility/structures.h"
+#include "../include/input/structures.h"
 
 struct ExecBaseV0 *Intuition_SysBaseV0;
 
