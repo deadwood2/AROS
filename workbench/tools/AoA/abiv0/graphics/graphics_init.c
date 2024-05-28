@@ -394,6 +394,12 @@ void abiv0_BltTemplate(PLANEPTR source, LONG xSrc, LONG srcMod, struct RastPortV
 }
 MAKE_PROXY_ARG_12(BltTemplate)
 
+VOID abiv0_WaitTOF(struct GfxBaseV0 *GfxBaseV0)
+{
+    WaitTOF();
+}
+MAKE_PROXY_ARG_1(WaitTOF)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -458,4 +464,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  65, graphicsjmp[202 -  65]);  // InitBitmap
     __AROS_SETVECADDRV0(abiv0GfxBase,   6, (APTR32)(IPTR)proxy_BltTemplate);
     __AROS_SETVECADDRV0(abiv0GfxBase,  38, graphicsjmp[202 -  38]);  // WaitBlit
+    __AROS_SETVECADDRV0(abiv0GfxBase,  45, (APTR32)(IPTR)proxy_WaitTOF);
 }
