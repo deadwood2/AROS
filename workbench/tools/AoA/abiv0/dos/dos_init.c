@@ -239,6 +239,12 @@ BOOL abiv0_UnLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(UnLock)
 
+BOOL abiv0_DeleteFile(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
+{
+    DeleteFile(name);
+}
+MAKE_PROXY_ARG_2(DeleteFile)
+
 BPTR abiv0_ParentDir(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
@@ -751,4 +757,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  54, (APTR32)(IPTR)proxy_FRead);
     __AROS_SETVECADDRV0(abiv0DOSBase,  35, (APTR32)(IPTR)proxy_ParentDir);
     __AROS_SETVECADDRV0(abiv0DOSBase,  55, (APTR32)(IPTR)proxy_FWrite);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  12, (APTR32)(IPTR)proxy_DeleteFile);
 }
