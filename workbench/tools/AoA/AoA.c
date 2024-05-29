@@ -219,6 +219,41 @@ void init_intuition(struct ExecBaseV0 *, struct LibraryV0 *);
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
 
+void execute_in_32_bit(APTR start, struct ExecBaseV0 *SysBaseV0)
+{
+        /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
+        Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
+    __asm__ volatile(
+    "   movl %0, %%ecx\n"
+    "   movl %1, %%edx\n"
+    "   subq $8, %%rsp\n"
+    "   movl $0x23, 4(%%rsp)\n" // Jump to 32-bit mode
+    "   lea  tramp, %%rax\n"
+    "   movl %%eax, (%%rsp)\n"
+    "   lret\n"
+    "tramp:\n"
+    "   .code32\n"
+    "   push $0x2b\n"
+    "   pop %%ds\n"
+    "   push $0x2b\n"
+    "   pop %%es\n"
+    "   mov $0x0, %%eax\n"
+    "   push %%edx\n" //SysBase
+    "   push %%eax\n" //argsize
+    "   push %%eax\n" //argstr
+    "   call *%%ecx\n"
+    "   pop %%eax\n" // Clean up stack
+    "   pop %%eax\n"
+    "   pop %%eax\n"
+    "   push $0x33\n" // Jump back to 64-bit mode
+    "   lea finished, %%eax\n"
+    "   push %%eax\n"
+    "   lret\n"
+    "   .code64\n"
+    "finished:"
+        :: "m"(start), "m" (SysBaseV0) :);
+}
+
 LONG_FUNC run_emulation()
 {
     TEXT path[128];
@@ -264,6 +299,20 @@ LONG_FUNC run_emulation()
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 
+    /* Install datatypes */
+    NewRawDoFmt("%s:Libs32/AddDataTypes", RAWFMTFUNC_STRING, path, SYSNAME);
+    BPTR adtseg = LoadSeg32(path, DOSBase);
+    APTR (*adtstart)() = (APTR)((IPTR)BADDR(adtseg) + sizeof(BPTR));
+    /* Inject arguments */
+    struct FileHandle *fhinput = BADDR(Input());
+    // if ((fhinput->fh_Flags & FHF_BUF) && size <= 208) {
+        CopyMem("REFRESH\n", BADDR(fhinput->fh_Buf), 9);
+        fhinput->fh_Pos = 0;
+        fhinput->fh_End = 9;
+        // return TRUE;
+    // }
+    execute_in_32_bit(adtstart, SysBaseV0);
+
     /* Start Program */
     // NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
     NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
@@ -279,37 +328,7 @@ LONG_FUNC run_emulation()
     BPTR oldprogdir = SetProgramDir(progdir);
     BPTR oldcurdir = CurrentDir(DupLock(progdir));
 
-    /*  Switch to CS = 0x23 during FAR call. This switches 32-bit emulation mode.
-        Next, load 0x2B to DS (needed under 32-bit) and NEAR jump to 32-bit code */
-    __asm__ volatile(
-    "   movl %0, %%ecx\n"
-    "   movl %1, %%edx\n"
-    "   subq $8, %%rsp\n"
-    "   movl $0x23, 4(%%rsp)\n" // Jump to 32-bit mode
-    "   lea  tramp, %%rax\n"
-    "   movl %%eax, (%%rsp)\n"
-    "   lret\n"
-    "tramp:\n"
-    "   .code32\n"
-    "   push $0x2b\n"
-    "   pop %%ds\n"
-    "   push $0x2b\n"
-    "   pop %%es\n"
-    "   mov $0x0, %%eax\n"
-    "   push %%edx\n" //SysBase
-    "   push %%eax\n" //argsize
-    "   push %%eax\n" //argstr
-    "   call *%%ecx\n"
-    "   pop %%eax\n" // Clean up stack
-    "   pop %%eax\n"
-    "   pop %%eax\n"
-    "   push $0x33\n" // Jump back to 64-bit mode
-    "   lea finished, %%eax\n"
-    "   push %%eax\n"
-    "   lret\n"
-    "   .code64\n"
-    "finished:"
-        :: "m"(start), "m" (SysBaseV0) :);
+    execute_in_32_bit(start, SysBaseV0);
 
     CurrentDir(oldcurdir);
     SetProgramDir(oldprogdir);

@@ -409,8 +409,17 @@ MAKE_PROXY_ARG_2(Flush)
 
 BPTR abiv0_CurrentDir(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 {
-    struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
-    BPTR old = CurrentDir(flproxy->native);
+    BPTR old;
+
+    if (lock != BNULL)
+    {
+        struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
+        old = CurrentDir(flproxy->native);
+    }
+    else
+    {
+        old = CurrentDir(BNULL);
+    }
     return (BPTR)makeFileLockProxy(old);
 }
 MAKE_PROXY_ARG_2(CurrentDir)
@@ -656,6 +665,11 @@ bug("abiv0_SystemTagList: STUB\n");
 }
 MAKE_PROXY_ARG_3(SystemTagList)
 
+LONG abiv0_CheckSignal(LONG mask, struct DosLibraryV0 *DOSBaseV0)
+{
+    return CheckSignal(mask);
+}
+MAKE_PROXY_ARG_2(CheckSignal)
 struct IntDosBaseV0
 {
     struct DosLibraryV0         pub;
@@ -766,4 +780,8 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  35, (APTR32)(IPTR)proxy_ParentDir);
     __AROS_SETVECADDRV0(abiv0DOSBase,  55, (APTR32)(IPTR)proxy_FWrite);
     __AROS_SETVECADDRV0(abiv0DOSBase,  12, (APTR32)(IPTR)proxy_DeleteFile);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 137, dosfunctable[136]);  // MatchFirst
+    __AROS_SETVECADDRV0(abiv0DOSBase, 138, dosfunctable[137]);  // MatchNext
+    __AROS_SETVECADDRV0(abiv0DOSBase, 132, (APTR32)(IPTR)proxy_CheckSignal);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 139, dosfunctable[138]);  // MatchEnd
 }
