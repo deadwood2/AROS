@@ -253,11 +253,19 @@ BPTR abiv0_ParentDir(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(ParentDir)
 
-struct FileInfoBlockProxy
+/* In MatchFirst/MatchNext FIB is a fields of structure, not allocated via DOS */
+#define FIB_PROXY_MAGIC (0x05060708)
+struct FileInfoBlock *getNativeFIB(struct FileInfoBlockV0 *v0fib)
 {
-    struct FileInfoBlockV0 base;
-    struct FileInfoBlock *native;
-};
+    if (v0fib->fib_DiskKey != FIB_PROXY_MAGIC)
+    {
+        struct FileInfoBlock *nativefib = AllocDosObject(DOS_FIB, NULL);
+        v0fib->fib_DiskKey = FIB_PROXY_MAGIC;
+        *((IPTR *)(&v0fib->fib_Reserved[24])) = (IPTR)nativefib;
+    }
+
+    return (struct FileInfoBlock *)*(IPTR *)(&v0fib->fib_Reserved[24]);
+}
 
 struct ExAllControlProxy
 {
@@ -269,10 +277,8 @@ APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosL
 {
     if (type == DOS_FIB && tags == NULL)
     {
-        struct FileInfoBlock *fib = AllocDosObject(type, NULL);
-        struct FileInfoBlockProxy *proxy = abiv0_AllocMem(sizeof(struct FileInfoBlockProxy), MEMF_CLEAR, DOS_SysBaseV0);
-        proxy->native = fib;
-        return proxy;
+        struct FileInfoBlockV0 *v0fib = abiv0_AllocMem(sizeof(struct FileInfoBlockV0), MEMF_CLEAR, DOS_SysBaseV0);
+        return v0fib;
     }
     else if (type == DOS_EXALLCONTROL && tags == NULL)
     {
@@ -308,9 +314,9 @@ void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
 {
     if (type == DOS_FIB)
     {
-        struct FileInfoBlockProxy *proxy = (struct FileInfoBlockProxy *)ptr;
-        FreeDosObject(type, proxy->native);
-        abiv0_FreeMem(proxy, sizeof(struct FileInfoBlockProxy), DOS_SysBaseV0);
+        struct FileInfoBlockV0 *v0fib = (struct FileInfoBlockV0 *)ptr;
+        FreeDosObject(type, getNativeFIB(v0fib));
+        abiv0_FreeMem(v0fib, sizeof(struct FileInfoBlockV0), DOS_SysBaseV0);
         return;
     } else if (type == DOS_EXALLCONTROL)
     {
@@ -345,14 +351,15 @@ MAKE_PROXY_ARG_3(FreeDosObject)
 LONG abiv0_Examine(BPTR lock, struct FileInfoBlockV0 *fib, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
-    struct FileInfoBlockProxy *fibproxy = (struct FileInfoBlockProxy *)fib;
-    LONG res = Examine(flproxy->native, fibproxy->native);
+    struct FileInfoBlock *fibnative = getNativeFIB(fib);
+
+    LONG res = Examine(flproxy->native, fibnative);
     if (res)
     {
-        fibproxy->base.fib_Date         = fibproxy->native->fib_Date;
-        fibproxy->base.fib_Size         = fibproxy->native->fib_Size;
-        fibproxy->base.fib_DirEntryType = fibproxy->native->fib_DirEntryType;
-        CopyMem(fibproxy->native->fib_FileName, fibproxy->base.fib_FileName, 108);
+        fib->fib_Date           = fibnative->fib_Date;
+        fib->fib_Size           = fibnative->fib_Size;
+        fib->fib_DirEntryType   = fibnative->fib_DirEntryType;
+        CopyMem(fibnative->fib_FileName, fib->fib_FileName, 108);
 bug("abiv0_Examine: STUB\n");
     }
     return res;
@@ -362,14 +369,15 @@ MAKE_PROXY_ARG_3(Examine)
 LONG abiv0_ExNext(BPTR lock, struct FileInfoBlockV0 *fileInfoBlock, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
-    struct FileInfoBlockProxy *fibproxy = (struct FileInfoBlockProxy *)fileInfoBlock;
-    LONG res = ExNext(flproxy->native, fibproxy->native);
+    struct FileInfoBlock *fibnative = getNativeFIB(fileInfoBlock);
+
+    LONG res = ExNext(flproxy->native, fibnative);
     if (res)
     {
-        fibproxy->base.fib_Date         = fibproxy->native->fib_Date;
-        fibproxy->base.fib_Size         = fibproxy->native->fib_Size;
-        fibproxy->base.fib_DirEntryType = fibproxy->native->fib_DirEntryType;
-        CopyMem(fibproxy->native->fib_FileName, fibproxy->base.fib_FileName, 108);
+        fileInfoBlock->fib_Date         = fibnative->fib_Date;
+        fileInfoBlock->fib_Size         = fibnative->fib_Size;
+        fileInfoBlock->fib_DirEntryType = fibnative->fib_DirEntryType;
+        CopyMem(fibnative->fib_FileName, fileInfoBlock->fib_FileName, 108);
 bug("abiv0_ExNext: STUB\n");
     }
     return res;
@@ -379,12 +387,12 @@ MAKE_PROXY_ARG_3(ExNext)
 BOOL abiv0_ExamineFH(BPTR fh, struct FileInfoBlockV0 *fib, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)fh;
-    struct FileInfoBlockProxy *fibproxy = (struct FileInfoBlockProxy *)fib;
-    BOOL res = ExamineFH(fhproxy->native, fibproxy->native);
+    struct FileInfoBlock *fibnative = getNativeFIB(fib);
+    BOOL res = ExamineFH(fhproxy->native, fibnative);
     if (res)
     {
-        fibproxy->base.fib_Date = fibproxy->native->fib_Date;
-        fibproxy->base.fib_Size = fibproxy->native->fib_Size;
+        fib->fib_Date = fibnative->fib_Date;
+        fib->fib_Size = fibnative->fib_Size;
 bug("abiv0_ExamineFH: STUB\n");
     }
     return res;
