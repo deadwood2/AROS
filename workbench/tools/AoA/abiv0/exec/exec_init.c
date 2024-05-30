@@ -184,6 +184,10 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
     if (strcmp(stripped_name, "dos.library") == 0)
         return abiv0DOSBase;
 
+    /* Workaround for compiled-in absolute paths */
+    if (strcmp(name, "SYS:Classes/datatypes/picture.datatype") == 0)
+        name = "datatypes/picture.datatype";
+
     /* Call Exec function, maybe the library is already available */
     _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
     if (_ret)
