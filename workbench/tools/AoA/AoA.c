@@ -354,24 +354,27 @@ LONG_FUNC run_emulation()
     NewRawDoFmt("%s:Libs32/AddDataTypes", RAWFMTFUNC_STRING, path, SYSNAME);
     BPTR adtseg = LoadSeg32(path, DOSBase);
     APTR (*adtstart)() = (APTR)((IPTR)BADDR(adtseg) + sizeof(BPTR));
-    /* Inject arguments */
+    /* Inject arguments for AddDataTypes*/
     struct FileHandle *fhinput = BADDR(Input());
-    // if ((fhinput->fh_Flags & FHF_BUF) && size <= 208) {
-        CopyMem("REFRESH\n", BADDR(fhinput->fh_Buf), 9);
-        fhinput->fh_Pos = 0;
-        fhinput->fh_End = 9;
-        // return TRUE;
-    // }
+    CopyMem("REFRESH\n", BADDR(fhinput->fh_Buf), 9);
+    fhinput->fh_Pos = 0;
+    fhinput->fh_End = 9;
+
     execute_in_32_bit(adtstart, SysBaseV0);
 
     /* Start Program */
-    // NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
-    NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
+    // NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/Calculator", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/helloabi", RAWFMTFUNC_STRING, path, SYSNAME);
     BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
+
+    /* Clear arguments when running main program */
+    CopyMem("\n", BADDR(fhinput->fh_Buf), 2);
+    fhinput->fh_Pos = 0;
+    fhinput->fh_End = 1;
 
     /* Make sure PROGDIR: is correct */
     *(PathPart(path)) = '\0';
