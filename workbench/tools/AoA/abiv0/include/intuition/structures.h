@@ -193,6 +193,9 @@ struct IntuiMessageV0
 
     APTR32 IDCMPWindow;
     APTR32 SpecialLink;
+
+    /* IntIntuiMessage */
+    APTR32 prevCodeQuals;
 };
 
 struct GadgetInfoV0

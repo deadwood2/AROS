@@ -314,11 +314,20 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
             v0msg->IAddress = (APTR32)(IPTR)v0g;
         }
 
+        if (imsg->Class == IDCMP_RAWKEY)
+        {
+            /* Probably should be a pointer to input event. This prevents crash in sequence of:
+                crate local InputEvent based on IntuiMessage
+                call MapRawKey
+                example: HFinder  */
+            v0msg->prevCodeQuals = (APTR32)(IPTR)NULL;
+            v0msg->IAddress = (APTR32)(IPTR)&v0msg->prevCodeQuals;
+        }
+
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
         syncWindowV0((struct WindowProxy *)proxy);
         syncLayerV0((struct LayerProxy *)(IPTR)proxy->base.WLayer);
-
 
         return (struct MessageV0 *)v0msg;
     }
