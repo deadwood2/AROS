@@ -203,13 +203,63 @@ LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod
 }
 MAKE_PROXY_ARG_12(WriteLUTPixelArray)
 
+#include <proto/graphics.h>
+
 ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, struct RastPortV0 *rp,
     UWORD destx, UWORD desty, UWORD width, UWORD height, UBYTE srcformat, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort rptmp;
+
+    /* picture.datatype uses locally created RastPort */
+    if (rpnative == NULL)
+    {
+        InitRastPort(&rptmp);
+        rptmp.FgPen     = rp->FgPen;
+        rptmp.BgPen     = rp->BgPen;
+        rptmp.DrawMode  = rp->DrawMode;
+        rptmp.linpatcnt = rp->linpatcnt;
+        rptmp.Flags     = rp->Flags;
+        rptmp.cp_x      = rp->cp_x;
+        rptmp.cp_y      = rp->cp_y;
+
+        rptmp.BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+
+        rpnative = &rptmp;
+    }
+
     return WritePixelArray(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, srcformat);
 }
 MAKE_PROXY_ARG_12(WritePixelArray)
+
+#include "abiv0/include/utility/structures.h"
+
+VOID abiv0_ProcessPixelArray(struct RastPortV0 *rp, ULONG destX, ULONG destY, ULONG sizeX, ULONG sizeY, ULONG operation,
+        LONG value, struct TagItemV0 *taglist, struct LibraryV0 *CyberGfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort rptmp;
+
+/* dtpic.mui uses locally created RastPort */
+    if (rpnative == NULL)
+    {
+        InitRastPort(&rptmp);
+        rptmp.FgPen     = rp->FgPen;
+        rptmp.BgPen     = rp->BgPen;
+        rptmp.DrawMode  = rp->DrawMode;
+        rptmp.linpatcnt = rp->linpatcnt;
+        rptmp.Flags     = rp->Flags;
+        rptmp.cp_x      = rp->cp_x;
+        rptmp.cp_y      = rp->cp_y;
+
+        rptmp.BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+
+        rpnative = &rptmp;
+    }
+
+    ProcessPixelArray(rpnative, destX, destY, sizeX, sizeY, operation, value, NULL);
+}
+MAKE_PROXY_ARG_12(ProcessPixelArray)
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -296,6 +346,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 33, (APTR32)(IPTR)proxy_WriteLUTPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 21, (APTR32)(IPTR)proxy_WritePixelArray);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 38, (APTR32)(IPTR)proxy_ProcessPixelArray);
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 

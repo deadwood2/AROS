@@ -25,15 +25,23 @@ MAKE_PROXY_ARG_2(Gfx_OpenLib)
 
 ULONG abiv0_GetBitMapAttr(struct BitMapV0 *bitmap, ULONG attribute, struct LibraryV0 *GfxBaseV0)
 {
-bug("abiv0_GetBitMapAttr: STUB\n");
 
-    if (attribute == BMA_DEPTH)
+    struct BitMapProxy *bmproxy = (struct BitMapProxy *)bitmap;
+    if (bitmap == NULL)
     {
-        return 24;
-    } else if (attribute == BMA_WIDTH)
-    {
-        return 32;
+bug("abiv0_GetBitMapAttr: STUB\n");
+        if (attribute == BMA_DEPTH)
+        {
+            return 24;
+        }
+asm("int3");
     }
+
+    if (bmproxy->native)
+    {
+        return GetBitMapAttr(bmproxy->native, attribute);
+    }
+
 asm("int3");
 }
 MAKE_PROXY_ARG_3(GetBitMapAttr)
@@ -400,6 +408,57 @@ VOID abiv0_WaitTOF(struct GfxBaseV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_1(WaitTOF)
 
+struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG flags, struct BitMapV0 *friend_bitmap,
+    struct GfxBaseV0 *GfxBaseV0)
+{
+    struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Gfx_SysBaseV0);
+    struct BitMap *nativefriendbm = NULL;
+    if (friend_bitmap != NULL)
+    {
+        nativefriendbm = bmproxy->native;
+    }
+
+    bmproxy->native = AllocBitMap(sizex, sizey, depth, flags, nativefriendbm);
+    return (struct BitMapV0 *)bmproxy;
+}
+MAKE_PROXY_ARG_6(AllocBitMap)
+
+void  abiv0_FreeBitMap(struct BitMapV0 *bm, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct BitMapProxy *bmproxy = (struct BitMapProxy *)bm;
+    FreeBitMap(bmproxy->native);
+    abiv0_FreeMem(bm, sizeof(struct BitMapProxy), Gfx_SysBaseV0);
+}
+MAKE_PROXY_ARG_2(FreeBitMap)
+
+void abiv0_BltBitMapRastPort(struct BitMapV0 *srcBitMap, LONG xSrc, LONG ySrc, struct RastPortV0 *destRP,
+    LONG xDest, LONG yDest, LONG xSize, LONG ySize, ULONG minterm, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct BitMapProxy *bmproxy = (struct BitMapProxy *)srcBitMap;
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
+    struct RastPort rptmp;
+
+    /* dtpic.mui uses locally created RastPort */
+    if (rpnative == NULL)
+    {
+        InitRastPort(&rptmp);
+        rptmp.FgPen     = destRP->FgPen;
+        rptmp.BgPen     = destRP->BgPen;
+        rptmp.DrawMode  = destRP->DrawMode;
+        rptmp.linpatcnt = destRP->linpatcnt;
+        rptmp.Flags     = destRP->Flags;
+        rptmp.cp_x      = destRP->cp_x;
+        rptmp.cp_y      = destRP->cp_y;
+
+        rptmp.BitMap = ((struct BitMapProxy *)(IPTR)destRP->BitMap)->native;
+
+        rpnative = &rptmp;
+    }
+
+    BltBitMapRastPort(bmproxy->native, xSrc, ySrc, rpnative, xDest, yDest, xSize, ySize, minterm);
+}
+MAKE_PROXY_ARG_12(BltBitMapRastPort)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -465,4 +524,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,   6, (APTR32)(IPTR)proxy_BltTemplate);
     __AROS_SETVECADDRV0(abiv0GfxBase,  38, graphicsjmp[202 -  38]);  // WaitBlit
     __AROS_SETVECADDRV0(abiv0GfxBase,  45, (APTR32)(IPTR)proxy_WaitTOF);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 153, (APTR32)(IPTR)proxy_AllocBitMap);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 101, (APTR32)(IPTR)proxy_BltBitMapRastPort);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 154, (APTR32)(IPTR)proxy_FreeBitMap);
 }
