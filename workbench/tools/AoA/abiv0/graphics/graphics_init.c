@@ -27,6 +27,7 @@ ULONG abiv0_GetBitMapAttr(struct BitMapV0 *bitmap, ULONG attribute, struct Libra
 {
 
     struct BitMapProxy *bmproxy = (struct BitMapProxy *)bitmap;
+
     if (bitmap == NULL)
     {
 bug("abiv0_GetBitMapAttr: STUB\n");
@@ -40,6 +41,14 @@ asm("int3");
     if (bmproxy->native)
     {
         return GetBitMapAttr(bmproxy->native, attribute);
+    }
+    else
+    {
+        if (attribute == BMA_FLAGS)
+        {
+            return bitmap->Flags;
+        }
+asm("int3");
     }
 
 asm("int3");
@@ -408,6 +417,8 @@ VOID abiv0_WaitTOF(struct GfxBaseV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_1(WaitTOF)
 
+#include <proto/utility.h>
+
 struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG flags, struct BitMapV0 *friend_bitmap,
     struct GfxBaseV0 *GfxBaseV0)
 {
@@ -418,7 +429,31 @@ struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG 
         nativefriendbm = bmproxy->native;
     }
 
-    bmproxy->native = AllocBitMap(sizex, sizey, depth, flags, nativefriendbm);
+    if (depth > 8)
+    {
+        bmproxy->native = AllocBitMap(sizex, sizey, depth, flags, nativefriendbm);
+    }
+    else
+    {
+        bmproxy->base.BytesPerRow   = ((sizex + 15) >> 4) * 2;
+        bmproxy->base.Rows          = sizey;
+        bmproxy->base.Flags         = flags | BMF_STANDARD;
+        bmproxy->base.Depth         = depth;
+        bmproxy->base.pad           = 0;
+
+        {
+            ULONG clear = flags & BMF_CLEAR;
+            ULONG plane;
+
+            for (plane=0; plane<depth; plane++)
+            {
+                bmproxy->base.Planes[plane] = (APTR32)(IPTR)abiv0_AllocMem(RASSIZE(sizex,sizey),MEMF_CHIP, Gfx_SysBaseV0);
+
+                if (clear)
+                    SetMem ((APTR)(IPTR)bmproxy->base.Planes[plane], 0, RASSIZE(sizex,sizey));
+            }
+        }
+    }
     return (struct BitMapV0 *)bmproxy;
 }
 MAKE_PROXY_ARG_6(AllocBitMap)

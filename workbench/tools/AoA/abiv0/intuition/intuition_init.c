@@ -544,6 +544,20 @@ BOOL abiv0_DoubleClick(ULONG sSeconds, ULONG sMicros, ULONG cSeconds, ULONG cMic
 }
 MAKE_PROXY_ARG_5(DoubleClick)
 
+void abiv0_SetWindowTitles(struct WindowV0 *window, CONST_STRPTR windowTitle, CONST_STRPTR screenTitle, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    SetWindowTitles(proxy->native, windowTitle, screenTitle);
+}
+MAKE_PROXY_ARG_4(SetWindowTitles)
+
+void abiv0_SizeWindow(struct WindowV0 *window, LONG dx, LONG dy, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    SizeWindow(proxy->native, dx, dy);
+}
+MAKE_PROXY_ARG_4(SizeWindow)
+
 BOOL abiv0_ModifyIDCMP(struct WindowV0 *window, ULONG flags, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *winproxy = (struct WindowProxy *)window;
@@ -1124,6 +1138,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  98, intuitionjmp[165 -  98]);  // EasyRequestArgs
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  99, intuitionjmp[165 -  99]);  // BuildEasyRequestArgs
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 100, intuitionjmp[165 - 100]);  // SysReqHandler
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  46, (APTR32)(IPTR)proxy_SetWindowTitles);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  48, (APTR32)(IPTR)proxy_SizeWindow);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;

@@ -670,6 +670,19 @@ LONG abiv0_CheckSignal(LONG mask, struct DosLibraryV0 *DOSBaseV0)
     return CheckSignal(mask);
 }
 MAKE_PROXY_ARG_2(CheckSignal)
+
+LONG abiv0_GetVar(CONST_STRPTR name, STRPTR buffer, LONG size, LONG flags, struct DosLibraryV0 *DOSBaseV0)
+{
+    return GetVar(name, buffer, size, flags);
+}
+MAKE_PROXY_ARG_5(GetVar)
+
+void abiv0_Delay(ULONG timeout, struct DosLibraryV0 *DOSBaseV0)
+{
+    Delay(timeout);
+}
+MAKE_PROXY_ARG_2(Delay)
+
 struct IntDosBaseV0
 {
     struct DosLibraryV0         pub;
@@ -784,4 +797,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 138, dosfunctable[137]);  // MatchNext
     __AROS_SETVECADDRV0(abiv0DOSBase, 132, (APTR32)(IPTR)proxy_CheckSignal);
     __AROS_SETVECADDRV0(abiv0DOSBase, 139, dosfunctable[138]);  // MatchEnd
+    __AROS_SETVECADDRV0(abiv0DOSBase,  89, dosfunctable[ 88]);  // GetArgStr
+    __AROS_SETVECADDRV0(abiv0DOSBase, 151, (APTR32)(IPTR)proxy_GetVar);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  33, (APTR32)(IPTR)proxy_Delay);
 }
