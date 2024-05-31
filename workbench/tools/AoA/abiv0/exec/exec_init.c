@@ -645,6 +645,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
         dummy->pr_CES = 0x2; //fake
         dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
         dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
+        dummy->pr_Arguments = (APTR32)(IPTR)"";
 
         cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
         cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);

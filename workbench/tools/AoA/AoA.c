@@ -363,8 +363,8 @@ LONG_FUNC run_emulation()
     execute_in_32_bit(adtstart, SysBaseV0);
 
     /* Start Program */
-    // NewRawDoFmt("%s:ABIv0/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path, SYSNAME);
-    NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("%s:ABIv0/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path, SYSNAME);
+    // NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/Calculator", RAWFMTFUNC_STRING, path, SYSNAME);
     // NewRawDoFmt("%s:ABIv0/helloabi", RAWFMTFUNC_STRING, path, SYSNAME);
