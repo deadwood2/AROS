@@ -662,6 +662,9 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
         dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
 
         g_v0Task = (struct TaskV0 *)dummy;
+
+        /* Needed for GET_THIS_TASK; TODO: change for multithreaded applications */
+        SysBaseV0->ThisTask = (APTR32)(IPTR)dummy;
     }
 
     return g_v0Task;
@@ -763,6 +766,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,150, (APTR32)(IPTR)proxy_FreeVecPooled);
     __AROS_SETVECADDRV0(abiv0SysBase, 55, (APTR32)(IPTR)proxy_AllocSignal);
     __AROS_SETVECADDRV0(abiv0SysBase, 56, (APTR32)(IPTR)proxy_FreeSignal);
+    __AROS_SETVECADDRV0(abiv0SysBase, 96, execfunctable[95]);    // AttemptSemaphore
 
     return abiv0SysBase;
 }
