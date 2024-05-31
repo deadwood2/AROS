@@ -289,19 +289,6 @@ void abiv0_CacheClearE(APTR address, IPTR length, ULONG caches, struct ExecBaseV
 }
 MAKE_PROXY_ARG_4(CacheClearE)
 
-#define DEVPROXY_TYPE_INPUT (1)
-
-struct DeviceProxy
-{
-    struct LibraryV0    base;
-    struct IOStdReq     *io;
-    struct MsgPort      *mp;
-
-    ULONG               type;
-    APTR                user1;
-    APTR                user2;
-};
-
 LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest, ULONG flags, struct ExecBaseV0 *SysBaseV0)
 {
     if (strcmp(devName, "timer.device") == 0)
@@ -325,7 +312,7 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
 
     if (strcmp(devName, "console.device") == 0)
     {
-bug("abiv0_OpenDevice: input.device STUB\n");
+bug("abiv0_OpenDevice: console.device STUB\n");
         iORequest->io_Device = 0;
         return 0;
     }
@@ -345,6 +332,11 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
         DeleteIORequest((struct IORequest *)proxy->io);
         DeleteMsgPort(proxy->mp);
         FreeMem(proxy, sizeof(struct DeviceProxy));
+        return;
+    }
+    if (proxy->type == DEVPROXY_TYPE_TIMER)
+    {
+        /* No Op */
         return;
     }
 bug("abiv0_CloseDevice: STUB\n");
@@ -522,6 +514,9 @@ AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
     AROS_USERFUNC_EXIT
 }
 
+#include <proto/timer.h>
+#include "../include/timer/structures.h"
+
 LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
 {
     struct DeviceProxy *proxy = (struct DeviceProxy *)(IPTR)IORequest->io_Device;
@@ -580,6 +575,16 @@ return 0;
 // asm("int3");
     }
 
+    if (proxy->type == DEVPROXY_TYPE_TIMER)
+    {
+        if (IORequest->io_Command == 10 /* TR_GETSYSTIME */)
+        {
+            struct timeval *p = (struct timeval *)(&((struct timerequestV0 *)IORequest)->tr_time);
+            GetSysTime(p);
+            return 0;
+        }
+asm("int3");
+    }
 
 bug("abiv0_DoIO: STUB\n");
     return 0;

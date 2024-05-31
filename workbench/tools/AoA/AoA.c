@@ -6,10 +6,11 @@
 #include <proto/dos.h>
 
 #include "abiv0/include/exec/functions.h"
+#include "abiv0/include/exec/proxy_structures.h"
 #include "abiv0/include/aros/proxy.h"
 #include "abiv0/include/aros/cpu.h"
 
-struct LibraryV0 *abiv0TimerBase;
+struct DeviceProxy *abiv0TimerBase;
 
 #if 1
 CONST_STRPTR SYSNAME = "SYS";
@@ -265,7 +266,7 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
 void init_graphics(struct ExecBaseV0 *);
-void init_intuition(struct ExecBaseV0 *, struct LibraryV0 *);
+void init_intuition(struct ExecBaseV0 *, struct DeviceProxy *);
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
 
@@ -315,6 +316,7 @@ LONG_FUNC run_emulation()
     abiv0TimerBase = (tmp + 512);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  8, (APTR32)(IPTR)proxy_SubTime);
+    abiv0TimerBase->type = DEVPROXY_TYPE_TIMER;
 
     init_dos(SysBaseV0);
 
