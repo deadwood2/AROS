@@ -686,6 +686,49 @@ MAKE_PROXY_ARG_2(FreeSignal)
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
 
+
+#if defined(SEMA_DEBUG)
+void abiv0_ObtainSemaphore(struct SignalSemaphoreV0 *sem, struct ExecBaseV0 *SysBaseV0)
+{
+    ULONG ret;
+
+    __asm__ volatile (
+        "subq $16, %%rsp\n"
+        "movl %3, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %1, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $16, %%rsp\n"
+        "movl %%eax, %0\n"
+        :"=m"(ret):"m"(execfunctable[93]), "m"(sem), "m"(SysBaseV0) : "%rax", "%rcx");
+}
+MAKE_PROXY_ARG_2(ObtainSemaphore)
+
+void abiv0_ObtainSemaphoreShared(struct SignalSemaphoreV0 *sem, struct ExecBaseV0 *SysBaseV0)
+{
+    ULONG ret;
+
+    __asm__ volatile (
+        "subq $16, %%rsp\n"
+        "movl %3, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %1, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $16, %%rsp\n"
+        "movl %%eax, %0\n"
+        :"=m"(ret):"m"(execfunctable[112]), "m"(sem), "m"(SysBaseV0) : "%rax", "%rcx");
+}
+MAKE_PROXY_ARG_2(ObtainSemaphoreShared)
+#endif
+
 struct ExecBaseV0 *init_exec()
 {
     APTR tmp;
@@ -725,8 +768,13 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 41, execfunctable[40]);    // AddTail
     __AROS_SETVECADDRV0(abiv0SysBase, 87, execfunctable[86]);    // RawDoFmt
     __AROS_SETVECADDRV0(abiv0SysBase, 35, (APTR32)(IPTR)proxy_FreeMem);
+#if defined(SEMA_DEBUG)
+    __AROS_SETVECADDRV0(abiv0SysBase,113, (APTR32)(IPTR)proxy_ObtainSemaphoreShared);
+    __AROS_SETVECADDRV0(abiv0SysBase, 94, (APTR32)(IPTR)proxy_ObtainSemaphore);
+#else
     __AROS_SETVECADDRV0(abiv0SysBase,113, execfunctable[112]);   // ObtainSemaphoreShared
     __AROS_SETVECADDRV0(abiv0SysBase, 94, execfunctable[93]);    // ObtainSemaphore
+#endif
     __AROS_SETVECADDRV0(abiv0SysBase, 40, execfunctable[39]);    // AddHead
     __AROS_SETVECADDRV0(abiv0SysBase, 95, execfunctable[94]);    // ReleaseSemaphore
     __AROS_SETVECADDRV0(abiv0SysBase, 81, (APTR32)(IPTR)proxy_AddResource);
