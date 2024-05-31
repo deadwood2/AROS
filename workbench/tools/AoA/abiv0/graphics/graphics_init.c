@@ -501,6 +501,24 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
 extern CONST_STRPTR SYSNAME;
 
+#define TFE_HASHTABSIZE   	16
+
+struct GfxBaseV0_intern
+{
+    struct GfxBaseV0 	 	gfxbase;
+
+    ULONG			displays;	     /* Number of display drivers installed in the system	 */
+    BYTE	shared_driverdata[260];   /* Driver data shared between all monitors (allocated once) */
+    struct SignalSemaphoreV0	monitors_sema;	     /* Monitor list semaphore					 */
+    struct SignalSemaphoreV0	hashtab_sema;	     /* hash_table arbitration semaphore			 */
+    struct SignalSemaphoreV0	view_sema;	     /* ActiView arbitration semaphore				 */
+
+    /* TextFontExtension pool */
+    APTR32 tfe_hashtab[TFE_HASHTABSIZE];
+    struct SignalSemaphoreV0  	tfe_hashtab_sema;
+    struct SignalSemaphoreV0  	fontsem;
+};
+
 void init_graphics(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
@@ -517,6 +535,10 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     abiv0GfxBase->ExecBase = (APTR32)(IPTR)SysBaseV0;
     *(ULONG *)((IPTR)abiv0GfxBase + 0x4b0) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     NEWLISTV0(&abiv0GfxBase->TextFonts);
+
+    struct GfxBaseV0_intern *abiv0IntGfxBase = (struct GfxBaseV0_intern *)abiv0GfxBase;
+    abiv0_InitSemaphore(&abiv0IntGfxBase->fontsem, SysBaseV0);
+    abiv0_InitSemaphore(&abiv0IntGfxBase->tfe_hashtab_sema, SysBaseV0);
 
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
     __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);
