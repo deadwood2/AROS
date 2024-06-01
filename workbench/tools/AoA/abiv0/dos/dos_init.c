@@ -103,6 +103,13 @@ LONG abiv0_Read(BPTR file, APTR buffer, LONG length, struct DosLibraryV0 *DOSBas
 }
 MAKE_PROXY_ARG_4(Read)
 
+LONG abiv0_Write(BPTR file, APTR buffer, LONG length, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return Write(fhp->native, buffer, length);
+}
+MAKE_PROXY_ARG_4(Write)
+
 LONG  abiv0_FRead(BPTR fh, APTR block, ULONG blocklen, ULONG number, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)fh;
@@ -169,6 +176,12 @@ BPTR abiv0_Lock(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBase
     return (BPTR)makeFileLockProxy(tmp);
 }
 MAKE_PROXY_ARG_3(Lock)
+
+BPTR abiv0_CreateDir(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
+{
+    return (BPTR)makeFileLockProxy(CreateDir(name));
+}
+MAKE_PROXY_ARG_2(CreateDir)
 
 struct DevProcProxy
 {
@@ -800,4 +813,6 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  89, dosfunctable[ 88]);  // GetArgStr
     __AROS_SETVECADDRV0(abiv0DOSBase, 151, (APTR32)(IPTR)proxy_GetVar);
     __AROS_SETVECADDRV0(abiv0DOSBase,  33, (APTR32)(IPTR)proxy_Delay);
+    __AROS_SETVECADDRV0(abiv0DOSBase,   8, (APTR32)(IPTR)proxy_Write);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  20, (APTR32)(IPTR)proxy_CreateDir);
 }
