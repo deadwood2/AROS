@@ -692,12 +692,15 @@ MAKE_PROXY_ARG_3(SetSignal)
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
 
+// #define SEMA_DEBUG
 
 #if defined(SEMA_DEBUG)
 void abiv0_ObtainSemaphore(struct SignalSemaphoreV0 *sem, struct ExecBaseV0 *SysBaseV0)
 {
     ULONG ret;
 
+if (sem->ss_Link.ln_Type != NT_SIGNALSEM) asm("int3");
+else
     __asm__ volatile (
         "subq $16, %%rsp\n"
         "movl %3, %%eax\n"
@@ -718,6 +721,8 @@ void abiv0_ObtainSemaphoreShared(struct SignalSemaphoreV0 *sem, struct ExecBaseV
 {
     ULONG ret;
 
+if (sem->ss_Link.ln_Type != NT_SIGNALSEM) asm("int3");
+else
     __asm__ volatile (
         "subq $16, %%rsp\n"
         "movl %3, %%eax\n"
