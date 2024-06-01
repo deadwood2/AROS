@@ -683,6 +683,12 @@ void abiv0_FreeSignal(LONG signalNum, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(FreeSignal)
 
+ULONG abiv0_SetSignal(ULONG newSignals, ULONG signalSet, struct ExecBaseV0 *SysBaseV0)
+{
+    return SetSignal(newSignals, signalSet);
+}
+MAKE_PROXY_ARG_3(SetSignal)
+
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
 
@@ -815,6 +821,8 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 55, (APTR32)(IPTR)proxy_AllocSignal);
     __AROS_SETVECADDRV0(abiv0SysBase, 56, (APTR32)(IPTR)proxy_FreeSignal);
     __AROS_SETVECADDRV0(abiv0SysBase, 96, execfunctable[95]);    // AttemptSemaphore
+    __AROS_SETVECADDRV0(abiv0SysBase, 51, (APTR32)(IPTR)proxy_SetSignal);
+
 
     return abiv0SysBase;
 }
