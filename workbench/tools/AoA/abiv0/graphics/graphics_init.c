@@ -424,36 +424,26 @@ struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG 
 {
     struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Gfx_SysBaseV0);
     struct BitMap *nativefriendbm = NULL;
+    ULONG plane;
+
     if (friend_bitmap != NULL)
     {
         nativefriendbm = ((struct BitMapProxy *)friend_bitmap)->native;
     }
 
-    if (depth > 8)
+    bmproxy->native = AllocBitMap(sizex, sizey, depth, flags, nativefriendbm);
+    bmproxy->base.BytesPerRow   = bmproxy->native->BytesPerRow;
+    bmproxy->base.Rows          = bmproxy->native->Rows;
+    bmproxy->base.Flags         = bmproxy->native->Flags;
+    bmproxy->base.Depth         = bmproxy->native->Depth;
+    bmproxy->base.pad           = bmproxy->native->pad;
+
+    for (plane=0; plane < bmproxy->native->Depth; plane++)
     {
-        bmproxy->native = AllocBitMap(sizex, sizey, depth, flags, nativefriendbm);
+        /* AllocRaster allocates MEMF_CHIP which is 24-bit memory so can be used on 32-bit side */
+        bmproxy->base.Planes[plane] = (APTR32)(IPTR)bmproxy->native->Planes[plane];
     }
-    else
-    {
-        bmproxy->base.BytesPerRow   = ((sizex + 15) >> 4) * 2;
-        bmproxy->base.Rows          = sizey;
-        bmproxy->base.Flags         = flags | BMF_STANDARD;
-        bmproxy->base.Depth         = depth;
-        bmproxy->base.pad           = 0;
 
-        {
-            ULONG clear = flags & BMF_CLEAR;
-            ULONG plane;
-
-            for (plane=0; plane<depth; plane++)
-            {
-                bmproxy->base.Planes[plane] = (APTR32)(IPTR)abiv0_AllocMem(RASSIZE(sizex,sizey),MEMF_CHIP, Gfx_SysBaseV0);
-
-                if (clear)
-                    SetMem ((APTR)(IPTR)bmproxy->base.Planes[plane], 0, RASSIZE(sizex,sizey));
-            }
-        }
-    }
     return (struct BitMapV0 *)bmproxy;
 }
 MAKE_PROXY_ARG_6(AllocBitMap)
