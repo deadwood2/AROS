@@ -451,6 +451,9 @@ MAKE_PROXY_ARG_6(AllocBitMap)
 void  abiv0_FreeBitMap(struct BitMapV0 *bm, struct GfxBaseV0 *GfxBaseV0)
 {
     struct BitMapProxy *bmproxy = (struct BitMapProxy *)bm;
+
+    if (!bm) return;
+
     FreeBitMap(bmproxy->native);
     abiv0_FreeMem(bm, sizeof(struct BitMapProxy), Gfx_SysBaseV0);
 }
