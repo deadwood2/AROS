@@ -426,7 +426,7 @@ struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG 
     struct BitMap *nativefriendbm = NULL;
     if (friend_bitmap != NULL)
     {
-        nativefriendbm = bmproxy->native;
+        nativefriendbm = ((struct BitMapProxy *)friend_bitmap)->native;
     }
 
     if (depth > 8)
