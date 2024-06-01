@@ -1168,7 +1168,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x64) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x6C) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x74) = (APTR32)(IPTR)timerBase;
-
+    abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x180), SysBaseV0); // GadgetLock
 
     init_gadget_wrapper_class();
 
