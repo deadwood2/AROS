@@ -449,7 +449,7 @@ void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
         "leave\n"
         "ret\n"
         ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data)
-        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+        : SCRATCH_REGS_64_TO_32 );
 }
 
 AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
@@ -715,7 +715,7 @@ else
         "addq $16, %%rsp\n"
         "movl %%eax, %0\n"
         :"=m"(ret):"m"(execfunctable[93]), "m"(sem), "m"(SysBaseV0)
-        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+        : SCRATCH_REGS_64_TO_32 );
 }
 MAKE_PROXY_ARG_2(ObtainSemaphore)
 
@@ -738,7 +738,7 @@ else
         "addq $16, %%rsp\n"
         "movl %%eax, %0\n"
         :"=m"(ret):"m"(execfunctable[112]), "m"(sem), "m"(SysBaseV0)
-        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+        : SCRATCH_REGS_64_TO_32 );
 }
 MAKE_PROXY_ARG_2(ObtainSemaphoreShared)
 #endif

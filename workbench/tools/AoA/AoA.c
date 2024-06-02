@@ -302,7 +302,8 @@ void execute_in_32_bit(APTR start, struct ExecBaseV0 *SysBaseV0)
     "   lret\n"
     "   .code64\n"
     "finished:"
-        :: "m"(start), "m" (SysBaseV0) :);
+        :: "m"(start), "m" (SysBaseV0)
+        : SCRATCH_REGS_64_TO_32 );
 }
 
 LONG_FUNC run_emulation()
