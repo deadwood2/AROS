@@ -111,6 +111,7 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sy
     }
 
     proxy->native = native;
+    return (struct TextFontV0 *)proxy;
 }
 
 struct TextFontV0 *abiv0_OpenFont(struct TextAttrV0 *textAttr, struct LibraryV0 *GfxBaseV0)
