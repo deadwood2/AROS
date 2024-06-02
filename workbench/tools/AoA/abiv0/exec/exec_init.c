@@ -102,7 +102,7 @@ VOID abiv0_Permit(struct ExecBaseV0 *SysBaseV0)
 MAKE_PROXY_ARG_1(Permit)
 
 void nss_trampoline();
-static void dummy_nss_trampoline()
+void dummy_nss_trampoline()
 {
     __asm__ volatile(
     "nss_trampoline:\n"
@@ -448,7 +448,8 @@ void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
         "popq %%rbx\n"
         "leave\n"
         "ret\n"
-        ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data) : "%rax", "%rcx");
+        ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data)
+        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
 }
 
 AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
@@ -713,7 +714,8 @@ else
         ENTER64
         "addq $16, %%rsp\n"
         "movl %%eax, %0\n"
-        :"=m"(ret):"m"(execfunctable[93]), "m"(sem), "m"(SysBaseV0) : "%rax", "%rcx");
+        :"=m"(ret):"m"(execfunctable[93]), "m"(sem), "m"(SysBaseV0)
+        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
 }
 MAKE_PROXY_ARG_2(ObtainSemaphore)
 
@@ -735,7 +737,8 @@ else
         ENTER64
         "addq $16, %%rsp\n"
         "movl %%eax, %0\n"
-        :"=m"(ret):"m"(execfunctable[112]), "m"(sem), "m"(SysBaseV0) : "%rax", "%rcx");
+        :"=m"(ret):"m"(execfunctable[112]), "m"(sem), "m"(SysBaseV0)
+        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
 }
 MAKE_PROXY_ARG_2(ObtainSemaphoreShared)
 #endif

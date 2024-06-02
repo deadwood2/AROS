@@ -43,7 +43,8 @@ struct LibraryV0 * abiv0_OpenLibrary(CONST_STRPTR libName, ULONG version, struct
                 ENTER64
                 "addq $8, %%rsp\n"
                 "movl %%eax, %0\n"
-            :"+m" (library):"m"(__AROS_GETVECADDRV0(library, 1)), "m"(version): "%rax", "%rcx");
+            :"+m" (library):"m"(__AROS_GETVECADDRV0(library, 1)), "m"(version)
+            : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
         }
         else
         {

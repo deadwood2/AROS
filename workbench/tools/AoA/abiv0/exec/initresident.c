@@ -88,7 +88,8 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
                     ENTER64
                     "addq $12, %%rsp\n"
                     "movl %%eax, %0\n"
-                :"+m" (library):"m"(init->init), "m"(SysBaseV0), "m"(segList): "%rax", "%rcx");
+                :"+m" (library):"m"(init->init), "m"(SysBaseV0), "m"(segList)
+                : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
             }
 
             /*
@@ -137,7 +138,8 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
                 ENTER64
                 "addq $12, %%rsp\n"
                 "movl %%eax, %0\n"
-            :"=m" (library):"m"(resident->rt_Init), "m"(SysBaseV0), "m"(segList): "%rax", "%rcx");
+            :"=m" (library):"m"(resident->rt_Init), "m"(SysBaseV0), "m"(segList)
+            : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
         }
     }
 
