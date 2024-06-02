@@ -317,7 +317,8 @@ APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosL
             "addq $12, %%rsp\n"
             "leave\n"
             "ret\n"
-            ::"m"(dosfunctable[37]), "m"(type), "m"(tags), "m"(DOSBaseV0) : "%rax", "%rcx");
+            ::"m"(dosfunctable[37]), "m"(type), "m"(tags), "m"(DOSBaseV0)
+            : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
     }
 asm("int3");
 }
@@ -355,7 +356,8 @@ void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
             "addq $12, %%rsp\n"
             "leave\n"
             "ret\n"
-            ::"m"(dosfunctable[38]), "m"(type), "m"(ptr), "m"(DOSBaseV0) : "%rax", "%rcx");
+            ::"m"(dosfunctable[38]), "m"(type), "m"(ptr), "m"(DOSBaseV0)
+            : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
     }
 asm("int3");
 }
@@ -737,7 +739,8 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
         "call *%%eax\n"
         ENTER64
         "addq $4, %%rsp\n"
-        ::"m"(SysBaseV0), "m"(seginitlist[1]) : "%rax", "%rcx");
+        ::"m"(SysBaseV0), "m"(seginitlist[1])
+        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
 
     abiv0DOSBase->dl_UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     NEWLISTV0(&((struct IntDosBaseV0 *)abiv0DOSBase)->segdata);
