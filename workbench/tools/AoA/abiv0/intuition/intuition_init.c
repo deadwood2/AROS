@@ -665,7 +665,7 @@ bug("abiv0_NewObjectA: NOT creating pointerclass object");
         "addq $16, %%rsp\n"
         "movl %%eax, %0\n"
         :"=m"(ret):"m"(intuitionjmp[165 - 106]), "m"(classPtr), "m"(classID), "m"(tagList), "m"(IntuitionBaseV0)
-        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+        : SCRATCH_REGS_64_TO_32 );
 
     return ret;
 }
@@ -769,7 +769,7 @@ ULONG abiv0_DoMethodA(APTR object, APTR message)
         "leave\n"
         "ret\n"
         ::"m"(clhook->h_Entry), "m"(clhook), "m"(object), "m"(message)
-        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+        : SCRATCH_REGS_64_TO_32 );
 }
 
 
@@ -1096,7 +1096,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
         ENTER64
         "addq $4, %%rsp\n"
         ::"m"(Intuition_SysBaseV0), "m"(seginitlist[1])
-        : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+        : SCRATCH_REGS_64_TO_32 );
 
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
@@ -1162,7 +1162,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
             ENTER64
             "addq $4, %%rsp\n"
             ::"m"(abiv0IntuitionBase), "m"(func)
-            : "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9" );
+            : SCRATCH_REGS_64_TO_32 );
         pos++;
         func = segclassesinitlist[pos];
     }

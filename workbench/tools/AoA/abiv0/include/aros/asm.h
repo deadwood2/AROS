@@ -90,4 +90,14 @@
     "   movl 48+8+8(%%r12), %%eax\n" \
     "   push %%rax\n"
 
+
+/* When calling from 64-bit code into 32-bit code, 64-bit compiler needs to be informed that cartain registers
+   can become overwritten in 32-bit code:
+   rax - volatile
+   rdi, rsi, rdx, rcx, r8, r9 - 32-bit code can make a call into 64-bit code and these are argument registers
+   r10, r11 - - 32-bit code can make a call into 64-bit code and these are local, temporary registers
+   rbx - 32-bit code saves ebx, but that saves only lower 32-bit area, loading into ebx can zero upper area
+*/
+#define SCRATCH_REGS_64_TO_32 "%rax", "%rbx", "%rdi", "%rsi", "rdx", "%rcx", "%r8", "%r9", "%r10", "%r11"
+
 #endif
