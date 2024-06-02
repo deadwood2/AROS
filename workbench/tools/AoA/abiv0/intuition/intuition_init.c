@@ -750,26 +750,28 @@ struct _ObjectV0
 ULONG abiv0_DoMethodA(APTR object, APTR message)
 {
     struct HookV0 *clhook = (struct HookV0 *)(IPTR)OCLASSV0(object);
+    ULONG ret;
 
     __asm__ volatile (
         "pushq %%rbx\n"
         "subq $12, %%rsp\n"
-        "movl %3, %%eax\n"
+        "movl %4, %%eax\n"
         "movl %%eax, 8(%%rsp)\n"
-        "movl %2, %%eax\n"
+        "movl %3, %%eax\n"
         "movl %%eax, 4(%%rsp)\n"
-        "movl %1, %%eax\n"
+        "movl %2, %%eax\n"
         "movl %%eax, (%%rsp)\n"
-        "movl %0, %%eax\n"
+        "movl %1, %%eax\n"
         ENTER32
         "call *%%eax\n"
         ENTER64
         "addq $12, %%rsp\n"
         "popq %%rbx\n"
-        "leave\n"
-        "ret\n"
-        ::"m"(clhook->h_Entry), "m"(clhook), "m"(object), "m"(message)
+        "movl %%eax, %0\n"
+        :"=m"(ret) : "m"(clhook->h_Entry), "m"(clhook), "m"(object), "m"(message)
         : SCRATCH_REGS_64_TO_32 );
+
+    return ret;
 }
 
 
