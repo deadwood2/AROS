@@ -387,7 +387,7 @@ LONG_FUNC run_emulation()
 
     execute_in_32_bit(start, SysBaseV0);
 
-    CurrentDir(oldcurdir);
+    UnLock(CurrentDir(oldcurdir));
     SetProgramDir(oldprogdir);
     UnLock(progdir);
 }
