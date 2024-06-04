@@ -712,12 +712,11 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
 extern ULONG *seginitlist;
-extern CONST_STRPTR SYSNAME;
 
 void init_dos(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
-    NewRawDoFmt("%s:Libs32/partial/dos.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("LIBSV0:partial/dos.library", RAWFMTFUNC_STRING, path);
     /* Keep it! This fills global variable */
     LoadSeg32(path, DOSBase);
 

@@ -734,7 +734,6 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
 extern ULONG* segclassesinitlist;
 extern ULONG *seginitlist;
-extern CONST_STRPTR SYSNAME;
 
 struct _ObjectV0
 {
@@ -1074,7 +1073,7 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
 void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 {
     TEXT path[64];
-    NewRawDoFmt("%s:Libs32/partial/intuition.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("LIBSV0:partial/intuition.library", RAWFMTFUNC_STRING, path);
     BPTR intuitionseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
     struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);

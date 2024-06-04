@@ -12,12 +12,6 @@
 
 struct DeviceProxy *abiv0TimerBase;
 
-#if 1
-CONST_STRPTR SYSNAME = "SYS";
-#else
-CONST_STRPTR SYSNAME = "WORK";
-#endif
-
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
     struct LibraryV0 *library = NULL;
@@ -308,7 +302,7 @@ LONG_FUNC run_emulation()
 
     init_graphics(SysBaseV0);
 
-    NewRawDoFmt("%s:Libs32/partial/layers.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("LIBSV0:partial/layers.library", RAWFMTFUNC_STRING, path);
     BPTR layersseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *layersres = findResident(layersseg, NULL);
     struct LibraryV0 *abiv0LayersBase = shallow_InitResident32(layersres, layersseg, SysBaseV0);
@@ -324,7 +318,7 @@ LONG_FUNC run_emulation()
     __AROS_SETVECADDRV0(abiv0LayersBase,  14, (APTR32)(IPTR)proxy_EndUpdate);
     __AROS_SETVECADDRV0(abiv0LayersBase,  13, (APTR32)(IPTR)proxy_BeginUpdate);
 
-    NewRawDoFmt("%s:Libs32/partial/cybergraphics.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("LIBSV0:partial/cybergraphics.library", RAWFMTFUNC_STRING, path);
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
@@ -339,7 +333,7 @@ LONG_FUNC run_emulation()
     init_intuition(SysBaseV0, abiv0TimerBase);
 
     /* Install datatypes */
-    NewRawDoFmt("%s:Libs32/AddDataTypes", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("SYSV0:C/AddDataTypes", RAWFMTFUNC_STRING, path);
     BPTR adtseg = LoadSeg32(path, DOSBase);
     APTR (*adtstart)() = (APTR)((IPTR)BADDR(adtseg) + sizeof(BPTR));
     /* Inject arguments for AddDataTypes*/
@@ -351,11 +345,11 @@ LONG_FUNC run_emulation()
     execute_in_32_bit(adtstart, SysBaseV0);
 
     /* Start Program */
-    NewRawDoFmt("%s:ABIv0/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path, SYSNAME);
-    // NewRawDoFmt("%s:ABIv0/HFinder/HFinder", RAWFMTFUNC_STRING, path, SYSNAME);
-    // NewRawDoFmt("%s:ABIv0/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path, SYSNAME);
-    // NewRawDoFmt("%s:ABIv0/Calculator", RAWFMTFUNC_STRING, path, SYSNAME);
-    // NewRawDoFmt("%s:ABIv0/helloabi", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("SYSV0:Programs/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path);
+    // NewRawDoFmt("SYSV0:Programs/HFinder/HFinder", RAWFMTFUNC_STRING, path);
+    // NewRawDoFmt("SYSV0:Programs/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path);
+    // NewRawDoFmt("SYSV0:Programs/Calculator", RAWFMTFUNC_STRING, path);
+    // NewRawDoFmt("SYSV0:Programs/helloabi", RAWFMTFUNC_STRING, path);
     BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 

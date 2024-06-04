@@ -171,8 +171,6 @@ struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
     }
 }
 
-extern CONST_STRPTR SYSNAME;
-
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
     bug("abiv0_OpenLibrary: %s\n", name);
@@ -194,7 +192,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
         return _ret;
 
     /* Try loading from disk */
-    NewRawDoFmt("%s:Libs32/%s", RAWFMTFUNC_STRING, buff, SYSNAME, name);
+    NewRawDoFmt("LIBSV0:%s", RAWFMTFUNC_STRING, buff, name);
 
     BPTR seglist = LoadSeg32(buff, DOSBase);
 
@@ -753,7 +751,7 @@ struct ExecBaseV0 *init_exec()
     global_SysBaseV0Ptr = (APTR32)(IPTR)&abiv0SysBase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
 
     /* Keep it! This fills global variable */
-    NewRawDoFmt("%s:Libs32/partial/kernel", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("LIBSv0:partial/kernel", RAWFMTFUNC_STRING, path);
     LoadSeg32(path, DOSBase);
 
     NEWLISTV0(&abiv0SysBase->LibList);

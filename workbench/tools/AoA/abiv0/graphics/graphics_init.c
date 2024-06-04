@@ -493,8 +493,6 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
-extern CONST_STRPTR SYSNAME;
-
 #define TFE_HASHTABSIZE   	16
 
 struct GfxBaseV0_intern
@@ -516,7 +514,7 @@ struct GfxBaseV0_intern
 void init_graphics(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
-    NewRawDoFmt("%s:Libs32/partial/graphics.library", RAWFMTFUNC_STRING, path, SYSNAME);
+    NewRawDoFmt("LIBSV0:partial/graphics.library", RAWFMTFUNC_STRING, path);
     BPTR graphicsseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
     struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, SysBaseV0);
