@@ -285,9 +285,9 @@ void execute_in_32_bit(APTR start, struct ExecBaseV0 *SysBaseV0)
         : SCRATCH_REGS_64_TO_32 );
 }
 
-LONG_FUNC run_emulation()
+LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
-    TEXT path[128];
+    TEXT path[64];
 
     /* Init ROM */
     struct ExecBaseV0 *SysBaseV0 = init_exec();
@@ -345,11 +345,7 @@ LONG_FUNC run_emulation()
     execute_in_32_bit(adtstart, SysBaseV0);
 
     /* Start Program */
-    NewRawDoFmt("SYSV0:Programs/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, path);
-    // NewRawDoFmt("SYSV0:Programs/HFinder/HFinder", RAWFMTFUNC_STRING, path);
-    // NewRawDoFmt("SYSV0:Programs/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, path);
-    // NewRawDoFmt("SYSV0:Programs/Calculator", RAWFMTFUNC_STRING, path);
-    // NewRawDoFmt("SYSV0:Programs/helloabi", RAWFMTFUNC_STRING, path);
+    NewRawDoFmt("%s", RAWFMTFUNC_STRING, path, program_path);
     BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
@@ -374,8 +370,21 @@ LONG_FUNC run_emulation()
 struct timerequest tr;
 struct Device *TimerBase;
 
+STRPTR program_name = NULL;
+
 int main()
 {
+    TEXT program_path[64];
+
+    NewRawDoFmt("SYSV0:Programs/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, program_path);
+    NewRawDoFmt("SYSV0:Programs/HFinder/HFinder", RAWFMTFUNC_STRING, program_path);
+    // NewRawDoFmt("SYSV0:Programs/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, program_path);
+    // NewRawDoFmt("SYSV0:Programs/Calculator", RAWFMTFUNC_STRING, program_path);
+    // NewRawDoFmt("SYSV0:Programs/helloabi", RAWFMTFUNC_STRING, program_path);
+
+    /* Save program name - dependency - this need to be set before first call to abiv0_FindTask() */
+    program_name = StrDup(FilePart(program_path));
+
     OpenDevice("timer.device", UNIT_VBLANK, &tr.tr_node, 0);
     TimerBase = tr.tr_node.io_Device;
 
@@ -386,8 +395,12 @@ int main()
     sss.stk_Upper = sss.stk_Lower + 64 * 1024;
     sss.stk_Pointer = sss.stk_Upper;
 
-    NewStackSwap(&sss, run_emulation, NULL);
+    struct StackSwapArgs ssa;
+    ssa.Args[0] = (IPTR)program_path;
 
+    NewStackSwap(&sss, run_emulation, &ssa);
+
+    FreeVec(program_name);
     return 0;
 }
 

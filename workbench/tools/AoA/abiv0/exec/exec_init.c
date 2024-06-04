@@ -630,6 +630,7 @@ MAKE_PROXY_ARG_4(CopyMem)
 APTR makeFileHandleProxy(BPTR);
 
 struct TaskV0 *g_v0Task = NULL;
+extern STRPTR program_name;
 
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
@@ -652,8 +653,8 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
         dummy->pr_Arguments = (APTR32)(IPTR)"";
 
         cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
-        cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
-        strcpy((char *)(IPTR)cli->cli_CommandName, "HFinder");
+        cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(strlen(program_name) + 1, MEMF_CLEAR, SysBaseV0);
+        strcpy((char *)(IPTR)cli->cli_CommandName, program_name);
 
         dummy->pr_CLI = (BPTR32)(IPTR)cli;
 
