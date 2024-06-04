@@ -1,0 +1,36 @@
+*IMPORTANT*
+
+This ISO contains prototype of emulator for running ABIv0 programs under 64-bit
+AROS. At this point it is expected that only a few programs other than included
+will even start. For programs that start, it is expected that only a few of
+their functions will work.
+
+Emulator is at this moment only a prototype. When emulator executes functions
+that have not yet been made supported, it will crash and stop.
+
+You have been warned.
+
+1. Usage
+
+From Shell type:
+
+aoa <path-to-abiv0-program>
+
+2. Dependecies
+
+   Emulator will try to load ABIv0 libraries from SYSV0:Libs. By default, SYSV0:
+   point to RAM:i386.
+
+   ABIv0 programs included with emulator are localted in SYSV0:Programs.
+
+   If the program requires additional 32-bit library, copy it from ABIv0 build
+   to SYSV0:Libs. Other dependencies, like datatypes or Zune classes, also
+   follow standard paths, but starting at SYSV0:
+
+3. Known issues
+
+- codesets.libary will crash emulator
+- sound and network are not supported
+
+4. ISO is missing InstallAROS. If you need persistance, add disk image to your
+   VM and then use HDToolBox with following schema PC-MBR->RDB->DH0.
