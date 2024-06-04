@@ -372,15 +372,28 @@ struct Device *TimerBase;
 
 STRPTR program_name = NULL;
 
-int main()
+int main(int argc, char **argv)
 {
-    TEXT program_path[64];
+    STRPTR program_path = NULL;
 
-    NewRawDoFmt("SYSV0:Programs/MCAmiga/MCAmiga", RAWFMTFUNC_STRING, program_path);
-    NewRawDoFmt("SYSV0:Programs/HFinder/HFinder", RAWFMTFUNC_STRING, program_path);
-    // NewRawDoFmt("SYSV0:Programs/ZuneARC/ZuneARC", RAWFMTFUNC_STRING, program_path);
-    // NewRawDoFmt("SYSV0:Programs/Calculator", RAWFMTFUNC_STRING, program_path);
-    // NewRawDoFmt("SYSV0:Programs/helloabi", RAWFMTFUNC_STRING, program_path);
+    if (argc == 2)
+    {
+        program_path = argv[1];
+        BPTR tmp = Lock(program_path, SHARED_LOCK);
+        if (tmp == BNULL)
+        {
+            Printf("Program '%s' not found.\n", program_path);
+            return 0;
+        }
+    }
+    else
+    {
+        program_path = "SYSV0:Programs/MCAmiga/MCAmiga";
+        // program_path = "SYSV0:Programs/HFinder/HFinder";
+        // program_path = "SYSV0:Programs/ZuneARC/ZuneARC";
+        // program_path = "SYSV0:Programs/Calculator";
+        // program_path = "SYSV0:Programs/helloabi";
+    }
 
     /* Save program name - dependency - this need to be set before first call to abiv0_FindTask() */
     program_name = StrDup(FilePart(program_path));
