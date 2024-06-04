@@ -1,11 +1,25 @@
 #ifndef ABIV0_AROS_ASM_H
 #define ABIV0_AROS_ASM_H
 
+#include <aros/config.h>
+
+/* Linux (AROS hosted) uses different segment selectors for code, code32 and data segments than AROS native */
+
+#if (AROS_FLAVOUR & AROS_FLAVOUR_EMULATION)
+#define CS64    "$0x33"
+#define CS32    "$0x23"
+#define DS      "$0x2b"
+#else
+#define CS64    "$0x2b"
+#define CS32    "$0x1b"
+#define DS      "$0x23"
+#endif
+
 /* To be used in 32-bit code */
 
 #define ENTER64                 \
     "   subl $8, %%esp\n"       \
-    "   movl $0x33, 4(%%esp)\n" \
+    "   movl "CS64", 4(%%esp)\n"\
     "   lea 1f,%%ecx\n"         \
     "   movl %%ecx, (%%esp)\n"  \
     "   lret\n"                 \
@@ -25,15 +39,15 @@
 
 #define ENTER32                 \
     "   subq $8, %%rsp\n"       \
-    "   movl $0x23, 4(%%rsp)\n" \
+    "   movl "CS32", 4(%%rsp)\n"\
     "   lea 2f,%%ecx\n"         \
     "   movl %%ecx, (%%rsp)\n"  \
     "   lret\n"                 \
     "   .code32\n"              \
     "2:\n"                      \
-    "   push $0x2b\n"           \
+    "   push "DS"\n"            \
     "   pop %%ds\n"             \
-    "   push $0x2b\n"           \
+    "   push "DS"\n"            \
     "   pop %%es\n"
 
 #define ALIGN_STACK64           \
