@@ -77,7 +77,7 @@
 {
     AROS_LIBFUNC_INIT
 
-    struct ProtectedPool *pool = nommu_AllocMem(sizeof(struct ProtectedPool), MEMF_CLEAR, NULL, NULL);
+    struct ProtectedPool *pool = nommu_AllocMem(sizeof(struct ProtectedPool), requirements, NULL, NULL);
     pool->pool.Requirements = requirements;
     return pool;
 
