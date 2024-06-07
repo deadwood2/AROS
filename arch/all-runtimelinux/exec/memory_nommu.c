@@ -21,36 +21,57 @@
 #include <unistd.h>
 #include <sys/mman.h>
 
-static BOOL installed   = FALSE;
-static APTR space32bit  = NULL;
-static char *nextpage   = NULL;
+static struct MemHeader *mh31bit = NULL;
 #define SPACE32SIZE     (1 << 28) /* 256 MB */
-/* Notes: implementation of MEMF_31BIT is good enough to support loading ELF objects into < 2GB address
-   range a few times without restart but nothing more. Page memory is not re-used, so it can be
-   exhaused*/
+
+/* Note: MEMF_31BIT is used for:
+    a) loading AROS x86_64 ELF objects. Code resides in 31-bit spaces, stack and heap is normal 64-bit memory.
+    b) loading AROS i386 ELF objects. Code resisede in 31-bit space.
+    c) stack and heap for AROS i386 ELF objects
+
+   Using standard memory header mechanism should be good enought for now
+*/
+/* Note on protection flags:
+   Because of usage b) above all of MEMF_31BIT is market as PROT_EXEC. When there is system-side function
+   which loads/unloads both i386 and x86_64 AROS ELF objects, it will be possible to map pages in that
+   function as PROT_EXEC and do only PROT_READ | PROT_WRITE here
+*/
 
 APTR nommu_AllocMem(IPTR byteSize, ULONG flags, struct TraceLocation *loc, struct ExecBase *SysBase)
 {
     APTR res = NULL;
 
-    if ((flags & MEMF_31BIT) && !installed)
+    if ((flags & MEMF_31BIT) && mh31bit == NULL)
     {
         size_t len = SPACE32SIZE;
-        space32bit = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_ANON | MAP_SHARED | MAP_32BIT, -1, 0);
-        nextpage = space32bit;
-        installed = TRUE;
+        APTR p = mmap(NULL, len, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_SHARED | MAP_32BIT, -1, 0);
+
+        mh31bit = p;
+        mh31bit->mh_Node.ln_Succ    = NULL;
+        mh31bit->mh_Node.ln_Pred    = NULL;
+        mh31bit->mh_Node.ln_Type    = NT_MEMORY;
+        mh31bit->mh_Node.ln_Name    = (STRPTR)"CHIP RAM";
+        mh31bit->mh_Node.ln_Pri     = 0;
+        mh31bit->mh_Attributes      = MEMF_31BIT | MEMF_24BITDMA | MEMF_CHIP;
+
+        /* The first MemChunk needs to be aligned. We do it by adding MEMHEADER_TOTAL. */
+        mh31bit->mh_First           = p + MEMHEADER_TOTAL;
+        mh31bit->mh_First->mc_Next  = NULL;
+        mh31bit->mh_First->mc_Bytes = len - MEMHEADER_TOTAL;
+
+        /*
+        * mh_Lower and mh_Upper are informational only. Since our MemHeader resides
+        * inside the region it describes, the region includes MemHeader.
+        */
+        mh31bit->mh_Lower           = p;
+        mh31bit->mh_Upper           = p + len;
+        mh31bit->mh_Free            = mh31bit->mh_First->mc_Bytes;
     }
 
 
     if (flags & MEMF_31BIT)
     {
-        /* Always allocate full pages for now. Used together with internalloadseg_elf */
-        LONG pagecount = AROS_ROUNDUP2(byteSize, 4096) / 4096;
-        if (nextpage + pagecount * 4096 > (char *)space32bit + SPACE32SIZE)
-            return NULL;
-
-        res = nextpage;
-        nextpage += pagecount * 4096;
+        res = stdAlloc(mh31bit, /*mhac_GetSysCtx(mh, SysBase)*/ NULL, byteSize, flags, loc, SysBase);
     }
     else
     {
@@ -71,10 +92,14 @@ APTR nommu_AllocAbs(APTR location, IPTR byteSize, struct ExecBase *SysBase)
 
 void nommu_FreeMem(APTR memoryBlock, IPTR byteSize, struct TraceLocation *loc, struct ExecBase *SysBase)
 {
-    if (memoryBlock >= space32bit && memoryBlock < space32bit + SPACE32SIZE)
-        return;
-
-    free(memoryBlock);
+    if (memoryBlock >= (APTR)mh31bit && memoryBlock < (APTR)mh31bit + SPACE32SIZE)
+    {
+        stdDealloc(mh31bit, NULL /*mhac_GetSysCtx(mh, SysBase)*/, memoryBlock, byteSize, loc, SysBase);
+    }
+    else
+    {
+        free(memoryBlock);
+    }
 }
 
 IPTR nommu_AvailMem(ULONG attributes, struct ExecBase *SysBase)

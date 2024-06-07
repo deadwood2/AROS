@@ -52,7 +52,7 @@
 
     ASSERT_VALID_PTR_OR_NULL(poolHeader);
 
-    nommu_FreeMem(poolHeader, 0, NULL, NULL);
+    nommu_FreeMem(poolHeader, sizeof(struct ProtectedPool), NULL, NULL);
 
     AROS_LIBFUNC_EXIT
 } /* DeletePool */
