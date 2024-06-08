@@ -72,7 +72,7 @@ MAKE_PROXY_ARG_5(GetRGB32)
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0)
 {
     struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontProxy), MEMF_CLEAR, sysBaseV0);
-    struct TextFontV0 *v0tf = &proxy->base;
+    struct TextFontV0 *v0tf = &proxy->base.ctf_TF;
 
     v0tf->tf_YSize          = native->tf_YSize;
     v0tf->tf_Style          = native->tf_Style;
@@ -108,6 +108,19 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sy
         buff = abiv0_AllocMem(arrlen * sizeof(WORD), MEMF_CLEAR, sysBaseV0);
         CopyMem(native->tf_CharKern, buff, arrlen * sizeof(WORD));
         v0tf->tf_CharKern       = (APTR32)(IPTR)buff;
+    }
+
+    if (native->tf_Style & FSF_COLORFONT)
+    {
+        struct ColorTextFont *ctfnative = (struct ColorTextFont *)native;
+        if ((ctfnative->ctf_Flags & CT_COLORMASK) != CT_ANTIALIAS)
+        {
+asm("int3");
+        }
+        else
+        {
+            proxy->base.ctf_Flags = ctfnative->ctf_Flags;
+        }
     }
 
     proxy->native = native;
