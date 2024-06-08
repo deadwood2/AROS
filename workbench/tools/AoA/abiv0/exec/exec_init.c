@@ -106,11 +106,13 @@ void dummy_nss_trampoline()
 {
     __asm__ volatile(
     "nss_trampoline:\n"
+    "   push %%rbx\n"
     ENTER32
     "   push %%esi\n"
     "   call *%%edi\n"
     "   add $4, %%esp\n"
     ENTER64
+    "   pop %%rbx\n"
     "   ret\n"
     :::);
 }
