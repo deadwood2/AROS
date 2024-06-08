@@ -71,7 +71,7 @@ MAKE_PROXY_ARG_5(GetRGB32)
 
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0)
 {
-    struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontV0), MEMF_CLEAR, sysBaseV0);
+    struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontProxy), MEMF_CLEAR, sysBaseV0);
     struct TextFontV0 *v0tf = &proxy->base;
 
     v0tf->tf_YSize          = native->tf_YSize;
