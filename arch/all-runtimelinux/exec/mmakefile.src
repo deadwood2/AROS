@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 FILES := allocate createpool \
         deallocate deletepool \
         initkicktags memory_nommu \
-        stackswap
+        stackswap newstackswap
 
 USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
 		 -isystem $(GENINCDIR) $(KERNEL_INCLUDES) \
