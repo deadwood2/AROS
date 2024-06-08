@@ -236,6 +236,23 @@ struct TextFontV0
     APTR32	   tf_CharKern;
 };
 
+struct ColorTextFontV0
+{
+    struct TextFontV0 ctf_TF;
+
+    UWORD ctf_Flags;
+    UBYTE ctf_Depth;
+    UBYTE ctf_FgColor;
+    UBYTE ctf_Low;
+    UBYTE ctf_High;
+    UBYTE ctf_PlanePick;
+    UBYTE ctf_PlaneOnOff;
+
+    APTR32 ctf_ColorFontColors;
+
+    APTR32 ctf_CharData[8];
+};
+
 /* Text Attributes */
 struct TextAttrV0
 {

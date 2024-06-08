@@ -27,8 +27,8 @@ struct BitMapProxy
 
 struct TextFontProxy
 {
-    struct TextFontV0   base;
-    struct TextFont     *native;
+    struct ColorTextFontV0  base; /* Allocated bigger (CTF) space just in case by default */
+    struct TextFont         *native;
 };
 
 #endif
