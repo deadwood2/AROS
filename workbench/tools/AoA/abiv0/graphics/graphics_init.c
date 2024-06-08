@@ -1,10 +1,13 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <graphics/rpattr.h>
+#include <graphics/gfxbase.h>
 #include <proto/graphics.h>
 #include <proto/alib.h>
 #include <aros/debug.h>
 #include <exec/rawfmt.h>
+
+#include <string.h>
 
 
 #include "../include/exec/structures.h"
@@ -73,6 +76,12 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sy
 {
     struct TextFontProxy *proxy = abiv0_AllocMem(sizeof(struct TextFontProxy), MEMF_CLEAR, sysBaseV0);
     struct TextFontV0 *v0tf = &proxy->base.ctf_TF;
+    APTR buff;
+
+    LONG namelen = strlen(native->tf_Message.mn_Node.ln_Name) + 1;
+    buff = abiv0_AllocMem(namelen, MEMF_CLEAR, sysBaseV0);
+    CopyMem(native->tf_Message.mn_Node.ln_Name, buff, namelen);
+    v0tf->tf_Message.mn_Node.ln_Name = (APTR32)(IPTR)buff;
 
     v0tf->tf_YSize          = native->tf_YSize;
     v0tf->tf_Style          = native->tf_Style;
@@ -87,7 +96,6 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sy
     v0tf->tf_Modulo         = native->tf_Modulo;
 
     LONG arrlen = v0tf->tf_HiChar - v0tf->tf_LoChar + 1;
-    APTR buff;
 
     if (native->tf_CharLoc)
     {
@@ -540,6 +548,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     abiv0GfxBase->ExecBase = (APTR32)(IPTR)SysBaseV0;
     *(ULONG *)((IPTR)abiv0GfxBase + 0x4b0) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     NEWLISTV0(&abiv0GfxBase->TextFonts);
+    abiv0GfxBase->DefaultFont = (APTR32)(IPTR)makeTextFontV0(GfxBase->DefaultFont, SysBaseV0);
 
     struct GfxBaseV0_intern *abiv0IntGfxBase = (struct GfxBaseV0_intern *)abiv0GfxBase;
     abiv0_InitSemaphore(&abiv0IntGfxBase->fontsem, SysBaseV0);
