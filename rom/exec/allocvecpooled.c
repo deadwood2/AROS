@@ -56,8 +56,30 @@
     if(!memSize)
         return NULL;
 
-    (void)mhe;
-    return AllocPooled(poolHeader, memSize);
+    if (0 /* IsManagedMem(mhe) */)
+    {
+        ULONG poolrequirements = (ULONG)(IPTR)mhe->mhe_MemHeader.mh_First;
 
+        if (mhe->mhe_Alloc)
+            return mhe->mhe_AllocVec(mhe, memSize, &poolrequirements);
+        else
+            return NULL;
+    }
+    else
+    {
+        IPTR *memory;
+
+        if (poolHeader == NULL) return NULL;
+
+        memSize   += sizeof(IPTR);
+        memory  = AllocPooled(poolHeader, memSize);
+
+        if (memory != NULL)
+        {
+            *memory++ = memSize;
+        }
+
+        return memory;
+    }
     AROS_LIBFUNC_EXIT
 } /* AllocVecPooled() */

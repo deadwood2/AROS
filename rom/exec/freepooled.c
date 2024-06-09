@@ -60,7 +60,7 @@
         return;
 
     (void)mhe;
-    nommu_FreeMem(memory, 0, NULL, NULL);
+    nommu_FreeMem(memory, memSize, NULL, SysBase);
 
     AROS_LIBFUNC_EXIT
 } /* FreePooled */

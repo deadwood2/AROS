@@ -57,8 +57,20 @@
     if(!memory)
         return;
 
-    (void)mhe;
-    nommu_FreeMem(memory, 0, NULL, NULL);
+    if (0/* IsManagedMem(mhe) */)
+    {
+        if (mhe->mhe_FreeVec)
+            mhe->mhe_FreeVec(mhe, memory);
+    }
+    else
+    {
+        if (memory != NULL)
+        {
+            IPTR *real = (IPTR *) memory;
+            IPTR size  = *--real;
 
+            FreePooled(poolHeader, real, size);
+        }
+    }
     AROS_LIBFUNC_EXIT
 } /* FreeVecPooled() */

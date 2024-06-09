@@ -71,10 +71,7 @@
     if(!memSize)
         return NULL;
 
-    if (((struct ProtectedPool *)poolHeader)->pool.Requirements & MEMF_CLEAR)
-        return nommu_AllocMem(memSize, MEMF_CLEAR, NULL, NULL);
-    else
-        return nommu_AllocMem(memSize, 0, NULL, NULL);
+    return nommu_AllocMem(memSize, ((struct ProtectedPool *)poolHeader)->pool.Requirements, NULL, SysBase);
 
     AROS_LIBFUNC_EXIT
     
