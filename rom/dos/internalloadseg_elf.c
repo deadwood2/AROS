@@ -995,6 +995,8 @@ BPTR InternalLoadSeg_ELF
         }
     }
 
+#if 0
+    /* Disabled. Check comment in memory_nommu.c */
     /* Change page flags to executable, readonly */
     for (i = 0; i < int_shnum; i++)
     {
@@ -1015,6 +1017,7 @@ BPTR InternalLoadSeg_ELF
             }
         }
     }
+#endif
 
     register_elf(file, hunks, &eh, sh, DOSBase);
     goto end;
