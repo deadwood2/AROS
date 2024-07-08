@@ -6,7 +6,19 @@ FILES := allocate createpool \
         initkicktags memory_nommu \
         stackswap newstackswap
 
-USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) $(PRIV_EXEC_INCLUDES) \
+%get_archincludes modname=kernel \
+    includeflag=TARGET_KERNEL_INCLUDES maindir=rom/kernel
+
+%get_archincludes modname=exec \
+    includeflag=TARGET_EXEC_INCLUDES maindir=rom/exec
+
+PRIV_EXEC_INCLUDES = \
+    $(TARGET_EXEC_INCLUDES) \
+    -I$(SRCDIR)/rom/exec \
+    $(TARGET_KERNEL_INCLUDES) \
+    -I$(SRCDIR)/rom/kernel
+
+USER_INCLUDES := $(PRIV_EXEC_INCLUDES) \
 		 -isystem $(GENINCDIR) $(KERNEL_INCLUDES) \
 
 %build_archspecific \
