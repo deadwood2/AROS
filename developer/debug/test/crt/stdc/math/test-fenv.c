@@ -29,7 +29,9 @@
  */
 
 #include <sys/cdefs.h>
+#if 0
 __FBSDID("$FreeBSD: head/tools/regression/lib/msun/test-fenv.c 143710 2005-03-16 19:04:45Z das $");
+#endif
 
 #include <sys/types.h>
 #include <sys/wait.h>
