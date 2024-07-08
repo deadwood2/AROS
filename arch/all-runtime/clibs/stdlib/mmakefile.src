@@ -2,7 +2,7 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM- core-linklibs : $(FAMILY)-clibs-stdc-static $(FAMILY)-clibs-stdlib-linklib $(FAMILY)-clibs-crtmod
 
-STDC_PATH = $(SRCDIR)/compiler/stdc/
+STDC_PATH = $(SRCDIR)/compiler/crt/stdc/
 
 #==============================================================================
 
