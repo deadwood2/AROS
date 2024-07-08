@@ -7874,38 +7874,7 @@ if test "$IS_GNU_COMPILER" -ne "0"; then
     fi
 fi
 
-cat >$AROS_DEVELOPMENT/include/__testsincdir.h <<_ACEOF
-/* Copyright (c) The AROS Dev Team  */
-#define _TESTINCFOUND
-_ACEOF
-
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if we need to use --sysroot" >&5
-printf %s "checking if we need to use --sysroot... " >&6; }
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-     #include <__testsincdir.h>
-     #ifndef _TESTINCFOUND
-      error: Couldnt find include!
-     #endif
-
-int
-main (void)
-{
-
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"
-then :
-  toolchain_needs_sysroot=no
-else $as_nop
-  toolchain_needs_sysroot=yes
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $toolchain_needs_sysroot" >&5
-printf "%s\n" "$toolchain_needs_sysroot" >&6; }
+toolchain_needs_sysroot=no
 
 if test "$toolchain_needs_sysroot" = "yes" ; then
     aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"

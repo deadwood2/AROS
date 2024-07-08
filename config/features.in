@@ -1369,22 +1369,7 @@ if test "$IS_GNU_COMPILER" -ne "0"; then
     fi
 fi
 
-cat >$AROS_DEVELOPMENT/include/__testsincdir.h <<_ACEOF
-/* Copyright (c) The AROS Dev Team  */
-#define _TESTINCFOUND
-_ACEOF
-
-AC_MSG_CHECKING([if we need to use --sysroot])
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
-     [[
-     #include <__testsincdir.h>
-     #ifndef _TESTINCFOUND
-      error: Couldnt find include!
-     #endif
-     ]])],
-     [toolchain_needs_sysroot=no],
-     [toolchain_needs_sysroot=yes])
-AC_MSG_RESULT($toolchain_needs_sysroot)
+toolchain_needs_sysroot=no
 
 if test "$toolchain_needs_sysroot" = "yes" ; then
     aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"
