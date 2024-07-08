@@ -86,6 +86,7 @@ struct LibCInterface
     struct passwd *(*getpwent)(void);
     void	   (*endpwent)(void);
 #endif
+    int *           (*__error)(void);
 };
 
 #ifdef HOST_LONG_ALIGNED

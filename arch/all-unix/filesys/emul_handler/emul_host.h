@@ -17,7 +17,6 @@ struct Emul_PlatformData
 {
     OOP_Object		 *unixio;	  /* UnixIO object	     */
     struct LibCInterface *SysIFace;	  /* Libc interface	     */
-    int			 *errnoPtr;	  /* Pointer to host's errno */
     struct Library	 *em_OOPBase;	  /* Library bases	     */
     struct UnixIOBase	 *em_UnixIOBase;
     struct Library 	 *em_UtilityBase;
