@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 
 MAINDIR := arch/all-hosted/filesys/emul_handler
 
-USER_CPPFLAGS := -DHOST_OS_$(ARCH) -DHOST_OS_$(AROS_TARGET_VARIANT)
+USER_CPPFLAGS := -DHOST_OS_linux
 USER_INCLUDES := -I$(SRCDIR)/$(CURDIR) \
 	       -I$(SRCDIR)/$(MAINDIR) \
 	       -isystem $(GENINCDIR) $(KERNEL_INCLUDES)
@@ -19,6 +19,6 @@ endif
 FILES := emul_host_unix emul_host emul_dir
 
 %build_archspecific mainmmake=kernel-fs-emul \
-  modname=emul maindir=$(MAINDIR) arch=unix files="$(FILES)" usesdks="private"
+  modname=emul maindir=$(MAINDIR) arch=runtimelinux files="$(FILES)" usesdks="private"
 
 %common

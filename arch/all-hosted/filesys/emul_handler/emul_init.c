@@ -35,11 +35,6 @@ static LONG startup(struct emulbase *emulbase)
     if (!HostLibBase)
         return FALSE;
 
-    KernelBase = OpenResource("kernel.resource");
-    D(bug("[EmulHandler] KernelBase = %p\n", KernelBase));
-    if (!KernelBase)
-        return FALSE;
-
     emulbase->mempool = CreatePool(MEMF_ANY|MEMF_SEM_PROTECTED, 4096, 2000);
     if (!emulbase->mempool)
         return FALSE;

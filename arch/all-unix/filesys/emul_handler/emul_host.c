@@ -2,8 +2,6 @@
     Copyright (C) 1995-2018, The AROS Development Team. All rights reserved.
 */
 
-#include "unix_hints.h"
-
 #ifdef HOST_LONG_ALIGNED
 #pragma pack(4)
 #endif
@@ -15,9 +13,6 @@
 #include <string.h>
 
 #pragma pack()
-
-/* This prevents redefinition of struct timeval */
-#define NO_AROS_TIMEVAL
 
 #define DEBUG 0
 #define DASYNC(x)
@@ -85,7 +80,7 @@ static LONG errno_u2a(int err)
 
 static inline LONG err_u2a(struct emulbase *emulbase)
 {
-    return errno_u2a(*emulbase->pdata.errnoPtr);
+    return errno_u2a(*emulbase->pdata.SysIFace->__error());
 }
 
 /*********************************************************************************************/
@@ -1199,7 +1194,7 @@ LONG DoExamineAll(struct emulbase *emulbase, struct filehandle *fh, struct ExAll
         //AROS_HOST_BARRIER
 #endif
 
-        *emulbase->pdata.errnoPtr = 0;
+        *emulbase->pdata.SysIFace->__error() = 0;
         dir = ReadDir(emulbase, fh, &eac->eac_LastKey);
 
         if (!dir)
