@@ -1,0 +1,8 @@
+# Copyright (C) 2024, The AROS Development Team. All rights reserved.
+
+include $(SRCDIR)/config/aros.cfg
+
+%build_prog mmake=runtime-clipsync progname=ClipSync \
+    files="ClipSync" targetdir=$(AROS_C)
+
+%common
