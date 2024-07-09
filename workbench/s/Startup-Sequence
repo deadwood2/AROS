@@ -32,6 +32,7 @@ Assign "LIBS:" "USERSYS:Classes" ADD
 ;Dir >NIL: "PIPE:"
 
 AddDatatypes REFRESH QUIET
+Run QUIET C:ClipSync
 
 Protect "S:PCD" "s" ADD QUIET
 Protect "S:SPat" "s" ADD QUIET
