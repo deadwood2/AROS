@@ -15,9 +15,10 @@ include $(SRCDIR)/config/aros.cfg
 #MM  runtime-axrt-so \
 #MM  runtime-clibs \
 #MM  runtime-bsdsocket \
+#MM  runtime-clipsync \
 #MM  workbench-libs-complete \
 #MM  workbench-classes-complete \
-#MM  workbench-devs-datatypes \
+#MM  workbench-devs-complete \
 #MM  workbench-fonts \
 #MM  workbench-devs-AHI \
 #MM  workbench-c \
