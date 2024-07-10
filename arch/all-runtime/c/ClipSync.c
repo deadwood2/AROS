@@ -24,7 +24,7 @@
 struct Library  *IFFParseBase;
 struct MsgPort  *replyport;
 struct Message  msg;
-STRPTR          synchronizedstate = NULL;
+STRPTR          synchronizedstate;
 
 
 /****************************************************************************************/
@@ -45,6 +45,8 @@ static void init(void)
     msg.mn_ReplyPort = replyport;
     
     IFFParseBase = OpenLibrary("iffparse.library", 36);
+
+    synchronizedstate = StrDup("");
 }
 
 /****************************************************************************************/
@@ -82,7 +84,7 @@ static BOOL hostclipboardchanged()
         if (SUCCESS(&msg) && RETVAL(&msg))
         {
             BOOL _changed = TRUE;
-            if (synchronizedstate && strcmp(synchronizedstate, RETVAL(&msg)) == 0)
+            if (strcmp(synchronizedstate, RETVAL(&msg)) == 0)
                 _changed = FALSE;
 
             if (_changed)
@@ -95,6 +97,18 @@ static BOOL hostclipboardchanged()
 
             FreeVec(RETVAL(&msg));
             return _changed;
+        }
+        else
+        {
+            /* In case there was clipboard string contents, but it was overwritten on host
+               by for example an image, make sure runtime clipboard does not contain the
+               old value */
+            if (strcmp(synchronizedstate, "") != 0)
+            {
+                FreeVec(synchronizedstate);
+                synchronizedstate = StrDup("");
+                return TRUE;
+            }
         }
     }
 
@@ -238,7 +252,7 @@ static BOOL arosclipboardchanged(void)
     if (ok)
     {
         BOOL _changed = TRUE;
-        if (synchronizedstate && strcmp(synchronizedstate, filebuffer) == 0)
+        if (strcmp(synchronizedstate, filebuffer) == 0)
             _changed = FALSE;
 
         if (_changed)
@@ -272,7 +286,7 @@ int main(void)
 {
     init();
 
-    while(1)
+    while(TRUE)
     {
         if (hostclipboardchanged())
         {
