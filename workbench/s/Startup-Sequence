@@ -14,17 +14,12 @@ Assign "CLIPS:"   "RAM:Clipboards"
 ;Assign "KEYMAPS:" "DEVS:Keymaps"
 ;Assign "LOCALE:"  "SYS:Locale"
 Assign "LIBS:"    "SYS:Classes" ADD
-Assign "FONTS:"   "USERSYS:Fonts"
+Assign "LIBS:"    "AXRTSYS:Classes" ADD
 ;Assign "HELP:"    "LOCALE:Help" DEFER
 ;Assign "THEMES:"  "SYS:Prefs/Presets/Themes" >NIL:
 ;Assign "IMAGES:"  "SYS:System/Images" DEFER
 ;Assign "PRINTERS:" "DEVS:Printers"
 Assign "WANDERER:" "SYS:System/Wanderer" DEFER
-
-Assign "S:" "USERSYS:S" ADD
-Assign "C:" "USERSYS:C" ADD
-Assign "LIBS:" "USERSYS:Libs" ADD
-Assign "LIBS:" "USERSYS:Classes" ADD
 
 ;Automount >NIL:
 ;Mount >NIL: "DEVS:DOSDrivers/~((.#?)|(#?.info)|(#?.dbg))"
@@ -34,9 +29,9 @@ Assign "LIBS:" "USERSYS:Classes" ADD
 AddDatatypes REFRESH QUIET
 Run QUIET C:ClipSync
 
-Protect "S:PCD" "s" ADD QUIET
-Protect "S:SPat" "s" ADD QUIET
-Protect "S:DPat" "s" ADD QUIET
+Protect "AXRTSYS:S/PCD" "s" ADD QUIET
+Protect "AXRTSYS:S/SPat" "s" ADD QUIET
+Protect "AXRTSYS:S/DPat" "s" ADD QUIET
 
 If EXISTS "S:User-Startup"
     Execute "S:User-Startup"
