@@ -79,12 +79,12 @@ at: http://www.aros.org/
     Startup of each application under AxRuntime is executed at and of chain of
     three startup scripts:
 
-    SYS:S/Startup-Sequence - this script contains commands that are used
+    AXRTSYS:S/Startup-Sequence - this script contains commands that are used
     globally for all applications. It is located in the runtime
     installation directory and should not be edited by users. All changes will
     be lost when installing new version of runtime.
 
-    USERSYS:S/User-Startup - this script contains commands that can be
+    SYS:S/User-Startup - this script contains commands that can be
     customized by user. It is run for every application.
 
     PROGDIR:S/Package-Startup - this script contains commands which are
@@ -95,14 +95,14 @@ at: http://www.aros.org/
 
     ROOT: - volume mapping Linux root directory ("/")
 
-    SYS: - assign mapping to system-wide portion of runtime files
+    AXRTSYS: - assign mapping to system-wide portion of runtime files
 
-    USERSYS: - assign mapping to location of user portion of runtime files
+    SYS: - assign mapping to location of user portion of runtime files
 
     HOME: - assign mapping to user home directory
 
     Additionally WORK: assign is mapped to HOME:Work. This can be changed
-    by editing USERSYS:S/User-Startup
+    by editing SYS:S/User-Startup
 
 5) Known issues
 

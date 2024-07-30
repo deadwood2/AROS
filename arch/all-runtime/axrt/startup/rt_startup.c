@@ -421,10 +421,11 @@ __attribute__((visibility("default"))) void __set_runtime_env(int __version, __s
         strcpy(RUNTIME_ROOT, buff);
         strcat(RUNTIME_ROOT, "/");
 
-        /* ~/.axrt/ */
+        /* ~/SYS/ */
+        /* TODO: location of USERSYS should be configurable, via ~/.config/AxRT/ files */
         pw = getpwuid(getuid());
         strcpy(__usersys, pw->pw_dir);
-        strcat(__usersys, "/.axrt/");
+        strcat(__usersys, "/SYS/");
     }
     else
     {

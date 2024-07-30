@@ -75,7 +75,7 @@ at: http://www.aros.org/
 7) Can native AROS x86_64 modules and executables be used?
 
     Yes, such binaries can be used under AxRuntime. For modules, its best to
-    place them in ~/.axrt/Libs, which maps to USERSYS:Libs. For executables,
+    place them in ~/SYS/Libs, which maps to SYS:Libs. For executables,
     they can't be started directly from linux console, but can be started
     from Ax-enabled AROS-Shell.
 
