@@ -39,10 +39,8 @@ Build Wanderer
 
 Configure setup
 
-    $ mkdir ~/.axrt/
-    $ mkdir -p ~/.axrt/Prefs/Presets/Themes
-    $ cp -r ../AROS/arch/all-runtimelinux/boot/deb/libaxrt/UserSYS/* ~/.axrt/
-    $ cp -r ../AROS/images/Themes/pixblue ~/.axrt/Prefs/Presets/Themes
+    $ mkdir ~/SYS/
+    $ ../AROS/arch/all-runtimelinux/boot/deb/libaxrt/buildusersys.sh ./bin/runtimelinux-x86_64/AROS ../AROS ~/SYS
     $ export AXRT_ROOT=<myrepo-absolute-path>/alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
 
 Copy loader
