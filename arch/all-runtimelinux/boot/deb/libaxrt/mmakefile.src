@@ -3,13 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 include $(SRCDIR)/$(CURDIR)/filelist.cfg
 
 #MM runtime-package-deb-libaxrt : \
-#MM     runtime-setup-package-deb-libaxrt \
-#MM     runtime-package-deb-libaxrt-usersys-theme \
-#MM     runtime-package-deb-libaxrt-usersys \
-#MM     runtime-package-deb-libaxrt-usersys-fonts-truetype \
-#MM     runtime-package-deb-libaxrt-usersys-fonts-ttcourier \
-#MM     runtime-package-deb-libaxrt-usersys-s \
-#MM     runtime-package-deb-libaxrt-usersys-prefs-certificates
+#MM     runtime-setup-package-deb-libaxrt
 
 # Files are explicitly listed to have fine grained control over release process
 AXRT_FILES := \
@@ -18,7 +12,6 @@ AXRT_FILES := \
     $(AXRT_LIBS_CHARSETS) \
     $(AXRT_CLASSES) \
     $(AXRT_DEVS) \
-    $(AXRT_DEVS_DATATYPES) \
     $(AXRT_DEVS_EXT) \
     $(AXRT_L) \
     $(AXRT_C_SHELLCOMMANDS) \
@@ -48,39 +41,10 @@ runtime-setup-package-deb-libaxrt :
 	@$(CP) -r $(SRCDIR)/$(CURDIR)/debian/ $(DEST_ROOT_DIR)
 	@$(SED) -i "s/{RTVER}/$(RT_VERSION).$(RT_REVISION)/" $(DEST_ROOT_DIR)/debian/changelog
 	@$(SED) -i "s/{RTABI}/$(RT_ABI)/" $(DEST_ROOT_DIR)/debian/control
-	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR) $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS
-	%mkdirs_q $(USERSYS_DEST_DIR)/S $(USERSYS_DEST_DIR)/C $(USERSYS_DEST_DIR)/Libs $(USERSYS_DEST_DIR)/Classes
-	%mkdirs_q $(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue $(USERSYS_DEST_DIR)/Fonts/TrueType $(USERSYS_DEST_DIR)/Fonts/ttcourier
+	%mkdirs_q $(AXRT_DEST_DIR) $(USERSYS_DEST_DIR)
 	@$(CP) $(AROS_DEVELOPMENT)/lib/libaxrt-$(RT_ABI).so $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu
+	$(SRCDIR)/$(CURDIR)/buildusersys.sh $(AROSDIR) $(SRCDIR) $(USERSYS_DEST_DIR)
 	@$(ECHO) $(RT_VERSION).$(RT_REVISION) > $(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/USERSYSVER
-
-
-%copy_dir_recursive mmake=runtime-package-deb-libaxrt-usersys-theme src=$(SRCDIR)/images/Themes/pixblue dst=$(USERSYS_DEST_DIR)/Prefs/Presets/Themes/pixblue
-%copy_dir_recursive mmake=runtime-package-deb-libaxrt-usersys src=$(SRCDIR)/$(CURDIR)/UserSYS dst=$(USERSYS_DEST_DIR)
-%copy_dir_recursive mmake=runtime-package-deb-libaxrt-usersys-fonts-ttcourier src=$(AROSDIR)/Fonts/ttcourier dst=$(USERSYS_DEST_DIR)/Fonts/ttcourier
-
-
-TRUETYPE_FILES := \
-    VeraMono.ttf \
-    VeraMonoBold.ttf \
-    VeraMonoBoldItalic.ttf \
-    VeraMonoItalic.ttf \
-    VeraSans.ttf \
-    VeraSansBold.ttf \
-    VeraSansBoldItalic.ttf \
-    VeraSansItalic.ttf \
-    VeraSerif.ttf \
-    VeraSerifBold.ttf \
-
-%copy_files_q mmake=runtime-package-deb-libaxrt-usersys-fonts-truetype src=$(AROSDIR)/Fonts/TrueType dst=$(USERSYS_DEST_DIR)/Fonts/TrueType files=$(TRUETYPE_FILES)
-
-S_FILES := \
-    Shell-Startup
-
-%copy_files_q mmake=runtime-package-deb-libaxrt-usersys-s src=$(AROSDIR)/S dst=$(USERSYS_DEST_DIR)/S files=$(S_FILES)
-
-%copy_files_q mmake=runtime-package-deb-libaxrt-usersys-prefs-certificates \
-    src=$(AROSDIR)/Prefs/Env-Archive/SYS/Certificates dst=$(USERSYS_DEST_DIR)/Prefs/Env-Archive/SYS/Certificates files="ca-bundle.crt"
 
 runtime-package-deb-libaxrt : runtime-package-deb-libaxrt-build
 
