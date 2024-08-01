@@ -52,6 +52,15 @@ struct TrackingNode
     Object *tn_Application;
 };
 
+/* ABI_V0 compatibility */
+#define MUIA_Application_ABIv0_Quirks (MUIB_Application | 0x00000010)
+
+struct MUI_ABIv0_Quirks
+{
+    BOOL aq_GroupExitChangeV0;
+};
+ /* ABI_V0 compatibility */
+
 struct MUI_ApplicationData
 {
     struct MUI_GlobalInfo   app_GlobalInfo;
@@ -106,6 +115,7 @@ struct MUI_ApplicationData
     struct DiskObject       *app_DefaultDiskObject; /* This is complete
                                                      * object managed by
                                                      * the class */
+    struct MUI_ABIv0_Quirks app_ABIv0Quirks;  /* ABI_V0 compatibility */
 };
 
 struct timerequest_ext
@@ -709,6 +719,14 @@ static IPTR Application__OM_NEW(struct IClass *cl, Object *obj,
     data->app_is_TNode_in_list = TRUE;
     ReleaseSemaphore(&MUIMB(MUIMasterBase)->ZuneSemaphore);
 
+    /* ABI_V0 compatibility */
+    data->app_ABIv0Quirks.aq_GroupExitChangeV0 = TRUE;
+
+    if (Strnicmp(data->app_Base, "OWB", 3) == 0)
+    {
+        data->app_ABIv0Quirks.aq_GroupExitChangeV0 = FALSE;
+    }
+
     return (IPTR) obj;
 }
 
@@ -1309,6 +1327,10 @@ static IPTR Application__OM_GET(struct IClass *cl, Object *obj,
 
     case MUIA_Application_DiskObject:
         STORE = (IPTR) data->app_DiskObject;
+        return TRUE;
+     /* ABI_V0 compatibility */
+    case MUIA_Application_ABIv0_Quirks:
+        STORE = (IPTR) &data->app_ABIv0Quirks;
         return TRUE;
     }
 
