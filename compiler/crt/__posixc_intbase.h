@@ -57,7 +57,7 @@ struct PosixCIntBase
 
     /* __fdesc.c */
     int fd_slots;
-    struct _fdesc **fd_array;
+    struct _fdesc ***fd_array;
 
     /* __upath.c */
     char *upathbuf;  /* Buffer that holds intermediate converted paths */

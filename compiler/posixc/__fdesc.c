@@ -32,7 +32,7 @@
    thread safe.
    Possible implementation should look carefully at performance impact.
 */
-
+/*
 void __getfdarray(APTR *arrayptr, int *slotsptr)
 {
     struct PosixCIntBase *PosixCBase =
@@ -59,7 +59,7 @@ void __setfdarraybase(struct PosixCIntBase *PosixCBase2)
     PosixCBase->fd_array = PosixCBase2->fd_array;
     PosixCBase->fd_slots = PosixCBase2->fd_slots;
 }
-
+*/
 int __getfdslots(void)
 {
     struct PosixCIntBase *PosixCBase =
@@ -68,12 +68,16 @@ int __getfdslots(void)
     return PosixCBase->fd_slots;
 }
 
+#define L1(x) (x >> 3)
+#define L2(x) (x & 0x7)
+
 fdesc *__getfdesc(register int fd)
 {
     struct PosixCIntBase *PosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
 
-    return ((PosixCBase->fd_slots>fd) && (fd>=0))?PosixCBase->fd_array[fd]:NULL;
+    return ((PosixCBase->fd_slots>fd) && (fd>=0)) ?
+        PosixCBase->fd_array[L1(fd)][L2(fd)] : NULL;
 }
 
 void __setfdesc(register int fd, fdesc *desc)
@@ -82,7 +86,7 @@ void __setfdesc(register int fd, fdesc *desc)
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
 
     /* FIXME: Check if fd is in valid range... */
-    PosixCBase->fd_array[fd] = desc;
+    PosixCBase->fd_array[L1(fd)][L2(fd)] = desc;
 }
 
 int __getfirstfd(register int startfd)
@@ -93,7 +97,7 @@ int __getfirstfd(register int startfd)
     /* FIXME: Check if fd is in valid range... */
     for (
         ;
-        startfd < PosixCBase->fd_slots && PosixCBase->fd_array[startfd];
+        startfd < PosixCBase->fd_slots && PosixCBase->fd_array[L1(startfd)][L2(startfd)];
         startfd++
     );
 
@@ -107,28 +111,25 @@ int __getfdslot(int wanted_fd)
 
     if (wanted_fd>=PosixCBase->fd_slots)
     {
-        void *tmp;
-        
-        tmp = AllocPooled(PosixCBase->internalpool, (wanted_fd+1)*sizeof(fdesc *));
-        
-        if (!tmp) return -1;
+        if (wanted_fd >= 16 * 8) return -1; /* 16 blocks of 8 fdescs */
 
-        if (PosixCBase->fd_array)
+        int blocks = ((wanted_fd - PosixCBase->fd_slots) >> 3) + 1;
+
+        for (int i = 0; i < blocks; i++)
         {
-            size_t size = PosixCBase->fd_slots*sizeof(fdesc *);
-            CopyMem(PosixCBase->fd_array, tmp, size);
-            FreePooled(PosixCBase->internalpool, PosixCBase->fd_array, size);
+            void *tmp = AllocPooled(PosixCBase->internalpool, 8 * sizeof(fdesc *));
+            if (!tmp) return -1;
+            PosixCBase->fd_array[(PosixCBase->fd_slots >> 3) + i] = tmp;
         }
 
-        PosixCBase->fd_array = tmp;
-        PosixCBase->fd_slots = wanted_fd+1;
+        PosixCBase->fd_slots += blocks << 3;
     }
     else if (wanted_fd < 0)
     {
         errno = EINVAL;
         return -1;
     }
-    else if (PosixCBase->fd_array[wanted_fd])
+    else if (PosixCBase->fd_array[L1(wanted_fd)][L2(wanted_fd)])
     {
         close(wanted_fd);
     }
@@ -475,14 +476,14 @@ int __init_stdfiles(struct PosixCIntBase *PosixCBase)
           BADDR(me->pr_CES), BADDR(errfcb->handle)
     ));
 
-    PosixCBase->fd_array[STDIN_FILENO]  = indesc;
-    PosixCBase->fd_array[STDOUT_FILENO] = outdesc;
-    PosixCBase->fd_array[STDERR_FILENO] = errdesc;
+    PosixCBase->fd_array[L1(STDIN_FILENO)][L2(STDIN_FILENO)]    = indesc;
+    PosixCBase->fd_array[L1(STDOUT_FILENO)][L2(STDOUT_FILENO)]  = outdesc;
+    PosixCBase->fd_array[L1(STDERR_FILENO)][L2(STDERR_FILENO)]  = errdesc;
 
     return 1;
 }
 
-int __copy_fdarray(fdesc **__src_fd_array, int fd_slots)
+int __copy_fdarray(fdesc ***__src_fd_array, int fd_slots)
 {
     struct PosixCIntBase *PosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
@@ -490,17 +491,17 @@ int __copy_fdarray(fdesc **__src_fd_array, int fd_slots)
     
     for(i = fd_slots - 1; i >= 0; i--)
     {
-        if(__src_fd_array[i])
+        if(__src_fd_array[L1(i)][L2(i)])
         {
             if(__getfdslot(i) != i)
                 return 0;
             
-            if((PosixCBase->fd_array[i] = __alloc_fdesc()) == NULL)
+            if((PosixCBase->fd_array[L1(i)][L2(i)] = __alloc_fdesc()) == NULL)
                 return 0;
 
-            PosixCBase->fd_array[i]->fdflags = __src_fd_array[i]->fdflags;
-            PosixCBase->fd_array[i]->fcb = __src_fd_array[i]->fcb;
-            PosixCBase->fd_array[i]->fcb->opencount++;
+            PosixCBase->fd_array[L1(i)][L2(i)]->fdflags = __src_fd_array[L1(i)][L2(i)]->fdflags;
+            PosixCBase->fd_array[L1(i)][L2(i)]->fcb     = __src_fd_array[L1(i)][L2(i)]->fcb;
+            PosixCBase->fd_array[L1(i)][L2(i)]->fcb->opencount++;
         }
     }
     
@@ -536,7 +537,7 @@ int __init_fd(struct CrtIntBase *CrtBase)
         int res = __copy_fdarray(copyfrom->fd_array, copyfrom->fd_slots);
 
         /* EXEC_PARENT called through RunCommand which injected parameters to Input() */
-        PosixCBase->fd_array[STDIN_FILENO]->fcb->privflags |= _FCB_FLUSHONREAD;
+        PosixCBase->fd_array[L1(STDIN_FILENO)][L2(STDIN_FILENO)]->fcb->privflags |= _FCB_FLUSHONREAD;
         return res;
     }
     else
@@ -550,7 +551,8 @@ void __exit_fd(struct CrtIntBase *CrtBase)
     int i = PosixCBase->fd_slots;
     while (i)
     {
-        if (PosixCBase->fd_array[--i])
+        i--;
+        if (PosixCBase->fd_array[L1(i)][L2(i)])
             close(i);
     }
 }
@@ -591,13 +593,13 @@ void __updatestdio(void)
     fflush(((struct PosixCBase *)PosixCBase)->_stdout);
     fflush(((struct PosixCBase *)PosixCBase)->_stderr);
 
-    fcb = PosixCBase->fd_array[STDIN_FILENO]->fcb;
+    fcb = PosixCBase->fd_array[L1(STDIN_FILENO)][L2(STDIN_FILENO)]->fcb;
     fcb->handle = Input();
 
-    fcb = PosixCBase->fd_array[STDOUT_FILENO]->fcb;
+    fcb = PosixCBase->fd_array[L1(STDOUT_FILENO)][L2(STDOUT_FILENO)]->fcb;
     fcb->handle = Output();
 
-    fcb = PosixCBase->fd_array[STDERR_FILENO]->fcb;
+    fcb = PosixCBase->fd_array[L1(STDERR_FILENO)][L2(STDERR_FILENO)]->fcb;
     stderrlogic(me, fcb);
 }
 
