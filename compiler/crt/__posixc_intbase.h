@@ -8,6 +8,7 @@
 #include <exec/lists.h>
 #include <dos/dos.h>
 #include <devices/timer.h>
+#include <exec/semaphores.h>
 
 #include <limits.h>
 #include <stdint.h>
@@ -58,6 +59,7 @@ struct PosixCIntBase
     /* __fdesc.c */
     int fd_slots;
     struct _fdesc ***fd_array;
+    struct SignalSemaphore fd_sem;
 
     /* __upath.c */
     char *upathbuf;  /* Buffer that holds intermediate converted paths */

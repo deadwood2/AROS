@@ -37,6 +37,9 @@ typedef struct _fcb
         Flush(fdesc->fcb->handle);                                      \
     }
 
+#define LOCK_FD_ARRAY   ObtainSemaphore(&PosixCBase->fd_sem);
+#define UNLOCK_FD_ARRAY ReleaseSemaphore(&PosixCBase->fd_sem);
+
 /* file descriptor structure - one per descriptor */
 typedef struct _fdesc
 {
