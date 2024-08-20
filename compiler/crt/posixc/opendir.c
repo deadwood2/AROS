@@ -64,6 +64,8 @@
 #ifndef ExNext_IS_WORKING_WITHOUT_ASSIGN
     char assign[32];
 #endif
+    struct PosixCIntBase *PosixCBase =
+        (struct PosixCIntBase *)__aros_getbase_PosixCBase();
 
     if (!name)
     {
@@ -139,8 +141,12 @@
     desc->fcb->opencount = 1;
     desc->fcb->privflags |= _FCB_ISDIR;
 
+    LOCK_FD_ARRAY
+
     fd = __getfdslot(__getfirstfd(3));
     __setfdesc(fd, desc);
+
+    UNLOCK_FD_ARRAY
 
     dir->fd = fd;
     dir->pos = 0;

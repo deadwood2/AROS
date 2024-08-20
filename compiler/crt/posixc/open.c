@@ -3,6 +3,7 @@
 
     POSIX.1-2008 function open().
 */
+#include <proto/exec.h>
 
 #include <stdarg.h>
 #include "__fdesc.h"
@@ -80,6 +81,8 @@
 ******************************************************************************/
 {
     mode_t mode = 0644;
+    struct PosixCIntBase *PosixCBase =
+        (struct PosixCIntBase *)__aros_getbase_PosixCBase();
 
     if (flags & O_CREAT)
     {
@@ -90,6 +93,12 @@
         va_end(ap);
     }
     
-    return __open(__getfirstfd(0), pathname, flags, mode);
+    LOCK_FD_ARRAY
+
+    int fd = __open(__getfirstfd(0), pathname, flags, mode);
+
+    UNLOCK_FD_ARRAY
+
+    return fd;
 } /* open */
 
