@@ -71,6 +71,7 @@ int __crtext_open(struct CrtIntBase *CrtBase)
     CrtBase->StdCBase    = AllocMem(sizeof(struct StdCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
     CrtBase->PosixCBase  = AllocMem(sizeof(struct PosixCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
     CrtBase->PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR, 256, 256);
+    CrtBase->PosixCBase->fd_array = AllocPooled(CrtBase->PosixCBase->internalpool, 16 * sizeof(APTR));
     CrtBase->fakevforkbase = NULL;
 
     return 1;

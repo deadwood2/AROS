@@ -129,7 +129,7 @@ void __aros_setbase_fake_CrtBase(struct CrtIntBase *fCrtBase);
 
 int __crtext_open(struct CrtIntBase *CrtBase);
 int __init_memstuff(struct CrtIntBase *CrtBase);
-int __copy_fdarray(fdesc **__src_fd_array, int fd_slots);
+int __copy_fdarray(fdesc ***__src_fd_array, int fd_slots);
 int __init_stdio(struct CrtIntBase *CrtBase);
 
 void __exit_fd(struct CrtIntBase *CrtBase);
