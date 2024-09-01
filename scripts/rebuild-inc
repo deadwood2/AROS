@@ -62,7 +62,7 @@ main ()
 
     # Main build
     cd $BUILD_DIR
-    ../AROS/configure --target=$CONFIGURE_TARGET --with-aros-toolchain-install=$TOOLCHAIN_DIR --with-portssources=$PORTS_DIR $CONFIGURE_OPTS
+    ../AROS/configure --target=$CONFIGURE_TARGET --with-aros-toolchain-install=$TOOLCHAIN_DIR --with-portssources=$PORTS_DIR $CONFIGURE_OPTS $EXTRA_CONFIGURE_OPTS
     make $MAKE_TARGET -j $MAKE_JOBS
     local MAKE_STATUS=$?
     if [[ $MAKE_STATUS = 0 ]] && [[ -n $MAKE_TARGET_2 ]]; then
