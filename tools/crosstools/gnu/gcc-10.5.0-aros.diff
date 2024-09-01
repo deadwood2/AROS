@@ -528,8 +528,8 @@ diff -Naur gcc-10.5.0/gcc/config/aros-stdint.h gcc-10.5.0.aros/gcc/config/aros-s
 +#define UINTPTR_TYPE      (LONG_TYPE_SIZE == 64 ? UINT64_TYPE : UINT32_TYPE)
 diff -Naur gcc-10.5.0/gcc/config/aros.h gcc-10.5.0.aros/gcc/config/aros.h
 --- gcc-10.5.0/gcc/config/aros.h	1970-01-01 01:00:00.000000000 +0100
-+++ gcc-10.5.0.aros/gcc/config/aros.h	2024-09-01 18:43:53.687110936 +0200
-@@ -0,0 +1,123 @@
++++ gcc-10.5.0.aros/gcc/config/aros.h	2024-09-01 19:49:57.356278927 +0200
+@@ -0,0 +1,112 @@
 +/* Definitions for AROS
 +   Copyright (C) 1995, 1996, 1997, 1998, 1999, 2000 Free Software Foundation, Inc.
 +   Contributed by Fabio Alemagna
@@ -591,7 +591,7 @@ diff -Naur gcc-10.5.0/gcc/config/aros.h gcc-10.5.0.aros/gcc/config/aros.h
 +
 +#undef	STARTFILE_SPEC
 +#define STARTFILE_SPEC \
-+  "startup%O%s %{detach:detach%O%s} %{nix:nixmain%O%s}"
++  "startup%O%s %{detach:detach%O%s} %{nix:nixmain%O%s} %{static-stdc++:static-cxx-ops%O%s static-cxx-personality%O%s static-cxx-cxa-pure-virtual%O%s}"
 +
 +/* Provide a ENDFILE_SPEC appropriate for AROS. */
 +
@@ -626,25 +626,14 @@ diff -Naur gcc-10.5.0/gcc/config/aros.h gcc-10.5.0.aros/gcc/config/aros.h
 +
 +#undef	LIB_SPEC
 +#define LIB_SPEC \
-+  "-lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib %{!nostartfiles: -lcrtprog} -lcrt} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit --end-group"
++  "--start-group -lmui -larossupport -lamiga %{!noclibs: -lm -lstdlib %{!nostartfiles: -lcrtprog} -lcrt} -lcodesets -lkeymap -lexpansion -lcommodities -ldiskfont -lasl -lmuimaster -ldatatypes -lcybergraphics -lworkbench -licon -lintuition -lgadtools -llayers -laros -lpartition -liffparse -lgraphics -llocale -ldos -lutility %{!nosysbase:-lexec} -lautoinit -llibinit --end-group"
 +
 +#undef	LIBSTDCXX_STATIC
-+#define LIBSTDCXX_STATIC "supc++"
-+
-+#undef	LIBSTDCXX_PTHREAD
-+#define LIBSTDCXX_PTHREAD "pthread"
++#define LIBSTDCXX_STATIC "pthread"
 +
 +#if !defined(USE_GNULIBC_1) && defined(HAVE_LD_EH_FRAME_HDR)
 +#define LINK_EH_SPEC "%{!static:--eh-frame-hdr} "
 +#endif
-+
-+#define GNU_USER_TARGET_LINK_GCC_C_SEQUENCE_SPEC \
-+  "--start-group %G %{!nolibc:%L %G}"
-+
-+#undef LINK_GCC_C_SEQUENCE_SPEC
-+#define LINK_GCC_C_SEQUENCE_SPEC GNU_USER_TARGET_LINK_GCC_C_SEQUENCE_SPEC
-+
-+#define LIBSTDCXX_CIRCULAR
 +
 +/* AROS uses its own collect-like program for the moment.  */
 +#undef LINKER_NAME
@@ -1226,8 +1215,20 @@ diff -Naur gcc-10.5.0/gcc/config.gcc gcc-10.5.0.aros/gcc/config.gcc
  	extra_options="${extra_options} rs6000/sysv4.opt"
 diff -Naur gcc-10.5.0/gcc/config.host gcc-10.5.0.aros/gcc/config.host
 --- gcc-10.5.0/gcc/config.host	2023-07-07 09:08:19.219161767 +0200
-+++ gcc-10.5.0.aros/gcc/config.host	2024-09-01 15:56:10.539190171 +0200
-@@ -107,7 +107,7 @@
++++ gcc-10.5.0.aros/gcc/config.host	2024-09-01 19:11:44.846771660 +0200
+@@ -93,8 +93,9 @@
+ case ${host} in
+   *-darwin*)
+     # Generic darwin host support.
+-    out_host_hook_obj=host-darwin.o
+-    host_xmake_file="${host_xmake_file} x-darwin"
++    # Below two lines disabled by AROS patch.
++    #out_host_hook_obj=host-darwin.o
++    #host_xmake_file="${host_xmake_file} x-darwin"
+     ;;
+ esac
+ 
+@@ -107,7 +108,7 @@
  	;;
      esac
      ;;
@@ -1236,7 +1237,7 @@ diff -Naur gcc-10.5.0/gcc/config.host gcc-10.5.0.aros/gcc/config.host
      case ${target} in
        arm*-*-*)
  	host_extra_gcc_objs="driver-arm.o"
-@@ -287,6 +287,10 @@
+@@ -287,6 +288,10 @@
      out_host_hook_obj=host-hpux.o
      host_xmake_file="${host_xmake_file} x-hpux"
      ;;
@@ -1249,7 +1250,7 @@ diff -Naur gcc-10.5.0/gcc/config.host gcc-10.5.0.aros/gcc/config.host
      host_xmake_file=vms/x-vms
 diff -Naur gcc-10.5.0/gcc/cp/g++spec.c gcc-10.5.0.aros/gcc/cp/g++spec.c
 --- gcc-10.5.0/gcc/cp/g++spec.c	2023-07-07 09:08:19.467165454 +0200
-+++ gcc-10.5.0.aros/gcc/cp/g++spec.c	2024-09-01 15:56:10.539190171 +0200
++++ gcc-10.5.0.aros/gcc/cp/g++spec.c	2024-09-01 20:22:41.875873922 +0200
 @@ -54,12 +54,19 @@
  #ifndef LIBSTDCXX_STATIC
  #define LIBSTDCXX_STATIC NULL
@@ -1305,21 +1306,27 @@ diff -Naur gcc-10.5.0/gcc/cp/g++spec.c gcc-10.5.0.aros/gcc/cp/g++spec.c
  #ifdef HAVE_LD_STATIC_DYNAMIC
        if (library > 1 && !static_link)
  	{
-@@ -356,6 +375,13 @@
- 	  added_libraries++;
- 	  j++;
- 	}
-+      if ((static_link || library > 1) && LIBSTDCXX_PTHREAD != NULL)
-+	{
-+	  generate_option (OPT_l, LIBSTDCXX_PTHREAD, 1,
-+			   CL_DRIVER, &new_decoded_options[j]);
-+	  added_libraries++;
-+	  j++;
-+	}
+@@ -348,14 +367,11 @@
+ 		       CL_DRIVER, &new_decoded_options[j]);
+       added_libraries++;
+       j++;
+-      /* Add target-dependent static library, if necessary.  */
+-      if ((static_link || library > 1) && LIBSTDCXX_STATIC != NULL)
+-	{
+-	  generate_option (OPT_l, LIBSTDCXX_STATIC, 1,
+-			   CL_DRIVER, &new_decoded_options[j]);
+-	  added_libraries++;
+-	  j++;
+-	}
++      // AROS: libpthread hides here
++      generate_option (OPT_l, LIBSTDCXX_STATIC, 1,
++                       CL_DRIVER, &new_decoded_options[j]);
++      added_libraries++;
++      j++;
  #ifdef HAVE_LD_STATIC_DYNAMIC
        if (library > 1 && !static_link)
  	{
-@@ -390,6 +416,15 @@
+@@ -390,6 +406,15 @@
      generate_option (OPT_shared_libgcc, NULL, 1, CL_DRIVER,
  		     &new_decoded_options[j++]);
  
@@ -1802,19 +1809,6 @@ diff -Naur gcc-10.5.0/libgcc/unwind-dw2-fde.c gcc-10.5.0.aros/libgcc/unwind-dw2-
  }
  
  void
-diff -Naur gcc-10.5.0/libgcc/unwind-dw2.c gcc-10.5.0.aros/libgcc/unwind-dw2.c
---- gcc-10.5.0/libgcc/unwind-dw2.c	2023-07-07 09:08:21.463195120 +0200
-+++ gcc-10.5.0.aros/libgcc/unwind-dw2.c	2024-09-01 15:56:10.539190171 +0200
-@@ -1572,7 +1572,9 @@
- static inline void
- init_dwarf_reg_size_table (void)
- {
-+#ifdef MD_FALLBACK_FRAME_STATE_FOR
-   __builtin_init_dwarf_reg_size_table (dwarf_reg_size_table);
-+#endif
- }
- 
- static void __attribute__((noinline))
 diff -Naur gcc-10.5.0/libiberty/filename_cmp.c gcc-10.5.0.aros/libiberty/filename_cmp.c
 --- gcc-10.5.0/libiberty/filename_cmp.c	2023-07-07 09:08:21.783199875 +0200
 +++ gcc-10.5.0.aros/libiberty/filename_cmp.c	2024-09-01 15:56:10.539190171 +0200
@@ -2108,6 +2102,36 @@ diff -Naur gcc-10.5.0/libobjc/thr.c gcc-10.5.0.aros/libobjc/thr.c
  #include <gthr.h>
  
  #include <stdlib.h>
+diff -Naur gcc-10.5.0/libstdc++-v3/acinclude.m4 gcc-10.5.0.aros/libstdc++-v3/acinclude.m4
+--- gcc-10.5.0/libstdc++-v3/acinclude.m4	2023-07-07 09:08:21.923201957 +0200
++++ gcc-10.5.0.aros/libstdc++-v3/acinclude.m4	2024-09-01 21:14:06.416123641 +0200
+@@ -442,25 +442,7 @@
+ AC_DEFUN([GLIBCXX_CHECK_WRITEV], [
+ 
+   AC_LANG_SAVE
+-  AC_LANG_CPLUSPLUS
+-  ac_save_CXXFLAGS="$CXXFLAGS"
+-  CXXFLAGS="$CXXFLAGS -fno-exceptions"
+-
+-  AC_MSG_CHECKING([for writev])
+-  AC_CACHE_VAL(glibcxx_cv_WRITEV, [
+-    GCC_TRY_COMPILE_OR_LINK(
+-      [#include <sys/uio.h>],
+-      [struct iovec iov[2];
+-       writev(0, iov, 0);],
+-      [glibcxx_cv_WRITEV=yes],
+-      [glibcxx_cv_WRITEV=no])
+-  ])
+-  if test $glibcxx_cv_WRITEV = yes; then
+-    AC_DEFINE(HAVE_WRITEV, 1, [Define if writev is available in <sys/uio.h>.])
+-  fi
+-  AC_MSG_RESULT($glibcxx_cv_WRITEV)
+-
+-  CXXFLAGS="$ac_save_CXXFLAGS"
++  AC_MSG_RESULT([Assuming that writev is absent])
+   AC_LANG_RESTORE
+ ])
+ 
 diff -Naur gcc-10.5.0/libstdc++-v3/config/os/aros/ctype_base.h gcc-10.5.0.aros/libstdc++-v3/config/os/aros/ctype_base.h
 --- gcc-10.5.0/libstdc++-v3/config/os/aros/ctype_base.h	1970-01-01 01:00:00.000000000 +0100
 +++ gcc-10.5.0.aros/libstdc++-v3/config/os/aros/ctype_base.h	2024-09-01 15:56:10.539190171 +0200
@@ -2500,7 +2524,7 @@ diff -Naur gcc-10.5.0/libstdc++-v3/config/os/aros/os_defines.h gcc-10.5.0.aros/l
 +#endif
 diff -Naur gcc-10.5.0/libstdc++-v3/configure gcc-10.5.0.aros/libstdc++-v3/configure
 --- gcc-10.5.0/libstdc++-v3/configure	2023-07-07 09:08:21.947202314 +0200
-+++ gcc-10.5.0.aros/libstdc++-v3/configure	2024-09-01 16:16:44.258931375 +0200
++++ gcc-10.5.0.aros/libstdc++-v3/configure	2024-09-01 21:15:18.766135331 +0200
 @@ -5824,12 +5824,9 @@
  
  
@@ -2607,7 +2631,86 @@ diff -Naur gcc-10.5.0/libstdc++-v3/configure gcc-10.5.0.aros/libstdc++-v3/config
  template<typename T1, typename T2>
    struct same
    { typedef T2 type; };
-@@ -29217,6 +29216,57 @@
+@@ -19530,76 +19529,8 @@
+ 
+ 
+ 
+-  ac_ext=cpp
+-ac_cpp='$CXXCPP $CPPFLAGS'
+-ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+-
+-  ac_save_CXXFLAGS="$CXXFLAGS"
+-  CXXFLAGS="$CXXFLAGS -fno-exceptions"
+-
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for writev" >&5
+-$as_echo_n "checking for writev... " >&6; }
+-  if ${glibcxx_cv_WRITEV+:} false; then :
+-  $as_echo_n "(cached) " >&6
+-else
+-
+-    if test x$gcc_no_link = xyes; then
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-#include <sys/uio.h>
+-int
+-main ()
+-{
+-struct iovec iov[2];
+-       writev(0, iov, 0);
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_cxx_try_compile "$LINENO"; then :
+-  glibcxx_cv_WRITEV=yes
+-else
+-  glibcxx_cv_WRITEV=no
+-fi
+-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-else
+-  if test x$gcc_no_link = xyes; then
+-  as_fn_error $? "Link tests are not allowed after GCC_NO_EXECUTABLES." "$LINENO" 5
+-fi
+-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-#include <sys/uio.h>
+-int
+-main ()
+-{
+-struct iovec iov[2];
+-       writev(0, iov, 0);
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_cxx_try_link "$LINENO"; then :
+-  glibcxx_cv_WRITEV=yes
+-else
+-  glibcxx_cv_WRITEV=no
+-fi
+-rm -f core conftest.err conftest.$ac_objext \
+-    conftest$ac_exeext conftest.$ac_ext
+-fi
+-
+-fi
+-
+-  if test $glibcxx_cv_WRITEV = yes; then
+-
+-$as_echo "#define HAVE_WRITEV 1" >>confdefs.h
+-
+-  fi
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $glibcxx_cv_WRITEV" >&5
+-$as_echo "$glibcxx_cv_WRITEV" >&6; }
+-
+-  CXXFLAGS="$ac_save_CXXFLAGS"
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: Assuming that writev is absent" >&5
++$as_echo "Assuming that writev is absent" >&6; }
+   ac_ext=c
+ ac_cpp='$CPP $CPPFLAGS'
+ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+@@ -29217,6 +29148,57 @@
  
  # Base decisions on target environment.
  case "${host}" in
