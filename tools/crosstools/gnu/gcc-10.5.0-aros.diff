@@ -1,6 +1,15 @@
 diff -Naur gcc-10.5.0/config.guess gcc-10.5.0.aros/config.guess
 --- gcc-10.5.0/config.guess	2023-07-07 09:08:18.711154218 +0200
-+++ gcc-10.5.0.aros/config.guess	2024-09-01 15:56:10.529190174 +0200
++++ gcc-10.5.0.aros/config.guess	2024-09-03 21:03:57.078428163 +0200
+@@ -2,7 +2,7 @@
+ # Attempt to guess a canonical system name.
+ #   Copyright 1992-2019 Free Software Foundation, Inc.
+ 
+-timestamp='2019-07-24'
++timestamp='2024-09-03'
+ 
+ # This file is free software; you can redistribute it and/or modify it
+ # under the terms of the GNU General Public License as published by
 @@ -1451,8 +1451,8 @@
      i*86:rdos:*:*)
  	echo "$UNAME_MACHINE"-pc-rdos
@@ -8,7 +17,7 @@ diff -Naur gcc-10.5.0/config.guess gcc-10.5.0.aros/config.guess
 -    i*86:AROS:*:*)
 -	echo "$UNAME_MACHINE"-pc-aros
 +    *:AROS:*:*)
-+	echo "$UNAME_MACHINE"-unkown-aros
++	echo "$UNAME_MACHINE"-unknown-aros
  	exit ;;
      x86_64:VMkernel:*:*)
  	echo "$UNAME_MACHINE"-unknown-esx
@@ -810,7 +819,7 @@ diff -Naur gcc-10.5.0/gcc/config/m68k/t-aros gcc-10.5.0.aros/gcc/config/m68k/t-a
 +M68K_MLIB_CPU += && match(MLIB, "^68")
 diff -Naur gcc-10.5.0/gcc/config/riscv/aros.h gcc-10.5.0.aros/gcc/config/riscv/aros.h
 --- gcc-10.5.0/gcc/config/riscv/aros.h	1970-01-01 01:00:00.000000000 +0100
-+++ gcc-10.5.0.aros/gcc/config/riscv/aros.h	2024-09-01 15:56:10.539190171 +0200
++++ gcc-10.5.0.aros/gcc/config/riscv/aros.h	2024-09-03 21:13:46.428400327 +0200
 @@ -0,0 +1,58 @@
 +/* Configuration file for ARM AROS EABI targets.
 +   Copyright (C) 2004, 2005, 2006, 2007, 2010
@@ -851,7 +860,7 @@ diff -Naur gcc-10.5.0/gcc/config/riscv/aros.h gcc-10.5.0.aros/gcc/config/riscv/a
 +  while (false)
 +
 +#undef SUBTARGET_CPP_SPEC
-+#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:%{!nostdc:%{!noposixc|noposixinc: -idirafter %R/include/aros/posixc} -idirafter %R/include/aros/stdc}}"
++#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc: -idirafter %R/include/aros/posixc -idirafter %R/include/aros/stdc}"
 +
 +#undef  SUBTARGET_EXTRA_LINK_SPEC
 +#define SUBTARGET_EXTRA_LINK_SPEC " -m " TARGET_LINKER_EMULATION
@@ -1215,7 +1224,7 @@ diff -Naur gcc-10.5.0/gcc/config.gcc gcc-10.5.0.aros/gcc/config.gcc
  	extra_options="${extra_options} rs6000/sysv4.opt"
 diff -Naur gcc-10.5.0/gcc/config.host gcc-10.5.0.aros/gcc/config.host
 --- gcc-10.5.0/gcc/config.host	2023-07-07 09:08:19.219161767 +0200
-+++ gcc-10.5.0.aros/gcc/config.host	2024-09-01 19:11:44.846771660 +0200
++++ gcc-10.5.0.aros/gcc/config.host	2024-09-03 21:23:04.478362185 +0200
 @@ -93,8 +93,9 @@
  case ${host} in
    *-darwin*)
