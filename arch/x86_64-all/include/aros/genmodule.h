@@ -106,6 +106,11 @@
             "\taddq %%r13,%%rsp\n"  /* remove stack copy space */                               \
             "\tpopq %%r13\n"        /* restore r13 value */                                     \
             "\tpopq %%r12\n"        /* restore r12 value */                                     \
+            "\tpop %%rbp\n"         \
+            "\tret\n"               /* return to caller frame */                                \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            "\tnop\n"               \
             : : "i" ((-lvo)*LIB_VECTSIZE) \
         ); \
     }
@@ -226,6 +231,11 @@
             "\taddq %%r13,%%rsp\n"  /* remove stack copy space */                               \
             "\tpopq %%r13\n"        /* restore r13 value */                                     \
             "\tpopq %%r12\n"        /* restore r12 value */                                     \
+            "\tpop %%rbp\n"         \
+            "\tret\n"               /* return to caller frame */                                \
+            "\tnop\n"               \
+            "\tnop\n"               \
+            "\tnop\n"               \
             : : "i" ((-lvo)*LIB_VECTSIZE) \
         ); \
     }
