@@ -17,7 +17,7 @@
 
 #define TESTING 0
 #if TESTING
-char test_script[] = "SYS:Developer/Debug/Tests/Installer/test.script";
+char test_script[] = "SYS:Development/Debug/Tests/Installer/test.script";
 #endif /* DEBUG */
 
 char *filename = NULL;
