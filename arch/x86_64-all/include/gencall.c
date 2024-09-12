@@ -64,7 +64,7 @@ static void aros_lc(int id, int flags)
            "({ \\\n"
     );
 
-    if (id < 4) {
+    if (id < 7) {
         // Phew, all args are passed in registers this far.
 
         /* Problem with existing call is the following: There doesn't seem to be a way to tell
@@ -105,18 +105,23 @@ static void aros_lc(int id, int flags)
 
         printf("    APTR __sto; \\\n"
                "    APTR _bn = (APTR)bn; \\\n");
-        for (int i = 1; i <= id; ++i) {
-            switch (i) {
-            case 1:
-                printf("    register UQUAD _rdi asm(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
-                break;
-            case 2:
-                printf("    register UQUAD _rsi asm(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
-                break;
-            case 3:
-                printf("    register UQUAD _rdx asm(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
-                break;
-            }
+        if (id >= 1) {
+            printf("    register UQUAD _rdi asm(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
+        }
+        if (id >= 2) {
+            printf("    register UQUAD _rsi asm(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
+        }
+        if (id >= 3) {
+            printf("    register UQUAD _rdx asm(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
+        }
+        if (id >= 4) {
+            printf("    register UQUAD _rcx asm(\"rcx\") = (UQUAD)__AROS_LCA(a4); \\\n");
+        }
+        if (id >= 5) {
+            printf("    register UQUAD _r8 asm(\"r8\") = (UQUAD)__AROS_LCA(a5); \\\n");
+        }
+        if (id >= 6) {
+            printf("    register UQUAD _r9 asm(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
         }
         int bn_index;
         if (id <= 6) {
@@ -138,6 +143,15 @@ static void aros_lc(int id, int flags)
         }
         if (id >= 3) {
             printf(", \"+r\"(_rdx)");
+        }
+        if (id >= 4) {
+            printf(", \"+r\"(_rcx)");
+        }
+        if (id >= 5) {
+            printf(", \"+r\"(_r8)");
+        }
+        if (id >= 6) {
+            printf(", \"+r\"(_r9)");
         }
         printf("\\\n"
                "    : \"mr\"(_bn) \\\n"
