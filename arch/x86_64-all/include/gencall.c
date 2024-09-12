@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define GENCALL_MAX     (13 + 1)        /* Max number of arguments */
@@ -61,10 +62,104 @@ static void aros_lc(int id, int flags)
         printf("a%d,", i + 1);
     printf("bt,bn,o,s) \\\n"
            "({ \\\n"
-           "    AROS_LIBCALL_INIT(bn, o) \\\n"
     );
 
-    aros_call_internal(id, flags);
+    if (id < 4) {
+        // Phew, all args are passed in registers this far.
+
+        /* Problem with existing call is the following: There doesn't seem to be a way to tell
+           GCC 10.5 under -O2 not to use R12 after it was assigned value of base in AROS_LIBCALL_INIT.
+           This was working with GCC 6.5 though the use of global register variable, but according to
+           documentation was just a side effect. This has changes with GCC 7 and new register
+           allocator.
+
+           The problem now is that in some cases, GCC will use R12 as temporary register when filling
+           out function argument register (i.e. RSI) in call call:
+           t __ret = __func(a1, a2, ...)
+           Example: (crash in Wanderer, inline_NewObjectA when opening disk window)
+
+           Trying to put those arguments into local variable does not solve the problem as R12
+           still ends up being used just to read from stack and put into RSI . GCC seems to be very
+           strict on keeping argument registers assigment just before doing call.
+           The workaround below manually fills in argument registers, then sets R12 and then
+           does a zero argument function call. Since call is done from C code, GCC will
+           account for aligning stack to 16 bytes and for managing registers according to ABI. When
+           call was done from assembler template and it was an only call in the whole function, stack
+           could remaining unaligned and movaps SSE instruction in following functions would generate
+           error. Also in case of call from assembler, all clobber list needed to be full:
+
+           #define __AROS_LC2(t,a,a1,a2,bt,bn,o,s) \
+           ({ \
+           APTR __sto; \
+           APTR _bn = (APTR)bn; \
+           register UQUAD _rax asm("rax"); \
+           register UQUAD _rdi asm("rdi") = (UQUAD)__AROS_LCA(a1); \
+           register UQUAD _rsi asm("rsi") = (UQUAD)__AROS_LCA(a2); \
+           __asm__ __volatile__("movq %%r12, %1\n    movq %5, %%r12\n    call *%c4(%%r12)\n    movq %1, %%r12" \
+           : "=r"(_rax), "+mr"(__sto), "+r"(_rdi), "+r"(_rsi) \
+           : "i" (-1 * (o) * LIB_VECTSIZE), "mr"(_bn), "r"(_rdi), "r"(_rsi) \
+           : "cc", "memory", "rdx", "rcx", "r8", "r9", "r10", "r11"); \
+           (t)_rax; \
+           })
+        */
+
+        printf("    APTR __sto; \\\n"
+               "    APTR _bn = (APTR)bn; \\\n");
+        for (int i = 1; i <= id; ++i) {
+            switch (i) {
+            case 1:
+                printf("    register UQUAD _rdi asm(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
+                break;
+            case 2:
+                printf("    register UQUAD _rsi asm(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
+                break;
+            case 3:
+                printf("    register UQUAD _rdx asm(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
+                break;
+            }
+        }
+        int bn_index;
+        if (id <= 6) {
+            bn_index = 2 + id;
+        }
+        else {
+            // This should not happen
+            printf("id=%d not supported yet\n", id);
+            exit(1);
+        }
+        printf("    register APTR  _r12 asm(\"r12\"); \\\n"
+               "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%%d, %%%%r12\\n\" \\\n"
+               "    : \"+mr\"(__sto), \"+r\"(_r12)", bn_index);
+        if (id >= 1) {
+            printf(", \"+r\"(_rdi)");
+        }
+        if (id >= 2) {
+            printf(", \"+r\"(_rsi)");
+        }
+        if (id >= 3) {
+            printf(", \"+r\"(_rdx)");
+        }
+        printf("\\\n"
+               "    : \"mr\"(_bn) \\\n"
+               "    :); \\\n");
+        if (!(flags & FLAG_NR)) {
+            printf("    t __ret = (( t (*)())(APTR)__AROS_GETVECADDR(_r12, o))(); \\\n");
+        }
+        else {
+            printf("    (( t (*)())(APTR)__AROS_GETVECADDR(_r12, o))(); \\\n");
+        }
+        printf("    __asm__ __volatile__(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n");
+        if (!(flags & FLAG_NR)) {
+            printf("    __ret; \\\n");
+        }
+        printf("})\n");
+    }
+    else {
+        // A lot of arguments, might not work out
+        printf("    AROS_LIBCALL_INIT(bn, o) \\\n");
+
+        aros_call_internal(id, flags);
+    }
 
     printf("#define AROS_LC%d%s __AROS_LC%d%s\n", id, nr(flags), id, nr(flags));
 }
