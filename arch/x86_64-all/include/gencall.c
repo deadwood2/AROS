@@ -106,22 +106,22 @@ static void aros_lc(int id, int flags)
         printf("    APTR __sto; \\\n"
                "    APTR _bn = (APTR)bn; \\\n");
         if (id >= 1) {
-            printf("    register UQUAD _rdi asm(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
+            printf("    register UQUAD _rdi __asm__(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
         }
         if (id >= 2) {
-            printf("    register UQUAD _rsi asm(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
+            printf("    register UQUAD _rsi __asm__(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
         }
         if (id >= 3) {
-            printf("    register UQUAD _rdx asm(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
+            printf("    register UQUAD _rdx __asm__(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
         }
         if (id >= 4) {
-            printf("    register UQUAD _rcx asm(\"rcx\") = (UQUAD)__AROS_LCA(a4); \\\n");
+            printf("    register UQUAD _rcx __asm__(\"rcx\") = (UQUAD)__AROS_LCA(a4); \\\n");
         }
         if (id >= 5) {
-            printf("    register UQUAD _r8 asm(\"r8\") = (UQUAD)__AROS_LCA(a5); \\\n");
+            printf("    register UQUAD _r8 __asm__(\"r8\") = (UQUAD)__AROS_LCA(a5); \\\n");
         }
         if (id >= 6) {
-            printf("    register UQUAD _r9 asm(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
+            printf("    register UQUAD _r9 __asm__(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
         }
         int bn_index;
         if (id <= 6) {
@@ -132,7 +132,7 @@ static void aros_lc(int id, int flags)
             printf("id=%d not supported yet\n", id);
             exit(1);
         }
-        printf("    register APTR  _r12 asm(\"r12\"); \\\n"
+        printf("    register APTR  _r12 __asm__(\"r12\"); \\\n"
                "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%%d, %%%%r12\\n\" \\\n"
                "    : \"+mr\"(__sto), \"+r\"(_r12)", bn_index);
         if (id >= 1) {
