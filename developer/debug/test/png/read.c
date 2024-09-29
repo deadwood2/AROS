@@ -81,7 +81,6 @@ static void test_read_info()
     // Set up input for reading PNG data
     png_init_io(png_ptr, file01);
 
-    // Below call hangs
     png_read_info(png_ptr, info_ptr);
 }
 
