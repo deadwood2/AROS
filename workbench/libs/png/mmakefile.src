@@ -8,7 +8,7 @@ REPOSITORIES = http://prdownloads.sourceforge.net/libpng \
  https://download.sourceforge.net/libpng
 ARCHBASE     := libpng-$(LIBPNGVERSION)
 ARCHSUFFIX := "tar.gz"
-#PATCHSPEC := $(ARCHBASE)-aros.diff:$(ARCHBASE):-f,-p1
+PATCHSPEC := $(ARCHBASE)-aros.diff:$(ARCHBASE):-f,-p1
 ARCHSRCDIR := $(PORTSDIR)/libpng/$(ARCHBASE)
 
 %fetch mmake=libpng-fetch archive=$(ARCHBASE) destination=$(PORTSDIR)/libpng \
@@ -55,7 +55,7 @@ endif
 
 %build_module mmake=workbench-libs-png \
     modname=png modtype=library \
-    files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname="png" uselibs="z1 crtmod"
+    files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname="png" linklibfiles="png_linklib" uselibs="z1 crtmod"
 
 #MM- linklibs: linklibs-png-nostdio
 #MM linklibs-png-nostdio : workbench-libs-png-generated

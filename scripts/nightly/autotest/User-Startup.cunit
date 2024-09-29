@@ -57,6 +57,9 @@ If NOT WARN
     Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs        ;types64-lfs_Suite
     Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs-fob    ;types64-lfs-fob_Suite
 
+    ; Perform png unit tests...
+    Execute S/Test cunit/png/test-png-cunit                     ;png_read_Suite
+
     ; Perform basic "Zune" unit tests...
     Execute S/Test cunit/zune/cunit-zune-cycle                  ;MUIC_Cycle_Suite
     Execute S/Test cunit/zune/cunit-zune-handleevent            ;MUIM_HandleEvent_Suite
@@ -76,7 +79,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 232" >DEBUG:
+    Echo "Expected tests: 235" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

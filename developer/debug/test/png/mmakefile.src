@@ -5,13 +5,20 @@ include $(SRCDIR)/config/aros.cfg
 FILES           := version
 EXEDIR          := $(AROS_TESTS)/png
 
-#MM- test : test-png
-#MM- test-quick : test-png-quick
+CUNIT_FILES := read
+CUNITEXEDIR := $(AROS_TESTS)/cunit/png
+
+#MM- test : test-png test-png-cunit
+#MM- test-quick : test-png-quick test-png-cunit-quick
 
 #MM test-png : includes linklibs workbench-libs-png-linklib
 
 %build_progs mmake=test-png \
     files=$(FILES) targetdir=$(EXEDIR) \
     uselibs="png"
+
+%build_prog mmake=test-png-cunit \
+    files=$(CUNIT_FILES) targetdir=$(CUNITEXEDIR) \
+    progname=test-png-cunit uselibs="cunit png"
 
 %common
