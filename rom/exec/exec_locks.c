@@ -27,18 +27,30 @@
 #undef Allocate
 #define Allocate(a, b) malloc(b)
 
+#define SPINLOCK_INITIALIZED    (0xF00F0001)
+
 void __spinlock_init(spinlock_t *lock, APTR base)
 {
     D(bug("[Kernel] %s(0x%p)\n", __func__, lock));
 
     lock->lock = SPINLOCK_UNLOCKED;
     lock->s_Owner = NULL;
+    lock->initialized = SPINLOCK_INITIALIZED;
 
     return;
 }
 
 APTR __spinlock_lock(spinlock_t *lock, APTR failhook, ULONG mode, APTR base)
 {
+    if (__builtin_expect(!!(lock->initialized != SPINLOCK_INITIALIZED), 0))
+    {
+        /* Handle non-initialized spinlocks. This can happen when message port was not created via
+           CreateMsgPort but the old-style client-side allocation and initialization on stack. The
+           spinlock "space" can then contain random data which can cause __spinlock_lock to never
+           complete. */
+        __spinlock_init(lock, base);
+    }
+
     if (mode == SPINLOCK_MODE_WRITE)
     {
         ULONG tmp;
