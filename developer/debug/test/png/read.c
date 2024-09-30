@@ -62,6 +62,9 @@ CU_SUITE_TEARDOWN()
 
 static void test_read_info()
 {
+    png_uint_32 width=0xdeadbeef, height=0xdeadbeef;
+    int bit_depth=-1, color_type=-1, interlace_method=-1, compression_method=-1, filter_method=-1;
+
     file01 = fopen(filename01, "r");
     CU_ASSERT_PTR_NOT_NULL_FATAL(file01);
 
@@ -82,6 +85,14 @@ static void test_read_info()
     png_init_io(png_ptr, file01);
 
     png_read_info(png_ptr, info_ptr);
+    png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, &interlace_method, &compression_method, &filter_method);
+    CU_ASSERT_EQUAL(width, 1);
+    CU_ASSERT_EQUAL(height, 1);
+    CU_ASSERT_EQUAL(bit_depth, 8);
+    CU_ASSERT_EQUAL(color_type, 6);
+    CU_ASSERT_EQUAL(interlace_method, 0);
+    CU_ASSERT_EQUAL(compression_method, 0);
+    CU_ASSERT_EQUAL(filter_method, 0);
 }
 
 int main(int argc, char** argv)
