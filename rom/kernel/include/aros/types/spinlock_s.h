@@ -17,6 +17,7 @@ typedef struct {
         volatile unsigned char  block[4];
         volatile unsigned int   lock;
     };
+    unsigned int initialized;
     // The field s_Owner is set either to task owning the lock,
     // or NULL if the lock is free/read mode or was acquired in interrupt/supervisor mode
     void * s_Owner;
