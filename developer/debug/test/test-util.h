@@ -126,21 +126,25 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
         VPrintf("Test failed %s %s:%ld\n", _tags);          \
     }
 
-#define CU_CI_DEFINE_SUITE(...) \
-    __cu_suite_setup();         \
+#define CU_CI_DEFINE_SUITE(name, ssetup, stearndown, tsetup, tteardown) \
+    int  (*_p_suite_setup)()    = ssetup;       \
+    int  (*_p_suite_teardown)() = stearndown;   \
+    void (*_p_test_setup)()     = tsetup;       \
+    void (*_p_test_teardown)()  = tteardown;    \
+    if (_p_suite_setup) _p_suite_setup();       \
 
-#define CUNIT_CI_TEST(func)                 \
-    __cu_test_setup();                      \
-    {                                       \
-        CONST_STRPTR f = #func;             \
-        ULONG _tags[] = { (ULONG) f};       \
-        VPrintf("Running: %s\n", _tags);    \
-    }                                       \
-    func();                                 \
-    __cu_test_teardown();                   \
+#define CUNIT_CI_TEST(func)                     \
+    if (_p_test_setup) _p_test_setup();         \
+    {                                           \
+        CONST_STRPTR f = #func;                 \
+        ULONG _tags[] = { (ULONG) f};           \
+        VPrintf("Running: %s\n", _tags);        \
+    }                                           \
+    func();                                     \
+    if (_p_test_teardown) _p_test_teardown();   \
 
 #define CU_CI_RUN_SUITES()      \
-    __cu_suite_teardown();      \
+    ({int _ret = 0; if (_p_suite_teardown) _p_suite_teardown(); _ret;}) \
 
 #endif
 
