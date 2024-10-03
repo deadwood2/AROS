@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2023, The AROS Development Team.
+    Copyright (C) 2023-2024, The AROS Development Team.
     All rights reserved.
 */
 
@@ -142,9 +142,98 @@ static void test_string_string_acknowledged()
     }
 }
 
+static void test_string_string_contents_copied()
+{
+    Object *wnd;
+    Object *app;
+    Object *str1;
+
+    app = ApplicationObject,
+        SubWindow, wnd = WindowObject,
+            MUIA_Window_Activate, TRUE,
+            WindowContents, HGroup,
+                GroupFrame,
+                Child, str1 = MUI_MakeObject(MUIO_String, NULL, 200),
+            End,
+        End,
+    End;
+
+    if (app)
+    {
+        TEXT text[] = "TEXT";
+        UBYTE *tmp;
+        set(wnd, MUIA_Window_Open, TRUE);
+
+        tmp = NULL; get(str1, MUIA_String_Contents, &tmp);
+        CU_ASSERT_NOT_EQUAL_FATAL(NULL, tmp);
+        CU_ASSERT_STRING_EQUAL("", tmp);
+
+        set(str1, MUIA_String_Contents, (IPTR)text);
+        tmp = NULL; get(str1, MUIA_String_Contents, &tmp);
+        CU_ASSERT_NOT_EQUAL_FATAL(NULL, tmp);
+        CU_ASSERT_STRING_EQUAL("TEXT", tmp);
+
+        text[0] = 'B';
+
+        tmp = NULL; get(str1, MUIA_String_Contents, &tmp);
+        CU_ASSERT_NOT_EQUAL_FATAL(NULL, tmp);
+        CU_ASSERT_STRING_EQUAL("TEXT", tmp);
+
+        set(wnd, MUIA_Window_Open, FALSE);
+        MUI_DisposeObject(app);
+    }
+    else
+    {
+        CU_ASSERT(0);
+    }
+}
+
+static void test_string_string_contents_and_text_contents_mui5()
+{
+    Object *wnd;
+    Object *app;
+    Object *str1;
+
+    /* This test works under MUI5 under MorphOS, but fails under MUI3.9 under AmigaOS 3.1 */
+
+    app = ApplicationObject,
+        SubWindow, wnd = WindowObject,
+            MUIA_Window_Activate, TRUE,
+            WindowContents, HGroup,
+                GroupFrame,
+                Child, str1 = MUI_MakeObject(MUIO_String, NULL, 200),
+            End,
+        End,
+    End;
+
+    if (app)
+    {
+        UBYTE *tmp;
+        set(wnd, MUIA_Window_Open, TRUE);
+
+        set(str1, MUIA_Text_Contents, (IPTR)"TEXT_CONTENTS");
+        tmp = NULL; get(str1, MUIA_String_Contents, &tmp);
+        CU_ASSERT_NOT_EQUAL_FATAL(NULL, tmp);
+        CU_ASSERT_STRING_EQUAL("TEXT_CONTENTS", tmp);
+
+        set(str1, MUIA_String_Contents, (IPTR)"STRING_CONTENTS");
+        tmp = NULL; get(str1, MUIA_Text_Contents, &tmp);
+        CU_ASSERT_NOT_EQUAL_FATAL(NULL, tmp);
+        CU_ASSERT_STRING_EQUAL("STRING_CONTENTS", tmp);
+
+        set(wnd, MUIA_Window_Open, FALSE);
+        MUI_DisposeObject(app);
+    }
+    else
+    {
+        CU_ASSERT(0);
+    }
+}
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("MUIC_String_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_string_string_acknowledged);
+    CUNIT_CI_TEST(test_string_string_contents_copied);
+    CUNIT_CI_TEST(test_string_string_contents_and_text_contents_mui5);
     return CU_CI_RUN_SUITES();
 }
