@@ -179,36 +179,48 @@ static void aros_lc(int id, int flags)
 }
 static void aros_call(int id, int flags)
 {
-    /* Note that due to case of bn = (Base->OtherBase), Base cannot occupy r12 for duration of this macro.
-       _bn = bn changes r12, which would mean changing Base, however Base can be later referenced in one
-       of the __AROS_LCA() macros */
+    /* Note that bn could be an expression like (Base->OtherBase), and Base could also
+       be present in a1,a2,... We want register r12 for bn, so Base cannot be allowed to
+       occupy r12 for the duration of this macro.
+       The extended asm is supposed to take care of that by having r12 on the clobber list
+       which prevents r12 from being used for any operand passed into the assembler block. */
 
     printf("#define __AROS_CALL%d%s(t,a,", id, nr(flags));
     for (int i = 0; i < id; i++)
         printf("a%d,", i + 1);
     printf("bt,bn) \\\n"
            "({ \\\n"
-           /* "__asm__ __volatile__( \\\n" */
+           "  __asm__ __volatile__( \\\n"
            // Push r12 to stack
-           // Copy input operand to r12 (callee needs r12 to be set for a specific purpose)
+           "    \"push %%%%r12\\n\" \\\n"
+           // Copy input operand bn to r12
+           "    \"movq %%0, %%%%r12\\n\" \\\n"
            // Push r13 to stack
            // Copy rsp to r13
            // Push seventh and further args to stack
-           // Do any final stack alignment. Some trick with "and"?
+           // Do any final stack alignment. Do the "and" trick!
            // Copy args 1-6 to registers
-           // Call function
+           // Call address (input operand)
            // Copy r13 to rsp (restoring stack)
            // Pop r13 from stack
            // Pop r12 from stack
+           "    \"pop %%%%r12\\n\" \\\n"
            // Store rax in output operand
-           /* "                    );\\\n" */
-           "    APTR __sto; \\\n"
-           "    bt _bn = (bt)bn;\\\n"
-           "    APTR __func = (APTR)a; \\\n"
-           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
-    );
+           "    : \\\n"
+           "    : \"mr\" (bn) \\\n"
+           "    : \"r12\" \\\n"
+           "  ); \\\n");
+           if (!(flags & FLAG_NR)) {
+               // Every result is 0 for now :-)
+               printf("  0; \\\n");
+           }
+           /* "    APTR __sto; \\\n" */
+           /* "    bt _bn = (bt)bn;\\\n" */
+           /* "    APTR __func = (APTR)a; \\\n" */
+           /* "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n" */
+           printf("})\n");
 
-    aros_call_internal(id, flags);
+//aros_call_internal(id, flags);
 
     printf("#define AROS_CALL%d%s __AROS_CALL%d%s\n", id, nr(flags), id, nr(flags));
 }
