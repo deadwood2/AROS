@@ -188,6 +188,20 @@ static void aros_call(int id, int flags)
         printf("a%d,", i + 1);
     printf("bt,bn) \\\n"
            "({ \\\n"
+           /* "__asm__ __volatile__( \\\n" */
+           // Push r12 to stack
+           // Copy input operand to r12 (callee needs r12 to be set for a specific purpose)
+           // Push r13 to stack
+           // Copy rsp to r13
+           // Push seventh and further args to stack
+           // Do any final stack alignment. Some trick with "and"?
+           // Copy args 1-6 to registers
+           // Call function
+           // Copy r13 to rsp (restoring stack)
+           // Pop r13 from stack
+           // Pop r12 from stack
+           // Store rax in output operand
+           /* "                    );\\\n" */
            "    APTR __sto; \\\n"
            "    bt _bn = (bt)bn;\\\n"
            "    APTR __func = (APTR)a; \\\n"
