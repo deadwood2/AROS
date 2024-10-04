@@ -62,6 +62,7 @@ If NOT WARN
 
     ; Perform basic "Zune" unit tests...
     Execute S/Test cunit/zune/cunit-zune-cycle                  ;MUIC_Cycle_Suite
+    Execute S/Test cunit/zune/cunit-zune-dragdrop               ;MUIM_DragDrop_Suite
     Execute S/Test cunit/zune/cunit-zune-handleevent            ;MUIM_HandleEvent_Suite
     Execute S/Test cunit/zune/cunit-zune-handleevent-2          ;MUIM_HandleEvent_2_Suite
     Execute S/Test cunit/zune/cunit-zune-handleevent-3          ;MUIM_HandleEvent_3_Suite
@@ -79,7 +80,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 237" >DEBUG:
+    Echo "Expected tests: 240" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

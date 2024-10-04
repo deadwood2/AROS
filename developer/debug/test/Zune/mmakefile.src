@@ -30,6 +30,7 @@ FILES  := test             \
 
 CUNITFILES := \
     cunit-zune-cycle \
+    cunit-zune-dragdrop \
     cunit-zune-handleevent \
     cunit-zune-handleevent-2 \
     cunit-zune-handleevent-3 \
