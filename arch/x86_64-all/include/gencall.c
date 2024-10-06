@@ -184,15 +184,18 @@ static void aros_call(int id, int flags)
     // occupy r12 for the duration of this macro. Does it work?
 
     printf("#define __AROS_CALL%d%s(t,a,", id, nr(flags));
-    for (int i = 0; i < id; i++)
+    for (int i = 0; i < id; ++i)
         printf("a%d,", i + 1);
     printf("bt,bn) \\\n"
-           "({ \\\n"
-           "  __asm__ __volatile__( \\\n"
+           "({ \\\n");
+    // Extract the value from all argument triplets
+    for (int i = 1; i <= id; ++i)
+        printf("  UQUAD arg%d = (UQUAD)__AROS_LCA(a%d); \\\n", i, i);
+    printf("  __asm__ __volatile__( \\\n"
            // Push r12 to stack
            "    \"push %%%%r12\\n\" \\\n"
            // Copy input operand bn (base pointer) to r12
-           "    \"movq %%0, %%%%r12\\n\" \\\n"
+           "    \"movq %%[op_bn], %%%%r12\\n\" \\\n"
            // Push r13 to stack
            "    \"push %%%%r13\\n\" \\\n"
            // Copy rsp to r13, we need to restore this stack position after the call
@@ -205,14 +208,15 @@ static void aros_call(int id, int flags)
     // First clear the lowest four bits so we have the stack aligned on 16 bytes.
     printf("    \"andq $-16, %%%%rsp\\n\"  \\\n");
     if (id > 6) {
-        if ((id - 6) % 2 == 0) {
-            // Even number of stack args -> alignment will be correct.
-        } else {
+        if ((id - 6) % 2 != 0) {
             // Odd number of stack args -> need 8 more bytes to get correct alignment.
             printf("    \"subq $8, %%%%rsp\\n\" \\\n");
         }
     }
     // Push seventh and further args to stack, in reverse order.
+    for (int i = id; i > 6; --i) {
+        printf("    \"push %%[op_a%d]\\n\" \\\n", i);
+    }
     // Copy args 1-6 to registers
     // Call address (input operand)
     // Copy r13 to rsp (restoring stack)
@@ -223,8 +227,12 @@ static void aros_call(int id, int flags)
            "    \"pop %%%%r12\\n\" \\\n"
            // Store rax in output operand
            "    : \\\n"
-           "    : \"mr\" (bn) \\\n"
-           "    : \"r12\", \"r13\" \\\n"
+           "    : [op_bn] \"mr\" (bn), [op_a] \"mr\" (a)");
+    for (int i = 1; i <= id; ++i) {
+        printf(", [op_a%d] \"mr\" (arg%d)", i, i);
+    }
+    printf(" \\\n");
+    printf("    : \"rax\", \"rdi\", \"rsi\", \"rdx\", \"rcx\", \"r8\", \"r9\", \"r10\", \"r11\", \"r12\", \"r13\" \\\n"
            "  ); \\\n");
            if (!(flags & FLAG_NR)) {
                // Every result is 0 for now :-)
