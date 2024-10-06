@@ -179,11 +179,9 @@ static void aros_lc(int id, int flags)
 }
 static void aros_call(int id, int flags)
 {
-    /* Note that bn could be an expression like (Base->OtherBase), and Base could also
-       be present in a1,a2,... We want register r12 for bn, so Base cannot be allowed to
-       occupy r12 for the duration of this macro.
-       The extended asm is supposed to take care of that by having r12 on the clobber list
-       which prevents r12 from being used for any operand passed into the assembler block. */
+    // Note that bn could be an expression like (Base->OtherBase), and Base could also
+    // be present in a1,a2,... We want register r12 for bn, so Base cannot be allowed to
+    // occupy r12 for the duration of this macro. Does it work?
 
     printf("#define __AROS_CALL%d%s(t,a,", id, nr(flags));
     for (int i = 0; i < id; i++)
@@ -193,22 +191,40 @@ static void aros_call(int id, int flags)
            "  __asm__ __volatile__( \\\n"
            // Push r12 to stack
            "    \"push %%%%r12\\n\" \\\n"
-           // Copy input operand bn to r12
+           // Copy input operand bn (base pointer) to r12
            "    \"movq %%0, %%%%r12\\n\" \\\n"
            // Push r13 to stack
-           // Copy rsp to r13
-           // Push seventh and further args to stack
-           // Do any final stack alignment. Do the "and" trick!
-           // Copy args 1-6 to registers
-           // Call address (input operand)
-           // Copy r13 to rsp (restoring stack)
+           "    \"push %%%%r13\\n\" \\\n"
+           // Copy rsp to r13, we need to restore this stack position after the call
+           "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
+    // The stack needs to be aligned on 16 bytes before the call op,
+    // but the callee also expects the stack args to have been pushed
+    // directly before the call op where it reliably can find them.
+    // That means we need to make alignment adjustments *before* pushing
+    // args so the end result is 16 bytes aligned.
+    // First clear the lowest four bits so we have the stack aligned on 16 bytes.
+    printf("    \"andq $-16, %%%%rsp\\n\"  \\\n");
+    if (id > 6) {
+        if ((id - 6) % 2 == 0) {
+            // Even number of stack args -> alignment will be correct.
+        } else {
+            // Odd number of stack args -> need 8 more bytes to get correct alignment.
+            printf("    \"subq $8, %%%%rsp\\n\" \\\n");
+        }
+    }
+    // Push seventh and further args to stack, in reverse order.
+    // Copy args 1-6 to registers
+    // Call address (input operand)
+    // Copy r13 to rsp (restoring stack)
+    printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
            // Pop r13 from stack
+           "    \"pop %%%%r13\\n\" \\\n"
            // Pop r12 from stack
            "    \"pop %%%%r12\\n\" \\\n"
            // Store rax in output operand
            "    : \\\n"
            "    : \"mr\" (bn) \\\n"
-           "    : \"r12\" \\\n"
+           "    : \"r12\", \"r13\" \\\n"
            "  ); \\\n");
            if (!(flags & FLAG_NR)) {
                // Every result is 0 for now :-)
