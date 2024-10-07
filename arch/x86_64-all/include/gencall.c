@@ -54,26 +54,8 @@ static void aros_lc(int id, int flags)
     if (id >= 6) {
         printf("  register UQUAD arg6 __asm__(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
     }
-    if (id >= 7) {
-        printf("  UQUAD arg7 = (UQUAD)__AROS_LCA(a7); \\\n");
-    }
-    if (id >= 8) {
-        printf("  UQUAD arg8 = (UQUAD)__AROS_LCA(a8); \\\n");
-    }
-    if (id >= 9) {
-        printf("  UQUAD arg9 = (UQUAD)__AROS_LCA(a9); \\\n");
-    }
-    if (id >= 10) {
-        printf("  UQUAD arg10 = (UQUAD)__AROS_LCA(a10); \\\n");
-    }
-    if (id >= 11) {
-        printf("  UQUAD arg11 = (UQUAD)__AROS_LCA(a11); \\\n");
-    }
-    if (id >= 12) {
-        printf("  UQUAD arg12 = (UQUAD)__AROS_LCA(a12); \\\n");
-    }
-    if (id >= 13) {
-        printf("  UQUAD arg13 = (UQUAD)__AROS_LCA(a13); \\\n");
+    for (int i = 7; i <= id; ++i) {
+        printf("  UQUAD arg%d = (UQUAD)__AROS_LCA(a%d); \\\n", i, i);
     }
     printf("  __asm__ __volatile__( \\\n"
            // Push r13 to stack
@@ -200,26 +182,8 @@ static void aros_call(int id, int flags)
     if (id >= 6) {
         printf("  register UQUAD arg6 __asm__(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
     }
-    if (id >= 7) {
-        printf("  UQUAD arg7 = (UQUAD)__AROS_LCA(a7); \\\n");
-    }
-    if (id >= 8) {
-        printf("  UQUAD arg8 = (UQUAD)__AROS_LCA(a8); \\\n");
-    }
-    if (id >= 9) {
-        printf("  UQUAD arg9 = (UQUAD)__AROS_LCA(a9); \\\n");
-    }
-    if (id >= 10) {
-        printf("  UQUAD arg10 = (UQUAD)__AROS_LCA(a10); \\\n");
-    }
-    if (id >= 11) {
-        printf("  UQUAD arg11 = (UQUAD)__AROS_LCA(a11); \\\n");
-    }
-    if (id >= 12) {
-        printf("  UQUAD arg12 = (UQUAD)__AROS_LCA(a12); \\\n");
-    }
-    if (id >= 13) {
-        printf("  UQUAD arg13 = (UQUAD)__AROS_LCA(a13); \\\n");
+    for (int i = 7; i <= id; ++i) {
+        printf("  UQUAD arg%d = (UQUAD)__AROS_LCA(a%d); \\\n", i, i);
     }
     printf("  __asm__ __volatile__( \\\n"
            // Push r13 to stack
