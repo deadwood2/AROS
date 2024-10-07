@@ -48,6 +48,7 @@ If NOT WARN
     ; Perform basic C library unit tests...
     Execute S/Test cunit/crt/stdc/math/cunit-crt-math           ;CrtMath_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-fileseek            ;FileSeek_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-time                ;time_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-sscanf              ;sscanf_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-sxprintf            ;sxprintf_Suite
     Execute S/Test cunit/crt/posix/cunit-crt-fread              ;fread_Suite
@@ -80,7 +81,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 240" >DEBUG:
+    Echo "Expected tests: 245" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

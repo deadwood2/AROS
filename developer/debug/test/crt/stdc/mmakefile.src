@@ -44,7 +44,8 @@ CUNITSTDCTESTFILES := \
     cunit-crt-types \
     cunit-crt-fileseek \
     cunit-crt-sscanf \
-    cunit-crt-sxprintf
+    cunit-crt-sxprintf \
+    cunit-crt-time
 
 #MM- test-crt : test-crt-stdc test-crt-stdc-$(AROS_TARGET_CPU)
 #MM- test-crt-quick : test-crt-stdc-quick test-crt-stdc-$(AROS_TARGET_CPU)-quick
