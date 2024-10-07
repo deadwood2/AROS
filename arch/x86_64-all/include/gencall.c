@@ -21,42 +21,8 @@ static inline const char *nr(int flags)
         return "";
 }
 
-static void aros_call_internal(int id, int flags)
-{
-    int i;
-
-    printf(
-            "%s",
-           (flags & FLAG_NR ? "    (( t (*)(" : "    t __ret = (( t (*)(")
-    );
-
-    for (i = 0; i < id; i++)
-    {
-        if (i > 0)
-            printf(", ");
-        printf("__AROS_LDA(a%d)", i+1);
-    }
-    printf("))(APTR)__func)(");
-
-    for (i = 0; i < id; i++)
-    {
-        if (i > 0)
-            printf(", ");
-        printf("__AROS_LCA(a%d)", i+1);
-    }
-    printf("); \\\n"
-           "    AROS_LIBCALL%s_EXIT \\\n"
-           "})\n",
-            (flags & FLAG_NR ? "NR" : "")
-    );
-}
-
 static void aros_lc(int id, int flags)
 {
-    /* Note that due to case of bn = (Base->OtherBase), Base cannot occupy r12 for duration of this macro.
-    _bn = bn changes r12, which would mean changing Base, however Base can be later referenced in one
-    of the __AROS_LCA() macros */
-
     printf("#define __AROS_LC%d%s(t,a,", id, nr(flags));
     for (int i = 0; i < id; i++)
         printf("a%d,", i + 1);
@@ -64,138 +30,52 @@ static void aros_lc(int id, int flags)
            "({ \\\n"
     );
 
-    if (id < 7) {
-        // Phew, all args are passed in registers this far.
-
-        /* Problem with existing call is the following: There doesn't seem to be a way to tell
-           GCC 10.5 under -O2 not to use R12 after it was assigned value of base in AROS_LIBCALL_INIT.
-           This was working with GCC 6.5 though the use of global register variable, but according to
-           documentation was just a side effect. This has changes with GCC 7 and new register
-           allocator.
-
-           The problem now is that in some cases, GCC will use R12 as temporary register when filling
-           out function argument register (i.e. RSI) in call call:
-           t __ret = __func(a1, a2, ...)
-           Example: (crash in Wanderer, inline_NewObjectA when opening disk window)
-
-           Trying to put those arguments into local variable does not solve the problem as R12
-           still ends up being used just to read from stack and put into RSI . GCC seems to be very
-           strict on keeping argument registers assigment just before doing call.
-           The workaround below manually fills in argument registers, then sets R12 and then
-           does a zero argument function call. Since call is done from C code, GCC will
-           account for aligning stack to 16 bytes and for managing registers according to ABI. When
-           call was done from assembler template and it was an only call in the whole function, stack
-           could remaining unaligned and movaps SSE instruction in following functions would generate
-           error. Also in case of call from assembler, all clobber list needed to be full:
-
-           #define __AROS_LC2(t,a,a1,a2,bt,bn,o,s) \
-           ({ \
-           APTR __sto; \
-           APTR _bn = (APTR)bn; \
-           register UQUAD _rax asm("rax"); \
-           register UQUAD _rdi asm("rdi") = (UQUAD)__AROS_LCA(a1); \
-           register UQUAD _rsi asm("rsi") = (UQUAD)__AROS_LCA(a2); \
-           __asm__ __volatile__("movq %%r12, %1\n    movq %5, %%r12\n    call *%c4(%%r12)\n    movq %1, %%r12" \
-           : "=r"(_rax), "+mr"(__sto), "+r"(_rdi), "+r"(_rsi) \
-           : "i" (-1 * (o) * LIB_VECTSIZE), "mr"(_bn), "r"(_rdi), "r"(_rsi) \
-           : "cc", "memory", "rdx", "rcx", "r8", "r9", "r10", "r11"); \
-           (t)_rax; \
-           })
-        */
-
-        printf("    APTR __sto; \\\n"
-               "    APTR _bn = (APTR)bn; \\\n");
-        if (id >= 1) {
-            printf("    register UQUAD _rdi __asm__(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
-        }
-        if (id >= 2) {
-            printf("    register UQUAD _rsi __asm__(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
-        }
-        if (id >= 3) {
-            printf("    register UQUAD _rdx __asm__(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
-        }
-        if (id >= 4) {
-            printf("    register UQUAD _rcx __asm__(\"rcx\") = (UQUAD)__AROS_LCA(a4); \\\n");
-        }
-        if (id >= 5) {
-            printf("    register UQUAD _r8 __asm__(\"r8\") = (UQUAD)__AROS_LCA(a5); \\\n");
-        }
-        if (id >= 6) {
-            printf("    register UQUAD _r9 __asm__(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
-        }
-        int bn_index;
-        if (id <= 6) {
-            bn_index = 2 + id;
-        }
-        else {
-            // This should not happen
-            printf("id=%d not supported yet\n", id);
-            exit(1);
-        }
-        printf("    register APTR  _r12 __asm__(\"r12\"); \\\n"
-               "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%%d, %%%%r12\\n\" \\\n"
-               "    : \"+mr\"(__sto), \"+r\"(_r12)", bn_index);
-        if (id >= 1) {
-            printf(", \"+r\"(_rdi)");
-        }
-        if (id >= 2) {
-            printf(", \"+r\"(_rsi)");
-        }
-        if (id >= 3) {
-            printf(", \"+r\"(_rdx)");
-        }
-        if (id >= 4) {
-            printf(", \"+r\"(_rcx)");
-        }
-        if (id >= 5) {
-            printf(", \"+r\"(_r8)");
-        }
-        if (id >= 6) {
-            printf(", \"+r\"(_r9)");
-        }
-        printf("\\\n"
-               "    : \"mr\"(_bn) \\\n"
-               "    :); \\\n");
-        if (!(flags & FLAG_NR)) {
-            printf("    t __ret = (( t (*)())(APTR)__AROS_GETVECADDR(_r12, o))(); \\\n");
-        }
-        else {
-            printf("    (( t (*)())(APTR)__AROS_GETVECADDR(_r12, o))(); \\\n");
-        }
-        printf("    __asm__ __volatile__(\"movq %%0, %%%%r12 \" : : \"rm\"(__sto) : \"r12\"); \\\n");
-        if (!(flags & FLAG_NR)) {
-            printf("    __ret; \\\n");
-        }
-        printf("})\n");
+    if (!(flags & FLAG_NR)) {
+        printf("  t __result; \\\n");
     }
-    else {
-        // A lot of arguments, might not work out
-        printf("    AROS_LIBCALL_INIT(bn, o) \\\n");
-
-        aros_call_internal(id, flags);
-    }
-
-    printf("#define AROS_LC%d%s __AROS_LC%d%s\n", id, nr(flags), id, nr(flags));
-}
-static void aros_call(int id, int flags)
-{
-    // Note that bn could be an expression like (Base->OtherBase), and Base could also
-    // be present in a1,a2,... We want register r12 for bn, so Base cannot be allowed to
-    // occupy r12 for the duration of this macro. Does it work?
-
-    printf("#define __AROS_CALL%d%s(t,a,", id, nr(flags));
-    for (int i = 0; i < id; ++i)
-        printf("a%d,", i + 1);
-    printf("bt,bn) \\\n"
-           "({ \\\n");
+    printf("  register bt baseptr __asm__(\"r12\") = (bt) bn; \\\n");
+    printf("  APTR vec = (APTR)__AROS_GETVECADDR(baseptr, o); \\\n");
     // Extract the value from all argument triplets
-    for (int i = 1; i <= id; ++i)
-        printf("  UQUAD arg%d = (UQUAD)__AROS_LCA(a%d); \\\n", i, i);
+    if (id >= 1) {
+        printf("  register UQUAD arg1 __asm__(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
+    }
+    if (id >= 2) {
+        printf("  register UQUAD arg2 __asm__(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
+    }
+    if (id >= 3) {
+        printf("  register UQUAD arg3 __asm__(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
+    }
+    if (id >= 4) {
+        printf("  register UQUAD arg4 __asm__(\"rcx\") = (UQUAD)__AROS_LCA(a4); \\\n");
+    }
+    if (id >= 5) {
+        printf("  register UQUAD arg5 __asm__(\"r8\") = (UQUAD)__AROS_LCA(a5); \\\n");
+    }
+    if (id >= 6) {
+        printf("  register UQUAD arg6 __asm__(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
+    }
+    if (id >= 7) {
+        printf("  UQUAD arg7 = (UQUAD)__AROS_LCA(a7); \\\n");
+    }
+    if (id >= 8) {
+        printf("  UQUAD arg8 = (UQUAD)__AROS_LCA(a8); \\\n");
+    }
+    if (id >= 9) {
+        printf("  UQUAD arg9 = (UQUAD)__AROS_LCA(a9); \\\n");
+    }
+    if (id >= 10) {
+        printf("  UQUAD arg10 = (UQUAD)__AROS_LCA(a10); \\\n");
+    }
+    if (id >= 11) {
+        printf("  UQUAD arg11 = (UQUAD)__AROS_LCA(a11); \\\n");
+    }
+    if (id >= 12) {
+        printf("  UQUAD arg12 = (UQUAD)__AROS_LCA(a12); \\\n");
+    }
+    if (id >= 13) {
+        printf("  UQUAD arg13 = (UQUAD)__AROS_LCA(a13); \\\n");
+    }
     printf("  __asm__ __volatile__( \\\n"
-           // Push r12 to stack
-           "    \"push %%%%r12\\n\" \\\n"
-           // Copy input operand bn (base pointer) to r12
-           "    \"movq %%[op_bn], %%%%r12\\n\" \\\n"
            // Push r13 to stack
            "    \"push %%%%r13\\n\" \\\n"
            // Copy rsp to r13, we need to restore this stack position after the call
@@ -215,36 +95,210 @@ static void aros_call(int id, int flags)
     }
     // Push seventh and further args to stack, in reverse order.
     for (int i = id; i > 6; --i) {
-        printf("    \"push %%[op_a%d]\\n\" \\\n", i);
+        printf("    \"push %%[op_arg%d]\\n\" \\\n", i);
     }
-    // Copy args 1-6 to registers
-    // Call address (input operand)
+    // Call LVO address
+    printf("    \"call *%%[op_a]\\n\"  \\\n");
     // Copy r13 to rsp (restoring stack)
     printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
            // Pop r13 from stack
-           "    \"pop %%%%r13\\n\" \\\n"
-           // Pop r12 from stack
-           "    \"pop %%%%r12\\n\" \\\n"
-           // Store rax in output operand
-           "    : \\\n"
-           "    : [op_bn] \"mr\" (bn), [op_a] \"mr\" (a)");
-    for (int i = 1; i <= id; ++i) {
-        printf(", [op_a%d] \"mr\" (arg%d)", i, i);
+           "    \"pop %%%%r13\\n\" \\\n");
+    // Store rax in __result, if applicable
+    if (!(flags & FLAG_NR)) {
+        printf("    : [op_result] \"=a\" (__result) \\\n");
+    } else {
+        printf("    : \\\n");
+    }
+    // Define input operands
+    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
+    if (id >= 1) {
+        printf(", [op_arg1] \"D\" (arg1)");
+    }
+    if (id >= 2) {
+        printf(", [op_arg2] \"S\" (arg2)");
+    }
+    if (id >= 3) {
+        printf(", [op_arg3] \"d\" (arg3)");
+    }
+    if (id >= 4) {
+        printf(", [op_arg4] \"c\" (arg4)");
+    }
+    if (id >= 5) {
+        printf(", [op_arg5] \"r\" (arg5)");
+    }
+    if (id >= 6) {
+        printf(", [op_arg6] \"r\" (arg6)");
+    }
+    for (int i = 7; i <= id; ++i) {
+        printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
-    printf("    : \"rax\", \"rdi\", \"rsi\", \"rdx\", \"rcx\", \"r8\", \"r9\", \"r10\", \"r11\", \"r12\", \"r13\" \\\n"
-           "  ); \\\n");
-           if (!(flags & FLAG_NR)) {
-               // Every result is 0 for now :-)
-               printf("  0; \\\n");
-           }
-           /* "    APTR __sto; \\\n" */
-           /* "    bt _bn = (bt)bn;\\\n" */
-           /* "    APTR __func = (APTR)a; \\\n" */
-           /* "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n" */
-           printf("})\n");
+    // Define clobber list. It is inversely proportional to the number of args :-)
+    printf("    : \"cc\", \"r10\", \"r11\", \"r13\"");
+    if (id < 6) {
+        printf(", \"r9\"");
+    }
+    if (id < 5) {
+        printf(", \"r8\"");
+    }
+    if (id < 4) {
+        printf(", \"rcx\"");
+    }
+    if (id < 3) {
+        printf(", \"rdx\"");
+    }
+    if (id < 2) {
+        printf(", \"rsi\"");
+    }
+    if (id < 1) {
+        printf(", \"rdi\"");
+    }
+    printf("  ); \\\n");
+    if (!(flags & FLAG_NR)) {
+        // Return __result, which should have the return value from %rax
+        printf("  __result; \\\n");
+    }
+    printf("})\n");
 
-//aros_call_internal(id, flags);
+    printf("#define AROS_LC%d%s __AROS_LC%d%s\n", id, nr(flags), id, nr(flags));
+}
+
+static void aros_call(int id, int flags)
+{
+    printf("#define __AROS_CALL%d%s(t,a,", id, nr(flags));
+    for (int i = 0; i < id; ++i)
+        printf("a%d,", i + 1);
+    printf("bt,bn) \\\n"
+           "({ \\\n");
+    if (!(flags & FLAG_NR)) {
+        printf("  t __result; \\\n");
+    }
+    printf("  APTR vec = a; \\\n");
+    printf("  register bt baseptr __asm__(\"r12\") = bn; \\\n");
+    // Extract the value from all argument triplets
+    if (id >= 1) {
+        printf("  register UQUAD arg1 __asm__(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n");
+    }
+    if (id >= 2) {
+        printf("  register UQUAD arg2 __asm__(\"rsi\") = (UQUAD)__AROS_LCA(a2); \\\n");
+    }
+    if (id >= 3) {
+        printf("  register UQUAD arg3 __asm__(\"rdx\") = (UQUAD)__AROS_LCA(a3); \\\n");
+    }
+    if (id >= 4) {
+        printf("  register UQUAD arg4 __asm__(\"rcx\") = (UQUAD)__AROS_LCA(a4); \\\n");
+    }
+    if (id >= 5) {
+        printf("  register UQUAD arg5 __asm__(\"r8\") = (UQUAD)__AROS_LCA(a5); \\\n");
+    }
+    if (id >= 6) {
+        printf("  register UQUAD arg6 __asm__(\"r9\") = (UQUAD)__AROS_LCA(a6); \\\n");
+    }
+    if (id >= 7) {
+        printf("  UQUAD arg7 = (UQUAD)__AROS_LCA(a7); \\\n");
+    }
+    if (id >= 8) {
+        printf("  UQUAD arg8 = (UQUAD)__AROS_LCA(a8); \\\n");
+    }
+    if (id >= 9) {
+        printf("  UQUAD arg9 = (UQUAD)__AROS_LCA(a9); \\\n");
+    }
+    if (id >= 10) {
+        printf("  UQUAD arg10 = (UQUAD)__AROS_LCA(a10); \\\n");
+    }
+    if (id >= 11) {
+        printf("  UQUAD arg11 = (UQUAD)__AROS_LCA(a11); \\\n");
+    }
+    if (id >= 12) {
+        printf("  UQUAD arg12 = (UQUAD)__AROS_LCA(a12); \\\n");
+    }
+    if (id >= 13) {
+        printf("  UQUAD arg13 = (UQUAD)__AROS_LCA(a13); \\\n");
+    }
+    printf("  __asm__ __volatile__( \\\n"
+           // Push r13 to stack
+           "    \"push %%%%r13\\n\" \\\n"
+           // Copy rsp to r13, we need to restore this stack position after the call
+           "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
+    // The stack needs to be aligned on 16 bytes before the call op,
+    // but the callee also expects the stack args to have been pushed
+    // directly before the call op where it reliably can find them.
+    // That means we need to make alignment adjustments *before* pushing
+    // args so the end result is 16 bytes aligned.
+    // First clear the lowest four bits so we have the stack aligned on 16 bytes.
+    printf("    \"andq $-16, %%%%rsp\\n\"  \\\n");
+    if (id > 6) {
+        if ((id - 6) % 2 != 0) {
+            // Odd number of stack args -> need 8 more bytes to get correct alignment.
+            printf("    \"subq $8, %%%%rsp\\n\" \\\n");
+        }
+    }
+    // Push seventh and further args to stack, in reverse order.
+    for (int i = id; i > 6; --i) {
+        printf("    \"push %%[op_arg%d]\\n\" \\\n", i);
+    }
+    // Call LVO address
+    printf("    \"call *%%[op_a]\\n\"  \\\n");
+    // Copy r13 to rsp (restoring stack)
+    printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
+           // Pop r13 from stack
+           "    \"pop %%%%r13\\n\" \\\n");
+    // Store rax in __result, if applicable
+    if (!(flags & FLAG_NR)) {
+        printf("    : [op_result] \"=a\" (__result) \\\n");
+    } else {
+        printf("    : \\\n");
+    }
+    // Define input operands
+    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
+    if (id >= 1) {
+        printf(", [op_arg1] \"D\" (arg1)");
+    }
+    if (id >= 2) {
+        printf(", [op_arg2] \"S\" (arg2)");
+    }
+    if (id >= 3) {
+        printf(", [op_arg3] \"d\" (arg3)");
+    }
+    if (id >= 4) {
+        printf(", [op_arg4] \"c\" (arg4)");
+    }
+    if (id >= 5) {
+        printf(", [op_arg5] \"r\" (arg5)");
+    }
+    if (id >= 6) {
+        printf(", [op_arg6] \"r\" (arg6)");
+    }
+    for (int i = 7; i <= id; ++i) {
+        printf(", [op_arg%d] \"m\" (arg%d)", i, i);
+    }
+    printf(" \\\n");
+    // Define clobber list. It is inversely proportional to the number of args :-)
+    printf("    : \"cc\", \"r10\", \"r11\", \"r13\" \\\n");
+    if (id < 6) {
+        printf(", \"r9\"");
+    }
+    if (id < 5) {
+        printf(", \"r8\"");
+    }
+    if (id < 4) {
+        printf(", \"rcx\"");
+    }
+    if (id < 3) {
+        printf(", \"rdx\"");
+    }
+    if (id < 2) {
+        printf(", \"rsi\"");
+    }
+    if (id < 1) {
+        printf(", \"rdi\"");
+    }
+    printf("  ); \\\n");
+    if (!(flags & FLAG_NR)) {
+        // Return __result, which should have the return value from %rax
+        printf("  __result; \\\n");
+    }
+    printf("})\n");
 
     printf("#define AROS_CALL%d%s __AROS_CALL%d%s\n", id, nr(flags), id, nr(flags));
 }
