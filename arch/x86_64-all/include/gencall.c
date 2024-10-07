@@ -105,36 +105,42 @@ static void aros_lc(int id, int flags)
            "    \"pop %%%%r13\\n\" \\\n");
     // Store rax in __result, if applicable
     if (!(flags & FLAG_NR)) {
-        printf("    : [op_result] \"=a\" (__result) \\\n");
+        printf("    : [op_result] \"=a\" (__result)");
+        if (id >= 1) {
+            // Function arg(s) will follow
+            printf(", ");
+        }
     } else {
-        printf("    : \\\n");
+        printf("    : ");
     }
-    // Define input operands
-    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
+    // The registers of these args may be changed by the callee, so they are read-write.
     if (id >= 1) {
-        printf(", [op_arg1] \"D\" (arg1)");
+        printf("[op_arg1] \"+D\" (arg1)");
     }
     if (id >= 2) {
-        printf(", [op_arg2] \"S\" (arg2)");
+        printf(", [op_arg2] \"+S\" (arg2)");
     }
     if (id >= 3) {
-        printf(", [op_arg3] \"d\" (arg3)");
+        printf(", [op_arg3] \"+d\" (arg3)");
     }
     if (id >= 4) {
-        printf(", [op_arg4] \"c\" (arg4)");
+        printf(", [op_arg4] \"+c\" (arg4)");
     }
     if (id >= 5) {
-        printf(", [op_arg5] \"r\" (arg5)");
+        printf(", [op_arg5] \"+r\" (arg5)");
     }
     if (id >= 6) {
-        printf(", [op_arg6] \"r\" (arg6)");
+        printf(", [op_arg6] \"+r\" (arg6)");
     }
+    printf("\\\n");
+    // Define input operands
+    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
     for (int i = 7; i <= id; ++i) {
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
-    // Define clobber list. It is inversely proportional to the number of args :-)
-    printf("    : \"cc\", \"r10\", \"r11\", \"r13\"");
+    // Define clobber list. The scratch registers are only here if they are not operands.
+    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r13\"");
     if (id < 6) {
         printf(", \"r9\"");
     }
@@ -245,36 +251,42 @@ static void aros_call(int id, int flags)
            "    \"pop %%%%r13\\n\" \\\n");
     // Store rax in __result, if applicable
     if (!(flags & FLAG_NR)) {
-        printf("    : [op_result] \"=a\" (__result) \\\n");
+        printf("    : [op_result] \"=a\" (__result)");
+        if (id >= 1) {
+            // Function arg(s) will follow
+            printf(", ");
+        }
     } else {
-        printf("    : \\\n");
+        printf("    : ");
     }
-    // Define input operands
-    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
+    // The registers of these args may be changed by the callee, so they are read-write.
     if (id >= 1) {
-        printf(", [op_arg1] \"D\" (arg1)");
+        printf("[op_arg1] \"+D\" (arg1)");
     }
     if (id >= 2) {
-        printf(", [op_arg2] \"S\" (arg2)");
+        printf(", [op_arg2] \"+S\" (arg2)");
     }
     if (id >= 3) {
-        printf(", [op_arg3] \"d\" (arg3)");
+        printf(", [op_arg3] \"+d\" (arg3)");
     }
     if (id >= 4) {
-        printf(", [op_arg4] \"c\" (arg4)");
+        printf(", [op_arg4] \"+c\" (arg4)");
     }
     if (id >= 5) {
-        printf(", [op_arg5] \"r\" (arg5)");
+        printf(", [op_arg5] \"+r\" (arg5)");
     }
     if (id >= 6) {
-        printf(", [op_arg6] \"r\" (arg6)");
+        printf(", [op_arg6] \"+r\" (arg6)");
     }
+    printf("\\\n");
+    // Define input operands
+    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
     for (int i = 7; i <= id; ++i) {
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
-    // Define clobber list. It is inversely proportional to the number of args :-)
-    printf("    : \"cc\", \"r10\", \"r11\", \"r13\" \\\n");
+    // Define clobber list. The scratch registers are only here if they are not operands.
+    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r13\"");
     if (id < 6) {
         printf(", \"r9\"");
     }
