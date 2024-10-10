@@ -79,8 +79,6 @@ static void aros_lc(int id, int flags)
                "  } \\\n", i, i);
     }
     printf("  __asm__ __volatile__( \\\n"
-           // Push r13 to stack
-           "    \"push %%%%r13\\n\" \\\n"
            // Copy rsp to r13, we need to restore this stack position after the call
            "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
     // The stack needs to be aligned on 16 bytes before the call op,
@@ -103,9 +101,7 @@ static void aros_lc(int id, int flags)
     // Call LVO address
     printf("    \"call *%%[op_a]\\n\"  \\\n");
     // Copy r13 to rsp (restoring stack)
-    printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
-           // Pop r13 from stack
-           "    \"pop %%%%r13\\n\" \\\n");
+    printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n");
     // Store rax in __result, if applicable
     if (!(flags & FLAG_NR)) {
         printf("    : [op_result] \"=a\" (__result)");
