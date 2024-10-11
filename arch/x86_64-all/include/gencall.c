@@ -148,8 +148,12 @@ static void aros_lc(int id, int flags)
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
-    // Define clobber list. The scratch registers are only here if they are not operands.
+    // Define clobber list. The scratch registers are either here or operands.
     printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
+    if (flags & FLAG_NR) {
+        // In this case rax is not an operand, so it must be on the clobber list.
+        printf(", \"rax\"");
+    }
     if (id < 6) {
         printf(", \"r9\"");
     }
@@ -303,8 +307,12 @@ static void aros_call(int id, int flags)
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
-    // Define clobber list. The scratch registers are only here if they are not operands.
+    // Define clobber list. The scratch registers are either here or operands.
     printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
+    if (flags & FLAG_NR) {
+        // In this case rax is not an operand, so it must be on the clobber list.
+        printf(", \"rax\"");
+    }
     if (id < 6) {
         printf(", \"r9\"");
     }
