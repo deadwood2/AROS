@@ -180,11 +180,12 @@ AROS_LH4(int, f_send,
          AROS_LHA(const void *, msg, A0),
          AROS_LHA(int, len, D1),
          AROS_LHA(int, flags, D2),
-         struct Library *, SocketBase, 11, BSDSocket)
+         struct SocketBase *, SocketBase, 11, BSDSocket)
 {
     AROS_LIBFUNC_INIT
 
-    return send(__fs_translate_socket(s), msg, len, flags);
+    int ret = send(__fs_translate_socket(s), msg, len, flags | MSG_NOSIGNAL);
+    if (ret == -1) __fs_translate_errno(errno, SocketBase);
 
     AROS_LIBFUNC_EXIT
 }
