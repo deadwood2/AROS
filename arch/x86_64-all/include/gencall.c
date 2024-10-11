@@ -33,7 +33,7 @@ static void aros_lc(int id, int flags)
     if (!(flags & FLAG_NR)) {
         printf("  t __result; \\\n");
     }
-    printf("  register bt baseptr __asm__(\"r12\") = (bt) bn; \\\n");
+    printf("  bt baseptr = (bt) bn; \\\n");
     printf("  APTR vec = (APTR)__AROS_GETVECADDR(baseptr, o); \\\n");
     // Extract the value from all argument triplets
     if (id >= 1) {
@@ -79,8 +79,12 @@ static void aros_lc(int id, int flags)
                "  } \\\n", i, i);
     }
     printf("  __asm__ __volatile__( \\\n"
-           // Push r13 to stack
+           // Save r12 so it can be restored on exit
+           "    \"push %%%%r12\\n\" \\\n"
+           // Save r13 so it can be restored on exit
            "    \"push %%%%r13\\n\" \\\n"
+           // Load base pointer into r12
+           "    \"movq %%[op_base], %%%%r12\\n\" \\\n"
            // Copy rsp to r13, we need to restore this stack position after the call
            "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
     // The stack needs to be aligned on 16 bytes before the call op,
@@ -104,8 +108,10 @@ static void aros_lc(int id, int flags)
     printf("    \"call *%%[op_a]\\n\"  \\\n");
     // Copy r13 to rsp (restoring stack)
     printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
-           // Pop r13 from stack
-           "    \"pop %%%%r13\\n\" \\\n");
+           // Restore r13 from stack
+           "    \"pop %%%%r13\\n\" \\\n"
+           // Restore r12 from stack
+           "    \"pop %%%%r12\\n\" \\\n");
     // Store rax in __result, if applicable
     if (!(flags & FLAG_NR)) {
         printf("    : [op_result] \"=a\" (__result)");
@@ -137,13 +143,13 @@ static void aros_lc(int id, int flags)
     }
     printf("\\\n");
     // Define input operands
-    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
+    printf("    : [op_base] \"m\" (baseptr), [op_a] \"mr\" (vec)");
     for (int i = 7; i <= id; ++i) {
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
     // Define clobber list. The scratch registers are only here if they are not operands.
-    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r13\"");
+    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
     if (id < 6) {
         printf(", \"r9\"");
     }
@@ -183,7 +189,7 @@ static void aros_call(int id, int flags)
         printf("  t __result; \\\n");
     }
     printf("  APTR vec = a; \\\n");
-    printf("  register bt baseptr __asm__(\"r12\") = bn; \\\n");
+    printf("  bt baseptr = bn; \\\n");
     // Extract the value from all argument triplets
     if (id >= 1) {
         printf("  register UQUAD arg1 __asm__(\"rdi\") = (UQUAD)__AROS_LCA(a1); \\\n"
@@ -228,8 +234,12 @@ static void aros_call(int id, int flags)
                "  } \\\n", i, i);
     }
     printf("  __asm__ __volatile__( \\\n"
-           // Push r13 to stack
+           // Save r12 so it can be restored on exit
+           "    \"push %%%%r12\\n\" \\\n"
+           // Save r13 so it can be restored on exit
            "    \"push %%%%r13\\n\" \\\n"
+           // Load base pointer into r12
+           "    \"movq %%[op_base], %%%%r12\\n\" \\\n"
            // Copy rsp to r13, we need to restore this stack position after the call
            "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
     // The stack needs to be aligned on 16 bytes before the call op,
@@ -253,8 +263,10 @@ static void aros_call(int id, int flags)
     printf("    \"call *%%[op_a]\\n\"  \\\n");
     // Copy r13 to rsp (restoring stack)
     printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
-           // Pop r13 from stack
-           "    \"pop %%%%r13\\n\" \\\n");
+           // Restore r13 from stack
+           "    \"pop %%%%r13\\n\" \\\n"
+           // Restore r12 from stack
+           "    \"pop %%%%r12\\n\" \\\n");
     // Store rax in __result, if applicable
     if (!(flags & FLAG_NR)) {
         printf("    : [op_result] \"=a\" (__result)");
@@ -286,13 +298,13 @@ static void aros_call(int id, int flags)
     }
     printf("\\\n");
     // Define input operands
-    printf("    : [op_base] \"r\" (baseptr), [op_a] \"mr\" (vec)");
+    printf("    : [op_base] \"m\" (baseptr), [op_a] \"mr\" (vec)");
     for (int i = 7; i <= id; ++i) {
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
     printf(" \\\n");
     // Define clobber list. The scratch registers are only here if they are not operands.
-    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r13\"");
+    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
     if (id < 6) {
         printf(", \"r9\"");
     }
@@ -481,10 +493,6 @@ int main(int argc, char **argv)
     printf("\n");
     printf("#ifndef AROS_X86_64_LIBCALL_H\n");
     printf("#define AROS_X86_64_LIBCALL_H\n");
-    printf("\n");
-    printf("/* Reserver r12 from being used by compiler in compilation unit including \n");
-    printf("   directly or indirectly libcall.h */\n");
-    printf("register void * __fixedreg __asm__(\"r12\");\n");
     printf("\n");
 
     printf("#define AROS_LIBCALL_INIT(bn, o) \\\n"
