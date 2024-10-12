@@ -55,6 +55,11 @@ void test_reg_call(void)
     const LONG e3 = 51;
     LONG r3 = RegAdd9(1, 2, 3, 4, 5, 6, 7, 8, 9);
     CU_ASSERT_EQUAL(r3, e3);
+
+    RegSetValue(9);
+    const LONG e4 = 0;
+    LONG r4 = RegAdd9(-1, -1, -1, -1, -1, -1, -1, -1, -1);
+    CU_ASSERT_EQUAL(r4, e4);
 }
 
 void test_stack_call(void)
@@ -89,6 +94,10 @@ void test_stack_call(void)
     const int e6 = 50;
     int r6 = StackAdd4OrMore(9, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     CU_ASSERT_EQUAL(r6, e6);
+
+    const int e7 = 0;
+    int r7 = StackAdd4OrMore(5, -1, -1, -1, -1, -1);
+    CU_ASSERT_EQUAL(r7, e7);
 }
 
 void test_close(void)
