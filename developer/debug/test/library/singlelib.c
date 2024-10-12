@@ -118,3 +118,9 @@ int StackAdd4OrMore(int total, int a1, int a2, int a3, int a4, ...)
     va_end(args);
     return _return;
 }
+
+double StackAddDouble2(double a1, double a2)
+{
+    struct SingleBase *SingleBase = (struct SingleBase *)__aros_getbase_SingleBase();
+    return SingleBase->value + a1 + a2;
+}

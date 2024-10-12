@@ -100,6 +100,18 @@ void test_stack_call(void)
     CU_ASSERT_EQUAL(r7, e7);
 }
 
+void test_stack_double(void)
+{
+    CU_SKIP_IF(SingleBase == NULL);
+
+    /* Set initial value */
+    StackSetValue(0);
+
+    const double e1 = 1.25;
+    double r1 = StackAddDouble2(2.25, -1.0);
+    CU_ASSERT_EQUAL(r1, e1);
+}
+
 void test_close(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
@@ -117,6 +129,7 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_base);
     CUNIT_CI_TEST(test_reg_call);
     CUNIT_CI_TEST(test_stack_call);
+    CUNIT_CI_TEST(test_stack_double);
     CUNIT_CI_TEST(test_close);
     return CU_CI_RUN_SUITES();
 }
