@@ -21,6 +21,112 @@ static inline const char *nr(int flags)
         return "";
 }
 
+static void generate_asm_body(int id)
+{
+           // Save r12 so it can be restored on exit
+    printf("    \"push %%%%r12\\n\" \\\n"
+           // Save r13 so it can be restored on exit
+           "    \"push %%%%r13\\n\" \\\n"
+           // Load base pointer into r12
+           "    \"movq %%[op_base], %%%%r12\\n\" \\\n"
+           // Copy rsp to r13, we need to restore this stack position after the call
+           "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
+    // The stack needs to be aligned on 16 bytes before the call op,
+    // but the callee also expects the stack args to have been pushed
+    // directly before the call op where it reliably can find them.
+    // That means we need to make alignment adjustments *before* pushing
+    // args so the end result is 16 bytes aligned.
+    // First clear the lowest four bits so we have the stack aligned on 16 bytes.
+    printf("    \"andq $-16, %%%%rsp\\n\"  \\\n");
+    if (id > 6) {
+        if ((id - 6) % 2 != 0) {
+            // Odd number of stack args -> need 8 more bytes to get correct alignment.
+            printf("    \"subq $8, %%%%rsp\\n\" \\\n");
+        }
+    }
+    // Push seventh and further args to stack, in reverse order.
+    for (int i = id; i > 6; --i) {
+        printf("    \"push %%[op_arg%d]\\n\" \\\n", i);
+    }
+    // Call LVO address
+    printf("    \"call *%%[op_a]\\n\"  \\\n");
+    // Copy r13 to rsp (restoring stack)
+    printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
+           // Restore r13 from stack
+           "    \"pop %%%%r13\\n\" \\\n"
+           // Restore r12 from stack
+           "    \"pop %%%%r12\\n\" \\\n");
+}
+
+static void generate_asm_operands(int id, int flags)
+{
+    // Store rax in __result, if applicable
+    if (!(flags & FLAG_NR)) {
+        printf("    : [op_result] \"=a\" (__result)");
+        if (id >= 1) {
+            // Function arg(s) will follow
+            printf(", ");
+        }
+    } else {
+        printf("    : ");
+    }
+    // The registers of these args may be changed by the callee, so they are read-write.
+    if (id >= 1) {
+        printf("[op_arg1] \"+D\" (arg1)");
+    }
+    if (id >= 2) {
+        printf(", [op_arg2] \"+S\" (arg2)");
+    }
+    if (id >= 3) {
+        printf(", [op_arg3] \"+d\" (arg3)");
+    }
+    if (id >= 4) {
+        printf(", [op_arg4] \"+c\" (arg4)");
+    }
+    if (id >= 5) {
+        printf(", [op_arg5] \"+r\" (arg5)");
+    }
+    if (id >= 6) {
+        printf(", [op_arg6] \"+r\" (arg6)");
+    }
+    printf("\\\n");
+    // Define input operands
+    printf("    : [op_base] \"m\" (baseptr), [op_a] \"mr\" (vec)");
+    for (int i = 7; i <= id; ++i) {
+        printf(", [op_arg%d] \"m\" (arg%d)", i, i);
+    }
+    printf(" \\\n");
+}
+
+static void generate_clobber_list(int id, int flags)
+{
+    // Define clobber list. The scratch registers are either here or operands.
+    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
+    if (flags & FLAG_NR) {
+        // In this case rax is not an operand, so it must be on the clobber list.
+        printf(", \"rax\"");
+    }
+    if (id < 6) {
+        printf(", \"r9\"");
+    }
+    if (id < 5) {
+        printf(", \"r8\"");
+    }
+    if (id < 4) {
+        printf(", \"rcx\"");
+    }
+    if (id < 3) {
+        printf(", \"rdx\"");
+    }
+    if (id < 2) {
+        printf(", \"rsi\"");
+    }
+    if (id < 1) {
+        printf(", \"rdi\"");
+    }
+    printf("  ); \\\n");
+}
+
 static void aros_lc(int id, int flags)
 {
     printf("#define __AROS_LC%d%s(t,a,", id, nr(flags));
@@ -78,103 +184,14 @@ static void aros_lc(int id, int flags)
                "      arg%d &= 0xFFFFFFFFL; \\\n"
                "  } \\\n", i, i);
     }
-    printf("  __asm__ __volatile__( \\\n"
-           // Save r12 so it can be restored on exit
-           "    \"push %%%%r12\\n\" \\\n"
-           // Save r13 so it can be restored on exit
-           "    \"push %%%%r13\\n\" \\\n"
-           // Load base pointer into r12
-           "    \"movq %%[op_base], %%%%r12\\n\" \\\n"
-           // Copy rsp to r13, we need to restore this stack position after the call
-           "    \"movq %%%%rsp, %%%%r13\\n\" \\\n");
-    // The stack needs to be aligned on 16 bytes before the call op,
-    // but the callee also expects the stack args to have been pushed
-    // directly before the call op where it reliably can find them.
-    // That means we need to make alignment adjustments *before* pushing
-    // args so the end result is 16 bytes aligned.
-    // First clear the lowest four bits so we have the stack aligned on 16 bytes.
-    printf("    \"andq $-16, %%%%rsp\\n\"  \\\n");
-    if (id > 6) {
-        if ((id - 6) % 2 != 0) {
-            // Odd number of stack args -> need 8 more bytes to get correct alignment.
-            printf("    \"subq $8, %%%%rsp\\n\" \\\n");
-        }
-    }
-    // Push seventh and further args to stack, in reverse order.
-    for (int i = id; i > 6; --i) {
-        printf("    \"push %%[op_arg%d]\\n\" \\\n", i);
-    }
-    // Call LVO address
-    printf("    \"call *%%[op_a]\\n\"  \\\n");
-    // Copy r13 to rsp (restoring stack)
-    printf("    \"movq %%%%r13, %%%%rsp\\n\" \\\n"
-           // Restore r13 from stack
-           "    \"pop %%%%r13\\n\" \\\n"
-           // Restore r12 from stack
-           "    \"pop %%%%r12\\n\" \\\n");
-    // Store rax in __result, if applicable
+    // The return value should be in different registers depending on return type
+    // WIP: printf("  if (__builtin_types_compatible_p(t, double)) {");
+    printf("  __asm__ __volatile__( \\\n");
+    generate_asm_body(id);
+    generate_asm_operands(id, flags);
+    generate_clobber_list(id, flags);
     if (!(flags & FLAG_NR)) {
-        printf("    : [op_result] \"=a\" (__result)");
-        if (id >= 1) {
-            // Function arg(s) will follow
-            printf(", ");
-        }
-    } else {
-        printf("    : ");
-    }
-    // The registers of these args may be changed by the callee, so they are read-write.
-    if (id >= 1) {
-        printf("[op_arg1] \"+D\" (arg1)");
-    }
-    if (id >= 2) {
-        printf(", [op_arg2] \"+S\" (arg2)");
-    }
-    if (id >= 3) {
-        printf(", [op_arg3] \"+d\" (arg3)");
-    }
-    if (id >= 4) {
-        printf(", [op_arg4] \"+c\" (arg4)");
-    }
-    if (id >= 5) {
-        printf(", [op_arg5] \"+r\" (arg5)");
-    }
-    if (id >= 6) {
-        printf(", [op_arg6] \"+r\" (arg6)");
-    }
-    printf("\\\n");
-    // Define input operands
-    printf("    : [op_base] \"m\" (baseptr), [op_a] \"mr\" (vec)");
-    for (int i = 7; i <= id; ++i) {
-        printf(", [op_arg%d] \"m\" (arg%d)", i, i);
-    }
-    printf(" \\\n");
-    // Define clobber list. The scratch registers are either here or operands.
-    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
-    if (flags & FLAG_NR) {
-        // In this case rax is not an operand, so it must be on the clobber list.
-        printf(", \"rax\"");
-    }
-    if (id < 6) {
-        printf(", \"r9\"");
-    }
-    if (id < 5) {
-        printf(", \"r8\"");
-    }
-    if (id < 4) {
-        printf(", \"rcx\"");
-    }
-    if (id < 3) {
-        printf(", \"rdx\"");
-    }
-    if (id < 2) {
-        printf(", \"rsi\"");
-    }
-    if (id < 1) {
-        printf(", \"rdi\"");
-    }
-    printf("  ); \\\n");
-    if (!(flags & FLAG_NR)) {
-        // Return __result, which should have the return value from %rax
+        // Return __result, which should have the return value from rax or xmm0
         printf("  __result; \\\n");
     }
     printf("})\n");
