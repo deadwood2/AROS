@@ -124,7 +124,6 @@ static void generate_clobber_list(int id, int flags)
     if (id < 1) {
         printf(", \"rdi\"");
     }
-    printf("  ); \\\n");
 }
 
 static void aros_lc(int id, int flags)
@@ -190,6 +189,7 @@ static void aros_lc(int id, int flags)
     generate_asm_body(id);
     generate_asm_operands(id, flags);
     generate_clobber_list(id, flags);
+    printf("  ); \\\n");
     if (!(flags & FLAG_NR)) {
         // Return __result, which should have the return value from rax or xmm0
         printf("  __result; \\\n");
