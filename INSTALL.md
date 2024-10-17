@@ -2,7 +2,7 @@
 
 Please install these packages before moving to next step. Below is a reference list for Debian-based distributions. Reference build system is Ubuntu 20.04/22.04 amd64.
 
-    git gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python3-mako libxcursor-dev cmake genisoimage dh-make
+    git gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python3-mako libxcursor-dev cmake genisoimage dh-make yasm
 
 For armhf build, please install additional packages:
 
@@ -13,7 +13,7 @@ For armhf build, please install additional packages:
     $ cd <myprojects>
     $ mkdir arosbuilds
     $ cd arosbuilds
-    $ git clone https://github.com/deadw00d/AROS.git AROS
+    $ git clone https://github.com/deadwood2/AROS.git AROS
     $ cp ./AROS/scripts/rebuild.sh .
     $ ./rebuild.sh
 
