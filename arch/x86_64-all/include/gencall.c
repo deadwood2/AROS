@@ -11,7 +11,8 @@
 
 #define GENCALL_MAX     (13 + 1)        /* Max number of arguments */
 
-#define FLAG_NR         (1 << 2)
+#define FLAG_NR            (1 << 2)
+#define FLAG_RETURN_DOUBLE (1 << 3)
 
 static char *long_registers[] =  {"rdi", "rsi", "rdx", "rcx", "r8", "r9"};
 
@@ -116,31 +117,49 @@ static void generate_asm_operands(int id, int flags, char *result_register)
     printf(" \\\n");
 }
 
-static void generate_clobber_list(int id, int flags)
+static void generate_clobber_list(int stdregs, int xregs, int flags)
 {
     // Define clobber list. The scratch registers are either here or operands.
     printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
-    if (flags & FLAG_NR) {
+    if (flags & FLAG_NR || flags & FLAG_RETURN_DOUBLE) {
         // In this case rax is not an operand, so it must be on the clobber list.
         printf(", \"rax\"");
     }
-    if (id < 6) {
+    if (stdregs < 6) {
         printf(", \"r9\"");
     }
-    if (id < 5) {
+    if (stdregs < 5) {
         printf(", \"r8\"");
     }
-    if (id < 4) {
+    if (stdregs < 4) {
         printf(", \"rcx\"");
     }
-    if (id < 3) {
+    if (stdregs < 3) {
         printf(", \"rdx\"");
     }
-    if (id < 2) {
+    if (stdregs < 2) {
         printf(", \"rsi\"");
     }
-    if (id < 1) {
+    if (stdregs < 1) {
         printf(", \"rdi\"");
+    }
+    if (xregs < 6) {
+        printf(", \"xmm5\"");
+    }
+    if (xregs < 5) {
+        printf(", \"xmm4\"");
+    }
+    if (xregs < 4) {
+        printf(", \"xmm3\"");
+    }
+    if (xregs < 3) {
+        printf(", \"xmm2\"");
+    }
+    if (xregs < 2) {
+        printf(", \"xmm1\"");
+    }
+    if (xregs < 1 && !(flags & FLAG_RETURN_DOUBLE)) {
+        printf(", \"xmm0\"");
     }
 }
 
@@ -166,7 +185,8 @@ static void aros_lc(int id, int flags)
     printf("__asm__ __volatile__( \\\n");
     generate_asm_body(id);
     generate_asm_operands(id, flags, "Yz");
-    generate_clobber_list(id, flags);
+    flags |= FLAG_RETURN_DOUBLE;
+    generate_clobber_list(numregs, 0, flags);
     printf("); \\\n");
     printf("  } else { \\\n");
     // Generate code for other return type
@@ -174,7 +194,8 @@ static void aros_lc(int id, int flags)
     printf("__asm__ __volatile__( \\\n");
     generate_asm_body(id);
     generate_asm_operands(id, flags, "a");
-    generate_clobber_list(id, flags);
+    flags &= ~FLAG_RETURN_DOUBLE;
+    generate_clobber_list(numregs, 0, flags);
     printf("); \\\n");
     printf("  } \\\n");
     if (!(flags & FLAG_NR)) {
@@ -206,7 +227,8 @@ static void aros_call(int id, int flags)
     printf("__asm__ __volatile__( \\\n");
     generate_asm_body(id);
     generate_asm_operands(id, flags, "Yz");
-    generate_clobber_list(id, flags);
+    flags |= FLAG_RETURN_DOUBLE;
+    generate_clobber_list(numregs, 0, flags);
     printf("); \\\n");
     printf("  } else { \\\n");
     // Generate code for other return type
@@ -214,7 +236,8 @@ static void aros_call(int id, int flags)
     printf("__asm__ __volatile__( \\\n");
     generate_asm_body(id);
     generate_asm_operands(id, flags, "a");
-    generate_clobber_list(id, flags);
+    flags &= ~FLAG_RETURN_DOUBLE;
+    generate_clobber_list(numregs, 0, flags);
     printf("); \\\n");
     printf("  } \\\n");
     if (!(flags & FLAG_NR)) {
