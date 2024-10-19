@@ -27,11 +27,18 @@ static inline const char *nr(int flags)
 static void generate_arg_variables(int id, int flags, char *regs[], int numregs)
 {
     for (int i=1; i<=numregs; ++i) {
-        printf("register UQUAD arg%d __asm__(\"%s\") = (UQUAD)__AROS_LCA(a%d); \\\n"
-               "if (sizeof(__AROS_LPA(a%d)) <= 4) { \\\n"
-               "    arg%d &= 0xFFFFFFFFL; \\\n"
-               "} \\\n", i, regs[i-1], i, i, i);
+        if (regs[i-1][0] == 'x') {
+            // This is a double
+            printf("register double arg%d __asm__(\"%s\") = __AROS_LCAQUAD(a%d); \\\n", i, regs[i-1], i);
+        } else {
+            printf("register UQUAD arg%d __asm__(\"%s\") = (UQUAD)__AROS_LCA(a%d); \\\n"
+                   "if (sizeof(__AROS_LPA(a%d)) <= 4) { \\\n"
+                   "    arg%d &= 0xFFFFFFFFL; \\\n"
+                   "} \\\n", i, regs[i-1], i, i, i);
+        }
     }
+    // This generator currently does not handle double args on the stack!
+    // Easy to fix if somebody needs it, though. Just add some type array.
     for (int i = 7; i <= id; ++i) {
         printf("UQUAD arg%d = (UQUAD)__AROS_LCA(a%d); \\\n"
                "if (sizeof(__AROS_LPA(a%d)) <= 4) { \\\n"
@@ -294,7 +301,7 @@ static void aros_ld(int id, int is_ignored)
     printf("#define AROS_LD%d%s __AROS_LD%d%s\n", id, is_ignored ? "I" : "", id, is_ignored ? "I" : "");
 }
 
-const static char extra[] =
+const static char extra_lh[] =
 "\n"
 "#define __AROS_QUADt(type,name,reg1,reg2) type\n"
 "#define __AROS_QUADn(type,name,reg1,reg2) name\n"
@@ -333,19 +340,83 @@ const static char extra[] =
 "             bt, bn, o, s \\\n"
 "    )\n"
 "\n"
-"\n"
-"#define AROS_LCDOUBLE1(t,n,a1,bt,bn,o,s) \\\n"
-"    AROS_LC1(t,n, \\\n"
-"             AROS_LCA(__AROS_QUADt(a1), __AROS_QUADn(a1), __AROS_QUADr(a1)), \\\n"
-"             bt, bn, o, s \\\n"
-"    )\n"
-"#define AROS_LCDOUBLE2(t,n,a1,a2,bt,bn,o,s) \\\n"
-"    AROS_LC2(t,n, \\\n"
-"             AROS_LCA(__AROS_QUADt(a1), __AROS_QUADn(a1), __AROS_QUADr(a1)), \\\n"
-"             AROS_LCA(__AROS_QUADt(a2), __AROS_QUADn(a2), __AROS_QUADr(a2)), \\\n"
-"             bt, bn, o, s \\\n"
-"    )\n"
-"#define AROS_LC1DOUBLE1(t,n,a1,a2,bt,bn,o,s) \\\n"
+"\n";
+
+static void generate_extra_lc(void)
+{
+    int id = 1;
+    int flags = 0;
+    int numregs = 1;
+    char *arg_registers[] = {"xmm0"};
+    printf(
+"#define AROS_LCQUAD1(t,n,a1,bt,bn,o,s) \\\n"
+"({ \\\n");
+    printf("  t __result; \\\n");
+    printf("  bt baseptr = (bt) bn; \\\n");
+    printf("  APTR vec = (APTR)__AROS_GETVECADDR(baseptr, o); \\\n");
+    // The return value should be in different registers depending on return type
+    printf("  if (TYPE_IS_DOUBLE(t)) { \\\n");
+    // Generate code for double return type
+    generate_arg_variables(id, flags, arg_registers, numregs);
+    printf("__asm__ __volatile__( \\\n");
+    generate_asm_body(id);
+    generate_asm_operands(id, flags, "Yz");
+    flags |= FLAG_RETURN_DOUBLE;
+    generate_clobber_list(0, numregs, flags);
+    printf("); \\\n");
+    printf("  } else { \\\n");
+    // Generate code for other return type
+    generate_arg_variables(id, flags, arg_registers, numregs);
+    printf("__asm__ __volatile__( \\\n");
+    generate_asm_body(id);
+    generate_asm_operands(id, flags, "a");
+    flags &= ~FLAG_RETURN_DOUBLE;
+    generate_clobber_list(0, numregs, flags);
+    printf("); \\\n");
+    printf("  } \\\n");
+    if (!(flags & FLAG_NR)) {
+        // __result is the value to return
+        printf("  __result; \\\n");
+    }
+    printf("})\n\n");
+
+    id = 2;
+    flags = 0;
+    numregs = 2;
+    char *arg_registers2[] = {"xmm0", "xmm1"};
+    printf(
+"#define AROS_LCQUAD2(t,n,a1,a2,bt,bn,o,s) \\\n"
+"({ \\\n");
+    printf("  t __result; \\\n");
+    printf("  bt baseptr = (bt) bn; \\\n");
+    printf("  APTR vec = (APTR)__AROS_GETVECADDR(baseptr, o); \\\n");
+    // The return value should be in different registers depending on return type
+    printf("  if (TYPE_IS_DOUBLE(t)) { \\\n");
+    // Generate code for double return type
+    generate_arg_variables(id, flags, arg_registers2, numregs);
+    printf("__asm__ __volatile__( \\\n");
+    generate_asm_body(id);
+    generate_asm_operands(id, flags, "Yz");
+    flags |= FLAG_RETURN_DOUBLE;
+    generate_clobber_list(0, numregs, flags);
+    printf("); \\\n");
+    printf("  } else { \\\n");
+    // Generate code for other return type
+    generate_arg_variables(id, flags, arg_registers2, numregs);
+    printf("__asm__ __volatile__( \\\n");
+    generate_asm_body(id);
+    generate_asm_operands(id, flags, "a");
+    flags &= ~FLAG_RETURN_DOUBLE;
+    generate_clobber_list(0, numregs, flags);
+    printf("); \\\n");
+    printf("  } \\\n");
+    if (!(flags & FLAG_NR)) {
+        // __result is the value to return
+        printf("  __result; \\\n");
+    }
+    printf("})\n\n");
+    printf(
+"#define AROS_LC1QUAD1(t,n,a1,a2,bt,bn,o,s) \\\n"
 "    AROS_LC2(t,n, \\\n"
 "             AROS_LCA(a1), \\\n"
 "             AROS_LCA(__AROS_QUADt(a2), __AROS_QUADn(a2), __AROS_QUADr(a2)), \\\n"
@@ -366,8 +437,11 @@ const static char extra[] =
 "             AROS_LCA(__AROS_QUADt(a4), __AROS_QUADn(a4), __AROS_QUADr(a4)), \\\n"
 "             bt, bn, o, s \\\n"
 "    )\n"
-"\n"
-"#define AROS_LDDOUBLE1(t,n,a1,bt,bn,o,s) \\\n"
+"\n");
+}
+
+const static char extra_ld[] =
+"#define AROS_LDQUAD1(t,n,a1,bt,bn,o,s) \\\n"
 "     AROS_LD1(t,n, \\\n"
 "         AROS_LDA(__AROS_QUADt(a1), __AROS_QUADn(a1), __AROS_QUADr(a1)), \\\n"
 "         bt, bn, o, s \\\n"
@@ -469,7 +543,11 @@ int main(int argc, char **argv)
     for (i = 0; i < GENCALL_MAX; i++)
         aros_ld(i, 1);
 
-    printf("%s\n", extra);
+    printf("%s\n", extra_lh);
+
+    generate_extra_lc();
+
+    printf("%s\n", extra_ld);
 
     printf("#endif /* AROS_X86_64_LIBCALL_H */\n");
     return 0;

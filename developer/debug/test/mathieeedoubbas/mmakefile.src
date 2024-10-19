@@ -1,0 +1,15 @@
+include $(SRCDIR)/config/aros.cfg
+
+CUNIT_FILES := test_mathieeedoubbas
+CUNITEXEDIR := $(AROS_TESTS)/cunit/mathieeedoubbas
+
+#MM- test : test-mathieeedoubbas
+#MM- test-quick : test-mathieeedoubbas-quick
+
+#MM test-mathieeedoubbas : includes linklibs workbench-libs-mathieeedoubbas-linklib
+
+%build_prog mmake=test-mathieeedoubbas \
+    files=$(CUNIT_FILES) targetdir=$(CUNITEXEDIR) \
+    progname=test-mathieeedoubbas uselibs="cunit mathieeedoubbas"
+
+%common
