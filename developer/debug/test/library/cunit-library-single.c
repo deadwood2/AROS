@@ -124,6 +124,15 @@ void test_stack_call(void)
     CU_ASSERT_EQUAL(r7, e7);
 }
 
+void test_reg_return_double(void)
+{
+    CU_SKIP_IF(SingleBase == NULL);
+
+    const double e = -3.14;
+    double r = RegReturnMinusPi();
+    CU_ASSERT((r - e) > -0.001 && (r - e) < 0.001);
+}
+
 void test_stack_double(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
@@ -152,6 +161,7 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_open);
     CUNIT_CI_TEST(test_base);
     CUNIT_CI_TEST(test_reg_call);
+    CUNIT_CI_TEST(test_reg_return_double);
     CUNIT_CI_TEST(test_reg_double);
     CUNIT_CI_TEST(test_reg_quad);
     CUNIT_CI_TEST(test_stack_call);
