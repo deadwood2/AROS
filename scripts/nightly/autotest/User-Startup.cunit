@@ -61,6 +61,9 @@ If NOT WARN
     Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs        ;types64-lfs_Suite
     Execute S/Test cunit/crt/posix/cunit-crt-types64-lfs-fob    ;types64-lfs-fob_Suite
 
+    ; Perform mathieeedoubbas unit tests...
+    Execute S/Test cunit/mathieeedoubbas/test-mathieeedoubbas   ;mathieeedoubbas_Suite
+
     ; Perform png unit tests...
     Execute S/Test cunit/png/test-png-cunit                     ;png_read_Suite
 
@@ -84,7 +87,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 252" >DEBUG:
+    Echo "Expected tests: 253" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 
