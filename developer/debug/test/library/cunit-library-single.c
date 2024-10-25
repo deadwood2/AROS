@@ -62,6 +62,30 @@ void test_reg_call(void)
     CU_ASSERT_EQUAL(r4, e4);
 }
 
+void test_reg_double(void)
+{
+    CU_SKIP_IF(SingleBase == NULL);
+
+    /* Set initial value */
+    RegSetValue(0);
+
+    const double e1 = 1.25;
+    double r1 = RegAddDouble2(2.25, -1.0);
+    CU_ASSERT_EQUAL(r1, e1);
+}
+
+void test_reg_quad(void)
+{
+    CU_SKIP_IF(SingleBase == NULL);
+
+    /* Set initial value */
+    RegSetValue(0);
+
+    const LONG e1 = 1500000000;
+    LONG r1 = RegAdd3Quad1(1000000000, 2000000000, 3000000000, -4500000000);
+    CU_ASSERT_EQUAL(r1, e1);
+}
+
 void test_stack_call(void)
 {
     CU_SKIP_IF(SingleBase == NULL);
@@ -128,6 +152,8 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_open);
     CUNIT_CI_TEST(test_base);
     CUNIT_CI_TEST(test_reg_call);
+    CUNIT_CI_TEST(test_reg_double);
+    CUNIT_CI_TEST(test_reg_quad);
     CUNIT_CI_TEST(test_stack_call);
     CUNIT_CI_TEST(test_stack_double);
     CUNIT_CI_TEST(test_close);
