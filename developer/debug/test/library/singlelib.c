@@ -78,6 +78,34 @@ AROS_LH9(LONG, RegAdd9,
     AROS_LIBFUNC_EXIT
 }
 
+AROS_LHDOUBLE2(double, RegAddDouble2,
+    AROS_LHA2(double, a1, D0, D1),
+    AROS_LHA2(double, a2, D2, D3),
+    struct SingleBase *, SingleBase, 9, Single
+)
+{
+    AROS_LIBFUNC_INIT
+
+    return SingleBase->value + a1 + a2;
+
+    AROS_LIBFUNC_EXIT
+}
+
+AROS_LH3QUAD1(QUAD, RegAdd3Quad1,
+    AROS_LHA(LONG, a1, D0),
+    AROS_LHA(LONG, a2, D1),
+    AROS_LHA(LONG, a3, D2),
+    AROS_LHA2(QUAD, a4, D3, D4),
+    struct SingleBase *, SingleBase, 10, Single
+)
+{
+    AROS_LIBFUNC_INIT
+
+    return SingleBase->value + a1 + a2 + a3 + a4;
+
+    AROS_LIBFUNC_EXIT
+}
+
 void StackSetValue(int v)
 {
     struct SingleBase *SingleBase = (struct SingleBase *)__aros_getbase_SingleBase();
