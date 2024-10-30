@@ -1,7 +1,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- includes-copy : libpng-fetch
+##MM- includes-copy : libpng-fetch
 
 LIBPNGVERSION=1.6.39
 REPOSITORIES = http://prdownloads.sourceforge.net/libpng \
@@ -22,10 +22,10 @@ ARCHSRCDIR := $(PORTSDIR)/libpng/$(ARCHBASE)
 #MM includes-copy : \
 #MM     libpng-fetch
 
-#MM workbench-libs-png : workbench-libs-z
-#MM- workbench-libs-png-includes : \
-#MM     includes-copy \
-#MM     workbench-libs-png-generated
+##MM workbench-libs-png : workbench-libs-z
+##MM- workbench-libs-png-includes : \
+##MM     includes-copy \
+##MM     workbench-libs-png-generated
 
 FILES := png pngerror \
 	pngget pngmem pngpread pngread pngrio pngrtran pngrutil \
@@ -50,12 +50,12 @@ endif
 #AFILES += \
 #	arm/filter_neon
 
-#MM- core-linklibs : linklibs-png
-#MM- linklibs-png : workbench-libs-png-pkgconfig
+##MM- core-linklibs : linklibs-png
+##MM- linklibs-png : workbench-libs-png-pkgconfig
 
-%build_module mmake=workbench-libs-png \
-    modname=png modtype=library \
-    files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname="png" linklibfiles="png_linklib" uselibs="z1 crtmod"
+#%build_module mmake=workbench-libs-png \
+#    modname=png modtype=library \
+#    files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" linklibname="png" linklibfiles="png_linklib" uselibs="z1 crtmod"
 
 #MM- linklibs: linklibs-png-nostdio
 #MM linklibs-png-nostdio : workbench-libs-png-generated
