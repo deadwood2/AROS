@@ -9,7 +9,7 @@ MODULES := $(addprefix $(MODDIR)/,$(addsuffix .language,$(LANGUAGES)))
 OBJS    := $(addprefix $(OBJDIR)/,$(addsuffix .o,$(LANGUAGES)))
 DEPS    := $(addprefix $(OBJDIR)/,$(addsuffix .d,$(LANGUAGES)))
 
-#MM- workbench-locale : workbench-locale-languages
+##MM- workbench-locale : workbench-locale-languages
 #MM workbench-locale-languages : includes linklibs
 
 workbench-locale-languages : $(MODULES)

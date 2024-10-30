@@ -3,7 +3,6 @@ include $(SRCDIR)/config/aros.cfg
 INCLUDES := $(call WILDCARD, libraries/*.h)
 
 #MM- compiler-crt-includes : compiler-crt-includes-extra
-#MM- includes-copy : compiler-crt-includes-extra
 
 %copy_includes mmake=compiler-crt-includes-extra \
     includes=$(INCLUDES)

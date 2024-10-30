@@ -1,7 +1,7 @@
 include $(SRCDIR)/config/aros.cfg
 
-#MM- AROS : compiler-stdlib compiler-crt compiler-m
-#MM- core-linklibs : linklibs-stdlib linklibs-crt linklibs-crtprog linklibs-m linklibs-crtmod
+##MM- AROS : compiler-stdlib compiler-crt compiler-m
+##MM- core-linklibs : linklibs-stdlib linklibs-crt linklibs-crtprog linklibs-m linklibs-crtmod
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES := -I$(SRCDIR)/compiler/crt/stdc/math -iquote $(FMTPRINTFDIR)
@@ -901,7 +901,7 @@ USER_CPPFLAGS := \
         -Dlint
 #USER_CPPFLAGS += -DDEBUG=1
 
-#MM- core-linklibs : linklibs-stdc-static
+##MM- core-linklibs : linklibs-stdc-static
 %build_linklib mmake=linklibs-stdc-static libname=stdc.static \
     files="$(STDC_STATIC)" objdir=$(GENDIR)/$(CURDIR)/static
 

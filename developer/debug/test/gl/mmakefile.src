@@ -8,7 +8,7 @@ GLTESTFILES 	    := \
 
 EXEDIR      := $(AROS_TESTS)/graphics/gl
 
-#MM- test : test-gl
+##MM- test : test-gl
 
 #MM test-gl : includes linklibs workbench-libs-gl-includes
 

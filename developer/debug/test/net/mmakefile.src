@@ -5,8 +5,8 @@ include $(SRCDIR)/config/aros.cfg
 FILES           := netlib
 EXEDIR          := $(AROS_TESTS)/net
 
-#MM- test : test-net
-#MM- test-quick : test-net-quick
+##MM- test : test-net
+##MM- test-quick : test-net-quick
 #MM- test-net : arostcp-linklibs-netlib
 
 %build_progs mmake=test-net \

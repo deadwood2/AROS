@@ -4,10 +4,10 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- core-linklibs : linklibs-startup linklibs-startup-$(AROS_TARGET_CPU)
-#MM- linklibs: linklibs-startup
-#MM linklibs-startup : linklibs-startup-setup includes includes-copy \
-#MM     compiler-crt-includes
+##MM- core-linklibs : linklibs-startup linklibs-startup-$(AROS_TARGET_CPU)
+##MM- linklibs: linklibs-startup
+##MM linklibs-startup : linklibs-startup-setup includes includes-copy \
+##MM     compiler-crt-includes
 
 NIXFILES := \
 	nixmain
