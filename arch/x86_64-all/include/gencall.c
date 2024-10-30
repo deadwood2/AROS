@@ -372,7 +372,7 @@ static void generate_extra_lc(void)
 }
 
 const static char extra_ld[] =
-"#define AROS_LDQUAD1(t,n,a1,bt,bn,o,s) \\\n"
+"#define AROS_LDDOUBLE1(t,n,a1,bt,bn,o,s) \\\n"
 "     AROS_LD1(t,n, \\\n"
 "         AROS_LDA(__AROS_QUADt(a1), __AROS_QUADn(a1), __AROS_QUADr(a1)), \\\n"
 "         bt, bn, o, s \\\n"
