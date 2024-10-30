@@ -39,6 +39,9 @@ If NOT WARN
     Execute S/Test cunit/dos/cunit-dos-smallcodemodel           ;SmallCodeModel_Suite
     Execute S/Test cunit/dos/cunit-dos-systemtags               ;SystemTags_Suite
 
+    ; Perform basic "timer.device" unit tests...
+    Execute S/Test cunit/timer/cunit-timer                      ;Timer_Suite
+
     ; Perform basic "locale.library" unit tests...
     Execute S/Test cunit/locale/cunit-locale-formatstring       ;FormatString_Suite
 
@@ -81,7 +84,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 248" >DEBUG:
+    Echo "Expected tests: 252" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

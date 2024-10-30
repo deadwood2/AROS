@@ -6,14 +6,27 @@ include $(SRCDIR)/config/aros.cfg
 FILES := \
     getsystime
 
+CUNITTIMERTESTFILES := \
+    cunit-timer
+
 EXEDIR := $(AROS_TESTS)/timer
+CUNITEXEDIR := $(AROS_TESTS)/cunit/timer
 
 #MM test-timer : includes linklibs
 
 #MM- test : test-timer
 #MM- test-quick : test-timer-quick
 
+#MM- test-cunit : test-timer-cunit
+#MM- test-cunit-quick : test-timer-cunit-quick
+
+#MM test-timer-cunit : linklibs-cunit
+
 %build_progs mmake=test-timer \
     files=$(FILES) targetdir=$(EXEDIR)
+
+%build_progs mmake=test-timer-cunit \
+    files=$(CUNITTIMERTESTFILES) targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
 
 %common
