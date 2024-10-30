@@ -67,10 +67,10 @@ void writemakefile(struct config *cfg)
     }
 
     fprintf(out,
-            "%s_STARTFILES += %s_start\n"
+            "%s_STARTFILES += %s_start %s_getresident\n"
             "%s_ENDFILES += %s_end\n"
             "%s_MODDIR += %s\n",
-            moduleversname, cfg->modulename,
+            moduleversname, cfg->modulename, cfg->modulename,
             moduleversname, cfg->modulename,
             moduleversname, cfg->moddir
     );
