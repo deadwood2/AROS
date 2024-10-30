@@ -2,7 +2,7 @@
 
 Please install these packages before moving to next step. Below is a reference list for Debian-based distributions. Reference build system is Ubuntu 20.04/22.04 amd64.
 
-    git gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python3-mako libxcursor-dev cmake genisoimage dh-make yasm
+    git gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python3-mako libxcursor-dev cmake genisoimage dh-make yasm libjpeg-dev libxinerama-dev
 
 For armhf build, please install additional packages:
 
@@ -14,30 +14,40 @@ For armhf build, please install additional packages:
     $ mkdir arosbuilds
     $ cd arosbuilds
     $ git clone https://github.com/deadwood2/AROS.git AROS
+    $ cd AROS
+    $ git checkout alt-runtime
+    $ cd ..
     $ cp ./AROS/scripts/rebuild.sh .
     $ ./rebuild.sh
 
 Proceed to build selection below
 
-### Linux-x86_64
+### Runtimelinux-x86_64
 
-1. Select toolchain-core-x86_64
-2. Select core-linux-x86_64 (DEBUG)
+1. Select alt-runtimelinux-x86_64 (DEBUG)
 
-Start AROS by:
+Runtime binaries available in
 
-    $ cd core-linux-x86_64-d/bin/linux-x86_64/AROS
-    $ ./boot/linux/AROSBootstrap
+    alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
 
-In order to use the cross-compiler built in step 1 for compiling your own projects (which don't use AROS builds system / mmakefile.src approach), you need to provide --sysroot parameter, for example:
+### Validating build
 
-    $ <myprojects>/arosbuilds/toolchain-core-x86_64/x86_64-aros-gcc --sysroot=<myprojects>/arosbuilds/core-linux-x86_64-d/bin/linux-x86_64/AROS/Development
+Build Wanderer
 
-### Amiga-m68k
+    $ cd alt-runtimelinux-x86_64-d
+    $ make workbench-system-wanderer
 
-1. Select toolchain-core-m68k
-2. Select core-amiga-m68k
+Configure setup
 
-Kickstart images available in
+    $ mkdir ~/SYS/
+    $ ../AROS/arch/all-runtimelinux/boot/deb/libaxrt/buildusersys.sh ./bin/runtimelinux-x86_64/AROS ../AROS ~/SYS
+    $ export AXRT_ROOT=<myrepo-absolute-path>/alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
 
-    core-amiga-m68k/bin/amiga-m68k/AROS/boot/amiga
+Copy loader
+
+    $ cd bin/runtimelinux-x86_64/AROS/System/Wanderer
+    $ cp ../../Development/lib/libaxrt-4.0.so .
+
+Start Wanderer
+
+    $ ./Wanderer
