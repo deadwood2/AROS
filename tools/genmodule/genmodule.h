@@ -39,5 +39,6 @@ void writeskel(struct config *cfg);
 void writethunk(struct config *cfg);
 void writegetlibbase(struct config *cfg, int is_rel);
 void writelinkentries(struct config *cfg);
+void writegetresident(struct config *);
 
 #endif
