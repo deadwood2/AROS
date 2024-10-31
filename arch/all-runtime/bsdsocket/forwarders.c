@@ -187,6 +187,8 @@ AROS_LH4(int, f_send,
     int ret = send(__fs_translate_socket(s), msg, len, flags | MSG_NOSIGNAL);
     if (ret == -1) __fs_translate_errno(errno, SocketBase);
 
+    return ret;
+
     AROS_LIBFUNC_EXIT
 }
 
