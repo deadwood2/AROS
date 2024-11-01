@@ -57,21 +57,22 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     BOOL cont = TRUE;
     ULONG rcvd = 0;
     int __selectresult = 0;
-    struct timeval _t;
     ULONG _tsmask = sigmask ? *sigmask : 0;
     int maxfd = nfds - 1;
     fd_set *pread = readfds; fd_set *pwrite = writefds; fd_set *perror = exceptfds;
     int timeoutiters = 0;
-    const int ITER_SLEEP = 20;
+    const int ITER_SLEEP = 50; /* microseconds */
 
     fd_set tmpreadfds;
     fd_set tmpwritefds;
     fd_set tmperrorfds;
 
-     /* do pooling */
-     _t.tv_sec  = 0;
-     _t.tv_usec = 0;
-
+    /* Timeout handling: >0, 0, NULL
+        if > 0, loop for timeoutiters iterations of ITER_SLEEP length
+        if == 0, don't wait in select, don't loop
+        if == NULL, loop for infinite number of iterations of ITER_SLEEP length and wait for
+                    signal to happen
+    */
     if (timeout)
     {
         timeoutiters = timeout->tv_usec / ITER_SLEEP;
@@ -97,8 +98,13 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
 
     do
     {
-        rcvd = SetSignal(0L, _tsmask);
+        /* do pooling with some small sleep, re-assign each iteration as select() clears _t */
+        struct timeval _t;
+        _t.tv_sec  = 0;
+        _t.tv_usec = (timeout == NULL || timeoutiters > 0) ? ITER_SLEEP : 0;
+
         __selectresult = select(maxfd + 1, pread, pwrite, perror, &_t);
+        rcvd = SetSignal(0L, _tsmask);
 
         if (rcvd != 0 || __selectresult != 0)
         {
@@ -114,8 +120,6 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
             if (timeoutiters == 0) cont = FALSE;
             else timeoutiters--;
         }
-
-        if (cont) usleep(ITER_SLEEP); /* sleep active pooling */
 
     }while (cont);
 
