@@ -696,8 +696,8 @@ diff -Naur gcc-10.5.0/gcc/config/aros.opt gcc-10.5.0.aros/gcc/config/aros.opt
 +
 diff -Naur gcc-10.5.0/gcc/config/i386/aros.h gcc-10.5.0.aros/gcc/config/i386/aros.h
 --- gcc-10.5.0/gcc/config/i386/aros.h	1970-01-01 01:00:00.000000000 +0100
-+++ gcc-10.5.0.aros/gcc/config/i386/aros.h	2024-09-08 22:45:37.237658641 +0200
-@@ -0,0 +1,25 @@
++++ gcc-10.5.0.aros/gcc/config/i386/aros.h	2024-10-31 19:57:50.695914627 +0100
+@@ -0,0 +1,32 @@
 +/* Definitions for Intel 386 running AROS systems with ELF format.
 +   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2001, 2002
 +   Free Software Foundation, Inc.
@@ -723,10 +723,17 @@ diff -Naur gcc-10.5.0/gcc/config/i386/aros.h gcc-10.5.0.aros/gcc/config/i386/aro
 +
 +#undef	LINK_SPEC
 +#define LINK_SPEC "-m elf_i386 -L%R/lib"
++
++/* Use the UNIX defaults, and add mno-red-zone.
++   In AROS, the stack pointer must be reliable at all times. */
++
++#undef TARGET_SUBTARGET_DEFAULT
++#define TARGET_SUBTARGET_DEFAULT \
++	(MASK_80387 | MASK_IEEE_FP | MASK_FLOAT_RETURNS | MASK_NO_RED_ZONE)
 diff -Naur gcc-10.5.0/gcc/config/i386/aros64.h gcc-10.5.0.aros/gcc/config/i386/aros64.h
 --- gcc-10.5.0/gcc/config/i386/aros64.h	1970-01-01 01:00:00.000000000 +0100
-+++ gcc-10.5.0.aros/gcc/config/i386/aros64.h	2024-09-08 22:45:37.237658641 +0200
-@@ -0,0 +1,34 @@
++++ gcc-10.5.0.aros/gcc/config/i386/aros64.h	2024-10-31 00:38:00.862273860 +0100
+@@ -0,0 +1,41 @@
 +/* Definitions for AMD x86_64 running AROS systems with ELF64 format.
 +   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2001, 2002
 +   Free Software Foundation, Inc.
@@ -759,6 +766,13 @@ diff -Naur gcc-10.5.0/gcc/config/i386/aros64.h gcc-10.5.0.aros/gcc/config/i386/a
 +
 +#undef	LINK_SPEC
 +#define LINK_SPEC "%{!m32:-m elf_x86_64} %{m32:-m elf_i386} -L %R/lib" 
++
++/* Use the UNIX defaults, and add mno-red-zone.
++   In AROS, the stack pointer must be reliable at all times. */
++
++#undef TARGET_SUBTARGET_DEFAULT
++#define TARGET_SUBTARGET_DEFAULT \
++	(MASK_80387 | MASK_IEEE_FP | MASK_FLOAT_RETURNS | MASK_NO_RED_ZONE)
 +
 +/* FIXME: AROS doesn't support dw2 unwinding yet.  */
 diff -Naur gcc-10.5.0/gcc/config/m68k/m68k.c gcc-10.5.0.aros/gcc/config/m68k/m68k.c
