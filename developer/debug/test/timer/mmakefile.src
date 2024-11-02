@@ -17,6 +17,9 @@ CUNITEXEDIR := $(AROS_TESTS)/cunit/timer
 #MM- test : test-timer
 #MM- test-quick : test-timer-quick
 
+#MM test-timer : test-timer-cunit
+#MM test-timer-quick : test-timer-cunit-quick
+
 #MM- test-cunit : test-timer-cunit
 #MM- test-cunit-quick : test-timer-cunit-quick
 
