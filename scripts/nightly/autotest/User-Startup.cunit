@@ -54,6 +54,7 @@ If NOT WARN
     Execute S/Test cunit/crt/stdc/cunit-crt-time                ;time_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-sscanf              ;sscanf_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-sxprintf            ;sxprintf_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcsncpy             ;wcsncpy_Suite
     Execute S/Test cunit/crt/posix/cunit-crt-fread              ;fread_Suite
     Copy SYS:Development/Debug/Tests/crt/posix/execl2_slave SYS:
     Execute S/Test cunit/crt/posix/cunit-crt-vfork              ;vfork_Suite
