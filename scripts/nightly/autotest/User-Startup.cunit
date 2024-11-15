@@ -88,7 +88,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 253" >DEBUG:
+    Echo "Expected tests: 261" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 
