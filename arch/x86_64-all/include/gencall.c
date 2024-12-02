@@ -118,7 +118,7 @@ static void generate_asm_operands(int id, int flags, int numregs, char *result_c
     }
     printf("\\\n");
     // Define input operands
-    printf("    : [op_base] \"m\" (baseptr), [op_a] \"mr\" (vec)");
+    printf("    : [op_base] \"ir\" (baseptr), [op_a] \"r\" (vec)");
     for (int i = numregs+1; i <= id; ++i) {
         printf(", [op_arg%d] \"m\" (arg%d)", i, i);
     }
@@ -128,7 +128,7 @@ static void generate_asm_operands(int id, int flags, int numregs, char *result_c
 static void generate_clobber_list(int stdregs, int xregs, int flags)
 {
     // Define clobber list. The scratch registers are either here or operands.
-    printf("    : \"cc\", \"memory\", \"r10\", \"r11\", \"r12\", \"r13\"");
+    printf("    : \"cc\", \"memory\", \"r10\", \"r12\", \"r13\"");
     if (flags & FLAG_NR || flags & FLAG_RETURN_DOUBLE) {
         // In this case rax is not an operand, so it must be on the clobber list.
         printf(", \"rax\"");
@@ -217,7 +217,7 @@ static void aros_lc(int id, int flags)
     for (int i = 1; i <= id; i++)
         printf("a%d,", i);
     printf("bt,bn,o,s) \\\n");
-    char vec_alloc_string[] = "  APTR vec = (APTR)__AROS_GETVECADDR(baseptr, o); \\\n";
+    char vec_alloc_string[] = "  register APTR vec __asm__(\"r11\") = (APTR)__AROS_GETVECADDR(baseptr, o); \\\n";
     generate_call_body(id, flags, numregs, 0, standard_arg_registers, all_false, all_false,
                        vec_alloc_string);
     printf("#define AROS_LC%d%s __AROS_LC%d%s\n\n", id, nr(flags), id, nr(flags));
@@ -230,7 +230,7 @@ static void aros_call(int id, int flags)
     for (int i = 1; i <= id; i++)
         printf("a%d,", i);
     printf("bt,bn) \\\n");
-    char vec_alloc_string[] = "  APTR vec = a; \\\n";
+    char vec_alloc_string[] = "  register APTR vec __asm__(\"r11\") = a; \\\n";
     generate_call_body(id, flags, numregs, 0, standard_arg_registers, all_false, all_false,
                        vec_alloc_string);
     printf("#define AROS_CALL%d%s __AROS_CALL%d%s\n", id, nr(flags), id, nr(flags));
