@@ -103,7 +103,7 @@
 #include <aros/i386/cpu.h>
 #include <aros/i386/fenv.h>
 #include <aros/i386/genmodule.h>
-#include <aros/i386/libcall.h>
+// #include <aros/i386/libcall.h>
 #endif
 
 #include <aros/inquire.h>
@@ -615,7 +615,7 @@
 #include <clib/bsdsocket_protos.h>
 #include <clib/bullet_protos.h>
 // #include <clib/Busy_protos.h>
-#include <clib/bz2_protos.h>
+// #include <clib/bz2_protos.h>
 // #include <clib/Calendar_protos.h>
 // #include <clib/Calltips_protos.h>
 #include <clib/camd_protos.h>
@@ -667,7 +667,7 @@
 #include <clib/input_protos.h>
 #include <clib/intuition_protos.h>
 #include <clib/isapnp_protos.h>
-#include <clib/jfif_protos.h>
+// #include <clib/jfif_protos.h>
 #include <clib/kernel_protos.h>
 #include <clib/keymap_protos.h>
 #include <clib/kms_protos.h>
@@ -743,7 +743,7 @@
 #include <clib/wb_protos.h>
 #include <clib/workbench_protos.h>
 // #include <clib/x11gfx_protos.h>
-#include <clib/z1_protos.h>
+// #include <clib/z1_protos.h>
 
 #include <c++/swappedtype.hpp>
 
@@ -1274,7 +1274,7 @@
 #include <proto/bsdsocket.h>
 #include <proto/bullet.h>
 // #include <proto/Busy.h>
-#include <proto/bz2.h>
+// #include <proto/bz2.h>
 // #include <proto/Calendar.h>
 // #include <proto/Calltips.h>
 #include <proto/camd.h>
@@ -1328,7 +1328,7 @@
 #include <proto/iffparse.h>
 #include <proto/input.h>
 #include <proto/intuition.h>
-#include <proto/jfif.h>
+// #include <proto/jfif.h>
 #include <proto/kernel.h>
 #include <proto/keymap.h>
 #include <proto/kms.h>
@@ -1404,7 +1404,7 @@
 #include <proto/wb.h>
 #include <proto/workbench.h>
 // #include <proto/x11gfx.h>
-#include <proto/z1.h>
+// #include <proto/z1.h>
 
 #include <pthread.h>
 
@@ -1472,10 +1472,10 @@
 #include <utility/tagitem.h>
 #include <utility/utility.h>
 
-#include <vulkan/vk_icd.h>
-#include <vulkan/vk_platform.h>
-#include <vulkan/vulkan_core.h>
-#include <vulkan/vulkan.h>
+// #include <vulkan/vk_icd.h>
+// #include <vulkan/vk_platform.h>
+// #include <vulkan/vulkan_core.h>
+// #include <vulkan/vulkan.h>
 
 #include <workbench/handler.h>
 #include <workbench/icon.h>
