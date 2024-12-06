@@ -3,6 +3,7 @@
 /Arch/pc/Devs/processor.resource
 /Arch/pc/Devs/timer.device
 /Arch/pc/Libs/expansion.library
+/Arch/pc/Libs/debug.library
 /Classes/USB/bootkeyboard.class
 /Classes/USB/bootmouse.class
 /Classes/USB/hub.class
@@ -47,7 +48,6 @@
 /Libs/partition.library
 /Libs/poseidon.library
 /Libs/aros.library
-/Libs/debug.library
 /Libs/dos.library
 /Libs/gadtools.library
 /Libs/graphics.library
