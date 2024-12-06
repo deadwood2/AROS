@@ -35,10 +35,6 @@ IPTR CallHookA (struct Hook * hook, APTR obj, APTR param);
 IPTR CallHook (struct Hook * hook, APTR obj, ...) __stackparm;
 UBYTE * ACrypt(UBYTE * buffer, const UBYTE * password, const UBYTE * user);
 
-/* Dos support */
-BPTR ErrorOutput(void);
-BPTR SelectErrorOutput(BPTR fh);
-
 /* Exec support */
 VOID BeginIO (struct IORequest *ioReq);
 struct IORequest * CreateExtIO (struct MsgPort * port, ULONG iosize);

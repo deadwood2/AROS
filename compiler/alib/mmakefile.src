@@ -55,7 +55,6 @@ FILES	:= \
     dosupernew \
     drawbevelbox \
     easyrequest \
-    erroroutput \
     extendfonttags \
     fastrand \
     freeievents \
@@ -100,7 +99,6 @@ FILES	:= \
     refreshdtobjects \
     releaseinfo \
     removeamigaguidehost \
-    selecterroroutput \
     sendamigaguidecmd \
     sendamigaguidecontext \
     setamigaguideattrs \

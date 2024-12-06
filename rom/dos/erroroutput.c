@@ -1,36 +1,35 @@
 /*
-    Copyright © 1995-2007, The AROS Development Team. All rights reserved.
-    $Id$
+    Copyright (C) 1995-2011, The AROS Development Team. All rights reserved.
 
     Desc:
-    Lang: english
 */
+
+#include <dos/dosextens.h>
 #include <proto/exec.h>
-#include "dos_intern.h"
 
 /*****************************************************************************
 
     NAME */
 #include <proto/dos.h>
 
-	AROS_LH0(BPTR, Error,
+        AROS_LH0(BPTR, ErrorOutput,
 
 /*  SYNOPSIS */
 
 /*  LOCATION */
-	struct DosLibrary *, DOSBase, 142, Dos)
+        struct DosLibrary *, DOSBase, 142, Dos)
 
 /*  FUNCTION
-	Returns the current error stream or 0 if there is no current
-	input stream.
+        Returns the current error stream or 0 if there is no current
+        input stream.
 
     INPUTS
 
     RESULT
-	Error stream handle.
+        Error stream handle.
 
     NOTES
-	This function is AROS specific
+        This function is source-compatible with AmigaOS v4.
 
     EXAMPLE
 
@@ -49,5 +48,6 @@
 
     /* Nothing spectacular */
     return me->pr_CES;
+
     AROS_LIBFUNC_EXIT
-} /* Input */
+}
