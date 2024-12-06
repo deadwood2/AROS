@@ -3,32 +3,34 @@
 
     Desc:
 */
-
-#include <dos/dosextens.h>
 #include <proto/exec.h>
 
 /*****************************************************************************
 
     NAME */
-#include <proto/alib.h>
+#include <proto/dos.h>
 
-        BPTR ErrorOutput(
+        AROS_LH1(BPTR, SelectErrorOutput,
 
 /*  SYNOPSIS */
-        void)
+        AROS_LHA(BPTR, fh, D1),
+
+/*  LOCATION */
+        struct DosLibrary *, DOSBase, 144, Dos)
 
 /*  FUNCTION
-        Returns the current error stream or 0 if there is no current
-        input stream.
+        Sets the current error stream returned by ErrorOutput() to a new
+        value. Returns the old error stream.
 
     INPUTS
+        fh - New error stream.
 
     RESULT
-        Error stream handle.
+        Old error stream handle.
 
     NOTES
         This function is source-compatible with AmigaOS v4.
-
+        
     EXAMPLE
 
     BUGS
@@ -39,9 +41,17 @@
 
 *****************************************************************************/
 {
+    AROS_LIBFUNC_INIT
+
+    BPTR old;
     /* Get pointer to process structure */
-    struct Process *me=(struct Process *)FindTask(NULL);
+    struct Process *me = (struct Process *)FindTask(NULL);
 
     /* Nothing spectacular */
-    return me->pr_CES;
+    old = me->pr_CES;
+    me->pr_CES = fh;
+
+    return old;
+
+    AROS_LIBFUNC_EXIT
 }
