@@ -121,7 +121,7 @@ core_EnterInterrupt:				// At this point two ULONGs for segment registers are
 	movl	%eax, reg_fs(%ebx)
 	mov	%gs, %ax
 	movl	%eax, reg_gs(%ebx)
-	mov	$KERNEL_DS, %ax		// We are supervisor now
+	mov	$KERNEL_DS, %ax		// We are supervisor now (Note: CS is used intead of DS for checks in handlerException)
 	mov	%ax, %ds
 	mov	%ax, %es
 
