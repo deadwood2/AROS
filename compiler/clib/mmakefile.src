@@ -550,7 +550,7 @@ MLIB := \
 #MM compiler-arosccommon-legacy : includes
 
 #MM compiler-arosc-legacy : includes compiler-arosm-legacy \
-#MM      compiler-arosccommon-legacy linklibs-autoinit
+#MM      compiler-arosccommon-legacy linklibs-autoinit compiler-arosc-legacy-$(AROS_TARGET_CPU)
 
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 
