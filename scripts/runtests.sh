@@ -11,10 +11,10 @@ check_location ()
 
 check_location
 
-AROSBUILDDIR=$(pwd)/core-linux-x86_64-tests
+AROSBUILDDIR=$(pwd)/alt-abiv0-linux-i386-tests
 
 AROSSRCDIR=$(pwd)/AROS
-AROSRUNDIR=$AROSBUILDDIR/bin/linux-x86_64/AROS
+AROSRUNDIR=$AROSBUILDDIR/bin/linux-i386/AROS
 AROSLOGDIR=$AROSBUILDDIR/logs
 
 if [[ $1 == 'clean' ]]
@@ -26,9 +26,9 @@ fi
 mkdir -p $AROSRUNDIR
 rm -rf $AROSLOGDIR
 mkdir -p $AROSLOGDIR
-rsync -r -t -l --info=progress2 -s ./core-linux-x86_64-d/bin/linux-x86_64/AROS/* $AROSRUNDIR
-cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdb_ignore_errors.py $AROSRUNDIR
-cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdbinit $AROSRUNDIR
+rsync -r -t -l --info=progress2 -s ./alt-abiv0-linux-i386-d/bin/linux-i386/AROS/* $AROSRUNDIR
+cp ./alt-abiv0-linux-i386-d/bin/linux-i386/AROS/.gdb_ignore_errors.py $AROSRUNDIR
+cp ./alt-abiv0-linux-i386-d/bin/linux-i386/AROS/.gdbinit $AROSRUNDIR
 
 cp $AROSSRCDIR/scripts/nightly/autotest/User-Startup.cunit $AROSRUNDIR/S/User-Startup
 cp $AROSSRCDIR/scripts/nightly/autotest/Try $AROSRUNDIR/S/
@@ -41,7 +41,7 @@ find $AROSRUNDIR/ -name "*-Results.xml" -exec rm {} \;
 
 # Running tests
 cd $AROSRUNDIR
-./boot/linux/AROSBootstrap -m 640
+./boot/linux/AROSBootstrap
 
 # Generating results
 cd ../../../../
