@@ -266,7 +266,7 @@ AHI podeçavanja
 ;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nKopirajt ©%s
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Ne mogu da otvorim prozor.
@@ -282,7 +282,7 @@ Ne mogu da naÐem `%s'!
 ;
 msgTextNoOpen
 Ne mogu da otvorim `%s' verzija %ld.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

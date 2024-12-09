@@ -263,10 +263,10 @@ msgTextProgramName
 AHI innstillinger
 ; AHI preferences
 ;
-;You can use something like "%s%s\nCopyright ?%s\nEnglish translation by Your Name" here...
+;You can use something like "%s%s\nCopyright ©%s\nEnglish translation by Your Name" here...
 msgTextCopyright
 %s%s\nOpphavsrett @%s
-; %s%s\nCopyright @%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 Klarte ikke åpne vinduet.
@@ -282,7 +282,7 @@ Klarte ikke finne `%s'!
 ;
 msgTextNoOpen
 Klarte ikke åpne `%s' versjon %ld.
-; Unable to open `%s' version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;

@@ -3,6 +3,8 @@
 ## codeset 0
 ;
 ## chunk AUTH Translated by Forkens <subi@telefonica.net>
+;#language english
+;#version 4
 ;
 ;    AHI - Hardware independent audio subsystem
 ;    Copyright (C) 1996-2005 Martin Blom <martin@blom.org>
@@ -272,7 +274,7 @@ msgTextCopyright
 %s%s\n\
 Copyright w©%s\n\
 Traducció al català per Forkens
-; %s%s\nCopyright ©%s
+; %s%s\nCopyright (C)%s
 ;
 msgTextNoWindow
 No es pot obrir la finestra
@@ -288,7 +290,7 @@ No es pot trobar '%s'!
 ;
 msgTextNoOpen
 No es pot obrir '%s' versió %ld.
-; Unable to open `%s´ version %ld.
+; Unable to open '%s' version %ld.
 ;
 ; *** Additions
 ;
