@@ -14,7 +14,8 @@
 #include "exec_intern.h"
 
 /* Call the kernel to perform a Cold Reset */
-AROS_INTH1(Exec_X86ColdResetHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(Exec_X86ColdResetHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 
@@ -31,7 +32,8 @@ AROS_INTH1(Exec_X86ColdResetHandler, struct Interrupt *, handler)
 }
 
 /* Call the kernel to perform a Warm Reset */
-AROS_INTH1(Exec_X86WarmResetHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(Exec_X86WarmResetHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 
@@ -53,7 +55,8 @@ AROS_INTH1(Exec_X86WarmResetHandler, struct Interrupt *, handler)
  * chain (after the power-off screen), and calls the kernel
  * provided routine to power off the hardware if possible.
  */
-AROS_INTH1(Exec_X86ShutdownHandler, struct Interrupt *, handler)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(Exec_X86ShutdownHandler, struct Interrupt *, handler)
 {
     AROS_INTFUNC_INIT
 
