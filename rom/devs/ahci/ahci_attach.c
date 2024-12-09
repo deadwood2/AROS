@@ -117,7 +117,7 @@ static const struct ahci_pciid ahci_msi_blacklist[] = {
 	{ PCI_VENDOR_NVIDIA,	PCI_PRODUCT_NVIDIA_MCP65_AHCI_8, 0xa2 }
 };
 
-static int	ahci_msi_enable = 1;
+static int	ahci_msi_enable = 0;
 int	ahci_synchronous_boot = 1;
 int ahci_icc_bug = 0;
 
