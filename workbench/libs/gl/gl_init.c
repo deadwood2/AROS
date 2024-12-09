@@ -115,8 +115,8 @@ void GetGLVar(struct Library *base, const char *var, char **varstore)
 
     D(bug("[GL] %s()\n", __func__));
 
-    FreeVec(*varstore);
-    *varstore = NULL;
+    FreeVec(GLB(base)->glb_GLImpl);
+    GLB(base)->glb_GLImpl = NULL;
 
     Var_Length = GetVar(var,
               &Var_Value[0],
