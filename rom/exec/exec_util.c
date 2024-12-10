@@ -29,7 +29,7 @@ static inline struct Task * __inline_Exec_FindTaskByPID(ULONG __arg1, APTR __Sys
 }
 
 #define FindTaskByPID(arg1) \
-    __inline_Exec_FindTaskByPID((arg1), __aros_getbase_SysBase())
+    __inline_Exec_FindTaskByPID((arg1), __EXEC_LIBBASE)
 
 
 /****************************************************************************
