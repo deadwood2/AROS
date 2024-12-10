@@ -8,7 +8,7 @@
 #include "softpipe/sp_texture.h"
 #include "softpipe/sp_public.h"
 #include "softpipe/sp_screen.h"
-#include "util/format/u_format.h"
+#include "util/u_format.h"
 #include "util/u_math.h"
 
 #include <proto/oop.h>
@@ -65,7 +65,6 @@ HiddSoftpipe_CreateDisplaytarget( struct sw_winsys *ws,
                             enum pipe_format format,
                             unsigned width, unsigned height,
                             unsigned alignment,
-                            const void *front_private,
                             unsigned *stride )
 {
     struct HiddSoftpipeDisplaytarget * spdt =
