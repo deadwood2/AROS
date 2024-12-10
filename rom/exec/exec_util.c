@@ -149,7 +149,7 @@ Exec_InitETask(struct Task *task, struct Task *parent, struct ExecBase *SysBase)
 #endif
 
     et->et_Parent = parent;
-    NewMinList(&et->et_Children);
+    NEWLIST(&et->et_Children);
 
     D(bug("[EXEC:ETask] Init: Parent @ 0x%p\n", et->et_Parent);)
 
