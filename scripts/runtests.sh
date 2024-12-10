@@ -35,13 +35,13 @@ cp $AROSSRCDIR/scripts/nightly/autotest/Try $AROSRUNDIR/S/
 cp $AROSSRCDIR/scripts/nightly/autotest/Test.cunit $AROSRUNDIR/S/Test
 mv $AROSRUNDIR/Devs/Monitors/X1* $AROSRUNDIR/Storage/Monitors
 sed -i "s|Startup = 0|Startup = 1|g" $AROSRUNDIR/Devs/DOSDrivers/DEBUG
-sed -i "s|module Devs/Drivers/gfx.hidd|&\nmodule Storage/Drivers/headlessgfx.hidd|g" $AROSRUNDIR/boot/linux/AROSBootstrap.conf
-sed -i "/module Devs\/Drivers\/x11gfx.hidd/d" $AROSRUNDIR/boot/linux/AROSBootstrap.conf
+sed -i "s|module Devs/Drivers/gfx.hidd|&\nmodule Storage/Drivers/headlessgfx.hidd|g" $AROSRUNDIR/Arch/linux/AROSBootstrap.conf
+sed -i "/module Devs\/Drivers\/x11gfx.hidd/d" $AROSRUNDIR/Arch/linux/AROSBootstrap.conf
 find $AROSRUNDIR/ -name "*-Results.xml" -exec rm {} \;
 
 # Running tests
 cd $AROSRUNDIR
-./boot/linux/AROSBootstrap
+./Arch/linux/AROSBootstrap
 
 # Generating results
 cd ../../../../
