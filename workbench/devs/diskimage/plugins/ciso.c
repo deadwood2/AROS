@@ -97,13 +97,18 @@ static struct DIPluginIFace *IPlugin;
 #ifndef __AROS__
 #define ZBase image->zbase
 #else
-struct Library *Z1Base;
+struct Library *StdlibBase;
+struct Library *CrtBase;
 #endif
 
 BOOL CISO_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
 	SysBase = data->SysBase;
 	DOSBase = data->DOSBase;
 	IPlugin = data->IPlugin;
+#ifdef __AROS__
+	StdlibBase = OpenLibrary("stdlib.library", 0L);
+	CrtBase = OpenLibrary("crt.library", 0L);
+#endif
 	return TRUE;
 }
 
@@ -166,11 +171,9 @@ APTR CISO_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_S
 	image->align = ciso.align;
 
 #ifdef __AROS__
-	image->zbase = OpenLibrary("z1.library", 1);
-	Z1Base = image->zbase;
+	image->zbase = NULL;
 #else
 	image->zbase = OpenLibrary("z.library", 1);
-#endif
 	if (!image->zbase || !CheckLib(image->zbase, 1, 6)) {
 		error = ERROR_OBJECT_NOT_FOUND;
 		error_string = MSG_REQVER;
@@ -179,6 +182,7 @@ APTR CISO_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_S
 		error_args[2] = 6;
 		goto error;
 	}
+#endif
 
 	image->index_buf = AllocVec(index_size, MEMF_ANY);
 	image->block_buf = AllocVec(block_size << 1, MEMF_ANY);

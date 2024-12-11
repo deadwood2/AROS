@@ -115,7 +115,7 @@ static struct DIPluginIFace *IPlugin;
 #ifndef __AROS__
 #define ZBase image->zbase
 #else
-struct Library *Z1Base;
+struct Library *CrtBase;
 #endif
 
 BOOL DAA_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
@@ -123,6 +123,9 @@ BOOL DAA_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
     DOSBase = data->DOSBase;
     UtilityBase = data->UtilityBase;
     IPlugin = data->IPlugin;
+#ifdef __AROS__
+	CrtBase = OpenLibrary("crt.library", 0L);
+#endif
     return TRUE;
 }
 
@@ -247,11 +250,10 @@ APTR DAA_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_ST
     }
 
 #ifdef __AROS__
-    image->zbase = OpenLibrary("z1.library", 1);
-    Z1Base = image->zbase;
+    image->zbase = NULL;
 #else
     image->zbase = OpenLibrary("z.library", 1);
-#endif
+
     if (!image->zbase || !CheckLib(image->zbase, 1, 6)) {
         error = ERROR_OBJECT_NOT_FOUND;
         error_string = MSG_REQVER;
@@ -260,6 +262,7 @@ APTR DAA_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file, CONST_ST
         error_args[2] = 6;
         goto error;
     }
+#endif
 
     if (multi || fn->size != rle64(&daa.filesize)) {
         // Determine the type of numbering in the labels of the multiple volumes:

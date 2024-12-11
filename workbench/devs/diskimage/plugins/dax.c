@@ -100,13 +100,18 @@ static struct DIPluginIFace *IPlugin;
 #ifndef __AROS__
 #define ZBase image->zbase
 #else
-struct Library *Z1Base;
+struct Library *StdlibBase;
+struct Library *CrtBase;
 #endif
 
 BOOL DAX_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
 	SysBase = data->SysBase;
 	DOSBase = data->DOSBase;
 	IPlugin = data->IPlugin;
+#ifdef __AROS__
+	StdlibBase = OpenLibrary("stdlib.library", 0L);
+	CrtBase = OpenLibrary("crt.library", 0L);
+#endif
 	return TRUE;
 }
 
@@ -187,11 +192,9 @@ APTR DAX_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file,
 	image->total_blocks = image->total_bytes >> 11;
 
 #ifdef __AROS__
-	image->zbase = OpenLibrary("z1.library", 1);
-	Z1Base = image->zbase;
+	image->zbase = NULL;
 #else
 	image->zbase = OpenLibrary("z.library", 1);
-#endif
 	if (!image->zbase || !CheckLib(image->zbase, 1, 6)) {
 		error = ERROR_OBJECT_NOT_FOUND;
 		error_string = MSG_REQVER;
@@ -200,6 +203,7 @@ APTR DAX_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file,
 		error_args[2] = 6;
 		goto error;
 	}
+#endif
 
 	nframes = image->total_bytes / DAX_FRAME_SIZE;
 	if (image->total_bytes % DAX_FRAME_SIZE) nframes++;

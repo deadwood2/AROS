@@ -12,11 +12,11 @@ TARGETDIR := $(AROS_DEVS)/DiskImage
 #MM  workbench-devs-diskimage-ccd \
 #MM  workbench-devs-diskimage-ciso \
 #MM  workbench-devs-diskimage-cpc \
-##MM  workbench-devs-diskimage-daa \
+#MM  workbench-devs-diskimage-daa \
 #MM  workbench-devs-diskimage-dax \
 #MM  workbench-devs-diskimage-dmg \
 #MM  workbench-devs-diskimage-dms \
-##MM  workbench-devs-diskimage-gi \
+#MM  workbench-devs-diskimage-gi \
 #MM  workbench-devs-diskimage-mds \
 #MM  workbench-devs-diskimage-nrg \
 #MM  workbench-devs-diskimage-uif
@@ -30,11 +30,11 @@ TARGETDIR := $(AROS_DEVS)/DiskImage
 #MM  workbench-devs-diskimage-ccd-quick \
 #MM  workbench-devs-diskimage-ciso-quick \
 #MM  workbench-devs-diskimage-cpc-quick \
-##MM  workbench-devs-diskimage-daa-quick \
+#MM  workbench-devs-diskimage-daa-quick \
 #MM  workbench-devs-diskimage-dax-quick \
 #MM  workbench-devs-diskimage-dmg-quick \
 #MM  workbench-devs-diskimage-dms-quick \
-##MM  workbench-devs-diskimage-gi-quick \
+#MM  workbench-devs-diskimage-gi-quick \
 #MM  workbench-devs-diskimage-mds-quick \
 #MM  workbench-devs-diskimage-nrg-quick \
 #MM  workbench-devs-diskimage-uif-quick
@@ -56,7 +56,7 @@ TARGETDIR := $(AROS_DEVS)/DiskImage
 #MM  workbench-devs-diskimage-ccd-clean \
 #MM  workbench-devs-diskimage-cpc-clean \
 #MM  workbench-devs-diskimage-cue-clean \
-##MM  workbench-devs-diskimage-daa-clean \
+#MM  workbench-devs-diskimage-daa-clean \
 #MM  workbench-devs-diskimage-dax-clean \
 #MM  workbench-devs-diskimage-dmg-clean \
 #MM  workbench-devs-diskimage-dms-clean \
@@ -74,7 +74,7 @@ TARGETDIR := $(AROS_DEVS)/DiskImage
 #MM workbench-devs-diskimage-ciso : workbench-libs-z-linklib
 
 %build_prog mmake=workbench-devs-diskimage-ciso progname=CISO files="stub_aros ciso" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no usesdks="diskimage"
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdlib crtmod crt" usestartup=no usesdks="diskimage"
 
 %build_prog mmake=workbench-devs-diskimage-cpc progname=CPC files="stub_aros cpc" \
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no usesdks="diskimage"
@@ -89,19 +89,19 @@ CFILES := cue/cue cue/c_flac ../audio/aiff ../audio/flac \
 #MM workbench-devs-diskimage-daa : workbench-libs-z-linklib
 
 %build_prog mmake=workbench-devs-diskimage-daa progname=DAA files="stub_aros daa" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no usesdks="diskimage"
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z crtmod crt" usestartup=no usesdks="diskimage"
 
 #MM workbench-devs-diskimage-dax : workbench-libs-z-linklib
 
 %build_prog mmake=workbench-devs-diskimage-dax progname=DAX files="stub_aros dax" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no usesdks="diskimage"
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdlib crtmod crt" usestartup=no usesdks="diskimage"
 
-#MM workbench-devs-diskimage-dmg : workbench-libs-z-linklib
+##MM workbench-devs-diskimage-dmg : workbench-libs-z-linklib
 
 CFILES := dmg/dmg dmg/base64 dmg/adc
 
 %build_prog mmake=workbench-devs-diskimage-dmg progname=DMG files="stub_aros $(CFILES)" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z bz2 expat" usestartup=no usesdks="diskimage"
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z bz2_nostdio expat stdlib crtmod crt" usestartup=no usesdks="diskimage"
 
 CFILES := ../dms/crc_csum ../dms/getbits ../dms/tables ../dms/maketbl ../dms/u_init \
 	../dms/u_deep ../dms/u_heavy ../dms/u_medium ../dms/u_quick ../dms/u_rle
@@ -124,7 +124,7 @@ CFILES := ../dms/crc_csum ../dms/getbits ../dms/tables ../dms/maketbl ../dms/u_i
 #MM workbench-devs-diskimage-uif : workbench-libs-z-linklib
 
 %build_prog mmake=workbench-devs-diskimage-uif progname=UIF files="stub_aros uif" \
-    targetdir=$(TARGETDIR) uselibs="diskimagesupport z" usestartup=no usesdks="diskimage"
+    targetdir=$(TARGETDIR) uselibs="diskimagesupport z stdlib crtmod crt" usestartup=no usesdks="diskimage"
 
 %build_prog mmake=workbench-devs-diskimage-xad progname=XAD files="stub_aros xad" \
     targetdir=$(TARGETDIR) uselibs="diskimagesupport" usestartup=no usesdks="diskimage"
