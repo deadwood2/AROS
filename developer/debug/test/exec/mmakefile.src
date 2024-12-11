@@ -32,7 +32,6 @@ EXECPUBLICFILES :=		\
     semtorture		\
     stackswap 		\
     signaltest		\
-    taskstorage \
     tasktest		\
     traptest		\
     vblank
