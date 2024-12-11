@@ -126,15 +126,22 @@ static struct DIPluginIFace *IPlugin;
 #define ZBase image->zbase
 #define BZ2Base image->bz2base
 #else
-struct Library *BZ2Base;
-struct Library *Z1Base;
 struct Library *ExpatBase;
+struct Library *StdlibBase;
+struct Library *CrtBase;
+void bz_internal_error(int errorcode)
+{
+}
 #endif
 
 BOOL DMG_Init (struct DiskImagePlugin *Self, const struct PluginData *data) {
 	SysBase = data->SysBase;
 	DOSBase = data->DOSBase;
 	IPlugin = data->IPlugin;
+#ifdef __AROS__
+	StdlibBase = OpenLibrary("stdlib.library", 0L);
+	CrtBase = OpenLibrary("crt.library", 0L);
+#endif
 	return TRUE;
 }
 
@@ -406,8 +413,7 @@ APTR DMG_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file,
 
 	if (image->uses_zlib) {
 #ifdef __AROS__
-		image->zbase = OpenLibrary("z1.library", 1);
-		Z1Base = image->zbase;
+		image->zbase = NULL;
 #else
 		image->zbase = OpenLibrary("z.library", 1);
 #endif
@@ -422,6 +428,7 @@ APTR DMG_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file,
 	}
 
 	if (image->uses_bzlib) {
+#ifndef __AROS__
 		image->bz2base = OpenLibrary("bz2.library", 1);
 #ifdef __AROS__
 		BZ2Base = image->bz2base;
@@ -434,6 +441,7 @@ APTR DMG_OpenImage (struct DiskImagePlugin *Self, APTR unit, BPTR file,
 			error_args[2] = 1;
 			goto error;
 		}
+#endif
 	}
 
 	if (image->total_bytes == 0) {
@@ -684,8 +692,10 @@ static void xml_character_data_handler (void *user_data,
 void DMG_CloseImage (struct DiskImagePlugin *Self, APTR image_ptr) {
 	struct DMGImage *image = image_ptr;
 	if (image) {
+#ifndef __AROS__
 		if (image->bz2base) CloseLibrary(image->bz2base);
 		if (image->zbase) CloseLibrary(image->zbase);
+#endif
 		if (image->expatbase) CloseLibrary(image->expatbase);
 		FreeVec(image->hash);
 		if (image->plist) {
