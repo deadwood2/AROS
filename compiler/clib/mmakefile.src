@@ -17,8 +17,8 @@ USER_CFLAGS := -fno-builtin
 # Lists of files
 #   - Common always exist in the link library.
 
-STDC_PATH = $(SRCDIR)/compiler/stdc/
-POSIXC_PATH = $(SRCDIR)/compiler/posixc/
+STDC_PATH = $(SRCDIR)/compiler/crt/stdc/
+POSIXC_PATH = $(SRCDIR)/compiler/crt/posixc/
 
 STDC_COMMON = \
     atof \
@@ -556,7 +556,7 @@ FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 
 CFLAGS_IQUOTE := -L
 USER_CPPFLAGS += -DAROSC_BUILD
-USER_INCLUDES := -iquote $(SRCDIR)/$(CURDIR)/include -iquote $(SRCDIR)/compiler/posixc -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/posixc/regex -iquote $(FMTPRINTFDIR)
+USER_INCLUDES := -iquote $(SRCDIR)/$(CURDIR)/include -iquote $(SRCDIR)/compiler/crt/posixc -iquote $(SRCDIR)/$(CURDIR)/locale -iquote $(SRCDIR)/compiler/crt/posixc/regex -iquote $(FMTPRINTFDIR)
 
 %build_linklib mmake=compiler-arosccommon-legacy \
     libname=arosccommon files="$(COMMON_SOURCES)" \

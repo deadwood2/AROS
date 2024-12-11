@@ -2,7 +2,7 @@
 #
 include $(SRCDIR)/config/aros.cfg
 
-STDC_MATH_PATH = $(SRCDIR)/compiler/stdc/math/
+STDC_MATH_PATH = $(SRCDIR)/compiler/crt/stdc/math/
 
 STDC_MATH_FILES = \
     e_acos \
@@ -197,7 +197,7 @@ USER_CPPFLAGS := -D_IEEE_LIBM -Dlint '-D__FBSDID(x)='
 USER_CFLAGS := -Wno-uninitialized -Wno-parentheses
 
 CFLAGS_IQUOTE := -L
-USER_INCLUDES := -iquote $(SRCDIR)/compiler/stdc/math -I $(SRCDIR)/compiler
+USER_INCLUDES := -iquote $(SRCDIR)/compiler/crt/stdc/math -I $(SRCDIR)/compiler
 
 %build_linklib mmake=compiler-arosm-legacy libname=arosm files=$(FILES) \
     sdk="private"
