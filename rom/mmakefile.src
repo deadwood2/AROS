@@ -95,8 +95,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM     kernel-fs-con \
 #MM     kernel-hidd \
 #MM     kernel-oop \
-#MM     kernel-layers \
-#MM     kernel-usb-kobj-$(AROS_TARGET_ARCH)-$(AROS_TARGET_CPU)
+#MM     kernel-layers
 
 # *** PKG kickstart package ***
 
