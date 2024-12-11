@@ -11,6 +11,12 @@
 #include <dirent.h>
 
 #if 0
+#include <CUnit/CUnitCI.h>
+#else
+#include <exec/types.h>
+#include <proto/dos.h>
+
+#define CU_SUITE_SETUP      static int __cu_suite_setup
 #define CU_SUITE_TEARDOWN   static int __cu_suite_teardown
 #define CU_TEST_SETUP       static void __cu_test_setup
 #define CU_TEST_TEARDOWN    static void __cu_test_teardown
