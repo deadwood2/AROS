@@ -10,8 +10,9 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-#if 0
+#if 1
 #include <CUnit/CUnitCI.h>
+#include <exec/types.h>
 #else
 #include <exec/types.h>
 #include <proto/dos.h>

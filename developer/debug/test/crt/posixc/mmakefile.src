@@ -125,18 +125,18 @@ USER_CPPFLAGS :=
 
 %build_progs mmake=test-crt-posixc-cunit \
     files="cunit-crt-types64" targetdir=$(CUNITEXEDIR) \
-    uselibs=""
+    uselibs="cunit"
 
 USER_CPPFLAGS := -D_LARGEFILE64_SOURCE
 
 %build_prog mmake=test-crt-posixc-cunit-lfs \
     progname="cunit-crt-types64-lfs" \
     files="cunit-crt-types64" targetdir=$(CUNITEXEDIR) \
-    uselibs="" objdir=$(GENDIR)/$(CURDIR)/lfs
+    uselibs="cunit" objdir=$(GENDIR)/$(CURDIR)/lfs
 
 USER_CPPFLAGS := -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
 
 %build_prog mmake=test-crt-posixc-cunit-lfs-fob \
     progname="cunit-crt-types64-lfs-fob" \
     files="cunit-crt-types64" targetdir=$(CUNITEXEDIR) \
-    uselibs="" objdir=$(GENDIR)/$(CURDIR)/lfs-fob
+    uselibs="cunit" objdir=$(GENDIR)/$(CURDIR)/lfs-fob
