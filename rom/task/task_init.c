@@ -16,7 +16,7 @@
 #endif
 #include "task_intern.h"
 
-extern APTR AROS_SLIB_ENTRY(NewAddTask, Task, 176)();
+extern APTR AROS_SLIB_ENTRY(NewAddTask, Task, 152)();
 extern void AROS_SLIB_ENTRY(RemTask, Task, 48)();
 
 static LONG taskres_Init(struct TaskResBase *TaskResBase)
@@ -73,10 +73,7 @@ static LONG taskres_Init(struct TaskResBase *TaskResBase)
     AddHead((struct List *)&TaskResBase->trb_TaskStorageSlots, (struct Node *)freeTaskStorageSlot);
 
     TaskResBase->trb_RemTask = SetFunction((struct Library *)SysBase, -48*LIB_VECTSIZE, AROS_SLIB_ENTRY(RemTask, Task, 48));
-    TaskResBase->trb_NewAddTask = SetFunction((struct Library *)SysBase, -176*LIB_VECTSIZE, AROS_SLIB_ENTRY(NewAddTask, Task, 176));
-#if (0)
-    TaskResBase->trb_NewStackSwap = SetFunction((struct Library *)SysBase, -134*LIB_VECTSIZE, AROS_SLIB_ENTRY(NewStackSwap, Task, 134));
-#endif
+    TaskResBase->trb_NewAddTask = SetFunction((struct Library *)SysBase, -152*LIB_VECTSIZE, AROS_SLIB_ENTRY(NewAddTask, Task, 152));
 
     /*
        Add existing tasks to our internal list ..
@@ -213,7 +210,7 @@ static LONG taskres_Init(struct TaskResBase *TaskResBase)
 static LONG taskres_Exit(struct TaskResBase *TaskResBase)
 {
 #ifdef TASKRES_ENABLE
-    SetFunction((struct Library *)SysBase, -176*LIB_VECTSIZE, TaskResBase->trb_NewAddTask);
+    SetFunction((struct Library *)SysBase, -152*LIB_VECTSIZE, TaskResBase->trb_NewAddTask);
     SetFunction((struct Library *)SysBase, -48*LIB_VECTSIZE, TaskResBase->trb_RemTask);
 #endif /* TASKRES_ENABLE */
 

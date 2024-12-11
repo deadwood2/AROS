@@ -12,6 +12,11 @@
  * Many AmigaOS programs assume forbid state won't get broken.
  */
 
+/* ABI_V0 compatibility:
+ * Some existing software (i.e. packet.handler) allocate memory from within soft int handler. It is not allowed
+ * to work with semaphores in Supervisor mode as it may lead to deadlock.
+ */
+
 //#define __AROSEXEC_BROKENMEMLOCK__
 
 /* the default Quantum value to use .. */
