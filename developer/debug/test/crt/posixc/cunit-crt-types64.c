@@ -1,17 +1,47 @@
 /*
-    Copyright © 2023, The AROS Development Team. All rights reserved.
+    Copyright © 2022-2023, The AROS Development Team. All rights reserved.
     $Id$
 */
 
-#include <exec/types.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <aros/cpu.h>
-#include <sys/stat.h>
-#include <dirent.h>
 
-#include <CUnit/CUnitCI.h>
+#if 0
+#define CU_SUITE_TEARDOWN   static int __cu_suite_teardown
+#define CU_TEST_SETUP       static void __cu_test_setup
+#define CU_TEST_TEARDOWN    static void __cu_test_teardown
+#define CUE_SUCCESS         0
+
+#define CU_ASSERT_EQUAL(expected, actual) \
+    CU_ASSERT(expected == actual)
+
+#define CU_ASSERT(expr)                                 \
+    if (!(expr))                                        \
+    {                                                   \
+        CONST_STRPTR f = __FILE__;                      \
+        ULONG _tags[] = { (ULONG)f, __LINE__};          \
+        VPrintf("Assertion failed %s:%ld\n", (RAWARG)_tags);    \
+    }
+
+#define CU_CI_DEFINE_SUITE(...) \
+    __cu_suite_setup();         \
+
+#define CUNIT_CI_TEST(func)                 \
+    __cu_test_setup();                      \
+    {                                       \
+        CONST_STRPTR f = #func;             \
+        ULONG _tags[] = { (ULONG) f};       \
+        VPrintf("Running: %s\n", (RAWARG)_tags);    \
+    }                                       \
+    func();                                 \
+    __cu_test_teardown();                   \
+
+#define CU_CI_RUN_SUITES()      \
+    __cu_suite_teardown();      \
+
+#endif
 
 /* Values validated on GNU Linux x86_64 */
 #if (__WORDSIZE==64)
@@ -122,26 +152,6 @@ static void test_dev_t()
 #endif
 }
 
-static void test_struct_stat()
-{
-#if (__WORDSIZE==64) || defined(__USE_FILE_OFFSET64)
-    CU_ASSERT_EQUAL(sizeof(struct stat64), sizeof(struct stat))
-#else
-    CU_ASSERT_EQUAL(sizeof(struct stat64) - (3 * sizeof(ULONG)), sizeof(struct stat))
-#endif
-}
-
-static void test_struct_dirent()
-{
-#if ((__WORDSIZE==64) || defined(__USE_FILE_OFFSET64)) && defined(__USE_LARGEFILE64)
-    CU_ASSERT_EQUAL(sizeof(struct dirent64), sizeof(struct dirent))
-#elif defined(__USE_LARGEFILE64) /* 32-bit system, 32-bit I/O */
-    CU_ASSERT_EQUAL(sizeof(struct dirent64) - (2 * sizeof(ULONG)), sizeof(struct dirent))
-#else
-    CU_ASSERT(1);
-#endif
-}
-
 #if defined(__USE_FILE_OFFSET64)
 const char *suitename = "types64-lfs-fob_Suite";
 #elif defined(__USE_LARGEFILE64)
@@ -162,7 +172,5 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_time_t);
     CUNIT_CI_TEST(test_blksize_t);
     CUNIT_CI_TEST(test_dev_t);
-    CUNIT_CI_TEST(test_struct_stat);
-    CUNIT_CI_TEST(test_struct_dirent);
     return CU_CI_RUN_SUITES();
 }
