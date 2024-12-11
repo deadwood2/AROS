@@ -84,7 +84,7 @@ struct BootLoaderInfo BootLoaderData[] = {
     {
         "grub",
         "SYS:",
-        "boot/grub/stage1",
+        "Arch/pc/grub/stage1",
         "c/Install-grub",
         NULL
     },
@@ -93,9 +93,9 @@ struct BootLoaderInfo BootLoaderData[] = {
     {
         "grub",
         "SYS:",
-        "boot/grub/" GRUBARCHDIR "/core.img",
+        "Arch/pc/grub/" GRUBARCHDIR "/core.img",
         "c/Install-grub2",
-        "boot/grub/fonts/unicode.pf2"
+        "Arch/pc/grub/fonts/unicode.pf2"
     },
 #if (0)
     {
@@ -199,7 +199,7 @@ void BOOTLOADER_AddCoreSkipPaths(struct List *SkipList)
 
 #if defined(INSTALL_BL_GRUB)
     strcpy(skipPath, source_Path);
-    AddPart(skipPath, "boot/grub", skipPathLen);
+    AddPart(skipPath, "Arch/pc/grub", skipPathLen);
     AddSkipListEntry(SkipList, skipPath);
     grubSkipped = TRUE;
 #endif
@@ -207,7 +207,7 @@ void BOOTLOADER_AddCoreSkipPaths(struct List *SkipList)
     if (!grubSkipped)
     {
         strcpy(skipPath, source_Path);
-        AddPart(skipPath, "boot/grub", skipPathLen);
+        AddPart(skipPath, "Arch/pc/grub", skipPathLen);
         AddSkipListEntry(SkipList, skipPath);
         grubSkipped = TRUE;
     }
@@ -287,8 +287,8 @@ void BOOTLOADER_DoInstall(Class * CLASS, Object * self)
     SET(data->label, MUIA_Text_Contents, __(MSG_COPYBOOT));
 
     strcpy(srcPath, source_Path);
-    AddPart(srcPath, "boot", srcLen);
-    sprintf(dstPath, "%s:boot", data->install_SysTarget);
+    AddPart(srcPath, "Arch/pc", srcLen);
+    sprintf(dstPath, "%s:Arch/pc", data->install_SysTarget);
 
     D(
         bug("[InstallAROS] %s: Boot Device = %s/%d\n", __func__, data->bl_TargetDevice, data->bl_TargetUnit);
