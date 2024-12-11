@@ -50,7 +50,7 @@ ifeq ($(AROS_TARGET_SUFFIX),)
 else
     AROS_DIR_ARCH             := $(AROS_TARGET_ARCH)$(AROS_TARGET_SUFFIX)
 endif
-AROS_DIR_BOOT                 := boot
+AROS_DIR_BOOT                 := Arch
 AROS_DIR_BOOTARCH             := $(AROS_DIR_BOOT)/$(AROS_DIR_ARCH)
 AROS_DIR_C                    := C
 AROS_DIR_CLASSES              := Classes
