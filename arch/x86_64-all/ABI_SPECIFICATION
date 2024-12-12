@@ -5,6 +5,7 @@ Specification of AROS x86_64 ABIv11 calling conventions
 1a. Variadic functions in STACKCALL
 2. Library-side
 3. Caller-side (base-relative)
+4. Implementation notes
 
 Caller-side (Regular caller: program or library storing called library base in variable (local, global, field of structure))
 ============================================================================================================================
@@ -135,3 +136,18 @@ STACKCALL
                         __aros_getoffsettable() offsetted by __aros_rellib_offset_LibBase
                         global constant. Caller must implement __aros_getoffsettable()
                         returning caller's library base.
+
+Implementation notes
+====================
+
+In case of REGCALL inline and REGCALL define, call code is created during compilation of caller side code. This means we require a certain
+amount of control over R12 register at that time. Prior to GCC 7, this was accomplished by declaring a global register variable. This was
+guaranteeing that R12 will not be used for local variable operations between moment it was set to contain library base to the moment the
+call instruction was issued.
+
+Starting with GCC 7 this approach (which worked due to side effect) no longer works. In order to keep the call macros simple and don't
+re-implement ABI in assembler code, GCC is now hardcoded to have R12 as fixed register. This in effect means that R12 is not going to be
+allocated by GCC in any caller side code.
+
+Not using R12 in caller side code is however NOT an ABI requirement. The only requirement is that R12 is used to pass base during call and
+that R12 is a calle-saved register (as per SysV x86_64 ABI).
