@@ -146,6 +146,41 @@ struct SoftIntList
 #define AROS_INTH1(n, type, data)                  AROS_INTH4(n, type, data, __ufi_intmask, __ufi_custom, __ufi_code)
 #define AROS_INTH0(n)                              AROS_INTH4(n, APTR, data, __ufi_intmask, __ufi_custom, __ufi_code)
 
+/* ABI_V0 compatibility:
+ * Define a function prototype and call methods
+ * for Cause() and AddResetCallback()
+ * struct Interrupt is_Code fields.
+ *
+ * The prototype matches:
+ *
+ * ULONG func(APTR data, VOID_FUNC code, struct ExecBase *sysBase)
+ *            (A1, A5, A6)
+ */
+
+#define AROS_SOFTINTP(n)                                    \
+        AROS_UFP3(ULONG, n,                                 \
+          AROS_UFPA(APTR,      __ufi_data,    A1),          \
+          AROS_UFPA(VOID_FUNC, __ufi_code,    A5),          \
+          AROS_UFPA(struct ExecBase *, __ufi_SysBase, A6))
+
+#define AROS_SOFTINTC2(n, data, code)         \
+        AROS_UFC3(ULONG, n,                                 \
+                AROS_UFCA(APTR,      data,    A1),          \
+                AROS_UFCA(VOID_FUNC, code,    A5),          \
+                AROS_UFCA(struct ExecBase *, SysBase, A6))  \
+
+#define AROS_SOFTINTC1(n, data)                     AROS_SOFTINTC2(n, data, (VOID_FUNC)(n));
+
+#define AROS_SOFTINTH2(n, type, data, code)                 \
+        AROS_UFH3(ULONG, n,                                \
+          AROS_UFHA(APTR,      __ufi_data, A1),            \
+          AROS_UFHA(VOID_FUNC, code,       A5),             \
+          AROS_UFHA(struct ExecBase *, SysBase, A6)         \
+        ) { AROS_USERFUNC_INIT                             \
+            type __unused data = __ufi_data;
+
+#define AROS_SOFTINTH1(n, type, data)               AROS_SOFTINTH2(n, type, data, __ufi_code)
+
 #if !defined(AROS_INTFUNC_INIT)
 #define AROS_INTFUNC_INIT
 #endif
