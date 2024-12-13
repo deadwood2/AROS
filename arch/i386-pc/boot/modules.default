@@ -1,9 +1,9 @@
-/boot/pc/kernel.gz
-/boot/pc/Devs/battclock.resource
-/boot/pc/Devs/processor.resource
-/boot/pc/Devs/timer.device
-/boot/pc/Libs/expansion.library
-/boot/pc/Libs/debug.library
+/Arch/pc/kernel.gz
+/Arch/pc/Devs/battclock.resource
+/Arch/pc/Devs/processor.resource
+/Arch/pc/Devs/timer.device
+/Arch/pc/Libs/expansion.library
+/Arch/pc/Libs/debug.library
 /Classes/USB/bootkeyboard.class
 /Classes/USB/bootmouse.class
 /Classes/USB/hub.class

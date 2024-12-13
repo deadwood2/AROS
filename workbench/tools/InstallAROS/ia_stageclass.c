@@ -1450,7 +1450,7 @@ IPTR InstallStage__MUIM_IC_Install(Class * CLASS, Object * self, Msg message)
     if (option && (data->inst_success == MUIV_Inst_InProgress))
     {
         CONST_STRPTR core_dirs[] = {
-            "boot", "boot",
+            "Arch", "Arch",
             "C", "C",
             "Classes", "Classes",
             "Devs", "Devs",
