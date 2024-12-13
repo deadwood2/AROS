@@ -1,3 +1,4 @@
+/boot/pc/kernel.gz
 /boot/pc/Devs/battclock.resource
 /boot/pc/Devs/processor.resource
 /boot/pc/Devs/timer.device
