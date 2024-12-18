@@ -75,7 +75,7 @@ static void aros_call(int id, int flags)
            "    APTR __sto; \\\n"
            "    bt _bn = (bt)bn;\\\n"
            "    APTR __func = (APTR)a; \\\n"
-           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
+           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=&rm\"(__sto) : \"rm\"(_bn) : \"r12\"); \\\n"
     );
 
     aros_call_internal(id, flags);
@@ -253,7 +253,7 @@ int main(int argc, char **argv)
            "    APTR __sto; \\\n"
            "    APTR _bn = (APTR)bn;\\\n"
            "    APTR __func = __AROS_GETVECADDR(_bn, o); \\\n"
-           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n"
+           "    __asm__ __volatile__(\"movq %%%%r12, %%0\\n    movq %%1, %%%%r12\" : \"=&rm\"(__sto) : \"rm\"(_bn) : \"r12\");\n"
            "\n"
     );
 
