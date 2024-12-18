@@ -14,7 +14,7 @@ static inline LONG __inline_Layers_ChangeLayerVisibility(struct Layer * __arg1, 
     return AROS_LC2(LONG, ChangeLayerVisibility,\
          AROS_LCA(struct Layer *, (__arg1), A0), \
          AROS_LCA(int, (__arg2), D0), \
-        struct Library *, (__LayersBase), 41, Layers    );
+        struct Library *, (__LayersBase), 37, Layers    );
 }
 
 #define ChangeLayerVisibility(arg1, arg2) \
