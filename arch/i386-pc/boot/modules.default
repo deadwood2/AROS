@@ -19,11 +19,15 @@
 /Devs/Drivers/vgagfx.hidd
 /Devs/Drivers/pci.hidd
 /Devs/Drivers/pcipc.hidd
+/Devs/Drivers/power.hidd
 /Devs/Drivers/serial.hidd
 /Devs/Drivers/parallel.hidd
 /Devs/Drivers/bus.hidd
 /Devs/Drivers/storage.hidd
 /Devs/Drivers/system.hidd
+/Devs/Drivers/acpiacad.hidd
+/Devs/Drivers/acpibattery.hidd
+/Devs/Drivers/acpibutton.hidd
 /Devs/USBHardware/pciusb.device
 /Devs/usbromstartup.resource
 /Devs/bootloader.resource
@@ -36,8 +40,9 @@
 /Devs/input.device
 /Devs/gameport.device
 /Devs/keyboard.device
-/Devs/ahci.device
 /Devs/ata.device
+/Devs/ahci.device
+/Devs/nvme.device
 /L/afs-handler
 /L/cdrom-handler
 /L/sfs-handler

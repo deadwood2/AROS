@@ -51,7 +51,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM                              kernel-expansion \
 #MM                              kernel-efi \
 #MM                              kernel-pc-acpica \
-#MM                              kernel-hidd-acpibutton \
 #MM                              kernel-pc-hpet \
 #MM                              kernel-ata \
 #MM                              kernel-hidd-pciata \
@@ -76,6 +75,18 @@ KHIDDS      := ata_pci bus i8042 vesagfx vgagfx pci pcipc serial parallel storag
 %make_package mmake=kernel-bsp-pc-i386-yes file=$(AROSARCHDIR)/aros-bsp.pkg \
     devs=$(KDEVS) arch_devs=$(KDEVS_ARCH) hidds=$(KHIDDS) libs=$(KLIBS) \
     arch_libs=$(KLIBS_ARCH) res=$(KRSRCS) arch_res=$(KRSRCS_ARCH)
+
+# -------- ACPI drivers package --------
+
+#MM- kernel-link-pc-i386 : kernel-acpi
+#MM- kernel-acpi :	        \
+#MM     kernel-hidd-acpibutton	        \
+#MM     kernel-hidd-acpiacad	        \
+#MM     kernel-hidd-acpibattery
+
+ACPIDEVS        :=
+ACPIRSRCS      :=
+ACPIHIDDS      := acpiacad acpibattery acpibutton
 
 #
 # Legacy drivers package
