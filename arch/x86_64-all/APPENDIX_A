@@ -1,0 +1,112 @@
+Appendix A: Storage sizes for retrieving information using OM_GET or TagItem
+============================================================================
+
+1. Description of scenarios
+2. Existing documented implementation
+
+
+Description of scenarios
+========================
+
+Some of the APIs allow retrieving values at runtime by passing an address of memory location to written to. For such operation to be safe
+the size of storage at memory location needs to be at least the same size as the implementation on the calle side will write data to.
+Otherwise following memory locations will be overwritten resulting in hard to locate bugs.
+
+There are two popular scenarios which look similar however govern by different rules. These two cases are describe below along with
+implications for the implementation.
+
+Case (A) Object-oriented access via OM_GET or similar
+
+In this case a field in opGet message is set to pointer to memory location. This field has a pre-defined type of IPTR * and is written to
+using such type:
+
+struct opGet
+{
+    STACKED ULONG  MethodID;
+    STACKED Tag         opg_AttrID;
+    STACKED IPTR      * opg_Storage;
+};
+
+Call code:
+
+IPTR val;
+GetAttr(o, My_Attribute, (IPTR)&val);
+
+Assignment code:
+
+*(msg->opg_Storage) = val;
+
+This means that write always happen to the full width of IPTR and memory location needs to have size of IPTR (so be an IPTR or a pointer).
+
+
+Case (B) Direct access via TagItems
+
+In this case ti_Data fields of TagItem contains a pointer to memory location by there is no information of type being present. This means
+a developer implementing the assigned needs to explictly cast the pointer to a given type and then document this so that developer using
+API provides type of correct storage size.
+
+struct TagItem
+{
+    Tag         ti_Tag __attribute__((aligned(sizeof(IPTR))));   /* Tag ID                */
+    IPTR        ti_Data __attribute__((aligned(sizeof(IPTR))));  /* Tag-specific data     */
+} __attribute__((packed));
+
+Call code:
+
+T val;
+GetMeValue(My_Attribute, (IPTR)&val, TAG_DONE);
+
+Assignment code:
+
+T ptr = (T *)tag->ti_Data;
+*ptr = val;
+
+Existing documented implementation
+==================================
+
+Table below lists most of the instances present in AROS code codes along expected size of storage memory location, if known. General rule is
+that instances of case (A) expect IPTR-sized storage, while instances of case (B) need to have storage size documented.
+
+Module                  Function                        Case    Storage memory location size
+
+BOOPSI                  GetAttr                         A       IPTR/APTR
+MUI                     get/GET                         A       IPTR/APTR
+Hidd                    OOP_GetAttr/OOP_GET             A       IPTR/APTR
+Datatypes               GetDTAttrs (*)                  B(A)    IPTR/APTR
+GadTools                GT_GetGadgetAttrs (*)           B(A)    IPTR/APTR
+AHI                     AHI_GetAudioAttrs               B       As per documentation (various)
+                        AHI_ControlAudioA               B       As per documentation (various)
+aros.library            ArosInquireA                    B       As per documentation (various)
+task.resource           QueryTaskTagList                B       As per documentation (various)
+debug.library           DecodeLocationA                 B       As per documentation (various)
+processor.resource      GetCPUInfo                      B       As per documentation (various)
+partition.library       GetPartitionTableAttrs          B       As per documentation (various)
+                        GetPartitionAttrs               B       As per documentation (various)
+                        GetFileSystemAttrsA             B       As per documentation (various)
+identify.library        IdExpansion                     B       As per documentation (various)
+                        IdAlert                         B       As per documentation (various)
+                        IdFunction                      B       As per documentation (various)
+cybergraphics.library   LockBitmapTagList               B       As per documentation (various)
+icon.library            IconControlA                    B       No documentation (various)
+                        GetIconTagList                  B       As per documentation (various)
+freetype2.library       ObtainsInfoA                    B       No documentation (various)
+popupmenu.library       PM_GetItemAttrsA                B       No documentation (various)
+workbench.library       WorkbenchControlA               B       No documentation (various)
+diskimage.device        UnitControlA                    B       No documentation (various)
+Poseidon                psdGetAttrs (**)                B       As per documentation (IPTR)
+                        usbGetAttrs (**)                B       As per documentation (IPTR)
+graphics.library        GetRPAttrsA (**)                B       As per documentation (IPTR)
+prometheus.library      Prm_GetBoardAttrsTagList (**)   B       As per documentation (IPTR)
+bsdsocket.library       SocketBaseTagList (**)          B       As per documentation (IPTR)
+realtime.library        GetPlayerAttrsA (**)            B       As per documentation (IPTR)
+dos.library             GetSegListInfo                  B       No documentation (IPTR)
+clocksource.resource    GetCSAttrsA                     B       No documentation (IPTR)
+                        GetCSUnitAttrsA                 B       No documentation (IPTR)
+camd.library            GetMidiAttrsA                   B       No documentation (IPTR)
+                        GetMidiLinkAttrsA               B       No documentation (IPTR)
+
+
+(*) Even though GetDTAttrs() and GT_GetGadgetAttrs() have semantics of case (B), there are all but shorthands for calling BOOPSI GetAttrs
+and as such require IPTR-sized memory location.
+(**) these function document different types for attributes but explicitly lists IPTR in their documentation as required size of memory
+location.
