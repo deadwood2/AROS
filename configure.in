@@ -1102,6 +1102,11 @@ else
 fi
 AC_MSG_RESULT($enableval)
 
+# Target variant "classic" implies aros-prefs "classic" if it is not set.
+if test "$target_variant" = "classic" -a "$config_prefs_set" = ""; then
+    config_prefs_set="classic"
+fi
+
 #-----------------------------------------------------------------------------
 # Target-specific defaults. You can override then on a per-target basis.
 #

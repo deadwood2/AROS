@@ -9430,6 +9430,11 @@ fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $enableval" >&5
 printf "%s\n" "$enableval" >&6; }
 
+# Target variant "classic" implies aros-prefs "classic" if it is not set.
+if test "$target_variant" = "classic" -a "$config_prefs_set" = ""; then
+    config_prefs_set="classic"
+fi
+
 #-----------------------------------------------------------------------------
 # Target-specific defaults. You can override then on a per-target basis.
 #
