@@ -1116,6 +1116,10 @@ PLATFORM_EXECSMP=
 ENABLE_EXECSMP=
 
 #-----------------------------------------------------------------------------
+# Classic variant is possible for Amiga target.
+CLASSIC_VARIANT_DEFINE=
+
+#-----------------------------------------------------------------------------
 # Additional options for some specific targets
 
 case "$aros_target_variant" in
@@ -1941,6 +1945,9 @@ case "$target_os" in
         aros_target_arch="amiga"
         aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -D_AMIGA -DAMIGA"
         aros_shared_default="no"
+        if test "$aros_target_variant" = "classic" ; then
+            CLASSIC_VARIANT_DEFINE="#define AROS_VARIANT_CLASSIC"
+        fi
 
         case "$target_cpu" in
             *m68k*)
@@ -3618,6 +3625,9 @@ AC_SUBST(target_grub2_version)
 
 # Unix/Hosted version related
 AC_SUBST(aros_nesting_supervisor)
+
+# Define set if classic variant is chosen
+AC_SUBST(CLASSIC_VARIANT_DEFINE)
 
 # ARM default GCC target related
 AC_SUBST(gcc_default_cpu)

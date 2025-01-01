@@ -683,6 +683,7 @@ gcc_default_float_abi
 gcc_default_fpu
 gcc_default_cpu_tune
 gcc_default_cpu
+CLASSIC_VARIANT_DEFINE
 aros_nesting_supervisor
 target_grub2_version
 aros_enable_mmu
@@ -9444,6 +9445,10 @@ PLATFORM_EXECSMP=
 ENABLE_EXECSMP=
 
 #-----------------------------------------------------------------------------
+# This only applies to amiga target.
+CLASSIC_VARIANT_DEFINE=
+
+#-----------------------------------------------------------------------------
 # Additional options for some specific targets
 
 case "$aros_target_variant" in
@@ -10535,6 +10540,9 @@ fi
         aros_target_arch="amiga"
         aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -D_AMIGA -DAMIGA"
         aros_shared_default="no"
+        if test "$aros_target_variant" = "classic" ; then
+            CLASSIC_VARIANT_DEFINE="#define AROS_VARIANT_CLASSIC"
+        fi
 
         case "$target_cpu" in
             *m68k*)
@@ -17977,6 +17985,9 @@ aros_kernel_ranlib=$aros_kernel_ranlib
 
 
 # Unix/Hosted version related
+
+
+# Define set if classic variant is chosen
 
 
 # ARM default GCC target related
