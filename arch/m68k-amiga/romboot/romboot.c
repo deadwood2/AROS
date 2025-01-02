@@ -7,8 +7,6 @@
 #include <aros/debug.h>
 #include <exec/types.h>
 #include <exec/resident.h>
-#include <hardware/custom.h>
-#include <hardware/dmabits.h>
 #include <proto/expansion.h>
 #include <aros/asmcall.h>
 #include <libraries/expansionbase.h>
