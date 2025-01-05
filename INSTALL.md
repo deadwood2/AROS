@@ -21,6 +21,8 @@ To control the number of parallel make jobs, the environment variable MAKE_JOBS 
 For example, "MAKE_JOBS=4 ./rebuild.sh" means four parallel make jobs can be used.
 By default, three parallel make jobs are allowed.
 
+Additional options can be passed to the configure script with the environment variable EXTRA_CONFIGURE_OPTS.
+
 Proceed to build selection below
 
 ### Linux-x86_64
