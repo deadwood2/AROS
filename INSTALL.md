@@ -17,6 +17,10 @@ For armhf build, please install additional packages:
     $ cp ./AROS/scripts/rebuild.sh .
     $ ./rebuild.sh
 
+To control the number of parallel make jobs, the environment variable MAKE_JOBS can be given.
+For example, "MAKE_JOBS=4 ./rebuild.sh" means four parallel make jobs can be used.
+By default, three parallel make jobs are allowed.
+
 Proceed to build selection below
 
 ### Linux-x86_64
