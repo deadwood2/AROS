@@ -2,8 +2,6 @@
     Copyright (C) 1995-2007, The AROS Development Team. All rights reserved.
 */
 
-#define AROS_USE_OOP
-
 #include <aros/config.h>
 #include <exec/io.h>
 #include <exec/types.h>
