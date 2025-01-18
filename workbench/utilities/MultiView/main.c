@@ -1876,8 +1876,7 @@ int main(int argc, char **argv)
             if (wbarg->wa_Lock)
             {
                 NameFromLock(wbarg->wa_Lock, filepath, 256);
-                strcat(filepath,"/");
-                strcat(filepath, wbarg->wa_Name);
+                AddPart(filepath, wbarg->wa_Name, 256);
                 GetFileToolTypes(filepath); /*defaults from Multiview Icon*/
             }
             else
@@ -1890,8 +1889,7 @@ int main(int argc, char **argv)
             if (wbarg->wa_Lock)
             {   
                 NameFromLock(wbarg->wa_Lock, filepath, 256);
-                strcat(filepath,"/");
-                strcat(filepath, wbarg->wa_Name);
+                AddPart(filepath, wbarg->wa_Name, 256);
                 filename = filepath;
                 D(bug("[MultiView] Fully qualified filename = %s\n", filename));
             }
