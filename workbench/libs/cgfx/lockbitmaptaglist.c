@@ -126,7 +126,8 @@
     ULONG width, height, banksize, memsize;
     OOP_Object *pf;
     IPTR cpf;
-    
+
+#if !defined(__mc68000)
     /*
      * Disallow any direct bitmap access. This is mostly used by SDL and the SDL code seems to be broken
      * for 32-bit (BGR0, etc) bitmaps. This became move visible as vesa.hidd had its bitmap lock-enabled.
@@ -135,6 +136,7 @@
      * whitelist for existing application that require this function and handle it correctly
      */
     return NULL;
+#endif
 
     if (!IS_HIDD_BM(bm))
     {
