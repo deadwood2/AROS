@@ -73,17 +73,19 @@ struct ExceptionContext
     UQUAD es;
     UQUAD fs;
     UQUAD gs;
-    UQUAD rip;
-    UQUAD cs;
-    UQUAD rflags;
-    UQUAD rsp;
-    UQUAD ss;
 
     union {
         struct FPFXSContext *FXSData;   /* Pointer to legacy SSE FXSAVE 512 byte context area   */
         struct FPXSContext *XSData;     /* Pointer to AVX XSAVE context area                    */
     };
     ULONG FPUCtxSize;
+    ULONG Reserved2;                    /* Padding                                              */
+
+    UQUAD rip;                          /* Registers saved by CPU before executing system code  */
+    UQUAD cs;                           /* Always keep at end of structure                      */
+    UQUAD rflags;
+    UQUAD rsp;
+    UQUAD ss;
 };
 
 enum enECFlags
