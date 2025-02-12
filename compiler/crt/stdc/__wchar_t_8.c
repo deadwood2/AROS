@@ -1,0 +1,91 @@
+/*
+    Copyright (C) 2025, The AROS Development Team. All rights reserved.
+
+    crt.library 1.0 backwards compatibility
+*/
+
+#include <dos/dos.h>
+#include <dos/dosextens.h>
+#include <proto/exec.h>
+
+
+int __wcscmp_wchar_t_8(const char *wcstra, const char *wcstrb)
+
+{
+    while (*wcstra &&
+               *wcstrb &&
+               (*wcstra == *wcstrb))
+    {
+        wcstra++;
+        wcstrb++;
+    }
+
+    if (*wcstra < *wcstrb)
+        return -1;
+    else if (*wcstra > *wcstrb)
+        return 1;
+    return 0;
+} /* wcscmp */
+
+char *__wcscpy_wchar_t_8(char *wcdst, const char *wcsrc)
+{
+    char *_wcptr;
+
+    /* copy the wide characters */
+    for (_wcptr = wcdst; *wcsrc; wcsrc++)
+        *_wcptr++ = *wcsrc;
+
+    /* terminate the wide string */
+    *_wcptr = 0x0000;
+
+    return wcdst;
+} /* wcscpy */
+
+size_t __wcslen_wchar_t_8(const char *wcstr)
+{
+    int cnt = 0;
+
+    while (*wcstr++) cnt++;
+
+    return cnt;
+} /* wcslen */
+
+int __wcsncmp_wchar_t_8(const char *wcstra, const char *wcstrb, size_t cnt)
+{
+    while ((cnt-- > 0) &&
+                *wcstra &&
+                *wcstrb &&
+                (*wcstra == *wcstrb))
+    {
+        wcstra++;
+        wcstrb++;
+    }
+
+    if ((cnt > 0) && *wcstra < *wcstrb)
+        return -1;
+    else if ((cnt > 0) && *wcstra > *wcstrb)
+        return 1;
+    return 0;
+} /* wcsncmp */
+
+char *__wcsncpy_wchar_t_8(char *wcdst, const char *wcsrc, size_t cnt)
+    {
+        char *_wcptr;
+    
+        /* copy the wide characters */
+        for (_wcptr = wcdst; (cnt > 0) && *wcsrc; wcsrc++)
+        {
+            *_wcptr++ = *wcsrc;
+            cnt--;
+        }
+    
+        /* terminate the wide string, and fill the remaining
+         * wide characters as specified in the spec... */
+        while (cnt > 0)
+        {
+            *_wcptr++ = 0x0000;
+            cnt--;
+        }
+    
+        return wcdst;
+    } /* wcsncpy */
