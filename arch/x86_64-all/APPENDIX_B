@@ -1,0 +1,13 @@
+Appendix B: Interrupt handler code and Software interrupts code
+===============================================================
+
+Code that is executed in context of an interrupt, be it a hardware interrupt handler routine or a software interrupt, needs to preserve XMM
+and YMM registers 4 through 15. General purpose registers and XMM and YMM registers 0 through 3 are guaranteed to be preserved by system
+and can be freely used by handler code.
+
+In the case where handler code calls into a system function, it is guaranteed that the system function will follow this logic and will
+preserve XMM and YMM registers 4 through 15.
+
+In the case where handler code calls into other (3rd party) code, the author of the handler code needs to review the complete call chain
+to guarantee above rule is met. As a workaround for review, the author of the handler can compile all the code with -mgeneral-regs-only
+switch which guarantees that any possible compiler optimization (like vectorization, loop unroll) is not using XMM or YMM registers.
