@@ -8,25 +8,6 @@
 #include <dos/dosextens.h>
 #include <proto/exec.h>
 
-
-int __wcscmp_wchar_t_8(const char *wcstra, const char *wcstrb)
-
-{
-    while (*wcstra &&
-               *wcstrb &&
-               (*wcstra == *wcstrb))
-    {
-        wcstra++;
-        wcstrb++;
-    }
-
-    if (*wcstra < *wcstrb)
-        return -1;
-    else if (*wcstra > *wcstrb)
-        return 1;
-    return 0;
-} /* wcscmp */
-
 char *__wcscpy_wchar_t_8(char *wcdst, const char *wcsrc)
 {
     char *_wcptr;
