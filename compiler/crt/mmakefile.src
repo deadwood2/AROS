@@ -383,6 +383,7 @@ STDLIB_WCHAR := \
     stdc/wcslen
 
 STDLIB := \
+    __wchar_t_8 \
     __stdlib_optionallibs \
     stdlib_gmtoffset \
     stdlib_time \

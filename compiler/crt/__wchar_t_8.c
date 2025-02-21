@@ -50,23 +50,36 @@ int __wcsncmp_wchar_t_8(const char *wcstra, const char *wcstrb, size_t cnt)
 } /* wcsncmp */
 
 char *__wcsncpy_wchar_t_8(char *wcdst, const char *wcsrc, size_t cnt)
+{
+    char *_wcptr;
+
+    /* copy the wide characters */
+    for (_wcptr = wcdst; (cnt > 0) && *wcsrc; wcsrc++)
     {
-        char *_wcptr;
-    
-        /* copy the wide characters */
-        for (_wcptr = wcdst; (cnt > 0) && *wcsrc; wcsrc++)
-        {
-            *_wcptr++ = *wcsrc;
-            cnt--;
-        }
-    
-        /* terminate the wide string, and fill the remaining
-         * wide characters as specified in the spec... */
-        while (cnt > 0)
-        {
-            *_wcptr++ = 0x0000;
-            cnt--;
-        }
-    
-        return wcdst;
-    } /* wcsncpy */
+        *_wcptr++ = *wcsrc;
+        cnt--;
+    }
+
+    /* terminate the wide string, and fill the remaining
+     * wide characters as specified in the spec... */
+    while (cnt > 0)
+    {
+        *_wcptr++ = 0x0000;
+        cnt--;
+    }
+
+    return wcdst;
+} /* wcsncpy */
+
+char *__wcscat_wchar_t_8(char *wcdst, const char *wcsrc)
+{
+    char *_wcptr = wcdst;
+
+    /* skip existing characters ... */
+    while (*_wcptr) _wcptr++;
+
+    /* and copy the string .. */
+    wcscpy(_wcptr, wcsrc);
+
+    return wcdst;
+} /* wcscat */
