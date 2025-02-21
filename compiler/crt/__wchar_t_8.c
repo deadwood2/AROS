@@ -79,7 +79,7 @@ char *__wcscat_wchar_t_8(char *wcdst, const char *wcsrc)
     while (*_wcptr) _wcptr++;
 
     /* and copy the string .. */
-    __wcsncpy_wchar_t_8(_wcptr, wcsrc);
+    __wcscpy_wchar_t_8(_wcptr, wcsrc);
 
     return wcdst;
 } /* wcscat */
