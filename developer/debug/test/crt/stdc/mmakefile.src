@@ -46,7 +46,11 @@ CUNITSTDCTESTFILES := \
     cunit-crt-sscanf \
     cunit-crt-sxprintf \
     cunit-crt-time \
-    cunit-crt-wcsncpy
+    cunit-crt-wcsncpy \
+    cunit-crt-wcscat \
+    cunit-crt-wcscpy \
+    cunit-crt-wcslen \
+    cunit-crt-wcsncmp
 
 #MM- test-crt : test-crt-stdc test-crt-stdc-$(AROS_TARGET_CPU)
 #MM- test-crt-quick : test-crt-stdc-quick test-crt-stdc-$(AROS_TARGET_CPU)-quick
