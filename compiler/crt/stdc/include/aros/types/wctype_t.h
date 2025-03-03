@@ -2,7 +2,7 @@
 #define _AROS_TYPES_WCTYPE_T_H
 
 /*
-    Copyright � 2020, The AROS Development Team. All rights reserved.
+    Copyright © 2025, The AROS Development Team. All rights reserved.
     $Id$
 */
 
