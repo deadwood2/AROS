@@ -363,7 +363,7 @@ static int ps2mouse_detectintellimouse(struct IORequest* tmr)
 
 /****************************************************************************************/
 
-static AROS_INTH1(PS2KBMResetHandler, struct IORequest *, tmr)
+static AROS_SOFTINTH1(PS2KBMResetHandler, struct IORequest *, tmr)
 {
     AROS_INTFUNC_INIT
 

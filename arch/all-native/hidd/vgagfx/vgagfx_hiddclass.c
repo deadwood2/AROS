@@ -30,7 +30,8 @@
 
 #include LC_LIBDEFS_FILE
 
-static AROS_INTH1(ResetHandler, struct VGAGfx_staticdata *, xsd)
+/* ABI_V0 compatibility */
+static AROS_SOFTINTH1(ResetHandler, struct VGAGfx_staticdata *, xsd)
 {
     AROS_INTFUNC_INIT
 
