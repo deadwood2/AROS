@@ -2532,7 +2532,8 @@ AROS_LH0(SUBLIBBASETYPEPTR, subLibReserved,
 /* \\\ */
 
 /* /// "subLibPlayerIntV4()" */
-AROS_INTH1(subLibPlayerIntV4, struct NepAudioMode *, nam)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(subLibPlayerIntV4, struct NepAudioMode *, nam)
 {
     AROS_INTFUNC_INIT
     
@@ -2557,7 +2558,8 @@ AROS_INTH1(subLibPlayerIntV4, struct NepAudioMode *, nam)
 /* \\\ */
 
 /* /// "subLibPlayerIntV6()" */
-AROS_INTH1(subLibPlayerIntV6, struct NepAudioMode *, nam)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(subLibPlayerIntV6, struct NepAudioMode *, nam)
 {
     AROS_INTFUNC_INIT
     
@@ -2585,7 +2587,8 @@ AROS_INTH1(subLibPlayerIntV6, struct NepAudioMode *, nam)
 /* \\\ */
 
 /* /// "subLibPlayerIntDummy()" */
-AROS_INTH1(subLibPlayerIntDummy, struct NepAudioMode *, nam)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(subLibPlayerIntDummy, struct NepAudioMode *, nam)
 {
     AROS_INTFUNC_INIT
 

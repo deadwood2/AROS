@@ -555,7 +555,7 @@ int APICHeartbeatFinalizer(struct ExceptionContext *regs, struct KernelBase *LIB
     pdata->kb_PDFlags &= ~PLATFORMF_HAVEHEARTBEAT;
 }
 
-static AROS_INTH1(APICResetHandler, struct KernelBase *, KernelBase)
+static AROS_SOFTINTH1(APICResetHandler, struct KernelBase *, KernelBase)
 {
     AROS_INTFUNC_INIT
 

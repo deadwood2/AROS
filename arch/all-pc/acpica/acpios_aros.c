@@ -76,7 +76,7 @@ MpSaveSerialInfo (
 BOOL __aros_setoffsettable(char *base);
 char *__aros_getoffsettable(void);
 
-static AROS_INTH1(ACPICAResetHandler, struct ACPICABase *, ACPICABase)
+static AROS_SOFTINTH1(ACPICAResetHandler, struct ACPICABase *, ACPICABase)
 {
     AROS_INTFUNC_INIT
     ACPI_STATUS status;
@@ -85,7 +85,7 @@ static AROS_INTH1(ACPICAResetHandler, struct ACPICABase *, ACPICABase)
 
     if (ACPICABase->ab_ResetInt.is_Node.ln_Type != SD_ACTION_WARMREBOOT)
     {
-        D(bug("[ACPI] %s: Skipping ACPI shutdown (Not WARMREBOOT)\n", __func__);)
+        bug("[ACPI] %s: Skipping ACPI shutdown (Not WARMREBOOT)\n", __func__);
         return FALSE;
     }            
     else
@@ -98,7 +98,7 @@ static AROS_INTH1(ACPICAResetHandler, struct ACPICABase *, ACPICABase)
 
         if (ACPI_SUCCESS(status))
         {
-            D(bug("[ACPI] %s: ACPI subsystem shutdown complete\n", __func__);)
+            bug("[ACPI] %s: ACPI subsystem shutdown complete\n", __func__);
             return FALSE;
         }
     }
@@ -1033,7 +1033,7 @@ int ACPICA_init(struct ACPICABase *ACPICABase)
     AcpiDbgLevel = ~0;
     ACPICABase->ab_RootPointer = 0;
 
-    NewMinList(&ACPICABase->ab_IntHandlers);
+    NEWLIST(&ACPICABase->ab_IntHandlers);
 
 /* The following block will only work on native builds */
 #if (AROS_FLAVOUR & AROS_FLAVOUR_STANDALONE)

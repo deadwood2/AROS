@@ -54,7 +54,7 @@ static void adapt_data(struct HIDDSerialUnitData * data,
 static const ULONG bases[] = { 0x3f8, 0x2f8, 0x3e8, 0x2e8 };
 
 /******* Shutdown Handler ***********************************/
-static AROS_INTH1(PCSerUnit_ResetHandler, struct HIDDSerialUnitData *, data)
+static AROS_SOFTINTH1(PCSerUnit_ResetHandler, struct HIDDSerialUnitData *, data)
 {
     AROS_INTFUNC_INIT
 
