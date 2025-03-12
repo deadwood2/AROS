@@ -1,7 +1,7 @@
 #ifndef _STDC_WCHAR_H_
 #define _STDC_WCHAR_H_
 /*
-    Copyright � 1995-2011, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2025, The AROS Development Team. All rights reserved.
     $Id$
 
     Standard C Library: Extended multibyte and wide character handling.
