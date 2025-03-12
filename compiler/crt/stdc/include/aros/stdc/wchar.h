@@ -1,7 +1,7 @@
 #ifndef _STDC_WCHAR_H_
 #define _STDC_WCHAR_H_
 /*
-    Copyright © 1995-2011, The AROS Development Team. All rights reserved.
+    Copyright ï¿½ 1995-2011, The AROS Development Team. All rights reserved.
     $Id$
 
     Standard C Library: Extended multibyte and wide character handling.
@@ -75,7 +75,7 @@ wchar_t *wcscpy(wchar_t *s1, const wchar_t *s2);
 int wcsncmp(const wchar_t *s1, const wchar_t *s2, size_t n);
 wchar_t *wcsncpy(wchar_t *s1, const wchar_t *s2, size_t n);
 /* NOTIMPL size_t wcsxfrm(wchar_t * restrict s1, const wchar_t * restrict s2, size_t n); */
-/* NOTIMPL wchar_t *wcschr(const wchar_t *s, wchar_t c); */
+wchar_t *wcschr(const wchar_t *s, wchar_t c);
 /* NOTIMPL size_t wcscspn(const wchar_t *s1, const wchar_t *s2); */
 size_t wcslen(const wchar_t *s);
 /* NOTIMPL wchar_t *wcspbrk(const wchar_t *s1, const wchar_t *s2); */
