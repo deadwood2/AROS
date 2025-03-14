@@ -348,7 +348,6 @@ STDC_MATH += $(STDC_WCABS_MATH)
 
 # wide char/string support
 STDC_WCHAR := \
-    wcschr \
     wcscat \
     wcscmp \
     wcsncmp \
