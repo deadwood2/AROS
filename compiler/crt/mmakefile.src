@@ -376,6 +376,7 @@ USER_CPPFLAGS := \
 # wide char/string support
 STDLIB_WCHAR := \
     stdc/wcschr \
+    stdc/wcsncat \
     stdc/wcscat \
     stdc/wcscmp \
     stdc/wcsncmp \

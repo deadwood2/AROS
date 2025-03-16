@@ -68,7 +68,7 @@ __BEGIN_DECLS
 	wchar_t ** restrict endptr, int base); */
 
 wchar_t *wcscat(wchar_t * restrict s1, const wchar_t * restrict s2);
-/* NOTIMPL wchar_t *wcsncat(wchar_t * restrict s1, const wchar_t * restrict s2, size_t n); */
+wchar_t *wcsncat(wchar_t * restrict s1, const wchar_t * restrict s2, size_t n);
 int wcscmp(const wchar_t *s1, const wchar_t *s2);
 wchar_t *wcscpy(wchar_t *s1, const wchar_t *s2);
 /* NOTIMPL int wcscoll(const wchar_t *s1, const wchar_t *s2); */
