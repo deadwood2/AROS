@@ -48,6 +48,7 @@ CUNITSTDCTESTFILES := \
     cunit-crt-time \
     cunit-crt-wcsncpy \
     cunit-crt-wcscat \
+    cunit-crt-wcsncat \
     cunit-crt-wcscpy \
     cunit-crt-wcslen \
     cunit-crt-wcschr \
