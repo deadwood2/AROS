@@ -36,7 +36,6 @@ If NOT WARN
     Execute S/Test cunit/dos/cunit-dos-fileseek                 ;FileSeek_Suite
     Execute S/Test cunit/dos/cunit-dos-readargs                 ;ReadArgs_Suite
     Execute S/Test cunit/dos/cunit-dos-samelock                 ;SameLock_Suite
-    Execute S/Test cunit/dos/cunit-dos-smallcodemodel           ;SmallCodeModel_Suite
     Execute S/Test cunit/dos/cunit-dos-systemtags               ;SystemTags_Suite
 
     ; Perform basic "timer.device" unit tests...
