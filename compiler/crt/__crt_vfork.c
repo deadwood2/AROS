@@ -252,6 +252,9 @@ LONG launcher()
 
             if (ectx)
             {
+                /* Flush whatever parent pretending as child wrote */
+                fflush(NULL);
+
                 D(bug("launcher: prepare to catch _exit()\n"));
                 /* Part 2 of "program_startup" for child. */
                 __progonly_program_startup_internal(ProgCtx, exec_exitjmp, &exec_error);
@@ -282,6 +285,8 @@ LONG launcher()
         /* child exited */
         D(bug("launcher: catched _exit(), errno=%d\n", exec_error));
     }
+
+    fflush(NULL);
 
     D(bug("launcher: freeing child_signal\n"));
     FreeSignal(child_signal);
@@ -351,6 +356,8 @@ pid_t __vfork(jmp_buf env)
     udata->parent_progctx = ProgCtx;
 
     parent_createchild(udata);
+    /* After this point parent can assume memory pointed udata->child_progctx and
+       udata->child_progctx->libbase contains active objects */
 
     D(bug("__vfork: Parent: Setting jmp_buf at %p\n", udata->parent_newexitjmp));
     if (setjmp(udata->parent_newexitjmp) == 0)
@@ -401,6 +408,11 @@ pid_t __vfork(jmp_buf env)
             D(bug("__vfork: ParentPretendingChild: Signaling child %p, signal %d\n", udata->child, udata->child_signal));
             SETPARENTSTATE(PARENT_STATE_EXIT_CALLED);
             Signal(udata->child, 1 << udata->child_signal);
+            /* After this point parent must assume memory pointed udata->child_progctx and
+               udata->child_progctx->libbase might have been freed. Parent cannot call any
+               C library functions which need child fake PosixCBase to be returned via
+               standard __aros_getbase_PosixCBase()
+            */
         }
 
         D(bug("__vfork: ParentPretendingChild: Waiting for child to finish using udata, me=%p, signal %d\n", FindTask(NULL),
@@ -409,9 +421,6 @@ pid_t __vfork(jmp_buf env)
         Wait(1 << udata->parent_signal);
         ASSERTCHILDSTATE(CHILD_STATE_UDATA_NOT_USED);
         PRINTSTATE;
-
-        D(bug("__vfork: ParentPretendingChild: fflushing\n"));
-        fflush(NULL);
 
         __vfork_exit_controlled_stack(udata);
 
@@ -542,7 +551,8 @@ static void parent_enterpretendchild(struct vfork_data *udata)
 
     ProgCtx->vfork_data = udata;
 
-    /* Register child fake libbase as my own */
+    /* Register child fake libbase as my own. This will start returning child fake
+       PosixCBase via standard __aros_getbase_PosixCBase() in parent code */
     __aros_setbase_fake_CrtBase(udata->child_progctx->libbase);
 
     /* Copy necessary information into fake child libbase */
