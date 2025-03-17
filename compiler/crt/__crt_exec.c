@@ -228,6 +228,11 @@ static APTR __exec_prepare_pretend_child(char *filename2, char *const argv[], ch
     /* Now call child process, so it will call __exec_prepare */
     SETPARENTSTATE(PARENT_STATE_EXEC_CALLED);
     Signal(udata->child, 1 << udata->child_signal);
+    /* After this point parent must assume memory pointed udata->child_progctx and
+       udata->child_progctx->libbase might have been freed. Parent cannot call any
+       C library functions which need child fake PosixCBase to be returned via
+       standard __aros_getbase_PosixCBase()
+    */
 
     D(bug("[__exec_prepare_pretend_child] Waiting for child to finish __exec_prepare\n"));
     /* __exec_prepare should be finished now on child */
