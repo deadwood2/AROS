@@ -136,7 +136,7 @@ static void test_struct_dirent()
 #if ((__WORDSIZE==64) || defined(__USE_FILE_OFFSET64)) && defined(__USE_LARGEFILE64)
     CU_ASSERT_EQUAL(sizeof(struct dirent64), sizeof(struct dirent))
 #elif defined(__USE_LARGEFILE64) /* 32-bit system, 32-bit I/O */
-    CU_ASSERT_EQUAL(sizeof(struct dirent64) - (3 * sizeof(ULONG)), sizeof(struct dirent)) /* ABI_V0 compatibility */
+    CU_ASSERT_EQUAL(sizeof(struct dirent64) - (2 * sizeof(ULONG)), sizeof(struct dirent))
 #else
     CU_ASSERT(1);
 #endif
