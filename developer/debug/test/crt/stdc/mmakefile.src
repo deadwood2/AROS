@@ -52,6 +52,7 @@ CUNITSTDCTESTFILES := \
     cunit-crt-wcscpy \
     cunit-crt-wcslen \
     cunit-crt-wcschr \
+    cunit-crt-wcsrchr \
     cunit-crt-wcsncmp
 
 #MM- test-crt : test-crt-stdc test-crt-stdc-$(AROS_TARGET_CPU)
