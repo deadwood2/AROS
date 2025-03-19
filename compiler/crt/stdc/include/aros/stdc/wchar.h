@@ -80,7 +80,7 @@ wchar_t *wcschr(const wchar_t *s, wchar_t c);
 size_t wcslen(const wchar_t *s);
 wchar_t *wcspbrk(const wchar_t *s1, const wchar_t *s2);
 wchar_t *wcsrchr(const wchar_t *s, wchar_t c);
-/* NOTIMPL size_t wcsspn(const wchar_t *s1, const wchar_t *s2); */
+size_t wcsspn(const wchar_t *s1, const wchar_t *s2);
 /* NOTIMPL wchar_t *wcsstr(const wchar_t *s1, const wchar_t *s2); */
 /* NOTIMPL wchar_t *wcstok(wchar_t * restrict s1, const wchar_t * restrict s2,
 	wchar_t ** restrict ptr); */
