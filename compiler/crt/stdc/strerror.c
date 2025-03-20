@@ -217,4 +217,13 @@ static int __stdc_dosinit(struct CrtIntBase *CrtBase)
     return 1;
 }
 
+static int __stdc_dosclose(struct CrtIntBase *CrtBase)
+{
+    struct StdCIntBase *StdCBase = CrtBase->StdCBase;
+    CloseLibrary((struct Library *)StdCBase->StdCDOSBase);
+
+    return 1;
+}
+
 ADD2OPENLIB(__stdc_dosinit, 0);
+ADD2CLOSELIB(__stdc_dosclose, 0);
