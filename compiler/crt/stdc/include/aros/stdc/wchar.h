@@ -76,15 +76,14 @@ int wcsncmp(const wchar_t *s1, const wchar_t *s2, size_t n);
 wchar_t *wcsncpy(wchar_t *s1, const wchar_t *s2, size_t n);
 /* NOTIMPL size_t wcsxfrm(wchar_t * restrict s1, const wchar_t * restrict s2, size_t n); */
 wchar_t *wcschr(const wchar_t *s, wchar_t c);
-/* NOTIMPL size_t wcscspn(const wchar_t *s1, const wchar_t *s2); */
+size_t wcscspn(const wchar_t *s1, const wchar_t *s2);
 size_t wcslen(const wchar_t *s);
 wchar_t *wcspbrk(const wchar_t *s1, const wchar_t *s2);
 wchar_t *wcsrchr(const wchar_t *s, wchar_t c);
 size_t wcsspn(const wchar_t *s1, const wchar_t *s2);
-/* NOTIMPL wchar_t *wcsstr(const wchar_t *s1, const wchar_t *s2); */
-/* NOTIMPL wchar_t *wcstok(wchar_t * restrict s1, const wchar_t * restrict s2,
-	wchar_t ** restrict ptr); */
-/* NOTIMPL wchar_t *wmemchr(const wchar_t *s, wchar_t c, size_t n); */
+wchar_t *wcsstr(const wchar_t *s1, const wchar_t *s2);
+wchar_t *wcstok(wchar_t * restrict s1, const wchar_t * restrict s2, wchar_t ** restrict ptr);
+wchar_t *wmemchr(const wchar_t *s, wchar_t c, size_t n);
 /* NOTIMPL int wmemcmp(const wchar_t * s1, const wchar_t * s2, size_t n); */
 /* NOTIMPL wchar_t *wmemcpy(wchar_t * restrict s1, const wchar_t * restrict s2, size_t n); */
 /* NOTIMPL wchar_t *wmemmove(wchar_t *s1, const wchar_t *s2, size_t n); */

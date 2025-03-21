@@ -375,6 +375,10 @@ USER_CPPFLAGS := \
 
 # wide char/string support
 STDLIB_WCHAR := \
+    stdc/wmemchr \
+    stdc/wcscspn \
+    stdc/wcsstr \
+    stdc/wcstok \
     stdc/wcsspn \
     stdc/wcspbrk \
     stdc/wcsrchr \
