@@ -62,7 +62,8 @@ static struct OOP_ABDescr attrbases[] =
     {NULL,                      NULL                            }
 };
 
-AROS_INTH1(ResetHandler, struct HWData *, hwdata)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(ResetHandler, struct HWData *, hwdata)
 {
     AROS_INTFUNC_INIT
 
