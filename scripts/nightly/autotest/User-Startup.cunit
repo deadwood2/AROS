@@ -64,6 +64,10 @@ If NOT WARN
     Execute S/Test cunit/crt/stdc/cunit-crt-wcsrchr             ;wcsrchr_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wcspbrk             ;wcspbrk_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wcsspn              ;wcsspn_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcstok              ;wcstok_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcsstr              ;wcsstr_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcscspn             ;wcscspn_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wmemchr             ;wmemchr_Suite
     Execute S/Test cunit/crt/posix/cunit-crt-fread              ;fread_Suite
     Copy SYS:Development/Debug/Tests/crt/posix/execl2_slave SYS:
     Execute S/Test cunit/crt/posix/cunit-crt-vfork              ;vfork_Suite
@@ -97,7 +101,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 301" >DEBUG:
+    Echo "Expected tests: 308" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 
