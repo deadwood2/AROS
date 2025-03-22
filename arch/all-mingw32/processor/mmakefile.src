@@ -8,10 +8,10 @@ FILES := \
     processor_hostlib
 
 %build_archspecific mainmmake=kernel-processor modname=processor maindir=rom/processor \
-    arch=mingw32 files=$(FILES)
+    arch=mingw32 files=$(FILES) usesdks="private config"
 
 NATIVE_BINDIR := $(AROSDIR)/Libs/Host
-NATIVE_LIBDIR := $(AROS_DEVELOPER)/$(CPU)-mingw32/lib
+NATIVE_LIBDIR := $(AROS_DEVELOPMENT)/$(CPU)-mingw32/lib
 
 NATIVE_FILES  := processor_hostcpu
 
