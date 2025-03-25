@@ -6,6 +6,7 @@ DEBUG_ACPI=no
 ACPICAPACKAGE      := acpica
 ACPICAVERSION      := 20230331
 ACPICAREPOSITORIES := \
+    https://axrt.org/download/thirdparty \
     https://downloadmirror.intel.com/776304
 ACPICAARCHBASE     := $(ACPICAPACKAGE)-unix-$(ACPICAVERSION)
 ACPICASRCDIR       := $(PORTSDIR)/acpica/$(ACPICAARCHBASE)
