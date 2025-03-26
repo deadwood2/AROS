@@ -13,6 +13,6 @@ USER_INCLUDES := -I$(AROS_INCLUDES)/SDI \
                  -I$(SRCDIR)/$(CURDIR)/../include 
 
 %build_module mmake=workbench-devs-diskimage-device modname=diskimage modtype=device \
-    files=$(CFILES) uselibs="diskimagesupport diskimageprefs" usesdks="rel diskimage"
+    files=$(CFILES) uselibs="diskimagesupport diskimageprefs expat" usesdks="diskimage"
 
 %common
