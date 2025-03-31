@@ -86,8 +86,8 @@ wchar_t *wcstok(wchar_t * restrict s1, const wchar_t * restrict s2, wchar_t ** r
 wchar_t *wmemchr(const wchar_t *s, wchar_t c, size_t n);
 int wmemcmp(const wchar_t * s1, const wchar_t * s2, size_t n);
 wchar_t *wmemcpy(wchar_t * restrict s1, const wchar_t * restrict s2, size_t n);
-/* NOTIMPL wchar_t *wmemmove(wchar_t *s1, const wchar_t *s2, size_t n); */
-/* NOTIMPL wchar_t *wmemset(wchar_t *s, wchar_t c, size_t n); */
+wchar_t *wmemmove(wchar_t *s1, const wchar_t *s2, size_t n);
+wchar_t *wmemset(wchar_t *s, wchar_t c, size_t n);
 
 /* Wide-character time conversion utilities */
 /* NOTIMPL size_t wcsftime(wchar_t * restrict s, size_t maxsize,
