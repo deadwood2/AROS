@@ -572,9 +572,9 @@ BOOL setmode(struct amigavideo_staticdata *csd, struct amigabm_data *bm)
             // This is a compatibility hack because our display
             // database currently contains all AGA modes even if AGA
             // is "disabled".
-            GfxBase->ChipRevBits0 = SETCHIPREV_AA;
+            GfxBase->ChipRevBits0 = SETCHIPREV_AA | GFXF_AA_MLISA;
             csd->aga_enabled = TRUE;
-            csd->fmode_bpl = csd->aga && csd->aga_enabled ? 2 : 0;
+            csd->fmode_bpl = 2;
             fetchunit = fetchunits[csd->fmode_bpl * 4 + bm->res];
             maxplanes = fm_maxplanes[csd->fmode_bpl * 4 + bm->res];
         }
