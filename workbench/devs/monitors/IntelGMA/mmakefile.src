@@ -5,7 +5,7 @@ include $(SRCDIR)/workbench/libs/mesa/mesa.cfg
 ifneq ($(AROS_TARGET_ARCH),pc)
 EXEDIR := $(AROSDIR)/Storage/Monitors
 else
-EXEDIR := $(AROSDIR)/Devs/Monitors
+EXEDIR := $(AROSDIR)/Storage/Monitors
 endif
 
 GALLIUM_PATH = $(top_srcdir)/src/gallium
