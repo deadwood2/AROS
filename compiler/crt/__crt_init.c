@@ -69,6 +69,7 @@ int __crtext_open(struct CrtIntBase *CrtBase)
     D(bug("[crtext] %s(0x%p)\n", __func__, CrtBase));
 
     CrtBase->StdCBase    = AllocMem(sizeof(struct StdCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
+    CrtBase->StdCBase->lib.mb_cur_max = 1;
     CrtBase->PosixCBase  = AllocMem(sizeof(struct PosixCIntBase), MEMF_PUBLIC | MEMF_CLEAR);
     CrtBase->PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR|MEMF_SEM_PROTECTED, 256, 256);
     CrtBase->PosixCBase->fd_array = AllocPooled(CrtBase->PosixCBase->internalpool, 16 * sizeof(APTR));
