@@ -549,7 +549,8 @@ OOP_Object *VMWareSVGA__Hidd_Gfx__CreateObject(OOP_Class *cl, OOP_Object *o, str
 
         object = (OOP_Object *)OOP_DoSuperMethod(cl, o, (OOP_Msg)&comsg);
     }
-    else if ((XSD(cl)->basegallium && (msg->cl == XSD(cl)->basegallium)) &&
+    /* Disabled for now as it crashes when used */
+    else if (FALSE && (XSD(cl)->basegallium && (msg->cl == XSD(cl)->basegallium)) &&
                 (XSD(cl)->data.capabilities & SVGA_CAP_3D))
     {
         /* Create the gallium 3d driver object .. */
