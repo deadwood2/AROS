@@ -40,7 +40,7 @@ Sfondo
 ; Backdrop
 ;
 MSG_MEN_SC_BACKDROP
-S
+B
 ; B
 ;
 MSG_MEN_EXECUTE
@@ -72,7 +72,7 @@ Termina...
 ; Quit...
 ;
 MSG_MEN_SC_QUIT
-T
+Q
 ; Q
 ;
 MSG_MEN_WINDOW
@@ -108,7 +108,7 @@ Seleziona Contenuto
 ; Select contents
 ;
 MSG_MEN_SC_CONTENTS
-C
+A
 ; A
 ;
 MSG_MEN_CLRSEL
@@ -116,7 +116,7 @@ Annulla Selezione
 ; Clear selection
 ;
 MSG_MEN_SC_CLRSEL
-A
+Z
 ; Z
 ;
 MSG_MEN_SNAPSHT
@@ -144,17 +144,17 @@ Tutti i file
 ; All files
 ;
 MSG_MEN_SORTIC
-Ordina
+Ordinamento
 ; Sort
 ;
 MSG_MEN_CLNUP
-Pulisci
+Automatico
 ; Clean up
 ;
 MSG_MEN_SC_CLNUP
-.
-; .
-;
+C
+; C
+; 
 MSG_MEN_BYNAME
 Per nome
 ; By name
@@ -246,7 +246,7 @@ MSG_YESNO
 MSG_DUMMY
 DUMMY
 ; DUMMY
-; DUMMY :)
+;
 MSG_USERSCREENTITLE
 Wanderer %pc memoria grafica %pf altra memoria
 ; Wanderer %pc graphics mem %pf other mem

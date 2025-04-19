@@ -1,4 +1,4 @@
-## version $VER: Boot.catalog 1.0 (19.01.2021)
+## version $VER: Boot.catalog 1.1 (14.03.2023)
 ## language español
 ## codeset 0
 ;
@@ -23,7 +23,7 @@ Tipo:
 ; Type:
 ;
 MSG_GFX_TYPE_AUTO
-Automatico
+Automático
 ; Automatic
 ;
 MSG_GFX_TYPE_NATIVE
@@ -59,7 +59,7 @@ Color verdadero
 ; True Colour
 ;
 MSG_GFX_DEPTH_HIGH
-ALta densidad
+Alta densidad
 ; High Colour
 ;
 MSG_GFX_DEPTH_LOW
@@ -115,7 +115,7 @@ Habilitar tranferencias 32 bit
 ; Enable 32-bit Data Transfers
 ;
 MSG_ATA_POLL
-Detectar por encuesta el fin del estado ocupado
+Detectar por encuesta el fin del estado ocupado  
 ; Use Polling to Detect End of Busy State
 ;
 MSG_ATA_MULTI
@@ -171,15 +171,15 @@ Habilitar disquetera
 ; Enable Floppy Disk Drive
 ;
 MSG_DEVICE
-Periferico de arranque
+Periférico de arranque
 ; Boot Device
 ;
 MSG_DEVICE_NAME
-Periferico DOS:
+Periférico DOS:
 ; DOS Device:
 ;
 MSG_DEVICE_DELAY
-Boot Delay:
+Boot Delay: 
 ; Boot Delay:
 ;
 MSG_DEVICE_SECONDS
@@ -195,7 +195,7 @@ Opciones
 ; Options
 ;
 MSG_MODULES
-Modulos
+Módulos
 ; Modules
 ;
 MSG_ACTIVE
@@ -223,7 +223,7 @@ Cancelar
 ; Cancel
 ;
 MSG_BAD_MODULE
-Ruta de modulo incorrecta "%s"
+Ruta de módulo incorrecta "%s"
 ; Bad module path "%s"
 ;
 MSG_ENABLE

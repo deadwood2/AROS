@@ -1,21 +1,22 @@
-## version $VER: Boot.catalog 1.1 (15.06.2017)
+## version $VER: Boot.catalog 1.1 (18.05.2023)
 ## language italiano
 ## codeset 0
+; Authors: AMIGASYSTEM
 ;
 MSG_NAME
-Preferenze di avvio
+Impostazioni Avvio
 ; Boot Preferences
 ;
 MSG_DESCRIPTION
-Preferenze di avvio
-; Boot preferences
+Gestione Impostazioni Avvio
+; Manage boot preferences
 ;
 MSG_GFX
 Grafica
 ; Graphics
 ;
 MSG_GFX_COMPOSITION
-Abilita composizione
+Abilita Composizione
 ; Enable composition
 ;
 MSG_GFX_TYPE
@@ -51,23 +52,23 @@ Altezza:
 ; Height:
 ;
 MSG_GFX_DEPTH
-Profondità di colore:
+Profondità Colore:
 ; Colour Depth:
 ;
 MSG_GFX_DEPTH_TRUE
-Milioni di colori
+Milioni di Colori
 ; True Colour
 ;
 MSG_GFX_DEPTH_HIGH
-Migliaia di colori
+Migliaia di Colori
 ; High Colour
 ;
 MSG_GFX_DEPTH_LOW
-256 colori
+256 Colori
 ; 256 Colours
 ;
 MSG_GFX_REFRESH
-Velocità refresh:
+Frequenza Aggiornamento:
 ; Refresh Rate:
 ;
 MSG_GFX_HERTZ
@@ -75,11 +76,11 @@ Hz
 ; Hz
 ;
 MSG_GFX_DEFAULTREFRESH
-Usa valore predefinito
+Usa Valore Predefinito
 ; Use Default Refresh Rate
 ;
 MSG_GFX_BESTRES
-Usa la massima risoluzione disponibile
+Usa Massima Risoluzione Disponibile
 ; Use Highest Available Resolution
 ;
 MSG_ATA
@@ -87,7 +88,7 @@ ATA
 ; ATA
 ;
 MSG_ATA_BUSES
-Bus abilitati:
+Bus Abilitati:
 ; Enabled Buses:
 ;
 MSG_ATA_BUS_PCI
@@ -107,23 +108,23 @@ Nessuno
 ; None
 ;
 MSG_ATA_DMA
-Abilita trasferimento dati DMA
+Abilita Trasferimento Dati DMA
 ; Enable DMA Data Transfers
 ;
 MSG_ATA_32BIT
-Abilita trasferimento a 32 bit
+Abilita Trasferimento a 32 bit
 ; Enable 32-bit Data Transfers
 ;
 MSG_ATA_POLL
-Usa polling per individuare cambio di stato
+Usa Polling per Individuare il Cambio di Stato
 ; Use Polling to Detect End of Busy State
 ;
 MSG_ATA_MULTI
-Abilita trasferimento dati multisettore
+Abilita Trasferimento Dati Multisettore
 ; Enable Multisector Data Transfers
 ;
 MSG_ATA_AHCI
-Abilita modalità AHCI nativa
+Abilita Modalità AHCI Nativa
 ; Enable Native AHCI
 ;
 MSG_DEBUG
@@ -139,15 +140,15 @@ Nessuna
 ; None
 ;
 MSG_DEBUG_OUTPUT_MEMORY
-Buffer memoria
+Buffer Memoria
 ; Memory Buffer
 ;
 MSG_DEBUG_OUTPUT_SERIAL
-Porta seriale
+Porta Seriale
 ; Serial Port
 ;
 MSG_DEBUG_MUNGWALL
-Abilita mungwall
+Abilita Mungwall
 ; Enable Mungwall
 ;
 MSG_DEBUG_USB
@@ -167,11 +168,11 @@ Abilita ACPI
 ; Enable ACPI
 ;
 MSG_FLOPPY_ENABLE
-Abilita drive per Floppy Disk
+Abilita Lettore Floppy Disk
 ; Enable Floppy Disk Drive
 ;
 MSG_DEVICE
-Dispositivo d'avvio
+Dispositivo Avvio
 ; Boot Device
 ;
 MSG_DEVICE_NAME
@@ -179,15 +180,15 @@ Dispositivo DOS:
 ; DOS Device:
 ;
 MSG_DEVICE_DELAY
-Ritardo avvio:
+Ritardo Avvio:
 ; Boot Delay:
 ;
 MSG_DEVICE_SECONDS
-secondi
+Secondi
 ; seconds
 ;
 MSG_DEVICE_DEFAULTDELAY
-Usa ritardo predefinito
+Usa Ritardo Predefinito
 ; Use Default Boot Delay
 ;
 MSG_OPTIONS

@@ -39,7 +39,7 @@ VGA
 ; VGA
 ;
 MSG_GFX_VESAMODE
-VESA modus
+Tryb VESA
 ; VESA Mode
 ;
 MSG_GFX_WIDTH
@@ -67,7 +67,7 @@ MSG_GFX_DEPTH_LOW
 ; 256 Colours
 ;
 MSG_GFX_REFRESH
-Czêstotliwo¶æ powtarzania obrazu:
+Czêstotliwo¶æ od¶wie¿ania:
 ; Refresh Rate:
 ;
 MSG_GFX_HERTZ
@@ -79,7 +79,7 @@ U¿yj domy¶lnej czêstotliwo¶ci
 ; Use Default Refresh Rate
 ;
 MSG_GFX_BESTRES
-U¿yj najwy¿szej dostêpnej rozdzielczos¶ci
+U¿yj najwy¿szej dostêpnej rozdzielczo¶ci
 ; Use Highest Available Resolution
 ;
 MSG_ATA
@@ -95,7 +95,7 @@ PCI
 ; PCI
 ;
 MSG_ATA_BUS_LEGACY
-Zasadnicze
+Starszy tryb
 ; Legacy
 ;
 MSG_ATA_BUS_ALL
@@ -103,7 +103,7 @@ Wszystkie
 ; All
 ;
 MSG_ATA_BUS_NONE
-®adne
+¯adne
 ; None
 ;
 MSG_ATA_DMA
@@ -135,7 +135,7 @@ Wyj¶cie:
 ; Output:
 ;
 MSG_DEBUG_OUTPUT_NONE
-®aden
+¯aden
 ; None
 ;
 MSG_DEBUG_OUTPUT_MEMORY
@@ -151,7 +151,7 @@ Uaktywnij Mungwall
 ; Enable Mungwall
 ;
 MSG_DEBUG_USB
-Debug USB
+Debugowanie USB
 ; Debug USB
 ;
 MSG_MISC
@@ -179,7 +179,7 @@ Urz±dzenie DOS:
 ; DOS Device:
 ;
 MSG_DEVICE_DELAY
-Opóznienie startu
+Opó¼nienie startu
 ; Boot Delay:
 ;
 MSG_DEVICE_SECONDS
@@ -187,44 +187,44 @@ sekundy
 ; seconds
 ;
 MSG_DEVICE_DEFAULTDELAY
-U¿yj domy¶lnego opóznienia startu
+U¿yj domy¶lnego opó¼nienia startu
 ; Use Default Boot Delay
 ;
 MSG_OPTIONS
 Opcje
-;Options
+; Options
 ;
 MSG_MODULES
 Modu³y
-;Modules
+; Modules
 ;
 MSG_ACTIVE
 Aktywne
-;Active
+; Active
 ;
 MSG_PATH
-¶cie¿ka
-;Path
+¦cie¿ka
+; Path
 ;
 MSG_ADD
 Dodaj
-;Add
+; Add
 ;
 MSG_REMOVE
 Usuñ
-;Remove
+; Remove
 ;
 MSG_OK
 OK
-;OK
+; OK
 ;
 MSG_CANCEL
 Poniechaj
-;Cancel
+; Cancel
 ;
 MSG_BAD_MODULE
 Z³a ¶cie¿ka modu³u "%s"
-;Bad module path "%s"
+; Bad module path "%s"
 ;
 MSG_ENABLE
 Enable
