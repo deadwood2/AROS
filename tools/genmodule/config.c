@@ -54,7 +54,7 @@ freeBanner(char *banner)
 
 const static char usage[] =
     "\n"
-    "Usage: genmodule [-c conffile] [-o configoverridefile] [-s suffix] [-d gendir] [-l library-stub gendir] [-f flavour] [-v versionextra]\n"
+    "Usage: genmodule [-h] [-c conffile] [-o configoverridefile] [-s suffix] [-d gendir] [-l library-stub gendir] [-f flavour] [-v versionextra]\n"
     "       {writefiles|writemakefile|writeincludes|writelibdefs|writefunclist|writefd|writeskel|writethunk} modname modtype\n"
 ;
 
@@ -91,7 +91,7 @@ void print_help(void)
     fprintf(stderr, "\n"
             "Usage: genmodule [OPTION]... COMMAND MODNAME MODTYPE\n"
             "\nOptions:\n"
-            "  -h: Show this help.\n"
+            "  -h: Show this help and exit.\n"
             "  -c CONFFILE: Config file path. Default is MODNAME.conf.\n"
             "  -o CONFIGOVERRIDEFILE: File path for config overrides applied after CONFFILE.\n"
             "  -s SUFFIX: Custom suffix to add to generated filenames.\n"
