@@ -70,6 +70,13 @@ If NOT WARN
     Execute S/Test cunit/crt/stdc/cunit-crt-wmemchr             ;wmemchr_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wmemcmp             ;wmemcmp_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wmemset             ;wmemset_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcrtomb             ;wcrtomb_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcsnrtombs          ;wcsnrtombs_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wcsrtombs           ;wcsrtombs_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-mbrtowc             ;mbrtowc_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-mbrlen              ;mbrlen_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-mbsnrtowcs          ;mbsnrtowcs_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-mbsrtowcs           ;mbsrtowcs_Suite
     Execute S/Test cunit/crt/posix/cunit-crt-fread              ;fread_Suite
     Copy SYS:Development/Debug/Tests/crt/posix/execl2_slave SYS:
     Execute S/Test cunit/crt/posix/cunit-crt-vfork              ;vfork_Suite
@@ -103,7 +110,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 310" >DEBUG:
+    Echo "Expected tests: 321" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

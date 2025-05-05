@@ -82,6 +82,15 @@
 /* maximum value for an object of type unsigned long long int */
 #define ULLONG_MAX	0xffffffffffffffffULL
 
+/* maximum value for an object ot type size_t if not already defined*/
+#ifndef SIZE_T_MAX
+#   if __WORDSIZE == 64
+#       define SIZE_T_MAX ULONG_MAX
+#   else
+#       define SIZE_T_MAX UINT_MAX
+#   endif
+#endif
+
 /* width and limit of _Bool (C2X) */
 # define BOOL_MAX 1
 # define BOOL_WIDTH 1
