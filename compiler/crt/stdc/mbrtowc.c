@@ -84,8 +84,8 @@ size_t mbrtowc(
                 /* Incomplete multibyte sequence */
                 return ((size_t)-2);
         if (*s & 0x80) {
-                    errno = EILSEQ;
-                    return ((size_t)-1);
+                errno = EILSEQ;
+                return ((size_t)-1);
         }
         if (pwc != NULL)
                 *pwc = (unsigned char)*s;
