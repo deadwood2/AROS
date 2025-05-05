@@ -739,6 +739,10 @@ CRT := \
     stdc/localtime \
     stdc/malloc \
     stdc/malloc_align \
+    stdc/mbrlen \
+    stdc/mbrtowc \
+    stdc/mbsnrtowcs \
+    stdc/mbsrtowcs \
     stdc/on_exit \
     stdc/raise \
     stdc/rand \
@@ -754,7 +758,10 @@ CRT := \
     stdc/strtoull \
     stdc/strtoll \
     stdc/strtoumax \
-    stdc/vasprintf
+    stdc/vasprintf \
+    stdc/wcrtomb \
+    stdc/wcsnrtombs \
+    stdc/wcsrtombs
 
 CRT_LINKLIB := \
     posixc/getopt \

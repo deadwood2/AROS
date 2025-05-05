@@ -99,14 +99,18 @@ wchar_t *wmemset(wchar_t *s, wchar_t c, size_t n);
 /* NOTIMPL int wctob(wint_t c); */
 /* NOTIMPL int wcwidth(wchar_t); */
 /* NOTIMPL int mbsinit(const mbstate_t *ps); */
-/* NOTIMPL size_t mbrlen(const char * restrict s, size_t n, mbstate_t * restrict ps); */
-/* NOTIMPL size_t mbrtowc(wchar_t * restrict pwc, const char * restrict s, size_t n,
-	mbstate_t * restrict ps); */
-/* NOTIMPL size_t wcrtomb(char * restrict s, wchar_t wc, mbstate_t * restrict ps); */
-/* NOTIMPL size_t mbsrtowcs(wchar_t * restrict dst, const char ** restrict src,
-	size_t len, mbstate_t * restrict ps); */
-/* NOTIMPL size_t wcsrtombs(char * restrict dst, const wchar_t ** restrict src,
-	size_t len, mbstate_t * restrict ps); */
+size_t mbrlen(const char * restrict s, size_t n, mbstate_t * restrict ps);
+size_t mbrtowc(wchar_t * restrict pwc, const char * restrict s, size_t n,
+	mbstate_t * restrict ps);
+size_t wcrtomb(char * restrict s, wchar_t wc, mbstate_t * restrict ps);
+size_t mbsrtowcs(wchar_t * restrict dst, const char ** restrict src, size_t len, 
+	mbstate_t * restrict ps);
+size_t mbsnrtowcs(wchar_t * restrict dst, const char ** restrict src, size_t nms, 
+	size_t len, mbstate_t * restrict ps);
+size_t wcsrtombs(char * restrict dst, const wchar_t ** restrict src, size_t len, 
+	mbstate_t * restrict ps);
+size_t wcsnrtombs(char * restrict dst,	const wchar_t ** restrict src, size_t nwc, 
+	size_t len, mbstate_t * restrict ps);
 
 /* Formatted wide-character input/output functions */
 /* NOTIMPL int fwprintf(struct __sFILE * restrict stream,
