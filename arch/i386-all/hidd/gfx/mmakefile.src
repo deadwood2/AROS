@@ -33,13 +33,13 @@ USER_CFLAGS := $(HIDDGFX_SSE_CFLAGS)
 %build_archspecific \
   mainmmake=kernel-hidd-gfx modname=gfx maindir=rom/hidds/gfx \
   asmfiles=$(AFILES) files=rgbconv_sse \
-  arch=x86_sse
+  arch=x86_sse usesdks="private"
 
 USER_CFLAGS := $(HIDDGFX_AVX_CFLAGS)
 
 %build_archspecific \
   mainmmake=kernel-hidd-gfx modname=gfx maindir=rom/hidds/gfx \
   asmfiles=$(AFILES) files=rgbconv_avx \
-  arch=x86_avx
+  arch=x86_avx usesdks="private"
 
 %common
