@@ -2,7 +2,7 @@
 #define __EXEC_DEBUG_INTERNAL_H__
 
 void    InternalDebug(void *);
-char    GetK();
+char    GetK(struct ExecBase *SysBase);
 UQUAD   GetQ(char *);
 ULONG   GetL(char *);
 UWORD   GetW(char *);
