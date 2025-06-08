@@ -86,7 +86,7 @@ USER_LDFLAGS += $(TARGET_CXX_LDFLAGS) \
   confoverride=mesa3dgl.conf \
   files="$(MESAGL_LIBRARY_SOURCES_C)" \
   cxxfiles="$(MESAGL_LIBRARY_SOURCES_CXX)" \
-  alwayscxxlink=yes uselibs="glapi mesa compiler galliumauxiliary gallium mesautil z1 crtmod" usesdks="mesa"
+  alwayscxxlink=yes uselibs="glapi mesa mesa-sse41 compiler galliumauxiliary gallium mesautil z1 crtmod" usesdks="mesa"
 
 #
 # mesa3d includes...
