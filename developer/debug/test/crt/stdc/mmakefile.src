@@ -107,6 +107,8 @@ USER_LDFLAGS := -noclibs -lcrtmod -lcrt
 #MM- test-crt-stdc-cunit : test-crt-stdc-$(TARGET_UNITTESTS)-cunit
 #MM- test-crt-stdc-cunit-quick : test-crt-stdc-$(TARGET_UNITTESTS)-cunit-quick
 
+#MM test-crt-stdc-yes-cunit : includes includes-copy linklibs linklibs-cunit
+
 USER_INCLUDES :=
 USER_CFLAGS := $(STDC_BASE_CFLAGS)
 USER_LDFLAGS :=
