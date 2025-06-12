@@ -848,6 +848,8 @@ aros_kernel_cxx
 aros_kernel_cc
 aros_kernel_cpp
 target_llvm_version
+HARDVAR
+SOFTVAR
 target_gcc_version
 GZIP
 ant
@@ -1781,7 +1783,7 @@ Optional Packages:
   --with-llvm-version=VERSION
                           Compile llvm-VERSION for AROS
   --with-cpu=<spec>       Specify minumum CPU (default=$gcc_default_cpu).
-  --with-fpu=<spec>       Specify minumum FPU (default=$gcc_default_fpu).
+  --with-fpu=<spec>       Specify minumum FPU (default=$gcc_float_fpu).
   --with-float=<spec>     Specify floating point ABI
                           (default=$gcc_default_float_abi).
   --with-portssources=DIR Where to download sourcecode for external ports
@@ -5689,14 +5691,29 @@ case "$host_os" in
         aros_host_arch="aros"
         aros_host_cflags="$aros_host_cflags $aros_host_cc_pipe"
         case "$host_cpu" in
+            *aarch64*)
+                aros_host_cpu="aarch64"
+                ;;
+            *arm*)
+                aros_host_cpu="arm"
+                ;;
             *i?86*)
                 aros_host_cpu="i386"
                 ;;
-            *x86_64*)
-                aros_host_cpu="x86_64"
+            *m68k*)
+                aros_host_cpu="m68k"
                 ;;
             *powerpc*)
                 aros_host_cpu="ppc"
+                ;;
+            *riscv64*)
+                aros_host_cpu="riscv64"
+                ;;
+            *riscv*)
+                aros_host_cpu="riscv"
+                ;;
+            *x86_64*)
+                aros_host_cpu="x86_64"
                 ;;
             *)
                 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&5
@@ -5709,15 +5726,21 @@ printf "%s\n" "$as_me: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&2;}
     linux*)
         aros_host_arch="linux"
         aros_host_cflags="$aros_host_cflags $aros_host_cc_pipe"
-        android_build_os="linux-x86"
-        android_tool="android"
-        default_android_sdk="/opt/android-sdk-linux_x86"
+
+        if test "$aros_target_variant" = "android"; then
+            android_build_os="linux-x86"
+            android_tool="android"
+            default_android_sdk="/opt/android-sdk-linux_x86"
+        fi
         case "$host_cpu" in
+            *aarch64*)
+                aros_host_cpu="aarch64"
+                ;;
+            *arm*)
+                aros_host_cpu="arm"
+                ;;
             *i?86*)
                 aros_host_cpu="i386"
-                ;;
-            *x86_64*)
-                aros_host_cpu="x86_64"
                 ;;
             *m68k*)
                 aros_host_cpu="m68k"
@@ -5725,8 +5748,14 @@ printf "%s\n" "$as_me: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&2;}
             *powerpc*)
                 aros_host_cpu="ppc"
                 ;;
-            *arm*)
-                aros_host_cpu="arm"
+            *riscv64*)
+                aros_host_cpu="riscv64"
+                ;;
+            *riscv*)
+                aros_host_cpu="riscv"
+                ;;
+            *x86_64*)
+                aros_host_cpu="x86_64"
                 ;;
             *)
                 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&5
@@ -5770,10 +5799,14 @@ fi
 printf "%s\n" "$LOC" >&6; }
         aros_host_arch="darwin"
         host_cc_elf=no
-        if [ -z ${SED+x} ]; then SED="gsed"; fi
-        android_build_os="darwin-x86"
-        android_tool="android"
-        default_android_sdk="/android-sdk-mac_x86"
+        if [ -z ${SED+x} ]; then
+            SED="gsed";
+        fi
+        if test "$aros_target_variant" = "android"; then
+            android_build_os="darwin-x86"
+            android_tool="android"
+            default_android_sdk="/android-sdk-mac_x86"
+        fi
         case "$host_cpu" in
             *i?86*)
                 aros_host_cpu="i386"
@@ -5915,9 +5948,11 @@ printf "%s\n" "$as_me: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&2;}
         aros_host_arch="cygwin"
         aros_host_cflags="$aros_host_cflags $aros_host_cc_pipe"
         host_cc_elf=no
-        android_build_os="windows"
-        android_tool="android.bat"
-        default_android_sdk="/cygdrive/c/android-sdk-windows-1.6_r1"
+        if test "$aros_target_variant" = "android"; then
+            android_build_os="windows"
+            android_tool="android.bat"
+            default_android_sdk="/cygdrive/c/android-sdk-windows-1.6_r1"
+        fi
 
         case "$host_cpu" in
             *i?86*)
@@ -5935,43 +5970,45 @@ printf "%s\n" "$as_me: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&2;}
         aros_host_arch="mingw32"
         aros_host_cflags="$aros_host_cflags $aros_host_cc_pipe"
         host_cc_elf=no
-        android_build_os="windows"
-        android_tool="android.bat"
-        default_android_sdk="/c/android-sdk-windows-1.6_r1"
+        if test "$aros_target_variant" = "android"; then
+            android_build_os="windows"
+            android_tool="android.bat"
+            default_android_sdk="/c/android-sdk-windows-1.6_r1"
+        fi
 
         libpng_libextra="-lws2_32"
 
         case "$host_cpu" in
-        *i?86*)
+            *i?86*)
 
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Windows native gcc target" >&5
+                { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for Windows native gcc target" >&5
 printf %s "checking for Windows native gcc target... " >&6; }
-            host_cpu=`gcc -dumpmachine`
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $host_cpu" >&5
+                host_cpu=`gcc -dumpmachine`
+                { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $host_cpu" >&5
 printf "%s\n" "$host_cpu" >&6; }
-            ;;
+                ;;
 
         esac
 
         case "$host_cpu" in
-        *i?86*)
-            aros_host_cpu="i386"
-            ;;
+            *i?86*)
+                aros_host_cpu="i386"
+                ;;
 
-        mingw32*)
-                        aros_host_cpu="i386"
-            ;;
+            mingw32*)
+                                aros_host_cpu="i386"
+                ;;
 
-        *x86_64*)
-            aros_host_cpu="x86_64"
-                                    aros_host_cflags="$aros_host_cflags -isystem /mingw/include"
-            ;;
+            *x86_64*)
+                aros_host_cpu="x86_64"
+                                                aros_host_cflags="$aros_host_cflags -isystem /mingw/include"
+                ;;
 
-        *)
-            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&5
+            *)
+                { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&5
 printf "%s\n" "$as_me: WARNING: \"Unknown CPU for host -- $host_cpu\"" >&2;}
-            aros_host_cpu="$host_cpu"
-            ;;
+                aros_host_cpu="$host_cpu"
+                ;;
         esac
         ;;
     *)
@@ -9877,13 +9914,17 @@ case "$target_cpu" in
         if test "$gcc_default_endian" = ""; then
             gcc_default_endian="little-endian"
         fi
-        arm_isa_extra="ISA_ARM_FLAGS                = -marm -mfloat-abi=hard -m"$gcc_default_endian
+        arm_isa_extra="ISA_ARM_FLAGS                 = -marm -mfloat-abi=hard -m"$gcc_default_endian
+        gcc_soft_abi=hard
+        gcc_float_abi=hard
         ;;
     *arm*)
         if test "$gcc_default_endian" = ""; then
             gcc_default_endian="little-endian"
         fi
-        arm_isa_extra="ISA_ARM_FLAGS                = -marm -m"$gcc_default_endian
+        arm_isa_extra="ISA_ARM_FLAGS                 = -marm -mfloat-abi=soft -m"$gcc_default_endian
+        gcc_soft_abi=soft
+        gcc_float_abi=softfp
         ;;
     *m68k*)
         target_extra_cfg+="$export_newline""AROSROM_MODULE_CFLAGS          = $""(CFLAGS_NO_BUILTIN)$export_newline"
@@ -10006,6 +10047,10 @@ case "$target_os" in
                 kernel_tool_prefix="aarch64-linux-gnueabihf-"
                 ;;
             *armhf*)
+                # we intentionaly leave
+                # gcc_default_cpu empty here
+                # so the correct value is loaded
+                # later.
                 aros_target_cpu="arm"
                 target_cpu="armhf"
                 aros_object_format="armelf_aros"
@@ -10024,7 +10069,10 @@ case "$target_os" in
                 aros_kernel_includes="-isystem /usr/arm-linux-gnueabihf/include -isystem /usr/include"
                 ;;
             *arm*)
-                gcc_default_cpu="armv7-a"
+                # we intentionaly leave
+                # gcc_default_cpu empty here
+                # so the correct value is loaded
+                # later.
                 aros_target_cpu="arm"
                 aros_object_format="armelf_aros"
                 aros_flavour="emulation"
@@ -10426,8 +10474,6 @@ printf "%s\n" "$darwin_sdk_path" >&6; }
         aros_nominal_width=1024
         aros_nominal_height=600
         aros_c_libs="$aros_c_libs -laeabi"
-        gcc_default_cpu="armv7-a"
-        gcc_default_fpu="vfpv3"
         aros_isa_flags="$aros_isa_flags -mtune=cortex-a8"
         aros_config_cflags="$aros_config_cflags $""(CFLAGS_NO_STRICT_ALIASING) $""(CFLAGS_NO_ASYNCHRONOUS_UNWIND_TABLES)"
         aros_config_cxxflags="$aros_config_cxxflags $""(CFLAGS_NO_STRICT_ALIASING) $""(CFLAGS_NO_ASYNCHRONOUS_UNWIND_TABLES)"
@@ -10438,11 +10484,18 @@ printf "%s\n" "$darwin_sdk_path" >&6; }
         case "$target_cpu" in
             *armhf*)
                 gcc_default_float_abi="hard"
+                gcc_float_fpu="vfpv3"
+                gcc_soft_fpu=$gcc_float_fpu
+                gcc_default_fpu="$""(GCC_FLOAT_FPU)"
+
                 target_cpu=arm
                 aros_target_cpu=arm
                 ;;
             *arm*)
-                gcc_default_float_abi="softfp"
+                gcc_default_float_abi="soft"
+                gcc_float_fpu="vfpv3"
+                gcc_soft_fpu=
+                gcc_default_fpu=
                 ;;
             *)
                 as_fn_error $? "\"Unknown CPU for EfikaMX $target_cpu\"" "$LINENO" 5
@@ -10483,15 +10536,15 @@ printf "%s\n" "$darwin_sdk_path" >&6; }
 
         case "$target_cpu" in
             *aarch64*)
+                PLATFORM_EXECSMP="#define __AROSPLATFORM_SMP__"
                 aros_target_cpu="aarch64"
-                gcc_default_cpu="armv8-a+crc"
+                gcc_default_cpu="armv8-a+crc+simd"
                 gcc_default_cpu_tune="cortex-a53"
                 gcc_default_fpu="neon-fp-armv8"
                 aros_object_format="aarch64elf_aros"
                 ;;
             *armhf*)
-                aros_target_cpu="arm"
-                target_cpu="armhf"
+                PLATFORM_EXECSMP="#define __AROSPLATFORM_SMP__"
                 # we intentionaly leave
                 # gcc_default_cpu empty here
                 # so the correct value is loaded
@@ -10499,6 +10552,13 @@ printf "%s\n" "$darwin_sdk_path" >&6; }
                 if test "$aros_object_format" = "" ; then
                     aros_object_format="armelf_aros"
                 fi
+                aros_target_cpu="arm"
+                target_cpu="armhf"
+
+                gcc_float_fpu="vfpv3-d16"
+                gcc_soft_fpu=$gcc_float_fpu
+                gcc_default_fpu="$""(GCC_FLOAT_FPU)"
+
                 aros_isa_flags="$""(ISA_ARM_FLAGS)"
                 aros_config_cflags="$aros_config_cflags"
                 aros_config_cxxflags="$aros_config_cxxflags"
@@ -10508,11 +10568,20 @@ printf "%s\n" "$darwin_sdk_path" >&6; }
                 aros_c_libs="$aros_c_libs -laeabi"
                 ;;
             *arm*)
-                aros_target_cpu="arm"
-                gcc_default_cpu="armv7-a"
+                PLATFORM_EXECSMP="#define __AROSPLATFORM_SMP__"
+                # we intentionaly leave
+                # gcc_default_cpu empty here
+                # so the correct value is loaded
+                # later.
                 if test "$aros_object_format" = "" ; then
                     aros_object_format="armelf_aros"
                 fi
+                aros_target_cpu="arm"
+
+                gcc_float_fpu="vfpv3-d16"
+                gcc_soft_fpu=""
+                gcc_default_fpu=
+
                 aros_isa_flags="$""(ISA_ARM_FLAGS)"
                 aros_config_cflags="$aros_config_cflags"
                 aros_config_cxxflags="$aros_config_cxxflags"
@@ -10576,8 +10645,11 @@ printf "%s\n" "$darwin_sdk_path" >&6; }
 
         gcc_default_cpu="armv7e-m"
         gcc_default_cpu_tune="cortex-m7"
-        gcc_default_fpu="fpv5-sp-d16"
+
         gcc_default_float_abi="hard"
+        gcc_float_fpu="fpv5-sp-d16"
+        gcc_soft_fpu=$gcc_float_fpu
+        gcc_default_fpu="$""(GCC_FLOAT_FPU)"
 
         aros_target_mkdep="$aros_target_mkdep -D__GNUC__ -Dthumb"
         ;;
@@ -11072,13 +11144,95 @@ printf "%s\n" "release" >&6; }
         fi
     fi
 
-    # from gcc 8, armv7-a+fp is used to specify
-    # hard-float/vfpv3-d16
-    arm_v7_flotattgt="armv7-a+fp"
+    # from gcc 8, <arm arch><features> (e.g. armv7-a+fp) is used to specify
+    # hard-float, etc.
+    if test "$gcc_default_cpu" = ""; then
+        default_arm_cpu=armv7-a
+    else
+        default_arm_cpu=$gcc_default_cpu
+    fi
+
+    if test $ac_cv_c_compiler_gnu = yes; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether $CC needs -traditional" >&5
+printf %s "checking whether $CC needs -traditional... " >&6; }
+if test ${ac_cv_prog_gcc_traditional+y}
+then :
+  printf %s "(cached) " >&6
+else $as_nop
+    ac_pattern="Autoconf.*'x'"
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <sgtty.h>
+Autoconf TIOCGETP
+_ACEOF
+if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+  $EGREP "$ac_pattern" >/dev/null 2>&1
+then :
+  ac_cv_prog_gcc_traditional=yes
+else $as_nop
+  ac_cv_prog_gcc_traditional=no
+fi
+rm -rf conftest*
+
+
+  if test $ac_cv_prog_gcc_traditional = no; then
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+#include <termio.h>
+Autoconf TCGETA
+_ACEOF
+if (eval "$ac_cpp conftest.$ac_ext") 2>&5 |
+  $EGREP "$ac_pattern" >/dev/null 2>&1
+then :
+  ac_cv_prog_gcc_traditional=yes
+fi
+rm -rf conftest*
+
+  fi
+fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_prog_gcc_traditional" >&5
+printf "%s\n" "$ac_cv_prog_gcc_traditional" >&6; }
+  if test $ac_cv_prog_gcc_traditional = yes; then
+    CC="$CC -traditional"
+  fi
+fi
+
+
+
+
+
+
+
+
+
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking GCC major version" >&5
+printf %s "checking GCC major version... " >&6; }
+  GCC_VERSION_MAJOR=`$CC -dumpversion | cut -d. -f1`
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $GCC_VERSION_MAJOR" >&5
+printf "%s\n" "$GCC_VERSION_MAJOR" >&6; }
+
+  if test "$GCC_VERSION_MAJOR" -lt "10"; then
+    if test "$GCC_VERSION_MAJOR" -lt "8"; then
+      gcc_soft_cpu="$default_arm_cpu"
+      gcc_float_cpu="$default_arm_cpu"
+    else
+      gcc_soft_cpu="$default_arm_cpu+nofp"
+      gcc_float_cpu="$default_arm_cpu+fp"
+    fi
+    aros_config_cflags="$aros_config_cflags ${CFLAGS_NO_COMMON}"
+  else
+    gcc_soft_cpu="$default_arm_cpu+nofp"
+    gcc_float_cpu="$default_arm_cpu+fp"
+  fi
+
+
+
+
+
+
+
+
     if test "$GCC_VERSION_MAJOR" -lt "10" ; then
-        if test "$GCC_VERSION_MAJOR" -lt "8" ; then
-            arm_v7_flotattgt="armv7-a"
-        fi
         aros_config_cflags="$aros_config_cflags $""(CFLAGS_NO_COMMON)"
     fi
 
@@ -11225,11 +11379,18 @@ if test ${with_cpu+y}
 then :
   withval=$with_cpu; aros_gcc_cpu="$withval"
 else $as_nop
-  aros_gcc_cpu=$gcc_default_cpu
+  aros_gcc_cpu=
 fi
 
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_gcc_cpu" >&5
+        if test "$aros_gcc_cpu" = ""; then
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $gcc_default_cpu" >&5
+printf "%s\n" "$gcc_default_cpu" >&6; }
+            aros_gcc_cpu="$""(GCC_DEFAULT_CPU)"
+        else
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_gcc_cpu" >&5
 printf "%s\n" "$aros_gcc_cpu" >&6; }
+        fi
+
         if test "$gcc_default_cpu" != "$aros_gcc_cpu"; then
             aros_target_cpu_extra=$aros_gcc_cpu
             gcc_target_cpu=mc$aros_gcc_cpu
@@ -11242,18 +11403,29 @@ printf "%s\n" "$aros_gcc_cpu" >&6; }
         ;;
     arm*)
                 aros_isa_extra="$export_newline$arm_isa_extra"
-        if test "$gcc_default_cpu" = ""; then
-            gcc_default_cpu=$arm_v7_flotattgt
-        fi
 
         if test "$gcc_default_float_abi" = ""; then
             if test "$target_cpu" = "armhf"; then
                 gcc_default_float_abi="hard"
                 if test "$gcc_default_fpu" = ""; then
-                    gcc_default_fpu="vfpv3-d16"
+                    gcc_float_fpu="vfpv3"
+                    gcc_soft_fpu=$gcc_float_fpu
+                    gcc_default_fpu="$""(GCC_FLOAT_FPU)"
                 fi
             else
-                gcc_default_float_abi="softfp"
+                gcc_float_fpu="vfpv3"
+                gcc_soft_fpu=
+                gcc_default_fpu=
+
+                gcc_default_float_abi="soft"
+            fi
+        fi
+
+        if test "$gcc_default_cpu" = ""; then
+            if test "$gcc_default_float_abi" = "hard"; then
+                gcc_default_cpu="$""(GCC_FLOAT_CPU)"
+            else
+                gcc_default_cpu="$""(GCC_SOFT_CPU)"
             fi
         fi
 
@@ -11267,11 +11439,17 @@ if test ${with_cpu+y}
 then :
   withval=$with_cpu; aros_gcc_cpu="$withval"
 else $as_nop
-  aros_gcc_cpu=$gcc_default_cpu
+  aros_gcc_cpu=
 fi
 
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_gcc_cpu" >&5
+        if test "$aros_gcc_cpu" = ""; then
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $gcc_default_cpu" >&5
+printf "%s\n" "$gcc_default_cpu" >&6; }
+            aros_gcc_cpu="$""(GCC_DEFAULT_CPU)"
+        else
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_gcc_cpu" >&5
 printf "%s\n" "$aros_gcc_cpu" >&6; }
+        fi
 
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking which minimum FPU to use" >&5
 printf %s "checking which minimum FPU to use... " >&6; }
@@ -11281,11 +11459,17 @@ if test ${with_fpu+y}
 then :
   withval=$with_fpu; aros_gcc_fpu="$withval"
 else $as_nop
-  aros_gcc_fpu=$gcc_default_fpu
+  aros_gcc_fpu=
 fi
 
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_gcc_fpu" >&5
+        if test "$aros_gcc_fpu" = ""; then
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $gcc_float_fpu" >&5
+printf "%s\n" "$gcc_float_fpu" >&6; }
+            # aros_gcc_fpu="$""(GCC_DEFAULT_FPU)"
+        else
+            { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_gcc_fpu" >&5
 printf "%s\n" "$aros_gcc_fpu" >&6; }
+        fi
 
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking which floating point ABI to use" >&5
 printf %s "checking which floating point ABI to use... " >&6; }
@@ -11315,7 +11499,7 @@ printf "%s\n" "$aros_target_cpu_mode" >&6; }
         case "$aros_target_cpu_mode" in
         arm32)
             gcc_default_mode="arm"
-            aros_isa_extra="$aros_isa_extra -march=$aros_gcc_cpu"
+            aros_isa_extra="$aros_isa_extra -march=$""(GCC_CONFIG_CPU)"
         ;;
         arm64)
             as_fn_error $? "ARM 64-bit mode is unsupported" "$LINENO" 5
@@ -11329,15 +11513,16 @@ printf "%s\n" "$aros_target_cpu_mode" >&6; }
         thumb2)
             gcc_default_mode="thumb"
             # Do not specify -mthumb-interwork as it may add extra code to support arm/thumb interwork
-            aros_isa_extra="$aros_isa_extra -march=$aros_gcc_cpu"
+            aros_isa_extra="$aros_isa_extra -march=$""(GCC_CONFIG_CPU)"
         ;;
         *)
             as_fn_error $? "Unsupported ARM mode specified $aros_target_cpu_mode" "$LINENO" 5
         ;;
         esac
 
+        aros_isa_extra="$export_newline""ISA_ARM_FLOAT_FLAGS           = -mfpu=$gcc_float_fpu$aros_isa_extra"
         if test "$gcc_default_fpu" != ""; then
-            aros_isa_extra="$aros_isa_extra -mfpu=$gcc_default_fpu$export_newline"
+            aros_isa_extra="$aros_isa_extra $""(ISA_ARM_FLOAT_FLAGS)$export_newline"
         else
             aros_isa_extra="$aros_isa_extra$export_newline"
         fi
@@ -16749,7 +16934,7 @@ printf %s "checking for the kernel compiler's include path... " >&6; }
         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $aros_kernel_cc_includes" >&5
 printf "%s\n" "$aros_kernel_cc_includes" >&6; }
         # Adding -nostdinc to kernel includes as they are always used together.
-        aros_kernel_includes="$aros_kernel_includes $aros_target_nostdinc_cflags -isystem $aros_kernel_cc_includes"
+        aros_kernel_includes="$aros_target_nostdinc_cflags -isystem $aros_kernel_cc_includes $aros_kernel_includes"
     fi
 fi
 
@@ -18140,22 +18325,80 @@ printf "%s\n" "$kernel_optimization_level" >&6; }
 
 export_firstextraline="$export_newline# GCC CPU Config$export_newline"
 if ! test "$aros_gcc_cpu" = "" ; then
-    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_CPU                := $aros_gcc_cpu$export_newline"
+    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_CPU                = $aros_gcc_cpu$export_newline"
+    export_firstextraline=""
+else
+    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_CPU                = $""(GCC_DEFAULT_CPU)$export_newline"
     export_firstextraline=""
 fi
-
+if ! test "$gcc_soft_cpu" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_SOFT_CPU                  := $gcc_soft_cpu$export_newline"
+    export_firstextraline=""
+fi
+if ! test "$gcc_float_cpu" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_FLOAT_CPU                 := $gcc_float_cpu$export_newline"
+    export_firstextraline=""
+fi
 if ! test "$gcc_default_cpu" = "" ; then
     target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_CPU               := $gcc_default_cpu$export_newline"
     export_firstextraline=""
-fi
-
-if ! test "$gcc_default_fpu" = "" ; then
-    target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FPU               := $gcc_default_fpu$export_newline"
+else
+    if test "$gcc_config_float_abi" = "hard" ; then
+        target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_CPU               := $""(GCC_FLOAT_CPU)$export_newline"
+    else
+        target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_CPU               := $""(GCC_SOFT_CPU)$export_newline"
+    fi
     export_firstextraline=""
 fi
 
+if ! test "$gcc_config_fpu" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_FPU               = $gcc_config_fpu$export_newline"
+    export_firstextraline=""
+else
+    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_FPU                = $""(GCC_DEFAULT_FPU)$export_newline"
+    export_firstextraline=""
+fi
+if ! test "$gcc_soft_fpu" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_SOFT_FPU                  := $gcc_soft_fpu$export_newline"
+    export_firstextraline=""
+fi
+if ! test "$gcc_float_fpu" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_FLOAT_FPU                 := $gcc_float_fpu$export_newline"
+    export_firstextraline=""
+fi
+if ! test "$gcc_default_fpu" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FPU               := $gcc_default_fpu$export_newline"
+    export_firstextraline=""
+else
+    if test "$gcc_config_float_abi" = "hard" ; then
+        target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FPU               := $""(GCC_FLOAT_FPU)$export_newline"
+    else
+        target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FPU               := $""(GCC_SOFT_FPU)$export_newline"
+    fi
+    export_firstextraline=""
+fi
+
+if ! test "$gcc_config_float_abi" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_FLOAT_ABI          = $gcc_config_float_abi$export_newline"
+    export_firstextraline=""
+else
+    target_extra_cfg+="$export_firstextraline""GCC_CONFIG_FLOAT_ABI          = $""(GCC_DEFAULT_FLOAT_ABI)$export_newline"
+    export_firstextraline=""
+fi
+if ! test "$gcc_soft_abi" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_SOFT_ABI                  := $gcc_soft_abi$export_newline"
+    export_firstextraline=""
+fi
+if ! test "$gcc_float_abi" = "" ; then
+    target_extra_cfg+="$export_firstextraline""GCC_FLOAT_ABI                 := $gcc_float_abi$export_newline"
+    export_firstextraline=""
+fi
 if ! test "$gcc_default_float_abi" = "" ; then
-    target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FLOAT_ABI         := $gcc_default_float_abi$export_newline"
+    if test "$gcc_default_float_abi" = "hard" ; then
+        target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FLOAT_ABI         := $""(GCC_FLOAT_ABI)$export_newline"
+    else
+        target_extra_cfg+="$export_firstextraline""GCC_DEFAULT_FLOAT_ABI         := $""(GCC_SOFT_ABI)$export_newline"
+    fi
     export_firstextraline=""
 fi
 
