@@ -2,7 +2,7 @@
 #define _POSIXC_SYS_STAT_H
 
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2025, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc: POSIX.1-2008 header file sys/stat.h

@@ -44,6 +44,7 @@ POSIXCNIXTESTFILES := \
 
 CUNITPOSIXCTESTFILES := \
     cunit-crt-fread \
+    cunit-crt-realpath \
     cunit-crt-types64 \
     cunit-crt-vfork
 
@@ -112,20 +113,19 @@ USER_CFLAGS = -ffloat-store $(NOWARN_CFLAGS)
 %build_prog mmake=test-crt-posixc-posix1-printf \
     progname=printf files="posix.1/printf-examples" targetdir=$(EXEDIR)
 
+USER_INCLUDES := -I$(AROS_CONTRIB_INCLUDES)
+USER_LDFLAGS := -L$(AROS_CONTRIB_LIB)
+
+%build_progs mmake=test-crt-posixc-cunit \
+    files=$(CUNITPOSIXCTESTFILES) targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
+
 # POSIX.1-2008
 
 USER_CPPFLAGS = -D_XOPEN_SOURCE=700
 
 %build_progs mmake=test-crt-posixc-general \
     files="$(POSIXC2K8TESTFILES)" targetdir=$(EXEDIR)
-
-
-USER_CFLAGS := -ffloat-store $(NOWARN_CFLAGS)
-USER_CPPFLAGS :=
-
-%build_progs mmake=test-crt-posixc-cunit \
-    files=$(CUNITPOSIXCTESTFILES) targetdir=$(CUNITEXEDIR) \
-    uselibs="cunit"
 
 USER_CPPFLAGS := -D_LARGEFILE64_SOURCE
 

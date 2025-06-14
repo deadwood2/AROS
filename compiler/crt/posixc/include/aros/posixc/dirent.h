@@ -2,7 +2,7 @@
 #define _POSIXC_DIRENT_H_
 
 /*
-    Copyright © 1995-2021, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2025, The AROS Development Team. All rights reserved.
     $Id$
 
     Desc: POSIX.1-2008 header file dirent.h
@@ -14,7 +14,10 @@
 #include <aros/types/ino_t.h>
 #include <aros/types/off_t.h>
 
-#if defined(__USE_NIXCOMMON)
+//#ifndef _POSIX_SOURCE
+/* These defines seems quite common althoug not defined by POSIX.1-2008
+   so we define these by default
+*/
 
 /* d_type */
 #define DT_UNKNOWN     0
@@ -27,10 +30,8 @@
 #define DT_SOCK       12
 #define DT_WHT        14
 
-#endif /* !_POSIX_SOURCE */
+//#endif /* !_POSIX_SOURCE */
 
-/* NB we must use the __xxx_t types here, because the xxx_t version
- * may not be defined */
 struct dirent
 {
 #if defined(__USE_FILE_OFFSET64)
@@ -55,7 +56,6 @@ struct dirent
 /* defined for backwards compatibility..  */
 #define d_fileno        d_ino
 
-#if defined(__USE_LARGEFILE64)
 struct dirent64
 {
     __ino64_t d_ino;
@@ -64,20 +64,30 @@ struct dirent64
     unsigned char d_type;
     char d_name[256];
 };
-#endif
 
-/* opaque structure describing directory stream objects */
+/* structure describing an open directory. */
 struct __dirdesc;
 typedef struct __dirdesc DIR;
 
 __BEGIN_DECLS
 
-#if defined(__USE_XOPEN2K8)
-/* NOTIMPL DIR *fdopendir(int); */
+#if defined(__USE_LARGEFILE64)
+int alphasort64 (const struct dirent64 **a, const struct dirent64 **b);
+#endif
+#if defined(__USE_FILE_OFFSET64)
+static __inline__  int alphasort(const struct dirent **a, const struct dirent **b)
+{
+    return alphasort64((const struct dirent64 **)a, (const struct dirent64 **)b);
+}
+#else
+int alphasort(const struct dirent **a, const struct dirent **b);
 #endif
 
-DIR *opendir (const char *filename);
 int closedir(DIR *dir);
+int dirfd(DIR *dir);
+/* NOTIMPL DIR *fdopendir(int); */
+DIR *opendir (const char *filename);
+
 #if defined(__USE_LARGEFILE64)
 struct dirent64 *readdir64 (DIR *dir);
 #endif
@@ -98,21 +108,18 @@ int readdir64_r (DIR *dir,
                         struct dirent64 **result) */
 # endif
 
-#ifdef __USE_XOPEN2K8
-int dirfd(DIR *dir);
+void rewinddir(DIR *dir);
 
 #if defined(__USE_LARGEFILE64)
 int scandir64 (const char *dir,
                       struct dirent64 ***namelist,
                       int (*select) (const struct dirent64 *),
-                      int (*compar) (const struct dirent64 **,
-                                    const struct dirent64 **));
+                      int (*compar) (const struct dirent64 **, const struct dirent64 **));
 #endif
 #if defined(__USE_FILE_OFFSET64)
 static __inline__  int scandir (const char *dir, struct dirent ***namelist,
               int (*select)(const struct dirent *),
-              int (*compar)(const struct dirent **,
-                            const struct dirent **))
+              int (*compar)(const struct dirent **, const struct dirent **))
 {
     int (*select64)(const struct dirent64 *) = (int (*)(const struct dirent64 *))select;
     int (*compar64)(const struct dirent64 **, const struct dirent64 **) = (int (*)(const struct dirent64 **, const struct dirent64 **))compar;
@@ -121,29 +128,11 @@ static __inline__  int scandir (const char *dir, struct dirent ***namelist,
 #else
 int scandir (const char *dir, struct dirent ***namelist,
               int (*select)(const struct dirent *),
-              int (*compar)(const struct dirent **,
-                            const struct dirent **));
+              int (*compar)(const struct dirent **, const struct dirent **));
 #endif
 
-#if defined(__USE_LARGEFILE64)
-int alphasort64 (const struct dirent64 **a, const struct dirent64 **b);
-#endif
-#if defined(__USE_FILE_OFFSET64)
-static __inline__  int alphasort(const struct dirent **a, const struct dirent **b)
-{
-    return alphasort64((const struct dirent64 **)a, (const struct dirent64 **)b);
-}
-#else
-int alphasort(const struct dirent **a, const struct dirent **b);
-#endif
-#endif /* !__USE_XOPEN2K8 */
-
-void rewinddir(DIR *dir);
-
-#if defined(__USE_NIXCOMMON) || defined(__USE_XOPEN)
 void seekdir(DIR *dir, off_t loc);
 long telldir(DIR *dir);
-#endif
 
 __END_DECLS
 
