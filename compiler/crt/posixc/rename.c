@@ -19,11 +19,12 @@
     NAME */
 #include <stdio.h>
 
-        int rename (
+int rename (
 
 /*  SYNOPSIS */
         const char * oldpath,
-        const char * newpath)
+        const char * newpath
+        )
 
 /*  FUNCTION
         Changes the name or location of a file or directory from `oldpath` to `newpath`.
