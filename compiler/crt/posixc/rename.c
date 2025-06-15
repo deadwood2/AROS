@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2025, The AROS Development Team. All rights reserved.
 
     C99 function rename() with optional Amiga<>Posix file name conversion.
 */
@@ -7,6 +7,7 @@
 #include <aros/debug.h>
 
 #include <proto/dos.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -25,24 +26,35 @@
         const char * newpath)
 
 /*  FUNCTION
-        Renames a file or directory.
+        Changes the name or location of a file or directory from `oldpath` to `newpath`.
 
     INPUTS
-        oldpath - Complete path to existing file or directory.
-        newpath - Complete path to the new file or directory.
+        oldpath - The current path to an existing file or directory.
+        newpath - The new desired path for the file or directory.
 
     RESULT
-        0 on success and -1 on error. In case of an error, errno is set.
-        
+        Returns 0 on success.
+        Returns -1 on failure and sets errno accordingly.
+
     NOTES
+        - The function performs path conversions for platform compatibility.
+        - Paths with relative elements like '.' or '..' are handled.
+        - If `newpath` resolves to "." or ".." alone, the function returns
+          an error (EEXIST).
 
     EXAMPLE
+        if (rename("/home/user/oldfile.txt", "/home/user/newfile.txt") != 0) {
+            perror("rename failed");
+        }
 
     BUGS
+        None known.
 
     SEE ALSO
+        stdio.h rename(), unlink(), mkdir()
 
     INTERNALS
+        Uses __path_u2a() to convert paths to Amiga-compatible strings.
 
 ******************************************************************************/
 {

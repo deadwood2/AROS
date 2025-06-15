@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2025, The AROS Development Team. All rights reserved.
 
     C99 function fputs().
 */
@@ -18,7 +18,7 @@
 
 /*  SYNOPSIS */
         const char * str,
-        FILE           * stream)
+        FILE       * stream)
 
 /*  FUNCTION
         Write a string to the specified stream.

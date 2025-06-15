@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2025, The AROS Development Team. All rights reserved.
 
     C99 function fwrite().
 */
@@ -24,10 +24,10 @@
         size_t fwrite (
 
 /*  SYNOPSIS */
-        const void * restrict        buf,
-        size_t                        size,
-        size_t                        nblocks,
-        FILE * restrict                stream)
+        const void * restrict   buf,
+        size_t                  size,
+        size_t                  nblocks,
+        FILE * restrict         stream)
 
 /*  FUNCTION
         Write an amount of bytes to a stream.
@@ -76,4 +76,3 @@
 
     return cnt;
 } /* fwrite */
-

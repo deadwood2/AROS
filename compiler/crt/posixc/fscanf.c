@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2021, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2025, The AROS Development Team. All rights reserved.
 
     C99 function fscanf().
 */
@@ -14,7 +14,7 @@
         int fscanf (
 
 /*  SYNOPSIS */
-        FILE           * fh,
+        FILE       * fh,
         const char * format,
         ...)
 
