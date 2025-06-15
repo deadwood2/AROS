@@ -21,8 +21,8 @@ __BEGIN_DECLS
 
 int fileno(FILE *);
 void flockfile(FILE *);
-void funlockfile(FILE *);
 int getc_unlocked(FILE *);
+void funlockfile(FILE *);
 
 /* Extensions requiring feature guards */
 
