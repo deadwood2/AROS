@@ -13,7 +13,7 @@
     NAME */
 #include <stdio.h>
 
-        int remove (
+int remove (
 
 /*  SYNOPSIS */
         const char * pathname)
