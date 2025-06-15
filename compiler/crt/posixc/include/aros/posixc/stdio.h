@@ -9,19 +9,48 @@
 */
 
 #include <aros/features.h>
-
-/* C99 */
 #include <aros/stdc/stdio.h>
 
 #include <aros/types/off_t.h>
 #include <aros/types/ssize_t.h>
 
-#define L_ctermid	FILENAME_MAX	/* Max filename for controlling tty */
-
-#define P_tmpdir	"T:"		/* Default temporary path */
+#define L_ctermid	FILENAME_MAX
+#define P_tmpdir	"T:"
 
 __BEGIN_DECLS
 
+int fileno(FILE *);
+void flockfile(FILE *);
+void funlockfile(FILE *);
+int getc_unlocked(FILE *);
+
+/* Extensions requiring feature guards */
+
+/* GNU or XSI */
+#if defined(__GNU_SOURCE) || defined(_XOPEN_SOURCE)
+FILE *fdopen(int filedes, const char *mode);
+int pclose(FILE *);
+FILE *popen(const char *, const char *);
+char *tempnam(const char *dir, const char *pfx);
+#endif
+
+/* GNU extensions */
+#if defined(__GNU_SOURCE)
+/* NOTIMPL char *ctermid(char *); */
+/* NOTIMPL int dprintf(int, const char *restrict, ...); */
+/* NOTIMPL FILE *fmemopen(void *restrict, size_t, const char *restrict); */
+/* NOTIMPL int ftrylockfile(FILE *); */
+/* NOTIMPL int getchar_unlocked(void); */
+/* NOTIMPL ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict); */
+/* NOTIMPL ssize_t getline(char **restrict, size_t *restrict, FILE *restrict); */
+/* NOTIMPL FILE *open_memstream(char **, size_t *); */
+/* NOTIMPL int putc_unlocked(int, FILE *); */
+/* NOTIMPL int putchar_unlocked(int); */
+/* NOTIMPL int renameat(int, const char *, int, const char *); */
+/* NOTIMPL int vdprintf(int, const char *restrict, va_list); */
+#endif
+
+/* Large file support (non-standard) */
 FILE *fopen64(const char * restrict filename, const char * restrict mode);
 #if defined(__USE_FILE_OFFSET64)
 static __inline__  FILE *fopen(const char * restrict filename, const char * restrict mode)
@@ -32,12 +61,6 @@ static __inline__  FILE *fopen(const char * restrict filename, const char * rest
 FILE *fopen(const char * restrict filename, const char * restrict mode);
 #endif
 
-/* NOTIMPL char	*ctermid(char *); */
-/* NOTIMPL int dprintf(int, const char *restrict, ...) */
-FILE *fdopen (int filedes, const char *mode);
-int fileno(FILE *);
-void flockfile(FILE *);
-/* NOTIMPL FILE *fmemopen(void *restrict, size_t, const char *restrict) */
 int fgetpos64(FILE * restrict stream, __fpos64_t * restrict pos);
 int fsetpos64(FILE *stream, const __fpos64_t *pos);
 #if defined(__USE_FILE_OFFSET64)
@@ -78,39 +101,22 @@ static __inline__  off_t ftello(FILE *stream)
 off_t ftello(FILE *stream);
 #endif
 
-/* NOTIMPL int ftrylockfile(FILE *); */
-void funlockfile(FILE *);
-int getc_unlocked(FILE *);
-/* NOTIMPL int getchar_unlocked(void); */
-/* NOTIMPL ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict); */
-/* NOTIMPL ssize_t getline(char **restrict, size_t *restrict, FILE *restrict); */
-/* NOTIMPL FILE *open_memstream(char **, size_t *); */
-int pclose(FILE *);
-FILE *popen(const char *, const char *);
-/* NOTIMPL int      putc_unlocked(int, FILE *); */
-/* NOTIMPL int      putchar_unlocked(int); */
-/* NOTIMPL int      renameat(int, const char *, int, const char *); */
-char *tempnam(const char *dir, const char *pfx);
-/* NOTIMPL int      vdprintf(int, const char *restrict, va_list); */
 
 /* Following function is here for clib2 compatibility and abc-shell
    Don't use in new code
 */
-int __get_default_file (int file_descriptor, long * file_handle);
+int __get_default_file(int file_descriptor, long *file_handle);
 
-/* Implement deprecated POSIX.1-2001 functions as static inline functions. */
+/* Deprecated POSIX functions */
 static __inline__ int getw(FILE *stream)
 {
     int word;
-    
-    if (fread(&word, sizeof(word), 1, stream) > 0) return word;
-    else                                           return EOF;
+    return (fread(&word, sizeof(word), 1, stream) > 0) ? word : EOF;
 }
 
 static __inline__ int putw(int word, FILE *stream)
 {
-    if (fwrite(&word, sizeof(word), 1, stream) > 0) return 0;
-    else                                            return EOF;
+    return (fwrite(&word, sizeof(word), 1, stream) > 0) ? 0 : EOF;
 }
 
 __END_DECLS

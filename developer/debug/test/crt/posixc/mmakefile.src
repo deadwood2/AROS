@@ -21,8 +21,6 @@ POSIXCTESTFILES := \
         open \
         opendir \
         pipe \
-        random \
-        randtest \
         statfs \
         strptime \
         uname \
@@ -31,6 +29,10 @@ POSIXCTESTFILES := \
         vfork_execl \
         wait \
         waitpid \
+
+POSIXCGNUTESTFILES := \
+        random \
+        randtest \
         posix_memalign
 
 POSIXC2K8TESTFILES := \
@@ -57,11 +59,14 @@ CUNITEXEDIR := $(AROS_TESTS)/cunit/crt/posix
 #MM- test-cunit : test-crt-posixc-cunit
 #MM- test-cunit-quick : test-crt-posixc-cunit-quick
 
-#MM- test-crt-posixc : test-crt-posixc-general test-crt-posixc-nix test-crt-posixc-posix1 test-crt-posixc-cunit
-#MM- test-crt-posixc-quick : test-crt-posixc-general-quick test-crt-posixc-nix-quick test-crt-posixc-posix1-quick test-crt-posixc-cunit-quick
+#MM- test-crt-posixc : test-crt-posixc-general test-crt-posixc-gnu test-crt-posixc-2k8 test-crt-posixc-nix test-crt-posixc-posix1 test-crt-posixc-cunit
+#MM- test-crt-posixc-quick : test-crt-posixc-general-quick test-crt-posixc-gnu-quick test-crt-posixc-2k8-quick test-crt-posixc-nix-quick test-crt-posixc-posix1-quick test-crt-posixc-cunit-quick
 
 #MM test-crt-posixc-general : includes includes-copy linklibs kernel
+#MM test-crt-posixc-2k8 : includes includes-copy linklibs kernel
+#MM test-crt-posixc-gnu : includes includes-copy linklibs kernel
 #MM test-crt-posixc-nix : includes includes-copy linklibs kernel
+
 #MM test-crt-posixc-cunit : includes includes-copy linklibs linklibs-cunit
 #MM test-crt-posixc-cunit : test-crt-posixc-cunit-lfs test-crt-posixc-cunit-lfs-fob
 #MM test-crt-posixc-cunit-quick : test-crt-posixc-cunit-lfs-quick test-crt-posixc-cunit-lfs-fob-quick
@@ -88,12 +93,19 @@ CUNITEXEDIR := $(AROS_TESTS)/cunit/crt/posix
 
 USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/..
 USER_CFLAGS = -ffloat-store
+USER_CPPFLAGS:=
 
 %build_progs mmake=test-crt-posixc-general \
     files="$(POSIXCTESTFILES)" targetdir=$(EXEDIR)
 
+USER_CPPFLAGS:= -D__GNU_SOURCE
+
+%build_progs mmake=test-crt-posixc-gnu \
+    files="$(POSIXCGNUTESTFILES)" targetdir=$(EXEDIR)
+
 NOWARN_CFLAGS := $(NOWARN_FORMAT_TRUNCATION)
 USER_CFLAGS = -ffloat-store $(NOWARN_CFLAGS)
+USER_CPPFLAGS:=
 
 %build_progs mmake=test-crt-posixc-nix \
     files=$(POSIXCNIXTESTFILES) targetdir=$(EXEDIR) nix=yes coverageinstr=no
@@ -115,6 +127,7 @@ USER_CFLAGS = -ffloat-store $(NOWARN_CFLAGS)
 
 USER_INCLUDES := -I$(AROS_CONTRIB_INCLUDES)
 USER_LDFLAGS := -L$(AROS_CONTRIB_LIB)
+USER_CPPFLAGS:=
 
 %build_progs mmake=test-crt-posixc-cunit \
     files=$(CUNITPOSIXCTESTFILES) targetdir=$(CUNITEXEDIR) \
@@ -124,7 +137,7 @@ USER_LDFLAGS := -L$(AROS_CONTRIB_LIB)
 
 USER_CPPFLAGS = -D_XOPEN_SOURCE=700
 
-%build_progs mmake=test-crt-posixc-general \
+%build_progs mmake=test-crt-posixc-2k8 \
     files="$(POSIXC2K8TESTFILES)" targetdir=$(EXEDIR)
 
 USER_CPPFLAGS := -D_LARGEFILE64_SOURCE
