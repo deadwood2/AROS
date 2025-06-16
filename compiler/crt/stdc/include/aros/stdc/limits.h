@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2004-2015 The AROS Developmemt Team. All rights reserved.
+ *  Copyright © 2004-2025 The AROS Developmemt Team. All rights reserved.
  *  $Id$
  *
  *  C99 header file limits.h
@@ -46,7 +46,10 @@
 /* maximum value for an object of type char */
 #define CHAR_MAX	SCHAR_MAX
 
-/* maximum number of bytes in a multibyte character, for any supported locale */
+/*
+  maximum number of bytes in a multibyte character, for any supported locale
+  NB: These definitions will change soon, so do not depend on them.
+ */
 #define	MB_LEN_MAX	1	/* At the moment only "C" locale supported */
 
 /* minimum value for an object of type short int */
