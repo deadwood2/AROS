@@ -25,18 +25,15 @@
 #define _ISalnum    (_ISalpha | _ISdigit)
 
 extern const unsigned short int * const * const __ctype_b_ptr;
-extern const unsigned char * const * const __ctype_toupper_ptr;
-extern const unsigned char * const * const __ctype_tolower_ptr;
+extern const unsigned char     * const * const __ctype_toupper_ptr;
+extern const unsigned char     * const * const __ctype_tolower_ptr;
 
 #define _istype(c,type) \
     ((*__ctype_b_ptr)[((int) (c)) & 0xff] & (unsigned short int) (type))
 
 #if !defined(_STDC_NOINLINE) && !defined(_STDC_NOINLINE_CTYPE)
 #define __ctype_make_func(__name__, __body__)    \
-__BEGIN_DECLS                          \
-static __inline__ int __name__(int c); \
-__END_DECLS                            \
-static __inline__ int __name__(int c)  \
+__header_inline int __name__(int c)  \
 { return __body__; }
 #else
 #define __ctype_make_func(__name__, __body__)    \
@@ -45,24 +42,39 @@ int __name__(int c); \
 __END_DECLS
 #endif
 
-__ctype_make_func(isupper,  _istype(c,_ISupper))
-__ctype_make_func(islower,  _istype(c,_ISlower))
-__ctype_make_func(isalpha,  _istype(c,_ISalpha))
-__ctype_make_func(isdigit,  _istype(c,_ISdigit))
-__ctype_make_func(isxdigit, _istype(c,_ISxdigit))
-__ctype_make_func(isspace,  _istype(c,_ISspace))
-__ctype_make_func(isprint,  _istype(c,_ISprint))
-__ctype_make_func(isgraph,  _istype(c,_ISgraph))
-__ctype_make_func(isblank,  _istype(c,_ISblank))
-__ctype_make_func(iscntrl,  _istype(c,_IScntrl))
-__ctype_make_func(ispunct,  _istype(c,_ISpunct))
-__ctype_make_func(isalnum,  _istype(c,_ISalnum))
+/* ISO C Standard Functions */
+__ctype_make_func(isupper,  _istype(c, _ISupper))
+__ctype_make_func(islower,  _istype(c, _ISlower))
+__ctype_make_func(isalpha,  _istype(c, _ISalpha))
+__ctype_make_func(isdigit,  _istype(c, _ISdigit))
+__ctype_make_func(isxdigit, _istype(c, _ISxdigit))
+__ctype_make_func(isspace,  _istype(c, _ISspace))
+__ctype_make_func(isprint,  _istype(c, _ISprint))
+__ctype_make_func(isgraph,  _istype(c, _ISgraph))
+__ctype_make_func(iscntrl,  _istype(c, _IScntrl))
+__ctype_make_func(ispunct,  _istype(c, _ISpunct))
+__ctype_make_func(isalnum,  _istype(c, _ISalnum))
+
 __ctype_make_func(toupper,  (*__ctype_toupper_ptr)[((int)(c)) & 0xff])
 __ctype_make_func(tolower,  (*__ctype_tolower_ptr)[((int)(c)) & 0xff])
 
-/* POSIX.1-2008/XSI extensions that are provided in stdlib.library */
+/* POSIX and GNU Extensions */
+#if defined(_POSIX_C_SOURCE) || defined(_GNU_SOURCE)
+
+# ifndef isblank
+__ctype_make_func(isblank,  _istype(c, _ISblank))
+# endif
+
+# ifndef isascii
 __ctype_make_func(isascii,  (c & ~0x7F) == 0)
+# endif
+
+# ifndef toascii
 __ctype_make_func(toascii,  c & 0x7F)
+# endif
+
+#endif /* POSIX/GNU/AROS */
+
 
 #define _toupper(c) toupper(c)
 #define _tolower(c) tolower(c)
