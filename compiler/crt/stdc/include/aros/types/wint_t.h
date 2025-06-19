@@ -10,8 +10,6 @@ typedef int wint_t;
 
 #if 0
 
-#ifndef __cplusplus
-
 #include <aros/types/int_t.h>
 
 #ifdef __WINT_TYPE__
@@ -22,8 +20,6 @@ typedef uint32_t wint_t;
 #else
 typedef char wint_t;
 #endif
-#endif
-
 #endif
 
 #endif
