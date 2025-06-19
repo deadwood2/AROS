@@ -67,6 +67,7 @@ CUNITSTDCTESTFILES := \
     cunit-crt-wmemset \
     cunit-crt-wchar \
     cunit-crt-wcrtomb \
+    cunit-crt-wctype \
     cunit-crt-wcsnrtombs \
     cunit-crt-wcsrtombs \
     cunit-crt-wcsncmp \
