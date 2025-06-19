@@ -11,6 +11,10 @@
 
 #include <aros/system.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define _ISupper    0x0001  /* UPPERCASE */
 #define _ISlower    0x0002  /* lowercase */
 #define _ISalpha    0x0004  /* a-y */
@@ -31,7 +35,7 @@ extern const unsigned char     * const * const __ctype_tolower_ptr;
 #define _istype(c,type) \
     ((*__ctype_b_ptr)[((int) (c)) & 0xff] & (unsigned short int) (type))
 
-#if !defined(_STDC_NOINLINE) && !defined(_STDC_NOINLINE_CTYPE)
+#if !defined(STDC_NOINLINE) && !defined(STDC_NOINLINE_CTYPE)
 #define __ctype_make_func(__name__, __body__)    \
 __header_inline int __name__(int c)  \
 { return __body__; }
@@ -78,5 +82,9 @@ __ctype_make_func(toascii,  c & 0x7F)
 
 #define _toupper(c) toupper(c)
 #define _tolower(c) tolower(c)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _STDC_CTYPE_H_ */

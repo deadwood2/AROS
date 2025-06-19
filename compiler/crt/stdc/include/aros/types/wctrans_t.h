@@ -12,4 +12,15 @@
 
 #endif
 
+#if (0)
+
+#include <aros/types/wint_t.h>
+
+struct __wctrans {
+    const char *name;
+    wint_t (*func)(wint_t);
+};
+
+#endif
+
 #endif /* _AROS_TYPES_WCTRANS_T_H */
