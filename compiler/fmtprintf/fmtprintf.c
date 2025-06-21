@@ -2,7 +2,7 @@
     Copyright (C) 2018, The AROS Development Team. All rights reserved.
     $Id:$
 
-    Common code block to format a string like printf().
+    Common code block to format a string like printf() or wprintf().
 */
 
 /*
@@ -26,7 +26,12 @@
             char buffer[REQUIREDBUFFER];                /* The body */
             char *buffer2 = buffer;                     /* So we can set this to any other strings */
             size_t size1 = 0, size2 = 0;                /* How many chars in buffer? */
+#ifdef IS_WIDE
+            const wchar_t *ptr = format + 1;            /* pointer to format string */
+            wchar_t *wptr;                              /* handy wchar_t pointer (short term usage) */
+#else           
             const char *ptr = format + 1;               /* pointer to format string */
+#endif
             size_t i, pad;                              /* Some temporary variables */
 #if defined(FULL_SPECIFIERS)
             union {                                     /* floating point arguments %[aAeEfFgG] */
@@ -241,11 +246,21 @@
                     break;
 
             case 's':
+#ifdef IS_WIDE
+                    wptr = va_arg(args, wchar_t *);
+                    if (!wptr)
+                        wptr = L"(null)";
+                    size2 = FMTPRINTF_WCSLEN(wptr);
+#else
                     buffer2 = va_arg(args, char *);
                     if (!buffer2)
                         buffer2 = "(null)";
                     size2 = FMTPRINTF_STRLEN(buffer2);
+#endif
                     size2 = size2 <= preci ? size2 : preci;
+#ifdef IS_WIDE
+                    wcstombs(buffer2, wptr, size2);
+#endif
                     preci = 0;
                     break;
 
@@ -550,5 +565,9 @@
             format = ptr;
         }
         else
+#ifdef IS_WIDE
+            FMTPRINTF_WCOUT(*format++);
+#else
             FMTPRINTF_COUT(*format++);
+#endif
     }
