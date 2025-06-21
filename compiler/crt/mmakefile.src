@@ -493,7 +493,8 @@ USER_CPPFLAGS := \
 USER_INCLUDES := \
     -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
     -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
-    -iquote $(SRCDIR)/compiler/crt/posixc
+    -iquote $(SRCDIR)/compiler/crt/posixc \
+    -iquote $(FMTPRINTFDIR)
 
 USER_LDFLAGS := -noclibs
 
@@ -726,6 +727,7 @@ CRT := \
     stdc/__signal \
     stdc/__stdc_ioerr2errno \
     stdc/_exit \
+    stdc/__wvcformat \
     stdc/abort \
     stdc/asctime \
     stdc/asprintf \
@@ -735,6 +737,8 @@ CRT := \
     stdc/ctime \
     stdc/exit \
     stdc/free \
+    stdc/fwprintf \
+    stdc/fputwc \
     stdc/gmtime \
     stdc/localtime \
     stdc/malloc \
@@ -744,6 +748,8 @@ CRT := \
     stdc/mbsnrtowcs \
     stdc/mbsrtowcs \
     stdc/on_exit \
+    stdc/putwchar \
+    stdc/putwc \
     stdc/raise \
     stdc/rand \
     stdc/realloc \
@@ -759,9 +765,12 @@ CRT := \
     stdc/strtoll \
     stdc/strtoumax \
     stdc/vasprintf \
+    stdc/vfwprintf \
+    stdc/vwprintf \
     stdc/wcrtomb \
     stdc/wcsnrtombs \
-    stdc/wcsrtombs
+    stdc/wcsrtombs \
+    stdc/wprintf
 
 CRT_LINKLIB := \
     posixc/getopt \

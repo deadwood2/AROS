@@ -16,6 +16,7 @@
 
 #include <stdarg.h>
 #include <stdint.h>
+#include <stdio.h>
 
 struct tm;
 
@@ -33,6 +34,9 @@ struct __sFILE;
 
 __BEGIN_DECLS
 
+/* Internal functions */
+int __wvcformat (void * data, int (* outc)(int, void *),
+        const wchar_t * format, va_list args);
 /* Formatted wide-character input/output functions */
 /* NOTIMPL int swprintf(wchar_t * restrict s, size_t n,
 	const wchar_t * restrict format, ...); */
@@ -42,11 +46,11 @@ __BEGIN_DECLS
 	const wchar_t * restrict format, va_list arg); */
 /* NOTIMPL int vswscanf(const wchar_t * restrict s,
 	const wchar_t * restrict format, va_list arg); */
-/* NOTIMPL int vwprintf(const wchar_t * restrict format,
-	va_list arg); */
+int vwprintf(const wchar_t * restrict format,
+	va_list args);
 /* NOTIMPL int vwscanf(const wchar_t * restrict format,
 	va_list arg); */
-/* NOTIMPL int wprintf(const wchar_t * restrict format, ...); */
+int wprintf(const wchar_t * restrict format, ...);
 /* NOTIMPL int wscanf(const wchar_t * restrict format, ...); */
 
 /* General wide-string utilities */
@@ -113,12 +117,12 @@ size_t wcsnrtombs(char * restrict dst,	const wchar_t ** restrict src, size_t nwc
 	size_t len, mbstate_t * restrict ps);
 
 /* Formatted wide-character input/output functions */
-/* NOTIMPL int fwprintf(struct __sFILE * restrict stream,
-        const wchar_t * restrict format, ...); */
+int fwprintf(FILE * restrict fh,
+        const wchar_t * restrict format, ...);
 /* NOTIMPL int fwscanf(struct __sFILE * restrict stream,
         const wchar_t * restrict format, ...); */
-/* NOTIMPL int vfwprintf(struct __sFILE * restrict stream,
-	const wchar_t * restrict format, va_list arg); */
+int vfwprintf(FILE * restrict stream,
+	const wchar_t * restrict format, va_list args);
 /* NOTIMPL int vfwscanf(struct __sFILE * restrict stream,
 	const wchar_t * restrict format, va_list arg); */
 
@@ -126,14 +130,14 @@ size_t wcsnrtombs(char * restrict dst,	const wchar_t ** restrict src, size_t nwc
 /* NOTIMPL wint_t fgetwc(struct __sFILE *stream); */
 /* NOTIMPL wchar_t *fgetws(wchar_t * restrict s,
 	int n, struct __sFILE * restrict stream); */
-/* NOTIMPL wint_t fputwc(wchar_t c, struct __sFILE *stream); */
+wint_t fputwc(wchar_t wc, FILE *fp);
 /* NOTIMPL int fputws(const wchar_t * restrict s,
 	struct __sFILE * restrict stream); */
 /* NOTIMPL int fwide(struct __sFILE *stream, int mode); */
 /* NOTIMPL wint_t getwc(struct __sFILE *stream); */
 /* NOTIMPL wint_t getwchar(void); */
-/* NOTIMPL wint_t putwc(wchar_t c, struct __sFILE *stream); */
-/* NOTIMPL wint_t putwchar(wchar_t c); */
+wint_t putwc(wchar_t wc, FILE *fp);
+wint_t putwchar(wchar_t wc);
 /* NOTIMPL wint_t ungetwc(wint_t c, struct __sFILE *stream); */
 
 __END_DECLS
