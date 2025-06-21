@@ -76,7 +76,7 @@ static void test_localtime_r_should_apply_gmtoffset()
     CU_ASSERT_EQUAL(_tm.tm_wday,    4);
     CU_ASSERT_EQUAL(_tm.tm_yday,    0);
 
-    CU_ASSERT_EQUAL(_tm.tm_isdst,   -1);
+    CU_ASSERT_EQUAL(_tm.tm_isdst,   0);
     CU_ASSERT_EQUAL(_tm.tm_gmtoff,  7200);
     CU_ASSERT_PTR_NULL(_tm.tm_zone);
 
@@ -91,7 +91,7 @@ static void test_localtime_r_should_apply_gmtoffset()
     CU_ASSERT_EQUAL(_tm.tm_wday,    4);
     CU_ASSERT_EQUAL(_tm.tm_yday,    0);
 
-    CU_ASSERT_EQUAL(_tm.tm_isdst,   -1);
+    CU_ASSERT_EQUAL(_tm.tm_isdst,   0);
     CU_ASSERT_EQUAL(_tm.tm_gmtoff,  7200);
     CU_ASSERT_PTR_NULL(_tm.tm_zone);
 
