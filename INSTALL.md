@@ -2,7 +2,7 @@
 
 Please install these packages before moving to next step. Below is a reference list for Debian-based distributions. Reference build system is Ubuntu 22.04/24.04 amd64.
 
-    git gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python3-mako libxcursor-dev cmake genisoimage dh-make yasm curl
+    git gcc g++ make gawk bison flex bzip2 netpbm autoconf automake libx11-dev libxext-dev libc6-dev liblzo2-dev libxxf86vm-dev libpng-dev gcc-multilib libsdl1.2-dev byacc python3-mako libxcursor-dev cmake genisoimage dh-make yasm curl  libjpeg-dev libxinerama-dev
 
 ## Clone & build
 
@@ -10,47 +10,40 @@ Please install these packages before moving to next step. Below is a reference l
     $ mkdir arosbuilds
     $ cd arosbuilds
     $ git clone https://github.com/deadwood2/AROS.git AROS
+    $ cd AROS
+    $ git checkout alt-runtime
+    $ cd ..
     $ cp ./AROS/scripts/rebuild.sh .
 
 Proceed to build selection below
 
-### Linux-x86_64 (AROS that is a "program" running from Linux)
+### Runtimelinux-x86_64
 
-First, build the cross-compiler by running
+1. Select alt-runtimelinux-x86_64 (DEBUG)
 
-    $ ./rebuild.sh
+Runtime binaries available in
 
-and selecting option ```1)  toolchain-core-x86_64```. Once the cross-compiler build is complete run ```$ ./rebuild.sh``` again and select option ```2)  core-linux-x86_64 (DEBUG)``` to build AROS.
+    alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
 
-Start AROS by:
+### Validating build
 
-    $ cd core-linux-x86_64-d/bin/linux-x86_64/AROS
-    $ ./boot/linux/AROSBootstrap
+Build Wanderer
 
-In order to use the cross-compiler for compiling your own projects (which don't use AROS builds system / mmakefile.src approach), you need to provide --sysroot parameter, for example:
+    $ cd alt-runtimelinux-x86_64-d
+    $ make workbench-system-wanderer
 
-    $ <myprojects>/arosbuilds/toolchain-core-x86_64/x86_64-aros-gcc --sysroot=<myprojects>/arosbuilds/core-linux-x86_64-d/bin/linux-x86_64/AROS/Development
+Configure setup
 
-### Amiga-m68k (AROS that can be used in Amiga emulator, like WinUAE)
+    $ mkdir ~/SYS/
+    $ ../AROS/arch/all-runtimelinux/boot/deb/libaxrt/buildusersys.sh ./bin/runtimelinux-x86_64/AROS ../AROS ~/SYS
+    $ export AXRT_ROOT=<myrepo-absolute-path>/alt-runtimelinux-x86_64-d/bin/runtimelinux-x86_64/AROS
 
-First, build the cross-compiler by running
+Copy loader
 
-    $ ./rebuild.sh
+    $ cd bin/runtimelinux-x86_64/AROS/System/Wanderer
+    $ cp ../../Development/lib/libaxrt-4.0.so .
 
-and selecting option ```11) toolchain-core-m68k```. Once the cross-compiler build is complete run ```$ ./rebuild.sh``` again and select option ```13) core-amiga-m68k (SERIAL DEBUG)``` to build AROS.
+Start Wanderer
 
-Kickstart images available in
+    $ ./Wanderer
 
-    core-amiga-m68k/bin/amiga-m68k/AROS/boot/amiga
-
-### Additional information
-
-* For armhf build, please install additional packages:
-
-        gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-
-* To control the number of parallel make jobs, the environment variable MAKE_JOBS can be given.
-For example, ```MAKE_JOBS=4 ./rebuild.sh``` means four parallel make jobs can be used.
-By default, three parallel make jobs are allowed.
-
-* Additional options can be passed to the configure script with the environment variable EXTRA_CONFIGURE_OPTS.
