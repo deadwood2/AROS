@@ -158,8 +158,8 @@ $(AROS_LIB)/pkgconfig/zlib.pc : $(ARCHSRCDIR)/zlib.pc.cmakein
     progname=minigzip \
     files=$(ARCHSRCDIR)/test/minigzip targetdir=$(AROS_C) uselibs="z1"
 
-#MM- workbench-c : \
-#MM        workbench-libs-z-minigzip
+##MM- workbench-c : \
+##MM        workbench-libs-z-minigzip
 
 #MM workbench-libs-z-minigzip : \
 #MM        workbench-libs-z-linklib
