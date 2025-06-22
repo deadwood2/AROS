@@ -5,135 +5,36 @@ FailAt 21
 If NOT EXISTS "RAM:Clipboards"
     MakeDir "RAM:Clipboards"
 EndIf
-If NOT EXISTS "RAM:T"
-    MakeDir "RAM:T"
-EndIf
-If NOT EXISTS "RAM:ENV"
-    MakeDir "RAM:ENV"
-    Assign "ENV:" "RAM:ENV"
-EndIf
 
-Assign "T:"       "RAM:T"
+Assign "ENV:" "ENVARC:"
+
+Assign "T:"       "ROOT:tmp"
 Assign "CLIPS:"   "RAM:Clipboards"
 
 Assign "KEYMAPS:" "DEVS:Keymaps"
 Assign "LOCALE:"  "SYS:Locale"
 Assign "LIBS:"    "SYS:Classes" ADD
-Assign "FONTS:"   "SYS:Fonts"
-Assign "HELP:"    "LOCALE:Help" DEFER
-Assign "THEMES:"  "SYS:Prefs/Presets/Themes" >NIL:
-Assign "IMAGES:"  "SYS:System/Images" DEFER
-Assign "PRINTERS:" "DEVS:Printers"
+Assign "LIBS:"    "AXRTSYS:Classes" ADD
+;Assign "HELP:"    "LOCALE:Help" DEFER
+;Assign "THEMES:"  "SYS:Prefs/Presets/Themes" >NIL:
+;Assign "IMAGES:"  "SYS:System/Images" DEFER
+;Assign "PRINTERS:" "DEVS:Printers"
 Assign "WANDERER:" "SYS:System/Wanderer" DEFER
 
-If EXISTS "C:SetPatch"
-    C:SetPatch QUIET
-EndIf
+;Automount >NIL:
+;Mount >NIL: "DEVS:DOSDrivers/~((.#?)|(#?.info)|(#?.dbg))"
 
-If EXISTS "SYS:Classes/USB"
-    Assign "USBCLASSES:" "SYS:Classes/USB"
-    AddUSBClasses >NIL:
-EndIf
+;Dir >NIL: "PIPE:"
 
-If EXISTS "SYS:DiskImages"
-    Assign "FDSK:" "SYS:DiskImages"
-EndIf
+AddDatatypes REFRESH QUIET
+Run QUIET C:ClipSync
 
-Automount >NIL:
-Mount >NIL: "DEVS:DOSDrivers/~((.#?)|(#?.info)|(#?.dbg))"
-
-Dir >NIL: "PIPE:"
-
-Path "C:" "SYS:System" "S:" "SYS:Prefs" "SYS:Tools" "SYS:Utilities" QUIET
-
-If EXISTS "SYS:Tools/Commodities"
-    Path "SYS:Tools/Commodities" QUIET ADD
-EndIf
-
-If EXISTS "SYS:Demos"
-    Path "SYS:Demos" ADD QUIET
-EndIf
-
-If EXISTS "Sys:RexxC"
-    Path "Sys:RexxC" ADD QUIET
-EndIf
-
-Copy >NIL: "ENVARC:" "ENV:" ALL NOPRO NOREQ PAT "~(def_#?.info)"
-
-If EXISTS "ENV:SYS/theme.var"
-    Assign "THEME:" "${SYS/theme.var}"
-Else
-    Assign "THEME:" "THEMES:AROSDefault"
-EndIf
-If EXISTS "THEME:Images"
-    Assign "IMAGES:"  "THEME:Images" PREPEND
-EndIf
-
-Touch >NIL: "FONTS:__TEST__"
-If WARN
-    Makedir "RAM:Fonts"
-    Assign "FONTS:" "RAM:Fonts"
-    Copy >NIL: "SYS:Fonts" "FONTS:" ALL CLONE NOREQ
-EndIf
-Assign >NIL: "FONTS:" "FONTS:Russian" ADD
-
-If EXISTS "FONTS:__TEST__"
-    Delete "FONTS:__TEST__" QUIET
-EndIf
-
-If NOT EXISTS "FONTS:fixed.font"
-    FixFonts
-EndIf
-
-AddDataTypes REFRESH QUIET
-IPrefs
-If EXISTS "C:PsdStackLoader"
-    PsdStackLoader >NIL:
-EndIf
-Run <NIL: >NIL: QUIET ConClip
-
-If EXISTS "C:RexxMast"
-    Assign "REXX:" "S:"
-    Run <NIL: >NIL: QUIET C:RexxMast
-EndIf
-
-If EXISTS "C:Decoration"
-    If EXISTS "ENV:SYS/theme.var"
-        C:Decoration <NIL: >NIL:
-    EndIf
-EndIf
-
-Assign EXISTS "Extras:" >NIL:
-If WARN
-    If EXISTS "$EXTRASPATH"
-        Assign "Extras:" "$EXTRASPATH"
-    Else
-        Assign "Extras:" "SYS:Extras" >NIL:
-        If WARN
-            Assign "Extras:" "NIL:" >NIL:
-        EndIf
-    EndIf
-EndIf
-
-If EXISTS "ENV:SYS/Packages"
-    List "ENV:SYS/Packages" NOHEAD FILES TO "T:P" LFORMAT="If EXISTS ${SYS/Packages/%N}*NCD ${SYS/Packages/%N}*NIf EXISTS S/%N-Startup*NExecute S/%N-Startup*NElse*NIf EXISTS S/Package-Startup*NExecute S/Package-Startup*NEndIf*NEndIf*NEndIf*N"
-    Execute "T:P"
-    Delete "T:P" QUIET
-    CD "SYS:"
-EndIf
-
-Protect "S:PCD" "s" ADD QUIET
-Protect "S:SPat" "s" ADD QUIET
-Protect "S:DPat" "s" ADD QUIET
+Protect "AXRTSYS:S/PCD" "s" ADD QUIET
+Protect "AXRTSYS:S/SPat" "s" ADD QUIET
+Protect "AXRTSYS:S/DPat" "s" ADD QUIET
 
 If EXISTS "S:User-Startup"
     Execute "S:User-Startup"
 EndIf
 
-If EXISTS "WANDERER:Wanderer"
-    WANDERER:Wanderer
-
-    If NOT ERROR
-        EndCLI
-    EndIf
-EndIf
+EndCLi
