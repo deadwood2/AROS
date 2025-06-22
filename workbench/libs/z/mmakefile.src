@@ -4,7 +4,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- includes-copy : zlib-fetch
+##MM- includes-copy : zlib-fetch
 
 ZLIBVERSION=1.2.13
 REPOSITORIES := https://zlib.net/fossils/
@@ -21,14 +21,14 @@ ARCHSRCDIR := $(PORTSDIR)/zlib/$(ARCHBASE)
     archive=$(ARCHBASE) suffixes=$(ARCHSUFFIX) \
     destination=$(PORTSDIR)/zlib
 
-#MM- includes-copy : \
-#MM     zlib-fetch \
-#MM     workbench-libs-z-pkgc
+##MM- includes-copy : \
+##MM     zlib-fetch \
+##MM     workbench-libs-z-pkgc
 
-#MM workbench-libs-z-includes : \
-#MM     kernel-exec-includes \
-#MM     kernel-dos-includes \
-#MM     includes-copy
+##MM workbench-libs-z-includes : \
+##MM     kernel-exec-includes \
+##MM     kernel-dos-includes \
+##MM     includes-copy
 
 FILES := adler32 \
          crc32 \
@@ -61,9 +61,9 @@ USER_INCLUDES += -I$(ARCHSRCDIR)
 
 USER_CPPFLAGS := $(LIBZ_CPPFLAGS)
 
-%build_module mmake=workbench-libs-z \
-  modname=z1 modtype=library \
-  files="$(addprefix $(ARCHSRCDIR)/,$(FILES) $(SFILES))" linklibname=z uselibs="crtmod"
+#%build_module mmake=workbench-libs-z \
+#  modname=z1 modtype=library \
+#  files="$(addprefix $(ARCHSRCDIR)/,$(FILES) $(SFILES))" linklibname=z uselibs="crtmod"
 
 #MM- linklibs: linklibs-z-static
 #MM linklibs-z-static : zlib-fetch
@@ -77,8 +77,8 @@ USER_CPPFLAGS := $(LIBZ_CPPFLAGS) -DNO_STRERROR -DNDEBUG
     files="$(addprefix $(ARCHSRCDIR)/,$(FILES) simd_stub)" \
     objdir=$(GENDIR)/$(CURDIR)/static
 
-INCLUDE_FILES := zlib.h zconf.h
-%copy_includes dir=$(ARCHSRCDIR)
+#INCLUDE_FILES := zlib.h zconf.h
+#%copy_includes dir=$(ARCHSRCDIR)
 
 #MM
 workbench-libs-z-pkgc : $(AROS_LIB)/pkgconfig/zlib.pc
