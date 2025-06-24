@@ -15,10 +15,10 @@
 %(default_startfile) @AXRT_LIB@/startup%O%s
 
 *cc1:
-%(default_cc1) -fvisibility=hidden -mno-red-zone
+%(default_cc1) -fvisibility=hidden -mno-red-zone -ffixed-r12
 
 *cc1plus:
-%(default_cc1plus) -fvisibility=hidden -mno-red-zone
+%(default_cc1plus) -fvisibility=hidden -mno-red-zone -ffixed-r12
 
 *cpp:
 %(default_cpp) -D__AROS__ -D_AMIGA -DAMIGA
