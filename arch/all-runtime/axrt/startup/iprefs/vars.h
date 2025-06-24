@@ -20,7 +20,7 @@
 //#endif
 //
 //VAR struct Library              *KeymapBase;
-//VAR struct KMSLibrary		*KMSBase;
+VAR struct KMSLibrary		*KMSBase;
 //VAR struct Library              *LayersBase;
 //VAR struct Library              *DataTypesBase;
 //VAR struct Library              *DiskfontBase;

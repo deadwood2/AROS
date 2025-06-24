@@ -20,10 +20,12 @@ MODULE_FILES := \
     startup/newimagefuncs \
     startup/screendecorclass \
     startup/windowdecorclass \
-    startup/iprefs/main_iprefs \
     startup/iprefs/fontprefs \
-    startup/iprefs/vars \
+    startup/iprefs/inputprefs \
+    startup/iprefs/localeprefs \
+    startup/iprefs/main_iprefs \
     startup/iprefs/misc \
+    startup/iprefs/vars \
     startup/rt_startup \
     shims/libc/fopen \
     shims/libc/libc_init \
