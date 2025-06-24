@@ -99,6 +99,7 @@ static int _translate_optname(int optname)
     case(0x0001): return TCP_NODELAY;
     case(0x1007): return SO_ERROR;
     case(0x1001): return SO_SNDBUF;
+    case(0x0004): return SO_REUSEADDR;
     default:
         bug("<<WARN>>: optname (%d) is not translated. Please submit issuet at https://github.com/deadw00d/AROS/issues.\n", optname);
         return optname;
@@ -209,6 +210,72 @@ AROS_LH4(int, f_recv,
     AROS_LIBFUNC_EXIT
 }
 
+AROS_LH3(int, f_bind,
+         AROS_LHA(int, s, D0),
+         AROS_LHA(struct f_sockaddr *, name, A0),
+         AROS_LHA(socklen_t, namelen, D1),
+         struct SocketBase *, SocketBase, 6, BSDSocket)
+{
+    AROS_LIBFUNC_INIT
+
+    struct sockaddr tmp_name = {0};
+    int tmp_namelen = sizeof(struct sockaddr);
+    tmp_name.sa_family    = name->sa_family;
+    memcpy(&tmp_name.sa_data, &name->sa_data, sizeof(tmp_name.sa_data));
+
+    int ret = bind(__fs_translate_socket(s), &tmp_name, tmp_namelen);
+    if (ret == -1) __fs_translate_errno(errno, SocketBase);
+
+    return ret;
+
+    AROS_LIBFUNC_EXIT
+}
+
+AROS_LH2(int, f_listen,
+         AROS_LHA(int, s, D0),
+         AROS_LHA(int, backlog, D1),
+        struct SocketBase *, SocketBase, 7, BSDSocket)
+{
+    AROS_LIBFUNC_INIT
+
+    int ret = listen(__fs_translate_socket(s), backlog);
+    if (ret == -1) __fs_translate_errno(errno, SocketBase);
+
+    return ret;
+
+    AROS_LIBFUNC_EXIT
+}
+
+AROS_LH3(int, f_accept,
+         AROS_LHA(int, s, D0),
+         AROS_LHA(struct f_sockaddr *, name, A0),
+         AROS_LHA(socklen_t *, namelen, A1),
+         struct SocketBase *, SocketBase, 8, BSDSocket)
+{
+    AROS_LIBFUNC_INIT
+
+    struct sockaddr tmp_name = {0};
+    int tmp_namelen = sizeof(struct sockaddr);
+
+    int ret = accept(__fs_translate_socket(s), &tmp_name, &tmp_namelen);
+    if (ret == -1) __fs_translate_errno(errno, SocketBase);
+    else
+    {
+        ret = __fs_obtain_mapping(ret);
+        if (name != NULL && namelen != NULL)
+        {
+            name->sa_len = 0;
+            name->sa_family = tmp_name.sa_family;
+            memcpy(name->sa_data, tmp_name.sa_data, sizeof(name->sa_data));
+            *namelen = tmp_namelen;
+        }
+    }
+
+    return ret;
+
+    AROS_LIBFUNC_EXIT
+}
+
 static int BSDSocket_InitForwarders(struct Library *SocketBase)
 {
     SetFunction(SocketBase, (LONG)(-35 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_gethostbyname,    BSDSocket, 35));
@@ -220,6 +287,9 @@ static int BSDSocket_InitForwarders(struct Library *SocketBase)
     SetFunction(SocketBase, (LONG)(-17 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_getsockname,      BSDSocket, 17));
     SetFunction(SocketBase, (LONG)(-11 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_send,             BSDSocket, 11));
     SetFunction(SocketBase, (LONG)(-13 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_recv,             BSDSocket, 13));
+    SetFunction(SocketBase, (LONG)( -6 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_bind,             BSDSocket,  6));
+    SetFunction(SocketBase, (LONG)( -7 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_listen,           BSDSocket,  7));
+    SetFunction(SocketBase, (LONG)( -8 * LIB_VECTSIZE), AROS_SLIB_ENTRY(f_accept,           BSDSocket,  8));
     return 1;
 }
 
