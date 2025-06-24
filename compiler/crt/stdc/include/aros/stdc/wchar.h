@@ -16,7 +16,6 @@
 
 #include <stdarg.h>
 #include <stdint.h>
-#include <stdio.h>
 
 struct tm;
 
@@ -117,11 +116,11 @@ size_t wcsnrtombs(char * restrict dst,	const wchar_t ** restrict src, size_t nwc
 	size_t len, mbstate_t * restrict ps);
 
 /* Formatted wide-character input/output functions */
-int fwprintf(FILE * restrict fh,
+int fwprintf(struct __sFILE * restrict fh,
         const wchar_t * restrict format, ...);
 /* NOTIMPL int fwscanf(struct __sFILE * restrict stream,
         const wchar_t * restrict format, ...); */
-int vfwprintf(FILE * restrict stream,
+int vfwprintf(struct __sFILE * restrict stream,
 	const wchar_t * restrict format, va_list args);
 /* NOTIMPL int vfwscanf(struct __sFILE * restrict stream,
 	const wchar_t * restrict format, va_list arg); */
@@ -130,13 +129,13 @@ int vfwprintf(FILE * restrict stream,
 /* NOTIMPL wint_t fgetwc(struct __sFILE *stream); */
 /* NOTIMPL wchar_t *fgetws(wchar_t * restrict s,
 	int n, struct __sFILE * restrict stream); */
-wint_t fputwc(wchar_t wc, FILE *fp);
+wint_t fputwc(wchar_t wc, struct __sFILE *fp);
 /* NOTIMPL int fputws(const wchar_t * restrict s,
 	struct __sFILE * restrict stream); */
 /* NOTIMPL int fwide(struct __sFILE *stream, int mode); */
 /* NOTIMPL wint_t getwc(struct __sFILE *stream); */
 /* NOTIMPL wint_t getwchar(void); */
-wint_t putwc(wchar_t wc, FILE *fp);
+wint_t putwc(wchar_t wc, struct __sFILE *fp);
 wint_t putwchar(wchar_t wc);
 /* NOTIMPL wint_t ungetwc(wint_t c, struct __sFILE *stream); */
 

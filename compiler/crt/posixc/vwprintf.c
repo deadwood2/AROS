@@ -39,7 +39,7 @@
 
 ******************************************************************************/
 {
-    //struct PosixCBase *PosixCBase = __aros_getbase_PosixCBase();
+    struct PosixCBase *PosixCBase = __aros_getbase_PosixCBase();
 
-    return vfwprintf (stdout, format, args);
+    return vfwprintf (PosixCBase->_stdout, format, args);
 } /* vwprintf */

@@ -404,6 +404,7 @@ STDLIB := \
     stdc/__ctype \
     stdc/__vcformat \
     stdc/__vcscan \
+    stdc/__wvcformat \
     stdc/abs stdc/labs stdc/llabs \
     stdc/asctime_r \
     stdc/atof \
@@ -493,8 +494,7 @@ USER_CPPFLAGS := \
 USER_INCLUDES := \
     -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
     -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
-    -iquote $(SRCDIR)/compiler/crt/posixc \
-    -iquote $(FMTPRINTFDIR)
+    -iquote $(SRCDIR)/compiler/crt/posixc
 
 USER_LDFLAGS := -noclibs
 
@@ -575,6 +575,7 @@ CRT := \
     posixc/fprintf \
     posixc/fputc \
     posixc/fputs \
+    posixc/fputwc \
     posixc/fread \
     posixc/freopen \
     posixc/fscanf \
@@ -591,6 +592,7 @@ CRT := \
     posixc/ftello64 \
     posixc/ftruncate \
     posixc/funlockfile \
+    posixc/fwprintf \
     posixc/fwrite \
     posixc/getc_unlocked \
     posixc/getchar \
@@ -647,6 +649,7 @@ CRT := \
     posixc/putchar \
     posixc/putenv \
     posixc/puts \
+    posixc/putwchar \
     posixc/random \
     posixc/read \
     posixc/readdir \
@@ -717,17 +720,19 @@ CRT := \
     posixc/utimes \
     posixc/vfprintf \
     posixc/vfscanf \
+    posixc/vfwprintf \
     posixc/vprintf \
+    posixc/vwprintf \
     posixc/vscanf \
     posixc/wait \
     posixc/waitpid \
+    posixc/wprintf \
     posixc/write \
     stdc/__exitfunc \
     stdc/__optionallibs \
     stdc/__signal \
     stdc/__stdc_ioerr2errno \
     stdc/_exit \
-    stdc/__wvcformat \
     stdc/abort \
     stdc/asctime \
     stdc/asprintf \
@@ -737,8 +742,6 @@ CRT := \
     stdc/ctime \
     stdc/exit \
     stdc/free \
-    stdc/fwprintf \
-    stdc/fputwc \
     stdc/gmtime \
     stdc/localtime \
     stdc/malloc \
@@ -748,8 +751,6 @@ CRT := \
     stdc/mbsnrtowcs \
     stdc/mbsrtowcs \
     stdc/on_exit \
-    stdc/putwchar \
-    stdc/putwc \
     stdc/raise \
     stdc/rand \
     stdc/realloc \
@@ -765,12 +766,9 @@ CRT := \
     stdc/strtoll \
     stdc/strtoumax \
     stdc/vasprintf \
-    stdc/vfwprintf \
-    stdc/vwprintf \
     stdc/wcrtomb \
     stdc/wcsnrtombs \
-    stdc/wcsrtombs \
-    stdc/wprintf
+    stdc/wcsrtombs
 
 CRT_LINKLIB := \
     posixc/getopt \

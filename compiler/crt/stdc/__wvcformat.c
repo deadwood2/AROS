@@ -33,7 +33,7 @@ const unsigned char *const __decimalpoint = ".";
                   outcount++;                \
                 }while(0)
 #define FMTPRINTF_WCOUT(c) do \
-                { if(putwc(c,data)==WEOF) \
+                { if((*outc)((wchar_t)(c),data)==WEOF) \
                     return outcount; \
                   outcount++; \
                 } while (0);

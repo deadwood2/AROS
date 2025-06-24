@@ -1,29 +1,24 @@
 /*
     Copyright (C) 1995-2025, The AROS Development Team. All rights reserved.
 
-    C99 function putwc().
+    C99 function putwchar().
 
-    Originally part of libnix.
 */
 
 /*****************************************************************************
 
     NAME */
-#include <wchar.h>
 #include <stdio.h>
+#include <wchar.h>
 
-#undef putwc
-
-wint_t putwc(
-/*     SYNOPSIS    */    
-    wchar_t wc, 
-    FILE * fp) 
+wint_t putwchar(
+/*     SYNOPSIS    */
+    wchar_t wc)
 /*  FUNCTION
         Writes the wide character wc to the stream and advances the position indicator.
 
     INPUTS
         wc - The wide character to write.
-        fp - Pointer to a FILE object that identifies an output stream.
         
     RESULT
         On success, the character written is returned.
@@ -40,5 +35,7 @@ wint_t putwc(
 
 ******************************************************************************/
 {
-	return fputwc(wc, fp);
+    struct PosixCBase *PosixCBase = __aros_getbase_PosixCBase();
+
+	return fputwc(wc, PosixCBase->_stdout);
 }

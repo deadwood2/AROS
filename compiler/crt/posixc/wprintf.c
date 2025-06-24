@@ -239,13 +239,13 @@
 
 ******************************************************************************/
 {
-   // struct PosixCBase *PosixCBase = __aros_getbase_PosixCBase();
+    struct PosixCBase *PosixCBase = __aros_getbase_PosixCBase();
     int     retval;
     va_list args;
 
     va_start (args, format);
 
-    retval = vfwprintf (stdout, format, args);
+    retval = vfwprintf (PosixCBase->_stdout, format, args);
 
     va_end (args);
 
