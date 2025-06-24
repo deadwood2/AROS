@@ -59,27 +59,27 @@
 
 /*********************************************************************************************/
 
-//static struct libinfo
-//{
-//    APTR        var;
-//    STRPTR      name;
-//    WORD        version;
-//    BOOL    	nocloseafterpatch;
-//}
-//libtable[] =
-//{
+static struct libinfo
+{
+   APTR        var;
+   STRPTR      name;
+   WORD        version;
+   BOOL    	nocloseafterpatch;
+}
+libtable[] =
+{
 //    {&IntuitionBase     , "intuition.library"           , 39, FALSE },
 //    {&GfxBase           , "graphics.library"            , 39, FALSE },
 //    {&UtilityBase       , "utility.library"             , 39, TRUE  },
 //    {&IFFParseBase  	, "iffparse.library"	    	, 39, FALSE },
 //    {&LocaleBase    	, "locale.library"  	    	, 39, TRUE  },
 //    {&KeymapBase        , "keymap.library"              , 39, FALSE },
-//    {&KMSBase		, "kms.library"			, 3,  FALSE },
+   {&KMSBase		, "kms.library"			, 3,  FALSE },
 //    {&LayersBase        , "layers.library"              , 39, FALSE },
 //    {&DataTypesBase     , "datatypes.library"           , 39, FALSE },
 //    {&DiskfontBase      , "diskfont.library"            , 39, FALSE },
-//    {NULL   	    	    	    	    	    	    	    }
-//};
+   {NULL   	    	    	    	    	    	    	    }
+};
 
 /*********************************************************************************************/
 
@@ -93,8 +93,8 @@ static struct prefinfo
 }
 preftable[] =
 {
-//    {"input"	    , inputprefsname     , InputPrefs_Handler      },
-//    {"locale"	    , localeprefsname	 , LocalePrefs_Handler     }, /* Keep before font */
+   {"input"	    , inputprefsname     , InputPrefs_Handler      },
+   {"locale"	    , localeprefsname	 , LocalePrefs_Handler     }, /* Keep before font */
     {"font" 	    , fontprefsname      , FontPrefs_Handler       },
 //    {"palette"	    , paletteprefsname   , NULL                    },
 //    {"wbpattern"    , patternprefsname   , WBPatternPrefs_Handler  },
@@ -155,20 +155,20 @@ void Cleanup(STRPTR msg)
 
 /*********************************************************************************************/
 
-//static void OpenLibs(void)
-//{
-//    struct libinfo *li;
-//
-//    for (li = libtable; li->var; li++)
-//    {
-//	if (!((*(struct Library **)li->var) = OpenLibrary(li->name,
-//							  li->version)))
-//	{
-//	    sprintf(s, "Can't open %s V%d!", li->name, li->version);
-//	    Cleanup(s);
-//	}
-//    }
-//}
+static void OpenLibs(void)
+{
+   struct libinfo *li;
+
+   for (li = libtable; li->var; li++)
+   {
+	if (!((*(struct Library **)li->var) = OpenLibrary(li->name,
+							  li->version)))
+	{
+	    sprintf(s, "Can't open %s V%d!", li->name, li->version);
+	    Cleanup(s);
+	}
+   }
+}
 
 /*********************************************************************************************/
 
@@ -354,13 +354,15 @@ static void HandleNotify(void)
 
 int main_IPrefs(void)
 {
-//    OpenLibs();
+   OpenLibs();
 //    ReadTDPrefs();
     GetENVName();
     StartNotifications();
     PreparePatches();
     HandleNotify();
     preftable[0].func(preftable[0].filenamebuffer);
+    preftable[1].func(preftable[1].filenamebuffer);
+    preftable[2].func(preftable[2].filenamebuffer);
 //    Detach();
     return 0;
 
