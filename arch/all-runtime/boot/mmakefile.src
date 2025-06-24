@@ -27,6 +27,10 @@ include $(SRCDIR)/config/aros.cfg
 #MM  workbench-tools-quick \
 #MM  workbench-tools-editor \
 #MM  workbench-prefs-zune \
-#MM  workbench-prefs-envarc-copyfiles
+#MM  workbench-prefs-envarc-copyfiles \
+#MM  workbench-prefs-input \
+#MM  workbench-locale \
+#MM  workbench-prefs-locale \
+#MM  workbench-prefs-font
 
 %common
