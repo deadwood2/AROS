@@ -1066,7 +1066,7 @@ $(%(mmake)-MA_TARGETS) : $(%(mmake)-MA_WILDCARD).o : %%(suffix)
     usehostlibs= usestartup=yes detach=no nix=no  \
     cmd="$(strip $(AROS_CC) $(TARGET_SYSROOT))" ldopts="$(TARGET_ISA_LDFLAGS)" \
     strip="$(TARGET_STRIP)" stripdebug="$(DEBUG)" objdir="$(GENDIR)/$(CURDIR)" \
-    coverageinstr="$(TARGET_COVERAGEINSTR)"
+    coverageinstr="$(TARGET_COVERAGEINSTR)" linker=target
 
 %(mmake)-link_LD_OPTS := 
 %(mmake)-link_EXTRA_LIBS :=
@@ -1103,8 +1103,12 @@ endif
 )
 
 %(prog) : OBJDIR := %(objdir)
-%(prog) : OBJS := $(strip %(objs)) $(AROS_LIB)/axrt.ld
-%(prog) : LDFLAGS := $(strip %(ldflags)) -shared -specs=$(AROS_LIB)/axrt.specs
+%(prog) : OBJS := $(strip %(objs))
+%(prog) : LDFLAGS := $(strip %(ldflags))
+ifeq (%(linker),target)
+%(prog) : OBJS := $(OBJS) $(AROS_LIB)/axrt.ld
+%(prog) : LDFLAGS := $(LDFLAGS) -shared -specs=$(AROS_LIB)/axrt.specs
+endif
 %(prog) : LIBS := $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS) %(usehostlibs))
 %(prog) : %(objs) $(%(mmake)-link_DEPLIBS)
 	%link_q cmd="%(cmd)" ldopts="$(strip %(ldopts) $(%(mmake)-link_LD_OPTS))" strip="%(strip)" stripdebug="%(stripdebug)" from="$(OBJS)" ldflags="$(LDFLAGS)" libs="$(LIBS)" objdir="$(OBJDIR)" coverageinstr="%(coverageinstr)" patchelf="yes"
@@ -1789,7 +1793,8 @@ ifneq ($(filter $(TARGET),%(mmake) %(mmake)-quick %(mmake)-gz-quick),)
     usestartup="%(usestartup)" detach="%(detach)" nix="%(nix)" \
     cmd="$(%(mmake)_LINK)" ldopts="$(%(mmake)_LD_OPTS)" \
     strip="$(%(mmake)_STRIP)" stripdebug="$(%(mmake)_STRIPDEBUG)" \
-    objdir="$(%(mmake)_OBJDIR)" coverageinstr="$(%(mmake)_COVERAGE)"
+    objdir="$(%(mmake)_OBJDIR)" coverageinstr="$(%(mmake)_COVERAGE)" \
+    linker="%(compiler)"
 
 endif
 
