@@ -5,8 +5,13 @@
 */
 /* Original source from libnix */
 
+#include <proto/dos.h>
+#include <errno.h>
 #include <stdarg.h>
+#include "__fdesc.h"
+#include "__stdio.h"
 
+static int __putc(int c, void *fh);
 /*****************************************************************************
 
     NAME */
@@ -43,9 +48,25 @@
 
 ******************************************************************************/
 {
-    int retval;
+    fdesc *fdesc = __getfdesc(stream->fd);
 
-    retval = __wvcformat (stream, (int (*)(int, void *))fputc, format, args);
+    if (!fdesc)
+    {
+        errno = EBADF;
+        return 0;
+    }
 
-    return retval;
+    return __wvcformat ((void *)BADDR(fdesc->fcb->handle), __putc, format, args);
 } /* vfwprintf */
+
+static int __putc(int c, void *fhp)
+{
+    BPTR fh = MKBADDR(fhp);
+    if (FWrite(fh, &c, 1, sizeof(wchar_t)) == WEOF)
+    {
+        errno = __stdc_ioerr2errno(IoErr());
+        return WEOF;
+    }
+
+    return c;
+}
