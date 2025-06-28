@@ -12,6 +12,7 @@ FAMILY                        := @aros_target_family@
 FLAVOUR                       := @aros_flavour@
 SHARED_MOD                    := @aros_shared_default@
 
+@aros_target_extra@
 # MMU flags
 USE_MMU                       := @aros_enable_mmu@
 
@@ -130,7 +131,7 @@ TARGET_LIBATOMIC              = @use_libatomic@
 TARGET_C_LIBS                 = $(strip @aros_c_libs@)
 TARGET_CXX_LDFLAGS            = $(strip @aros_cxx_ldflags@)
 TARGET_CXX_LIBS               := $(strip @aros_cxx_libs@)
-
+@target_link_extra@
 MODULE_ISA_CFLAGS             := $(strip @aros_module_isa_flags@)
 
 COVERAGEINSTR_FLAGS           = $(strip $(CFLAGS_PROFILE_ARCS) $(CFLAGS_TEST_COVERAGE))

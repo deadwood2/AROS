@@ -138,6 +138,9 @@ AROS_ARCH_INCLUDES            := $(AROS_ARCH_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
 AROS_INCLUDES                 := $(AROS_DEVELOPER)/$(AROS_DIR_INCLUDE)
 AROS_ARCH_LIB                 := $(AROS_ARCH_DEVELOPMENT)/$(AROS_DIR_LIB)
 AROS_LIB                      := $(AROS_DEVELOPER)/$(AROS_DIR_LIB)
+ifneq ($(AROS_TARGET_CPU32),)
+AROS_LIB32                    := $(AROS_DEVELOPER)/$(AROS_DIR_LIB)32
+endif
 
 AROS_CONTRIB_DEVELOPMENT      := $(AROS_CONTRIB)/$(AROS_DIR_DEVELOPER)
 AROS_CONTRIB_INCLUDES         := $(AROS_CONTRIB_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
@@ -193,6 +196,7 @@ RESIDENT_BEGIN                := compiler/libinit/libentry
 KICKSTART_BEGIN               := compiler/libinit/kickentry
 
 AROS_CC                       := $(TARGET_CC)
+# Use a wrapper if a real c++ compiler isnt available.
 ifneq ($(TARGET_CXX),)
     AROS_CXX                  := $(TARGET_CXX)
 else
