@@ -9,6 +9,8 @@
 typedef int mbstate_t;
 
 #if 0
+#include <aros/types/wchar_t.h>
+
 /*
  * mbstate_t: Conversion state object for multibyte to wide character conversions.
  * Internal fields used by the runtime to track conversion state.

@@ -3,11 +3,10 @@
 ** Distributed under the terms of the MIT License.
 */
 
-#include <wchar.h>
-
 /*****************************************************************************
 
     NAME */
+#include <wchar.h>
 
 wchar_t *wcstok(
     
