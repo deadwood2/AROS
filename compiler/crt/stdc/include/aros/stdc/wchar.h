@@ -126,9 +126,9 @@ int vfwprintf(struct __sFILE * restrict stream,
 	const wchar_t * restrict format, va_list arg); */
 
 /* Wide-character input/output functions. */
-/* NOTIMPL wint_t fgetwc(struct __sFILE *stream); */
-/* NOTIMPL wchar_t *fgetws(wchar_t * restrict s,
-	int n, struct __sFILE * restrict stream); */
+wint_t fgetwc(struct __sFILE *stream);
+wchar_t *fgetws(wchar_t * restrict s,
+	int n, struct __sFILE * restrict stream);
 wint_t fputwc(wchar_t wc, struct __sFILE *fp);
 /* NOTIMPL int fputws(const wchar_t * restrict s,
 	struct __sFILE * restrict stream); */

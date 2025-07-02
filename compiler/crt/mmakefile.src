@@ -567,6 +567,8 @@ CRT := \
     posixc/fgetpos \
     posixc/fgetpos64 \
     posixc/fgets \
+    posixc/fgetwc \
+    posixc/fgetws \
     posixc/fileno \
     posixc/flock \
     posixc/flockfile \
