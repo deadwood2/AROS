@@ -194,7 +194,7 @@ wint_t putwchar(wchar_t wc);
 wint_t fgetwc(struct __sFILE *stream);
 wchar_t *fgetws(wchar_t * restrict s,
 	int n, struct __sFILE * restrict stream);
-wint_t fputwc(wchar_t wc, struct __sFILE *fp);
+wint_t fputwc(wint_t wc, struct __sFILE *fp);
 STDC_WCHAR_NOTIMPL(
 wint_t fputws(const wchar_t * restrict s, struct __sFILE * restrict stream);
 int fwide(struct __sFILE *stream, int mode);
