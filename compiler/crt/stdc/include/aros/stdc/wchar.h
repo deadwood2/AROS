@@ -35,9 +35,11 @@ struct __sFILE;
 __BEGIN_DECLS
 
 /* Internal functions */
-int __wvcformat (void * data, int (* outc)(int, void *),
-        const wchar_t * format, va_list args);
+int __wvcformat (void * data, int (* outc)(int, void *), const wchar_t * format, va_list args);
+
 STDC_WCHAR_NOTIMPL(
+int __vwscanf(void *data, wint_t (*get_char)(void *), int (*unget_char)(wint_t, void *), const wchar_t * format, va_list args);
+
 /* Formatted wide-character input/output functions */
 int swprintf(wchar_t * restrict s, size_t n,
 	const wchar_t * restrict format, ...);
