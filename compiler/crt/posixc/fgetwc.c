@@ -1,8 +1,9 @@
 /*
-    Copyright (C) 1995-2022, The AROS Development Team. All rights reserved.
-
+    Public Domain
+    Original source from libnix
+    
     C99 function fgetwc().
-	Original source from libnix
+	
 */
 
 /*****************************************************************************
