@@ -2,7 +2,7 @@
 #define _POSIXC_LOCALE_H_
 
 /*
-    Copyright © 1995-2012, The AROS Development Team. All rights reserved.
+    Copyright © 1995-2025, The AROS Development Team. All rights reserved.
     $Id$
 
     POSIX-2008.1 header file locale.h

@@ -208,6 +208,10 @@ STDC_WCHAR_NOTIMPL(
 wint_t ungetwc(wint_t c, struct __sFILE *stream);
 )
 
+#if defined(_GNU_SOURCE) || defined(__BSD_VISIBLE)
+wchar_t *wcswcs(const wchar_t *haystack, const wchar_t *needle);
+#endif
+
 __END_DECLS
 
 #endif /* _STDC_WCHAR_H_ */
