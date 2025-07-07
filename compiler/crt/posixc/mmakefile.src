@@ -256,9 +256,7 @@ USER_CPPFLAGS := \
 
 # Make sure all needed symbols/definitions for extensions are exposed...
 USER_CPPFLAGS += \
-        -D_XOPEN_SOURCE=700 \
-        -D__GNU_SOURCE \
-        -D_BSD_SOURCE \
+        -D_GNU_SOURCE \
         -D_LARGEFILE64_SOURCE
 
 #USER_CPPFLAGS += -DDEBUG=1
