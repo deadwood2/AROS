@@ -230,12 +230,15 @@ POSIXC := \
     write
 
 POSIXC_LOCALE := \
-    uselocale
+    localeconv_l \
+    newlocale \
+    freelocale \
+    uselocale \
+    strtod_l
 
 POSIXC_WCHAR := \
     mbsnrtowcs \
     wcsnrtombs
-
 
 # The following files don't have source code here but have a CPU
 # specific version in arch directory hierarchy
@@ -244,6 +247,7 @@ POSIXC_ARCH := \
     vfork_longjmp
 
 POSIXC_LINKLIB := \
+    ctype \
     ftime \
     gcvt \
     getopt \

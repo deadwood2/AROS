@@ -41,9 +41,7 @@ __header_inline int __name__(int c)  \
 { return __body__; }
 #else
 #define __ctype_make_func(__name__, __body__)    \
-__BEGIN_DECLS                          \
-int __name__(int c); \
-__END_DECLS
+int __name__(int c);
 #endif
 
 /* ISO C Standard Functions */
