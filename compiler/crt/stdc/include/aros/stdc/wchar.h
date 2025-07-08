@@ -39,7 +39,7 @@ int __wvcformat (void * data, int (* outc)(int, void *), const wchar_t * format,
 
 STDC_WCHAR_NOTIMPL(
 int __vwscanf(void *data, wint_t (*get_char)(void *), int (*unget_char)(wint_t, void *), const wchar_t * format, va_list args);
-
+int __vwformat(void *data, wint_t (*outwc)(wchar_t, void *), const wchar_t * format, va_list args);
 /* Formatted wide-character input/output functions */
 int swprintf(wchar_t * restrict s, size_t n,
 	const wchar_t * restrict format, ...);
