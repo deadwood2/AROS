@@ -75,7 +75,13 @@ char *setstate(char *);
 #if defined(_GNU_SOURCE) || (_XOPEN_SOURCE >= 700) || (_POSIX_C_SOURCE >= 200809L)
 #include <aros/posixc/locale.h>
 
-/* NOTIMPL double strtod_l(const char *restrict nptr, char **restrict endptr, locale_t loc); */
+/* NOTIMPL long                strtol_l(const char * restrict nptr, char ** restrict endptr, int base, locale_t loc); */
+/* NOTIMPL float               strtof_l(const char * restrict nptr, char ** restrict endptr, locale_t loc); */
+/* NOTIMPL double              strtod_l(const char * restrict nptr, char ** restrict endptr, locale_t loc); */
+/* NOTIMPL long double         strtold_l(const char * restrict nptr, char ** restrict endptr, locale_t loc); */
+/* NOTIMPL unsigned long       strtoul_l(const char * restrict nptr, char ** restrict endptr, int base, locale_t loc); */
+/* NOTIMPL long long           strtoll_l(const char * restrict nptr, char ** restrict endptr, int base, locale_t loc); */
+/* NOTIMPL unsigned long long  strtoull_l(const char * restrict nptr, char ** restrict endptr, int base, locale_t loc); */
 #endif
 
 char *getenv(const char *name);
