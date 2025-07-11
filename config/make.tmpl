@@ -3737,8 +3737,8 @@ else
     %(mmake)-pkgdir := $(%(mmake)-pkgbasedir)/%(package)
 endif
 
-%(mmake)-configflag := $(%(mmake)-pkgdir)/.configured
-%(mmake)-installflag := $(%(mmake)-pkgdir)/.installed
+%(mmake)-configflag ?= $(%(mmake)-pkgdir)/.configured
+%(mmake)-installflag ?= $(%(mmake)-pkgdir)/.installed
 
 ifeq ($(filter yes, $(%(mmake)-nix_dir_layout) $(host)),yes)
     %(mmake)-PROGDIR      := $(%(mmake)-aros_prefix)/bin
@@ -4186,8 +4186,8 @@ ifneq (%(gendir),)
     endif
 endif
 
-%(mmake)-cmakeflag           := $(%(mmake)-pkgdir)/.cmake
-%(mmake)-installflag         := $(%(mmake)-pkgdir)/.installed
+%(mmake)-cmakeflag           ?= $(%(mmake)-pkgdir)/.cmake
+%(mmake)-installflag         ?= $(%(mmake)-pkgdir)/.installed
 
 .PHONY : %(mmake) %(mmake)-clean %(mmake)-build_and_install-quick
 
