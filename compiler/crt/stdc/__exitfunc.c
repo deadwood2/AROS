@@ -56,15 +56,23 @@ void __progonly_callexitfuncs(void)
         switch (aen->node.ln_Type)
         {
         case AEN_VOID:
-            aen->func.fvoid();
+            aen->func.fn();
             break;
 
-        case AEN_PTR:
+        case AEN_ON:
             {
                 int *errorptr = __progonly_get_errorptr();
-                aen->func.fptr(errorptr != NULL ? *errorptr : 0, aen->ptr);
+                aen->func.on.fn(errorptr != NULL ? *errorptr : 0, aen->func.on.arg);
             }
             break;
+
+        case AEN_CXA:
+            {
+                int *errorptr = __progonly_get_errorptr();
+                aen->func.cxa.fn(aen->func.cxa.arg, errorptr != NULL ? *errorptr : 0);
+            }
+            break;
+
         }
     }
 }
