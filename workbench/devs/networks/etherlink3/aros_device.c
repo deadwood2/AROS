@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2011,2012 Neil Cafferkey
+Copyright (C) 2011-2025 Neil Cafferkey
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,6 +25,8 @@ MA 02111-1307, USA.
 #include <aros/asmcall.h>
 #include <aros/libcall.h>
 #include <resources/card.h>
+
+#include <proto/exec.h>
 
 #include "initializers.h"
 
@@ -106,11 +108,21 @@ const struct Resident aros_rom_tag =
 };
 
 
+/* Private structures */
+
+struct OpenerExtra
+{
+   const VOID *real_rx_function;
+   const VOID *real_tx_function;
+   const VOID *real_dma_tx_function;
+};
+
+
 
 /****i* etherlink3.device/AROSDevInit **************************************
 *
 *   NAME
-*       AROSDevInit
+*	AROSDevInit
 *
 ****************************************************************************
 *
@@ -123,13 +135,10 @@ AROS_UFH3(struct DevBase *, AROSDevInit,
 {
    AROS_USERFUNC_INIT
 
-   base = DevInit(dev_base, seg_list, base);
+   dev_base->wrapper_int_code = (APTR)AROSInt;
+   dev_base->card_wrapper_int_code = (APTR)AROSCardInt;
 
-   if(base != NULL) {
-      base->wrapper_int_code = (APTR)AROSInt;
-      base->wrapper_card_code = (APTR)AROSCardInt;
-   }
-   return base;
+   return DevInit(dev_base, seg_list, base);
 
    AROS_USERFUNC_EXIT
 }
@@ -139,7 +148,7 @@ AROS_UFH3(struct DevBase *, AROSDevInit,
 /****i* etherlink3.device/AROSDevOpen **************************************
 *
 *   NAME
-*       AROSDevOpen
+*	AROSDevOpen
 *
 ****************************************************************************
 *
@@ -154,24 +163,40 @@ AROS_LH3(BYTE, AROSDevOpen,
    AROS_LIBFUNC_INIT
 
    struct Opener *opener;
-   BYTE error;
+   struct OpenerExtra *opener_extra;
+   BYTE error = 0;
 
-   error = DevOpen(request, unit_num, flags, base);
+   opener_extra = AllocMem(sizeof(struct OpenerExtra),
+      MEMF_PUBLIC | MEMF_CLEAR);
+   if(opener_extra == NULL)
+      request->ios2_Req.io_Error = error = IOERR_OPENFAIL;
+
+   if(error == 0)
+      error = DevOpen(request, unit_num, flags, base);
 
    /* Set up wrapper hooks to hide register-call functions */
 
    if(error == 0)
    {
       opener = request->ios2_BufferManagement;
-      opener->real_rx_function = opener->rx_function;
-      opener->real_tx_function = opener->tx_function;
+      opener_extra->real_rx_function = opener->rx_function;
+      opener_extra->real_tx_function = opener->tx_function;
       opener->rx_function = (APTR)RXFunction;
       opener->tx_function = (APTR)TXFunction;
       if(opener->dma_tx_function != NULL)
       {
-         opener->real_dma_tx_function = opener->dma_tx_function;
+         opener_extra->real_dma_tx_function = opener->dma_tx_function;
          opener->dma_tx_function = (APTR)DMATXFunction;
       }
+      opener->read_port.mp_Node.ln_Name = (APTR)opener_extra;
+   }
+
+   /* Back out if anything went wrong */
+
+   if(error != 0)
+   {
+      if(opener_extra != NULL)
+         FreeMem(opener_extra, sizeof(struct OpenerExtra));
    }
 
    return error;
@@ -184,7 +209,7 @@ AROS_LH3(BYTE, AROSDevOpen,
 /****i* etherlink3.device/AROSDevClose *************************************
 *
 *   NAME
-*       AROSDevClose
+*	AROSDevClose
 *
 ****************************************************************************
 *
@@ -196,6 +221,16 @@ AROS_LH1(APTR, AROSDevClose,
 {
    AROS_LIBFUNC_INIT
 
+   struct Opener *opener;
+
+   /* Free extra data structure for wrapper hooks hiding register-call
+      functions */
+
+   opener = request->ios2_BufferManagement;
+   FreeMem(opener->read_port.mp_Node.ln_Name, sizeof(struct OpenerExtra));
+
+   /* Close unit */
+
    return DevClose(request, base);
 
    AROS_LIBFUNC_EXIT
@@ -206,7 +241,7 @@ AROS_LH1(APTR, AROSDevClose,
 /****i* etherlink3.device/AROSDevExpunge ***********************************
 *
 *   NAME
-*       AROSDevExpunge
+*	AROSDevExpunge
 *
 ****************************************************************************
 *
@@ -227,7 +262,7 @@ AROS_LH0(APTR, AROSDevExpunge,
 /****i* etherlink3.device/AROSDevReserved **********************************
 *
 *   NAME
-*       AROSDevReserved
+*	AROSDevReserved
 *
 ****************************************************************************
 *
@@ -248,7 +283,7 @@ AROS_LH0(APTR, AROSDevReserved,
 /****i* etherlink3.device/AROSDevBeginIO ***********************************
 *
 *   NAME
-*       AROSDevBeginIO
+*	AROSDevBeginIO
 *
 ****************************************************************************
 *
@@ -262,6 +297,7 @@ AROS_LH1(VOID, AROSDevBeginIO,
 
    /* Replace caller's cookie with our own */
 
+   request->ios2_Req.io_Error = 0;
    switch(request->ios2_Req.io_Command)
    {
    case CMD_READ:
@@ -273,6 +309,8 @@ AROS_LH1(VOID, AROSDevBeginIO,
       request->ios2_Data = request;
    }
 
+   /* Send request for processing */
+
    DevBeginIO(request, base);
 
    AROS_LIBFUNC_EXIT
@@ -283,7 +321,7 @@ AROS_LH1(VOID, AROSDevBeginIO,
 /****i* etherlink3.device/AROSDevAbortIO ***********************************
 *
 *   NAME
-*       AROSDevAbortIO -- Try to stop a request.
+*	AROSDevAbortIO -- Try to stop a request.
 *
 ****************************************************************************
 *
@@ -314,13 +352,15 @@ AROS_LH1(VOID, AROSDevAbortIO,
 static BOOL RXFunction(struct IOSana2Req *request, APTR buffer, ULONG size)
 {
    struct Opener *opener;
+   struct OpenerExtra *opener_extra;
    APTR cookie;
 
    opener = request->ios2_BufferManagement;
+   opener_extra = (APTR)opener->read_port.mp_Node.ln_Name;
    cookie = request->ios2_StatData;
    request->ios2_Data = cookie;
 
-   return AROS_UFC3(BOOL, (APTR)opener->real_rx_function,
+   return AROS_UFC3(BOOL, (APTR)opener_extra->real_rx_function,
       AROS_UFCA(APTR, cookie, A0),
       AROS_UFCA(APTR, buffer, A1),
       AROS_UFCA(ULONG, size, D0));
@@ -340,13 +380,15 @@ static BOOL RXFunction(struct IOSana2Req *request, APTR buffer, ULONG size)
 static BOOL TXFunction(APTR buffer, struct IOSana2Req *request, ULONG size)
 {
    struct Opener *opener;
+   struct OpenerExtra *opener_extra;
    APTR cookie;
 
    opener = request->ios2_BufferManagement;
+   opener_extra = (APTR)opener->read_port.mp_Node.ln_Name;
    cookie = request->ios2_StatData;
    request->ios2_Data = cookie;
 
-   return AROS_UFC3(BOOL, (APTR)opener->real_tx_function,
+   return AROS_UFC3(BOOL, (APTR)opener_extra->real_tx_function,
       AROS_UFCA(APTR, buffer, A0),
       AROS_UFCA(APTR, cookie, A1),
       AROS_UFCA(ULONG, size, D0));
@@ -366,13 +408,15 @@ static BOOL TXFunction(APTR buffer, struct IOSana2Req *request, ULONG size)
 static UBYTE *DMATXFunction(struct IOSana2Req *request)
 {
    struct Opener *opener;
+   struct OpenerExtra *opener_extra;
    APTR cookie;
 
    opener = request->ios2_BufferManagement;
+   opener_extra = (APTR)opener->read_port.mp_Node.ln_Name;
    cookie = request->ios2_StatData;
    request->ios2_Data = cookie;
 
-   return AROS_UFC1(UBYTE *, (APTR)opener->real_dma_tx_function,
+   return AROS_UFC1(UBYTE *, (APTR)opener_extra->real_dma_tx_function,
       AROS_UFCA(APTR, cookie, A0));
 }
 
@@ -401,6 +445,8 @@ AROS_SOFTINTH1(AROSInt, APTR *, int_data)
    AROS_INTFUNC_EXIT
 }
 
+
+
 /****i* etherlink3.device/AROSCardInt **************************************
 *
 *   NAME
@@ -409,7 +455,7 @@ AROS_SOFTINTH1(AROSInt, APTR *, int_data)
 ****************************************************************************
 *
 */
-/* Mask is in D0 */
+
 AROS_CARDH(AROSCardInt, APTR *, int_data, mask)
 {
    AROS_CARDFUNC_INIT
@@ -421,4 +467,6 @@ AROS_CARDH(AROSCardInt, APTR *, int_data, mask)
 
    AROS_CARDFUNC_EXIT
 }
+
+
 
