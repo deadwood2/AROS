@@ -172,8 +172,8 @@ BOOL pciInit(struct PCIDevice *hd)
 
         struct Hook findHook =
         {
-             h_Entry:        (IPTR (*)()) pciEnumerator,
-             h_Data:         hd,
+             .h_Entry   = (IPTR (*)()) pciEnumerator,
+             .h_Data    = hd,
         };
 
         OOP_ObtainAttrBases(attrbases);
