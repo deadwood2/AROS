@@ -3,8 +3,8 @@ include $(SRCDIR)/config/aros.cfg
 
 # The "core" AROS components for a bootable system
 
-#MM- boot-pc-x86_64        : bootloader-$(AROS_TARGET_BOOTLOADER)-pc-x86_64 kernel-bootstrap-pc-gz
-#MM- kernel-link-pc-x86_64 : kernel-pc-x86_64-kernel-gz \
+#MM- boot-pc-x86_64        : bootloader-$(AROS_TARGET_BOOTLOADER)-pc-x86_64 kernel-bootstrap-pc-compress
+#MM- kernel-link-pc-x86_64 : kernel-pc-x86_64-kernel-compress \
 #MM                          kernel-bsp-pc-x86_64 kernel-legacy-pc-x86_64 \
 #MM                          kernel-objs kernel-usb \
 #MM                          kernel-fs-xtra kernel-fs-core
