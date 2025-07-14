@@ -1,4 +1,4 @@
-/boot/@arch.dir@/kernel.gz
+/boot/@arch.dir@/kernel.@pkg.fmt@
 /boot/@arch.dir@/Devs/battclock.resource
 /boot/@arch.dir@/Devs/processor.resource
 /boot/@arch.dir@/Devs/timer.device
