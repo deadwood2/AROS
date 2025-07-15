@@ -1,4 +1,4 @@
-# Copyright (C) 2003-2020, The AROS Development Team. All rights reserved.
+# Copyright (C) 2003-2025, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
 
@@ -15,7 +15,6 @@ FILES := \
     DevList \
     DiskChange \
     Eject \
-    Eval \
     Filenote \
     IconX \
     Info \
@@ -53,6 +52,9 @@ FILES := \
     WaitForPort \
     Which
 
+FILESSHRD := \
+    Eval
+
 DTFILE := \
     AddDataTypes
 
@@ -75,11 +77,6 @@ SH_FILES := \
 USER_INCLUDES    := -I$(OBJDIR)
 USER_CPPFLAGS    := -DADATE="\"$(shell date "+%d.%m.%Y")\""
 USER_CFLAGS      :=
-# We compile the core C: programs statically, for two reasons:
-#   * The amiga-m68k boot floppy doesn't have space for stdc.library
-#   * This gives us some possibility of system recovery if LIBS:
-#     is deleted or badly Assign(ed).
-USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
 
 #MM- workbench : workbench-c workbench-c-private
 #MM- workbench-quick : workbench-c-quick
@@ -101,19 +98,32 @@ USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
 #MM        workbench-c-adddatatypes \
 #MM        workbench-c-sh \
 #MM        workbench-c-requeststring \
+#MM        workbench-c-eval \
 #MM        workbench-libs-uuid
 
 #MM workbench-c-quick : \
 #MM        workbench-c-adddatatypes-quick \
 #MM        workbench-c-sh-quick \
-#MM        workbench-c-requeststring-quick
-
-%build_prog mmake=workbench-c-requeststring progname=RequestString \
-    files=RequestString targetdir=$(AROS_C) coverageinstr=no
+#MM        workbench-c-requeststring-quick \
+#MM        workbench-c-eval-quick
 
 $(OBJDIR)/evalParser.tab.c : evalParser.y
 	@$(ECHO) Generating $(notdir $@) from $<...
 	@$(BISON) -o $@ $<
+
+USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
+
+%build_prog mmake=workbench-c-eval progname=Eval \
+    files="Eval" targetdir=$(AROS_C) coverageinstr=no
+
+# We compile the core C: programs statically, for two reasons:
+#   * The amiga-m68k boot floppy doesn't have space for stdc.library
+#   * This gives us some possibility of system recovery if LIBS:
+#     is deleted or badly Assign(ed).
+USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
+
+%build_prog mmake=workbench-c-requeststring progname=RequestString \
+    files=RequestString targetdir=$(AROS_C) coverageinstr=no
 
 %build_progs mmake=workbench-c \
     files="$(FILES)" targetdir=$(AROS_C) \
