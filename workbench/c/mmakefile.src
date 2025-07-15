@@ -116,6 +116,8 @@ USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
 %build_prog mmake=workbench-c-eval progname=Eval \
     files="Eval" targetdir=$(AROS_C) coverageinstr=no
 
+$(workbench-c-eval_DEPS) : $(OBJDIR)/evalParser.tab.c
+
 # We compile the core C: programs statically, for two reasons:
 #   * The amiga-m68k boot floppy doesn't have space for stdc.library
 #   * This gives us some possibility of system recovery if LIBS:
@@ -132,8 +134,6 @@ USER_LDFLAGS     := -noclibs -larossupport -lstdc.static
 %build_progs mmake=workbench-c-private \
     files="TaskList Break" targetdir=$(AROS_C) \
     uselibs="" usesdks="private"
-
-$(workbench-c_DEPS) : $(OBJDIR)/evalParser.tab.c
 
 %build_progs mmake=workbench-c-sh \
     files=$(SH_FILES) targetdir=$(AROS_C) \
