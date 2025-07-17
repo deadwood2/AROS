@@ -11409,11 +11409,8 @@ fi
     else
       have_lzma=no
     fi
-else
-    have_lzma=no
-fi
 
-       for ac_header in libelf.h
+           for ac_header in libelf.h
 do :
   ac_fn_c_check_header_compile "$LINENO" "libelf.h" "ac_cv_header_libelf_h" "$ac_includes_default"
 if test "x$ac_cv_header_libelf_h" = xyes
@@ -11426,7 +11423,7 @@ fi
 
 done
 
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for elf_version in -lelf" >&5
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for elf_version in -lelf" >&5
 printf %s "checking for elf_version in -lelf... " >&6; }
 if test ${ac_cv_lib_elf_elf_version+y}
 then :
@@ -11469,8 +11466,12 @@ else $as_nop
 fi
 
 
-if test "x-$have_libelf_h" = "x-yes" -a "x-$have_liblelf_lib" = "x-yes" ; then
-    have_libelf=yes
+    if test "x-$have_libelf_h" = "x-yes" -a "x-$have_liblelf_lib" = "x-yes" ; then
+        have_libelf=yes
+    fi
+else
+    have_libelf=no
+    have_lzma=no
 fi
 
 #-----------------------------------------------------------------------------
