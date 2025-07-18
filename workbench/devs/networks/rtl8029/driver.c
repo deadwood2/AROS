@@ -1094,7 +1094,8 @@ void CmdNSDQuery(struct UnitData *ud, struct IOStdReq *req)
 /// IntCode()
 
 #ifdef __AROS__
-AROS_INTH1(IntCode, struct UnitData *, ud)
+/* ABI_V0 compatibility */
+AROS_SOFTINTH1(IntCode, struct UnitData *, ud)
 #else
 LONG IntCode(REG(a1, struct UnitData *ud))
 #endif
