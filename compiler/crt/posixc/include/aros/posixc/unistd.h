@@ -436,14 +436,6 @@ int usleep(useconds_t microseconds);
 #endif
 
 #if defined(_GNU_SOURCE) || (_POSIX_C_SOURCE >= 200809L)
-#ifndef AT_FDCWD
-#define AT_FDCWD       -100
-#endif
-
-#ifndef AT_REMOVEDIR
-#define AT_REMOVEDIR   0x200
-#endif
-
 /* NOTIMPL int unlinkat(int dirfd, const char *pathname, int flags); */
 #endif
 
