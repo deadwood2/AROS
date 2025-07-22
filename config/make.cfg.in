@@ -196,6 +196,8 @@ PATCHELF                      := $(TOOLDIR)/patchelf$(HOST_EXE_SUFFIX)
 RESIDENT_BEGIN                := compiler/libinit/libentry
 KICKSTART_BEGIN               := compiler/libinit/kickentry
 
+HOST_MTOOLS                   := @have_mtools@
+
 AROS_CC                       := $(TARGET_CC)
 # Use a wrapper if a real c++ compiler isnt available.
 ifneq ($(TARGET_CXX),)
