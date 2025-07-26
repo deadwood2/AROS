@@ -1,0 +1,97 @@
+;
+WORD_Bytes (//)
+bytes
+;
+WORD_Unit (//)
+Unit
+;
+WORD_Drive (//)
+Drive
+;
+WORD_Capacity (//)
+Capacity
+;
+WORD_Legend (//)
+_Legend
+;
+WORD_Create (//)
+_Create
+;
+WORD_Delete (//)
+_Delete
+;
+WORD_Use (//)
+_Use
+;
+WORD_Save (//)
+_Save
+;
+WORD_Cancel (//)
+_Cancel
+;
+WORD_Proceed (//)
+_Proceed >>
+;
+WORD_ProgressTitle (//)
+Progress...
+;
+WORD_LegendTitle (//)
+Legend...
+;
+WORD_Partitions (//)
+Partitions
+;
+WORD_Unused (//)
+Unused
+;
+WORD_Extended (//)
+Extended
+;
+WORD_Unknown (//)
+UNKNOWN
+;
+MSG_WelcomeTitle (//)
+Welcome to AROS QuickPart!
+;
+MSG_WelcomeText (//)
+This program will allow you to prepare your\nhard disk so that it may be used by AROS.\n\nIncorrect usage may cause your system\nto become unbootable, or even require\nre-installation - please be carefull!
+;
+MSG_DESCRIPTION (//)
+Partition Drives in preperation of installing AROS.
+;
+MSG_SCALE_DRIVES (//)
+_Scale Drives
+;
+MSG_BUBBLEHELP (//)
+Enable/Disable bubble help
+;
+MSG_SEARCHING (//)
+Looking for Hard Disks....\n
+;
+MSG_DESCRIPTION_LEGEND (//)
+List the colors used to represent Partitions in QuickPart
+;
+MSG_DESCRIPTION_CREATE (//)
+Create a partition in the 'SELECTED' unused space
+;
+MSG_DESCRIPTION_DELETE (//)
+Delete a 'SELECTED' Existing partition
+;
+MSG_DESCRIPTION_DISK (//)
+This is a Harddisk found in your computer
+;
+MSG_DESCRIPTION_DISKNAME (//)
+This is the type or name of your harddisk\n\nIf there is a know partition table structure found\n it is displayed in brackets after the name
+;
+MSG_DESCRIPTION_DISKSIZE (//)
+This is the size of the Harddisk
+;
+MSG_DESCRIPTION_DISKDEVICE (//)
+This is the device your Harddisk is connected to
+;
+MSG_DESCRIPTION_PARTITIONS (//)
+The bar represents the content of your harddisk\n\nBefore it is usable, suitable partitons for AROS must be present
+;
+MSG_GUIFAILED (//)
+Failed to intialize Zune GUI\n
+;
