@@ -87,7 +87,7 @@ VOID setcopperlisttail(struct amigavideo_staticdata *, UWORD *, UWORD *, BOOL);
 UWORD *populatebmcopperlist(struct amigavideo_staticdata *, struct amigabm_data *, struct copper2data *, UWORD *, BOOL);
 VOID updatebmbplcon(struct amigavideo_staticdata *, struct amigabm_data *, struct copper2data *);
 VOID setcopperscroll(struct amigavideo_staticdata *, struct amigabm_data *, BOOL);
-VOID setcoppercolors(struct amigavideo_staticdata *, struct amigabm_data *, UBYTE *);
+VOID setcoppercolors(struct amigavideo_staticdata *, struct amigabm_data *, UBYTE *, BOOL);
 
 VOID new_setspritepos(struct amigavideo_staticdata *, WORD, WORD, UBYTE, BOOL, int);
 BOOL new_setsprite(OOP_Class *, OOP_Object *, WORD, WORD, struct pHidd_AmigaGfx_SetSpriteShape *, int);
