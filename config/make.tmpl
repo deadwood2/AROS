@@ -4519,7 +4519,7 @@ endif
 #MM %(mmake) : %(mmake)-%(subpackage)
 #MM
 %(mmake):
-	$(NOP)
+	$(Q)$(NOP)
 
 %(mmake)-%(subpackage)-package-dir := $(%(mmake)-portdir)/$(%(mmake)-%(subpackage)-archbase)
 
