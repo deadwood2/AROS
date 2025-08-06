@@ -44,7 +44,7 @@ static int set_os_and_abi(const char *file)
 {
     int f;
     const unsigned char osabi = ELFOSABI_AROS;
-    const unsigned char abiversion = 1;
+    const unsigned char abiversion = 11;
 
     /* Modify OS and ABI fields */
 
