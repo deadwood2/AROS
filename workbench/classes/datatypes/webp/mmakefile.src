@@ -46,7 +46,7 @@ WEBPARCHSRCDIR := $(PORTSDIR)/libwebp/$(WEBPARCHBASE)
 #MM datatypes-webp-linklibs-webputils-quick
 
 USER_CPPFLAGS   := -DEMSCRIPTEN -DHAVE_CONFIG_H
-USER_CFLAGS := -noposixc
+USER_CFLAGS :=
 USER_INCLUDES := -I $(WEBPARCHSRCDIR) -I $(GENDIR)/$(CURDIR)
 
 ifeq ($(AROS_TARGET_CPU),x86_64)
