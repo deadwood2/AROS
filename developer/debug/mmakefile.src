@@ -11,7 +11,7 @@ FILES := \
 
 %build_progs mmake=debug-tools-commands \
     files="$(FILES)" targetdir=$(AROS_DEBUG) \
-    uselibs="debug" coverageinstr=no
+    uselibs="debug" coverageinstr=no usesdks="private"
 
 %common
 
