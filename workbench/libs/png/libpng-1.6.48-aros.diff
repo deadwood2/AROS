@@ -5,8 +5,8 @@ diff -Naru libpng-1.6.39/png.c libpng-1.6.39.aros/png.c
   * function of your own because "FILE *" isn't necessarily available.
   */
  void PNGAPI
--png_init_io(png_structrp png_ptr, png_FILE_p fp)
-+__png_init_io(png_structp png_ptr, png_FILE_p fp, png_rw_ptr read_data_fn, png_rw_ptr write_data_fn, png_flush_ptr output_flush_fn)
+-png_init_io(png_structrp png_ptr, FILE *fp)
++__png_init_io(png_structp png_ptr, FILE *fp, png_rw_ptr read_data_fn, png_rw_ptr write_data_fn, png_flush_ptr output_flush_fn)
  {
     png_debug(1, "in png_init_io");
  
