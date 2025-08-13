@@ -82,7 +82,7 @@ USER_INCLUDES := -iquote $(ARCHSRCDIR)/libtiff
 
 %build_module mmake=workbench-libs-tiff \
     modname=tiff modtype=library \
-    files="$(FILES)" linklibname="tiff"
+    files="$(FILES)" linklibname="tiff" uselibs="jfif z1 crtmod"
 
 #MM workbench-libs-tiff-generated : libtiff-fetch
 

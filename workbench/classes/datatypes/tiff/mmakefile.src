@@ -8,8 +8,8 @@ FILES := tiffclass
 
 #USER_CPPFLAGS   := -DMYDEBUG -DDEBUG=1
 USER_CPPFLAGS += -DAROS_LC_SETFUNCS
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 
 %build_module mmake=workbench-datatypes-tiff \
     modname=tiff modtype=datatype \
-    files=$(FILES)
+    files=$(FILES) uselibs="tiff"
