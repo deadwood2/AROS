@@ -767,6 +767,8 @@ CRT := \
     stdc/strtoull \
     stdc/strtoll \
     stdc/strtoumax \
+    stdc/towlower \
+    stdc/towupper \
     stdc/vasprintf \
     stdc/wcrtomb \
     stdc/wcsnrtombs \
@@ -774,7 +776,8 @@ CRT := \
 
 CRT_LINKLIB := \
     posixc/getopt \
-    posixc/getopt_long
+    posixc/getopt_long \
+    stdc/wchar
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
