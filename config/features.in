@@ -1557,7 +1557,7 @@ if test "$IS_GNU_COMPILER" -ne "0"; then
     fi
 fi
 
-cat >$AROS_DEVELOPMENT/include/__testsincdir.h <<_ACEOF
+cat >$AROS_DEVELOPER/include/__testsincdir.h <<_ACEOF
 /* Copyright (c) The AROS Dev Team  */
 #define _TESTINCFOUND
 _ACEOF
@@ -1575,7 +1575,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
 AC_MSG_RESULT($toolchain_needs_sysroot)
 
 if test "$toolchain_needs_sysroot" = "yes" ; then
-    aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"
+    aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPER)"
 fi
 
 if test "$AROS_TARGET_CPU" = "arm"; then
@@ -1615,7 +1615,7 @@ static void * section_ptr __attribute__((used, section(".aros.startup @")));]],[
     fi
 fi
 
-rm -f $AROS_DEVELOPMENT/include/__testsincdir.h
+rm -f $AROS_DEVELOPER/include/__testsincdir.h
 
 #
 AC_SUBST(aros_cflags_c98)

@@ -34,7 +34,7 @@ CUNIT_CMAKE_FLAGS :=  \
         -Wno-error=dev
 
 %build_with_cmake mmake=linklibs-cunit srcdir=$(PORTSDIR)/cunit/$(ARCHBASE) \
-    extraoptions=$(CUNIT_CMAKE_FLAGS) prefix=$(AROS_DEVELOPMENT)
+    extraoptions=$(CUNIT_CMAKE_FLAGS) prefix=$(AROS_DEVELOPER)
 
 #
 # CUnit includes...

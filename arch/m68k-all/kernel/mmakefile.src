@@ -38,7 +38,7 @@ FILES := \
 AFILES=issuper fpusavecontext fpurestorecontext buserror ammxsavecontext ammxrestorecontext
 
 USER_INCLUDES := $(PRIV_KERNEL_INCLUDES) \
-	       -I$(GENINCDIR) -I$(AROS_DEVELOPMENT)/include
+	       -I$(GENINCDIR) -I$(AROS_DEVELOPER)/include
 
 USER_CPPFLAGS := -DPARANOIA_STACK
 

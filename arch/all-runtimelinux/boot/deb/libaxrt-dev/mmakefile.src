@@ -11,7 +11,7 @@ RT_VERSION := $(shell sed -n "s/^.*RT_VERSION\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDI
 RT_REVISION := $(shell sed -n "s/^.*RT_REVISION\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h)
 RT_ABI := $(shell sed -n "s/^.*RT_ABI\s\s\s\s\s\s.\([0-9]*\).*$$/\1/p" < $(SRCDIR)/arch/all-runtime/axrt/startup/rt_version.h).0
 
-SDK_SRC_DIR := $(AROS_DEVELOPMENT)
+SDK_SRC_DIR := $(AROS_DEVELOPER)
 DEST_ROOT_DIR := $(GENDIR)/boot/libaxrt-$(RT_ABI)-dev
 LIB_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/lib/x86_64-linux-gnu/axrt-$(RT_ABI)
 INCLUDE_DEST_DIR := $(DEST_ROOT_DIR)/tree/usr/include/axrt-$(RT_ABI)

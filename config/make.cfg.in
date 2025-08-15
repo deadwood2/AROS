@@ -44,7 +44,7 @@ SPECS                         := $(GENDIR)/config/specs
 
 # Standard directory names (case sensitive) used to build
 # both relative and absolute paths.
-AROS_DIR_AROS             := AROS
+AROS_DIR_AROS                 := AROS
 ifeq ($(AROS_TARGET_SUFFIX),)
     AROS_DIR_ARCH             := $(AROS_TARGET_ARCH)
 else
@@ -78,7 +78,7 @@ AROS_DIR_TOOLS                := Tools
 AROS_DIR_UTILITIES            := Utilities
 AROS_DIR_WALLPAPERS           := Wallpapers
 
-AROS_DIR_DEVELOPMENT          := Development
+AROS_DIR_DEVELOPER            := Development
 AROS_DIR_BIN                  := bin
 AROS_DIR_SDK                  := SDK
 AROS_DIR_FD                   := fd
@@ -127,19 +127,19 @@ AROS_WANDERER                 := $(AROS_SYSTEM)/Wanderer
 AROS_CONTRIB                  := $(AROSDIR)/$(AROS_DIR_CONTRIB)
 
 # Absolute paths for development directories
-AROS_DEVELOPMENT              := $(AROSDIR)/$(AROS_DIR_DEVELOPMENT)
-AROS_ARCH_DEVELOPMENT         := $(AROS_DEVELOPMENT)/$(AROS_TARGET_CPU)-$(AROS_TARGET_ARCH)$(AROS_TARGET_SUFFIX)-aros
-AROS_DEV_ARCH_BINS            := $(AROS_DEVELOPMENT)/$(AROS_TARGET_CPU)-aros/$(AROS_DIR_BIN)
-AROS_DEV_BINS                 := $(AROS_DEVELOPMENT)/$(AROS_DIR_BIN)
-AROS_DEBUG                    := $(AROS_DEVELOPMENT)/Debug
-AROS_FD                       := $(AROS_DEVELOPMENT)/$(AROS_DIR_FD)
+AROS_DEVELOPER                := $(AROSDIR)/$(AROS_DIR_DEVELOPER)
+AROS_ARCH_DEVELOPMENT         := $(AROS_DEVELOPER)/$(AROS_TARGET_CPU)-$(AROS_TARGET_ARCH)$(AROS_TARGET_SUFFIX)-aros
+AROS_DEV_ARCH_BINS            := $(AROS_DEVELOPER)/$(AROS_TARGET_CPU)-aros/$(AROS_DIR_BIN)
+AROS_DEV_BINS                 := $(AROS_DEVELOPER)/$(AROS_DIR_BIN)
+AROS_DEBUG                    := $(AROS_DEVELOPER)/Debug
+AROS_FD                       := $(AROS_DEVELOPER)/$(AROS_DIR_FD)
 AROS_TESTS                    := $(AROS_DEBUG)/Tests
 AROS_ARCH_INCLUDES            := $(AROS_ARCH_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
-AROS_INCLUDES                 := $(AROS_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
+AROS_INCLUDES                 := $(AROS_DEVELOPER)/$(AROS_DIR_INCLUDE)
 AROS_ARCH_LIB                 := $(AROS_ARCH_DEVELOPMENT)/$(AROS_DIR_LIB)
-AROS_LIB                      := $(AROS_DEVELOPMENT)/$(AROS_DIR_LIB)
+AROS_LIB                      := $(AROS_DEVELOPER)/$(AROS_DIR_LIB)
 
-AROS_CONTRIB_DEVELOPMENT      := $(AROS_CONTRIB)/$(AROS_DIR_DEVELOPMENT)
+AROS_CONTRIB_DEVELOPMENT      := $(AROS_CONTRIB)/$(AROS_DIR_DEVELOPER)
 AROS_CONTRIB_INCLUDES         := $(AROS_CONTRIB_DEVELOPMENT)/$(AROS_DIR_INCLUDE)
 AROS_CONTRIB_LIB              := $(AROS_CONTRIB_DEVELOPMENT)/$(AROS_DIR_LIB)
 

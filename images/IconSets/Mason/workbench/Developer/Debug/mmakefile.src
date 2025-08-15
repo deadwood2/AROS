@@ -12,4 +12,4 @@ ICONS     := Sashimi
 
 #MM- icons-developer-debug : Mason-icons-developer-developer-debug
 %build_icons mmake=Mason-icons-developer-developer-debug icons=$(ICONS) \
-             dir=$(AROS_PRESETS)/Icons/Mason/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPMENT)/Debug
+             dir=$(AROS_PRESETS)/Icons/Mason/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPER)/Debug

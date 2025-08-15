@@ -19,8 +19,8 @@ ADDITIONALICONS := Bifteck Tests
 
 #MM- icons-developer-debug : gorilla-icons-developer-developer-debug
 %build_icons mmake=gorilla-icons-developer-developer-debug icons=$(BASEICONS) \
-             dir=$(AROS_PRESETS)/Icons/Gorilla/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPMENT)/Debug
+             dir=$(AROS_PRESETS)/Icons/Gorilla/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPER)/Debug
 
 #MM- icons-additional-developer-debug : gorilla-icons-additional-developer-debug
 %build_icons mmake=gorilla-icons-additional-developer-debug icons=$(ADDITIONALICONS) \
-             dir=$(AROS_PRESETS)/Icons/Gorilla/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPMENT)/Debug
+             dir=$(AROS_PRESETS)/Icons/Gorilla/Default/$(AROS_DIR_AROS)/$(AROS_DIR_DEVELOPER)/Debug

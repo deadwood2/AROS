@@ -8523,7 +8523,7 @@ if test "$IS_GNU_COMPILER" -ne "0"; then
     fi
 fi
 
-cat >$AROS_DEVELOPMENT/include/__testsincdir.h <<_ACEOF
+cat >$AROS_DEVELOPER/include/__testsincdir.h <<_ACEOF
 /* Copyright (c) The AROS Dev Team  */
 #define _TESTINCFOUND
 _ACEOF
@@ -8557,7 +8557,7 @@ rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
 printf "%s\n" "$toolchain_needs_sysroot" >&6; }
 
 if test "$toolchain_needs_sysroot" = "yes" ; then
-    aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPMENT)"
+    aros_toolchain_sysroot="--sysroot $""(AROS_DEVELOPER)"
 fi
 
 if test "$AROS_TARGET_CPU" = "arm"; then
@@ -8652,7 +8652,7 @@ printf "%s\n" "$aros_targetsection_comment" >&6; }
     fi
 fi
 
-rm -f $AROS_DEVELOPMENT/include/__testsincdir.h
+rm -f $AROS_DEVELOPER/include/__testsincdir.h
 
 #
 
