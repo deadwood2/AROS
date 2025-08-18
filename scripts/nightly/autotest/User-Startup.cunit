@@ -31,6 +31,9 @@ If NOT WARN
 
     ; Perform basic "utility.library" unit tests...
 
+    ; Perform basic "intuition.library" unit tests...
+    Execute S/Test cunit/intuition/cunit-intuition-openscreen   ;OpenScreen_Suite
+
     ; Perform basic "dos.library" unit tests...
     Execute S/Test cunit/dos/cunit-dos-createnewproc            ;CreateNewProc_Suite
     Execute S/Test cunit/dos/cunit-dos-fileseek                 ;FileSeek_Suite
@@ -112,7 +115,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 334" >DEBUG:
+    Echo "Expected tests: 338" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

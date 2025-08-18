@@ -16,9 +16,21 @@ FILES := \
     screentest \
     scrollerwin 
 
+CUNITFILES := \
+    cunit-intuition-openscreen
+
 EXEDIR := $(AROS_TESTS)/intuition
+CUNITEXEDIR := $(AROS_TESTS)/cunit/intuition
+
+#MM test-intuition : test-intuition-cunit
 
 %build_progs mmake=test-intuition \
     files=$(FILES) targetdir=$(EXEDIR)
+
+#MM test-intuition-cunit : includes linklibs
+
+%build_progs mmake=test-intuition-cunit \
+    files=$(CUNITFILES) targetdir=$(CUNITEXEDIR) \
+    uselibs="cunit"
 
 %common
