@@ -99,6 +99,7 @@ If NOT WARN
     Execute S/Test cunit/zune/cunit-zune-handleevent-3          ;MUIM_HandleEvent_3_Suite
     Execute S/Test cunit/zune/cunit-zune-notify                 ;MUIM_Notify_Suite
     Execute S/Test cunit/zune/cunit-zune-list                   ;MUIC_List_Suite
+    Execute S/Test cunit/zune/cunit-zune-misc                   ;MUI_Misc_Suite
     Execute S/Test cunit/zune/cunit-zune-popstring              ;MUIC_Popstring_Suite
     Execute S/Test cunit/zune/cunit-zune-register               ;MUIC_Register_Suite
     Execute S/Test cunit/zune/cunit-zune-showhide               ;MUIA_ShowMe_Suite
@@ -111,7 +112,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 331" >DEBUG:
+    Echo "Expected tests: 334" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 

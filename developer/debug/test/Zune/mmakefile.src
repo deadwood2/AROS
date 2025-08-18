@@ -36,6 +36,7 @@ CUNITFILES := \
     cunit-zune-handleevent-3 \
     cunit-zune-notify \
     cunit-zune-list \
+    cunit-zune-misc \
     cunit-zune-popstring \
     cunit-zune-register \
     cunit-zune-showhide \
