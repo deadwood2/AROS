@@ -17,12 +17,30 @@
 #include <CUnit/CUnitCI.h>
 #endif
 
+/* Needed for compilation with m68-amigaos-gcc */
+struct Library *MUIMasterBase = NULL;
+
 static IPTR nget(Object *obj, ULONG attr)
 {
     IPTR val = 0;
 
     get(obj, attr, &val);
     return val;
+}
+
+CU_SUITE_SETUP()
+{
+    MUIMasterBase = OpenLibrary((STRPTR)MUIMASTER_NAME, 0);
+    if (!MUIMasterBase)
+        CUE_SINIT_FAILED;
+
+    return CUE_SUCCESS;
+}
+
+CU_SUITE_TEARDOWN()
+{
+    CloseLibrary(MUIMasterBase);
+    return CUE_SUCCESS;
 }
 
 ULONG lvLA;
@@ -125,7 +143,7 @@ static void test_list_active_selected()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_List_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE("MUIC_List_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_list_active_not_selected);
     CUNIT_CI_TEST(test_list_active_selected);
 
