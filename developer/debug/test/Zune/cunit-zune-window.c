@@ -64,10 +64,40 @@ static void test_window_not_copying_title()
     MUI_DisposeObject(app);
 }
 
+static void test_window_width_minmax()
+{
+#if defined(__AROS__)
+    const ULONG expwidth = 171;
+#else
+    const ULONG expwidth = 134;
+#endif
+    Object *app = ApplicationObject, End;
+
+    Object *win = WindowObject,
+            MUIA_Window_Title, "Width_MinMax",
+            MUIA_Window_Width, MUIV_Window_Width_MinMax(10),
+            WindowContents,
+                VGroup,
+                    Child, HGroup,MUIA_Weight, 9999,
+                        Child, HSpace(0),
+                        Child, SimpleButton("BUTTON"),
+                        Child, HSpace(0),
+                    End,
+                End,
+            End;
+    DoMethod(app, OM_ADDMEMBER, win);
+    set(win, MUIA_Window_Open, TRUE);
+
+    CU_ASSERT_EQUAL(expwidth, (ULONG)nget(win, MUIA_Window_Width));
+
+    MUI_DisposeObject(app);
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("MUIC_Window_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_window_not_copying_title);
+    CUNIT_CI_TEST(test_window_width_minmax);
 
     return CU_CI_RUN_SUITES();
 }
