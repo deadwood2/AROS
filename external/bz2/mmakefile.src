@@ -32,9 +32,10 @@ ARCHSRCDIR := $(PORTSDIR)/bzip2/$(ARCHBASE)
 
 FILES := blocksort huffman crctable randtable  \
          compress decompress bzlib
+USER_CPPFLAGS := -D__CRT_RELLIBBASE__
 
 %build_module mmake=external-bz2-lib \
-    modname=bz2 modtype=library files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" uselibs="crtmod"
+    modname=bz2 modtype=library files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) bz2_init" uselibs="crt_rel crtmod" usesdks="rel"
 
 ###################################################################################
 
@@ -42,6 +43,7 @@ FILES := blocksort huffman crctable randtable  \
 
 NOWARN_FLAGS := $(NOWARN_UNUSED_BUT_SET_VARIABLE)
 USER_CFLAGS := $(NOWARN_FLAGS) -DBZ_NO_STDIO
+USER_CPPFLAGS :=
 
 %build_linklib mmake=linklibs-bz2-nostdio libname=bz2_nostdio \
                files="$(addprefix $(ARCHSRCDIR)/,$(FILES))" objdir=$(OBJDIR)/nostdio

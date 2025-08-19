@@ -1,3 +1,43 @@
+diff -ruN bzip2-1.0.8/bzip2.c bzip2-1.0.8.aros/bzip2.c
+--- bzip2-1.0.8/bzip2.c	2019-07-13 17:50:05.000000000 +0000
++++ bzip2-1.0.8.aros/bzip2.c	2025-08-19 15:51:08.263072857 +0000
+@@ -2034,3 +2034,36 @@
+ /*-----------------------------------------------------------*/
+ /*--- end                                         bzip2.c ---*/
+ /*-----------------------------------------------------------*/
++
++#include <proto/exec.h>
++#include <aros/symbolsets.h>
++
++struct Library *CrtBase = NULL;
++struct Library *BZ2Base = NULL;
++
++void __progonly_allow_shareable(struct Library *base);
++void __progonly_disallow_shareable(struct Library *base);
++
++static BOOL OpenLibs()
++{
++   CrtBase = OpenLibrary("crt.library", 3L);
++
++   __progonly_allow_shareable(CrtBase);
++
++   BZ2Base = OpenLibrary("bz2.library", 2L);
++
++   __progonly_disallow_shareable(CrtBase);
++
++   return TRUE;
++}
++
++static void CloseLibs()
++{
++   CloseLibrary(BZ2Base);
++   BZ2Base = NULL;
++   CloseLibrary(CrtBase);
++   CrtBase = NULL;
++}
++
++ADD2INIT(OpenLibs, 0);
++ADD2EXIT(CloseLibs, 0);
 diff -ruN bzip2-1.0.8/compress.c bzip2-1.0.8.aros/compress.c
 --- bzip2-1.0.8/compress.c	2019-07-13 17:50:05.000000000 +0000
 +++ bzip2-1.0.8.aros/compress.c	2025-06-06 00:16:58.222320154 +0000
