@@ -86,6 +86,8 @@ static inline void DragFromTo(struct Window *w, LONG fromx, LONG fromy, LONG tox
 
 #if !defined(__AROS__)
 
+#include <string.h>
+
 #define REG(r, x)   x __asm(#r)
 #define SAVEDS      __saveds
 #define STDARGS     __stdargs
@@ -128,6 +130,9 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 
 #define CU_ASSERT_EQUAL(expected, actual) \
     CU_ASSERT(expected == actual)
+
+#define CU_ASSERT_NOT_EQUAL(expected, actual) \
+    CU_ASSERT(expected != actual)
 
 #define CU_ASSERT_NOT_EQUAL_FATAL(expected, actual) \
     CU_ASSERT_FATAL(expected != actual)
