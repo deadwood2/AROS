@@ -2644,6 +2644,8 @@ static void SetActiveObject(struct MUI_WindowData *data, Object *obj,
                 DoMethod(data->wd_ActiveObject, MUIM_GoInactive);
             }
         }
+        else
+            return; /* Don't activate an active object second time */
     }
 
     data->wd_ActiveObject = NULL;
