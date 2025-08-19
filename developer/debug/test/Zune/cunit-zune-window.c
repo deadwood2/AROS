@@ -19,6 +19,41 @@
 /* Needed for compilation with m68-amigaos-gcc */
 struct Library *MUIMasterBase = NULL;
 
+struct Data
+{
+    LONG dummy;
+};
+
+struct MUI_CustomClass *mcc_Area;
+
+LONG global_GoActive    =  0;
+LONG global_GoInactive  =  0;
+
+static IPTR mGoActive(struct IClass *cl, Object *obj, Msg msg)
+{
+    global_GoActive++;
+
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+static IPTR mGoInactive(struct IClass *cl, Object *obj, Msg msg)
+{
+    global_GoInactive++;
+
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+BOOPSI_DISPATCHER(IPTR, dispatcher, cl, obj, msg)
+{
+    switch (msg->MethodID)
+    {
+        case MUIM_GoActive:     return mGoActive(cl, obj, (APTR)msg);
+        case MUIM_GoInactive:   return mGoInactive(cl, obj, (APTR)msg);
+    }
+    return DoSuperMethodA(cl, obj, msg);
+}
+BOOPSI_DISPATCHER_END
+
 static IPTR nget(Object *obj, ULONG attr)
 {
     IPTR val = 0;
@@ -33,11 +68,14 @@ CU_SUITE_SETUP()
     if (!MUIMasterBase)
         CUE_SINIT_FAILED;
 
+    mcc_Area = MUI_CreateCustomClass(NULL, MUIC_Area, NULL, sizeof(struct Data), dispatcher);
+
     return CUE_SUCCESS;
 }
 
 CU_SUITE_TEARDOWN()
 {
+    MUI_DeleteCustomClass(mcc_Area);
     CloseLibrary(MUIMasterBase);
     return CUE_SUCCESS;
 }
@@ -93,11 +131,42 @@ static void test_window_width_minmax()
     MUI_DisposeObject(app);
 }
 
+static void test_window_activate_object_only_once()
+{
+    Object *app = ApplicationObject, End;
+
+    Object *area = NewObject(mcc_Area->mcc_Class, NULL, TAG_DONE);
+
+    Object *win = WindowObject,
+            MUIA_Window_Title, "ActivateObject",
+            MUIA_Window_Width, 100,
+            WindowContents,
+                VGroup,
+                    Child, HGroup,
+                        Child, HSpace(0),
+                        Child, area,
+                    End,
+                End,
+            End;
+    DoMethod(app, OM_ADDMEMBER, win);
+    set(win, MUIA_Window_Open, TRUE);
+
+    set(win, MUIA_Window_ActiveObject, (IPTR)area);
+    CU_ASSERT_EQUAL(1, global_GoActive);
+    CU_ASSERT_EQUAL(0, global_GoInactive);
+    set(win, MUIA_Window_ActiveObject, (IPTR)area);
+    CU_ASSERT_EQUAL(1, global_GoActive);
+    CU_ASSERT_EQUAL(0, global_GoInactive);
+
+    MUI_DisposeObject(app);
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("MUIC_Window_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_window_not_copying_title);
     CUNIT_CI_TEST(test_window_width_minmax);
+    CUNIT_CI_TEST(test_window_activate_object_only_once);
 
     return CU_CI_RUN_SUITES();
 }
