@@ -1,0 +1,7 @@
+.obj_*/
+bin_*/
+prefs/locale.h
+raPrefs/locale.h
+OpenURL-*.*
+release/
+locale/*.catalog
