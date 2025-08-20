@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2022, The AROS Development Team. All rights reserved.
+    Copyright (C) 2022-2025, The AROS Development Team. All rights reserved.
 */
 
 #include <proto/exec.h>
@@ -51,11 +51,39 @@ static void test_passing_stack_to_program()
     CU_ASSERT_EQUAL(res, 100000);
 }
 
+static void test_passing_currentdir_to_program()
+{
+    char buff[64];
+    LONG res;
+    BPTR file, lock;
+    STRPTR p = NULL;
+
+    lock = Lock("RAM:", SHARED_LOCK);
+    CU_ASSERT_NOT_EQUAL_FATAL(lock, BNULL);
+
+    file = Open("T:systemtags-current-dir.txt", MODE_NEWFILE);
+    CU_ASSERT_NOT_EQUAL_FATAL(file, BNULL);
+
+    res = SystemTags("dir", NP_CurrentDir, lock, SYS_Output, file, TAG_DONE);
+    Close(file);
+    CU_ASSERT_EQUAL_FATAL(res, 0);
+
+    file = Open("T:systemtags-current-dir.txt", MODE_OLDFILE);
+    CU_ASSERT_NOT_EQUAL_FATAL(file, BNULL);
+
+    FGets(file, buff, 64);
+    Close(file);
+
+    p = strstr(buff, "Clipboards");
+
+    CU_ASSERT_PTR_NOT_NULL(p);
+}
+
 int main(int argc, char** argv)
 {
     CU_CI_DEFINE_SUITE("SystemTags_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_passing_stack_to_program);
-
+    CUNIT_CI_TEST(test_passing_currentdir_to_program);
 
     return CU_CI_RUN_SUITES();
 }
