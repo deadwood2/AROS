@@ -43,6 +43,25 @@ const unsigned char *const __decimalpoint = ".";
 
 #define FMTPRINTF_DECIMALPOINT  __decimalpoint
 
+size_t wcstombs(char * restrict s, const wchar_t * restrict pwcs, size_t n)
+{
+    size_t l;
+
+    for(l = 0; n > 0; s++, pwcs++, n--)
+    {
+        if (!isascii((int)*pwcs))
+            return (size_t)-1;
+
+        *s = (char)*pwcs;
+
+        if (*s == '\0')
+            break;
+
+        l++;
+    }
+
+    return l;
+}
 
 #include "fmtprintf_pre.c"
 

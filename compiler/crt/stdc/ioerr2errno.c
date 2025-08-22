@@ -8,7 +8,7 @@
 #include <dos/dosasl.h>
 #include <errno.h>
 
-int ioerr2errno (int ioerr)
+int __stdc_ioerr2errno (int ioerr)
 {
     switch (ioerr)
     {

@@ -23,7 +23,7 @@ static const char * _errstrings[];
     NAME */
 #include <string.h>
 
-        char * strerror (
+        char * __stdc_strerror (
 
 /*  SYNOPSIS */
         int n)

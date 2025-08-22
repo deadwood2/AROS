@@ -8,6 +8,14 @@
 
 #ifndef __cplusplus
 
+/* typedef int wctype_t; */
+
+#endif
+
+#if 0
+
+#ifndef __cplusplus
+
 #include <aros/types/int_t.h>
 
 #ifdef __WCTYPE_TYPE__
@@ -18,6 +26,8 @@ typedef uint32_t wctype_t;
 #else
 typedef char wctype_t;
 #endif
+#endif
+
 #endif
 
 #endif

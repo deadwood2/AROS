@@ -6,6 +6,9 @@
     $Id$
 */
 
+typedef int mbstate_t;
+
+#if 0
 /*
  * mbstate_t: Conversion state object for multibyte to wide character conversions.
  * Internal fields used by the runtime to track conversion state.
@@ -15,5 +18,7 @@ typedef struct {
     unsigned int  __count;
     wchar_t       __value;
 } mbstate_t;
+
+#endif
 
 #endif /* _AROS_TYPES_MBSTATE_T_H */

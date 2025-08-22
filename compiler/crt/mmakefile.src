@@ -399,6 +399,7 @@ STDLIB := \
     __wchar_t_8 \
     __stdlib_optionallibs \
     stdlib_gmtoffset \
+    stdlib_setlocale \
     stdlib_time \
     stdlib_wrapper \
     stdc/__ctype \
@@ -417,7 +418,6 @@ STDLIB := \
     stdc/imaxdiv \
     stdc/localeconv \
     stdc/longjmp \
-    stdc/mblen \
     stdc/memchr \
     stdc/memcmp \
     stdc/memcpy \
@@ -426,7 +426,6 @@ STDLIB := \
     stdc/mktime \
     stdc/qsort \
     stdc/setjmp \
-    stdc/setlocale \
     stdc/snprintf \
     stdc/sprintf \
     stdc/sscanf \
@@ -486,10 +485,12 @@ NOWARN_FLAGS := $(NOWARN_NONNULL_COMPARE)
 USER_CFLAGS += $(NOWARN_FLAGS) $(CFLAGS_MERGE_CONSTANTS)
 USER_CPPFLAGS := \
         -D__TIMER_NOLIBBASE__ \
-        -D_BSD_SOURCE \
-        -D_XOPEN_SOURCE=700 \
-        -D_LARGEFILE64_SOURCE \
         -DSTDCNAME='"CRT"'
+
+# Make sure all needed symbols/definitions for extensions are exposed...
+USER_CPPFLAGS += \
+        -D_GNU_SOURCE \
+        -D_LARGEFILE64_SOURCE
 
 USER_INCLUDES := \
     -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
@@ -733,7 +734,6 @@ CRT := \
     stdc/__exitfunc \
     stdc/__optionallibs \
     stdc/__signal \
-    stdc/__stdc_ioerr2errno \
     stdc/_exit \
     stdc/abort \
     stdc/asctime \
@@ -745,13 +745,17 @@ CRT := \
     stdc/exit \
     stdc/free \
     stdc/gmtime \
+    stdc/ioerr2errno \
     stdc/localtime \
     stdc/malloc \
     stdc/malloc_align \
+    stdc/mblen \
     stdc/mbrlen \
     stdc/mbrtowc \
     stdc/mbsnrtowcs \
     stdc/mbsrtowcs \
+    stdc/mbstowcs \
+    stdc/mbtowc \
     stdc/on_exit \
     stdc/raise \
     stdc/rand \
@@ -772,12 +776,13 @@ CRT := \
     stdc/vasprintf \
     stdc/wcrtomb \
     stdc/wcsnrtombs \
-    stdc/wcsrtombs
+    stdc/wcsrtombs \
+    stdc/wcstombs \
+    stdc/wctomb
 
 CRT_LINKLIB := \
     posixc/getopt \
-    posixc/getopt_long \
-    stdc/wchar
+    posixc/getopt_long
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \

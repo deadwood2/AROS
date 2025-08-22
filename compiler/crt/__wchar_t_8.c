@@ -1,7 +1,7 @@
 /*
     Copyright (C) 2025, The AROS Development Team. All rights reserved.
 
-    crt.library 1.0 backwards compatibility
+    stdlib.library 1.0 backwards compatibility
 */
 
 #include <dos/dos.h>
@@ -83,3 +83,20 @@ char *__wcscat_wchar_t_8(char *wcdst, const char *wcsrc)
 
     return wcdst;
 } /* wcscat */
+
+#include <ctype.h>
+
+int __mblen_noerrno(const char *s, size_t n)
+{
+    if (s == NULL)
+        /* No state-dependent encondings */
+        return 0;
+
+    if (n == 0 || *s == '\0')
+        return 0;
+
+    if (isascii(*s))
+        return 1;
+    else
+        return -1;
+} /* mblen */

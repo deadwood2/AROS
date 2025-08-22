@@ -8,6 +8,8 @@
     locale_t type definition
 */
 
+#if 0
+
 #include <aros/types/size_t.h>
 
 struct __locale {
@@ -17,5 +19,7 @@ struct __locale {
     // LC_CTYPE, LC_TIME, LC_COLLATE, LC_MONETARY, LC_NUMERIC
     // Function pointers for encoding/decoding
 };
+
+#endif
 
 #endif /* _AROS_TYPES_LOCALE_T_H */

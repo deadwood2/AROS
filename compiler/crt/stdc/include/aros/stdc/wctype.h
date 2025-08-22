@@ -40,6 +40,7 @@ wctype_t wctype(const char *);
 )
 
 #if (0)
+#if (0)
 int iswprint(wint_t wc);
 #else
 static __inline__ int iswprint(wint_t wc)
@@ -48,6 +49,7 @@ static __inline__ int iswprint(wint_t wc)
     return (wc >= 0x20 && wc < 0x7F) ||  // Printable ASCII
            (wc >= 0xA0 && wc <= 0x10FFFF); // Printable Unicode above Latin-1 (excluding control ranges)
 }
+#endif
 #endif
 
 __END_DECLS

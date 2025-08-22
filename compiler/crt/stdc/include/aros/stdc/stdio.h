@@ -54,7 +54,11 @@ char *tmpnam(char *s);
 /* File access */
 int fclose(FILE *stream);
 int fflush(FILE *stream);
+#if (!defined(_XOPEN_SOURCE) && \
+     !defined(_POSIX_SOURCE) && \
+     !defined(_BSD_SOURCE))
 FILE *fopen(const char * restrict filename, const char * restrict mode);
+#endif
 FILE *freopen(const char * restrict filename, const char * restrict mode, FILE * restrict stream);
 void setbuf(FILE * restrict stream, char * restrict buf);
 int setvbuf(FILE * restrict stream, char * restrict buf, int mode, size_t size);
@@ -101,8 +105,12 @@ size_t fread(void * restrict ptr, size_t size, size_t nmemb, FILE * restrict str
 size_t fwrite(const void * restrict ptr, size_t size, size_t nmemb, FILE * restrict stream);
 
 /* File positioning */
+#if (!defined(_XOPEN_SOURCE) && \
+     !defined(_POSIX_SOURCE) && \
+     !defined(_BSD_SOURCE))
 int fgetpos(FILE * restrict stream, fpos_t * restrict pos);
 int fsetpos(FILE *stream, const fpos_t *pos);
+#endif
 int fseek(FILE *stream, long int offset, int whence);
 long int ftell(FILE *stream);
 void rewind(FILE *stream);
