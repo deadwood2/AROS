@@ -8,7 +8,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
                -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -static
 
 %build_module mmake=kernel-bootloader \
     modname=bootloader modtype=resource \

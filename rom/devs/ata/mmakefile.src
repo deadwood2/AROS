@@ -16,7 +16,7 @@ INCLUDE_FILES := $(call WILDCARD, include/hardware/*.h)
 INCLUDE_FILES := $(call WILDCARD, include/hidd/*.h)
 %copy_includes path=hidd dir=include/hidd sdk=private
 
-USER_LDFLAGS := -noclibs
+USER_LDFLAGS := -static
 
 ATA_DEVICEFILES := \
     ata_init \

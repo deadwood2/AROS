@@ -8,7 +8,7 @@ FILES       := debug_init
 STATICFUNCS := kdofmt kgetchar kmaygetchar kputstr _kprintf kvprintf
 
 USER_CPPFLAGS := -DHOST_OS_$(FAMILY) -D__UTILITY_NOLIBBASE__ -DNO_INLINE_STDARG
-USER_LDFLAGS := -noclibs
+USER_LDFLAGS := -static
 
 -include $(SRCDIR)/arch/all-$(ARCH)/debug/make.opts
 -include $(SRCDIR)/arch/$(CPU)-$(ARCH)/debug/make.opts
