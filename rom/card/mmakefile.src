@@ -6,7 +6,7 @@ USER_CPPFLAGS := \
 USER_INCLUDES := -I$(SRCDIR)/arch/$(CPU)-$(ARCH)/card \
 		 -I$(SRCDIR)/arch/all-$(ARCH)/card
 USER_INCLUDES += -I$(SRCDIR)/rom/card
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs
 
 #MM kernel-card : includes kernel-card-$(ARCH)-$(CPU)
 

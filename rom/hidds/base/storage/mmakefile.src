@@ -20,7 +20,7 @@ USER_CPPFLAGS := \
                -D__OOP_NOATTRBASES__ \
                -D__UTILITY_NOLIBBASE__
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-hidd-storage \
   modname=storage modtype=hidd \

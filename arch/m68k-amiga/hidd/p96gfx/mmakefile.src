@@ -8,7 +8,7 @@ USER_CPPFLAGS := \
                -D__GRAPHICS_NOLIBBASE__ \
                -D__UTILITY_NOLIBBASE__ \
                -D__GRAPHICS_NOHIDDBASE__
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-amiga-m68k-p96gfx \
     modname=p96gfx modtype=hidd \
