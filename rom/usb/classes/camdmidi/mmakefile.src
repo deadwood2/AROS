@@ -10,7 +10,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM- kernel-usb-classes-camdusbmidi-ppc : kernel-usb-classes-camd-usbmidi
 
 USER_CPPFLAGS := -DMUIMASTER_YES_INLINE_STDARG
-USER_LDFLAGS := -noclibs
+USER_LDFLAGS := -static
 
 FILES := camdusbmidi.class debug
 

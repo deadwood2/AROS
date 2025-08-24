@@ -6,7 +6,7 @@ CAMDOBJDIR := $(OBJDIR)/../camdusbmidi/arch
 
 SRCFILE := poseidonusb
 
-USER_LDFLAGS := -noclibs
+USER_LDFLAGS := -static
 USER_INCLUDES := -I$(OBJDIR)/../include -iquote $(SRCDIR)/$(CURDIR)/..
 
 #MM kernel-usb-classes-camdusbmidi-object : kernel-usb-classes-camd-usbmidi-includes
