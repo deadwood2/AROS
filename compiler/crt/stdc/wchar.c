@@ -54,5 +54,6 @@ int wcswidth(const wchar_t *pwcs, size_t n) {
 
 int mbsinit(const mbstate_t *ps)
 {
-    return (ps == NULL) || (ps->__state == 0 && ps->__count == 0 && ps->__value == 0);
+    // return (ps == NULL) || (ps->__state == 0 && ps->__count == 0 && ps->__value == 0);
+    return (ps == NULL ? 1 : 0);
 }

@@ -57,9 +57,9 @@
     struct StdCIntBase *StdCBase =
         (struct StdCIntBase *)__aros_getbase_StdCBase();
 
-    if (StdCBase->__locale_cur && StdCBase->__locale_cur->__lc_tbl_u2l && (wc >= 0 && wc <= StdCBase->__locale_cur->__lc_tbl_size)) {
-        wint_t mapped = StdCBase->__locale_cur->__lc_tbl_u2l[wc];
-        return mapped ? mapped : wc;
-    }
+    // if (StdCBase->__locale_cur && StdCBase->__locale_cur->__lc_tbl_u2l && (wc >= 0 && wc <= StdCBase->__locale_cur->__lc_tbl_size)) {
+    //     wint_t mapped = StdCBase->__locale_cur->__lc_tbl_u2l[wc];
+    //     return mapped ? mapped : wc;
+    // }
     return wc;
 }

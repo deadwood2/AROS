@@ -371,6 +371,7 @@ USER_CFLAGS := $(CFLAGS_NO_BUILTIN)
 USER_LDFLAGS := -noclibs
 USER_CPPFLAGS := \
         -Dlint '-D__FBSDID(x)=' \
+        -D_GNU_SOURCE \
 #USER_CPPFLAGS += -DDEBUG=1
 
 # wide char/string support
@@ -472,7 +473,8 @@ STDLIB := \
 
 STDLIB_LINKLIB := \
     stdc/strcasestr \
-    stdc/__ctype_linklib
+    stdc/__ctype_linklib \
+    stdc/ctype
 
 %build_module mmake=compiler-stdlib \
     modname=stdlib modtype=library \
@@ -782,7 +784,8 @@ CRT := \
 
 CRT_LINKLIB := \
     posixc/getopt \
-    posixc/getopt_long
+    posixc/getopt_long \
+    stdc/wchar
 
 %build_module mmake=compiler-crt \
     modname=crt modtype=library \
@@ -915,7 +918,8 @@ STDC_STATIC := \
 USER_CFLAGS := $(NOWARN_FLAGS) $(CFLAGS_NO_BUILTIN) $(CFLAGS_MERGE_CONSTANTS)
 USER_CPPFLAGS := \
         -DSTDC_STATIC \
-        -Dlint
+        -Dlint \
+        -D_GNU_SOURCE
 #USER_CPPFLAGS += -DDEBUG=1
 
 #MM- core-linklibs : linklibs-stdc-static
