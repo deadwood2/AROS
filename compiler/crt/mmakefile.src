@@ -750,10 +750,10 @@ CRT := \
     stdc/malloc \
     stdc/malloc_align \
     stdc/mblen \
-    stdc/mbrlen \
-    stdc/mbrtowc \
+    stdc/mbrlen_p \
+    stdc/mbrtowc_p \
     stdc/mbsnrtowcs \
-    stdc/mbsrtowcs \
+    stdc/mbsrtowcs_p \
     stdc/mbstowcs \
     stdc/mbtowc \
     stdc/on_exit \
@@ -774,9 +774,9 @@ CRT := \
     stdc/towlower \
     stdc/towupper \
     stdc/vasprintf \
-    stdc/wcrtomb \
+    stdc/wcrtomb_p \
     stdc/wcsnrtombs \
-    stdc/wcsrtombs \
+    stdc/wcsrtombs_p \
     stdc/wcstombs \
     stdc/wctomb
 
