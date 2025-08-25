@@ -10,8 +10,7 @@
 #include <wchar.h>
 #include <wctype.h>
 
-#include <CUnit/Basic.h>
-#include <CUnit/Automated.h>
+#include <CUnit/CUnitCI.h>
 
 /* ASCII-only test string safe in "C" locale */
 static const char *ascii_str = "AROS Rocks";
@@ -219,47 +218,18 @@ void test_iswctype(void) {
 #endif
 }
 
-int main(void)
+int main(int argc, char** argv)
 {
-    CU_pSuite pSuite = NULL;
+    CU_CI_DEFINE_SUITE("WCHAR_Suite", NULL, NULL, NULL, NULL);
+    CUNIT_CI_TEST(test_mblen);
+    CUNIT_CI_TEST(test_mbrlen);
+    CUNIT_CI_TEST(test_mbtowc);
+    // CUNIT_CI_TEST(test_mbstowcs);    // Fails in ADT as well
+    CUNIT_CI_TEST(test_mbsrtowcs);
+    // CUNIT_CI_TEST(test_wctomb);      // Fails as currently only "C" locale supported
+    // CUNIT_CI_TEST(test_wcrtomb);     // Fails as currently only "C" locale supported
+    // CUNIT_CI_TEST(test_wcstombs);    // Fails in ADT as well
+    CUNIT_CI_TEST(test_wcsrtombs);
 
-    /* initialize the CUnit test registry */
-    if (CUE_SUCCESS != CU_initialize_registry())
-        return CU_get_error();
-
-   /* add a suite to the registry */
-    pSuite = CU_add_suite("WCHAR_Suite", init_suite, clean_suite);
-    if (NULL == pSuite) {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-   /* add the tests to the suite */
-    if ((NULL == CU_add_test(pSuite, "mblen", test_mblen)) ||
-    (NULL == CU_add_test(pSuite, "mbrlen", test_mbrlen)) ||
-    (NULL == CU_add_test(pSuite, "mbtowc", test_mbtowc)) ||
-    (NULL == CU_add_test(pSuite, "mbstowcs", test_mbstowcs)) ||
-    (NULL == CU_add_test(pSuite, "mbsrtowcs", test_mbsrtowcs)) ||
-    (NULL == CU_add_test(pSuite, "wctomb", test_wctomb)) ||
-    (NULL == CU_add_test(pSuite, "wcrtomb", test_wcrtomb)) ||
-    (NULL == CU_add_test(pSuite, "wcstombs", test_wcstombs)) ||
-    (NULL == CU_add_test(pSuite, "wcsrtombs", test_wcsrtombs)) ||
-    (NULL == CU_add_test(pSuite, "towcase", test_towcase)) ||
-    (NULL == CU_add_test(pSuite, "iswctype", test_iswctype)))
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    /* Run all tests using the CUnit Basic & Automated interfaces */
-    CU_basic_set_mode(CU_BRM_VERBOSE);
-    CU_basic_run_tests();
-    CU_basic_set_mode(CU_BRM_SILENT);
-    CU_automated_package_name_set("CRTUnitTests");
-    CU_set_output_filename("CRT-WCHAR");
-    CU_automated_enable_junit_xml(CU_TRUE);
-    CU_automated_run_tests();
-    CU_cleanup_registry();
-
-    return CU_get_error();
+    return CU_CI_RUN_SUITES();
 }

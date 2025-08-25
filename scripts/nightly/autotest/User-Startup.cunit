@@ -57,6 +57,7 @@ If NOT WARN
     Execute S/Test cunit/crt/stdc/cunit-crt-time                ;time_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-sscanf              ;sscanf_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-sxprintf            ;sxprintf_Suite
+    Execute S/Test cunit/crt/stdc/cunit-crt-wchar               ;WCHAR_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wcscat              ;wcscat_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wcscpy              ;wcscpy_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-wcslen              ;wcslen_Suite
@@ -115,7 +116,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 341" >DEBUG:
+    Echo "Expected tests: 346" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 
