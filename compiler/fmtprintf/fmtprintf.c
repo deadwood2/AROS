@@ -250,7 +250,13 @@
                     wptr = va_arg(args, wchar_t *);
                     if (!wptr)
                         wptr = L"(null)";
-                    size2 = FMTPRINTF_WCSLEN(wptr);
+                    size_t req_bytes = FMTPRINTF_WCSLEN(wptr) * sizeof(wchar_t) + 1;
+                    char *temp_buffer = alloca(req_bytes);
+                    size2 = wcstombs(temp_buffer, wptr, req_bytes);
+                    if (size2 == (size_t)-1) {
+                        temp_buffer = "(invalid wide string)";
+                        size2 = FMTPRINTF_STRLEN(temp_buffer);
+                    }
 #else
                     buffer2 = va_arg(args, char *);
                     if (!buffer2)
@@ -259,7 +265,7 @@
 #endif
                     size2 = size2 <= preci ? size2 : preci;
 #ifdef IS_WIDE
-                    wcstombs(buffer2, wptr, size2);
+                    buffer2 = temp_buffer;
 #endif
                     preci = 0;
                     break;
