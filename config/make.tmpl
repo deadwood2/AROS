@@ -2721,7 +2721,7 @@ ifeq (%(build_library),M)
 %(mmake)%(flavour)_KOBJ_LIBS        := $(filter-out $(%(mmake)%(flavour)_KLIB),$(%(mmake)%(flavour)_LIBS)) $(%(mmake)%(flavour)_KAUTOLIB)
 $(%(mmake)%(flavour)_KOBJ) : LINKLIBS:=$(%(mmake)%(flavour)_KOBJ_LIBS) $($(%(mmake)%(flavour)_DEFNAME)_LIBS)
 $(%(mmake)%(flavour)_KOBJ) : FILTBASES:=$(addprefix -L ,$(%(mmake)%(flavour)_SYMBOLS))
-$(%(mmake)%(flavour)_KOBJ) : USER_LDFLAGS:=$(USER_LDFLAGS)
+$(%(mmake)%(flavour)_KOBJ) : USER_LDFLAGS:=$(filter-out -noclibs,$(USER_LDFLAGS))
 $(%(mmake)%(flavour)_KOBJ) : $(%(mmake)%(flavour)_OBJS) $(USER_OBJS) $(%(mmake)%(flavour)_ENDOBJS)
 	$(Q)$(ECHO) "Linking    $(subst $(TARGETDIR)/,,$@)"
 	$(Q)$(AROS_LD) -Ur -o $@ $^ $(USER_LDFLAGS) -L$(AROS_LIB) -L$(AROS_PRIVATE_LIB) -L$(AROS_REL_LIB) $(addprefix -l,$(LINKLIBS))
