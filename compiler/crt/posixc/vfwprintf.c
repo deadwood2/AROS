@@ -11,7 +11,7 @@
 #include "__fdesc.h"
 #include "__stdio.h"
 
-static int __putc(int c, void *fh);
+static int __putwc(wchar_t wc, void *fh);
 /*****************************************************************************
 
     NAME */
@@ -56,17 +56,17 @@ static int __putc(int c, void *fh);
         return 0;
     }
 
-    return __wvcformat ((void *)BADDR(fdesc->fcb->handle), __putc, format, args);
+    return __wvcformat ((void *)BADDR(fdesc->fcb->handle), __putwc, format, args);
 } /* vfwprintf */
 
-static int __putc(int c, void *fhp)
+static int __putwc(wchar_t wc, void *fhp)
 {
     BPTR fh = MKBADDR(fhp);
-    if (FWrite(fh, &c, 1, sizeof(wchar_t)) == WEOF)
+    if (FWrite(fh, &wc, 1, sizeof(wchar_t)) == WEOF)
     {
         errno = __stdc_ioerr2errno(IoErr());
         return WEOF;
     }
 
-    return c;
+    return wc;
 }
