@@ -385,10 +385,10 @@ STDLIB_WCHAR := \
     stdc/wcsstr \
     stdc/wcstok \
     stdc/wcsspn \
-    stdc/wcspbrk \
-    stdc/wcsrchr \
-    stdc/wcschr \
-    stdc/wcsncat \
+    stdc/wcspbrk_p \
+    stdc/wcsrchr_p \
+    stdc/wcschr_p \
+    stdc/wcsncat_p \
     stdc/wcscat \
     stdc/wcscmp \
     stdc/wcsncmp \
