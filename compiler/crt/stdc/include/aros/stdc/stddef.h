@@ -11,7 +11,6 @@
 #include <aros/types/ptrdiff_t.h>
 #include <aros/types/size_t.h>
 #include <aros/types/wchar_t.h>
-#include <aros/types/max_align_t.h>
 #include <aros/types/null.h>
 
 #ifdef __GNUC__

@@ -8,8 +8,6 @@
     Desc: __locale struct definition
 */
 
-#if 0
-
 #include <aros/types/size_t.h>
 #include <aros/types/wchar_t.h>
 #include <aros/types/wctype_t.h>
@@ -25,7 +23,5 @@ struct __locale {
     const wchar_t           *__lc_tbl_u2l;
     const wchar_t           *__lc_tbl_l2u;
 };
-
-#endif
 
 #endif /* _AROS_TYPES_LOCALE_S_H */

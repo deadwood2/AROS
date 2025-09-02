@@ -1,6 +1,9 @@
 include $(SRCDIR)/config/aros.cfg
 
 INCLUDES := $(call WILDCARD, aros/*.h aros/stdc/*.h aros/types/*.h)
+FILTER_OUT :=   aros/types/max_align_t.h aros/stdc-wchar.h aros/stdc-wchar-char.h \
+                aros/stdc-wchar-utf8.h aros/types/locale_s.h
+INCLUDES :=  $(filter-out $(FILTER_OUT), $(INCLUDES))
 
 #MM- compiler-stdc-includes : compiler-stdc-includes-extra
 #MM- includes-copy : compiler-stdc-includes-extra

@@ -8,8 +8,6 @@
     POSIX.1-2008 header file: sys/statvfs.h
 */
 
-#if 0
-
 #include <aros/types/fs_t.h>
 
 struct statvfs {
@@ -28,7 +26,5 @@ struct statvfs {
 
 int statvfs(const char *path, struct statvfs *buf);
 int fstatvfs(int fd, struct statvfs *buf);
-
-#endif
 
 #endif /* _POSIXC_SYS_STATVFS_H_ */

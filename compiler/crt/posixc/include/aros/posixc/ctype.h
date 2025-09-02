@@ -13,8 +13,6 @@
 #include <aros/system.h>
 #include <aros/stdc/ctype.h>
 
-#if 0
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -63,8 +61,6 @@ __ctype_make_func_l(tolower_l, if ((unsigned)c < locale->__lc_tbl_size && locale
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
 
 #endif /* _POSIXC_CTYPE_H_ */

@@ -11,8 +11,6 @@
 /* C99 */
 #include <aros/stdc/wctype.h>
 
-#if 0
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,8 +37,6 @@ wctrans_t wctrans_l(const char *property, locale_t locale);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
 
 #endif /* _POSIXC_WCTYPE_H_ */
