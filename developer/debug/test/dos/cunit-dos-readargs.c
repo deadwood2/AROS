@@ -44,11 +44,35 @@ void testREADARGSNUMBER(void)
         memset(args, 0, sizeof args);
 
         if ((ReadArgs(templ, args, rdargs)))
+#if defined(__AROS__)
+        {
+            if (args[ARG_COL])
+                colno = *(LONG *) args[ARG_COL];
+
+            CU_ASSERT(3 == colno);
+
+            FreeArgs(rdargs);
+        }
+        else
+        {
+            LONG err = IoErr();
+            CU_FAIL("ReadArgs() returned NULL");
+            CU_ASSERT_NOT_EQUAL(err, ERROR_REQUIRED_ARG_MISSING);
+            CU_ASSERT_NOT_EQUAL(err, ERROR_BAD_TEMPLATE);
+            CU_ASSERT_NOT_EQUAL(err, ERROR_LINE_TOO_LONG);
+            CU_ASSERT_NOT_EQUAL(err, ERROR_TOO_MANY_ARGS);
+            CU_ASSERT_NOT_EQUAL(err, ERROR_KEY_NEEDS_ARG);
+            CU_ASSERT_NOT_EQUAL(err, ERROR_NO_FREE_STORE);
+            CU_ASSERT_NOT_EQUAL(err, ERROR_BAD_NUMBER);
+        }
+#else
+// AmigaOS 3.1
         {
             CU_FAIL("ReadArgs() returned non-NULL");
             
             FreeArgs(rdargs);
         }
+#endif
 
         FreeDosObject(DOS_RDARGS, rdargs);
     }

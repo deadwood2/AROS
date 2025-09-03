@@ -134,6 +134,9 @@ static ULONG SAVEDS func(REG(a0, struct IClass *cl), \
 #define CU_ASSERT_NOT_EQUAL(expected, actual) \
     CU_ASSERT(expected != actual)
 
+#define CU_ASSERT_PTR_NULL(actual) \
+    CU_ASSERT(NULL == actual)
+
 #define CU_ASSERT_NOT_EQUAL_FATAL(expected, actual) \
     CU_ASSERT_FATAL(expected != actual)
 
