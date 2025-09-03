@@ -52,6 +52,8 @@ If NOT WARN
     Execute S/Test cunit/hidds/gfx/cunit-convertpixels          ;ConvertPixels_Suite
 
     ; Perform basic C library unit tests...
+    Execute S/Test cunit/crt/stdc/math/cunit-crt-complexmath    ;CrtComplexMath_Suite
+    Execute S/Test cunit/crt/stdc/math/cunit-crt-ldmath         ;CrtLDMath_Suite
     Execute S/Test cunit/crt/stdc/math/cunit-crt-math           ;CrtMath_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-fileseek            ;FileSeek_Suite
     Execute S/Test cunit/crt/stdc/cunit-crt-time                ;time_Suite
@@ -116,7 +118,7 @@ If NOT WARN
     Execute S/Test cunit/cplusplus/cunit-cplusplus-static       ;CPlusPlus_Static_Suite
 
     Echo "===================" >DEBUG:
-    Echo "Expected tests: 346" >DEBUG:
+    Echo "Expected tests: 413" >DEBUG:
     Echo "===================" >DEBUG:
 Endif
 
