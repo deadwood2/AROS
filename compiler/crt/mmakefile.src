@@ -424,6 +424,7 @@ STDLIB := \
     __stdlib_optionallibs \
     stdlib_gmtoffset \
     stdlib_setlocale \
+    stdlib_strftime \
     stdlib_time \
     stdlib_wrapper \
     stdc/__ctype \
@@ -468,7 +469,6 @@ STDLIB := \
     stdc/strcoll \
     stdc/strcpy \
     stdc/strcspn \
-    stdc/strftime \
     stdc/strlcat \
     stdc/strlcpy \
     stdc/strlen \
