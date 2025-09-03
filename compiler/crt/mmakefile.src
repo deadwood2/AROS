@@ -777,7 +777,7 @@ CRT := \
     stdc/towupper \
     stdc/vasprintf \
     stdc/wcrtomb_p \
-    stdc/wcsnrtombs \
+    stdc/wcsnrtombs_p \
     stdc/wcsrtombs_p \
     stdc/wcstombs \
     stdc/wctomb
