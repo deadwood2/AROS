@@ -712,7 +712,7 @@ compiler-stdc-genwcharsupport : $(GENDIR)/$(CURDIR)/defaults/en_GB_ISO8859-1.c
 #    files="$(STDC) $(STDC_LOCALE) $(STDC_WCHAR) $(STDC_COMMON)" \
 #    linklibfiles="$(STDC_LINKLIB) $(STDC_LINKLIB_COMMON) $(STDC_CHAR_LIBSTUBS) $(STDC_WCHAR_LIBSTUBS)" linklibobjs=$(STDC_LINKOBJS)
 
-#MM compiler-stdc : compiler-stdc-genwcharsupport
+##MM compiler-stdc : compiler-stdc-genwcharsupport
 
 STDCIO_LINKOBJS := $(addsuffix .o,$(addprefix $(GENDIR)/$(CURDIR)/stdcio/,$(notdir $(STDCIO_COMMON))))
 USER_CPPFLAGS := \
