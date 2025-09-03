@@ -142,17 +142,16 @@ static void test_struct_dirent()
 #endif
 }
 
-#if defined(__USE_FILE_OFFSET64)
-const char *suitename = "types64-lfs-fob_Suite";
-#elif defined(__USE_LARGEFILE64)
-const char *suitename = "types64-lfs_Suite";
-#else
-const char *suitename = "types64_Suite";
-#endif
-
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE(suitename, NULL, NULL, NULL, NULL);
+#if defined(__USE_FILE_OFFSET64)
+    CU_CI_DEFINE_SUITE(types64-lfs-fob_Suite, NULL, NULL, NULL, NULL);
+#elif defined(__USE_LARGEFILE64)
+    CU_CI_DEFINE_SUITE(types64-lfs_Suite, NULL, NULL, NULL, NULL);
+#else
+    CU_CI_DEFINE_SUITE(types64_Suite, NULL, NULL, NULL, NULL);
+#endif
+
     CUNIT_CI_TEST(test_ino_t);
     CUNIT_CI_TEST(test_off_t);
     CUNIT_CI_TEST(test_blkcnt_t);

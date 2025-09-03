@@ -171,7 +171,7 @@ static void test_vfork_non_existing_program()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("vfork_Suite", NULL, NULL, __cu_test_setup, NULL);
+    CU_CI_DEFINE_SUITE(vfork_Suite, NULL, NULL, __cu_test_setup, NULL);
     CUNIT_CI_TEST(test_parent_child);
     CUNIT_CI_TEST(test_parent_child_child_child);
     CUNIT_CI_TEST(test_vfork_execl_share_filedescriptors);

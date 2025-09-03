@@ -97,7 +97,7 @@ static void test_read_info()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("png_read_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(png_read_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_read_info);
     return CU_CI_RUN_SUITES();
 }

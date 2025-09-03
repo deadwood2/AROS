@@ -52,7 +52,7 @@ void test_peropener_global_vars_peropener()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Peropener_VarsGlobal_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_Peropener_VarsGlobal_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_peropener_global_vars_peropener);
     return CU_CI_RUN_SUITES();
 }

@@ -27,7 +27,7 @@ void test_stack_call_that_goes_internally_through_reg_call()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Peropener_IntraLib_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_Peropener_IntraLib_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_stack_call_that_goes_internally_through_reg_call);
     return CU_CI_RUN_SUITES();
 }

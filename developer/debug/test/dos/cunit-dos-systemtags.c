@@ -81,7 +81,7 @@ static void test_passing_currentdir_to_program()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("SystemTags_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(SystemTags_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_passing_stack_to_program);
     CUNIT_CI_TEST(test_passing_currentdir_to_program);
 

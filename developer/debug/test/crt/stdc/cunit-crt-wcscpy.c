@@ -31,7 +31,7 @@ static void test_wcscpy_3() {
 
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcscpy_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcscpy_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcscpy_1);
     CUNIT_CI_TEST(test_wcscpy_2);
     CUNIT_CI_TEST(test_wcscpy_3);

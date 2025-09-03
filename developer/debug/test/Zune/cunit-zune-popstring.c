@@ -163,7 +163,7 @@ static void test_popstring_string_acknowledged_when_closed_with_success()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_Popstring_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIC_Popstring_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_popstring_string_acknowledged_when_closed_with_success);
     return CU_CI_RUN_SUITES();
 }

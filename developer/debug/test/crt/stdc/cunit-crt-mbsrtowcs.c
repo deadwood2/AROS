@@ -28,7 +28,7 @@ static void test_mbsrtowcs_1(void) {
 // Main function to run the tests
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("mbsrtowcs_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(mbsrtowcs_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_mbsrtowcs_1);
 
     return CU_CI_RUN_SUITES();

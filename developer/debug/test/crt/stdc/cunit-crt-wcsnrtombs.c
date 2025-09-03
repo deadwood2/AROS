@@ -32,7 +32,7 @@ static void test_wcsnrtombs_2(void) {
  // Main function to run the tests
  int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcsnrtombs_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcsnrtombs_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcsnrtombs_1);
     CUNIT_CI_TEST(test_wcsnrtombs_2);
 

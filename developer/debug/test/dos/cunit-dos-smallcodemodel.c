@@ -27,7 +27,7 @@ static void test_read_struct_field_small_code_model()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("SmallCodeModel_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(SmallCodeModel_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_read_struct_field_small_code_model);
 
     return CU_CI_RUN_SUITES();

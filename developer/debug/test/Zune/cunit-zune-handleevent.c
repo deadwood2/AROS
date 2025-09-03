@@ -179,7 +179,7 @@ static void test_handleevent_window()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_HandleEvent_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIM_HandleEvent_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_handleevent_rectangle);
     CUNIT_CI_TEST(test_handleevent_window);
     CUNIT_CI_TEST(test_handleevent_rectangle_on_not_visible_tab);

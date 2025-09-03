@@ -673,7 +673,7 @@ static void test_selected_does_not_notify_on_same_value_when_everytime()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_Notify_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIM_Notify_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_basic_functionality);
     CUNIT_CI_TEST(test_cascade_of_notifies);
     CUNIT_CI_TEST(test_string_integer_does_not_notify_on_same_value_when_defined_value);

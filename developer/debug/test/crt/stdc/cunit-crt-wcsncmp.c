@@ -53,7 +53,7 @@ static void test_wcsncmp_6() {
 
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcsncmp_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcsncmp_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcsncmp_1);
     CUNIT_CI_TEST(test_wcsncmp_2);
     CUNIT_CI_TEST(test_wcsncmp_3);

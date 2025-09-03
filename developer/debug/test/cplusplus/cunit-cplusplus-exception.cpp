@@ -30,7 +30,7 @@ static void test_exception_caught()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("CPlusPlus_Exception_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(CPlusPlus_Exception_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_exception_caught);
     return CU_CI_RUN_SUITES();
 }

@@ -248,7 +248,7 @@ static void test_window_activate_object_again_after_click()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_Window_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIC_Window_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_window_not_copying_title);
     CUNIT_CI_TEST(test_window_width_minmax);
     CUNIT_CI_TEST(test_window_activate_object_only_once);

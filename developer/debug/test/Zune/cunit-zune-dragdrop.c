@@ -172,7 +172,7 @@ static void test_dragdrop_touch_is_positive_when_clicked_inside_object()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIM_DragDrop_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIM_DragDrop_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_dragdrop_touch_is_positive_when_clicked_inside_object);
     return CU_CI_RUN_SUITES();
 }

@@ -73,7 +73,7 @@ static void test_wcrtomb_3(void) {
  // Main function to run the tests
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcrtomb_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcrtomb_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcrtomb_1);
     CUNIT_CI_TEST(test_wcrtomb_2);
     CUNIT_CI_TEST(test_wcrtomb_3);

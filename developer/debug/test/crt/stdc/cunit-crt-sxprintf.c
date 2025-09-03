@@ -208,7 +208,7 @@ static void test_sprintf_x()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("sxprintf_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(sxprintf_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_sprintf_float_double);
     CUNIT_CI_TEST(test_snprintf);
     CUNIT_CI_TEST(test_sprintf_long_varargs);

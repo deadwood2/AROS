@@ -50,7 +50,7 @@ static void test_ieeedpmul()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("mathieeedoubbas_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(mathieeedoubbas_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_ieeedpdiv);
     CUNIT_CI_TEST(test_ieeedpfix);
     CUNIT_CI_TEST(test_ieeedpflt);

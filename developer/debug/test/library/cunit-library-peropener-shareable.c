@@ -90,7 +90,7 @@ void test_peropener_shareable()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Peropener_Shareable_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_Peropener_Shareable_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_peropener_not_shareable);
     CUNIT_CI_TEST(test_peropener_shareable);
     return CU_CI_RUN_SUITES();

@@ -47,7 +47,7 @@ static void test_wcschr_7() {
 
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcschr_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcschr_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcschr_1);
     CUNIT_CI_TEST(test_wcschr_2);
     CUNIT_CI_TEST(test_wcschr_3);

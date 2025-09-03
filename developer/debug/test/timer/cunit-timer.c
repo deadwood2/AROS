@@ -88,7 +88,7 @@ static void test_timer_cmptime_large()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Timer_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Timer_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_timer_cmptime_basic);
     CUNIT_CI_TEST(test_timer_cmptime_large);
     return CU_CI_RUN_SUITES();

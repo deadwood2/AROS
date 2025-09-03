@@ -165,7 +165,7 @@ static void test_ignore()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("sscanf_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(sscanf_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_integer);
     CUNIT_CI_TEST(test_multi);
     CUNIT_CI_TEST(test_float);

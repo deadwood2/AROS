@@ -218,7 +218,7 @@ static void test_put_only_open_window_to_sleep_2()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIA_Sleep_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIA_Sleep_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_dont_underflow_window_sleep);
     CUNIT_CI_TEST(test_put_only_open_window_to_sleep);
     CUNIT_CI_TEST(test_put_only_open_window_to_sleep_2);

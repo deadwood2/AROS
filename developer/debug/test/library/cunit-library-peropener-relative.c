@@ -78,7 +78,7 @@ void test_stack_calls_redef_reg_calls()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Peropener_Relative_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_Peropener_Relative_Suite, NULL, NULL, NULL, NULL);
     /* Order of calls matter as they manipulate relative variable */
     CUNIT_CI_TEST(test_reg_calls);
     CUNIT_CI_TEST(test_stack_calls_redef_reg_calls);

@@ -61,7 +61,7 @@ void test_samelock_same_volume(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("SameLock_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(SameLock_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_samelock_same_different);
     CUNIT_CI_TEST(test_samelock_same_volume);
     return CU_CI_RUN_SUITES();

@@ -35,7 +35,7 @@ static void test_wcsrchr_4() {
 // Main function to run the tests
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcsrchr_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcsrchr_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcsrchr_1);
     CUNIT_CI_TEST(test_wcsrchr_2);
     CUNIT_CI_TEST(test_wcsrchr_3);

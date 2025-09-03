@@ -143,7 +143,7 @@ static void test_list_active_selected()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_List_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIC_List_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_list_active_not_selected);
     CUNIT_CI_TEST(test_list_active_selected);
 

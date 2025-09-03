@@ -36,7 +36,7 @@ static void test_wcsspn_4() {
 // Main function to run the tests
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcsspn_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcsspn_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcsspn_1);
     CUNIT_CI_TEST(test_wcsspn_2);
     CUNIT_CI_TEST(test_wcsspn_3);

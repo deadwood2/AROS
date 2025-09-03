@@ -220,7 +220,7 @@ void test_iswctype(void) {
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("WCHAR_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(WCHAR_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_mblen);
     CUNIT_CI_TEST(test_mbrlen);
     CUNIT_CI_TEST(test_mbtowc);

@@ -370,7 +370,7 @@ void test_ReadArgs_ERROR_BAD_NUMBER(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("ReadArgs_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(ReadArgs_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(testREADARGSNUMBER);
     CUNIT_CI_TEST(testREADARGSNUMBERSPACE);
     CUNIT_CI_TEST(test_ReadArgs_ERROR_REQUIRED_ARG_MISSING);

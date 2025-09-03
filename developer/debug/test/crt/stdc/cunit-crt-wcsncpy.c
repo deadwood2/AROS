@@ -70,7 +70,7 @@ static void test_wcsncpy_5()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("wcsncpy_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcsncpy_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcsncpy_3);
     CUNIT_CI_TEST(test_wcsncpy_4);
     CUNIT_CI_TEST(test_wcsncpy_0);

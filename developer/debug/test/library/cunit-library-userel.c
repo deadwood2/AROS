@@ -26,7 +26,7 @@ void test_gpbse(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_UseRel_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_UseRel_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_add);
     CUNIT_CI_TEST(test_gpbse);
     return CU_CI_RUN_SUITES();

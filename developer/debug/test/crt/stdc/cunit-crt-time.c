@@ -153,7 +153,7 @@ static void test_unix_timestamps_should_be_consistent()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("time_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(time_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_gmtime_r_should_convert_directly);
     CUNIT_CI_TEST(test_localtime_r_should_apply_gmtoffset);
     CUNIT_CI_TEST(test_asctime_r);

@@ -157,7 +157,7 @@ void test_close(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Single_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_Single_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_open);
     CUNIT_CI_TEST(test_base);
     CUNIT_CI_TEST(test_reg_call);

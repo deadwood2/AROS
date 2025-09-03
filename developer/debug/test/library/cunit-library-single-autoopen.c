@@ -25,7 +25,7 @@ void test_add(void)
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("Library_Single_AutoOpen_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(Library_Single_AutoOpen_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_add);
     return CU_CI_RUN_SUITES();
 }

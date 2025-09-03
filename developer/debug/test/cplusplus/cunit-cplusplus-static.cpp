@@ -100,7 +100,7 @@ static void test_atexit_called_for_contructor_of_static_object()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("CPlusPlus_Static_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(CPlusPlus_Static_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_atexit_called_for_contructor_of_static_object);
 
     return CU_CI_RUN_SUITES();

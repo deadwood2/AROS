@@ -69,7 +69,7 @@ static void test_mui_makeobject_escape_seq()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUI_Misc_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUI_Misc_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_mui_makeobject_escape_seq);
 
     return CU_CI_RUN_SUITES();

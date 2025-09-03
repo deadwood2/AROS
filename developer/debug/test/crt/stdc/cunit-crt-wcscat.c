@@ -31,7 +31,7 @@ static void test_wcscat_3() {
 
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcscat_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcscat_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcscat_1);
     CUNIT_CI_TEST(test_wcscat_2);
     CUNIT_CI_TEST(test_wcscat_3);

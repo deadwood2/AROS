@@ -39,7 +39,7 @@ static void test_wcslen_5() {
 
 int main(int argc, char** argv) {
     //Define test suite
-    CU_CI_DEFINE_SUITE("wcslen_Suite", NULL, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(wcslen_Suite, NULL, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_wcslen_1);
     CUNIT_CI_TEST(test_wcslen_2);
     CUNIT_CI_TEST(test_wcslen_3);

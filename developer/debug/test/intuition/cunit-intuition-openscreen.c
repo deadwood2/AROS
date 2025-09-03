@@ -120,7 +120,7 @@ static void test_openscreen_likeworkbench_safont_1()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("OpenScreen_Suite", __cu_suite_setup, NULL, NULL, NULL);
+    CU_CI_DEFINE_SUITE(OpenScreen_Suite, __cu_suite_setup, NULL, NULL, NULL);
     CUNIT_CI_TEST(test_openscreen_safont);
     CUNIT_CI_TEST(test_openscreen_likeworkbench);
     CUNIT_CI_TEST(test_openscreen_likeworkbench_safont_1);

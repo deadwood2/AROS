@@ -231,7 +231,7 @@ static void test_string_string_contents_and_text_contents_mui5()
 }
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_String_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIC_String_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_string_string_acknowledged);
     CUNIT_CI_TEST(test_string_string_contents_copied);
     CUNIT_CI_TEST(test_string_string_contents_and_text_contents_mui5);

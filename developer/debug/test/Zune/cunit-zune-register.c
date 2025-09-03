@@ -86,7 +86,7 @@ static void test_register_not_copying_titles()
 
 int main(int argc, char** argv)
 {
-    CU_CI_DEFINE_SUITE("MUIC_Register_Suite", __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
+    CU_CI_DEFINE_SUITE(MUIC_Register_Suite, __cu_suite_setup, __cu_suite_teardown, NULL, NULL);
     CUNIT_CI_TEST(test_register_not_copying_titles);
     return CU_CI_RUN_SUITES();
 }
