@@ -33,7 +33,7 @@ CFLAGS		= @CFLAGS@
 ASFLAGS		= @ASFLAGS@
 LDFLAGS		= @LDFLAGS@ -nostartfiles
 ifeq (@host_os@,aros)
-LDFLAGS		+=
+LDFLAGS		+= -noclibs
 endif
 ARFLAGS         = @ARFLAGS@
 
