@@ -79,7 +79,7 @@
     mbstate_t ps = {0}; // Not used in our implementation
 
     while (*src && count < n) {
-        len = mbtowc(&wc, src, StdCBase->__locale_cur->__lc_mb_max);
+        len = mbtowc(&wc, src, MB_CUR_MAX);
         if (len == (size_t)-1)
             return (size_t)-1;
 

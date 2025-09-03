@@ -81,7 +81,7 @@
 
     // Clear state (not used in your wcrtomb, but conventionally passed)
     ps = (mbstate_t){0};
-    buf = AllocVec(StdCBase->__locale_cur->__lc_mb_max, MEMF_ANY);
+    buf = AllocVec(MB_CUR_MAX, MEMF_ANY);
 
     while (*src) {
         len = wcrtomb(buf, *src, &ps);

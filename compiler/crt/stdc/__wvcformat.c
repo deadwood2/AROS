@@ -27,21 +27,26 @@
 const unsigned char *const __decimalpoint = ".";
 
 /* support macros for FMTPRINTF */
-#define FMTPRINTF_COUT(c)  do                           \
-                { if((*outc)((unsigned char)(c),data)==EOF)   \
-                    return outcount;         \
-                  outcount++;                \
+#define FMTPRINTF_TYPE          char
+#define FMTPRINTF_UTYPE         unsigned char
+#define FMTPRINTF_STR(str)      str
+#define FMTPRINTF_STRLEN(str)   strlen(str)
+#define FMTPRINTF_DECIMALPOINT  __decimalpoint
+#define FMTPRINTF_ISDIGIT(c)    isdigit(c)
+#define FMTPRINTF_TOLOWER(c)    tolower(c)
+#define FMTPRINTF_OUT(c,ctx)  do                            \
+                { if((*outc)((unsigned char)(c),data)==EOF) \
+                    return outcount;                        \
+                  outcount++;                               \
                 }while(0)
+
 #define FMTPRINTF_WCOUT(c) do \
                 { if((*outc)((wchar_t)(c),data)==WEOF) \
                     return outcount; \
                   outcount++; \
                 } while (0);
 
-#define FMTPRINTF_STRLEN(str) strlen(str)
 #define FMTPRINTF_WCSLEN(widestr) wcslen(widestr)
-
-#define FMTPRINTF_DECIMALPOINT  __decimalpoint
 
 size_t wcstombs(char * restrict s, const wchar_t * restrict pwcs, size_t n)
 {
