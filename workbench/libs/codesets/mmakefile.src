@@ -34,7 +34,7 @@ FILES := \
 # *don't* pick up the project's local MUI headers.
 USER_INCLUDES = -I. -idirafter $(CODESETSARCHSRCDIR)/include
 USER_CPPFLAGS := -DAROS_ABI_V1
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs -lstdc.static
 
 #MM- workbench-libs-codesets : workbench-libs-codesets-library workbench-libs-codesets-charsets
 #MM workbench-libs-codesets-library : workbench-libs-codesets-fetch workbench-libs-codesets-includes 
@@ -59,11 +59,26 @@ USER_LDFLAGS := -static
 #MM workbench-libs-codesets-fd : \
 #MM     workbench-libs-codesets-fetch
 
-%copy_dir_recursive mmake=workbench-libs-codesets-includes \
-    src=$(CODESETSARCHSRCDIR)/developer/include dst=$(AROS_INCLUDES)/
+INCLUDE_FILES := $(call WILDCARD, $(CODESETSARCHSRCDIR)/developer/include/clib/*.h)
+%copy_includes mmake=workbench-libs-codesets-includes path=clib dir="$(CODESETSARCHSRCDIR)/developer/include/clib"
+
+INCLUDE_FILES := $(call WILDCARD, $(CODESETSARCHSRCDIR)/developer/include/defines/*.h)
+%copy_includes mmake=workbench-libs-codesets-includes path=defines dir="$(CODESETSARCHSRCDIR)/developer/include/defines"
+
+INCLUDE_FILES := $(call WILDCARD, $(CODESETSARCHSRCDIR)/developer/include/inline/*.h)
+%copy_includes mmake=workbench-libs-codesets-includes path=inline dir="$(CODESETSARCHSRCDIR)/developer/include/inline"
+
+INCLUDE_FILES := $(call WILDCARD, $(CODESETSARCHSRCDIR)/developer/include/libraries/*.h)
+%copy_includes mmake=workbench-libs-codesets-includes path=libraries dir="$(CODESETSARCHSRCDIR)/developer/include/libraries"
+
+INCLUDE_FILES := $(call WILDCARD, $(CODESETSARCHSRCDIR)/developer/include/pragmas/*.h)
+%copy_includes mmake=workbench-libs-codesets-includes path=pragmas dir="$(CODESETSARCHSRCDIR)/developer/include/pragmas"
+
+INCLUDE_FILES := $(call WILDCARD, $(CODESETSARCHSRCDIR)/developer/include/proto/*.h)
+%copy_includes mmake=workbench-libs-codesets-includes path=proto dir="$(CODESETSARCHSRCDIR)/developer/include/proto"
 
 %copy_files_q mmake=workbench-libs-codesets-fd files=codesets_lib.fd \
-    src=$(CODESETSARCHSRCDIR)/developer/fd dst=$(AROS_SDK_FD)
+    src=$(CODESETSARCHSRCDIR)/developer/fd dst=$(AROS_FD)
 
 %copy_dir_recursive mmake=workbench-libs-codesets-charsets src=$(CODESETSARCHSRCDIR)/charsets dst=$(AROS_LIBRARIES)/Charsets
 
