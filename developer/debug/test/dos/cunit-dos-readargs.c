@@ -460,5 +460,6 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_ReadArgs_ERROR_KEY_NEEDS_ARG);
     CUNIT_CI_TEST(test_ReadArgs_ERROR_NO_FREE_STORE);
     CUNIT_CI_TEST(test_ReadArgs_ERROR_BAD_NUMBER);
+    CUNIT_CI_TEST(test_ReadArgs_AF);
     return CU_CI_RUN_SUITES();
 }
