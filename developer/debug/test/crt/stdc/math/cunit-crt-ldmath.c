@@ -428,7 +428,7 @@ int main()
         return CU_get_error();
 
     /* add a suite to the registry */
-    pSuite = CU_add_suite("CrtMath_Suite", init_suite1, clean_suite1);
+    pSuite = CU_add_suite("CrtLDMath_Suite", init_suite1, clean_suite1);
     if (NULL == pSuite)
     {
         CU_cleanup_registry();
@@ -497,8 +497,8 @@ int main()
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
     CU_basic_set_mode(CU_BRM_SILENT);
-    CU_automated_package_name_set("CRTMathUnitTests");
-    CU_set_output_filename("CRT-Math");
+    CU_automated_package_name_set("CRTLDMathUnitTests");
+    CU_set_output_filename("CRT-LDMath");
     CU_automated_enable_junit_xml(CU_TRUE);
     CU_automated_run_tests();
     CU_cleanup_registry();
