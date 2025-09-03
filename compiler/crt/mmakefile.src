@@ -809,6 +809,7 @@ CRT := \
 CRT_LINKLIB := \
     posixc/getopt \
     posixc/getopt_long \
+    posixc/setlinebuf \
     stdc/wchar
 
 %build_module mmake=compiler-crt \
