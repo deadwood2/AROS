@@ -754,7 +754,7 @@ CRT := \
     stdc/mblen \
     stdc/mbrlen_p \
     stdc/mbrtowc_p \
-    stdc/mbsnrtowcs \
+    stdc/mbsnrtowcs_p \
     stdc/mbsrtowcs_p \
     stdc/mbstowcs \
     stdc/mbtowc \
