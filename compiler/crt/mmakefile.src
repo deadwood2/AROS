@@ -6,7 +6,7 @@ include $(SRCDIR)/config/aros.cfg
 FMTPRINTFDIR := $(SRCDIR)/compiler/fmtprintf
 USER_INCLUDES := -I$(SRCDIR)/compiler/crt/stdc/math -iquote $(FMTPRINTFDIR)
 
-M_MATH := \
+M_MATH_RAW := \
     stdc/math/bsdsrc/b_exp \
     stdc/math/bsdsrc/b_log \
     stdc/math/bsdsrc/b_tgamma \
@@ -260,9 +260,11 @@ CRT_LGAMMA_MATH := \
     stdc/math/e_gammaf \
     stdc/math/e_lgamma \
     stdc/math/e_lgammaf \
+    stdc/lgamma \
 
 CRT_LONGDB_LGAMMA_MATH := \
     stdc/math/e_lgammal \
+    stdc/lgammal \
 
 # Support files for 80bit and 128bit precision long double.
 
@@ -318,8 +320,8 @@ M_LONGDB128_MATH := \
 # Add 80bit long double support on x86, x64 and m68k
 #
 ifneq ($(filter $(AROS_TARGET_CPU),i386 x86_64 m68k),)
-M_MATH += $(M_LONGDB_MATH)
-M_MATH += $(M_LONGDB80_MATH)
+M_MATH_RAW += $(M_LONGDB_MATH)
+M_MATH_RAW += $(M_LONGDB80_MATH)
 CRT_LGAMMA_MATH += $(CRT_LONGDB_LGAMMA_MATH)
 USER_INCLUDES += -I$(SRCDIR)/compiler/crt/stdc/math/ld80
 M_SCABS_MATH += stdc/math/s_cabsl
@@ -329,8 +331,8 @@ else
 # Add 128bit long double support for aarch64
 #
 ifneq ($(filter $(AROS_TARGET_CPU),aarch64),)
-M_MATH += $(M_LONGDB_MATH)
-M_MATH += $(M_LONGDB128_MATH)
+M_MATH_RAW += $(M_LONGDB_MATH)
+M_MATH_RAW += $(M_LONGDB128_MATH)
 CRT_LGAMMA_MATH += $(CRT_LONGDB_LGAMMA_MATH)
 USER_INCLUDES += -I$(SRCDIR)/compiler/crt/stdc/math/ld128
 M_SCABS_MATH += stdc/math/s_cabsl
@@ -346,7 +348,28 @@ else
 endif
 endif
 
-M_MATH += $(M_WCABS_MATH)
+M_MATH_RAW += $(M_WCABS_MATH)
+
+M_MATH := \
+    __m_math \
+    stdc/atan \
+    stdc/atanl \
+    stdc/cbrt \
+    stdc/cbrtl \
+    stdc/cos \
+    stdc/cosl \
+    stdc/erf \
+    stdc/erfc \
+    stdc/erfcl \
+    stdc/erfl \
+    stdc/sin \
+    stdc/sinl \
+    stdc/sinh \
+    stdc/sinhl \
+    stdc/tan \
+    stdc/tanh \
+    stdc/tanhl \
+    stdc/tanl \
 
 # Ugh. These are for the math routines, which have a number of
 # lint issues, that should be fixed.
@@ -361,7 +384,7 @@ USER_CPPFLAGS := \
 
 %build_module mmake=compiler-m \
     modname="m" modtype=library \
-    files="$(M_MATH) stdc/_fenv __m_ctype" uselibs="stdc.static"
+    files="$(M_MATH_RAW) $(M_MATH) stdc/_fenv __m_ctype" uselibs="stdc.static"
 #stdc.static for memcpy/memset which do not want to compile-in otherwise
 
 
@@ -495,6 +518,7 @@ USER_CPPFLAGS += \
         -D_LARGEFILE64_SOURCE
 
 USER_INCLUDES := \
+    -I$(SRCDIR)/$(CURDIR)/stdc/math \
     -include $(SRCDIR)/$(CURDIR)/__stdc_intbase.h \
     -include $(SRCDIR)/$(CURDIR)/__posixc_intbase.h \
     -iquote $(SRCDIR)/compiler/crt/posixc
@@ -832,9 +856,9 @@ CRT_MOD := \
 
 ###############################################################################
 
-USER_INCLUDES := -I$(SRCDIR)/compiler/crt/stdc/math -iquote $(FMTPRINTFDIR)
+USER_INCLUDES := -I$(SRCDIR)/$(CURDIR)/stdc/math -iquote $(FMTPRINTFDIR)
 
-M_MATH_STATIC := \
+M_MATH_STATIC_RAW := \
     stdc/math/e_log \
     stdc/math/e_logf \
     stdc/math/e_log2 \
@@ -858,6 +882,9 @@ M_MATH_STATIC := \
     stdc/math/s_scalbn \
     stdc/math/s_scalbnf
 
+M_MATH_STATIC := \
+    __m_math_static
+
 STDC_STATIC := \
     stdc/__ctype \
     stdc/__vcformat \
@@ -868,6 +895,7 @@ STDC_STATIC := \
     stdc/atoll \
     stdc/bsearch \
     $(M_MATH_STATIC) \
+    $(M_MATH_STATIC_RAW) \
     stdc/memchr \
     stdc/memcmp \
     stdc/memcpy \
