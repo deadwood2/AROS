@@ -26,7 +26,7 @@ fi
 mkdir -p $AROSRUNDIR
 rm -rf $AROSLOGDIR
 mkdir -p $AROSLOGDIR
-rsync -r -t -l --info=progress2 -s ./core-linux-x86_64-d/bin/linux-x86_64/AROS/* $AROSRUNDIR
+rsync -r -t -l --info=progress2 -s --exclude=*.dbg ./core-linux-x86_64-d/bin/linux-x86_64/AROS/* $AROSRUNDIR
 cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdb_ignore_errors.py $AROSRUNDIR
 cp ./core-linux-x86_64-d/bin/linux-x86_64/AROS/.gdbinit $AROSRUNDIR
 
