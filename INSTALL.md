@@ -37,11 +37,21 @@ First, build the cross-compiler by running
 
     $ ./rebuild.sh
 
-and selecting option ```11) toolchain-core-m68k```. Once the cross-compiler build is complete run ```$ ./rebuild.sh``` again and select option ```13) core-amiga-m68k (SERIAL DEBUG)``` to build AROS.
+and selecting option ```11) toolchain-core-m68k```.
+Once the cross-compiler build is complete run ```$ ./rebuild.sh``` again and type the number for the Amiga build you want.
+There are two variants: ```core-amiga-m68k``` and ```core-amiga-m68k-classic``` with or without extra debug logging.
+The first includes the USB stack and has the same Workbench theming as the PC versions.
+It works best on a JIT-enabled emulator setup with RTG graphics, and should not be the first choice for a weaker system.
+The second lacks the USB stack and looks more like a classic 3.1 system.
+It does not need RTG graphics, but still benefits from a fast CPU.
 
 Kickstart images available in
 
     core-amiga-m68k/bin/amiga-m68k/AROS/boot/amiga
+
+or
+
+    core-amiga-m68k-classic/bin/amiga-m68k-classic/AROS/boot/amiga-classic
 
 ### Additional information
 
