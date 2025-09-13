@@ -51,5 +51,12 @@ typedef LONG	intmax_t;
 typedef ULONG	uintmax_t;
 #endif
 
+/*
+ * This definition is for supporting applications compiled before intmax_t
+ * switched to 64 bits on 32 bit architectures.
+ */
+typedef signed   AROS_LEGACY_LARGEST_TYPE  legacy_intmax_t;
+typedef unsigned AROS_LEGACY_LARGEST_TYPE  legacy_uintmax_t;
+
 
 #endif /* _AROS_TYPES_INT_T_H */
