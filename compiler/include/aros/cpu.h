@@ -78,6 +78,7 @@
 #define AROS_INTPTR_TYPE long long
 #define AROS_INTPTR_STACKTYPE long long
 #define AROS_LARGEST_TYPE long long
+#define AROS_LEGACY_LARGEST_TYPE long long
 #endif
 
 /*
@@ -134,7 +135,15 @@
 #endif
 
 #ifndef AROS_LARGEST_TYPE
-#define AROS_LARGEST_TYPE           long
+#define AROS_LARGEST_TYPE           long long
+#endif
+
+/*
+ * This definition is for supporting applications compiled before intmax_t
+ * switched to 64 bits on 32 bit architectures.
+ */
+#ifndef AROS_LEGACY_LARGEST_TYPE
+#define AROS_LEGACY_LARGEST_TYPE    long
 #endif
 
 #ifndef AROS_ATOMIC_TYPE

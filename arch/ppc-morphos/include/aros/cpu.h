@@ -33,7 +33,8 @@
 
 #define AROS_32BIT_TYPE         int
 /* For ABI V1 this should be done in common cpu.h */
-#define AROS_LARGEST_TYPE   long long
+#define AROS_LARGEST_TYPE        long long
+#define AROS_LEGACY_LARGEST_TYPE long long
 
 /* Note that MorphOS ABI DOES have linear varargs as an option */
 #define __stackparm __attribute__((varargs68k))
