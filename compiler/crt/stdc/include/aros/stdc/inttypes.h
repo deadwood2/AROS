@@ -250,15 +250,6 @@ typedef struct {
 	intmax_t rem;		/* remainder */
 } imaxdiv_t;
 
-/*
- * This definition is for supporting applications compiled before intmax_t
- * switched to 64 bits on 32 bit architectures.
- */
-typedef struct {
-	legacy_intmax_t quot;		/* quotient */
-	legacy_intmax_t rem;		/* remainder */
-} legacy_imaxdiv_t;
-
 #include <aros/types/wchar_t.h>
 
 __BEGIN_DECLS

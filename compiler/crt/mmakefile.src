@@ -421,7 +421,7 @@ STDLIB_WCHAR := \
 
 STDLIB := \
     __wchar_t_8 \
-    __stdlib_legacy_intmax_t \
+    __stdlib_long_intmax_t \
     __stdlib_optionallibs \
     stdlib_gmtoffset \
     stdlib_setlocale \
@@ -529,7 +529,7 @@ USER_LDFLAGS := -noclibs
 CRT := \
     __crt_exec \
     __crt_init \
-    __crt_legacy_intmax_t \
+    __crt_long_intmax_t \
     __crt_modonly \
     __crt_progonly \
     __crt_shareable \
