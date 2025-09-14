@@ -4,9 +4,9 @@
     Legacy version of C99 functions imaxabs() and imaxdiv().
 */
 
-#include <inttypes.h>
+#include "__stdlib_inttypes.h"
 
-legacy_intmax_t legacy_imaxabs (legacy_intmax_t j)
+long legacy_imaxabs (long j)
 {
     return j>0 ? j : -j;
 }
@@ -43,7 +43,7 @@ legacy_intmax_t legacy_imaxabs (legacy_intmax_t j)
  * SUCH DAMAGE.
  */
 
-legacy_imaxdiv_t legacy_imaxdiv (legacy_intmax_t num, legacy_intmax_t denom)
+legacy_imaxdiv_t legacy_imaxdiv (long num, long denom)
 {
 	legacy_imaxdiv_t r;
 
