@@ -682,6 +682,7 @@ CRT := \
     posixc/puts \
     posixc/putwchar \
     posixc/random \
+    posixc/rand_r \
     posixc/read \
     posixc/readdir \
     posixc/readdir64 \
@@ -764,6 +765,7 @@ CRT := \
     stdc/__signal \
     stdc/_exit \
     stdc/abort \
+    stdc/aligned_alloc \
     stdc/asctime \
     stdc/asprintf \
     stdc/atexit \
