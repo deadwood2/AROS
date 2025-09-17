@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
     else
         fprintf(ldscriptfile, "  .data1            0 : { *(.data1) }\n");
 #endif
-#if defined(TARGET_CPU_i386) || defined(TARGET_CPU_x86_64)
+#if 0
     fwrite(LDSCRIPT_PART4C, sizeof(LDSCRIPT_PART4C) - 1, 1, ldscriptfile);
 #endif
     fwrite(LDSCRIPT_PART4D, sizeof(LDSCRIPT_PART4D) - 1, 1, ldscriptfile);

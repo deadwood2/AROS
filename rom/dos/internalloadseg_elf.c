@@ -325,6 +325,7 @@ static int relocate
 #if defined(__i386__) || defined(__x86_64__)
     IPTR got_base = 0;
 
+#if 0
     for (int i = 0; i < eh->shnum; ++i) {
         const char *name = (const char *)((UBYTE *)sh[eh->shstrndx].addr + sh[i].name);
         if (strcmp(name, ".got") == 0) {
@@ -332,6 +333,7 @@ static int relocate
             break;
         }
     }
+#endif
 #endif
 
     for (i=0; i<numrel; i++, rel++)
