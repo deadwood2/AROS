@@ -44,4 +44,6 @@ ID	Driver		Author			E-Mail
 39	ac97/AROS	Michal Schulz		<michal.schulz@gmx.de>
 3E	HDAudio/AROS	Davy Wentzler		<info@audio-evolution.com>
 42	Alsa/AROS	Krzysztof Smiechowicz		<deadwood@wp.pl>
+43	WASAPI/AROS	The AROS Dev Team	<aros@aros.org>
+44	PulseAudio/AROS	The AROS Dev Team	<aros@aros.org>
 200	via-ac97/AROS	Davy Wentzler		<info@audio-evolution.com>
