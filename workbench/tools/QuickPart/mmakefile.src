@@ -31,6 +31,6 @@ USER_CFLAGS := $(NOWARN_FLAGS)
 
 %build_prog mmake=workbench-tools-quickpart \
     progname=QuickPart targetdir=$(EXEDIR) \
-    files=$(QPARTFILES) uselibs="mui arossupport amiga"
+    files=$(QPARTFILES) uselibs="mui arossupport amiga oop" usesdks="private"
 
 %common
