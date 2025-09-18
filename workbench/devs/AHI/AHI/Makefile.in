@@ -175,7 +175,7 @@ depend:
 	$(RM) Makefile.dep
 	$(MAKE) Makefile.dep
 
-Makefile.dep:	$(DEPEND_SOURCES) $(GENERATED)
+Makefile.dep:	$(DEPEND_SOURCES) $(GENERATED) version.h
 	@echo Making $@
 	-@$(CC) $(CPPFLAGS) $(CFLAGS) -MM $(DEPEND_SOURCES) > $@
 

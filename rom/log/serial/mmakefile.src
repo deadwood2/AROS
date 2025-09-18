@@ -15,8 +15,8 @@ USER_CFLAGS := -Wall -Wextra
 
 USER_LDFLAGS := -static
 
-%build_module mmake=kernel-log-serial \
-    modname=serial modtype=resource \
-    includedir=$(GENDIR)/$(CURDIR)/include files="$(FUNCS) $(FILES)" modsuffix=logger
+#%build_module mmake=kernel-log-serial \
+#    modname=serial modtype=resource \
+#    includedir=$(GENDIR)/$(CURDIR)/include files="$(FUNCS) $(FILES)" modsuffix=logger
 
 %common

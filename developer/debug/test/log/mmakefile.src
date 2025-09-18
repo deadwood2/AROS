@@ -9,8 +9,8 @@ FILES := \
     listener \
     producer
 
-#MM- test : test-log
-#MM- test-quick : test-log-quick
+##MM- test : test-log
+##MM- test-quick : test-log-quick
 
 #MM  test-log : includes linklibs kernel-log-includes
 
