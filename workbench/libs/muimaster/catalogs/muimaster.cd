@@ -66,6 +66,27 @@ Right
 MSG_FRAMEADJUST_BOTTOM (//)
 Bottom
 ;
+MSG_FRAMEADJUST_ENABLE (//)
+Enable
+;
+MSG_FRAMEADJUST_EXAMPLE (//)
+Example
+;
+MSG_FRAMEADJUST_RADIUS (//)
+Radius
+;
+MSG_FRAMEADJUST_WIDTH (//)
+Width
+;
+MSG_FRAMEADJUST_BUILTIN_FRAMES (//)
+Built-in Frames
+;
+MSG_FRAMEADJUST_CUSTOM_FRAMES (//)
+Custom Frames
+;
+MSG_FRAMEADJUST_ROUNDED_FRAME (//)
+Rounded Frame
+;
 ; -------------------------------------------------
 ; Imageadjust class
 MSG_IMAGEADJUST_PATTERN (//)
