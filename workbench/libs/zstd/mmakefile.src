@@ -34,7 +34,7 @@ USER_LDFLAGS := -static
 
 %build_module mmake=workbench-libs-zstd-library \
     modname=zstd modtype=library \
-    files="$(FILES)"
+    files="$(FILES)" uselibs="crtmod"
 
 %build_linklib mmake=linklibs-zstd \
     libname=zstd-static \

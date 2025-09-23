@@ -14,7 +14,7 @@ USER_INCLUDES := -iquote $(SRCDIR)/$(GFXDIR_BASE)
 %build_archspecific \
   mainmmake=workbench-libs-cgfx maindir=$(GFXDIR_BASE) \
   asmfiles=$(AFILES) files=$(FILES) \
-  arch=x86_64 modname=cybergraphics
+  arch=x86_64 modname=cybergraphics usesdks="private"
 
 #MM workbench-libs-cgfx-x86_64 : includes-asm_h kernel-kernel-includes
 
