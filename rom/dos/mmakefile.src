@@ -14,7 +14,7 @@ DOS_CPPFLAGS := \
 ifneq ($(REPOTYPE),)
     DOS_CPPFLAGS  += -DREPOTYPE=\"$(REPOTYPE)\" -DREPOREVISION=\"$(REPOREVISION)\" -DREPOID=\"$(REPOID)\"
 endif
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 ifeq ($(AROS_TARGET_CPU),m68k)
 # Make sure we optimize this code for size on m68k..
 OPTIMIZATION_CFLAGS := -Os
@@ -82,7 +82,7 @@ USER_CPPFLAGS := $(DOS_CPPFLAGS)
 
 %build_module mmake=kernel-dos \
   modname=dos modtype=library \
-  files="dos_init $(FUNCTIONS) $(FILES) $(LOADSEG_FILES)" uselibs="romhack" usesdks="private config"
+  files="dos_init $(FUNCTIONS) $(FILES) $(LOADSEG_FILES)" uselibs="romhack stdc.static" usesdks="private config"
 
 $(GENDIR)/$(CURDIR)/dos/errorlist.d : $(GENDIR)/$(CURDIR)/dos/errorlist.h
 

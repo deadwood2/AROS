@@ -29,7 +29,7 @@ USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
                -D__OOP_NOLIBBASE__ \
                -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 #MM kernel-oop-includes : \
 #MM     kernel-exec-includes \
@@ -37,7 +37,7 @@ USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_module mmake=kernel-oop \
   modname=oop modtype=library \
-  files="oop_init $(FUNCS) $(FILES)" sdk=private usesdks="private"
+  files="oop_init $(FUNCS) $(FILES)" sdk=private uselibs="stdc.static" usesdks="private"
 
 #MM includes-copy
 

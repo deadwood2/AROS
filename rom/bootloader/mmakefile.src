@@ -8,8 +8,8 @@ include $(SRCDIR)/config/aros.cfg
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
                -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-bootloader \
     modname=bootloader modtype=resource \
-    files="bootloader_init getbootinfo" usesdks="private"
+    files="bootloader_init getbootinfo" uselibs="stdc.static" usesdks="private"

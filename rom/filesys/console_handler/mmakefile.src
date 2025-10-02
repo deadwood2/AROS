@@ -15,10 +15,10 @@ USER_CPPFLAGS := \
 
 USER_INCLUDES += -I $(SRCDIR)/rom/devs/console
 
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 #MM- kernel-fs-con : includes linklibs kernel-fs-con-linklib
 
 %build_module mmake=kernel-fs-con \
     conffile=con_handler.conf modname=con modtype=handler \
-    files="$(FILES)" usesdks="private"
+    files="$(FILES)" uselibs="stdc.static" usesdks="private"
