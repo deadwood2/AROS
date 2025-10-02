@@ -4,23 +4,23 @@
 /*
     Copyright © 2010-2025, The AROS Development Team. All rights reserved.
     $Id$
+
+    wint_t definition for AROS
 */
 
 typedef int wint_t;
 
 #if 0
 
+#ifndef __WINT_TYPE__
 #include <aros/types/int_t.h>
-
-#ifdef __WINT_TYPE__
+# if defined(__WCHAR_MAX__) && __WCHAR_MAX__ > 256
+#  define __WINT_TYPE__ uint32_t
+# else
+#  define __WINT_TYPE__ char
+# endif
+#endif
 typedef __WINT_TYPE__ wint_t;
-#else
-#if defined(__WCHAR_MAX__) && __WCHAR_MAX__ > 256
-typedef uint32_t wint_t;
-#else
-typedef char wint_t;
-#endif
-#endif
 
 #endif
 
