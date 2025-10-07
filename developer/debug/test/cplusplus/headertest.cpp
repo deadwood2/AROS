@@ -283,11 +283,11 @@
 #include <aros/x86_64/genmodule.h>
 #endif
 
-#include <arpa/ftp.h>
+// #include <arpa/ftp.h>
 #include <arpa/inet.h>
-#include <arpa/nameser.h>
-#include <arpa/telnet.h>
-#include <arpa/tftp.h>
+// #include <arpa/nameser.h>
+// #include <arpa/telnet.h>
+// #include <arpa/tftp.h>
 
 #include <asm/aarch64/mmu.h>
 #include <asm/arm/cp15.h>
@@ -1058,7 +1058,7 @@
 #include <hidd/unixio.h>
 #include <hidd/usb.h>
 
-#include <inetd.h>
+// #include <inetd.h>
 
 // #include <interface/Hidd_AHCIBus.h>
 // #include <interface/Hidd_AHCI.h>
@@ -1206,25 +1206,25 @@
 #include <net/if_arp.h>
 #include <net/if_dl.h>
 #include <net/if.h>
-#include <net/if_llc.h>
+// #include <net/if_llc.h>
 // #include <net/if_slvar.h>
-#include <net/if_types.h>
+// #include <net/if_types.h>
 
 // #include <netinet/icmp_var.h>
 #include <netinet/in.h>
 // #include <netinet/in_pcb.h>
-#include <netinet/in_systm.h>
-#include <netinet/in_var.h>
-#include <netinet/ip.h>
-#include <netinet/ip_icmp.h>
-#include <netinet/ip_var.h>
+// #include <netinet/in_systm.h>
+// #include <netinet/in_var.h>
+// #include <netinet/ip.h>
+// #include <netinet/ip_icmp.h>
+// #include <netinet/ip_var.h>
 #include <netinet/tcp.h>
 // #include <netinet/tcp_var.h>
-#include <netinet/udp.h>
-#include <netinet/udp_var.h>
+// #include <netinet/udp.h>
+// #include <netinet/udp_var.h>
 
-#include <net/radix.h>
-#include <net/route.h>
+// #include <net/radix.h>
+// #include <net/route.h>
 #include <net/sana2errno.h>
 
 #include <oop/ifmeta.h>
@@ -1452,7 +1452,7 @@
 #include <sys/ioctl.h>
 #include <syslog.h>
 // #include <sys/net_types.h>
-#include <sys/queue.h>
+// #include <sys/queue.h>
 #include <sys/socket.h>
 #include <sys/sockio.h>
 #include <sys/syslog.h>
