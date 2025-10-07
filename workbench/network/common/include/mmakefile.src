@@ -14,15 +14,54 @@ DIRS          := $(AROS_INCLUDES) \
                  $(AROS_INCLUDES)/proto \
                  $(AROS_INCLUDES)/sys
 
+
+PUB_INCLUDES  := $(call WILDCARD, bsdsocket/*.h clib/*.h defines/*.h libraries/*.h proto/*.h)
+PUB_INCLUDES  += arpa/inet.h \
+                 net/if.h \
+                 net/if_arp.h \
+                 net/if_dl.h \
+                 net/sana2errno.h \
+                 netinet/in.h \
+                 netinet/tcp.h \
+                 sys/cdefs.h \
+                 sys/errno.h \
+                 sys/file.h \
+                 sys/ioctl.h \
+                 sys/net_types.h \
+                 sys/socket.h \
+                 sys/sockio.h \
+                 sys/syslog.h \
+                 sys/un.h \
+                 endian.h \
+                 err.h \
+                 netdb.h \
+                 syslog.h \
+
+NPUB_SDK      := $(GENDIR)/buildsdks/network/include
+NPUB_DIRS     := $(NPUB_SDK) \
+                 $(NPUB_SDK)/arpa \
+                 $(NPUB_SDK)/net \
+                 $(NPUB_SDK)/netinet \
+                 $(NPUB_SDK)/sys
+
+NPUB_INCLUDES := $(filter-out $(PUB_INCLUDES), $(INCLUDES))
+
+DEST_INCLUDES := $(foreach f,$(PUB_INCLUDES),$(AROS_INCLUDES)/$(f))
+NPUB_DEST_INC := $(foreach f,$(NPUB_INCLUDES),$(NPUB_SDK)/$(f))
+
 #MM- includes-copy : network-includes-copy
 #MM network-includes-copy : network-includes-setup
 
 #MM
-network-includes-copy : $(DEST_INCLUDES)
+network-includes-copy : $(DEST_INCLUDES) $(NPUB_DEST_INC)
 
 #MM
 network-includes-setup :
 	%mkdirs_q $(DIRS)
+	%mkdirs_q $(NPUB_DIRS)
 
 $(DEST_INCLUDES) : $(AROS_INCLUDES)/% : $(SRCDIR)/$(CURDIR)/%
+	@$(CP) $< $@
+
+$(NPUB_DEST_INC) : $(NPUB_SDK)/% : $(SRCDIR)/$(CURDIR)/%
 	@$(CP) $< $@
