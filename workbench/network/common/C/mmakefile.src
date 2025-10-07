@@ -11,7 +11,7 @@ USER_CPPFLAGS := -D_XOPEN_SOURCE=600 -D__BSD_VISIBLE=1
 
 %build_progs mmake=workbench-network-common-c \
     files="ifconfig route ping resolve arp logger hostname" \
-    targetdir=$(AROS_C) usesdks="config"
+    targetdir=$(AROS_C) usesdks="config network"
 
 #%common
 
