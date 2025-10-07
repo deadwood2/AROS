@@ -27,4 +27,4 @@ FILES :=	dhclient dhcglobals clparse
 	targetdir="$(AROS_SYSTEM)/Network/AROSTCP/C"	\
 	progname=dhclient					\
 	files="$(FILES)"					\
-	uselibs="dhcp minires omapip dst"
+	uselibs="dhcp minires omapip dst" usesdks="network"

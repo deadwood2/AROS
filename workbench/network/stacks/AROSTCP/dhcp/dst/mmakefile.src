@@ -12,4 +12,4 @@ FILES :=	base64 dst_api dst_support hmac_link md5_dgst prandom
 
 %build_linklib mmake=network-dhcp-libdst\
 	libname=dst			\
-	files="$(FILES)"
+	files="$(FILES)" sdk="network" usesdks="network"

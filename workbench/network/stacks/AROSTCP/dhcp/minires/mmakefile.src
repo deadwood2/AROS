@@ -15,4 +15,4 @@ FILES :=	ns_date ns_name	ns_parse ns_samedomain ns_sign 		\
 
 %build_linklib mmake=network-dhcp-libminires	\
 	libname=minires				\
-	files="$(FILES)"
+	files="$(FILES)" sdk="network" usesdks="network"

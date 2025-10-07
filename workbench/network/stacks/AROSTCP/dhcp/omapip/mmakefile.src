@@ -14,4 +14,4 @@ FILES :=	alloc array auth buffer connection convert dispatch	\
 
 %build_linklib mmake=network-dhcp-libomapip	\
 	libname=omapip				\
-	files="$(FILES)"
+	files="$(FILES)" sdk="network" usesdks="network"

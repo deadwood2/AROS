@@ -13,4 +13,4 @@ FILES :=	alloc bpf comapi conflex ctrace discover dispatch	\
 
 %build_linklib mmake=network-dhcp-libdhcp	\
 	libname=dhcp			        \
-	files="$(FILES)"
+	files="$(FILES)" sdk="network" usesdks="network"
