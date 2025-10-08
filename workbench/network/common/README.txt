@@ -2,14 +2,8 @@ This directory is for common includes and utilities for AROS TCP/IP
 applications compliant to the bsdsocket.library interface, regardless
 of the underlying network stack.
 
-The following structures are considered public as they are exposed in
-one or more of bsdsocket.library functions. All other structures and
-headers are considered internal.
-
-Based on review of common/include/clib/#?_protos.h,
-common/include/libraries/bsdsocket.h and code in libnetlib.a
-
-*Exposed and used*
+*Exposed in bsdsocket.library/miami.library calls*
+    Highly likely to be used in user applications. Keep compatible.
 
 net/if.h
     struct if_nameindex [*]
@@ -38,8 +32,34 @@ netdb.h
     struct netent [*]
     struct servent
 
+IoctlSocket(FIONBIO) [*]
+
+*Exposed via IoctlSocket *
+    Specialized calls. Low propabality of being used in user application.
+    Keep compatible, unless a fix is necessary.
+
+net/if.h
+    struct ifreq
+        SIOCGIFFLAGS, SIOCGIFMETRIC, SIOCSIFMETRIC, SIOCGIFMTU, SIOCSIFMTU,
+        SIOCDIFADDR, SIOCGIFADDR, SIOCGIFNETMASK, SIOCGIFDSTADDR,
+        SIOCGIFBRDADDR
+    struct ifaliasreq
+        SIOCAIFADDR
+    struct ifconf
+        SIOCGIFCONF
+net/if_arp.h
+    struct arpreq
+        SIOCSARP, SIOCGARP, SIOCDARP
+    struct arptabreq [*]
+        SIOCGARPT
+net/route.h
+    struct ortentry [*]
+        SIOCADDRT, SIOCDELRT
+
+
 
 *Exposed but not used (functionality not implemented)*
+    Not functioning. No propability of being used. Allow fixes and changes.
 
 net/if.h
     struct ifnet <--- pointer is a part of struct IPFilterMsg
@@ -57,7 +77,7 @@ netinet/udp.h
     struct udphdr <--- pointer is a prt of struct UDPMonitorMessage
 
 netinet/ip_icmp.h
-    struct icmp <--- pointer is a part of struct ICMPMonitorMessage
+    struct icmp [*] <--- pointer is a part of struct ICMPMonitorMessage
 
 netinet/ip.h
     struct ip <--- pointer is a part of struct IPFilterMsg
