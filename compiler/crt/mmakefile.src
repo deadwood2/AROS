@@ -527,6 +527,7 @@ USER_INCLUDES := \
 USER_LDFLAGS := -noclibs
 
 CRT := \
+    __broken_realpath \
     __crt_exec \
     __crt_init \
     __crt_long_intmax_t \
