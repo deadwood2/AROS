@@ -4,6 +4,18 @@
 #include <aros/cpu.h>
 #include <exec/types.h>
 
+/* Comment why spinlock_t had alignment of 128 - note that aligment of 128 is
+ * not a requirement according to below, only that two spin locks don't reside
+ * in the same 128 byte cache line - in other words, it is enought for every
+ * structure that embeded a spinlock to be padded to be at least 128 bytes in
+ * size. */
+
+/* Align spinlock_t to 128 bytes so that each lock occupies a full cache line.
+ * This avoids false sharing between CPUs, since otherwise multiple locks could
+ * reside in the same line and contend unnecessarily. On x86_64 the natural
+ * alignment would only be 16 bytes, so the attribute enforces cache-line isolation.
+ */
+
 typedef struct {
     union
     {
