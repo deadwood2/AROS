@@ -10,7 +10,10 @@ clean ::
 
 FILES	:= kbd_init kbdclass kbdsubsystem
 
-USER_CPPFLAGS += -D__OOP_NOLIBBASE__ -D__UTILITY_NOLIBBASE__
+USER_CPPFLAGS += \
+    -D__OOP_NOLIBBASE__ \
+    -D__OOP_NOATTRBASES__ \
+    -D__UTILITY_NOLIBBASE__
 USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-hidd-kbd \
