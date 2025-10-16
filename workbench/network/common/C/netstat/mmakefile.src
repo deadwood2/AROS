@@ -30,6 +30,6 @@ USER_CPPFLAGS := \
 
 %build_prog mmake=workbench-network-common-c-netstat \
     progname=netstat targetdir=$(AROS_C) \
-    files=$(FILES) uselibs="kvm miami net"
+    files=$(FILES) uselibs="kvm miami net" usesdks="network"
 
 %common

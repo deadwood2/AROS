@@ -22,6 +22,6 @@ USER_CPPFLAGS := -D_GNU_SOURCE=1 -D__BSD_VISIBLE=1 -DHAVE_USLEEP
 
 %build_prog mmake=workbench-network-common-c-traceroute \
     progname=traceroute targetdir=$(AROS_C) \
-    files=$(FILES) uselibs="kvm miami net"
+    files=$(FILES) uselibs="kvm miami net" usesdks="config network"
 
 %common

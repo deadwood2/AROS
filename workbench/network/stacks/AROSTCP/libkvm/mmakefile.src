@@ -18,6 +18,6 @@ KVMLIBSRC := \
            kvm_geterr \
            kvm_read
 
-%build_linklib mmake=arostcp-linklibs-kvm libname=kvm files=$(KVMLIBSRC)
+%build_linklib mmake=arostcp-linklibs-kvm libname=kvm files=$(KVMLIBSRC) sdk=network usesdks="network"
 
 %common
