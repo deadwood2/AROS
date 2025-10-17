@@ -34,6 +34,9 @@ struct PosixCIntBase
 {
     struct PosixCBase lib;
 
+    /* optional libs */
+    struct Library           *PosixCUserGroupBase;
+
     /* common */
     APTR internalpool;
 

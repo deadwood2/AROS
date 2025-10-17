@@ -532,6 +532,7 @@ CRT := \
     __crt_init \
     __crt_long_intmax_t \
     __crt_modonly \
+    __crt_optionallibs \
     __crt_progonly \
     __crt_shareable \
     __crt_vfork \
@@ -762,7 +763,6 @@ CRT := \
     posixc/wprintf \
     posixc/write \
     stdc/__exitfunc \
-    stdc/__optionallibs \
     stdc/__signal \
     stdc/_exit \
     stdc/abort \
