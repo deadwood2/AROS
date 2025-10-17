@@ -154,8 +154,13 @@
  * Structure used for manipulating linger option.
  */
 struct linger {
+#if defined __x86_64__
+	long	l_onoff;		/* option on/off */
+	long	l_linger;		/* linger time */
+#else
 	int	l_onoff;		/* option on/off */
 	int	l_linger;		/* linger time */
+#endif
 };
 
 #if __BSD_VISIBLE
@@ -400,7 +405,11 @@ struct msghdr {
 	int		 msg_iovlen;		/* # elements in msg_iov */
 	void		*msg_control;		/* ancillary data, see below */
 	socklen_t	 msg_controllen;	/* ancillary data buffer len */
+#if defined __x86_64__
+	long		 msg_flags;		/* flags on received message */
+#else
 	int		 msg_flags;		/* flags on received message */
+#endif
 };
 
 #define	MSG_OOB		 0x00000001	/* process out-of-band data */
