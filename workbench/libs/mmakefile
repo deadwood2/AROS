@@ -48,7 +48,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-rexxsyslib \
 #MM     workbench-libs-realtime \
 #MM     workbench-libs-tiff \
-#MM     workbench-libs-usergroup \
 #MM     workbench-libs-vega \
 #MM     workbench-libs-version \
 #MM     workbench-libs-workbench \
