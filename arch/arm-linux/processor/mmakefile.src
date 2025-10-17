@@ -8,6 +8,6 @@ USER_INCLUDES := -I$(SRCDIR)/rom/processor
 FILES := arch_init getcpuinfo
 
 %build_archspecific mainmmake=kernel-processor maindir=rom/processor \
-    arch=linux-arm files=$(FILES) usesdks="private"
+    arch=linux-arm files=$(FILES) modname=processor usesdks="private"
 
 %common
