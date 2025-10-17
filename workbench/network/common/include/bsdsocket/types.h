@@ -104,7 +104,7 @@ typedef unsigned AROS_INTPTR_TYPE   __uintptr_t;
 typedef unsigned AROS_INTPTR_TYPE   __uintfptr_t;
 typedef unsigned AROS_INTPTR_TYPE   __vm_offset_t;
 typedef unsigned AROS_INTPTR_TYPE   __vm_size_t;
-typedef unsigned AROS_INTPTR_TYPE   __size_t;
+/* typedef unsigned AROS_INTPTR_TYPE   __size_t; */ /* __size_t is an empty define in GCC's stddef, causing compilation error */
 typedef signed AROS_INTPTR_TYPE     __ssize_t;
 
 /*
