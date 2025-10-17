@@ -10,11 +10,15 @@ net/if.h
     struct if_nameindex [*]
 
 net/if_dl.h
-    struct sockaddr_dl
+    struct sockaddr_dl (not passed in, but sockaddr can be casted to
+                        this structure for reading on client side)
 
 netinet/in.h
     in_addr_t
+    in_port_t
+    sa_family_t
     struct in_addr
+    socklen_t
     struct sockaddr_in
 
 sys/net_types.h
@@ -22,10 +26,14 @@ sys/net_types.h
     fdmask [*] <-- conflict with sys/select.h
     caddr_t
 
+sys/_sockaddr_storage.h
+    struct sockaddr_storage (used to replace sockaddr_in in client code)
+
 sys/socket.h
     struct linger [*]
     struct sockaddr
     struct msghdr [*]
+    struct splice
 
 sys/un.h
     struct sockaddr_un
@@ -84,6 +92,7 @@ net/if.h
 
 net/if_arp.h
     struct arphdr
+    struct arpstat
 
 netinet/in.h
     struct ip_opts
@@ -94,6 +103,15 @@ netinet/tcp.h
     tcp_seq
     tcp_cc
     struct tcphdr
+    struct tcp_perf_info
+    struct tcp_info
+    struct tcp_fastopen
+    struct stack_specific_info
+    struct tcp_function_set
+    struct tcp_snd_req
+    union tcp_log_userdata
+    struct tcp_log_user
+    struct tcp_hybrid_req
 
 sys/net_types.h
     dev_t
@@ -101,10 +119,17 @@ sys/net_types.h
     off_t
 
 sys/socket.h
+    struct accept_filter_arg
     struct sockproto
-    struct cmsghdr [*]
+    struct cmsghdr
+    struct cmsgcred
+    struct sockcred
+    struct sockcred2
+    struct sock_timestamp_info
     struct osockaddr
-    struct omsghdr [*]
+    struct omsghdr
+    struct sf_hdtr
+    struct mmsghdr
 
 
 
