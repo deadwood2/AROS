@@ -2,7 +2,6 @@
     Copyright (C) 1995-2019, The AROS Development Team. All rights reserved.
 */
 
-#include <aros/config.h>
 #include <libraries/debug.h>
 #include <proto/debug.h>
 #include <proto/dos.h>
@@ -10,6 +9,8 @@
 
 #include "dos_intern.h"
 #include "internalloadseg.h"
+
+#define AROS_MODULES_DEBUG 1
 
 static char *getname(BPTR file, char **bufferp, struct DosLibrary *DOSBase)
 {
