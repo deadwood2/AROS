@@ -93,6 +93,17 @@ void writestart(struct config *cfg)
     writedecl(out, cfg);
     if (!(cfg->options & OPTION_NORESIDENT))
     {
+        if ((cfg->modtype == MCP || cfg->modtype == MCC) &&
+                (cfg->options & OPTION_NOCLASSQUERY)) {
+            fprintf(out,
+                    "AROS_LD1(IPTR, %s_Query,\n"
+                    "    AROS_UFPA(LONG, which, D0),\n"
+                    "    LIBBASETYPEPTR, LIBBASE, 5, %s\n"
+                    ");\n"
+                , (cfg->modtype == MCC) ? "MCC" : "MCP"
+                , cfg->basename
+            );
+        }
         writeresident(out, cfg);
         writedeclsets(out, cfg);
         writeinitlib(out, cfg);
@@ -102,9 +113,10 @@ void writestart(struct config *cfg)
             writecloselib(out, cfg);
             writeexpungelib(out, cfg);
             writeextfunclib(out, cfg);
-            if (cfg->modtype == MCC || cfg->modtype == MUI || cfg->modtype == MCP)
-                writemccquery(out, cfg);
-            else if (cfg->modtype == DATATYPE)
+            if (cfg->modtype == MCC || cfg->modtype == MUI || cfg->modtype == MCP) {
+                if (!(cfg->options & OPTION_NOCLASSQUERY))
+                        writemccquery(out, cfg);
+            } else if (cfg->modtype == DATATYPE)
                 writeobtainengine(out, cfg);
         }
         writesets(out, cfg);
@@ -1497,8 +1509,9 @@ writefunctable(FILE *out,
         {
             lvo++;
             fprintf(out,
-                    "    &AROS_SLIB_ENTRY(MCC_Query,%s,%d),\n",
-                    cfg->basename, lvo
+                    "    &AROS_SLIB_ENTRY(%s_Query,%s,%d),\n"
+                    , (cfg->modtype == MCC) ? "MCC" : "MCP"
+                    , cfg->basename, lvo
             );
         }
         else if (cfg->modtype == DATATYPE)
