@@ -372,10 +372,24 @@ struct Device *TimerBase;
 
 STRPTR program_name = NULL;
 
+#define DEVMODE 0
+
 int main(int argc, char **argv)
 {
     STRPTR program_path = NULL;
 
+#if DEVMODE
+    if (argc == 1)
+    {
+        program_path = "SYS:ProgramsV0/MCAmiga/MCAmiga";
+        // program_path = "SYS:ProgramsV0/HFinder/HFinder";
+        // program_path = "SYS:ProgramsV0/ZuneARC/ZuneARC";
+        // program_path = "SYS:ProgramsV0/Calculator";
+        // program_path = "SYS:ProgramsV0/helloabi";
+
+    }
+    else
+#endif
     if (argc == 2)
     {
         program_path = argv[1];
@@ -388,11 +402,8 @@ int main(int argc, char **argv)
     }
     else
     {
-        program_path = "EmuV0:Programs/MCAmiga/MCAmiga";
-        // program_path = "EmuV0:Programs/HFinder/HFinder";
-        // program_path = "EmuV0:Programs/ZuneARC/ZuneARC";
-        // program_path = "EmuV0:Programs/Calculator";
-        // program_path = "EmuV0:Programs/helloabi";
+        Printf("EmuV0 currently accepts only one argument - program name\n");
+        return 0;
     }
 
     /* Save program name - dependency - this need to be set before first call to abiv0_FindTask() */
