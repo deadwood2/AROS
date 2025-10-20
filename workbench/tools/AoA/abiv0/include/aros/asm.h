@@ -1,15 +1,15 @@
 #ifndef ABIV0_AROS_ASM_H
 #define ABIV0_AROS_ASM_H
 
-#include <aros/config.h>
-
 /* Linux (AROS hosted) uses different segment selectors for code, code32 and data segments than AROS native */
 
-#if (AROS_FLAVOUR & AROS_FLAVOUR_EMULATION)
+#if (EMUV0LINUX)
 #define CS64    "$0x33"
 #define CS32    "$0x23"
 #define DS      "$0x2b"
-#else
+#endif
+
+#if (EMUV0PC)
 #define CS64    "$0x2b"
 #define CS32    "$0x1b"
 #define DS      "$0x23"
