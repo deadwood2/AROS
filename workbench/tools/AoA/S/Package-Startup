@@ -1,0 +1,3 @@
+Assign "SYSV0:"     ""
+Assign "LIBSV0:"    "SYSV0:Libs"
+Assign "LIBSV0:"    "SYSV0:Classes" ADD
