@@ -1,6 +1,9 @@
-# Copyright (C) 2024, The AROS Development Team. All rights reserved.
+# Copyright (C) 2024-2025, The AROS Development Team. All rights reserved.
 
 include $(SRCDIR)/config/aros.cfg
+
+#MM- local-emuv0 : local-emuv0-linux local-emuv0-pc
+#MM- local-emuv0-quick : local-emuv0-linux-quick local-emuv0-pc-quick
 
 FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 internalloadseg_support32 \
         abiv0/exec/initresident \
@@ -21,8 +24,18 @@ EXEDIR := $(AROS_C)
 USER_INCLUDES := -I$(SRCDIR)/rom/dos
 USER_LDFLAGS := -noclibs
 
-%build_prog mmake=local-aoa \
-    progname=AoA targetdir=$(EXEDIR) \
-    files=$(FILES) usesdks="config" uselibs="stdc.static"
+USER_CPPFLAGS := -DEMUV0LINUX
+
+%build_prog mmake=local-emuv0-linux \
+    progname=EmuV0-linux targetdir=$(EXEDIR) \
+    files=$(FILES) uselibs="stdc.static" \
+    objdir=$(GENDIR)/$(CURDIR)/emuv0-linux
+
+USER_CPPFLAGS := -DEMUV0PC
+
+%build_prog mmake=local-emuv0-pc \
+    progname=EmuV0-pc targetdir=$(EXEDIR) \
+    files=$(FILES) uselibs="stdc.static" \
+    objdir=$(GENDIR)/$(CURDIR)/emuv0-pc
 
 %common
