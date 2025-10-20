@@ -333,7 +333,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     init_intuition(SysBaseV0, abiv0TimerBase);
 
     /* Install datatypes */
-    NewRawDoFmt("SYSV0:C/AddDataTypes", RAWFMTFUNC_STRING, path);
+    NewRawDoFmt("EmuV0:C/AddDataTypes", RAWFMTFUNC_STRING, path);
     BPTR adtseg = LoadSeg32(path, DOSBase);
     APTR (*adtstart)() = (APTR)((IPTR)BADDR(adtseg) + sizeof(BPTR));
     /* Inject arguments for AddDataTypes*/
@@ -388,11 +388,11 @@ int main(int argc, char **argv)
     }
     else
     {
-        program_path = "SYSV0:Programs/MCAmiga/MCAmiga";
-        // program_path = "SYSV0:Programs/HFinder/HFinder";
-        // program_path = "SYSV0:Programs/ZuneARC/ZuneARC";
-        // program_path = "SYSV0:Programs/Calculator";
-        // program_path = "SYSV0:Programs/helloabi";
+        program_path = "EmuV0:Programs/MCAmiga/MCAmiga";
+        // program_path = "EmuV0:Programs/HFinder/HFinder";
+        // program_path = "EmuV0:Programs/ZuneARC/ZuneARC";
+        // program_path = "EmuV0:Programs/Calculator";
+        // program_path = "EmuV0:Programs/helloabi";
     }
 
     /* Save program name - dependency - this need to be set before first call to abiv0_FindTask() */
