@@ -40,7 +40,7 @@ long double atan2l(long double x, long double y) { return __ieee754_atan2l(x, y)
 
 double atanh(double x) { return __ieee754_atanh(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
-AROS_MAKE_ASM_SYM(typeof(atanhl), atanhl, AROS_CSYM_FROM_ASM_NAME(atanhl), AROS_CSYM_FROM_ASM_NAME(atan));
+AROS_MAKE_ASM_SYM(typeof(atanhl), atanhl, AROS_CSYM_FROM_ASM_NAME(atanhl), AROS_CSYM_FROM_ASM_NAME(atanh));
 AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(atanhl));
 #else
 long double atanhl(long double x) { return __ieee754_atanhl(x); }
@@ -48,7 +48,7 @@ long double atanhl(long double x) { return __ieee754_atanhl(x); }
 
 double cosh(double x) { return __ieee754_cosh(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
-AROS_MAKE_ASM_SYM(typeof(coshl), coshl, AROS_CSYM_FROM_ASM_NAME(coshl), AROS_CSYM_FROM_ASM_NAME(cos));
+AROS_MAKE_ASM_SYM(typeof(coshl), coshl, AROS_CSYM_FROM_ASM_NAME(coshl), AROS_CSYM_FROM_ASM_NAME(cosh));
 AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(coshl));
 #else
 long double coshl(long double x) { return __ieee754_coshl(x); }
