@@ -102,7 +102,7 @@ process_selection ()
         ;;
         22)
         TOOLCHAIN_DIR=$(pwd)/toolchain-core-armhf
-        BUILD_DIR=$(pwd)/core-linux-amrhf-d
+        BUILD_DIR=$(pwd)/core-linux-armhf-d
         CONFIGURE_TARGET=linux-armhf
         CONFIGURE_OPTS="--with-aros-toolchain=yes --enable-debug"
         ;;
