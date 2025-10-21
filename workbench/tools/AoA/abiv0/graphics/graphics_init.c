@@ -282,7 +282,9 @@ static void RecreteNativeRastPort(struct RastPortV0 *rpv0, struct RastPort *rptm
     bmtmp->Depth        = bmv0->Depth;
     bmtmp->Flags        = bmv0->Flags;
     bmtmp->Rows         = bmv0->Rows;
-    bmtmp->Planes[0]    = (APTR)(IPTR)bmv0->Planes[0];
+
+    for (LONG i = 0; i < bmv0->Depth; i++)
+        bmtmp->Planes[i]= (APTR)(IPTR)bmv0->Planes[i];
 
     rptmp->BitMap       = bmtmp;
 }
@@ -438,6 +440,24 @@ VOID abiv0_WaitTOF(struct GfxBaseV0 *GfxBaseV0)
     WaitTOF();
 }
 MAKE_PROXY_ARG_1(WaitTOF)
+
+LONG abiv0_WritePixelArray8(struct RastPortV0 *rp, ULONG xstart, ULONG ystart, ULONG xstop, ULONG ystop, UBYTE *array,
+    struct RastPortV0 *temprp, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    if (rpnative == NULL)
+    {
+        /* HollyPaint operates on locally created RastPort/BitMap */
+        struct RastPort rptmp;
+        struct BitMap bmtmp;
+        RecreteNativeRastPort(rp, &rptmp, &bmtmp);
+
+        return WritePixelArray8(&rptmp, xstart, ystart, xstop, ystop, array, NULL);
+    }
+    else
+        return WritePixelArray8(rpnative, xstart, ystart, xstop, ystop, array, NULL);
+}
+MAKE_PROXY_ARG_12(WritePixelArray8)
 
 #include <proto/utility.h>
 
@@ -603,4 +623,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 153, (APTR32)(IPTR)proxy_AllocBitMap);
     __AROS_SETVECADDRV0(abiv0GfxBase, 101, (APTR32)(IPTR)proxy_BltBitMapRastPort);
     __AROS_SETVECADDRV0(abiv0GfxBase, 154, (APTR32)(IPTR)proxy_FreeBitMap);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 129, graphicsjmp[202 - 129]);  // WritePixelLine8
+    __AROS_SETVECADDRV0(abiv0GfxBase, 131, (APTR32)(IPTR)proxy_WritePixelArray8);
 }
