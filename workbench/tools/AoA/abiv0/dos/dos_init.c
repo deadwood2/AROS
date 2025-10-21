@@ -44,6 +44,67 @@ struct FileHandleProxy *makeFileHandleProxy(BPTR native)
     return proxy;
 }
 
+static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
+{
+    if (!(*tagListPtr))
+        return NULL;
+
+    while(1)
+    {
+        switch(((*tagListPtr)->ti_Tag))
+        {
+            case TAG_MORE:
+asm("int3");
+                if (!((*tagListPtr) = (struct TagItemV0 *)(IPTR)(*tagListPtr)->ti_Data))
+                    return NULL;
+                continue;
+
+            case TAG_IGNORE:
+                break;
+
+            case TAG_END:
+                (*tagListPtr) = 0;
+                return NULL;
+
+            case TAG_SKIP:
+asm("int3");
+                (*tagListPtr) += (*tagListPtr)->ti_Data + 1;
+                continue;
+
+            default:
+                return (*tagListPtr)++;
+
+        }
+
+        (*tagListPtr)++;
+    }
+}
+
+static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
+{
+    struct TagItem *newList;
+    LONG numTags = 1;
+
+    struct TagItemV0 *tmp;
+
+    tmp = (struct TagItemV0 *)tagList;
+    while (LibNextTagItemV0 (&tmp) != NULL)
+        numTags++;
+
+    newList = AllocMem(sizeof(struct TagItem) * numTags, MEMF_CLEAR);
+
+    LONG pos = 0;
+    tmp = (struct TagItemV0 *)tagList;
+    do
+    {
+        newList[pos].ti_Tag = tmp->ti_Tag;
+        newList[pos].ti_Data = tmp->ti_Data;
+        pos++;
+    } while (LibNextTagItemV0 (&tmp) != NULL);
+
+    return newList;
+}
+
 void abiv0_PutStr(CONST_STRPTR text)
 {
     PutStr(text);
@@ -590,68 +651,6 @@ SIPTR abiv0_IoErr(struct DosLibraryV0 *DOSBaseV0)
     return IoErr();
 }
 MAKE_PROXY_ARG_1(IoErr)
-
-static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
-{
-    if (!(*tagListPtr))
-        return NULL;
-
-    while(1)
-    {
-        switch(((*tagListPtr)->ti_Tag))
-        {
-            case TAG_MORE:
-asm("int3");
-                if (!((*tagListPtr) = (struct TagItemV0 *)(IPTR)(*tagListPtr)->ti_Data))
-                    return NULL;
-                continue;
-
-            case TAG_IGNORE:
-                break;
-
-            case TAG_END:
-                (*tagListPtr) = 0;
-                return NULL;
-
-            case TAG_SKIP:
-asm("int3");
-                (*tagListPtr) += (*tagListPtr)->ti_Data + 1;
-                continue;
-
-            default:
-                return (*tagListPtr)++;
-
-        }
-
-        (*tagListPtr)++;
-    }
-}
-
-static struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList)
-{
-    struct TagItem *newList;
-    LONG numTags = 1;
-
-    struct TagItemV0 *tmp;
-
-    tmp = (struct TagItemV0 *)tagList;
-    while (LibNextTagItemV0 (&tmp) != NULL)
-        numTags++;
-
-    newList = AllocMem(sizeof(struct TagItem) * numTags, MEMF_CLEAR);
-
-    LONG pos = 0;
-    tmp = (struct TagItemV0 *)tagList;
-    do
-    {
-        newList[pos].ti_Tag = tmp->ti_Tag;
-        newList[pos].ti_Data = tmp->ti_Data;
-        pos++;
-    } while (LibNextTagItemV0 (&tmp) != NULL);
-
-    return newList;
-
-}
 
 LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
 {
