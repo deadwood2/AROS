@@ -554,6 +554,11 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     abiv0_InitSemaphore(&abiv0IntGfxBase->fontsem, SysBaseV0);
     abiv0_InitSemaphore(&abiv0IntGfxBase->tfe_hashtab_sema, SysBaseV0);
 
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (LONG i = 5; i <= 201; i++)
+        __AROS_SETVECADDRV0(abiv0GfxBase,   i, (APTR32)(IPTR)i);
+
+    /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
     __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);
     __AROS_SETVECADDRV0(abiv0GfxBase, 160, (APTR32)(IPTR)proxy_GetBitMapAttr);

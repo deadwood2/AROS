@@ -759,6 +759,11 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     NEWLISTV0(&((struct IntDosBaseV0 *)abiv0DOSBase)->segdata);
     abiv0_InitSemaphore(&((struct IntDosBaseV0 *)abiv0DOSBase)->segsem, SysBaseV0);
 
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (LONG i = 5; i <= 226; i++)
+        __AROS_SETVECADDRV0(abiv0DOSBase, i, (APTR32)(IPTR)i);
+
+    /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
     __AROS_SETVECADDRV0(abiv0DOSBase,   9, dosfunctable[8]);    // Input
     __AROS_SETVECADDRV0(abiv0DOSBase,  10, dosfunctable[9]);    // Output
