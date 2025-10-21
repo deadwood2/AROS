@@ -119,9 +119,8 @@ MAKE_PROXY_ARG_5(SetVBuf)
 
 APTR32 g_v0entry_tmp;
 ULONG g_v0stacksize_tmp;
-
-struct ProcessV0 *g_v0childprocesses[2];
-struct Task *g_nativechildprocesses[2];
+extern struct ProcessV0 *g_v0childprocesses[2];
+extern struct Task *g_nativechildprocesses[2];
 ULONG g_childprocessidx = 0;
 
 static void createNewProc_trampoline()
