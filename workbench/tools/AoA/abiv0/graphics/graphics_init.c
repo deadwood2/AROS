@@ -556,7 +556,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
 
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (LONG i = 5; i <= 201; i++)
-        __AROS_SETVECADDRV0(abiv0GfxBase,   i, (APTR32)(IPTR)i);
+        __AROS_SETVECADDRV0(abiv0GfxBase,   i, (APTR32)(IPTR)i + 200 + 300);
 
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
