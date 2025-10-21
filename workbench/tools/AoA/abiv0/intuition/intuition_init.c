@@ -727,6 +727,19 @@ bug("abiv0_RemoveGList: STUB\n");
 }
 MAKE_PROXY_ARG_4(RemoveGList)
 
+struct ListV0 *abiv0_LockPubScreenList(struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_LockPubScreenList: STUB\n");
+    return (struct ListV0 *)((IPTR)IntuitionBaseV0 + 0x12C); // PubScreenList
+}
+MAKE_PROXY_ARG_1(LockPubScreenList)
+
+void abiv0_UnlockPubScreenList(struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_UnlockPubScreenList: STUB\n");
+}
+MAKE_PROXY_ARG_1(UnlockPubScreenList)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -1152,6 +1165,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 100, intuitionjmp[165 - 100]);  // SysReqHandler
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  46, (APTR32)(IPTR)proxy_SetWindowTitles);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  48, (APTR32)(IPTR)proxy_SizeWindow);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  87, (APTR32)(IPTR)proxy_LockPubScreenList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  88, (APTR32)(IPTR)proxy_UnlockPubScreenList);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
@@ -1179,6 +1194,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x6C) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
     *(ULONG *)((IPTR)abiv0IntuitionBase + 0x74) = (APTR32)(IPTR)timerBase;
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x180), SysBaseV0); // GadgetLock
+    abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x0F8), SysBaseV0); // PubScrListLock
+    NEWLISTV0((struct MinListV0 *)((IPTR)abiv0IntuitionBase + 0x12C)); // PubScreenList
 
     init_gadget_wrapper_class();
 
