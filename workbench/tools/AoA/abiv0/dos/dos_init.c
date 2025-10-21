@@ -444,7 +444,7 @@ BOOL abiv0_ExAll(BPTR lock, struct ExAllDataV0 *buffer, LONG size, LONG type, st
     struct ExAllControlProxy *eacproxy = (struct ExAllControlProxy *)control;
     struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)lock;
 
-if (type != ED_DATE) asm("int3"); // Copying assumes ED_DATE sizes of structures!!!!
+if (type > ED_DATE) asm("int3"); // Support everything up to and including ED_DATE
 
     if (eacproxy->base.eac_LastKey == 0)
     {
@@ -466,22 +466,36 @@ if (type != ED_DATE) asm("int3"); // Copying assumes ED_DATE sizes of structures
         for (; eadnativeit != NULL; eadnativeit = eadnativeit->ed_Next)
         {
             int namelen = strlen(eadnativeit->ed_Name) + 1;
-            writename = (APTR)writeit + 8; // only up to ED_DATE
+            writename = (APTR)writeit + 1 * 4; // ed_Next
+            if (type >= ED_NAME) writename += 1 * 4; // ed_Name
+            if (type >= ED_TYPE) writename += 1 * 4; // ed_Type
+            if (type >= ED_SIZE) writename += 1 * 4; // ed_Size
+            if (type >= ED_PROTECTION) writename += 1 * 4; // ed_Prot
+            if (type >= ED_DATE) writename += 3 * 4; // ed_Days, ed_Mins, ed_Ticks
+
             if (eadnativeit->ed_Next == NULL)
                 writenext = NULL;
             else
                 writenext = writename + namelen;
 
             writeit->ed_Next    = (APTR32)(IPTR)writenext;
-            writeit->ed_Name    = (APTR32)(IPTR)writename;
-            writeit->ed_Type    = eadnativeit->ed_Type;
-            writeit->ed_Size    = eadnativeit->ed_Size;
-            writeit->ed_Prot    = eadnativeit->ed_Prot;
-            writeit->ed_Days    = eadnativeit->ed_Days;
-            writeit->ed_Mins    = eadnativeit->ed_Mins;
-            writeit->ed_Ticks   = eadnativeit->ed_Ticks;
+            if (type >= ED_NAME)
+                writeit->ed_Name    = (APTR32)(IPTR)writename;
+            if (type >= ED_TYPE)
+                writeit->ed_Type    = eadnativeit->ed_Type;
+            if (type >= ED_SIZE)
+                writeit->ed_Size    = eadnativeit->ed_Size;
+            if (type >= ED_PROTECTION)
+                writeit->ed_Prot    = eadnativeit->ed_Prot;
+            if (type >= ED_DATE)
+            {
+                writeit->ed_Days    = eadnativeit->ed_Days;
+                writeit->ed_Mins    = eadnativeit->ed_Mins;
+                writeit->ed_Ticks   = eadnativeit->ed_Ticks;
+            }
             // ed_Comment, ed_OwnerUID, ed_OwnerGUI missing
-            CopyMem(eadnativeit->ed_Name, writename, namelen);
+            if (type >= ED_NAME)
+                CopyMem(eadnativeit->ed_Name, writename, namelen);
 
             writeit = (struct ExAllDataV0 *)writenext;
         }
