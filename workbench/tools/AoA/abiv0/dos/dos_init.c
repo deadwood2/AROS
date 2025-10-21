@@ -117,9 +117,77 @@ LONG abiv0_SetVBuf()
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
-struct ProcessV0 *abiv0_CreateNewProc()
+APTR32 g_v0entry_tmp;
+ULONG g_v0stacksize_tmp;
+
+struct ProcessV0 *g_v0childprocesses[2];
+struct Task *g_nativechildprocesses[2];
+ULONG g_childprocessidx = 0;
+
+static void createNewProc_trampoline()
 {
-    return (APTR)0x1;
+    struct StackSwapStructV0 sss;
+    struct StackSwapArgsV0 ssa;
+
+    ULONG stacksize = g_v0stacksize_tmp;
+    APTR32 entry = g_v0entry_tmp;
+
+    g_v0entry_tmp = (APTR32)(IPTR)NULL;
+    g_v0stacksize_tmp = 0;
+
+    if (stacksize == 0) stacksize = AROS_STACKSIZE;
+
+
+    APTR stack31bit = abiv0_AllocMem(stacksize, MEMF_CLEAR | MEMF_31BIT, DOS_SysBaseV0);
+
+    sss.stk_Lower = (APTR32)(IPTR)stack31bit;
+    sss.stk_Upper = sss.stk_Lower + stacksize;
+    sss.stk_Pointer = sss.stk_Upper;
+
+    abiv0_NewStackSwap(&sss, (LONG_FUNC)(IPTR)entry, &ssa, DOS_SysBaseV0);
+}
+
+struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
+{
+    STRPTR p = NULL;
+
+    if (tags != NULL && tags[1].ti_Tag == NP_Name) p = (STRPTR)(IPTR)tags[1].ti_Data;
+    if (p != NULL && p[0] == 'W' && p[1] == 'o')
+        return (APTR)0x1; // Disable "Workbench Handler"
+
+    if (g_childprocessidx == 2)
+        asm("int3"); // only two additional process for now
+
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+
+    struct TagItem *tagNative = tagListNative;
+
+    while (tagNative->ti_Tag != TAG_DONE)
+    {
+        switch(tagNative->ti_Tag)
+        {
+            case(NP_Name):
+            bug("Process: %s\n", tagNative->ti_Data);
+                break;
+            case(NP_StackSize):
+                g_v0stacksize_tmp = tagNative->ti_Data;
+                break;
+            case(NP_Entry):
+                g_v0entry_tmp = (APTR32)tagNative->ti_Data;
+                tagNative->ti_Data = (IPTR)createNewProc_trampoline;
+                break;
+            default:
+                bug("%x\n", tagNative->ti_Tag);
+                asm("int3");
+        }
+        tagNative++;
+    }
+
+    g_nativechildprocesses[g_childprocessidx] = (struct Task *)CreateNewProc(tagListNative);
+    g_v0childprocesses[g_childprocessidx] =  abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
+    g_childprocessidx++;
+bug("abiv0_CreateNewProc: STUB\n");
+    return g_v0childprocesses[g_childprocessidx - 1];
 }
 MAKE_PROXY_ARG_2(CreateNewProc)
 
