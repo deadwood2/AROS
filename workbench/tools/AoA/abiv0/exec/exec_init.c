@@ -710,6 +710,22 @@ ULONG abiv0_SetSignal(ULONG newSignals, ULONG signalSet, struct ExecBaseV0 *SysB
 }
 MAKE_PROXY_ARG_3(SetSignal)
 
+BYTE abiv0_SetTaskPri(struct TaskV0 *task, LONG priority, struct ExecBaseV0 *SysBaseV0)
+{
+    if (task == g_v0maintask)
+        return SetTaskPri(g_nativemaintask, priority);
+
+    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+    {
+        if (task == g_v0childprocesses[i])
+            return SetTaskPri(g_nativechildprocesses[i], priority);
+    }
+
+asm("int3");
+    return 0;
+}
+MAKE_PROXY_ARG_3(SetTaskPri)
+
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
 
@@ -857,6 +873,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 56, (APTR32)(IPTR)proxy_FreeSignal);
     __AROS_SETVECADDRV0(abiv0SysBase, 96, execfunctable[95]);    // AttemptSemaphore
     __AROS_SETVECADDRV0(abiv0SysBase, 51, (APTR32)(IPTR)proxy_SetSignal);
+    __AROS_SETVECADDRV0(abiv0SysBase, 50, (APTR32)(IPTR)proxy_SetTaskPri);
 
 
     return abiv0SysBase;
