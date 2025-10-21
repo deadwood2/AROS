@@ -9,4 +9,4 @@ USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-processor modname=processor modtype=resource \
     version=$(AROS_TARGET_PLATFORM) files="init getcpuinfo" \
-    archspecific=yes usesdks="private"
+    archspecific=yes uselibs="stdc.static" usesdks="private"
