@@ -631,7 +631,10 @@ MAKE_PROXY_ARG_4(CopyMem)
 
 APTR makeFileHandleProxy(BPTR);
 
-struct TaskV0 *g_v0Task = NULL;
+struct TaskV0 *g_v0maintask = NULL;
+struct Task *g_nativemaintask = NULL;
+struct ProcessV0 *g_v0childprocesses[2];
+struct Task *g_nativechildprocesses[2];
 extern STRPTR program_name;
 
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
@@ -639,37 +642,52 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     if (name != NULL)
         asm("int3");
 
-    if (g_v0Task == NULL)
+    struct Task* native = FindTask(NULL);
+
+    if (native == g_nativemaintask)
     {
-        struct ProcessV0 *dummy = NULL;
-        struct CommandLineInterfaceV0 *cli = NULL;
+        if (g_v0maintask == NULL)
+        {
+            struct ProcessV0 *dummy = NULL;
+            struct CommandLineInterfaceV0 *cli = NULL;
 
-        if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
-        dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
-        dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
-        strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
-        dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input());
-        dummy->pr_CES = 0x2; //fake
-        dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
-        dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
-        dummy->pr_Arguments = (APTR32)(IPTR)"";
+            if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
+            dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
+            dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
+            strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
+            dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input());
+            dummy->pr_CES = 0x2; //fake
+            dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
+            dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
+            dummy->pr_Arguments = (APTR32)(IPTR)"";
 
-        cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
-        cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(strlen(program_name) + 1, MEMF_CLEAR, SysBaseV0);
-        strcpy((char *)(IPTR)cli->cli_CommandName, program_name);
+            cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
+            cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(strlen(program_name) + 1, MEMF_CLEAR, SysBaseV0);
+            strcpy((char *)(IPTR)cli->cli_CommandName, program_name);
 
-        dummy->pr_CLI = (BPTR32)(IPTR)cli;
+            dummy->pr_CLI = (BPTR32)(IPTR)cli;
 
-        dummy->pr_Task.tc_Flags |= TF_ETASK;
-        dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
+            dummy->pr_Task.tc_Flags |= TF_ETASK;
+            dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
 
-        g_v0Task = (struct TaskV0 *)dummy;
+            g_v0maintask = (struct TaskV0 *)dummy;
 
-        /* Needed for GET_THIS_TASK; TODO: change for multithreaded applications */
-        SysBaseV0->ThisTask = (APTR32)(IPTR)dummy;
+            /* Needed for GET_THIS_TASK; TODO: change for multithreaded applications */
+            SysBaseV0->ThisTask = (APTR32)(IPTR)dummy;
+        }
+        return g_v0maintask;
     }
 
-    return g_v0Task;
+    /* Handle child processes */
+    for (LONG i = 0; i < 2; i++)
+    {
+        /* TODO: what about SysBaseV0->ThisTask?*/
+        if (native == g_nativechildprocesses[i])
+            return (struct TaskV0 *)g_v0childprocesses[i];
+    }
+
+asm("int3");
+    return NULL;
 }
 MAKE_PROXY_ARG_2(FindTask)
 
@@ -761,6 +779,8 @@ struct ExecBaseV0 *init_exec()
     NEWLISTV0(&abiv0SysBase->ResourceList);
     abiv0SysBase->LibNode.lib_Node.ln_Name = 0x0000E0EC;
     abiv0SysBase->LibNode.lib_Version = 51;
+
+    g_nativemaintask = FindTask(NULL);
 
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (LONG i = 5; i <= 186; i++)
