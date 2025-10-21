@@ -762,6 +762,11 @@ struct ExecBaseV0 *init_exec()
     abiv0SysBase->LibNode.lib_Node.ln_Name = 0x0000E0EC;
     abiv0SysBase->LibNode.lib_Version = 51;
 
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (LONG i = 5; i <= 186; i++)
+        __AROS_SETVECADDRV0(abiv0SysBase, i, (APTR32)(IPTR)i);
+
+    /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0SysBase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
     __AROS_SETVECADDRV0(abiv0SysBase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
     __AROS_SETVECADDRV0(abiv0SysBase, 49, (APTR32)(IPTR)proxy_FindTask);
