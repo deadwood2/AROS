@@ -119,8 +119,9 @@ MAKE_PROXY_ARG_5(SetVBuf)
 
 APTR32 g_v0entry_tmp;
 ULONG g_v0stacksize_tmp;
-extern struct ProcessV0 *g_v0childprocesses[2];
-extern struct Task *g_nativechildprocesses[2];
+#define MAXCHILDPROCESSES 3 // same in EXEC
+extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
+extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 ULONG g_childprocessidx = 0;
 
 static void createNewProc_trampoline()
@@ -154,8 +155,8 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
     if (p != NULL && p[0] == 'W' && p[1] == 'o')
         return (APTR)0x1; // Disable "Workbench Handler"
 
-    if (g_childprocessidx == 2)
-        asm("int3"); // only two additional process for now
+    if (g_childprocessidx == MAXCHILDPROCESSES)
+        asm("int3"); // limited number of proceses for now
 
     struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
 
@@ -166,7 +167,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
         switch(tagNative->ti_Tag)
         {
             case(NP_Name):
-            bug("Process: %s\n", tagNative->ti_Data);
+                bug("Process: %s\n", tagNative->ti_Data);
                 break;
             case(NP_StackSize):
                 g_v0stacksize_tmp = tagNative->ti_Data;
