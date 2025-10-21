@@ -633,8 +633,9 @@ APTR makeFileHandleProxy(BPTR);
 
 struct TaskV0 *g_v0maintask = NULL;
 struct Task *g_nativemaintask = NULL;
-struct ProcessV0 *g_v0childprocesses[2];
-struct Task *g_nativechildprocesses[2];
+#define MAXCHILDPROCESSES 3 // same in DOS
+struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
+struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 extern STRPTR program_name;
 
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
@@ -679,7 +680,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     }
 
     /* Handle child processes */
-    for (LONG i = 0; i < 2; i++)
+    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
     {
         /* TODO: what about SysBaseV0->ThisTask?*/
         if (native == g_nativechildprocesses[i])
