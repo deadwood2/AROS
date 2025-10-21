@@ -643,7 +643,7 @@ APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0
     /* pointerclass needs internal support, disable for now */
     if (classID && classID[0] == 'p' && classID[6] == 'r')
     {
-bug("abiv0_NewObjectA: NOT creating pointerclass object");
+bug("abiv0_NewObjectA: NOT creating pointerclass object\n");
         return ret;
     }
 
