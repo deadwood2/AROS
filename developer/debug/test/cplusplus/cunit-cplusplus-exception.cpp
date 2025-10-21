@@ -3,6 +3,8 @@
     All rights reserved.
 */
 
+#ifndef __arm__
+
 #include <proto/exec.h>
 
 #include <CUnit/CUnitCI.h>
@@ -34,3 +36,12 @@ int main(int argc, char** argv)
     CUNIT_CI_TEST(test_exception_caught);
     return CU_CI_RUN_SUITES();
 }
+
+#else
+
+int main(void)
+{
+    return 0;
+}
+
+#endif

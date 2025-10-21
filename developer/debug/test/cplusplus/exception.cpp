@@ -8,6 +8,8 @@
  * disassemble it. Anyway our aim is to test exceptions.
  */
 
+#ifndef __arm__
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -62,3 +64,12 @@ int main ()
     printf("Exiting\n");
     return 0;
 }
+
+#else
+
+int main()
+{
+    return 0;
+}
+
+#endif
