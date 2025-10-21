@@ -761,7 +761,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
 
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (LONG i = 5; i <= 226; i++)
-        __AROS_SETVECADDRV0(abiv0DOSBase, i, (APTR32)(IPTR)i);
+        __AROS_SETVECADDRV0(abiv0DOSBase, i, (APTR32)(IPTR)i + 200);
 
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);
