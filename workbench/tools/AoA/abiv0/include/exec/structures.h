@@ -24,6 +24,8 @@ struct MinNodeV0
 
 
 struct __mayalias ListV0;
+
+// size: 16
 struct ListV0
 {
     APTR32  lh_Head;
@@ -38,6 +40,7 @@ struct ListV0
 };
 
 struct __mayalias MinListV0;
+// size: 12
 struct MinListV0
 {
     APTR32 mlh_Head;
@@ -332,6 +335,7 @@ struct SemaphoreRequestV0
 };
 
 
+// size: 52
 struct SignalSemaphoreV0
 {
     struct NodeV0               ss_Link;
