@@ -88,7 +88,7 @@ double yn(int n, double x) { return __ieee754_yn(n, x); }
 double log(double x) { return __ieee754_log(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(logl), logl, AROS_CSYM_FROM_ASM_NAME(logl), AROS_CSYM_FROM_ASM_NAME(log));
-AROS_logORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(logl));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(logl));
 #else
 long double logl(long double x) { return __ieee754_logl(x); }
 #endif
@@ -96,7 +96,7 @@ long double logl(long double x) { return __ieee754_logl(x); }
 double log10(double x) { return __ieee754_log10(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(log10l), log10l, AROS_CSYM_FROM_ASM_NAME(log10l), AROS_CSYM_FROM_ASM_NAME(log10));
-AROS_log10ORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(log10l));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(log10l));
 #else
 long double log10l(long double x) { return __ieee754_log10l(x); }
 #endif
@@ -104,7 +104,7 @@ long double log10l(long double x) { return __ieee754_log10l(x); }
 double log1p(double x) { return __ieee754_log1p(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(log1pl), log1pl, AROS_CSYM_FROM_ASM_NAME(log1pl), AROS_CSYM_FROM_ASM_NAME(log1p));
-AROS_log1pORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(log1pl));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(log1pl));
 #else
 long double log1pl(long double x) { return __ieee754_log1pl(x); }
 #endif
@@ -112,7 +112,7 @@ long double log1pl(long double x) { return __ieee754_log1pl(x); }
 double log2(double x) { return __ieee754_log2(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(log2l), log2l, AROS_CSYM_FROM_ASM_NAME(log2l), AROS_CSYM_FROM_ASM_NAME(log2));
-AROS_log2ORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(log2l));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(log2l));
 #else
 long double log2l(long double x) { return __ieee754_log2l(x); }
 #endif
@@ -120,7 +120,7 @@ long double log2l(long double x) { return __ieee754_log2l(x); }
 double modf(double x, double *iptr) { return __ieee754_modf(x, iptr); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(modfl), modfl, AROS_CSYM_FROM_ASM_NAME(modfl), AROS_CSYM_FROM_ASM_NAME(modf));
-AROS_modfORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(modfl));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(modfl));
 #else
 long double modfl(long double x, long double *iptr) { return __ieee754_modfl(x, iptr); }
 #endif
@@ -128,7 +128,7 @@ long double modfl(long double x, long double *iptr) { return __ieee754_modfl(x, 
 double pow(double x, double y) { return __ieee754_pow(x, y); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(powl), powl, AROS_CSYM_FROM_ASM_NAME(powl), AROS_CSYM_FROM_ASM_NAME(pow));
-AROS_powORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(powl));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(powl));
 #else
 long double powl(long double x, long double y) { return __ieee754_powl(x, y); }
 #endif
@@ -136,7 +136,7 @@ long double powl(long double x, long double y) { return __ieee754_powl(x, y); }
 double remquo(double x, double y, int *quo) { return __ieee754_remquo(x, y, quo); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(remquol), remquol, AROS_CSYM_FROM_ASM_NAME(remquol), AROS_CSYM_FROM_ASM_NAME(remquo));
-AROS_remquoORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(remquol));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(remquol));
 #else
 long double remquol(long double x, long double y, int *quo) { return __ieee754_remquol(x, y, quo); }
 #endif
@@ -144,7 +144,7 @@ long double remquol(long double x, long double y, int *quo) { return __ieee754_r
 double sqrt(double x) { return __ieee754_sqrt(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(sqrtl), sqrtl, AROS_CSYM_FROM_ASM_NAME(sqrtl), AROS_CSYM_FROM_ASM_NAME(sqrt));
-AROS_sqrtORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(sqrtl));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(sqrtl));
 #else
 long double sqrtl(long double x) { return __ieee754_sqrtl(x); }
 #endif
@@ -152,7 +152,7 @@ long double sqrtl(long double x) { return __ieee754_sqrtl(x); }
 double tgamma(double x) { return __ieee754_tgamma(x); }
 #if LDBL_MANT_DIG == DBL_MANT_DIG
 AROS_MAKE_ASM_SYM(typeof(tgammal), tgammal, AROS_CSYM_FROM_ASM_NAME(tgammal), AROS_CSYM_FROM_ASM_NAME(tgamma));
-AROS_tgammaORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(tgammal));
+AROS_EXPORT_ASM_SYM(AROS_CSYM_FROM_ASM_NAME(tgammal));
 #else
 long double tgammal(long double x) { return __ieee754_tgammal(x); }
 #endif
