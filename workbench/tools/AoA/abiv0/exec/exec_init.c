@@ -717,7 +717,7 @@ BYTE abiv0_SetTaskPri(struct TaskV0 *task, LONG priority, struct ExecBaseV0 *Sys
 
     for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
     {
-        if (task == g_v0childprocesses[i])
+        if (task == (struct TaskV0 *)g_v0childprocesses[i])
             return SetTaskPri(g_nativechildprocesses[i], priority);
     }
 
