@@ -394,6 +394,13 @@ void abiv0_AddPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(AddPort)
 
+void abiv0_RemPort(struct MsgPortV0 * port, struct ExecBaseV0 *SysBaseV0)
+{
+    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    RemPort(proxy->native);
+}
+MAKE_PROXY_ARG_2(RemPort)
+
 #define KEY32TO32   0xaabbccdd
 struct Message32To32
 {
@@ -968,6 +975,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 54, (APTR32)(IPTR)proxy_Signal);
     __AROS_SETVECADDRV0(abiv0SysBase, 65, (APTR32)(IPTR)proxy_FindPort);
     __AROS_SETVECADDRV0(abiv0SysBase, 59, (APTR32)(IPTR)proxy_AddPort);
+    __AROS_SETVECADDRV0(abiv0SysBase, 60, (APTR32)(IPTR)proxy_RemPort);
 
     return abiv0SysBase;
 }
