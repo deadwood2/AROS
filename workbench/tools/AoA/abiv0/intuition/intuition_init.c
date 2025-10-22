@@ -634,6 +634,20 @@ bug("abiv0_ActivateGadget: STUB\n");
 }
 MAKE_PROXY_ARG_2(ActivateGadget);
 
+void abiv0_ActivateWindow(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *winproxy = (struct WindowProxy *)window;
+    ActivateWindow(winproxy->native);
+}
+MAKE_PROXY_ARG_2(ActivateWindow);
+
+void  abiv0_WindowToFront(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *winproxy = (struct WindowProxy *)window;
+    WindowToFront(winproxy->native);
+}
+MAKE_PROXY_ARG_2(WindowToFront);
+
 APTR32 *intuitionjmp;
 
 struct IClassV0
@@ -776,6 +790,13 @@ bug("abiv0_AddGList: STUB\n");
     return AddGList(winproxy->native, gadFirst, position, numGad, NULL);
 }
 MAKE_PROXY_ARG_6(AddGList)
+
+UWORD abiv0_AddGadget(struct WindowV0 * window, struct GadgetV0 *gadget, ULONG position, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_AddGadget: STUB\n");
+return 0;
+}
+MAKE_PROXY_ARG_4(AddGadget)
 
 void abiv0_RefreshGList(struct GadgetV0 *gadgets, struct WindowV0 *window, APTR /*struct Requester **/requester, LONG numGad,
     struct LibraryV0 *IntuitionBaseV0)
@@ -1220,6 +1241,10 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  87, (APTR32)(IPTR)proxy_LockPubScreenList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  88, (APTR32)(IPTR)proxy_UnlockPubScreenList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  81, (APTR32)(IPTR)proxy_ChangeWindowBox);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,   7, (APTR32)(IPTR)proxy_AddGadget);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  75, (APTR32)(IPTR)proxy_ActivateWindow);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  52, (APTR32)(IPTR)proxy_WindowToFront);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  38, intuitionjmp[165 -  38]);  // RemoveGadget
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
