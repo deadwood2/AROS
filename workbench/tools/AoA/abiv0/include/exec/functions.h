@@ -5,6 +5,7 @@
 
 #include "./structures.h"
 
+/* These functions can be called only in 64-bit mode but with either 64-bit or 32-bit stack */
 APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0);
 void abiv0_FreeMem(APTR memoryBlock, ULONG byteSize, struct ExecBaseV0 *SysBaseV0);
