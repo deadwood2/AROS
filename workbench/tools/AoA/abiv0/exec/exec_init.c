@@ -976,6 +976,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 65, (APTR32)(IPTR)proxy_FindPort);
     __AROS_SETVECADDRV0(abiv0SysBase, 59, (APTR32)(IPTR)proxy_AddPort);
     __AROS_SETVECADDRV0(abiv0SysBase, 60, (APTR32)(IPTR)proxy_RemPort);
+    __AROS_SETVECADDRV0(abiv0SysBase, 38, execfunctable[37]);    // FreeEntry
 
     return abiv0SysBase;
 }

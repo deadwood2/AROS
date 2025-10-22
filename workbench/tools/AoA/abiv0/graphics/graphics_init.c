@@ -379,6 +379,13 @@ BOOL abiv0_OrRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct Gfx
 }
 MAKE_PROXY_ARG_3(OrRectRegion)
 
+BOOL abiv0_XorRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RegionProxy *proxy = (struct RegionProxy *)Reg;
+    return XorRectRegion(proxy->native, Rect);
+}
+MAKE_PROXY_ARG_3(XorRectRegion)
+
 void abiv0_DisposeRegion(struct RegionV0 *region, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RegionProxy *proxy = (struct RegionProxy *)region;
@@ -625,4 +632,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 154, (APTR32)(IPTR)proxy_FreeBitMap);
     __AROS_SETVECADDRV0(abiv0GfxBase, 129, graphicsjmp[202 - 129]);  // WritePixelLine8
     __AROS_SETVECADDRV0(abiv0GfxBase, 131, (APTR32)(IPTR)proxy_WritePixelArray8);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  93, (APTR32)(IPTR)proxy_XorRectRegion);
 }
