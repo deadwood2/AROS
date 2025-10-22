@@ -54,7 +54,7 @@ extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBas
 
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
-    if (name != NULL) asm("int3");
+    if (name != NULL && strcmp(name, "Workbench") != 0) asm("int3");
 
     struct Screen *native = LockPubScreen(name);
 
