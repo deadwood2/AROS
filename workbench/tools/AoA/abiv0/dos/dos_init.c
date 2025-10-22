@@ -117,7 +117,7 @@ LONG abiv0_SetVBuf()
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
-#define MAXCHILDPROCESSES 4 // same in EXEC
+#define MAXCHILDPROCESSES 6 // same in EXEC
 extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 ULONG g_childprocessidx = 0;
@@ -156,12 +156,8 @@ static void createNewProc_trampoline()
 
 struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
 {
-    STRPTR p = NULL;
-    ULONG childprocessidx;
 
-    if (tags != NULL && tags[1].ti_Tag == NP_Name) p = (STRPTR)(IPTR)tags[1].ti_Data;
-    if (p != NULL && p[0] == 'W' && p[1] == 'o')
-        return (APTR)0x1; // Disable "Workbench Handler"
+    ULONG childprocessidx;
 
     if (g_childprocessidx == MAXCHILDPROCESSES)
         asm("int3"); // limited number of proceses for now
@@ -181,6 +177,14 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
         {
             case(NP_Name):
                 bug("Process: %s\n", tagNative->ti_Data);
+                STRPTR p = (STRPTR)tagNative->ti_Data;
+                if (p[0] == 'W' && p[1] == 'o')
+                    return (APTR)0x1; // Disable "Workbench Handler"
+                if (p[0] == 'N' && p[10] == 'c')
+                    return (APTR)0x1; // Disable "NList.mcc clipboard server"
+                if (p[0] == 'N' && p[14] == 'c')
+                    return (APTR)0x1; // Disable "NListtree.mcc clipboard server"
+
                 break;
             case(NP_StackSize):
                 msg->cnp_StackSize = tagNative->ti_Data;

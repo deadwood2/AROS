@@ -700,7 +700,7 @@ APTR makeFileHandleProxy(BPTR);
 
 struct TaskV0 *g_v0maintask = NULL;
 struct Task *g_nativemaintask = NULL;
-#define MAXCHILDPROCESSES 4 // same in DOS
+#define MAXCHILDPROCESSES 6 // same in DOS
 struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 extern STRPTR program_name;
