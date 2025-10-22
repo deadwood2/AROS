@@ -365,19 +365,37 @@ void abiv0_DeleteMsgPort(struct MsgPortV0 * port, struct ExecBaseV0 *SysBaseV0)
     DeleteMsgPort(proxy->native);
 }
 MAKE_PROXY_ARG_2(DeleteMsgPort)
+
+#define KEY32TO32   0xaabbccdd
+struct Message32To32
+{
+    struct Message      msg;
+    struct MessageV0    *v0msg;
+    ULONG               key;
+};
+
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
     struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
 
     struct Message *msg = GetMsg(proxy->native);
 
+    /* 64-bit sending a message to a reader who is 32-bit */
     if (proxy->translate)
     {
         return proxy->translate(msg);
     }
 
+    /* 32-bit sender and 32-bit reader */
     if (msg)
     {
+        struct Message32To32 *m3232 = (struct Message32To32 *)msg;
+        if (m3232->key == KEY32TO32)
+        {
+            struct MessageV0 *_ret = m3232->v0msg;
+            // FreeMem(m3232, sizeof(struct Message32To32)); // causes memory damage, why?
+            return _ret;
+        }
 bug("abiv0_GetMsg: STUB\n");
 asm("int3");
     }
@@ -404,7 +422,18 @@ void abiv0_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message, struct Exec
 {
     // rport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
     // message->mn_Node.ln_Name = 0x1;
+
 bug("abiv0_PutMsg: STUB\n");
+    /* 32-bit sender sending to 32-bit reader (opaque transport through 64-bit MsgPort) */
+    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    struct Message32To32 *native = AllocMem(sizeof(struct Message32To32), MEMF_CLEAR);
+    native->v0msg   = message;
+    native->key     = KEY32TO32;
+    native->msg.mn_ReplyPort = ((struct MsgPortProxy *)(IPTR)message->mn_ReplyPort)->native;
+    /* Store native message in mn_Node of v0msg for now */
+    *(IPTR *)(&message->mn_Node) = (IPTR)native;
+
+    PutMsg(proxy->native, (struct Message *)native);
 }
 MAKE_PROXY_ARG_3(PutMsg)
 
