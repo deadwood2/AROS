@@ -117,23 +117,28 @@ LONG abiv0_SetVBuf()
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
-APTR32 g_v0entry_tmp;
-ULONG g_v0stacksize_tmp;
 #define MAXCHILDPROCESSES 3 // same in EXEC
 extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 ULONG g_childprocessidx = 0;
+
+struct MsgPort *g_cnpport;
+struct CreateNewProcMsg
+{
+    struct Message  msg;
+    APTR32          cnp_Entry;
+    ULONG           cnp_StackSize;
+};
 
 static void createNewProc_trampoline()
 {
     struct StackSwapStructV0 sss;
     struct StackSwapArgsV0 ssa;
 
-    ULONG stacksize = g_v0stacksize_tmp;
-    APTR32 entry = g_v0entry_tmp;
-
-    g_v0entry_tmp = (APTR32)(IPTR)NULL;
-    g_v0stacksize_tmp = 0;
+    struct CreateNewProcMsg *msg = (struct CreateNewProcMsg *)GetMsg(g_cnpport);
+    ULONG stacksize = msg->cnp_StackSize;
+    APTR32 entry = msg->cnp_Entry;
+    FreeMem(msg, sizeof(struct CreateNewProcMsg));
 
     if (stacksize == 0) stacksize = AROS_STACKSIZE;
 
@@ -152,6 +157,7 @@ static void createNewProc_trampoline()
 struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
 {
     STRPTR p = NULL;
+    ULONG childprocessidx;
 
     if (tags != NULL && tags[1].ti_Tag == NP_Name) p = (STRPTR)(IPTR)tags[1].ti_Data;
     if (p != NULL && p[0] == 'W' && p[1] == 'o')
@@ -159,6 +165,11 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
 
     if (g_childprocessidx == MAXCHILDPROCESSES)
         asm("int3"); // limited number of proceses for now
+
+    childprocessidx = g_childprocessidx;
+    g_childprocessidx++; /* Increase alrady here in case a child process creates a child process */
+
+    struct CreateNewProcMsg *msg = (struct CreateNewProcMsg *)AllocMem(sizeof(struct CreateNewProcMsg), MEMF_CLEAR);
 
     struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
 
@@ -172,10 +183,10 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
                 bug("Process: %s\n", tagNative->ti_Data);
                 break;
             case(NP_StackSize):
-                g_v0stacksize_tmp = tagNative->ti_Data;
+                msg->cnp_StackSize = tagNative->ti_Data;
                 break;
             case(NP_Entry):
-                g_v0entry_tmp = (APTR32)tagNative->ti_Data;
+                msg->cnp_Entry = (APTR32)tagNative->ti_Data;
                 tagNative->ti_Data = (IPTR)createNewProc_trampoline;
                 break;
             default:
@@ -185,11 +196,15 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
         tagNative++;
     }
 
-    g_nativechildprocesses[g_childprocessidx] = (struct Task *)CreateNewProc(tagListNative);
-    g_v0childprocesses[g_childprocessidx] =  abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
-    g_childprocessidx++;
+    if (g_cnpport == NULL)
+        g_cnpport = CreateMsgPort();
+
+    PutMsg(g_cnpport, (struct Message *)msg);
+
+    g_nativechildprocesses[childprocessidx] = (struct Task *)CreateNewProc(tagListNative);
+    g_v0childprocesses[childprocessidx] =  abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
 bug("abiv0_CreateNewProc: STUB\n");
-    return g_v0childprocesses[g_childprocessidx - 1];
+    return g_v0childprocesses[childprocessidx];
 }
 MAKE_PROXY_ARG_2(CreateNewProc)
 
