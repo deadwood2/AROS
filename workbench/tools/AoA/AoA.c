@@ -285,6 +285,8 @@ void execute_in_32_bit(APTR start, struct ExecBaseV0 *SysBaseV0)
         : SCRATCH_REGS_64_TO_32 );
 }
 
+void refresh_g_v0maintask();
+
 LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
     TEXT path[64];
@@ -363,6 +365,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     BPTR progdir = Lock(path, SHARED_LOCK);
     BPTR oldprogdir = SetProgramDir(progdir);
     BPTR oldcurdir = CurrentDir(DupLock(progdir));
+    refresh_g_v0maintask();
 
     execute_in_32_bit(start, SysBaseV0);
 

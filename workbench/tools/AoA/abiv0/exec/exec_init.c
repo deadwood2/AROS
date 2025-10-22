@@ -670,6 +670,15 @@ struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 extern STRPTR program_name;
 
+void refresh_g_v0maintask()
+{
+    if (g_v0maintask)
+    {
+        struct ProcessV0 *dummy = (struct ProcessV0 *)g_v0maintask;
+        dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
+    }
+}
+
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     if (name != NULL)
