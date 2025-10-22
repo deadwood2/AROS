@@ -117,7 +117,7 @@ LONG abiv0_SetVBuf()
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
-#define MAXCHILDPROCESSES 3 // same in EXEC
+#define MAXCHILDPROCESSES 4 // same in EXEC
 extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 ULONG g_childprocessidx = 0;
