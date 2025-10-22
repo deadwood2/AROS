@@ -309,6 +309,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     Layers_SysBaseV0 = SysBaseV0;
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (int i = 5; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,  29, (APTR32)(IPTR)proxy_InstallClipRegion);
     __AROS_SETVECADDRV0(abiv0LayersBase,  20, (APTR32)(IPTR)proxy_LockLayerInfo);
@@ -324,6 +326,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
     /* Remove all vectors for now (leave LibOpen) */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200 + 100);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 33, (APTR32)(IPTR)proxy_WriteLUTPixelArray);
