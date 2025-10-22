@@ -30,8 +30,8 @@ USER_LDFLAGS := -static
 #  modtype=library files="$(FILES)" \
 #  uselibs=""
 
-#INCLUDE_FILES:=usergroup.h
-#%copy_includes path=libraries includes=$(INCLUDE_FILES)
+INCLUDE_FILES:=usergroup.h
+%copy_includes path=libraries includes=$(INCLUDE_FILES)
 
 #INCLUDE_FILES:=utmp.h
 #%copy_includes includes=$(INCLUDE_FILES)
