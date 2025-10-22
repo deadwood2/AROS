@@ -366,6 +366,32 @@ void abiv0_DeleteMsgPort(struct MsgPortV0 * port, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(DeleteMsgPort)
 
+struct MsgPortV0 * abiv0_FindPort(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
+{
+    struct MsgPort *native = FindPort(name);
+
+    if (native)
+    {
+        struct MsgPortProxy *proxy = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, SysBaseV0);
+
+        proxy->base.mp_SigBit = native->mp_SigBit;
+        NEWLISTV0(&proxy->base.mp_MsgList);
+
+        proxy->native = native;
+        return (struct MsgPortV0 *)proxy;
+    }
+
+    return NULL;
+}
+MAKE_PROXY_ARG_2(FindPort)
+
+void abiv0_AddPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
+{
+    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    AddPort(proxy->native);
+}
+MAKE_PROXY_ARG_2(AddPort)
+
 #define KEY32TO32   0xaabbccdd
 struct Message32To32
 {
@@ -938,7 +964,8 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 51, (APTR32)(IPTR)proxy_SetSignal);
     __AROS_SETVECADDRV0(abiv0SysBase, 50, (APTR32)(IPTR)proxy_SetTaskPri);
     __AROS_SETVECADDRV0(abiv0SysBase, 54, (APTR32)(IPTR)proxy_Signal);
-
+    __AROS_SETVECADDRV0(abiv0SysBase, 65, (APTR32)(IPTR)proxy_FindPort);
+    __AROS_SETVECADDRV0(abiv0SysBase, 59, (APTR32)(IPTR)proxy_AddPort);
 
     return abiv0SysBase;
 }
