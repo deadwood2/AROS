@@ -52,7 +52,6 @@ struct Screen       *g_mainnativescreen;
 
 extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 
-APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0);
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
     if (name != NULL) asm("int3");
@@ -340,6 +339,7 @@ bug("Intuition_Translate - missing code for class %d\n", imsg->Class);
 struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     struct NewWindow *newWindowNative = NULL;
+
     if (newWindow != NULL)
     {
         newWindowNative = AllocMem(sizeof(struct NewWindow), MEMF_CLEAR);
@@ -636,17 +636,43 @@ MAKE_PROXY_ARG_2(ActivateGadget);
 
 APTR32 *intuitionjmp;
 
-APTR abiv0_NewObjectA(struct IClass  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0)
+struct IClassV0
+{
+    struct HookV0  cl_Dispatcher;
+    ULONG          cl_Reserved;
+    APTR32         cl_Super;         /* Super-Class */
+    APTR32         cl_ID;
+    UWORD          cl_InstOffset;
+    UWORD          cl_InstSize;
+    APTR32         cl_UserData;      /* application specific */
+    ULONG          cl_SubclassCount; /* # of direct subclasses */
+    ULONG          cl_ObjectCount;   /* # of objects, made from this class
+                                        must be 0, if the class is to be
+                                        deleted */
+    ULONG          cl_Flags;         /* see below */
+    ULONG          cl_ObjectSize;    /* cl_InstOffset + cl_InstSize + sizeof(struct _Object) */
+    APTR32         cl_MemoryPool;
+};
+
+struct _ObjectV0
+{
+    struct MinNodeV0  o_Node;  /* PRIVATE */
+    APTR32 o_Class;
+};
+
+struct _struct_MsgV0
+{
+    STACKED ULONG MethodID;
+};
+
+#define _OBJV0(obj) ((struct _ObjectV0 *)(obj))
+#define _OBJECTV0(obj) (_OBJV0(obj) - 1)
+
+#define OCLASSV0(obj) ((_OBJECTV0(obj))->o_Class)
+
+static APTR call_orig_NewObjectA(struct IClassV0  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0)
 {
     APTR ret = NULL;
-
-    /* pointerclass needs internal support, disable for now */
-    if (classID && classID[0] == 'p' && classID[6] == 'r')
-    {
-bug("abiv0_NewObjectA: NOT creating pointerclass object\n");
-        return ret;
-    }
-
     /* Call original function */
     __asm__ volatile (
         "subq $16, %%rsp\n"
@@ -666,8 +692,45 @@ bug("abiv0_NewObjectA: NOT creating pointerclass object\n");
         "movl %%eax, %0\n"
         :"=m"(ret):"m"(intuitionjmp[165 - 106]), "m"(classPtr), "m"(classID), "m"(tagList), "m"(IntuitionBaseV0)
         : SCRATCH_REGS_64_TO_32 );
+}
 
-    return ret;
+struct IClassV0 *pointerclass;
+BOOL pointerclassinited = FALSE;
+
+static ULONG abiv0_pointerclass_dispatcher(struct IClassV0* cl, struct _ObjectV0 *self, struct _struct_MsgV0* msg)
+{
+    switch(msg->MethodID)
+    {
+        case(OM_NEW):
+        {
+            struct _ObjectV0 *obj = (struct _ObjectV0 *)abiv0_AllocMem(sizeof(struct _ObjectV0) + 12, MEMF_CLEAR, Intuition_SysBaseV0);
+            obj->o_Class = (APTR32)(IPTR)cl;
+            return (APTR32)(IPTR)(obj + 1);
+        }
+        default:
+bug("abiv0_pointerclass_dispatcher: STUB\n");
+    }
+    return 0;
+}
+MAKE_PROXY_ARG_3(pointerclass_dispatcher)
+
+APTR abiv0_NewObjectA(struct IClassV0  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0)
+{
+    /* pointerclass needs internal support, return fake object for now */
+    if (classID && classID[0] == 'p' && classID[6] == 'r')
+    {
+        if (!pointerclassinited)
+        {
+            pointerclass = (struct IClassV0 *)abiv0_AllocMem(sizeof(struct IClassV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            pointerclass->cl_Dispatcher.h_Entry = (APTR32)(IPTR)proxy_pointerclass_dispatcher;
+            pointerclass->cl_Dispatcher.h_SubEntry = (APTR32)(IPTR)NULL;
+            pointerclassinited = TRUE;
+        }
+bug("abiv0_NewObjectA: returning fake pointerclass object\n");
+        return call_orig_NewObjectA(pointerclass, NULL, tagList, IntuitionBaseV0);;
+    }
+
+    return call_orig_NewObjectA(classPtr, classID, tagList, IntuitionBaseV0);
 }
 MAKE_PROXY_ARG_4(NewObjectA)
 
@@ -747,17 +810,6 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
 extern ULONG* segclassesinitlist;
 extern ULONG *seginitlist;
-
-struct _ObjectV0
-{
-    struct MinNodeV0  o_Node;  /* PRIVATE */
-    APTR32 o_Class;
-};
-
-#define _OBJV0(obj) ((struct _ObjectV0 *)(obj))
-#define _OBJECTV0(obj) (_OBJV0(obj) - 1)
-
-#define OCLASSV0(obj) ((_OBJECTV0(obj))->o_Class)
 
 ULONG abiv0_DoMethodA(APTR object, APTR message)
 {
