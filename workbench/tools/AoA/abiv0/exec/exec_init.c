@@ -386,6 +386,9 @@ asm("int3");
 }
 MAKE_PROXY_ARG_2(GetMsg)
 
+/// hack just for NList
+// struct MsgPortV0 *rport;
+
 void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
 {
     if (message)
@@ -396,13 +399,11 @@ void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(ReplyMsg)
 
-/// hack just for NList
-struct MsgPortV0 *rport;
 
 void abiv0_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
 {
-    rport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
-    message->mn_Node.ln_Name = 0x1;
+    // rport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
+    // message->mn_Node.ln_Name = 0x1;
 bug("abiv0_PutMsg: STUB\n");
 }
 MAKE_PROXY_ARG_3(PutMsg)
@@ -410,13 +411,13 @@ MAKE_PROXY_ARG_3(PutMsg)
 struct MessageV0 *abiv0_WaitPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
 bug("abiv0_WaitPort: STUB\n");
-    if (rport != NULL && port == rport)
-    {
-        rport = NULL;
-        struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
-        ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
-        return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
-    }
+    // if (rport != NULL && port == rport)
+    // {
+    //     rport = NULL;
+    //     struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
+    //     ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
+    //     return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
+    // }
 
     struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
     WaitPort(proxy->native);
