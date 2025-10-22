@@ -137,7 +137,7 @@ static void createNewProc_trampoline()
 
     if (stacksize == 0) stacksize = AROS_STACKSIZE;
 
-
+    /* Child process will be executing 32-bit code and needs 32-bit stack */
     APTR stack31bit = abiv0_AllocMem(stacksize, MEMF_CLEAR | MEMF_31BIT, DOS_SysBaseV0);
 
     sss.stk_Lower = (APTR32)(IPTR)stack31bit;
@@ -145,6 +145,8 @@ static void createNewProc_trampoline()
     sss.stk_Pointer = sss.stk_Upper;
 
     abiv0_NewStackSwap(&sss, (LONG_FUNC)(IPTR)entry, &ssa, DOS_SysBaseV0);
+
+    abiv0_FreeMem(stack31bit, stacksize, DOS_SysBaseV0);
 }
 
 struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
