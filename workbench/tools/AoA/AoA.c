@@ -173,6 +173,12 @@ void abiv0_SubTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *
 }
 MAKE_PROXY_ARG_3(SubTime)
 
+void abiv0_AddTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *TimerBaseV0)
+{
+    AddTime(dest, src);
+}
+MAKE_PROXY_ARG_3(AddTime)
+
 #include <proto/cybergraphics.h>
 
 ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG pixel)
@@ -298,6 +304,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     abiv0TimerBase = (tmp + 512);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  8, (APTR32)(IPTR)proxy_SubTime);
+    __AROS_SETVECADDRV0(abiv0TimerBase,  7, (APTR32)(IPTR)proxy_AddTime);
     abiv0TimerBase->type = DEVPROXY_TYPE_TIMER;
 
     init_dos(SysBaseV0);
