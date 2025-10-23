@@ -333,6 +333,12 @@ BPTR abiv0_CreateDir(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(CreateDir)
 
+BOOL abiv0_GetCurrentDirName(STRPTR buf, LONG len, struct DosLibraryV0 *DOSBaseV0)
+{
+    return GetCurrentDirName(buf, len);
+}
+MAKE_PROXY_ARG_3(GetCurrentDirName)
+
 struct DevProcProxy
 {
     struct DevProcV0 base;
@@ -924,4 +930,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  33, (APTR32)(IPTR)proxy_Delay);
     __AROS_SETVECADDRV0(abiv0DOSBase,   8, (APTR32)(IPTR)proxy_Write);
     __AROS_SETVECADDRV0(abiv0DOSBase,  20, (APTR32)(IPTR)proxy_CreateDir);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  94, (APTR32)(IPTR)proxy_GetCurrentDirName);
 }
