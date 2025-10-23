@@ -877,12 +877,39 @@ else
 MAKE_PROXY_ARG_2(ObtainSemaphoreShared)
 #endif
 
+
+void abiv0_Kprintf(STRPTR format, APTR32 arg1, APTR32 arg2, APTR32 arg3, APTR32 arg4)
+{
+    bug(format, arg1, arg2, arg3, arg4);
+}
+MAKE_PROXY_ARG_12(Kprintf)
+
+struct AROSSupportBaseV0
+{
+    ULONG   _pad;
+    APTR32  kprintfptr;
+    APTR32  rkprintfptr;
+    APTR32  vkprintfptr;
+};
+
+struct IntExecBaseV0
+{
+    struct ExecBaseV0           pub;
+    struct ListV0               ResetHandlers;                  /* Reset handlers list                                          */
+    struct InterruptV0          ColdResetHandler;               /* Reset handler that causes cold reboot                        */
+    struct InterruptV0          WarmResetHandler;               /* Reset handler that causes warm reboot                        */
+    struct InterruptV0          ShutdownHandler;                /* Reset handler that halts CPU                                 */
+    struct MinListV0            AllocMemList;                   /* Mungwall allocations list                                    */
+    struct SignalSemaphoreV0    LowMemSem;                      /* Lock for single-threading low memory handlers                */
+    APTR32                      KernelBase;                     /* kernel.resource base                                         */
+};
+
 struct ExecBaseV0 *init_exec()
 {
     APTR tmp;
     TEXT path[64];
 
-    tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
+    tmp = AllocMem(1024 + sizeof(struct IntExecBaseV0), MEMF_31BIT | MEMF_CLEAR);
     abiv0SysBase = (tmp + 1024);
     global_SysBaseV0Ptr = (APTR32)(IPTR)&abiv0SysBase; /* Needed for LoadSeg32 to resolve SysBase in kernel */
 
@@ -894,6 +921,12 @@ struct ExecBaseV0 *init_exec()
     NEWLISTV0(&abiv0SysBase->ResourceList);
     abiv0SysBase->LibNode.lib_Node.ln_Name = 0x0000E0EC;
     abiv0SysBase->LibNode.lib_Version = 51;
+    abiv0SysBase->DebugAROSBase = (APTR32)(IPTR)AllocMem(sizeof(struct AROSSupportBaseV0), MEMF_31BIT | MEMF_CLEAR);
+    ((struct AROSSupportBaseV0 *)(IPTR)abiv0SysBase->DebugAROSBase)->kprintfptr =
+        (APTR32)(IPTR)proxy_Kprintf;
+
+    /* Needed to prevent certain original code from running */
+    ((struct IntExecBaseV0 *)(IPTR)abiv0SysBase)->KernelBase = (APTR32)(IPTR)NULL;
 
     g_nativemaintask = FindTask(NULL);
 
