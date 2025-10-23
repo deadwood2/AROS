@@ -304,6 +304,12 @@ LONG abiv0_SetFileSize(BPTR file, LONG offset, LONG mode, struct DosLibraryV0 *D
 }
 MAKE_PROXY_ARG_4(SetFileSize)
 
+LONG abiv0_SetProtection(CONST_STRPTR name, ULONG protect, struct DosLibraryV0 *DOSBaseV0)
+{
+    return SetProtection(name, protect);
+}
+MAKE_PROXY_ARG_3(SetProtection)
+
 BOOL abiv0_IsFileSystem(CONST_STRPTR devicename, struct DosLibraryV0 *DOSBaseV0)
 {
     return IsFileSystem(devicename);
@@ -773,7 +779,9 @@ LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, str
                 }
                 break;
             }
-            case(SYS_UserShell):
+            case SYS_UserShell:
+            case SYS_Background:
+            case SYS_Asynch:
                 break;
             default:
                 bug("%x\n", tagNative->ti_Tag);
@@ -931,4 +939,6 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,   8, (APTR32)(IPTR)proxy_Write);
     __AROS_SETVECADDRV0(abiv0DOSBase,  20, (APTR32)(IPTR)proxy_CreateDir);
     __AROS_SETVECADDRV0(abiv0DOSBase,  94, (APTR32)(IPTR)proxy_GetCurrentDirName);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  31, (APTR32)(IPTR)proxy_SetProtection);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  37, dosfunctable[ 36]);  // Execute
 }
