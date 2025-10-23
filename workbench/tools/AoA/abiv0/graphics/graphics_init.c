@@ -208,6 +208,13 @@ void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0
 }
 MAKE_PROXY_ARG_3(SetAPen)
 
+ULONG abiv0_GetAPen(struct RastPortV0 * rp, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    return GetAPen(rpnative);
+}
+MAKE_PROXY_ARG_2(GetAPen)
+
 void abiv0_SetBPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
@@ -633,4 +640,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 129, graphicsjmp[202 - 129]);  // WritePixelLine8
     __AROS_SETVECADDRV0(abiv0GfxBase, 131, (APTR32)(IPTR)proxy_WritePixelArray8);
     __AROS_SETVECADDRV0(abiv0GfxBase,  93, (APTR32)(IPTR)proxy_XorRectRegion);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 143, (APTR32)(IPTR)proxy_GetAPen);
 }
