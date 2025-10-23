@@ -550,6 +550,9 @@ MAKE_PROXY_ARG_5(DoubleClick)
 void abiv0_SetWindowTitles(struct WindowV0 *window, CONST_STRPTR windowTitle, CONST_STRPTR screenTitle, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *proxy = (struct WindowProxy *)window;
+
+    if ((APTR32)(IPTR)screenTitle == (APTR32)-1) screenTitle = (APTR)-1;
+
     SetWindowTitles(proxy->native, windowTitle, screenTitle);
 }
 MAKE_PROXY_ARG_4(SetWindowTitles)
