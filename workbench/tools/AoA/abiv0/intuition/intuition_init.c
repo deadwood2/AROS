@@ -551,6 +551,7 @@ void abiv0_SetWindowTitles(struct WindowV0 *window, CONST_STRPTR windowTitle, CO
 {
     struct WindowProxy *proxy = (struct WindowProxy *)window;
 
+    if ((APTR32)(IPTR)windowTitle == (APTR32)-1) windowTitle = (APTR)-1;
     if ((APTR32)(IPTR)screenTitle == (APTR32)-1) screenTitle = (APTR)-1;
 
     SetWindowTitles(proxy->native, windowTitle, screenTitle);
