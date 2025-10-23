@@ -184,6 +184,8 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
                     return (APTR)0x1; // Disable "NList.mcc clipboard server"
                 if (p[0] == 'N' && p[14] == 'c')
                     return (APTR)0x1; // Disable "NListtree.mcc clipboard server"
+                if (p[0] == 'T' && p[15] == 'c')
+                    return (APTR)0x1; // Disable "TextEditor.mcc clipboard server"
 
                 break;
             case(NP_StackSize):
