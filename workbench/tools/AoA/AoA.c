@@ -404,10 +404,22 @@ int main(int argc, char **argv)
     if (argc == 1)
     {
         program_path = "SYS:ProgramsV0/MCAmiga/MCAmiga";
-        // program_path = "SYS:ProgramsV0/HFinder/HFinder";
         // program_path = "SYS:ProgramsV0/ZuneARC/ZuneARC";
         // program_path = "SYS:ProgramsV0/Calculator";
         // program_path = "SYS:ProgramsV0/helloabi";
+
+        // program_path = "SYS:ProgramsV0/HFinder/HFinder";
+        // program_path = "SYS:ProgramsV0/HollyPaint/HollyPaint.aros-i386";
+        // program_path = "SYS:ProgramsV0/RNOSlides_AROS/RNOSlides";
+        // program_path = "SYS:ProgramsV0/RNOArchive_AROS/RNOArchive";
+        // program_path = "SYS:ProgramsV0/RNOEffects_AROS/RNOEffects";
+        // program_path = "SYS:ProgramsV0/RNOPublisher_AROS/RNOPublisher";
+
+        // program_path = "SYS:ProgramsV0/LilCalendar/LilCalendar_AROS";
+        // program_path = "SYS:ProgramsV0/RNOTunes_AROS/RNOTunes";
+        // program_path = "SYS:ProgramsV0/PintorWeb/PintorWeb";
+        // program_path = "SYS:ProgramsV0/VAMP/VAMP";
+        // program_path = "SYS:ProgramsV0/VindentiumPicta/VindentiumPicta";
 
     }
     else
