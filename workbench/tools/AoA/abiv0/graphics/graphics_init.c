@@ -187,6 +187,13 @@ asm("int3");
 }
 MAKE_PROXY_ARG_6(ObtainBestPenA)
 
+LONG abiv0_ObtainPen(struct ColorMapV0 *cm, ULONG n, ULONG r, ULONG g, ULONG b, ULONG flags, struct LibraryV0 *GfxBaseV0)
+{
+    struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
+    return ObtainPen(proxy->native, n, r, g, b, flags);
+}
+MAKE_PROXY_ARG_12(ObtainPen)
+
 void abiv0_ReleasePen(struct ColorMapV0 *cm, ULONG n, struct GfxBaseV0 *GfxBaseV0)
 {
     struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
@@ -473,6 +480,13 @@ LONG abiv0_WritePixelArray8(struct RastPortV0 *rp, ULONG xstart, ULONG ystart, U
 }
 MAKE_PROXY_ARG_12(WritePixelArray8)
 
+void abiv0_SetRGB32(struct ViewPortV0 *vp, ULONG n, ULONG r, ULONG g, ULONG b, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct ViewPort *vpnative = (struct ViewPort *)*(IPTR *)&vp->DspIns;
+    SetRGB32(vpnative, n, r, g, b);
+}
+MAKE_PROXY_ARG_6(SetRGB32)
+
 #include <proto/utility.h>
 
 struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG flags, struct BitMapV0 *friend_bitmap,
@@ -641,4 +655,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 131, (APTR32)(IPTR)proxy_WritePixelArray8);
     __AROS_SETVECADDRV0(abiv0GfxBase,  93, (APTR32)(IPTR)proxy_XorRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase, 143, (APTR32)(IPTR)proxy_GetAPen);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 159, (APTR32)(IPTR)proxy_ObtainPen);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 142, (APTR32)(IPTR)proxy_SetRGB32);
 }
