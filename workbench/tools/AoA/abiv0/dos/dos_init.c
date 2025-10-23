@@ -122,7 +122,6 @@ extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 ULONG g_childprocessidx = 0;
 
-struct MsgPort *g_cnpport;
 struct CreateNewProcMsg
 {
     struct Message  msg;
@@ -135,7 +134,10 @@ static void createNewProc_trampoline()
     struct StackSwapStructV0 sss;
     struct StackSwapArgsV0 ssa;
 
-    struct CreateNewProcMsg *msg = (struct CreateNewProcMsg *)GetMsg(g_cnpport);
+    struct Process *me = (struct Process *)FindTask(NULL);
+    WaitPort(&me->pr_MsgPort);
+    struct CreateNewProcMsg *msg = (struct CreateNewProcMsg *)GetMsg(&me->pr_MsgPort);
+
     ULONG stacksize = msg->cnp_StackSize;
     APTR32 entry = msg->cnp_Entry;
     FreeMem(msg, sizeof(struct CreateNewProcMsg));
@@ -202,12 +204,9 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
         tagNative++;
     }
 
-    if (g_cnpport == NULL)
-        g_cnpport = CreateMsgPort();
-
-    PutMsg(g_cnpport, (struct Message *)msg);
-
-    g_nativechildprocesses[childprocessidx] = (struct Task *)CreateNewProc(tagListNative);
+    struct Process *p = CreateNewProc(tagListNative);
+    PutMsg(&p->pr_MsgPort, (struct Message *)msg);
+    g_nativechildprocesses[childprocessidx] = (struct Task *)p;
     g_v0childprocesses[childprocessidx] =  abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
 bug("abiv0_CreateNewProc: STUB\n");
     return g_v0childprocesses[childprocessidx];
