@@ -286,6 +286,13 @@ BOOL abiv0_Close(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
     struct FileLock *fl = (struct FileLock *)BADDR(fhp->native);
+
+    if (fhp->native == NULL)
+    {
+        bug("FIXME: NULL native FH in Close!!\n");
+        return TRUE;
+    }
+
     /* ABI_V0 compatibility */
     /* Up to 2010-12-03 UnLock was an alias/define to Close */
     if ((fl->fl_Access  == SHARED_LOCK) ||
