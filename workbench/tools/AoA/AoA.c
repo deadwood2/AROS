@@ -296,6 +296,7 @@ void refresh_g_v0maintask();
 LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
     TEXT path[64];
+    TEXT currdir[256];
 
     /* Init ROM */
     struct ExecBaseV0 *SysBaseV0 = init_exec();
@@ -374,11 +375,13 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     BPTR progdir = Lock(path, SHARED_LOCK);
     BPTR oldprogdir = SetProgramDir(progdir);
     BPTR oldcurdir = CurrentDir(DupLock(progdir));
+    GetCurrentDirName(currdir, 256);
     SetCurrentDirName(path);
     refresh_g_v0maintask();
 
     execute_in_32_bit(start, SysBaseV0);
 
+    SetCurrentDirName(currdir);
     UnLock(CurrentDir(oldcurdir));
     SetProgramDir(oldprogdir);
     UnLock(progdir);
