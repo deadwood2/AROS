@@ -365,6 +365,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     BPTR progdir = Lock(path, SHARED_LOCK);
     BPTR oldprogdir = SetProgramDir(progdir);
     BPTR oldcurdir = CurrentDir(DupLock(progdir));
+    SetCurrentDirName(path);
     refresh_g_v0maintask();
 
     execute_in_32_bit(start, SysBaseV0);
