@@ -163,6 +163,11 @@ struct IntVectorV0
     APTR32        iv_Node;
 };
 
+struct SoftIntListV0
+{
+    struct ListV0 sh_List;
+    UWORD         sh_Pad;
+};
 
 /* Most fields are PRIVATE */
 struct ExecBaseV0
@@ -214,6 +219,38 @@ struct ExecBaseV0
     struct ListV0      IntrList;
     struct ListV0      LibList;
     struct ListV0      PortList;
+    struct ListV0      TaskReady;      /* Tasks that are ready to run */
+    struct ListV0      TaskWait;       /* Tasks that wait for some event */
+    struct SoftIntListV0 SoftInts[5];
+
+/* Miscellaneous Stuff */
+    LONG               LastAlert[4];
+
+    UBYTE              VBlankFrequency;      /* Readable                 */
+    UBYTE              PowerSupplyFrequency; /* Readable, Amiga-specific */
+    struct ListV0      SemaphoreList;
+
+/* Kickstart */
+    APTR32 KickMemPtr;
+    APTR32 KickTagPtr;
+    APTR32 KickCheckSum;
+
+/* Miscellaneous Stuff */
+    UWORD          ex_Pad0;            /* PRIVATE */
+    APTR32         ex_LaunchPoint;     /* PRIVATE */
+    APTR32         ex_RamLibPrivate;
+    ULONG          ex_EClockFrequency; /* (readable) */
+    ULONG          ex_CacheControl;    /* PRIVATE */
+    ULONG          ex_TaskID;
+    APTR32         ex_Reserved1[5];
+    APTR32         ex_MMULock;         /* PRIVATE */
+    APTR32         ex_Reserved2[2];
+    ULONG          ex_DebugFlags;
+    struct MinListV0 ex_MemHandlers;
+    APTR32         ex_MemHandler;      /* PRIVATE */
+
+/* Additional field for AROS */
+    APTR32         DebugAROSBase;
 };
 
 /* Stack swap structure as passed to StackSwap() */
