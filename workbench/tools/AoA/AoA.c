@@ -302,6 +302,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 
     APTR tmp = AllocMem(1024, MEMF_31BIT | MEMF_CLEAR);
     abiv0TimerBase = (tmp + 512);
+        /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (int i = 5; i <= 12; i++) __AROS_SETVECADDRV0(abiv0TimerBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200 + 100 + 100);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  8, (APTR32)(IPTR)proxy_SubTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  7, (APTR32)(IPTR)proxy_AddTime);
