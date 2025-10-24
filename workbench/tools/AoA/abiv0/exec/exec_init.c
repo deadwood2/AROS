@@ -354,6 +354,7 @@ struct MsgPortV0 * abiv0_CreateMsgPort(struct ExecBaseV0 *SysBaseV0)
 
     proxy->base.mp_SigBit = native->mp_SigBit;
     NEWLISTV0(&proxy->base.mp_MsgList);
+    proxy->base.mp_MsgList.l_pad = 1; /* MsgPortProxy */
 
     proxy->native = native;
 
@@ -409,14 +410,29 @@ struct Message32To32
     ULONG               key;
 };
 
+static struct MsgPort * MsgPortV0_getnative(struct MsgPortV0 *port)
+{
+    if (port->mp_MsgList.l_pad == 1)
+        return ((struct MsgPortProxy *)port)->native;
+    else if (port->mp_MsgList.l_pad == 3)
+            return (struct MsgPort *)(*(IPTR *)(&port->mp_Node));
+    else asm("int3");
+
+    return NULL;
+}
+
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
-    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    struct MsgPortProxy *proxy = NULL;
+    struct MsgPort *nativeport = MsgPortV0_getnative(port);
 
-    struct Message *msg = GetMsg(proxy->native);
+    struct Message *msg = GetMsg(nativeport);
+
+    if (port->mp_MsgList.l_pad == 1)
+        proxy = (struct MsgPortProxy *)port;
 
     /* 64-bit sending a message to a reader who is 32-bit */
-    if (proxy->translate)
+    if (proxy && proxy->translate)
     {
         return proxy->translate(msg);
     }
@@ -465,15 +481,15 @@ void abiv0_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message, struct Exec
 
 bug("abiv0_PutMsg: STUB\n");
     /* 32-bit sender sending to 32-bit reader (opaque transport through 64-bit MsgPort) */
-    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
+    struct MsgPort *nativeport = MsgPortV0_getnative(port);
     struct Message32To32 *native = AllocMem(sizeof(struct Message32To32), MEMF_CLEAR);
     native->v0msg   = message;
     native->key     = KEY32TO32;
-    native->msg.mn_ReplyPort = ((struct MsgPortProxy *)(IPTR)message->mn_ReplyPort)->native;
+    native->msg.mn_ReplyPort = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)message->mn_ReplyPort);
     /* Store native message in mn_Node of v0msg for now */
     *(IPTR *)(&message->mn_Node) = (IPTR)native;
 
-    PutMsg(proxy->native, (struct Message *)native);
+    PutMsg(nativeport, (struct Message *)native);
 }
 MAKE_PROXY_ARG_3(PutMsg)
 
@@ -488,8 +504,8 @@ bug("abiv0_WaitPort: STUB\n");
         return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
     }
 
-    struct MsgPortProxy *proxy = (struct MsgPortProxy *)port;
-    WaitPort(proxy->native);
+    struct MsgPort *nativeport = MsgPortV0_getnative(port);
+    WaitPort(nativeport);
     return NULL;
 }
 MAKE_PROXY_ARG_2(WaitPort)

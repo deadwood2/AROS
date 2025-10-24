@@ -207,7 +207,14 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
     struct Process *p = CreateNewProc(tagListNative);
     PutMsg(&p->pr_MsgPort, (struct Message *)msg);
     g_nativechildprocesses[childprocessidx] = (struct Task *)p;
-    g_v0childprocesses[childprocessidx] =  abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
+    struct ProcessV0 *pV0 = (struct ProcessV0 *)abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
+
+    pV0->pr_MsgPort.mp_SigBit = p->pr_MsgPort.mp_SigBit;
+    NEWLISTV0(&pV0->pr_MsgPort.mp_MsgList);
+    pV0->pr_MsgPort.mp_MsgList.l_pad = 3; /* native port in mp_Node */
+    *((IPTR *)&pV0->pr_MsgPort.mp_Node) = (IPTR)&p->pr_MsgPort;
+
+    g_v0childprocesses[childprocessidx] = pV0;
 bug("abiv0_CreateNewProc: STUB\n");
     return g_v0childprocesses[childprocessidx];
 }
