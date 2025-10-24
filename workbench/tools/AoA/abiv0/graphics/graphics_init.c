@@ -157,33 +157,23 @@ bug("abiv0_CloseFont: STUB\n");
 }
 MAKE_PROXY_ARG_3(CloseFont)
 
+extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
+extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+
 LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, struct TagItemV0 *tags, struct LibraryV0 *GfxBaseV0)
 {
     struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
 
     if (tags == NULL)
-    {
         return ObtainBestPenA(proxy->native, r, g, b, NULL);
-    }
-    else
-    {
-        if (tags[0].ti_Tag == OBP_FailIfBad)
-        {
-            struct TagItem tagtmp[] =
-            {
-                { OBP_FailIfBad, FALSE },
-                { TAG_DONE, 0L}
-            };
 
-            tagtmp[0].ti_Data = tags[0].ti_Data;
-            return ObtainBestPenA(proxy->native, r, g, b, tagtmp);
-        }
-        else
-        {
-asm("int3");
-        }
-    }
-    return 0;
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+
+    struct TagItem *tagNative = tagListNative;
+    LONG _ret = ObtainBestPenA(proxy->native, r, g, b, tagListNative);
+
+    FreeClonedV02NativeTagItems(tagListNative);
+    return _ret;
 }
 MAKE_PROXY_ARG_6(ObtainBestPenA)
 
@@ -229,9 +219,6 @@ void abiv0_SetBPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0
 }
 MAKE_PROXY_ARG_3(SetBPen)
 
-extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
-
 void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
@@ -254,7 +241,7 @@ MAKE_PROXY_ARG_5(SetABPenDrMd)
 void  abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-   struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
 
     struct TagItem *tagNative = tagListNative;
 
