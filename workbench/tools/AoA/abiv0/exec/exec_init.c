@@ -620,6 +620,8 @@ AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
 #include <proto/timer.h>
 #include "../include/timer/structures.h"
 
+extern struct Device *TimerBase;
+
 LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
 {
     struct DeviceProxy *proxy = (struct DeviceProxy *)(IPTR)IORequest->io_Device;
@@ -684,6 +686,23 @@ return 0;
         {
             struct timeval *p = (struct timeval *)(&((struct timerequestV0 *)IORequest)->tr_time);
             GetSysTime(p);
+            return 0;
+        }
+        if (IORequest->io_Command ==  9 /* TR_ADDREQUEST */)
+        {
+            struct timerequest *io = AllocMem(sizeof(struct timerequest), MEMF_PUBLIC | MEMF_CLEAR);
+            io->tr_node.io_Message.mn_ReplyPort =
+                MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)IORequest->io_Message.mn_ReplyPort);
+            io->tr_node.io_Message.mn_Length = sizeof(struct timerequest);
+
+            io->tr_node.io_Device = TimerBase;
+            io->tr_node.io_Command = IORequest->io_Command;
+            io->tr_time = ((struct timerequestV0 *)IORequest)->tr_time;
+            DoIO((struct IORequest *)io);
+            FreeMem(io, sizeof(struct timerequest));
+            (((struct timerequestV0 *)IORequest)->tr_time).tv_micro = 0;
+            (((struct timerequestV0 *)IORequest)->tr_time).tv_secs = 0;
+// bug("abiv0_DoIO: TR_ADDREQUEST STUB\n");
             return 0;
         }
 asm("int3");
