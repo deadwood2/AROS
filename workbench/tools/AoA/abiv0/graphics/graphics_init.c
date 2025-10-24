@@ -603,6 +603,16 @@ void abiv0_BltMaskBitMapRastPort(struct BitMapV0 *srcBitMap, LONG xSrc, LONG ySr
 }
 MAKE_PROXY_ARG_12(BltMaskBitMapRastPort)
 
+LONG abiv0_BltBitMap(struct BitMapV0 * srcBitMap, LONG xSrc, LONG ySrc, struct BitMapV0 *destBitMap, LONG xDest,
+    LONG yDest, LONG xSize, LONG ySize, ULONG minterm, ULONG mask, PLANEPTR tempA, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct BitMapProxy *srcproxy = (struct BitMapProxy *)srcBitMap;
+    struct BitMapProxy *destproxy = (struct BitMapProxy *)destBitMap;
+
+    return BltBitMap(srcproxy->native, xSrc, ySrc, destproxy->native, xDest, yDest, xSize, ySize, minterm, mask, tempA);
+}
+MAKE_PROXY_ARG_12(BltBitMap)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -710,4 +720,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 130, (APTR32)(IPTR)proxy_ReadPixelArray8);
     __AROS_SETVECADDRV0(abiv0GfxBase, 106, (APTR32)(IPTR)proxy_BltMaskBitMapRastPort);
     __AROS_SETVECADDRV0(abiv0GfxBase,  83, graphicsjmp[202 -  83]);  // FreeRaster
+    __AROS_SETVECADDRV0(abiv0GfxBase,   5, (APTR32)(IPTR)proxy_BltBitMap);
 }
