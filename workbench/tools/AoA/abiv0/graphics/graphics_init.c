@@ -487,6 +487,19 @@ void abiv0_SetRGB32(struct ViewPortV0 *vp, ULONG n, ULONG r, ULONG g, ULONG b, s
 }
 MAKE_PROXY_ARG_6(SetRGB32)
 
+ULONG abiv0_NextDisplayInfo(ULONG last_ID, struct GfxBaseV0 *GfxBaseV0)
+{
+    return NextDisplayInfo(last_ID);
+}
+MAKE_PROXY_ARG_2(NextDisplayInfo)
+
+DisplayInfoHandle abiv0_FindDisplayInfo(ULONG ID, struct GfxBaseV0 *GfxBaseV0)
+{
+bug("abiv0_FindDisplayInfo: STUB\n");
+    return NULL;
+}
+MAKE_PROXY_ARG_2(FindDisplayInfo)
+
 #include <proto/utility.h>
 
 struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG flags, struct BitMapV0 *friend_bitmap,
@@ -657,4 +670,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 143, (APTR32)(IPTR)proxy_GetAPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 159, (APTR32)(IPTR)proxy_ObtainPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 142, (APTR32)(IPTR)proxy_SetRGB32);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 122, (APTR32)(IPTR)proxy_NextDisplayInfo);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 121, (APTR32)(IPTR)proxy_FindDisplayInfo);
 }
