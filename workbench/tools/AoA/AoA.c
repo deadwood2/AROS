@@ -441,8 +441,8 @@ int main(int argc, char **argv)
 #if DEVMODE
     if (argc == 1)
     {
-        program_path = "SYS:ProgramsV0/MCAmiga/MCAmiga";
-        // program_path = "SYS:ProgramsV0/ZuneARC/ZuneARC";
+        // program_path = "SYS:ProgramsV0/MCAmiga/MCAmiga";
+        program_path = "SYS:ProgramsV0/ZuneARC/ZuneARC";
         // program_path = "SYS:ProgramsV0/Calculator";
         // program_path = "SYS:ProgramsV0/helloabi";
 
@@ -452,11 +452,18 @@ int main(int argc, char **argv)
         // program_path = "SYS:ProgramsV0/RNOArchive_AROS/RNOArchive";
         // program_path = "SYS:ProgramsV0/RNOEffects_AROS/RNOEffects";
         // program_path = "SYS:ProgramsV0/RNOPublisher_AROS/RNOPublisher";
-
-        // program_path = "SYS:ProgramsV0/LilCalendar/LilCalendar_AROS";
-        // program_path = "SYS:ProgramsV0/RNOTunes_AROS/RNOTunes";
         // program_path = "SYS:ProgramsV0/PintorWeb/PintorWeb";
         // program_path = "SYS:ProgramsV0/VAMP/VAMP";
+        // program_path = "SYS:ProgramsV0/LilCalendar/LilCalendar_AROS";
+        // program_path = "SYS:ProgramsV0/PuzzleTiles/PuzzleTiles";
+
+
+        // program_path = "SYS:ProgramsV0/Soliton/Soliton";
+        // program_path = "SYS:ProgramsV0/GianaReturn/GianaReturn";
+        // program_path = "SYS:ProgramsV0/FreePrince/FreePrince";
+        // program_path = "SYS:ProgramsV0/BOH/BOH";
+
+        // program_path = "SYS:ProgramsV0/RNOTunes_AROS/RNOTunes";
         // program_path = "SYS:ProgramsV0/VindentiumPicta/VindentiumPicta";
 
     }
