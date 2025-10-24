@@ -321,6 +321,13 @@ bug("abiv0_OpenDevice: console.device STUB\n");
         return 0;
     }
 
+    if (strcmp(devName, "ahi.device") == 0)
+    {
+bug("abiv0_OpenDevice: ahi.device STUB\n");
+        iORequest->io_Device = 0;
+        return -1;
+    }
+
 
 asm("int3");
     return 0;
