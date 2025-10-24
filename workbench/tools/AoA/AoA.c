@@ -268,6 +268,31 @@ VOID abiv0_ProcessPixelArray(struct RastPortV0 *rp, ULONG destX, ULONG destY, UL
 }
 MAKE_PROXY_ARG_12(ProcessPixelArray)
 
+BOOL abiv0_IsCyberModeID(ULONG modeID, struct LibraryV0 *CyberGfxBaseV0)
+{
+    return IsCyberModeID(modeID);
+}
+MAKE_PROXY_ARG_2(IsCyberModeID)
+
+extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
+extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+
+ULONG abiv0_BestCModeIDTagList(struct TagItemV0 * tags, struct LibraryV0 *CyberGfxBaseV0)
+{
+    ULONG _ret;
+
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+
+    struct TagItem *tagNative = tagListNative;
+
+    _ret = BestCModeIDTagList(tagListNative);
+
+    FreeClonedV02NativeTagItems(tagListNative);
+
+    return _ret;
+}
+MAKE_PROXY_ARG_2(BestCModeIDTagList)
+
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
@@ -343,7 +368,11 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
+
     /* Remove all vectors for now (leave LibOpen) */
+    const ULONG cybergraphicsjmpsize = 38 * sizeof(APTR32);
+    APTR32 *cybergraphicsjmp = AllocMem(cybergraphicsjmpsize, MEMF_CLEAR);
+    CopyMem((APTR)abiv0CyberGfxBase - cybergraphicsjmpsize, cybergraphicsjmp, cybergraphicsjmpsize);
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200 + 100);
@@ -352,6 +381,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 33, (APTR32)(IPTR)proxy_WriteLUTPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 21, (APTR32)(IPTR)proxy_WritePixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 38, (APTR32)(IPTR)proxy_ProcessPixelArray);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase,  9, (APTR32)(IPTR)proxy_IsCyberModeID);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 10, (APTR32)(IPTR)proxy_BestCModeIDTagList);
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 

@@ -466,6 +466,12 @@ bug("abiv0_OpenWindowTagList: STUB\n");
 }
 MAKE_PROXY_ARG_3(OpenWindowTagList)
 
+struct ScreenV0 * abiv0_OpenScreenTagList(struct NewScreenV0 *newScreen, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_OpenScreenTagList: STUB\n");
+    return NULL;
+}
+MAKE_PROXY_ARG_3(OpenScreenTagList)
 
 void abiv0_DrawImageState(struct RastPortV0 *rp, struct ImageV0 *image, LONG leftOffset, LONG topOffset, ULONG state, struct DrawInfoV0 *drawInfo)
 {
@@ -1250,6 +1256,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  75, (APTR32)(IPTR)proxy_ActivateWindow);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  52, (APTR32)(IPTR)proxy_WindowToFront);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  38, intuitionjmp[165 -  38]);  // RemoveGadget
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
