@@ -379,6 +379,7 @@ struct MsgPortV0 * abiv0_FindPort(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV
 
         proxy->base.mp_SigBit = native->mp_SigBit;
         NEWLISTV0(&proxy->base.mp_MsgList);
+        proxy->base.mp_MsgList.l_pad = 1; /* MsgPortProxy */
 
         proxy->native = native;
         return (struct MsgPortV0 *)proxy;
