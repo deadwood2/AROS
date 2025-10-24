@@ -713,14 +713,124 @@ bug("abiv0_DoIO: STUB\n");
 }
 MAKE_PROXY_ARG_2(DoIO)
 
+struct timerequest *g_trio[10];
+struct timerequestV0 *g_v0trio[10];
+
+struct timerequest * get_trio(struct timerequestV0 *p)
+{
+    if (p)
+        for (int i = 0; i < 10; i++)
+            if (g_v0trio[i] == p) return g_trio[i];
+
+    return NULL;
+}
+
+struct timerequestV0 * get_v0trio(struct timerequest *p)
+{
+    if (p)
+        for (int i = 0; i < 10; i++)
+            if (g_trio[i] == p) return g_v0trio[i];
+
+    return NULL;
+}
+
+void cleanby_trio(struct timerequest *p)
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (g_trio[i] == p)
+        {
+            g_trio[i] = NULL;
+            g_v0trio[i] = NULL;
+            return;
+        }
+    }
+}
+
+// not thread safe
+LONG request_slot()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (g_trio[i] == NULL)
+        {
+            g_trio[i] = (APTR)-1;
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+static struct MessageV0 * TRIO_translate(struct Message *ior)
+{
+    struct timerequest *pnative = (struct timerequest *)ior;
+    struct timerequestV0 * pv0 = get_v0trio(pnative);
+    if (pv0 != NULL)
+    {
+        pv0->tr_node.io_Error   = pnative->tr_node.io_Error;
+        pv0->tr_time            = pnative->tr_time;
+
+        cleanby_trio(pnative);
+
+        FreeMem(pnative, sizeof(struct timerequest));
+        return (struct MessageV0 *)pv0;
+    }
+
+asm("int3");
+}
+
 void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
+    struct DeviceProxy *dproxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
+    if (dproxy->type == DEVPROXY_TYPE_TIMER)
+    {
+        if (iORequest->io_Command ==  9 /* TR_ADDREQUEST */)
+        {
+            LONG slot = request_slot();
+
+            if (slot == -1) asm("int3");
+
+            struct timerequest *io = AllocMem(sizeof(struct timerequest), MEMF_PUBLIC | MEMF_CLEAR);
+            io->tr_node.io_Message.mn_ReplyPort =
+                MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+            io->tr_node.io_Message.mn_Length = sizeof(struct timerequest);
+
+            struct MsgPortProxy *pproxy = MsgPortV0_getproxy((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+            if (!pproxy || (pproxy->translate != NULL && pproxy->translate != TRIO_translate)) asm("int3");
+            else pproxy->translate = TRIO_translate;
+
+            io->tr_node.io_Device = TimerBase;
+            io->tr_node.io_Command = iORequest->io_Command;
+            io->tr_time = ((struct timerequestV0 *)iORequest)->tr_time;
+
+            g_trio[slot] = io;
+            g_v0trio[slot] = (struct timerequestV0 *)iORequest;
+
+            SendIO((struct IORequest *)io);
+//  bug("abiv0_SendIO: TR_ADDREQUEST STUB\n");
+            return;
+        }
+asm("int3");
+    }
 bug("abiv0_SendIO: STUB\n");
 }
 MAKE_PROXY_ARG_2(SendIO)
 
 struct IORequestV0 *abiv0_CheckIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
+    struct timerequest *pnative = get_trio((struct timerequestV0 *)iORequest);
+    if (pnative)
+    {
+        if (CheckIO((struct IORequest *)pnative) == (struct IORequest *)pnative)
+        {
+bug("abiv0_CheckIO: TR_ADDREQUEST STUB\n");
+            return iORequest;
+        }
+        else
+            return NULL;
+    }
+
 bug("abiv0_CheckIO: STUB\n");
     return NULL;
 }
@@ -728,6 +838,12 @@ MAKE_PROXY_ARG_2(CheckIO)
 
 LONG abiv0_AbortIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
+    struct timerequest *pnative = get_trio((struct timerequestV0 *)iORequest);
+    if (pnative)
+    {
+        return AbortIO((struct IORequest *)pnative);
+    }
+
 bug("abiv0_AbortIO: STUB\n");
     return 0;
 }
@@ -735,6 +851,18 @@ MAKE_PROXY_ARG_2(AbortIO)
 
 LONG abiv0_WaitIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
+    struct timerequest *pnative = get_trio((struct timerequestV0 *)iORequest);
+    if (pnative)
+    {
+bug("abiv0_WaitIO: TR_ADDREQUEST STUB\n");
+        LONG ret = WaitIO((struct IORequest *)pnative);
+
+        cleanby_trio(pnative);
+
+        FreeMem(pnative, sizeof(struct timerequest));
+        return ret;
+    }
+
 bug("abiv0_WaitIO: STUB\n");
     return 0;
 }
