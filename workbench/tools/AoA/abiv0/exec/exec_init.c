@@ -429,15 +429,21 @@ static struct MsgPort * MsgPortV0_getnative(struct MsgPortV0 *port)
     return NULL;
 }
 
+static struct MsgPortProxy * MsgPortV0_getproxy(struct MsgPortV0 *port)
+{
+    if (port->mp_MsgList.l_pad == 1)
+        return (struct MsgPortProxy *)port;
+    return NULL;
+}
+
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
-    struct MsgPortProxy *proxy = NULL;
     struct MsgPort *nativeport = MsgPortV0_getnative(port);
+    struct MsgPortProxy *proxy = MsgPortV0_getproxy(port);
 
     struct Message *msg = GetMsg(nativeport);
 
-    if (port->mp_MsgList.l_pad == 1)
-        proxy = (struct MsgPortProxy *)port;
+    if (msg == NULL) return NULL;
 
     /* 64-bit sending a message to a reader who is 32-bit */
     if (proxy && proxy->translate)
@@ -455,10 +461,10 @@ struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBa
             // FreeMem(m3232, sizeof(struct Message32To32)); // causes memory damage, why?
             return _ret;
         }
-bug("abiv0_GetMsg: STUB\n");
-asm("int3");
     }
 
+bug("abiv0_GetMsg: STUB\n");
+asm("int3");
     return NULL;
 }
 MAKE_PROXY_ARG_2(GetMsg)
