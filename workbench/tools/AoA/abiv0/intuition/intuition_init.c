@@ -439,6 +439,7 @@ asm("int3");
 
         mpproxy->base.mp_SigBit = proxy->native->UserPort->mp_SigBit;
         NEWLISTV0(&mpproxy->base.mp_MsgList);
+        mpproxy->base.mp_MsgList.l_pad = 1; /* MsgPortProxy */
 
         /* simulate port-not empty: FPC checks this before doing GetMsg */
         mpproxy->base.mp_MsgList.lh_TailPred = 0x2;
