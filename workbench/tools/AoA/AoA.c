@@ -161,6 +161,13 @@ LONG abiv0_BeginUpdate(struct LayerV0 *l, struct LibraryV0 *LayersBaseV0)
 }
 MAKE_PROXY_ARG_3(BeginUpdate)
 
+void abiv0_DoHookClipRects(struct Hook *hook, struct RastPortV0 * rport, struct Rectangle *rect, struct LibraryV0 *LayersBaseV0)
+{
+bug("abiv0_DoHookClipRects: STUB\n");
+    return;
+}
+MAKE_PROXY_ARG_4(DoHookClipRects)
+
 void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
 {
     GetSysTime(dest);
@@ -363,6 +370,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0LayersBase,  17, (APTR32)(IPTR)proxy_UnlockLayer);
     __AROS_SETVECADDRV0(abiv0LayersBase,  14, (APTR32)(IPTR)proxy_EndUpdate);
     __AROS_SETVECADDRV0(abiv0LayersBase,  13, (APTR32)(IPTR)proxy_BeginUpdate);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  36, (APTR32)(IPTR)proxy_DoHookClipRects);
 
     NewRawDoFmt("LIBSV0:partial/cybergraphics.library", RAWFMTFUNC_STRING, path);
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
