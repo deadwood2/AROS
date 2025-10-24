@@ -480,6 +480,24 @@ LONG abiv0_WritePixelArray8(struct RastPortV0 *rp, ULONG xstart, ULONG ystart, U
 }
 MAKE_PROXY_ARG_12(WritePixelArray8)
 
+LONG abiv0_ReadPixelArray8(struct RastPortV0 *rp, LONG xstart, LONG ystart, LONG xstop, LONG ystop, UBYTE *array,
+    struct RastPortV0 *temprp, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    if (rpnative == NULL)
+    {
+        /* Soliton operates on locally created RastPort/BitMap */
+        struct RastPort rptmp;
+        struct BitMap bmtmp;
+        RecreteNativeRastPort(rp, &rptmp, &bmtmp);
+
+        return ReadPixelArray8(&rptmp, xstart, ystart, xstop, ystop, array, NULL);
+    }
+    else
+        return ReadPixelArray8(rpnative, xstart, ystart, xstop, ystop, array, NULL);
+}
+MAKE_PROXY_ARG_12(ReadPixelArray8)
+
 void abiv0_SetRGB32(struct ViewPortV0 *vp, ULONG n, ULONG r, ULONG g, ULONG b, struct GfxBaseV0 *GfxBaseV0)
 {
     struct ViewPort *vpnative = (struct ViewPort *)*(IPTR *)&vp->DspIns;
@@ -569,6 +587,34 @@ void abiv0_BltBitMapRastPort(struct BitMapV0 *srcBitMap, LONG xSrc, LONG ySrc, s
     BltBitMapRastPort(bmproxy->native, xSrc, ySrc, rpnative, xDest, yDest, xSize, ySize, minterm);
 }
 MAKE_PROXY_ARG_12(BltBitMapRastPort)
+
+void abiv0_BltMaskBitMapRastPort(struct BitMapV0 *srcBitMap, LONG xSrc, LONG ySrc, struct RastPortV0 * destRP,
+    LONG xDest, LONG yDest, LONG xSize, LONG ySize, ULONG minterm, PLANEPTR bltMask, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct BitMapProxy *bmproxy = (struct BitMapProxy *)srcBitMap;
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
+    struct RastPort rptmp;
+
+    // /* dtpic.mui uses locally created RastPort */
+    // if (rpnative == NULL)
+    // {
+    //     InitRastPort(&rptmp);
+    //     rptmp.FgPen     = destRP->FgPen;
+    //     rptmp.BgPen     = destRP->BgPen;
+    //     rptmp.DrawMode  = destRP->DrawMode;
+    //     rptmp.linpatcnt = destRP->linpatcnt;
+    //     rptmp.Flags     = destRP->Flags;
+    //     rptmp.cp_x      = destRP->cp_x;
+    //     rptmp.cp_y      = destRP->cp_y;
+
+    //     rptmp.BitMap = ((struct BitMapProxy *)(IPTR)destRP->BitMap)->native;
+
+    //     rpnative = &rptmp;
+    // }
+
+    BltMaskBitMapRastPort(bmproxy->native, xSrc, ySrc, rpnative, xDest, yDest, xSize, ySize, minterm, bltMask);
+}
+MAKE_PROXY_ARG_12(BltMaskBitMapRastPort)
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
@@ -672,4 +718,9 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 142, (APTR32)(IPTR)proxy_SetRGB32);
     __AROS_SETVECADDRV0(abiv0GfxBase, 122, (APTR32)(IPTR)proxy_NextDisplayInfo);
     __AROS_SETVECADDRV0(abiv0GfxBase, 121, (APTR32)(IPTR)proxy_FindDisplayInfo);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  82, graphicsjmp[202 -  82]);  // AllocRaster
+    __AROS_SETVECADDRV0(abiv0GfxBase, 128, graphicsjmp[202 - 128]);  // ReadPixelLine8
+    __AROS_SETVECADDRV0(abiv0GfxBase, 130, (APTR32)(IPTR)proxy_ReadPixelArray8);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 106, (APTR32)(IPTR)proxy_BltMaskBitMapRastPort);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  83, graphicsjmp[202 -  83]);  // FreeRaster
 }
