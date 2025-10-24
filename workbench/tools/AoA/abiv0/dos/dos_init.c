@@ -197,6 +197,20 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
                 msg->cnp_Entry = (APTR32)tagNative->ti_Data;
                 tagNative->ti_Data = (IPTR)createNewProc_trampoline;
                 break;
+            case NP_Output:
+            {
+                if (tagNative->ti_Data)
+                {
+                    BPTR fh = (BPTR)tagNative->ti_Data;
+                    struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)fh;
+                    tagNative->ti_Data = (IPTR)fhproxy->native;
+                }
+                break;
+            }
+            case NP_Arguments:
+            case NP_UserData:
+            case NP_CloseOutput:
+                break;
             default:
                 bug("%x\n", tagNative->ti_Tag);
                 asm("int3");
@@ -428,6 +442,18 @@ BOOL abiv0_UnLock(BPTR lock, struct DosLibraryV0 *DOSBaseV0)
     return UnLock(proxy->native);
 }
 MAKE_PROXY_ARG_2(UnLock)
+
+LONG abiv0_AssignLock(CONST_STRPTR name, BPTR lock, struct DosLibraryV0 *DOSBaseV0)
+{
+    if (lock != BNULL)
+    {
+        struct FileLockProxy *proxy = (struct FileLockProxy *)lock;
+        return AssignLock(name, proxy->native);
+    }
+
+    return AssignLock(name, BNULL);
+}
+MAKE_PROXY_ARG_3(AssignLock)
 
 BOOL abiv0_DeleteFile(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
 {
@@ -956,4 +982,5 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  94, (APTR32)(IPTR)proxy_GetCurrentDirName);
     __AROS_SETVECADDRV0(abiv0DOSBase,  31, (APTR32)(IPTR)proxy_SetProtection);
     __AROS_SETVECADDRV0(abiv0DOSBase,  37, dosfunctable[ 36]);  // Execute
+    __AROS_SETVECADDRV0(abiv0DOSBase, 102, (APTR32)(IPTR)proxy_AssignLock);
 }
