@@ -354,6 +354,10 @@ static struct FileLockProxy *makeFileLockProxy(BPTR native)
 
 BPTR abiv0_Lock(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
+    /* Workaround for Hollywood looking for it's plugins in LIBS:Hollywood */
+    if (strcmp(name, "LIBS:Hollywood") == 0)
+        name = "LIBSV0:Hollywood";
+
     BPTR tmp = Lock(name, accessMode);
     if (tmp == BNULL)
         return BNULL;
@@ -855,6 +859,37 @@ void abiv0_Delay(ULONG timeout, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(Delay)
 
+#include <proto/utility.h>
+
+BPTR abiv0_LoadSeg(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
+{
+    TEXT tmp[128]; // Assumes 32-bit stack only
+    /* Workaround for Hollywood looking for it's plugins in LIBS:Hollywood */
+    if (strstr(name, "LIBS:Hollywood") == (char *)name)
+        SNPrintf(tmp, 128, "%s%s", "LIBSV0", (name + 4));
+    else
+        SNPrintf(tmp, 128, "%s", name);
+    CONST_STRPTR p = tmp;
+
+    /* Call original function */
+    __asm__ volatile (
+        "subq $8, %%rsp\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %1, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %0, %%eax\n"
+        ENTER32
+        "call *%%eax\n" // This is tricky becaused on LoadSeg32
+        ENTER64
+        "addq $8, %%rsp\n"
+        "leave\n"
+        "ret\n"
+        ::"m"(dosfunctable[24]), "m"(p), "m"(DOSBaseV0)
+        : SCRATCH_REGS_64_TO_32 );
+}
+MAKE_PROXY_ARG_2(LoadSeg)
+
 struct IntDosBaseV0
 {
     struct DosLibraryV0         pub;
@@ -942,7 +977,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase, 123, dosfunctable[122]);  // CompareDates
     __AROS_SETVECADDRV0(abiv0DOSBase,  65, (APTR32)(IPTR)proxy_ExamineFH);
     __AROS_SETVECADDRV0(abiv0DOSBase,  60, (APTR32)(IPTR)proxy_Flush);
-    __AROS_SETVECADDRV0(abiv0DOSBase,  25, dosfunctable[ 24]);  // LoadSeg              // This is tricky becaused on LoadSeg32
+    __AROS_SETVECADDRV0(abiv0DOSBase,  25, (APTR32)(IPTR)proxy_LoadSeg);
     __AROS_SETVECADDRV0(abiv0DOSBase, 126, dosfunctable[125]);  // InternalLoadSeg
     __AROS_SETVECADDRV0(abiv0DOSBase,  26, dosfunctable[ 25]);  // UnLoadSeg            // This is tricky becaused on LoadSeg32
     __AROS_SETVECADDRV0(abiv0DOSBase, 127, dosfunctable[126]);  // InternalUnLoadSeg
