@@ -940,11 +940,9 @@ static void writeinitlib(FILE *out, struct config *cfg)
         fprintf(out,
             "    struct ExecBase *SysBase = sysBase;\n"
         );
+
     fprintf(out,
             "\n"
-            "#ifdef GM_SYSBASE_FIELD\n"
-            "    GM_SYSBASE_FIELD(LIBBASE) = (APTR)SysBase;\n"
-            "#endif\n"
             "    if (!SysBase || SysBase->LibNode.lib_Version < __aros_libreq_SysBase)\n"
             "        return NULL;\n"
             "\n"
@@ -980,6 +978,15 @@ static void writeinitlib(FILE *out, struct config *cfg)
             "    n->ln_Name = (char *)GM_UNIQUENAME(LibName);\n"
             "    MakeFunctions(LIBBASE, (APTR)GM_UNIQUENAME(FuncTable), NULL);\n"
         );
+
+        fprintf(out,
+            "\n"
+            "#ifdef GM_SYSBASE_FIELD\n"
+            "    GM_SYSBASE_FIELD(LIBBASE) = (APTR)SysBase;\n"
+            "#endif\n"
+            "\n"
+        );
+
         if ((cfg->modtype != RESOURCE) && (cfg->options & OPTION_SELFINIT))
         {
             fprintf(out,
@@ -991,6 +998,14 @@ static void writeinitlib(FILE *out, struct config *cfg)
     }
     else
     {
+        fprintf(out,
+            "\n"
+            "#ifdef GM_SYSBASE_FIELD\n"
+            "    GM_SYSBASE_FIELD(LIBBASE) = (APTR)SysBase;\n"
+            "#endif\n"
+            "\n"
+        );
+
         fprintf(out,
             "#if defined(REVISION_NUMBER)\n"
             "    ((struct Library *)LIBBASE)->lib_Revision = REVISION_NUMBER;\n"
