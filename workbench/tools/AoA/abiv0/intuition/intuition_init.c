@@ -1142,6 +1142,10 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
     proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
 
     *((IPTR *)&proxy->base.Screen.ViewPort.DspIns) = (IPTR)&native->ViewPort;
+    proxy->base.Screen.ViewPort.DWidth      = native->ViewPort.DWidth;
+    proxy->base.Screen.ViewPort.DHeight     = native->ViewPort.DHeight;
+    proxy->base.Screen.ViewPort.DxOffset    = native->ViewPort.DxOffset;
+    proxy->base.Screen.ViewPort.DyOffset    = native->ViewPort.DyOffset;
 
     struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
     v0font->ta_YSize    = native->Font->ta_YSize;
