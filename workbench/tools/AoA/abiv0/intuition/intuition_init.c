@@ -466,6 +466,11 @@ bug("abiv0_OpenWindowTagList: STUB\n");
 }
 MAKE_PROXY_ARG_3(OpenWindowTagList)
 
+struct NewScreenV0
+{
+
+};
+
 struct ScreenV0 * abiv0_OpenScreenTagList(struct NewScreenV0 *newScreen, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
 bug("abiv0_OpenScreenTagList: STUB\n");
