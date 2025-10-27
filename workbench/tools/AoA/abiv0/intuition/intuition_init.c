@@ -787,8 +787,9 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
 {
     struct WindowProxy *winproxy = (struct WindowProxy *)window;
     struct Gadget *gadPrev = NULL, *gadFirst = NULL;
+    LONG i = numGad;
 
-    for ( ; gadget && numGad; gadget = (APTR)(IPTR)gadget->NextGadget, numGad--)
+    for ( ; gadget && i; gadget = (APTR)(IPTR)gadget->NextGadget, i--)
     {
         struct Gadget *gwrapper = NewObjectA(gadgetwrappercl, NULL, NULL);
         struct GadgetWrapperData *data = INST_DATA(gadgetwrappercl, gwrapper);
