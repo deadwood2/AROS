@@ -1292,6 +1292,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  52, (APTR32)(IPTR)proxy_WindowToFront);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  38, intuitionjmp[165 -  38]);  // RemoveGadget
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  62, intuitionjmp[165 -  62]);  // FreeSysRequest
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
