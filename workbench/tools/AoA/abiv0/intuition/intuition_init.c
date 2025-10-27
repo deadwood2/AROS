@@ -120,6 +120,7 @@ struct DrawInfoV0 *abiv0_GetScreenDrawInfo(struct ScreenV0 *screen, struct Libra
     v0dri->dri_Font     = (APTR32)(IPTR)makeTextFontV0(dri->dri_Font, Intuition_SysBaseV0);
     v0dri->dri_Screen   = (APTR32)(IPTR)&proxy->base;
 
+    //MEMLEAK
 
 bug("abiv0_GetScreenDrawInfo: STUB\n");
     return v0dri;
@@ -976,6 +977,12 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpi_GInfo);
 
+            struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
+            CopyMem(nativemsg->gpi_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
+            v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(nativemsg->gpi_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+            v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
+
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpi_GInfo    = (APTR32)(IPTR)v0gi;
             v0msg->gpi_Mouse.X  = nativemsg->gpi_Mouse.X;
@@ -985,8 +992,12 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             syncGadgetNative(nativeg, v0g);
 
+            abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
+
+            // MEMLEAK v0dri->dri_Font
 
             return ret;
 
@@ -1000,8 +1011,14 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpi_GInfo);
-            struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
+            struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
+            CopyMem(nativemsg->gpi_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
+            v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(nativemsg->gpi_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+            v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
+
+            struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0ie->ie_Class      = nativemsg->gpi_IEvent->ie_Class;
             v0ie->ie_SubClass   = nativemsg->gpi_IEvent->ie_SubClass;
             v0ie->ie_Code       = nativemsg->gpi_IEvent->ie_Code;
@@ -1021,9 +1038,13 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             *nativemsg->gpi_Termination = gpi_Termination;
 
+            abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
+
+            // MEMLEAK v0dri->dri_Font
 
             return ret;
 
@@ -1075,7 +1096,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
             CopyMem(nativemsg->gpr_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
-
+            v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(nativemsg->gpr_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
             v0msg->MethodID     = nativemsg->MethodID;
@@ -1090,6 +1111,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpRenderV0), Intuition_SysBaseV0);
+
+            // MEMLEAK v0dri->dri_Font
 
             return ret;
         }
