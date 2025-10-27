@@ -921,6 +921,24 @@ void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
     abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
 }
 
+struct TextFont *g_nativeTF;
+struct TextFontV0 *g_v0TF;
+
+static APTR32 getOrCreateTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0)
+{
+    if (g_nativeTF != NULL)
+    {
+        if (g_nativeTF == native)
+            return (APTR32)(IPTR)g_v0TF;
+        else asm("int3");
+    }
+
+    g_v0TF = makeTextFontV0(native, sysBaseV0); // MEMLEAK
+    g_nativeTF = native;
+
+    return (APTR32)(IPTR)g_v0TF;
+}
+
 /*
  * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
  * then forwarded to 32-bit gadget method. This method needs to be executed on 31-bit stack, not on original stack.
@@ -982,7 +1000,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
             CopyMem(nativemsg->gpi_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
-            v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(nativemsg->gpi_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+            v0dri->dri_Font = (APTR32)(IPTR)getOrCreateTextFontV0(nativemsg->gpi_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
             v0msg->MethodID     = nativemsg->MethodID;
@@ -998,8 +1017,6 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
-
-            // MEMLEAK v0dri->dri_Font
 
             return ret;
 
@@ -1017,7 +1034,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
             CopyMem(nativemsg->gpi_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
-            v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(nativemsg->gpi_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+            v0dri->dri_Font = (APTR32)(IPTR)getOrCreateTextFontV0(nativemsg->gpi_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
             struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
@@ -1045,8 +1063,6 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
-
-            // MEMLEAK v0dri->dri_Font
 
             return ret;
 
@@ -1098,7 +1114,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
             CopyMem(nativemsg->gpr_GInfo->gi_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
-            v0dri->dri_Font = (APTR32)(IPTR)makeTextFontV0(nativemsg->gpr_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+            v0dri->dri_Font = (APTR32)(IPTR)getOrCreateTextFontV0(nativemsg->gpr_GInfo->gi_DrInfo->dri_Font, Intuition_SysBaseV0);
+
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
             v0msg->MethodID     = nativemsg->MethodID;
@@ -1113,8 +1130,6 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpRenderV0), Intuition_SysBaseV0);
-
-            // MEMLEAK v0dri->dri_Font
 
             return ret;
         }
