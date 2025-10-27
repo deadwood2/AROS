@@ -402,6 +402,7 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
     proxy->base.WindowPort = 0xBAADF00D;
 
     proxy->base.RPort = (APTR32)(IPTR)makeRastPortV0(proxy->native->RPort);
+    proxy->base.IDCMPFlags = proxy->native->IDCMPFlags; /* Synchronize after creation, not every time via syncWindowV0 */
 
     syncWindowV0(proxy);
 
