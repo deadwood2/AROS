@@ -819,6 +819,8 @@ MAKE_PROXY_ARG_4(AddGadget)
 void abiv0_RefreshGList(struct GadgetV0 *gadgets, struct WindowV0 *window, APTR /*struct Requester **/requester, LONG numGad,
     struct LibraryV0 *IntuitionBaseV0)
 {
+    struct WindowProxy *winproxy = (struct WindowProxy *)window;
+    RefreshGList(winproxy->native->FirstGadget, winproxy->native, NULL, -1);
 bug("abiv0_RefreshGList: STUB\n");
 }
 MAKE_PROXY_ARG_5(RefreshGList)
