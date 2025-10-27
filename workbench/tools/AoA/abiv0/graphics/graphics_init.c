@@ -613,6 +613,14 @@ LONG abiv0_BltBitMap(struct BitMapV0 * srcBitMap, LONG xSrc, LONG ySrc, struct B
 }
 MAKE_PROXY_ARG_12(BltBitMap)
 
+
+void abiv0_ScrollRaster(struct RastPortV0 *rp, LONG dx, LONG dy, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    ScrollRaster(rpnative, dx, dy, xMin, yMin, xMax,yMax);
+}
+MAKE_PROXY_ARG_12(ScrollRaster)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -721,4 +729,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 106, (APTR32)(IPTR)proxy_BltMaskBitMapRastPort);
     __AROS_SETVECADDRV0(abiv0GfxBase,  83, graphicsjmp[202 -  83]);  // FreeRaster
     __AROS_SETVECADDRV0(abiv0GfxBase,   5, (APTR32)(IPTR)proxy_BltBitMap);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  66, (APTR32)(IPTR)proxy_ScrollRaster);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 193, graphicsjmp[202 - 193]);  // AndRectRect
 }
