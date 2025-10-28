@@ -118,16 +118,28 @@ LONG abiv0_SetVBuf()
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
-#define MAXCHILDPROCESSES 6 // same in EXEC
+#define MAXCHILDPROCESSES 8 // same in EXEC
 extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
 extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
-ULONG g_childprocessidx = 0;
+
+LONG childprocess_getslot()
+{
+    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+    if (g_nativechildprocesses[i] == NULL)
+    {
+        g_nativechildprocesses[i] = (APTR)0x1;
+        return i;
+    }
+
+    return -1;
+}
 
 struct CreateNewProcMsg
 {
     struct Message  msg;
     APTR32          cnp_Entry;
     ULONG           cnp_StackSize;
+    LONG            cnp_Slot;
 };
 
 static void createNewProc_trampoline()
@@ -141,6 +153,7 @@ static void createNewProc_trampoline()
 
     ULONG stacksize = msg->cnp_StackSize;
     APTR32 entry = msg->cnp_Entry;
+    LONG slot = msg->cnp_Slot;
     FreeMem(msg, sizeof(struct CreateNewProcMsg));
 
     if (stacksize == 0) stacksize = AROS_STACKSIZE;
@@ -155,20 +168,25 @@ static void createNewProc_trampoline()
     abiv0_NewStackSwap(&sss, (LONG_FUNC)(IPTR)entry, &ssa, DOS_SysBaseV0);
 
     abiv0_FreeMem(stack31bit, stacksize, DOS_SysBaseV0);
+
+    /* Free slot */
+    abiv0_FreeMem(g_v0childprocesses[slot], sizeof(struct ProcessV0), DOS_SysBaseV0);
+    g_v0childprocesses[slot] = NULL;
+    g_nativechildprocesses[slot] = NULL;
 }
 
 struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
 {
 
-    ULONG childprocessidx;
+    LONG childprocessidx;
 
-    if (g_childprocessidx == MAXCHILDPROCESSES)
+    childprocessidx = childprocess_getslot();
+
+    if (childprocessidx == -1)
         asm("int3"); // limited number of proceses for now
 
-    childprocessidx = g_childprocessidx;
-    g_childprocessidx++; /* Increase alrady here in case a child process creates a child process */
-
     struct CreateNewProcMsg *msg = (struct CreateNewProcMsg *)AllocMem(sizeof(struct CreateNewProcMsg), MEMF_CLEAR);
+    msg->cnp_Slot = childprocessidx;
 
     struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
 
@@ -220,7 +238,6 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
     }
 
     struct Process *p = CreateNewProc(tagListNative);
-    PutMsg(&p->pr_MsgPort, (struct Message *)msg);
     g_nativechildprocesses[childprocessidx] = (struct Task *)p;
     struct ProcessV0 *pV0 = (struct ProcessV0 *)abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, DOS_SysBaseV0);
 
@@ -230,6 +247,9 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
     *((IPTR *)&pV0->pr_MsgPort.mp_Node) = (IPTR)&p->pr_MsgPort;
 
     g_v0childprocesses[childprocessidx] = pV0;
+
+    PutMsg(&p->pr_MsgPort, (struct Message *)msg); /* Allow child process to proceed */
+
 bug("abiv0_CreateNewProc: STUB\n");
     return g_v0childprocesses[childprocessidx];
 }
