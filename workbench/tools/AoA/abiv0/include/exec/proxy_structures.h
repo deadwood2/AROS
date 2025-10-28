@@ -12,12 +12,14 @@ struct MsgPortProxy
 
 #define DEVPROXY_TYPE_INPUT (1)
 #define DEVPROXY_TYPE_TIMER (2)
+#define DEVPROXY_TYPE_AHI   (3)
 struct DeviceProxy
 {
-    struct LibraryV0    base;
+    struct DeviceV0     base;
+    struct Device       *native;
     ULONG               type;
+    struct IOStdReq     *io;
 
-    // struct IOStdReq     *io;
     // struct MsgPort      *mp;
 
     // APTR                user1;
