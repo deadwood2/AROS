@@ -121,6 +121,11 @@ struct LibraryV0 {
 #endif
 };
 
+struct DeviceV0
+{
+    struct LibraryV0 dd_Library;
+};
+
 struct __mayalias ResidentV0;
 struct ResidentV0
 {

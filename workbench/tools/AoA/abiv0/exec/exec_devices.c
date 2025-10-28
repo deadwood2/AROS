@@ -1,3 +1,4 @@
+#include <devices/ahi.h>
 #include <proto/exec.h>
 #include <aros/debug.h>
 #include <string.h>
@@ -45,7 +46,16 @@ bug("abiv0_OpenDevice: console.device STUB\n");
     {
 bug("abiv0_OpenDevice: ahi.device STUB\n");
         struct DeviceProxy *proxy = abiv0_AllocMem(sizeof(struct DeviceProxy), MEMF_CLEAR, SysBaseV0);
-        iORequest->io_Device = (APTR32)(IPTR)proxy;
+        struct MsgPort *pnative = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+        proxy->type = DEVPROXY_TYPE_AHI;
+        proxy->io   = (struct IOStdReq *)CreateIORequest(pnative, sizeof(struct AHIRequest));
+        ((struct AHIRequest *)proxy->io)->ahir_Version = 4;
+        LONG _ret = OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
+        if (_ret == 0)
+        {
+            iORequest->io_Device = (APTR32)(IPTR)proxy;
+        }
+
         return -1;
     }
 
@@ -70,6 +80,10 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
     {
         /* No Op */
         return;
+    }
+    if (proxy->type == DEVPROXY_TYPE_AHI)
+    {
+        asm("int3");
     }
 bug("abiv0_CloseDevice: STUB\n");
 }
@@ -252,6 +266,11 @@ return 0;
 asm("int3");
     }
 
+    if (proxy->type == DEVPROXY_TYPE_AHI)
+    {
+asm("int3");
+    }
+
 bug("abiv0_DoIO: STUB\n");
     return 0;
 }
@@ -357,23 +376,41 @@ void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
         }
 asm("int3");
     }
+
+    if (dproxy->type == DEVPROXY_TYPE_AHI)
+    {
+asm("int3");
+    }
+
 bug("abiv0_SendIO: STUB\n");
 }
 MAKE_PROXY_ARG_2(SendIO)
 
 struct IORequestV0 *abiv0_CheckIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
-    struct timerequest *pnative = get_trio((struct timerequestV0 *)iORequest);
-    if (pnative)
+    struct DeviceProxy *dproxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
+    struct IORequest *ionative = NULL;
+
+    if (dproxy->type == DEVPROXY_TYPE_TIMER)
     {
-        if (CheckIO((struct IORequest *)pnative) == (struct IORequest *)pnative)
+        ionative = (struct IORequest *)get_trio((struct timerequestV0 *)iORequest);
+    }
+
+    if (dproxy->type == DEVPROXY_TYPE_AHI)
+    {
+asm("int3");
+    }
+
+    if (ionative)
+    {
+        if (CheckIO((struct IORequest *)ionative) == (struct IORequest *)ionative)
         {
-bug("abiv0_CheckIO: TR_ADDREQUEST STUB\n");
             return iORequest;
         }
         else
             return NULL;
     }
+
 
 bug("abiv0_CheckIO: STUB\n");
     return NULL;
@@ -382,11 +419,24 @@ MAKE_PROXY_ARG_2(CheckIO)
 
 LONG abiv0_AbortIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
-    struct timerequest *pnative = get_trio((struct timerequestV0 *)iORequest);
-    if (pnative)
+    struct DeviceProxy *dproxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
+    struct IORequest *ionative = NULL;
+
+    if (dproxy->type == DEVPROXY_TYPE_TIMER)
     {
-        return AbortIO((struct IORequest *)pnative);
+        ionative = (struct IORequest *)get_trio((struct timerequestV0 *)iORequest);
     }
+
+    if (dproxy->type == DEVPROXY_TYPE_AHI)
+    {
+asm("int3");
+    }
+
+    if (ionative)
+    {
+        return AbortIO((struct IORequest *)ionative);
+    }
+
 
 bug("abiv0_AbortIO: STUB\n");
     return 0;
@@ -395,16 +445,35 @@ MAKE_PROXY_ARG_2(AbortIO)
 
 LONG abiv0_WaitIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
-    struct timerequest *pnative = get_trio((struct timerequestV0 *)iORequest);
-    if (pnative)
+    struct DeviceProxy *dproxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
+    struct IORequest *ionative = NULL;
+    LONG _ret;
+
+    if (dproxy->type == DEVPROXY_TYPE_TIMER)
     {
-bug("abiv0_WaitIO: TR_ADDREQUEST STUB\n");
-        LONG ret = WaitIO((struct IORequest *)pnative);
+        ionative = (struct IORequest *)get_trio((struct timerequestV0 *)iORequest);
+    }
 
-        cleanby_trio(pnative);
+    if (dproxy->type == DEVPROXY_TYPE_AHI)
+    {
+asm("int3");
+    }
 
-        FreeMem(pnative, sizeof(struct timerequest));
-        return ret;
+    if (ionative)
+    {
+        _ret = WaitIO((struct IORequest *)ionative);
+        if (dproxy->type == DEVPROXY_TYPE_TIMER)
+        {
+            cleanby_trio((struct timerequest *)ionative);
+            FreeMem(ionative, sizeof(struct timerequest));
+        }
+
+        if (dproxy->type == DEVPROXY_TYPE_AHI)
+        {
+asm("int3");
+        }
+
+        return _ret;
     }
 
 bug("abiv0_WaitIO: STUB\n");
