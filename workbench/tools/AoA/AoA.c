@@ -300,6 +300,19 @@ ULONG abiv0_BestCModeIDTagList(struct TagItemV0 * tags, struct LibraryV0 *CyberG
 }
 MAKE_PROXY_ARG_2(BestCModeIDTagList)
 
+ULONG abiv0_GetCyberIDAttr(ULONG attribute, ULONG DisplayModeID, struct LibraryV0 *CyberGfxBaseV0)
+{
+    return GetCyberIDAttr(attribute, DisplayModeID);
+}
+MAKE_PROXY_ARG_3(GetCyberIDAttr)
+
+ULONG abiv0_GetCyberMapAttr(struct BitMapV0 *bitMap, ULONG attribute, struct LibraryV0 *CyberGfxBaseV0)
+{
+    struct BitMapProxy *proxy = (struct BitMapProxy *)bitMap;
+    return GetCyberMapAttr(proxy->native, attribute);
+}
+MAKE_PROXY_ARG_3(GetCyberMapAttr)
+
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
@@ -391,6 +404,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 38, (APTR32)(IPTR)proxy_ProcessPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase,  9, (APTR32)(IPTR)proxy_IsCyberModeID);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 10, (APTR32)(IPTR)proxy_BestCModeIDTagList);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 17, (APTR32)(IPTR)proxy_GetCyberIDAttr);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 16, (APTR32)(IPTR)proxy_GetCyberMapAttr);
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 
