@@ -9,6 +9,7 @@
 #include "../include/exec/functions.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
+#include "../include/aros/call32.h"
 
 #include "../include/dos/structures.h"
 #include "../include/utility/structures.h"
@@ -873,21 +874,7 @@ BPTR abiv0_LoadSeg(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
 
     BPTR _ret = BNULL;
     /* Call original function */
-    __asm__ volatile (
-        "subq $8, %%rsp\n"
-        "movl %3, %%eax\n"
-        "movl %%eax, 4(%%rsp)\n"
-        "movl %2, %%eax\n"
-        "movl %%eax, (%%rsp)\n"
-        "movl %1, %%eax\n"
-        ENTER32
-        "call *%%eax\n"
-        ENTER64
-        "addq $8, %%rsp\n"
-        "movl %%eax, %0\n"
-        :"=m"(_ret)
-        :"m"(dosfunctable[24]), "m"(p), "m"(DOSBaseV0)
-        : SCRATCH_REGS_64_TO_32 );
+    CALL32_ARG_2(_ret, dosfunctable[24], p , DOSBaseV0);
 
     return _ret;
 }
