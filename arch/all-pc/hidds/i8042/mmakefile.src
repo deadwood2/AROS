@@ -5,6 +5,7 @@ USER_CPPFLAGS := \
                -D__OOP_NOLIBBASE__ \
                -D__OOP_NOATTRBASES__ \
                -D__OOP_NOMETHODBASES__
+#USER_CPPFLAGS += -DDEBUG=1
 
 FILES := \
           i8042_init \
