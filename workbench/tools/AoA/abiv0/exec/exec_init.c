@@ -447,6 +447,12 @@ void abiv0_RawPutChar(UBYTE chr, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(RawPutChar)
 
+IPTR abiv0_AvailMem(ULONG attributes, struct ExecBaseV0 *SysBaseV0)
+{
+    return AvailMem(attributes);
+}
+MAKE_PROXY_ARG_2(AvailMem)
+
 extern ULONG *execfunctable;
 APTR32 global_SysBaseV0Ptr;
 
@@ -618,6 +624,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 54, (APTR32)(IPTR)proxy_Signal);
     __AROS_SETVECADDRV0(abiv0SysBase, 38, execfunctable[37]);    // FreeEntry
     __AROS_SETVECADDRV0(abiv0SysBase, 86, (APTR32)(IPTR)proxy_RawPutChar);
+    __AROS_SETVECADDRV0(abiv0SysBase, 36, (APTR32)(IPTR)proxy_AvailMem);
     Exec_Devices_init(abiv0SysBase);
     Exec_Ports_init(abiv0SysBase);
 

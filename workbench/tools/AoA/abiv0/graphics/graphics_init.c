@@ -404,7 +404,7 @@ MAKE_PROXY_ARG_3(ClearRectRegion)
 ULONG abiv0_GetVPModeID(struct ViewPortV0 * vp, struct GfxBaseV0 *GfxBaseV0)
 {
     struct ViewPort *vpnative = (struct ViewPort *)*(IPTR *)&vp->DspIns;
-    return INVALID_ID;
+    return GetVPModeID(vpnative);
 }
 MAKE_PROXY_ARG_2(GetVPModeID)
 
@@ -758,4 +758,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  66, (APTR32)(IPTR)proxy_ScrollRaster);
     __AROS_SETVECADDRV0(abiv0GfxBase, 193, graphicsjmp[202 - 193]);  // AndRectRect
     __AROS_SETVECADDRV0(abiv0GfxBase, 176, (APTR32)(IPTR)proxy_WriteChunkyPixels);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 177, graphicsjmp[202 - 177]);  // CreateRastPort
+    __AROS_SETVECADDRV0(abiv0GfxBase, 180, graphicsjmp[202 - 180]);  // FreeRastPort
+
 }
