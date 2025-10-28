@@ -1207,6 +1207,9 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
     *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
 
     proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
+    struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    bmproxy->native = native->RastPort.BitMap;
+    proxy->base.Screen.RastPort.BitMap = (APTR32)(IPTR)bmproxy;
     *((IPTR *)&proxy->base.Screen.RastPort.longreserved) = (IPTR)&native->RastPort;
 
     /* TODO: this should be a proxy to native intuition class */
