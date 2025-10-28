@@ -871,22 +871,25 @@ BPTR abiv0_LoadSeg(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
         SNPrintf(tmp, 128, "%s", name);
     CONST_STRPTR p = tmp;
 
+    BPTR _ret = BNULL;
     /* Call original function */
     __asm__ volatile (
         "subq $8, %%rsp\n"
-        "movl %2, %%eax\n"
+        "movl %3, %%eax\n"
         "movl %%eax, 4(%%rsp)\n"
-        "movl %1, %%eax\n"
+        "movl %2, %%eax\n"
         "movl %%eax, (%%rsp)\n"
-        "movl %0, %%eax\n"
+        "movl %1, %%eax\n"
         ENTER32
-        "call *%%eax\n" // This is tricky becaused on LoadSeg32
+        "call *%%eax\n"
         ENTER64
         "addq $8, %%rsp\n"
-        "leave\n"
-        "ret\n"
-        ::"m"(dosfunctable[24]), "m"(p), "m"(DOSBaseV0)
+        "movl %%eax, %0\n"
+        :"=m"(_ret)
+        :"m"(dosfunctable[24]), "m"(p), "m"(DOSBaseV0)
         : SCRATCH_REGS_64_TO_32 );
+
+    return _ret;
 }
 MAKE_PROXY_ARG_2(LoadSeg)
 
