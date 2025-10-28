@@ -621,6 +621,32 @@ void abiv0_ScrollRaster(struct RastPortV0 *rp, LONG dx, LONG dy, LONG xMin, LONG
 }
 MAKE_PROXY_ARG_12(ScrollRaster)
 
+void abiv0_WriteChunkyPixels(struct RastPortV0 *rp, LONG xstart, LONG ystart, LONG xstop, LONG ystop, UBYTE *array, LONG bytesperrow,
+    struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort rptmp;
+
+    /* RNOTunes uses locally created RastPort */
+    if (rpnative == NULL)
+    {
+        InitRastPort(&rptmp);
+        rptmp.FgPen     = rp->FgPen;
+        rptmp.BgPen     = rp->BgPen;
+        rptmp.DrawMode  = rp->DrawMode;
+        rptmp.linpatcnt = rp->linpatcnt;
+        rptmp.Flags     = rp->Flags;
+        rptmp.cp_x      = rp->cp_x;
+        rptmp.cp_y      = rp->cp_y;
+
+        rptmp.BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+
+        rpnative = &rptmp;
+    }
+    WriteChunkyPixels(rpnative, xstart, ystart, xstop, ystop, array, bytesperrow);
+}
+MAKE_PROXY_ARG_12(WriteChunkyPixels)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
@@ -731,4 +757,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,   5, (APTR32)(IPTR)proxy_BltBitMap);
     __AROS_SETVECADDRV0(abiv0GfxBase,  66, (APTR32)(IPTR)proxy_ScrollRaster);
     __AROS_SETVECADDRV0(abiv0GfxBase, 193, graphicsjmp[202 - 193]);  // AndRectRect
+    __AROS_SETVECADDRV0(abiv0GfxBase, 176, (APTR32)(IPTR)proxy_WriteChunkyPixels);
 }
