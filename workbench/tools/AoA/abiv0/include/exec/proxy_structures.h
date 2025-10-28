@@ -19,6 +19,7 @@ struct DeviceProxy
     struct Device       *native;
     ULONG               type;
     struct IOStdReq     *io;
+    struct Unit*        nativeunit;
 
     // struct MsgPort      *mp;
 

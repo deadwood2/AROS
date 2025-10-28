@@ -53,10 +53,12 @@ bug("abiv0_OpenDevice: ahi.device STUB\n");
         LONG _ret = OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
         if (_ret == 0)
         {
-            iORequest->io_Device = (APTR32)(IPTR)proxy;
+            proxy->nativeunit       = proxy->io->io_Unit;
+            proxy->native           = proxy->io->io_Device;
+            iORequest->io_Device    = (APTR32)(IPTR)proxy;
         }
 
-        return -1;
+        return _ret;
     }
 
 
@@ -83,7 +85,9 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
     }
     if (proxy->type == DEVPROXY_TYPE_AHI)
     {
-        asm("int3");
+        CloseDevice((struct IORequest *)proxy->io);
+        DeleteIORequest((struct IORequest *)proxy->io);
+        FreeMem(proxy, sizeof(struct DeviceProxy));
     }
 bug("abiv0_CloseDevice: STUB\n");
 }
@@ -349,6 +353,43 @@ LONG trio_request_slot()
 
 // AHI
 
+struct AHIRequestV0
+{
+    struct	IOStdReqV0  ahir_Std;
+    UWORD               ahir_Version;
+    UWORD               ahir_Pad1;
+    APTR32              ahir_Private[2];
+    ULONG               ahir_Type;
+    ULONG               ahir_Frequency;
+    Fixed               ahir_Volume;
+    Fixed               ahir_Position;
+    APTR32              ahir_Link;
+};
+
+struct IORequest *g_ahiio[10];
+struct IORequestV0 *g_v0ahiio[10];
+
+static struct IORequest * get_ahiio(struct IORequestV0 *pv0)
+{
+    return get_nativeio(g_ahiio, g_v0ahiio, pv0);
+}
+
+static struct IORequestV0 * get_v0ahiio(struct IORequest *pnative)
+{
+    return get_v0io(g_ahiio, g_v0ahiio, pnative);
+}
+
+void cleanby_ahiio(struct IORequest *pnative)
+{
+    cleanby_nativeio(g_ahiio, g_v0ahiio, pnative);
+}
+
+// not thread safe
+LONG ahiio_request_slot()
+{
+    return nativeio_request_slot(g_ahiio);
+}
+
 static struct MessageV0 * TRIO_translate(struct Message *ior)
 {
     struct timerequest *pnative = (struct timerequest *)ior;
@@ -395,7 +436,6 @@ void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
             g_v0trio[slot] = iORequest;
 
             SendIO((struct IORequest *)io);
-//  bug("abiv0_SendIO: TR_ADDREQUEST STUB\n");
             return;
         }
 asm("int3");
@@ -403,6 +443,45 @@ asm("int3");
 
     if (dproxy->type == DEVPROXY_TYPE_AHI)
     {
+        if (iORequest->io_Command ==  3 /* CMD_WRITE */)
+        {
+            LONG slot = ahiio_request_slot();
+
+            if (slot == -1) asm("int3");
+
+            struct AHIRequest *io = AllocMem(sizeof(struct AHIRequest), MEMF_PUBLIC | MEMF_CLEAR);
+            io->ahir_Std.io_Message.mn_ReplyPort =
+                MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+            io->ahir_Std.io_Message.mn_Node.ln_Pri = iORequest->io_Message.mn_Node.ln_Pri;
+            io->ahir_Std.io_Message.mn_Length = sizeof(struct AHIRequest);
+
+            struct MsgPortProxy *pproxy = MsgPortV0_getproxy((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+            // if (!pproxy || (pproxy->translate != NULL && pproxy->translate != TRIO_translate)) asm("int3");
+            // else pproxy->translate = TRIO_translate;
+
+            io->ahir_Std.io_Device  = dproxy->native;
+            io->ahir_Std.io_Command = iORequest->io_Command;
+            io->ahir_Std.io_Unit    = dproxy->nativeunit;
+            io->ahir_Std.io_Data    = (APTR)(IPTR)(((struct IOStdReqV0 *)iORequest)->io_Data);
+            io->ahir_Std.io_Length  = ((struct IOStdReqV0 *)iORequest)->io_Length;
+            io->ahir_Std.io_Offset  = ((struct IOStdReqV0 *)iORequest)->io_Offset;
+
+            struct AHIRequestV0 *iov0 = ((struct AHIRequestV0 *)iORequest);
+            io->ahir_Version        = iov0->ahir_Version;
+            io->ahir_Frequency      = iov0->ahir_Frequency;
+            io->ahir_Type           = iov0->ahir_Type;
+            io->ahir_Volume         = iov0->ahir_Volume;
+            io->ahir_Position       = iov0->ahir_Position;
+            io->ahir_Link           = NULL;
+            if (iov0->ahir_Link != (APTR32)(IPTR)NULL)
+                io->ahir_Link = (struct AHIRequest *)get_ahiio((struct IORequestV0 *)(IPTR)iov0->ahir_Link);
+
+            g_ahiio[slot] = (struct IORequest *)io;
+            g_v0ahiio[slot] = iORequest;
+
+            SendIO((struct IORequest *)io);
+            return;
+        }
 asm("int3");
     }
 
@@ -416,21 +495,15 @@ struct IORequestV0 *abiv0_CheckIO(struct IORequestV0 *iORequest, struct ExecBase
     struct IORequest *ionative = NULL;
 
     if (dproxy->type == DEVPROXY_TYPE_TIMER)
-    {
         ionative = get_trio(iORequest);
-    }
 
     if (dproxy->type == DEVPROXY_TYPE_AHI)
-    {
-asm("int3");
-    }
+        ionative = get_ahiio(iORequest);
 
     if (ionative)
     {
         if (CheckIO(ionative) == ionative)
-        {
             return iORequest;
-        }
         else
             return NULL;
     }
@@ -447,19 +520,13 @@ LONG abiv0_AbortIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
     struct IORequest *ionative = NULL;
 
     if (dproxy->type == DEVPROXY_TYPE_TIMER)
-    {
         ionative = get_trio(iORequest);
-    }
 
     if (dproxy->type == DEVPROXY_TYPE_AHI)
-    {
-asm("int3");
-    }
+        ionative = get_ahiio(iORequest);
 
     if (ionative)
-    {
         return AbortIO(ionative);
-    }
 
 
 bug("abiv0_AbortIO: STUB\n");
@@ -474,14 +541,10 @@ LONG abiv0_WaitIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
     LONG _ret;
 
     if (dproxy->type == DEVPROXY_TYPE_TIMER)
-    {
         ionative = get_trio(iORequest);
-    }
 
     if (dproxy->type == DEVPROXY_TYPE_AHI)
-    {
-asm("int3");
-    }
+        ionative = get_ahiio(iORequest);
 
     if (ionative)
     {
@@ -494,7 +557,8 @@ asm("int3");
 
         if (dproxy->type == DEVPROXY_TYPE_AHI)
         {
-asm("int3");
+            cleanby_ahiio(ionative);
+            FreeMem(ionative, sizeof(struct AHIRequest));
         }
 
         return _ret;
