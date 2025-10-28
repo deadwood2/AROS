@@ -271,6 +271,9 @@ MAKE_PROXY_ARG_2(FGetC)
 
 BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
+    if (strcmp(name, "LIBS:Zune/TheBar.mcc") == 0)
+        name = "LIBSV0:Zune/TheBar.mcc";
+
     BPTR tmp = Open(name, accessMode);
 
     if (tmp == BNULL)
