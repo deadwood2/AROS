@@ -304,11 +304,12 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
     if (strcmp(devName, "input.device") == 0)
     {
         struct DeviceProxy *proxy = abiv0_AllocMem(sizeof(struct DeviceProxy), MEMF_CLEAR, SysBaseV0);
-        proxy->mp = CreateMsgPort();
-        proxy->io = (struct IOStdReq *)CreateIORequest(proxy->mp, sizeof(struct IOStdReq));
         proxy->type = DEVPROXY_TYPE_INPUT;
 
-        OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
+        // proxy->mp = CreateMsgPort();
+        // proxy->io = (struct IOStdReq *)CreateIORequest(proxy->mp, sizeof(struct IOStdReq));
+
+        // OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
 
         iORequest->io_Device = (APTR32)(IPTR)proxy;
         return 0;
@@ -339,9 +340,9 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
     struct DeviceProxy *proxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
     if (proxy->type == DEVPROXY_TYPE_INPUT)
     {
-        CloseDevice((struct IORequest *)proxy->io);
-        DeleteIORequest((struct IORequest *)proxy->io);
-        DeleteMsgPort(proxy->mp);
+        // CloseDevice((struct IORequest *)proxy->io);
+        // DeleteIORequest((struct IORequest *)proxy->io);
+        // DeleteMsgPort(proxy->mp);
         FreeMem(proxy, sizeof(struct DeviceProxy));
         return;
     }
@@ -533,89 +534,89 @@ MAKE_PROXY_ARG_2(Wait)
 
 #include "../include/input/structures.h"
 
-void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
-{
-    __asm__ volatile (
-        "pushq %%rbx\n"
-        "subq $8, %%rsp\n"
-        "movl %2, %%eax\n"
-        "movl %%eax, 4(%%rsp)\n"
-        "movl %1, %%eax\n"
-        "movl %%eax, (%%rsp)\n"
-        "movl %0, %%eax\n"
-        ENTER32
-        "call *%%eax\n"
-        ENTER64
-        "addq $8, %%rsp\n"
-        "popq %%rbx\n"
-        "leave\n"
-        "ret\n"
-        ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data)
-        : SCRATCH_REGS_64_TO_32 );
-}
+// void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
+// {
+//     __asm__ volatile (
+//         "pushq %%rbx\n"
+//         "subq $8, %%rsp\n"
+//         "movl %2, %%eax\n"
+//         "movl %%eax, 4(%%rsp)\n"
+//         "movl %1, %%eax\n"
+//         "movl %%eax, (%%rsp)\n"
+//         "movl %0, %%eax\n"
+//         ENTER32
+//         "call *%%eax\n"
+//         ENTER64
+//         "addq $8, %%rsp\n"
+//         "popq %%rbx\n"
+//         "leave\n"
+//         "ret\n"
+//         ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data)
+//         : SCRATCH_REGS_64_TO_32 );
+// }
 
-AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
-          AROS_UFHA(struct InputEvent *,      oldchain,       A0),
-          AROS_UFHA(struct DeviceProxy *,       proxy,        A1)
-         )
-{
-    AROS_USERFUNC_INIT
+// AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
+//           AROS_UFHA(struct InputEvent *,      oldchain,       A0),
+//           AROS_UFHA(struct DeviceProxy *,       proxy,        A1)
+//          )
+// {
+//     AROS_USERFUNC_INIT
  
-    struct InputEvent *next_ie = oldchain;
+//     struct InputEvent *next_ie = oldchain;
 
-    ULONG count = 0;
+//     ULONG count = 0;
 
-    while(next_ie) { count++; next_ie = next_ie->ie_NextEvent; }
-    struct InputEventV0 *v0chain = abiv0_AllocMem(count * sizeof(struct InputEventV0), MEMF_CLEAR, abiv0SysBase);
+//     while(next_ie) { count++; next_ie = next_ie->ie_NextEvent; }
+//     struct InputEventV0 *v0chain = abiv0_AllocMem(count * sizeof(struct InputEventV0), MEMF_CLEAR, abiv0SysBase);
 
-    next_ie = oldchain;
+//     next_ie = oldchain;
 
-    ULONG pos = 0;
-    struct InputEventV0 *v0event = NULL;
-    while (next_ie)
-    {
-        v0event = &v0chain[pos];
-        v0event->ie_NextEvent   = (APTR32)(IPTR)&v0chain[pos + 1];
+//     ULONG pos = 0;
+//     struct InputEventV0 *v0event = NULL;
+//     while (next_ie)
+//     {
+//         v0event = &v0chain[pos];
+//         v0event->ie_NextEvent   = (APTR32)(IPTR)&v0chain[pos + 1];
 
-        v0event->ie_Class       = next_ie->ie_Class;
-        v0event->ie_SubClass    = next_ie->ie_SubClass;
-        v0event->ie_Code        = next_ie->ie_Code;
-        v0event->ie_Qualifier   = next_ie->ie_Qualifier;
+//         v0event->ie_Class       = next_ie->ie_Class;
+//         v0event->ie_SubClass    = next_ie->ie_SubClass;
+//         v0event->ie_Code        = next_ie->ie_Code;
+//         v0event->ie_Qualifier   = next_ie->ie_Qualifier;
 
-        v0event->ie_position.ie_xy.ie_x = next_ie->ie_position.ie_xy.ie_x;
-        v0event->ie_position.ie_xy.ie_y = next_ie->ie_position.ie_xy.ie_y;
+//         v0event->ie_position.ie_xy.ie_x = next_ie->ie_position.ie_xy.ie_x;
+//         v0event->ie_position.ie_xy.ie_y = next_ie->ie_position.ie_xy.ie_y;
 
-        v0event->ie_TimeStamp   = next_ie->ie_TimeStamp;
+//         v0event->ie_TimeStamp   = next_ie->ie_TimeStamp;
 
-        next_ie = next_ie->ie_NextEvent;
-        pos++;
-    }
-    v0event->ie_NextEvent = (APTR32)(IPTR)NULL; /* Last event */
+//         next_ie = next_ie->ie_NextEvent;
+//         pos++;
+//     }
+//     v0event->ie_NextEvent = (APTR32)(IPTR)NULL; /* Last event */
 
-    /* Switch to 31-bit stack, because handler is in 32-bit code */
-    static APTR stack31bit = NULL;
-    struct StackSwapStruct sss;
-    struct StackSwapArgs ssa;
+//     /* Switch to 31-bit stack, because handler is in 32-bit code */
+//     static APTR stack31bit = NULL;
+//     struct StackSwapStruct sss;
+//     struct StackSwapArgs ssa;
 
-    if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
+//     if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
 
-    sss.stk_Lower = stack31bit;
-    sss.stk_Upper = sss.stk_Lower + 64 * 1024;
-    sss.stk_Pointer = sss.stk_Upper;
+//     sss.stk_Lower = stack31bit;
+//     sss.stk_Upper = sss.stk_Lower + 64 * 1024;
+//     sss.stk_Pointer = sss.stk_Upper;
 
-    struct InterruptV0 *v0handler = (struct InterruptV0 *)proxy->user1;
+//     struct InterruptV0 *v0handler = (struct InterruptV0 *)proxy->user1;
 
-    ssa.Args[0] = (IPTR)v0handler;
-    ssa.Args[1] = (IPTR)v0chain;
+//     ssa.Args[0] = (IPTR)v0handler;
+//     ssa.Args[1] = (IPTR)v0chain;
 
-    NewStackSwap(&sss, call_handler_on_31bit_stack, &ssa);
+//     NewStackSwap(&sss, call_handler_on_31bit_stack, &ssa);
 
-    FreeMem(v0chain, count * sizeof(struct InputEventV0));
+//     FreeMem(v0chain, count * sizeof(struct InputEventV0));
 
-    return oldchain;
+//     return oldchain;
 
-    AROS_USERFUNC_EXIT
-}
+//     AROS_USERFUNC_EXIT
+// }
 
 #include <proto/timer.h>
 #include "../include/timer/structures.h"

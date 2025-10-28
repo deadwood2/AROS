@@ -15,12 +15,13 @@ struct MsgPortProxy
 struct DeviceProxy
 {
     struct LibraryV0    base;
-    struct IOStdReq     *io;
-    struct MsgPort      *mp;
-
     ULONG               type;
-    APTR                user1;
-    APTR                user2;
+
+    // struct IOStdReq     *io;
+    // struct MsgPort      *mp;
+
+    // APTR                user1;
+    // APTR                user2;
 };
 
 #endif
