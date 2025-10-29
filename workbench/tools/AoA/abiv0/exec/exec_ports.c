@@ -76,10 +76,12 @@ BOOL MsgPortV0_containsnative(struct MsgPortV0 *port)
     return (port->mp_MsgList.l_pad == 1 || port->mp_MsgList.l_pad == 3);
 }
 
-void MsgPortV0_fixed_connectnative(struct MsgPortV0 *portv0, struct MsgPort *portnative)
+void MsgPortV0_fixed_connectnative(struct MsgPortV0 *portv0, struct MsgPort *portnative, struct ExecBaseV0 *SysBaseV0)
 {
+    struct MsgPortProxy *proxy = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, SysBaseV0); // MEMLEAK
+    proxy->native = portnative;
     portv0->mp_MsgList.l_pad = 3;
-    *((IPTR *)&portv0->mp_Node) = (IPTR)portnative;
+    *((IPTR *)&portv0->mp_Node) = (IPTR)proxy;
 }
 
 struct MsgPort * MsgPortV0_getnative(struct MsgPortV0 *port)
@@ -87,7 +89,7 @@ struct MsgPort * MsgPortV0_getnative(struct MsgPortV0 *port)
     if (port->mp_MsgList.l_pad == 1)
         return ((struct MsgPortProxy *)port)->native;
     else if (port->mp_MsgList.l_pad == 3)
-            return (struct MsgPort *)(*(IPTR *)(&port->mp_Node));
+            return ((struct MsgPortProxy *)(*(IPTR *)(&port->mp_Node)))->native;
     else asm("int3");
 
     return NULL;
@@ -97,6 +99,9 @@ struct MsgPortProxy * MsgPortV0_getproxy(struct MsgPortV0 *port)
 {
     if (port->mp_MsgList.l_pad == 1)
         return (struct MsgPortProxy *)port;
+    else if (port->mp_MsgList.l_pad == 3)
+        return (struct MsgPortProxy *)(*(IPTR *)(&port->mp_Node));
+
     return NULL;
 }
 
