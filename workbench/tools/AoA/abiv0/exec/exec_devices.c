@@ -18,30 +18,27 @@ extern struct Task *g_nativemaintask;
 
 struct Task * childprocess_getbyv0(struct TaskV0 *childv0);
 
-static void ahi_checkandwrap_port(struct MsgPortV0 *port)
+static void io_checkandwrap_port(struct MsgPortV0 *port)
 {
     if (MsgPortV0_containsnative(port))
         return;
 
-    /* SDL creates an in-structure port manually to open device */
-    if (port->mp_SigBit == SIGB_SINGLE && (struct TaskV0 *)(IPTR)port->mp_SigTask == g_v0maintask)
-    {
-        struct MsgPort *native = CreateMsgPort();
-        FreeSignal(native->mp_SigBit);
-        native->mp_SigBit = SIGB_SINGLE;
-        native->mp_SigTask = g_nativemaintask;
-        MsgPortV0_fixed_connectnative(port, native);
-        return;
-    }
+    struct Task *sigtasknative = NULL;
+    if ((struct TaskV0 *)(IPTR)port->mp_SigTask == g_v0maintask)
+        sigtasknative = g_nativemaintask;
+    if (sigtasknative == NULL)
+        sigtasknative = childprocess_getbyv0((struct TaskV0 *)(IPTR)port->mp_SigTask);
 
+    // MEMLEAK
+    /* SDL creates an in-structure port manually to open device */
     /* SDL creates an in-structure port manually for player task */
-    struct Task *child = childprocess_getbyv0((struct TaskV0 *)(IPTR)port->mp_SigTask);
-    if (child)
+    /* SDL_Delay uses manually created port */
+    if (sigtasknative)
     {
         struct MsgPort *native = CreateMsgPort();
         FreeSignal(native->mp_SigBit);
         native->mp_SigBit = port->mp_SigBit;
-        native->mp_SigTask = child;
+        native->mp_SigTask = sigtasknative;
         MsgPortV0_fixed_connectnative(port, native);
         return;
     }
@@ -81,7 +78,7 @@ bug("abiv0_OpenDevice: console.device STUB\n");
     {
 bug("abiv0_OpenDevice: ahi.device STUB\n");
         struct DeviceProxy *proxy = abiv0_AllocMem(sizeof(struct DeviceProxy), MEMF_CLEAR, SysBaseV0);
-        ahi_checkandwrap_port((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+        io_checkandwrap_port((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
         struct MsgPort *pnative = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
         proxy->type = DEVPROXY_TYPE_AHI;
         proxy->io   = (struct IOStdReq *)CreateIORequest(pnative, sizeof(struct AHIRequest));
@@ -486,7 +483,7 @@ asm("int3");
             if (slot == -1) asm("int3");
 
             struct AHIRequest *io = AllocMem(sizeof(struct AHIRequest), MEMF_PUBLIC | MEMF_CLEAR);
-            ahi_checkandwrap_port((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+            io_checkandwrap_port((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
             io->ahir_Std.io_Message.mn_ReplyPort =
                 MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
             io->ahir_Std.io_Message.mn_Node.ln_Pri = iORequest->io_Message.mn_Node.ln_Pri;
