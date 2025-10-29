@@ -317,9 +317,6 @@ APTR makeFileHandleProxy(BPTR);
 
 struct TaskV0 *g_v0maintask = NULL;
 struct Task *g_nativemaintask = NULL;
-#define MAXCHILDPROCESSES 8 // same in DOS
-struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
-struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 extern STRPTR program_name;
 
 void refresh_g_v0maintask()
@@ -330,6 +327,8 @@ void refresh_g_v0maintask()
         dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
     }
 }
+
+struct TaskV0 * childprocess_getbynative(struct Task *childnative);
 
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
@@ -373,12 +372,9 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     }
 
     /* Handle child processes */
-    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
-    {
-        /* TODO: what about SysBaseV0->ThisTask?*/
-        if (native == g_nativechildprocesses[i])
-            return (struct TaskV0 *)g_v0childprocesses[i];
-    }
+    struct TaskV0 *child = childprocess_getbynative(native);
+    if (child)
+        return child;
 
 asm("int3");
     return NULL;
@@ -403,16 +399,16 @@ ULONG abiv0_SetSignal(ULONG newSignals, ULONG signalSet, struct ExecBaseV0 *SysB
 }
 MAKE_PROXY_ARG_3(SetSignal)
 
+struct Task * childprocess_getbyv0(struct TaskV0 *childv0);
+
 BYTE abiv0_SetTaskPri(struct TaskV0 *task, LONG priority, struct ExecBaseV0 *SysBaseV0)
 {
     if (task == g_v0maintask)
         return SetTaskPri(g_nativemaintask, priority);
 
-    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
-    {
-        if (task == (struct TaskV0 *)g_v0childprocesses[i])
-            return SetTaskPri(g_nativechildprocesses[i], priority);
-    }
+    struct Task *child = childprocess_getbyv0(task);
+    if (child)
+        return SetTaskPri(child, priority);
 
 asm("int3");
     return 0;
@@ -427,13 +423,11 @@ void  abiv0_Signal(struct TaskV0 *task, ULONG signalSet, struct ExecBaseV0 *SysB
         return;
     }
 
-    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+    struct Task *child = childprocess_getbyv0(task);
+    if (child)
     {
-        if (task == (struct TaskV0 *)g_v0childprocesses[i])
-        {
-            Signal(g_nativechildprocesses[i], signalSet);
-            return;
-        }
+        Signal(child, signalSet);
+        return;
     }
 
 asm("int3");
