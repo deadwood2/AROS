@@ -478,8 +478,10 @@ int main(int argc, char **argv)
         // program_path = "SYS:ProgramsV0/PintorWeb/PintorWeb";
         // program_path = "SYS:ProgramsV0/VAMP/VAMP";
         // program_path = "SYS:ProgramsV0/LilCalendar/LilCalendar_AROS";
-        program_path = "SYS:ProgramsV0/VintageSongPlayer/VintageSongPlayer";
+        // program_path = "SYS:ProgramsV0/VintageSongPlayer/VintageSongPlayer";
+        // program_path = "SYS:ProgramsV0/FastTracker2-Clone/ft2-clone";
 
+        // program_path = "SYS:ProgramsV0/protrekkr/ptk_aros";
         // program_path = "SYS:ProgramsV0/Soliton/Soliton";
         // program_path = "SYS:ProgramsV0/GianaReturn/GianaReturn";
         // program_path = "SYS:ProgramsV0/FreePrince/FreePrince";
@@ -488,6 +490,7 @@ int main(int argc, char **argv)
         // program_path = "SYS:ProgramsV0/PuzzleTiles/PuzzleTiles";
         // program_path = "SYS:ProgramsV0/ModExplorer/ModExplorer";
         // program_path = "SYS:ProgramsV0/RNOTunes_AROS/RNOTunes";
+        // program_path = "SYS:ProgramsV0/IconEditor/IconEditor";
         // program_path = "SYS:ProgramsV0/VindentiumPicta/VindentiumPicta";
         // program_path = "SYS:ProgramsV0/AROSAmp/AROSAmp";
         // program_path = "SYS:ProgramsV0/SilkRaw/SilkRaw";
