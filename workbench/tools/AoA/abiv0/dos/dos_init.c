@@ -118,11 +118,33 @@ LONG abiv0_SetVBuf()
 }
 MAKE_PROXY_ARG_5(SetVBuf)
 
-#define MAXCHILDPROCESSES 8 // same in EXEC
-extern struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
-extern struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
+#define MAXCHILDPROCESSES 8
+struct ProcessV0 *g_v0childprocesses[MAXCHILDPROCESSES];
+struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 
-LONG childprocess_getslot()
+struct Task * childprocess_getbyv0(struct TaskV0 *childv0)
+{
+    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+    {
+        if (childv0 == (struct TaskV0 *)g_v0childprocesses[i])
+            return (struct Task *)g_nativechildprocesses[i];
+    }
+
+    return NULL;
+}
+
+struct TaskV0 * childprocess_getbynative(struct Task *childnative)
+{
+    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+    {
+        if (childnative == (struct Task *)g_nativechildprocesses[i])
+            return (struct TaskV0 *)g_v0childprocesses[i];
+    }
+
+    return NULL;
+}
+
+static LONG childprocess_getslot()
 {
     for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
     if (g_nativechildprocesses[i] == NULL)
