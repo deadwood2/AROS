@@ -442,6 +442,12 @@ static struct MessageV0 * TRIO_translate(struct Message *ior)
 asm("int3");
 }
 
+static struct MessageV0 * AHIIO_translate(struct Message *ior)
+{
+bug("AHIIO_translate: STUB\n");
+    return NULL;
+}
+
 void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
 {
     struct DeviceProxy *dproxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
@@ -491,8 +497,8 @@ asm("int3");
             io->ahir_Std.io_Message.mn_Length = sizeof(struct AHIRequest);
 
             struct MsgPortProxy *pproxy = MsgPortV0_getproxy((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
-            // if (!pproxy || (pproxy->translate != NULL && pproxy->translate != TRIO_translate)) asm("int3");
-            // else pproxy->translate = TRIO_translate;
+            if (!pproxy || (pproxy->translate != NULL && pproxy->translate != AHIIO_translate)) asm("int3");
+            else pproxy->translate = AHIIO_translate;
 
             io->ahir_Std.io_Device  = dproxy->native;
             io->ahir_Std.io_Command = iORequest->io_Command;
