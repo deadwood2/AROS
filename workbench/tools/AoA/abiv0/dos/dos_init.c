@@ -427,17 +427,58 @@ static struct FileLockProxy *makeFileLockProxy(BPTR native)
     return proxy;
 }
 
+extern struct TaskV0 *g_v0maintask;
+extern struct Task *g_nativemaintask;
+
+static APTR lock_WindowPtrEnter(struct Task *me)
+{
+    struct ProcessV0 *meV0 = NULL;
+    if (me == g_nativemaintask)
+        meV0 = (struct ProcessV0 *)g_v0maintask;
+    if (!meV0)
+        meV0 = (struct ProcessV0 *)childprocess_getbynative(me);
+
+    if (!meV0) asm("int3");
+
+    if (meV0->pr_WindowPtr == (APTR32)-1)
+    {
+        struct Process *p = (struct Process *)me;
+        APTR window = p->pr_WindowPtr;
+        p->pr_WindowPtr = (APTR)-1;
+        return window;
+    }
+
+    return NULL;
+}
+
+static void lock_WindowPtrExit(APTR window, struct Task *me)
+{
+    struct Process *p = (struct Process *)me;
+    if (window && p->pr_WindowPtr == (APTR)-1)
+        p->pr_WindowPtr = window;
+}
+
 BPTR abiv0_Lock(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
+    BPTR _ret = BNULL;
+    APTR window = NULL;
+    struct Task *me = FindTask(NULL);
+
     /* Workaround for Hollywood looking for it's plugins in LIBS:Hollywood */
     if (strcmp(name, "LIBS:Hollywood") == 0)
         name = "LIBSV0:Hollywood";
 
-    BPTR tmp = Lock(name, accessMode);
-    if (tmp == BNULL)
-        return BNULL;
+    /* Workaround for client code setting pr_WindowPtr to -1 before calling Lock() */
+    window = lock_WindowPtrEnter(me);
 
-    return (BPTR)makeFileLockProxy(tmp);
+    BPTR tmp = Lock(name, accessMode);
+
+    lock_WindowPtrExit(window, me);
+
+    if (tmp != BNULL)
+        _ret = (BPTR)makeFileLockProxy(tmp);
+
+    return _ret;
 }
 MAKE_PROXY_ARG_3(Lock)
 
