@@ -71,6 +71,17 @@ struct Message32To32
     ULONG               key;
 };
 
+BOOL MsgPortV0_containsnative(struct MsgPortV0 *port)
+{
+    return (port->mp_MsgList.l_pad == 1 || port->mp_MsgList.l_pad == 3);
+}
+
+void MsgPortV0_fixed_connectnative(struct MsgPortV0 *portv0, struct MsgPort *portnative)
+{
+    portv0->mp_MsgList.l_pad = 3;
+    *((IPTR *)&portv0->mp_Node) = (IPTR)portnative;
+}
+
 struct MsgPort * MsgPortV0_getnative(struct MsgPortV0 *port)
 {
     if (port->mp_MsgList.l_pad == 1)

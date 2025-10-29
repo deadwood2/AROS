@@ -15,6 +15,8 @@
 #include "../include/utility/structures.h"
 #include "../include/timer/structures.h"
 
+#include "../exec/exec_ports.h"
+
 struct ExecBaseV0 *DOS_SysBaseV0;
 extern struct LibraryV0 *abiv0TimerBase;
 
@@ -265,8 +267,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
 
     pV0->pr_MsgPort.mp_SigBit = p->pr_MsgPort.mp_SigBit;
     NEWLISTV0(&pV0->pr_MsgPort.mp_MsgList);
-    pV0->pr_MsgPort.mp_MsgList.l_pad = 3; /* native port in mp_Node */
-    *((IPTR *)&pV0->pr_MsgPort.mp_Node) = (IPTR)&p->pr_MsgPort;
+    MsgPortV0_fixed_connectnative(&pV0->pr_MsgPort, &p->pr_MsgPort);
 
     g_v0childprocesses[childprocessidx] = pV0;
 
