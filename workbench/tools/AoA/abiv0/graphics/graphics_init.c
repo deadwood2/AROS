@@ -212,6 +212,13 @@ ULONG abiv0_GetAPen(struct RastPortV0 * rp, struct GfxBaseV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_2(GetAPen)
 
+ULONG abiv0_GetOutlinePen(struct RastPort *rp,  struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    return GetOutlinePen(rpnative);
+}
+MAKE_PROXY_ARG_2(GetOutlinePen)
+
 void abiv0_SetBPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
@@ -613,6 +620,13 @@ LONG abiv0_BltBitMap(struct BitMapV0 * srcBitMap, LONG xSrc, LONG ySrc, struct B
 }
 MAKE_PROXY_ARG_12(BltBitMap)
 
+void abiv0_BltPattern(struct RastPortV0 *rp, PLANEPTR mask, LONG xMin, LONG yMin, LONG xMax, LONG yMax, ULONG byteCnt,
+    struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    BltPattern(rpnative, mask, xMin, yMin, xMax, yMax, byteCnt);
+}
+MAKE_PROXY_ARG_12(BltPattern)
 
 void abiv0_ScrollRaster(struct RastPortV0 *rp, LONG dx, LONG dy, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
@@ -760,5 +774,11 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 176, (APTR32)(IPTR)proxy_WriteChunkyPixels);
     __AROS_SETVECADDRV0(abiv0GfxBase, 177, graphicsjmp[202 - 177]);  // CreateRastPort
     __AROS_SETVECADDRV0(abiv0GfxBase, 180, graphicsjmp[202 - 180]);  // FreeRastPort
-
+    __AROS_SETVECADDRV0(abiv0GfxBase,  78, graphicsjmp[202 -  78]);  // InitTmpRas
+    __AROS_SETVECADDRV0(abiv0GfxBase,  47, graphicsjmp[202 -  47]);  // InitArea
+    __AROS_SETVECADDRV0(abiv0GfxBase,  42, graphicsjmp[202 -  42]);  // AreaMove
+    __AROS_SETVECADDRV0(abiv0GfxBase,  43, graphicsjmp[202 -  43]);  // AreaDraw
+    __AROS_SETVECADDRV0(abiv0GfxBase,  44, graphicsjmp[202 -  44]);  // AreaEnd
+    __AROS_SETVECADDRV0(abiv0GfxBase,  52, (APTR32)(IPTR)proxy_BltPattern);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 146, (APTR32)(IPTR)proxy_GetOutlinePen);
 }
