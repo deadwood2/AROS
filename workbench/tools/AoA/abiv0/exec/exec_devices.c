@@ -286,6 +286,7 @@ return 0;
         if (IORequest->io_Command ==  9 /* TR_ADDREQUEST */)
         {
             struct timerequest *io = AllocMem(sizeof(struct timerequest), MEMF_PUBLIC | MEMF_CLEAR);
+            io_checkandwrap_port((struct MsgPortV0 *)(IPTR)IORequest->io_Message.mn_ReplyPort);
             io->tr_node.io_Message.mn_ReplyPort =
                 MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)IORequest->io_Message.mn_ReplyPort);
             io->tr_node.io_Message.mn_Length = sizeof(struct timerequest);
