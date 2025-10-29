@@ -479,8 +479,16 @@ int main(int argc, char **argv)
         // program_path = "SYS:ProgramsV0/VAMP/VAMP";
         // program_path = "SYS:ProgramsV0/LilCalendar/LilCalendar_AROS";
         // program_path = "SYS:ProgramsV0/VintageSongPlayer/VintageSongPlayer";
-        // program_path = "SYS:ProgramsV0/FastTracker2-Clone/ft2-clone";
+        program_path = "SYS:ProgramsV0/FastTracker2-Clone/ft2-clone";
+        // program_path = "SYS:ProgramsV0/Image2PDF/Image2PDF/Image2PDF";
+        // program_path = "SYS:ProgramsV0/JoinGUI-AROS/JoinGUI";
+        // program_path = "SYS:ProgramsV0/Hex2/Hex2";
+        // program_path = "SYS:ProgramsV0/LoView/LoView";
 
+
+        // program_path = "SYS:ProgramsV0/ZuPaPlayer/ZuPaPlayer";
+        // program_path = "SYS:ProgramsV0/ZuneFIG/ZuneFIG";
+        // program_path = "SYS:ProgramsV0/BarsnPipes/BarsnPipes";
         // program_path = "SYS:ProgramsV0/protrekkr/ptk_aros";
         // program_path = "SYS:ProgramsV0/Soliton/Soliton";
         // program_path = "SYS:ProgramsV0/GianaReturn/GianaReturn";
