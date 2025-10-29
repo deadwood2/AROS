@@ -166,8 +166,13 @@ struct CreateNewProcMsg
     LONG            cnp_Slot;
 };
 
-static void createNewProc_trampoline()
+static AROS_UFH3(void, createNewProc_trampoline,
+    AROS_UFHA(char *,              args, A0),
+    AROS_UFHA(ULONG,               argSize, D0),
+    AROS_UFHA(struct ExecBase *,   SysBase, A6))
 {
+    AROS_USERFUNC_INIT
+
     struct StackSwapStructV0 sss;
     struct StackSwapArgsV0 ssa;
 
@@ -189,14 +194,28 @@ static void createNewProc_trampoline()
     sss.stk_Upper = sss.stk_Lower + stacksize;
     sss.stk_Pointer = sss.stk_Upper;
 
+    STRPTR argptr  = NULL;
+    if (args)
+    {
+        argptr = (STRPTR)abiv0_AllocMem(argSize + 1, MEMF_PUBLIC, DOS_SysBaseV0);
+        CopyMem(args, argptr, argSize + 1);
+    }
+
+    ssa.Args[0]     = (APTR32)(IPTR)argptr;
+    ssa.Args[1]     = argSize;
+    ssa.Args[2]     = (APTR32)(IPTR)DOS_SysBaseV0;
+
     abiv0_NewStackSwap(&sss, (LONG_FUNC)(IPTR)entry, &ssa, DOS_SysBaseV0);
 
+    abiv0_FreeMem(argptr, argSize + 1, DOS_SysBaseV0);
     abiv0_FreeMem(stack31bit, stacksize, DOS_SysBaseV0);
 
     /* Free slot */
     abiv0_FreeMem(g_v0childprocesses[slot], sizeof(struct ProcessV0), DOS_SysBaseV0);
     g_v0childprocesses[slot] = NULL;
     g_nativechildprocesses[slot] = NULL;
+
+    AROS_USERFUNC_EXIT
 }
 
 struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
@@ -268,6 +287,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
     pV0->pr_MsgPort.mp_SigBit = p->pr_MsgPort.mp_SigBit;
     NEWLISTV0(&pV0->pr_MsgPort.mp_MsgList);
     MsgPortV0_fixed_connectnative(&pV0->pr_MsgPort, &p->pr_MsgPort);
+    pV0->pr_Task.tc_UserData = (APTR32)(IPTR)p->pr_Task.tc_UserData;
 
     g_v0childprocesses[childprocessidx] = pV0;
 
