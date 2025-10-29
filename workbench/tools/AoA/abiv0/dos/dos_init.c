@@ -274,6 +274,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
             case NP_Arguments:
             case NP_UserData:
             case NP_CloseOutput:
+            case NP_Priority:
             case TAG_IGNORE:
                 break;
             default:
