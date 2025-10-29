@@ -349,9 +349,9 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
             dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
             dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
             strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
-            dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input());
-            dummy->pr_CES = 0x2; //fake
-            dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output());
+            dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input()); // MEMLEAK
+            dummy->pr_CES = (BPTR32)(IPTR)makeFileHandleProxy(((struct Process *)FindTask(NULL))->pr_CES); // MEMLEAK
+            dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output()); // MEMLEAK
             dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
             dummy->pr_Arguments = (APTR32)(IPTR)"";
 
@@ -364,7 +364,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
             dummy->pr_Task.tc_Flags |= TF_ETASK;
             dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
 
-            g_v0maintask = (struct TaskV0 *)dummy;
+            g_v0maintask = (struct TaskV0 *)dummy; // MEMLEAK
 
             /* Needed for GET_THIS_TASK; TODO: change for multithreaded applications */
             SysBaseV0->ThisTask = (APTR32)(IPTR)dummy;
