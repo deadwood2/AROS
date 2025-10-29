@@ -110,10 +110,13 @@ void dummy_nss_trampoline()
     "nss_trampoline:\n"
     "   push %%rbp\n" /* Preserve full rbp in case we are called form code working on 64-bit stack */
     "   push %%rbx\n"
+    "   movq %%rcx, %%rbx\n" /* ecx is used in ENTER32 */
     ENTER32
+    "   push %%ebx\n" /* really ecx */
+    "   push %%edx\n"
     "   push %%esi\n"
     "   call *%%edi\n"
-    "   add $4, %%esp\n"
+    "   add $12, %%esp\n"
     ENTER64
     "   pop %%rbx\n"
     "   pop %%rbp\n"
@@ -131,6 +134,8 @@ IPTR abiv0_NewStackSwap(struct StackSwapStructV0 *sss, LONG_FUNC entry, struct S
     struct StackSwapArgs argsnative;
     argsnative.Args[0]      = (IPTR)entry;
     argsnative.Args[1]      = args->Args[0];
+    argsnative.Args[2]      = args->Args[1];
+    argsnative.Args[3]      = args->Args[2];
 
 bug("abiv0_NewStackSwap: STUB\n");
 
