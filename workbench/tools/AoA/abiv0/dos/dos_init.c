@@ -272,6 +272,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
             case NP_Arguments:
             case NP_UserData:
             case NP_CloseOutput:
+            case TAG_IGNORE:
                 break;
             default:
                 bug("%x\n", tagNative->ti_Tag);
@@ -311,6 +312,13 @@ LONG abiv0_FGetC(BPTR file, struct DosLibraryV0 *DOSBaseV0)
     return FGetC(fhp->native);
 }
 MAKE_PROXY_ARG_2(FGetC)
+
+LONG abiv0_UnGetC(BPTR file, LONG character, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
+    return UnGetC(fhp->native, character);
+}
+MAKE_PROXY_ARG_3(UnGetC)
 
 BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
@@ -688,6 +696,13 @@ bug("abiv0_ExamineFH: STUB\n");
 }
 MAKE_PROXY_ARG_3(ExamineFH)
 
+LONG abiv0_Info(BPTR lock,  struct InfoData * parameterBlock, struct DosLibraryV0 *DOSBaseV0)
+{
+bug("abiv0_Info: STUB\n");
+    return 0;
+}
+MAKE_PROXY_ARG_3(Info)
+
 LONG abiv0_Flush(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)file;
@@ -914,6 +929,12 @@ LONG abiv0_CheckSignal(LONG mask, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(CheckSignal)
 
+BOOL abiv0_SetVar(CONST_STRPTR name, CONST_STRPTR buffer, LONG size, LONG flags, struct DosLibraryV0 *DOSBaseV0)
+{
+    return SetVar(name, buffer, size, flags);
+}
+MAKE_PROXY_ARG_6(SetVar)
+
 LONG abiv0_GetVar(CONST_STRPTR name, STRPTR buffer, LONG size, LONG flags, struct DosLibraryV0 *DOSBaseV0)
 {
     return GetVar(name, buffer, size, flags);
@@ -1074,4 +1095,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  31, (APTR32)(IPTR)proxy_SetProtection);
     __AROS_SETVECADDRV0(abiv0DOSBase,  37, dosfunctable[ 36]);  // Execute
     __AROS_SETVECADDRV0(abiv0DOSBase, 102, (APTR32)(IPTR)proxy_AssignLock);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  53, (APTR32)(IPTR)proxy_UnGetC);
+    __AROS_SETVECADDRV0(abiv0DOSBase, 150, (APTR32)(IPTR)proxy_SetVar);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  19, (APTR32)(IPTR)proxy_Info);
 }
