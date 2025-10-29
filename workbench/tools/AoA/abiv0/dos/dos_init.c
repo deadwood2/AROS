@@ -126,22 +126,24 @@ struct Task *g_nativechildprocesses[MAXCHILDPROCESSES];
 
 struct Task * childprocess_getbyv0(struct TaskV0 *childv0)
 {
-    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
-    {
-        if (childv0 == (struct TaskV0 *)g_v0childprocesses[i])
-            return (struct Task *)g_nativechildprocesses[i];
-    }
+    if (childv0)
+        for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+        {
+            if (childv0 == (struct TaskV0 *)g_v0childprocesses[i])
+                return (struct Task *)g_nativechildprocesses[i];
+        }
 
     return NULL;
 }
 
 struct TaskV0 * childprocess_getbynative(struct Task *childnative)
 {
-    for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
-    {
-        if (childnative == (struct Task *)g_nativechildprocesses[i])
-            return (struct TaskV0 *)g_v0childprocesses[i];
-    }
+    if (childnative != NULL)
+        for (LONG i = 0; i < MAXCHILDPROCESSES; i++)
+        {
+            if (childnative == (struct Task *)g_nativechildprocesses[i])
+                return (struct TaskV0 *)g_v0childprocesses[i];
+        }
 
     return NULL;
 }
