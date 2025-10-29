@@ -622,6 +622,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 38, execfunctable[37]);    // FreeEntry
     __AROS_SETVECADDRV0(abiv0SysBase, 86, (APTR32)(IPTR)proxy_RawPutChar);
     __AROS_SETVECADDRV0(abiv0SysBase, 36, (APTR32)(IPTR)proxy_AvailMem);
+    __AROS_SETVECADDRV0(abiv0SysBase,105, execfunctable[104]);   // CopyMemQuick
     Exec_Devices_init(abiv0SysBase);
     Exec_Ports_init(abiv0SysBase);
 
