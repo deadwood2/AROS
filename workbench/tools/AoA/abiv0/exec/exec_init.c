@@ -337,10 +337,7 @@ struct TaskV0 * childprocess_getbynative(struct Task *childnative);
 
 struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
-    if (name != NULL)
-        asm("int3");
-
-    struct Task* native = FindTask(NULL);
+    struct Task* native = FindTask(name);
 
     if (native == g_nativemaintask)
     {
@@ -381,7 +378,8 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
     if (child)
         return child;
 
-asm("int3");
+bug("abiv0_FindTask:STUB\n");
+
     return NULL;
 }
 MAKE_PROXY_ARG_2(FindTask)
