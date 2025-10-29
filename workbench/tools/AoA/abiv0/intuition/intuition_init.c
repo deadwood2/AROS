@@ -555,6 +555,12 @@ bug("abiv0_SetWindowPointerA: STUB\n");
 }
 MAKE_PROXY_ARG_3(SetWindowPointerA)
 
+void abiv0_ClearPointer(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_ClearPointer: STUB\n");
+}
+MAKE_PROXY_ARG_2(ClearPointer)
+
 BOOL abiv0_DoubleClick(ULONG sSeconds, ULONG sMicros, ULONG cSeconds, ULONG cMicros, struct LibraryV0 *IntuitionBaseV0)
 {
     return DoubleClick(sSeconds, sMicros, cSeconds, cMicros);
@@ -1312,6 +1318,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  38, intuitionjmp[165 -  38]);  // RemoveGadget
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  62, intuitionjmp[165 -  62]);  // FreeSysRequest
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  10, (APTR32)(IPTR)proxy_ClearPointer);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
