@@ -1011,8 +1011,16 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
+            struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            v0ie->ie_Class      = nativemsg->gpi_IEvent->ie_Class;
+            v0ie->ie_SubClass   = nativemsg->gpi_IEvent->ie_SubClass;
+            v0ie->ie_Code       = nativemsg->gpi_IEvent->ie_Code;
+            v0ie->ie_Qualifier  = nativemsg->gpi_IEvent->ie_Qualifier;
+            v0ie->ie_TimeStamp  = nativemsg->gpi_IEvent->ie_TimeStamp;
+
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpi_GInfo    = (APTR32)(IPTR)v0gi;
+            v0msg->gpi_IEvent   = (APTR32)(IPTR)v0ie;
             v0msg->gpi_Mouse.X  = nativemsg->gpi_Mouse.X;
             v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
 
@@ -1022,6 +1030,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
 
