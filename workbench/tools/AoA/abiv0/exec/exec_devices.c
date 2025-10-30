@@ -13,6 +13,7 @@
 
 extern struct LibraryV0 *abiv0TimerBase;
 extern struct DeviceProxy *abiv0InputBase;
+extern struct DeviceProxy *abiv0ConsoleBase;
 
 extern struct TaskV0 *g_v0maintask;
 extern struct Task *g_nativemaintask;
@@ -80,8 +81,26 @@ bug("abiv0_OpenDevice: input.device STUB\n");
     if (strcmp(devName, "console.device") == 0)
     {
 bug("abiv0_OpenDevice: console.device STUB\n");
-        iORequest->io_Device = 0;
-        return 0;
+        /* Support only SDL->CGX_TranslateKey case */
+        if (iORequest->io_Message.mn_ReplyPort == (APTR32)(IPTR)NULL)
+            return 0; /* Pretend to open, needed for ZuneArc */
+        if (!MsgPortV0_containsnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort))
+            return -1;
+
+        struct LibraryV0 *lib = &abiv0ConsoleBase->base.dd_Library;
+        APTR tmpmem = abiv0_AllocMem(lib->lib_NegSize + lib->lib_PosSize, MEMF_CLEAR, SysBaseV0);
+        CopyMem((APTR)((IPTR)abiv0ConsoleBase - lib->lib_NegSize), tmpmem, lib->lib_NegSize + lib->lib_PosSize);
+        struct DeviceProxy *proxy = (struct DeviceProxy *)((IPTR)tmpmem + lib->lib_NegSize);
+        struct MsgPort *pnative = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+        proxy->io   = (struct IOStdReq *)CreateIORequest(pnative, sizeof(struct IOStdReq));
+        LONG _ret = OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
+        if (_ret == 0)
+        {
+            proxy->native           = proxy->io->io_Device;
+            iORequest->io_Device    = (APTR32)(IPTR)proxy;
+        } // else MEMLEAK
+
+        return _ret;
     }
 
     if (strcmp(devName, "ahi.device") == 0)
@@ -131,6 +150,14 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
         CloseDevice((struct IORequest *)proxy->io);
         DeleteIORequest((struct IORequest *)proxy->io);
         FreeMem(proxy, sizeof(struct DeviceProxy));
+    }
+    if (proxy->type == DEVPROXY_TYPE_CONSOLE)
+    {
+        CloseDevice((struct IORequest *)proxy->io);
+        DeleteIORequest((struct IORequest *)proxy->io);
+        struct LibraryV0 *lib = &proxy->base.dd_Library;
+        FreeMem((APTR)((IPTR)proxy - lib->lib_NegSize), lib->lib_NegSize + lib->lib_PosSize);
+        return;
     }
 bug("abiv0_CloseDevice: STUB\n");
 }

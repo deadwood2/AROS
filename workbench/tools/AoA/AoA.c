@@ -10,9 +10,11 @@
 #include "abiv0/include/exec/proxy_structures.h"
 #include "abiv0/include/aros/proxy.h"
 #include "abiv0/include/aros/cpu.h"
+#include "abiv0/include/input/structures.h"
 
 struct DeviceProxy *abiv0TimerBase;
 struct DeviceProxy *abiv0InputBase;
+struct DeviceProxy *abiv0ConsoleBase;
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -200,6 +202,28 @@ UWORD abiv0_PeekQualifier(struct LibraryV0 *InputBaseV0)
     return PeekQualifier();
 }
 MAKE_PROXY_ARG_1(PeekQualifier)
+
+#include <proto/console.h>
+
+LONG abiv0_RawKeyConvert(struct InputEventV0 *events, STRPTR buffer, LONG length, struct KeyMap * keyMap, struct LibraryV0 *ConsoleBaseV0)
+{
+bug("abiv0_RawKeyConvert: STUB\n");
+    /* Support only SDL->CGX_TranslateKey case */
+    if (length != 5 || keyMap != NULL)
+        return 0;
+    if ((APTR)(IPTR)events->ie_NextEvent != NULL || (APTR)(IPTR)events->ie_position.ie_addr != NULL)
+        return 0;
+
+    struct Library *ConsoleDevice = &(((struct DeviceProxy *)ConsoleBaseV0)->native->dd_Library);
+    struct InputEvent eventnative;
+    eventnative.ie_Qualifier    = events->ie_Qualifier;
+    eventnative.ie_Class        = events->ie_Class;
+    eventnative.ie_SubClass     = events->ie_SubClass;
+    eventnative.ie_position.ie_addr = NULL;
+    eventnative.ie_NextEvent = NULL;
+    return RawKeyConvert(&eventnative, buffer, length, NULL);
+}
+MAKE_PROXY_ARG_5(RawKeyConvert)
 
 #include <proto/cybergraphics.h>
 
@@ -389,6 +413,19 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     abiv0InputBase->type                        = DEVPROXY_TYPE_INPUT;
     abiv0InputBase->base.dd_Library.lib_NegSize = negsize;
     abiv0InputBase->base.dd_Library.lib_PosSize = possize;
+
+    /* console.device */
+    lastlvo = 12;
+    negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
+    possize = sizeof(struct DeviceProxy);
+    tmpmem  = AllocMem(negsize + possize, MEMF_31BIT | MEMF_CLEAR);
+    abiv0ConsoleBase = (tmpmem + negsize);
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0ConsoleBase, i, (APTR32)(IPTR)i + 1200);
+    __AROS_SETVECADDRV0(abiv0ConsoleBase,  8, (APTR32)(IPTR)proxy_RawKeyConvert);
+    abiv0ConsoleBase->type                        = DEVPROXY_TYPE_CONSOLE;
+    abiv0ConsoleBase->base.dd_Library.lib_NegSize = negsize;
+    abiv0ConsoleBase->base.dd_Library.lib_PosSize = possize;
 
     init_dos(SysBaseV0);
 
