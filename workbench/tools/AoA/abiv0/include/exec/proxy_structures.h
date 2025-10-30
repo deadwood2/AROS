@@ -20,11 +20,6 @@ struct DeviceProxy
     ULONG               type;
     struct IOStdReq     *io;
     struct Unit*        nativeunit;
-
-    // struct MsgPort      *mp;
-
-    // APTR                user1;
-    // APTR                user2;
 };
 
 #endif

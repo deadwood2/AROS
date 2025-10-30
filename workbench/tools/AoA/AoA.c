@@ -4,6 +4,7 @@
 #include <proto/timer.h>
 #include <exec/rawfmt.h>
 #include <proto/dos.h>
+#include <proto/input.h>
 
 #include "abiv0/include/exec/functions.h"
 #include "abiv0/include/exec/proxy_structures.h"
@@ -11,6 +12,7 @@
 #include "abiv0/include/aros/cpu.h"
 
 struct DeviceProxy *abiv0TimerBase;
+struct DeviceProxy *abiv0InputBase;
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -192,6 +194,13 @@ LONG abiv0_CmpTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *
 }
 MAKE_PROXY_ARG_3(CmpTime)
 
+UWORD abiv0_PeekQualifier(struct LibraryV0 *InputBaseV0)
+{
+    struct Library *InputBase = &(((struct DeviceProxy *)InputBaseV0)->native->dd_Library);
+    return PeekQualifier();
+}
+MAKE_PROXY_ARG_1(PeekQualifier)
+
 #include <proto/cybergraphics.h>
 
 ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG pixel)
@@ -367,6 +376,19 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0TimerBase,  7, (APTR32)(IPTR)proxy_AddTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  9, (APTR32)(IPTR)proxy_CmpTime);
     abiv0TimerBase->type = DEVPROXY_TYPE_TIMER;
+
+    /* input.device */
+    lastlvo = 7;
+    negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
+    possize = sizeof(struct DeviceProxy);
+    tmpmem  = AllocMem(negsize + possize, MEMF_31BIT | MEMF_CLEAR);
+    abiv0InputBase = (tmpmem + negsize);
+    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
+    for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0InputBase, i, (APTR32)(IPTR)i + 1150);
+    __AROS_SETVECADDRV0(abiv0InputBase,  7, (APTR32)(IPTR)proxy_PeekQualifier);
+    abiv0InputBase->type                        = DEVPROXY_TYPE_INPUT;
+    abiv0InputBase->base.dd_Library.lib_NegSize = negsize;
+    abiv0InputBase->base.dd_Library.lib_PosSize = possize;
 
     init_dos(SysBaseV0);
 
