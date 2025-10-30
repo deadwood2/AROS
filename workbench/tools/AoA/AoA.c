@@ -348,7 +348,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
     TEXT path[64];
     TEXT currdir[256];
-    ULONG vecsize, lastlvo;
+    UWORD negsize, possize, lastlvo;
     APTR tmpmem;
 
     /* Init ROM */
@@ -356,9 +356,10 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 
     /* timer.device */
     lastlvo = 12;
-    vecsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
-    tmpmem = AllocMem(vecsize + sizeof(struct DeviceProxy), MEMF_31BIT | MEMF_CLEAR);
-    abiv0TimerBase = (tmpmem + vecsize);
+    negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
+    possize = sizeof(struct DeviceProxy);
+    tmpmem  = AllocMem(negsize + possize, MEMF_31BIT | MEMF_CLEAR);
+    abiv0TimerBase = (tmpmem + negsize);
         /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0TimerBase, i, (APTR32)(IPTR)i + 1100);
     __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
