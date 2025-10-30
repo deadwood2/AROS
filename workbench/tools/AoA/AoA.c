@@ -242,15 +242,34 @@ ULONG abiv0_WritePixelArrayAlpha(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod,
 }
 MAKE_PROXY_ARG_12(WritePixelArrayAlpha)
 
+#include <proto/graphics.h>
+
 LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod, struct RastPortV0 *rp,
     APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort rptmp;
+
+    /* picture.datatype uses locally created RastPort */
+    if (rpnative == NULL)
+    {
+        InitRastPort(&rptmp);
+        rptmp.FgPen     = rp->FgPen;
+        rptmp.BgPen     = rp->BgPen;
+        rptmp.DrawMode  = rp->DrawMode;
+        rptmp.linpatcnt = rp->linpatcnt;
+        rptmp.Flags     = rp->Flags;
+        rptmp.cp_x      = rp->cp_x;
+        rptmp.cp_y      = rp->cp_y;
+
+        rptmp.BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+
+        rpnative = &rptmp;
+    }
+
     return WriteLUTPixelArray(srcRect, SrcX, SrcY, SrcMod, rpnative, CTable, DestX, DestY, SizeX, SizeY, CTabFormat);
 }
 MAKE_PROXY_ARG_12(WriteLUTPixelArray)
-
-#include <proto/graphics.h>
 
 ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, struct RastPortV0 *rp,
     UWORD destx, UWORD desty, UWORD width, UWORD height, UBYTE srcformat, struct LibraryV0 *CyberGfxBaseV0)

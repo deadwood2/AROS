@@ -658,6 +658,13 @@ bug("abiv0_ActivateGadget: STUB\n");
 }
 MAKE_PROXY_ARG_2(ActivateGadget);
 
+void abiv0_NewModifyProp(struct GadgetV0 *gadget, struct WindowV0 *window, struct Requester *requester, ULONG flags, ULONG horizPot,
+    ULONG vertPot, ULONG horizBody, ULONG vertBody, LONG numGad, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_NewModifyProp: STUB\n");
+}
+MAKE_PROXY_ARG_12(NewModifyProp);
+
 void abiv0_ActivateWindow(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *winproxy = (struct WindowProxy *)window;
@@ -1328,6 +1335,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  62, intuitionjmp[165 -  62]);  // FreeSysRequest
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  10, (APTR32)(IPTR)proxy_ClearPointer);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  55, intuitionjmp[165 -  55]);  // IntuiTextLength
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  78, (APTR32)(IPTR)proxy_NewModifyProp);
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
