@@ -12,6 +12,7 @@
 #include "exec_ports.h"
 
 extern struct LibraryV0 *abiv0TimerBase;
+extern struct DeviceProxy *abiv0InputBase;
 
 extern struct TaskV0 *g_v0maintask;
 extern struct Task *g_nativemaintask;
@@ -55,16 +56,25 @@ LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0
 
     if (strcmp(devName, "input.device") == 0)
     {
-        struct DeviceProxy *proxy = abiv0_AllocMem(sizeof(struct DeviceProxy), MEMF_CLEAR, SysBaseV0);
-        proxy->type = DEVPROXY_TYPE_INPUT;
+        /* commodities library trying to open input.device, dissallow for now */
+        if (((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort)->mp_SigBit == SIGB_SINGLE)
+            return -1;
 
-        // proxy->mp = CreateMsgPort();
-        // proxy->io = (struct IOStdReq *)CreateIORequest(proxy->mp, sizeof(struct IOStdReq));
+bug("abiv0_OpenDevice: input.device STUB\n");
+        struct LibraryV0 *lib = &abiv0InputBase->base.dd_Library;
+        APTR tmpmem = abiv0_AllocMem(lib->lib_NegSize + lib->lib_PosSize, MEMF_CLEAR, SysBaseV0);
+        CopyMem((APTR)((IPTR)abiv0InputBase - lib->lib_NegSize), tmpmem, lib->lib_NegSize + lib->lib_PosSize);
+        struct DeviceProxy *proxy = (struct DeviceProxy *)((IPTR)tmpmem + lib->lib_NegSize);
+        struct MsgPort *pnative = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+        proxy->io   = (struct IOStdReq *)CreateIORequest(pnative, sizeof(struct IOStdReq));
+        LONG _ret = OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
+        if (_ret == 0)
+        {
+            proxy->native           = proxy->io->io_Device;
+            iORequest->io_Device    = (APTR32)(IPTR)proxy;
+        } // else MEMLEAK
 
-        // OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
-
-        iORequest->io_Device = (APTR32)(IPTR)proxy;
-        return 0;
+        return _ret;
     }
 
     if (strcmp(devName, "console.device") == 0)
@@ -89,7 +99,7 @@ bug("abiv0_OpenDevice: ahi.device STUB\n");
             proxy->nativeunit       = proxy->io->io_Unit;
             proxy->native           = proxy->io->io_Device;
             iORequest->io_Device    = (APTR32)(IPTR)proxy;
-        }
+        } // else MEMLEAK
 
         return _ret;
     }
@@ -105,10 +115,10 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
     struct DeviceProxy *proxy = (struct DeviceProxy *)(IPTR)iORequest->io_Device;
     if (proxy->type == DEVPROXY_TYPE_INPUT)
     {
-        // CloseDevice((struct IORequest *)proxy->io);
-        // DeleteIORequest((struct IORequest *)proxy->io);
-        // DeleteMsgPort(proxy->mp);
-        FreeMem(proxy, sizeof(struct DeviceProxy));
+        CloseDevice((struct IORequest *)proxy->io);
+        DeleteIORequest((struct IORequest *)proxy->io);
+        struct LibraryV0 *lib = &proxy->base.dd_Library;
+        FreeMem((APTR)((IPTR)proxy - lib->lib_NegSize), lib->lib_NegSize + lib->lib_PosSize);
         return;
     }
     if (proxy->type == DEVPROXY_TYPE_TIMER)
