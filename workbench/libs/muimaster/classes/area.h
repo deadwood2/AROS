@@ -1,4 +1,4 @@
-/* 
+/*
     Copyright (C) 1999, David Le Corfec.
     Copyright (C) 2002 - 2014, The AROS Development Team.
     All rights reserved.
@@ -293,6 +293,10 @@ struct MUIP_Show
     (MUIB_Area | 0x00000005)    /* PRIV */
 #define MUIM_DrawBackgroundBuffered /* PRIV */ \
     (MUIB_Area | 0x00000006)    /* PRIV */
+#define MUIM_CreateFrameClippingRegion \
+    (MUIB_Area | 0x00000007)
+#define MUIM_QueryFrameCharacteristics \
+    (MUIB_Area | 0x00000008)
 
 struct MUIP_Layout
 {
@@ -343,6 +347,24 @@ struct MUI_DragImage
     WORD touchx;                /* position of pointer click relative to bitmap */
     WORD touchy;
     ULONG flags;
+};
+
+/* Message structure for querying frame clipping information */
+struct MUIP_QueryFrameCharacteristics
+{
+    STACKED ULONG MethodID;
+    STACKED struct MUI_FrameCharacteristics *characteristics; /* OUT: Frame information */
+};
+
+/* Message structure for creating frame clipping region */
+struct MUIP_CreateFrameClippingRegion
+{
+    STACKED ULONG MethodID;
+    STACKED LONG left;
+    STACKED LONG top;
+    STACKED LONG width;
+    STACKED LONG height;
+    STACKED struct Region *clipinfo; /* OUT: Frame clipping region */
 };
 
 // #define MUIF_DRAGIMAGE_HASMASK       (1<<0) /* Use provided mask for drawing */
@@ -583,8 +605,10 @@ enum
     MUIV_Frame_Slider,
     MUIV_Frame_Knob,
     MUIV_Frame_Drag,
+    /* Values reserved for existing MUI4/MUI5 types*/
     MUIV_Frame_Register = 21,
-    MUIV_Frame_Count
+    /* Values reserved for existing MUI4/MUI5 types*/
+    MUIV_Frame_Count = 24
 };
 
 // offset 95
@@ -622,6 +646,11 @@ void __area_finish_minmax(Object *obj, struct MUI_MinMax *MinMaxInfo); /* PRIV *
     (muiAreaData(obj)->mad_VertWeight)    /* accesses private members PRIV */
 #define _hweight(obj)                                              /* PRIV */ \
     (muiAreaData(obj)->mad_HorizWeight)   /* accesses private members PRIV */
+
+
+/**************************************************************************
+  Frame clipping
+ **************************************************************************/
 
 extern const struct __MUIBuiltinClass _MUI_Area_desc;   /* PRIV */
 
