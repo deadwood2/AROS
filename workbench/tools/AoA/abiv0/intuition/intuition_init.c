@@ -506,13 +506,6 @@ BOOL abiv0_WindowLimits(struct WindowV0 *window, WORD MinWidth, WORD MinHeight, 
 }
 MAKE_PROXY_ARG_6(WindowLimits)
 
-void abiv0_ClearMenuStrip(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
-{
-    struct WindowProxy *proxy = (struct WindowProxy *)window;
-    return ClearMenuStrip(proxy->native);
-}
-MAKE_PROXY_ARG_2(ClearMenuStrip)
-
 void abiv0_CloseWindow(struct Window *window, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *proxy = (struct WindowProxy *)window;
@@ -542,10 +535,108 @@ void abiv0_RefreshWindowFrame(struct WindowV0 *window, struct LibraryV0 *Intuiti
 }
 MAKE_PROXY_ARG_2(RefreshWindowFrame)
 
-BOOL abiv0_SetMenuStrip(struct WindowV0 *window, APTR32 menu, struct LibraryV0 *IntuitionBaseV0)
+void abiv0_ClearMenuStrip(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
 {
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+    struct Menu *strip = proxy->native->MenuStrip;
+    ClearMenuStrip(proxy->native);
+    /* TODO: Free the complete strip */
+}
+MAKE_PROXY_ARG_2(ClearMenuStrip)
+
+static struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext)
+{
+    if (itext->ITextFont != (APTR32)0) asm("int3");
+    struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY); // MEMLEAK
+    itextnative->FrontPen   = itext->FrontPen;
+    itextnative->BackPen    = itext->BackPen;
+    itextnative->DrawMode   = itext->DrawMode;
+    itextnative->LeftEdge   = itext->LeftEdge;
+    itextnative->TopEdge    = itext->TopEdge;
+    itextnative->ITextFont  = NULL;
+    itextnative->IText      = (UBYTE *)(IPTR)itext->IText;
+    itextnative->NextText   = NULL;
+    if (itext->NextText != (APTR32)(IPTR)NULL)
+        itextnative->NextText = makeIntuiText((struct IntuiTextV0 *)(IPTR)itext->NextText);
+    return itextnative;
+}
+
+static struct MenuItem * makeMenuItemTree(struct MenuItemV0 *menuitem)
+{
+    struct MenuItem *menuitemnative = NULL;
+    struct MenuItem *prevmanuitemnative = NULL;
+    while (menuitem != NULL)
+    {
+        struct MenuItem *pi = AllocMem(sizeof(struct MenuItem), MEMF_ANY); // MEMLEAK
+        if (menuitemnative == NULL) menuitemnative = pi;
+        if (prevmanuitemnative != NULL) prevmanuitemnative->NextItem = pi;
+        pi->NextItem    = NULL;
+        pi->LeftEdge    = menuitem->LeftEdge;
+        pi->TopEdge     = menuitem->TopEdge;
+        pi->Width       = menuitem->Width;
+        pi->Height      = menuitem->Height;
+        pi->Flags       = menuitem->Flags;
+        pi->MutualExclude = menuitem->MutualExclude;
+        pi->ItemFill    = NULL;
+        if (menuitem->Flags & ITEMTEXT)
+        {
+            struct IntuiTextV0 *itext = (struct IntuiTextV0 *)(IPTR)menuitem->ItemFill;
+            pi->ItemFill = makeIntuiText(itext);
+        }
+        else
+        {
+            struct IntuiText *pfake = AllocMem(sizeof (struct IntuiText), MEMF_ANY | MEMF_CLEAR); // MEMLEAK
+            pfake->IText = "------";
+            pi->ItemFill = pfake;
+            pi->Flags |= ITEMTEXT;
 bug("abiv0_SetMenuStrip: STUB\n");
-    return TRUE;
+        }
+        pi->SelectFill  = NULL;
+        if (menuitem->SelectFill != (APTR32)0) asm("int3");
+        pi->Command     = menuitem->Command;
+        pi->SubItem     = makeMenuItemTree((struct MenuItemV0 *)(IPTR)menuitem->SubItem);
+        pi->NextSelect  = menuitem->NextSelect;
+
+        prevmanuitemnative = pi;
+        menuitem = (struct MenuItemV0 *)(IPTR)menuitem->NextItem;
+    }
+
+    return menuitemnative;
+}
+
+BOOL abiv0_SetMenuStrip(struct WindowV0 *window, struct MenuV0 *menu, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct WindowProxy *proxy = (struct WindowProxy *)window;
+
+    struct Menu *menunative = NULL;
+    struct Menu *prevmenunative = NULL;
+
+    while (menu != NULL)
+    {
+        struct Menu *p = AllocMem(sizeof(struct Menu), MEMF_ANY); // MEMLEAK
+        if (menunative == NULL) menunative = p;
+        if (prevmenunative != NULL) prevmenunative->NextMenu = p;
+        p->NextMenu = NULL;
+        p->LeftEdge = menu->LeftEdge;
+        p->TopEdge  = menu->TopEdge;
+        p->Width    = menu->Width;
+        p->Height   = menu->Height;
+        p->Flags    = menu->Flags;
+        p->MenuName = (BYTE *)(IPTR)menu->MenuName;
+        p->FirstItem = NULL;
+        p->JazzX    = menu->JazzX;
+        p->JazzY    = menu->JazzY;
+        p->BeatX    = menu->BeatX;
+        p->BeatY    = menu->BeatY;
+
+        struct MenuItemV0 *menuitem = (struct MenuItemV0 *)(IPTR)menu->FirstItem;
+        p->FirstItem = makeMenuItemTree(menuitem);
+
+        prevmenunative = p;
+        menu = (struct MenuV0 *)(IPTR)menu->NextMenu;
+    }
+
+    return SetMenuStrip(proxy->native, menunative);
 }
 MAKE_PROXY_ARG_3(SetMenuStrip)
 

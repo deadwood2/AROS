@@ -128,7 +128,7 @@ struct WindowV0
     APTR32 parent;      // parent of this window
 };
 
-			   /***** Images *****/
+               /***** Images *****/
 
 struct ImageV0
 {
@@ -245,7 +245,62 @@ struct NewWindowV0
     UWORD Type;
 };
 
-			   /***** Gadgets *****/
+                /***** IntuiText *****/
+
+struct IntuiTextV0
+{
+    UBYTE FrontPen;
+    UBYTE BackPen;
+    UBYTE DrawMode;
+    WORD  LeftEdge;
+    WORD  TopEdge;
+
+    APTR32 ITextFont;
+    APTR32 IText;
+    APTR32 NextText;
+};
+
+                 /***** Menu *****/
+
+struct MenuV0
+{
+    APTR32  NextMenu;
+
+    WORD    LeftEdge;
+    WORD    TopEdge;
+    WORD    Width;
+    WORD    Height;
+    UWORD   Flags;    /* see below */
+    APTR32  MenuName;
+
+    APTR32  FirstItem;
+
+    /* PRIVATE */
+    WORD JazzX;
+    WORD JazzY;
+    WORD BeatX;
+    WORD BeatY;
+};
+
+struct MenuItemV0
+{
+    APTR32 NextItem;
+
+    WORD  LeftEdge;
+    WORD  TopEdge;
+    WORD  Width;
+    WORD  Height;
+    UWORD Flags;	 /* see below */
+    LONG  MutualExclude;
+    APTR32 ItemFill;
+    APTR32 SelectFill;
+    BYTE  Command;
+
+    APTR32      SubItem;
+    UWORD       NextSelect;
+};
+
+               /***** Gadgets *****/
 
 struct GadgetV0
 {
