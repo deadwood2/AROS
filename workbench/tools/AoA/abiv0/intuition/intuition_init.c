@@ -535,19 +535,52 @@ void abiv0_RefreshWindowFrame(struct WindowV0 *window, struct LibraryV0 *Intuiti
 }
 MAKE_PROXY_ARG_2(RefreshWindowFrame)
 
+static void freeMenuItemTree(struct MenuItem *menuitem)
+{
+    while (menuitem != NULL)
+    {
+        freeMenuItemTree(menuitem->SubItem);
+        if (menuitem->Flags & ITEMTEXT)
+        {
+            struct IntuiText *itext = (struct IntuiText *)menuitem->ItemFill;
+            while (itext != NULL)
+            {
+                struct IntuiText *p = itext;
+                itext = itext->NextText;
+                FreeMem(p, sizeof(struct IntuiText));
+            }
+        }
+        else
+        {
+            asm("int3");
+        }
+
+        struct MenuItem *p = menuitem;
+        menuitem = menuitem->NextItem;
+        FreeMem(p, sizeof(struct MenuItem));
+    }
+}
+
 void abiv0_ClearMenuStrip(struct WindowV0 *window, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *proxy = (struct WindowProxy *)window;
-    struct Menu *strip = proxy->native->MenuStrip;
+    struct Menu *menu = proxy->native->MenuStrip;
     ClearMenuStrip(proxy->native);
-    /* TODO: Free the complete strip */
+
+    while (menu != NULL)
+    {
+        freeMenuItemTree(menu->FirstItem);
+        struct Menu *p = menu;
+        menu = menu->NextMenu;
+        FreeMem(p, sizeof(struct Menu));
+    }
 }
 MAKE_PROXY_ARG_2(ClearMenuStrip)
 
 static struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext)
 {
     if (itext->ITextFont != (APTR32)0) asm("int3");
-    struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY); // MEMLEAK
+    struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY);
     itextnative->FrontPen   = itext->FrontPen;
     itextnative->BackPen    = itext->BackPen;
     itextnative->DrawMode   = itext->DrawMode;
@@ -567,7 +600,7 @@ static struct MenuItem * makeMenuItemTree(struct MenuItemV0 *menuitem)
     struct MenuItem *prevmanuitemnative = NULL;
     while (menuitem != NULL)
     {
-        struct MenuItem *pi = AllocMem(sizeof(struct MenuItem), MEMF_ANY); // MEMLEAK
+        struct MenuItem *pi = AllocMem(sizeof(struct MenuItem), MEMF_ANY);
         if (menuitemnative == NULL) menuitemnative = pi;
         if (prevmanuitemnative != NULL) prevmanuitemnative->NextItem = pi;
         pi->NextItem    = NULL;
@@ -585,7 +618,7 @@ static struct MenuItem * makeMenuItemTree(struct MenuItemV0 *menuitem)
         }
         else
         {
-            struct IntuiText *pfake = AllocMem(sizeof (struct IntuiText), MEMF_ANY | MEMF_CLEAR); // MEMLEAK
+            struct IntuiText *pfake = AllocMem(sizeof (struct IntuiText), MEMF_ANY | MEMF_CLEAR);
             pfake->IText = "------";
             pi->ItemFill = pfake;
             pi->Flags |= ITEMTEXT;
@@ -613,7 +646,7 @@ BOOL abiv0_SetMenuStrip(struct WindowV0 *window, struct MenuV0 *menu, struct Lib
 
     while (menu != NULL)
     {
-        struct Menu *p = AllocMem(sizeof(struct Menu), MEMF_ANY); // MEMLEAK
+        struct Menu *p = AllocMem(sizeof(struct Menu), MEMF_ANY);
         if (menunative == NULL) menunative = p;
         if (prevmenunative != NULL) prevmenunative->NextMenu = p;
         p->NextMenu = NULL;
