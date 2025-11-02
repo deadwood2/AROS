@@ -287,7 +287,7 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
     if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
         imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
         imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW || imsg->Class == IDCMP_GADGETUP ||
-        imsg->Class == IDCMP_ACTIVEWINDOW || imsg->Class == IDCMP_RAWKEY)
+        imsg->Class == IDCMP_ACTIVEWINDOW || imsg->Class == IDCMP_RAWKEY || imsg->Class == IDCMP_MENUPICK)
     {
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
@@ -1428,6 +1428,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  10, (APTR32)(IPTR)proxy_ClearPointer);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  55, intuitionjmp[165 -  55]);  // IntuiTextLength
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  78, (APTR32)(IPTR)proxy_NewModifyProp);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  24, intuitionjmp[165 -  24]);  // ItemAddress
 
     /* Call CLASSESINIT_LIST */
     ULONG pos = 1;
