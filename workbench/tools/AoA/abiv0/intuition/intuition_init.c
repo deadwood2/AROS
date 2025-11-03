@@ -1140,6 +1140,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         {
             struct gpInput *nativemsg = (struct gpInput *)message;
             struct GadgetV0 *v0g = data->wrapped;
+            LONG gpi_Termination = *nativemsg->gpi_Termination;
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpi_GInfo);
@@ -1163,10 +1164,13 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpi_IEvent   = (APTR32)(IPTR)v0ie;
             v0msg->gpi_Mouse.X  = nativemsg->gpi_Mouse.X;
             v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
+            v0msg->gpi_Termination = (APTR32)(IPTR)&gpi_Termination;
 
             IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
+
+            *nativemsg->gpi_Termination = gpi_Termination;
 
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
