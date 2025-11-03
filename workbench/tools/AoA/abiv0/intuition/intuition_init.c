@@ -285,10 +285,15 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
         struct LibraryV0 *IntuitionBaseV0);
 
 struct IClass *gadgetwrappercl;
+#define GWD_KEY 0x3af401b3
 struct GadgetWrapperData
 {
+    ULONG           gwd_Key;
     struct GadgetV0 *gwd_Wrapped;
 };
+
+#include <intuition/extensions.h>
+
 static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -321,9 +326,24 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
         if (imsg->Class == IDCMP_GADGETUP)
         {
             struct Gadget *nativeg = (struct Gadget *)imsg->IAddress;
-            // hacky way of struct GadgetWrapperData *data = INST_DATA(CLASS, self);data->wrapped
-            struct GadgetV0 *v0g = (struct GadgetV0 *)(*(IPTR *)((char *)nativeg + 0x80));
-            v0msg->IAddress = (APTR32)(IPTR)v0g;
+            struct GadgetWrapperData *data = INST_DATA(gadgetwrappercl, nativeg);
+            if (data->gwd_Key == GWD_KEY)
+                v0msg->IAddress = (APTR32)(IPTR)data->gwd_Wrapped;
+            else
+            {
+                /* Not a wrapped gadget? Then maybe iconify gadget! */
+                if (nativeg->GadgetID == ETI_Iconify)
+                {
+                    struct GadgetV0 *gV0 = abiv0_AllocMem(sizeof(struct GadgetV0), MEMF_CLEAR, Intuition_SysBaseV0); // MEMLEAK
+                    gV0->GadgetID = 0; /* ETI_Iconify; */
+                    v0msg->IAddress = (APTR32)(IPTR)gV0;
+                    /* Iconify is disabled for now as it would require doing a proxy for workbench.library/NotifyWorkbench */
+                }
+                else
+                {
+                    asm("int3");
+                }
+            }
         }
 
         if (imsg->Class == IDCMP_RAWKEY)
@@ -941,6 +961,7 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
         struct Gadget *gwrapper = NewObjectA(gadgetwrappercl, NULL, NULL);
         struct GadgetWrapperData *data = INST_DATA(gadgetwrappercl, gwrapper);
 
+        data->gwd_Key       = GWD_KEY;
         data->gwd_Wrapped   = gadget;
         syncGadgetNative(gwrapper, gadget);
 
