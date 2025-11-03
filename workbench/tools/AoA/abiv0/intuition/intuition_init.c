@@ -304,7 +304,8 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
     if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
         imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
         imsg->Class == IDCMP_CHANGEWINDOW || imsg->Class == IDCMP_INACTIVEWINDOW || imsg->Class == IDCMP_GADGETUP ||
-        imsg->Class == IDCMP_ACTIVEWINDOW || imsg->Class == IDCMP_RAWKEY || imsg->Class == IDCMP_MENUPICK)
+        imsg->Class == IDCMP_ACTIVEWINDOW || imsg->Class == IDCMP_RAWKEY || imsg->Class == IDCMP_MENUPICK ||
+        imsg->Class == IDCMP_VANILLAKEY)
     {
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
