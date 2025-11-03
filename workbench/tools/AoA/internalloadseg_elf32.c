@@ -323,6 +323,7 @@ ULONG *segclassesinitlist;
 ULONG *seginitlist;
 ULONG *dosfunctable;
 ULONG *execfunctable;
+ULONG _GlobalEditFunc;
 
 static int relocate
 (
@@ -435,6 +436,11 @@ static int relocate
                 if ((name[0] == '_') && (strcmp(name, "__CLASSESINIT_LIST__") == 0))
                 {
                     segclassesinitlist = (APTR)(IPTR)s;
+                }
+
+                if ((name[0] == 'G') && (strcmp(name, "GlobalEditFunc") == 0))
+                {
+                    _GlobalEditFunc = s;
                 }
 
         }
