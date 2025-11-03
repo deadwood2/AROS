@@ -284,6 +284,11 @@ static struct RastPortV0 *makeRastPortV0(struct RastPort *native)
 UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
         struct LibraryV0 *IntuitionBaseV0);
 
+struct IClass *gadgetwrappercl;
+struct GadgetWrapperData
+{
+    struct GadgetV0 *gwd_Wrapped;
+};
 static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -912,12 +917,6 @@ bug("abiv0_NewObjectA: returning fake pointerclass object\n");
 }
 MAKE_PROXY_ARG_4(NewObjectA)
 
-struct IClass *gadgetwrappercl;
-struct GadgetWrapperData
-{
-    struct GadgetV0 *wrapped;
-};
-
 static void syncGadgetNative(struct Gadget *nativeg, struct GadgetV0 *v0g)
 {
     nativeg->Flags         = v0g->Flags;
@@ -942,7 +941,7 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
         struct Gadget *gwrapper = NewObjectA(gadgetwrappercl, NULL, NULL);
         struct GadgetWrapperData *data = INST_DATA(gadgetwrappercl, gwrapper);
 
-        data->wrapped = gadget;
+        data->gwd_Wrapped   = gadget;
         syncGadgetNative(gwrapper, gadget);
 
         if (gadFirst == NULL) gadFirst = gwrapper;
@@ -1108,7 +1107,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->opg_AttrID   = nativemsg->opg_AttrID;
             v0msg->opg_Storage  = (APTR32)(IPTR)&storage;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             *nativemsg->opg_Storage = (IPTR)storage;
 
@@ -1119,7 +1118,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         case GM_HITTEST:
         {
             struct gpHitTest *nativemsg = (struct gpHitTest *)message;
-            struct GadgetV0 *v0g = data->wrapped;
+            struct GadgetV0 *v0g = data->gwd_Wrapped;
 
             struct gpHitTestV0 *v0msg = abiv0_AllocMem(sizeof(struct gpHitTestV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 * v0gi = composeGadgetInfoV0Int(nativemsg->gpht_GInfo, TRUE); /* workaround for trash gi_Window */
@@ -1129,7 +1128,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpht_Mouse.X = nativemsg->gpht_Mouse.X;
             v0msg->gpht_Mouse.Y = nativemsg->gpht_Mouse.Y;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpHitTestV0), Intuition_SysBaseV0);
@@ -1139,7 +1138,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         case GM_GOACTIVE:
         {
             struct gpInput *nativemsg = (struct gpInput *)message;
-            struct GadgetV0 *v0g = data->wrapped;
+            struct GadgetV0 *v0g = data->gwd_Wrapped;
             LONG gpi_Termination = *nativemsg->gpi_Termination;
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
@@ -1166,7 +1165,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
             v0msg->gpi_Termination = (APTR32)(IPTR)&gpi_Termination;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
 
@@ -1185,7 +1184,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         case GM_HANDLEINPUT:
         {
             struct gpInput *nativemsg = (struct gpInput *)message;
-            struct GadgetV0 *v0g = data->wrapped;
+            struct GadgetV0 *v0g = data->gwd_Wrapped;
             LONG gpi_Termination = *nativemsg->gpi_Termination;
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
@@ -1212,7 +1211,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
             v0msg->gpi_Termination = (APTR32)(IPTR)&gpi_Termination;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
 
@@ -1236,7 +1235,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpgi_Abort   = nativemsg->gpgi_Abort;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             abiv0_FreeMem(v0msg, sizeof(struct gpGoInactiveV0), Intuition_SysBaseV0);
 
@@ -1245,7 +1244,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         case GM_LAYOUT:
         {
             struct gpLayout *nativemsg = (struct gpLayout *)message;
-            struct GadgetV0 *v0g = data->wrapped;
+            struct GadgetV0 *v0g = data->gwd_Wrapped;
 
             struct gpLayoutV0 *v0msg = abiv0_AllocMem(sizeof(struct gpLayoutV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpl_GInfo);
@@ -1254,7 +1253,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpl_GInfo    = (APTR32)(IPTR)v0gi;
             v0msg->gpl_Initial  = nativemsg->gpl_Initial;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
 
@@ -1266,7 +1265,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         case GM_RENDER:
         {
             struct gpRender *nativemsg = (struct gpRender *)message;
-            struct GadgetV0 *v0g = data->wrapped;
+            struct GadgetV0 *v0g = data->gwd_Wrapped;
 
             struct gpRenderV0 *v0msg = abiv0_AllocMem(sizeof(struct gpRenderV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpr_GInfo);
@@ -1283,7 +1282,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpr_GInfo    = (APTR32)(IPTR)v0gi;
             v0msg->gpr_RPort    = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpr_RPort);
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             abiv0_FreeMem((APTR)(IPTR)v0msg->gpr_RPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
