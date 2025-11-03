@@ -3,6 +3,7 @@
 
 #include "../exec/structures.h"
 #include "../graphics/structures.h"
+#include "../utility/structures.h"
 
 struct ScreenV0
 {
@@ -405,4 +406,60 @@ struct gpGoInactiveV0
     STACKEDV0 ULONG		gpgi_Abort;
 };
 
+struct IntuitionBaseV0
+{
+    struct LibraryV0 LibNode;
+
+    struct ViewV0 ViewLord;
+
+    APTR32 ActiveWindow;
+    APTR32 ActiveScreen;
+    APTR32 FirstScreen;
+
+    ULONG Flags;
+
+    WORD  MouseX; /* ABI_V0 compatibility */
+    WORD  MouseY; /* ABI_V0 compatibility */
+
+    ULONG Seconds;
+    ULONG Micros;
+
+    /* IntIntuitionBase */
+
+    APTR32                      DOSBase;
+    APTR32                      LayersBase;
+    APTR32                      UtilityBase;
+    APTR32                      GfxBase;
+    APTR32                      OOPBase;
+    APTR32                      KeymapBase;
+
+    APTR32                      InputBase;
+    APTR32                      TimerBase;
+    APTR32                      TimerMP;
+    APTR32                      TimerIO;
+
+    APTR32                      WorkBenchMP;
+    APTR32                      WorkBench;
+    APTR32                      IBaseLock;
+    struct SignalSemaphoreV0    ViewLordLock;
+
+    /* Intuition input handlers replyport. This one is set
+    int rom/inputhandler.c/InitIIH()
+    */
+    APTR32                      IntuiReplyPort;
+    APTR32                      IntuiActionQueue;
+    APTR32                      InputIO;
+    APTR32                      InputMP;
+
+    /* Intuition Screennotify Replyport if SNOTIFY_WAIT_REPLY is specified */
+
+    APTR32                      ScreenNotifyReplyPort;
+
+    BOOL                        InputDeviceOpen;
+    APTR32                      InputHandler;
+
+    APTR32                      GlobalEditHook;
+    /* The default global edit hook */
+    struct HookV0               DefaultEditHook;
+};
 #endif
