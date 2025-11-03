@@ -200,6 +200,13 @@ void FreeClonedV02NativeTagItems(struct TagItem *tagList)
     FreeVec(tagList);
 }
 
+static void quirksSyncWindow(struct WindowProxy *proxy)
+{
+    /* FontTester opens a window with WA_RMBTrap but then removes the private WFLG_RMBTRAP */
+    if (!(proxy->base.Flags & WFLG_RMBTRAP) && (proxy->native->Flags & WFLG_RMBTRAP))
+        proxy->native->Flags &= ~WFLG_RMBTRAP;
+}
+
 static void syncLayerV0(struct LayerProxy *proxy)
 {
     proxy->base.Flags               = proxy->native->Flags;
@@ -326,7 +333,9 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 
         /* Store original message in Node of v0msg for now */
         *((IPTR *)&v0msg->ExecMessage.mn_Node) = (IPTR)imsg;
-        syncWindowV0((struct WindowProxy *)proxy);
+
+        quirksSyncWindow(proxy);
+        syncWindowV0(proxy);
         syncLayerV0((struct LayerProxy *)(IPTR)proxy->base.WLayer);
 
         return (struct MessageV0 *)v0msg;
