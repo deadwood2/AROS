@@ -16,8 +16,32 @@
     ENTER64                     \
     "addq $8, %%rsp\n"          \
     "movl %%eax, %0\n"          \
-    :"=m"(_ret)                 \
+    :"=m"(res)                  \
     :"m"(faddr), "m"(arg1), "m"(arg2)  \
     : SCRATCH_REGS_64_TO_32 );
 
+#define CALL32_ARG_3(res, faddr, arg1, arg2, arg3)  \
+    __asm__ volatile (          \
+    "subq $12, %%rsp\n"         \
+    "movl %4, %%eax\n"          \
+    "movl %%eax, 8(%%rsp)\n"    \
+    "movl %3, %%eax\n"          \
+    "movl %%eax, 4(%%rsp)\n"    \
+    "movl %2, %%eax\n"          \
+    "movl %%eax, (%%rsp)\n"     \
+    "movl %1, %%eax\n"          \
+    ENTER32                     \
+    "call *%%eax\n"             \
+    ENTER64                     \
+    "addq $12, %%rsp\n"         \
+    "movl %%eax, %0\n"          \
+    :"=m"(res)                  \
+    :"m"(faddr), "m"(arg1), "m"(arg2), "m"(arg3)    \
+    : SCRATCH_REGS_64_TO_32 );
+
+#define CALL32_ARG_3_NR(faddr, arg1, arg2, arg3)    \
+    {                                               \
+        LONG _dummy;                                \
+        CALL32_ARG_3(_dummy, faddr, arg1, arg2, arg3)\
+    }
 #endif

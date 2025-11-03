@@ -627,24 +627,10 @@ APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosL
         return proxy;
     } else if (type == DOS_RDARGS && tags == NULL)
     {
+        APTR _ret;
         /* Call original function */
-        __asm__ volatile (
-            "subq $12, %%rsp\n"
-            "movl %3, %%eax\n"
-            "movl %%eax, 8(%%rsp)\n"
-            "movl %2, %%eax\n"
-            "movl %%eax, 4(%%rsp)\n"
-            "movl %1, %%eax\n"
-            "movl %%eax, (%%rsp)\n"
-            "movl %0, %%eax\n"
-            ENTER32
-            "call *%%eax\n"
-            ENTER64
-            "addq $12, %%rsp\n"
-            "leave\n"
-            "ret\n"
-            ::"m"(dosfunctable[37]), "m"(type), "m"(tags), "m"(DOSBaseV0)
-            : SCRATCH_REGS_64_TO_32 );
+        CALL32_ARG_3(_ret, dosfunctable[37], type, tags, DOSBaseV0);
+        return _ret;
     }
 asm("int3");
 }
@@ -667,23 +653,8 @@ void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
     } else if (type == DOS_RDARGS)
     {
         /* Call original function */
-        __asm__ volatile (
-            "subq $12, %%rsp\n"
-            "movl %3, %%eax\n"
-            "movl %%eax, 8(%%rsp)\n"
-            "movl %2, %%eax\n"
-            "movl %%eax, 4(%%rsp)\n"
-            "movl %1, %%eax\n"
-            "movl %%eax, (%%rsp)\n"
-            "movl %0, %%eax\n"
-            ENTER32
-            "call *%%eax\n"
-            ENTER64
-            "addq $12, %%rsp\n"
-            "leave\n"
-            "ret\n"
-            ::"m"(dosfunctable[38]), "m"(type), "m"(ptr), "m"(DOSBaseV0)
-            : SCRATCH_REGS_64_TO_32 );
+        CALL32_ARG_3_NR(dosfunctable[38], type, ptr, DOSBaseV0);
+        return;
     }
 asm("int3");
 }
