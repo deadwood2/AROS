@@ -17,7 +17,7 @@
     "addq $8, %%rsp\n"          \
     "movl %%eax, %0\n"          \
     :"=m"(res)                  \
-    :"m"(faddr), "m"(arg1), "m"(arg2)  \
+    :"mr"(faddr), "mr"(arg1), "mr"(arg2)  \
     : SCRATCH_REGS_64_TO_32 );
 
 #define CALL32_ARG_3(res, faddr, arg1, arg2, arg3)  \
@@ -36,7 +36,7 @@
     "addq $12, %%rsp\n"         \
     "movl %%eax, %0\n"          \
     :"=m"(res)                  \
-    :"m"(faddr), "m"(arg1), "m"(arg2), "m"(arg3)    \
+    :"mr"(faddr), "mr"(arg1), "mr"(arg2), "mr"(arg3)    \
     : SCRATCH_REGS_64_TO_32 );
 
 #define CALL32_ARG_3_NR(faddr, arg1, arg2, arg3)    \
