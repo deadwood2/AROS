@@ -275,6 +275,17 @@ struct RegionRectangleV0
     struct Rectangle         bounds;
 };
 
+struct ViewV0
+{
+    APTR32 ViewPort;    /* Pointer to a first ViewPort */
+    APTR32 LOFCprList;  /* Actual display copperlists (only for Amiga chipset) */
+    APTR32 SHFCprList;
+
+    WORD DyOffset;
+    WORD DxOffset;
+
+    UWORD Modes;        /* See below */
+};
 
 struct GfxBaseV0
 {

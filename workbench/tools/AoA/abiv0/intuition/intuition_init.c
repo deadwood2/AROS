@@ -1406,7 +1406,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     NewRawDoFmt("LIBSV0:partial/intuition.library", RAWFMTFUNC_STRING, path);
     BPTR intuitionseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
-    struct LibraryV0 *abiv0IntuitionBase = shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);
+    struct IntuitionBaseV0 *abiv0IntuitionBase = (struct IntuitionBaseV0 *)shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);
     Intuition_SysBaseV0 = SysBaseV0;
 
 
@@ -1517,16 +1517,16 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     }
 
     /* Set internal Intuition pointer of utility, graphics and timer */
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x60) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x64) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x6C) = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x74) = (APTR32)(IPTR)timerBase;
+    abiv0IntuitionBase->UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
+    abiv0IntuitionBase->GfxBase     = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
+    abiv0IntuitionBase->KeymapBase  = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
+    abiv0IntuitionBase->TimerBase   = (APTR32)(IPTR)timerBase;
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x180), SysBaseV0); // GadgetLock
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x0F8), SysBaseV0); // PubScrListLock
     NEWLISTV0((struct MinListV0 *)((IPTR)abiv0IntuitionBase + 0x12C)); // PubScreenList
 
     init_gadget_wrapper_class();
 
-    init_first_screen(abiv0IntuitionBase);
-    *(ULONG *)((IPTR)abiv0IntuitionBase + 0x40) = (APTR32)(IPTR)g_mainv0screen;
+    init_first_screen((struct LibraryV0 *)abiv0IntuitionBase);
+    abiv0IntuitionBase->ActiveScreen = (APTR32)(IPTR)g_mainv0screen;
 }
