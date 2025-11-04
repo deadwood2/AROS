@@ -514,10 +514,11 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     BPTR seg = LoadSeg32(path, DOSBase);
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
-    /* Clear arguments when running main program */
-    CopyMem("\n", BADDR(fhinput->fh_Buf), 2);
+    /* Set arguments for main program */
+    if (fhinput->fh_BufSize < emu_argsize) asm("int3");
+    CopyMem(emu_argstr, BADDR(fhinput->fh_Buf), emu_argsize);
     fhinput->fh_Pos = 0;
-    fhinput->fh_End = 1;
+    fhinput->fh_End = emu_argsize;
 
     /* Make sure PROGDIR: is correct */
     *(PathPart(path)) = '\0';
@@ -541,7 +542,7 @@ struct Device *TimerBase;
 
 STRPTR program_name = NULL;
 
-const TEXT version_string[] = "$VER: EmuV0 0.28 (3.11.2025)";
+const TEXT version_string[] = "$VER: EmuV0 0.30 (4.11.2025)";
 
 #define DEVMODE 0
 
@@ -643,6 +644,7 @@ int main(int argc, char **argv)
     NewStackSwap(&sss, run_emulation, &ssa);
 
     FreeVec(program_name);
+    if (emu_argstr) FreeMem(emu_argstr, emu_argsize + 1);
     return 0;
 }
 
