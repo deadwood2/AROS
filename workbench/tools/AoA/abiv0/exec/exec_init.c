@@ -323,6 +323,7 @@ APTR makeFileHandleProxy(BPTR);
 struct TaskV0 *g_v0maintask = NULL;
 struct Task *g_nativemaintask = NULL;
 extern STRPTR program_name;
+extern STRPTR emu_argstr;
 
 void refresh_g_v0maintask()
 {
@@ -354,7 +355,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
             dummy->pr_CES = (BPTR32)(IPTR)makeFileHandleProxy(((struct Process *)FindTask(NULL))->pr_CES); // MEMLEAK
             dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output()); // MEMLEAK
             dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
-            dummy->pr_Arguments = (APTR32)(IPTR)"";
+            dummy->pr_Arguments = (APTR32)(IPTR)emu_argstr;
 
             cli = abiv0_AllocMem(sizeof(struct CommandLineInterfaceV0), MEMF_CLEAR, SysBaseV0);
             cli->cli_CommandName = (APTR32)(IPTR)abiv0_AllocMem(strlen(program_name) + 1, MEMF_CLEAR, SysBaseV0);
