@@ -5,6 +5,7 @@
 #include <exec/rawfmt.h>
 #include <proto/dos.h>
 #include <proto/input.h>
+#include <string.h>
 
 #include "abiv0/include/exec/functions.h"
 #include "abiv0/include/exec/proxy_structures.h"
@@ -373,28 +374,31 @@ void init_intuition(struct ExecBaseV0 *, struct DeviceProxy *);
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
 
-void execute_in_32_bit(APTR start, struct ExecBaseV0 *SysBaseV0)
+void execute_in_32_bit(APTR start, CONST_STRPTR argstr, LONG argsize, struct ExecBaseV0 *SysBaseV0)
 {
     __asm__ volatile(
     "   subq $16, %%rsp\n"
     "   movl $0, %%eax\n"
     "   movl %%eax, 12(%%rsp)\n" //pad
-    "   movl %1, %%eax\n"
+    "   movl %3, %%eax\n"
     "   movl %%eax, 8(%%rsp)\n" //SysBase
-    "   movl $0, %%eax\n"
+    "   movl %2, %%eax\n"
     "   movl %%eax, 4(%%rsp)\n" //argsize
-    "   movl $0, %%eax\n"
+    "   movl %1, %%eax\n"
     "   movl %%eax, (%%rsp)\n" //argstr
     "   movl %0, %%edx\n"  // start
     ENTER32
     "   call *%%edx\n"
     ENTER64
     "   addq $16, %%rsp"// Clean up stack
-        :: "m"(start), "m" (SysBaseV0)
+        :: "mr"(start), "mr" (argstr), "mr" (argsize), "mr" (SysBaseV0)
         : SCRATCH_REGS_64_TO_32 );
 }
 
 void refresh_g_v0maintask();
+
+STRPTR emu_argstr = NULL;
+LONG emu_argsize = 0;
 
 LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
@@ -503,7 +507,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     fhinput->fh_Pos = 0;
     fhinput->fh_End = 9;
 
-    execute_in_32_bit(adtstart, SysBaseV0);
+    execute_in_32_bit(adtstart, "\n", 1, SysBaseV0);
 
     /* Start Program */
     NewRawDoFmt("%s", RAWFMTFUNC_STRING, path, program_path);
@@ -524,7 +528,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     SetCurrentDirName(path);
     refresh_g_v0maintask();
 
-    execute_in_32_bit(start, SysBaseV0);
+    execute_in_32_bit(start, emu_argstr, emu_argsize, SysBaseV0);
 
     SetCurrentDirName(currdir);
     UnLock(CurrentDir(oldcurdir));
@@ -585,11 +589,10 @@ int main(int argc, char **argv)
         // program_path = "SYS:ProgramsV0/VindentiumPicta/VindentiumPicta";
         // program_path = "SYS:ProgramsV0/AROSAmp/AROSAmp";
         // program_path = "SYS:ProgramsV0/SilkRaw/SilkRaw";
-
     }
     else
 #endif
-    if (argc == 2)
+    if (argc > 1)
     {
         program_path = argv[1];
         BPTR tmp = Lock(program_path, SHARED_LOCK);
@@ -598,10 +601,26 @@ int main(int argc, char **argv)
             Printf("Program '%s' not found.\n", program_path);
             return 0;
         }
+
+        /* Build emu_argstr */
+        for (LONG i = 2; i < argc; i++)
+        {
+            emu_argsize += strlen(argv[i]);
+            emu_argsize += 1; /* either ' ' or finishing '\n' */
+        }
+        if (emu_argsize == 0) emu_argsize = 1; /* At least finishing '\n' is needed */
+
+        emu_argstr = AllocMem(emu_argsize + 1, MEMF_31BIT | MEMF_CLEAR);
+        for (LONG i = 2; i < argc; i++)
+        {
+            strcat(emu_argstr, argv[i]);
+            strcat(emu_argstr, " ");
+        }
+        emu_argstr[emu_argsize - 1] = '\n';
     }
     else
     {
-        Printf("EmuV0 currently accepts only one argument - program name\n");
+        Printf("EmuV0 needs at least one argument - program name\n");
         return 0;
     }
 
