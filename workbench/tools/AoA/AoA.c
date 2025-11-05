@@ -560,7 +560,7 @@ int main(int argc, char **argv)
 
         // program_path = "SYS:ProgramsV0/HFinder/HFinder";
         // program_path = "SYS:ProgramsV0/HollyPaint/HollyPaint.aros-i386";
-        // program_path = "SYS:ProgramsV0/RNOSlides_AROS/RNOSlides";
+        program_path = "SYS:ProgramsV0/RNOSlides_AROS/RNOSlides";
         // program_path = "SYS:ProgramsV0/RNOArchive_AROS/RNOArchive";
         // program_path = "SYS:ProgramsV0/RNOEffects_AROS/RNOEffects";
         // program_path = "SYS:ProgramsV0/RNOPublisher_AROS/RNOPublisher";
@@ -574,6 +574,7 @@ int main(int argc, char **argv)
         // program_path = "SYS:ProgramsV0/Hex2/Hex2";
         // program_path = "SYS:ProgramsV0/LoView/LoView";
         // program_path = "SYS:ProgramsV0/RNOTunes_AROS/RNOTunes";
+        // program_path = "SYS:ProgramsV0/FontTester/FontTester";
 
         // program_path = "SYS:ProgramsV0/ZuPaPlayer/ZuPaPlayer";
         // program_path = "SYS:ProgramsV0/ZuneFIG/ZuneFIG";
