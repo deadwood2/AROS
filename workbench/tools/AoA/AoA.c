@@ -542,7 +542,7 @@ struct Device *TimerBase;
 
 STRPTR program_name = NULL;
 
-const TEXT version_string[] = "$VER: EmuV0 0.30 (4.11.2025)";
+const TEXT version_string[] = "$VER: EmuV0 0.31 (5.11.2025)";
 
 #define DEVMODE 0
 
@@ -595,6 +595,8 @@ int main(int argc, char **argv)
 #endif
     if (argc > 1)
     {
+        struct Process *me;
+        STRPTR p; LONG qc = 0;
         program_path = argv[1];
         BPTR tmp = Lock(program_path, SHARED_LOCK);
         if (tmp == BNULL)
@@ -604,20 +606,20 @@ int main(int argc, char **argv)
         }
 
         /* Build emu_argstr */
-        for (LONG i = 2; i < argc; i++)
+        p = ((struct Process *)FindTask(NULL))->pr_Arguments;
+        /* Assume worst case: "program with space" "arg1 with space" arg arg3 */
+        /* Get rid off '"program with space"' or 'program' */
+        while (TRUE)
         {
-            emu_argsize += strlen(argv[i]);
-            emu_argsize += 1; /* either ' ' or finishing '\n' */
+            if (*p == '"') qc++;
+            if (*p == ' ')
+                if (qc == 0 || qc == 2) break;
+            p++;
         }
-        if (emu_argsize == 0) emu_argsize = 1; /* At least finishing '\n' is needed */
-
+        p++;
+        emu_argsize = strlen(p);
         emu_argstr = AllocMem(emu_argsize + 1, MEMF_31BIT | MEMF_CLEAR);
-        for (LONG i = 2; i < argc; i++)
-        {
-            strcat(emu_argstr, argv[i]);
-            strcat(emu_argstr, " ");
-        }
-        emu_argstr[emu_argsize - 1] = '\n';
+        CopyMem(p, emu_argstr, emu_argsize);
     }
     else
     {
