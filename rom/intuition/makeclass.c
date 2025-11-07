@@ -86,7 +86,7 @@
 /*
  * Make sure class instance data is adequately aligned on SMP capable platforms
  */
-#ifdef __AROSPLATFORM_SMP__
+#if 0
 #ifndef CLASS_ALIGN_UP
 #define CLASS_ALIGN_UP(offset, align)  (((offset) + ((align) - 1)) & ~((align) - 1))
 #endif

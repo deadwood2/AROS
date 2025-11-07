@@ -8,13 +8,11 @@
     Alignment rules for class data
 */
 
-#include <aros/config.h>
-
 #ifndef AROS_CPU_H
 #include <aros/cpu.h>
 #endif
 
-#ifdef __AROSPLATFORM_SMP__
+#if 0
 // Instance data _must_ be aligned on SMP capable platforms, incase spinlocks are used.
 #ifdef AROS_WORSTALIGN
 #define CLASS_INSTANCE_ALIGN __attribute__((aligned(AROS_WORSTALIGN)))
