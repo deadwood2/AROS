@@ -48,11 +48,7 @@ LONG PaletteRequestA (char *title, struct rtReqInfo *reqinfo, struct TagItem *ta
 
 #endif
 
-#if defined(__AROSPLATFORM_SMP__)
-#define __RTPREFSSEMAPHORE ReqToolsBase->PrefsSemaphore
-#else
 #define __RTPREFSSEMAPHORE ReqToolsBase->ReqToolsPrefs.PrefsSemaphore
-#endif
 
 /****************************************************************************************/
 

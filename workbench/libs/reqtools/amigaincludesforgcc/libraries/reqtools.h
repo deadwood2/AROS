@@ -100,11 +100,7 @@ struct ReqToolsPrefs
 {
     /* Size of preferences (_without_ this field, the semaphore and IsLoaded) */
     ULONG                   PrefsSize;
-#if !defined(__AROS__) || !defined(__AROSPLATFORM_SMP__)
     struct SignalSemaphore  PrefsSemaphore;
-#else
-    ULONG                   PrefsSemaphore[4];
-#endif
 
     /* Start of real preferences (saved/loaded from ReqTools.prefs) */
     ULONG                   Flags;
@@ -185,9 +181,6 @@ struct ReqToolsBase
     BPTR                    FontsAssignLock;
     struct AssignList       *FontsAssignList;
 
-#if defined(__AROSPLATFORM_SMP__)
-    struct SignalSemaphore  PrefsSemaphore;
-#endif
     struct ReqToolsPrefs    ReqToolsPrefs;
     UWORD                   prefspad;
 };

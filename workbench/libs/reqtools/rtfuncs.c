@@ -40,11 +40,7 @@ struct rtWindowLock {
     WORD                 rtwl_MaxHeight;
 };
 
-#if defined(__AROSPLATFORM_SMP__)
-#define __RTPREFSSEMAPHORE ReqToolsBase->PrefsSemaphore
-#else
 #define __RTPREFSSEMAPHORE ReqToolsBase->ReqToolsPrefs.PrefsSemaphore
-#endif
 
 /****************************************************************************************/
 
