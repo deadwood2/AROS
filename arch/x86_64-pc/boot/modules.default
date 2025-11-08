@@ -11,6 +11,7 @@
 /Classes/USB/massstorage.class
 /Devs/Drivers/hiddclass.hidd
 /Devs/Drivers/gfx.hidd
+/Devs/Drivers/inputclass.hidd
 /Devs/Drivers/keyboard.hidd
 /Devs/Drivers/mouse.hidd
 /Devs/Drivers/ata_pci.hidd
