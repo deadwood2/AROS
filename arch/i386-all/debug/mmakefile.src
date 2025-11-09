@@ -18,7 +18,7 @@ FUNCS := debug_platform disassemble
 %build_archspecific \
   mainmmake=kernel-debug maindir=rom/debug \
   arch=i386 modname=debug \
-  files=" $(FUNCS)" usesdks="config"
+  files=" $(FUNCS)" usesdks="private config"
 
 #MM kernel-debug-i386 : linklibs-udis86
 
