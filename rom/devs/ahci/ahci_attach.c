@@ -128,7 +128,7 @@ static AROS_INTH1(ahci_Reset, device_t, dev)
     struct ahci_softc *sc = device_get_softc(dev);
     struct AHCIBase *AHCIBase = dev->dev_Base;
 
-    ahciDebug("[AHCI] %s(0x%p)\n", __func__, dev);
+    D(bug("[AHCI] %s(0x%p)\n", __func__, dev));
 
 #if (0) // This is handled by the bus resetcallbacks...
     u_int32_t pi;
@@ -167,12 +167,12 @@ static AROS_INTH1(ahci_Reset, device_t, dev)
     /* Clear the global interrupt status if present. */
     ahci_write(sc, AHCI_REG_IS, ahci_read(sc, AHCI_REG_IS));
 
-    ahciDebug("[AHCI:Controller] %s: GHC.IE disabled\n", __func__);
+    D(bug("[AHCI:Controller] %s: GHC.IE disabled\n", __func__));
 
     OOP_MethodID HiddPCIDeviceBase = AHCIBase->ahci_HiddPCIDeviceMethodBase;
     HIDD_PCIDevice_ReleaseVectors(dev->dev_Object);
 
-    ahciDebug("[AHCI:Controller] %s: vectors released\n", __func__);
+    D(bug("[AHCI:Controller] %s: vectors released\n", __func__));
 
     return FALSE;
 
@@ -710,8 +710,8 @@ noccc:
         if (pis)
             ahci_pwrite(ap, AHCI_PREG_IS, pis);
 
-        ahciDebug("[AHCI] %s: Cleared pending interrupts for port %d (IS=%08x)\n",
-                  __func__, p, pis);
+        D(bug("[AHCI] %s: Cleared pending interrupts for port %d (IS=%08x)\n",
+                  __func__, p, pis));
     }
 
 	/*
