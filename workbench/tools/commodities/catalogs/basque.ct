@@ -1,0 +1,358 @@
+## version $VER: Commodities.catalog 3.0 (26.0.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_CANT_OPEN_LIB
+Ez daukat %s V%ld irekitzerik!\n
+; Can't open %s V%ld!\n
+;
+MSG_CANT_OPEN_INPUTDEVICE
+Ez daukat'input.device' irekitzerik
+; Can't open 'input.device'
+;
+MSG_CANT_OPEN_CLIPDEVICE
+Ez daukat 'clipboard.device' irekitzerik
+; Can't open 'clipboard.device'
+;
+MSG_CANT_LOCK_SCR
+Ez daukat pantaila publikoa ezartzerik!\n
+; Can't lock public screen!\n
+;
+MSG_CANT_GET_VI
+Ez daukat informazio bisuala hartzerik!\n
+; Can't get VisualInfo!\n
+;
+MSG_CANT_CREATE_GADGET
+Ez daukat gadgetak sortzerik!\n
+; Can't create gadgets!\n
+;
+MSG_CANT_CREATE_MENUS
+Ez daukat menuak sortzerik!\n
+; Can't create menus!\n
+;
+MSG_CANT_LAYOUT_MENUS
+Ez daukat menuak egokitzerik!\n
+; Can't layout menus!\n
+;
+MSG_CANT_CREATE_WIN
+Ez daukat leihoa irekitzerik!\n
+; Can't create window!\n
+;
+MSG_CANT_ALLOCATE_MEM
+Ez daukat aplikazioarako memoria erreserbatzerik\n
+; Can't allocate application memory!\n
+;
+MSG_CANT_CREATE_MSGPORT
+Ez daukat mezu ataka sortzerik!\n
+; Can't create message port!\n
+;
+MSG_CANT_ALLOCATE_SIGNAL
+Ez daukat seinalea esleitzerik!\n
+; Can't allocate signal!\n
+;
+MSG_CANT_CREATE_BROKER
+Ez daukat CxBroker objektua sortzerik!\n
+; Can't create CxBroker object!\n
+;
+MSG_CANT_CREATE_CUSTOM
+Ez daukat CxCustom objektua sortzerik!\n
+; Can't create CxCustom object!\n
+;
+MSG_OK
+Ados
+; Ok
+;
+MSG_MEN_PROJECT
+Proiektu
+; Project
+;
+MSG_MEN_PROJECT_HIDE
+O\0Ezkutatu
+; H\0Hide
+;
+MSG_MEN_PROJECT_ICONIFY
+I\0Ikono bihurtu
+; I\0Iconify
+;
+MSG_MEN_PROJECT_QUIT
+Q\0Atera
+; Q\0Quit
+;
+; ===============================================
+; EXCHANGE
+;
+MSG_EXCHANGE_CXNAME
+Trukatu
+; Exchange
+;
+MSG_EXCHANGE_CXTITLE
+Commoditiak trukatu
+; Commodities Exchange
+;
+MSG_EXCHANGE_CXDESCR
+Sistemaren commoditiak kontrolatu
+; Controls system commodities
+;
+MSG_EXCHANGE_WINTITLE
+Aldaketa: Eslaitutako tekla = <%s>
+; Exchange: Hot Key = <%s>
+;
+MSG_EXCHANGE_LISTVIEW
+Eskuragarri dauden Commoditiak
+; Available commodities
+;
+MSG_EXCHANGE_INFO
+Informazioa
+; Information
+;
+MSG_EXCHANGE_GAD_SHOW
+Erakutsi
+; Show
+;
+MSG_EXCHANGE_GAD_HIDE
+Ezkutatu
+; Hide
+;
+MSG_EXCHANGE_GAD_REMOVE
+Kendu
+; Remove
+;
+MSG_EXCHANGE_CYCLE_ACTIVE
+Aktibo
+; Active
+;
+MSG_EXCHANGE_CYCLE_INACTIVE
+Geldirik
+; Inactive
+;
+; ===============================================
+; BLANKER
+;
+MSG_BLANKER_CXNAME
+Blanker
+; Blanker
+;
+MSG_BLANKER_CXTITLE
+Sistemaren pantaila zuritzailea
+; System Screen Blanker
+;
+MSG_BLANKER_CXDESCR
+Pantaila hutsik geratzen da sistema inaktibo dagoenean
+; Blanks screen when system inactive
+;
+; ===============================================
+; CLICK2FNT
+;
+MSG_CLICK2FNT_CXNAME
+ClickToFront
+; ClickToFront
+;
+MSG_CLICK2FNT_CXTITLE
+Aurrealdera ekarri
+; Click To Front Utility
+;
+MSG_CLICK2FNT_CXDESCR
+klik batez aurrealdera ekarri
+; Click windows to front
+;
+; ===============================================
+; OPAQUE
+;
+MSG_OPAQUE_CXNAME
+Opaku
+; Opaque
+;
+MSG_OPAQUE_CXTITLE
+Leihoak opakatu
+; Solid Windows
+;
+MSG_OPAQUE_CXDESCR
+Mugitu leihoak denbora errealean
+; Realtime moving of windows
+;
+; ===============================================
+; AUTOPOINT
+;
+MSG_AUTOPOINT_CXNAME
+AutoPoint
+; AutoPoint
+;
+MSG_AUTOPOINT_CXTITLE
+Fokaratze automatikoa
+; Autopointer
+;
+MSG_AUTOPOINT_CXDESCR
+Saguaren azpian dagoen leihoa atibatu
+; Activates the window under the mouse
+;
+; ===============================================
+; STARTMENU
+;
+MSG_STARTMENU_CXNAME
+Abiarazi menua
+; StartMenu
+;
+MSG_STARTMENU_CXTITLE
+Programen abiarazlea
+; System Program Starter
+;
+MSG_STARTMENU_CXDESCR
+Menutik programak abiarazi
+; Program launch commodity
+;
+; ===============================================
+; FKEY
+;
+MSG_FKEY_CXNAME
+FKey
+; FKey
+;
+MSG_FKEY_CXTITLE
+Teklei funtzioak esleitu
+; Function To Keys:
+;
+MSG_FKEY_CXDESCR
+Teklei funtzioak esleitu
+; Attach special functions to keys
+;
+MSG_FKEY_WINTITLE
+FKey: Tekla bidezidorra = <%s>
+; FKey: Hot Key = <%s>
+;
+MSG_FKEY_DEFINED_KEYS
+Zehaztutako teklak
+; Defined Keys
+;
+MSG_FKEY_NEW_KEY
+_Tekla berria
+; _New Key
+;
+MSG_FKEY_DELETE_KEY
+_Tekla ezabatu
+; _Delete Key
+;
+MSG_FKEY_SAVE_KEY
+Gorde zehaztutako teklak
+; Save Defined Keys
+;
+MSG_FKEY_COMMAND
+Komando
+; Command
+;
+MSG_FKEY_COMMAND_PARAMS
+Komandoren parametroak
+; Command Parameters
+;
+MSG_FKEY_CMD_CYCLE_WIN
+Leihoak ziklatu
+; Cycle Windows
+;
+MSG_FKEY_CMD_CYCLE_SCR
+Pantailak ziklatu
+; Cycle Screens
+;
+MSG_FKEY_CMD_ENLARGE_WIN
+Leihoa hedatu
+; Enlarge Window
+;
+MSG_FKEY_CMD_SHRINK_WIN
+Leihoa txikiagotu
+; Shrink Window
+;
+MSG_FKEY_CMD_TOGGLE_WIN_SIZE
+Aldatu leihoaren tamaina
+; Toggle Window Size
+;
+MSG_FKEY_CMD_RESCUE_WIN
+Leihoa berreskuratu
+; Rescue Window
+;
+MSG_FKEY_CMD_INSERT_TEXT
+Testua tartekatu
+; Insert Text
+;
+MSG_FKEY_CMD_RUN_PROG
+Programa bat abiarazi
+; Run Program
+;
+MSG_FKEY_CMD_RUN_AREXX
+ARexx script bat abiarazi
+; Run Arexx Script
+;
+MSG_FKEY_MEN_PROJECT_SAVE
+G\0Gorde Teklak
+; S\0Save Defined Keys
+;
+; ===============================================
+; NOCAPSLOCK
+;
+MSG_NOCAPSLOCK_CXNAME
+CAPS LOCK teklarik gabe
+; NoCapsLock
+;
+MSG_NOCAPSLOCK_CXTITLE
+CAPS LOCK teklarik gabe:
+; NoCapsLock:
+;
+MSG_NOCAPSLOCK_CXDESCR
+CAPS LOCK tekla ezgaitzen du
+; Renders the CAPS LOCK key ineffective
+;
+; ===============================================
+; DepthMenu
+;
+MSG_DEPTHMENU_CXNAME
+Sakontasun menua
+; DepthMenu
+;
+MSG_DEPTHMENU_CXTITLE
+Sakontasun menua:
+; DepthMenu:
+;
+MSG_DEPTHMENU_CXDESCR
+Sakontasun gadgeten menua
+; Popup menu for depth gadgets
+;
+; ===============================================
+; AltKeyQ
+;
+MSG_ALTKEYQ_CXNAME
+AltKeyQ
+; AltKeyQ
+;
+MSG_ALTKEYQ_CXTITLE
+Karaktereak zenbakiaren bidez sartzea
+; Character input by number
+;
+MSG_ALTKEYQ_CXDESCR
+Erabili Alt tekla MS-DOS sisteman bezala
+; MS-DOS Style Alt key usage
+;
+; ===============================================
+; ASCIITable
+;
+MSG_ASCIITABLE_CXNAME
+ASCIITable
+; ASCIITable
+;
+MSG_ASCIITABLE_CXTITLE
+ASCII taula:
+; ASCIITable:
+;
+MSG_ASCIITABLE_CXDESCR
+Teklak hautatu
+; Select keys from a GUI
+;
+MSG_ASCIITABLE_WINTITLE
+ASCIITable: bidezidorra = <%s>
+; ASCIITable: Hot Key = <%s>
+;
+MSG_ASCIITABLE_GAD_COPY
+Kopiatu
+; Copy
+;
+MSG_ASCIITABLE_GAD_CLEAR
+Gaurbitu
+; Clear
+;

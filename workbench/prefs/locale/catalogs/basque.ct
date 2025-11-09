@@ -1,0 +1,149 @@
+## version $VER: localeprefs.catalog 1.0 (30.09.2007)
+## language euskara
+## codeset 0
+;
+;
+MSG_CANT_OPEN_LIB
+Ezin da %s V%ld ireki!\n
+; Can't open %s V%ld!\n
+;
+MSG_CANT_LOCK_SCR
+Ezin da pantaila publikoa blokeatu!
+; Can't lock public screen!
+;
+MSG_CANT_GET_DRI
+Ezin da DrawInfo abiarazi!
+; Can't get DrawInfo!
+;
+MSG_CANT_GET_VI
+Ezin da VisualInfo abiarazi!
+; Can't get VisualInfo!
+;
+MSG_CANT_CREATE_GADGET
+Ezin dira gadgetak sortu!
+; Can't create gadgets!
+;
+MSG_CANT_CREATE_MENUS
+Ezin dira menuak sortu!
+; Can't create menus!
+;
+MSG_CANT_CREATE_WIN
+Ezin da lehioa sortu!
+; Can't create window!
+;
+MSG_WINTITLE
+Lokaleen hobespenak
+; Locale Preferences
+;
+MSG_MEN_PROJECT
+Proiektu
+; Project
+;
+MSG_MEN_PROJECT_OPEN
+A\0Ireki...
+; O\0Open...
+;
+MSG_MEN_PROJECT_SAVEAS
+G\0Gorde bezala...
+; A\0Save As...
+;
+MSG_MEN_PROJECT_QUIT
+S\0Atera
+; Q\0Quit
+;
+MSG_MEN_EDIT
+Editatu
+; Edit
+;
+MSG_MEN_EDIT_DEFAULT
+D\0Aurremugatuak berrezarri
+; D\0Reset to Defaults
+;
+MSG_MEN_EDIT_LASTSAVED
+L\0Azken gordetakoak berrezarri
+; L\0Last Saved
+;
+MSG_MEN_EDIT_RESTORE
+R\0Berrezarri
+; R\0Restore
+;
+MSG_MEN_SETTINGS
+Hobespenak
+; Settings
+;
+MSG_MEN_SETTINGS_CREATEICONS
+I\0Ikonoak sortu?
+; I\0Create Icons?
+;
+MSG_ASL_OPEN_TITLE
+Lokaleren hobespenak irakurri
+; Load Locale Preferences
+;
+MSG_ASL_SAVE_TITLE
+Lokaleren hobespenak gorde
+; Save Locale Preferences
+;
+MSG_OK
+Ados
+; Ok
+;
+MSG_GAD_AVAIL_LANGUAGES
+Aukeratzeko hizkuntzak
+; Available Languages
+;
+MSG_GAD_PREF_LANGUAGES
+Hautatutako hizkuntzak
+; Preferred Languages
+;
+MSG_GAD_CLEAR_LANGUAGES
+Garbitu hizkuntz zerrenda
+; Clear Languages
+;
+MSG_GAD_SAVE
+Gorde
+; Save
+;
+MSG_GAD_USE
+Erabili
+; Use
+;
+MSG_GAD_CANCEL
+Deuseztu
+; Cancel
+;
+MSG_GAD_TAB_LANGUAGE
+Hizkuntza
+; Language
+;
+MSG_GAD_TAB_REGION
+Eskualde
+; Region
+;
+MSG_GAD_TAB_TIMEZONE
+Ordu ardatza
+; Time Zone
+;
+MSG_TIMEZONE_1HOUR
+Ordu ardatza: GMT baino ordu bat gutxiago
+; Time Zone: 1 Hour from UTC
+;
+MSG_TIMEZONE_HOURS
+Ordu ardatza: GMT baino %ld ordu gutxiago
+; Time Zone: %ld Hours from UTC
+;
+MSG_TIMEZONE_HOURSMINS
+Ordu ardatza: GMT baino %ld ordu, %ld minutu gutxiago
+; Time Zone: %ld Hours, %ld Minutes from UTC
+;
+MSG_CHARACTER_SET
+Karaktere-joko lehenetsia
+; Default character set
+;
+MSG_NOT_SPECIFIED
+Ez zehaztuta
+; Not specified
+;
+MSG_GMT_CLOCK
+Hardware erlojuak UTC gordetzen du
+; Hardware clock stores UTC
+;

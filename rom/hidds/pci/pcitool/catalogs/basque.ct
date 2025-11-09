@@ -1,0 +1,185 @@
+## version $VER: pcitool.catalog 2.0 (29.02.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_TITLE
+PCI lanabesa
+; PCI Tool
+;
+MSG_WINTITLE
+PCI lanabesa
+; PCI Tool
+;
+MSG_DESCRIPTION
+PCI busaren ikuskapena eta kudeaketa
+; PCI querying and managment
+;
+MSG_ERROR_LOCALE
+Ezin da eskualde-konfigurazioa ireki
+; Can't open locale
+;
+MSG_ERROR_OK
+Ados
+; Ok
+;
+MSG_ERROR_HEADER
+ERRORE
+; ERROR
+;
+MSG_DRIVER_INFO
+Kontrolagailuaren informazioa
+; Driver info
+;
+MSG_DRIVER_NAME
+Izena:
+; Driver name:
+;
+MSG_DIRECT_BUS
+Bus zuzena:
+; Direct bus:
+;
+MSG_HARDWARE_INFO
+Hardware:
+; Hardware info:
+;
+MSG_PCI_DEVICE_INFO
+PCI dispositiboaren informazioa
+; PCI device info
+;
+MSG_DEVICE_DESCRIPTION
+Deskribapena:
+; Description:
+;
+MSG_VENDORNAME
+Fabrikatzaile:
+; Vendor Name:
+;
+MSG_PRODUCTNAME
+Produktu:
+; Product Name:
+;
+MSG_SUBSYSTEM
+Azpisistema:
+; Subsystem:
+;
+MSG_VENDORID
+Fabktz. ID:
+; VendorID:
+;
+MSG_PRODUCTID
+Prod. ID:
+; ProductID:
+;
+MSG_REVISIONID
+Berrikuspen ID:
+; RevisionID:
+;
+MSG_INTERFACE
+Interfaze:
+; Interface:
+;
+MSG_CLASS
+Mota:
+; Class:
+;
+MSG_SUBCLASS
+Azpimota:
+; Subclass:
+;
+MSG_IRQ
+IRQ:
+; IRQ:
+;
+MSG_ROM_BASE
+ROM helbide:
+; ROM Base:
+;
+MSG_ROM_SIZE
+ROM tamaina:
+; ROM Size:
+;
+MSG_BRIDGE
+Zubiak ISA busa %d erabiltzen du (ISA %sgaituta, VGA %sgaituta)
+; Bridge handles bus %d (ISA %senabled, VGA %senabled)
+;
+MSG_MEMORY_RANGE
+Memoria tarteak %08x -tik %08x -raino
+; Memory ranges from %08x to %08x
+;
+MSG_PREFETCHABLE_MEMORY
+Aurrez eskuragarri memoria tarteak %08x -tik %08x -raino
+; Prefetchable ranges memory from %08x to %08x
+;
+MSG_IO_RANGE
+S/I tarteak %04x -tik %04x -raino
+; IO ranges from %04x to %04x
+;
+MSG_IO_MSG
+S/I: %s, MEM: %s, Master: %s, PaletteSnoop: %s, 66MHz: %s
+; IO: %s, MEM: %s, Master: %s, PaletteSnoop: %s, 66MHz capable: %s
+;
+MSG_IO
+E/S
+; S/I
+;
+MSG_MEMORY
+Memoria
+; Memory
+;
+MSG_PREFETCHABLE
+Aurrez eskuragarri memoria
+; Prefetchable Memory
+;
+MSG_YES
+bai
+; yes
+;
+MSG_NO
+ez
+; no
+;
+MSG_NA
+N/A
+; N/A
+;
+MSG_NOT
+ez
+; not
+;
+MSG_SIZE4
+%s 0x%04x-n (tamaina 0x%04x)
+; %s at 0x%04x (size 0x%04x)
+;
+MSG_SIZE8
+%s 0x%08x-n (tamaina 0x%08x)
+; %s at 0x%08x (size 0x%08x)
+;
+MSG_SAVETORAMDISK
+Gorde gailuaren informazioa RAM diskoan.
+; Save Device Information to RAM Disk
+;
+MSG_SAVEALLTORAMDISK
+Gorde PCI gailuaren informazio guztia RAM diskoan.
+; Save complete PCI Information to RAM Disk
+;
+MSG_UNUSED
+--erabilteke--
+; --unused--
+;
+MSG_IO_BASE
+S/I base:
+; I/O base:
+;
+MSG_OWNER
+Erabilten du:
+; Used by:
+;
+MSG_PCIE_DEVICE_INFO
+PCIe gailuaren informazioa
+; PCIe device info
+;
+MSG_PCIE_SERIAL_NUMBER
+PCIe serie zenbakia
+; PCIe Serial Number
+;

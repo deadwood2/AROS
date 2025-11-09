@@ -1,0 +1,72 @@
+## version $VER: wbrename.catalog 2.0 (28.02.2024)
+## language español
+## codeset 0
+;
+;
+MSG_TITLE
+WBRename
+; WBRename
+;
+MSG_DESCRIPTION
+Fitxategiak eta tiraderak berrizendatu
+; Renames files and drawers
+;
+MSG_COPYRIGHT
+©2006, AROS Dev Team
+; \xa92012, AROS Dev Team
+;
+MSG_WINDOW_TITLE
+Berrizendatu
+; Rename
+;
+MSG_LINE
+Idatzi '%s' elementuaren izen berria
+; Enter a new name for: '%s'
+;
+MSG_NAME
+\33bIzena:\33n 
+; \33bNew name: \33n
+;
+MSG_OK
+_Onartu
+; _OK
+;
+MSG_CANCEL
+Deu_seztatu
+; Ca_ncel
+;
+MSG_ERROR_TITLE
+WBRename: Errore
+; Error
+;
+MSG_ALREADY_EXIST
+'%s' izena dagoeneko existitzen da!
+;'%s' ya existe!
+;
+MSG_FAILED
+'%s'elementuaren izen aldatzeak akats egin du:\'%s'!
+; Rename of '%s' failed with error:\n'%s'!
+;
+MSG_ILLEGAL_CHARS
+'%s' izenak erabilezin den karakteren bat dauka!
+; '%s' contains illegal characters!
+;
+MSG_NEEDS_MORE_ARGS
+Bi argumentu behar dira!
+; Need 2 arguments!
+;
+MSG_INVALID_LOCK
+Direktorioaren blokeoa baliogabea da!
+; Invalid directory lock!
+;
+MSG_WB_ONLY
+Ezin da shell-etik abiarazi!\n
+; Cannot be started from shell!\n
+;
+MSG_FAILED_CREATE_APP
+Aplikazioaren kargak akats egin du!
+; Failed to create Application!
+;
+MSG_OUTOFMEMORY
+Ezin izan da RAM memoria esleitu!
+; Can't allocate RAM!

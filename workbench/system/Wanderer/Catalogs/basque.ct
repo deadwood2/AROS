@@ -1,0 +1,519 @@
+## version $VER: wanderer.catalog 4.0 (07.08.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_TITLE
+Wanderer
+; Wanderer
+;
+MSG_DESCRIPTION
+Fitxategien kudeatzailea
+; File manager
+;
+MSG_SCREENTITLE
+Wanderer %s memoria grafikoa %s bestelako memoria
+; Wanderer %s graphics mem %s other mem
+;
+MSG_MEM_B
+B
+; B
+;
+MSG_MEM_K
+K
+; K
+;
+MSG_MEM_M
+M
+; M
+;
+MSG_MEM_G
+G
+; G
+;
+MSG_MEN_WANDERER
+Wanderer
+; Wanderer
+;
+MSG_MEN_BACKDROP
+Atze-oihala
+; Backdrop
+;
+MSG_MEN_SC_BACKDROP
+B
+; B
+;
+MSG_MEN_EXECUTE
+Exekutatu...
+; Execute...
+;
+MSG_MEN_SC_EXECUTE
+E
+; E
+;
+MSG_MEN_SHELL
+Shell
+; Shell
+;
+MSG_MEN_SC_SHELL
+W
+; W
+;
+MSG_MEN_GUISET
+GUIaren konfigurazioa
+; GUI settings...
+;
+MSG_MEN_ABOUT
+... about
+; About...
+;
+MSG_MEN_QUIT
+Atera...
+; Quit...
+;
+MSG_MEN_SC_QUIT
+Q
+; Q
+;
+MSG_MEN_WINDOW
+Leiho
+; Window
+;
+MSG_MEN_NEWDRAW
+Tiradera berria...
+; New drawer...
+;
+MSG_MEN_SC_NEWDRAW
+N
+; N
+;
+MSG_MEN_OPENPAR
+Aurrekoa ireki
+; Open parent
+;
+MSG_MEN_CLOSE
+Itxi
+; Close
+;
+MSG_MEN_SC_CLOSE
+K
+; K
+;
+MSG_MEN_UPDATE
+Eguneratu
+; Update
+;
+MSG_MEN_CONTENTS
+Edukia hautatu
+; Select contents
+;
+MSG_MEN_SC_CONTENTS
+A
+; A
+;
+MSG_MEN_CLRSEL
+Desautatu
+; Clear selection
+;
+MSG_MEN_SC_CLRSEL
+Z
+; Z
+;
+MSG_MEN_SNAPSHT
+Izoztu
+; Snapshot
+;
+MSG_MEN_ALL
+Guztia
+; All
+;
+MSG_MEN_VIEW
+Ikusi
+; View
+;
+MSG_MEN_ICVIEW
+Ikono gisa ikusi
+; Icon view
+;
+MSG_MEN_DCVIEW
+Ikusi xehetasunak
+; Detail view
+;
+MSG_MEN_ALLFIL
+Fitxategi guztiak
+; All files
+;
+MSG_MEN_SORTIC
+Ordenatu
+; Sort
+;
+MSG_MEN_CLNUP
+Garbitu
+; Clean up
+;
+MSG_MEN_SC_CLNUP
+.
+; .
+;
+MSG_MEN_BYNAME
+Izenaren arabera
+; By name
+;
+MSG_MEN_BYDATE
+Dataren arabera
+; By date
+;
+MSG_MEN_BYSIZE
+Tamainaren arabera
+; By size
+;
+MSG_MEN_BYTYPE
+Motaren arabera
+; By type
+;
+MSG_MEN_REVERSE
+Leheneratu
+; Reverse
+;
+MSG_MEN_DRWFRST
+Tiraderak lehen
+; Drawers first
+;
+MSG_MEN_ICON
+Ikono
+; Icon
+;
+MSG_MEN_FIND
+Bilatu...
+; Find...
+;
+MSG_MEN_SC_FIND
+F
+; F
+;
+MSG_MEN_OPEN
+Ireki
+; Open
+;
+MSG_MEN_SC_OPEN
+O
+; O
+;
+MSG_MEN_RENAME
+Berrizendatu...
+; Rename...
+;
+MSG_MEN_SC_RENAME
+R
+; R
+;
+MSG_MEN_INFO
+Informazioa...
+; Information...
+;
+MSG_MEN_SC_INFO
+I
+; I
+;
+MSG_MEN_DELETE
+Ezabatu...
+; Delete...
+;
+MSG_MEN_TOOLS
+Lanabesak
+; Tools
+;
+MSG_MEN_ICONSORTING
+Ikononoak automatikoki ordenatu 
+; Enable Automatic Icon Sorting
+;
+MSG_MEN_GROUPICONS
+Ikonoak elkartu
+; Group Icons
+;
+MSG_MEN_ICONSCLOSE
+Itxi
+; Close
+;
+MSG_REALLYQUIT
+Benetan atera nahi duzu?
+; Do you really want to quit Wanderer?
+;
+MSG_YESNO
+*Bai|Ez
+; *Yes|No
+;
+MSG_DUMMY
+DUMMY
+; DUMMY
+; DUMMY :)
+MSG_USERSCREENTITLE
+Wanderer %pc Memoria Grafikoa %pf bestelako memoria
+; Wanderer %pc graphics mem %pf other mem
+;
+MSG_MEN_FORMAT
+Diskoa formateatu...
+; Format disk...
+;
+MSG_MEN_SHUTDOWN
+Itzali...
+; Shut down...
+;
+MSG_SHUTDOWN_TITLE
+Sistema itzali
+; System shutdown
+;
+MSG_SHUTDOWN_BODY
+Zer egin nahi duzu?
+; What would you like to do?
+;
+MSG_SHUTDOWN_BUTTONS
+Itzali|Sistema berrabiarazi|AROS berrabiarazi|*Deuseztu
+; Power Off|Restart Computer|Restart AROS|*Cancel
+;
+MSG_ACTION_NOT_SUPPORTED
+Zure sistemak ez dauka hautatutako egitea betetzerik
+; The selected action is not supported by your system.
+;
+MSG_OK
+Ados
+; *OK
+;
+MSG_EMPTY_TRASH
+Zakarrontzia hustu
+; Empty trash
+;
+MSG_MEN_PUT_AWAY
+Kendu
+; Put away
+;
+MSG_MEN_SC_PUT_AWAY
+P
+; P
+;
+MSG_MEN_LEAVE_OUT
+Kanpoaldean utzi
+; Leave out
+;
+MSG_MEN_SC_LEAVE_OUT
+L
+; L
+;
+MSG_MEN_UNSNAPSHOT
+Desizoztu
+; Unsnapshot
+;
+MSG_MEN_SC_UNSNAPSHOT
+U
+; U
+;
+MSG_MEN_SNAPSHOT
+Izoztu
+; Snapshot
+;
+MSG_MEN_SC_SNAPSHOT
+S
+; S
+;
+MSG_REQU_DELETE
+Fitxategia ezabatu...
+; Delete file...
+;
+MSG_REQU_DELETE_YESNO
+_Bai|Bai _denari|_Ez|Ez _guztiari
+; _Yes|Yes to _all|_No|No _to all
+;
+MSG_REQU_DELETE_DRAWER_S
+Benetan tiradera ezabatu
+; Really delete drawer
+;
+MSG_REQU_DELETE_DRAWER_E
+?
+; ?
+;
+MSG_REQU_DELETE_FILE_S
+Benetan
+;Benetan fitxategia ezabatu
+; Really delete file
+;
+MSG_REQU_DELETE_FILE_M
+fitxategia ezabatu
+; located in
+;
+MSG_REQU_DELETE_FILE_E
+tiraderatik?
+; ?
+;
+MSG_REQU_OVERWRITE
+Gainean idatzi...
+; Overwrite file...
+;
+MSG_REQU_OVERWRITE_S
+Ziur fitxategia gainidatzi nahi duzula
+; Really overwrite file
+;
+MSG_REQU_OVERWRITE_M
+en
+; located in
+;
+MSG_REQU_OVERWRITE_E
+?
+; ?
+;
+MSG_REQU_OVERWRITE_YESNO
+_Gainidatzi|Gainidatzi _denak|_Ez|Ez _guztiari
+; _Overwrite|Overwrite _all|_No|No _to all
+;
+MSG_REQU_OVERWRITE_SKIPABORT
+_Saltatu|_Deuseztu
+; _Skip|_Abort
+;
+MSG_REQU_PROTECTION
+Fitxategiaren babespena
+; File Protection
+;
+MSG_REQU_PROTECTION_UNPROTECT
+_Babesgabetu|Babesgabetu _denak|_Ez|Ez _guztiari
+; _Unprotect|Unprotect _All|_No|No _to ALL
+;
+MSG_REQU_PROTECTION_UNPROTECTDRAWER_S
+Tiradera babesgabetu nahi duzu
+; Do you wish to unprotect drawer
+;
+MSG_REQU_PROTECTION_UNPROTECTDRAWER_E
+?
+; ?
+;
+MSG_NOFILEACCESS_S
+Ez dago
+; Can't access file
+;
+MSG_NOFILEACCESS_M
+dagoen
+; located in
+;
+MSG_NOFILEACCESS_E
+fitxategia atzitzerik 
+;
+MSG_NODRAWERACCESS_S
+Ez dago tiradera atzitzerik
+; Can't access drawer
+;
+MSG_NODRAWERACCESS_E
+?  
+;
+MSG_REQU_FILEUNPROTECT_S
+Benetan
+; Do you wish to unprotect file
+;
+MSG_REQU_FILEUNPROTECT_M
+dagoen
+; located in
+;
+MSG_REQU_FILEUNPROTECT_E
+fitxategia babesgabetu nahi duzu?
+; ?
+;
+MSG_WANDERER_FILEACCESS
+Wanderer fitxategi kudeatzailea
+; Wanderer file access
+;
+MSG_WANDERER_FILEACCESS_PROCESSING
+Prozesatzen...
+; Processing...
+;
+MSG_WANDERER_FILEACCESS_STOP
+Gelditu
+; Stop
+;
+MSG_WANDERER_FILEACCESS_MOVEFROM
+tik mugitu
+; Move from
+;
+MSG_WANDERER_FILEACCESS_MOVETO
+ra mugitu
+; Move to
+;
+MSG_WANDERER_FILEACCESS_COPYFROM
+tik kopiatu
+; Copy from
+;
+MSG_WANDERER_FILEACCESS_COPYTO
+ra kopiatu
+; Copy to
+;
+MSG_WANDERER_FILEACCESS_FILE
+Fitxategia
+; File
+;
+MSG_WANDERER_FILEACCESS_TRAFFIC
+Transferentzia tasa
+; Data transfer rate
+;
+MSG_WANDERER_FILEACCESS_DELETEFROM
+Tiraderatik ezabatu
+; Delete from drawer
+;
+MSG_WANDERER_FILEACCESS_FILETODELETE
+Ezabatzeko fitxategia
+; File to delete
+;
+MSG_WANDERER_FILEACCESS_DELETINGFILE
+Fitxategia ezabatzen
+; Deleting file
+;
+MSG_WANDERER_FILEACCESS_NOOFFILES
+Prozesatutako fitxategiak:
+; Processed files:
+;
+MSG_WANDERER_FILEACCESS_ACTUAL
+Oraingo fitxategiaren neurria:
+; Size of current file:
+;
+MSG_WANDERER_FILEACCESS_TOTAL
+Tamaina guztia:
+; Overall size:
+;
+MSG_WANDERER_ERROR_FILE_OPERATION
+Eragiketa egitean akats bat sortu da
+; Error occured while performing file operation
+;
+MSG_FAILED_TO_ALLOCATE_MEMORY
+Akatsa memorian %d byte egokitzen
+; Failed to allocate %d bytes of memory
+;
+MSG_FAILED_TO_READ_FILE
+Akatsa fitxategia irakurtzen: %s\n
+; Error occured while reading from file: %s\n
+;
+MSG_FAILED_TO_WRITE_TO_FILE
+Akatsa fitxategia idazten: %s\n
+; Error occured while writing to file: %s\n
+;
+MSG_FAILED_TO_READ_FILE_INFO_BLOCK
+Akatsa fitxategiaren informazio blokea irakurtzen: %s
+; Failed to read file info block for file: %s
+;
+MSG_FAILED_TO_CREATE_DIRECTORY
+Akatsa direktorioa sortzen : %s\n
+; Failed to create directory: %s\n
+;
+MSG_FAILED_TO_DELETE_FILE
+Akatsa fitxategia ezabatzen: %s\n
+; Error occured whiled deleting file: %s\n
+;
+MSG_FAILED_TO_LOCK_PATH
+Akatsa bidea bloqueatzen: %s
+; Failed to lock path: %s
+;
+MSG_FAILED_TO_READ_DIRECTORY_CONTENT
+Akatsa direktorioa irakurtzen: %s\n
+; Error occured while reading from directory: %s\n
+;
+MSG_FAILED_TO_MOVE_FILE
+Akatsa fitxategia mugitzen: %s\n
+; Error occured while moving file: %s\n
+;
+MSG_FAILED_ERROR
+Errormezua
+; Errormessage

@@ -1,0 +1,142 @@
+## version $VER: Serialpref.catalog 1.0 (02.10.2007)
+## language euskara
+## codeset 0
+;
+MSG_CANT_OPEN_LIB
+Ezin dut %s V%ld ireki!\n
+;Can't open %s V%ld!\n
+;
+MSG_CANT_LOCK_SCR
+Ezin da\npantaila publikoa ireki!
+;Can't lock public screen!
+;
+MSG_CANT_GET_DRI
+Ezin da DrawInfo abiarazi!
+;
+MSG_CANT_GET_VI
+Ezin da VisualInfo abiarazi!
+;
+MSG_CANT_CREATE_GADGET
+Ezin da gadgetak sortu!
+;Can't create gadgets!
+;
+MSG_CANT_CREATE_MENUS
+Ezin dira menuak sortu!
+;Can't create menus!
+;
+MSG_CANT_CREATE_WIN
+Ezin da lehioa sortu!
+;Can't create window!
+;
+MSG_WINTITLE
+Serieko Atakarako Lehentasunak
+;Serial Preferences
+;
+MSG_MEN_PROJECT
+Proiektu
+;Project
+;
+MSG_MEN_PROJECT_OPEN
+A\0... Ireki
+;O\0Open...
+;
+MSG_MEN_PROJECT_SAVEAS
+G\0... Bezala gorde
+;A\0Save As...
+;
+MSG_MEN_PROJECT_QUIT
+S\0Atera
+;Q\0Quit
+;
+MSG_MEN_EDIT
+Editar
+;Edit
+;
+MSG_MEN_EDIT_DEFAULT
+D\0Lehenetsitako balioak
+;D\0Reset to Defaults
+;
+MSG_MEN_EDIT_LASTSAVED
+L\0Aurreko balioak
+;L\0Last Saved
+;
+MSG_MEN_EDIT_RESTORE
+R\0Zaharberritu
+;R\0Restore
+;
+MSG_MEN_SETTINGS
+Hobespenak
+;Settings
+;
+MSG_MEN_SETTINGS_CREATEICONS
+I\0Ikonoak sortu?
+;I\0Create Icons?
+;
+MSG_ASL_OPEN_TITLE
+Serie Atakarako lehentasunak kargatu
+;Load Serial Preferences
+;
+MSG_ASL_SAVE_TITLE
+Serie Atakarako lehentasunak gorde
+;Save Serial Preferences
+;
+MSG_OK
+Ados
+;Ok
+;
+MSG_GAD_SAVE
+Gorde
+;Save
+;
+MSG_GAD_USE
+Erabili
+;Use
+;
+MSG_GAD_CANCEL
+Deuseztu
+;Cancel
+;
+MSG_GAD_BAUDRATE
+Baudioak
+;Baudrate
+;
+MSG_GAD_PARITY
+Paritatea
+;Parity
+;
+MSG_GAD_STOPBITS
+Stop Bits
+;Stop Bits
+;
+MSG_GAD_DATABITS
+Datu-bitak
+;Data Bits
+;
+MSG_GAD_INPUTBUFFERSIZE
+Sarrerako bufferraren tamaina
+;Input Buffer Size
+;
+MSG_GAD_OUTPUTBUFFERSIZE
+Irteerako bufferraren tamaina
+;Output Buffer Size
+;
+MSG_PARITY_NONE
+Bat ere ez
+;None
+;
+MSG_PARITY_EVEN
+Bikoitia
+;Even
+;
+MSG_PARITY_ODD
+Bakoitia
+;Odd
+;
+MSG_PARITY_MARK
+Marka
+;Mark
+;
+MSG_PARITY_SPACE
+Espazioa
+;Space
+;

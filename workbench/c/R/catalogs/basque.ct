@@ -1,0 +1,64 @@
+## version $VER: R.catalog 2.0 (12.02.2021)
+## language euskara
+## codeset 0
+;
+MSG_APP_TITLE
+R
+; R
+;
+MSG_APP_DESCRIPTION
+GUI Sorgailua
+; GUI Generator
+;
+MSG_WIN_TITLE
+R : %s
+; R : %s
+;
+MSG_OK
+Ados
+; OK
+;
+MSG_CANCEL
+Deuseztu
+; Cancel
+;
+MSG_ERROR_ALLOCATE
+Ezin dut Req egitura kargatu\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_RETURN
+\"%s\"k akats egin du. Errore kodea: %ld\n
+; \"%s\" failed, return code %ld\n
+;
+MSG_ERROR_POOL
+Ezin dut memoria pool bat sortu\n
+; Can't create poolmem\n
+;
+MSG_ERROR_STRUCT
+Ezin dut Req egitura kargatu\n
+; Can't allocate struct Req\n
+;
+MSG_ERROR_ARGS
+Akats bat gertatu da argudioak aztertzean\n
+; Failed to parse arguments\n
+;
+MSG_ERROR_NOTFOUND
+Aurkitu gabeko komandoa\n
+; Command not found\n
+;
+MSG_ERROR_TMPLT_GET
+Akats bat gertatu da txantilloa kargatzean\n
+; Failed to get template\n
+;
+MSG_ERROR_TMPLT_PARSE
+Akats bat gertatu da txantilloa aztertzean\n
+; Failed to parse the template\n
+;
+MSG_ERROR_GUI
+Akats bat gertatu da aplikazioa kargatzen\n
+; Failed to create application object\n
+;
+MSG_ERROR_DEFAULTS
+Akats bat gertatu da aurrez zehaztutako balioak esleitzean\n
+; Failed to set the default values\n
+;

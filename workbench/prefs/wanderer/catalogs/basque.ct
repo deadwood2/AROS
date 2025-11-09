@@ -1,0 +1,322 @@
+## version $VER: wanderer.catalog 3.0 (06.01.2021)
+## language español
+## codeset 0
+;
+;
+MSG_NAME
+Preferencias del Wanderer
+; Wanderer Prefs
+;
+MSG_DESCRIPTION
+Preferencias del Wanderer
+; Wanderer preferences
+;
+MSG_BACKGROUNDS
+Fondos
+; Backgrounds
+;
+MSG_BACKGROUND_WORKBENCH
+Workbench
+; Workbench
+;
+MSG_BACKGROUND_DRAWERS
+Cajones
+; Drawers
+;
+MSG_SELECT_WORKBENCH_BACKGROUND
+Elija el Fondo para el Workbench
+; Select Workbench Background
+;
+MSG_SELECT_DRAWER_BACKGROUND
+Elija el Fondo para el Cajón
+; Select Drawer Background
+;
+MSG_GENERAL
+General
+; General
+;
+MSG_APPEARANCE
+Apariencia
+; Appearance
+;
+MSG_TOOLBAR
+Barra de Herramientas
+; Toolbar
+;
+MSG_CLASSIC
+Clásico
+; Classic
+;
+MSG_ENHANCED
+Mejorado
+; Enhanced
+;
+MSG_NAVIGATION
+Navegación
+; Navigation
+;
+MSG_METHOD
+Método
+; Method
+;
+MSG_OBJECTS
+Objetos
+; Objects
+;
+MSG_PREVIEW
+Vista previa
+; Preview
+;
+MSG_TOOLBAR_ENABLED
+Barra habilitada
+; Toolbar Enabled
+;
+MSG_ICONSPREFS
+Aspecto y sensación de los íconos
+; Icons look and feel
+;
+MSG_ICONLISTMODE
+Tipos de listas
+; Icon listmode
+;
+MSG_ICONLISTMODE_PLAIN
+Vertical
+; List icons plainly
+;
+MSG_ICONLISTMODE_GRID
+Rectangular
+; List icons by grid
+;
+MSG_ICONTEXTMODE
+Dibujo del texto
+; Icons text drawmode
+;
+MSG_ICONTEXTMODE_OUTLINE
+Con borde
+; Outline
+;
+MSG_ICONTEXTMODE_PLAIN
+Normal
+; Plain
+;
+MSG_ICONTEXTMODE_SHADOW
+Sombra
+; Drop shadow
+;
+MSG_ICONTEXTLENGTH
+Largo máximo
+; Max icon textlength
+;
+MSG_DOUBLEBUFFERED
+con doble búfer
+; double buffering
+;
+MSG_MISC
+misceláneo
+; misc
+;
+MSG_BUBBLESCREENTITLE
+%pc = Ram de Chip libre\n\
+%pf = Ram Fast libre\n\
+%pt = Total de Ram libre\n\
+%PC = Ram de Chip\n\
+%PF = Ram Fast\n\
+%PT = Ram Total\n\
+%os = Versión de AROS\n\
+%wb = Versión del Wanderer\n\
+%ov = Versión exacta de AROS\n\
+%wv = Versión exacta de workbench.library
+; %pc = Chip Ram free\n\
+; %pf = Fast Ram free\n\
+; %pt = Total Ram free\n\
+; %PC = Chip Ram\n\
+; %PF = Fast Ram\n\
+; %PT = Total Ram\n\
+; %os = AROS version\n\
+; %wb = Wanderer version\n\
+; %ov = Exact AROS version\n\
+; %wv = Exact workbench.library version
+;
+MSG_TILEMODE
+Cuadrícula :
+; Tile mode :
+;
+MSG_XOFFSET
+Offset X :
+; X Offset :
+;
+MSG_YOFFSET
+Offset Y :
+; Y Offset :
+;
+MSG_ICONLABELFONT
+Fuente de etiqueta...
+; Icon Label Font...
+;
+MSG_ICONINFOFONT
+Fuente de Info del icono...
+; Icon Info Font...
+;
+MSG_HORIZSPACINGICON
+Espaciado horizontal
+; Horizontal spacing between icons
+;
+MSG_VERTSPACINGICON
+Espaciado vertical
+; Vertical spacing between icons
+;
+MSG_PADDINGICONIMAGELABEL
+Espaciado entre Icono y etiqueta
+; Padding between Icon Image and Label
+;
+MSG_HORIZPADDINGLABELTEXT
+Espaciado horizontal entre cuadro de etiqueta y texto
+; Horizontal Padding between Label Frame and Text
+;
+MSG_VERTPADDINGLABELTEXT
+Espaciado vertical entre cuadro de etiqueta y texto
+; Vertical Padding between Label Frame and Text
+;
+MSG_FRAMEWIDTH
+Ancho del cuadro de etiqueta
+; Label Frame Width
+;
+;
+MSG_FRAMEHEIGHT
+Longitud del cuadro de etiqueta
+; Label Frame Height
+;
+MSG_TILED
+Mosaico
+; Tiled
+;
+MSG_SCALED
+A escala
+; Scaled
+;
+MSG_FLOATING
+Flotante
+; Floating
+;
+MSG_FIXED
+Fijo
+; Fixed
+;
+MSG_LABELLINELENGTH
+Long. Max. de línea...
+; Max. Label line length...
+;
+MSG_USEMULTILINELABELS
+Usar múltiples etiquetas
+; Use MultiLine Labels
+;
+MSG_SHOWFOCUSEDICON
+Solo mostrar para iconos en foco
+; Only show for Focus(ed) Icon
+;
+MSG_NDISPLAYLINES
+Num. líneas a mostrar...
+; No. of lines to display...
+;
+MSG_TILEMODEOPTIONS
+Opciones del modo mosaico...
+; Tile Mode Options...
+;
+MSG_SCALEMODEOPTIONS
+Opciones del modo escala...
+; Scale Mode Options...
+;
+MSG_ADVANCEDOPTIONS
+Opciones avanzadas...
+; Advanced Options...
+;
+MSG_BACKGROUNDOPTIONS
+Opciones del fondo...
+; Background Options...
+;
+MSG_DRAWMODE
+Modo de dibujo :
+; Draw mode :
+;
+MSG_USERFILEONWB
+Ficheros de usuario en Workbench
+; User Files Folder on Workbench
+;
+MSG_NETWORKONWB
+Navegador en Workbench
+; Network Browser on Workbench
+;
+MSG_VIEWSETTINGS
+Configuración de vista
+; View Settings
+;
+MSG_WANDERERSCREENTITLE
+Título de la pantalla Wanderer
+; Wanderer ScreenTitle
+;
+MSG_ADVANCED
+Avanzado
+; Advanced
+;
+MSG_USE
+_Usar
+; _Use
+;
+MSG_CANCEL
+C_ancelar
+; C_ancel
+;
+MSG_LABELSPREFS
+Look and feel de etiquetas
+; Labels look and feel
+;
+MSG_ADVANCEDBACKGROUND
+Fondo
+; Background
+;
+MSG_ADVANCEDICONS
+Iconos
+; Icons
+;
+MSG_ADVANCEDLABELS
+Etiquetas
+; Labels
+;
+MSG_ICONSORTMODE_BYNAME
+Por nombre
+; By name
+;
+; ***NEW***
+;
+MSG_ICONSORTMODE_BYDATE
+Por fecha
+; By date
+;
+MSG_ICONSORTMODE_BYSIZE
+Por tamaño
+; By size
+;
+MSG_DEFAULT_ICONSORTMODE
+Orden por defecto
+; Default sort order
+;
+MSG_ICON_AUTOSORT_ENABLED
+Auto ordenado activado
+; Autosorting enabled
+;
+MSG_ICON_DRAG_TRANSPARENT
+Usar transparencia al arrastrar iconos
+; Use transparency when draging icons
+;
+MSG_DEFAULT_ICONVIEWMODE
+Modo de vista por defecto
+; Default view mode
+;
+MSG_ICONVIEWMODE_ALL
+Todos los ficheros
+; All files
+;
+MSG_ICONVIEWMODE_ICONS
+Solo iconos
+; Icons only
+;

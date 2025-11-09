@@ -1,0 +1,40 @@
+## version $VER: pointer.catalog 2.0 (30.03.2016)
+## codeset 0
+## language euskara
+;
+MSG_WINTITLE
+Punteroaren hobespenak
+; Pointer Preferences
+;
+MSG_OK
+Ados
+; Ok
+;
+MSG_HOTSPOT
+Jardunean
+; Hotspot
+;
+MSG_ALPHA
+Gardentasuna
+; Alpha
+;
+MSG_FILENAME
+Fitxategiaren izena
+; Filename
+;
+MSG_TYPE
+Mota
+; Type
+;
+MSG_TYPE_NORMAL
+Normal
+; Normal
+;
+MSG_TYPE_BUSY
+Lanpetuta
+; Busy
+;
+MSG_SETVIEW
+Hautatu / Ikusi
+; Set / View
+;

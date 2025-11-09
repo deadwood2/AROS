@@ -2,7 +2,7 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-CATALOGS:= spanish
+CATALOGS:= spanish basque
 
 %build_catalogs mmake=arostcp-libs-muimiamipanel-catalogs \
     catalogs=$(CATALOGS) \

@@ -1,0 +1,160 @@
+## version $VER: more.catalog 2.0 (16.02.2021)
+## codeset 0
+## language euskara
+;
+MSG_CANT_OPEN_LIB
+Ezin da %s V%ld ireki!
+;Can't open %s V%ld!
+;
+MSG_NO_MEM
+Ez dago memoria librerik!
+;Out of memory!
+;
+MSG_CANT_LOCK_SCR
+Ezin da\npantaila publikoa blokeatu!
+;Can't lock public screen!
+;
+MSG_CANT_GET_DRI
+Ezin da DrawInfo abiarazi!
+; Can't get DrawInfo!
+;
+MSG_CANT_GET_VI
+Ezin da VisualInfo abiarazi!
+; Can't get VisualInfo!
+;
+MSG_CANT_CREATE_SYSIMAGE
+Ezin dira SYSICLASS irudiak sortu!
+;Can't create SYSICLASS images!
+;
+MSG_CANT_CREATE_GADGET
+Ezin dira gadgetak sortu!
+;Can't create gadgets!
+;
+MSG_CANT_CREATE_MENUS
+Ezin dira menuak sortu!
+;Can't create menus!
+;
+MSG_CANT_CREATE_WIN
+Ezin da lehioa sortu!
+;Can't create window!
+;
+MSG_CANT_CREATE_MSGPORT
+Ezin da mezu ataka sortu!
+; Can't create message port!
+;
+MSG_CANT_ADD_APPWINDOW
+Ezin da lehioa AppWindow bihurtu!
+; Can't turn the window into an AppWindow!
+;
+MSG_MEN_PROJECT
+Proiektua
+;Project
+;
+MSG_MEN_PROJECT_OPEN
+A\0Ireki...
+;O\0Open...
+;
+MSG_MEN_PROJECT_SAVEAS
+G\0Gorde berria...
+;A\0Save as...
+;
+MSG_MEN_PROJECT_PRINT
+P\0Inprimatu
+;P\0Print
+;
+MSG_MEN_PROJECT_ABOUT
+?\0About...
+;?\0About...
+;
+MSG_MEN_PROJECT_QUIT
+S\0Atera
+;Q\0Quit
+;
+MSG_MEN_NAVIGATION
+Arakatu
+;Navigation
+;
+MSG_MEN_NAVIGATION_FIND
+B\0Bilatu...
+;F\0Find...
+;
+MSG_MEN_NAVIGATION_FIND_NEXT
+.\0Hurrengoa bilatu.
+;.\0Find Next
+;
+MSG_MEN_NAVIGATION_FIND_PREV
+,\0Aurrekoa bilatu
+;,\0Find Prev
+;
+MSG_MEN_NAVIGATION_JUMP
+S\0Salto egin...
+;J\0Jump...
+;
+MSG_ASL_OPEN_TITLE
+Hautatu irekitzeko fitxategia
+;Select File to Open
+;
+MSG_ASL_SAVE_TITLE
+Hautatu gordetzeko fitxategia
+;Select File to Save to
+;
+MSG_ABOUT
+More V%ld.%ld\n (%s)\nCopyright © %s by %s
+; More V%ld.%ld\n (%s)\nCopyright \xa9 %s by %s
+;
+MSG_ABOUT_TITLE
+More
+; More
+;
+MSG_CONTINUE
+Jarraitu
+;Continue
+;
+MSG_JUMP_TITLE
+Lerrora joan...
+;Go to Line ...
+;
+MSG_FIND_TITLE
+Bilatu
+;Search
+;
+MSG_OK
+Ados
+;Ok
+;
+MSG_CANCEL
+Deuseztu
+;Cancel
+;
+MSG_WIN_TITLE
+More: %s (%ld Lerro - %ld Byte)
+;More: %s (%ld Lines - %ld Bytes)
+;
+MSG_SHORTCUT_TOP
+T
+; T
+;
+MSG_SHORTCUT_BOTTOM
+B
+; B
+;
+MSG_SHORTCUT_JUMP
+GJ
+; GJ
+;
+MSG_SHORTCUT_FIND
+FS
+; FS
+;
+MSG_SHORTCUT_NEXT
+N
+; N
+;
+MSG_SHORTCUT_PREV
+P
+; P
+;
+MSG_SHORTCUT_EDITOR
+E
+; E
+;

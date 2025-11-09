@@ -1,0 +1,16 @@
+## version $VER: clock.catalog 2.0 (16.02.2021)
+## codeset 0
+## language euskara
+;
+MSG_ERROR_CANT_CREATE_APPLICATION
+Akatsa: Ezin da aplikazioa abiarazi!
+; Error: Can't create application object.
+;
+MSG_WINDOW_TITLE
+Erlojua
+; Clock
+;
+MSG_OK
+Ados
+; Ok
+;

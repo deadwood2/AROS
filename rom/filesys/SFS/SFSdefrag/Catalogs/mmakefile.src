@@ -4,7 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 
 #MM workbench-devs-sfs-c-sfsdefrag-catalogs
 
-CATALOGS:=czech french german spanish
+CATALOGS:=czech french german spanish basque
 
 %build_catalogs mmake=workbench-devs-sfs-c-sfsdefrag-catalogs \
     catalogs=$(CATALOGS) \

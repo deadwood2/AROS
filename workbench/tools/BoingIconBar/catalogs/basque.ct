@@ -1,0 +1,24 @@
+## version $VER: BoingIconBar.catalog 2.0 (13.02.2021)
+## language euskara
+## codeset 0
+;
+MSG_CX_NAME
+BoingIconBar
+; BoingIconBar
+;
+MSG_CX_TITLE
+Tresna-barra
+; Icon Toolbar
+;
+MSG_CX_DESC
+Tresna-barratik programak abiarazi
+; Start Programs from Toolbar
+;
+MSG_MENU_SETTINGS
+Konfigurazioa
+; Settings
+;
+MSG_MENU_QUIT
+Atera
+; Quit
+;

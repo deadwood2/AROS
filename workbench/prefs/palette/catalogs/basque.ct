@@ -1,0 +1,59 @@
+## version $VER: palette.catalog 2.0 (04.11.2011)
+## codeset 0
+## language euskara
+;
+MSG_WINTITLE
+Paletaren hobespenak
+; Palette Preferences
+;
+MSG_OK
+Ados
+;
+MSG_PEN0
+0. Pintzela
+;
+MSG_PEN1
+1. Pintzela
+;
+MSG_PEN2
+2. Pintzela
+;
+MSG_PEN3
+3. Pintzela
+;
+MSG_PEN4
+4. Pintzela
+;
+MSG_PEN5
+5. Pintzela
+;
+MSG_PEN6
+6. Pintzela
+;
+MSG_PEN7
+7. Pintzela
+;
+MSG_PEN8
+Testua nabarmentzeko pintzela
+; Highlight Text Pen
+;
+MSG_PEN9
+Pintzel barra xehea
+; Bar Detail Pen
+;
+MSG_PEN10
+Bloke-barra pintzela
+; Bar Block Pen
+;
+MSG_PEN11
+Barra ebakiko pintzela
+; Bar Trim Pen
+;
+MSG_4COLOR
+4 koloreko doikuntzak
+; 4 Color Settings
+;
+MSG_MULTICOLOR
+Kolore anitzeko doikuntzak
+; Multicolor Settings
+;

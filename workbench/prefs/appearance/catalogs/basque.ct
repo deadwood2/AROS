@@ -1,0 +1,77 @@
+## version $VER: Appearance.catalog 2.0 (28.02.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_WINTITLE
+
+; Appearance hobespenak
+;
+MSG_OK
+Ok
+; Ok
+;
+MSG_ENABLETHEMES
+Gaiak aktibatu
+; Enable theming
+;
+MSG_PREVIEW
+Aurrebista
+; Preview
+;
+MSG_NOPREVIEW
+Aurrebista ez dago eskuragai
+; -Preview Unavailable-
+;
+MSG_SELECTEDTHEME
+Gaia:
+; Theme:
+;
+MSG_ENABLEZUNEPREFS
+Zune ezarpenak ordezkatu?
+;Replace current Zune configuration?
+;
+MSG_ENABLEWANDPREFS
+Wanderer ezarpenak ordezkatu?
+;Replace current Wanderer configuration?
+;
+MSG_ENABLEPALETTEPREFS
+Paleta ezarpenak ordezkatu?
+;Replace current Palette configuration?
+;
+MSG_ENABLEFONTPREFS
+Letra-tipo ezarpenak ordezkatu?
+;Replace current Font configuration?
+;
+MSG_ENABLEPOINTERPREFS
+Erakusle ezarpenak ordezkatu?
+;Replace current Pointer configuration?
+;
+MSG_SEC_THEMING
+Dekorazioa
+; Theming
+;
+MSG_SEC_COMPOSITING
+Konposizioa
+; Compositing
+;
+MSG_ENABLE_SCREEN_COMPOSITION
+Gaitu pantailaren konposizioa
+; Enable screen composition
+;
+MSG_COMPOSITE_BELOW
+Konposizioa behean
+; Composite below
+;
+MSG_COMPOSITE_LEFT
+Konposizioa ezkerrean
+; Composite left
+;
+MSG_COMPOSITE_RIGHT
+Konposizioa eskuinean
+; Composite right
+;
+MSG_ENABLE_COMPOSITE_WITH_ALPHA
+Gaitu alpha konposizioa
+; Enable compositing with alpha
+;

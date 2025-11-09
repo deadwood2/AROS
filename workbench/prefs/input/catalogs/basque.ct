@@ -1,0 +1,92 @@
+## version $VER: Input.catalog 3.0 (18.02.2021)
+## language euskara
+## codeset 0
+;
+MSG_NAME
+Datu-Sarrerarako hobespenak
+;Input Preferences
+;
+MSG_OK
+Ados
+;Ok
+;
+MSG_GAD_TAB_MOUSE
+Sagua
+;Mouse
+;
+MSG_GAD_TAB_KEYBOARD
+Teklatua
+;Keyboard
+;
+MSG_GAD_MOUSE_SPEED
+Saguaren abiadura
+;Velocidad del ratón
+;Mouse Speed
+;
+MSG_GAD_MOUSE_ACCELERATED
+Azeleratua
+;Accelerated
+;
+MSG_GAD_MOUSE_DOUBLE_CLICK_DELAY
+Klik bikoitzaren atzerapena
+;Retardo del doble-click
+;Double-Click Delay
+;
+MSG_GAD_KEY_REPEAT_DELAY
+Errepikapenaren atzerapena
+;Key Repeat Delay
+;
+MSG_GAD_KEY_REPEAT_RATE
+Errepikapenaren abiadura
+;Key Repeat Rate
+;
+MSG_GAD_KEY_TEST
+Frogatu
+;Test
+;
+MSG_GAD_KEY_TYPE
+Idatzi
+;Type
+;
+MSG_GAD_MOUSE_BUTTON_SETTINGS
+Saguaren botoiak
+; Mouse buttons
+;
+MSG_GAD_LEFT_HANDED_MOUSE
+Ezkerrentzako sagua
+; Left-handed mouse
+;
+MSG_GAD_MOUSE_SPEED_SLOW
+Motela
+;Slow
+;
+MSG_GAD_MOUSE_SPEED_NORMAL
+Normala
+;
+MSG_GAD_MOUSE_SPEED_FAST
+Azkarra
+;Fast
+;
+MSG_GAD_KEY_DEF  
+lehenetsiak
+; Default
+;
+MSG_GAD_KEY_ALT
+Ordezkoa
+; Alternate
+;
+MSG_GAD_KEY_SET
+Ezarri
+; Set
+;
+MSG_GAD_KEY_SWITCH
+Diseinua aldatu
+; Layout switching
+;
+MSG_GAD_KEY_SWITCH_ENABLE
+Gaituta
+; Enabled
+;
+MSG_GAD_KEY_SWITCH_KEY
+Tekla lasterra
+; Hotkey

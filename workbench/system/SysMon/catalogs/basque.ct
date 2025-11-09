@@ -1,0 +1,165 @@
+## version $VER: SysMon.catalog 1.0 (28.02.2024)
+## language Euskara
+## codeset 0
+;
+;
+MSG_APP_NAME
+SysMon
+; SysMon
+;
+MSG_APP_TITLE
+Sistemaren monitorea
+; System Monitor
+;
+MSG_WINDOW_TITLE
+Sistemaren monitorea
+; System Monitor
+;
+MSG_USAGE
+Erabilera
+; Usage
+;
+MSG_FREQUENCY
+Maiztasuna
+; Frequency
+;
+MSG_TAB_TASKS
+Atazak
+; Tasks
+;
+MSG_TAB_CPU
+Prozesadoreak
+; Processors
+;
+MSG_SIMULATED_CPU
+AROSen prozesadore simulatua
+; Simulated AROS processor
+;
+MSG_PROCESSOR
+#%id. Prozesadorea: %s
+; Processor #%id: %s
+;
+MSG_TASK
+Ataza
+; Task
+;
+MSG_PROCESS
+Prozesua
+; Process
+;
+MSG_TASK_NAME
+Izena
+; Name
+;
+MSG_TASK_PRIORITY
+Lehentasuna
+; Priority
+;
+MSG_TASK_TYPE
+Mota
+; Type
+;
+MSG_TASK_READY_WAIT_INIT
+- prest, zain
+; - ready, - waiting
+;
+MSG_TASK_READY_WAIT
+%ld prest, %ld zain
+; %ld ready, %ld waiting
+;
+MSG_TAB_SYSTEM
+Sistema
+; System
+;
+MSG_MEMORY_SIZE
+Memoria neurria
+; Memory Size
+;
+MSG_MEMORY_FREE
+Memoria aske
+; Memory Free
+;
+MSG_VIDEO_SIZE
+Bideo neurria
+; Video Size
+;
+MSG_VIDEO_FREE
+Bideo aske
+; Video Free
+;
+MSG_TOTAL_RAM
+Memoria guztia
+; Total Memory
+;
+MSG_CHIP_RAM
+Chip Memoria
+; Chip Memory
+;
+MSG_FAST_RAM
+Fast Memoria
+; Fast Memory
+;
+MSG_VIDEO_RAM
+Video Memoria
+; Video Memory
+;
+MSG_VIDEO_WINDOW_TMPL
+%s Leihoa
+; %s Window
+;
+MSG_CANT_OPEN_TASK_RESOURCE
+Ez daukat task.resource irekitzerik\n
+; Can't open task.resource\n
+;
+MSG_PROJECT
+Proiectu
+; Project
+;
+MSG_REFRESH_SPEED
+Freskapen maiztasuna
+; Refresh Speed
+;
+MSG_FAST
+Azkar
+; Fast
+;
+MSG_NORMAL
+Normal
+; Normal
+;
+MSG_SLOW
+Geldo
+; Slow
+;
+MSG_TASK_TOMBSTONE
+<tombstone>
+; <tombstone>
+;
+MSG_TASK_UNKNOWN
+<ezezaguna>
+; <unknown>
+;
+MSG_WINDOW_GART
+GART
+; GART
+;
+MSG_DISPLAY_MODE
+Pantaila modu
+; Display Mode
+;
+MSG_LOAD
+Prozesadorearen karga
+; Processor Load
+;
+MSG_GUAGE
+Adierazle
+; Gauge
+;
+MSG_GRAPH
+Grafiko
+; Graph
+;
+MSG_GRAPH_PER_PROC
+Prozesadore bakoitzeko grafikoa
+; Graph Per Processor
+;

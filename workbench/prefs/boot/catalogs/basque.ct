@@ -1,0 +1,240 @@
+## version $VER: Boot.catalog 1.0 (05.03.2024)
+## language euskara
+## codeset 0
+;
+MSG_NAME
+Hasierako hobespena
+; Boot Preferences
+;
+MSG_DESCRIPTION
+Hasierako hobespenaren ezarpena
+; Manage boot preferences
+;
+MSG_GFX
+Grafikoak
+; Graphics
+;
+MSG_GFX_COMPOSITION
+Gaitu konposizioa
+; Enable composition
+;
+MSG_GFX_TYPE
+Mota:
+; Type:
+;
+MSG_GFX_TYPE_AUTO
+Automatikoa
+; Automatic
+;
+MSG_GFX_TYPE_NATIVE
+Nativo
+; Native
+;
+MSG_GFX_TYPE_VESA
+VESA
+; VESA
+;
+MSG_GFX_TYPE_VGA
+VGA
+; VGA
+;
+MSG_GFX_VESAMODE
+VESA modua
+; VESA Mode
+;
+MSG_GFX_WIDTH
+Zabalera:
+; Width:
+;
+MSG_GFX_HEIGHT
+Altuera:
+; Height:
+;
+MSG_GFX_DEPTH
+Kolore-sakonera:
+; Colour Depth:
+;
+MSG_GFX_DEPTH_TRUE
+Benetako kolorea
+; True Colour
+;
+MSG_GFX_DEPTH_HIGH
+Dentsitate handia
+; High Colour
+;
+MSG_GFX_DEPTH_LOW
+256 Colore
+; 256 Colours
+;
+MSG_GFX_REFRESH
+freskatze tasa:
+; Refresh Rate:
+;
+MSG_GFX_HERTZ
+Hz
+; Hz
+;
+MSG_GFX_DEFAULTREFRESH
+Erabili lehenetsitako freskatze tasa
+; Use Default Refresh Rate
+;
+MSG_GFX_BESTRES
+Erabili eskuragarri dagoen Resoluzio handiena
+; Use Highest Available Resolution
+;
+MSG_ATA
+ATA
+; ATA
+;
+MSG_ATA_BUSES
+Busak gaituta:
+; Enabled Buses:
+;
+MSG_ATA_BUS_PCI
+PCI
+; PCI
+;
+MSG_ATA_BUS_LEGACY
+Legacy
+; Legacy
+;
+MSG_ATA_BUS_ALL
+Guztiak
+; All
+;
+MSG_ATA_BUS_NONE
+Bat ere ez
+; None
+;
+MSG_ATA_DMA
+Gaitu DMA transferentziak
+; Enable DMA Data Transfers
+;
+MSG_ATA_32BIT
+Gaitu 32 biteko transferentziak
+; Enable 32-bit Data Transfers
+;
+MSG_ATA_POLL
+Detektatu okupatutako estatuaren amaiera inkesta bidez 
+; Use Polling to Detect End of Busy State
+;
+MSG_ATA_MULTI
+Gaitu sektore anitzeko transferentziak
+; Enable Multisector Data Transfers
+;
+MSG_ATA_AHCI
+Gaitu jatorrizko AHCI
+; Enable Native AHCI
+;
+MSG_DEBUG
+Debugging
+; Debugging
+;
+MSG_DEBUG_OUTPUT
+Irteera:
+; Output:
+;
+MSG_DEBUG_OUTPUT_NONE
+Bat ere ez
+; None
+;
+MSG_DEBUG_OUTPUT_MEMORY
+Memoria buffer
+; Memory Buffer
+;
+MSG_DEBUG_OUTPUT_SERIAL
+Serie ataka
+; Serial Port
+;
+MSG_DEBUG_MUNGWALL
+Mungwall gaitu
+; Enable Mungwall
+;
+MSG_DEBUG_USB
+Debug USB
+; Debug USB
+;
+MSG_MISC
+Miszelania
+; Miscellaneous
+;
+MSG_IOAPIC_ENABLE
+IOAPIC gaitu
+; Enable IOAPIC
+;
+MSG_ACPI_ENABLE
+ACPI gaitu
+; Enable ACPI
+;
+MSG_FLOPPY_ENABLE
+Gaitu diskete-unitatea
+; Enable Floppy Disk Drive
+;
+MSG_DEVICE
+Abiatze gailua
+; Boot Device
+;
+MSG_DEVICE_NAME
+DOS gailua:
+; DOS Device:
+;
+MSG_DEVICE_DELAY
+Boot Delay: 
+; Boot Delay:
+;
+MSG_DEVICE_SECONDS
+segundoak
+; seconds
+;
+MSG_DEVICE_DEFAULTDELAY
+Erabili lehenetsitako Boot Delay
+; Use Default Boot Delay
+;
+MSG_OPTIONS
+Auerak
+; Options
+;
+MSG_MODULES
+Moduluak
+; Modules
+;
+MSG_ACTIVE
+Aktibo
+; Active
+;
+MSG_PATH
+Bidea
+; Path
+;
+MSG_ADD
+gehitu
+; Add
+;
+MSG_REMOVE
+Kendu
+; Remove
+;
+MSG_OK
+Ados
+; OK
+;
+MSG_CANCEL
+Deuseztu
+; Cancel
+;
+MSG_BAD_MODULE
+Moduluaren bide okerra "%s"
+; Bad module path "%s"
+;
+MSG_ENABLE
+Gaitu
+;Enable
+;
+MSG_NOTE_INFO
+Oharra: Aplikazio honek GRUBeko fitxategiko lehen sarrera aldatzen du.
+;Note: This application edits only first entry in GRUB configuration file.
+;
+MSG_AHCI_GENERATION
+Sorrera behartu:
+;Force generation:
+;

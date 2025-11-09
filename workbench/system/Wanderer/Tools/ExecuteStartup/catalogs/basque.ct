@@ -1,0 +1,51 @@
+## version $VER: executestartup.catalog 1.0 (28.02.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_ERROR
+Errore
+;
+MSG_WARNING
+Ohartarazpen
+;
+MSG_OK
+OK
+;
+MSG_ERROR_GETDISKOBJECT
+ExecuteStartup\nGetDiskObject moduloak akats egin du:\n%s
+; ExecuteStartup\nGetDiskObject failed for:\n%s
+;
+MSG_ERROR_INFONODE
+ExecuteStartup\nEz dago memoria librerik InfoNode erabiltzeko
+; ExecuteStartup\nOut of memory for InfoNode
+;
+MSG_ERROR_LNNAME
+ExecuteStartup\nEz dago memoria librerik ln_Name erabiltzeo
+; ExecuteStartup\nOut of memory for ln_Name
+;
+MSG_ERROR_SCANNING
+ExecuteStartup\nErrore %ld direktorioa irakurtzen
+; ExecuteStartup\nError %ld occured while scanning directory
+;
+MSG_ERROR_ANCHORPATH
+ExecuteStartup\nEz dago memoria librerik AnchorPath erabiltzeko
+; ExecuteStartup\nOut of memory for AnchorPath
+;
+MSG_ERROR_FILEINFOBLOCK
+ExecuteStartup\nEz dago memoria librerik FileInfoBlock erabiltzeko
+; ExecuteStartup\nOut of memory for FileInfoBlock
+;
+MSG_ERROR_MEMORYPOOL
+ExecuteStartup\nEz dago memoria biltegia sortu
+; ExecuteStartup\nCouldn't create pool memory
+;
+MSG_ERROR_EXAMINE
+ExecuteStartup\nEz dago irakurtzerik 
+; ExecuteStartup\nCouldn't examine 
+;Note final space!
+;
+MSG_WARNING_OPENWBOBJECT
+ExecuteStartup\nOpenWorkbenchObject moduluak akats egin du:\n%s
+; ExecuteStartup\nOpenWorkbenchObject failed for:\n%s
+;

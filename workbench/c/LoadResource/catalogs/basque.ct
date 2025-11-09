@@ -1,0 +1,12 @@
+## version $VER: loadresource.catalog 2.0 (11.02.2021)
+## language euskara
+## codeset 0
+;
+;
+MSG_ERROR_OPEN_LIBRARY
+Ez dago %s liburutegia irekitzerik.
+; Couldn't open library %s.
+;
+MSG_ERROR_OPEN_DEVICE
+Ez dago %s tresna irekitzerik.
+; Couldn't open device %s.

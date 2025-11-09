@@ -1,0 +1,113 @@
+## version $VER: diskinfo.catalog 2.0 (16.02.2021)
+## codeset 0
+## language euskara
+;
+MSG_TITLE
+Diskoaren informazioa
+;Disk Info
+;
+MSG_ERROR_HEADER
+Akatsa
+;
+MSG_ERROR_OK
+_Ados
+;_OK
+;
+MSG_ERROR_LOCALE
+Ezin da lokalea abiarazi.
+;Can't initialize locale.
+;
+MSG_ERROR_CLASSES
+Ezin dira klaseak abiarazi.
+;Can't initialize custom classes.
+;
+MSG_DESCRIPTION
+Diskoaren informazioa
+;Disk Icon Informations
+;
+MSG_PERCENTFULL
+%ld %% beteta
+;%ld %% Full
+;
+MSG_FORMAT
+Formateatu
+;Format
+;
+MSG_UNKNOWN
+Ezezaguna
+;Unknown
+;
+MSG_AUTHOR
+Olivier Adam
+;
+MSG_COPYRIGHT
+©2006 AROS Dev Team
+;
+MSG_USED
+Erabilitako espazioa
+; Used space
+;
+MSG_FREE
+Espazio librea
+; Free space
+;
+MSG_SIZE
+Edukiera
+; Capacity
+;
+MSG_BLOCK_SIZE
+Bloke tamainia
+; Block size
+;
+MSG_BLOCKS
+bloke
+; blocks
+;
+MSG_BYTES
+byte
+; bytes
+;
+MSG_STATUS
+Egoera
+; Status
+;
+MSG_READABLE
+Irakurgarria
+; Readable
+;
+MSG_READABLE_WRITABLE
+Irakurgarria/idazgarria
+; Readable/writable
+;
+MSG_VALIDATING
+Balioztatzen
+; Validating
+;
+MSG_NAME
+Bolumenaren izena
+; Volume Name
+;
+MSG_UNIT
+unitate
+; unit
+;
+MSG_DOSDEVICE
+DOS gailu:
+; DOS Device:
+;
+MSG_DEVICEINFO
+Konektatuta:
+; Connected on:
+;
+MSG_FILESYSTEM
+Fitxategi-sistema:
+; FileSystem:
+;
+MSG_PACKETDEVICE
+Pakete motako gailua
+; Packet Style device
+;
+MSG_IOFSDEVICE
+IOFS motako gailu
+; IOFS Style device
+;

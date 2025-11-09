@@ -1,0 +1,143 @@
+## version $VER: AboutAROS.catalog 2.0 (16.02.2021)
+## codeset 0
+## language euskara
+;
+MSG_TITLE
+AROSi buruz
+; About AROS
+;
+;MSG_PERSONAL_BUILD
+;** Personal %s Build
+; Personal Build
+;
+;MSG_NIGHTLY_BUILD
+;** Nightly %s Build
+; Nightly Build
+;
+;MSG_SNAPSHOT
+;** Snapshot
+; Snapshot
+;
+;MSG_MILESTONE
+;** Milestone
+; Milestone
+;
+;MSG_RELEASE
+;** Release
+; Release
+;
+MSG_COPYRIGHT
+Copyright © 1995-2007, The AROS Development Team. All rights reserved.
+; Copyright © 1995-2007, The AROS Development Team. All rights reserved.
+;
+MSG_LICENSE_1
+AROS Public License 
+; AROS Public License
+;
+MSG_LICENSE_2
+lizentziapean plazaratua
+; Released under the terms of the
+;
+MSG_LICENSE_3
+, 1.1 bertsioa.
+; , version 1.1.
+;
+MSG_MORE_INFORMATION
+Informazio gehiago lortzeko, mezedez http://www.aros.org/ web horrialdera jo.
+; Please visit http://www.aros.org/ for more information.
+;
+MSG_PAGE_AUTHORS
+Egileak
+; Authors
+;
+MSG_PAGE_SPONSORS
+Babesleak
+; Sponsors
+;
+MSG_PAGE_ACKNOWLEDGEMENTS
+Eskerrak
+; Acknowledgements
+;
+MSG_SECTION_COORDINATION
+Koordinazio
+; Coordination
+;
+MSG_SECTION_EVANGELISM
+Ebanjelismo
+; Evangelism
+;
+MSG_SECTION_HIDD
+HIDD azpisistema
+; HIDD subsystem
+;
+MSG_SECTION_INTUITION
+Intuition
+; Intuition
+;
+MSG_SECTION_GRAPHICS
+Grafikoak
+; Graphics
+;
+MSG_SECTION_SHELL_COMMANDS
+Shellen komandoak
+; Shell Commands
+;
+MSG_SECTION_WORKBENCH
+Workbench
+; Workbench
+;
+MSG_SECTION_TOOLS
+Tresnak
+; Tools
+MSG_SECTION_PREFERENCES
+Hobespenak
+; Preferences
+;
+MSG_SECTION_BGUI
+BGUI
+; BGUI
+;
+MSG_SECTION_ZUNE
+Zune
+; Zune
+;
+MSG_SECTION_KERNEL
+Kernel
+; Kernel
+;
+MSG_SECTION_DOS
+DOS
+; DOS
+;
+MSG_SECTION_NETWORK
+Sareko osagaiak
+; Networking Components
+;
+MSG_SECTION_LIBC_POSIX
+C liburutegia eta POSIX geruza
+; C link library and POSIX layer
+;
+MSG_SECTION_DOCUMENTATION
+Dokumantazioa
+; Documentation
+;
+MSG_SECTION_TRANSLATION
+Itzulpena
+; Translation
+;
+MSG_SECTION_ARTISTRY
+Arte
+; Artistry
+;
+MSG_SECTION_WEBSITE
+Website
+; Website
+;
+MSG_SECTION_DATATYPES
+Datatypeak
+; Datatypes
+;
+MSG_SECTION_TESTING
+Testing
+; Testing
+;

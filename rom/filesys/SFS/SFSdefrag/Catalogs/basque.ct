@@ -1,0 +1,29 @@
+## version $VER: sfsdefrag.catalog 1.0 (12.02.2021)
+## language euskara
+## codeset 0
+;
+;
+MSG_DESCRIPTION
+SFS defragmentatzailea 
+; SFS Defragmenter
+;
+MSG_BITMAP
+Gailuaren Bitmapa
+; Device bitmap
+;
+MSG_SELECTION
+Gailuaren hautaketa
+; Device selection
+;
+MSG_REFRESH
+Freskatu
+; Refresh bitmap
+;
+MSG_START
+Hasi!
+; Start!
+;
+MSG_CANCEL
+Deuzeztu
+; Cancel
+;

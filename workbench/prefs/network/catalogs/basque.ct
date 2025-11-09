@@ -1,0 +1,253 @@
+## version $VER: networkprefs.catalog 4.0 (09.08.2024)
+## language euskara
+## codeset 0
+;
+MSG_NAME
+Sarearen hobespenak
+; Network Preferences
+;
+MSG_DESCRIPTION
+Sarearen hobespenak
+; Network preferences
+;
+MSG_IFNAME
+Izena
+; Name
+;
+MSG_UP
+Aktibatuta
+; Active
+;
+MSG_DEVICE
+Periferiko
+; Device
+;
+MSG_UNIT
+Unitate
+; Unit
+;
+MSG_IP_MODE
+IP modua
+; IP Mode
+;
+MSG_IP
+Helbidea
+; Address
+;
+MSG_MASK
+Maskara
+; Net Mask
+;
+MSG_GATE
+Atebide
+; Gateway
+;
+MSG_DNS1
+Lehen mailako DNSa
+; Primary DNS
+;
+MSG_DNS2
+Bigarren mailako DNS
+; Secondary DNS
+;
+MSG_HOST_NAME
+Host izena
+; Host Name
+;
+MSG_HOST_NAMES
+Host izenak eta ezizenak
+; Host Name and Aliases
+;
+MSG_DOMAIN_NAME
+Lan domeinu/talde
+; Domain/Workgroup
+;
+MSG_SERIAL_DEVICE
+Serie periferikoa
+; Serial Device
+;
+MSG_UNIT_NUMBER
+Unitatea
+; Unit
+;
+MSG_IP_MODE_MANUAL
+Eskuko esleipena
+; Manual
+;
+MSG_IP_MODE_DHCP
+Esleipen automatikoa (DHCP)
+; Get address from DHCP
+;
+MSG_ENC_NONE
+Bat ere ez
+; None
+;
+MSG_ENC_WEP
+WEP
+; WEP
+;
+MSG_ENC_WPA
+WPA
+; WPA
+;
+MSG_KEY_TEXT
+Gakoa
+; Passphrase
+;
+MSG_KEY_HEX
+Hexadezimala
+; Hexadecimal
+;
+MSG_SSID
+Sarearen izena
+; Network Name
+;
+MSG_ENCTYPE
+Enkriptatuta
+; Encryption
+;
+MSG_KEYTYPE
+Gako mota
+; Key Type
+;
+MSG_KEY
+Gako
+; Key
+;
+MSG_HIDDEN
+Ikusezin
+; Hidden
+;
+MSG_ADHOC
+Ad-hoc
+; Ad-hoc
+;
+MSG_TAB_IP_CONFIGURATION
+IPv4 konfigurazioa
+; IPv4 Configuration
+;
+MSG_TAB_COMPUTER_NAMES
+Bertako Hosten izenak
+; Local Host Entries
+;
+MSG_TAB_WIRELESS
+Wifi sareak
+;
+MSG_TAB_MOBILE
+Mugikor sareak
+;
+MSG_TAB_SERVERS
+Fitxategien zerbitzaria
+;
+MSG_AUTOSTART_STACK
+Sistema abiaraztean hasi sarea
+; Start networking during system boot
+;
+MSG_ERR_UNKNOWN_ERROR
+Ezezagun akats bat sortu da
+; Unknown error
+;
+MSG_ERR_NOT_RESTARTED_STACK
+Network stack berrabiaraztean errore bat sortu da
+; Failed to restart network stack
+;
+MSG_ERR_NOT_RESTARTED_WIRELESS
+Wireless sarea berrabiaraztean errore bat sortu da
+; Failed to restart wireless networking
+;
+MSG_ERR_NOT_RESTARTED_MOBILE
+ModemManager berrabiaraztean errore bat sortu da
+; Failed to restart ModemManager
+;
+MSG_BUTTON_OK
+Ados
+; Ok
+;
+MSG_BUTTON_ADD
+Gehitu
+; Add
+;
+MSG_BUTTON_EDIT
+Editatu
+; Edit
+;
+MSG_BUTTON_REMOVE
+Kendu
+; Remove
+;
+MSG_BUTTON_APPLY
+Indarrean jarri
+; Apply
+;
+MSG_BUTTON_CLOSE
+Itxi
+; Close
+;
+MSG_ERROR_TITLE
+Akatsa
+; Error
+;
+MSG_WARNING_TITLE
+Oharpen
+; Warning
+;
+MSG_ERR_NOT_SAVED_PREFS
+Sarearen hobespenak ez dira gorde hemen: %s  
+; Network preferences not saved to %s
+;
+MSG_ERR_NOT_COPIED_FILES
+Fitxategi osagarriak ez dira kopiatu hemen: %s 
+; Additional files not copied to %s
+;
+MSG_WARN_MULTIPLE_IFACES
+DHCP protokoloak ez du ondo funtzionatzen hainbat interfaze konfiguratuta
+; DHCP does not work reliably when multiple interfaces are configured
+;
+MSG_INFO_TITLE
+Informazioa
+; Information
+;
+MSG_PREFS_SAVED_RESTART
+Hobespenak %s direktorioan gorde dira.\nBerrabiarazi AROS para que sean efectivas. 
+; Preferences have been saved to %s.\nRestart AROS for them to take effect.
+;
+MSG_IFWINDOW_TITLE
+Interfazea
+; Interface
+;
+MSG_HOSTWINDOW_TITLE
+Host izena(k)
+; Host Name(s)
+;
+MSG_NETWINDOW_TITLE
+Wifi sarea
+; Wireless Network
+;
+MSG_SERVERWINDOW_TITLE
+Fitxategi serbitzaria
+; Mount Share
+;
+MSG_USERNAME
+Erabiltzaile izena
+;Username
+;
+MSG_PASSWORD
+Gakoa
+; Password
+;
+MSG_WORKGROUP
+Lan Domeinua/taldea
+; Domain/Workgroup
+;
+MSG_SERVICE
+Gailu partekatuaren izena
+; Share Name
+;
+MSG_SERVICE_TYPES
+Serbitzu mota
+; Service Type
+;
+MSG_SERVICETYPE_CIFS
+CIFS/SMB
+; CIFS/SMB
+;

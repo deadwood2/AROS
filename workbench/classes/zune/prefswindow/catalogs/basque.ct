@@ -1,0 +1,24 @@
+## version $VER: PrefsWindow.catalog 1.0 (17.08.2003)
+## codeset 0
+## language euskara
+;
+MSG_TEST
+_Probatu
+; Test
+;
+MSG_REVERT
+_Baliogabetu
+; Revert
+;
+MSG_SAVE
+_Gorde
+;
+; Save
+MSG_USE
+_Erabili
+; Use
+;
+MSG_CANCEL
+_Deuseztu
+; Cancel
+;

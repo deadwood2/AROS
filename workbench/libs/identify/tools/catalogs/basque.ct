@@ -1,0 +1,213 @@
+## version $VER: IdentifyTools.catalog 1.0 (01.03.2024)
+## language euskara
+## codeset 0
+;
+;****************************************************************
+;*                                                              *
+;*          identify.library Tools    Catalog Descriptor        *
+;*                                                              *
+;****************************************************************
+;*
+;*      (C) 1996-97  Richard Körber  -- All Rights Reserved
+;*
+;****************************************************************
+;
+;   ** IMPORTANT NOTES FOR TRANSLATORS **
+;
+;       · Nr. 0 must always be preserved
+;       · Do NOT change the sequence of '%' parameters
+;       · Do NOT change the order of the entries
+;       · Obey the minimum and maximum length
+;       · Note that some lines have trailing spaces
+;
+;
+;================================================================
+;       COMMON STRINGS (1..)
+;================================================================
+;
+MSG_NOIDENTIFY
+identify.library V%ld edo gehiago behar da!\n
+; Needs identify.library V%ld or higher!\n
+;
+;
+;
+;================================================================
+;       LISTEXP STRINGS (1000..)
+;================================================================
+;
+MSG_LISTEXP_HAIL
+-- ListExp V%s -- Richard Koerber <%s>\n\
+  (ListExp Identify paketearen zati bat da, ikusi util/libs AmiNeten)\n\n
+; -- ListExp V%s -- Richard Koerber <%s>\n\
+;  (ListExp is a part of the Identify package, see AmiNet util/libs)\n\n
+;
+MSG_LISTEXP_HELP
+Txantiloi:\n\n\
+  FULL/S\t\tCommoditi guztiak zerrendatu\n\
+  MID=MANUFID/K/N\tFabrikatzailearen informazioa\n\
+  PID=PRODID/K/N\teta produktuarena\n\n\
+Arren, xehetasun gehiago lortzeko jo doc fitxategira.\n
+; Template:\n\n\
+;   FULL/S\t\tlist all current commodities\n\
+;   MID=MANUFID/K/N\tinformation about manufacturer\n\
+;   PID=PRODID/K/N\tand it's product\n\n\
+; Please read the doc file for further details.\n
+;
+MSG_LISTEXP_OVERFLOW
+Tarte okerra! (ManufID=0..65535 ProdID=0..255)\n\n
+; Bad range! (ManufID=0..65535 ProdID=0..255)\n\n
+;
+MSG_LISTEXP_SPECBOARD
+Fabriatzailea: %s\n\
+Produktua:    %s\n\
+Mota:       %s\n\n
+;  Manufacturer: %s\n\
+;  Product:      %s\n\
+;  Class:        %s\n\n
+;
+MSG_LISTEXP_HARDWARE
+** HARDWARE **\n\
+\n\
+Sistema:  %s\n\
+CPU:     %s/%s (Rev %s), FPU=%s/%s, MMU=%s\n
+; ** HARDWARE **\n\
+; \n\
+; System:  %s\n\
+; CPU:     %s/%s (Rev %s), FPU=%s/%s, MMU=%s\n
+;
+MSG_LISTEXP_POWERPC
+PowerPC: %s/%s (%s erabiltzen)\n
+; PowerPC: %s/%s (running %s)\n
+;
+MSG_LISTEXP_HARDWARE2
+Chipset: %s (RAMSEY %s, GARY %s, CHUNKY %s) VBR=%s\n\
+Agnus:   %s (Mode: %s)\n\
+Denise:  %s (Rev: %s)\n\
+AmigaOS: %s (%s, BoingBag %s, SetPatch %s)\n\
+         Exec %s   Workbench %s\n\
+Onartzen du: GraphicOS: %s, AudioOS: %s, TCP/IP: %s\n\
+Clock:   Power %s, VBlank %s, E-Clock %s\n\
+RAM:     Motherboard %s bit, %s, %s CAS, %sx Bandwidth\n\
+\n\
+Memoria:\t\t   CHIP\t   FAST\t  GUZTIA\tROM = %s\tSLOW = %s\n\
+\t  ARRUNTA\t%7s\t%7s\t%7s\n\
+\tVIRTUALA\t%7s\t%7s\t%7s\n\
+\t  GUZTIA\t%7s\t%7s\t%7s\n\n\n
+; Chipset: %s (RAMSEY %s, GARY %s, CHUNKY %s) VBR=%s\n\
+; Agnus:   %s (Mode: %s)\n\
+; Denise:  %s (Rev: %s)\n\
+; AmigaOS: %s (%s, BoingBag %s, SetPatch %s)\n\
+;          Exec %s   Workbench %s\n\
+; Support: GraphicOS: %s, AudioOS: %s, TCP/IP: %s\n\
+; Clock:   Power %s, VBlank %s, E-Clock %s\n\
+; RAM:     Motherboard %s bit, %s, %s CAS, %sx Bandwidth\n\
+; \n\
+; Memory:\t\t   CHIP\t   FAST\t  TOTAL\tROM = %s\tSLOW = %s\n\
+; \t  PLAIN\t%7s\t%7s\t%7s\n\
+; \tVIRTUAL\t%7s\t%7s\t%7s\n\
+; \t  TOTAL\t%7s\t%7s\t%7s\n\n\n
+;
+MSG_LISTEXP_LISTTITLE
+** ESPANTSIOAK **\n\n\
+ID zbk.     Helbid.  Tam. Fabrikantea         Produktua\n\
+----------------------------------------------------------------------------\n
+; ** EXPANSIONS **\n\n\
+; Nr ID      Address  Size Manufacturer         Product\n\
+; ----------------------------------------------------------------------------\n
+;
+MSG_LISTEXP_BOARDLINE
+%2ld %04lx.%02lx %08lx %3ld%lc %-20s %s %s\n
+; %2ld %04lx.%02lx %08lx %3ld%lc %-20s %s %s\n
+;
+MSG_LISTEXP_CXTITLE
+\n\n** COMMODITIES **\n\n\
+Izena                  Izenburua\n\
+----------------------------------------------------------------------------\n
+; \n\n** COMMODITIES **\n\n\
+; Name                     Title\n\
+; ----------------------------------------------------------------------------\n
+;
+MSG_LISTEXP_CXLINE
+%-24s %-40s\n
+; %-24s %-40s\n
+;
+MSG_LISTEXP_EMULATED
+          -- sistema emulatua detektatu da --\n\
+ AmigaXL: Bertsioa %s\n\
+ Host:    OS: %s (%s bertsioa), %s\n\
+          CPU: %s/%s\n
+;          -- emulated system detected --\n\
+; AmigaXL: Version %s\n\
+; Host:    OS: %s (Version %s), %s\n\
+;          CPU: %s/%s\n
+;
+;
+;
+;================================================================
+;       GURU STRINGS (2000..)
+;================================================================
+;
+MSG_GURU_HAIL
+-- Guru V%s -- Richard Koerber <%s>\n\n
+; -- Guru V%s -- Richard Koerber <%s>\n\n
+;
+MSG_GURU_HELP
+Txantiloi:\n\n\
+   GURU\t\tAztertzeko guru kodea\n\
+   LASTALERT/S\tAzken alerta aztertu\n\n\
+Arren, xehetasun gehiago lortzeko jo doc fitxategira.\n
+; Template:\n\n\
+;   GURU\t\tguru code to be analyzed\n\
+;   LASTALERT/S\tanalyze last system alert\n\n\
+; Please read the doc file for further details.\n
+;
+MSG_GURU_BADCODE
+Hau ez da benetazko guru kodea...\n\n
+; This is not a valid Guru code...\n\n
+;
+MSG_GURU_RESULT
+Alerta Kod.:  %08lx\n\
+Mota:         %s\n\
+Azpisistema:   %s\n\
+Jeneral:      %s\n\
+Zehaztuta: %s\n\n
+;  Alert Code: %08lx\n\
+;  Type:       %s\n\
+;  Subsystem:  %s\n\
+;  Orokorra:    %s\n\
+;  Specified:  %s\n\n
+;
+MSG_GURU_NOLAST
+Oraindik ez da Guru-rik gertatu...\n\n
+; No Guru occured yet...\n\n
+;
+;
+;
+;================================================================
+;       FUNC STRINGS (1000..)
+;================================================================
+;
+MSG_FUNC_HAIL
+-- V%s Funtzioa -- Richard Koerber <%s>\n\n
+; -- Function V%s -- Richard Koerber <%s>\n\n
+;
+MSG_FUNC_HELP
+Txantiloi:\n\n\
+   LN=LIBNAME/A\tliburutegiaren izena\n\
+   O=OFFSET/N/A\tfuntzioaren offseta\n\n\
+Arren, xehetasun gehiago lortzeko jo doc fitxategira.\n
+; Template:\n\n\
+;   LN=LIBNAME/A\tname of the library\n\
+;   O=OFFSET/N/A\toffset of the function\n\n\
+; Please read the doc file for further details.\n
+;
+MSG_FUNC_RESULT
+Liburutegia:    %s\n\
+Offset:      %ld\n\
+Funtzioa:     %s\n\n
+;  Library:    %s\n\
+;  Offset:     %ld\n\
+;  Function:   %s\n\n
+;
+;================================================================
+;

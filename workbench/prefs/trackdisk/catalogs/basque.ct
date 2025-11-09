@@ -1,0 +1,44 @@
+## version $VER: Trackdisk.catalog 1.0 (23.09.2007)
+## codeset 0
+## language euskara
+;
+MSG_NAME
+;Disketea
+;Trackdisk
+;
+MSG_TITLE
+Disketearen hobespenak
+;Trackdisk prefs
+;
+MSG_SAVE
+Gorde
+;Save
+;
+MSG_USE
+Erabili
+;Use
+;
+MSG_CANCEL
+Deuseztu
+;Cancel
+;
+MSG_DESCRIPTION
+trackdisk.deviceren hautapen editorea
+;trackdisk.device preferences editor
+;
+MSG_WINDOW_TITLE
+trackdisk.deviceren hautapenak
+;trackdisk.device preferences
+;
+MSG_DRIVE
+%u unitatea
+;Drive %u
+;
+MSG_NOCLICK
+Klick gabe:
+;No click:
+;
+MSG_RETRIES
+Saioak:
+;Retries:
+;

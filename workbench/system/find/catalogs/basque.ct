@@ -1,0 +1,117 @@
+## version $VER: find.catalog 1.0 (28.02.2024)
+## language euskara
+## codeset 0
+;
+MSG_APP_TITLE
+Find
+; Find
+;
+MSG_APP_DESCRIPTION
+Fitxategiak bilatzeko tresna
+; File search tool
+;
+MSG_APP_COPYRIGHT
+Copyright \xa9 2016 The AROS Development Team
+; Copyright \xa9 2016 The AROS Development Team
+;
+MSG_WI_TITLE
+Bilatu
+; Find
+;
+MSG_OK
+Ados
+; OK
+;
+MSG_LST_FULLPATH
+Bide absolutoa
+; Full Path
+;
+MSG_LST_SIZE
+Neurria
+; Size
+;
+MSG_LST_ATTRIBUTES
+Atributoak
+; Attributes
+;
+MSG_LST_DATE
+Data
+; Date
+;
+MSG_LST_TIME
+Ordua
+; Time
+;
+MSG_LST_COMMENT
+Iruzkin
+; Comment
+;
+MSG_LBL_PATH
+Bidea
+; Path
+;
+MSG_LBL_PATTERN
+Patroia
+; Pattern
+;
+MSG_LBL_CONTENTS
+Dauka
+; Contents
+;
+MSG_BTN_START
+Hasi
+; Start
+;
+MSG_BTN_STOP
+Gelditu
+; Stop
+;
+MSG_BTN_OPEN
+Ireki
+; Open
+;
+MSG_BTN_VIEW
+Ikusi
+; View
+;
+MSG_BTN_DRAWER
+Tiradera
+; Drawer
+;
+; Error messages
+;
+MSG_ERR
+Errore
+; Error
+;
+MSG_ERR_NO_APPLICATION
+Ezin dut aplikazioa abiarazi
+; Can't create application.
+;
+MSG_ERR_READARGS
+Ez daudat komando lerrotik argumentuak irakurtzerik
+; Can't read commandline arguments.
+;
+MSG_ERR_NO_MEM
+Errore:\nEz daukat memoria esleitzerik.
+; Error:\nCan't allocate memory.
+;
+MSG_ERR_NO_WINDOW
+Errore:\nEz daukat leihoa irekitzerik.
+; Error:\nCan't open window.
+;
+MSG_ERR_DOS
+DOS Errore:\n%s
+; DOS Error:\n%s
+;
+MSG_ERR_NO_FILE
+Error:\nEz daukat fitxategia irekitzerik\n\"%s\".
+; Error:\nCan't open file\n\"%s\".
+;
+MSG_ERR_NO_DIR
+Error:\nEz daukat direktorioa irekitzerik\n\"%s\".
+; Error:\nCan't open directory\n\"%s\".
+;
+MSG_ERR_PATTERN
+Error:\nEz daukat patroia prozesatzerik.
+; Error:\nCan't parse pattern.

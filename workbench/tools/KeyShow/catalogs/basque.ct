@@ -1,0 +1,92 @@
+## version $VER: keyshow.catalog 1.0 (28.02.2023)
+## language euskara
+## codeset 0
+;
+MSG_AppDescription
+Teklatuaren antolamendua erakutsi
+;
+MSG_AppCopyright
+Copyright \xa9 2012 The AROS Development Team
+;
+MSG_WI_TITLE
+KeyShow
+;
+MSG_OK
+_OK
+;
+; Mensajes de error
+;
+MSG_ERR
+Errore
+;
+MSG_ERR_NO_APPLICATION
+Ezin da aplikazioa sortu
+;
+MSG_ERR_NO_MEM
+Ez dago memoria librerik
+;
+; Teklen describapena
+;
+MSG_KEY_SHIFT
+Mayus
+;
+MSG_KEY_CTRL
+Ctrl
+;
+MSG_KEY_ALT
+Alt
+;
+MSG_KEY_LOCK
+Bloq Mayus
+;
+MSG_KEY_HELP
+Ayuda
+;
+MSG_KEY_A
+A
+;
+MSG_KEY_INSERT
+Insert
+;
+MSG_KEY_HOME
+Home
+;
+MSG_KEY_PAGEUP
+AvPag
+;
+MSG_KEY_DELETE
+Supr
+;
+MSG_KEY_END
+Fin
+;
+MSG_KEY_PAGEDOWN
+RePag
+;
+MSG_KEY_NUM
+Bloq Num
+;
+MSG_KEY_RETURN
+^M
+;
+MSG_KEY_BACKSP
+^H
+;
+MSG_KEY_TAB
+^I
+;
+MSG_KEY_ESC
+^[
+;
+MSG_KEY_NUM_ENTER
+^M
+;
+MSG_KEY_PRTSCREEN
+Impr pa
+;
+MSG_KEY_SCRLOCK
+ScrLock
+;
+MSG_KEY_PAUSE
+Pausa
+;

@@ -1,0 +1,209 @@
+## version $VER: multiview.catalog 2.0 (10.08.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_CANT_OPEN_LIB
+Ezin da %s V%ld ireki!\n
+; Can't open %s V%ld!\n
+;
+MSG_CANT_CREATE_IC
+Ezin da interkonekzioko objetuak sortu!
+; Can't create interconnection objects!
+;
+MSG_CANT_LOCK_SCR
+Ezin da\npantaila publikoa blokeatu!
+; Can't lock public screen!
+;
+MSG_CANT_GET_DRI
+Ezin da DrawInfo abiarazi!
+; Can't get DrawInfo!
+;
+MSG_CANT_GET_VI
+Ezin da VisualInfo abiarazi!
+; Can't get VisualInfo!
+;
+MSG_CANT_CREATE_SYSIMAGE
+Ezin da\nSYSICLASS irudiak sortu!
+; Can't create SYSICLASS images!
+;
+MSG_CANT_CREATE_GADGET
+Ezin da gadgetak sortu!
+; Can't create gadgets!
+;
+MSG_CANT_CREATE_MENUS
+Ezin da menuak sortu!
+; Can't create menus!
+;
+MSG_CANT_CREATE_WIN
+Ezin da lehioa sortu!
+; Can't create window!
+;
+MSG_CANT_CREATE_MSGPORT
+Ezin da mezu ataka sortu!
+; Can't create message port!
+;
+MSG_CANT_ADD_APPWINDOW
+Ezin da lehioa AppWindow bihurtu!
+; Can't promote window as an AppWindow!
+;
+MSG_SAVE_FAILED
+Akats bat sortu da fitxategia gordetzen!
+; Saving to file failed!
+;
+MSG_MEN_PROJECT
+Proiektua
+; Project
+;
+MSG_MEN_PROJECT_OPEN
+A\0Ireki...
+; O\0Open...
+;
+MSG_MEN_PROJECT_EXPORT
+Esportatu...
+; A\0Export...
+;
+MSG_MEN_PROJECT_SAVEAS_IFF
+I\0IFF bezala gorde...
+; I\0Save as IFF...
+;
+MSG_MEN_PROJECT_PRINT
+P\0Inprimatu
+; P\0Print
+;
+MSG_MEN_PROJECT_ABOUT
+?\0A...i buruz
+; ?\0About...
+;
+MSG_MEN_PROJECT_QUIT
+Q\0Atera
+; Q\0Quit
+;
+MSG_MEN_EDIT
+Editatu
+; Edit
+;
+MSG_MEN_EDIT_MARK
+M\0Markatu
+; B\0Mark
+;
+MSG_MEN_EDIT_COPY
+C\0Kopiatu
+; C\0Copy
+;
+MSG_MEN_EDIT_SELECTALL
+[\0Aukeratu guztiak
+; [\0Select All
+;
+MSG_MEN_EDIT_CLEARSELECTED
+]\0Kendu hautaketa 
+; ]\0Clear Selected
+;
+MSG_MEN_WINDOW
+Leihoa
+; Window
+;
+MSG_MEN_WINDOW_SEPSCREEN
+\0Pantaila berezia erabili
+;  \0Use Separate Screen
+;
+MSG_MEN_WINDOW_MINIMIZE
+\0Minimizatu
+;  \0Minimize
+;
+MSG_MEN_WINDOW_NORMAL
+\0Arrunta
+;  \0Normal
+;
+MSG_MEN_WINDOW_MAXIMIZE
+\0Maximizatu
+;  \0Maximize
+;
+MSG_MEN_SETTINGS
+Ezarpenak
+; Settings
+;
+MSG_MEN_SETTINGS_SAVEDEF
+D\0Lehenetsi bezala gorde
+; D\0Save As Defaults
+;
+MSG_MEN_PICT
+Irudia
+; Picture
+;
+MSG_MEN_PICT_ZOOM_IN
+ \0Hurbildu
+;  \0Zoom in
+;
+MSG_MEN_PICT_ZOOM_OUT
+ \0Urrundu
+;  \0Zoom out
+;
+MSG_MEN_PICT_RESET
+ \0Jatorrizko neurria
+;  \0Reset Size
+;
+MSG_MEN_PICT_FIT_WIN
+ \0leihora egokitu
+;  \0Fit to Window
+;
+MSG_MEN_PICT_KEEP_ASPECT
+ \0Proportzioak mantendu
+;  \0Keep Aspect Ratio
+;
+MSG_MEN_PICT_FORCE_MAP
+ \0Behartu kolore bihurtzea
+;  \0Force Palette Mapping
+;
+MSG_MEN_PICT_DITHER
+ \0Dithering
+;  \0Dithering
+;
+MSG_MEN_TEXT
+Testua
+; Text
+;
+MSG_MEN_TEXT_WORDWRAP
+ \0Linearen doikuntza
+;  \0Enable Word Wrap
+;
+MSG_MEN_TEXT_SEARCH
+ \0Bilatu...
+;  \0Search for...
+;
+MSG_MEN_TEXT_SEARCH_PREV
+ \0Aurrekoa bilatu
+;  \0Search for previous
+;
+MSG_MEN_TEXT_SEARCH_NEXT
+ \0Hurrengoa bilatu
+;  \0Search for next
+;
+MSG_ASL_OPEN_TITLE
+Hautatu irekitzeko fitxategia
+; Select File to Open
+;
+MSG_ASL_SAVE_TITLE
+Hautatu gordetzeko fitxategia
+; Select File to Save to
+;
+MSG_ABOUT
+MultiView %ld.%ld (%s)\ndatatypes.library %s\n\n%s %s
+; 
+;
+MSG_ABOUT_TITLE
+MultiView
+; MultiView
+;
+MSG_CONTINUE
+Jarraitu
+; Continue
+;
+MSG_OK
+Ados
+; Ok
+;
+MSG_SHORTCUT_EDITOR
+E
+; E
+;

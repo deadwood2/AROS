@@ -1,0 +1,182 @@
+## version $VER: snoopy.catalog 2.0 (16.02.2021)
+## codeset 0
+## language euskara
+;
+MSG_TITLE
+Snoopy
+; Snoopy
+;
+MSG_COPYRIGHT
+© 2006, The AROS Development Team
+; \xa9 2006-2008, The AROS Development Team
+;
+MSG_AUTHOR
+The AROS Development Team
+; The AROS Development Team
+;
+MSG_PORTNAME
+SNOOPY
+; SNOOPY
+;
+MSG_DESCRIPTION
+Sistema Gainbegiratzaile sinplea
+;Simple system monitor
+;
+MSG_SETTINGS
+Konfigurazioa
+;Settings
+;
+MSG_SHOW_FAILS
+Akatsak baino ez erakutsi
+;Only show fails
+;
+MSG_CLI_NUMBER
+CLI zenbakia erakutsi
+;Show CLI number
+;
+MSG_FULL_PATH
+Bide osoak erakutsi
+;Show full paths
+;
+MSG_DEVICE
+Gailu izenak erabili.
+;Use device names
+;
+MSG_IGNORE_WB
+Workbench/Shella alde batera utzi.
+;Ignore Workbench/Shell
+;
+MSG_BREAKPOINT
+Ezarri eten puntua
+; Set breakpoint
+;
+MSG_MATCH
+Izenakin bat etorri
+; Match name
+;
+MSG_SYSTEM_FUNC
+Sistemaren funtzioak
+;System Functions
+;
+MSG_DOS_FUNC
+AmigaDOSen funtzioak
+;AmigaDOS Functions
+;
+MSG_SAVE
+Gorde
+;Save
+;
+MSG_OPEN
+Ireki
+;Open
+;
+MSG_USE
+Erabili
+;Use
+;
+MSG_UNDO
+Desegin
+;Undo
+;
+MSG_RESET
+Berrezarri
+; Reset
+;
+MSG_CANCEL
+Deuseztu
+;Cancel
+;
+MSG_OUTPUT_FIELD
+Irteeraren luzaera
+;Output Field Width
+;
+MSG_NAME
+Izena
+;Name
+;
+MSG_ACTION
+Ekintza
+;Action
+;
+MSG_TARGET
+Helburua
+;Target
+;
+MSG_OPTION
+Aukera
+;Option
+;
+MSG_OK
+Ados
+;OK
+;
+MSG_FAIL
+Akatsa
+;Fail
+;
+MSG_ERROR_SAVE
+%s gordetzen akats bat sortu da
+;An error happened when saving to %s
+;
+MSG_ERROR_LOAD
+%s irakurtzen akats bat sortu da
+;An error happened when loading from %s
+;
+MSG_RESET_PATCHES
+Partxeak berrabiarazi|Deuseztu
+;Reset Patches|Cancel
+;
+MSG_ASK_RESET
+Ziur zaude partxeak berrabiarazi nahi dituzula?
+;Do you really want to reset the patches to their original functions?
+;
+MSG_REMOVE_SNOOP
+Atera|Utzi
+;Remove|Keep
+;
+MSG_ASK_REMOVE
+Snoopytik atera nahi duzu?
+;¿Quieres quitar el proceso Snoopy?\nEsto puede ser peligroso si otra tarea \ntambién parchó a Snoopy.
+;Do you really want to remove the Snoopy process?\nThis can be quite dangerous when another task has patched Snoopy's patches.
+;
+MSG_GLOBAL
+Globala
+;
+MSG_LOCAL
+Bertako
+;
+MSG_ALIAS
+Alias
+;
+MSG_UNKNOWN
+Ezezaguna
+;Unknown
+;
+MSG_ANY
+Edozein
+;Any
+;
+MSG_READ
+Irakurri
+;Read
+;
+MSG_WRITE
+Idatzi
+;Write
+;
+MSG_READ_ASK
+Irakurri?
+;Read???
+;
+MSG_MODIFY
+Aldatu
+;Modify
+;
+MSG_VERSION
+%ld bertsioa
+;Version %ld
+;
+MSG_SIZE
+Neurria %d
+;Size %d
+;

@@ -1,0 +1,257 @@
+## version $VER: FTManager.catalog 2.0 (07.08.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_APP_NAME
+FTManager
+; FTManager
+;
+MSG_APP_TITLE
+FreeType letra-tipo kudeatzailea
+; FreeType font manager
+;
+MSG_WINDOW_TITLE
+FreeType letra-tipo kudeatzailea
+; FreeType font manager
+;
+MSG_LABEL_SOURCE
+Jatorria
+; Source
+;
+MSG_LABEL_DESTINATION
+Helbidea
+; Destination
+;
+MSG_LABEL_CODEPAGE
+Codepage
+; Codepage
+;
+MSG_QUIT
+_Atera
+; _Quit
+;
+MSG_BUTTON_INSTALL
+_Instalatu
+; _Install
+;
+MSG_BUTTON_CLOSE
+_Itxi
+; _Close
+;
+MSG_WEIGHT_ULTRATHIN
+Ultra mehe
+; UltraThin
+;
+MSG_WEIGHT_EXTRATHIN
+Extra mehe
+; ExtraThin
+;
+MSG_WEIGHT_THIN
+Mehe
+; Thin
+;
+MSG_WEIGHT_EXTRALIGHT
+Extra argi
+; ExtraLight
+;
+MSG_WEIGHT_LIGHT
+Argi
+; Light
+;
+MSG_WEIGHT_DEMILIGHT
+Erdi argi
+; DemiLight
+;
+MSG_WEIGHT_SEMILIGHT
+Semi argi
+; SemiLight
+;
+MSG_WEIGHT_BOOK
+Liburu
+; Book
+;
+MSG_WEIGHT_MEDIUM
+Erdia
+; Medium
+;
+MSG_WEIGHT_SEMIBOLD
+Semi lodi
+; SemiBold
+;
+MSG_WEIGHT_DEMIBOLD
+Erdi lodi
+; DemiBold
+;
+MSG_WEIGHT_BOLD
+Lodi
+; Bold
+;
+MSG_WEIGHT_EXTRABOLD
+Extra lodi
+; ExtraBold
+;
+MSG_WEIGHT_BLACK
+Beltza
+; Black
+;
+MSG_WEIGHT_EXTRABLACK
+Extra beltza
+; ExtraBlack
+;
+MSG_WEIGHT_ULTRABLACK
+Ultra beltza
+; UltraBlack
+;
+MSG_WEIGHT_CUSTOM
+Pertsonalizatuta
+; Custom
+;
+MSG_STYLE_UPRIGHT
+Bertikala
+; Upright
+;
+MSG_STYLE_ITALIC
+Etzana
+; Italic
+;
+MSG_STYLE_LEFTITALIC
+Ezkerretarako etzana
+; LeftItalic
+;
+MSG_HSTYLE_ULTRACOMPRESSED
+Ultra trinkotuta
+; UltraCompressed
+;
+MSG_HSTYLE_EXTRACOMPRESSED
+Extra trinkotuta
+; ExtraCompressed
+;
+MSG_HSTYLE_COMPRESSED
+Trinkotuta
+; Compressed
+;
+MSG_HSTYLE_CONDENSED
+Condensada
+; Condensed
+;
+MSG_HSTYLE_NORMAL
+Arrunta
+; Normal
+;
+MSG_HSTYLE_SEMIEXPANDED
+Semi hedatuta
+; SemiExpanded
+;
+MSG_HSTYLE_EXPANDED
+Hedatuta
+; Expanded
+;
+MSG_HSTYLE_EXTRAEXPANDED
+Extra hedatuta
+; ExtraExpanded
+;
+MSG_HSTYLE_CUSTOM
+Pertsonalizatuta
+; Custom
+;
+MSG_METRIC_GLOBALBOUNDINGBOX
+Global
+; Global bounding box
+;
+MSG_METRIC_RAWFONTMETRIC
+Gordina
+; Raw font metric
+;
+MSG_METRIC_ASCENDER
+Gorantz
+; Ascender
+;
+MSG_METRIC_TYPOASCENDER
+Gorantz
+; Typo ascender
+;
+MSG_METRIC_USWINASCENDER
+Goranzko USWin
+; USWin ascender
+;
+MSG_METRIC_CUSTOMBOUNDINGBOX
+Pertsonalizatuta
+; Custom bounding box
+;
+MSG_LABEL_EXTRAFILE
+Fitxategia
+; Extra file
+;
+MSG_LABEL_FACENUM
+Fazial
+; Face num
+;
+MSG_LABEL_NAME
+Izena
+; Name
+;
+MSG_LABEL_FAMILY
+Familia
+; Family
+;
+MSG_LABEL_METRIC
+Metrika
+; Metric
+;
+MSG_LABEL_BOUNDINGBOX
+Bounding box
+; Bounding box
+;
+MSG_LABEL_YMIN
+yMin
+; yMin
+;
+MSG_LABEL_YMAX
+yMax
+; yMax
+;
+MSG_LABEL_SIZEFACTOR
+Tamainuaren faktorea
+; Size factor
+;
+MSG_LABEL_SPACEWIDTH
+Tarte zabalera
+; Space width
+;
+MSG_LABEL_FIXEDWIDTH
+Zabalera finkoa
+; Fixed width
+;
+MSG_LABEL_SERIF
+Serifa
+; Serif
+;
+MSG_LABEL_STEMWEIGHT
+Adarraren pisua
+; Stem weight
+;
+MSG_LABEL_SLANTSTYLE
+Estilo zeiharra
+; Slant style
+;
+MSG_LABEL_HORIZSTYLE
+Estilo horizontala
+; Horiz style
+;
+MSG_FRAME_PREVIEW
+Aurrebista
+; Preview
+;
+MSG_PREVIEW_STRING
+Bungalow, cava, ferry, ñu, puma, quad eta xah hitzak jaso ditu.
+; The quick brown fox jumped over the lazy dog.
+;
+MSG_LABEL_SIZE
+Neurria
+; Size
+;
+MSG_LABEL_ANTIALIASING
+Anti-aliasing
+; Anti-aliasing
+;

@@ -1,0 +1,49 @@
+## version $VER: timeprefs.catalog 1.0 (29.09.2007)
+## codeset 0
+## language euskara
+;Translated by Javier A.H.
+;
+MSG_CANT_OPEN_LIB
+Ezin da %s V%ld ireki!\n
+;Can't open %s V%ld!\n
+;
+MSG_CANT_CREATE_APP
+Ezin da aplikazioa abiarazi!
+;Can't create application object!
+;
+MSG_WINTITLE
+Data eta orduaren hobespenak
+;Time Preferences
+;
+MSG_MEN_PROJECT
+Proiektu
+;Project
+;
+MSG_MEN_PROJECT_QUIT
+S\0Atera
+;Q\0Quit
+;
+MSG_MEN_EDIT
+Editatu
+;Edit
+;
+MSG_MEN_EDIT_RESTORE
+R\Berrezarri
+;R\0Restore
+;
+MSG_OK
+Ados
+;Ok
+;
+MSG_GAD_SAVE
+Gorde
+;Save
+;
+MSG_GAD_USE
+Erabili
+;Use
+;
+MSG_GAD_CANCEL
+Deuseztu
+;Cancel
+;

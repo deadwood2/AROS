@@ -1,0 +1,24 @@
+## version $VER: installer.catalog 1.0 (14.9.2003)
+## codeset 0
+## language euskara
+;Translated by Javier A.H.
+;
+MSG_OK
+Ados
+; OK
+;
+MSG_CANCEL
+Deuseztu
+;
+MSG_MESSAGE
+Mezu
+;
+MSG_PROMPT
+Galdera
+;
+MSG_YES
+Bai
+;
+MSG_NO
+Ez
+;

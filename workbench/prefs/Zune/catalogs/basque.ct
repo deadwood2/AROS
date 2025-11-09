@@ -1,0 +1,924 @@
+## version $VER: Zune.catalog 2.0 (09.08.2024)
+## language euskara
+## codeset 0
+;
+;
+; buttonsp.c
+;-----------
+MSG_GENERAL
+Orokorra
+; General
+;
+MSG_BACKGROUND_COLON
+Atzealde:
+; Background:
+;
+MSG_BACKGROUND_PRESSED
+Atzealdea\n\
+sakatzen denean:
+; Background in\npressed state:
+;
+MSG_TEXT_BUTTONS
+Botoiaren testua
+; Text Buttons
+;
+MSG_FRAME_COLON
+Marko:
+; Frame:
+;
+MSG_FONT
+Letra-tipo:
+; Font:
+;
+MSG_IMAGE_BUTTONS
+Botoiaren irudia
+; Image Buttons
+;
+MSG_ADJUST_FRAME
+Doitu markoari.
+; Adjust Frame
+;
+MSG_CHECKMARKS
+Marka laukiak
+; Checkmarks
+;
+MSG_LOOK_COLON
+Itxura
+; Look:
+;
+MSG_CHECKMARK
+Marka laukia
+; Checkmark
+;
+MSG_RADIO_BUTTONS
+Radio botoiak
+; Radio Buttons
+;
+MSG_RADIOBUTTON
+Radio botoia
+; Radiobutton
+;
+MSG_LOOK
+Itxura
+; Look
+;
+MSG_H
+H
+; H
+;
+MSG_V
+V
+; V
+;
+MSG_SPACING
+Tarte
+; Spacing
+;
+;=============================
+; cyclesp.c
+;----------
+MSG_BELOW
+Behean
+; below
+;
+MSG_ON_ACTIVE
+Aktibatuta
+; on active
+;
+MSG_CYCLE_GADGET_DESIGN
+Ziklo Gadgetaren itxura
+; Cycle Gadget Design
+;
+MSG_CYCLE
+Ziclo
+; Cycle
+;
+MSG_POPUP_MENU_CONTROL
+Popup menuaren kontrola
+; Popup Menu Control
+;
+MSG_POSITION
+Posizioa:
+; Position:
+;
+MSG_LEVEL
+Maila:
+; Level:
+;
+MSG_SPEED
+Abiadura:
+; Speed:
+;
+MSG_POPUP_MENU_DESIGN
+Popup menuaren diseinua
+; Popup Menu Design
+;
+MSG_FRAME
+Marco
+; Frame
+;
+MSG_ADJUST_BACKGROUND
+Atzealdea doitu
+; Adjust Background
+;
+MSG_BACKGROUND
+Atzealdea
+; Background
+;
+MSG_RECESSED_ENTRIES
+Atxikitakoak:
+; Recessed Entries:
+;
+;=============================
+; groupsp.c
+;__________
+MSG_ABOVE
+Goian
+; above
+;
+MSG_CENTERED
+Erdian
+; centered
+;
+MSG_STANDARD
+Estandarra
+; standard
+;
+MSG_HILITE
+hilite
+; hilite
+;
+MSG_3D
+3D
+; 3d
+;
+MSG_OUTLINE
+ingerada
+; outline
+;
+MSG_TITLE
+Izenburua
+; Title
+;
+MSG_COLOR
+Kolorea:
+; Color:
+;
+MSG_HORIZONTAL
+Horizontala:
+; Horizontal:
+;
+MSG_VERTICAL
+Bertikala:
+; Vertical:
+;
+MSG_REGISTER
+Eregistroa
+; Register
+;
+MSG_DEFAULT_SIZE_TRUNCATE_TITLES
+Izenburuak mozteko tamaina:
+; Default size truncate titles:
+;
+MSG_NORMAL
+Normala
+; Normal
+;
+MSG_VIRTUAL
+Birtuala
+; Virtual
+;
+MSG_FRAMED
+Markoztatuta
+; Framed
+;
+MSG_PAGE
+Orria
+; Page
+;
+;=============================
+; listviewsp.c
+;-------------
+MSG_SHIFTED
+aldatuta
+; shifted
+;
+MSG_ALWAYS
+beti
+; always
+;
+MSG_LINEAR
+lineala
+; linear
+;
+MSG_MIXED
+nahastuta
+; mixed
+;
+MSG_CONTROL
+Kontrola
+; Control
+;
+MSG_MULTI
+Multi:
+; Multi:
+;
+MSG_REFRESH
+Freskatu:
+; Refresh:
+;
+MSG_SMOOTH
+Leundu:
+; Smooth:
+;
+MSG_FONTS
+Letra-tipo
+; Fonts
+;
+MSG_NORMAL_COLON
+Normala:
+; Normal:
+;
+MSG_FIXED
+Finko:
+; Fixed:
+;
+MSG_LEADING
+Hasieran
+; Leading
+;
+MSG_DESIGN
+Diseinua
+; Design
+;
+MSG_INPUT_LISTS
+Sarrerako\nZerrendak:
+; Input \nLists:
+;
+MSG_READONLY_LISTS
+Irakurtzeko soilik\nzerrandak:
+; Readonly \nLists:
+;
+MSG_CURSOR
+Kursorea
+; Cursor
+;
+MSG_ACTIVE
+Actibo:
+; Active:
+;
+MSG_ACTIVE_SELECTED
+Aktioo eta\nHautatuta:
+; Active &\nSelected:
+;
+MSG_SELECTED
+Hautatuta:
+; Selected:
+;
+;=============================
+; navigationp.c
+;______________
+MSG_ALWAYS_SOLID
+Beti beteta
+; always solid
+;
+MSG_GHOSTED_ON_BOX
+zeharrargia kutxan
+; ghosted on box
+;
+MSG_GHOSTED_OUTSIDE_BOX
+zeharrargia kaxatik kanpo
+; ghosted outside box
+;
+MSG_ALWAYS_GHOSTED
+beti zeharrargia
+; always ghosted
+;
+MSG_SHOW_FRAMES
+Markoak erakutsi
+; show frames
+;
+MSG_SHOW_OBJECTS
+Objektuak erakutsi
+; show objects
+;
+MSG_KL_PRESS
+Estututa:
+; Press:
+;
+MSG_KL_TOGGLE
+Trukatu:
+; Toggle:
+;
+MSG_KL_UP
+Goian:
+; Up:
+;
+MSG_KL_DOWN
+Behean:
+; Down:
+;
+MSG_KL_PAGE_UP
+Aurr. orri.:
+; Page up:
+;
+MSG_KL_PAGE_DOWN
+Hurr. orri.:
+; Page down:
+;
+MSG_KL_TOP
+Hasiera
+; Top:
+;
+MSG_KL_BOTTOM
+Bukaera:
+; Bottom:
+;
+MSG_KL_LEFT
+Ezkerra:
+; Left:
+;
+MSG_KL_RIGHT
+Eskuina:
+; Right:
+;
+MSG_KL_WORD_LEFT
+Hitzaren ezkerrean
+; Word left:
+;
+MSG_KL_WORD_RIGHT
+Hitzaren Eskuinean
+; Word right:
+;
+MSG_KL_LINE_START
+Lerroaren hasiera:
+; Line start:
+;
+MSG_KL_LINE_END
+Lerroaren amaiera:
+; Line end:
+;
+MSG_KL_NEXT_GADGET
+Hurrengo gadgeta:
+; Next gadget:
+;
+MSG_KL_PREV_GADGET
+Aurreko gadgeta:
+; Prev. gadget:
+;
+MSG_KL_GADGET_OFF
+Gadget desgaituta
+; Gadget off:
+;
+MSG_KL_CLOSE_WINDOW
+Leihoa itxi:
+; Close window:
+;
+MSG_KL_NEXT_WINDOW
+Hurrengo leihoa:
+; Next window:
+;
+MSG_KL_PREV_WINDOW
+Aurreko leihoa:
+; Prev. window:
+;
+MSG_KL_HELP
+Laguntza:
+; Help:
+;
+MSG_KL_POPUP
+Popup:
+; Popup:
+;
+MSG_DRAG_DROP
+Arrastratu eta soltatu
+; Drag & Drop
+;
+MSG_LEFT_BUTTON
+Ezkerreko botoia:
+; Left Button:
+;
+MSG_MIDDLE_BUTTON
+Erdiko botoia:
+; Middle Button:
+;
+MSG_AUTOSTART
+Hasiera automatikoa:
+; Autostart:
+;
+MSG_PIXEL
+%ld pixela
+; %ld pixel
+;
+MSG_BALANCING_GROUPS
+Taldeak balantzeatu
+; Balancing Groups
+;
+MSG_EXAMPLE
+Eredua:
+; Example:
+;
+MSG_TRY_WITH
+Saiatu
+; Try with
+;
+MSG_SHIFT
+ere
+; shift
+;
+MSG_TOO
+mugitzen!
+; too!
+;
+MSG_KEYBOARD_CONTROL
+Teklatuaren kontrola
+; Keyboard Control
+;
+MSG_COLOR_ACTIVE_OBJ
+Objektu aktiboaren kolorea:
+; Color of active object:
+;
+MSG_NEWLOOK
+itxura berria
+; newlook
+;
+MSG_CUSTOM
+kustom
+; custom
+;
+MSG_ARROWS
+Geziak
+; Arrows
+;
+MSG_UP
+goian
+; up
+;
+MSG_ARROW_UP
+Gezia gora
+; Arrow up
+;
+MSG_ARROW_DOWN
+Gezia behera
+; Arrow down
+;
+MSG_DOWN
+behean
+; down
+;
+MSG_LEFT
+ezquerra
+; left
+;
+MSG_ARROW_LEFT
+Gezia ezkerrara
+; Arrow left
+;
+MSG_ARROW_RIGHT
+Gezia eskuinara
+; Arrow right
+;
+MSG_RIGHT
+eskuina
+; right
+;
+MSG_BAR
+Barra
+; Bar
+;
+MSG_GADGET_TYPE
+Gadget mota:
+; Gadget Type:
+;
+MSG_SCROLLER
+Scroller
+; Scroller
+;
+MSG_KNOB
+Knob
+; Knob
+;
+MSG_ARRANGEMENT
+Kokapena
+; Arrangement
+;
+;=============================
+; slidersp.c
+;-----------
+MSG_CONTAINER_DESIGN
+Edukiontziaren diseinua
+; Container Design
+;
+MSG_KNOB_DESIGN
+;Knob Design
+; Knob Design
+;
+MSG_EXAMPLE_SLIDERS
+Ereduko irristagailuak
+; Example Sliders
+;
+;=============================
+; specialp.c
+;-----------
+MSG_TEXT_FIELDS
+Testu-eremuak
+; Text fields
+;
+MSG_EXAMPLE_TEXTFIELD
+Ereduko testu-eremu
+; Example Textfield
+;
+MSG_PROGRESS_INDICATOR
+Aurrerapen adierazle
+; Progress Indicator
+;
+MSG_DEVICE_IMAGES
+Dispositiboen irudiak
+; Device Images
+;
+MSG_DRAWER
+Tiradera
+; Drawer
+;
+MSG_HARDDISK
+Disko Gogorra
+; Harddisk
+;
+MSG_DISK
+Disko
+; Disk
+;
+MSG_RAM
+RAM
+; RAM
+;
+MSG_VOLUME
+Bolumen
+; Volume
+;
+MSG_NETWORK
+Sarea
+; Network
+;
+MSG_ASSIGN
+Esleipena
+; Assign
+;
+MSG_TAPE_IMAGES
+Zinten irudiak
+; Tape Images
+;
+MSG_TAPE_PLAY
+Erreproduzitu
+; Tape play
+;
+MSG_TAPE_PLAYBACK
+Birbobinatu
+; Tape playback
+;
+MSG_TAPE_PAUSE
+Pausatu
+; Tape pause
+;
+MSG_TAPE_STOP
+Gelditu
+; Tape stop
+;
+MSG_TAPE_RECORD
+Grabatu
+; Tape record
+;
+MSG_TAPE_UP
+Hasiera
+; Tape up
+;
+MSG_TAPE_DOWN
+Azkenera
+; Tape down
+;
+;=============================
+; stringsp.c
+;-----------
+MSG_STRING_FRAME
+Katearen markoa
+; String Frame
+;
+MSG_SPECIAL_POPUP_BUTTONS
+Popup botoi bereziak
+; Special Popup Buttons
+;
+MSG_POPUP
+Popup
+; Popup
+;
+MSG_DEFAULT
+Lehenetsita
+; Default
+;
+MSG_FILE
+Fitxategia
+; File
+;
+MSG_POPUP_FILE
+Popup fitxategia
+; Popup file
+;
+MSG_POPUP_DRAWER
+Popup tiradera
+; Popup drawer
+;
+MSG_INACTIVE_STRING_COLORS
+Kate inaktiboaren koloreak
+; Inactive String Colors
+;
+MSG_TEXT
+Testua
+; Text
+;
+MSG_ACTIVE_STRING_COLORS
+Kate aktiboaren koloreak
+; Active String Colors
+;
+MSG_MARKED_STRING_COLORS
+Kate markatuaren koloreak
+; Marked String Colors
+;
+MSG_EXAMPLE_STRING_GADGET
+Kate Gadgetaren eredua
+; Example String Gadget
+;
+;=============================
+; windowp.c
+;----------
+MSG_FORGET_ON_EXIT
+ahaztu irteeran
+; forget on exit
+;
+MSG_REMEMBER_ON_EXIT
+gogoratu irteeran
+; remember on exit
+;
+MSG_SAVE_ON_EXIT
+gorde irteeran
+; save on exit
+;
+MSG_SMART
+adimentsu
+; smart
+;
+MSG_SIMPLE
+sinple
+; simple
+;
+MSG_WITHOUT_CLEAR
+ezabatu gabe
+; without clear
+;
+MSG_WITH_CLEAR
+ezabatu
+; with clear
+;
+MSG_POSITIONS
+Posiciones:
+; Positions:
+;
+MSG_REDRAW
+Marraztu berriro:
+; Redraw:
+;
+MSG_TINY
+Txikia:
+; Tiny:
+;
+MSG_BIG
+Handia:
+; Big:
+;
+MSG_WINDOW
+Leihoa
+; Window
+;
+MSG_REQUESTER
+Requester
+; Requester
+;
+MSG_L
+L
+; L
+;
+MSG_T
+T
+; T
+;
+MSG_R
+R
+; R
+;
+MSG_B
+B
+; B
+;
+MSG_BUTTONS
+Botoiak
+; Buttons
+;
+;=============================
+; zune.c
+;-------
+MSG_WINTITLE1
+Zune - Prefs Globales
+; Zune - Global Prefs
+;
+MSG_WINTITLE2
+Zune - Hobespenak: %s
+; Zune - Prefs for : %s
+;
+MSG_MEN_PROJECT
+Proiektu
+; Project
+;
+MSG_MEN_OPEN
+Ireki...
+; Open ...
+;
+MSG_MEN_OPEN_SC
+O
+; O
+;
+MSG_MEN_APPEND
+Gehitu...
+; Append ...
+;
+MSG_MEN_SAVEAS
+... bezala gorde
+; Save As ...
+;
+MSG_MEN_SAVEAS_SC
+A
+; A
+;
+MSG_MEN_ABOUT
+About Zune...
+; About Zune ...
+;
+MSG_MEN_ABOUT_SC
+?
+; ?
+;
+MSG_MEN_QUIT
+Atera
+; Quit
+;
+MSG_MEN_QUIT_SC
+Q
+; Q
+;
+MSG_FRAME_CLIPBOARD
+Arbelaren markoa
+; Frame Clipboard
+;
+MSG_IMAGE_CLIPBOARD
+Irudiaren arbela
+; Image Clipboard
+;
+MSG_GAD_TEST
+_Probatu
+; _Test
+;
+MSG_GAD_SAVE
+_Gorde
+; _Save
+;
+MSG_GAD_USE
+_Erabili
+; _Use
+;
+MSG_GAD_CANCEL
+_Deuseztu
+; _Cancel
+;
+MSG_DSC_SYSTEM
+Sistema
+; System
+;
+MSG_DSC_WINDOWS
+Leihoak
+; Windows
+;
+MSG_DSC_GROUPS
+Taldeak
+; Groups
+;
+MSG_DSC_BUTTONS
+Botoiak
+; Buttons
+;
+MSG_DSC_CYCLES
+Zikloak
+; Cycles
+;
+MSG_DSC_SLIDERS
+Sliders
+; Sliders
+;
+MSG_DSC_SCROLLBARS
+Scrollbars
+; Scrollbars
+;
+MSG_DSC_LISTVIEWS
+Listviews
+; Listviews
+;
+MSG_DSC_STRINGS
+Strings
+; Strings
+;
+MSG_DSC_NAVIGATION
+Nabigazioa
+; Navigation
+;
+MSG_DSC_SPECIAL
+Berezia
+; Special
+;
+MSG_DSC_FRAMES
+Markoak
+; Frames
+;
+;=============================
+; zunestuff.c
+;------------
+MSG_ADJUST_PEN
+Pintzela doitu
+; Adjust Pen
+;
+;=============================
+; framesp.c
+;----------
+MSG_CUSTOMFRAMES
+Marko pertsonalizatuak
+; Customframes
+;
+;=============================
+; systemp.c
+;----------
+MSG_PUBLIC_SCREEN
+Pantaila publikoa
+; Public Screen
+;
+MSG_NAME
+Izena
+; Name:
+;
+MSG_CALL_INSPECTOR
+Inspector deitu
+; Call Inspector
+;
+MSG_POP_TO_FRONT
+Aurreko planora ekarri
+; Pop to front:
+;
+MSG_ICONIFICATION
+Iconifikatu
+; Iconification
+;
+MSG_HOTKEY
+Lasterbide:
+; Hotkey:
+;
+MSG_SHOW
+Erakutsi:
+; Show:
+;
+MSG_ICON
+Ikono
+; Icon
+;
+MSG_MENU
+Menu
+; Menu
+;
+MSG_ON_STARTUP
+Hasieran:
+; On Startup:
+;
+MSG_INTERFACES
+Interfazeak
+; Interfaces
+;
+MSG_AREXX
+Arexx:
+; ARexx:
+;
+MSG_BUBBLE_HELP
+Laguntza burbuila
+; Bubble Help
+;
+MSG_FIRST_BUBBLE
+Lehenengo burbuila:
+; First Bubble:
+;
+MSG_NEXT_BUBBLE
+Hurrengo burbuila
+; Next Bubble:
+;

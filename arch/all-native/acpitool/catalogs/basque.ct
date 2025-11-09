@@ -1,0 +1,441 @@
+## version $VER: acpitool.catalog 2.0 (26.08.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_TITLE
+ACPI aplikazioa
+; ACPI Tool
+;
+MSG_WINTITLE
+ACPI aplikazioa
+; ACPI Tool
+;
+MSG_DESCRIPTION
+ACPI kontsulta eta kudeaketa
+; ACPI Consulta y gestion de ACPI
+;
+MSG_ERROR_LOCALE
+Ez daukat locale irekitzerik
+; Can't open locale
+;
+MSG_ERROR_OK
+Ados
+; Ok
+;
+MSG_ERROR_HEADER
+ERROR
+; ERROR
+;
+MSG_ERROR_NO_ACPI
+Ordenagailu honek ez dauka ACPIrik edo ACPI ezgaitu da
+; This machine has no ACPI, or ACPI support has been disabled
+;
+MSG_UNKNOWN
+Ezezaguna
+; Unknown
+;
+MSG_TABLE_SIGNATURE
+Taularen sinadura
+; Table signature
+;
+MSG_REVISION
+Berrikuspena
+; Revision
+;
+MSG_OEM_ID
+ID OEM
+; OEM ID
+;
+MSG_OEM_TABLE_ID
+ID OEM taula
+; OEM Table ID
+;
+MSG_CREATOR_ID
+ID sortzaile
+; Creator ID
+;
+MSG_PM_PROFILE
+Sistemaren lehenetsitako profila
+; Preferred system profile
+;
+MSG_SCI_INT
+SCI etenaldia
+; SCI interrupt
+;
+MSG_SMI_CMD
+SMI komandoren erregistroa
+; SMI command register
+;
+MSG_ACPI_ENABLE
+ACPI gaitzeko komandoa
+; ACPI Enable command
+;
+MSG_ACPI_DISABLE
+ACPI ezgaitzeko komandoa
+; ACPI Disable command
+;
+MSG_S4BIOS
+Sartu S4BIOS egoeraren komandoa
+; Enter S4BIOS state command
+;
+MSG_PSTATE
+Prozesagailuaren etekinaren komandoa
+; Processor performance state command
+;
+MSG_FLUSH_SIZE
+CPUko katxearen neurria
+; CPU Cache flush size
+;
+MSG_FLUSH_STRIDE
+Katxerik gabeko CPU
+; CPU Cache flush stride
+;
+MSG_RTC_DAY_ALARM
+RTC alarmaren eguneko konpentsazioa
+; RTC alarm day offset
+;
+MSG_RTC_MON_ALARM
+RTC alarmaren hilabeteko konpentsazioa
+; RTC alarm month offset
+;
+MSG_RTC_CENTURY
+RTC alarmaren mendeko konpentsazioa
+; RTC century offset
+;
+MSG_RESET_REG
+Berrabiaratze erregistroaren helbidea
+; Reset register address
+;
+MSG_RESET_VAL
+Balioa berrezarri
+; Reset value
+;
+MSG_UNKNOWN_SIZE
+Tamainu ezezaguna
+; Unknown size
+;
+MSG_AT
+lekuan
+; at
+;
+MSG_BITS
+bit
+; bits
+;
+MSG_SPACE_FIXED
+Hardware finkoa
+; Fixed hardware
+;
+MSG_SPACE_OEM
+OEM espazioa
+; OEM space
+;
+MSG_SPACE_UNKNOWN
+Espazio ezezaguna
+; Unknown space
+;
+MSG_FMT_UNKNOWN_SPACE
+espazio ezezegunean (%u) 
+;  in unknown space (%u)
+;
+MSG_FMT_KNOWN_SPACE
+%s lekuan
+;  in %s
+;
+MSG_YES
+Bai
+; Yes
+;
+MSG_NO
+Ez
+; No
+;
+MSG_PC_FLAGS
+PC arkitekturaren flagak 
+; PC Architecture flags
+;
+MSG_FF_FLAGS
+Funtzio finkoen flagak
+; Fixed Feature flags
+;
+MSG_LAPIC_ADDR
+Tokiko APIC helbidea
+; Local APIC address
+;
+MSG_PCAT_COMPAT
+PIC 8259 PC-AT dauka
+; Has 8259 PC-AT PIC
+;
+MSG_LOCAL_APIC
+tokiko APICa
+; Local APIC
+;
+MSG_CPU_ID
+ACPI prozesagailuaren IDa
+; ACPI Processor ID
+;
+MSG_LAPIC_ID
+Tokiko ID APIC
+; Local APIC ID
+;
+MSG_ENABLED
+Gaituta
+; Enabled
+;
+MSG_IOAPIC
+APIC S/I
+; I/O APIC
+;
+MSG_ID
+IDa
+; ID
+;
+MSG_ADDRESS
+Helbidea
+; Address
+;
+MSG_IRQ_BASE
+Sistema globalaren IRQ oinarria
+; Global system IRQ base
+;
+MSG_INT_SRC_OVR
+Desgaitu eten sorburua
+; Interrupt source override
+;
+MSG_BUS
+Bus
+;   Bus
+;
+MSG_BUS_IRQ
+IRQ Busa
+; Bus IRQ
+;
+MSG_GLOBAL_IRQ
+IRQ sistema globala
+; Global system IRQ
+;
+MSG_POLARITY
+Polaritatea
+;   Polarity
+;
+MSG_TRIGGER
+Trigger
+;   Trigger
+;
+MSG_NMI_SRC
+NMI sorburua
+; NMI source
+;
+MSG_LAPIC_NMI
+Tokiko APIC NMI
+; Local APIC NMI
+;
+MSG_DEST_ID
+Helburuko ACPI prozesagailuaren IDa
+; Destination processor ACPI ID
+;
+MSG_ALL
+Guztiak
+; All
+;
+MSG_LINT
+Tokiko interrupzioen sarrera
+; Local interrupt input
+;
+MSG_LAPIC_ADDR_OVR
+Tokiko APIC helbidea ezgaitu
+; Local APIC address override
+;
+MSG_IOSAPIC
+S/I SAPIC
+; I/O SAPIC
+;
+MSG_LSAPIC
+Tokiko SAPIC
+; Local SAPIC
+;
+MSG_LSAPIC_ID
+Tokiko SAPICaren IDa
+; Local SAPIC ID
+;
+MSG_LSAPIC_EID
+Tokiko SAPICaren EIDa
+; Local SAPIC EID
+;
+MSG_PLAT_INT_SRC
+Plataformaren etenaren sorburua
+; Platform interrupt source
+;
+MSG_PLAT_INT_TYPE
+Eten mota
+;   Interrupt type
+;
+MSG_DEST_LSAPIC_ID
+LSAPIC helbidearen IDa
+; Destination LSAPIC ID
+;
+MSG_DEST_EID
+LSAPIC helbidearen EIDa
+; Destination LSAPIC EID
+;
+MSG_IOSAPIC_VECTOR
+SAPIC S/I bektorea
+; I/O SAPIC vector
+;
+MSG_CPEI_PROC_OVR
+Desgaitu CPE eten prozesadorea
+; CPE interrupt processor override
+;
+MSG_LOCAL_X2APIC
+Tokiko X2APIC
+; Local X2APIC
+;
+MSG_X2APIC_ID
+Tokiko X2APIC IDa
+; Local X2APIC ID
+;
+MSG_CPU_UID
+ACPI prozesagailuaren UIDa
+; ACPI Processor UID
+;
+MSG_X2APIC_NMI
+X2APIC NMI
+; X2APIC NMI
+;
+MSG_UNKNOWN_ENTRY
+Sarrera ezezaguna (%u), %u byte
+; Unknown entry (%u), %u bytes
+;
+MSG_RSDP_ADDR
+RSDP helbidea
+; RSDP address
+;
+MSG_SYSTEM_OEM_ID
+Siatemaren ID OEM
+; System OEM ID
+;
+MSG_ACPI_REVISION
+ACPIaren berrikuntza
+; ACPI Revision
+;
+MSG_HW_REVISION
+Hardwarearen berrikuntza
+; Hardware Revision
+;
+MSG_NUM_COMPARATORS
+Konparadore zenbakia
+; Number of comparators
+;
+MSG_64BIT_COUNTER
+64 biteko zenbatzailea
+; 64-bit counter
+;
+MSG_LEGACY_REPLACEMENT
+Oinarrizko sistema ordezkatzeko gai
+; Legacy replacement capable
+;
+MSG_PCI_VENDOR
+PCI saltzailearen ID 
+; PCI Vendor ID
+;
+MSG_BASE_ADDRESS
+Oinarrizko helbidea
+; Base address
+;
+MSG_NUMBER
+Zenbakia
+; Number
+;
+MSG_MIN_TICK
+Erlojuaren gutxieneko tick
+; Minimum clock tick
+;
+MSG_PAGE_PROTECT
+Orriaren babespena 
+; Page protection
+;
+MSG_OEM_ATTRS
+OEM atributoak
+; OEM Attributes
+;
+MSG_SHOW_MODE
+Erakutsi:
+; Show:
+;
+MSG_SAVE_DATA
+Gorde
+; Save data
+;
+MSG_MENU_PROJECT
+Proiektu
+; Project
+;
+MSG_MENU_QUIT
+Atera
+; Quit
+;
+MSG_MENU_DUMP
+Iraulketa osoa
+; Full dump
+;
+MSG_MENU_DUMP_PARSED
+Analizatutako datuak
+; Parsed data
+;
+MSG_MENU_DUMP_RAW
+Datu gordinak
+; Raw dump
+;
+MSG_BATT_WARN
+Alarma maila
+; Warning level
+;
+MSG_BATT_LOW
+Maila baxua
+; Low level
+;
+MSG_BATT_CRITICAL
+Maila kritikoa
+; Critical level
+;
+MSG_MWH
+mWh
+; mWh
+;
+MSG_CMD_REG
+komandoren/egoeraren erregistroa
+; Command/status register
+;
+MSG_DATA_REG
+datuen erregistroa
+; Data register
+;
+MSG_UID
+ID bakarra
+; Unique ID
+;
+MSG_SCI_GPE_BIT
+SCI GPE bita
+; SCI GPE bit
+;
+MSG_NAMESPACE_ID
+Izen-espazioaren IDa
+; Namespace ID
+;
+MSG_MCFG_BASE_ADDRESS
+Oinarrizko helbidea
+; Base address
+;
+MSG_MCFG_SEGMENT
+PCI segmentu taldearen zenbakia
+; PCI segment group number
+;
+MSG_MCFG_START_BUS_NUMBER
+PCI buseko lehen zenbakia
+; Starting PCI Bus number
+;
+MSG_MCFG_END_BUS_NUMBER
+PCI buseko azken zenbakia
+; Final PCI Bus number
+;

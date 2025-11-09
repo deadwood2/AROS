@@ -1,0 +1,218 @@
+## version $VER: Printer.catalog 2.0 (07.08.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_WINTITLE
+Inprimagailuaren hobespenak
+; Printer Preferences
+;
+MSG_OK
+Ados
+; Ok
+;
+MSG_PRINTER_DRIVER
+Driver
+; Driver
+;
+MSG_PRINTER_SETTINGS
+Ezarpenak
+; Settings
+;
+MSG_PRINTER_SELECT_DRIVER
+Driver hautatu:
+; Select Driver:
+;
+MSG_PRINTER_NAME
+Izena:
+; Name:
+;
+MSG_PRINTER_UNIT
+Inprimagailu:
+; Printer Unit:
+;
+MSG_PRINTER_PS_UNIT
+Unitatea:
+; Unit:
+;
+MSG_PRINTER_CUSTOM_DEVICE
+Periferiko pertsonalizatuta:
+; Custom device:
+;
+MSG_PRINTER_DEVICE_UNIT
+Unitatea %d
+; Unit %d
+;
+MSG_PRINTER_PARALLEL
+Paralelo
+; Parallel
+;
+MSG_PRINTER_SERIAL
+Serie
+; Serial
+;
+MSG_PRINTER_TO_FILE
+Fitxategira inprimatu
+; Print to file
+;
+MSG_PRINTER_USB
+USB inprimagailu
+; USB Printer
+;
+MSG_TISK_PAPER_TYPE
+Paper mota:
+; Paper Type:
+;
+MSG_TISK_PAPER_SIZE
+Paper neurria:
+; Paper Size:
+;
+MSG_TISK_QUALITY
+Kalitatea:
+; Quality:
+;
+MSG_TISK_PITCH
+Puntu:
+; Pitch:
+;
+MSG_TISK_SPACING
+Lerrotarte
+; Spacing:
+;
+MSG_TISK_LEFT_MARGIN
+Ezkerreko orri-bazterra:
+; Left Margin:
+;
+MSG_TISK_RIGHT_MARGIN
+Eskuiniko orri-bazterra:
+; Right Margin:
+;
+MSG_TISK_LINE_PER_PAGE
+Orrialde bakoitzeko lerroak:
+; Lines per Page:
+;
+MSG_TISK_DENSITY
+Dentsitatea:
+; Density:
+;
+MSG_TISK_ASPECT
+Itxura:
+; Aspect:
+;
+MSG_TISK_SHADE
+Itzala:
+; Shade:
+;
+MSG_TISK_IMAGE
+Irudi:
+; Image:
+;
+MSG_TISK_TRESHOLD
+Ataria:
+; Threshold:
+;
+MSG_TISK_DITHERING
+Dithering:
+; Dithering:
+;
+MSG_TISK_DIMENSION
+Neurriak:
+; Dimensions:
+;
+MSG_TISK_PAPER_OFFSET
+Offset (
+; Offset (
+;
+MSG_TISK_CENTER_IMAGE
+Irudia erdiratu:
+; Center Image:
+;
+MSG_TISK_ANTIALIAS
+AntiAlias:
+; AntiAlias:
+;
+MSG_TISK_INTEGER_SCALING
+Integer Scaling:
+; Integer Scaling:
+;
+MSG_TISK_FANFOLD
+Tolestuta
+; Fanfold
+;
+MSG_TISK_SINGLE
+Bakarra
+; Single
+;
+MSG_TISK_DRAFT
+Zirriborro (72 dpi)
+; Draft (72 dpi)
+;
+MSG_TISK_LETTER
+Gutuna (240 dpi)
+; Letter (240 dpi)
+;
+MSG_TISK_PORTRAIT
+Bertikala
+; Portrait
+;
+MSG_TISK_LANDSCAPE
+Horizontala
+; Landscape
+;
+MSG_TISK_BW
+Zuri-beltza
+; Black & White
+;
+MSG_TISK_GRAY
+Gris-eskala
+; Greyscape
+;
+MSG_TISK_COLOR
+Kolorea
+; Color
+;
+MSG_TISK_GRAY2
+Gris-eskala 2
+; Greyscape 2
+;
+MSG_TISK_POSITIVE
+Positibo
+; Positive
+;
+MSG_TISK_NEGATIVE
+Negatibo
+; Negative
+;	
+MSG_TISK_IGNORE
+Baztertu
+; Ignore
+;
+MSG_TISK_BOUNDED
+Mugatuta
+; Bounded
+;
+MSG_TISK_ABSOLUTE
+Erabatekoa
+; Absolute
+;
+MSG_TISK_PIXEL
+Pixel
+; Pixel
+;
+MSG_TISK_MULTIPLY
+Askotariko
+; Multiply
+;	
+MSG_TISK_ORDERED
+Ordenatuta
+; Ordered
+;
+MSG_TISK_HALFTONE
+Erdi tono
+; Halftone
+;
+MSG_TISK_FLOYDSTEINBERG
+Floyd-Steinberg
+; Floyd-Steinberg
+;
+;

@@ -3,7 +3,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 CATALOGS:=croatian czech danish finnish french german hungarian italian polish \
-    portuguese russian spanish norwegian turkish
+    portuguese russian spanish norwegian turkish basque
 
 %build_catalogs mmake=workbench-prefs-time-catalogs \
     catalogs=$(CATALOGS) \

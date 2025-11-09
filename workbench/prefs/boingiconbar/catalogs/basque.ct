@@ -1,0 +1,49 @@
+## version $VER: BIBPrefs.catalog 2.0 (28.02.2023)
+## language euskara
+## codeset 0
+;
+;
+MSG_APP
+BIBPrefs
+; BIBPrefs
+;
+MSG_DESCRIPTION
+BoingIconBar aplikazioaren hobespenak
+; BoingIconBar Preferences
+;
+MSG_TITLE
+BoingIconBar aplikazioaren hobespenak
+; BoingIconBar Preferences
+;
+MSG_DOCK
+\33cDock
+; \33cDock
+;
+MSG_ADD_DOCK
+Dock gehitu
+; Add
+;
+MSG_DEL_DOCK
+Dock ezabatu
+; Delete
+;
+MSG_SAVE
+Gorde
+; Save
+;
+MSG_PROGRAMS
+\33cApliazioak
+; \33cPrograms
+;
+MSG_ADD_P
+Aplikazio gehitu
+; Add program
+;
+MSG_DEL_P
+Aplikazio ezabatu
+; Del program
+;
+MSG_OK
+Ados
+; OK
+;

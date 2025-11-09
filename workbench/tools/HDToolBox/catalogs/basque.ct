@@ -1,0 +1,177 @@
+## version $VER: hdtoolbox.catalog 2.0 (29.02.2024)
+## language euskara
+## codeset 0
+;
+;
+WORD_Active
+Aktibatuta
+; Active
+;
+WORD_AddEntry
+Gehitu sarrera
+; Add Entry
+;
+WORD_All
+Dena
+; All
+;
+WORD_Automount
+Automuntatu
+; Automuntatu
+;
+WORD_Bootable
+Abiarazteko
+; Bootable
+;
+WORD_BootPri
+Abiarazteko lehentasuna
+; Boot Priority
+;
+WORD_Cancel
+Deuseztu
+; Cancel
+;
+WORD_Changed
+Aldatuta
+; Changed
+;
+WORD_Change_Type
+Mota aldatu
+; Change Type
+;
+WORD_Create_Table
+Taula sortu
+; Create Table
+;
+WORD_Devices
+Gailuak
+; Devices
+;
+WORD_DosEnvec
+DosEnvec
+; DosEnvec
+;
+WORD_Exit
+Atera
+; Exit
+;
+WORD_Geometry
+Geometria
+; Geometry
+;
+WORD_Name
+Izena
+; Name
+;
+WORD_Switches
+Aldatu
+; Switches
+;
+WORD_Ok
+Ados
+; Ok
+;
+WORD_Parent
+Atzera
+; Parent
+;
+WORD_Partitions
+Partizioak
+; Partitions
+;
+WORD_Partition_Table
+Partizio taula
+; Partition Table
+;
+WORD_Partition_Table_Type
+Taula mota
+; Partition Table Type
+;
+WORD_Partition_Type
+Partizio mota
+; Partition Type
+;
+WORD_RemoveEntry
+Sarrera ezabatu
+; Remove Entry
+;
+WORD_Rename
+Berrizendatu
+; Rename
+;
+WORD_Resize_Move
+Doitu/Mugitu
+; Resize/Move
+;
+WORD_Save_Changes
+Aldaketak gorde
+; Save Changes
+;
+WORD_Size
+Tamaina
+; Size
+;
+WORD_Unit
+Unitatea
+; Unit
+;
+WORD_Units
+Unitateak
+; Units
+;
+WORD_Unknown
+Ezezaguna
+; Unknown
+;
+WORD_MENU_Project
+Proiektu
+; Project
+;
+WORD_MENU_About
+... buruz
+; About
+;
+WORD_MENU_Quit
+Atera
+; Quit
+;
+MSG_ASK_SAVE
+Aldatutako partizio guztietako datuak ezabatuko dira!\nZiur zaude '%s' partizio taulari egindako aldaketak gorde nahi duzula?
+; All Data on modified partitions will be destroyed!\nAre you sure to write changes of partition table '%s'?
+;
+MSG_NO_MEMORY
+Ez dago memoriarik
+; Not enough memory
+;
+MSG_PARTITION_TABLE_FULL
+Partizio taula beteta
+; Partition table full
+;
+MSG_Select_Empty_Area
+Hautatu hutsik dagoen area bat
+; Select empty area
+;
+MSG_Select_Partition_Resize_Move
+Hautatu partizio bat eta mugitu edo bere neurria doitu
+; Select a partition and resize/move it
+;
+MSG_Welcome
+Ongi etorri partizioak egiteko lanabesara!
+; Welcome to the partitioning tool
+;
+MSG_WriteTableError
+Partizio taula idaztean arazo bat sortu da.
+; Error while writing partition table
+;
+MSG_CreateTableError
+Partizio taula egitean arazo bat sortu da
+; Error while creating partition table
+;
+WORD_MENU_Partition
+Partizioa
+; Partition
+;
+WORD_MENU_CreateMountlist
+Mountlist sortu...
+; Create mountlist...
+;

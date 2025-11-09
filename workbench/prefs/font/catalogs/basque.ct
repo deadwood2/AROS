@@ -1,0 +1,81 @@
+## version $VER: fontprefs.catalog 1.0 (30.09.2007)
+## codeset 0
+## language euskara
+;Translated by Javier A.H. 
+;
+MSG_ERROR_CANT_CREATE_APPLICATION
+Ezin dut aplikazioa abiarazi.
+;Can't create application object.
+;
+MSG_CANT_CREATE_REQ
+Ezin dut filerequester sortu!
+;Can't open create filerequester!
+;
+MSG_CANT_CREATE_CONTEXT
+Ezin dut Gadtools-en kontextua sortu!
+;Can't create context for Gadtools!
+;
+MSG_CANT_OPEN_STREAM
+Ezin dut IFF jarioa sortu!
+;Can't open IFF stream!
+;
+MSG_CANT_WRITE_PREFFILE
+Ezin dut hobespenak gorde!
+;Can't write preferences!
+;
+MSG_CANT_READ_PREFFILE
+Ezin dut hobespenak irakurri!
+;Can't read preferences!
+;
+MSG_CANT_ALLOCATE_IFFPTR
+Ezin dut IFF maneiatzailea sortu!
+;Can't allocate IFF handle!
+;
+MSG_CANT_ALLOCATE_MEM
+Ez daukat memoriarik (%s) abiarazteko!
+;Can't allocate application memory (%s)!
+;
+MSG_NAME
+Tipografiaren hobespenak
+;Font Preferences
+;
+MSG_MENU_PREFERENCES
+Hobespenak
+;Preferences
+;
+MSG_MENU_PREFERENCES_IMPORT
+I\0Inportatu...
+;I\0Import...
+;
+MSG_MENU_PREFERENCES_EXPORT
+E\0Esportatu...
+;E\0Export...
+;
+MSG_ASL_OPEN_TITLE
+Tipografiaren hobespenak irakurri
+;Load Font Preferences
+;
+MSG_ASL_SAVE_TITLE
+Tipografiaren hobespenak gorde
+;Save Font Preferences
+;
+MSG_OK
+Ados
+;Ok
+;
+MSG_ICONS
+Ikonoak:
+;Icons:
+;
+MSG_SYSTEM
+Sistema:
+;System:
+;
+MSG_SCREEN
+Pantaila:
+;Screen:
+;
+MSG_DESCRIPTION
+Tipografiaren hobespenak
+;Fonts preferences
+;

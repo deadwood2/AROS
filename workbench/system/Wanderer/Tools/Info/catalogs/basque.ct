@@ -1,0 +1,180 @@
+## version $VER: info.catalog 1.0 (30.09.2007)
+## codeset 0
+## language euskara
+;
+MSG_TITLE
+Informazioa
+;Informations
+;
+MSG_DESCRIPTION
+Ikonoen informazioa
+;Icon informations
+;
+MSG_COPYRIGHT
+Ikonoen informazioa\n©AROS Dev Team
+;Icon informations\n©AROS Dev Team
+;
+MSG_ICON
+Ikono
+;Icon
+;
+MSG_NAME
+Izena
+;Name
+;
+MSG_COMMENT
+Azalpena
+;Comment
+;
+MSG_STACK
+Pila
+;Stack
+;
+MSG_DEFTOOL
+Tresna
+;Tool
+;
+MSG_ICONTYPE
+Ikonoaren mota
+;Icon type
+;
+MSG_DISK
+Diskoa
+;Disk
+;
+MSG_DRAWER
+Tiradera
+;Drawer
+;
+MSG_TOOL
+Tresna
+;Tool
+;
+MSG_PROJECT
+Proiektu
+;Project
+;
+MSG_GARBAGE
+Zaborra
+;Garbage
+;
+MSG_DEVICE
+Tresna
+;Device
+;
+MSG_KICK
+Kick
+Kick
+;
+MSG_APPICON
+AppIcon
+AppIcon
+;
+MSG_INFORMATION
+Informazioa
+;Information
+;
+MSG_PROTECTION
+Babespena
+;Protection
+;
+MSG_TOOLTYPES
+Tresna mota
+;Tooltypes
+;
+MSG_ERROR_SHELLSTART
+Akatsa: Ezin da shelletik abiarazi
+;Error: Cannot be started from shell
+;
+MSG_ABOUT
+About...
+;About...
+;
+MSG_QUIT
+Atera
+;Quit
+;
+MSG_READ
+Irakurri
+;Read
+;
+MSG_WRITE
+Idatzi
+;Write
+;
+MSG_EXECUTE
+Abiarazi
+;Execute
+;
+MSG_DELETE
+Ezabatu
+;Delete
+;
+MSG_SCRIPT
+Script
+;Script
+;
+MSG_PURE
+Pure
+;Pure
+;
+MSG_ARCHIVED
+Artxibatuta
+;Archived
+;
+MSG_STICKY
+Itsasgarri
+;Sticky
+;
+MSG_SIZE
+Tamainua
+;Size
+;
+MSG_VERSION
+Bertsioa
+;Version
+;
+MSG_OWNERID
+Jabearen IDa
+;Owner ID
+;
+MSG_GROUPID
+Taldearen IDa
+;Group ID
+;
+MSG_OWNERNAME
+Jabe
+;Owner
+;
+MSG_GROUPNAME
+Talde
+;Group
+;
+MSG_TYPE
+Mota
+;Type
+;
+MSG_DATE
+Data
+;Date
+;
+MSG_NEW_KEY
+Tekla berria
+;New key
+;
+MSG_DELETE_KEY
+Tekla ezabatu
+;Delete key
+;
+MSG_SAVE
+_Gorde
+;_Save
+;
+MSG_CANCEL
+_Deuseztu
+;_Cancel
+;
+MSG_OK
+Ados
+;Ok
+;

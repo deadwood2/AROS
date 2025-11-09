@@ -1,0 +1,632 @@
+## version $VER: MUI.MiamiPanel.catalog 1.0 (27.08.2024)
+## language euskara
+## codeset 0
+;
+;
+; CATCOMP MUI.MiamiPanel.cd CFILE loc.h
+; CATCOMP MUI.MiamiPanel.cd CTFILE MUI.MiamiPanel.ct
+;
+MSG_Copyright
+Copyright 2001-2005 by Alfonso Ranieri
+; Copyright 2001-2005 by Alfonso Ranieri
+; Copyright message
+;
+MSG_Description
+MUI MiamiDx control panel.
+; MUI MiamiDx control panel.
+; Description message
+;
+MSG_Menu_Project
+Proiektu
+; Project
+;
+MSG_Menu_About
+?\0Buruz...
+; ?\0About...
+;
+MSG_Menu_AboutMUI
+!\0MUI buruz...
+; !\0About MUI...
+;
+MSG_Menu_Hide
+H\0Ezkutatu
+; H\0Hide
+;
+MSG_Menu_Quit
+Q\0Atera
+; Q\0Quit
+;
+MSG_Menu_Miami
+MiamiDx
+; MiamiDx
+;
+MSG_Menu_Miami_Show
+W\0Erakutsi...
+; W\0Show...
+; Use the same shortcut of MSG_Button_Show
+;
+MSG_Menu_Miami_Hide
+D\0Ezkutatu
+; D\0Hide
+; Use the same shortcut of MSG_Button_Hide
+;
+MSG_Menu_Miami_Quit
+T\0Atera
+; T\0Quit
+; Use the same shortcut of MSG_Button_Quit
+;
+MSG_Menu_Prefs
+Hobespenak
+; Preferences
+;
+MSG_Menu_Edit
+E\0Editatu...
+; E\0Edit...
+;
+MSG_Menu_Save
+S\0Gorde
+; S\0Save
+;
+MSG_Menu_Use
+U\0Erabili
+; U\0Use
+;
+MSG_Menu_Restore
+R\0Berrezarri
+; R\0Restore
+;
+MSG_Menu_LastSaved
+L\0Gordetako azkena
+; L\0Last saved
+;
+MSG_Menu_MUI
+M\0MUI hobespenak...
+; M\0MUI Settings...
+;
+MSG_Window_Title
+MUI.MiamiPanel
+; MUI.MiamiPanel
+;
+MSG_Button_Show
+E_rakutsi
+; Sho_w
+; Use the same shortcut of MSG_Menu_Miami_Show
+;
+MSG_Button_Show_Help
+Mostrar pant. principal MiamiDx.
+; Show MiamiDx main window.
+;
+MSG_Button_Hide
+E_zkutatu
+; Hi_de
+; Use the same shortcut of MSG_Menu_Miami_Hide
+;
+MSG_Button_Hide_Help
+Ezkutatu pantaila nagusia.
+; Hide MiamiDx main window.
+;
+MSG_Button_Quit
+Ate_ra
+; Qui_t
+; Use the same shortcut of MSG_Menu_Miami_Quit
+;
+MSG_Button_Quit_Help
+MiamiDxtik atera.
+; Quit MiamiDx.
+;
+MSG_IFGroup_Help
+Interfazeen zerrenda. On/Offline botoia edukitzea\n
+aukeratzen baduzu, sakatzean interfazea On/Offline\n
+jartzen du.
+; Interfaces list. If you chose to have\n\
+; the On/Offline button, clicking it\n\
+; puts the interface On/Offline.
+;
+MSG_IFGroup_CItem_Online
+Online
+; Online
+; Don't use shortcut
+;
+MSG_IFGroup_CItem_Offline
+Offline
+; Offline
+; Don't use shortcut
+;
+MSG_IFGroup_CItem_Scale
+Scale
+; Scale
+;
+MSG_IFGroup_CItem_ScaleFmt
+%ldKb
+; %ldKb
+; This is the fmt to format scale values
+;
+MSG_IF_Title_Name
+Izena:
+; Name:
+;
+MSG_IF_Title_State
+Egoera:
+; State:
+;
+MSG_IF_Title_OnTime
+Ontime:
+; Ontime:
+;
+MSG_IF_Title_Rate
+Tasa:
+; Rate:
+;
+MSG_IF_Title_Speed
+Abiadura:
+; Speed:
+;
+MSG_IF_Title_Traffic
+Trafiko:
+; Traffic:
+;
+MSG_IF_Button_Online
+Online
+; Online
+;
+MSG_IF_Button_Offline
+Offline
+; Offline
+;
+MSG_IF_Status_GoingOnline
+Sarean sartzen...
+; Going online...
+;
+MSG_IF_Status_GoingOffline
+Saretik ateratzen...
+; Going offline...
+;
+MSG_IF_Status_Suspending
+Geldiarazten...
+; Suspending...
+;
+MSG_IF_Status_Online
+Online
+; Online
+;
+MSG_IF_Status_Offline
+Offline
+; Offline
+;
+MSG_IF_Status_Suspended
+Geldituta
+; Suspended
+;
+MSG_Traffic_Byte
+byte
+; byte
+; Actually not used, it should be used for "1 byte"
+;
+MSG_Traffic_Bytes
+byte
+; bytes
+; Actually not used, it should be used for "100 bytes"
+;
+MSG_Traffic_KB
+Kb
+; Kb
+; Short for "kilo bytes"
+;
+MSG_Traffic_MB
+Mb
+; Mb
+; Short for "mega bytes"
+;
+MSG_Rate_Bs
+bps
+; bps
+;
+MSG_Rate_KBs
+Kb/s
+; Kb/s
+; Short for "kilo bits per second"
+;
+MSG_Rate_MBs
+Mb/s
+; Mb/s
+; Short for "mega bits per second"
+;
+MSG_Prefs_WinTitle
+MUI.MiamiPanel Hobespenak
+; MUI.MiamiPanel Preferences
+;
+MSG_Prefs_Interfaces
+Interfazeak
+; Interfaces
+;
+MSG_Prefs_MiamiCtrls
+Botoiak
+; Buttons
+;
+MSG_Prefs_Options
+Aukerak
+; Options
+;
+MSG_Prefs_IF_Traffic_Format
+_Trafiko formatua
+; T_raffic format
+;
+MSG_Prefs_IF_Traffic_Format_Help
+Trafiko formatua:\n\
+Luzea - bytetan bistaratzen da\n\
+Motza - Kb/Mb bistaratzen da
+; Traffic format:\n\
+; Long - traffic shown in bytes\n\
+; Short - traffic shown in Kb/Mb
+;
+MSG_Prefs_IF_Traffic_Format_Long
+Luzea
+; Long
+;
+MSG_Prefs_IF_Traffic_Format_Short
+Motza
+; Short
+;
+MSG_Prefs_IF_Traffic_Grouping
+_Taldea
+; _Group
+;
+MSG_Prefs_IF_Traffic_Grouping_Help
+Hautatzen denean trafikoaren\n\
+zenbakiak elkartzen dira.
+; If selected, traffic\n\
+; digits are grouped.
+;
+MSG_Prefs_IF_Rate_Format
+T_asaren formatua
+; Rat_e format
+;
+MSG_Prefs_IF_Rate_Format_Help
+Tasaren formatua:\n\
+Handia  - tasa bytetan bistaratzen da\n\
+Pequeño - tasa Kb/Mbtan bistaratzen da
+; Rate format:\n\
+; Long - rate shown in bytes\n\
+; Short - rate shown in Kb/Mb
+;
+MSG_Prefs_IF_Rate_Format_Long
+Luzea
+; Long
+;
+MSG_Prefs_IF_Rate_Format_Short
+Motza
+; Short
+;
+MSG_Prefs_IF_Rate_Grouping
+Tal_dea
+; Gr_oup
+;
+MSG_Prefs_IF_Rate_Grouping_Help
+Hautatzen denean tasaren\n\
+zenbakiak elkartzen dira.
+; If selected, rate\n\
+; digits are grouped.
+;
+MSG_Prefs_Miami_Position
+_Posizioa
+; _Position
+;
+MSG_Prefs_Miami_Position_Help
+Botoien barraren posizioa\n\
+doitu.
+; Adjust the position\n\
+; of the buttons bar.
+;
+MSG_Prefs_Miami_Position_Top
+Goian
+; Top
+;
+MSG_Prefs_Miami_Position_Bottom
+Behean
+; Bottom
+;
+MSG_Prefs_Miami_Position_Left
+Ezkerra
+; Left
+;
+MSG_Prefs_Miami_Position_Right
+Eskuina
+; Right
+;
+MSG_Prefs_Miami_ViewMode
+Itxu_ra
+; Appea_rance
+;
+MSG_Prefs_Miami_ViewMode_Help
+Botoien barraren itxura\n\
+doitu.
+; Adjust the appearance\n\
+; of the buttons bar.
+;
+MSG_Prefs_Miami_ViewMode_TextGfx
+Ikonoak eta testua
+; Icons and text
+;
+MSG_Prefs_Miami_ViewMode_Gfx
+Ikonoak baino ez
+; Icons only
+;
+MSG_Prefs_Miami_ViewMode_Text
+Testua baino ez
+; Text only
+;
+MSG_Prefs_Miami_Borderless
+Ertzarik _gabe
+; _Borderless
+;
+MSG_Prefs_Miami_Borderless_Help
+Hautatzen denan botoiek\n\
+ez daukate ertzarik.
+; If selected, buttons\n\
+; are borderless.
+;
+MSG_Prefs_Miami_Sunny
+_Highlight
+; _Highlight
+;
+MSG_Prefs_Miami_Sunny_Help
+Hautatzen denan botoiak\n\
+zuri-beltzez koloreztatzen dira\n\
+sagua gainean jartzen denean.
+; If selected, buttons,\n\
+; rendered in black and\n\
+; white, are colored when\n\
+; the mouse is over them.
+;
+MSG_Prefs_Miami_Raised
+Rais_ed
+; Rais_ed
+;
+MSG_Prefs_Miami_Raised_Help
+Hautatzen denan ertzarik ez duten\n\
+botoietan ertza marrazten da\n\
+sagua gainean jartzen denean.
+; If selected, a border is drawn\n\
+; around borderless buttons,\n\
+; when the mouse is over them.
+;
+MSG_Prefs_Miami_Scaled
+Es_kalatuta
+; Scale_d
+;
+MSG_Prefs_Miami_Scaled_Help
+Hautatzen denan botoiak\n\
+eskalatzen dira MUI/TheBaren\n\
+hobespenak jarraituz.
+; If selected, buttons are\n\
+; scaled, according to\n\
+; MUI/TheBar prefereces.
+;
+MSG_Prefs_Miami_LabelPosition
+_Posición de etiqueta
+; _Label position
+;
+MSG_Prefs_Miami_LabelPosition_Help
+Testuaren posizioa doitu\n\
+\"Ikonoak eta testua\" atalan\n\
+; Adjust the position of the\n\
+; text in \"Icons and text\"\n\
+; buttons.
+;
+MSG_Prefs_Miami_LabelPosition_Bottom
+Behean
+; Bottom
+;
+MSG_Prefs_Miami_LabelPosition_Top
+Goian
+; Top
+;
+MSG_Prefs_Miami_LabelPosition_Right
+Eskuinan
+; Right
+;
+MSG_Prefs_Miami_LabelPosition_Left
+Ezkerran
+; Left
+;
+MSG_Prefs_Miami_BarLayout
+Barruko pos_izioa
+; _Inner position
+;
+MSG_Prefs_Miami_BarLayout_Help
+Doitu barrako botoien\n\
+posizioa.
+; Adjust the position of the\n\
+; buttons in the bar.
+;
+MSG_Prefs_Miami_BarLayout_Left
+Ezker/Gora
+; Left/Up
+;
+MSG_Prefs_Miami_BarLayout_Center
+Zentroa
+; Center
+;
+MSG_Prefs_Miami_BarLayout_Right
+Eskuin/Behera
+; Right/Down
+;
+MSG_Prefs_Miami_Underscore
+La_sterbideak erabili
+; Use sh_ort cuts
+;
+MSG_Prefs_Miami_Underscore_Help
+Hautatutzen denean botoien\n\
+lasterbideak erabiltzen dira.
+; If selected, buttons text\n\
+; shortcuts are used.
+;
+MSG_Prefs_OnIconify
+Ik_onifikatu
+; _On iconify
+;
+MSG_Prefs_OnIconify_Help
+Ekintza ikonifikatzean:\n\
+Atera - panelatik atera\n\
+Ezkutatu - panela ezkutatu
+; Action to take on iconify:\n\
+; Quit - quit the panel\n\
+; Hide - iconify the panel
+;
+MSG_Prefs_OI_Quit
+Atera
+; Quit
+;
+MSG_Prefs_OI_Hide
+Ezkutatu
+; Hide
+;
+MSG_Prefs_BWin
+BWin er_abili
+; Us_e BWin
+;
+MSG_Prefs_BWin_Help
+Hautatzen denean panelak BWin.mcc\n\
+erabiltzen du bere leiho nagusirako.
+; If selected, the panel uses\n\
+; BWin.mcc for its main window.
+;
+MSG_Prefs_BWinBorders
+_BWin ertzak erabili
+; Use _BWin borders
+;
+MSG_Prefs_BWinBorders_Help
+Hautatzen denean BWin.mcc\n\
+ertzak erabiltzen ditu.
+; If selected, BWin.mcc\n\
+; uses borders.
+;
+MSG_Prefs_Save
+_Gorde
+; _Save
+;
+MSG_Prefs_Save_Help
+Hobespenak gorde eta atera.
+; Save preferences and exit.
+;
+MSG_Prefs_Use
+_Erabili
+; _Use
+;
+MSG_Prefs_Use_Help
+Hobespenak erabili eta atera.
+; Use preferences and exit.
+;
+MSG_Prefs_Apply
+Ez_arri
+; _Apply
+;
+MSG_Prefs_Apply_Help
+Hobespenak ezarri eta atera.
+; Apply preferences and exit.
+;
+MSG_Prefs_Test
+_Probatu
+; _Test
+;
+MSG_Prefs_Test_Help
+Hobespenak atera gabe probatu.\n\
+Hobespenak berrezartzen dira\n\
+atera aurretik.
+; Test preferences without exit.\n\
+; Preferences are restored\n\
+; before exit.
+;
+MSG_Prefs_Cancel
+_Deuseztu
+; _Cancel
+;
+MSG_Prefs_Cancel_Help
+Atera gorde gabe
+; Exit without save.
+;
+MSG_Prefs_IF_UseBusyBar
+_busy bar erabili
+; Use _busy bar
+;
+MSG_Prefs_IF_UseBusyBar_Help
+Hautatzen denean barra bat agertzen\n\
+da interfaze baten egoera aldatzen\n\
+denean.
+; If selected, a busy bar appears\n\
+; when an interface changes its\n\
+; state.
+;
+MSG_Prefs_Miami_Frame
+_Markoztatu
+; _Frame
+;
+MSG_Prefs_Miami_Frame_Help
+Hautatzen denean botoien barra\n\
+markoztatzen da.
+; If selected, buttons\n\
+; bar is framed.
+;
+MSG_Prefs_Miami_DragBar
+Barra _Arrastatu 
+; _Drag bar
+;
+MSG_Prefs_Miami_DragBar_Help
+Hautatzen denean botoien barra\n\
+arrastagarria da.
+; If selected, buttons\n\
+; bar is draggable.
+;
+MSG_Prefs_UseTransparency
+Gardentasuna e_rabili
+; Use t_ransparency
+;
+MSG_Prefs_UseTransparency_Help
+Hautatzen denan panelak gardentasuna erabiltzen du.
+; If selected, the panel uses transparency.
+;
+MSG_About_WinTitle
+MUI.MiamiPanel buruz
+; About MUI.MiamiPanel
+;
+MSG_About_Information
+Informazioa:
+; Information
+;
+MSG_About_Version
+Bertsioa:
+; Version:
+;
+MSG_About_Author
+Egile:
+; Author:
+;
+MSG_About_Support
+Laguntza:
+; Support:
+;
+MSG_About_MiamiSite
+MiamiDx webgunea:
+; MiamiDx site:
+;
+MSG_About_ThirdParts
+Irugarren parteak
+; Third parts
+;
+MSG_About_Lamp
+Lamp.mcc:
+; Lamp.mcc by
+;
+MSG_About_Busy
+Busy.mcc:
+; Busy.mcc by
+;
+MSG_About_OfCourse
+, jakina!
+; , of course!
+;
+MSG_About_Translation
+
+; 
+; Put your language translation info here, something like "Japanes translation by Oko Hono"
+; Check it is not too long

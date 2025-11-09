@@ -1,0 +1,365 @@
+## version $VER: installaros.catalog 2.0 (11.03.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_TITLE
+Aros instalatzailea
+; AROS Installer
+;
+MSG_DESCRIPTION
+AROS instalatzeko aplikazioa.
+; Installs AROS on to a Drive.
+;
+MSG_WELCOME
+\033b\nOngi etorri AROS Research OS-en instalatzailera.\n\n\033nPrograma honek AROS zure ordenagailuko\ndisko gogorrean edo USB batean instalatzeko aukera ematen dizu.\n\nKontuan izan software honen egonkortasuna ezin dela bermatu.\nSistemaren edozein diskotan \033datu-galera\033 gerta daiteke,\nbeste sistema eragile batek erabiltzen\ndituenetan barne.\n
+; \033b\nWelcome to the AROS Research OS installer.\n\n\033nThis program allows you to install AROS\non your computer's hard disk or an attached USB drive.\n\nPlease be aware that the stability of this software\ncannot be guaranteed.\nIt is possible that \033bloss of data\033n may occur\non any drive in your system, including those\nused by other operating systems.\n
+;
+MSG_INSTALLOPTIONS
+\nMesedez hautatu instalazio aukerak.\n\n
+; \nPlease choose your installation options.\n\n
+;
+MSG_DESTOPTIONS
+\nMezedez, hautatu AROS non instalatuko den.\n\nZiur ez bazaude, hautatu lehenetsitako baloreak.
+; \nPlease choose where to install AROS.\n\nIf you are unsure, then use the defaults.
+;
+MSG_ACCEPT
+Lizentzia-kontratua onartu?
+; Accept License Agreement?
+;
+MSG_DRIVE
+\033bUnitatea:\033n
+; \033bDrive:\033n
+;
+MSG_TYPE
+Mota:
+; Type:
+;
+MSG_DEVICE
+Periferiko:
+; Device:
+;
+MSG_UNIT
+Unitatea:
+; Unit:
+;
+MSG_NAME
+Izena:
+; Name:
+;
+MSG_FILESYSTEM
+Fitxategi-sistema:
+; Filesystem:
+;
+MSG_SIZE
+Neurria:
+; Size:
+;
+MSG_MENUMODE
+Menu modua:
+; Menu Mode:
+;
+MSG_CREATE
+Sortu:
+; Create
+;
+MSG_SPECIFYSIZE
+Zehaztu tamaina
+; Specify Size
+;
+MSG_DESTVOLUME
+Helburu Partizioa
+; Destination Partition
+;
+MSG_WORKVOLUME
+Lan partizioa
+; Work Partition
+;
+MSG_CHOOSELANG
+Hizkuntza aukeratu
+; Choose Language Options
+;
+MSG_INSTALLCORE
+Oinarrizko sistema instalatu
+; Install AROS Core System
+;
+MSG_INSTALLEXTRA
+Extra softwarea instalatu
+; Install Extra Software
+;
+MSG_INSTALLDEVEL
+Garapen eta debug lanabesak instalatu
+; Install Debugging tools and Developer Software
+;
+MSG_INSTALLBOOT
+Bootloadera instalatu
+; Install Bootloader
+;
+MSG_FORMATPART
+Partizioa formateatu
+; Format Partition
+;
+MSG_USEWORK
+'Work' partizioa erabili
+; Use 'Work' Partition
+;
+MSG_USEWORKFOR
+Erabili 'Work' partizioa Extras eta Garapen lanabesak instalatzeko
+; Use 'Work' Partition for Extras and Developer Files
+;
+MSG_BEGINWITHPARTITION
+Hasteko prest gaude.\n\nGutxienez partizio bat formateatzea aukeratu duzunez,\npuntu honen ondoren ezin izango dituzu aldaketak desegin.\n\nInstalazioa hasteko sakatu Jarraitu.
+; OK, we are ready to begin.\n\nSince you've chosen to format at least one partition,\nyou will no longer be able to undo changes\nafter this point.\n\nSelect Proceed to begin installation.
+;
+MSG_BEGINWITHOUTPARTITION
+Hasteko prest gaude....\n\nOrdenagailu honetan instalatzen hasteko\nbehar den informazioa bildu dugu.\nInstalazioa hasteko sakatu Jarraitu.
+; OK, we are ready to begin...\n\nWe have collected enough information\nto begin installation on this computer.\n\n\nSelect Proceed to begin installation.
+;
+MSG_PARTITIONOPTIONS
+AROS partizioak sortuko ditugu orain hautatutako diskoan.\n\nMezedez, hautatu nola jarraitu.\n
+; We will now create AROS partitions on the destination drive.\n\nPlease select how you would like to proceed.\n
+;
+MSG_DESTPARTITION
+\033bSistemaren partizioa:\033n
+; \033bSystem Partition:\033n
+;
+MSG_WORKPARTITION
+\033bWork partizioa:\033n
+; \033bWork Partition:\033n
+;
+MSG_USEFREE
+Bakarrik erabili gabeko espazioa erabili
+; Only use free space
+;
+MSG_WIPEDISK
+Ezabatu diskoa
+; Wipe disk
+;
+MSG_USEEXISTING
+Jadanik existitzen diren AROS partizioak erabili (edozein unitatean)
+; Use existing AROS partitions (on any drive)
+;
+MSG_PARTITIONTOOBIG
+Hautatutako partizioaren tamaina handiegia da.\nSFS partizio baten gehieneko tamaina %ld GB da (%ld MB),\neta FFS partizio batena, berriz, %ld GB (%ld MB).\nMesedez, gutxitu partizioaren tamaina.\n
+; The partition sizes you have requested are too large.\nThe maximum size of an SFS partition is %ld GB (%ld MB),\nwhile the maximum size of an FFS partition is %ld GB (%ld MB).\nPlease reduce the size of the affected partitions.\n
+;
+MSG_GRUBOPTIONS
+AROS sistemak GRUB bootloader erabiltzen du.\n\nKasu gehienetan, GRUBren bootblocka\nzure sistemako lehen unitatean instalatu behar da.\nInstalatzaileak Microsoft Windowsen instalazio bat detektatzen badu,\nGRUBren menuan sartuko du.\n
+; AROS uses the GRUB bootloader.\n\nIn most cases, GRUB's bootblock should\nbe installed on the first drive in your system.\nIf the Installer detects a Microsoft Windows installation,\nit will be included as a choice in GRUB's boot menu.\n
+;
+MSG_GRUBDRIVE
+Bootloaderreko bootblocka instalatuko den unitatea:
+; Drive to install Bootloader's bootblock on:
+;
+MSG_GRUBGOPTIONS
+GRUB konfigurazioa
+; GRUB Settings
+;
+MSG_GRUBGRUB
+GRUB fitzategien kokapena:
+; Path to GRUB files:
+;
+MSG_NOGRUBDEVICE
+GRUBaren bootblocka zein periferikoan eta unitate-zenbakian\nintalatuko den hautatu, mesedez.\n
+; Please enter the device name and unit number for\nthe drive GRUB's bootblock should be installed on.\n
+;
+MSG_PARTITIONING
+Unitateak partizionatzen...\n\n
+; Partitioning your drives...\n\n
+;
+MSG_FORMATTING
+'%s' formateatzen...
+; Formatting '%s'...
+;
+MSG_INSTALL
+Fitxategiak xede-unitatera kopiatzen.\n\nHonek denbora apur bat har dezake....\n
+; Copying files to the destination drive.\n\nThis may take some time...\n
+;
+MSG_COPYCORE
+Oinarrizko fitxategiak instalatzen...
+; Copying Core System files...
+;
+MSG_COPYEXTRA
+Extra softwarea kopiatzen...
+; Copying Extra Software...
+;
+MSG_COPYDEVEL
+Garapen softwarea kopiatzen...
+; Copying Developer Files...
+;
+MSG_COPYBOOT
+BOOT fitxategiak kopiatzen...
+; Copying BOOT files...
+;
+MSG_BOOTLOADER
+Bootloaderra helmugako unitatera\nkopiatzen eta instalatzen...\n
+; Copying the bootloader to your\ndestination drive, and installing...\n
+;
+MSG_POSTINSTALL
+Instalazio osteko scripta exekutatzen...
+; Running post-install script...
+;
+MSG_POSTINSTALL2
+Instalazio ondoko kanpoko scripta\n exekutatzen. Mesedez, itxaron.\n
+; Running the external post-install\nscript. Please wait.\n
+;
+MSG_DONEREBOOT
+AROS partizioak sortu dira!\nInstalazioarekin jarraitzeko berrabiarazi AROS\neta berriro instalatzaile hau abiarazi.\n\nHauta ezazu Jarraitu bukatzeko.\n
+; AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
+;
+MSG_DONEUSB
+AROS partizioak sortu dira!\nInstalazioarekin jarraitzeko, zure USB unitatea\natera behar duzu, berriro sartu,\neta instalatzaile hau berriro abiarazi\n\nHautatu Jarraitu bukatzeko.
+; AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application.\n\nSelect Proceed to finish.n
+;
+MSG_INSTALLING
+AROS instalatzen...
+; Installing AROS...
+;
+MSG_INSTALLINGBOOT
+Bootloadera instalatzen...
+; Installing Bootloader...
+;
+MSG_DONE
+Zorionak, AROS instalatu duzu!\n\nAROS helburuko unitatetik abiarazteko,\nkendu instalazio-diskoa eta berrabiarazi\nordenagailua pizteko edo berrabiarazteko\nbotoia erabiliz.\n\nHautatu Jarraitu amaitzeko.\n
+; Congratulations, you now have AROS installed!\n\nTo boot AROS from the destination drive,\nremove the installation media and\nrestart your computer using the\npower switch or reset button.\n\nSelect Proceed to finish.\n
+;
+MSG_CANCELOK
+Ziur zaude instalazioa deuseztu\nnahi duzula?\n
+; Are you sure you wish to cancel\nthis installation?\n
+;
+MSG_CANCELDANGER
+Aldaketa itzulezinak egin dira\nzure sisteman.\n\nOrain ezeztatzeak zure PCa abiarazgarri\nez den estatu batean utz dezakeze.\n\nZiur zaude instalazioa ezeztatu nahi duzula?\n
+; Irreversible changes have been made\nto your system.\n\nCancelling now may leave your PC in an\nunbootable state.\n\nAre you sure you wish to cancel\nthis installation?\n
+;
+MSG_BACK
+<< _Atzera...
+; << _Back...
+;
+MSG_PROCEED
+_Jarraitu
+; _Proceed
+;
+MSG_NOTALLFILESCOPIED
+Ez dira '%s'-ko fitxategi guztiak kopiatu.\nInstalazioarekin jarraitu?\n
+; Not all files in '%s'\nwere copied.\nShould the installation continue?\n
+;
+MSG_PARTITIONINGFAILED
+Diskoaren partizioak egiteak akats egin du. InstallAROS\nitxiko da.
+; Partitioning of disk failed. InstallAROS\nwill now quit.
+;
+MSG_GRUBNONFFSWARNING
+FFS-Intl ez den beste fitxategi-sistema bat\nhautatu duzu sistemaren partiziorako.\nAROS distribuzio hau jatorrizko GRUB abiarazlearekin\nkonpilatuta dagoenez, ezin izango duzu sistema\nabiarazi instalatu ondoren.\n\nInstalazioarekin jarraitu nahi duzu?\n
+; You have selected a filesystem different\nthan FFS-Intl for the system partition. Since\nthis distribution of AROS is compiled with the\noriginal GRUB bootloader, you will not be able to\nboot the system after installation.\n\nShould the partitioning continue?\n
+;
+MSG_CANCELINSTALL
+Instalazioa deuseztu...
+; Cancel Installation...
+;
+MSG_CONTINUECANCELINST
+*Jarraitu Instalazioarekin|Instalazioa deuseztu
+; *Continue Install|Cancel Install
+;
+MSG_CONTINUECANCELPART
+Zatitzearekin jarraitu|*Deuseztu Zatitzea
+; Continue Partitioning|*Cancel Partitionin
+;
+MSG_CONTINUEQUIT
+Jarraitu|*Atera
+; Continue|*Quit
+;
+MSG_EXISTSRETRY
+%s fitxategia existitzen da\nordezkatu nahi duzu?
+; File Already Exists\nReplace %s?
+;
+MSG_RETRY
+Saiatu berriro
+; Retry
+;
+MSG_SCANRETRY
+Akatsa %s irakurtzen\nSaiatu berriro?
+; Error scanning %s\nRetry?
+;
+MSG_FINDRETRY
+Ezin dut %s aurkitu\nSaiatu berriro?
+; Could not find %s\nRetry?
+;
+MSG_COULDNTOPEN
+Ez daukat %s irekitzerik
+; Couldn't Open %s
+;
+MSG_COULDNTWRITE
+Ez daukat %s idazterik
+; Couldn't Write to %s
+;
+MSG_DISKFULL
+Ez daukat %s diskoan idazterik\nBeteta dago!
+; Couldn't Write to %s\nDisk Full!
+;
+MSG_TEXT
+Testua
+; Text
+;
+MSG_GFX
+Grafikoak
+; Graphics
+;
+MSG_YES
+Bai
+; Yes
+;
+MSG_YESALWAYS
+Bai [Beti]
+; Yes [Always]
+;
+MSG_NO
+Ez
+; No
+;
+MSG_SKIP
+Salto egin
+; Skip
+;
+MSG_OK
+Ados
+; OK
+;
+MSG_CANCEL
+Deuseztu
+; Cancel
+;
+MSG_CANCEL2
+_Deuseztu
+; _Cancel
+;
+MSG_QUIT
+Atera
+; Quit
+;
+MSG_QUIT2
+IRTEN
+; QUIT
+;
+MSG_ERROR
+Akats
+; Error
+;
+MSG_WARNING
+Oharpen
+; Warning
+;
+MSG_REBOOT
+Berrabiarazi AROS orain
+; Reboot AROS now
+;
+MSG_IOERROR
+S/I akats bat sortu da
+; IO Error has occured
+;
+MSG_NOTFILESYSTEM
+'%s' periferikoak ez du fitxategi-sistemarik\n
+; device '%s' doesn't contain a file system\n
+;
+MSG_NOTDEVICE
+'%s' unitateak ez dauka periferiko izenik\n
+; '%s' doesn't contain a device name\n
+;

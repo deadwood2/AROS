@@ -1,0 +1,53 @@
+## version $VER: SystemPrefsWindow.catalog 2.0 (12.02.2021)
+## language euskara
+## codeset 0
+;
+;
+MSG_MENU_PREFS
+Hobespenak
+; Preferences
+;
+MSG_MENU_PREFS_IMPORT
+I\0Inportatu...
+; I\0Import...
+;
+MSG_MENU_PREFS_EXPORT
+E\0Esportatu...
+; E\0Export...
+;
+MSG_MENU_PREFS_TEST
+P\0Probatu
+; T\0Test
+;
+MSG_MENU_PREFS_REVERT
+A\0Atzera eman
+; R\0Revert
+;
+MSG_MENU_PREFS_SAVE
+G\0Gorde
+; S\0Save
+;
+MSG_MENU_PREFS_USE
+U\0Erabili
+; U\0Use
+;
+MSG_MENU_PREFS_CANCEL
+C\0Deuseztu
+; C\0Cancel
+;
+MSG_MENU_PREFS_EXPORT_WITH_ICON
+Esportatu ikonoarekin...
+; Export with Icon...
+;
+MSG_MENU_RESET_TO_DEFAULTS
+Lehenetsitako balioak berrezartu
+; Reset to Defaults
+;
+MSG_FILEREQ_EXPORT_TITLE
+Esportatu
+; Export
+;
+MSG_FILEREQ_IMPORT_TITLE
+Inportatu
+; Import
+;

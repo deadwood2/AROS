@@ -1,0 +1,197 @@
+;******************
+;
+;   ReqTools V38
+;
+;   Euskara
+;
+;******************
+;
+## version $VER: reqtools.catalog 39 (31.03.2016)
+## codeset 0
+## language euskara
+;
+; Note: there are two spaces around the Ok string to make it 4 chars wide.
+MSG_OK
+_Ados
+;
+MSG_CANCEL
+_Deuseztu
+;
+; *** EZRequester ***
+;
+MSG_OK_BAR_CANCEL
+ _Ados |_Deuseztu
+;
+MSG_LAST_BAR_CANCEL
+_Aurrekoa |_Deuseztu
+;
+MSG_REQUEST
+Eskaera
+;
+MSG_INFORMATION
+Informazioa
+;
+; *** GetLong Requester ***
+;
+; Note: there are two spaces around the next three strings!
+MSG_MIN_FMT
+ Min: %ld
+;
+MSG_MAX_FMT
+ Max: %ld
+;
+MSG_MIN_MAX_FMT
+ Min: %ld, Max: %ld
+;
+MSG_TOO_SMALL
+Txikiegia da!
+;
+MSG_TOO_BIG
+Handiegia da!
+;
+; *** Palette Requester ***
+;
+MSG_PALETTE_COLORS
+ko_lore-paleta:
+;
+MSG_RED
+_Gorria:
+;
+MSG_GREEN
+_Berdea:
+;
+MSG_BLUE
+_Urdina:
+;
+MSG_COPY
+Ko_piatu
+;
+MSG_SWAP
+_Trukatu
+;
+MSG_SPREAD
+_Banatu
+;
+MSG_UNDO
+_Desegin
+;
+; ** 2.5 **
+;
+MSG_COPY_TITLE
+...ra kopiatu
+; Copy to...
+;
+MSG_SWAP_TITLE
+Hautatu trukatzeko...
+; Swap with...
+;
+MSG_SPREAD_TITLE
+Hautatu banatzeko...
+; Spread to...
+;
+; *** File Requester ***
+;
+MSG_CREATE_DRAWER
+%s direktorioa ez dago  \nSortu nahi duzu?
+;
+MSG_DIR_ERROR
+Direktorio okerra!
+;
+MSG_MATCH_WINTITLE
+Patroi...
+;
+MSG_DRAWER
+Direktorioa
+;
+MSG_ASSIGN
+Esleipena
+;
+MSG_ALL
+De_na
+;
+MSG_MATCH
+_Patroia...
+;
+MSG_CLEAR
+_Ezabatu
+;
+MSG_VOLUMES
+_Bolumena
+;
+MSG_PARENT
+_Aurrekoa
+;
+MSG_PATTERN
+Pat_roi:
+;
+MSG_GET
+_Hartu
+;
+MSG_DOT_INFO
+._info
+;
+MSG_SELECTED
+Hautatuta:
+;
+MSG_FULL
+%ld%% beteta
+;
+; *** Font Requester ***
+;
+MSG_COULDNT_OPEN_FONT
+¡Ezin dut letra-tipoa ireki!
+;
+MSG_BOLD
+_Lodia
+;
+MSG_ITALIC
+_Italika
+;
+MSG_UNDERLINE
+_Azpimarratuta
+;
+; *** ScreenMode Requester ***
+;
+MSG_DASH_INTERLACED
+-Entrelazatuta
+;
+MSG_DASH_HAM
+-HAM
+;
+MSG_DASH_EHB
+-EHB
+;
+MSG_REGULAR_SIZE
+Tamaino Arrunta
+;
+MSG_TEXT_SIZE
+Testuaren Tamainoa
+;
+MSG_GFX_SIZE
+Grafikoen Tamainoa
+;
+MSG_MAX_SIZE
+Gehienezko Tamainoa
+;
+MSG_OVERSCAN
+O_verscan:
+;
+MSG_WIDTH
+_Zabalera:
+;
+MSG_HEIGHT
+Al_tuera:
+;
+;
+MSG_DEFAULT
+Lehenetsita
+;
+MSG_COLORS
+Ko_loreak:
+;
+MSG_MAX
+Max:
+;
+MSG_AUTOSCROLL
+A_utoScroll:
+;

@@ -1,0 +1,81 @@
+## version $VER: wbnewdrawer.catalog 2.0 (30.09.2007)
+## codeset 0
+## language euskara
+;
+MSG_TITLE
+WBNewDrawer
+;WBTiraderaBerria
+;
+MSG_DESCRIPTION
+Tiradera bat sortzen du
+;Creates new drawer with optional icon
+;
+MSG_COPYRIGHT
+©2006, AROS Dev Team
+;
+MSG_WINDOW_TITLE
+Tiradera bat sortu
+;Create new drawer
+;
+MSG_LINE
+Tiradera berriaren izena idatzi
+;Enter the name of the new drawer
+;
+MSG_NAME
+Tiradera berriaren izena:
+;New drawer name:
+;
+MSG_ICON
+Ikono
+;Icon
+;
+MSG_OK
+_Ados
+;_OK
+;
+MSG_CANCEL
+De_useztu
+;
+MSG_BASENAME
+Tiradera_Berria
+;Rename_Me
+;
+MSG_ERROR_TITLE
+WBNewDrawer: Akatsa
+;WBNewDrawer: Error
+;
+MSG_ALREADY_EXIST
+Badago tiradera bat '%s' izendatuta!
+;'%s' already exists!
+;
+MSG_CANT_CREATE
+Ezin da '%s' izeneko tiradera berria sortu!
+;Can't create drawer '%s'!
+;
+MSG_INFO_ALREADY
+Badago fitxategi bat '%s'.info izendatuta!
+;'%s'.info already exists!
+;
+MSG_ILLEGAL_CHARS
+'%s' testuan baliogabeko karakterrak daude!
+;'%s' contains illegal characters!
+;
+MSG_NEEDS_MORE_ARGS
+Bi argumentu behar dira!
+;Need 2 arguments!
+;
+MSG_INVALID_LOCK
+Ezin da tiradera blokeatu!
+;Invalid directory lock!
+;
+MSG_WB_ONLY
+Aplikazioa ezin da shelletik abiarazi!\n
+;Cannot be started from shell!\n
+;
+MSG_FAILED_CREATE_APP
+Ezin dut aplikazioa abiarazi!
+;Failed to create Application!
+;
+MSG_WRONG_ICON_TYPE
+'%s'.info ikono fitxategi ez da tiradera motakoa!
+;The existing icon file '%s'.info isn't of type Drawer!

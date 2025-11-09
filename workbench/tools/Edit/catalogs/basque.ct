@@ -1,0 +1,441 @@
+## version $VER: JanoEditor.catalog 1.0 (08.08.2024).
+## codeset 0
+## language euskara
+;
+; Catalog description for JanoEditor
+; JanoEditor.cd
+;
+;
+; *****************************
+;  NewMenu strings
+; *****************************
+;
+; Project Menu
+;
+MSG_PROJECTTITLE
+Proiektu
+;Project
+;
+MSG_NEWEMPTYFILE
+Berria
+;New
+;
+MSG_OPENNEWFILE
+Fitxategia ireki...
+;Open file...
+;
+MSG_LOADINPRJ
+Fitxategia kargatu...
+;Load file...
+;
+MSG_SAVEFILE
+Gorde
+;Save
+;
+MSG_SAVEFILEAS
+Gorde bezala... 
+;Save as...
+;
+MSG_SAVECHANGES
+Gorde aldaketak 
+;Save changes
+;
+MSG_PRINTFILE
+Inprimatu
+;Print
+;
+MSG_INFORMATION
+Informazioa...
+;Information...
+;
+MSG_CLOSE
+Itxi
+;Close
+;
+MSG_QUIT
+Atera
+;Quit
+;
+; Edit Menu
+;
+MSG_EDITTITLE
+Editatu
+;Edit
+;
+MSG_CUT
+Moztu
+;Cut
+;
+MSG_COPY
+Kopiatu
+;Copy
+;
+MSG_PASTE
+Itsatsi
+;Paste
+;
+MSG_MARK
+Paragrafoa markatu
+;Mark
+;
+MSG_MARKCOLUMN
+Zutabea markatu
+;Mark columnar
+;
+MSG_SELECTALL
+Hautatu dena
+;Elegir a todos
+;Select all
+;
+MSG_DELLINE
+Ezabatu errenkada
+;Del line
+;
+MSG_SUBTOOLS
+Lanabesak
+;Tools
+;
+MSG_INDENT
+Koska jarri
+;Indent
+;
+MSG_UNINDENT
+Koska kendu
+;Unindent
+;
+MSG_UPPERCASE
+Letra larri
+;Upper case
+;
+MSG_LOWERCASE
+Letra xehe
+;Lower case
+;
+MSG_TOGGLECASE
+Trukatu
+;Toggle case
+;
+MSG_INSERTFILE
+Fitxategia txertatu...
+;Insert file...
+;
+MSG_UNDO
+Desegin
+;Undo
+;
+MSG_REDO
+Berregin
+;Redo
+;
+; Search Menu
+;
+MSG_SEARCHTITLE
+Bilatu
+;Search
+;
+MSG_FIND
+Aurkitu...
+;Find...
+;
+MSG_REPLACE
+Ordeztu...
+;Replace...
+;
+MSG_SUBFIND
+Bilatu
+;Find
+;
+MSG_NEXTFIND
+Hurrengoa
+;Next
+;
+MSG_PREVFIND
+Aurrekoa
+;Previous
+;
+MSG_NEXTREPLACE
+Ordeztu
+;Replace
+;
+MSG_PREVPAGE
+Aurreko orrialdea
+;Prev page
+;
+MSG_NEXTPAGE
+Hurrengo orrialdea
+;Next page
+;
+MSG_GOTOLINE
+Lerrora joan...
+;Goto line...
+;
+MSG_FINDBRACKET
+Kortxete bilatu
+;Matching bracket
+;
+MSG_LASTMODIF
+Azkeneko aldaketa
+;Last modification
+;
+MSG_BEGOFLINE
+Lerroaren hasiera
+;Start of line
+;
+MSG_ENDOFLINE
+Lerroaren amaiera
+;End of line
+;
+; Makro Menu
+;
+MSG_MACROTITLE
+Makro
+;
+MSG_STARTRECORD
+Grabatzen hasi
+;Start recording
+;
+MSG_STOPRECORD
+Grabatzen amaitu
+;Stop recording
+;
+MSG_PLAYMACRO
+Makroa exekutatu
+;Execute macro
+;
+MSG_REPEATMACRO
+Makroa errepikatu...
+;Repeat macro...
+;
+; Environment Menu
+;
+MSG_ENVTITLE
+Ingurune
+;Environment
+;
+MSG_SCRMODE
+Pantaila modua...
+;Screen mode...
+;
+MSG_FONTS
+Letra-tipo...
+;Fonts...
+;
+MSG_PREFS
+Hobespenak ...
+;General prefs...
+;
+MSG_LOADPREFS
+Hobespenak kargatu...
+;Load prefs...
+;
+MSG_SAVEPREFS
+Hobespenak gorde.
+;Save prefs
+;
+MSG_SAVEPREFSAS
+Gorde hobespenak bezala...
+;Save prefs as...
+;
+;
+;
+; *****************************
+;  Possible error messages
+; *****************************
+;
+ERR_BADOS
+OS zaharkituta. Instalatu v2.0 edo gorakoa.
+;Obsolete OS. Install v2.0 or better.
+;
+ERR_NOASLREQ
+Ezin da ASL requester egokitu!
+;Cannot alloc ASL requester!
+;
+ERR_NOMEM
+Ez dago memoriarik!
+;Out of memory!
+;
+ERR_NOGUI
+Ezin da interfazea ireki!
+;Main interface failed to open!
+;
+ERR_NONAME
+Izenik gabe
+;No title
+; Not really an error but simplify translation
+;
+ERR_WRITECLIP
+Arbelean idaztean errore bat sortu da
+;Write error into clipboard device
+;
+ERR_OPENCLIP
+Ezin da arbela ireki!
+;Unable to open clipboard!
+;
+ERR_LOADFILE
+Ezin da hautatutako fitxategia ireki
+;Unable to load requested file
+;
+ERR_NOTXTINCLIP
+Arbelean ez dago testurik
+;No text in clipboard
+;
+ERR_WRONG_TYPE
+Objektua direktorio bat da!
+;Object is a directory!
+;
+ERR_READCLIP
+Irakurketa ez da osatu
+;Read operation incomplete due to probably a lack of memory
+;
+ERR_NOBRACKET
+Kurtsorean ez dago parentesirik!
+;No parenthesis under cursor!
+;
+ERR_NOT_FOUND
+'%s' patroia ez da aurkitu
+;Pattern `%s' not found
+;
+ERR_LOADFONT
+Ezin da hautatutako letra-tipoa ireki!
+;Can't open desired font!
+;
+ERR_NOPREFEDITOR
+Hobespen editorea ez da aurkitu!
+;Can't find preference editor!
+;
+ERR_BADPREFSFILE
+Hobespen fitxategia ez dago ondo formateatuta.
+;Bad preference file format.
+;
+ERR_FILEMODIFIED
+%s aldatu da.\nZiur zaude itxi nahi duzula?
+;%s has been modified.\nAre you sure want to close it?
+;
+ERR_SLC
+Gorde|Itxi|Deuseztu
+;Save|Close|Cancel
+;
+ERR_NOSEARCHTEXT
+Ez dago bilatzeko testurik!
+;No text to search for!
+;
+ERR_FILEEXISTS
+Fitxategia existitzen da. Gainidatzi?
+;This file already exists. Overwrite it?
+;
+ERR_OC
+Bai|Ez!
+;Yes|No!
+;
+WARN_RECORD
+Grabatzen hasi
+;Start recording macro
+;
+WARN_RECORDED
+Makro grabatuta
+;Macro recorded
+;
+WARN_REC
+[GRABATU]
+;[REC]
+;
+;
+; *************************************
+;  Information window related messages
+; *************************************
+;
+MSG_ABOUT
+Informazioa
+;Information
+;
+MSG_FORMATINFO
+%s\nT.Pierronek eta C.Guillaumek diseniatuta © 2000\n\nArchivo editdo: %s\nLongitud: %iu %s, %iu %s.
+;%s\nDesigned by T.Pierron and C.Guillaume © 2000\n\nFile edited: %s\nLength: %iu %s, %iu %s.
+;
+MSG_CONTINUE
+Jarratu
+;Continue
+;
+MSG_BYTE
+Karaktere
+;byte
+;
+MSG_BYTES
+Karaktereak
+;bytes
+;
+MSG_LINE
+Lerro
+;line
+;
+MSG_LINES
+Lerroak
+;lines
+;
+;
+; *************************
+;  Search & replace window
+; *************************
+;
+MSG_SEARCHWINDOW
+Patroi bilaketa
+;Search pattern
+;
+MSG_REPLACEWINDOW
+Bilatu eta ordezkatu
+;Search & Replace
+;
+MSG_SEARCHSTRING
+Bilatu:
+;Locate:
+;
+MSG_REPLACESTRING
+Trukatu:
+;Replace:
+;
+MSG_OPTCASE
+Lodi/Xehe berdin
+;Match case
+;
+MSG_OPTWORDS
+Hitz osoak
+;Whole words
+;LISTO
+;
+;
+MSG_BUTTONREPLACE
+_Ordeztu
+;_Replace
+;
+MSG_BUTTONREPALL
+_Ordeztu guztiak
+;Replace _All
+;
+MSG_BUTTONSEARCH
+Bilatu
+;Search
+;
+MSG_NEXTSEARCH
+_Aurrekoa
+;_Previous
+;
+MSG_USESEARCH
+_Erabili
+;_Use
+;
+MSG_CANCELSEARCH
+_Deuseztu
+;_Cancel
+;
+MSG_REPLACEALL
+'%s'tako %iu ordeztu dira
+;%iu %s of `%s' replaced
+;
+MSG_OCCURENCY
+Agerpena
+;occurency
+;
+MSG_OCCURENCIES
+Agerpenak
+;occurencies
+;

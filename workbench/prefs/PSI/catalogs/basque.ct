@@ -1,0 +1,580 @@
+## version $VER: PSI.catalog 19.0 (26.08.2021)
+## language euskara
+## codeset 0
+;
+MSG_MENU_PROJECT
+Proiektu
+; Project
+;
+MSG_MENU_PROJECT_OPEN
+Ireki...
+; Open...
+;
+MSG_MENU_PROJECT_APPEND
+Gehitu...
+; Append...
+;
+MSG_MENU_PROJECT_SAVEAS
+Gorde berria...
+; Save As...
+;
+MSG_MENU_PROJECT_ABOUT
+Buruz...
+; About...
+;
+MSG_MENU_PROJECT_QUIT
+Atera
+; Quit
+;
+MSG_MENU_EDIT
+Editatu
+; Edit
+;
+MSG_MENU_EDIT_LASTSAVED
+Gordetako azkena
+; Last Saved
+;
+MSG_MENU_EDIT_RESTORE
+Berrezarri
+; Restore
+;
+MSG_MENU_SETTINGS
+Ezarpenak
+; Settings
+;
+MSG_MENU_SETTINGS_MUI
+MUI...
+; MUI...
+;
+MSG_MENU_COLORS
+Koloreak
+; Colors
+;
+MSG_MENU_COLORS_PRESETS
+Lehenetzitako ezarpenak
+; Presets
+;
+MSG_MENU_COLORS_PRESETS_2COL
+Monokromoko ezarpenak
+; Monochrome Settings
+;
+MSG_MENU_COLORS_PRESETS_4COL
+4 Koloreko ezarpenak
+; 4-Color Settings
+;
+MSG_MENU_COLORS_PRESETS_8COL
+MagicWBeko ezarpenak
+; MagicWB Settings
+;
+MSG_BUTTON_OK
+_Ados
+; _OK
+;
+MSG_BUTTON_CANCEL
+Deuseztu
+; Cancel
+;
+MSG_BUTTON_SAVE
+Gorde
+; Save
+;
+MSG_BUTTON_USE
+Erabili
+; Use
+;
+MSG_BUTTON_NEW
+_Berri
+; _New
+;
+MSG_BUTTON_COPY
+_Kopiatu
+; _Copy
+;
+MSG_BUTTON_DELETE
+_Ezabatu
+; _Delete
+;
+MSG_BUTTON_EDIT
+_Editatu...
+; _Edit...
+;
+MSG_BUTTON_OPEN
+_Ireki
+; _Open
+;
+MSG_BUTTON_CLOSE
+_Itxi
+; _Close
+;
+MSG_BUTTON_JUMP
+_Salto egin
+; _Jump
+;
+MSG_BUTTON_KILL
+Erahil
+; Kill
+;
+MSG_TITLE_PUBSCREENWINDOW
+Pantaila editatu:
+; Edit Screen:
+;
+MSG_TITLE_SAVE
+Gorde pantaila publikoko fitxategia
+; Save PublicScreen File
+;
+MSG_TITLE_OPEN
+Ireki pantaila publikoko fitxategia
+; Load PublicScreen File
+;
+MSG_TITLE_APPEND
+Gehitu pantaila publikoko fitxategia
+; Append PublicScreen File
+;
+MSG_LIST_SCREENNAME
+Izena
+; Name
+;
+MSG_LIST_SCREENMODE
+Bistaratze modua
+; Display Mode
+;
+MSG_LIST_UNKNOWNMODE
+(ezezaguna)
+; (unknown)
+;
+MSG_LIST_FOREIGNSCREEN
+(kanpotar)
+; (foreign)
+;
+MSG_LABEL_PUBLICNAME
+_Izen publikoa: 
+; Public _Name:
+;
+MSG_LABEL_SCREENTITLE
+_Pantailaren izenburua:
+; Screen _Title:
+;
+MSG_LABEL_DISPLAYMODE
+_Bistaratze modua:
+; _Display Mode:
+;
+MSG_LABEL_DEFAULTFONT
+_Lehenetsitako letra-tipoa:
+; Default _Font:
+;
+MSG_LABEL_BACKGROUND
+_Atzealdea:
+; _Background:
+;
+MSG_LABEL_PUBLICFLAGS
+Flagak:
+; Flags:
+;
+MSG_LABEL_AUTOSCROLL
+_Autoscroll
+; _Autoscroll
+;
+MSG_LABEL_NODRAG
+_Arrastratu gabe
+; No D_rag
+;
+MSG_LABEL_EXCLUSIVE
+_Esklusibo
+; _Exclusive
+;
+MSG_LABEL_INTERLEAVED
+_Entrelazatuta
+; _Interleaved
+;
+MSG_LABEL_OPENBEHIND
+Ireki _atzean
+; Open Be_hind
+;
+MSG_LABEL_SYSTEMDEFAULT
+S_istemaren lehenetsiak 
+; S_ystem Default
+;
+MSG_LABEL_AUTOCLOSE
+Auto itxi
+; Auto Close
+;
+MSG_LABEL_CLOSEGADGET
+Itxiera Gadgeta
+; Close Gadget
+;
+MSG_LABEL_OVERSCAN
+O_verscan:
+; O_verscan:
+;
+MSG_LABEL_SIZE
+_Neurria:
+; _Size:
+;
+MSG_LABEL_CROSS
+_x
+; _x
+;
+MSG_LABEL_DEPTH
+_Sakontasuna:
+; _Depth:
+;
+MSG_LABEL_VISIBLE
+Ikusgarri:
+; Visible:
+;
+MSG_LABEL_MINIMUM
+Minimo:
+; Minimum:
+;
+MSG_LABEL_MAXIMUM
+Maximo:
+; Maximum:
+;
+MSG_LABEL_BITSPERGUN
+Bits/Gun:
+; Bits/Gun:
+;
+MSG_LABEL_SCANRATE
+Freskatze tasa:
+; Scanrate:
+;
+MSG_LABEL_SCANLINE
+Scanline:
+; Scanline:
+;
+MSG_CLI_SCREENOPENED
+Pantaila irekita (0).\n
+; Screen opened (0).\n
+;
+MSG_CLI_SCREENOPENFAILED
+Ez da pantaila ireki (5).\n
+; Failed to open screen (5).\n
+;
+MSG_CLI_SCREENCLOSED
+Pantaila itxita (0).\n
+; Screen closed (0).\n
+;
+MSG_CLI_SCREENCLOSEFAILED
+Ez da pantaila itxi (5).\n
+; Failed to close screen (5).\n
+;
+MSG_CLI_SYNTAXERROR
+Sintaxi-errorea komando-lerroan (10).\n
+; Syntax Error in command line (10).\n
+;
+MSG_CLI_SCREENNOTFOUND
+Ez da pantaila aurkitu (5).\n
+; Screen not found (5).\n
+;
+MSG_CLI_OUTOFMEMORY
+Ez dago memoriarik (20).\n
+; Out of memory (20).\n
+;
+MSG_CLI_NOAPPLICATION
+Akatsa aplikazioa sortzean (20).\n
+; Failed to create application (20).\n
+;
+MSG_CLI_NOMUIMASTER
+Akatsa muimaster.library V11 irekitzean(20).\n
+; Failed to open muimaster.library V11 (20).\n
+;
+MSG_ABOUT_NUMBEROFSCREENS
+Pantaila zenbakia:
+; Number of screens:
+;
+MSG_TEXT_UNKNOWNMODE
+Bistaratze modu ezezaguna
+; Unknown Display Mode
+;
+MSG_TEXT_FOREIGNSCREEN
+Pantaila publiko arrotza
+; Foreign public screen
+;
+MSG_PALETTE_TITLE
+Paleta
+; Palette
+;
+MSG_PALETTE_FIRST
+Lehen 4 Koloreak
+; First 4 colors
+;
+MSG_PALETTE_LAST
+Azken 4 koloreak
+; Last 4 colors
+;
+MSG_SYSPENS_TITLE
+Sistemaren arkatzak
+; System Pens
+;
+MSG_SYSPEN_DETAIL
+Xehetasun
+; Detail
+;
+MSG_SYSPEN_BLOCK
+Bloke
+; Block
+;
+MSG_SYSPEN_TEXT
+Testua
+; Text
+;
+MSG_SYSPEN_SHINE
+Distiratsu
+; Shine
+;
+MSG_SYSPEN_SHADOW
+Itzala
+; Shadow
+;
+MSG_SYSPEN_FILL
+Bete
+; Fill
+;
+MSG_SYSPEN_FILLTEXT
+Testu betetzea
+; Filltext
+;
+MSG_SYSPEN_BACKGROUND
+Atzealdea
+; Background
+;
+MSG_SYSPEN_HIGHLIGHT
+Azpimarratuta
+; Highlight
+;
+MSG_SYSPEN_BARDETAIL
+Bardetail
+; Bardetail
+;
+MSG_SYSPEN_BARBLOCK
+Barblock
+; Barblock
+;
+MSG_SYSPEN_BARTRIM
+Bartrim
+; Bartrim
+;
+MSG_PALPRES_TITLE
+Koloreen ezarpen lehenetsiak
+; Color Presets
+;
+MSG_PALPRES_STANDARD
+0\0Standard
+; 0\0Standard
+;
+MSG_PALPRES_TINT
+1\0Tint
+; 1\0Tint
+;
+MSG_PALPRES_PHARAO
+2\0Pharao
+; 2\0Pharao
+;
+MSG_PALPRES_SUNSET
+3\0Sunset
+; 3\0Sunset
+;
+MSG_PALPRES_OCEAN
+4\0Ocean
+; 4\0Ocean
+;
+MSG_PALPRES_STEEL
+5\0Steel
+; 5\0Steel
+;
+MSG_PALPRES_CHOCOLATE
+6\0Chocolate
+; 6\0Chocolate
+;
+MSG_PALPRES_PEWTER
+7\0Pewter
+; 7\0Pewter
+;
+MSG_PALPRES_WINE
+8\0Wine
+; 8\0Wine
+;
+MSG_PALPRES_MAGICWB
+9\0MagicWB
+; 9\0MagicWB
+;
+MSG_PALPRES_CLONEWB
+Clone WB
+; Clone WB
+;
+MSG_OVERSCAN_TEXT
+Testu
+; Text
+;
+MSG_OVERSCAN_GRAPHICS
+Grafikoak
+; Graphics
+;
+MSG_OVERSCAN_EXTREME
+Muturrekoa
+; Extreme
+;
+MSG_OVERSCAN_MAXIMUM
+Maximoa
+; Maximum
+;
+MSG_EDITPAGE_ATTRIBUTES
+Ezaugarriak
+; Attributes
+;
+MSG_EDITPAGE_DISPLAY
+Pantaila
+; Display
+;
+MSG_EDITPAGE_COLORS
+Koloreak
+; Colors
+;
+MSG_HELP_WHEEL
+Arkatzen taldeen\nkoloreak doitu.
+; Adjust color for\ngroup of pens.
+;
+MSG_HELP_INFO
+Modu eta tamainuaren\ninformazioa.
+; Information about\nmode & size.
+;
+MSG_HELP_NAME
+Pantaila publikoaren izena.\npantaila arrotzetan\nkomodinak onartzen dira.
+; Name of Public Screen.\nWildcards allowed for\nforeign screens.
+;
+MSG_HELP_TITLE
+Pantailaren lerroburu barran\nagertzen den testua.
+; Text that appears in\nthe screen's title bar.
+;
+MSG_HELP_FONT
+Pantailan erabiltzeko\nlehenetsitako letra-tipoa.
+; Default font\nfor the screen.
+;
+MSG_HELP_BACKGROUND
+Datatype irudi bat\erabili atzealdeko patroi gisa.
+; Datatype picture used\nas background pattern.
+;
+MSG_HELP_AUTOSCROLL
+Pantaila mugitzen da sagua ertzera iristen denean.
+; The screen scrolls when\nthe mouse hits its borders.
+;
+MSG_HELP_NODRAG
+Leihoa ez da\narrastagarri.
+; The screen\nis undraggable.
+;
+MSG_HELP_EXCLUSIVE
+Pantailak ezin du\nerakuslehioa besteekin partekatu.
+; The screen cannot share\nits display with others.
+;
+MSG_HELP_INTERLEAVED
+Pantailaren bitmapa entrelazatu moduan\nesleituta dago.
+; The screen's bitmap is allocated\nin interleaved mode.
+;
+MSG_HELP_BEHIND
+Pantaila besteen\natzean irekitzen da.
+; The screen opens behind\nall other screens.
+;
+MSG_HELP_SYSTEMDEFAULT
+La pantalla se convierte\nen predeterminada del sistema.
+; The screen becomes the\nsystem's default screen.
+;
+MSG_HELP_AUTOCLOSE
+Pantaila ixten da azken\nlehioa ixten denean.
+; The screen closes when\nthe last window is closed.
+;
+MSG_HELP_CLOSEGADGET
+Pantailak itxiera\ngadget bat dauka.
+; The screen gets\na close gadget.
+;
+MSG_HELP_MODELIST
+Eskuragarri dauden\nbistaratze moduen zerrenda.
+; List of available\ndisplay modes.
+;
+MSG_HELP_MODEINFO
+Indarrean dagoen bistaratze\nmoduaren informazioa.
+; Information about the\ncurrent display mode.
+;
+MSG_HELP_OVERSCAN
+Overscan tamainuaren doitu.
+; Overscan size adjustment.
+;
+MSG_HELP_WIDTH
+Pantailaren zabalera,\npixel neurrian.
+; Width of screen,\nmeasured in pixels.
+;
+MSG_HELP_HEIGHT
+Pantailaren altuera,\npixel neurrian.
+; Height of screen,\nmeasured in pixels.
+;
+MSG_HELP_DEPTH
+Pantailaren sakonera,\nplanoetan neurtuta.
+; Depth of screen,\nmeasured in planes.
+;
+MSG_HELP_PENLIST
+Arkatza sistema, beste\nontzi batera eraman daitekena.
+; System pens, draggable\nto different color pot.
+;
+MSG_HELP_COLORFIELD
+Indarran dagoen kolorea,\negin klik eremuan aldatzeko.
+; Current color, click\non field to change it.
+;
+MSG_HELP_KILLCOLOR
+Kolore hau taldetik\nkendu.
+; Remove this color\nfrom the group.
+;
+MSG_HELP_NEWCOLOR
+Kolore hau taldera\ngehitu.
+; Add a new color\nto the group.
+;
+MSG_HELP_EDITOK
+Irten eta gogoratu\npantaila honetako aldaketak.
+; Exit and remember\nchanges for this screen.
+;
+MSG_HELP_EDITCANCEL
+Irten eta \33bbaztertu\33n\npantaila honetako aldaketak.
+; Exit and \33bdiscard\33n\nchanges for this screen.
+;
+MSG_HELP_SCREENLIST
+Definitutako pantaila\npublikoen zerrenda.
+; List of defined\npublic screens.
+;
+MSG_HELP_NEWSCREEN
+Pantaila publiko\nberri bat sortu.
+; Create a new\npublic screen.
+;
+MSG_HELP_COPYSCREEN
+Uneko pantaila\nkopiatu.
+; Create a copy\nof current screen.
+;
+MSG_HELP_DELETESCREEN
+Uneko pantaila\nezabatu.
+; Delete current\npublic screen.
+;
+MSG_HELP_EDITSCREEN
+Uneko pantaila\editatu.
+; Edit current\npublic screen.
+;
+MSG_HELP_OPENSCREEN
+Uneko pantaila\nireki.
+; Open current\npublic screen.
+;
+MSG_HELP_CLOSESCREEN
+Uneko pantaila\nitxi.
+; Close current\npublic screen.
+;
+MSG_HELP_JUMPSCREEN
+Uneko pantailara\nsaltu egin.
+; Jump to current\npublic screen.
+;
+MSG_HELP_SAVE
+Atera eta datuak\ndiskoan gorde.
+; Exit and save\nchanges to disk.
+;
+MSG_HELP_USE
+Atera eta datuak\nsaio onetarako gorde.
+; Exit and save changes\nfor current session.
+;
+MSG_HELP_CANCEL
+Atera eta\n\33bbaztertu\33n aldaketak.
+; Exit and\n\33bdiscard\33n changes.
+;

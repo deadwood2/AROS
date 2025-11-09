@@ -1,0 +1,150 @@
+## version $VER: ReqTools.catalog 3.0 (30.07.2024)
+## language euskara
+## codeset 0
+;
+;**************************
+;
+;   ReqTools Preferences
+;
+;**************************
+;
+MSG_WINDOW_TITLE
+~ReqTools~ apliazioaren hobespenak
+; ReqTools Preferences
+;
+MSG_GENERAL
+General
+; General
+;
+MSG_FILEREQUESTER
+Fitxategi eskakizuna
+; File Requester
+;
+MSG_SIZE
+Neurria (ikusgarri altueraren %):
+; Size (% of visible height):
+;
+MSG_OK
+Ados
+; Ok
+;
+MSG_POPSCREEN
+Pantaila aurrealdera eraman
+; Pop screen to front
+;
+MSG_IMMEDIATESORT
+Berehala ordenatu
+; Immediate sort
+;
+MSG_DRAWERSFIRST
+Erakutsi tiraderak lehen
+; Display drawers first
+;
+MSG_DRAWERSMIXED
+Nahastu fitxategiak/tiraderak
+; Mix files and drawers
+;
+MSG_LED
+Diskoaren aktibitatearen LEDa
+; Disk activity LED
+;
+MSG_DEFAULTFONT
+Lehenetsitako letra-tipo erabili
+; Use system default font
+;
+MSG_FKEYS
+Funtzio teklak erabili
+; Use function keys
+;
+MSG_DOWHEEL
+Kolore gurpila:
+; Color wheel:
+;
+MSG_WHEEL_NONE
+Bat ere ez
+; None
+;
+MSG_WHEEL_SIMPLE
+Sinple
+; Simple
+;
+MSG_WHEEL_FANCY
+Osoa
+; Fancy
+;
+MSG_MMB_PARENT
+SBZ goikora joateko
+; MMB gives parent
+;
+MSG_DEFAULTS
+Lehenetsita
+; Defaults
+;
+MSG_REQUESTER
+\33bEskakizuna:
+; \33bRequester:
+;
+MSG_FILEREQ
+Fitxategia
+; File
+;
+MSG_FONTREQ
+Letra-tipo
+; Font
+;
+MSG_PALETTEREQ
+Paleta
+; Palette
+;
+MSG_SCRMODEREQ
+Pantailaren modua
+; Screen Mode
+;
+MSG_VOLUMEREQ
+Bolumena
+; Volume
+;
+MSG_OTHERREQ
+besteak
+; Other
+;
+MSG_POSITION
+Kokagune:
+; Position:
+;
+MSG_POINTER
+Saguaren erakusle
+; Mouse pointer
+;
+MSG_CENTERWIN
+Leihoan erdiratu
+; Center in window
+;
+MSG_CENTERSCR
+Pantailan erdiratu
+; Center on screen
+;
+MSG_TOPLEFTWIN
+Leihoaren tope ezkerra
+; Top left of window
+;
+MSG_TOPLEFTSCR
+Pantailaren tope ezkerra
+; Top left of screen
+;
+MSG_OFFSET
+\33bDesplazamendu
+; \33bOffset
+;
+MSG_NR_OF_ENTRIES
+\33bSarrera ikusgarriak
+; \33bNumber of visible entries
+;
+MSG_MIN
+Gutxieneko:
+; Minimum:
+;
+MSG_MAX
+Gehieneko:
+; Maximum:
+;

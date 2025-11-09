@@ -1,0 +1,177 @@
+## version $VER: SysExplorer.catalog 2.0 (29.02.2024)
+## language euskara
+## codeset 0
+;
+;
+MSG_TITLE
+Sistemaren arakatzaile
+; System Explorer
+;
+MSG_WINTITLE
+Sistemaren arakatzaile
+; System Explorer
+;
+MSG_DESCRIPTION
+Sistemaren eta hardwarearen informazioa arakatzeko lanabesa
+; System and hardware information tool
+;
+MSG_MENU_PROJECT
+Proiektu
+; Project
+;
+MSG_MENU_PROPERTIES
+Ezaugarriak
+; Properties
+;
+MSG_MENU_EXPANDALL
+Zabaldu dena
+; Expand All
+;
+MSG_MENU_COLLAPSEALL
+Itxi dena
+; Collapse All
+;
+MSG_MENU_QUIT
+Atera
+; Quit
+;
+MSG_HIDD_TREE
+HIDD zuhaitza
+; HIDD Tree
+;
+MSG_PROPERTIES
+Ezaugarriak
+; Properties
+;
+MSG_LABEL_DRIVER
+Driveraren instantziaren izena
+; Driver instance name
+;
+MSG_LABEL_HW_DESCRIPTION
+Hardwarearen deskribapena
+; Hardware description
+;
+MSG_LABEL_VENDOR
+Hornitzaileraen informazioa
+; Vendor information
+;
+MSG_SYSTEM_PROPERTIES
+Sistemaren ezaugarriak
+; System properties
+;
+MSG_VERSION
+Bertsioa
+; Version
+;
+MSG_PROCESSORS
+Prozesadoreak
+; Processors
+;
+MSG_HPET
+HPET
+; HPET
+;
+MSG_RAM
+Memoria
+; Memory
+;
+MSG_BOOTLOADER
+Boot loader
+; Boot loader
+;
+MSG_ARGUMENTS
+Abiaratze parametroak
+; Boot Arguments
+;
+MSG_AVAILABLE
+Erabilgarri
+; Available for use
+;
+MSG_GENERAL
+Jeneral
+; General
+;
+MSG_NAME
+Izena
+; Name
+;
+MSG_HARDWARE_NAME
+Hardwarearen izena
+; Hardware Name
+;
+MSG_PRODUCT_ID
+Productuaren IDa
+; Product ID
+;
+MSG_PRODUCER_NAME
+Hornitzailearen izena
+; Vendor Name
+;
+MSG_PRODUCER_ID
+Hornitzailearen IDa
+; Vendor ID
+;
+MSG_DEVICE_PROPERTIES
+Gailuaren ezaugarriak
+; Device properties
+;
+MSG_ATA_PROPERTIES
+IDE busaren ezaugarriak
+; IDE bus properties
+;
+MSG_ATA
+IDE
+; IDE
+;
+MSG_USE_IOALT
+Ordezko erregistroak onartzen ditu
+; Supports alternate registers
+;
+MSG_USE_32BIT
+32 biteko PIOa Onartzen du 
+; Supports 32-bit PIO
+;
+MSG_USE_DMA
+DMA onartzen du
+; Supports DMA
+;
+MSG_USE_80WIRE
+80 hariko Kable
+; 80-wire cable
+;
+MSG_ATA_UNIT_PROPERTIES
+IDE gailuaren ezaugarriak
+; IDE device properties
+;
+MSG_UNIT_NUMBER
+Unitate zenbakia
+; Unit number
+;
+MSG_MODEL
+Modelo
+; Model
+;
+MSG_REVISION
+Berrikusketa
+; Revision
+;
+MSG_SERIAL
+Serie
+; Serial
+;
+MSG_TRANSFER_MODES
+Onartutako moduak
+; Supported modes
+;
+MSG_MULTISECTOR
+Sektore muga anitz
+; Multisector limit
+;
+MSG_REMOVABLE
+Erauzgarri
+; Removable
+;
+MSG_CONFIG_MODES
+Konfiguratutako moduak
+; Configured modes
+;

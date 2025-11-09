@@ -153,7 +153,7 @@ MSG_DONEREBOOT (//)
 AROS partitions have now been created!\nTo continue installation, you must\nreboot AROS, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
 ;
 MSG_DONEUSB (//)
-AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application.\n\nSelect Proceed to finish.\n
+AROS partitions have now been created!\nTo continue installation, you must remove\nand re-attach your USB drive, and re-run\nthis installer application.\n\nSelect Proceed to finish.n
 ;
 MSG_INSTALLING (//)
 Installing AROS...

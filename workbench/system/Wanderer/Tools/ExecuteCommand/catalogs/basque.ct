@@ -1,0 +1,50 @@
+## version $VER: executecommand.catalog 2.0 (16.02.2021)
+## codeset 0
+## language euskara
+;
+MSG_TITLE
+Abiarazi
+;Execute
+;
+MSG_DESCRIPTION
+Komando abiarazi.
+;Execute Command
+;
+MSG_LABEL_COMMANDLINE
+Komando eta argumentoak:
+;Command and arguments:
+;
+MSG_BUTTON_EXECUTE
+_Abiarazi
+;_Execute
+;
+MSG_BUTTON_CANCEL
+_Deuseztu
+;_Cancel
+;
+MSG_CONSOLE_TITLE
+Komandoaren irteera
+;Command Output
+;
+MSG_ERROR_HEADER
+Akatsa
+;
+MSG_ERROR_OK
+*Ados
+;
+MSG_ERROR_LOCALE
+Ezin da lokale abiarazi.
+;Can't initialize locale.
+;
+MSG_ERROR_CLASSES
+Ezin dira klaseak abiarazi.
+;Can't initialize custom classes.
+;
+MSG_ERROR_OPEN_CONSOLE
+Ezin da konsolaren leihoa abiarazi.
+;Can't open console window.
+;
+MSG_ERROR_EXECUTE
+Ezin da komandoa abiarazi.
+;Can't execute command.
+;

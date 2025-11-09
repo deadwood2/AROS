@@ -1,0 +1,77 @@
+## version $VER: ScreenGrabber.catalog 2.0 (30.03.2016)
+## language euskara
+## codeset 0
+;
+MSG_WINDOW_TITLE
+Pantaila-kapturatzailea 
+;ScreenGrabber
+;
+MSG_REFRESH
+Zerrenda freskatu
+;Refresh list
+;
+MSG_SCREEN_INFO
+Pantailaren informazioa
+;Screen info
+;
+MSG_SIZE
+Tamainua
+;
+MSG_TITLE
+Izenburua
+;Title
+;
+MSG_DEFAULT_TITLE
+Izenburu aurredefinitua
+;
+MSG_GRABBING_OPTIONS
+Aukerak
+;
+MSG_DELAY
+Atzerapena (s)
+;
+MSG_HIDE
+Pantaila-kapturatzailearen lehioa ezkutatu
+;
+MSG_SAVE_OPTIONS
+Aukerak gorde
+;
+MSG_SAVE_FILE
+Gorde
+;
+MSG_SCREENSHOT
+Pantaila-kapturatu
+;Screenshot
+;
+MSG_SCREEN_PARM
+%d x %d, sakontasuna=%d
+;
+MSG_OVERWRITE
+Badago '%s' izendako artxibo bat.\nsOrdeztu nahi duzu?
+;
+MSG_ERROR_TITLE
+Pantaila-kapturatzaileak huts egin du.
+;
+MSG_GAD_OK
+_Ados
+;_OK
+;
+MSG_GAD_YESNO
+BAI|EZ
+;
+MSG_ERR_DATATYPE
+Ezin da datatype objektua sortu!
+;
+MSG_NORAM
+Ezin da RAM memoria asignatu!
+;
+MSG_ERR_DATATYPEIO
+'%s' idazteak huts egin du\n\
+%ld S/I akatsakin.
+;
+MSG_ERR_OPENFILE
+Ezin da '%s' ireki gordetzeko!
+;
+MSG_ERR_APP
+Ezin da aplikazioa abiarazi!
+;
