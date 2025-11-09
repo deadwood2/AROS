@@ -19,6 +19,6 @@ USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-hidd-input \
     modname=inputclass modtype=hidd \
-    files="$(FILES)" sdk=private usesdks="private"
+    files="$(FILES)" sdk=private usesdks="private" uselibs="stdc.static"
 
 %common
