@@ -19,7 +19,8 @@ FILES := \
         uhwcmd \
         debug
 
-WBUSBHARDWAREDIR := $(AROSDIR)/Devs/USBHardware 
+USBHARDWAREPATH := Devs/USBHardware
+WBUSBHARDWAREDIR := $(AROSDIR)/$(USBHARDWAREPATH)
 
 #MM
 kernel-usb-pciusb-directories ::
@@ -43,11 +44,11 @@ USER_LDFLAGS := -noclibs -lstdc.static
 ifeq ($(ARCH),pc)
 USER_LDFLAGS += -lacpica
 endif
-#USER_CPPFLAGS += -DDEBUG
+USER_CPPFLAGS += -DDEBUG
 
 %build_module mmake=kernel-usb-pciusb \
     modname=pciusb modtype=device \
-    moduledir=Devs/USBHardware \
+    moduledir=$(USBHARDWAREPATH) \
     files="$(FILES)" \
     uselibs="hiddstubs debug oop" usesdks="private"
 
