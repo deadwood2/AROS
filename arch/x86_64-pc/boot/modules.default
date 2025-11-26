@@ -6,6 +6,7 @@
 /boot/@arch.dir@/Libs/expansion.library
 /Classes/USB/bootkeyboard.class
 /Classes/USB/bootmouse.class
+/Classes/USB/hubss.class
 /Classes/USB/hub.class
 /Classes/USB/hid.class
 /Classes/USB/massstorage.class
