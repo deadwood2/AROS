@@ -69,7 +69,7 @@ static void handleQuirks(struct PCIController *hc)
     {
         /* Apply MosChip frame-counter register bug workaround */
         hc->hc_Quirks |= HCQ_EHCI_MOSC_FRAMECOUNTBUG;
-    }   
+    }    
 }
 
 AROS_UFH3(void, pciEnumerator,
@@ -112,11 +112,14 @@ AROS_UFH3(void, pciEnumerator,
         case HCITYPE_XHCI:
             if (!(hd->hd_Flags & HDF_ENABLEXHCI))
                 break;
-#endif
+            // fall through
         case HCITYPE_OHCI:
+#else
+        case HCITYPE_OHCI:
+#endif
         case HCITYPE_EHCI:
         case HCITYPE_UHCI:
-            KPRINTF(10, ("Setting up device...\n"));
+            pciusbDebug("PCI", "Setting up device...\n");
 
             hc = AllocPooled(hd->hd_MemPool, sizeof(struct PCIController));
             if (hc)
@@ -165,6 +168,10 @@ AROS_UFH3(void, pciEnumerator,
                 AddTail(&hd->hd_TempHCIList, &hc->hc_Node);
 
                 handleQuirks(hc);
+            }
+            else
+            {
+                pciusbDebug("PCI", "Failed to allocate storage for controller entry!\n");
             }
             break;
 
@@ -228,6 +235,7 @@ BOOL pciInit(struct PCIDevice *hd)
 #if defined(PCIUSB_ENABLEXHCI)
         BOOL    unithasv3 = FALSE;
 #endif
+        int     cnt;
 
         hu = AllocPooled(hd->hd_MemPool, sizeof(struct PCIUnit));
         if(!hu)
@@ -246,10 +254,7 @@ BOOL pciInit(struct PCIDevice *hd)
             AddTail((struct List *) &hu->hu_FreeRTIsoNodes, (struct Node *)&hu->hu_RTIsoNodes[cnt].rtn_Node);
         }
 
-        hc = (struct PCIController *) hd->hd_TempHCIList.lh_Head;
-        hu->hu_DevID = hc->hc_DevID;
-        huIntLine =  hc->hc_PCIIntLine;
-
+        hu->hu_DevID = (ULONG)-1;
         ForeachNodeSafe(&hd->hd_TempHCIList, hc, nexthc)
         {
             if (hu->hu_DevID == (ULONG)-1)
