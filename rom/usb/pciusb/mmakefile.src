@@ -44,7 +44,7 @@ USER_LDFLAGS := -noclibs -lstdc.static
 ifeq ($(ARCH),pc)
 USER_LDFLAGS += -lacpica
 endif
-USER_CPPFLAGS += -DDEBUG
+#USER_CPPFLAGS += -DDEBUG
 
 %build_module mmake=kernel-usb-pciusb \
     modname=pciusb modtype=device \
