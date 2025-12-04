@@ -2,6 +2,7 @@
 include $(SRCDIR)/config/aros.cfg
 
 USER_LDFLAGS := -noclibs
+#USER_CPPFLAGS := -DDEBUG=1
 
 FILES :=    hubss_class
 
