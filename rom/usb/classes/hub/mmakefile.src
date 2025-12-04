@@ -4,6 +4,7 @@ include $(SRCDIR)/config/aros.cfg
 USER_LDFLAGS := -noclibs -lstdc.static
 
 FILES :=    hub.class debug
+#USER_CPPFLAGS := -DDEBUG=1
 
 #MM- kernel-usb-classes-hub : kernel-usb-usbclass kernel-usb-poseidon-includes
 
