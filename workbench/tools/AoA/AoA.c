@@ -299,6 +299,33 @@ ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, stru
 }
 MAKE_PROXY_ARG_12(WritePixelArray)
 
+ULONG abiv0_ReadPixelArray(APTR dst, UWORD dstx, UWORD dsty, UWORD dstmod, struct RastPortV0 *rp,
+    UWORD srcx, UWORD srcy, UWORD width, UWORD height, UBYTE dstformat, struct LibraryV0 *CyberGfxBaseV0)
+{
+    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    // struct RastPort rptmp;
+
+    // /* picture.datatype uses locally created RastPort */
+    // if (rpnative == NULL)
+    // {
+    //     InitRastPort(&rptmp);
+    //     rptmp.FgPen     = rp->FgPen;
+    //     rptmp.BgPen     = rp->BgPen;
+    //     rptmp.DrawMode  = rp->DrawMode;
+    //     rptmp.linpatcnt = rp->linpatcnt;
+    //     rptmp.Flags     = rp->Flags;
+    //     rptmp.cp_x      = rp->cp_x;
+    //     rptmp.cp_y      = rp->cp_y;
+
+    //     rptmp.BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+
+    //     rpnative = &rptmp;
+    // }
+
+    return ReadPixelArray(dst, dstx, dsty, dstmod, rpnative, srcx, srcy, width, height, dstformat);
+}
+MAKE_PROXY_ARG_12(ReadPixelArray)
+
 #include "abiv0/include/utility/structures.h"
 
 VOID abiv0_ProcessPixelArray(struct RastPortV0 *rp, ULONG destX, ULONG destY, ULONG sizeX, ULONG sizeY, ULONG operation,
@@ -494,6 +521,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 10, (APTR32)(IPTR)proxy_BestCModeIDTagList);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 17, (APTR32)(IPTR)proxy_GetCyberIDAttr);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 16, (APTR32)(IPTR)proxy_GetCyberMapAttr);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 20, (APTR32)(IPTR)proxy_ReadPixelArray);
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 
