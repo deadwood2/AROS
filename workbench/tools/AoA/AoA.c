@@ -608,16 +608,16 @@ int main(int argc, char **argv)
 
         /* Build emu_argstr */
         p = ((struct Process *)FindTask(NULL))->pr_Arguments;
-        /* Assume worst case: "program with space" "arg1 with space" arg arg3 */
+        /* Assume worst case: "program with space" "arg1 with space" arg arg3 \n */
         /* Get rid off '"program with space"' or 'program' */
-        while (TRUE)
+        while (*p != '\n')
         {
             if (*p == '"') qc++;
             if (*p == ' ')
-                if (qc == 0 || qc == 2) break;
+                if (qc == 0 || qc == 2) { p++; break; }
             p++;
         }
-        p++;
+
         emu_argsize = strlen(p);
         emu_argstr = AllocMem(emu_argsize + 1, MEMF_31BIT | MEMF_CLEAR);
         CopyMem(p, emu_argstr, emu_argsize);
