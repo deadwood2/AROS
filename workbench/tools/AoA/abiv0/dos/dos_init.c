@@ -417,18 +417,34 @@ LONG abiv0_SetProtection(CONST_STRPTR name, ULONG protect, struct DosLibraryV0 *
 }
 MAKE_PROXY_ARG_3(SetProtection)
 
-BOOL abiv0_IsFileSystem(CONST_STRPTR devicename, struct DosLibraryV0 *DOSBaseV0)
-{
-    return IsFileSystem(devicename);
-}
-MAKE_PROXY_ARG_2(IsFileSystem)
-
 static struct FileLockProxy *makeFileLockProxy(BPTR native)
 {
     struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_ANY, DOS_SysBaseV0);
     proxy->native = native;
     return proxy;
 }
+
+BPTR abiv0_DupLockFromFH(BPTR handle, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)handle;
+    BPTR dup = DupLockFromFH(fhp->native);
+    return (BPTR)makeFileLockProxy(dup);
+}
+
+MAKE_PROXY_ARG_2(DupLockFromFH)
+
+BOOL abiv0_NameFromFH(BPTR fh, STRPTR buffer, LONG length, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *fhp = (struct FileHandleProxy *)fh;
+    return NameFromFH(fhp->native, buffer, length);
+}
+MAKE_PROXY_ARG_4(NameFromFH)
+
+BOOL abiv0_IsFileSystem(CONST_STRPTR devicename, struct DosLibraryV0 *DOSBaseV0)
+{
+    return IsFileSystem(devicename);
+}
+MAKE_PROXY_ARG_2(IsFileSystem)
 
 extern struct TaskV0 *g_v0maintask;
 extern struct Task *g_nativemaintask;
@@ -1113,4 +1129,6 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  53, (APTR32)(IPTR)proxy_UnGetC);
     __AROS_SETVECADDRV0(abiv0DOSBase, 150, (APTR32)(IPTR)proxy_SetVar);
     __AROS_SETVECADDRV0(abiv0DOSBase,  19, (APTR32)(IPTR)proxy_Info);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  68, (APTR32)(IPTR)proxy_NameFromLock);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  62, (APTR32)(IPTR)proxy_DupLockFromFH);
 }
