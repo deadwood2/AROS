@@ -50,11 +50,24 @@ MAKE_PROXY_ARG_2(Intuition_OpenLib)
 struct IntScreenV0  *g_mainv0screen;
 struct Screen       *g_mainnativescreen;
 
+struct IntScreenV0  *g_additionalv0screen;
+struct Screen       *g_additionalnativescreen;
+TEXT                g_additionalscreenname[64];
+
 extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
-    if (name != NULL && strcmp(name, "Workbench") != 0) asm("int3");
+    if (name != NULL && strcmp(name, "Workbench") != 0)
+    {
+        // non-Workbench screen requsted
+        if (g_additionalscreenname[0] == '\0' ) ; // none yet opened, ok
+        else asm("int3");
+    }
+    else
+    {
+         // Workbench screen requested, ok
+    }
 
     struct Screen *native = LockPubScreen(name);
 
@@ -66,7 +79,7 @@ bug("abiv0_LockPubScreen: STUB\n");
     if (native == g_mainnativescreen)
         return (struct ScreenV0 *)g_mainv0screen;
     else
-        asm("int3");
+        asm("int3"); // TODO: implement when additional screen found
 
     return NULL;
 }
