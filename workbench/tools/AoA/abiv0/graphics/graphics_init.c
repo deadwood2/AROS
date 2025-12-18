@@ -187,7 +187,8 @@ MAKE_PROXY_ARG_12(ObtainPen)
 void abiv0_ReleasePen(struct ColorMapV0 *cm, ULONG n, struct GfxBaseV0 *GfxBaseV0)
 {
     struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
-    ReleasePen(proxy->native, n);
+    if (proxy) // ghostscript 8.50 passes NULL cm
+        ReleasePen(proxy->native, n);
 }
 MAKE_PROXY_ARG_3(ReleasePen)
 
