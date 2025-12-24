@@ -86,7 +86,7 @@ USER_LDFLAGS :=
     files="$(PCIFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
     uselibs="amiga oop" conffile=$(SRCDIR)/$(CURDIR)/$(PCIMODDIR)/pci.conf sdk=sysexplorer usesdks="private sysexplorer"
 
-#MM workbench-tools-sysexplorer-module-power : workbench-tools-sysexplorer-includes kernel-hidd-power-includes
+#MM workbench-tools-sysexplorer-module-power : workbench-tools-sysexplorer-includes kernel-hidd-telemetry-includes kernel-hidd-power-includes
 #MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-power
 #MM- workbench-tools-sysexplorer-modules-quick : workbench-tools-sysexplorer-module-power-quick
 USER_INCLUDES := $(SYSEXPCOMMON_INCLUDES) -I$(SRCDIR)/$(CURDIR)/$(POWERMODDIR)
