@@ -2166,7 +2166,7 @@ void uhwCheckRootHubChanges(struct PCIUnit *unit)
     struct PCIDevice *base = unit->hu_Device;
     struct IOUsbHWReq *ioreq;
 
-    pciusbDebugV("UHW", DEBUGCOLOR_SET "%s(0x%p)" DEBUGCOLOR_RESET "\n", __func__, unit);
+    pciusbDebug("UHW", DEBUGCOLOR_SET "%s(0x%p)" DEBUGCOLOR_RESET "\n", __func__, unit);
 
     if(unit->hu_RootPortChanges && unit->hu_RHIOQueue.lh_Head->ln_Succ) {
         KPRINTF(1, "Portchange map %04lx\n", unit->hu_RootPortChanges);
@@ -2244,7 +2244,7 @@ AROS_INTH1(uhwNakTimeoutInt, struct PCIUnit *,  unit)
     ULONG ctrlstatus;
     BOOL causeint;
 
-    pciusbDebugV("UHW", DEBUGCOLOR_SET "%s(0x%p)" DEBUGCOLOR_RESET "\n", __func__, unit);
+    pciusbDebug("UHW", DEBUGCOLOR_SET "%s(0x%p)" DEBUGCOLOR_RESET "\n", __func__, unit);
 
     // check for port status change for UHCI and frame rollovers and NAK Timeouts
     hc = (struct PCIController *) unit->hu_Controllers.lh_Head;
