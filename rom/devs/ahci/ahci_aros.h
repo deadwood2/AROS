@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2023, The AROS Development Team.  All rights reserved.
+ * Copyright (C) 2012-2025, The AROS Development Team.  All rights reserved.
  * Author: Jason S. McMullan <jason.mcmullan@gmail.com>
  *
  * Licensed under the AROS PUBLIC LICENSE (APL) Version 1.1
