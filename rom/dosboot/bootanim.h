@@ -15,8 +15,12 @@ struct AnimData
     ULONG               framecnt;
     ULONG               tick;
     UBYTE               frame;
+#if defined(__OOP_NOATTRBASES__)
     OOP_AttrBase        bitMapAttrBase;
+#endif
+#if defined(__OOP_NOMETHODBASES__)
     OOP_MethodID        gfxMethodBase;
+#endif
 };
 
 // reserve 8 bits for the main bootanim code
