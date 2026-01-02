@@ -21,10 +21,10 @@ MSG_ABOUTMUI_WINDOW_TITLE
 MSG_ABOUTMUI_STRING
 Zune, ein MUI-Klon\n\n\
 Kompiliert am %s\n\
-Copyright (C) 2002-2025, The AROS Development Team.
+Copyright (C) 2002-2026, The AROS Development Team.
 ; Zune, a MUI clone\n\n\
 ; Compiled on %s\n\
-; Copyright (C) 2002-2025, The AROS Development Team.
+; Copyright (C) 2002-2026, The AROS Development Team.
 ;
 ; -------------------------------------------------
 ; Coloradjust class
