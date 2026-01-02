@@ -192,6 +192,29 @@ void abiv0_ReleasePen(struct ColorMapV0 *cm, ULONG n, struct GfxBaseV0 *GfxBaseV
 }
 MAKE_PROXY_ARG_3(ReleasePen)
 
+void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct GfxBaseV0 *GfxBaseV0)
+{
+    if (textFont)
+    {
+        // 32-bit part
+        rp->Font       = (APTR32)(IPTR)textFont;
+        rp->TxWidth    = textFont->tf_XSize;
+        rp->TxHeight   = textFont->tf_YSize;
+        rp->TxBaseline = textFont->tf_Baseline;
+
+        // 64-bit part
+        struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+        struct TextFont *tfnative = ((struct TextFontProxy *)textFont)->native;
+        if (rpnative == NULL)
+        {
+bug("abiv0_SetFont: NO NATIVE RASTPORT\n");
+return;
+        }
+        SetFont(rpnative, tfnative);
+    }
+}
+MAKE_PROXY_ARG_3(SetFont)
+
 void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
@@ -718,7 +741,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 150, (APTR32)(IPTR)proxy_GetRGB32);
     __AROS_SETVECADDRV0(abiv0GfxBase, 140, (APTR32)(IPTR)proxy_ObtainBestPenA);
     __AROS_SETVECADDRV0(abiv0GfxBase,  33, graphicsjmp[202 -  33]);  // InitRastPort
-    __AROS_SETVECADDRV0(abiv0GfxBase,  11, graphicsjmp[202 -  11]);  // SetFont
+    __AROS_SETVECADDRV0(abiv0GfxBase,  11, (APTR32)(IPTR)proxy_SetFont);
     __AROS_SETVECADDRV0(abiv0GfxBase, 134, graphicsjmp[202 - 134]);  // WeighTAMatch
     __AROS_SETVECADDRV0(abiv0GfxBase, 136, graphicsjmp[202 - 136]);  // ExtendFont
     __AROS_SETVECADDRV0(abiv0GfxBase,  80, graphicsjmp[202 -  80]);  // AddFont
