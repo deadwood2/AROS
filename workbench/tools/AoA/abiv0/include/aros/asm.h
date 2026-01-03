@@ -15,6 +15,14 @@
 #define DS      "$0x23"
 #endif
 
+/* This definition is only here to satisfy VSCode error detection, as selection of linux vs pc happens only in makefile */
+#ifndef CS64
+#define CS64    "$0x00"
+#define CS32    "$0x00"
+#define DS      "$0x00"
+#error "EMUV0LINUX OR EMUV0PC MUST BE SET"
+#endif
+
 /* To be used in 32-bit code */
 
 #define ENTER64                 \
