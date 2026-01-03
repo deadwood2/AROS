@@ -7,4 +7,6 @@
 
 void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase);
 
+#define RastPortV0_getnative(rp) (struct RastPort *)*(IPTR *)&rp->longreserved
+
 #endif

@@ -219,7 +219,7 @@ static void RecreteNativeRastPort(struct RastPortV0 *rpv0, struct RastPort *rptm
 
 void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     if (rpnative == NULL)
     {
         /* HFinder operates on locally created 1-bit RastPort/BitMap */
@@ -240,7 +240,7 @@ MAKE_PROXY_ARG_6(RectFill)
 
 void abiv0_Move(struct RastPortV0 *rp, WORD x, WORD y, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
 
     if (rpnative == NULL)
     {
@@ -257,14 +257,14 @@ MAKE_PROXY_ARG_4(Move)
 
 void abiv0_Draw(struct RastPortV0 *rp, WORD x, WORD y, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     Draw(rpnative, x, y);
 }
 MAKE_PROXY_ARG_4(Draw)
 
 void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
 
     if (rpnative == NULL)
     {
@@ -283,7 +283,7 @@ MAKE_PROXY_ARG_4(Text)
 
 LONG abiv0_WritePixel(struct RastPortV0 *rp, LONG x, LONG y, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     return WritePixel(rpnative, x, y);
 }
 MAKE_PROXY_ARG_4(WritePixel)
@@ -357,7 +357,7 @@ MAKE_PROXY_ARG_3(AndRegionRegion)
 void abiv0_BltTemplate(PLANEPTR source, LONG xSrc, LONG srcMod, struct RastPortV0 *destRP, LONG xDest, LONG yDest, LONG xSize,
     LONG ySize, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(destRP);
 
     if (rpnative == NULL)
     {
@@ -383,7 +383,7 @@ MAKE_PROXY_ARG_1(WaitTOF)
 LONG abiv0_WritePixelArray8(struct RastPortV0 *rp, ULONG xstart, ULONG ystart, ULONG xstop, ULONG ystop, UBYTE *array,
     struct RastPortV0 *temprp, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     if (rpnative == NULL)
     {
         /* HollyPaint operates on locally created RastPort/BitMap */
@@ -401,7 +401,7 @@ MAKE_PROXY_ARG_12(WritePixelArray8)
 LONG abiv0_ReadPixelArray8(struct RastPortV0 *rp, LONG xstart, LONG ystart, LONG xstop, LONG ystop, UBYTE *array,
     struct RastPortV0 *temprp, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     if (rpnative == NULL)
     {
         /* Soliton operates on locally created RastPort/BitMap */
@@ -482,7 +482,7 @@ void abiv0_BltBitMapRastPort(struct BitMapV0 *srcBitMap, LONG xSrc, LONG ySrc, s
     LONG xDest, LONG yDest, LONG xSize, LONG ySize, ULONG minterm, struct GfxBaseV0 *GfxBaseV0)
 {
     struct BitMapProxy *bmproxy = (struct BitMapProxy *)srcBitMap;
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(destRP);
     struct RastPort rptmp;
 
     /* dtpic.mui uses locally created RastPort */
@@ -510,7 +510,7 @@ void abiv0_BltMaskBitMapRastPort(struct BitMapV0 *srcBitMap, LONG xSrc, LONG ySr
     LONG xDest, LONG yDest, LONG xSize, LONG ySize, ULONG minterm, PLANEPTR bltMask, struct GfxBaseV0 *GfxBaseV0)
 {
     struct BitMapProxy *bmproxy = (struct BitMapProxy *)srcBitMap;
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&destRP->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(destRP);
     struct RastPort rptmp;
 
     // /* dtpic.mui uses locally created RastPort */
@@ -547,7 +547,7 @@ MAKE_PROXY_ARG_12(BltBitMap)
 void abiv0_BltPattern(struct RastPortV0 *rp, PLANEPTR mask, LONG xMin, LONG yMin, LONG xMax, LONG yMax, ULONG byteCnt,
     struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
 
     rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;
     rpnative->AreaPtSz = rp->AreaPtSz;
@@ -558,7 +558,7 @@ MAKE_PROXY_ARG_12(BltPattern)
 
 void abiv0_ScrollRaster(struct RastPortV0 *rp, LONG dx, LONG dy, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     ScrollRaster(rpnative, dx, dy, xMin, yMin, xMax,yMax);
 }
 MAKE_PROXY_ARG_12(ScrollRaster)
@@ -566,7 +566,7 @@ MAKE_PROXY_ARG_12(ScrollRaster)
 void abiv0_WriteChunkyPixels(struct RastPortV0 *rp, LONG xstart, LONG ystart, LONG xstop, LONG ystop, UBYTE *array, LONG bytesperrow,
     struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     struct RastPort rptmp;
 
     /* RNOTunes uses locally created RastPort */

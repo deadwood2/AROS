@@ -17,6 +17,8 @@
 #include "../include/utility/structures.h"
 #include "../include/input/structures.h"
 
+#include "../graphics/graphics_rastports.h"
+
 struct ExecBaseV0 *Intuition_SysBaseV0;
 
 struct IntScreenV0 // 596
@@ -820,7 +822,7 @@ MAKE_PROXY_ARG_2(ObtainGIRPort);
 
 void abiv0_ReleaseGIRPort(struct RastPortV0 *rp, struct LibraryV0 *IntuitionBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     ReleaseGIRPort(rpnative);
 }
 MAKE_PROXY_ARG_2(ReleaseGIRPort);

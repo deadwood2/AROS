@@ -13,6 +13,8 @@
 #include "../include/aros/proxy.h"
 #include "../include/utility/structures.h"
 
+#include "graphics_rastports.h"
+
 extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
 extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
 
@@ -27,7 +29,7 @@ void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct Gf
         rp->TxBaseline = textFont->tf_Baseline;
 
         // 64-bit part
-        struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+        struct RastPort *rpnative = RastPortV0_getnative(rp);
         struct TextFont *tfnative = ((struct TextFontProxy *)textFont)->native;
         if (rpnative == NULL)
         {
@@ -41,42 +43,42 @@ MAKE_PROXY_ARG_3(SetFont)
 
 void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     SetDrMd(rpnative, drawMode);
 }
 MAKE_PROXY_ARG_3(SetDrMd)
 
 void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     SetAPen(rpnative, pen);
 }
 MAKE_PROXY_ARG_3(SetAPen)
 
 ULONG abiv0_GetAPen(struct RastPortV0 * rp, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     return GetAPen(rpnative);
 }
 MAKE_PROXY_ARG_2(GetAPen)
 
 ULONG abiv0_GetOutlinePen(struct RastPortV0 *rp,  struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     return GetOutlinePen(rpnative);
 }
 MAKE_PROXY_ARG_2(GetOutlinePen)
 
 void abiv0_SetBPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     SetBPen(rpnative, pen);
 }
 MAKE_PROXY_ARG_3(SetBPen)
 
 void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     if (rpnative == NULL)
     {
         /* HFinder operates on locally created 1-bit RastPort/BitMap */
@@ -95,7 +97,7 @@ MAKE_PROXY_ARG_5(SetABPenDrMd)
 
 void abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
 
     struct TagItem *tagNative = tagListNative;

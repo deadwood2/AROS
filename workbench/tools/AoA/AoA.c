@@ -227,10 +227,11 @@ bug("abiv0_RawKeyConvert: STUB\n");
 MAKE_PROXY_ARG_5(RawKeyConvert)
 
 #include <proto/cybergraphics.h>
+#include "abiv0/graphics/graphics_rastports.h"
 
 ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG pixel)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     return FillPixelArray(rpnative, destx, desty, width, height, pixel);
 }
 MAKE_PROXY_ARG_6(FillPixelArray)
@@ -238,7 +239,7 @@ MAKE_PROXY_ARG_6(FillPixelArray)
 ULONG abiv0_WritePixelArrayAlpha(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, struct RastPortV0 *rp,
     UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG globalalpha, struct LibraryV0 *CyberGfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     return WritePixelArrayAlpha(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, globalalpha);
 }
 MAKE_PROXY_ARG_12(WritePixelArrayAlpha)
@@ -248,7 +249,7 @@ MAKE_PROXY_ARG_12(WritePixelArrayAlpha)
 LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod, struct RastPortV0 *rp,
     APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat, struct LibraryV0 *CyberGfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     struct RastPort rptmp;
 
     /* picture.datatype uses locally created RastPort */
@@ -275,7 +276,7 @@ MAKE_PROXY_ARG_12(WriteLUTPixelArray)
 ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, struct RastPortV0 *rp,
     UWORD destx, UWORD desty, UWORD width, UWORD height, UBYTE srcformat, struct LibraryV0 *CyberGfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     struct RastPort rptmp;
 
     /* picture.datatype uses locally created RastPort */
@@ -302,7 +303,7 @@ MAKE_PROXY_ARG_12(WritePixelArray)
 ULONG abiv0_ReadPixelArray(APTR dst, UWORD dstx, UWORD dsty, UWORD dstmod, struct RastPortV0 *rp,
     UWORD srcx, UWORD srcy, UWORD width, UWORD height, UBYTE dstformat, struct LibraryV0 *CyberGfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     // struct RastPort rptmp;
 
     // /* picture.datatype uses locally created RastPort */
@@ -331,7 +332,7 @@ MAKE_PROXY_ARG_12(ReadPixelArray)
 VOID abiv0_ProcessPixelArray(struct RastPortV0 *rp, ULONG destX, ULONG destY, ULONG sizeX, ULONG sizeY, ULONG operation,
         LONG value, struct TagItemV0 *taglist, struct LibraryV0 *CyberGfxBaseV0)
 {
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
     struct RastPort rptmp;
 
 /* dtpic.mui uses locally created RastPort */
