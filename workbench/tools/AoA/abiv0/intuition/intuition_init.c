@@ -528,13 +528,6 @@ bug("abiv0_OpenScreenTagList: STUB\n");
 }
 MAKE_PROXY_ARG_3(OpenScreenTagList)
 
-void abiv0_DrawImageState(struct RastPortV0 *rp, struct ImageV0 *image, LONG leftOffset, LONG topOffset, ULONG state, struct DrawInfoV0 *drawInfo)
-{
-    // TODO: use original code!!!!
-bug("abiv0_DrawImageState: STUB\n");
-}
-MAKE_PROXY_ARG_6(DrawImageState)
-
 ULONG abiv0_LockIBase(ULONG What, struct LibraryV0 *IntuitionBaseV0)
 {
     return LockIBase(What);
@@ -1487,7 +1480,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  69, (APTR32)(IPTR)proxy_LockIBase);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  70, (APTR32)(IPTR)proxy_UnlockIBase);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  94, (APTR32)(IPTR)proxy_ReleaseGIRPort);
-    __AROS_SETVECADDRV0(abiv0IntuitionBase, 103, (APTR32)(IPTR)proxy_DrawImageState);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 103, intuitionjmp[165 - 103]);  // DrawImageState
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  74, (APTR32)(IPTR)proxy_RemoveGList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 146, intuitionjmp[165 - 146]);  // FreeICData
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  41, intuitionjmp[165 -  41]);  // ScreenToBack
@@ -1534,11 +1527,13 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     /* Set internal Intuition pointer of utility, graphics and timer */
     abiv0IntuitionBase->UtilityBase = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("utility.library", 0L, SysBaseV0);
     abiv0IntuitionBase->GfxBase     = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("graphics.library", 0L, SysBaseV0);
+    abiv0IntuitionBase->LayersBase  = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("layers.library", 0L, SysBaseV0);
     abiv0IntuitionBase->KeymapBase  = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
     abiv0IntuitionBase->TimerBase   = (APTR32)(IPTR)timerBase;
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x180), SysBaseV0); // GadgetLock
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x0F8), SysBaseV0); // PubScrListLock
     NEWLISTV0((struct MinListV0 *)((IPTR)abiv0IntuitionBase + 0x12C)); // PubScreenList
+    *(APTR32 *)((IPTR)(abiv0IntuitionBase + 0x480)) = (APTR32)(IPTR)NULL; // ReqFont
 
     abiv0IntuitionBase->GlobalEditHook = (APTR32)(IPTR)&abiv0IntuitionBase->DefaultEditHook;
     abiv0IntuitionBase->DefaultEditHook.h_Entry = (APTR32)(IPTR)(_GlobalEditFunc);
