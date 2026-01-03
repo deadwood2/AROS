@@ -1,6 +1,5 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
-#include <graphics/rpattr.h>
 #include <graphics/gfxbase.h>
 #include <proto/graphics.h>
 #include <proto/alib.h>
@@ -17,6 +16,8 @@
 #include "../include/graphics/structures.h"
 #include "../include/graphics/proxy_structures.h"
 #include "../include/utility/structures.h"
+
+#include "graphics_rastports.h"
 
 struct ExecBaseV0 *Gfx_SysBaseV0;
 
@@ -191,111 +192,6 @@ void abiv0_ReleasePen(struct ColorMapV0 *cm, ULONG n, struct GfxBaseV0 *GfxBaseV
         ReleasePen(proxy->native, n);
 }
 MAKE_PROXY_ARG_3(ReleasePen)
-
-void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct GfxBaseV0 *GfxBaseV0)
-{
-    if (textFont)
-    {
-        // 32-bit part
-        rp->Font       = (APTR32)(IPTR)textFont;
-        rp->TxWidth    = textFont->tf_XSize;
-        rp->TxHeight   = textFont->tf_YSize;
-        rp->TxBaseline = textFont->tf_Baseline;
-
-        // 64-bit part
-        struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-        struct TextFont *tfnative = ((struct TextFontProxy *)textFont)->native;
-        if (rpnative == NULL)
-        {
-bug("abiv0_SetFont: NO NATIVE RASTPORT\n");
-return;
-        }
-        SetFont(rpnative, tfnative);
-    }
-}
-MAKE_PROXY_ARG_3(SetFont)
-
-void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    SetDrMd(rpnative, drawMode);
-}
-MAKE_PROXY_ARG_3(SetDrMd)
-
-void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    SetAPen(rpnative, pen);
-}
-MAKE_PROXY_ARG_3(SetAPen)
-
-ULONG abiv0_GetAPen(struct RastPortV0 * rp, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    return GetAPen(rpnative);
-}
-MAKE_PROXY_ARG_2(GetAPen)
-
-ULONG abiv0_GetOutlinePen(struct RastPort *rp,  struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    return GetOutlinePen(rpnative);
-}
-MAKE_PROXY_ARG_2(GetOutlinePen)
-
-void abiv0_SetBPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    SetBPen(rpnative, pen);
-}
-MAKE_PROXY_ARG_3(SetBPen)
-
-void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    if (rpnative == NULL)
-    {
-        /* HFinder operates on locally created 1-bit RastPort/BitMap */
-        /* TODO: call 32bit code? */
-        rp->FgPen     = apen;
-        rp->BgPen     = bpen;
-        rp->DrawMode  = drawMode;
-        rp->linpatcnt = 15;
-#define RPF_NO_PENS	    	(1L << 14)	/* Are pens disabled?				*/
-        rp->Flags    &= ~RPF_NO_PENS;
-    }
-    else
-        SetABPenDrMd(rpnative, apen, bpen, drawMode);
-}
-MAKE_PROXY_ARG_5(SetABPenDrMd)
-
-void abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RastPort *rpnative = (struct RastPort *)*(IPTR *)&rp->longreserved;
-    struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
-
-    struct TagItem *tagNative = tagListNative;
-
-    while (tagNative->ti_Tag != TAG_DONE)
-    {
-        if (tagNative->ti_Tag == RPTAG_Font)
-        {
-            asm("int3");
-        }
-
-        if (tagNative->ti_Tag == RPTAG_ClipRectangle)
-        {
-            asm("int3");
-        }
-
-        tagNative++;
-    }
-
-    SetRPAttrsA(rpnative, tagListNative);
-
-    FreeClonedV02NativeTagItems(tagListNative);
-}
-MAKE_PROXY_ARG_3(SetRPAttrsA)
 
 static void RecreteNativeRastPort(struct RastPortV0 *rpv0, struct RastPort *rptmp, struct BitMap *bmtmp)
 {
@@ -749,13 +645,10 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 150, (APTR32)(IPTR)proxy_GetRGB32);
     __AROS_SETVECADDRV0(abiv0GfxBase, 140, (APTR32)(IPTR)proxy_ObtainBestPenA);
     __AROS_SETVECADDRV0(abiv0GfxBase,  33, graphicsjmp[202 -  33]);  // InitRastPort
-    __AROS_SETVECADDRV0(abiv0GfxBase,  11, (APTR32)(IPTR)proxy_SetFont);
     __AROS_SETVECADDRV0(abiv0GfxBase, 134, graphicsjmp[202 - 134]);  // WeighTAMatch
     __AROS_SETVECADDRV0(abiv0GfxBase, 136, graphicsjmp[202 - 136]);  // ExtendFont
     __AROS_SETVECADDRV0(abiv0GfxBase,  80, graphicsjmp[202 -  80]);  // AddFont
     __AROS_SETVECADDRV0(abiv0GfxBase,   9, graphicsjmp[202 -   9]);  // TextLength
-    __AROS_SETVECADDRV0(abiv0GfxBase,  59, (APTR32)(IPTR)proxy_SetDrMd);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  57, (APTR32)(IPTR)proxy_SetAPen);
     __AROS_SETVECADDRV0(abiv0GfxBase,  51, (APTR32)(IPTR)proxy_RectFill);
     __AROS_SETVECADDRV0(abiv0GfxBase,  86, (APTR32)(IPTR)proxy_NewRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase,  85, (APTR32)(IPTR)proxy_OrRectRegion);
@@ -772,13 +665,10 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 170, (APTR32)(IPTR)proxy_AllocSpriteDataA);
     __AROS_SETVECADDRV0(abiv0GfxBase, 127, graphicsjmp[202 - 127]);  // FontExtent
     __AROS_SETVECADDRV0(abiv0GfxBase, 115, graphicsjmp[202 - 115]);  // TextExtent
-    __AROS_SETVECADDRV0(abiv0GfxBase, 149, (APTR32)(IPTR)proxy_SetABPenDrMd);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  58, (APTR32)(IPTR)proxy_SetBPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 116, graphicsjmp[202 - 116]);  // TextFit
     __AROS_SETVECADDRV0(abiv0GfxBase, 194, (APTR32)(IPTR)proxy_NewRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase, 132, (APTR32)(IPTR)proxy_GetVPModeID);
     __AROS_SETVECADDRV0(abiv0GfxBase, 126, (APTR32)(IPTR)proxy_GetDisplayInfoData);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 173, (APTR32)(IPTR)proxy_SetRPAttrsA);
     __AROS_SETVECADDRV0(abiv0GfxBase, 104, (APTR32)(IPTR)proxy_AndRegionRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase,  65, graphicsjmp[202 -  65]);  // InitBitmap
     __AROS_SETVECADDRV0(abiv0GfxBase,   6, (APTR32)(IPTR)proxy_BltTemplate);
@@ -790,7 +680,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 129, graphicsjmp[202 - 129]);  // WritePixelLine8
     __AROS_SETVECADDRV0(abiv0GfxBase, 131, (APTR32)(IPTR)proxy_WritePixelArray8);
     __AROS_SETVECADDRV0(abiv0GfxBase,  93, (APTR32)(IPTR)proxy_XorRectRegion);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 143, (APTR32)(IPTR)proxy_GetAPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 159, (APTR32)(IPTR)proxy_ObtainPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 142, (APTR32)(IPTR)proxy_SetRGB32);
     __AROS_SETVECADDRV0(abiv0GfxBase, 122, (APTR32)(IPTR)proxy_NextDisplayInfo);
@@ -812,5 +701,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  43, graphicsjmp[202 -  43]);  // AreaDraw
     __AROS_SETVECADDRV0(abiv0GfxBase,  44, graphicsjmp[202 -  44]);  // AreaEnd
     __AROS_SETVECADDRV0(abiv0GfxBase,  52, (APTR32)(IPTR)proxy_BltPattern);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 146, (APTR32)(IPTR)proxy_GetOutlinePen);
+
+    Graphics_Rastports_init(abiv0GfxBase);
 }

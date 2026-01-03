@@ -1,0 +1,10 @@
+/*
+    Copyright (C) 2026, The AROS Development Team. All rights reserved.
+*/
+
+#ifndef _GRAPHICS_RASTPORTS
+#define _GRAPHICS_RASTPORTS
+
+void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase);
+
+#endif
