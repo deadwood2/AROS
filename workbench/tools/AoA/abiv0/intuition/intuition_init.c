@@ -246,6 +246,15 @@ static void syncWindowV0(struct WindowProxy *proxy)
     proxy->base.TopEdge             = proxy->native->TopEdge;
 }
 
+/* TODO: should use proxy structures like window and layer */
+void syncScreenV0()
+{
+    g_mainv0screen->Screen.MouseX   = g_mainnativescreen->MouseX;
+    g_mainv0screen->Screen.MouseY   = g_mainnativescreen->MouseY;
+
+    // TODO: same for additional
+}
+
 struct WindowProxy *wmarray[100];
 
 static void wmAdd(struct WindowProxy *proxy)

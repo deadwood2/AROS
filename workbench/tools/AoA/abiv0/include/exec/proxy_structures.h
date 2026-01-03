@@ -22,6 +22,9 @@ struct DeviceProxy
     ULONG               type;
     struct IOStdReq     *io;
     struct Unit*        nativeunit;
+
+    APTR                user1;
+    APTR                user2;
 };
 
 #endif

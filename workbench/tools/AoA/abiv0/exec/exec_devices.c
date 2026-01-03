@@ -1,4 +1,5 @@
 #include <devices/ahi.h>
+#include <devices/inputevent.h>
 #include <proto/exec.h>
 #include <aros/debug.h>
 #include <string.h>
@@ -163,91 +164,98 @@ bug("abiv0_CloseDevice: STUB\n");
 }
 MAKE_PROXY_ARG_2(CloseDevice)
 
-// #include "../include/input/structures.h"
+#include "../include/input/structures.h"
+extern struct ExecBaseV0 *abiv0SysBase;
 
-// void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
-// {
-//     __asm__ volatile (
-//         "pushq %%rbx\n"
-//         "subq $8, %%rsp\n"
-//         "movl %2, %%eax\n"
-//         "movl %%eax, 4(%%rsp)\n"
-//         "movl %1, %%eax\n"
-//         "movl %%eax, (%%rsp)\n"
-//         "movl %0, %%eax\n"
-//         ENTER32
-//         "call *%%eax\n"
-//         ENTER64
-//         "addq $8, %%rsp\n"
-//         "popq %%rbx\n"
-//         "leave\n"
-//         "ret\n"
-//         ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data)
-//         : SCRATCH_REGS_64_TO_32 );
-// }
+void call_handler_on_31bit_stack(struct InterruptV0 *v0handler, APTR v0chain)
+{
+    __asm__ volatile (
+        "pushq %%rbx\n"
+        "subq $8, %%rsp\n"
+        "movl %2, %%eax\n"
+        "movl %%eax, 4(%%rsp)\n"
+        "movl %1, %%eax\n"
+        "movl %%eax, (%%rsp)\n"
+        "movl %0, %%eax\n"
+        ENTER32
+        "call *%%eax\n"
+        ENTER64
+        "addq $8, %%rsp\n"
+        "popq %%rbx\n"
+        "leave\n"
+        "ret\n"
+        ::"m"(v0handler->is_Code), "m"(v0chain), "m"(v0handler->is_Data)
+        : SCRATCH_REGS_64_TO_32 );
+}
 
-// AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
-//           AROS_UFHA(struct InputEvent *,      oldchain,       A0),
-//           AROS_UFHA(struct DeviceProxy *,       proxy,        A1)
-//          )
-// {
-//     AROS_USERFUNC_INIT
+void syncScreenV0();
 
-//     struct InputEvent *next_ie = oldchain;
+AROS_UFH2(struct InputEvent *, EmulatorInputHandler,
+          AROS_UFHA(struct InputEvent *,      oldchain,       A0),
+          AROS_UFHA(struct DeviceProxy *,       proxy,        A1))
+{
+    AROS_USERFUNC_INIT
 
-//     ULONG count = 0;
+    struct InputEvent *next_ie = oldchain;
 
-//     while(next_ie) { count++; next_ie = next_ie->ie_NextEvent; }
-//     struct InputEventV0 *v0chain = abiv0_AllocMem(count * sizeof(struct InputEventV0), MEMF_CLEAR, abiv0SysBase);
+    ULONG count = 0;
 
-//     next_ie = oldchain;
+    while(next_ie) { count++; next_ie = next_ie->ie_NextEvent; }
+    struct InputEventV0 *v0chain = abiv0_AllocMem(count * sizeof(struct InputEventV0), MEMF_CLEAR, abiv0SysBase);
 
-//     ULONG pos = 0;
-//     struct InputEventV0 *v0event = NULL;
-//     while (next_ie)
-//     {
-//         v0event = &v0chain[pos];
-//         v0event->ie_NextEvent   = (APTR32)(IPTR)&v0chain[pos + 1];
+    next_ie = oldchain;
 
-//         v0event->ie_Class       = next_ie->ie_Class;
-//         v0event->ie_SubClass    = next_ie->ie_SubClass;
-//         v0event->ie_Code        = next_ie->ie_Code;
-//         v0event->ie_Qualifier   = next_ie->ie_Qualifier;
+    ULONG pos = 0;
+    struct InputEventV0 *v0event = NULL;
+    while (next_ie)
+    {
+        v0event = &v0chain[pos];
+        v0event->ie_NextEvent   = (APTR32)(IPTR)&v0chain[pos + 1];
 
-//         v0event->ie_position.ie_xy.ie_x = next_ie->ie_position.ie_xy.ie_x;
-//         v0event->ie_position.ie_xy.ie_y = next_ie->ie_position.ie_xy.ie_y;
+        v0event->ie_Class       = next_ie->ie_Class;
+        v0event->ie_SubClass    = next_ie->ie_SubClass;
+        v0event->ie_Code        = next_ie->ie_Code;
+        v0event->ie_Qualifier   = next_ie->ie_Qualifier;
 
-//         v0event->ie_TimeStamp   = next_ie->ie_TimeStamp;
+        v0event->ie_position.ie_xy.ie_x = next_ie->ie_position.ie_xy.ie_x;
+        v0event->ie_position.ie_xy.ie_y = next_ie->ie_position.ie_xy.ie_y;
 
-//         next_ie = next_ie->ie_NextEvent;
-//         pos++;
-//     }
-//     v0event->ie_NextEvent = (APTR32)(IPTR)NULL; /* Last event */
+        v0event->ie_TimeStamp   = next_ie->ie_TimeStamp;
 
-//     /* Switch to 31-bit stack, because handler is in 32-bit code */
-//     static APTR stack31bit = NULL;
-//     struct StackSwapStruct sss;
-//     struct StackSwapArgs ssa;
+        if (next_ie->ie_Class == IECLASS_RAWMOUSE)
+        {
+            syncScreenV0(); // popuupmenu.library reads Wnd->WScreen MouseX and MouseY fields
+        }
 
-//     if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
+        next_ie = next_ie->ie_NextEvent;
+        pos++;
+    }
+    v0event->ie_NextEvent = (APTR32)(IPTR)NULL; /* Last event */
 
-//     sss.stk_Lower = stack31bit;
-//     sss.stk_Upper = sss.stk_Lower + 64 * 1024;
-//     sss.stk_Pointer = sss.stk_Upper;
+    /* Switch to 31-bit stack, because handler is in 32-bit code */
+    static APTR stack31bit = NULL;
+    struct StackSwapStruct sss;
+    struct StackSwapArgs ssa;
 
-//     struct InterruptV0 *v0handler = (struct InterruptV0 *)proxy->user1;
+    if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
 
-//     ssa.Args[0] = (IPTR)v0handler;
-//     ssa.Args[1] = (IPTR)v0chain;
+    sss.stk_Lower = stack31bit;
+    sss.stk_Upper = sss.stk_Lower + 64 * 1024;
+    sss.stk_Pointer = sss.stk_Upper;
 
-//     NewStackSwap(&sss, call_handler_on_31bit_stack, &ssa);
+    struct InterruptV0 *v0handler = (struct InterruptV0 *)proxy->user1;
 
-//     FreeMem(v0chain, count * sizeof(struct InputEventV0));
+    ssa.Args[0] = (IPTR)v0handler;
+    ssa.Args[1] = (IPTR)v0chain;
 
-//     return oldchain;
+    NewStackSwap(&sss, call_handler_on_31bit_stack, &ssa);
 
-//     AROS_USERFUNC_EXIT
-// }
+    FreeMem(v0chain, count * sizeof(struct InputEventV0));
+
+    return oldchain;
+
+    AROS_USERFUNC_EXIT
+}
 
 #include <proto/timer.h>
 #include "../include/timer/structures.h"
@@ -260,56 +268,44 @@ LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
 
     if (proxy->type == DEVPROXY_TYPE_INPUT)
     {
+        if (IORequest->io_Command == 9 /* IND_ADDHANDLER */)
+        {
+            struct InterruptV0 *v0handler = (APTR)(IPTR)((struct IOStdReqV0 *)IORequest)->io_Data;
+
+            struct Interrupt *inputhandler = AllocMem(sizeof (struct Interrupt), MEMF_PUBLIC | MEMF_CLEAR);
+            inputhandler->is_Code = (VOID_FUNC)AROS_ASMSYMNAME(EmulatorInputHandler);
+            inputhandler->is_Data = proxy;
+            inputhandler->is_Node.ln_Pri = 0;
+            inputhandler->is_Node.ln_Name = "EmuVOInputHandler";
+
+            proxy->io->io_Command = 9;
+            proxy->io->io_Data = inputhandler;
+
+            proxy->user1 = v0handler;
+            proxy->user2 = inputhandler;
+
+            DoIO((struct IORequest *)proxy->io);
+
+            IORequest->io_Error = proxy->io->io_Error;
+            return proxy->io->io_Error;
+        }
+        else if (IORequest->io_Command == 10 /* IND_REMHANDLER */)
+        {
+            struct InterruptV0 *v0handler = (APTR)(IPTR)((struct IOStdReqV0 *)IORequest)->io_Data;
+
+            proxy->io->io_Command = 10;
+            proxy->io->io_Data = proxy->user2;
+
+            DoIO((struct IORequest *)proxy->io);
+
+            // FreeMem(proxy->user1, sizeof(struct Interrupt)); //FIXME!!!!!!!
+            proxy->user1 = NULL;
+
+            IORequest->io_Error = proxy->io->io_Error;
+            return proxy->io->io_Error;
+        }
 bug("abiv0_DoIO: STUB\n");
-return 0;
-//         if (IORequest->io_Command == 9 /* IND_ADDHANDLER */)
-//         {
-//             struct InterruptV0 *v0handler = (APTR)(IPTR)((struct IOStdReqV0 *)IORequest)->io_Data;
-//             if (((char *)(IPTR)v0handler->is_Node.ln_Name)[0] == 'c')
-//             {
-// bug("abiv0_DoIO: STUB\n");
-//                 return 0; /* don't install commodities handler yet, it generates crash */
-//             }
-
-//             struct Interrupt *inputhandler = AllocMem(sizeof (struct Interrupt), MEMF_PUBLIC | MEMF_CLEAR);
-//             inputhandler->is_Code = (VOID_FUNC)AROS_ASMSYMNAME(EmulatorInputHandler);
-//             inputhandler->is_Data = proxy;
-//             inputhandler->is_Node.ln_Pri = 0;
-//             inputhandler->is_Node.ln_Name = "emulator input handler";
-
-//             proxy->io->io_Command = 9;
-//             proxy->io->io_Data = inputhandler;
-
-//             proxy->user1 = v0handler;
-//             proxy->user2 = inputhandler;
-
-//             DoIO((struct IORequest *)proxy->io);
-
-//             IORequest->io_Error = proxy->io->io_Error;
-//             return proxy->io->io_Error;
-//         }
-//         else if (IORequest->io_Command == 10 /* IND_REMHANDLER */)
-//         {
-//             struct InterruptV0 *v0handler = (APTR)(IPTR)((struct IOStdReqV0 *)IORequest)->io_Data;
-
-//             proxy->io->io_Command = 10;
-//             proxy->io->io_Data = proxy->user2;
-
-//             if (((char *)(IPTR)v0handler->is_Node.ln_Name)[0] == 'c')
-//             {
-// bug("abiv0_DoIO: STUB\n");
-//                 return 0; /* don't install commodities handler yet, it generates crash */
-//             }
-
-//             DoIO((struct IORequest *)proxy->io);
-
-//             FreeMem(proxy->user1, sizeof(struct Interrupt));
-//             proxy->user1 = NULL;
-
-//             IORequest->io_Error = proxy->io->io_Error;
-//             return proxy->io->io_Error;
-//         }
-// asm("int3");
+asm("int3");
     }
 
     if (proxy->type == DEVPROXY_TYPE_TIMER)
