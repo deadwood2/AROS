@@ -231,8 +231,7 @@ void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LON
     }
     else
     {
-        rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;
-        rpnative->AreaPtSz = rp->AreaPtSz;
+        synchronize_SetAfPt(rp, rpnative);
         RectFill(rpnative, xMin, yMin, xMax, yMax);
     }
 }
@@ -549,9 +548,7 @@ void abiv0_BltPattern(struct RastPortV0 *rp, PLANEPTR mask, LONG xMin, LONG yMin
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
 
-    rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;
-    rpnative->AreaPtSz = rp->AreaPtSz;
-
+    synchronize_SetAfPt(rp, rpnative);
     BltPattern(rpnative, mask, xMin, yMin, xMax, yMax, byteCnt);
 }
 MAKE_PROXY_ARG_12(BltPattern)

@@ -9,4 +9,8 @@ void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase);
 
 #define RastPortV0_getnative(rp) (struct RastPort *)*(IPTR *)&rp->longreserved
 
+#define synchronize_SetAfPt(rp, rpnative)           \
+    rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;  \
+    rpnative->AreaPtSz = rp->AreaPtSz;
+
 #endif
