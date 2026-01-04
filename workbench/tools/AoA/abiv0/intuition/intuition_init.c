@@ -1068,7 +1068,11 @@ static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, 
 
     v0gi->gi_Domain         = nativegi->gi_Domain;
     if (!nowin && nativegi->gi_Window)
-        v0gi->gi_Window     = (APTR32)(IPTR)wmGetByWindow(nativegi->gi_Window);
+    {
+        struct WindowProxy *wproxy = wmGetByWindow(nativegi->gi_Window);
+        v0gi->gi_Window     = (APTR32)(IPTR)wproxy;
+        syncWindowV0(wproxy);
+    }
     if (nativegi->gi_RastPort)
         v0gi->gi_RastPort   = (APTR32)(IPTR)makeRastPortV0(nativegi->gi_RastPort);
     if (nativegi->gi_Layer)
