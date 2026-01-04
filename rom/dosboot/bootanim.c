@@ -133,20 +133,6 @@ void anim_Stop(struct DOSBootBase *DOSBootBase)
     struct AnimData *ad = DOSBootBase->animData;
     if (ad)
     {
-        /* Restore mouse pointer visibility if it was hidden */
-        if (ad->ad_State & STATEF_POINTERHIDE)
-        {
-            struct pHidd_Gfx_SetCursorVisible p;
-#if defined(__OOP_NOMETHODBASES__)
-            p.mID = ad->gfxMethodBase;
-#endif
-            /* This is nonsense if __OOP_NOMETHODBASES__ is not defined,
-               but it's symmetric with the incorrect code for hiding. */
-            p.mID += moHidd_Gfx_SetCursorVisible;
-            p.visible = TRUE;
-            (VOID)OOP_DoMethod(ad->gfxhidd, &p.mID);
-        }
-
 #if defined(__OOP_NOATTRBASES__)
         if (ad->ad_State & STATEF_OOPATTRIBS)
         {
