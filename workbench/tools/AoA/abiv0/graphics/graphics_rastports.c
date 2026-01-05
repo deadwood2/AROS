@@ -146,7 +146,7 @@ asm("int3");
 }
 MAKE_PROXY_ARG_3(GetRPAttrsA)
 
-void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase)
+void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp)
 {
     __AROS_SETVECADDRV0(abiv0GfxBase,  11, (APTR32)(IPTR)proxy_SetFont);
     __AROS_SETVECADDRV0(abiv0GfxBase,  59, (APTR32)(IPTR)proxy_SetDrMd);
@@ -157,4 +157,9 @@ void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase)
     __AROS_SETVECADDRV0(abiv0GfxBase, 143, (APTR32)(IPTR)proxy_GetAPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 146, (APTR32)(IPTR)proxy_GetOutlinePen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 174, (APTR32)(IPTR)proxy_GetRPAttrsA);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  33, graphicsjmp[202 -  33]);  // InitRastPort
+    __AROS_SETVECADDRV0(abiv0GfxBase,  14, graphicsjmp[202 -  14]);  // AskSoftStyle
+    __AROS_SETVECADDRV0(abiv0GfxBase,  15, graphicsjmp[202 -  15]);  // SetSoftStyle
+    __AROS_SETVECADDRV0(abiv0GfxBase, 177, graphicsjmp[202 - 177]);  // CreateRastPort
+    __AROS_SETVECADDRV0(abiv0GfxBase, 180, graphicsjmp[202 - 180]);  // FreeRastPort
 }

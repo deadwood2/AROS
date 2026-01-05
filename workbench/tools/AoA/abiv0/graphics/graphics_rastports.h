@@ -5,7 +5,7 @@
 #ifndef _GRAPHICS_RASTPORTS
 #define _GRAPHICS_RASTPORTS
 
-void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase);
+void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp);
 
 #define RastPortV0_getnative(rp) (struct RastPort *)*(IPTR *)&rp->longreserved
 
