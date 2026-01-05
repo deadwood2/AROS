@@ -18,6 +18,7 @@
 #include "../include/utility/structures.h"
 
 #include "graphics_rastports.h"
+#include "graphics_regions.h"
 
 struct ExecBaseV0 *Gfx_SysBaseV0;
 
@@ -287,50 +288,6 @@ LONG abiv0_WritePixel(struct RastPortV0 *rp, LONG x, LONG y, struct GfxBaseV0 *G
 }
 MAKE_PROXY_ARG_4(WritePixel)
 
-struct RegionV0 *abiv0_NewRegion(struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Gfx_SysBaseV0);
-    proxy->native = NewRegion();
-    return (struct RegionV0 *)proxy;
-}
-MAKE_PROXY_ARG_1(NewRegion)
-
-struct RegionV0 *abiv0_NewRectRegion(WORD MinX, WORD MinY, WORD MaxX, WORD MaxY, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Gfx_SysBaseV0);
-    proxy->native = NewRectRegion(MinX, MinY, MaxX, MaxY);
-    return (struct RegionV0 *)proxy;
-}
-MAKE_PROXY_ARG_5(NewRectRegion)
-
-BOOL abiv0_OrRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy = (struct RegionProxy *)Reg;
-    return OrRectRegion(proxy->native, Rect);
-}
-MAKE_PROXY_ARG_3(OrRectRegion)
-
-BOOL abiv0_XorRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy = (struct RegionProxy *)Reg;
-    return XorRectRegion(proxy->native, Rect);
-}
-MAKE_PROXY_ARG_3(XorRectRegion)
-
-void abiv0_DisposeRegion(struct RegionV0 *region, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy = (struct RegionProxy *)region;
-    return DisposeRegion(proxy->native);
-}
-MAKE_PROXY_ARG_2(DisposeRegion)
-
-BOOL abiv0_ClearRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy = (struct RegionProxy *)Reg;
-    return ClearRectRegion(proxy->native, Rect);
-}
-MAKE_PROXY_ARG_3(ClearRectRegion)
-
 ULONG abiv0_GetVPModeID(struct ViewPortV0 * vp, struct GfxBaseV0 *GfxBaseV0)
 {
     struct ViewPort *vpnative = (struct ViewPort *)*(IPTR *)&vp->DspIns;
@@ -344,14 +301,6 @@ bug("abiv0_GetDisplayInfoData: STUB\n");
     return 0;
 }
 MAKE_PROXY_ARG_6(GetDisplayInfoData)
-
-BOOL abiv0_AndRegionRegion(struct RegionV0 *R1, struct RegionV0 *R2, struct GfxBaseV0 *GfxBaseV0)
-{
-    struct RegionProxy *proxy1 = (struct RegionProxy *)R1;
-    struct RegionProxy *proxy2 = (struct RegionProxy *)R2;
-    return AndRegionRegion(proxy1->native, proxy2->native);
-}
-MAKE_PROXY_ARG_3(AndRegionRegion)
 
 void abiv0_BltTemplate(PLANEPTR source, LONG xSrc, LONG srcMod, struct RastPortV0 *destRP, LONG xDest, LONG yDest, LONG xSize,
     LONG ySize, struct GfxBaseV0 *GfxBaseV0)
@@ -647,15 +596,11 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  80, graphicsjmp[202 -  80]);  // AddFont
     __AROS_SETVECADDRV0(abiv0GfxBase,   9, graphicsjmp[202 -   9]);  // TextLength
     __AROS_SETVECADDRV0(abiv0GfxBase,  51, (APTR32)(IPTR)proxy_RectFill);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  86, (APTR32)(IPTR)proxy_NewRegion);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  85, (APTR32)(IPTR)proxy_OrRectRegion);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  89, (APTR32)(IPTR)proxy_DisposeRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase,  40, (APTR32)(IPTR)proxy_Move);
     __AROS_SETVECADDRV0(abiv0GfxBase,  41, (APTR32)(IPTR)proxy_Draw);
     __AROS_SETVECADDRV0(abiv0GfxBase,  14, graphicsjmp[202 -  14]);  // AskSoftStyle
     __AROS_SETVECADDRV0(abiv0GfxBase,  15, graphicsjmp[202 -  15]);  // SetSoftStyle
     __AROS_SETVECADDRV0(abiv0GfxBase,  10, (APTR32)(IPTR)proxy_Text);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  87, (APTR32)(IPTR)proxy_ClearRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase,  54, (APTR32)(IPTR)proxy_WritePixel);
     __AROS_SETVECADDRV0(abiv0GfxBase, 158, (APTR32)(IPTR)proxy_ReleasePen);
     __AROS_SETVECADDRV0(abiv0GfxBase,  13, (APTR32)(IPTR)proxy_CloseFont);
@@ -663,10 +608,8 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 127, graphicsjmp[202 - 127]);  // FontExtent
     __AROS_SETVECADDRV0(abiv0GfxBase, 115, graphicsjmp[202 - 115]);  // TextExtent
     __AROS_SETVECADDRV0(abiv0GfxBase, 116, graphicsjmp[202 - 116]);  // TextFit
-    __AROS_SETVECADDRV0(abiv0GfxBase, 194, (APTR32)(IPTR)proxy_NewRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase, 132, (APTR32)(IPTR)proxy_GetVPModeID);
     __AROS_SETVECADDRV0(abiv0GfxBase, 126, (APTR32)(IPTR)proxy_GetDisplayInfoData);
-    __AROS_SETVECADDRV0(abiv0GfxBase, 104, (APTR32)(IPTR)proxy_AndRegionRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase,  65, graphicsjmp[202 -  65]);  // InitBitmap
     __AROS_SETVECADDRV0(abiv0GfxBase,   6, (APTR32)(IPTR)proxy_BltTemplate);
     __AROS_SETVECADDRV0(abiv0GfxBase,  38, graphicsjmp[202 -  38]);  // WaitBlit
@@ -676,7 +619,6 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 154, (APTR32)(IPTR)proxy_FreeBitMap);
     __AROS_SETVECADDRV0(abiv0GfxBase, 129, graphicsjmp[202 - 129]);  // WritePixelLine8
     __AROS_SETVECADDRV0(abiv0GfxBase, 131, (APTR32)(IPTR)proxy_WritePixelArray8);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  93, (APTR32)(IPTR)proxy_XorRectRegion);
     __AROS_SETVECADDRV0(abiv0GfxBase, 159, (APTR32)(IPTR)proxy_ObtainPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 142, (APTR32)(IPTR)proxy_SetRGB32);
     __AROS_SETVECADDRV0(abiv0GfxBase, 122, (APTR32)(IPTR)proxy_NextDisplayInfo);
@@ -700,4 +642,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  52, (APTR32)(IPTR)proxy_BltPattern);
 
     Graphics_Rastports_init(abiv0GfxBase);
+    Graphics_Regions_init(abiv0GfxBase);
 }
