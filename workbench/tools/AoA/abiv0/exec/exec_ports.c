@@ -168,7 +168,11 @@ bug("abiv0_PutMsg: STUB\n");
     struct Message32To32 *native = AllocMem(sizeof(struct Message32To32), MEMF_CLEAR);
     native->v0msg   = message;
     native->key     = KEY32TO32;
-    native->msg.mn_ReplyPort = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)message->mn_ReplyPort);
+    if (message->mn_ReplyPort != (APTR32)(IPTR)NULL)
+        native->msg.mn_ReplyPort = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)message->mn_ReplyPort);
+    else
+        native->msg.mn_ReplyPort = NULL;
+
     /* Store native message in mn_Node of v0msg for now */
     *(IPTR *)(&message->mn_Node) = (IPTR)native;
 
