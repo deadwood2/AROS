@@ -303,7 +303,7 @@ struct MenuItemV0
 
                /***** Gadgets *****/
 
-struct GadgetV0
+struct GadgetV0 /* ExtGadgetV0 */
 {
     APTR32 NextGadget;
 
@@ -325,6 +325,13 @@ struct GadgetV0
     APTR32  SpecialInfo;
     UWORD GadgetID;
     APTR32  UserData;
+
+/* ExtGadget specific fields */
+    ULONG MoreFlags;	  /* see below */
+    WORD  BoundsLeftEdge;
+    WORD  BoundsTopEdge;
+    WORD  BoundsWidth;
+    WORD  BoundsHeight;
 };
 
 #define STACKEDV0 __attribute__((aligned(4)))

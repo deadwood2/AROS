@@ -112,7 +112,9 @@ MAKE_PROXY_ARG_2(DisposeRegion)
 BOOL abiv0_ClearRectRegion(struct RegionV0 *Reg, struct Rectangle *Rect, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RegionProxy *proxy = (struct RegionProxy *)Reg;
-    return ClearRectRegion(proxy->native, Rect);
+    BOOL _res = ClearRectRegion(proxy->native, Rect);
+    syncRegionV0(proxy);
+    return _res;
 }
 MAKE_PROXY_ARG_3(ClearRectRegion)
 

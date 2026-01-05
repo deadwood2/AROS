@@ -34,6 +34,13 @@ void syncLayerV0(struct LayerProxy *proxy);
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 ULONG abiv0_DoMethodA(APTR object, APTR message);
 
+/* Assumptions:
+    1) All nativeg will be ExtGadget as created by 64-bit Intuition
+    2) All v0g will be ExtGadgetV0 as created by 32-bit Intuition
+    3) v0g contains valid data that needs to be synchronized back to nativeg
+*/
+
+
 static void syncGadgetNative(struct Gadget *nativeg, struct GadgetV0 *v0g)
 {
     nativeg->Flags         = v0g->Flags;
@@ -44,6 +51,15 @@ static void syncGadgetNative(struct Gadget *nativeg, struct GadgetV0 *v0g)
     nativeg->Height        = v0g->Height;
     nativeg->GadgetID      = v0g->GadgetID;
     nativeg->GadgetType    = v0g->GadgetType;
+
+    if (v0g->Flags & GFLG_EXTENDED)
+    {
+        ((struct ExtGadget *)nativeg)->MoreFlags        = v0g->MoreFlags;
+        ((struct ExtGadget *)nativeg)->BoundsLeftEdge   = v0g->BoundsLeftEdge;
+        ((struct ExtGadget *)nativeg)->BoundsTopEdge    = v0g->BoundsTopEdge;
+        ((struct ExtGadget *)nativeg)->BoundsWidth      = v0g->BoundsWidth;
+        ((struct ExtGadget *)nativeg)->BoundsHeight     = v0g->BoundsHeight;
+    }
 }
 
 UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
@@ -215,6 +231,73 @@ static void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
 
     abiv0_FreeMem(v0gi, sizeof(struct GadgetInfoV0), Intuition_SysBaseV0);
 }
+
+static void syncDummyGadgetV0(struct GadgetV0 *v0g, struct Gadget *nativeg)
+{
+    v0g->Flags          = nativeg->Flags;
+    v0g->Activation     = nativeg->Activation;
+    v0g->TopEdge        = nativeg->TopEdge;
+    v0g->LeftEdge       = nativeg->LeftEdge;
+    v0g->Width          = nativeg->Width;
+    v0g->Height         = nativeg->Height;
+    v0g->GadgetID       = nativeg->GadgetID;
+    v0g->GadgetType     = nativeg->GadgetType;
+
+    if (nativeg->Flags & GFLG_EXTENDED)
+    {
+        v0g->MoreFlags      = ((struct ExtGadget *)nativeg)->MoreFlags;
+        v0g->BoundsLeftEdge = ((struct ExtGadget *)nativeg)->BoundsLeftEdge;
+        v0g->BoundsTopEdge  = ((struct ExtGadget *)nativeg)->BoundsTopEdge;
+        v0g->BoundsWidth    = ((struct ExtGadget *)nativeg)->BoundsWidth;
+        v0g->BoundsHeight   = ((struct ExtGadget *)nativeg)->BoundsHeight;
+    }
+}
+
+static struct GadgetV0 * createDummyGadgetV0Chain(struct GadgetInfo *nativegi)
+{
+    struct GadgetV0 *_ret = NULL, *v0prev = NULL;
+    struct Gadget *g = nativegi->gi_Window->FirstGadget;
+    while (g)
+    {
+        struct GadgetV0 *v0g = abiv0_AllocMem(sizeof(struct GadgetV0), MEMF_CLEAR, Intuition_SysBaseV0);
+        syncDummyGadgetV0(v0g, g);
+        if (v0prev) v0prev->NextGadget = (APTR32)(IPTR)v0g;
+        v0prev = v0g;
+
+        if (_ret == NULL) _ret = v0g;
+        g = g->NextGadget;
+    }
+
+    return _ret;
+}
+
+static void quirks_GM_RENDER_Apply(struct GadgetV0 *v0g, struct GadgetInfoV0 *v0gi, struct GadgetInfo *nativegi)
+{
+    /* AslEraser class needs gadgets in Window->FirstGadget */
+    if (v0g->LeftEdge == 20000 && v0g->Width == 1)
+    {
+        ((struct WindowV0 *)(IPTR)v0gi->gi_Window)->FirstGadget = (APTR32)(IPTR)createDummyGadgetV0Chain(nativegi);
+    }
+}
+
+static void quirks_GM_RENDER_Remove(struct GadgetV0 *v0g, struct GadgetInfoV0 *v0gi)
+{
+    /* AslEraser class needs gadgets in Window->FirstGadget */
+    if (v0g->LeftEdge == 20000 && v0g->Width == 1)
+    {
+        struct GadgetV0 *p = (struct GadgetV0 *)(IPTR)((struct WindowV0 *)(IPTR)v0gi->gi_Window)->FirstGadget;
+
+        while (p)
+        {
+            struct GadgetV0 *t = p;
+            p = (struct GadgetV0 *)(IPTR)p->NextGadget;
+            abiv0_FreeMem(t, sizeof(struct GadgetV0), Intuition_SysBaseV0);
+        }
+
+        ((struct WindowV0 *)(IPTR)v0gi->gi_Window)->FirstGadget = (APTR32)(IPTR)NULL;
+    }
+}
+
 
 /*
  * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
@@ -400,6 +483,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             struct gpRenderV0 *v0msg = abiv0_AllocMem(sizeof(struct gpRenderV0), MEMF_CLEAR, Intuition_SysBaseV0);
             struct GadgetInfoV0 *v0gi = composeGadgetInfoV0(nativemsg->gpr_GInfo);
+            quirks_GM_RENDER_Apply(v0g, v0gi, nativemsg->gpr_GInfo);
 
             struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
             v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
@@ -415,6 +499,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
+            quirks_GM_RENDER_Remove(v0g, v0gi);
             abiv0_FreeMem((APTR)(IPTR)v0msg->gpr_RPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
