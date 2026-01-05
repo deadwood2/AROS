@@ -17,6 +17,9 @@ struct RegionProxy
 {
     struct RegionV0 base;
     struct Region   *native;
+
+    struct RegionRectangleV0    *rrArray;
+    ULONG                       rrCount;
 };
 
 struct BitMapProxy

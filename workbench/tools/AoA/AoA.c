@@ -66,6 +66,7 @@ MAKE_PROXY_ARG_2(Layers_OpenLib)
 
 #include "abiv0/include/graphics/structures.h"
 #include "abiv0/include/graphics/proxy_structures.h"
+#include "abiv0/graphics/graphics_regions.h"
 
 struct ExecBaseV0 *Layers_SysBaseV0;
 
@@ -106,35 +107,8 @@ void abiv0_LockLayer(LONG dummy, struct LayerV0 *layer, struct LibraryV0 *Layers
         struct RegionProxy *rproxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Layers_SysBaseV0);
         rproxy->native  = proxy->native->DamageList;
 
-        rproxy->base.bounds.MaxX    = rproxy->native->bounds.MaxX;
-        rproxy->base.bounds.MinX    = rproxy->native->bounds.MinX;
-        rproxy->base.bounds.MaxY    = rproxy->native->bounds.MaxY;
-        rproxy->base.bounds.MinY    = rproxy->native->bounds.MinY;
+        syncRegionV0(rproxy);
 
-        struct RegionRectangle *rrnative = rproxy->native->RegionRectangle;
-        struct RegionRectangleV0 *rrv0prev = NULL, *rrv0first = NULL;
-        while(rrnative)
-        {
-            struct RegionRectangleV0 *rrv0 = abiv0_AllocMem(sizeof(struct RegionRectangleV0), MEMF_CLEAR, Layers_SysBaseV0);
-            rrv0->bounds.MaxX = rrnative->bounds.MaxX;
-            rrv0->bounds.MinX = rrnative->bounds.MinX;
-            rrv0->bounds.MaxY = rrnative->bounds.MaxY;
-            rrv0->bounds.MinY = rrnative->bounds.MinY;
-            if (rrv0prev)
-            {
-                rrv0prev->Next = (APTR32)(IPTR)rrv0;
-                rrv0->Prev = (APTR32)(IPTR)rrv0prev;
-                rrv0prev = rrv0;
-            }
-            if (!rrv0prev)
-            {
-                rrv0first = rrv0prev = rrv0;
-            }
-
-            rrnative = rrnative->Next;
-        }
-
-        rproxy->base.RegionRectangle = (APTR32)(IPTR)rrv0first;
         proxy->base.DamageList  = (APTR32)(IPTR)rproxy;
     }
     else

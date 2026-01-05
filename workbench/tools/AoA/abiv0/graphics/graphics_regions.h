@@ -7,4 +7,6 @@
 
 void Graphics_Regions_init(struct GfxBaseV0 *abiv0GfxBase);
 
+void syncRegionV0(struct RegionProxy *proxy);
+
 #endif

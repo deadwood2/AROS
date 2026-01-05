@@ -17,6 +17,59 @@
 
 extern struct ExecBaseV0 *Gfx_SysBaseV0;
 
+void syncRegionV0(struct RegionProxy *proxy)
+{
+    struct RegionRectangle *rrnative = proxy->native->RegionRectangle;
+    struct RegionRectangleV0 *rrv0prev = NULL, *rrv0first = NULL;
+
+    if (proxy->rrArray != NULL)
+        abiv0_FreeMem(proxy->rrArray, sizeof(struct RegionRectangleV0) * proxy->rrCount, Gfx_SysBaseV0);
+    proxy->rrArray = NULL;
+    proxy->rrCount = 0;
+    proxy->base.RegionRectangle = (APTR32)(IPTR)NULL;
+
+    proxy->base.bounds.MaxX    = proxy->native->bounds.MaxX;
+    proxy->base.bounds.MinX    = proxy->native->bounds.MinX;
+    proxy->base.bounds.MaxY    = proxy->native->bounds.MaxY;
+    proxy->base.bounds.MinY    = proxy->native->bounds.MinY;
+
+    while(rrnative)
+    {
+        proxy->rrCount++;
+        rrnative = rrnative->Next;
+    }
+
+    if (proxy->rrCount == 0)
+        return;
+
+    proxy->rrArray = abiv0_AllocMem(sizeof(struct RegionRectangleV0) * proxy->rrCount, MEMF_CLEAR, Gfx_SysBaseV0);
+    rrnative = proxy->native->RegionRectangle;
+    ULONG i = 0;
+
+    while(rrnative)
+    {
+        struct RegionRectangleV0 *rrv0 = &proxy->rrArray[i++];
+        rrv0->bounds.MaxX = rrnative->bounds.MaxX;
+        rrv0->bounds.MinX = rrnative->bounds.MinX;
+        rrv0->bounds.MaxY = rrnative->bounds.MaxY;
+        rrv0->bounds.MinY = rrnative->bounds.MinY;
+        if (rrv0prev)
+        {
+            rrv0prev->Next = (APTR32)(IPTR)rrv0;
+            rrv0->Prev = (APTR32)(IPTR)rrv0prev;
+            rrv0prev = rrv0;
+        }
+        if (!rrv0prev)
+        {
+            rrv0first = rrv0prev = rrv0;
+        }
+
+        rrnative = rrnative->Next;
+    }
+
+    proxy->base.RegionRectangle = (APTR32)(IPTR)rrv0first;
+}
+
 struct RegionV0 *abiv0_NewRegion(struct GfxBaseV0 *GfxBaseV0)
 {
     struct RegionProxy *proxy = abiv0_AllocMem(sizeof(struct RegionProxy), MEMF_CLEAR, Gfx_SysBaseV0);
@@ -50,7 +103,9 @@ MAKE_PROXY_ARG_3(XorRectRegion)
 void abiv0_DisposeRegion(struct RegionV0 *region, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RegionProxy *proxy = (struct RegionProxy *)region;
-    return DisposeRegion(proxy->native);
+    if (proxy->rrArray != NULL)
+        abiv0_FreeMem(proxy->rrArray, sizeof(struct RegionRectangleV0) * proxy->rrCount, Gfx_SysBaseV0);
+    DisposeRegion(proxy->native);
 }
 MAKE_PROXY_ARG_2(DisposeRegion)
 
