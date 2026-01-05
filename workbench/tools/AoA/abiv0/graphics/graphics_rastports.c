@@ -15,8 +15,9 @@
 
 #include "graphics_rastports.h"
 
-extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
+void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
 
 void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct GfxBaseV0 *GfxBaseV0)
 {
@@ -123,6 +124,28 @@ void abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gfx
 }
 MAKE_PROXY_ARG_3(SetRPAttrsA)
 
+void abiv0_GetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
+    struct TagItemV0 *tmp;
+
+    tmp = (struct TagItemV0 *)tags;
+    do
+    {
+        switch(tmp->ti_Tag)
+        {
+            case(RPTAG_APen): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetAPen(rpnative); break;
+            case(RPTAG_BPen): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetBPen(rpnative); break;
+            case(RPTAG_DrMd): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetDrMd(rpnative); break;
+            case(TAG_DONE): break;
+            default:
+bug("GetRPAttr unhandled tag %x\n", tmp->ti_Tag);
+asm("int3");
+        }
+    } while (LibNextTagItemV0(&tmp) != NULL);
+}
+MAKE_PROXY_ARG_3(GetRPAttrsA)
+
 void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase)
 {
     __AROS_SETVECADDRV0(abiv0GfxBase,  11, (APTR32)(IPTR)proxy_SetFont);
@@ -133,4 +156,5 @@ void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase)
     __AROS_SETVECADDRV0(abiv0GfxBase, 173, (APTR32)(IPTR)proxy_SetRPAttrsA);
     __AROS_SETVECADDRV0(abiv0GfxBase, 143, (APTR32)(IPTR)proxy_GetAPen);
     __AROS_SETVECADDRV0(abiv0GfxBase, 146, (APTR32)(IPTR)proxy_GetOutlinePen);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 174, (APTR32)(IPTR)proxy_GetRPAttrsA);
 }

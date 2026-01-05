@@ -145,7 +145,7 @@ bug("abiv0_FreeScreenDrawInfo: STUB\n");
 }
 MAKE_PROXY_ARG_3(FreeScreenDrawInfo)
 
-static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
+struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
 {
     if (!(*tagListPtr))
         return NULL;
