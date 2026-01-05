@@ -184,7 +184,7 @@ struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
 
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
-    bug("abiv0_OpenLibrary: %s\n", name);
+    D(bug("abiv0_OpenLibrary: %s\n", name));
     TEXT buff[64];
     struct LibraryV0 *_ret;
     STRPTR stripped_name = FilePart(name);
@@ -216,7 +216,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 
     if (res)
     {
-        (bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
+        D(bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
         /* AOS compatibility requirement.
             * Ramlib ignores InitResident() return code.
             * After InitResident() it checks if lib/dev appeared
@@ -229,7 +229,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
         abiv0_InitResident(res, seglist, SysBaseV0);
         _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
         // Permit();
-        (bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
+        D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
 
         return _ret;
     }

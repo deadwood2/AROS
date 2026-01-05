@@ -706,7 +706,7 @@ LONG abiv0_ExNext(BPTR lock, struct FileInfoBlockV0 *fileInfoBlock, struct DosLi
         fileInfoBlock->fib_Size         = fibnative->fib_Size;
         fileInfoBlock->fib_DirEntryType = fibnative->fib_DirEntryType;
         CopyMem(fibnative->fib_FileName, fileInfoBlock->fib_FileName, 108);
-bug("abiv0_ExNext: STUB\n");
+// bug("abiv0_ExNext: STUB\n");
     }
     return res;
 }
