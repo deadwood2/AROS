@@ -81,12 +81,6 @@ static int getArguments(struct PCIDevice *base)
                         base->hd_Flags |= HDF_FORCEPOWER;
                         continue;
                     }
-#if defined(PCIUSB_ENABLEXHCI)
-                    if (strstr(CmdLine, "xhci"))
-                    {
-                        base->hd_Flags |= HDF_ENABLEXHCI;
-                    }
-#endif
                 }
             }
         }
@@ -95,12 +89,6 @@ static int getArguments(struct PCIDevice *base)
     {
         pciusbInfo("", "Forcing USB Power\n");
     }
-#if defined(PCIUSB_ENABLEXHCI)
-    if (base->hd_Flags & HDF_ENABLEXHCI)
-    {
-        pciusbInfo("", "Enabling experimental XHCI code\n");
-    }
-#endif
     return TRUE;
 }
 
