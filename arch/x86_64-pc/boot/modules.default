@@ -37,6 +37,7 @@
 /Devs/Drivers/ipmi.hidd
 /Devs/Drivers/smbios-ipmi.hidd
 /Devs/USBHardware/pciusb.device
+/Devs/USBHardware/pcixhci.device
 /Devs/usbromstartup.resource
 /Devs/bootloader.resource
 /Devs/dosboot.resource
