@@ -31,6 +31,7 @@
 /Devs/Drivers/acpibattery.hidd
 /Devs/Drivers/acpibutton.hidd
 /Devs/USBHardware/pciusb.device
+/Devs/USBHardware/pcixhci.device
 /Devs/usbromstartup.resource
 /Devs/bootloader.resource
 /Devs/dosboot.resource
