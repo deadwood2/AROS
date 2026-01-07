@@ -416,7 +416,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     lastlvo = 12;
     negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
     possize = sizeof(struct DeviceProxy);
-    tmpmem  = AllocMem(negsize + possize, MEMF_31BIT | MEMF_CLEAR);
+    tmpmem  = abiv0_AllocMem(negsize + possize, MEMF_CLEAR, SysBaseV0);
     abiv0TimerBase = (tmpmem + negsize);
         /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0TimerBase, i, (APTR32)(IPTR)i + 1100);
@@ -430,7 +430,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     lastlvo = 7;
     negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
     possize = sizeof(struct DeviceProxy);
-    tmpmem  = AllocMem(negsize + possize, MEMF_31BIT | MEMF_CLEAR);
+    tmpmem  = abiv0_AllocMem(negsize + possize, MEMF_CLEAR, SysBaseV0);
     abiv0InputBase = (tmpmem + negsize);
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0InputBase, i, (APTR32)(IPTR)i + 1150);
@@ -443,7 +443,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     lastlvo = 12;
     negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
     possize = sizeof(struct DeviceProxy);
-    tmpmem  = AllocMem(negsize + possize, MEMF_31BIT | MEMF_CLEAR);
+    tmpmem  = abiv0_AllocMem(negsize + possize, MEMF_CLEAR, SysBaseV0);
     abiv0ConsoleBase = (tmpmem + negsize);
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0ConsoleBase, i, (APTR32)(IPTR)i + 1200);
