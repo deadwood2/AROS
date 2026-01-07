@@ -39,7 +39,7 @@ endif
 
 #FIXME: Currently pciusb.device is different when compiled for pc or not.
 #       It should thus normally be in SYS:Arch but it is not ATM.
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 ifeq ($(ARCH),pc)
 USER_LDFLAGS += -lacpica
 endif
@@ -49,6 +49,6 @@ endif
     modname=pciusb modtype=device \
     moduledir=$(USBHARDWAREPATH) \
     files="$(FILES)" \
-    uselibs="hiddstubs debug oop" usesdks="private"
+    uselibs="hiddstubs debug oop stdc.static" usesdks="private"
 
 %common

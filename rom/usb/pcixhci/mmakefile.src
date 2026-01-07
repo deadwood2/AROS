@@ -37,13 +37,13 @@ ifneq ($(AROS_TARGET_VARIANT),)
 endif
 -include $(SRCDIR)/$(CURDIR)/make.opts
 
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs
 #USER_CPPFLAGS += -DDEBUG=1
 
 %build_module mmake=kernel-usb-pcixhci \
     modname=pcixhci modtype=device \
     moduledir=$(USBHARDWAREPATH) \
     files="$(FILES)" \
-    uselibs="hiddstubs debug"
+    uselibs="hiddstubs debug oop stdc.static" usesdks="private"
 
 %common
