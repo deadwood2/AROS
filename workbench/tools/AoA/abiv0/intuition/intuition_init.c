@@ -1103,7 +1103,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x180), SysBaseV0); // GadgetLock
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x0F8), SysBaseV0); // PubScrListLock
     NEWLISTV0((struct MinListV0 *)((IPTR)abiv0IntuitionBase + 0x12C)); // PubScreenList
-    *(APTR32 *)((IPTR)(abiv0IntuitionBase + 0x480)) = (APTR32)(IPTR)NULL; // ReqFont
+    *(APTR32 *)((IPTR)abiv0IntuitionBase + 0x480) = (APTR32)(IPTR)NULL; // ReqFont
 
     abiv0IntuitionBase->GlobalEditHook = (APTR32)(IPTR)&abiv0IntuitionBase->DefaultEditHook;
     abiv0IntuitionBase->DefaultEditHook.h_Entry = (APTR32)(IPTR)(_GlobalEditFunc);
