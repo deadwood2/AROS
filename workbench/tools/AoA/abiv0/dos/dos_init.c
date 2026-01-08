@@ -1,3 +1,7 @@
+/*
+    Copyright (C) 2025-2026, The AROS Development Team. All rights reserved.
+*/
+
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <aros/debug.h>

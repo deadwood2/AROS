@@ -1,3 +1,7 @@
+/*
+    Copyright (C) 2025-2026, The AROS Development Team. All rights reserved.
+*/
+
 #ifndef _EXEC_PORTS_H
 #define _EXEC_PORTS_H
 

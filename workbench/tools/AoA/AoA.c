@@ -1,3 +1,7 @@
+/*
+    Copyright (C) 2024-2026, The AROS Development Team. All rights reserved.
+*/
+
 #include <dos/bptr.h>
 #include <exec/types.h>
 #include <aros/debug.h>

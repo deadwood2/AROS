@@ -1,3 +1,7 @@
+/*
+    Copyright (C) 2025-2026, The AROS Development Team. All rights reserved.
+*/
+
 #include <devices/ahi.h>
 #include <devices/inputevent.h>
 #include <proto/exec.h>

@@ -1,3 +1,7 @@
+/*
+    Copyright (C) 2025-2026, The AROS Development Team. All rights reserved.
+*/
+
 #ifndef ABIV0_INTUITION_STRUCTURES_H
 #define ABIV0_INTUITION_STRUCTURES_H
 
