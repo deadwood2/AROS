@@ -29,7 +29,6 @@ extern struct Screen       *g_mainnativescreen;
 
 struct IClass *gadgetwrappercl;
 
-struct RastPortV0 *makeRastPortV0(struct RastPort *native);
 void syncLayerV0(struct LayerProxy *proxy);
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 ULONG abiv0_DoMethodA(APTR object, APTR message);

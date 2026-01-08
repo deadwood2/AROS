@@ -22,6 +22,11 @@
 
 struct ExecBaseV0 *Gfx_SysBaseV0;
 
+void syncLayerV0(struct LayerProxy *proxy)
+{
+    proxy->base.Flags               = proxy->native->Flags;
+}
+
 struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
 {
     return GfxBaseV0;

@@ -13,4 +13,6 @@ void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp
     rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;  \
     rpnative->AreaPtSz = rp->AreaPtSz;
 
+struct RastPortV0 *makeRastPortV0(struct RastPort *native);
+
 #endif

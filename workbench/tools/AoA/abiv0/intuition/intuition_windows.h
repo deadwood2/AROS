@@ -5,7 +5,7 @@
 #ifndef _INTUITION_WINDOWS
 #define _INTUITION_WINDOWS
 
-void Intuition_Windows_init(struct IntuitionBaseV0 *abiv0IntuitionBase);
+void Intuition_Windows_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *intuitionjmp);
 
 struct WindowProxy * wmGetByWindow(struct Window *native);
 void syncWindowV0(struct WindowProxy *proxy);

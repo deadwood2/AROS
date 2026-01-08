@@ -7,10 +7,11 @@
 
 #include <aros/debug.h>
 
-#include "../include/graphics/structures.h"
-#include "../include/graphics/proxy_structures.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
+#include "../include/exec/functions.h"
+#include "../include/graphics/structures.h"
+#include "../include/graphics/proxy_structures.h"
 #include "../include/utility/structures.h"
 
 #include "graphics_rastports.h"
@@ -18,6 +19,15 @@
 struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
 void FreeClonedV02NativeTagItems(struct TagItem *tagList);
 struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
+
+extern struct ExecBaseV0 *Gfx_SysBaseV0;
+
+struct RastPortV0 *makeRastPortV0(struct RastPort *native)
+{
+    struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Gfx_SysBaseV0);
+    *((IPTR *)&rpv0->longreserved) = (IPTR)native;
+    return rpv0;
+}
 
 void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct GfxBaseV0 *GfxBaseV0)
 {
