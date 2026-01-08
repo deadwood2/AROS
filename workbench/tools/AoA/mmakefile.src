@@ -16,6 +16,7 @@ FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 internalloadseg_s
         abiv0/exec/addresource \
         abiv0/exec/initsemaphore \
         abiv0/graphics/graphics_init \
+        abiv0/graphics/graphics_operations \
         abiv0/graphics/graphics_rastports \
         abiv0/graphics/graphics_regions \
         abiv0/intuition/intuition_gadgets \
