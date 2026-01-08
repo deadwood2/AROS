@@ -545,7 +545,7 @@ struct Device *TimerBase;
 
 STRPTR program_name = NULL;
 
-const TEXT version_string[] = "$VER: EmuV0 0.32 (18.12.2025)";
+const TEXT version_string[] = "$VER: EmuV0 0.40 (8.01.2026)";
 
 #define DEVMODE 0
 
