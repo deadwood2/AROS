@@ -26,11 +26,22 @@ extern ULONG *dosfunctable;
 
 struct FileLockProxy
 {
+    ULONG _pad[6]; /* Make sure 'native' pointer is at the same offset as for FileHandlerProxy */
+
     BPTR native;
 };
 
 struct FileHandleProxy
 {
+    /* The next three are used with packet-based filesystems */
+    ULONG  fh_Flags;
+    LONG   fh_Interactive;	/* interactive handle flag */
+    APTR32 fh_Type;   /* port to send packets to */
+
+    BPTR32  fh_Buf;
+    LONG    fh_Pos;
+    LONG    fh_End;
+
     BPTR native;
 };
 
@@ -42,9 +53,17 @@ struct DosListProxy
 
 struct FileHandleProxy *makeFileHandleProxy(BPTR native)
 {
-    struct FileHandleProxy *proxy = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_ANY, DOS_SysBaseV0);
+    struct FileHandleProxy *proxy = abiv0_AllocMem(sizeof(struct FileHandleProxy), MEMF_CLEAR, DOS_SysBaseV0);
     proxy->native = native;
     return proxy;
+}
+
+struct FileHandleProxy *makeFileHandleProxyDetailed(BPTR native)
+{
+    struct FileHandleProxy *proxy = makeFileHandleProxy(native);
+    struct FileHandle *fh = BADDR(proxy->native);
+    proxy->fh_Pos = fh->fh_Pos; /* Used by 32-bit ReadArgs */
+    proxy->fh_End = fh->fh_End;
 }
 
 static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
@@ -419,7 +438,7 @@ MAKE_PROXY_ARG_3(SetProtection)
 
 static struct FileLockProxy *makeFileLockProxy(BPTR native)
 {
-    struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_ANY, DOS_SysBaseV0);
+    struct FileLockProxy *proxy = abiv0_AllocMem(sizeof(struct FileLockProxy), MEMF_CLEAR, DOS_SysBaseV0);
     proxy->native = native;
     return proxy;
 }

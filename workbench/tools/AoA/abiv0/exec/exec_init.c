@@ -319,6 +319,7 @@ void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 MAKE_PROXY_ARG_4(CopyMem)
 
 APTR makeFileHandleProxy(BPTR);
+APTR makeFileHandleProxyDetailed(BPTR);
 
 struct TaskV0 *g_v0maintask = NULL;
 struct Task *g_nativemaintask = NULL;
@@ -351,7 +352,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
             dummy->pr_Task.tc_Node.ln_Type = NT_PROCESS;
             dummy->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(10, MEMF_CLEAR, SysBaseV0);
             strcpy((char *)(IPTR)dummy->pr_Task.tc_Node.ln_Name, "emulator");
-            dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxy(Input()); // MEMLEAK
+            dummy->pr_CIS = (BPTR32)(IPTR)makeFileHandleProxyDetailed(Input()); // MEMLEAK
             dummy->pr_CES = (BPTR32)(IPTR)makeFileHandleProxy(((struct Process *)FindTask(NULL))->pr_CES); // MEMLEAK
             dummy->pr_COS = (BPTR32)(IPTR)makeFileHandleProxy(Output()); // MEMLEAK
             dummy->pr_HomeDir = (BPTR32)(IPTR)makeFileHandleProxy(GetProgramDir());
