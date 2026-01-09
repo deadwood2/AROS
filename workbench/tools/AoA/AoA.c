@@ -227,7 +227,26 @@ ULONG abiv0_WritePixelArrayAlpha(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod,
     UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG globalalpha, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    return WritePixelArrayAlpha(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, globalalpha);
+    BOOL clear = FALSE;
+    ULONG _ret;
+
+    if (rpnative->BitMap == NULL)
+    {
+        /* RNOTunes uses locally created RastPort */
+        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+        rpnative->Layer = ((struct LayerProxy *)(IPTR)rp->Layer)->native;
+        clear = TRUE;
+    }
+
+    _ret = WritePixelArrayAlpha(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, globalalpha);
+
+    if (clear)
+    {
+        rpnative->BitMap = NULL;
+        rpnative->Layer = NULL;
+    }
+
+    return _ret;
 }
 MAKE_PROXY_ARG_12(WritePixelArrayAlpha)
 

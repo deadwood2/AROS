@@ -54,7 +54,23 @@ MAKE_PROXY_ARG_4(Move)
 void abiv0_Draw(struct RastPortV0 *rp, WORD x, WORD y, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
+    BOOL clear = FALSE;
+
+    if (rpnative->BitMap == NULL)
+    {
+        /* RNOTunes uses locally created RastPort */
+        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+        rpnative->Layer = ((struct LayerProxy *)(IPTR)rp->Layer)->native;
+        clear = TRUE;
+    }
+
     Draw(rpnative, x, y);
+
+    if (clear)
+    {
+        rpnative->BitMap = NULL;
+        rpnative->Layer = NULL;
+    }
 }
 MAKE_PROXY_ARG_4(Draw)
 
