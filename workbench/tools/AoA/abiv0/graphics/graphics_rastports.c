@@ -55,6 +55,11 @@ MAKE_PROXY_ARG_3(SetFont)
 void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
+    if (rpnative == NULL)
+    {
+bug("abiv0_SetFDrMd: NO NATIVE RASTPORT\n"); // TextEditor.mcc
+return;
+    }
     SetDrMd(rpnative, drawMode);
 }
 MAKE_PROXY_ARG_3(SetDrMd)
@@ -62,6 +67,11 @@ MAKE_PROXY_ARG_3(SetDrMd)
 void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
+    if (rpnative == NULL)
+    {
+bug("abiv0_SetAPen: NO NATIVE RASTPORT\n"); // TextEditor.mcc
+return;
+    }
     SetAPen(rpnative, pen);
 }
 MAKE_PROXY_ARG_3(SetAPen)
