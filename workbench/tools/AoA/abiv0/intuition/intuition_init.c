@@ -592,7 +592,7 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
     struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     bmproxy->native = native->RastPort.BitMap;
     proxy->base.Screen.RastPort.BitMap = (APTR32)(IPTR)bmproxy;
-    *((IPTR *)&proxy->base.Screen.RastPort.longreserved) = (IPTR)&native->RastPort;
+    RastPortV0_attachnative(&proxy->base.Screen.RastPort, &native->RastPort);
 
     /* TODO: this should be a proxy to native intuition class */
     proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);

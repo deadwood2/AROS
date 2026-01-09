@@ -25,7 +25,7 @@ extern struct ExecBaseV0 *Gfx_SysBaseV0;
 struct RastPortV0 *makeRastPortV0(struct RastPort *native)
 {
     struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Gfx_SysBaseV0);
-    *((IPTR *)&rpv0->longreserved) = (IPTR)native;
+    RastPortV0_attachnative(rpv0, native);
     return rpv0;
 }
 

@@ -115,7 +115,7 @@ struct RastPortV0 *abiv0_ObtainGIRPort(struct GadgetInfoV0 *gInfo, struct Librar
     if (gInfo && gInfo->gi_RastPort)
     {
         struct RastPortV0 *v0girp = (struct RastPortV0 *)(IPTR)gInfo->gi_RastPort;
-        struct RastPort *girpnative = (struct RastPort *)*(IPTR *)&v0girp->longreserved;
+        struct RastPort *girpnative = RastPortV0_getnative(v0girp);
         struct GadgetInfo *ginative = AllocMem(sizeof(struct GadgetInfo), MEMF_CLEAR);
 
         if (girpnative == NULL)
@@ -129,7 +129,7 @@ bug("abiv0_ObtainGIRPort: !!NULL girpnative, creating!!\n");
             struct TextFontProxy *tfproxy = (struct TextFontProxy *)(IPTR)v0girp->Font;
             SetFont(girpnative, tfproxy->native);
 
-            *(IPTR *)&v0girp->longreserved = (IPTR)girpnative;
+            RastPortV0_attachnative(v0girp, girpnative);
         }
 
         ginative->gi_RastPort = girpnative;
