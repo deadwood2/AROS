@@ -101,6 +101,13 @@ void abiv0_UnlockLayerInfo(struct Layer_InfoV0 *li, struct LibraryV0 *LayersBase
 }
 MAKE_PROXY_ARG_2(UnlockLayerInfo)
 
+struct LayerV0 *abiv0_WhichLayer(struct Layer_InfoV0 *li, LONG x, LONG y, struct LibraryV0 *LayersBaseV0)
+{
+bug("abiv0_WhichLayer: STUB\n");
+    return NULL;
+}
+MAKE_PROXY_ARG_4(WhichLayer)
+
 void abiv0_LockLayer(LONG dummy, struct LayerV0 *layer, struct LibraryV0 *LayersBaseV0)
 {
     struct LayerProxy *proxy = (struct LayerProxy *)layer;
@@ -478,6 +485,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0LayersBase,  14, (APTR32)(IPTR)proxy_EndUpdate);
     __AROS_SETVECADDRV0(abiv0LayersBase,  13, (APTR32)(IPTR)proxy_BeginUpdate);
     __AROS_SETVECADDRV0(abiv0LayersBase,  36, (APTR32)(IPTR)proxy_DoHookClipRects);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  22, (APTR32)(IPTR)proxy_WhichLayer);
 
     NewRawDoFmt("LIBSV0:partial/cybergraphics.library", RAWFMTFUNC_STRING, path);
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
