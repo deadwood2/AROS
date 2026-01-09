@@ -1001,6 +1001,18 @@ void abiv0_Delay(ULONG timeout, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_2(Delay)
 
+LONG abiv0_SetComment(CONST_STRPTR name, CONST_STRPTR comment, struct DosLibraryV0 *DOSBaseV0)
+{
+    return SetComment(name, comment);
+}
+MAKE_PROXY_ARG_3(SetComment)
+
+BOOL abiv0_SetFileDate(CONST_STRPTR name, const struct DateStamp *date, struct DosLibraryV0 *DOSBaseV0)
+{
+    return SetFileDate(name, date);
+}
+MAKE_PROXY_ARG_3(SetFileDate)
+
 #include <proto/utility.h>
 
 BPTR abiv0_LoadSeg(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
@@ -1154,4 +1166,6 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  19, (APTR32)(IPTR)proxy_Info);
     __AROS_SETVECADDRV0(abiv0DOSBase,  68, (APTR32)(IPTR)proxy_NameFromLock);
     __AROS_SETVECADDRV0(abiv0DOSBase,  62, (APTR32)(IPTR)proxy_DupLockFromFH);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  30, (APTR32)(IPTR)proxy_SetComment);
+    __AROS_SETVECADDRV0(abiv0DOSBase,  66, (APTR32)(IPTR)proxy_SetFileDate);
 }
