@@ -26,6 +26,15 @@ struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
 
 extern struct ExecBaseV0 *Gfx_SysBaseV0;
 
+struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp)
+{
+    return (struct RastPort *)*(IPTR *)&rp->longreserved;
+}
+void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative)
+{
+    *(IPTR *)&(rp)->longreserved = (IPTR)(rpnative);
+}
+
 struct RastPortV0 *makeRastPortV0(struct RastPort *native)
 {
     struct RastPortV0 *rpv0 = abiv0_AllocPooled(rastPortPool, sizeof(struct RastPortV0), Gfx_SysBaseV0);

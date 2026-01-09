@@ -8,8 +8,8 @@
 void Graphics_RastPorts_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp);
 void Graphics_RastPorts_deinit();
 
-#define RastPortV0_getnative(rp) (struct RastPort *)*(IPTR *)&rp->longreserved
-#define RastPortV0_attachnative(rp, rpnative) *(IPTR *)&(rp)->longreserved = (IPTR)(rpnative)
+struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp);
+void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative);
 
 #define synchronize_SetAfPt(rp, rpnative)           \
     rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;  \
