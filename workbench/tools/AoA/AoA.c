@@ -551,56 +551,10 @@ STRPTR program_name = NULL;
 
 const TEXT version_string[] = "$VER: EmuV0 0.40 (8.01.2026)";
 
-#define DEVMODE 0
-
 int main(int argc, char **argv)
 {
     STRPTR program_path = NULL;
 
-#if DEVMODE
-    if (argc == 1)
-    {
-        // program_path = "SYS:ProgramsV0/MCAmiga/MCAmiga";
-        // program_path = "SYS:ProgramsV0/ZuneARC/ZuneARC";
-        // program_path = "SYS:ProgramsV0/Calculator";
-        // program_path = "SYS:ProgramsV0/helloabi";
-
-        // program_path = "SYS:ProgramsV0/HFinder/HFinder";
-        // program_path = "SYS:ProgramsV0/HollyPaint/HollyPaint.aros-i386";
-        program_path = "SYS:ProgramsV0/RNOSlides_AROS/RNOSlides";
-        // program_path = "SYS:ProgramsV0/RNOArchive_AROS/RNOArchive";
-        // program_path = "SYS:ProgramsV0/RNOEffects_AROS/RNOEffects";
-        // program_path = "SYS:ProgramsV0/RNOPublisher_AROS/RNOPublisher";
-        // program_path = "SYS:ProgramsV0/PintorWeb/PintorWeb";
-        // program_path = "SYS:ProgramsV0/VAMP/VAMP";
-        // program_path = "SYS:ProgramsV0/LilCalendar/LilCalendar_AROS";
-        // program_path = "SYS:ProgramsV0/VintageSongPlayer/VintageSongPlayer";
-        // program_path = "SYS:ProgramsV0/FastTracker2-Clone/ft2-clone";
-        // program_path = "SYS:ProgramsV0/Image2PDF/Image2PDF/Image2PDF";
-        // program_path = "SYS:ProgramsV0/JoinGUI-AROS/JoinGUI";
-        // program_path = "SYS:ProgramsV0/Hex2/Hex2";
-        // program_path = "SYS:ProgramsV0/LoView/LoView";
-        // program_path = "SYS:ProgramsV0/RNOTunes_AROS/RNOTunes";
-        // program_path = "SYS:ProgramsV0/FontTester/FontTester";
-
-        // program_path = "SYS:ProgramsV0/ZuPaPlayer/ZuPaPlayer";
-        // program_path = "SYS:ProgramsV0/ZuneFIG/ZuneFIG";
-        // program_path = "SYS:ProgramsV0/BarsnPipes/BarsnPipes";
-        // program_path = "SYS:ProgramsV0/protrekkr/ptk_aros";
-        // program_path = "SYS:ProgramsV0/Soliton/Soliton";
-        // program_path = "SYS:ProgramsV0/GianaReturn/GianaReturn";
-        // program_path = "SYS:ProgramsV0/FreePrince/FreePrince";
-        // program_path = "SYS:ProgramsV0/BOH/BOH";
-
-        // program_path = "SYS:ProgramsV0/PuzzleTiles/PuzzleTiles";
-        // program_path = "SYS:ProgramsV0/ModExplorer/ModExplorer";
-        // program_path = "SYS:ProgramsV0/IconEditor/IconEditor";
-        // program_path = "SYS:ProgramsV0/VindentiumPicta/VindentiumPicta";
-        // program_path = "SYS:ProgramsV0/AROSAmp/AROSAmp";
-        // program_path = "SYS:ProgramsV0/SilkRaw/SilkRaw";
-    }
-    else
-#endif
     if (argc > 1)
     {
         struct Process *me;
