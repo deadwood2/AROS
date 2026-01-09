@@ -41,24 +41,49 @@ extern struct ExecBaseV0 *Gfx_SysBaseV0;
 struct _rastportstore
 {
     struct RastPort *native;
+    struct RastPortV0 *owner; /* a */
 };
+
+/* Edge cases:
+    a) 32-bit RastPort was struct-copied to another one, which includes copying longreserved fields. Now two
+        32-bit RastPort would be using the same attached 64-bit RastPort. Return NULL for the copy to
+        allow making new attachment */
 
 struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp)
 {
     APTR p = (APTR)*(IPTR *)&rp->longreserved;
-    if (p == NULL)
-        return NULL;
+    if (p == NULL) return NULL;
+
     struct _rastportstore *s = (struct _rastportstore *)p;
+    if (s->owner != rp) return NULL; /* a */
+
     return s->native;
 }
+
 void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative)
 {
     struct _rastportstore *s = abiv0_AllocPooled(rastPortPool, sizeof(struct _rastportstore), Gfx_SysBaseV0);
     s->native = rpnative;
+    s->owner = rp;
     *(IPTR *)&(rp)->longreserved = (IPTR)(s);
 }
 
-struct RastPortV0 *makeRastPortV0(struct RastPort *native)
+struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
+{
+    struct RastPort *rpnative = abiv0_AllocPooled(rastPortPool, sizeof(struct RastPort), Gfx_SysBaseV0);
+    InitRastPort(rpnative);
+    rpnative->FgPen     = rp->FgPen;
+    rpnative->BgPen     = rp->BgPen;
+    rpnative->DrawMode  = rp->DrawMode;
+    rpnative->linpatcnt = rp->linpatcnt;
+    rpnative->Flags     = rp->Flags;
+    rpnative->cp_x      = rp->cp_x;
+    rpnative->cp_y      = rp->cp_y;
+
+    return rpnative;
+}
+
+struct RastPortV0 * makeRastPortV0(struct RastPort *native)
 {
     struct RastPortV0 *rpv0 = abiv0_AllocPooled(rastPortPool, sizeof(struct RastPortV0), Gfx_SysBaseV0);
     RastPortV0_attachnative(rpv0, native);
@@ -85,11 +110,16 @@ void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct Gf
         // 64-bit part
         struct RastPort *rpnative = RastPortV0_getnative(rp);
         struct TextFont *tfnative = ((struct TextFontProxy *)textFont)->native;
-        if (rpnative == NULL)
+        if (rpnative == NULL) // HFinder, Hollywood applications
         {
-bug("abiv0_SetFont: NO NATIVE RASTPORT\n");
-return;
+            rpnative = RastPortV0_makenativefrom(rp);
+            RastPortV0_attachnative(rp, rpnative);
         }
+
+        /* FIXME: Hollywood + Halvetica workaround (TextFontV0 not a TextFontProxy)*/
+        char *c = (char *)(IPTR)textFont->tf_Message.mn_Node.ln_Name;
+        if (c[0] == 'H') return;
+
         SetFont(rpnative, tfnative);
     }
 }
@@ -98,11 +128,6 @@ MAKE_PROXY_ARG_3(SetFont)
 void abiv0_SetDrMd(struct RastPortV0 *rp, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    if (rpnative == NULL)
-    {
-bug("abiv0_SetFDrMd: NO NATIVE RASTPORT\n"); // TextEditor.mcc
-return;
-    }
     SetDrMd(rpnative, drawMode);
 }
 MAKE_PROXY_ARG_3(SetDrMd)
@@ -110,11 +135,6 @@ MAKE_PROXY_ARG_3(SetDrMd)
 void abiv0_SetAPen(struct RastPortV0 *rp, ULONG pen, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    if (rpnative == NULL)
-    {
-bug("abiv0_SetAPen: NO NATIVE RASTPORT\n"); // TextEditor.mcc
-return;
-    }
     SetAPen(rpnative, pen);
 }
 MAKE_PROXY_ARG_3(SetAPen)
@@ -143,19 +163,7 @@ MAKE_PROXY_ARG_3(SetBPen)
 void abiv0_SetABPenDrMd(struct RastPortV0 *rp, ULONG apen, ULONG bpen, ULONG drawMode, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    if (rpnative == NULL)
-    {
-        /* HFinder operates on locally created 1-bit RastPort/BitMap */
-        /* TODO: call 32bit code? */
-        rp->FgPen     = apen;
-        rp->BgPen     = bpen;
-        rp->DrawMode  = drawMode;
-        rp->linpatcnt = 15;
-#define RPF_NO_PENS	    	(1L << 14)	/* Are pens disabled?				*/
-        rp->Flags    &= ~RPF_NO_PENS;
-    }
-    else
-        SetABPenDrMd(rpnative, apen, bpen, drawMode);
+    SetABPenDrMd(rpnative, apen, bpen, drawMode);
 }
 MAKE_PROXY_ARG_5(SetABPenDrMd)
 
