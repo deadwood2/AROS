@@ -150,6 +150,7 @@ void abiv0_ReleaseGIRPort(struct RastPortV0 *rp, struct LibraryV0 *IntuitionBase
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
     ReleaseGIRPort(rpnative);
+    freeRastPortV0(rp);
 }
 MAKE_PROXY_ARG_2(ReleaseGIRPort);
 
@@ -224,7 +225,7 @@ static struct GadgetInfoV0 *composeGadgetInfoV0(struct GadgetInfo *nativegi)
 static void freeComposedGadgetInfoV0(struct GadgetInfoV0 *v0gi)
 {
     if (v0gi->gi_RastPort)
-        abiv0_FreeMem((APTR)(IPTR)v0gi->gi_RastPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
+        freeRastPortV0((struct RastPortV0 *)(IPTR)v0gi->gi_RastPort);
     if (v0gi->gi_Layer)
         abiv0_FreeMem((APTR)(IPTR)v0gi->gi_Layer, sizeof(struct LayerProxy), Intuition_SysBaseV0);
 
@@ -499,7 +500,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
 
             quirks_GM_RENDER_Remove(v0g, v0gi);
-            abiv0_FreeMem((APTR)(IPTR)v0msg->gpr_RPort, sizeof(struct RastPortV0), Intuition_SysBaseV0);
+            freeRastPortV0((struct RastPortV0 *)(IPTR)v0msg->gpr_RPort);
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);

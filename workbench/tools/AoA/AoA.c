@@ -385,6 +385,7 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
 void init_graphics(struct ExecBaseV0 *);
+void exit_graphics();
 void init_intuition(struct ExecBaseV0 *, struct DeviceProxy *);
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
@@ -552,6 +553,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     UnLock(CurrentDir(oldcurdir));
     SetProgramDir(oldprogdir);
     UnLock(progdir);
+
+    exit_graphics();
 }
 
 struct timerequest tr;

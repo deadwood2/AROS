@@ -5,7 +5,8 @@
 #ifndef _GRAPHICS_RASTPORTS
 #define _GRAPHICS_RASTPORTS
 
-void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp);
+void Graphics_RastPorts_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp);
+void Graphics_RastPorts_deinit();
 
 #define RastPortV0_getnative(rp) (struct RastPort *)*(IPTR *)&rp->longreserved
 #define RastPortV0_attachnative(rp, rpnative) *(IPTR *)&(rp)->longreserved = (IPTR)(rpnative)
@@ -15,5 +16,6 @@ void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp
     rpnative->AreaPtSz = rp->AreaPtSz;
 
 struct RastPortV0 *makeRastPortV0(struct RastPort *native);
+void freeRastPortV0(struct RastPortV0 *v0);
 
 #endif

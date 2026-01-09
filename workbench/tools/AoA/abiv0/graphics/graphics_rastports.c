@@ -16,6 +16,10 @@
 
 #include "graphics_rastports.h"
 
+/* 32-bit pool used for allocations of structures for V0 RastPorts */
+APTR rastPortPool;
+
+
 struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
 void FreeClonedV02NativeTagItems(struct TagItem *tagList);
 struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
@@ -24,9 +28,14 @@ extern struct ExecBaseV0 *Gfx_SysBaseV0;
 
 struct RastPortV0 *makeRastPortV0(struct RastPort *native)
 {
-    struct RastPortV0 *rpv0 = abiv0_AllocMem(sizeof(struct RastPortV0), MEMF_CLEAR, Gfx_SysBaseV0);
+    struct RastPortV0 *rpv0 = abiv0_AllocPooled(rastPortPool, sizeof(struct RastPortV0), Gfx_SysBaseV0);
     RastPortV0_attachnative(rpv0, native);
     return rpv0;
+}
+
+void freeRastPortV0(struct RastPortV0 *v0)
+{
+    abiv0_FreePooled(rastPortPool, v0, sizeof(struct RastPortV0), Gfx_SysBaseV0);
 }
 
 void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct GfxBaseV0 *GfxBaseV0)
@@ -166,7 +175,7 @@ asm("int3");
 }
 MAKE_PROXY_ARG_3(GetRPAttrsA)
 
-void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp)
+void Graphics_RastPorts_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp)
 {
     __AROS_SETVECADDRV0(abiv0GfxBase,  11, (APTR32)(IPTR)proxy_SetFont);
     __AROS_SETVECADDRV0(abiv0GfxBase,  59, (APTR32)(IPTR)proxy_SetDrMd);
@@ -182,4 +191,11 @@ void Graphics_Rastports_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp
     __AROS_SETVECADDRV0(abiv0GfxBase,  15, graphicsjmp[202 -  15]);  // SetSoftStyle
     __AROS_SETVECADDRV0(abiv0GfxBase, 177, graphicsjmp[202 - 177]);  // CreateRastPort
     __AROS_SETVECADDRV0(abiv0GfxBase, 180, graphicsjmp[202 - 180]);  // FreeRastPort
+
+    rastPortPool = abiv0_CreatePool(MEMF_31BIT | MEMF_CLEAR | MEMF_SEM_PROTECTED, 16384, 256, Gfx_SysBaseV0);
+}
+
+void Graphics_RastPorts_deinit()
+{
+    abiv0_DeletePool(rastPortPool, Gfx_SysBaseV0);
 }

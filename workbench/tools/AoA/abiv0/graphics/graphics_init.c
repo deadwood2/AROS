@@ -376,6 +376,11 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  78, graphicsjmp[202 -  78]);  // InitTmpRas
 
     Graphics_Operations_init(abiv0GfxBase, graphicsjmp);
-    Graphics_Rastports_init(abiv0GfxBase, graphicsjmp);
+    Graphics_RastPorts_init(abiv0GfxBase, graphicsjmp);
     Graphics_Regions_init(abiv0GfxBase);
+}
+
+void exit_graphics()
+{
+    Graphics_RastPorts_deinit();
 }
