@@ -26,13 +26,36 @@ struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
 
 extern struct ExecBaseV0 *Gfx_SysBaseV0;
 
+
+/* Cases for RastPorts
+    1) 32-bit RastPort is created as a mirror of system-created 64-bit rastport
+        All initialization is handled in emulator
+    2) 32-bit RastPort is created locally in 32-bit application and assigned a system-created bitmap
+        On first access a companion 64-bit RastPort needs to be created
+    3) 32-bit RastPort is created locally in 32-bit application and assigned a locally created planar bitmap
+        On first access a companion 64-bit RastPort needs to be created
+    4) An existing 32-bit RastPort gets its existing bitmap reassigned locally in 32-bit application to another bitmap
+
+*/
+
+struct _rastportstore
+{
+    struct RastPort *native;
+};
+
 struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp)
 {
-    return (struct RastPort *)*(IPTR *)&rp->longreserved;
+    APTR p = (APTR)*(IPTR *)&rp->longreserved;
+    if (p == NULL)
+        return NULL;
+    struct _rastportstore *s = (struct _rastportstore *)p;
+    return s->native;
 }
 void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative)
 {
-    *(IPTR *)&(rp)->longreserved = (IPTR)(rpnative);
+    struct _rastportstore *s = abiv0_AllocPooled(rastPortPool, sizeof(struct _rastportstore), Gfx_SysBaseV0);
+    s->native = rpnative;
+    *(IPTR *)&(rp)->longreserved = (IPTR)(s);
 }
 
 struct RastPortV0 *makeRastPortV0(struct RastPort *native)
@@ -44,6 +67,8 @@ struct RastPortV0 *makeRastPortV0(struct RastPort *native)
 
 void freeRastPortV0(struct RastPortV0 *v0)
 {
+    APTR p = (APTR)*(IPTR *)&v0->longreserved;
+    abiv0_FreePooled(rastPortPool,  p, sizeof(struct _rastportstore), Gfx_SysBaseV0);
     abiv0_FreePooled(rastPortPool, v0, sizeof(struct RastPortV0), Gfx_SysBaseV0);
 }
 
