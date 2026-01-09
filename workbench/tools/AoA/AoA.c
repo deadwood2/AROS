@@ -17,6 +17,8 @@
 #include "abiv0/include/aros/cpu.h"
 #include "abiv0/include/input/structures.h"
 
+const TEXT version_string[] = "$VER: EmuV0 0.42 (9.01.2026)";
+
 struct DeviceProxy *abiv0TimerBase;
 struct DeviceProxy *abiv0InputBase;
 struct DeviceProxy *abiv0ConsoleBase;
@@ -556,8 +558,6 @@ struct timerequest tr;
 struct Device *TimerBase;
 
 STRPTR program_name = NULL;
-
-const TEXT version_string[] = "$VER: EmuV0 0.40 (8.01.2026)";
 
 int main(int argc, char **argv)
 {
