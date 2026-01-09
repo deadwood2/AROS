@@ -118,18 +118,15 @@ struct RastPortV0 *abiv0_ObtainGIRPort(struct GadgetInfoV0 *gInfo, struct Librar
         struct RastPort *girpnative = RastPortV0_getnative(v0girp);
         struct GadgetInfo *ginative = AllocMem(sizeof(struct GadgetInfo), MEMF_CLEAR);
 
-        if (girpnative == NULL)
+        if (girpnative->BitMap == NULL)
         {
-bug("abiv0_ObtainGIRPort: !!NULL girpnative, creating!!\n");
-            girpnative = AllocMem(sizeof(struct RastPort), MEMF_CLEAR);
+bug("abiv0_ObtainGIRPort: !!NULL girpnative->BitMap, assigning!!\n");
             struct LayerProxy *lproxy = (struct LayerProxy *)(IPTR)v0girp->Layer;
             girpnative->Layer = lproxy->native;
             struct BitMapProxy *bmproxy = (struct BitMapProxy *)(IPTR)v0girp->BitMap;
             girpnative->BitMap = bmproxy->native;
             struct TextFontProxy *tfproxy = (struct TextFontProxy *)(IPTR)v0girp->Font;
             SetFont(girpnative, tfproxy->native);
-
-            RastPortV0_attachnative(v0girp, girpnative);
         }
 
         ginative->gi_RastPort = girpnative;

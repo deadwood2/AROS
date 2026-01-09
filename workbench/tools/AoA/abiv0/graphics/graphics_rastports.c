@@ -80,6 +80,9 @@ struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
     rpnative->cp_x      = rp->cp_x;
     rpnative->cp_y      = rp->cp_y;
 
+    /* DO NOT re-create rpnative->BitMap. Design currently assumes attaching/detaching temporary native
+       bitmaps where needed */
+
     return rpnative;
 }
 
