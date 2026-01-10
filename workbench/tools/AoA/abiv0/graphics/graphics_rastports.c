@@ -90,6 +90,10 @@ struct RastPortV0 * makeRastPortV0(struct RastPort *native)
 {
     struct RastPortV0 *rpv0 = abiv0_AllocPooled(rastPortPool, sizeof(struct RastPortV0), Gfx_SysBaseV0);
     RastPortV0_attachnative(rpv0, native);
+
+    /* Synchronize AlgoStyle as it is managed on the 32-bit side */
+    rpv0->AlgoStyle = native->AlgoStyle;
+
     return rpv0;
 }
 

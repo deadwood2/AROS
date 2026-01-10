@@ -85,6 +85,9 @@ void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct 
         recreteNativeRastPortPlanarBitMap(rp, rpnative, &bmtmp);
     }
 
+    /* Synchronize AlgoStyle which is managed by 32-bit SetSoftStyle */
+    rpnative->AlgoStyle = rp->AlgoStyle;
+
     Text(rpnative, string, count);
 
     if (rpnative->BitMap == &bmtmp) rpnative->BitMap = NULL;
