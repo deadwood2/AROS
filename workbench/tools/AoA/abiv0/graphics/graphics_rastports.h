@@ -10,7 +10,6 @@ void Graphics_RastPorts_deinit();
 
 struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp);
 void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative);
-struct RastPort *RastPortV0_makenativefrom(struct RastPortV0 *rp);
 
 #define synchronize_SetAfPt(rp, rpnative)           \
     rpnative->AreaPtrn = (APTR)(IPTR)rp->AreaPtrn;  \

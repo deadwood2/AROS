@@ -68,20 +68,51 @@ void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative)
     *(IPTR *)&(rp)->longreserved = (IPTR)(s);
 }
 
-struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
+static void syncRastPortNative(struct RastPort *rpnative, struct RastPortV0 *rpv0)
+{
+}
+
+
+static struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
 {
     struct RastPort *rpnative = abiv0_AllocPooled(rastPortPool, sizeof(struct RastPort), Gfx_SysBaseV0);
     InitRastPort(rpnative);
-    rpnative->FgPen     = rp->FgPen;
-    rpnative->BgPen     = rp->BgPen;
-    rpnative->DrawMode  = rp->DrawMode;
-    rpnative->linpatcnt = rp->linpatcnt;
-    rpnative->Flags     = rp->Flags;
-    rpnative->cp_x      = rp->cp_x;
-    rpnative->cp_y      = rp->cp_y;
+    syncRastPortNative(rpnative, rp);
 
     /* DO NOT re-create rpnative->BitMap. Design currently assumes attaching/detaching temporary native
        bitmaps where needed */
+
+    return rpnative;
+}
+
+/* TODO: keep several addresses in cache instead of just one to increase re-use */
+APTR lastccrp = NULL;
+struct _rastportstore *lastccstore = NULL;
+
+static struct RastPort * RastPortV0_createcompanion(struct RastPortV0 *rp)
+{
+    struct RastPort *rpnative = NULL;
+
+    if (lastccrp == rp && lastccstore->owner == rp)
+    {
+        /*  We are creating a compantion for the same rastport again? How is that possible!
+            The RastPort can actually be a stack temporary object and it was already used and
+            released and this is a new object at the same address! In that case re-use the previous
+            storage and previoue native RastPort.
+        */
+        rpnative = lastccstore->native;
+        InitRastPort(rpnative);
+        syncRastPortNative(rpnative, rp);
+        *(IPTR *)&(rp)->longreserved = (IPTR)(lastccstore);
+    }
+    else
+    {
+        rpnative = RastPortV0_makenativefrom(rp);
+        RastPortV0_attachnative(rp, rpnative);
+    }
+
+    lastccrp = rp;
+    lastccstore = (struct _rastportstore *)*(IPTR *)&rp->longreserved;
 
     return rpnative;
 }
@@ -108,19 +139,21 @@ void abiv0_SetFont(struct RastPortV0 *rp, struct TextFontV0 *textFont, struct Gf
 {
     if (textFont)
     {
-        // 32-bit part
+        /* 32-bit part, for use with 32-bit TextLength etc. */
         rp->Font       = (APTR32)(IPTR)textFont;
         rp->TxWidth    = textFont->tf_XSize;
         rp->TxHeight   = textFont->tf_YSize;
         rp->TxBaseline = textFont->tf_Baseline;
 
-        // 64-bit part
+        /* 64-bit part, for use with Text etc. */
         struct RastPort *rpnative = RastPortV0_getnative(rp);
         struct TextFont *tfnative = ((struct TextFontProxy *)textFont)->native;
-        if (rpnative == NULL) // HFinder, Hollywood applications
+        if (rpnative == NULL)
         {
-            rpnative = RastPortV0_makenativefrom(rp);
-            RastPortV0_attachnative(rp, rpnative);
+            /* We are dealing with 32-bit RastPort created at 32-bit application side. This is most
+               likely that first time we are dealing with it as SetFont is part of InitRastPort function.
+               Create a companion native RastPort for it */
+            rpnative = RastPortV0_createcompanion(rp);
         }
 
         /* FIXME: Hollywood + Halvetica workaround (TextFontV0 not a TextFontProxy)*/
