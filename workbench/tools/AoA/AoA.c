@@ -17,7 +17,7 @@
 #include "abiv0/include/aros/cpu.h"
 #include "abiv0/include/input/structures.h"
 
-const TEXT version_string[] = "$VER: EmuV0 0.42 (9.01.2026)";
+const TEXT version_string[] = "$VER: EmuV0 0.44 (10.01.2026)";
 
 struct DeviceProxy *abiv0TimerBase;
 struct DeviceProxy *abiv0InputBase;
