@@ -26,21 +26,49 @@ static void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct Ra
     rpnative->BitMap    = bmtmp;
 }
 
+static void recreateNativeRastPortBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
+{
+    struct BitMapV0 *bmV0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
+
+    if (bmV0->BytesPerRow == 0 && bmV0->Rows == 0 && bmV0->Depth == 0)
+        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rpv0->BitMap)->native;
+    else
+        recreteNativeRastPortPlanarBitMap(rpv0, rpnative, bmtmp);
+}
+
+#define BITMAPLAYERPRE      \
+    struct BitMap bmtmp;    \
+    BOOL clearBM = FALSE;   \
+    BOOL clearL = FALSE;
+
+#define BITMAPLAYERPOST \
+    if (clearBM) rpnative->BitMap = NULL;   \
+    if (clearL) rpnative->Layer = NULL;
+
 void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    struct BitMap bmtmp;
+    BITMAPLAYERPRE
 
     if (rpnative->BitMap == NULL)
     {
          /* HFinder operates on locally created 1-bit RastPort/BitMap */
-        recreteNativeRastPortPlanarBitMap(rp, rpnative, &bmtmp);
+         /* TextEditor.mcc operates on system-allocated BitMap */
+        recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
+        clearBM = TRUE;
+    }
+
+    if (rpnative->Layer == NULL && rp->Layer != (APTR32)(IPTR)NULL)
+    {
+        /* TextEditor.mcc operates on local RastPort with a Layer */
+        rpnative->Layer = ((struct LayerProxy *)(IPTR)rp->Layer)->native;
+        clearL = TRUE;
     }
 
     synchronize_SetAfPt(rp, rpnative);
     RectFill(rpnative, xMin, yMin, xMax, yMax);
 
-    if (rpnative->BitMap == &bmtmp) rpnative->BitMap = NULL;
+    BITMAPLAYERPOST
 }
 MAKE_PROXY_ARG_6(RectFill)
 
@@ -77,12 +105,21 @@ MAKE_PROXY_ARG_4(Draw)
 void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    struct BitMap bmtmp;
+    BITMAPLAYERPRE
 
     if (rpnative->BitMap == NULL)
     {
          /* HFinder operates on locally created 1-bit RastPort/BitMap */
-        recreteNativeRastPortPlanarBitMap(rp, rpnative, &bmtmp);
+         /* TextEditor.mcc operates on system-allocated BitMap */
+        recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
+        clearBM = TRUE;
+    }
+
+    if (rpnative->Layer == NULL && rp->Layer != (APTR32)(IPTR)NULL)
+    {
+        /* TextEditor.mcc operates on local RastPort with a Layer */
+        rpnative->Layer = ((struct LayerProxy *)(IPTR)rp->Layer)->native;
+        clearL = TRUE;
     }
 
     /* Synchronize AlgoStyle which is managed by 32-bit SetSoftStyle */
@@ -90,7 +127,7 @@ void abiv0_Text(struct RastPortV0 *rp, CONST_STRPTR string, ULONG count, struct 
 
     Text(rpnative, string, count);
 
-    if (rpnative->BitMap == &bmtmp) rpnative->BitMap = NULL;
+    BITMAPLAYERPOST
 }
 MAKE_PROXY_ARG_4(Text)
 
