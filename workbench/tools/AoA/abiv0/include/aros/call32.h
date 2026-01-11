@@ -58,9 +58,16 @@
     :"mr"(faddr), "mr"(arg1), "mr"(arg2), "mr"(arg3)    \
     : SCRATCH_REGS_64_TO_32 );
 
+#define CALL32_ARG_2_NR(faddr, arg1, arg2)          \
+    {                                               \
+        LONG _dummy;                                \
+        CALL32_ARG_2(_dummy, faddr, arg1, arg2)     \
+    }
+
 #define CALL32_ARG_3_NR(faddr, arg1, arg2, arg3)    \
     {                                               \
         LONG _dummy;                                \
         CALL32_ARG_3(_dummy, faddr, arg1, arg2, arg3)\
     }
+
 #endif

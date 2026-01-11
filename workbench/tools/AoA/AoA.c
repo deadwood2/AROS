@@ -15,6 +15,7 @@
 #include "abiv0/include/exec/proxy_structures.h"
 #include "abiv0/include/aros/proxy.h"
 #include "abiv0/include/aros/cpu.h"
+#include "abiv0/include/aros/call32.h"
 #include "abiv0/include/input/structures.h"
 
 #include "abiv0/exec/exec_libraries.h"
@@ -231,6 +232,16 @@ MAKE_PROXY_ARG_5(RawKeyConvert)
 
 #include <proto/cybergraphics.h>
 #include "abiv0/graphics/graphics_rastports.h"
+
+struct ExecBaseV0 *CyberGfx_SysBaseV0;
+
+BPTR abiv0_CyberGfx_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *CyberGfxBaseV0)
+{
+    /* Call Remove on library base */
+    CALL32_ARG_2_NR(__AROS_GETVECADDRV0(CyberGfx_SysBaseV0, 42), CyberGfxBaseV0, (APTR32)(IPTR)CyberGfx_SysBaseV0);
+    return BNULL;
+}
+MAKE_PROXY_ARG_2(CyberGfx_ExpungeLib)
 
 ULONG abiv0_FillPixelArray(struct RastPortV0 *rp, UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG pixel)
 {
@@ -502,14 +513,15 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
-
+    CyberGfx_SysBaseV0 = SysBaseV0;
     /* Remove all vectors for now (leave LibOpen/LibClose) */
     const ULONG cybergraphicsjmpsize = 38 * sizeof(APTR32);
     APTR32 *cybergraphicsjmp = AllocMem(cybergraphicsjmpsize, MEMF_CLEAR);
     CopyMem((APTR)abiv0CyberGfxBase - cybergraphicsjmpsize, cybergraphicsjmp, cybergraphicsjmpsize);
-    for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
+    for (int i = 3; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200 + 100);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase,  3, (APTR32)(IPTR)proxy_CyberGfx_ExpungeLib);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 33, (APTR32)(IPTR)proxy_WriteLUTPixelArray);
@@ -566,6 +578,9 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 
 
     exec_expunge_libraries(SysBaseV0);
+
+    /* Finish expunge for partial libraries */
+    UnLoadSeg(cgfxseg);
 
     exit_graphics();
 }
