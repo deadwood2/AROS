@@ -35,12 +35,14 @@ void syncLayerV0(struct LayerProxy *proxy)
 
 struct LibraryV0 *abiv0_Gfx_OpenLib(ULONG version, struct LibraryV0 *GfxBaseV0)
 {
+    GfxBaseV0->lib_OpenCnt++;
     return GfxBaseV0;
 }
 MAKE_PROXY_ARG_2(Gfx_OpenLib)
 
 BPTR abiv0_Gfx_CloseLib(struct LibraryV0 *GfxBaseV0)
 {
+    GfxBaseV0->lib_OpenCnt--;
     return BNULL;
 }
 MAKE_PROXY_ARG_1(Gfx_CloseLib)

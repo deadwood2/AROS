@@ -65,12 +65,14 @@ asm("int3");
 
 struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBaseV0)
 {
+    LayersBaseV0->lib_OpenCnt++;
     return LayersBaseV0;
 }
 MAKE_PROXY_ARG_2(Layers_OpenLib)
 
 BPTR abiv0_Layers_CloseLib(struct LibraryV0 *LayersBaseV0)
 {
+    LayersBaseV0->lib_OpenCnt--;
     return BNULL;
 }
 MAKE_PROXY_ARG_1(Layers_CloseLib)

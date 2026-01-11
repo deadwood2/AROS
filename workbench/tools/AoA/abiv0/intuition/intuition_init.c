@@ -48,12 +48,14 @@ struct ScreenProxy
 
 struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *IntuitionBaseV0)
 {
+    IntuitionBaseV0->lib_OpenCnt++;
     return IntuitionBaseV0;
 }
 MAKE_PROXY_ARG_2(Intuition_OpenLib)
 
 BPTR abiv0_Intuition_CloseLib(struct LibraryV0 *IntuitionBaseV0)
 {
+    IntuitionBaseV0->lib_OpenCnt--;
     return BNULL;
 }
 MAKE_PROXY_ARG_1(Intuition_CloseLib)
