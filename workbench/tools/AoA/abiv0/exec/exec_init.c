@@ -18,9 +18,10 @@
 #include "../include/dos/structures.h"
 
 #include "exec_devices.h"
+#include "exec_libraries.h"
 #include "exec_ports.h"
 
-extern struct DosLibraryV0 *abiv0DOSBase;
+BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ExecBaseV0 *abiv0SysBase;
 
 APTR abiv0_AllocMem(ULONG byteSize, ULONG requirements, struct ExecBaseV0 *SysBaseV0)
@@ -153,116 +154,6 @@ VOID abiv0_AddMemHandler(APTR memHandler, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(AddMemHandler)
 
-BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
-
-struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
-{
-    /* we may not have any extension fields */
-    const int sizeofresident = offsetof(struct ResidentV0, rt_Init) + sizeof(APTR);
-
-    while(seg)
-    {
-        STRPTR addr = (STRPTR)((IPTR)BADDR(seg) - sizeof(ULONG));
-        ULONG size = *(ULONG *)addr;
-
-        for(
-            addr += sizeof(BPTR) + sizeof(ULONG),
-                size -= sizeof(BPTR) + sizeof(ULONG);
-            size >= sizeofresident;
-            size -= 2, addr += 2
-        )
-        {
-            struct ResidentV0 *res = (struct ResidentV0 *)addr;
-            if(    res->rt_MatchWord == RTC_MATCHWORD
-                && res->rt_MatchTag == (APTR32)(IPTR)res )
-            {
-                if ((name != NULL) && (strcmp((char *)(IPTR)res->rt_Name, name) != 0))
-                    continue;
-
-                return res;
-            }
-        }
-        seg = *(BPTR *)BADDR(seg);
-    }
-}
-
-APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0)
-{
-    D(bug("abiv0_OpenLibrary: %s\n", name));
-    TEXT buff[64];
-    struct LibraryV0 *_ret;
-    STRPTR stripped_name = FilePart(name);
-
-    /* Special case */
-    if (strcmp(stripped_name, "dos.library") == 0)
-        return abiv0DOSBase;
-
-    /* Workaround for compiled-in absolute paths */
-    if (strcmp(name, "SYS:Classes/datatypes/picture.datatype") == 0)
-        name = "datatypes/picture.datatype";
-    if (strcmp(name, "SYS:Classes/datatypes/png.datatype") == 0)
-        name = "datatypes/png.datatype";
-
-    /* Call Exec function, maybe the library is already available */
-    _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
-    if (_ret)
-        return _ret;
-
-    /* Try loading from disk */
-    NewRawDoFmt("LIBSV0:%s", RAWFMTFUNC_STRING, buff, name);
-
-    BPTR seglist = LoadSeg32(buff, DOSBase);
-
-    if (seglist == BNULL)
-        return NULL;
-
-    struct ResidentV0 *res = findResident(seglist, NULL);
-
-    if (res)
-    {
-        D(bug("[LDInit] Calling InitResident(%p) on %s\n", res, res->rt_Name));
-        /* AOS compatibility requirement.
-            * Ramlib ignores InitResident() return code.
-            * After InitResident() it checks if lib/dev appeared
-            * in Exec lib/dev list via FindName().
-            *
-            * Evidently InitResident()'s return code was not
-            * reliable for some early AOS libraries.
-            */
-        // Forbid();
-        abiv0_InitResident(res, seglist, SysBaseV0);
-        _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
-        // Permit();
-        D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
-
-        return _ret;
-    }
-
-    return NULL;
-}
-
-void proxy_OpenLibrary();
-void dummy_OpenLibrary()
-{
-    EXTER_PROXY(OpenLibrary)
-    STORE_ESI_EDI
-    ENTER64
-    ALIGN_STACK64
-    SET_ARG64__3_FROM32
-    SET_ARG64__2_FROM32
-    SET_ARG64__1_FROM32
-    CALL_IMPL64(DOS_OpenLibrary)
-    RESTORE_STACK64
-    ENTER32
-    RESTORE_ESI_EDI
-    LEAVE_PROXY
-}
-
-void abiv0_CloseLibrary()
-{
-}
-MAKE_PROXY_ARG_2(CloseLibrary)
-
 ULONG abiv0_AllocTaskStorageSlot()
 {
     return AllocTaskStorageSlot();
@@ -288,16 +179,6 @@ ULONG abiv0_GetParentTaskStorageSlot(LONG id)
 }
 MAKE_PROXY_ARG_2(GetParentTaskStorageSlot)
 
-APTR abiv0_OpenResource(CONST_STRPTR resName)
-{
-    if (strcmp(resName, "kernel.resource") == 0)
-        return NULL;
-
-asm("int3");
-    return (APTR)0x1;
-}
-MAKE_PROXY_ARG_2(OpenResource)
-
 void abiv0_CacheClearE(APTR address, IPTR length, ULONG caches, struct ExecBaseV0 *SysBaseV0)
 {
     CacheClearE(address, length, caches);
@@ -312,8 +193,6 @@ ULONG abiv0_Wait(ULONG signalSet, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(Wait)
 
-MAKE_PROXY_ARG_6(MakeLibrary)
-MAKE_PROXY_ARG_2(AddResource)
 MAKE_PROXY_ARG_2(InitSemaphore)
 
 void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
@@ -567,22 +446,17 @@ struct ExecBaseV0 *init_exec()
         __AROS_SETVECADDRV0(abiv0SysBase, i, (APTR32)(IPTR)i);
 
     /* Set all working LVOs */
-    __AROS_SETVECADDRV0(abiv0SysBase, 92, (APTR32)(IPTR)proxy_OpenLibrary);
-    __AROS_SETVECADDRV0(abiv0SysBase, 69, (APTR32)(IPTR)proxy_CloseLibrary);
     __AROS_SETVECADDRV0(abiv0SysBase, 49, (APTR32)(IPTR)proxy_FindTask);
     __AROS_SETVECADDRV0(abiv0SysBase,180, (APTR32)(IPTR)proxy_AllocTaskStorageSlot);
     __AROS_SETVECADDRV0(abiv0SysBase,184, (APTR32)(IPTR)proxy_SetTaskStorageSlot);
     __AROS_SETVECADDRV0(abiv0SysBase,185, (APTR32)(IPTR)proxy_GetTaskStorageSlot);
-    __AROS_SETVECADDRV0(abiv0SysBase, 83, (APTR32)(IPTR)proxy_OpenResource);
     __AROS_SETVECADDRV0(abiv0SysBase, 93, (APTR32)(IPTR)proxy_InitSemaphore);
     __AROS_SETVECADDRV0(abiv0SysBase, 33, (APTR32)(IPTR)proxy_AllocMem);
-    __AROS_SETVECADDRV0(abiv0SysBase, 14, (APTR32)(IPTR)proxy_MakeLibrary);
     __AROS_SETVECADDRV0(abiv0SysBase,104, (APTR32)(IPTR)proxy_CopyMem);
     __AROS_SETVECADDRV0(abiv0SysBase,116, (APTR32)(IPTR)proxy_CreatePool);
     __AROS_SETVECADDRV0(abiv0SysBase,118, (APTR32)(IPTR)proxy_AllocPooled);
     __AROS_SETVECADDRV0(abiv0SysBase,114, (APTR32)(IPTR)proxy_AllocVec);
     __AROS_SETVECADDRV0(abiv0SysBase, 46, execfunctable[45]);    // FindName
-    __AROS_SETVECADDRV0(abiv0SysBase,135, execfunctable[134]);   // TaggedOpenLibrary
     __AROS_SETVECADDRV0(abiv0SysBase, 89, (APTR32)(IPTR)proxy_TypeOfMem);
     __AROS_SETVECADDRV0(abiv0SysBase, 41, execfunctable[40]);    // AddTail
     __AROS_SETVECADDRV0(abiv0SysBase, 87, execfunctable[86]);    // RawDoFmt
@@ -596,12 +470,9 @@ struct ExecBaseV0 *init_exec()
 #endif
     __AROS_SETVECADDRV0(abiv0SysBase, 40, execfunctable[39]);    // AddHead
     __AROS_SETVECADDRV0(abiv0SysBase, 95, execfunctable[94]);    // ReleaseSemaphore
-    __AROS_SETVECADDRV0(abiv0SysBase, 81, (APTR32)(IPTR)proxy_AddResource);
     __AROS_SETVECADDRV0(abiv0SysBase, 22, (APTR32)(IPTR)proxy_Forbid);
     __AROS_SETVECADDRV0(abiv0SysBase, 23, (APTR32)(IPTR)proxy_Permit);
     __AROS_SETVECADDRV0(abiv0SysBase,129, (APTR32)(IPTR)proxy_AddMemHandler);
-    __AROS_SETVECADDRV0(abiv0SysBase, 70, execfunctable[69]);    // SetFunction
-    __AROS_SETVECADDRV0(abiv0SysBase, 71, execfunctable[70]);    // SumLibrary
     __AROS_SETVECADDRV0(abiv0SysBase, 45, execfunctable[44]);    // Enqueue
     __AROS_SETVECADDRV0(abiv0SysBase, 34, (APTR32)(IPTR)proxy_AllocAbs);
     __AROS_SETVECADDRV0(abiv0SysBase,115, (APTR32)(IPTR)proxy_FreeVec);
@@ -630,6 +501,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 36, (APTR32)(IPTR)proxy_AvailMem);
     __AROS_SETVECADDRV0(abiv0SysBase,105, execfunctable[104]);   // CopyMemQuick
     Exec_Devices_init(abiv0SysBase);
+    Exec_Libraries_init(abiv0SysBase);
     Exec_Ports_init(abiv0SysBase);
 
     return abiv0SysBase;

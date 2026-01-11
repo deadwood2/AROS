@@ -6,15 +6,11 @@ include $(SRCDIR)/config/aros.cfg
 #MM- local-emuv0-quick : local-emuv0-linux-quick local-emuv0-pc-quick
 
 FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 internalloadseg_support32 \
-        abiv0/exec/initresident \
-        abiv0/exec/makelibrary \
-        abiv0/exec/makefunctions \
-        abiv0/exec/addlibrary \
-        abiv0/exec/enqueue \
-        abiv0/exec/findname \
-        abiv0/exec/openlibrary \
-        abiv0/exec/addresource \
         abiv0/exec/initsemaphore \
+        abiv0/exec/exec_devices \
+        abiv0/exec/exec_init \
+        abiv0/exec/exec_libraries \
+        abiv0/exec/exec_ports \
         abiv0/graphics/graphics_init \
         abiv0/graphics/graphics_operations \
         abiv0/graphics/graphics_rastports \
@@ -22,10 +18,7 @@ FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 internalloadseg_s
         abiv0/intuition/intuition_gadgets \
         abiv0/intuition/intuition_init \
         abiv0/intuition/intuition_windows \
-        abiv0/dos/dos_init \
-        abiv0/exec/exec_devices \
-        abiv0/exec/exec_init \
-        abiv0/exec/exec_ports
+        abiv0/dos/dos_init
 
 EXEDIR := $(AROS_C)
 USER_INCLUDES := -I$(SRCDIR)/rom/dos

@@ -17,6 +17,8 @@
 #include "abiv0/include/aros/cpu.h"
 #include "abiv0/include/input/structures.h"
 
+#include "abiv0/exec/exec_libraries.h"
+
 const TEXT version_string[] = "$VER: EmuV0 0.44 (10.01.2026)";
 
 struct DeviceProxy *abiv0TimerBase;
@@ -372,7 +374,6 @@ ULONG abiv0_GetCyberMapAttr(struct BitMapV0 *bitMap, ULONG attribute, struct Lib
 MAKE_PROXY_ARG_3(GetCyberMapAttr)
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
-struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 
 void init_graphics(struct ExecBaseV0 *);
 void exit_graphics();

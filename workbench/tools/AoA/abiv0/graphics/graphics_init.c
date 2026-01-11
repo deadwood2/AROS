@@ -21,6 +21,7 @@
 #include "../include/graphics/proxy_structures.h"
 #include "../include/utility/structures.h"
 
+#include "../exec/exec_libraries.h"
 #include "graphics_operations.h"
 #include "graphics_rastports.h"
 #include "graphics_regions.h"
@@ -295,7 +296,6 @@ MAKE_PROXY_ARG_12(ScrollRaster)
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
-struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
 #define TFE_HASHTABSIZE   	16
