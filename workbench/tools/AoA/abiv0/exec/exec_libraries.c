@@ -49,7 +49,7 @@ struct ResidentV0 * findResident(BPTR seg, CONST_STRPTR name)
     }
 }
 
-static void abiv0_Enqueue(struct ListV0 *list, struct NodeV0 *node, struct ExecBaseV0 *SysBaseV0)
+static void int_Enqueue(struct ListV0 *list, struct NodeV0 *node, struct ExecBaseV0 *SysBaseV0)
 {
     struct NodeV0 * next;
 
@@ -89,7 +89,7 @@ static void abiv0_Enqueue(struct ListV0 *list, struct NodeV0 *node, struct ExecB
     next->ln_Pred          = (APTR32)(IPTR)node;
 } /* Enqueue */
 
-static struct NodeV0 * abiv0_FindName(struct ListV0 *list, CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
+static struct NodeV0 * int_FindName(struct ListV0 *list, CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 {
     struct NodeV0 * node;
 /* FIX !
@@ -148,7 +148,7 @@ void  abiv0_AddResource(APTR resource, struct ExecBaseV0 *SysBaseV0)
     // EXEC_LOCK_LIST_WRITE_AND_FORBID(&SysBase->ResourceList);
 
     /* And add the resource */
-    abiv0_Enqueue(&SysBaseV0->ResourceList,(struct NodeV0 *)resource, SysBaseV0);
+    int_Enqueue(&SysBaseV0->ResourceList,(struct NodeV0 *)resource, SysBaseV0);
 
     /* All done. */
     // EXEC_UNLOCK_LIST_AND_PERMIT(&SysBase->ResourceList);
@@ -193,7 +193,7 @@ void  abiv0_AddResource(APTR resource, struct ExecBaseV0 *SysBaseV0)
 } /* AddResource */
 MAKE_PROXY_ARG_2(AddResource)
 
-static void abiv0_AddLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0)
+static void int_AddLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0)
 {
     ASSERT_VALID_PTR(library);
 
@@ -207,7 +207,7 @@ static void abiv0_AddLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBa
     /* Arbitrate for the library list */
     // EXEC_LOCK_LIST_WRITE_AND_FORBID(&SysBase->LibList);
     /* And add the library */
-    abiv0_Enqueue(&SysBaseV0->LibList,&library->lib_Node,SysBaseV0);
+    int_Enqueue(&SysBaseV0->LibList,&library->lib_Node,SysBaseV0);
     /* We're done with midifying the LibList */
     // EXEC_UNLOCK_LIST_AND_PERMIT(&SysBase->LibList);
     /*
@@ -239,7 +239,7 @@ void _aros_not_implemented(char *lvo)
     asm("int3");
 }
 
-static ULONG  abiv0_MakeFunctions(APTR target, APTR32 functionArray, APTR32 funcDispBase, struct ExecBaseV0 *SysBaseV0)
+static ULONG  int_MakeFunctions(APTR target, APTR32 functionArray, APTR32 funcDispBase, struct ExecBaseV0 *SysBaseV0)
 {
     long n;
     APTR lastvec;
@@ -316,7 +316,7 @@ asm("int3");
 
 } /* MakeFunctions */
 
-static struct LibraryV0 * abiv0_MakeLibrary(APTR32 funcInit, APTR32 structInit, APTR32 libInit,
+struct LibraryV0 * abiv0_MakeLibrary(APTR32 funcInit, APTR32 structInit, APTR32 libInit,
     ULONG dataSize, BPTR segList, struct ExecBaseV0 * SysBaseV0)
 
 {
@@ -373,7 +373,7 @@ static struct LibraryV0 * abiv0_MakeLibrary(APTR32 funcInit, APTR32 structInit, 
         else
     #endif
             /* function pointers */
-            abiv0_MakeFunctions(library,funcInit,(APTR32)(IPTR)NULL,SysBaseV0);
+            int_MakeFunctions(library,funcInit,(APTR32)(IPTR)NULL,SysBaseV0);
 
         /* Write sizes */
         library->lib_NegSize=negsize;
@@ -403,6 +403,7 @@ asm("int3");
     return library;
 
 } /* MakeLibrary */
+MAKE_PROXY_ARG_6(MakeLibrary)
 
 APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -503,7 +504,7 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
                         break;
                     case NT_LIBRARY:
                     case NT_HIDD:   /* XXX Remove when new Hidd system ok. */
-                        abiv0_AddLibrary(library, SysBaseV0);
+                        int_AddLibrary(library, SysBaseV0);
                         break;
                     case NT_RESOURCE:
                     asm("int3");
@@ -542,7 +543,7 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
     return library;
 } /* InitResident */
 
-static struct LibraryV0 * abiv0_OpenLibrary(CONST_STRPTR libName, ULONG version, struct ExecBaseV0 *SysBaseV0)
+static struct LibraryV0 * int_OpenLibrary(CONST_STRPTR libName, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
     struct LibraryV0 * library;
 
@@ -552,7 +553,7 @@ static struct LibraryV0 * abiv0_OpenLibrary(CONST_STRPTR libName, ULONG version,
     // EXEC_LOCK_LIST_READ_AND_FORBID(&SysBase->LibList);
 
     /* Look for the library in our list */
-    library = (struct LibraryV0 *) abiv0_FindName (&SysBaseV0->LibList, libName, SysBaseV0);
+    library = (struct LibraryV0 *) int_FindName (&SysBaseV0->LibList, libName, SysBaseV0);
 
     // EXEC_UNLOCK_LIST(&SysBase->LibList);
 
@@ -617,7 +618,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
         name = "datatypes/png.datatype";
 
     /* Call Exec function, maybe the library is already available */
-    _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
+    _ret = int_OpenLibrary(stripped_name, version, SysBaseV0);
     if (_ret)
         return _ret;
 
@@ -644,7 +645,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
             */
         // Forbid();
         abiv0_InitResident(res, seglist, SysBaseV0);
-        _ret = abiv0_OpenLibrary(stripped_name, version, SysBaseV0);
+        _ret = int_OpenLibrary(stripped_name, version, SysBaseV0);
         // Permit();
         D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
 
@@ -675,8 +676,6 @@ void abiv0_CloseLibrary()
 {
 }
 MAKE_PROXY_ARG_2(CloseLibrary)
-
-MAKE_PROXY_ARG_6(MakeLibrary)
 
 void Exec_Libraries_init(struct ExecBaseV0 *abiv0SysBase)
 {
