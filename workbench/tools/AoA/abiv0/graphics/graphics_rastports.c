@@ -40,14 +40,16 @@ extern struct ExecBaseV0 *Gfx_SysBaseV0;
 
 struct _rastportstore
 {
+    /* Native RastPort attached to 32-bit RastPort. Only set at creation! */
     struct RastPort *native;
-    struct RastPortV0 *owner; /* a */
+    /* Owner 32-bit RastPort. Only set at creation! */
+    struct RastPortV0 *owner;
 };
 
 /* Edge cases:
     a) 32-bit RastPort was struct-copied to another one, which includes copying longreserved fields. Now two
         32-bit RastPort would be using the same attached 64-bit RastPort. Return NULL for the copy to
-        allow making new attachment */
+        allow making new attachment (TextEditor.mcc, copyrp) */
 
 struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp)
 {
@@ -63,8 +65,8 @@ struct RastPort *RastPortV0_getnative(struct RastPortV0 *rp)
 void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative)
 {
     struct _rastportstore *s = abiv0_AllocPooled(rastPortPool, sizeof(struct _rastportstore), Gfx_SysBaseV0);
-    s->native = rpnative;
-    s->owner = rp;
+    s->native   = rpnative; /* Only set here! */
+    s->owner    = rp;       /* Only set here! */
     *(IPTR *)&(rp)->longreserved = (IPTR)(s);
 }
 
@@ -85,25 +87,59 @@ static struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
     return rpnative;
 }
 
-/* TODO: keep several addresses in cache instead of just one to increase re-use */
-APTR lastccrp = NULL;
-struct _rastportstore *lastccstore = NULL;
+#define CRPC_SIZE   32
+static struct _rastportstore *crpcCache[CRPC_SIZE];
+
+static LONG crpc_GetID(struct RastPortV0 *rp)
+{
+    for (LONG i = 0; i < CRPC_SIZE; i++)
+    {
+        struct _rastportstore *s = crpcCache[i];
+        if (s != NULL && s->owner == rp)
+            return i;
+    }
+
+    return -1;
+}
+
+static struct _rastportstore *crpc_Get(LONG id)
+{
+    return crpcCache[id];
+}
+
+/* Inserts entry at head either loosing last entry in cache or
+   moving the entry to head if it already was in cache */
+static void crpc_InsertHead(struct _rastportstore *rps)
+{
+    LONG last = CRPC_SIZE - 1;
+    LONG id = crpc_GetID(rps->owner);
+    if (id > -1)
+        last = id;
+
+    for (LONG i = last; i > 0; i--)
+        crpcCache[i] = crpcCache[i - 1];
+
+    crpcCache[0] = rps;
+}
 
 static struct RastPort * RastPortV0_createcompanion(struct RastPortV0 *rp)
 {
     struct RastPort *rpnative = NULL;
+    LONG ccID = -1;
 
-    if (lastccrp == rp && lastccstore->owner == rp)
+    if (((ccID = crpc_GetID(rp)) > -1))
     {
         /*  We are creating a compantion for the same rastport again? How is that possible!
             The RastPort can actually be a stack temporary object and it was already used and
             released and this is a new object at the same address! In that case re-use the previous
-            storage and previoue native RastPort.
+            storage and previous native RastPort to limit amount of unfreed memory (companion
+            RastPorts are only released at emulation exit)
         */
-        rpnative = lastccstore->native;
+        struct _rastportstore *s = crpc_Get(ccID);
+        rpnative = s->native;
         InitRastPort(rpnative);
         syncRastPortNative(rpnative, rp);
-        *(IPTR *)&(rp)->longreserved = (IPTR)(lastccstore);
+        *(IPTR *)&(rp)->longreserved = (IPTR)(s);
     }
     else
     {
@@ -111,8 +147,7 @@ static struct RastPort * RastPortV0_createcompanion(struct RastPortV0 *rp)
         RastPortV0_attachnative(rp, rpnative);
     }
 
-    lastccrp = rp;
-    lastccstore = (struct _rastportstore *)*(IPTR *)&rp->longreserved;
+    crpc_InsertHead((struct _rastportstore *)*(IPTR *)&rp->longreserved);
 
     return rpnative;
 }
