@@ -154,6 +154,12 @@ VOID abiv0_AddMemHandler(APTR memHandler, struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_2(AddMemHandler)
 
+VOID abiv0_RemMemHandler(APTR memHandler, struct ExecBaseV0 *SysBaseV0)
+{
+    bug("abiv0_RemMemHandler ignored\n");
+}
+MAKE_PROXY_ARG_2(RemMemHandler)
+
 ULONG abiv0_AllocTaskStorageSlot()
 {
     return AllocTaskStorageSlot();
@@ -171,6 +177,12 @@ ULONG abiv0_GetTaskStorageSlot(LONG id)
     return GetTaskStorageSlot(id);
 }
 MAKE_PROXY_ARG_2(GetTaskStorageSlot)
+
+VOID abiv0_FreeTaskStorageSlot(LONG id)
+{
+    return FreeTaskStorageSlot(id);
+}
+MAKE_PROXY_ARG_2(FreeTaskStorageSlot)
 
 ULONG abiv0_GetParentTaskStorageSlot(LONG id)
 {
@@ -500,6 +512,10 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase, 86, (APTR32)(IPTR)proxy_RawPutChar);
     __AROS_SETVECADDRV0(abiv0SysBase, 36, (APTR32)(IPTR)proxy_AvailMem);
     __AROS_SETVECADDRV0(abiv0SysBase,105, execfunctable[104]);   // CopyMemQuick
+    __AROS_SETVECADDRV0(abiv0SysBase,181, (APTR32)(IPTR)proxy_FreeTaskStorageSlot);
+    __AROS_SETVECADDRV0(abiv0SysBase,130, (APTR32)(IPTR)proxy_RemMemHandler);
+
+
     Exec_Devices_init(abiv0SysBase);
     Exec_Libraries_init(abiv0SysBase);
     Exec_Ports_init(abiv0SysBase);

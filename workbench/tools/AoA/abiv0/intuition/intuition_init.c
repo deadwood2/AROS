@@ -58,6 +58,12 @@ BPTR abiv0_Intuition_CloseLib(struct LibraryV0 *IntuitionBaseV0)
 }
 MAKE_PROXY_ARG_1(Intuition_CloseLib)
 
+BPTR abiv0_Intuition_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *IntuitionBaseV0)
+{
+    return BNULL;
+}
+MAKE_PROXY_ARG_2(Intuition_ExpungeLib)
+
 struct IntScreenV0  *g_mainv0screen;
 struct Screen       *g_mainnativescreen;
 
@@ -649,6 +655,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   2, (APTR32)(IPTR)proxy_Intuition_CloseLib);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,   3, (APTR32)(IPTR)proxy_Intuition_ExpungeLib);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 113, intuitionjmp[165 - 113]);  // MakeClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 112, intuitionjmp[165 - 112]);  // FindClass
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 114, intuitionjmp[165 - 114]);  // AddClass

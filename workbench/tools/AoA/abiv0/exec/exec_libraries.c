@@ -677,14 +677,14 @@ void abiv0_CloseLibrary(struct LibraryV0 * library, struct ExecBaseV0 *SysBaseV0
 {
     BPTR seglist = BNULL;
 
-    if( library != NULL )
+    if (library != NULL)
     {
         /* Skip dos.library */
         if (library->lib_Node.ln_Name == 0x0000D0FF) return;
 
         // Forbid();
         CALL32_ARG_1(seglist, __AROS_GETVECADDRV0(library, 2), library);
-        if( seglist )
+        if (seglist)
         {
             /* Safe to call from a Task */
             // UnLoadSeg(seglist); // TODO: implement
@@ -693,6 +693,60 @@ void abiv0_CloseLibrary(struct LibraryV0 * library, struct ExecBaseV0 *SysBaseV0
     }
 }
 MAKE_PROXY_ARG_2(CloseLibrary)
+
+static BOOL int_expunged = FALSE;
+static void int_RemLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0)
+{
+    BPTR seglist = BNULL;
+    int_expunged = FALSE;
+
+    // Forbid();
+    /* calling ExpungeLib: library ends up in D0 and A6 for compatibility */
+    CALL32_ARG_2(seglist, __AROS_GETVECADDRV0(library, 3), library, library);
+    if (seglist)
+    {
+        int_expunged = TRUE;
+        // UnLoadSeg(seglist); // TODO: implement
+    }
+    // Permit();
+}
+
+static LONG int_exec_expunge_libraries(struct ExecBaseV0 *SysBaseV0)
+{
+    struct LibraryV0 *library;
+    LONG expunged = 0;
+
+    /* Forbid() is already done, but I don't want to rely on it. */
+//     Forbid();
+
+    /* Follow the linked list of shared libraries. */
+    library = (struct LibraryV0 *)(IPTR)SysBaseV0->LibList.lh_Head;
+    while (library->lib_Node.ln_Succ != (APTR32)(IPTR)NULL)
+    {
+        /* Flush libraries with a 0 open count */
+        if (library->lib_OpenCnt == 0)
+        {
+            /* the library list node will be wiped from memory */
+            struct LibraryV0 *nextLib = (struct LibraryV0 *)(IPTR)library->lib_Node.ln_Succ;
+            int_RemLibrary(library, SysBaseV0);
+            if (int_expunged) expunged++;
+
+            library = nextLib;
+        }
+        else
+        {
+            /* Go on to next library. */
+            library = (struct LibraryV0 *)(IPTR)library->lib_Node.ln_Succ;
+        }
+    }
+
+    return expunged;
+}
+
+void exec_expunge_libraries(struct ExecBaseV0 *SysBaseV0)
+{
+    while (int_exec_expunge_libraries(SysBaseV0) > 0);
+}
 
 void Exec_Libraries_init(struct ExecBaseV0 *abiv0SysBase)
 {
@@ -704,6 +758,4 @@ void Exec_Libraries_init(struct ExecBaseV0 *abiv0SysBase)
     __AROS_SETVECADDRV0(abiv0SysBase, 71, execfunctable[70]);    // SumLibrary
     __AROS_SETVECADDRV0(abiv0SysBase, 83, (APTR32)(IPTR)proxy_OpenResource);
     __AROS_SETVECADDRV0(abiv0SysBase, 81, (APTR32)(IPTR)proxy_AddResource);
-
-
 }

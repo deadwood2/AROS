@@ -75,6 +75,12 @@ BPTR abiv0_Layers_CloseLib(struct LibraryV0 *LayersBaseV0)
 }
 MAKE_PROXY_ARG_1(Layers_CloseLib)
 
+BPTR abiv0_Layers_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *LayersBaseV0)
+{
+    return BNULL;
+}
+MAKE_PROXY_ARG_2(Layers_ExpungeLib)
+
 #include <proto/layers.h>
 #include <graphics/regions.h>
 
@@ -386,6 +392,7 @@ void exit_graphics();
 void init_intuition(struct ExecBaseV0 *, struct DeviceProxy *);
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
+void exec_expunge_libraries(struct ExecBaseV0 *);
 
 void execute_in_32_bit(APTR start, CONST_STRPTR argstr, LONG argsize, struct ExecBaseV0 *SysBaseV0)
 {
@@ -478,6 +485,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     for (int i = 5; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,   2, (APTR32)(IPTR)proxy_Layers_CloseLib);
+    __AROS_SETVECADDRV0(abiv0LayersBase,   3, (APTR32)(IPTR)proxy_Layers_ExpungeLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,  29, (APTR32)(IPTR)proxy_InstallClipRegion);
     __AROS_SETVECADDRV0(abiv0LayersBase,  20, (APTR32)(IPTR)proxy_LockLayerInfo);
     __AROS_SETVECADDRV0(abiv0LayersBase,  23, (APTR32)(IPTR)proxy_UnlockLayerInfo);
@@ -551,6 +559,9 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     UnLock(CurrentDir(oldcurdir));
     SetProgramDir(oldprogdir);
     UnLock(progdir);
+
+
+    exec_expunge_libraries(SysBaseV0);
 
     exit_graphics();
 }

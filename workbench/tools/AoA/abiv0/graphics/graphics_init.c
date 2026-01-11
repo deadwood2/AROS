@@ -45,6 +45,12 @@ BPTR abiv0_Gfx_CloseLib(struct LibraryV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_1(Gfx_CloseLib)
 
+BPTR abiv0_Gfx_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *GfxBaseV0)
+{
+    return BNULL;
+}
+MAKE_PROXY_ARG_2(Gfx_ExpungeLib)
+
 ULONG abiv0_GetBitMapAttr(struct BitMapV0 *bitmap, ULONG attribute, struct LibraryV0 *GfxBaseV0)
 {
 
@@ -351,6 +357,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
     __AROS_SETVECADDRV0(abiv0GfxBase,   2, (APTR32)(IPTR)proxy_Gfx_CloseLib);
+    __AROS_SETVECADDRV0(abiv0GfxBase,   3, (APTR32)(IPTR)proxy_Gfx_ExpungeLib);
     __AROS_SETVECADDRV0(abiv0GfxBase,  12, (APTR32)(IPTR)proxy_OpenFont);
     __AROS_SETVECADDRV0(abiv0GfxBase, 160, (APTR32)(IPTR)proxy_GetBitMapAttr);
     __AROS_SETVECADDRV0(abiv0GfxBase, 150, (APTR32)(IPTR)proxy_GetRGB32);
