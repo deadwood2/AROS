@@ -534,6 +534,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     fhinput->fh_End = 9;
 
     execute_in_32_bit(adtstart, "\n", 1, SysBaseV0);
+    UnLoadSeg(adtseg);
 
     /* Start Program */
     NewRawDoFmt("%s", RAWFMTFUNC_STRING, path, program_path);
@@ -556,6 +557,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     refresh_g_v0maintask();
 
     execute_in_32_bit(start, emu_argstr, emu_argsize, SysBaseV0);
+    UnLoadSeg(seg);
 
     SetCurrentDirName(currdir);
     UnLock(CurrentDir(oldcurdir));

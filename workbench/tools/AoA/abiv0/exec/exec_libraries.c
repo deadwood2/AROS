@@ -687,7 +687,7 @@ void abiv0_CloseLibrary(struct LibraryV0 * library, struct ExecBaseV0 *SysBaseV0
         if (seglist)
         {
             /* Safe to call from a Task */
-            // UnLoadSeg(seglist); // TODO: implement
+            UnLoadSeg(seglist);
         }
         // Permit();
     }
@@ -698,7 +698,6 @@ static BOOL int_expunged = FALSE;
 static void int_RemLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0)
 {
     BPTR seglist = BNULL;
-    int_expunged = FALSE;
 
     // Forbid();
     /* calling ExpungeLib: library ends up in D0 and A6 for compatibility */
@@ -706,7 +705,7 @@ static void int_RemLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBase
     if (seglist)
     {
         int_expunged = TRUE;
-        // UnLoadSeg(seglist); // TODO: implement
+        UnLoadSeg(seglist);
     }
     // Permit();
 }
@@ -728,6 +727,7 @@ static LONG int_exec_expunge_libraries(struct ExecBaseV0 *SysBaseV0)
         {
             /* the library list node will be wiped from memory */
             struct LibraryV0 *nextLib = (struct LibraryV0 *)(IPTR)library->lib_Node.ln_Succ;
+            int_expunged = FALSE;
             int_RemLibrary(library, SysBaseV0);
             if (int_expunged) expunged++;
 
