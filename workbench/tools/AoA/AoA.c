@@ -69,6 +69,12 @@ struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBa
 }
 MAKE_PROXY_ARG_2(Layers_OpenLib)
 
+BPTR abiv0_Layers_CloseLib(struct LibraryV0 *LayersBaseV0)
+{
+    return BNULL;
+}
+MAKE_PROXY_ARG_1(Layers_CloseLib)
+
 #include <proto/layers.h>
 #include <graphics/regions.h>
 
@@ -471,6 +477,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
     for (int i = 5; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
+    __AROS_SETVECADDRV0(abiv0LayersBase,   2, (APTR32)(IPTR)proxy_Layers_CloseLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,  29, (APTR32)(IPTR)proxy_InstallClipRegion);
     __AROS_SETVECADDRV0(abiv0LayersBase,  20, (APTR32)(IPTR)proxy_LockLayerInfo);
     __AROS_SETVECADDRV0(abiv0LayersBase,  23, (APTR32)(IPTR)proxy_UnlockLayerInfo);
@@ -486,7 +493,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     struct ResidentV0 *cgfxres = findResident(cgfxseg, NULL);
     struct LibraryV0 *abiv0CyberGfxBase = shallow_InitResident32(cgfxres, cgfxseg, SysBaseV0);
 
-    /* Remove all vectors for now (leave LibOpen) */
+    /* Remove all vectors for now (leave LibOpen/LibClose) */
     const ULONG cybergraphicsjmpsize = 38 * sizeof(APTR32);
     APTR32 *cybergraphicsjmp = AllocMem(cybergraphicsjmpsize, MEMF_CLEAR);
     CopyMem((APTR)abiv0CyberGfxBase - cybergraphicsjmpsize, cybergraphicsjmp, cybergraphicsjmpsize);

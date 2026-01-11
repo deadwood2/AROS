@@ -11,6 +11,7 @@
 
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
+#include "../include/aros/call32.h"
 #include "../include/exec/functions.h"
 #include "../include/exec/structures.h"
 
@@ -543,7 +544,7 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
     return library;
 } /* InitResident */
 
-static struct LibraryV0 * int_OpenLibrary(CONST_STRPTR libName, ULONG version, struct ExecBaseV0 *SysBaseV0)
+static struct LibraryV0 * exec_OpenLibrary(CONST_STRPTR libName, ULONG version, struct ExecBaseV0 *SysBaseV0)
 {
     struct LibraryV0 * library;
 
@@ -618,7 +619,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
         name = "datatypes/png.datatype";
 
     /* Call Exec function, maybe the library is already available */
-    _ret = int_OpenLibrary(stripped_name, version, SysBaseV0);
+    _ret = exec_OpenLibrary(stripped_name, version, SysBaseV0);
     if (_ret)
         return _ret;
 
@@ -645,7 +646,7 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
             */
         // Forbid();
         abiv0_InitResident(res, seglist, SysBaseV0);
-        _ret = int_OpenLibrary(stripped_name, version, SysBaseV0);
+        _ret = exec_OpenLibrary(stripped_name, version, SysBaseV0);
         // Permit();
         D(bug("[LDInit] Done calling InitResident(%p) on %s, seg %p, node %p\n", res, res->rt_Name, BADDR(seglist), _ret));
 
@@ -672,8 +673,24 @@ void dummy_OpenLibrary()
     LEAVE_PROXY
 }
 
-void abiv0_CloseLibrary()
+void abiv0_CloseLibrary(struct LibraryV0 * library, struct ExecBaseV0 *SysBaseV0)
 {
+    BPTR seglist = BNULL;
+
+    if( library != NULL )
+    {
+        /* Skip dos.library */
+        if (library->lib_Node.ln_Name == 0x0000D0FF) return;
+
+        // Forbid();
+        CALL32_ARG_1(seglist, __AROS_GETVECADDRV0(library, 2), library);
+        if( seglist )
+        {
+            /* Safe to call from a Task */
+            // UnLoadSeg(seglist); // TODO: implement
+        }
+        // Permit();
+    }
 }
 MAKE_PROXY_ARG_2(CloseLibrary)
 

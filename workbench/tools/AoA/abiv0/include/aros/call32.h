@@ -7,6 +7,21 @@
 
 #include "./asm.h"
 
+#define CALL32_ARG_1(res, faddr, arg1)  \
+    __asm__ volatile (          \
+    "subq $4, %%rsp\n"          \
+    "movl %2, %%eax\n"          \
+    "movl %%eax, (%%rsp)\n"     \
+    "movl %1, %%eax\n"          \
+    ENTER32                     \
+    "call *%%eax\n"             \
+    ENTER64                     \
+    "addq $4, %%rsp\n"          \
+    "movl %%eax, %0\n"          \
+    :"=m"(res)                  \
+    :"mr"(faddr), "mr"(arg1)    \
+    : SCRATCH_REGS_64_TO_32 );
+
 #define CALL32_ARG_2(res, faddr, arg1, arg2)  \
     __asm__ volatile (          \
     "subq $8, %%rsp\n"          \
