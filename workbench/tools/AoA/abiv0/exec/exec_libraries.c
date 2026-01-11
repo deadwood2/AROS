@@ -673,7 +673,7 @@ void dummy_OpenLibrary()
     LEAVE_PROXY
 }
 
-void abiv0_CloseLibrary(struct LibraryV0 * library, struct ExecBaseV0 *SysBaseV0)
+void abiv0_CloseLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0)
 {
     BPTR seglist = BNULL;
 
@@ -746,6 +746,26 @@ static LONG int_exec_expunge_libraries(struct ExecBaseV0 *SysBaseV0)
 void exec_expunge_libraries(struct ExecBaseV0 *SysBaseV0)
 {
     while (int_exec_expunge_libraries(SysBaseV0) > 0);
+}
+
+void exec_force_expunge(struct ExecBaseV0 *SysBaseV0, STRPTR libname)
+{
+    struct LibraryV0 *library;
+
+    /* Follow the linked list of shared libraries. */
+    library = (struct LibraryV0 *)(IPTR)SysBaseV0->LibList.lh_Head;
+    while (library->lib_Node.ln_Succ != (APTR32)(IPTR)NULL)
+    {
+        if (strcmp((char *)(IPTR)library->lib_Node.ln_Name, libname) == 0)
+        {
+            library->lib_OpenCnt = 0;
+            exec_expunge_libraries(SysBaseV0);
+            return;
+        }
+
+        /* Go on to next library. */
+        library = (struct LibraryV0 *)(IPTR)library->lib_Node.ln_Succ;
+    }
 }
 
 void Exec_Libraries_init(struct ExecBaseV0 *abiv0SysBase)

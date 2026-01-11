@@ -16,6 +16,7 @@
 #include "../include/exec/functions.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
+#include "../include/aros/call32.h"
 #include "../include/intuition/structures.h"
 #include "../include/intuition/proxy_structures.h"
 #include "../include/graphics/proxy_structures.h"
@@ -62,6 +63,14 @@ MAKE_PROXY_ARG_1(Intuition_CloseLib)
 
 BPTR abiv0_Intuition_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *IntuitionBaseV0)
 {
+    struct IntuitionBaseV0 *abiv0IntuitionBase = (struct IntuitionBaseV0 *)IntuitionBaseV0;
+    abiv0_CloseLibrary((struct LibraryV0 *)(IPTR)abiv0IntuitionBase->KeymapBase, Intuition_SysBaseV0);
+    abiv0_CloseLibrary((struct LibraryV0 *)(IPTR)abiv0IntuitionBase->LayersBase, Intuition_SysBaseV0);
+    abiv0_CloseLibrary((struct LibraryV0 *)(IPTR)abiv0IntuitionBase->GfxBase, Intuition_SysBaseV0);
+    abiv0_CloseLibrary((struct LibraryV0 *)(IPTR)abiv0IntuitionBase->UtilityBase, Intuition_SysBaseV0);
+
+    /* Call Remove on library base */
+    CALL32_ARG_2_NR(__AROS_GETVECADDRV0(Intuition_SysBaseV0, 42), IntuitionBaseV0, (APTR32)(IPTR)Intuition_SysBaseV0);
     return BNULL;
 }
 MAKE_PROXY_ARG_2(Intuition_ExpungeLib)
@@ -621,11 +630,13 @@ extern ULONG *segclassesinitlist;
 extern ULONG *seginitlist;
 extern ULONG _GlobalEditFunc;
 
+static BPTR intuitionseg;
+
 void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 {
     TEXT path[64];
     NewRawDoFmt("LIBSV0:partial/intuition.library", RAWFMTFUNC_STRING, path);
-    BPTR intuitionseg = LoadSeg32(path, DOSBase);
+    intuitionseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *intuitionres = findResident(intuitionseg, NULL);
     struct IntuitionBaseV0 *abiv0IntuitionBase = (struct IntuitionBaseV0 *)shallow_InitResident32(intuitionres, intuitionseg, SysBaseV0);
     Intuition_SysBaseV0 = SysBaseV0;
@@ -739,4 +750,9 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 
     init_first_screen((struct LibraryV0 *)abiv0IntuitionBase);
     abiv0IntuitionBase->ActiveScreen = (APTR32)(IPTR)g_mainv0screen;
+}
+
+void exit_intuition()
+{
+    UnLoadSeg(intuitionseg);
 }

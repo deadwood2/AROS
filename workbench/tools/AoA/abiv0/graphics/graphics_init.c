@@ -17,6 +17,7 @@
 #include "../include/exec/functions.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
+#include "../include/aros/call32.h"
 #include "../include/graphics/structures.h"
 #include "../include/graphics/proxy_structures.h"
 #include "../include/utility/structures.h"
@@ -49,6 +50,10 @@ MAKE_PROXY_ARG_1(Gfx_CloseLib)
 
 BPTR abiv0_Gfx_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *GfxBaseV0)
 {
+    abiv0_CloseLibrary((struct LibraryV0 *)(IPTR)(*(ULONG *)((IPTR)GfxBaseV0 + 0x4b0)), Gfx_SysBaseV0);
+
+    /* Call Remove on library base */
+    CALL32_ARG_2_NR(__AROS_GETVECADDRV0(Gfx_SysBaseV0, 42), GfxBaseV0, (APTR32)(IPTR)Gfx_SysBaseV0);
     return BNULL;
 }
 MAKE_PROXY_ARG_2(Gfx_ExpungeLib)
@@ -330,11 +335,13 @@ struct GfxBaseV0_intern
     struct SignalSemaphoreV0  	fontsem;
 };
 
+BPTR graphicsseg;
+
 void init_graphics(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
     NewRawDoFmt("LIBSV0:partial/graphics.library", RAWFMTFUNC_STRING, path);
-    BPTR graphicsseg = LoadSeg32(path, DOSBase);
+    graphicsseg = LoadSeg32(path, DOSBase);
     struct ResidentV0 *graphicsres = findResident(graphicsseg, NULL);
     struct GfxBaseV0 *abiv0GfxBase = (struct GfxBaseV0 *)shallow_InitResident32(graphicsres, graphicsseg, SysBaseV0);
     Gfx_SysBaseV0 = SysBaseV0;
@@ -399,4 +406,5 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
 void exit_graphics()
 {
     Graphics_RastPorts_deinit();
+    UnLoadSeg(graphicsseg);
 }

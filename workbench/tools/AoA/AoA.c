@@ -64,6 +64,15 @@ asm("int3");
     return library;
 } /* shallow_InitResident32 */
 
+#include <proto/layers.h>
+#include <graphics/regions.h>
+
+#include "abiv0/include/graphics/structures.h"
+#include "abiv0/include/graphics/proxy_structures.h"
+#include "abiv0/graphics/graphics_regions.h"
+
+struct ExecBaseV0 *Layers_SysBaseV0;
+
 struct LibraryV0 *abiv0_Layers_OpenLib(ULONG version, struct LibraryV0 *LayersBaseV0)
 {
     LayersBaseV0->lib_OpenCnt++;
@@ -80,18 +89,10 @@ MAKE_PROXY_ARG_1(Layers_CloseLib)
 
 BPTR abiv0_Layers_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *LayersBaseV0)
 {
+    CALL32_ARG_2_NR(__AROS_GETVECADDRV0(Layers_SysBaseV0, 42), LayersBaseV0, (APTR32)(IPTR)Layers_SysBaseV0);
     return BNULL;
 }
 MAKE_PROXY_ARG_2(Layers_ExpungeLib)
-
-#include <proto/layers.h>
-#include <graphics/regions.h>
-
-#include "abiv0/include/graphics/structures.h"
-#include "abiv0/include/graphics/proxy_structures.h"
-#include "abiv0/graphics/graphics_regions.h"
-
-struct ExecBaseV0 *Layers_SysBaseV0;
 
 struct RegionV0 *abiv0_InstallClipRegion(struct LayerV0  *l, struct RegionV0 *region, struct LibraryV0 *LayersBaseV0)
 {
@@ -403,9 +404,11 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 void init_graphics(struct ExecBaseV0 *);
 void exit_graphics();
 void init_intuition(struct ExecBaseV0 *, struct DeviceProxy *);
+void exit_intuition();
 void init_dos(struct ExecBaseV0 *);
 struct ExecBaseV0 *init_exec();
 void exec_expunge_libraries(struct ExecBaseV0 *);
+void exec_force_expunge(struct ExecBaseV0 *SysBaseV0, STRPTR libname);
 
 void execute_in_32_bit(APTR start, CONST_STRPTR argstr, LONG argsize, struct ExecBaseV0 *SysBaseV0)
 {
@@ -579,9 +582,16 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 
     exec_expunge_libraries(SysBaseV0);
 
+
+    exec_force_expunge(SysBaseV0, "icon.library");
+    exec_force_expunge(SysBaseV0, "iffparse.library");
+    exec_force_expunge(SysBaseV0, "stdlib.library");
+
     /* Finish expunge for partial libraries */
     UnLoadSeg(cgfxseg);
+    UnLoadSeg(layersseg);
 
+    exit_intuition();
     exit_graphics();
 }
 

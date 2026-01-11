@@ -11,6 +11,8 @@
 
 /* These functions can be called only in 64-bit mode but with either 64-bit or 32-bit stack */
 APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
+void abiv0_CloseLibrary(struct LibraryV0 *library, struct ExecBaseV0 *SysBaseV0);
+
 void abiv0_InitSemaphore(struct SignalSemaphoreV0 *sigSem, struct ExecBaseV0 *SysBaseV0);
 IPTR abiv0_NewStackSwap(struct StackSwapStructV0 *sss, LONG_FUNC entry, struct StackSwapArgsV0 *args, struct ExecBaseV0 *SysBaseV0);
 
