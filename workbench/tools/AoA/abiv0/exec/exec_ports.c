@@ -111,6 +111,9 @@ struct MsgPortProxy * MsgPortV0_getproxy(struct MsgPortV0 *port)
 
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
+    /* Workaround for shutdown of commodities.library */
+    if (port->mp_Flags == PA_IGNORE && port->mp_MsgList.l_pad == 0) return NULL;
+
     struct MsgPort *nativeport = MsgPortV0_getnative(port);
     struct MsgPortProxy *proxy = MsgPortV0_getproxy(port);
 
