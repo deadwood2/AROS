@@ -427,6 +427,8 @@ struct IntExecBaseV0
     APTR32                      KernelBase;                     /* kernel.resource base                                         */
 };
 
+BPTR execseg;
+
 struct ExecBaseV0 *init_exec()
 {
     APTR tmp;
@@ -438,7 +440,7 @@ struct ExecBaseV0 *init_exec()
 
     /* Keep it! This fills global variable */
     NewRawDoFmt("LIBSv0:partial/kernel", RAWFMTFUNC_STRING, path);
-    LoadSeg32(path, DOSBase);
+    execseg = LoadSeg32(path, DOSBase);
 
     NEWLISTV0(&abiv0SysBase->LibList);
     NEWLISTV0(&abiv0SysBase->ResourceList);
@@ -521,4 +523,10 @@ struct ExecBaseV0 *init_exec()
     Exec_Ports_init(abiv0SysBase);
 
     return abiv0SysBase;
+}
+
+void exit_exec()
+{
+    FreeMem((APTR)((IPTR)abiv0SysBase - 1024), 1024 + sizeof(struct IntExecBaseV0));
+    UnLoadSeg(execseg);
 }

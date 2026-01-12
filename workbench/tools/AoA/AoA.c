@@ -406,7 +406,9 @@ void exit_graphics();
 void init_intuition(struct ExecBaseV0 *, struct DeviceProxy *);
 void exit_intuition();
 void init_dos(struct ExecBaseV0 *);
+void exit_dos();
 struct ExecBaseV0 *init_exec();
+void exit_exec();
 void exec_expunge_libraries(struct ExecBaseV0 *);
 void exec_force_expunge(struct ExecBaseV0 *SysBaseV0, STRPTR libname);
 
@@ -458,7 +460,9 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0TimerBase,  8, (APTR32)(IPTR)proxy_SubTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  7, (APTR32)(IPTR)proxy_AddTime);
     __AROS_SETVECADDRV0(abiv0TimerBase,  9, (APTR32)(IPTR)proxy_CmpTime);
-    abiv0TimerBase->type = DEVPROXY_TYPE_TIMER;
+    abiv0TimerBase->type                        = DEVPROXY_TYPE_TIMER;
+    abiv0TimerBase->base.dd_Library.lib_NegSize = negsize;
+    abiv0TimerBase->base.dd_Library.lib_PosSize = possize;
 
     /* input.device */
     lastlvo = 7;
@@ -593,6 +597,16 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 
     exit_intuition();
     exit_graphics();
+    exit_dos();
+
+    abiv0_FreeMem((APTR)((IPTR)abiv0ConsoleBase - abiv0ConsoleBase->base.dd_Library.lib_NegSize),
+        abiv0ConsoleBase->base.dd_Library.lib_NegSize + abiv0ConsoleBase->base.dd_Library.lib_PosSize, SysBaseV0);
+    abiv0_FreeMem((APTR)((IPTR)abiv0InputBase - abiv0InputBase->base.dd_Library.lib_NegSize),
+        abiv0InputBase->base.dd_Library.lib_NegSize + abiv0InputBase->base.dd_Library.lib_PosSize, SysBaseV0);
+    abiv0_FreeMem((APTR)((IPTR)abiv0TimerBase - abiv0TimerBase->base.dd_Library.lib_NegSize),
+        abiv0TimerBase->base.dd_Library.lib_NegSize + abiv0TimerBase->base.dd_Library.lib_PosSize, SysBaseV0);
+
+    exit_exec();
 }
 
 struct timerequest tr;

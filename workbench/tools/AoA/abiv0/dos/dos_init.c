@@ -1047,13 +1047,14 @@ BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
 
 extern ULONG *seginitlist;
+BPTR dosseg;
 
 void init_dos(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
     NewRawDoFmt("LIBSV0:partial/dos.library", RAWFMTFUNC_STRING, path);
     /* Keep it! This fills global variable */
-    LoadSeg32(path, DOSBase);
+    dosseg = LoadSeg32(path, DOSBase);
 
     APTR tmp = AllocMem(2048, MEMF_31BIT | MEMF_CLEAR);
     abiv0DOSBase = (tmp + 1024);
@@ -1169,4 +1170,10 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  30, (APTR32)(IPTR)proxy_SetComment);
     __AROS_SETVECADDRV0(abiv0DOSBase,  66, (APTR32)(IPTR)proxy_SetFileDate);
     __AROS_SETVECADDRV0(abiv0DOSBase,  57, dosfunctable[ 56]);  // FPuts
+}
+
+void exit_dos()
+{
+    FreeMem((APTR)((IPTR)abiv0DOSBase - 1024), 2048);
+    UnLoadSeg(dosseg);
 }
