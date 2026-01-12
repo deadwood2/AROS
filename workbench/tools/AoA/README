@@ -1,11 +1,11 @@
 *IMPORTANT*
 
 This is a BETA version of emulator for running ABIv0 programs under 64-bit
-AROS. At this point it is expected that above 50% of ABIv0 programs will
+AROS. At this point it is expected that above 80% of ABIv0 programs will
 start and exit gracefully. For programs that start, it is expected that
 a useful subset of their functions will work.
 
-EmuV0 v0.30 (4.11.2025)
+EmuV0 v0.46 (12.01.2026)
 
 1. Usage
 
