@@ -412,6 +412,27 @@ void exit_exec();
 void exec_expunge_libraries(struct ExecBaseV0 *);
 void exec_force_expunge(struct ExecBaseV0 *SysBaseV0, STRPTR libname);
 
+#if 0
+void LibList(struct ExecBaseV0 *SysBaseV0)
+{
+    struct NodeV0 *node;
+    struct ListV0 *list = &SysBaseV0->LibList;
+
+    bug ("Listing Libraries\n");
+    /* Look through the list */
+    for (node=GetHeadV0(list); node; node=GetSuccV0(node))
+    {
+        /* Only compare the names if this node has one. */
+        if(node->ln_Name)
+        {
+            bug("   %s -> %d\n", node->ln_Name, ((struct LibraryV0 *)node)->lib_OpenCnt);
+        }
+    }
+
+
+}
+#endif
+
 void execute_in_32_bit(APTR start, CONST_STRPTR argstr, LONG argsize, struct ExecBaseV0 *SysBaseV0)
 {
     __asm__ volatile(
@@ -583,9 +604,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     SetProgramDir(oldprogdir);
     UnLock(progdir);
 
-
     exec_expunge_libraries(SysBaseV0);
-
 
     exec_force_expunge(SysBaseV0, "icon.library");
     exec_force_expunge(SysBaseV0, "iffparse.library");
