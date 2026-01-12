@@ -157,7 +157,9 @@ MAKE_PROXY_ARG_2(ReplyMsg)
 
 
 /* Hack for NList START */
-static struct MsgPortV0 *replyport;
+/* NList and NListtree do the same thing if within one application */
+static struct MsgPortV0 *replyport1;
+static struct MsgPortV0 *replyport2;
 
 static BOOL NList_hack_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message)
 {
@@ -165,8 +167,11 @@ static BOOL NList_hack_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message)
     /* StartClipboardServer */
     if (port == (APTR)0x61)
     {
-        replyport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
         message->mn_Node.ln_Name = 0xabcdef01; /* This becomes serverPort in NList. */
+        if (replyport1 == NULL)
+            replyport1 = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
+        else
+            replyport2 = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
         return TRUE;
     }
 
@@ -182,7 +187,7 @@ static BOOL NList_hack_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message)
 static struct MessageV0 * NList_hack_WaitPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
     /* StartClipboardServer & ShutdownClipboardServer */
-    if (replyport != NULL && port == replyport)
+    if ((replyport1 != NULL && port == replyport1) || (replyport2 != NULL && port == replyport2))
     {
         struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
         ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
