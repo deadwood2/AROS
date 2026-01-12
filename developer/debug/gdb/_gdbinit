@@ -633,6 +633,11 @@ define inspectprev
     f 0
 end
 
+define movedown
+    set $rip = *((int *)($rbp + 4))
+    set $rbp = *((int *)($rbp))
+end
+
 document semowner
 Shows the owner of the given Exec Semaphore and the Wait Queue
 end
