@@ -153,18 +153,47 @@ void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
 MAKE_PROXY_ARG_2(ReplyMsg)
 
 
-/// hack just for NList
-struct MsgPortV0 *rport;
+/* Hack for NList START */
+static struct MsgPortV0 *replyport;
+
+static BOOL NList_hack_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message)
+{
+    /* CreateNewProc returns 0x1 as Process for NList clipboard. 0x61 is me->pr_MsgPort */
+    /* StartClipboardServer */
+    if (port == (APTR)0x61)
+    {
+        replyport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
+        message->mn_Node.ln_Name = 0xabcdef01; /* This becomes serverPort in NList. */
+        return TRUE;
+    }
+
+    /* ShutdownClipboardServer */
+    if (port == (APTR)0xabcdef01)
+    {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+static struct MessageV0 * NList_hack_WaitPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
+{
+    /* StartClipboardServer & ShutdownClipboardServer */
+    if (replyport != NULL && port == replyport)
+    {
+        struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
+        ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
+        return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
+    }
+
+    return NULL;
+}
+
+/* Hack for NList END */
 
 void abiv0_PutMsg(struct MsgPortV0 *port, struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
 {
-    /* Hack for NList: CreateNewProc returns 0x1 as Process for NList clipboard. 0x61 is me->pr_MsgPort */
-    if (port == (APTR)0x61)
-    {
-        rport = (struct MsgPortV0 *)(IPTR)message->mn_ReplyPort;
-        message->mn_Node.ln_Name = 0x1;
-        return;
-    }
+    if (NList_hack_PutMsg(port, message)) return;
 
 bug("abiv0_PutMsg: STUB\n");
     /* 32-bit sender sending to 32-bit reader (opaque transport through 64-bit MsgPort) */
@@ -186,18 +215,14 @@ MAKE_PROXY_ARG_3(PutMsg)
 
 struct MessageV0 *abiv0_WaitPort(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
-bug("abiv0_WaitPort: STUB\n");
-    if (rport != NULL && port == rport)
-    {
-        rport = NULL;
-        struct MessageV0 *dummy = abiv0_AllocMem(sizeof(struct MessageV0 *), MEMF_CLEAR, SysBaseV0);
-        ADDHEADV0(&port->mp_MsgList, &dummy->mn_Node);
-        return (struct MessageV0 *)(IPTR)port->mp_MsgList.lh_Head;
-    }
+    struct MessageV0 *_ret = NULL;
+    if ((_ret = NList_hack_WaitPort(port, SysBaseV0)) != NULL)
+        return _ret;
 
+bug("abiv0_WaitPort: STUB\n");
     struct MsgPort *nativeport = MsgPortV0_getnative(port);
     WaitPort(nativeport);
-    return NULL;
+    return _ret;
 }
 MAKE_PROXY_ARG_2(WaitPort)
 
