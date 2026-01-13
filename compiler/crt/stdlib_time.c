@@ -116,7 +116,7 @@ static int __init_timerbase(struct StdlibIntBase *StdlibBase)
 }
 
 
-static void __exit_timerbase(struct StdlibIntBase *StdlibBase)
+static int __exit_timerbase(struct StdlibIntBase *StdlibBase)
 {
     D(bug("%s()\n", __func__));
 
@@ -125,6 +125,7 @@ static void __exit_timerbase(struct StdlibIntBase *StdlibBase)
         CloseDevice((struct IORequest *)&StdlibBase->timereq);
         TimerBase = NULL;
     }
+    return TRUE;
 }
 
 ADD2EXPUNGELIB(__exit_timerbase, 0);
