@@ -128,6 +128,13 @@ bug("abiv0_WhichLayer: STUB\n");
 }
 MAKE_PROXY_ARG_4(WhichLayer)
 
+struct Layer_InfoV0 *abiv0_NewLayerInfo(struct LibraryV0 *LayersBaseV0)
+{
+bug("abiv0_NewLayerInfo: STUB\n");
+    return NULL; /* Workaround for TextEditor.mcc 15.56*/
+}
+MAKE_PROXY_ARG_1(NewLayerInfo)
+
 void abiv0_LockLayer(LONG dummy, struct LayerV0 *layer, struct LibraryV0 *LayersBaseV0)
 {
     struct LayerProxy *proxy = (struct LayerProxy *)layer;
@@ -536,6 +543,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0LayersBase,  13, (APTR32)(IPTR)proxy_BeginUpdate);
     __AROS_SETVECADDRV0(abiv0LayersBase,  36, (APTR32)(IPTR)proxy_DoHookClipRects);
     __AROS_SETVECADDRV0(abiv0LayersBase,  22, (APTR32)(IPTR)proxy_WhichLayer);
+    __AROS_SETVECADDRV0(abiv0LayersBase,  24, (APTR32)(IPTR)proxy_NewLayerInfo);
 
     NewRawDoFmt("LIBSV0:partial/cybergraphics.library", RAWFMTFUNC_STRING, path);
     BPTR cgfxseg = LoadSeg32(path, DOSBase);
