@@ -271,6 +271,7 @@ void abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gfx
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
     struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
+    BITMAPLAYERPRE
 
     struct TagItem *tagNative = tagListNative;
 
@@ -286,12 +287,24 @@ void abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gfx
             asm("int3");
         }
 
+        if (tagNative->ti_Tag == RPTAG_FgColor)
+        {
+            /* Requires attached bitmap. */
+            if (rpnative->BitMap == NULL)
+            {
+                /* TextEditor.mcc 15.56 operates on system-allocated bitmap */
+                recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
+                clearBM = TRUE;
+            }
+        }
+
         tagNative++;
     }
 
     SetRPAttrsA(rpnative, tagListNative);
 
     FreeClonedV02NativeTagItems(tagListNative);
+    BITMAPLAYERPOST
 }
 MAKE_PROXY_ARG_3(SetRPAttrsA)
 
