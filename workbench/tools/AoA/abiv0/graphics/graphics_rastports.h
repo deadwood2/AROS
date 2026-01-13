@@ -18,4 +18,17 @@ void RastPortV0_attachnative(struct RastPortV0 *rp, struct RastPort *rpnative);
 struct RastPortV0 *makeRastPortV0(struct RastPort *native);
 void freeRastPortV0(struct RastPortV0 *v0);
 
+
+void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp);
+void recreateNativeRastPortBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp);
+
+#define BITMAPLAYERPRE      \
+    struct BitMap bmtmp;    \
+    BOOL clearBM = FALSE;   \
+    BOOL clearL = FALSE;
+
+#define BITMAPLAYERPOST \
+    if (clearBM) rpnative->BitMap = NULL;   \
+    if (clearL) rpnative->Layer = NULL;
+
 #endif

@@ -87,6 +87,31 @@ static struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
     return rpnative;
 }
 
+void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
+{
+    struct BitMapV0 *bmv0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
+
+    bmtmp->BytesPerRow  = bmv0->BytesPerRow;
+    bmtmp->Depth        = bmv0->Depth;
+    bmtmp->Flags        = bmv0->Flags;
+    bmtmp->Rows         = bmv0->Rows;
+
+    for (LONG i = 0; i < bmv0->Depth; i++)
+        bmtmp->Planes[i]= (APTR)(IPTR)bmv0->Planes[i];
+
+    rpnative->BitMap    = bmtmp;
+}
+
+void recreateNativeRastPortBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
+{
+    struct BitMapV0 *bmV0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
+
+    if (bmV0->BytesPerRow == 0 && bmV0->Rows == 0 && bmV0->Depth == 0)
+        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rpv0->BitMap)->native;
+    else
+        recreteNativeRastPortPlanarBitMap(rpv0, rpnative, bmtmp);
+}
+
 #define CRPC_SIZE   32
 static struct _rastportstore *crpcCache[CRPC_SIZE];
 

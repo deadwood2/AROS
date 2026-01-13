@@ -11,40 +11,6 @@
 
 #include "graphics_rastports.h"
 
-static void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
-{
-    struct BitMapV0 *bmv0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
-
-    bmtmp->BytesPerRow  = bmv0->BytesPerRow;
-    bmtmp->Depth        = bmv0->Depth;
-    bmtmp->Flags        = bmv0->Flags;
-    bmtmp->Rows         = bmv0->Rows;
-
-    for (LONG i = 0; i < bmv0->Depth; i++)
-        bmtmp->Planes[i]= (APTR)(IPTR)bmv0->Planes[i];
-
-    rpnative->BitMap    = bmtmp;
-}
-
-static void recreateNativeRastPortBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
-{
-    struct BitMapV0 *bmV0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
-
-    if (bmV0->BytesPerRow == 0 && bmV0->Rows == 0 && bmV0->Depth == 0)
-        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rpv0->BitMap)->native;
-    else
-        recreteNativeRastPortPlanarBitMap(rpv0, rpnative, bmtmp);
-}
-
-#define BITMAPLAYERPRE      \
-    struct BitMap bmtmp;    \
-    BOOL clearBM = FALSE;   \
-    BOOL clearL = FALSE;
-
-#define BITMAPLAYERPOST \
-    if (clearBM) rpnative->BitMap = NULL;   \
-    if (clearL) rpnative->Layer = NULL;
-
 void abiv0_RectFill(struct RastPortV0 * rp, LONG xMin, LONG yMin, LONG xMax, LONG yMax, struct GfxBaseV0 *GfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
