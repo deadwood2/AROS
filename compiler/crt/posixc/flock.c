@@ -279,7 +279,7 @@ int __share_flocks(struct CrtIntBase *CrtBase)
    This function will be called when no other program has crt.library open
    so no protection should be needed.
 */
-void __unlock_flocks(struct CrtIntBase *CrtBase)
+int __unlock_flocks(struct CrtIntBase *CrtBase)
 {
     struct FlockNode *lock;
     struct SignalSemaphore *sem;
@@ -302,6 +302,7 @@ void __unlock_flocks(struct CrtIntBase *CrtBase)
     }
     FreeMem(__file_locks, sizeof(struct MinList));
     __file_locks = NULL;
+    return TRUE;
 }
 
 ADD2OPENLIB(__share_flocks, 0);
