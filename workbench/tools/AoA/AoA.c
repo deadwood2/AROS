@@ -339,6 +339,17 @@ ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, stru
 }
 MAKE_PROXY_ARG_12(WritePixelArray)
 
+LONG abiv0_WriteRGBPixel(struct RastPortV0 *rp, UWORD x, UWORD y, ULONG pixel, struct LibraryV0 *CyberGfxBaseV0)
+{
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
+    LONG _ret;
+
+    _ret = WriteRGBPixel(rpnative, x, y, pixel);
+
+    return _ret;
+}
+MAKE_PROXY_ARG_5(WriteRGBPixel)
+
 ULONG abiv0_ReadPixelArray(APTR dst, UWORD dstx, UWORD dsty, UWORD dstmod, struct RastPortV0 *rp,
     UWORD srcx, UWORD srcy, UWORD width, UWORD height, UBYTE dstformat, struct LibraryV0 *CyberGfxBaseV0)
 {
@@ -568,6 +579,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 17, (APTR32)(IPTR)proxy_GetCyberIDAttr);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 16, (APTR32)(IPTR)proxy_GetCyberMapAttr);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 20, (APTR32)(IPTR)proxy_ReadPixelArray);
+    __AROS_SETVECADDRV0(abiv0CyberGfxBase, 19, (APTR32)(IPTR)proxy_WriteRGBPixel);
 
     init_intuition(SysBaseV0, abiv0TimerBase);
 
