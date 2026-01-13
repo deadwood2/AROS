@@ -151,12 +151,32 @@ void abiv0_ReleaseGIRPort(struct RastPortV0 *rp, struct LibraryV0 *IntuitionBase
 }
 MAKE_PROXY_ARG_2(ReleaseGIRPort);
 
-BOOL abiv0_ActivateGadget(struct Gadget *gadget, struct WindowV0 *window, struct Requester *requester, struct LibraryV0 *IntuitionBaseV0)
+BOOL abiv0_ActivateGadget(struct GadgetV0 *gadget, struct WindowV0 *window, struct Requester *requester, struct LibraryV0 *IntuitionBaseV0)
 {
+    if (!window || gadget->GadgetID == 0)
+    {
 bug("abiv0_ActivateGadget: STUB\n");
-    return TRUE;
+        return FALSE;
+    }
+
+    struct WindowProxy *winproxy = (struct WindowProxy *)window;
+    struct Gadget *g = winproxy->native->FirstGadget;
+    while (g)
+    {
+        if (g->GadgetID == gadget->GadgetID)
+            break;
+        g = g->NextGadget;
+    }
+
+    if (g)
+        return ActivateGadget(g, winproxy->native, NULL);
+    else
+    {
+bug("abiv0_ActivateGadget: STUB\n");
+return FALSE;
+    }
 }
-MAKE_PROXY_ARG_2(ActivateGadget);
+MAKE_PROXY_ARG_4(ActivateGadget);
 
 void abiv0_NewModifyProp(struct GadgetV0 *gadget, struct WindowV0 *window, struct Requester *requester, ULONG flags, ULONG horizPot,
     ULONG vertPot, ULONG horizBody, ULONG vertBody, LONG numGad, struct LibraryV0 *IntuitionBaseV0)
@@ -350,6 +370,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
         {
             struct gpInput *nativemsg = (struct gpInput *)message;
             struct GadgetV0 *v0g = data->gwd_Wrapped;
+            struct InputEventV0 *v0ie = NULL;
             LONG gpi_Termination = *nativemsg->gpi_Termination;
 
             struct gpInputV0 *v0msg = abiv0_AllocMem(sizeof(struct gpInputV0), MEMF_CLEAR, Intuition_SysBaseV0);
@@ -362,12 +383,15 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             v0gi->gi_DrInfo     = (APTR32)(IPTR)v0dri;
 
-            struct InputEventV0 *v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            v0ie->ie_Class      = nativemsg->gpi_IEvent->ie_Class;
-            v0ie->ie_SubClass   = nativemsg->gpi_IEvent->ie_SubClass;
-            v0ie->ie_Code       = nativemsg->gpi_IEvent->ie_Code;
-            v0ie->ie_Qualifier  = nativemsg->gpi_IEvent->ie_Qualifier;
-            v0ie->ie_TimeStamp  = nativemsg->gpi_IEvent->ie_TimeStamp;
+            if (nativemsg->gpi_IEvent)
+            {
+                v0ie = abiv0_AllocMem(sizeof(struct InputEventV0), MEMF_CLEAR, Intuition_SysBaseV0);
+                v0ie->ie_Class      = nativemsg->gpi_IEvent->ie_Class;
+                v0ie->ie_SubClass   = nativemsg->gpi_IEvent->ie_SubClass;
+                v0ie->ie_Code       = nativemsg->gpi_IEvent->ie_Code;
+                v0ie->ie_Qualifier  = nativemsg->gpi_IEvent->ie_Qualifier;
+                v0ie->ie_TimeStamp  = nativemsg->gpi_IEvent->ie_TimeStamp;
+            }
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpi_GInfo    = (APTR32)(IPTR)v0gi;
@@ -384,7 +408,8 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
 
             abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
             abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
-            abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
+            if (v0ie)
+                abiv0_FreeMem(v0ie, sizeof(struct InputEventV0), Intuition_SysBaseV0);
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpInputV0), Intuition_SysBaseV0);
 
