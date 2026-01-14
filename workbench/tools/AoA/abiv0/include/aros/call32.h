@@ -58,6 +58,27 @@
     :"mr"(faddr), "mr"(arg1), "mr"(arg2), "mr"(arg3)    \
     : SCRATCH_REGS_64_TO_32 );
 
+#define CALL32_ARG_4(res, faddr, arg1, arg2, arg3, arg4)    \
+    __asm__ volatile (          \
+    "subq $16, %%rsp\n"         \
+    "movl %5, %%eax\n"          \
+    "movl %%eax, 12(%%rsp)\n"   \
+    "movl %4, %%eax\n"          \
+    "movl %%eax, 8(%%rsp)\n"    \
+    "movl %3, %%eax\n"          \
+    "movl %%eax, 4(%%rsp)\n"    \
+    "movl %2, %%eax\n"          \
+    "movl %%eax, (%%rsp)\n"     \
+    "movl %1, %%eax\n"          \
+    ENTER32                     \
+    "call *%%eax\n"             \
+    ENTER64                     \
+    "addq $16, %%rsp\n"         \
+    "movl %%eax, %0\n"          \
+    :"=m"(res)                  \
+    :"mr"(faddr), "mr"(arg1), "mr"(arg2), "mr"(arg3), "mr"(arg4)    \
+    : SCRATCH_REGS_64_TO_32 );
+
 #define CALL32_ARG_2_NR(faddr, arg1, arg2)          \
     {                                               \
         LONG _dummy;                                \

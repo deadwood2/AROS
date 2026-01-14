@@ -14,6 +14,7 @@
 #include "../include/exec/functions.h"
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
+#include "../include/aros/call32.h"
 #include "../include/intuition/structures.h"
 #include "../include/intuition/proxy_structures.h"
 #include "../include/graphics/proxy_structures.h"
@@ -315,6 +316,21 @@ static void quirks_GM_RENDER_Remove(struct GadgetV0 *v0g, struct GadgetInfoV0 *v
     }
 }
 
+static IPTR abiv0_Custom_DoMethodA(/* struct IntuitionBaseV0 *IntuitionBaseV0, */ struct GadgetV0 *g, APTR message)
+{
+    IPTR _ret = 0;
+    APTR IntuitionBaseV0 = NULL; /* Doesn't seem to be needed */
+
+    if (g->MutualExclude)
+    {
+        struct HookV0 *clhook = ((struct HookV0 *)(IPTR)g->MutualExclude);
+        CALL32_ARG_4(_ret, clhook->h_Entry, clhook, g, message, IntuitionBaseV0);
+    }
+    else /* Not needed since gadgetclass sets MutualExclude, but doesn't hurt. */
+        _ret = (IPTR)abiv0_DoMethodA(g, message);
+
+    return _ret;
+}
 
 /*
  * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
@@ -471,7 +487,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpgi_Abort   = nativemsg->gpgi_Abort;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             abiv0_FreeMem(v0msg, sizeof(struct gpGoInactiveV0), Intuition_SysBaseV0);
 
