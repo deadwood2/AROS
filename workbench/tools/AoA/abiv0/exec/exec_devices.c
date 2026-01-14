@@ -86,18 +86,28 @@ bug("abiv0_OpenDevice: input.device STUB\n");
     if (strcmp(devName, "console.device") == 0)
     {
 bug("abiv0_OpenDevice: console.device STUB\n");
-        /* Support only SDL->CGX_TranslateKey case */
+        /* Support only SDL->CGX_TranslateKey case (RawKeyConvert) */
+        struct IOStdReq *ioreq = NULL;
+
         if (iORequest->io_Message.mn_ReplyPort == (APTR32)(IPTR)NULL)
-            return 0; /* Pretend to open, needed for ZuneArc */
-        if (!MsgPortV0_containsnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort))
-            return -1;
+        {
+            /* Opening just for RawKeyConvert. ZuneArc, reqtools.library */
+            ioreq = AllocMem(sizeof(struct IOStdReq), MEMF_CLEAR);
+            ioreq->io_Message.mn_Length = sizeof(*ioreq);
+        }
+        else
+        {
+            if (!MsgPortV0_containsnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort))
+                return -1;
+            struct MsgPort *pnative = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
+            ioreq = (struct IOStdReq *)CreateIORequest(pnative, sizeof(struct IOStdReq));
+        }
 
         struct LibraryV0 *lib = &abiv0ConsoleBase->base.dd_Library;
         APTR tmpmem = abiv0_AllocMem(lib->lib_NegSize + lib->lib_PosSize, MEMF_CLEAR, SysBaseV0);
         CopyMem((APTR)((IPTR)abiv0ConsoleBase - lib->lib_NegSize), tmpmem, lib->lib_NegSize + lib->lib_PosSize);
         struct DeviceProxy *proxy = (struct DeviceProxy *)((IPTR)tmpmem + lib->lib_NegSize);
-        struct MsgPort *pnative = MsgPortV0_getnative((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
-        proxy->io   = (struct IOStdReq *)CreateIORequest(pnative, sizeof(struct IOStdReq));
+        proxy->io = ioreq;
         LONG _ret = OpenDevice(devName, unitNumber, (struct IORequest *)proxy->io, flags);
         if (_ret == 0)
         {
@@ -159,7 +169,10 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
     if (proxy->type == DEVPROXY_TYPE_CONSOLE)
     {
         CloseDevice((struct IORequest *)proxy->io);
-        DeleteIORequest((struct IORequest *)proxy->io);
+        if (proxy->io->io_Message.mn_ReplyPort != NULL)
+            DeleteIORequest((struct IORequest *)proxy->io);
+        else
+            FreeMem(proxy->io, sizeof(struct IOStdReq));
         struct LibraryV0 *lib = &proxy->base.dd_Library;
         FreeMem((APTR)((IPTR)proxy - lib->lib_NegSize), lib->lib_NegSize + lib->lib_PosSize);
         return;
