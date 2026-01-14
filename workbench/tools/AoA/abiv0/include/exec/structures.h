@@ -105,6 +105,20 @@ do                                                      \
     l->lh_Head          = (APTR32)(IPTR)n;                            \
 } while (0)
 
+#define ADDTAILV0(_l,_n)                                    \
+do                                                        \
+{                                                         \
+    struct NodeV0 *__aros_node_tmp = (struct NodeV0 *)(_n), \
+                *n = __aros_node_tmp;                   \
+    struct ListV0 *__aros_list_tmp = (struct ListV0 *)(_l), \
+                *l = __aros_list_tmp;                   \
+                                                          \
+    n->ln_Succ              = (APTR32)(IPTR)(struct Node *)&l->lh_Tail; \
+    n->ln_Pred              = l->lh_TailPred;             \
+    ((struct NodeV0 *)(IPTR)l->lh_TailPred)->ln_Succ = (APTR32)(IPTR)n;                          \
+    l->lh_TailPred          = (APTR32)(IPTR)n;                          \
+} while (0)
+
 
 struct LibraryV0 {
     struct  NodeV0 lib_Node;
