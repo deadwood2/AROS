@@ -354,7 +354,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->opg_AttrID   = nativemsg->opg_AttrID;
             v0msg->opg_Storage  = (APTR32)(IPTR)&storage;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             *nativemsg->opg_Storage = (IPTR)storage;
 
@@ -375,7 +375,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpht_Mouse.X = nativemsg->gpht_Mouse.X;
             v0msg->gpht_Mouse.Y = nativemsg->gpht_Mouse.Y;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             freeComposedGadgetInfoV0(v0gi);
             abiv0_FreeMem(v0msg, sizeof(struct gpHitTestV0), Intuition_SysBaseV0);
@@ -416,7 +416,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
             v0msg->gpi_Termination = (APTR32)(IPTR)&gpi_Termination;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
 
@@ -463,7 +463,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpi_Mouse.Y  = nativemsg->gpi_Mouse.Y;
             v0msg->gpi_Termination = (APTR32)(IPTR)&gpi_Termination;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
 
@@ -505,7 +505,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpl_GInfo    = (APTR32)(IPTR)v0gi;
             v0msg->gpl_Initial  = nativemsg->gpl_Initial;
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             syncGadgetNative(nativeg, v0g);
 
@@ -535,7 +535,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             v0msg->gpr_GInfo    = (APTR32)(IPTR)v0gi;
             v0msg->gpr_RPort    = (APTR32)(IPTR)makeRastPortV0(nativemsg->gpr_RPort);
 
-            IPTR ret = (IPTR)abiv0_DoMethodA(data->gwd_Wrapped, v0msg);
+            IPTR ret = (IPTR)abiv0_Custom_DoMethodA(data->gwd_Wrapped, v0msg);
 
             quirks_GM_RENDER_Remove(v0g, v0gi);
             freeRastPortV0((struct RastPortV0 *)(IPTR)v0msg->gpr_RPort);
