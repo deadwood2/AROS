@@ -703,8 +703,16 @@ LONG abiv0_Examine(BPTR lock, struct FileInfoBlockV0 *fib, struct DosLibraryV0 *
 {
     struct FileLockProxy *flproxy = (struct FileLockProxy *)lock;
     struct FileInfoBlock *fibnative = getNativeFIB(fib);
+    LONG res;
 
-    LONG res = Examine(flproxy->native, fibnative);
+    /* ABI_V0 compatibility */
+    /* Up to 2010-12-03 ExamineFH was an alias/define to Examine. Example Crossboard_Live.hwa */
+    struct FileLock *fl = (struct FileLock *)BADDR(flproxy->native);
+    if ((fl->fl_Access != SHARED_LOCK) && (fl->fl_Access != EXCLUSIVE_LOCK))
+        res = ExamineFH(flproxy->native, fibnative);
+    else
+        res = Examine(flproxy->native, fibnative);
+
     if (res)
     {
         fib->fib_Date           = fibnative->fib_Date;
