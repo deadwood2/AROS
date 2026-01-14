@@ -530,10 +530,9 @@ bug("abiv0_NewObjectA: returning fake pointerclass object\n");
 }
 MAKE_PROXY_ARG_4(NewObjectA)
 
-struct ListV0 *abiv0_LockPubScreenList(struct LibraryV0 *IntuitionBaseV0)
+struct ListV0 *abiv0_LockPubScreenList(struct IntuitionBaseV0 *IntuitionBaseV0)
 {
-bug("abiv0_LockPubScreenList: STUB\n");
-    return (struct ListV0 *)((IPTR)IntuitionBaseV0 + 0x12C); // PubScreenList
+    return (struct ListV0 *)&IntuitionBaseV0->PubScreenList;
 }
 MAKE_PROXY_ARG_1(LockPubScreenList)
 
@@ -574,7 +573,7 @@ ULONG abiv0_DoMethodA(APTR object, APTR message)
     return ret;
 }
 
-static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
+static void init_first_screen(struct IntuitionBaseV0 *IntuitionBaseV0)
 {
     struct Screen *native = LockPubScreen(NULL);
 
@@ -618,7 +617,28 @@ static void init_first_screen(struct LibraryV0 *IntuitionBaseV0)
     RastPortV0_attachnative(&proxy->base.Screen.RastPort, &native->RastPort);
 
     /* TODO: this should be a proxy to native intuition class */
-    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);
+    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, (struct LibraryV0 *)IntuitionBaseV0);
+
+    /* PubScreenNode for that screen */
+    struct PubScreenNodeV0 *psn = abiv0_AllocMem(sizeof(struct PubScreenNodeV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    psn->psn_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(MAXPUBSCREENNAME + 1, MEMF_ANY, Intuition_SysBaseV0);
+    psn->psn_Screen = (APTR32)(IPTR)&proxy->base;
+
+    struct List *plist = LockPubScreenList();
+    struct PubScreenNode *pnode;
+    ForeachNode(plist, pnode)
+    {
+        if (pnode->psn_Screen == native)
+        {
+            strcpy((char *)(IPTR)psn->psn_Node.ln_Name, pnode->psn_Node.ln_Name);
+            psn->psn_Flags = pnode->psn_Flags;
+            psn->psn_VisitorCount = pnode->psn_VisitorCount;
+        }
+    }
+
+    UnlockPubScreenList();
+    ADDTAILV0(&IntuitionBaseV0->PubScreenList, psn);
+
 
     g_mainnativescreen = native;
     g_mainv0screen = &proxy->base;
@@ -737,8 +757,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     abiv0IntuitionBase->KeymapBase  = (APTR32)(IPTR)abiv0_DOS_OpenLibrary("keymap.library", 0L, SysBaseV0);
     abiv0IntuitionBase->TimerBase   = (APTR32)(IPTR)timerBase;
     abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x180), SysBaseV0); // GadgetLock
-    abiv0_InitSemaphore((struct SignalSemaphoreV0 *)((IPTR)abiv0IntuitionBase + 0x0F8), SysBaseV0); // PubScrListLock
-    NEWLISTV0((struct MinListV0 *)((IPTR)abiv0IntuitionBase + 0x12C)); // PubScreenList
+    abiv0_InitSemaphore(&abiv0IntuitionBase->PubScrListLock, SysBaseV0);
+    NEWLISTV0(&abiv0IntuitionBase->PubScreenList);
     *(APTR32 *)((IPTR)abiv0IntuitionBase + 0x480) = (APTR32)(IPTR)NULL; // ReqFont
 
     abiv0IntuitionBase->GlobalEditHook = (APTR32)(IPTR)&abiv0IntuitionBase->DefaultEditHook;
@@ -748,8 +768,9 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 
     Intuition_Gadgets_init_GadgetWrapper_class();
 
-    init_first_screen((struct LibraryV0 *)abiv0IntuitionBase);
+    init_first_screen(abiv0IntuitionBase);
     abiv0IntuitionBase->ActiveScreen = (APTR32)(IPTR)g_mainv0screen;
+    abiv0IntuitionBase->FirstScreen = (APTR32)(IPTR)g_mainv0screen;
 }
 
 void exit_intuition()

@@ -472,5 +472,22 @@ struct IntuitionBaseV0
     APTR32                      GlobalEditHook;
     /* The default global edit hook */
     struct HookV0               DefaultEditHook;
+
+    APTR32                      DefaultPubScreen;
+    struct SignalSemaphoreV0    PubScrListLock;
+    struct MinListV0            PubScreenList;
+    UWORD                       pubScrGlobalMode;
+};
+
+struct PubScreenNodeV0
+{
+    struct NodeV0   psn_Node;
+
+    APTR32          psn_Screen;
+    UWORD           psn_Flags;        /* see below */
+    WORD            psn_Size;
+    WORD            psn_VisitorCount;
+    APTR32          psn_SigTask;
+    UBYTE           psn_SigBit;
 };
 #endif
