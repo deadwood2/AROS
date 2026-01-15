@@ -278,6 +278,25 @@ struct DimensionInfoV0
     APTR32 reserved[2];
 };
 
+struct MonitorInfoV0
+{
+    struct QueryHeader Header;
+
+    APTR32               Mspc;
+    Point                ViewPosition;
+    Point                ViewResolution;
+    struct Rectangle     ViewPositionRange;
+    UWORD                TotalRows;
+    UWORD                TotalColorClocks;
+    UWORD                MinRow;
+    WORD                 Compatibility;       /* see below */
+    UBYTE                pad[32];
+    Point                MouseTicks;
+    Point                DefaultViewPosition;
+    ULONG                PreferredModeID;
+    APTR32               reserved[2];
+};
+
 DisplayInfoHandle abiv0_FindDisplayInfo(ULONG ID, struct GfxBaseV0 *GfxBaseV0)
 {
     struct DisplayInfoHandleProxy *handle = NULL;
@@ -295,7 +314,8 @@ MAKE_PROXY_ARG_2(FindDisplayInfo)
 
 ULONG abiv0_GetDisplayInfoData(APTR32 handle, UBYTE *buf, ULONG size, ULONG tagID, ULONG ID, struct GfxBaseV0 *GfxBaseV0)
 {
-    struct DisplayInfoHandleProxy *h = (struct DisplayInfoHandleProxy *)(IPTR)handle;
+    struct DisplayInfoHandleProxy *hp = (struct DisplayInfoHandleProxy *)(IPTR)handle;
+    APTR hnative = hp != NULL ? hp->native : NULL;
 
     switch (tagID)
     {
@@ -303,7 +323,7 @@ ULONG abiv0_GetDisplayInfoData(APTR32 handle, UBYTE *buf, ULONG size, ULONG tagI
         {
             ULONG lsize = sizeof(struct DimensionInfo) * 2;
             UBYTE *lbuf = AllocMem(lsize, MEMF_ANY);
-            ULONG _ret = GetDisplayInfoData(h->native, lbuf, lsize, tagID, ID);
+            ULONG _ret = GetDisplayInfoData(hnative, lbuf, lsize, tagID, ID);
             if (_ret > 0)
             {
                 struct DimensionInfo *dinative = (struct DimensionInfo *)lbuf;
@@ -325,6 +345,27 @@ ULONG abiv0_GetDisplayInfoData(APTR32 handle, UBYTE *buf, ULONG size, ULONG tagI
                 div0->StdOScan              = dinative->StdOScan;
 
                 _ret = sizeof(struct DimensionInfoV0);
+            }
+            FreeMem(lbuf, lsize);
+            return _ret;
+        }
+        case (DTAG_MNTR):
+        {
+            ULONG lsize = sizeof(struct MonitorInfo) * 2;
+            UBYTE *lbuf = AllocMem(lsize, MEMF_ANY);
+            ULONG _ret = GetDisplayInfoData(hnative, lbuf, lsize, tagID, ID);
+            if (_ret > 0)
+            {
+                struct MonitorInfo *minative = (struct MonitorInfo *)lbuf;
+                struct MonitorInfoV0 *miv0 = (struct MonitorInfoV0 *)buf;
+                miv0->Header.StructID       = minative->Header.StructID;
+                miv0->Header.DisplayID      = minative->Header.DisplayID;
+                miv0->Header.SkipID         = minative->Header.SkipID;
+                miv0->Header.Length         = minative->Header.Length;
+
+bug("abiv0_GetDisplayInfoData: STUB\n");
+
+                _ret = sizeof(struct MonitorInfoV0);
             }
             FreeMem(lbuf, lsize);
             return _ret;
