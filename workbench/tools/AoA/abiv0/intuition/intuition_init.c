@@ -86,6 +86,7 @@ struct Screen *screenRemapV02N(struct ScreenV0 *v0screen)
 {
     if (v0screen == NULL) return NULL;
     if (v0screen == (struct ScreenV0 *)g_mainv0screen) return g_mainnativescreen;
+    if (v0screen == (struct ScreenV0 *)g_additionalv0screen) return g_additionalnativescreen;
 
 asm("int3");
     return NULL;
@@ -95,6 +96,7 @@ struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen)
 {
     if (nscreen == NULL) return NULL;
     if (nscreen == g_mainnativescreen) return (struct ScreenV0 *)g_mainv0screen;
+    if (nscreen == g_additionalnativescreen) return (struct ScreenV0 *)g_additionalv0screen;
 
 asm("int3");
     return NULL;
@@ -265,7 +267,11 @@ void syncScreenV0()
     g_mainv0screen->Screen.MouseX   = g_mainnativescreen->MouseX;
     g_mainv0screen->Screen.MouseY   = g_mainnativescreen->MouseY;
 
-    // TODO: same for additional
+    if (g_additionalnativescreen && g_additionalv0screen)
+    {
+        g_additionalv0screen->Screen.MouseX   = g_additionalnativescreen->MouseX;
+        g_additionalv0screen->Screen.MouseY   = g_additionalnativescreen->MouseY;
+    }
 }
 
 struct NewScreenV0
@@ -349,10 +355,82 @@ static void addToPubScreenList(struct ScreenProxy *proxy, struct IntuitionBaseV0
 
 struct ScreenV0 * abiv0_OpenScreenTagList(struct NewScreenV0 *newScreen, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
+    if (newScreen != NULL) asm("int3");
+
+    struct TagItem *tagListNative = CloneTagItemsV02Native(tagList);
+
+    struct TagItem *tagNative = tagListNative;
+
+    while (tagNative->ti_Tag != TAG_DONE)
+    {
+        switch (tagNative->ti_Tag)
+        {
+            case (SA_ShowTitle):
+            case (SA_Type):
+            case (SA_Depth):
+            case (SA_PubName):
+            case (SA_DisplayID):
+            case (SA_SharePens):
+            case (SA_Pens):
+            case (SA_Quiet):
+                break;
+            case (SA_BackFill):
+            {
+bug("abiv0_OpenScreenTagList: Removing SA_BackFill\n");
+                tagNative->ti_Tag = TAG_IGNORE;
+                break;
+            }
+            default:
+bug("abiv0_OpenScreenTagList unsupported tag: %x\n", tagNative->ti_Tag);
+asm("int3");
+                break;
+        }
+
+        tagNative++;
+    }
+
 bug("abiv0_OpenScreenTagList: STUB\n");
+    struct Screen *scrnative = OpenScreenTagList(NULL, tagListNative);
+
+    FreeClonedV02NativeTagItems(tagListNative);
+
+    if (scrnative)
+    {
+        struct ScreenProxy *proxy = makeScreenProxy(scrnative, IntuitionBaseV0);
+        addToPubScreenList(proxy, (struct IntuitionBaseV0 *)IntuitionBaseV0);
+
+        g_additionalnativescreen = proxy->native;
+        g_additionalv0screen = &proxy->base;
+
+        return (struct ScreenV0 *)&proxy->base;
+    }
+
     return NULL;
 }
 MAKE_PROXY_ARG_3(OpenScreenTagList)
+
+UWORD abiv0_PubScreenStatus(struct ScreenV0 *Scr, UWORD StatusFlags, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct ScreenProxy *proxy = (struct ScreenProxy *)Scr;
+/* TODO: synchronize pubScrNode->psn_Flags */
+bug("abiv0_PubScreenStatus: STUB\n");
+    return PubScreenStatus(proxy->native, StatusFlags);
+}
+MAKE_PROXY_ARG_3(PubScreenStatus)
+
+BOOL abiv0_CloseScreen(struct ScreenV0 *screen, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct ScreenProxy *proxy = (struct ScreenProxy *)screen;
+    BOOL _ret = CloseScreen(proxy->native);
+    if (_ret)
+    {
+        g_additionalnativescreen = NULL;
+        g_additionalv0screen = NULL;
+        // MEMLEAK freeproxy and screenV0
+    }
+    return _ret;
+}
+MAKE_PROXY_ARG_2(CloseScreen)
 
 ULONG abiv0_LockIBase(ULONG What, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -759,6 +837,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  10, (APTR32)(IPTR)proxy_ClearPointer);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  55, intuitionjmp[165 -  55]);  // IntuiTextLength
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  24, intuitionjmp[165 -  24]);  // ItemAddress
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  92, (APTR32)(IPTR)proxy_PubScreenStatus);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  11, (APTR32)(IPTR)proxy_CloseScreen);
 
     Intuition_Gadgets_init(abiv0IntuitionBase, intuitionjmp);
     Intuition_Windows_init(abiv0IntuitionBase, intuitionjmp);
