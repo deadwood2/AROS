@@ -17,6 +17,7 @@
 
 #include "../graphics/graphics_rastports.h"
 #include "intuition_gadgets.h"
+#include "intuition_screens.h"
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 extern struct IClass *gadgetwrappercl;
@@ -24,9 +25,6 @@ extern struct IClass *gadgetwrappercl;
 void syncLayerV0(struct LayerProxy *proxy);
 struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
 void FreeClonedV02NativeTagItems(struct TagItem *tagList);
-
-struct Screen *screenRemapV02N(struct ScreenV0 *v0screen);
-struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen);
 
 struct WindowProxy *wmarray[100];
 
