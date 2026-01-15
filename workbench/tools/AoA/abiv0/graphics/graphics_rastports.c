@@ -147,7 +147,7 @@ static void crpc_InsertHead(struct _rastportstore *rps)
     crpcCache[0] = rps;
 }
 
-static struct RastPort * RastPortV0_createcompanion(struct RastPortV0 *rp)
+struct RastPort * RastPortV0_createcompanion(struct RastPortV0 *rp)
 {
     struct RastPort *rpnative = NULL;
     LONG ccID = -1;

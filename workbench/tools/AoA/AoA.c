@@ -291,26 +291,6 @@ LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod
     APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-#if 0
-    struct RastPort rptmp;
-
-    /* picture.datatype uses locally created RastPort */
-    if (rpnative == NULL)
-    {
-        InitRastPort(&rptmp);
-        rptmp.FgPen     = rp->FgPen;
-        rptmp.BgPen     = rp->BgPen;
-        rptmp.DrawMode  = rp->DrawMode;
-        rptmp.linpatcnt = rp->linpatcnt;
-        rptmp.Flags     = rp->Flags;
-        rptmp.cp_x      = rp->cp_x;
-        rptmp.cp_y      = rp->cp_y;
-
-        rptmp.BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
-
-        rpnative = &rptmp;
-    }
-#endif
 
     return WriteLUTPixelArray(srcRect, SrcX, SrcY, SrcMod, rpnative, CTable, DestX, DestY, SizeX, SizeY, CTabFormat);
 }
@@ -320,20 +300,26 @@ ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, stru
     UWORD destx, UWORD desty, UWORD width, UWORD height, UBYTE srcformat, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    BOOL clear = FALSE;
     ULONG _ret;
+    BITMAPLAYERPRE
+
+    if (rpnative == NULL)
+    {
+        /* Crossboard_Live drawing on custom public screen */
+        rpnative = RastPortV0_createcompanion(rp);
+    }
 
     if (rpnative->BitMap == NULL)
     {
         /* Soliton operates on locally created RastPort */
         /* picture.datatype uses locally created RastPort */
         rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
-        clear = TRUE;
+        clearBM = TRUE;
     }
 
     _ret = WritePixelArray(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, srcformat);
 
-    if (clear) rpnative->BitMap = NULL;
+    BITMAPLAYERPOST
 
     return _ret;
 }

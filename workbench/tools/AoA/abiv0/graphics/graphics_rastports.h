@@ -19,6 +19,7 @@ struct RastPortV0 *makeRastPortV0(struct RastPort *native);
 void freeRastPortV0(struct RastPortV0 *v0);
 
 
+struct RastPort * RastPortV0_createcompanion(struct RastPortV0 *rp);
 void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp);
 void recreateNativeRastPortBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp);
 
