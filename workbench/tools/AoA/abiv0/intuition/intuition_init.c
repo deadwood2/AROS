@@ -273,6 +273,80 @@ struct NewScreenV0
 
 };
 
+struct IClassV0;
+
+APTR abiv0_NewObjectA(struct IClassV0  *classPtr, UBYTE *classID, struct TagItemV0 * tagList, struct LibraryV0 *IntuitionBaseV0);
+
+static struct ScreenProxy *makeScreenProxy(struct Screen *native, struct LibraryV0 *IntuitionBaseV0)
+{
+    struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+
+    proxy->base.Screen.Width        = native->Width;
+    proxy->base.Screen.Height       = native->Height;
+    proxy->base.Screen.WBorLeft     = native->WBorLeft;
+    proxy->base.Screen.WBorTop      = native->WBorTop;
+    proxy->base.Screen.WBorRight    = native->WBorRight;
+    proxy->base.Screen.WBorBottom   = native->WBorBottom;
+    proxy->native                   = native;
+
+    struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    cmproxy->base.VPModeID = native->ViewPort.ColorMap->VPModeID;
+    cmproxy->native = native->ViewPort.ColorMap;
+    proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
+
+    *((IPTR *)&proxy->base.Screen.ViewPort.DspIns) = (IPTR)&native->ViewPort;
+    proxy->base.Screen.ViewPort.DWidth      = native->ViewPort.DWidth;
+    proxy->base.Screen.ViewPort.DHeight     = native->ViewPort.DHeight;
+    proxy->base.Screen.ViewPort.DxOffset    = native->ViewPort.DxOffset;
+    proxy->base.Screen.ViewPort.DyOffset    = native->ViewPort.DyOffset;
+
+    struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    v0font->ta_YSize    = native->Font->ta_YSize;
+    v0font->ta_Flags    = native->Font->ta_Flags;
+    v0font->ta_Style    = native->Font->ta_Style;
+    STRPTR v0font_name = abiv0_AllocMem(strlen(native->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
+    CopyMem(native->Font->ta_Name, v0font_name, strlen(native->Font->ta_Name) + 1);
+    v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
+
+    proxy->base.Screen.Font     = (APTR32)(IPTR)v0font;
+
+    *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
+
+    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
+    struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    bmproxy->native = native->RastPort.BitMap;
+    proxy->base.Screen.RastPort.BitMap = (APTR32)(IPTR)bmproxy;
+    RastPortV0_attachnative(&proxy->base.Screen.RastPort, &native->RastPort);
+
+    /* TODO: this should be a proxy to native intuition class */
+    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, IntuitionBaseV0);
+
+    return proxy;
+}
+
+static void addToPubScreenList(struct ScreenProxy *proxy, struct IntuitionBaseV0 *IntuitionBaseV0)
+{
+    /* PubScreenNode for that screen */
+    struct PubScreenNodeV0 *psn = abiv0_AllocMem(sizeof(struct PubScreenNodeV0), MEMF_CLEAR, Intuition_SysBaseV0);
+    psn->psn_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(MAXPUBSCREENNAME + 1, MEMF_ANY, Intuition_SysBaseV0);
+    psn->psn_Screen = (APTR32)(IPTR)&proxy->base;
+
+    struct List *plist = LockPubScreenList();
+    struct PubScreenNode *pnode;
+    ForeachNode(plist, pnode)
+    {
+        if (pnode->psn_Screen == proxy->native)
+        {
+            strcpy((char *)(IPTR)psn->psn_Node.ln_Name, pnode->psn_Node.ln_Name);
+            psn->psn_Flags = pnode->psn_Flags;
+            psn->psn_VisitorCount = pnode->psn_VisitorCount;
+        }
+    }
+
+    UnlockPubScreenList();
+    ADDTAILV0(&IntuitionBaseV0->PubScreenList, psn);
+}
+
 struct ScreenV0 * abiv0_OpenScreenTagList(struct NewScreenV0 *newScreen, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
 bug("abiv0_OpenScreenTagList: STUB\n");
@@ -595,70 +669,11 @@ static void init_first_screen(struct IntuitionBaseV0 *IntuitionBaseV0)
 {
     struct Screen *native = LockPubScreen(NULL);
 
-    struct ScreenProxy *proxy = abiv0_AllocMem(sizeof(struct ScreenProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    struct ScreenProxy *proxy = makeScreenProxy(native, (struct LibraryV0 *)IntuitionBaseV0);
 
-    proxy->base.Screen.Width        = native->Width;
-    proxy->base.Screen.Height       = native->Height;
-    proxy->base.Screen.WBorLeft     = native->WBorLeft;
-    proxy->base.Screen.WBorTop      = native->WBorTop;
-    proxy->base.Screen.WBorRight    = native->WBorRight;
-    proxy->base.Screen.WBorBottom   = native->WBorBottom;
-    proxy->native                   = native;
+    addToPubScreenList(proxy, IntuitionBaseV0);
 
-    struct ColorMapProxy *cmproxy = abiv0_AllocMem(sizeof(struct ColorMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    cmproxy->base.VPModeID = native->ViewPort.ColorMap->VPModeID;
-    cmproxy->native = native->ViewPort.ColorMap;
-    proxy->base.Screen.ViewPort.ColorMap    = (APTR32)(IPTR)cmproxy;
-
-    *((IPTR *)&proxy->base.Screen.ViewPort.DspIns) = (IPTR)&native->ViewPort;
-    proxy->base.Screen.ViewPort.DWidth      = native->ViewPort.DWidth;
-    proxy->base.Screen.ViewPort.DHeight     = native->ViewPort.DHeight;
-    proxy->base.Screen.ViewPort.DxOffset    = native->ViewPort.DxOffset;
-    proxy->base.Screen.ViewPort.DyOffset    = native->ViewPort.DyOffset;
-
-    struct TextAttrV0 * v0font = abiv0_AllocMem(sizeof(struct TextAttrV0), MEMF_CLEAR, Intuition_SysBaseV0);
-    v0font->ta_YSize    = native->Font->ta_YSize;
-    v0font->ta_Flags    = native->Font->ta_Flags;
-    v0font->ta_Style    = native->Font->ta_Style;
-    STRPTR v0font_name = abiv0_AllocMem(strlen(native->Font->ta_Name) + 1, MEMF_CLEAR, Intuition_SysBaseV0);
-    CopyMem(native->Font->ta_Name, v0font_name, strlen(native->Font->ta_Name) + 1);
-    v0font->ta_Name     = (APTR32)(IPTR)v0font_name;
-
-    proxy->base.Screen.Font     = (APTR32)(IPTR)v0font;
-
-    *(IPTR *)(&proxy->base.Screen.LayerInfo.PrivateReserve1)    = (IPTR)&native->LayerInfo;
-
-    proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
-    struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
-    bmproxy->native = native->RastPort.BitMap;
-    proxy->base.Screen.RastPort.BitMap = (APTR32)(IPTR)bmproxy;
-    RastPortV0_attachnative(&proxy->base.Screen.RastPort, &native->RastPort);
-
-    /* TODO: this should be a proxy to native intuition class */
-    proxy->base.WinDecorObj = (APTR32)(IPTR)abiv0_NewObjectA(NULL, WINDECORCLASS, NULL, (struct LibraryV0 *)IntuitionBaseV0);
-
-    /* PubScreenNode for that screen */
-    struct PubScreenNodeV0 *psn = abiv0_AllocMem(sizeof(struct PubScreenNodeV0), MEMF_CLEAR, Intuition_SysBaseV0);
-    psn->psn_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(MAXPUBSCREENNAME + 1, MEMF_ANY, Intuition_SysBaseV0);
-    psn->psn_Screen = (APTR32)(IPTR)&proxy->base;
-
-    struct List *plist = LockPubScreenList();
-    struct PubScreenNode *pnode;
-    ForeachNode(plist, pnode)
-    {
-        if (pnode->psn_Screen == native)
-        {
-            strcpy((char *)(IPTR)psn->psn_Node.ln_Name, pnode->psn_Node.ln_Name);
-            psn->psn_Flags = pnode->psn_Flags;
-            psn->psn_VisitorCount = pnode->psn_VisitorCount;
-        }
-    }
-
-    UnlockPubScreenList();
-    ADDTAILV0(&IntuitionBaseV0->PubScreenList, psn);
-
-
-    g_mainnativescreen = native;
+    g_mainnativescreen = proxy->native;
     g_mainv0screen = &proxy->base;
 
     UnlockPubScreen(NULL, native);
