@@ -330,6 +330,13 @@ asm("int3");
 }
 MAKE_PROXY_ARG_3(GetRPAttrsA)
 
+ULONG abiv0_SetWriteMask(struct RastPortV0 *rp, ULONG mask, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
+    return SetWriteMask(rpnative, mask);
+}
+MAKE_PROXY_ARG_3(SetWriteMask)
+
 void Graphics_RastPorts_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp)
 {
     __AROS_SETVECADDRV0(abiv0GfxBase,  11, (APTR32)(IPTR)proxy_SetFont);
@@ -346,6 +353,7 @@ void Graphics_RastPorts_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp
     __AROS_SETVECADDRV0(abiv0GfxBase,  15, graphicsjmp[202 -  15]);  // SetSoftStyle
     __AROS_SETVECADDRV0(abiv0GfxBase, 177, graphicsjmp[202 - 177]);  // CreateRastPort
     __AROS_SETVECADDRV0(abiv0GfxBase, 180, graphicsjmp[202 - 180]);  // FreeRastPort
+    __AROS_SETVECADDRV0(abiv0GfxBase, 164, (APTR32)(IPTR)proxy_SetWriteMask);
 
     rastPortPool = abiv0_CreatePool(MEMF_31BIT | MEMF_CLEAR | MEMF_SEM_PROTECTED, 16384, 256, Gfx_SysBaseV0);
 }

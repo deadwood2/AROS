@@ -585,6 +585,7 @@ void Intuition_Gadgets_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  94, (APTR32)(IPTR)proxy_ReleaseGIRPort);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  38, intuitionjmp[165 -  38]);  // RemoveGadget
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  78, (APTR32)(IPTR)proxy_NewModifyProp);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  37, intuitionjmp[165 -  37]);  // RefreshGadgets
 }
 
 void Intuition_Gadgets_init_GadgetWrapper_class()
