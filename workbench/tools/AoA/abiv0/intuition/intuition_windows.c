@@ -189,8 +189,9 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
         newWindowNative->Title      = (UBYTE *)(IPTR)newWindow->Title;
         newWindowNative->Flags      = newWindow->Flags;
         newWindowNative->IDCMPFlags = newWindow->IDCMPFlags;
+        newWindowNative->Screen     = screenRemapV02N((struct ScreenV0 *)(IPTR)newWindow->Screen);
 
-        if (newWindow->FirstGadget != 0 || newWindow->CheckMark != 0 || newWindow->Screen != 0 || newWindow->BitMap != 0) asm("int3");
+        if (newWindow->FirstGadget != 0 || newWindow->CheckMark != 0 || newWindow->BitMap != 0) asm("int3");
     }
 
     struct GadgetV0 *firstGadgetV0 = NULL;
