@@ -19,13 +19,14 @@
 #include "intuition_gadgets.h"
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
-extern struct ScreenV0     *g_mainv0screen;
-extern struct Screen       *g_mainnativescreen;
 extern struct IClass *gadgetwrappercl;
 
 void syncLayerV0(struct LayerProxy *proxy);
 struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
 void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+
+struct Screen *screenRemapV02N(struct ScreenV0 *v0screen);
+struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen);
 
 struct WindowProxy *wmarray[100];
 
@@ -202,20 +203,12 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
     {
         if (tagNative->ti_Tag == WA_CustomScreen)
         {
-            if (tagNative->ti_Data == (IPTR)g_mainv0screen)
-            {
-                tagNative->ti_Data = (IPTR)g_mainnativescreen;
-            }
-            else asm("int3");
+            tagNative->ti_Data = (IPTR)screenRemapV02N((struct ScreenV0 *)tagNative->ti_Data);
         }
 
         if (tagNative->ti_Tag == WA_PubScreen)
         {
-            if (tagNative->ti_Data == (IPTR)g_mainv0screen)
-            {
-                tagNative->ti_Data = (IPTR)g_mainnativescreen;
-            }
-            else asm("int3");
+            tagNative->ti_Data = (IPTR)screenRemapV02N((struct ScreenV0 *)tagNative->ti_Data);
         }
 
         if (tagNative->ti_Tag == WA_Gadgets)
@@ -244,15 +237,7 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
 
     syncWindowV0(proxy);
 
-    if (proxy->native->WScreen == g_mainnativescreen)
-    {
-        proxy->base.WScreen = (APTR32)(IPTR)g_mainv0screen;
-    }
-    else
-    {
-        asm("int3");
-    }
-
+    proxy->base.WScreen = (APTR32)(IPTR)screenRemapN2V0(proxy->native->WScreen);
 
     struct LayerProxy *lproxy = abiv0_AllocMem(sizeof(struct LayerProxy), MEMF_CLEAR, Intuition_SysBaseV0);
     lproxy->native = proxy->native->WLayer;

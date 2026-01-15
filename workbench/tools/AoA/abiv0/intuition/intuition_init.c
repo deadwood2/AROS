@@ -75,12 +75,30 @@ BPTR abiv0_Intuition_ExpungeLib(struct LibraryV0 *extralhV0, struct LibraryV0 *I
 }
 MAKE_PROXY_ARG_2(Intuition_ExpungeLib)
 
-struct IntScreenV0  *g_mainv0screen;
-struct Screen       *g_mainnativescreen;
+static struct IntScreenV0  *g_mainv0screen;
+static struct Screen       *g_mainnativescreen;
 
-struct IntScreenV0  *g_additionalv0screen;
-struct Screen       *g_additionalnativescreen;
-TEXT                g_additionalscreenname[64];
+static struct IntScreenV0  *g_additionalv0screen;
+static struct Screen       *g_additionalnativescreen;
+static TEXT                g_additionalscreenname[64];
+
+struct Screen *screenRemapV02N(struct ScreenV0 *v0screen)
+{
+    if (v0screen == NULL) return NULL;
+    if (v0screen == (struct ScreenV0 *)g_mainv0screen) return g_mainnativescreen;
+
+asm("int3");
+    return NULL;
+}
+
+struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen)
+{
+    if (nscreen == NULL) return NULL;
+    if (nscreen == g_mainnativescreen) return (struct ScreenV0 *)g_mainv0screen;
+
+asm("int3");
+    return NULL;
+}
 
 extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 

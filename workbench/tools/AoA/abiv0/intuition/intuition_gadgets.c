@@ -25,14 +25,13 @@
 #include "intuition_windows.h"
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
-extern struct ScreenV0     *g_mainv0screen;
-extern struct Screen       *g_mainnativescreen;
 
 struct IClass *gadgetwrappercl;
 
 void syncLayerV0(struct LayerProxy *proxy);
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 ULONG abiv0_DoMethodA(APTR object, APTR message);
+struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen);
 
 /* Assumptions:
     1) All nativeg will be ExtGadget as created by 64-bit Intuition
@@ -226,11 +225,10 @@ static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, 
         v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
     }
 
-    if (nativegi->gi_Screen && nativegi->gi_Screen == g_mainnativescreen)
+    if (nativegi->gi_Screen)
     {
-        v0gi->gi_Screen     = (APTR32)(IPTR)g_mainv0screen;
+        v0gi->gi_Screen     = (APTR32)(IPTR)screenRemapN2V0(nativegi->gi_Screen);
     }
-    else if (nativegi->gi_Screen != NULL) asm("int3");
 
     return v0gi;
 }
