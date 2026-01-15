@@ -219,6 +219,12 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
             tagNative->ti_Tag = TAG_IGNORE;
         }
 
+        if (tagNative->ti_Tag == WA_BackFill && tagNative->ti_Data != 1)
+        {
+bug("abiv0_OpenWindowTagList: Removing WA_BackFill\n");
+            tagNative->ti_Tag = TAG_IGNORE;
+        }
+
         tagNative++;
     }
 
