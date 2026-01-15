@@ -6,6 +6,7 @@
 #include <proto/dos.h>
 #include <graphics/gfxbase.h>
 #include <graphics/videocontrol.h>
+#include <graphics/displayinfo.h>
 #include <proto/graphics.h>
 #include <proto/alib.h>
 #include <aros/debug.h>
@@ -233,13 +234,6 @@ ULONG abiv0_GetVPModeID(struct ViewPortV0 * vp, struct GfxBaseV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_2(GetVPModeID)
 
-ULONG abiv0_GetDisplayInfoData(APTR32 handle, UBYTE *buf, ULONG size, ULONG tagID, ULONG ID, struct GfxBaseV0 *GfxBaseV0)
-{
-bug("abiv0_GetDisplayInfoData: STUB\n");
-    return 0;
-}
-MAKE_PROXY_ARG_6(GetDisplayInfoData)
-
 VOID abiv0_WaitTOF(struct GfxBaseV0 *GfxBaseV0)
 {
     WaitTOF();
@@ -259,14 +253,96 @@ ULONG abiv0_NextDisplayInfo(ULONG last_ID, struct GfxBaseV0 *GfxBaseV0)
 }
 MAKE_PROXY_ARG_2(NextDisplayInfo)
 
+struct DisplayInfoHandleProxy
+{
+    DisplayInfoHandle native;
+};
+
+struct DimensionInfoV0
+{
+    struct QueryHeader Header;
+
+    UWORD MaxDepth;
+    UWORD MinRasterWidth;
+    UWORD MinRasterHeight;
+    UWORD MaxRasterWidth;
+    UWORD MaxRasterHeight;
+
+    struct Rectangle Nominal;
+    struct Rectangle MaxOScan;
+    struct Rectangle VideoOScan;
+    struct Rectangle TxtOScan;
+    struct Rectangle StdOScan;
+
+    UBYTE pad[14];
+    APTR32 reserved[2];
+};
+
 DisplayInfoHandle abiv0_FindDisplayInfo(ULONG ID, struct GfxBaseV0 *GfxBaseV0)
 {
-bug("abiv0_FindDisplayInfo: STUB\n");
-    return NULL;
+    struct DisplayInfoHandleProxy *handle = NULL;
+
+    DisplayInfoHandle native = FindDisplayInfo(ID);
+    if (native != NULL)
+    {
+        handle = abiv0_AllocMem(sizeof(struct DisplayInfoHandleProxy), MEMF_CLEAR, Gfx_SysBaseV0); // MEMLEAK
+        handle->native = native;
+    }
+
+    return handle;
 }
 MAKE_PROXY_ARG_2(FindDisplayInfo)
 
-#include <proto/utility.h>
+ULONG abiv0_GetDisplayInfoData(APTR32 handle, UBYTE *buf, ULONG size, ULONG tagID, ULONG ID, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct DisplayInfoHandleProxy *h = (struct DisplayInfoHandleProxy *)(IPTR)handle;
+
+    switch (tagID)
+    {
+        case (DTAG_DIMS):
+        {
+            ULONG lsize = sizeof(struct DimensionInfo) * 2;
+            UBYTE *lbuf = AllocMem(lsize, MEMF_ANY);
+            ULONG _ret = GetDisplayInfoData(h->native, lbuf, lsize, tagID, ID);
+            if (_ret > 0)
+            {
+                struct DimensionInfo *dinative = (struct DimensionInfo *)lbuf;
+                struct DimensionInfoV0 *div0 = (struct DimensionInfoV0 *)buf;
+                div0->Header.StructID       = dinative->Header.StructID;
+                div0->Header.DisplayID      = dinative->Header.DisplayID;
+                div0->Header.SkipID         = dinative->Header.SkipID;
+                div0->Header.Length         = dinative->Header.Length;
+                div0->MaxDepth              = dinative->MaxDepth;
+                div0->MinRasterWidth        = dinative->MinRasterWidth;
+                div0->MinRasterHeight       = dinative->MinRasterHeight;
+                div0->MaxRasterWidth        = dinative->MaxRasterWidth;
+                div0->MaxRasterHeight       = dinative->MaxRasterHeight;
+
+                div0->Nominal               = dinative->Nominal;
+                div0->MaxOScan              = dinative->MaxOScan;
+                div0->VideoOScan            = dinative->VideoOScan;
+                div0->TxtOScan              = dinative->TxtOScan;
+                div0->StdOScan              = dinative->StdOScan;
+
+                _ret = sizeof(struct DimensionInfoV0);
+            }
+            FreeMem(lbuf, lsize);
+            return _ret;
+        }
+        default:
+            break;
+    }
+bug("abiv0_GetDisplayInfoData: STUB\n");
+asm("int3");
+    return 0;
+}
+MAKE_PROXY_ARG_6(GetDisplayInfoData)
+
+ULONG  abiv0_ModeNotAvailable(ULONG modeID, struct GfxBaseV0 *GfxBaseV0)
+{
+    return ModeNotAvailable(modeID);
+}
+MAKE_PROXY_ARG_2(ModeNotAvailable)
 
 struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG flags, struct BitMapV0 *friend_bitmap,
     struct GfxBaseV0 *GfxBaseV0)
@@ -434,6 +510,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase, 193, graphicsjmp[202 - 193]);  // AndRectRect
     __AROS_SETVECADDRV0(abiv0GfxBase,  78, graphicsjmp[202 -  78]);  // InitTmpRas
     __AROS_SETVECADDRV0(abiv0GfxBase, 118, (APTR32)(IPTR)proxy_VideoControl);
+    __AROS_SETVECADDRV0(abiv0GfxBase, 133, (APTR32)(IPTR)proxy_ModeNotAvailable);
 
     Graphics_Operations_init(abiv0GfxBase, graphicsjmp);
     Graphics_RastPorts_init(abiv0GfxBase, graphicsjmp);
