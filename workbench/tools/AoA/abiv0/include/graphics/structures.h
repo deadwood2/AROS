@@ -66,6 +66,20 @@ struct ColorMapV0
     UWORD Bp_1_base;
 };
 
+struct ExtendedNodeV0
+{
+    APTR32 xln_Succ;
+    APTR32 xln_Pred;
+
+    UBYTE   xln_Type;	      /* NT_GRAPHICS */
+    BYTE    xln_Pri;
+    APTR32  xln_Name;
+    UBYTE   xln_Subsystem;    /* see below */
+    UBYTE   xln_Subtype;      /* see below */
+    APTR32  xln_Library;
+    APTR32  xln_Init;
+};
+
 /*          *** ViewPort ***
  *
  * Describes a displayed bitmap (or logical screen).
@@ -94,6 +108,26 @@ struct ViewPortV0
     UBYTE ExtendedModes;
 
     APTR32 RasInfo;	/* Playfield specification */
+};
+
+/*          *** ViewPortExtra ***
+ *
+ * Holds additional information about the ViewPort it is associated with
+ */
+
+struct ViewPortExtraV0
+{
+    struct ExtendedNodeV0 n;	    /* Common header */
+
+    APTR32             ViewPort;    /* ViewPort it relates to */
+    struct Rectangle   DisplayClip; /* Total size of displayable part */
+
+    APTR32  VecTable;		    /* Unused by AROS */
+    APTR32  DriverData[2];	    /* Private storage for display drivers. Do not touch! */
+    UWORD Flags;		    /* Flags, see below */
+    Point Origin[2];
+    ULONG cop1ptr;
+    ULONG cop2ptr;
 };
 
 struct RastPortV0

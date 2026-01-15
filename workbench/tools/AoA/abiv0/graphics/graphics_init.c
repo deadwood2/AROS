@@ -5,6 +5,7 @@
 #include <proto/exec.h>
 #include <proto/dos.h>
 #include <graphics/gfxbase.h>
+#include <graphics/videocontrol.h>
 #include <proto/graphics.h>
 #include <proto/alib.h>
 #include <aros/debug.h>
@@ -191,6 +192,7 @@ MAKE_PROXY_ARG_3(CloseFont)
 
 extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
 extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
+struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
 
 LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, struct TagItemV0 *tags, struct LibraryV0 *GfxBaseV0)
 {
@@ -313,6 +315,40 @@ void abiv0_ScrollRaster(struct RastPortV0 *rp, LONG dx, LONG dy, LONG xMin, LONG
 }
 MAKE_PROXY_ARG_12(ScrollRaster)
 
+static struct ViewPortExtraV0 *_dummy;
+
+ULONG abiv0_VideoControl(struct ColorMapV0 *cm, struct TagItemV0 *tags, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct TagItemV0 *tmp;
+
+    tmp = (struct TagItemV0 *)tags;
+    do
+    {
+        switch(tmp->ti_Tag)
+        {
+            case (VTAG_VIEWPORTEXTRA_GET):
+            {
+                if (_dummy == NULL) _dummy = abiv0_AllocMem(sizeof(struct ViewPortExtraV0), MEMF_CLEAR, Gfx_SysBaseV0); // MEMLEAK
+                struct ColorMapProxy *cmproxy = (struct ColorMapProxy *)cm;
+                _dummy->DisplayClip.MinX = cmproxy->native->cm_vpe->DisplayClip.MinX;
+                _dummy->DisplayClip.MaxX = cmproxy->native->cm_vpe->DisplayClip.MaxX;
+                _dummy->DisplayClip.MinY = cmproxy->native->cm_vpe->DisplayClip.MinY;
+                _dummy->DisplayClip.MaxY = cmproxy->native->cm_vpe->DisplayClip.MaxY;
+                tmp->ti_Data = (APTR32)(IPTR)_dummy;
+bug("abiv0_VideoControl: STUB\n");
+                break;
+            }
+            case(TAG_DONE): break;
+            default:
+bug("abiv0_VideoControl unhandled tag %x\n", tmp->ti_Tag);
+asm("int3");
+        }
+    } while (LibNextTagItemV0(&tmp) != NULL);
+
+    return 0;
+}
+MAKE_PROXY_ARG_3(VideoControl)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
@@ -397,6 +433,7 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  66, (APTR32)(IPTR)proxy_ScrollRaster);
     __AROS_SETVECADDRV0(abiv0GfxBase, 193, graphicsjmp[202 - 193]);  // AndRectRect
     __AROS_SETVECADDRV0(abiv0GfxBase,  78, graphicsjmp[202 -  78]);  // InitTmpRas
+    __AROS_SETVECADDRV0(abiv0GfxBase, 118, (APTR32)(IPTR)proxy_VideoControl);
 
     Graphics_Operations_init(abiv0GfxBase, graphicsjmp);
     Graphics_RastPorts_init(abiv0GfxBase, graphicsjmp);
