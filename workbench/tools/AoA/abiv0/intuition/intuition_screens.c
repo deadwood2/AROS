@@ -263,6 +263,7 @@ struct ScreenV0 * abiv0_OpenScreenTagList(struct NewScreenV0 *newScreen, struct 
             case (SA_SharePens):
             case (SA_Pens):
             case (SA_Quiet):
+            case (SA_Title):
                 break;
             case (SA_BackFill):
             {
