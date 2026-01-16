@@ -264,24 +264,26 @@ ULONG abiv0_WritePixelArrayAlpha(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod,
     UWORD destx, UWORD desty, UWORD width, UWORD height, ULONG globalalpha, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    BOOL clear = FALSE;
     ULONG _ret;
+    BITMAPLAYERPRE
 
     if (rpnative->BitMap == NULL)
     {
         /* RNOTunes uses locally created RastPort */
-        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+        recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
+        clearBM = TRUE;
+    }
+
+    if (rpnative->Layer == NULL && rp->Layer != (APTR32)(IPTR)NULL)
+    {
+        /* RNOTunes uses locally created RastPort */
         rpnative->Layer = ((struct LayerProxy *)(IPTR)rp->Layer)->native;
-        clear = TRUE;
+        clearL = TRUE;
     }
 
     _ret = WritePixelArrayAlpha(src, srcx, srcy, srcmod, rpnative, destx, desty, width, height, globalalpha);
 
-    if (clear)
-    {
-        rpnative->BitMap = NULL;
-        rpnative->Layer = NULL;
-    }
+    BITMAPLAYERPOST
 
     return _ret;
 }
@@ -315,7 +317,7 @@ ULONG abiv0_WritePixelArray(APTR src, UWORD srcx, UWORD srcy, UWORD srcmod, stru
     {
         /* Soliton operates on locally created RastPort */
         /* picture.datatype uses locally created RastPort */
-        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
+        recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
         clearBM = TRUE;
     }
 
@@ -352,18 +354,18 @@ VOID abiv0_ProcessPixelArray(struct RastPortV0 *rp, ULONG destX, ULONG destY, UL
         LONG value, struct TagItemV0 *taglist, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
-    BOOL clear = FALSE;
+    BITMAPLAYERPRE
 
     if (rpnative->BitMap == NULL)
     {
         /* dtpic.mui uses locally created RastPort */
-        rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rp->BitMap)->native;
-        clear = TRUE;
+        recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
+        clearBM = TRUE;
     }
 
     ProcessPixelArray(rpnative, destX, destY, sizeX, sizeY, operation, value, NULL);
 
-    if (clear) rpnative->BitMap = NULL;
+    BITMAPLAYERPOST
 }
 MAKE_PROXY_ARG_12(ProcessPixelArray)
 

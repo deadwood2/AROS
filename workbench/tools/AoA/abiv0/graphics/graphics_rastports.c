@@ -84,7 +84,7 @@ static struct RastPort * RastPortV0_makenativefrom(struct RastPortV0 *rp)
     return rpnative;
 }
 
-void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
+static void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
 {
     struct BitMapV0 *bmv0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
 
