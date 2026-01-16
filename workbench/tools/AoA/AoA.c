@@ -22,7 +22,7 @@
 
 #include "abiv0/support.h"
 
-const TEXT version_string[] = "$VER: EmuV0 0.50 (15.01.2026)";
+const TEXT version_string[] = "$VER: EmuV0 0.60 (16.01.2026)";
 
 struct DeviceProxy *abiv0TimerBase;
 struct DeviceProxy *abiv0InputBase;
