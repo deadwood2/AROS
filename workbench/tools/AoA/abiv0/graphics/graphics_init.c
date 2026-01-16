@@ -395,6 +395,7 @@ struct BitMapV0 *abiv0_AllocBitMap(ULONG sizex, ULONG sizey, ULONG depth, ULONG 
         nativefriendbm = ((struct BitMapProxy *)friend_bitmap)->native;
     }
 
+    bmproxy->key                = BITMAPPROXYKEY;
     bmproxy->native = AllocBitMap(sizex, sizey, depth, flags, nativefriendbm);
     bmproxy->base.BytesPerRow   = bmproxy->native->BytesPerRow;
     bmproxy->base.Rows          = bmproxy->native->Rows;

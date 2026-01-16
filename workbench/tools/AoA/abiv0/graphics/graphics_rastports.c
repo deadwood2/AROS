@@ -101,9 +101,9 @@ void recreteNativeRastPortPlanarBitMap(struct RastPortV0 *rpv0, struct RastPort 
 
 void recreateNativeRastPortBitMap(struct RastPortV0 *rpv0, struct RastPort *rpnative, struct BitMap *bmtmp)
 {
-    struct BitMapV0 *bmV0 = (struct BitMapV0 *)(IPTR)rpv0->BitMap;
+    struct BitMapProxy *bmproxy = (struct BitMapProxy *)(IPTR)rpv0->BitMap;
 
-    if (bmV0->BytesPerRow == 0 && bmV0->Rows == 0 && bmV0->Depth == 0)
+    if (bmproxy->key == BITMAPPROXYKEY)
         rpnative->BitMap = ((struct BitMapProxy *)(IPTR)rpv0->BitMap)->native;
     else
         recreteNativeRastPortPlanarBitMap(rpv0, rpnative, bmtmp);

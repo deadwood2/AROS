@@ -26,9 +26,11 @@ struct RegionProxy
     ULONG                       rrCount;
 };
 
+#define BITMAPPROXYKEY 0xE5A78151
 struct BitMapProxy
 {
     struct BitMapV0 base;
+    ULONG           key;
     struct BitMap   *native;
 };
 

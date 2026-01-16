@@ -262,6 +262,7 @@ unhandledCodePath(__func__, "Window layer not RastPort layer", 0, 0);
     }
 
     struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    bmproxy->key    = BITMAPPROXYKEY;
     bmproxy->native = proxy->native->RPort->BitMap;
     ((struct RastPortV0 *)(IPTR)proxy->base.RPort)->BitMap = (APTR32)(IPTR)bmproxy;
 

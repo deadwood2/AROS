@@ -210,6 +210,7 @@ static struct ScreenProxy *makeScreenProxy(struct Screen *native, struct Library
 
     proxy->base.Screen.RastPort.Font = (APTR32)(IPTR)makeTextFontV0(native->RastPort.Font, Intuition_SysBaseV0);
     struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    bmproxy->key    = BITMAPPROXYKEY;
     bmproxy->native = native->RastPort.BitMap;
     proxy->base.Screen.RastPort.BitMap = (APTR32)(IPTR)bmproxy;
     RastPortV0_attachnative(&proxy->base.Screen.RastPort, &native->RastPort);
