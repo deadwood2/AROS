@@ -25,8 +25,6 @@ extern struct ExecBaseV0 *Intuition_SysBaseV0;
 extern struct IClass *gadgetwrappercl;
 
 void syncLayerV0(struct LayerProxy *proxy);
-struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-void FreeClonedV02NativeTagItems(struct TagItem *tagList);
 
 struct WindowProxy *wmarray[100];
 

@@ -373,9 +373,6 @@ BOOL abiv0_IsCyberModeID(ULONG modeID, struct LibraryV0 *CyberGfxBaseV0)
 }
 MAKE_PROXY_ARG_2(IsCyberModeID)
 
-extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
-
 ULONG abiv0_BestCModeIDTagList(struct TagItemV0 * tags, struct LibraryV0 *CyberGfxBaseV0)
 {
     ULONG _ret;

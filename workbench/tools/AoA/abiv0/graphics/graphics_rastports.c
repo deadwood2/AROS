@@ -21,10 +21,6 @@
 APTR rastPortPool;
 
 
-struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-void FreeClonedV02NativeTagItems(struct TagItem *tagList);
-struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
-
 extern struct ExecBaseV0 *Gfx_SysBaseV0;
 
 

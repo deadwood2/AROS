@@ -38,9 +38,6 @@ static struct IntScreenV0  *g_additionalv0screen;
 static struct Screen       *g_additionalnativescreen;
 static TEXT                g_additionalscreenname[64];
 
-struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-void FreeClonedV02NativeTagItems(struct TagItem *tagList);
-
 struct Screen *screenRemapV02N(struct ScreenV0 *v0screen)
 {
     if (v0screen == NULL) return NULL;

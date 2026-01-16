@@ -193,10 +193,6 @@ bug("abiv0_CloseFont: STUB\n");
 }
 MAKE_PROXY_ARG_3(CloseFont)
 
-extern struct TagItem *CloneTagItemsV02Native(const struct TagItemV0 *tagList);
-extern void FreeClonedV02NativeTagItems(struct TagItem *tagList);
-struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr);
-
 LONG abiv0_ObtainBestPenA(struct ColorMapV0 *cm, ULONG r, ULONG g, ULONG b, struct TagItemV0 *tags, struct LibraryV0 *GfxBaseV0)
 {
     struct ColorMapProxy *proxy = (struct ColorMapProxy *)cm;
