@@ -11,6 +11,7 @@
 #include "../include/graphics/proxy_structures.h"
 
 #include "../graphics/graphics_rastports.h"
+#include "../support.h"
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 
@@ -272,8 +273,7 @@ bug("abiv0_OpenScreenTagList: Removing SA_BackFill\n");
                 break;
             }
             default:
-bug("abiv0_OpenScreenTagList unsupported tag: %x\n", tagNative->ti_Tag);
-asm("int3");
+                unhandledCodePath(__func__, "Tags", 0, tagNative->ti_Tag);
                 break;
         }
 
