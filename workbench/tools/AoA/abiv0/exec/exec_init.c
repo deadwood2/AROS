@@ -428,6 +428,7 @@ struct IntExecBaseV0
 };
 
 BPTR execseg;
+void Exec_Unhandled_init(struct LibraryV0 *abiv0SysBase);
 
 struct ExecBaseV0 *init_exec()
 {
@@ -455,9 +456,8 @@ struct ExecBaseV0 *init_exec()
 
     g_nativemaintask = FindTask(NULL);
 
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (LONG i = 5; i <= 186; i++)
-        __AROS_SETVECADDRV0(abiv0SysBase, i, (APTR32)(IPTR)i);
+    /* Set all unhandled LVO addresses to a catch function */
+    Exec_Unhandled_init((struct LibraryV0 *)abiv0SysBase);
 
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0SysBase, 49, (APTR32)(IPTR)proxy_FindTask);

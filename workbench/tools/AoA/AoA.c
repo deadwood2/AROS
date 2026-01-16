@@ -463,6 +463,36 @@ void refresh_g_v0maintask();
 STRPTR emu_argstr = NULL;
 LONG emu_argsize = 0;
 
+//     // This code is used to generate proxies for unhandled functions
+//     LONG slvo = 5, elvo = 45;
+//     STRPTR libname = "layers.library";
+//     struct LibraryV0 *libbase = abiv0LayersBase;
+//     STRPTR libbasename = "abiv0LayersBase";
+//     for (LONG i = slvo; i <= elvo; i++)
+//     {
+//         if (__AROS_GETVECADDRV0(libbase, i) == (APTR32)(IPTR)NULL)
+//         {
+//             bug("static void abiv0_unhandledLVO%d() { unhandledLibraryFunction(\"%s\", %d); }\n", i, libname, i);
+//             bug("MAKE_PROXY_ARG_1(unhandledLVO%d)\n", i);
+//         }
+//     }
+
+//     bug("void _Unhandled_init(struct LibraryV0 *%s)\n", libbasename);
+//     bug("{\n");
+//     for (LONG i = slvo; i <= elvo; i++)
+//     {
+//         if (__AROS_GETVECADDRV0(libbase, i) == (APTR32)(IPTR)NULL)
+//         {
+//             bug("    __AROS_SETVECADDRV0(%s,  %d, (APTR32)(IPTR)proxy_unhandledLVO%d);\n", libbasename, i, i);
+//         }
+//     }
+//     bug("}\n");
+
+// asm("int3");
+
+void CyberGfx_Unhandled_init(struct LibraryV0 *abiv0CyberGfxBase);
+void Layers_Unhandled_init(struct LibraryV0 *abiv0LayersBase);
+
 LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
     TEXT path[64];
@@ -526,8 +556,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     Layers_SysBaseV0 = SysBaseV0;
     /* Remove all vectors for now */
     for (int i = 1; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, 0);
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (int i = 5; i <= 45; i++) __AROS_SETVECADDRV0(abiv0LayersBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200);
+    /* Set all unhandled LVO addresses to a catch function */
+    Layers_Unhandled_init((struct LibraryV0 *)abiv0LayersBase);
     __AROS_SETVECADDRV0(abiv0LayersBase,   1, (APTR32)(IPTR)proxy_Layers_OpenLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,   2, (APTR32)(IPTR)proxy_Layers_CloseLib);
     __AROS_SETVECADDRV0(abiv0LayersBase,   3, (APTR32)(IPTR)proxy_Layers_ExpungeLib);
@@ -552,8 +582,8 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     APTR32 *cybergraphicsjmp = AllocMem(cybergraphicsjmpsize, MEMF_CLEAR);
     CopyMem((APTR)abiv0CyberGfxBase - cybergraphicsjmpsize, cybergraphicsjmp, cybergraphicsjmpsize);
     for (int i = 3; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, 0);
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (int i = 5; i <= 38; i++) __AROS_SETVECADDRV0(abiv0CyberGfxBase, i, (APTR32)(IPTR)i + 200 + 300 + 200 + 200 + 100);
+    /* Set all unhandled LVO addresses to a catch function */
+    CyberGfx_Unhandled_init((struct LibraryV0 *)abiv0CyberGfxBase);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase,  3, (APTR32)(IPTR)proxy_CyberGfx_ExpungeLib);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 25, (APTR32)(IPTR)proxy_FillPixelArray);
     __AROS_SETVECADDRV0(abiv0CyberGfxBase, 36, (APTR32)(IPTR)proxy_WritePixelArrayAlpha);

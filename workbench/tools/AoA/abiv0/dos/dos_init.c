@@ -1057,6 +1057,8 @@ APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *
 extern ULONG *seginitlist;
 BPTR dosseg;
 
+void Dos_Unhandled_init(struct LibraryV0 *abiv0DOSBase);
+
 void init_dos(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
@@ -1089,9 +1091,8 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     NEWLISTV0(&((struct IntDosBaseV0 *)abiv0DOSBase)->segdata);
     abiv0_InitSemaphore(&((struct IntDosBaseV0 *)abiv0DOSBase)->segsem, SysBaseV0);
 
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (LONG i = 5; i <= 226; i++)
-        __AROS_SETVECADDRV0(abiv0DOSBase, i, (APTR32)(IPTR)i + 200);
+    /* Set all unhandled LVO addresses to a catch function */
+    Dos_Unhandled_init((struct LibraryV0 *)abiv0DOSBase);
 
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0DOSBase, 158, (APTR32)(IPTR)proxy_PutStr);

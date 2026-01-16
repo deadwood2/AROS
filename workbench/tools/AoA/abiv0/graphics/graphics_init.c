@@ -490,6 +490,8 @@ struct GfxBaseV0_intern
 
 BPTR graphicsseg;
 
+void Gfx_Unhandled_init(struct LibraryV0 *abiv0GfxBase);
+
 void init_graphics(struct ExecBaseV0 *SysBaseV0)
 {
     TEXT path[64];
@@ -512,9 +514,8 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     abiv0_InitSemaphore(&abiv0IntGfxBase->fontsem, SysBaseV0);
     abiv0_InitSemaphore(&abiv0IntGfxBase->tfe_hashtab_sema, SysBaseV0);
 
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (LONG i = 5; i <= 201; i++)
-        __AROS_SETVECADDRV0(abiv0GfxBase,   i, (APTR32)(IPTR)i + 200 + 300);
+    /* Set all unhandled LVO addresses to a catch function */
+    Gfx_Unhandled_init((struct LibraryV0 *)abiv0GfxBase);
 
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0GfxBase,   1, (APTR32)(IPTR)proxy_Gfx_OpenLib);
