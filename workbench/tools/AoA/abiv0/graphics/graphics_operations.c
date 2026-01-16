@@ -119,6 +119,13 @@ void abiv0_BltTemplate(PLANEPTR source, LONG xSrc, LONG srcMod, struct RastPortV
         clearBM = TRUE;
     }
 
+    if (rpnative->Layer == NULL && destRP->Layer != (APTR32)(IPTR)NULL)
+    {
+        /* SimpleWhiteboard.hwa operates on local RastPort with a Layer */
+        rpnative->Layer = ((struct LayerProxy *)(IPTR)destRP->Layer)->native;
+        clearL = TRUE;
+    }
+
     BltTemplate(source, xSrc, srcMod, rpnative, xDest, yDest, xSize, ySize);
 
     BITMAPLAYERPOST
