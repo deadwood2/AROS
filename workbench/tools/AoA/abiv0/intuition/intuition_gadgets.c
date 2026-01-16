@@ -24,6 +24,8 @@
 #include "intuition_gadgets.h"
 #include "intuition_windows.h"
 
+#include "../support.h"
+
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 
 struct IClass *gadgetwrappercl;
@@ -195,7 +197,8 @@ static APTR32 getOrCreateTextFontV0(struct TextFont *native, struct ExecBaseV0 *
     {
         if (g_nativeTF == native)
             return (APTR32)(IPTR)g_v0TF;
-        else asm("int3");
+        else
+unhandledCodePath(__func__, "g_nativeTF not NULL", 0, 0);
     }
 
     g_v0TF = makeTextFontV0(native, sysBaseV0); // MEMLEAK
@@ -545,7 +548,7 @@ static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, M
             return ret;
         }
         default:
-asm("int3");
+unhandledCodePath(__func__, "Not handled methodID", 0, message->MethodID);
             return DoSuperMethodA(CLASS, self, message);
     }
 

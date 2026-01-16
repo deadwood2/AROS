@@ -20,6 +20,8 @@
 
 #include "abiv0/exec/exec_libraries.h"
 
+#include "abiv0/support.h"
+
 const TEXT version_string[] = "$VER: EmuV0 0.50 (15.01.2026)";
 
 struct DeviceProxy *abiv0TimerBase;
@@ -56,7 +58,7 @@ struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segLi
     else
     {
         D(bug("InitResident !RTF_AUTOINIT"));
-asm("int3");
+unhandledCodePath(__func__, "!RTF_AUTOINIT", 0, 0);
     }
 
     D(bug("InitResident end 0x%p (\"%s\"), result 0x%p", resident, resident->rt_Name, library));
@@ -618,7 +620,7 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     APTR (*start)() = (APTR)((IPTR)BADDR(seg) + sizeof(BPTR));
 
     /* Set arguments for main program */
-    if (fhinput->fh_BufSize < emu_argsize) asm("int3");
+    if (fhinput->fh_BufSize < emu_argsize) unhandledCodePath(__func__, "Arguments", emu_argsize, fhinput->fh_BufSize);
     CopyMem(emu_argstr, BADDR(fhinput->fh_Buf), emu_argsize);
     fhinput->fh_Pos = 0;
     fhinput->fh_End = emu_argsize;

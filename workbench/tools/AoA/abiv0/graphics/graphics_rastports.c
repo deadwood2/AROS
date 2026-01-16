@@ -15,6 +15,7 @@
 #include "../include/utility/structures.h"
 
 #include "graphics_rastports.h"
+#include "../support.h"
 
 /* 32-bit pool used for allocations of structures for V0 RastPorts */
 APTR rastPortPool;
@@ -279,12 +280,12 @@ void abiv0_SetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gfx
     {
         if (tagNative->ti_Tag == RPTAG_Font)
         {
-            asm("int3");
+ unhandledCodePath(__func__, "RPTAG_Font", 0, 0);
         }
 
         if (tagNative->ti_Tag == RPTAG_ClipRectangle)
         {
-            asm("int3");
+ unhandledCodePath(__func__, "RPTAG_ClipRectangle", 0, 0);
         }
 
         if (tagNative->ti_Tag == RPTAG_FgColor)
@@ -323,8 +324,7 @@ void abiv0_GetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gfx
             case(RPTAG_DrMd): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetDrMd(rpnative); break;
             case(TAG_DONE): break;
             default:
-bug("GetRPAttr unhandled tag %x\n", tmp->ti_Tag);
-asm("int3");
+unhandledCodePath(__func__, "Tag", 0, tmp->ti_Tag);
         }
     } while (LibNextTagItemV0(&tmp) != NULL);
 }

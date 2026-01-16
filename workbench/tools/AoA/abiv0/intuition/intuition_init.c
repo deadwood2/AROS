@@ -30,6 +30,8 @@
 #include "intuition_screens.h"
 #include "intuition_windows.h"
 
+#include "../support.h"
+
 struct ExecBaseV0 *Intuition_SysBaseV0;
 
 struct LibraryV0 *abiv0_Intuition_OpenLib(ULONG version, struct LibraryV0 *IntuitionBaseV0)
@@ -70,7 +72,7 @@ struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
         switch(((*tagListPtr)->ti_Tag))
         {
             case TAG_MORE:
-asm("int3");
+unhandledCodePath(__func__, "TAG_MORE", 0, 0);
                 if (!((*tagListPtr) = (struct TagItemV0 *)(IPTR)(*tagListPtr)->ti_Data))
                     return NULL;
                 continue;
@@ -83,7 +85,7 @@ asm("int3");
                 return NULL;
 
             case TAG_SKIP:
-asm("int3");
+unhandledCodePath(__func__, "TAG_SKIP", 0, 0);
                 (*tagListPtr) += (*tagListPtr)->ti_Data + 1;
                 continue;
 
@@ -156,7 +158,7 @@ static void freeMenuItemTree(struct MenuItem *menuitem)
         }
         else
         {
-            asm("int3");
+unhandledCodePath(__func__, "Not ITEMTEXT", 0, menuitem->Flags);
         }
 
         struct MenuItem *p = menuitem;
@@ -183,7 +185,7 @@ MAKE_PROXY_ARG_2(ClearMenuStrip)
 
 static struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext)
 {
-    if (itext->ITextFont != (APTR32)0) asm("int3");
+    if (itext->ITextFont != (APTR32)0) unhandledCodePath(__func__, "ITextFont != NULL", 0, 0);
     struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY);
     itextnative->FrontPen   = itext->FrontPen;
     itextnative->BackPen    = itext->BackPen;
@@ -229,7 +231,7 @@ static struct MenuItem * makeMenuItemTree(struct MenuItemV0 *menuitem)
 bug("abiv0_SetMenuStrip: STUB\n");
         }
         pi->SelectFill  = NULL;
-        if (menuitem->SelectFill != (APTR32)0) asm("int3");
+        if (menuitem->SelectFill != (APTR32)0) unhandledCodePath(__func__, "SelectFill != NULL", 0, 0);
         pi->Command     = menuitem->Command;
         pi->SubItem     = makeMenuItemTree((struct MenuItemV0 *)(IPTR)menuitem->SubItem);
         pi->NextSelect  = menuitem->NextSelect;

@@ -21,6 +21,8 @@
 
 #include "../exec/exec_ports.h"
 
+#include "../support.h"
+
 struct ExecBaseV0 *DOS_SysBaseV0;
 extern struct LibraryV0 *abiv0TimerBase;
 
@@ -80,7 +82,7 @@ static struct TagItemV0 *LibNextTagItemV0(struct TagItemV0 **tagListPtr)
         switch(((*tagListPtr)->ti_Tag))
         {
             case TAG_MORE:
-asm("int3");
+unhandledCodePath(__func__, "TAG_MORE", 0, 0);
                 if (!((*tagListPtr) = (struct TagItemV0 *)(IPTR)(*tagListPtr)->ti_Data))
                     return NULL;
                 continue;
@@ -93,7 +95,7 @@ asm("int3");
                 return NULL;
 
             case TAG_SKIP:
-asm("int3");
+unhandledCodePath(__func__, "TAG_SKIP", 0, 0);
                 (*tagListPtr) += (*tagListPtr)->ti_Data + 1;
                 continue;
 
@@ -251,7 +253,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
     childprocessidx = childprocess_getslot();
 
     if (childprocessidx == -1)
-        asm("int3"); // limited number of proceses for now
+unhandledCodePath(__func__, "Out of child processes", 0, 0);
 
     struct CreateNewProcMsg *msg = (struct CreateNewProcMsg *)AllocMem(sizeof(struct CreateNewProcMsg), MEMF_CLEAR);
     msg->cnp_Slot = childprocessidx;
@@ -301,8 +303,7 @@ struct ProcessV0 *abiv0_CreateNewProc(const struct TagItemV0 *tags, struct DosLi
             case TAG_IGNORE:
                 break;
             default:
-                bug("%x\n", tagNative->ti_Tag);
-                asm("int3");
+unhandledCodePath(__func__, "Tag", 0, tagNative->ti_Tag);
         }
         tagNative++;
     }
@@ -480,7 +481,7 @@ static APTR lock_WindowPtrEnter(struct Task *me)
     if (!meV0)
         meV0 = (struct ProcessV0 *)childprocess_getbynative(me);
 
-    if (!meV0) asm("int3");
+    if (!meV0)  unhandledCodePath(__func__, "!meV0", 0, 0);
 
     if (meV0->pr_WindowPtr == (APTR32)-1)
     {
@@ -671,7 +672,7 @@ APTR abiv0_AllocDosObject(ULONG type, const struct TagItemV0 * tags, struct DosL
         CALL32_ARG_3(_ret, dosfunctable[37], type, tags, DOSBaseV0);
         return _ret;
     }
-asm("int3");
+unhandledCodePath(__func__, "type/tags", type, (ULONG)(IPTR)tags);
 }
 MAKE_PROXY_ARG_3(AllocDosObject)
 
@@ -695,7 +696,7 @@ void abiv0_FreeDosObject(ULONG type, APTR ptr, struct DosLibraryV0 *DOSBaseV0)
         CALL32_ARG_3_NR(dosfunctable[38], type, ptr, DOSBaseV0);
         return;
     }
-asm("int3");
+unhandledCodePath(__func__, "type", type, 0);
 }
 MAKE_PROXY_ARG_3(FreeDosObject)
 
@@ -795,7 +796,7 @@ BOOL abiv0_ExAll(BPTR lock, struct ExAllDataV0 *buffer, LONG size, LONG type, st
     struct ExAllControlProxy *eacproxy = (struct ExAllControlProxy *)control;
     struct FileHandleProxy *fhproxy = (struct FileHandleProxy *)lock;
 
-if (type > ED_DATE) asm("int3"); // Support everything up to and including ED_DATE
+if (type > ED_DATE)  unhandledCodePath(__func__, "type", type, 0);
 
     if (eacproxy->base.eac_LastKey == 0)
     {
@@ -973,8 +974,7 @@ LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, str
             case SYS_Asynch:
                 break;
             default:
-                bug("%x\n", tagNative->ti_Tag);
-                asm("int3");
+ unhandledCodePath(__func__, "Tag", 0, tagNative->ti_Tag);
         }
 
         tagNative++;

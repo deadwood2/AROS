@@ -19,6 +19,8 @@
 #include "intuition_gadgets.h"
 #include "intuition_screens.h"
 
+#include "../support.h"
+
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 extern struct IClass *gadgetwrappercl;
 
@@ -38,7 +40,7 @@ static void wmAdd(struct WindowProxy *proxy)
             return;
         }
     }
-asm("int3");
+unhandledCodePath(__func__, "Out of array", 0, 0);
 }
 
 static void wmRemove(struct WindowProxy *proxy)
@@ -51,7 +53,7 @@ static void wmRemove(struct WindowProxy *proxy)
             return;
         }
     }
-asm("int3");
+unhandledCodePath(__func__, "Out of array", 0, 0);
 }
 
 struct WindowProxy * wmGetByWindow(struct Window *native)
@@ -63,7 +65,7 @@ struct WindowProxy * wmGetByWindow(struct Window *native)
             return wmarray[i];
         }
     }
-asm("int3");
+unhandledCodePath(__func__, "No match for native window", 0, 0);
     return NULL;
 }
 
@@ -115,7 +117,7 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
         if (proxy != NULL)
             v0msg->IDCMPWindow = (APTR32)(IPTR)proxy;
         else
-            asm("int3");
+unhandledCodePath(__func__, "IDCMPWindow proxy not found", 0, 0);
 
         v0msg->Code         = imsg->Code;
         v0msg->Qualifier    = imsg->Qualifier;
@@ -143,7 +145,7 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
                 }
                 else
                 {
-                    asm("int3");
+unhandledCodePath(__func__, "Not wrapped and not iconify gadget", nativeg->GadgetID, 0);
                 }
             }
         }
@@ -189,7 +191,9 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
         newWindowNative->IDCMPFlags = newWindow->IDCMPFlags;
         newWindowNative->Screen     = screenRemapV02N((struct ScreenV0 *)(IPTR)newWindow->Screen);
 
-        if (newWindow->FirstGadget != 0 || newWindow->CheckMark != 0 || newWindow->BitMap != 0) asm("int3");
+        if (newWindow->FirstGadget != 0) unhandledCodePath(__func__, "nw.FirstGadget", 0, 0);
+        if (newWindow->CheckMark != 0) unhandledCodePath(__func__, "nw.Checkmark", 0, 0);
+        if (newWindow->BitMap != 0) unhandledCodePath(__func__, "nw.BitMap", 0, 0);
     }
 
     struct GadgetV0 *firstGadgetV0 = NULL;
@@ -256,7 +260,7 @@ bug("abiv0_OpenWindowTagList: Removing WA_BackFill\n");
     }
     else
     {
-asm("int3");
+unhandledCodePath(__func__, "Window layer not RastPort layer", 0, 0);
     }
 
     struct BitMapProxy *bmproxy = abiv0_AllocMem(sizeof(struct BitMapProxy), MEMF_CLEAR, Intuition_SysBaseV0);

@@ -29,6 +29,8 @@
 #include "graphics_rastports.h"
 #include "graphics_regions.h"
 
+#include "../support.h"
+
 struct ExecBaseV0 *Gfx_SysBaseV0;
 
 void syncLayerV0(struct LayerProxy *proxy)
@@ -72,7 +74,7 @@ bug("abiv0_GetBitMapAttr: STUB\n");
         {
             return 24;
         }
-asm("int3");
+ unhandledCodePath(__func__, "Not BMA_DEPTH", 0, attribute);
     }
 
     if (bmproxy->native)
@@ -85,10 +87,10 @@ asm("int3");
         {
             return bitmap->Flags;
         }
-asm("int3");
+ unhandledCodePath(__func__, "Not BMA_FLAGS", 0, attribute);
     }
 
-asm("int3");
+ unhandledCodePath(__func__, "End", 0, 0);
 }
 MAKE_PROXY_ARG_3(GetBitMapAttr)
 
@@ -157,7 +159,7 @@ struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sy
         struct ColorTextFont *ctfnative = (struct ColorTextFont *)native;
         if ((ctfnative->ctf_Flags & CT_COLORMASK) != CT_ANTIALIAS)
         {
-asm("int3");
+ unhandledCodePath(__func__, "not CT_ANTIALIAS", 0, ctfnative->ctf_Flags);
         }
         else
         {
@@ -374,7 +376,7 @@ bug("abiv0_GetDisplayInfoData: STUB\n");
             break;
     }
 bug("abiv0_GetDisplayInfoData: STUB\n");
-asm("int3");
+unhandledCodePath(__func__, "Tag", 0, tagID);
     return 0;
 }
 MAKE_PROXY_ARG_6(GetDisplayInfoData)
@@ -457,8 +459,7 @@ bug("abiv0_VideoControl: STUB\n");
             }
             case(TAG_DONE): break;
             default:
-bug("abiv0_VideoControl unhandled tag %x\n", tmp->ti_Tag);
-asm("int3");
+unhandledCodePath(__func__, "Tag", 0, tmp->ti_Tag);
         }
     } while (LibNextTagItemV0(&tmp) != NULL);
 

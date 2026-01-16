@@ -47,7 +47,7 @@ struct Screen *screenRemapV02N(struct ScreenV0 *v0screen)
     if (v0screen == (struct ScreenV0 *)g_mainv0screen) return g_mainnativescreen;
     if (v0screen == (struct ScreenV0 *)g_additionalv0screen) return g_additionalnativescreen;
 
-asm("int3");
+unhandledCodePath(__func__, "No match", 0, 0);
     return NULL;
 }
 
@@ -57,7 +57,7 @@ struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen)
     if (nscreen == g_mainnativescreen) return (struct ScreenV0 *)g_mainv0screen;
     if (nscreen == g_additionalnativescreen) return (struct ScreenV0 *)g_additionalv0screen;
 
-asm("int3");
+unhandledCodePath(__func__, "No match", 0, 0);
     return NULL;
 }
 
@@ -69,7 +69,8 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     {
         // non-Workbench screen requsted
         if (g_additionalscreenname[0] == '\0' ) ; // none yet opened, ok
-        else asm("int3");
+        else
+unhandledCodePath(__func__, "Already opened", 0, 0);
     }
     else
     {
@@ -86,7 +87,7 @@ bug("abiv0_LockPubScreen: STUB\n");
     if (native == g_mainnativescreen)
         return (struct ScreenV0 *)g_mainv0screen;
     else
-        asm("int3"); // TODO: implement when additional screen found
+unhandledCodePath(__func__, "Not main screen", 0, 0);
 
     return NULL;
 }
@@ -247,7 +248,7 @@ static void addToPubScreenList(struct ScreenProxy *proxy, struct IntuitionBaseV0
 
 struct ScreenV0 * abiv0_OpenScreenTagList(struct NewScreenV0 *newScreen, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
 {
-    if (newScreen != NULL) asm("int3");
+    if (newScreen != NULL) unhandledCodePath(__func__, "newScreen != NULL", 0, 0);
 
     struct TagItem *tagListNative = CloneTagItemsV02Native(tagList);
 

@@ -16,6 +16,8 @@
 
 #include "exec_ports.h"
 
+#include "../support.h"
+
 extern struct LibraryV0 *abiv0TimerBase;
 extern struct DeviceProxy *abiv0InputBase;
 extern struct DeviceProxy *abiv0ConsoleBase;
@@ -49,7 +51,7 @@ static void io_checkandwrap_port(struct MsgPortV0 *port)
         MsgPortV0_fixed_connectnative(port, native);
         return;
     }
-asm("int3");
+unhandledCodePath(__func__, "sigtasknative == NULL", 0, 0);
 }
 
 LONG abiv0_OpenDevice(CONST_STRPTR devName, ULONG unitNumber, struct IORequestV0 *iORequest, ULONG flags, struct ExecBaseV0 *SysBaseV0)
@@ -139,7 +141,7 @@ bug("abiv0_OpenDevice: ahi.device STUB\n");
     }
 
 
-asm("int3");
+unhandledCodePath(__func__, "Unhandled device", 0, 0);
     return 0;
 }
 MAKE_PROXY_ARG_5(OpenDevice)
@@ -322,7 +324,7 @@ LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
             return proxy->io->io_Error;
         }
 bug("abiv0_DoIO: STUB\n");
-asm("int3");
+unhandledCodePath(__func__, "Unhandled command for input.device", IORequest->io_Command, 0);
     }
 
     if (proxy->type == DEVPROXY_TYPE_TIMER)
@@ -351,12 +353,12 @@ asm("int3");
 // bug("abiv0_DoIO: TR_ADDREQUEST STUB\n");
             return 0;
         }
-asm("int3");
+unhandledCodePath(__func__, "Unhandled command for timer.device", IORequest->io_Command, 0);
     }
 
     if (proxy->type == DEVPROXY_TYPE_AHI)
     {
-asm("int3");
+unhandledCodePath(__func__, "Unhandled command for ahi.device", IORequest->io_Command, 0);
     }
 
 bug("abiv0_DoIO: STUB\n");
@@ -489,7 +491,7 @@ static struct MessageV0 * TRIO_translate(struct Message *ior)
         return (struct MessageV0 *)pv0;
     }
 
-asm("int3");
+unhandledCodePath(__func__, "pv0 == NULL", 0, 0);
 }
 
 static struct MessageV0 * AHIIO_translate(struct Message *ior)
@@ -507,7 +509,7 @@ void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
         {
             LONG slot = trio_request_slot();
 
-            if (slot == -1) asm("int3");
+            if (slot == -1) unhandledCodePath(__func__, "timer, slot == -1", 0, 0);
 
             struct timerequest *io = AllocMem(sizeof(struct timerequest), MEMF_PUBLIC | MEMF_CLEAR);
             io->tr_node.io_Message.mn_ReplyPort =
@@ -515,7 +517,7 @@ void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
             io->tr_node.io_Message.mn_Length = sizeof(struct timerequest);
 
             struct MsgPortProxy *pproxy = MsgPortV0_getproxy((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
-            if (!pproxy || (pproxy->translate != NULL && pproxy->translate != TRIO_translate)) asm("int3");
+            if (!pproxy || (pproxy->translate != NULL && pproxy->translate != TRIO_translate)) unhandledCodePath(__func__, "timer, C1", 0, 0);
             else pproxy->translate = TRIO_translate;
 
             io->tr_node.io_Device = TimerBase;
@@ -528,7 +530,7 @@ void abiv0_SendIO(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBaseV0)
             SendIO((struct IORequest *)io);
             return;
         }
-asm("int3");
+unhandledCodePath(__func__, "Unhandled command for timer.device", iORequest->io_Command, 0);
     }
 
     if (dproxy->type == DEVPROXY_TYPE_AHI)
@@ -537,7 +539,7 @@ asm("int3");
         {
             LONG slot = ahiio_request_slot();
 
-            if (slot == -1) asm("int3");
+            if (slot == -1) unhandledCodePath(__func__, "ahi, slot == -1", 0, 0);
 
             struct AHIRequest *io = AllocMem(sizeof(struct AHIRequest), MEMF_PUBLIC | MEMF_CLEAR);
             io_checkandwrap_port((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
@@ -547,7 +549,7 @@ asm("int3");
             io->ahir_Std.io_Message.mn_Length = sizeof(struct AHIRequest);
 
             struct MsgPortProxy *pproxy = MsgPortV0_getproxy((struct MsgPortV0 *)(IPTR)iORequest->io_Message.mn_ReplyPort);
-            if (!pproxy || (pproxy->translate != NULL && pproxy->translate != AHIIO_translate)) asm("int3");
+            if (!pproxy || (pproxy->translate != NULL && pproxy->translate != AHIIO_translate)) unhandledCodePath(__func__, "ahi, C1", 0, 0);
             else pproxy->translate = AHIIO_translate;
 
             io->ahir_Std.io_Device  = dproxy->native;
@@ -573,7 +575,7 @@ asm("int3");
             SendIO((struct IORequest *)io);
             return;
         }
-asm("int3");
+unhandledCodePath(__func__, "Unhandled command for ahi.device", iORequest->io_Command, 0);
     }
 
 bug("abiv0_SendIO: STUB\n");

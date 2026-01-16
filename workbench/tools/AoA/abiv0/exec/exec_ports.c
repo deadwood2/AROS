@@ -11,6 +11,8 @@
 #include "../include/aros/cpu.h"
 #include "../include/aros/proxy.h"
 
+#include "../support.h"
+
 struct MsgPortV0 * abiv0_CreateMsgPort(struct ExecBaseV0 *SysBaseV0)
 {
     struct MsgPortProxy *proxy = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, SysBaseV0);
@@ -94,7 +96,8 @@ struct MsgPort * MsgPortV0_getnative(struct MsgPortV0 *port)
         return ((struct MsgPortProxy *)port)->native;
     else if (port->mp_MsgList.l_pad == 3)
             return ((struct MsgPortProxy *)(*(IPTR *)(&port->mp_Node)))->native;
-    else asm("int3");
+    else
+unhandledCodePath(__func__, "no native", 0, 0);
 
     return NULL;
 }
@@ -140,7 +143,7 @@ struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBa
     }
 
 bug("abiv0_GetMsg: STUB\n");
-asm("int3");
+ unhandledCodePath(__func__, "End", 0, 0);
     return NULL;
 }
 MAKE_PROXY_ARG_2(GetMsg)

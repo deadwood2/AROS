@@ -15,6 +15,8 @@
 #include "../include/exec/functions.h"
 #include "../include/exec/structures.h"
 
+#include "../support.h"
+
 extern ULONG *execfunctable;
 extern struct DosLibraryV0 *abiv0DOSBase;
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
@@ -133,7 +135,7 @@ APTR abiv0_OpenResource(CONST_STRPTR resName)
     if (strcmp(resName, "kernel.resource") == 0)
         return NULL;
 
-asm("int3");
+unhandledCodePath(__func__, "Not kernel.resource", 0, 0);
     return (APTR)0x1;
 }
 MAKE_PROXY_ARG_2(OpenResource)
@@ -237,7 +239,7 @@ AROS_LD3(void, CacheClearE,
 
 void _aros_not_implemented(char *lvo)
 {
-    asm("int3");
+unhandledCodePath(__func__, "", 0, 0);
 }
 
 static ULONG  int_MakeFunctions(APTR target, APTR32 functionArray, APTR32 funcDispBase, struct ExecBaseV0 *SysBaseV0)
@@ -251,7 +253,7 @@ static ULONG  int_MakeFunctions(APTR target, APTR32 functionArray, APTR32 funcDi
 
     if (funcDispBase!=(APTR32)(IPTR)NULL)
     {
-asm("int3");
+unhandledCodePath(__func__, "funcDispBase != NULL", 0, 0);
         // /* If FuncDispBase is non-NULL it's an array of relative offsets */
         // WORD *fp=(WORD *)functionArray;
 
@@ -382,7 +384,7 @@ struct LibraryV0 * abiv0_MakeLibrary(APTR32 funcInit, APTR32 structInit, APTR32 
 
         /* Create structure, do not clear struct Library */
         if(structInit!=(APTR32)(IPTR)NULL)
-asm("int3");
+unhandledCodePath(__func__, "structInit != NULL", 0, 0);
             // InitStruct(structInit,library,0);
 
         /* Call init vector */
@@ -390,7 +392,7 @@ asm("int3");
         {
             D(bug("Calling init function 0x%p", libInit));
 
-asm("int3");
+unhandledCodePath(__func__, "libInit != NULL", 0, 0);
             // library=AROS_UFC3(struct Library *, libInit,
             //     AROS_UFCA(struct Library *,  library, D0),
             //     AROS_UFCA(BPTR,              segList, A0),
@@ -500,7 +502,7 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
                 switch(resident->rt_Type)
                 {
                     case NT_DEVICE:
-                    asm("int3");
+unhandledCodePath(__func__, "NT_DEVICE", 0, 0);
                         // AddDevice((struct Device *)library);
                         break;
                     case NT_LIBRARY:
@@ -508,7 +510,7 @@ APTR abiv0_InitResident(struct ResidentV0 *resident, BPTR segList, struct ExecBa
                         int_AddLibrary(library, SysBaseV0);
                         break;
                     case NT_RESOURCE:
-                    asm("int3");
+unhandledCodePath(__func__, "NT_RESOURCE", 0, 0);
                         // AddResource(library);
                         break;
                 }

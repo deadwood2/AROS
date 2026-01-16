@@ -21,6 +21,8 @@
 #include "exec_libraries.h"
 #include "exec_ports.h"
 
+#include "../support.h"
+
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ExecBaseV0 *abiv0SysBase;
 
@@ -310,7 +312,7 @@ BYTE abiv0_SetTaskPri(struct TaskV0 *task, LONG priority, struct ExecBaseV0 *Sys
     if (child)
         return SetTaskPri(child, priority);
 
-asm("int3");
+unhandledCodePath(__func__, "Unknown task", 0, (ULONG)(IPTR)task);
     return 0;
 }
 MAKE_PROXY_ARG_3(SetTaskPri)
@@ -330,7 +332,7 @@ void  abiv0_Signal(struct TaskV0 *task, ULONG signalSet, struct ExecBaseV0 *SysB
         return;
     }
 
-asm("int3");
+unhandledCodePath(__func__, "Unknown task", 0, (ULONG)(IPTR)task);
     return;
 }
 MAKE_PROXY_ARG_3(Signal)
