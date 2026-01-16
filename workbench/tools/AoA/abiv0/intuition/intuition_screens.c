@@ -361,7 +361,7 @@ void Intuition_Screens_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  87, (APTR32)(IPTR)proxy_LockPubScreenList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  41, intuitionjmp[165 -  41]);  // ScreenToBack
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  88, (APTR32)(IPTR)proxy_UnlockPubScreenList);
-    // __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  92, (APTR32)(IPTR)proxy_PubScreenStatus);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  11, (APTR32)(IPTR)proxy_CloseScreen);
 }
