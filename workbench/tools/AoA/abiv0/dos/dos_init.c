@@ -882,6 +882,7 @@ SIPTR abiv0_IoErr(struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_1(IoErr)
 
+/* Note: does not support running 32-bit commands, only native 64-bit commands */
 LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, struct DosLibraryV0 *DOSBaseV0)
 {
     struct TagItem *tagListNative = CloneTagItemsV02Native(tags);
@@ -911,6 +912,8 @@ LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, str
             case SYS_UserShell:
             case SYS_Background:
             case SYS_Asynch:
+            case NP_StackSize:
+            case NP_Priority:
                 break;
             default:
  unhandledCodePath(__func__, "Tag", 0, tagNative->ti_Tag);
@@ -919,7 +922,7 @@ LONG abiv0_SystemTagList(CONST_STRPTR command, const struct TagItemV0 *tags, str
         tagNative++;
     }
 
-bug("abiv0_SystemTagList: STUB\n");
+bug("abiv0_SystemTagList: STUB %s\n", command);
     return SystemTagList(command, tagListNative);
 }
 MAKE_PROXY_ARG_3(SystemTagList)
