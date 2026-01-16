@@ -22,7 +22,7 @@ __asm__ volatile(               \
 
 #define MAKE_PROXY_ARG_1(fname) \
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
@@ -38,7 +38,7 @@ void dummy_##fname()            \
 
 #define MAKE_PROXY_ARG_2(fname) \
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
@@ -55,7 +55,7 @@ void dummy_##fname()            \
 
 #define MAKE_PROXY_ARG_3(fname) \
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
@@ -73,7 +73,7 @@ void dummy_##fname()            \
 
 #define MAKE_PROXY_ARG_4(fname) \
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
@@ -92,7 +92,7 @@ void dummy_##fname()            \
 
 #define MAKE_PROXY_ARG_5(fname) \
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
@@ -112,7 +112,7 @@ void dummy_##fname()            \
 
 #define MAKE_PROXY_ARG_6(fname) \
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
@@ -135,7 +135,7 @@ void dummy_##fname()            \
    even number of arguments or pushing a dummy argument on stack */
 #define MAKE_PROXY_ARG_12(fname)\
 void proxy_##fname();           \
-void dummy_##fname()            \
+static void dummy_##fname()     \
 {                               \
     EXTER_PROXY(fname)          \
     STORE_ESI_EDI               \
