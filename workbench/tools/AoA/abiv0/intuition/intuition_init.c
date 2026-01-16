@@ -432,6 +432,8 @@ extern ULONG _GlobalEditFunc;
 
 static BPTR intuitionseg;
 
+void Intuition_Unhandled_init(struct IntuitionBaseV0 *abiv0IntuitionBase);
+
 void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
 {
     TEXT path[64];
@@ -461,9 +463,8 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
         ::"m"(Intuition_SysBaseV0), "m"(seginitlist[1])
         : SCRATCH_REGS_64_TO_32 );
 
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (LONG i = 5; i <= 164; i++)
-        __AROS_SETVECADDRV0(abiv0IntuitionBase,   i, (APTR32)(IPTR)i + 200 + 300 + 200);
+    /* Set all unhandled LVO addresses to a catch function */
+    Intuition_Unhandled_init(abiv0IntuitionBase);
 
     /* Set all working LVOs */
     __AROS_SETVECADDRV0(abiv0IntuitionBase,   1, (APTR32)(IPTR)proxy_Intuition_OpenLib);
