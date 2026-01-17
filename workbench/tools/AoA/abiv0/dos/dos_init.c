@@ -288,6 +288,9 @@ MAKE_PROXY_ARG_3(UnGetC)
 
 BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
+    if (strcmp(name, "LIBS:Zune/TextEditor.mcc") == 0)
+        name = "LIBSV0:Zune/TextEditor.mcc";
+
     if (strcmp(name, "LIBS:Zune/TheBar.mcc") == 0)
         name = "LIBSV0:Zune/TheBar.mcc";
 
