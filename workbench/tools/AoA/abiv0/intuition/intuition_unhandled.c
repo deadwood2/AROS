@@ -144,8 +144,6 @@ static void abiv0_unhandledLVO130() { unhandledLibraryFunction("intuition.librar
 MAKE_PROXY_ARG_1(unhandledLVO130)
 static void abiv0_unhandledLVO132() { unhandledLibraryFunction("intuition.library", 132); }
 MAKE_PROXY_ARG_1(unhandledLVO132)
-static void abiv0_unhandledLVO133() { unhandledLibraryFunction("intuition.library", 133); }
-MAKE_PROXY_ARG_1(unhandledLVO133)
 static void abiv0_unhandledLVO134() { unhandledLibraryFunction("intuition.library", 134); }
 MAKE_PROXY_ARG_1(unhandledLVO134)
 static void abiv0_unhandledLVO137() { unhandledLibraryFunction("intuition.library", 137); }
@@ -273,7 +271,6 @@ void Intuition_Unhandled_init(struct LibraryV0 *abiv0IntuitionBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  129, (APTR32)(IPTR)proxy_unhandledLVO129);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  130, (APTR32)(IPTR)proxy_unhandledLVO130);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  132, (APTR32)(IPTR)proxy_unhandledLVO132);
-    __AROS_SETVECADDRV0(abiv0IntuitionBase,  133, (APTR32)(IPTR)proxy_unhandledLVO133);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  134, (APTR32)(IPTR)proxy_unhandledLVO134);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  137, (APTR32)(IPTR)proxy_unhandledLVO137);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  138, (APTR32)(IPTR)proxy_unhandledLVO138);
