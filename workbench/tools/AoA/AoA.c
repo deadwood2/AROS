@@ -295,8 +295,21 @@ LONG abiv0_WriteLUTPixelArray(APTR srcRect, UWORD SrcX, UWORD SrcY, UWORD SrcMod
     APTR CTable, UWORD DestX, UWORD DestY, UWORD SizeX, UWORD SizeY, UBYTE CTabFormat, struct LibraryV0 *CyberGfxBaseV0)
 {
     struct RastPort *rpnative = RastPortV0_getnative(rp);
+    LONG _ret;
+    BITMAPLAYERPRE
 
-    return WriteLUTPixelArray(srcRect, SrcX, SrcY, SrcMod, rpnative, CTable, DestX, DestY, SizeX, SizeY, CTabFormat);
+    if (rpnative->BitMap == NULL)
+    {
+        /* RNOTunes when showing AboutMUI */
+        recreateNativeRastPortBitMap(rp, rpnative, &bmtmp);
+        clearBM = TRUE;
+    }
+
+    _ret = WriteLUTPixelArray(srcRect, SrcX, SrcY, SrcMod, rpnative, CTable, DestX, DestY, SizeX, SizeY, CTabFormat);
+
+    BITMAPLAYERPOST
+
+    return _ret;
 }
 MAKE_PROXY_ARG_12(WriteLUTPixelArray)
 
