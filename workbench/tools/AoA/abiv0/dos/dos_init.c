@@ -6,6 +6,7 @@
 #include <proto/dos.h>
 #include <aros/debug.h>
 #include <exec/rawfmt.h>
+#include <proto/utility.h>
 
 #include <string.h>
 
@@ -288,13 +289,23 @@ MAKE_PROXY_ARG_3(UnGetC)
 
 BPTR abiv0_Open(CONST_STRPTR name, LONG accessMode, struct DosLibraryV0 *DOSBaseV0)
 {
-    if (strcmp(name, "LIBS:Zune/TextEditor.mcc") == 0)
-        name = "LIBSV0:Zune/TextEditor.mcc";
+    TEXT ttmp[128]; // Assumes 32-bit stack only
+    CONST_STRPTR p = name;
 
-    if (strcmp(name, "LIBS:Zune/TheBar.mcc") == 0)
-        name = "LIBSV0:Zune/TheBar.mcc";
+    /* Workaround for Hollywood looking for it's plugins in LIBS:Hollywood */
+    if (strstr(name, "LIBS:Hollywood") == (char *)name)
+    {
+        SNPrintf(ttmp, 128, "%s%s", "LIBSV0", (name + 4));
+        p = ttmp;
+    }
 
-    BPTR tmp = Open(name, accessMode);
+    if (strcmp(p, "LIBS:Zune/TextEditor.mcc") == 0)
+        p = "LIBSV0:Zune/TextEditor.mcc";
+
+    if (strcmp(p, "LIBS:Zune/TheBar.mcc") == 0)
+        p = "LIBSV0:Zune/TheBar.mcc";
+
+    BPTR tmp = Open(p, accessMode);
 
     if (tmp == BNULL)
         return BNULL;
@@ -965,8 +976,6 @@ BOOL abiv0_SetFileDate(CONST_STRPTR name, const struct DateStamp *date, struct D
     return SetFileDate(name, date);
 }
 MAKE_PROXY_ARG_3(SetFileDate)
-
-#include <proto/utility.h>
 
 BPTR abiv0_LoadSeg(CONST_STRPTR name, struct DosLibraryV0 *DOSBaseV0)
 {
