@@ -202,27 +202,78 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
 
     while (tagNative->ti_Tag != TAG_DONE)
     {
-        if (tagNative->ti_Tag == WA_CustomScreen)
+        if (tagNative->ti_Tag < 0x80000000) /* Memory garbage? */
         {
-            tagNative->ti_Data = (IPTR)screenRemapV02N((struct ScreenV0 *)tagNative->ti_Data);
+            tagNative++;
+            continue;
         }
 
-        if (tagNative->ti_Tag == WA_PubScreen)
+        switch (tagNative->ti_Tag)
         {
-            tagNative->ti_Data = (IPTR)screenRemapV02N((struct ScreenV0 *)tagNative->ti_Data);
-        }
-
-        if (tagNative->ti_Tag == WA_Gadgets)
-        {
-            /* Gadgets cannot be added at native window creation time. See comment at end of function */
-            firstGadgetV0 = (struct GadgetV0 *)tagNative->ti_Data;
-            tagNative->ti_Tag = TAG_IGNORE;
-        }
-
-        if (tagNative->ti_Tag == WA_BackFill && tagNative->ti_Data != 1)
-        {
+            case (WA_Left):
+            case (WA_Top):
+            case (WA_Width):
+            case (WA_Height):
+            case (WA_Flags):
+            case (WA_Title):
+            case (TAG_IGNORE):
+            case (WA_InnerWidth):
+            case (WA_InnerHeight):
+            case (WA_AutoAdjust):
+            case (WA_NewLookMenus):
+            case (WA_Zoom):
+            case (WA_IDCMP):
+            case (WA_MinWidth):
+            case (WA_MinHeight):
+            case (WA_MaxWidth):
+            case (WA_MaxHeight):
+            case (WA_Activate):
+            case (WA_SizeGadget):
+            case (WA_DragBar):
+            case (WA_DepthGadget):
+            case (WA_CloseGadget):
+            case (WA_Borderless):
+            case (WA_SimpleRefresh):
+            case (WA_SmartRefresh):
+            case (WA_RMBTrap):
+            case (WA_ReportMouse):
+            case (WA_ScreenTitle):
+                break;
+            case (0x8000009D): /* WA_ToolBox*/
+                tagNative->ti_Tag = WA_ToolBox;
+                break;
+            case (0x800000FE): /* ??? */
+            case (0x800000FF): /* ??? */
+            case (0x80000100): /* ??? */
+            case (0x800000FC): /* ??? */
+                break;
+            case (WA_CustomScreen):
+            {
+                tagNative->ti_Data = (IPTR)screenRemapV02N((struct ScreenV0 *)tagNative->ti_Data);
+                break;
+            }
+            case (WA_PubScreen):
+            {
+                tagNative->ti_Data = (IPTR)screenRemapV02N((struct ScreenV0 *)tagNative->ti_Data);
+                break;
+            }
+            case (WA_Gadgets):
+                /* Gadgets cannot be added at native window creation time. See comment at end of function */
+                firstGadgetV0 = (struct GadgetV0 *)tagNative->ti_Data;
+                tagNative->ti_Tag = TAG_IGNORE;
+                break;
+            case (WA_BackFill):
+            {
+                if (tagNative->ti_Data != 1)
+                {
 bug("abiv0_OpenWindowTagList: Removing WA_BackFill\n");
-            tagNative->ti_Tag = TAG_IGNORE;
+                    tagNative->ti_Tag = TAG_IGNORE;
+                }
+                break;
+            }
+            default:
+                unhandledCodePath(__func__, "Tags", 0, tagNative->ti_Tag);
+                break;
         }
 
         tagNative++;
