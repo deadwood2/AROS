@@ -99,7 +99,7 @@ MAKE_PROXY_ARG_3(UnlockPubScreen)
 
 void abiv0_ScreenDepth(struct ScreenV0 *screen, ULONG flags, APTR reserved, struct LibraryV0 *IntuitionBaseV0)
 {
-bug("abiv0_ScreenDepth: STUB\n");
+    ScreenDepth(screenRemapV02N(screen), flags, reserved);
 }
 MAKE_PROXY_ARG_4(ScreenDepth)
 
