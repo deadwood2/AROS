@@ -59,6 +59,8 @@ unhandledCodePath(__func__, "No match", 0, 0);
 }
 
 extern struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
+static struct ScreenProxy *makeScreenProxy(struct Screen *native, struct LibraryV0 *IntuitionBaseV0);
+static void addToPubScreenList(struct ScreenProxy *proxy, struct IntuitionBaseV0 *IntuitionBaseV0);
 
 struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *IntuitionBaseV0)
 {
@@ -66,6 +68,7 @@ struct ScreenV0 *abiv0_LockPubScreen(CONST_STRPTR name, struct LibraryV0 *Intuit
     {
         // non-Workbench screen requsted
         if (g_additionalscreenname[0] == '\0' ) ; // none yet opened, ok
+        else if (strcmp(g_additionalscreenname, name) == 0) ; // this one already opened, ok
         else
 unhandledCodePath(__func__, "Already opened", 0, 0);
     }
@@ -79,20 +82,30 @@ unhandledCodePath(__func__, "Already opened", 0, 0);
     if (native == NULL)
         return NULL;
 
-bug("abiv0_LockPubScreen: STUB\n");
+bug("abiv0_LockPubScreen: STUB %p %s\n", native, name != NULL ? name : "NULL");
 
-    if (native == g_mainnativescreen)
-        return (struct ScreenV0 *)g_mainv0screen;
-    else
-unhandledCodePath(__func__, "Not main screen", 0, 0);
+    /* If we are here then native is either a mainscreen or additional screen */
+    if (native != g_mainnativescreen)
+    {
+        if (g_additionalnativescreen == NULL)
+        {
+            struct ScreenProxy *proxy = makeScreenProxy(native, IntuitionBaseV0);
+            addToPubScreenList(proxy, (struct IntuitionBaseV0 *)IntuitionBaseV0);
 
-    return NULL;
+            g_additionalnativescreen = proxy->native;
+            g_additionalv0screen = &proxy->base;
+            strcpy(g_additionalscreenname, name);
+        }
+    }
+
+    return screenRemapN2V0(native); /* This will abort if it neither main or additional screen */
 }
 MAKE_PROXY_ARG_2(LockPubScreen)
 
 void abiv0_UnlockPubScreen(UBYTE *name, struct ScreenV0 *screen, struct LibraryV0 *IntuitionBaseV0)
 {
     struct ScreenProxy *proxy = (struct ScreenProxy *)screen;
+    // TODO: what about unlock additional screen?
     UnlockPubScreen(name, proxy->native);
 }
 MAKE_PROXY_ARG_3(UnlockPubScreen)
