@@ -110,6 +110,18 @@ VOID abiv0_Permit(struct ExecBaseV0 *SysBaseV0)
 }
 MAKE_PROXY_ARG_1(Permit)
 
+void abiv0_Disable(struct ExecBaseV0 *SysBaseV0)
+{
+    Disable();
+}
+MAKE_PROXY_ARG_1(Disable)
+
+void abiv0_Enable(struct ExecBaseV0 *SysBaseV0)
+{
+    Enable();
+}
+MAKE_PROXY_ARG_1(Enable)
+
 void nss_trampoline();
 void dummy_nss_trampoline()
 {
@@ -518,6 +530,8 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,105, execfunctable[104]);   // CopyMemQuick
     __AROS_SETVECADDRV0(abiv0SysBase,181, (APTR32)(IPTR)proxy_FreeTaskStorageSlot);
     __AROS_SETVECADDRV0(abiv0SysBase,130, (APTR32)(IPTR)proxy_RemMemHandler);
+    __AROS_SETVECADDRV0(abiv0SysBase, 20, (APTR32)(IPTR)proxy_Disable);
+    __AROS_SETVECADDRV0(abiv0SysBase, 21, (APTR32)(IPTR)proxy_Enable);
 
 
     Exec_Devices_init(abiv0SysBase);

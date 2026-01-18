@@ -32,10 +32,6 @@ static void abiv0_unhandledLVO18() { unhandledLibraryFunction("exec.library", 18
 MAKE_PROXY_ARG_1(unhandledLVO18)
 static void abiv0_unhandledLVO19() { unhandledLibraryFunction("exec.library", 19); }
 MAKE_PROXY_ARG_1(unhandledLVO19)
-static void abiv0_unhandledLVO20() { unhandledLibraryFunction("exec.library", 20); }
-MAKE_PROXY_ARG_1(unhandledLVO20)
-static void abiv0_unhandledLVO21() { unhandledLibraryFunction("exec.library", 21); }
-MAKE_PROXY_ARG_1(unhandledLVO21)
 static void abiv0_unhandledLVO24() { unhandledLibraryFunction("exec.library", 24); }
 MAKE_PROXY_ARG_1(unhandledLVO24)
 static void abiv0_unhandledLVO25() { unhandledLibraryFunction("exec.library", 25); }
@@ -235,8 +231,6 @@ void Exec_Unhandled_init(struct LibraryV0 *abiv0SysBase)
     __AROS_SETVECADDRV0(abiv0SysBase,  17, (APTR32)(IPTR)proxy_unhandledLVO17);
     __AROS_SETVECADDRV0(abiv0SysBase,  18, (APTR32)(IPTR)proxy_unhandledLVO18);
     __AROS_SETVECADDRV0(abiv0SysBase,  19, (APTR32)(IPTR)proxy_unhandledLVO19);
-    __AROS_SETVECADDRV0(abiv0SysBase,  20, (APTR32)(IPTR)proxy_unhandledLVO20);
-    __AROS_SETVECADDRV0(abiv0SysBase,  21, (APTR32)(IPTR)proxy_unhandledLVO21);
     __AROS_SETVECADDRV0(abiv0SysBase,  24, (APTR32)(IPTR)proxy_unhandledLVO24);
     __AROS_SETVECADDRV0(abiv0SysBase,  25, (APTR32)(IPTR)proxy_unhandledLVO25);
     __AROS_SETVECADDRV0(abiv0SysBase,  26, (APTR32)(IPTR)proxy_unhandledLVO26);
