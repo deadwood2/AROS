@@ -226,6 +226,7 @@ unhandledCodePath(__func__, "Out of child processes", 0, 0);
                 msg->cnp_Entry = (APTR32)tagNative->ti_Data;
                 tagNative->ti_Data = (IPTR)createNewProc_trampoline;
                 break;
+            case NP_Input:
             case NP_Output:
             {
                 if (tagNative->ti_Data)
@@ -238,6 +239,7 @@ unhandledCodePath(__func__, "Out of child processes", 0, 0);
             }
             case NP_Arguments:
             case NP_UserData:
+            case NP_CloseInput:
             case NP_CloseOutput:
             case NP_Priority:
             case TAG_IGNORE:

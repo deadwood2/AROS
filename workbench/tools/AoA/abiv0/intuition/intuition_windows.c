@@ -288,6 +288,7 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
             case (WA_RMBTrap):
             case (WA_ReportMouse):
             case (WA_ScreenTitle):
+            case (WA_GimmeZeroZero):
                 break;
             case (0x8000009D): /* WA_ToolBox*/
                 tagNative->ti_Tag = WA_ToolBox;
