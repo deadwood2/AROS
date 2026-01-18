@@ -82,7 +82,7 @@ unhandledCodePath(__func__, "Already opened", 0, 0);
     if (native == NULL)
         return NULL;
 
-bug("abiv0_LockPubScreen: STUB %p %s\n", native, name != NULL ? name : "NULL");
+bug("abiv0_LockPubScreen: STUB\n");
 
     /* If we are here then native is either a mainscreen or additional screen */
     if (native != g_mainnativescreen)
