@@ -236,6 +236,39 @@ void abiv0_WriteChunkyPixels(struct RastPortV0 *rp, LONG xstart, LONG ystart, LO
 }
 MAKE_PROXY_ARG_12(WriteChunkyPixels)
 
+void abiv0_ClipBlit(struct RastPortV0 *srcRP, LONG xSrc, LONG ySrc, struct RastPortV0 *destRP, LONG xDest, LONG yDest,
+    LONG xSize, LONG ySize, UBYTE minterm, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *srcrpnative = RastPortV0_getnative(srcRP);
+    struct RastPort *destrpnative = RastPortV0_getnative(destRP);
+    struct BitMap srcbmtmp, destbmtmp;
+    BOOL clearBM_S = FALSE, clearBM_D = FALSE;
+    BOOL clearL_S = FALSE, clearL_D = FALSE;
+
+    if (srcrpnative->BitMap == NULL)
+    {
+        /* Soliton operates on locally created RastPort */
+        recreateNativeRastPortBitMap(srcRP, srcrpnative, &srcbmtmp);
+        clearBM_S = TRUE;
+    }
+
+    if (destrpnative->BitMap == NULL)
+    {
+        /* Soliton operates on locally created RastPort */
+        recreateNativeRastPortBitMap(destRP, destrpnative, &destbmtmp);
+        clearBM_D = TRUE;
+    }
+
+    ClipBlit(srcrpnative, xSrc, ySrc, destrpnative, xDest, yDest, xSize, ySize, minterm);
+
+    if (clearBM_S) srcrpnative->BitMap = NULL;
+    if (clearL_S) srcrpnative->Layer = NULL;
+
+    if (clearBM_D) destrpnative->BitMap = NULL;
+    if (clearL_D) destrpnative->Layer = NULL;
+}
+MAKE_PROXY_ARG_12(ClipBlit)
+
 void Graphics_Operations_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp)
 {
     __AROS_SETVECADDRV0(abiv0GfxBase,  51, (APTR32)(IPTR)proxy_RectFill);
@@ -257,4 +290,5 @@ void Graphics_Operations_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjm
     __AROS_SETVECADDRV0(abiv0GfxBase,  43, graphicsjmp[202 -  43]);  // AreaDraw
     __AROS_SETVECADDRV0(abiv0GfxBase,  44, graphicsjmp[202 -  44]);  // AreaEnd
     __AROS_SETVECADDRV0(abiv0GfxBase,  52, (APTR32)(IPTR)proxy_BltPattern);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  92, (APTR32)(IPTR)proxy_ClipBlit);
 }

@@ -1133,6 +1133,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  30, (APTR32)(IPTR)proxy_SetComment);
     __AROS_SETVECADDRV0(abiv0DOSBase,  66, (APTR32)(IPTR)proxy_SetFileDate);
     __AROS_SETVECADDRV0(abiv0DOSBase,  57, dosfunctable[ 56]);  // FPuts
+    __AROS_SETVECADDRV0(abiv0DOSBase,  59, dosfunctable[ 58]);  // VFPrintf
 }
 
 void exit_dos()

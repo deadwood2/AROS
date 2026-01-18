@@ -348,6 +348,12 @@ bug("abiv0_UnlockPubScreenList: STUB\n");
 }
 MAKE_PROXY_ARG_1(UnlockPubScreenList)
 
+void abiv0_DisplayBeep(struct ScreenV0 *screen, struct LibraryV0 *IntuitionBaseV0)
+{
+    DisplayBeep(screenRemapV02N(screen));
+}
+MAKE_PROXY_ARG_2(DisplayBeep)
+
 void Intuition_Screens_init_first_screen(struct IntuitionBaseV0 *IntuitionBaseV0)
 {
     struct Screen *native = LockPubScreen(NULL);
@@ -379,4 +385,5 @@ void Intuition_Screens_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 102, (APTR32)(IPTR)proxy_OpenScreenTagList);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  92, (APTR32)(IPTR)proxy_PubScreenStatus);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  11, (APTR32)(IPTR)proxy_CloseScreen);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  16, (APTR32)(IPTR)proxy_DisplayBeep);
 }

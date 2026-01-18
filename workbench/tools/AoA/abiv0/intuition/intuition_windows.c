@@ -242,6 +242,13 @@ struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct T
             case (0x8000009D): /* WA_ToolBox*/
                 tagNative->ti_Tag = WA_ToolBox;
                 break;
+            case (0x800000CC): /* WA_ShapeRegion */
+            {
+                tagNative->ti_Tag = WA_ShapeRegion;
+                struct RegionProxy *rproxy = (struct RegionProxy *)(IPTR)(tagNative->ti_Data);
+                tagNative->ti_Data = (IPTR)rproxy->native;
+                break;
+            }
             case (0x800000FE): /* ??? */
             case (0x800000FF): /* ??? */
             case (0x80000100): /* ??? */

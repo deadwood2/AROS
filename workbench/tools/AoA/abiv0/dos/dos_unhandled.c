@@ -42,8 +42,6 @@ static void abiv0_unhandledLVO50() { unhandledLibraryFunction("dos.library", 50)
 MAKE_PROXY_ARG_1(unhandledLVO50)
 static void abiv0_unhandledLVO58() { unhandledLibraryFunction("dos.library", 58); }
 MAKE_PROXY_ARG_1(unhandledLVO58)
-static void abiv0_unhandledLVO59() { unhandledLibraryFunction("dos.library", 59); }
-MAKE_PROXY_ARG_1(unhandledLVO59)
 static void abiv0_unhandledLVO63() { unhandledLibraryFunction("dos.library", 63); }
 MAKE_PROXY_ARG_1(unhandledLVO63)
 static void abiv0_unhandledLVO64() { unhandledLibraryFunction("dos.library", 64); }
@@ -302,7 +300,6 @@ void Dos_Unhandled_init(struct LibraryV0 *abiv0DOSBase)
     __AROS_SETVECADDRV0(abiv0DOSBase,  49, (APTR32)(IPTR)proxy_unhandledLVO49);
     __AROS_SETVECADDRV0(abiv0DOSBase,  50, (APTR32)(IPTR)proxy_unhandledLVO50);
     __AROS_SETVECADDRV0(abiv0DOSBase,  58, (APTR32)(IPTR)proxy_unhandledLVO58);
-    __AROS_SETVECADDRV0(abiv0DOSBase,  59, (APTR32)(IPTR)proxy_unhandledLVO59);
     __AROS_SETVECADDRV0(abiv0DOSBase,  63, (APTR32)(IPTR)proxy_unhandledLVO63);
     __AROS_SETVECADDRV0(abiv0DOSBase,  64, (APTR32)(IPTR)proxy_unhandledLVO64);
     __AROS_SETVECADDRV0(abiv0DOSBase,  71, (APTR32)(IPTR)proxy_unhandledLVO71);
