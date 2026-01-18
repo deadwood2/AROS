@@ -26,11 +26,12 @@ extern struct IClass *gadgetwrappercl;
 
 void syncLayerV0(struct LayerProxy *proxy);
 
-struct WindowProxy *wmarray[100];
+#define WMARRAYSIZE 100
+struct WindowProxy *wmarray[WMARRAYSIZE];
 
 static void wmAdd(struct WindowProxy *proxy)
 {
-    for (LONG i = 0; i < 100; i++)
+    for (LONG i = 0; i < WMARRAYSIZE; i++)
     {
         if (wmarray[i] == NULL)
         {
@@ -43,7 +44,7 @@ unhandledCodePath(__func__, "Out of array", 0, 0);
 
 static void wmRemove(struct WindowProxy *proxy)
 {
-    for (LONG i = 0; i < 100; i++)
+    for (LONG i = 0; i < WMARRAYSIZE; i++)
     {
         if (wmarray[i] == proxy)
         {
@@ -56,7 +57,7 @@ unhandledCodePath(__func__, "Out of array", 0, 0);
 
 struct WindowProxy * wmGetByWindow(struct Window *native)
 {
-    for (LONG i = 0; i < 100; i++)
+    for (LONG i = 0; i < WMARRAYSIZE; i++)
     {
         if (wmarray[i] && wmarray[i]->native == native)
         {
