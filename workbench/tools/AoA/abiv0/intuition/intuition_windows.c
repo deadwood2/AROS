@@ -506,6 +506,12 @@ void abiv0_ScrollWindowRaster(struct WindowV0 *win, WORD dx, WORD dy, WORD xmin,
 }
 MAKE_PROXY_ARG_12(ScrollWindowRaster)
 
+void abiv0_SetPointer(struct WindowV0 *window, const UWORD *pointer, LONG height, LONG width, LONG xOffset, LONG yOffset, struct LibraryV0 *IntuitionBaseV0)
+{
+bug("abiv0_SetPointer: STUB\n");
+}
+MAKE_PROXY_ARG_12(SetPointer)
+
 void Intuition_Windows_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *intuitionjmp)
 {
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 101, (APTR32)(IPTR)proxy_OpenWindowTagList);
@@ -521,4 +527,5 @@ void Intuition_Windows_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  75, (APTR32)(IPTR)proxy_ActivateWindow);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  52, (APTR32)(IPTR)proxy_WindowToFront);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 133, (APTR32)(IPTR)proxy_ScrollWindowRaster);
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  45, (APTR32)(IPTR)proxy_SetPointer);
 }
