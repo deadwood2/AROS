@@ -56,6 +56,18 @@ static void wmRemove(struct WindowProxy *proxy)
 unhandledCodePath(__func__, "Out of array", 0, 0);
 }
 
+static void wmAllSyncMouseXY()
+{
+    for (LONG i = 0; i < WMARRAYSIZE; i++)
+    {
+        if (wmarray[i])
+        {
+            wmarray[i]->base.MouseX = wmarray[i]->native->MouseX;
+            wmarray[i]->base.MouseY = wmarray[i]->native->MouseY;
+        }
+    }
+}
+
 struct WindowProxy * wmGetByWindow(struct Window *native)
 {
     for (LONG i = 0; i < WMARRAYSIZE; i++)
@@ -206,6 +218,13 @@ unhandledCodePath(__func__, "Not wrapped and not iconify gadget", nativeg->Gadge
                 example: HFinder  */
             v0msg->prevCodeQuals = (APTR32)(IPTR)NULL;
             v0msg->IAddress = (APTR32)(IPTR)&v0msg->prevCodeQuals;
+        }
+
+        if (imsg->Class == IDCMP_MOUSEMOVE)
+        {
+            /* muimaster.library, Cycle class. Reads MouseX/MouseY from popup window while the message
+               comes to main window */
+            wmAllSyncMouseXY();
         }
 
         /* Store original message in Node of v0msg for now */
