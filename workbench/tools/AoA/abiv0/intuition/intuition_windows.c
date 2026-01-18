@@ -28,6 +28,7 @@ void syncLayerV0(struct LayerProxy *proxy);
 
 #define WMARRAYSIZE 100
 struct WindowProxy *wmarray[WMARRAYSIZE];
+struct Window *wmclosed[WMARRAYSIZE];
 
 static void wmAdd(struct WindowProxy *proxy)
 {
@@ -68,6 +69,45 @@ unhandledCodePath(__func__, "No match for native window", 0, 0);
     return NULL;
 }
 
+static BOOL wmWasClosed(struct Window *native)
+{
+    LONG i;
+    for (i = 0; i < WMARRAYSIZE; i++)
+    {
+        if (wmclosed[i] == native)
+        {
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+static void wmMarkClosed(struct Window *native)
+{
+    for (LONG i = 0; i < WMARRAYSIZE; i++)
+    {
+        if (wmclosed[i] == NULL)
+        {
+            wmclosed[i] = native;
+            return;
+        }
+    }
+unhandledCodePath(__func__, "Out of array", 0, 0);
+}
+
+static void wmRemoveClosed(struct Window *native)
+{
+    for (LONG i = 0; i < WMARRAYSIZE; i++)
+    {
+        if (wmclosed[i] == native)
+        {
+            wmclosed[i] = NULL;
+            return;
+        }
+    }
+}
+
 static void quirksSyncWindow(struct WindowProxy *proxy)
 {
     /* FontTester opens a window with WA_RMBTrap but then removes the private WFLG_RMBTRAP */
@@ -102,6 +142,15 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 
     if (native == NULL)
         return NULL;
+
+    if (imsg->Class == IDCMP_INTUITICKS)
+    {
+        /* This message can arrive after window has been closed (Soliton) */
+        if (wmWasClosed(imsg->IDCMPWindow))
+        {
+            return NULL;
+        }
+    }
 
     if (imsg->Class == IDCMP_CLOSEWINDOW || imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_MOUSEMOVE ||
         imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEBUTTONS || imsg->Class == IDCMP_NEWSIZE ||
@@ -342,6 +391,7 @@ unhandledCodePath(__func__, "Window layer not RastPort layer", 0, 0);
     }
 
     wmAdd(proxy);
+    wmRemoveClosed(proxy->native);
 
     /* Adding gadgets means issuing GM_RENDER call and this needs translation from native to v0 window via
        wmGetByWindow and this needs registering first via wmAdd */
@@ -422,6 +472,7 @@ void abiv0_CloseWindow(struct Window *window, struct LibraryV0 *IntuitionBaseV0)
 {
     struct WindowProxy *proxy = (struct WindowProxy *)window;
     wmRemove(proxy);
+    wmMarkClosed(proxy->native);
     return CloseWindow(proxy->native);
 }
 MAKE_PROXY_ARG_2(CloseWindow)
