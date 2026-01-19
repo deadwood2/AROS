@@ -116,7 +116,7 @@ void abiv0_ClearMenuStrip(struct WindowV0 *window, struct LibraryV0 *IntuitionBa
 }
 MAKE_PROXY_ARG_2(ClearMenuStrip)
 
-static struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext)
+struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext)
 {
     if (itext->ITextFont != (APTR32)0) unhandledCodePath(__func__, "ITextFont != NULL", 0, 0);
     struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY);

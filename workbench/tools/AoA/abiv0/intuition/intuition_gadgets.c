@@ -43,6 +43,7 @@ void syncLayerV0(struct LayerProxy *proxy);
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
 ULONG abiv0_DoMethodA(APTR object, APTR message);
 struct ScreenV0 *screenRemapN2V0(struct Screen *nscreen);
+struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext);
 
 /* Assumptions:
     1) All nativeg will be ExtGadget as created by 64-bit Intuition
@@ -72,6 +73,7 @@ static void syncGadgetNative(struct Gadget *nativeg, struct GadgetV0 *v0g)
     }
 
     /* GadgetRender - only at creation */
+    /* GadgetText - only at creation */
 }
 
 static void syncImageNative(struct Image *nativei, struct ImageV0 *v0i)
@@ -119,6 +121,15 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
             {
 unhandledCodePath(__func__, "Image not image.class", image->Depth, 0);
             }
+        }
+
+        if (((gadget->Flags & GFLG_LABELMASK) == GFLG_LABELITEXT) && gadget->GadgetText)
+        {
+            struct IntuiTextV0 *itext = (struct IntuiTextV0 *)(IPTR)gadget->GadgetText;
+            APTR32 tmp = itext->ITextFont;
+            itext->ITextFont = (APTR32)(IPTR)NULL;
+            gwrapper->GadgetText = makeIntuiText(itext);
+            itext->ITextFont = tmp;
         }
 
         if (gadFirst == NULL) gadFirst = gwrapper;
