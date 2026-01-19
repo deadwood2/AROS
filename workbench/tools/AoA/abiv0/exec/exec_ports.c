@@ -120,6 +120,15 @@ struct MsgPortProxy * MsgPortV0_getproxy(struct MsgPortV0 *port)
        Message32To32 is deallocated.
 */
 
+/* 64-bit sender to 32-bit receiver messages
+    Prerequisite: 32-bit port is an MsgPortProxy with 'translate' and 'free_translated' functions installed.
+    1) 64-bit sender calls PutMsg on Message.
+    2) 32-bit receiver calls abiv0_GetMsg. This calls 'translate' function which generates a new MessageV0 based on Message.
+       This MessageV0 can have mn_ReplyPort set to a dummy MsgPortProxy that will be used to free this MessageV0.
+    3) 32-bit receiver calls abiv0_ReplyMsg. Message is extracted from MessageV0 and ReplyMsg is called on 64-bit port.
+       If MessageV0 has mn_ReplyPort set, 'free_translated' function is called on that port.
+*/
+
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
     /* Workaround for shutdown of commodities.library */
@@ -164,6 +173,17 @@ void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
            message, or a Message32To32 created by 32-bit sender in
            abiv0_PutMsg */
         struct Message *native = (struct Message *)*(IPTR*)&message->mn_Node;
+        struct Message32To32 *m3232 = (struct Message32To32 *)native;
+        if (m3232->key == KEY32TO32) ; /* Do nothing */
+        else
+        {
+            /* It is a translated message whichs need to be released */
+            if (message->mn_ReplyPort)
+            {
+                struct MsgPortProxy *rpproxy = (struct MsgPortProxy *)(IPTR)message->mn_ReplyPort;
+                if (rpproxy->free_translated) rpproxy->free_translated(message);
+            }
+        }
         ReplyMsg(native);
     }
 }

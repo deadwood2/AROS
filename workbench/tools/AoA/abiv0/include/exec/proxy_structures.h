@@ -12,6 +12,7 @@ struct MsgPortProxy
     struct MsgPortV0 base;
     struct MsgPort   *native;
     struct MessageV0 *(*translate)(struct Message *);
+    void (*free_translated)(struct MessageV0 *);
 };
 
 #define DEVPROXY_TYPE_INPUT     (1)
