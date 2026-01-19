@@ -337,7 +337,7 @@ static IPTR abiv0_Custom_DoMethodA(/* struct IntuitionBaseV0 *IntuitionBaseV0, *
  * Messages are processed on 31bit stack. This is needed for case where 64-bit Intuition input handler issues a call that is
  * then forwarded to 32-bit gadget method. This method needs to be executed on 31-bit stack, not on original stack.
  */
-static IPTR process_message_on_31bit_stack(struct IClass *CLASS, Object *self, Msg message)
+static IPTR process_message_on_31bit_stack_GADGET(struct IClass *CLASS, Object *self, Msg message)
 {
     struct GadgetWrapperData *data = INST_DATA(CLASS, self);
     struct Gadget *nativeg = (struct Gadget *)self;
@@ -571,7 +571,7 @@ BOOPSI_DISPATCHER(IPTR, GadgetWrapperClass_Dispatcher, CLASS, self, message)
     ssa.Args[1] = (IPTR)self;
     ssa.Args[2] = (IPTR)message;
 
-    return NewStackSwap(&sss, process_message_on_31bit_stack, &ssa);
+    return NewStackSwap(&sss, process_message_on_31bit_stack_GADGET, &ssa);
 }
 BOOPSI_DISPATCHER_END
 
