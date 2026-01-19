@@ -28,7 +28,16 @@
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 
+#define IWD_KEY 0x3af401b3
+
+struct ImageWrapperData
+{
+    ULONG           iwd_Key;
+    struct ImageV0 *iwd_Wrapped;
+};
+
 struct IClass *gadgetwrappercl;
+struct IClass *imagewrappercl;
 
 void syncLayerV0(struct LayerProxy *proxy);
 struct TextFontV0 *makeTextFontV0(struct TextFont *native, struct ExecBaseV0 *sysBaseV0);
@@ -61,6 +70,21 @@ static void syncGadgetNative(struct Gadget *nativeg, struct GadgetV0 *v0g)
         ((struct ExtGadget *)nativeg)->BoundsWidth      = v0g->BoundsWidth;
         ((struct ExtGadget *)nativeg)->BoundsHeight     = v0g->BoundsHeight;
     }
+
+    /* GadgetRender - only at creation */
+}
+
+static void syncImageNative(struct Image *nativei, struct ImageV0 *v0i)
+{
+    nativei->LeftEdge       = v0i->LeftEdge;
+    nativei->TopEdge        = v0i->TopEdge;
+    nativei->Width          = v0i->Width;
+    nativei->Height         = v0i->Height;
+    nativei->Depth          = v0i->Depth;
+    nativei->PlanePick      = v0i->PlanePick;
+    nativei->PlaneOnOff     = v0i->PlaneOnOff;
+
+    /* ImageData - NO, only on 32-bit side*/
 }
 
 UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
@@ -78,6 +102,24 @@ UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG pos
         data->gwd_Key       = GWD_KEY;
         data->gwd_Wrapped   = gadget;
         syncGadgetNative(gwrapper, gadget);
+
+        if (gadget->GadgetRender)
+        {
+            struct ImageV0 *image = (struct ImageV0 *)(IPTR)gadget->GadgetRender;
+            if (image->Depth == -1)
+            {
+                struct Image *iwrapper = NewObjectA(imagewrappercl, NULL, NULL);
+                struct ImageWrapperData *idata = INST_DATA(imagewrappercl, iwrapper);
+                idata->iwd_Key  = IWD_KEY;
+                idata->iwd_Wrapped = image;
+                syncImageNative(iwrapper, image);
+                gwrapper->GadgetRender = iwrapper;
+            }
+            else
+            {
+unhandledCodePath(__func__, "Image not image.class", image->Depth, 0);
+            }
+        }
 
         if (gadFirst == NULL) gadFirst = gwrapper;
         if (gadPrev != NULL) gadPrev->NextGadget = gwrapper;
@@ -575,6 +617,75 @@ BOOPSI_DISPATCHER(IPTR, GadgetWrapperClass_Dispatcher, CLASS, self, message)
 }
 BOOPSI_DISPATCHER_END
 
+static IPTR process_message_on_31bit_stack_IMAGE(struct IClass *CLASS, Object *self, Msg message)
+{
+    struct ImageWrapperData *data = INST_DATA(CLASS, self);
+    struct Image *nativei = (struct Image *)self;
+
+    switch (message->MethodID)
+    {
+        case OM_NEW: return DoSuperMethodA(CLASS, self, message);
+        case IM_DRAW:
+        {
+            struct impDraw *nativemsg = (struct impDraw *)message;
+            struct ImageV0 *v0i = data->iwd_Wrapped;
+
+            struct impDrawV0 *v0msg = abiv0_AllocMem(sizeof(struct impDrawV0), MEMF_CLEAR, Intuition_SysBaseV0);
+
+            struct DrawInfoV0 *v0dri = abiv0_AllocMem(sizeof(struct DrawInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
+            v0dri->dri_Pens = (APTR32)(IPTR)abiv0_AllocMem(NUMDRIPENS * sizeof(UWORD), MEMF_CLEAR, Intuition_SysBaseV0);
+            CopyMem(nativemsg->imp_DrInfo->dri_Pens, (APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD));
+            v0dri->dri_Font = (APTR32)(IPTR)getOrCreateTextFontV0(nativemsg->imp_DrInfo->dri_Font, Intuition_SysBaseV0);
+
+            v0msg->imp_DrInfo   = (APTR32)(IPTR)v0dri;
+
+            v0msg->MethodID     = nativemsg->MethodID;
+            v0msg->imp_Offset.X = nativemsg->imp_Offset.X;
+            v0msg->imp_Offset.Y = nativemsg->imp_Offset.Y;
+            v0msg->imp_State    = nativemsg->imp_State;
+
+            v0msg->imp_Dimensions.Width     = nativemsg->imp_Dimensions.Width;
+            v0msg->imp_Dimensions.Height    = nativemsg->imp_Dimensions.Height;
+
+            v0msg->imp_RPort    = (APTR32)(IPTR)makeRastPortV0(nativemsg->imp_RPort);
+
+            IPTR ret = (IPTR)abiv0_DoMethodA(data->iwd_Wrapped, v0msg);
+
+            freeRastPortV0((struct RastPortV0 *)(IPTR)v0msg->imp_RPort);
+            abiv0_FreeMem((APTR)(IPTR)v0dri->dri_Pens, NUMDRIPENS * sizeof(UWORD), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0dri, sizeof(struct DrawInfoV0), Intuition_SysBaseV0);
+            abiv0_FreeMem(v0msg, sizeof(struct impDrawV0), Intuition_SysBaseV0);
+
+            return ret;
+        }
+        default:
+unhandledCodePath(__func__, "Not handled methodID", 0, message->MethodID);
+            return DoSuperMethodA(CLASS, self, message);
+    }
+
+    return (IPTR) NULL;
+}
+
+BOOPSI_DISPATCHER(IPTR, ImageWrapperClass_Dispatcher, CLASS, self, message)
+{
+    static APTR stack31bit = NULL;
+    struct StackSwapStruct sss;
+    struct StackSwapArgs ssa;
+
+    if (stack31bit == NULL) stack31bit = AllocMem(64 * 1024, MEMF_CLEAR | MEMF_31BIT);
+
+    sss.stk_Lower = stack31bit;
+    sss.stk_Upper = sss.stk_Lower + 64 * 1024;
+    sss.stk_Pointer = sss.stk_Upper;
+
+    ssa.Args[0] = (IPTR)CLASS;
+    ssa.Args[1] = (IPTR)self;
+    ssa.Args[2] = (IPTR)message;
+
+    return NewStackSwap(&sss, process_message_on_31bit_stack_IMAGE, &ssa);
+}
+BOOPSI_DISPATCHER_END
+
 void Intuition_Gadgets_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *intuitionjmp)
 {
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  73, (APTR32)(IPTR)proxy_AddGList);
@@ -591,9 +702,13 @@ void Intuition_Gadgets_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  37, intuitionjmp[165 -  37]);  // RefreshGadgets
 }
 
-void Intuition_Gadgets_init_GadgetWrapper_class()
+void Intuition_Gadgets_init_wrapper_classes()
 {
     gadgetwrappercl = MakeClass(NULL, GADGETCLASS, NULL, sizeof(struct GadgetWrapperData), 0);
     gadgetwrappercl->cl_Dispatcher.h_Entry = (APTR)GadgetWrapperClass_Dispatcher;
     gadgetwrappercl->cl_Dispatcher.h_SubEntry = NULL;
+
+    imagewrappercl = MakeClass(NULL, IMAGECLASS, NULL, sizeof(struct ImageWrapperData), 0);
+    imagewrappercl->cl_Dispatcher.h_Entry = (APTR)ImageWrapperClass_Dispatcher;
+    imagewrappercl->cl_Dispatcher.h_SubEntry = NULL;
 }

@@ -14,7 +14,7 @@ struct GadgetWrapperData
 };
 
 void Intuition_Gadgets_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *intuitionjmp);
-void Intuition_Gadgets_init_GadgetWrapper_class();
+void Intuition_Gadgets_init_wrapper_classes();
 
 UWORD abiv0_AddGList(struct WindowV0 *window, struct GadgetV0 *gadget, ULONG position, LONG numGad, APTR /*struct RequesterV0 **/requester,
         struct LibraryV0 *IntuitionBaseV0);

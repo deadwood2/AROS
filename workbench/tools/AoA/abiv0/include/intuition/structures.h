@@ -133,23 +133,6 @@ struct WindowV0
     APTR32 parent;      // parent of this window
 };
 
-               /***** Images *****/
-
-struct ImageV0
-{
-    WORD LeftEdge;
-    WORD TopEdge;
-    WORD Width;
-    WORD Height;
-
-    WORD    Depth;
-    APTR32 ImageData;
-    UBYTE   PlanePick;
-    UBYTE   PlaneOnOff;
-
-    APTR32 NextImage;
-};
-
 struct DrawInfoV0
 {
     UWORD             dri_Version; /* see below */
@@ -415,6 +398,47 @@ struct gpGoInactiveV0
          this is 1 this method was sent, because intution wants the gadget to
          go inactive, if it is 0, it was the gadget itself that wanted it. */
     STACKEDV0 ULONG		gpgi_Abort;
+};
+
+               /***** Images *****/
+
+struct ImageV0
+{
+    WORD LeftEdge;
+    WORD TopEdge;
+    WORD Width;
+    WORD Height;
+
+    WORD    Depth;
+    APTR32 ImageData;
+    UBYTE   PlanePick;
+    UBYTE   PlaneOnOff;
+
+    APTR32 NextImage;
+};
+
+struct impPosV0
+{
+    STACKEDV0 WORD  X;
+    STACKEDV0 WORD  Y;
+};
+
+struct impSizeV0
+{
+    STACKEDV0 WORD  Width;
+    STACKEDV0 WORD  Height;
+};
+
+struct impDrawV0
+{
+    STACKEDV0 ULONG     MethodID;
+    STACKEDV0 APTR32    imp_RPort;
+    STACKEDV0 struct impPosV0 imp_Offset;
+    STACKEDV0 ULONG     imp_State;
+    STACKEDV0 APTR32    imp_DrInfo;    /* May be NULL */
+
+    /* Only valid for IM_DRAWFRAME */
+    STACKEDV0 struct impSizeV0  imp_Dimensions;
 };
 
 struct IntuitionBaseV0

@@ -473,7 +473,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     abiv0IntuitionBase->DefaultEditHook.h_SubEntry = (APTR32)(IPTR)NULL;
     abiv0IntuitionBase->DefaultEditHook.h_Data = (APTR32)(IPTR)abiv0IntuitionBase;
 
-    Intuition_Gadgets_init_GadgetWrapper_class();
+    Intuition_Gadgets_init_wrapper_classes();
 
     Intuition_Screens_init_first_screen(abiv0IntuitionBase);
 }
