@@ -112,6 +112,14 @@ struct MsgPortProxy * MsgPortV0_getproxy(struct MsgPortV0 *port)
     return NULL;
 }
 
+/* 32-bit sender to 32-bit receiver messages
+    1) 32-bit sender calls abiv0_PutMsg with MessageV0. This crates a 64-bit Message32To32 and puts it on a 64-bit port.
+    2) 32-bit receiver calls abiv0_GetMsg. MessageV0 is extracted from Message32To32 and returned to 32-bit receiver.
+    3) 32-bit receive4 calls abiv0_ReplyMsg. Message32To32 is extracted from MessageV0 and ReplyMsg is called on 64-bit port.
+    4) 32-bit sender calls abiv0_GetMsg. MessageV0 is extracted from Message32To32 and returned to 32-bit sender.
+       Message32To32 is deallocated.
+*/
+
 struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBaseV0)
 {
     /* Workaround for shutdown of commodities.library */
@@ -137,7 +145,7 @@ struct MessageV0 * abiv0_GetMsg(struct MsgPortV0 *port, struct ExecBaseV0 *SysBa
         if (m3232->key == KEY32TO32)
         {
             struct MessageV0 *_ret = m3232->v0msg;
-            // FreeMem(m3232, sizeof(struct Message32To32)); // causes memory damage, why?
+            if (m3232->msg.mn_Node.ln_Type == NT_REPLYMSG) FreeMem(m3232, sizeof(struct Message32To32));
             return _ret;
         }
     }
@@ -152,6 +160,9 @@ void abiv0_ReplyMsg(struct MessageV0 *message, struct ExecBaseV0 *SysBaseV0)
 {
     if (message)
     {
+        /* native message is always present. It is either an original 64-bit
+           message, or a Message32To32 created by 32-bit sender in
+           abiv0_PutMsg */
         struct Message *native = (struct Message *)*(IPTR*)&message->mn_Node;
         ReplyMsg(native);
     }
