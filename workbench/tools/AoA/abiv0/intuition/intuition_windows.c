@@ -148,6 +148,8 @@ void syncWindowV0(struct WindowProxy *proxy)
     proxy->base.TopEdge             = proxy->native->TopEdge;
 }
 
+static struct MsgPortProxy *_free_translated;
+
 static struct MessageV0 *IntuiMessage_translate(struct Message *native)
 {
     struct IntuiMessage *imsg = (struct IntuiMessage *)native;
@@ -172,6 +174,7 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
     {
         struct IntuiMessageV0 *v0msg = abiv0_AllocMem(sizeof(struct IntuiMessageV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
+        v0msg->ExecMessage.mn_ReplyPort = (APTR32)(IPTR)_free_translated;
         v0msg->Class = imsg->Class;
         struct WindowProxy *proxy = wmGetByWindow(imsg->IDCMPWindow);
         if (proxy != NULL)
@@ -240,6 +243,11 @@ unhandledCodePath(__func__, "Not wrapped and not iconify gadget", nativeg->Gadge
 bug("Intuition_Translate - missing code for class %d\n", imsg->Class);
 
     return NULL;
+}
+
+static void IntuiMessage_free_translated(struct MessageV0 *v0)
+{
+    abiv0_FreeMem(v0, sizeof(struct IntuiMessageV0), Intuition_SysBaseV0);
 }
 
 struct WindowV0 *abiv0_OpenWindowTagList(struct NewWindowV0 *newWindow, struct TagItemV0 *tagList, struct LibraryV0 *IntuitionBaseV0)
@@ -547,4 +555,7 @@ void Intuition_Windows_init(struct IntuitionBaseV0 *abiv0IntuitionBase, APTR32 *
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  52, (APTR32)(IPTR)proxy_WindowToFront);
     __AROS_SETVECADDRV0(abiv0IntuitionBase, 133, (APTR32)(IPTR)proxy_ScrollWindowRaster);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  45, (APTR32)(IPTR)proxy_SetPointer);
+
+    _free_translated = abiv0_AllocMem(sizeof(struct MsgPortProxy), MEMF_CLEAR, Intuition_SysBaseV0);
+    _free_translated->free_translated = IntuiMessage_free_translated;
 }
