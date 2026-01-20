@@ -313,12 +313,16 @@ void abiv0_GetRPAttrsA(struct RastPortV0 *rp, struct TagItemV0 *tags, struct Gfx
     tmp = (struct TagItemV0 *)tags;
     do
     {
-        switch(tmp->ti_Tag)
+        switch (tmp->ti_Tag)
         {
-            case(RPTAG_APen): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetAPen(rpnative); break;
-            case(RPTAG_BPen): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetBPen(rpnative); break;
-            case(RPTAG_DrMd): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetDrMd(rpnative); break;
-            case(TAG_DONE): break;
+            case (RPTAG_APen): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetAPen(rpnative); break;
+            case (RPTAG_BPen): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetBPen(rpnative); break;
+            case (RPTAG_DrMd): *((ULONG *)(IPTR)tmp->ti_Data) = (ULONG)GetDrMd(rpnative); break;
+            case (RPTAG_RemapColorFonts):
+#define RPF_REMAP_COLORFONTS 	(1L << 13)
+                *(ULONG *)(IPTR)tmp->ti_Data = rpnative->Flags & RPF_REMAP_COLORFONTS ? TRUE : FALSE;
+                break;
+            case (TAG_DONE): break;
             default:
 unhandledCodePath(__func__, "Tag", 0, tmp->ti_Tag);
         }
