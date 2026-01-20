@@ -157,9 +157,11 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
     if (native == NULL)
         return NULL;
 
-    if (imsg->Class == IDCMP_INTUITICKS)
+    if (imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_REFRESHWINDOW)
     {
-        /* This message can arrive after window has been closed (Soliton) */
+        /* This message can arrive after window has been closed
+            IDCMP_INTUITICKS - Soliton
+            IDCMP_REFRESHWINDOW - SilkRAW */
         if (wmWasClosed(imsg->IDCMPWindow))
         {
             return NULL;
