@@ -269,6 +269,13 @@ void abiv0_ClipBlit(struct RastPortV0 *srcRP, LONG xSrc, LONG ySrc, struct RastP
 }
 MAKE_PROXY_ARG_12(ClipBlit)
 
+void abiv0_PolyDraw(struct RastPortV0 *rp, LONG count, WORD *polyTable, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct RastPort *rpnative = RastPortV0_getnative(rp);
+    PolyDraw(rpnative, count, polyTable);
+}
+MAKE_PROXY_ARG_4(PolyDraw)
+
 void Graphics_Operations_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjmp)
 {
     __AROS_SETVECADDRV0(abiv0GfxBase,  51, (APTR32)(IPTR)proxy_RectFill);
@@ -291,4 +298,5 @@ void Graphics_Operations_init(struct GfxBaseV0 *abiv0GfxBase, APTR32 *graphicsjm
     __AROS_SETVECADDRV0(abiv0GfxBase,  44, graphicsjmp[202 -  44]);  // AreaEnd
     __AROS_SETVECADDRV0(abiv0GfxBase,  52, (APTR32)(IPTR)proxy_BltPattern);
     __AROS_SETVECADDRV0(abiv0GfxBase,  92, (APTR32)(IPTR)proxy_ClipBlit);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  56, (APTR32)(IPTR)proxy_PolyDraw);
 }
