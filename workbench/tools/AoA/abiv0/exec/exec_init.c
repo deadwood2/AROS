@@ -227,6 +227,12 @@ void abiv0_CopyMem(APTR source, APTR dest, ULONG size)
 }
 MAKE_PROXY_ARG_4(CopyMem)
 
+void abiv0_Alert(ULONG alertNum, struct ExecBaseV0 *SysBaseV0)
+{
+    Alert(alertNum);
+}
+MAKE_PROXY_ARG_2(Alert)
+
 APTR makeFileHandleProxy(BPTR);
 APTR makeFileHandleProxyDetailed(BPTR);
 
@@ -537,6 +543,7 @@ struct ExecBaseV0 *init_exec()
     __AROS_SETVECADDRV0(abiv0SysBase,130, (APTR32)(IPTR)proxy_RemMemHandler);
     __AROS_SETVECADDRV0(abiv0SysBase, 20, (APTR32)(IPTR)proxy_Disable);
     __AROS_SETVECADDRV0(abiv0SysBase, 21, (APTR32)(IPTR)proxy_Enable);
+    __AROS_SETVECADDRV0(abiv0SysBase, 18, (APTR32)(IPTR)proxy_Alert);
 
 
     Exec_Devices_init(abiv0SysBase);
