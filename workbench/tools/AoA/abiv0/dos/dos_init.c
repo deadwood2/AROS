@@ -275,6 +275,13 @@ LONG abiv0_FPutC(BPTR file, LONG character, struct DosLibraryV0 *DOSBaseV0)
 }
 MAKE_PROXY_ARG_3(FPutC)
 
+LONG abiv0_FPuts(BPTR file, CONST_STRPTR string, struct DosLibraryV0 *DOSBaseV0)
+{
+    struct FileHandleProxy *proxy = (struct FileHandleProxy *)file;
+    return FPuts(proxy->native, string);
+}
+MAKE_PROXY_ARG_3(FPuts)
+
 LONG abiv0_FGetC(BPTR file, struct DosLibraryV0 *DOSBaseV0)
 {
     struct FileHandleProxy *fhp = (struct FileHandleProxy *)file;
@@ -1134,7 +1141,7 @@ void init_dos(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0DOSBase,  62, (APTR32)(IPTR)proxy_DupLockFromFH);
     __AROS_SETVECADDRV0(abiv0DOSBase,  30, (APTR32)(IPTR)proxy_SetComment);
     __AROS_SETVECADDRV0(abiv0DOSBase,  66, (APTR32)(IPTR)proxy_SetFileDate);
-    __AROS_SETVECADDRV0(abiv0DOSBase,  57, dosfunctable[ 56]);  // FPuts
+    __AROS_SETVECADDRV0(abiv0DOSBase,  57, (APTR32)(IPTR)proxy_FPuts);
     __AROS_SETVECADDRV0(abiv0DOSBase,  59, dosfunctable[ 58]);  // VFPrintf
 }
 
