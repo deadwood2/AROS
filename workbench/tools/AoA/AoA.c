@@ -226,7 +226,7 @@ bug("abiv0_RawKeyConvert: STUB\n");
     /* Support only SDL->CGX_TranslateKey case */
     if (length != 5 || keyMap != NULL)
         return 0;
-    if ((APTR)(IPTR)events->ie_NextEvent != NULL || (APTR)(IPTR)events->ie_position.ie_addr != NULL)
+    if ((APTR)(IPTR)events->ie_position.ie_addr != NULL)
         return 0;
 
     struct Library *ConsoleDevice = &(((struct DeviceProxy *)ConsoleBaseV0)->native->dd_Library);
@@ -234,8 +234,9 @@ bug("abiv0_RawKeyConvert: STUB\n");
     eventnative.ie_Qualifier    = events->ie_Qualifier;
     eventnative.ie_Class        = events->ie_Class;
     eventnative.ie_SubClass     = events->ie_SubClass;
+    eventnative.ie_Code         = events->ie_Code;
     eventnative.ie_position.ie_addr = NULL;
-    eventnative.ie_NextEvent = NULL;
+    eventnative.ie_NextEvent = NULL; /* RawKeyConvert calls MapRawKey which ignores ie_NextEvent anyhow */
     return RawKeyConvert(&eventnative, buffer, length, NULL);
 }
 MAKE_PROXY_ARG_5(RawKeyConvert)
