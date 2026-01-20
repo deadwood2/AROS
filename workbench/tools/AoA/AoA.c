@@ -222,12 +222,17 @@ MAKE_PROXY_ARG_1(PeekQualifier)
 
 LONG abiv0_RawKeyConvert(struct InputEventV0 *events, STRPTR buffer, LONG length, struct KeyMap * keyMap, struct LibraryV0 *ConsoleBaseV0)
 {
-bug("abiv0_RawKeyConvert: STUB\n");
-    /* Support only SDL->CGX_TranslateKey case */
+    /* Support SDL->CGX_TranslateKey case */
     if (length != 5 || keyMap != NULL)
+    {
+unhandledCodePath(__func__, "length or keymap", length, (ULONG)(IPTR)keyMap);
         return 0;
+    }
     if ((APTR)(IPTR)events->ie_position.ie_addr != NULL)
+    {
+bug("abiv0_RawKeyConvert: STUB\n");
         return 0;
+    }
 
     struct Library *ConsoleDevice = &(((struct DeviceProxy *)ConsoleBaseV0)->native->dd_Library);
     struct InputEvent eventnative;
