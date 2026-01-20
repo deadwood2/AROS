@@ -323,6 +323,10 @@ LONG abiv0_DoIO(struct IORequestV0 *IORequest, struct ExecBaseV0 *SysBaseV0)
 
             IORequest->io_Error = proxy->io->io_Error;
             return proxy->io->io_Error;
+        } else if (IORequest->io_Command == 11 /* IND_WRITEEVENT */)
+        {
+bug("abiv0_DoIO: STUB - IND_WRITEEVENT\n");
+            return 0;
         }
 bug("abiv0_DoIO: STUB\n");
 unhandledCodePath(__func__, "Unhandled command for input.device", IORequest->io_Command, 0);
