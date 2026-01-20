@@ -167,6 +167,7 @@ void abiv0_CloseDevice(struct IORequestV0 *iORequest, struct ExecBaseV0 *SysBase
         CloseDevice((struct IORequest *)proxy->io);
         DeleteIORequest((struct IORequest *)proxy->io);
         FreeMem(proxy, sizeof(struct DeviceProxy));
+        return;
     }
     if (proxy->type == DEVPROXY_TYPE_CONSOLE)
     {
