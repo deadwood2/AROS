@@ -260,6 +260,10 @@ unhandledCodePath(__func__, "Tag", 0, tagNative->ti_Tag);
     MsgPortV0_fixed_connectnative(&pV0->pr_MsgPort, &p->pr_MsgPort);
     pV0->pr_Task.tc_UserData = (APTR32)(IPTR)p->pr_Task.tc_UserData;
 
+    pV0->pr_Task.tc_Node.ln_Type = p->pr_Task.tc_Node.ln_Type;
+    pV0->pr_Task.tc_Node.ln_Name = (APTR32)(IPTR)abiv0_AllocMem(128, MEMF_CLEAR, DOS_SysBaseV0);
+    strcpy((char *)(IPTR)pV0->pr_Task.tc_Node.ln_Name, p->pr_Task.tc_Node.ln_Name);
+
     g_v0childprocesses[childprocessidx] = pV0;
 
     PutMsg(&p->pr_MsgPort, (struct Message *)msg); /* Allow child process to proceed */
