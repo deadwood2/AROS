@@ -81,6 +81,7 @@ MAKE_PROXY_ARG_2(PutStr)
 
 LONG abiv0_SetVBuf()
 {
+bug("abiv0_SetVBuf: STUB\n");
     return 0;
 }
 MAKE_PROXY_ARG_5(SetVBuf)
