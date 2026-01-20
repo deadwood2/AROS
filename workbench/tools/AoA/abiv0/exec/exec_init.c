@@ -255,6 +255,7 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
         if (g_v0maintask == NULL)
         {
             struct ProcessV0 *dummy = NULL;
+            struct Process *nativeproc = (struct Process *)native;
             struct CommandLineInterfaceV0 *cli = NULL;
 
             if (dummy == NULL) dummy = abiv0_AllocMem(sizeof(struct ProcessV0), MEMF_CLEAR, SysBaseV0);
@@ -275,6 +276,10 @@ struct TaskV0 *abiv0_FindTask(CONST_STRPTR name, struct ExecBaseV0 *SysBaseV0)
 
             dummy->pr_Task.tc_Flags |= TF_ETASK;
             dummy->pr_Task.tc_UnionETask.tc_ETask = (APTR32)(IPTR)abiv0_AllocMem(sizeof(struct ETaskV0), MEMF_CLEAR, SysBaseV0);
+
+            dummy->pr_MsgPort.mp_SigBit = nativeproc->pr_MsgPort.mp_SigBit;
+            NEWLISTV0(&dummy->pr_MsgPort.mp_MsgList);
+            MsgPortV0_fixed_connectnative(&dummy->pr_MsgPort, &nativeproc->pr_MsgPort);
 
             g_v0maintask = (struct TaskV0 *)dummy; // MEMLEAK
 
