@@ -164,7 +164,16 @@ static struct MenuItem * makeMenuItemTree(struct MenuItemV0 *menuitem)
 bug("abiv0_SetMenuStrip: STUB\n");
         }
         pi->SelectFill  = NULL;
-        if (menuitem->SelectFill != (APTR32)0) unhandledCodePath(__func__, "SelectFill != NULL", 0, 0);
+        if (menuitem->SelectFill)
+        {
+            if (menuitem->Flags & ITEMTEXT)
+            {
+                struct IntuiTextV0 *itext = (struct IntuiTextV0 *)(IPTR)menuitem->SelectFill;
+                pi->SelectFill = makeIntuiText(itext);
+            }
+            else
+unhandledCodePath(__func__, "SelectFill != NULL", 0, 0);
+        }
         pi->Command     = menuitem->Command;
         pi->SubItem     = makeMenuItemTree((struct MenuItemV0 *)(IPTR)menuitem->SubItem);
         pi->NextSelect  = menuitem->NextSelect;
