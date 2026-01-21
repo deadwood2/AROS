@@ -118,14 +118,23 @@ MAKE_PROXY_ARG_2(ClearMenuStrip)
 
 struct IntuiText * makeIntuiText(struct IntuiTextV0 *itext)
 {
-    if (itext->ITextFont != (APTR32)0) unhandledCodePath(__func__, "ITextFont != NULL", 0, 0);
-    struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY);
+    struct IntuiText *itextnative = AllocMem(sizeof(struct IntuiText), MEMF_ANY); // MEMLEAK
     itextnative->FrontPen   = itext->FrontPen;
     itextnative->BackPen    = itext->BackPen;
     itextnative->DrawMode   = itext->DrawMode;
     itextnative->LeftEdge   = itext->LeftEdge;
     itextnative->TopEdge    = itext->TopEdge;
     itextnative->ITextFont  = NULL;
+    if (itext->ITextFont != (APTR32)(IPTR)NULL)
+    {
+        struct TextAttrV0 * v0attr = (struct TextAttrV0 *)(IPTR)itext->ITextFont;
+        struct TextAttr *nativeattr = AllocMem(sizeof(struct TextAttr), MEMF_ANY); // MEMLEAK
+        nativeattr->ta_Flags    = v0attr->ta_Flags;
+        nativeattr->ta_Name     = (STRPTR)(IPTR)v0attr->ta_Name;
+        nativeattr->ta_Style    = v0attr->ta_Style;
+        nativeattr->ta_YSize    = v0attr->ta_YSize;
+        itextnative->ITextFont = nativeattr;
+    }
     itextnative->IText      = (UBYTE *)(IPTR)itext->IText;
     itextnative->NextText   = NULL;
     if (itext->NextText != (APTR32)(IPTR)NULL)
