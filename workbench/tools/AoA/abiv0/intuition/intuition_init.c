@@ -441,6 +441,7 @@ void init_intuition(struct ExecBaseV0 *SysBaseV0, struct LibraryV0 *timerBase)
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  10, (APTR32)(IPTR)proxy_ClearPointer);
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  55, intuitionjmp[165 -  55]);  // IntuiTextLength
     __AROS_SETVECADDRV0(abiv0IntuitionBase,  24, intuitionjmp[165 -  24]);  // ItemAddress
+    __AROS_SETVECADDRV0(abiv0IntuitionBase,  36, intuitionjmp[165 -  36]);  // PrintIText
 
     Intuition_Screens_init(abiv0IntuitionBase, intuitionjmp);
     Intuition_Gadgets_init(abiv0IntuitionBase, intuitionjmp);

@@ -84,10 +84,6 @@ static void abiv0_unhandledLVO70() { unhandledLibraryFunction("graphics.library"
 MAKE_PROXY_ARG_1(unhandledLVO70)
 static void abiv0_unhandledLVO71() { unhandledLibraryFunction("graphics.library", 71); }
 MAKE_PROXY_ARG_1(unhandledLVO71)
-static void abiv0_unhandledLVO72() { unhandledLibraryFunction("graphics.library", 72); }
-MAKE_PROXY_ARG_1(unhandledLVO72)
-static void abiv0_unhandledLVO73() { unhandledLibraryFunction("graphics.library", 73); }
-MAKE_PROXY_ARG_1(unhandledLVO73)
 static void abiv0_unhandledLVO74() { unhandledLibraryFunction("graphics.library", 74); }
 MAKE_PROXY_ARG_1(unhandledLVO74)
 static void abiv0_unhandledLVO75() { unhandledLibraryFunction("graphics.library", 75); }
@@ -291,8 +287,6 @@ void Gfx_Unhandled_init(struct LibraryV0 *abiv0GfxBase)
     __AROS_SETVECADDRV0(abiv0GfxBase,  69, (APTR32)(IPTR)proxy_unhandledLVO69);
     __AROS_SETVECADDRV0(abiv0GfxBase,  70, (APTR32)(IPTR)proxy_unhandledLVO70);
     __AROS_SETVECADDRV0(abiv0GfxBase,  71, (APTR32)(IPTR)proxy_unhandledLVO71);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  72, (APTR32)(IPTR)proxy_unhandledLVO72);
-    __AROS_SETVECADDRV0(abiv0GfxBase,  73, (APTR32)(IPTR)proxy_unhandledLVO73);
     __AROS_SETVECADDRV0(abiv0GfxBase,  74, (APTR32)(IPTR)proxy_unhandledLVO74);
     __AROS_SETVECADDRV0(abiv0GfxBase,  75, (APTR32)(IPTR)proxy_unhandledLVO75);
     __AROS_SETVECADDRV0(abiv0GfxBase,  76, (APTR32)(IPTR)proxy_unhandledLVO76);

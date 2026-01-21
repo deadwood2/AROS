@@ -464,6 +464,20 @@ unhandledCodePath(__func__, "Tag", 0, tmp->ti_Tag);
 }
 MAKE_PROXY_ARG_3(VideoControl)
 
+void abiv0_LockLayerRom(struct LayerV0 *l, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct LayerProxy *proxy = (struct LayerProxy *)l;
+    LockLayerRom(proxy->native);
+}
+MAKE_PROXY_ARG_2(LockLayerRom)
+
+void abiv0_UnlockLayerRom(struct LayerV0 *l, struct GfxBaseV0 *GfxBaseV0)
+{
+    struct LayerProxy *proxy = (struct LayerProxy *)l;
+    UnlockLayerRom(proxy->native);
+}
+MAKE_PROXY_ARG_2(UnlockLayerRom)
+
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0);
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 APTR abiv0_DOS_OpenLibrary(CONST_STRPTR name, ULONG version, struct ExecBaseV0 *SysBaseV0);
@@ -551,6 +565,8 @@ void init_graphics(struct ExecBaseV0 *SysBaseV0)
     __AROS_SETVECADDRV0(abiv0GfxBase,  78, graphicsjmp[202 -  78]);  // InitTmpRas
     __AROS_SETVECADDRV0(abiv0GfxBase, 118, (APTR32)(IPTR)proxy_VideoControl);
     __AROS_SETVECADDRV0(abiv0GfxBase, 133, (APTR32)(IPTR)proxy_ModeNotAvailable);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  72, (APTR32)(IPTR)proxy_LockLayerRom);
+    __AROS_SETVECADDRV0(abiv0GfxBase,  73, (APTR32)(IPTR)proxy_UnlockLayerRom);
 
     Graphics_Operations_init(abiv0GfxBase, graphicsjmp);
     Graphics_RastPorts_init(abiv0GfxBase, graphicsjmp);
