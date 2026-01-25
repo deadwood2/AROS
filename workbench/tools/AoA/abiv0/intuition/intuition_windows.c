@@ -157,11 +157,14 @@ static struct MessageV0 *IntuiMessage_translate(struct Message *native)
     if (native == NULL)
         return NULL;
 
-    if (imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEMOVE)
+    if (imsg->Class == IDCMP_INTUITICKS || imsg->Class == IDCMP_REFRESHWINDOW || imsg->Class == IDCMP_MOUSEMOVE ||
+        imsg->Class == IDCMP_INACTIVEWINDOW)
     {
         /* This message can arrive after window has been closed
             IDCMP_INTUITICKS/IDCMP_MOUSEMOVE - Soliton
-            IDCMP_REFRESHWINDOW - SilkRAW */
+            IDCMP_REFRESHWINDOW - SilkRAW
+            IDCMP_INACTIVEWINDOW - Omanko!
+         */
         if (wmWasClosed(imsg->IDCMPWindow))
         {
             return NULL;
