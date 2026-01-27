@@ -38,9 +38,8 @@ int GetVScreenSize (struct Screen *scr, int *width, int *height);
 
 /* req.c */
 
-ULONG GetString (UBYTE *stringbuff, SIPTR maxlen, char *title,
-		 ULONG checksum, ULONG *value, LONG mode,
-	         struct rtReqInfo *reqinfo, struct TagItem *taglist);
+ULONG GetString (UBYTE *stringbuff, SIPTR maxlen, char *title, ULONG checksum, ULONG *value,
+    LONG mode, struct rtReqInfo *reqinfo, struct TagItem *taglist);
 
 /* palettereq.c */
 
@@ -52,7 +51,7 @@ LONG PaletteRequestA (char *title, struct rtReqInfo *reqinfo, struct TagItem *ta
 
 /****************************************************************************************/
 
-#define GPB(x) 		((struct ReqToolsBase *)x)
+#define GPB(x)         ((struct ReqToolsBase *)x)
 
 /****************************************************************************************/
 
