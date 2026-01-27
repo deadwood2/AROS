@@ -20,11 +20,11 @@ USER_CPPFLAGS := \
                -D__OOP_NOATTRBASES__ \
                -D__UTILITY_NOLIBBASE__
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-hidd-storage \
   modname=storage modtype=hidd \
-  files="$(FILES)" sdk=private usesdks="private"
+  files="$(FILES)" sdk=private uselibs="stdc.static" usesdks="private"
 
 LIBNAME     := storage
 

@@ -6,10 +6,10 @@ INCLUDE_FILES := lddemon.h
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
                -D__DOS_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-lddemon \
   modname=lddemon modtype=resource \
-  files="lddemon" sdk=private usesdks="private config"
+  files="lddemon" sdk=private uselibs="stdc.static" usesdks="private config"
 
 %copy_includes dir=include path=resources sdk=private

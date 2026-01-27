@@ -12,11 +12,11 @@ USER_CPPFLAGS := \
                -D__INTUITION_NOLIBBASE__ \
                -D__KEYMAP_NOLIBBASE__ \
                -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-console \
   modname=console modtype=device \
-  files="console $(FUNCS) $(FILES)"
+  files="console $(FUNCS) $(FILES)" uselibs="stdc.static"
 
 #MM includes-copy
 

@@ -23,7 +23,7 @@ FILES := \
 
 USER_CPPFLAGS += -DADATE="\"$(shell date "+%d.%m.%Y")\"" \
 	       -D__DOS_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 #MM- workbench-c : workbench-c-shell
 
@@ -33,7 +33,7 @@ USER_LDFLAGS := -noclibs -lstdc.static
 
 %build_prog mmake=workbench-c-shell	progname=UserShell-Seg \
     files=$(FILES) targetdir=$(AROS_FS)	\
-    usestartup="no"
+    usestartup="no" uselibs="stdc.static"
 
 USER_CPPFLAGS += -DUSE_EMBEDDED_COMMANDS
 ifeq ($(AROS_TARGET_CPU),m68k)
@@ -45,6 +45,6 @@ OBJDIR := $(OBJDIR).kernel
 
 %build_module mmake=kernel-shell \
   modname=shell modtype=resource \
-  files="shell_init $(FILES)"
+  files="shell_init $(FILES)" uselibs="stdc.static"
 
 %common

@@ -5,7 +5,7 @@ CLASSES := hiddclass hwclass hwroot
 
 USER_CPPFLAGS := -D__OOP_NOLIBBASE__ \
                -D__UTILITY_NOLIBBASE__
-USER_LDFLAGS := -noclibs -lstdc.static
+USER_LDFLAGS := -noclibs
 
 # Allow to override private headers
 USER_INCLUDES := -I$(SRCDIR)/arch/$(CPU)-$(ARCH)/hidds/hidd	\
@@ -25,7 +25,7 @@ endif
 
 %build_module mmake=kernel-hidd \
   modname=hiddclass modtype=hidd \
-  files="initcode $(CLASSES)" sdk=private usesdks="private"
+  files="initcode $(CLASSES)" sdk=private uselibs="stdc.static" usesdks="private"
 
 INCLUDE_FILES   :=  $(call WILDCARD, include/*.h)
 %copy_includes path=hidd dir=include sdk=private

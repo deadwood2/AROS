@@ -45,10 +45,10 @@ FUNCS := \
 USER_CPPFLAGS := \
                -DUSE_EXEC_DEBUG \
 	       -DDEBUG=0
-USER_LDFLAGS  := -noclibs -lstdc.static
+USER_LDFLAGS  := -noclibs
 
 %build_module mmake=kernel-partition \
     modname=partition modtype=library \
-    files="partition_init $(FUNCS) $(FILES)" uselibs="debug loadseg" usesdks="private rel"
+    files="partition_init $(FUNCS) $(FILES)" uselibs="debug loadseg stdc.static" usesdks="private rel"
 
 %common
