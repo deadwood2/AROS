@@ -55,7 +55,7 @@ USER_INCLUDES := \
 
 %build_module mmake=workbench-libs-expat-lib \
     modname=expat modtype=library \
-    files="$(EXPATFILES)"  linklibname=expat
+    files="$(EXPATFILES)"  linklibname=expat uselibs="crtmod"
 
 INCLUDE_FILES := expat.h expat_external.h
 %copy_includes dir=$(EXPATARCHSRCDIR)/lib

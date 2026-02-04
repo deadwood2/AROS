@@ -30,7 +30,7 @@ include $(SRCDIR)/config/aros.cfg
 
 # -------- x86_64-pc board support package --------
 
-#MM kernel-bsp-pc-x86_64 :                                      \
+#MM- kernel-bsp-pc-x86_64 :                                     \
 #MM                     linklibs-bootconsole                    \
 #MM                     kernel-hidd-bus                         \
 #MM                     kernel-hidd-base                        \
@@ -74,7 +74,7 @@ BSP_MISC := \
 # -------- ACPI drivers package --------
 
 #MM- kernel-link-pc-x86_64 : kernel-acpi
-#MM kernel-acpi :                       \
+#MM- kernel-acpi :                      \
 #MM     kernel-hidd-acpibutton          \
 #MM     kernel-hidd-acpifan             \
 #MM     kernel-hidd-acpiacad            \
