@@ -49,7 +49,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-realtime \
 #MM     workbench-libs-tiff \
 #MM     workbench-libs-vega \
-#MM     workbench-libs-vhi-includes \
 #MM     workbench-libs-version \
 #MM     workbench-libs-workbench \
 #MM     workbench-libs-z \
