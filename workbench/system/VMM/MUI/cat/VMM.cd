@@ -1,0 +1,337 @@
+#language english
+#version 3
+#basename VMM
+;
+; First some defines for the task page
+;
+msgDontUseVM (//)
+Don't use VM
+;
+msgUseVM (//)
+Use VM
+;
+msgAdvancedOptions (//)
+Advanced options
+;
+msgAddProg (//)
+Add Program
+;
+msgAddProgShort (//)
+p
+;
+msgAddTask (//)
+Add Task
+;
+msgAddTaskShort (//)
+t
+;
+msgAdd (//)
+Add
+;
+msgAddShort (//)
+a
+;
+msgTop (//)
+Top
+;
+msgTopShort (//)
+t
+;
+msgUp (//)
+Up
+;
+msgUpShort (//)
+u
+;
+msgDown (//)
+Down
+;
+msgDownShort (//)
+w
+;
+msgBottom (//)
+Bottom
+;
+msgBottomShort (//)
+b
+;
+msgDelete (//)
+Delete
+;
+msgDeleteShort (//)
+d
+;
+msgSort (//)
+Sort
+;
+msgSortShort (//)
+o
+;
+msgCode (//)
+Code
+;
+msgData (//)
+Data
+;
+msgMinPublic (//)
+Min. PUBLIC alloc.
+;
+msgMinNonPublic (//)
+Min. non-PUBLIC alloc.
+;
+msgSelectTask (//)
+Select Task
+;
+; Next come the strings for the memory page
+;
+msgFixedSize (//)
+Fixed size
+;
+msgDynamic (//)
+Dynamic
+;
+msgRestrictedDynamic (//)
+Restricted dynamic
+;
+msgDevice (//)
+Partition
+;
+msgFile (//)
+File
+;
+msgPseudoPart (//)
+Pseudo-partition
+;
+msgAny (//)
+ANY
+;
+msgChip (//)
+CHIP
+;
+msgFast (//)
+FAST
+;
+msgSelectFile (//)
+Please select file
+;
+msgPagingMemory (//)
+\033cPaging memory
+;
+msgMemType (//)
+\033cMemory type
+;
+msgMinMem (//)
+\033cMinimum memory
+;
+msgMaxMem (//)
+\033cMaximum memory
+;
+msgWriteBuffer (//)
+\033cWrite buffer
+;
+msgPrio (//)
+\033cVM Priority
+;
+msgFileSize (//)
+\033cFile size
+;
+; Following are the string for the misc / statistics page
+;
+msgZoomed (//)
+Titlebar only
+;
+msgPosUnzoomed (//)
+\033cPosition in normal state
+;
+msgLeftEdge (//)
+Left
+;
+msgTopEdge (//)
+Top
+;
+msgPosZoomed (//)
+\033cPosition as titlebar
+;
+msgStatistics (//)
+Statistics
+;
+msgCacheZ2RAM (//)
+Cache Zorro II RAM
+;
+msgPatchWB (//)
+Show VM in WB title
+;
+msgMemTracking (//)
+Memory tracking
+;
+msgMinVMAlloc (//)
+Min. VM allocation
+;
+msgEnableHotkey (//)
+Enable VM hotkey
+;
+msgDisableHotkey (//)
+Disable VM hotkey
+;
+; Menu strings
+;
+msgProject (//)
+Project
+;
+msgOpen (//)
+Open...
+;
+msgOpenShort (//)
+O
+;
+msgSaveAs (//)
+Save As...
+;
+msgSaveAsShort (//)
+A
+;
+msgSaveWindow (//)
+Save Window
+;
+msgAbout (//)
+About...
+;
+msgHide (//)
+Hide
+;
+msgHideShort (//)
+H
+;
+msgQuit (//)
+Quit
+;
+msgQuitShort (//)
+Q
+;
+msgEdit (//)
+Edit
+;
+msgDefaults (//)
+Reset To Defaults
+;
+msgDefaultsShort (//)
+D
+;
+msgLastSaved (//)
+Last Saved
+;
+msgLastSavedShort (//)
+L
+;
+msgRestore (//)
+Restore
+;
+msgRestoreShort (//)
+R
+;
+msgSave (//)
+Save
+;
+msgSaveShort (//)
+s
+;
+msgUse (//)
+Use
+;
+msgUseShort (//)
+u
+;
+msgCancel (//)
+Cancel
+;
+msgCancelShort (//)
+c
+;
+msgNameMissing (//)
+Name of partition of pagefile is missing
+;
+; The next strings are used here and there in the VMM preferences program
+;
+msgVMMDescr (//)
+Virtual memory manager
+;
+msgCopyright (//)
+Copyright 1993-95 by Martin Apel
+;
+msgStartVMMError (//)
+Couldn't start VMM\n
+;
+msgOutOfMem (//)
+Not enough memory\n
+;
+msgNew (//)
+>> NEW <<
+;
+msgDefault (//)
+----- D E F A U L T -----
+;
+msgLoadPrefs (//)
+Load VMM Preferences
+;
+msgSavePrefs (//)
+Save VMM Preferences
+;
+; this one needs one %s where the name of the preferences file is put in
+msgInvalidPrefs (//)
+%s is not a valid preferences file\n\
+Resetting to defaults
+;
+msgAboutString (//)
+\033c\033bVMM V3.3\033n\n\
+\033cVirtual memory for Amigas\n\
+\033cwith MMU\n\n\
+\033cCopyright 1993-95 by Martin Apel
+;
+msgTasksProgs (//)
+Tasks/Programs
+;
+msgMemory (//)
+Memory
+;
+msgMisc (//)
+Miscellaneous
+;
+msgSelectProg (//)
+Select program file
+;
+msgUseCodeShort (//)
+Y
+;
+msgNoUseCodeShort (//)
+N
+;
+msgUseDataShort (//)
+Y
+;
+msgNoUseDataShort (//)
+N
+;
+msgAdvancedDataShort (//)
+A
+;
+msgSaveWinError (//)
+Error saving window position
+;
+msgNoCfgFile (//)
+Couldn't open config file %s
+;
+msgCorruptCfgFile (//)
+File %s is not a valid config file
+;
+msgFastROM (//)
+FastROM
+;
+msgAddDir (//)
+Add Dir
+;
+msgAddDirShort (//)
+i
+;
+msgSelectDir (//)
+Select directory
+;

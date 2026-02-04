@@ -1,5 +1,5 @@
 #language english
-#version 4
+#version 5
 ;
 ;    AHI - Hardware independent audio subsystem
 ;    Copyright (C) 1996-2005 Martin Blom <martin@blom.org>
@@ -139,6 +139,9 @@ No outputs
 ;
 msgGlobalOptions (//)
 Global options
+;
+msgSystemSound (//)
+use for system sounds
 ;
 msgGlobOptDebugLevel (//)
 _Debug level

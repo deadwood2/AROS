@@ -1,0 +1,232 @@
+## version $VER: vmm-handler.catalog 1.0 (22.3.95)
+## language français
+## codeset 0
+;
+msgNotEnoughMem
+Pas assez de mémoire
+;Not enough memory
+;
+msgNoPagingFile
+Impossible d'ouvrir le fichier de pagination
+;Couldn't open paging file
+;
+msgNoSpace
+Pas assez de place sur le disque
+;Not enough space on disk
+;
+msgFailedIo
+erreur E/S vers le device de pagination
+;IO to paging device failed
+;
+msgFileIsDir
+Le fichier de pagination est un répertoire
+;Pagefile is a directory
+;
+msgInternal
+Erreur Interne. \n\
+Contacter l'auteur apel@tecmath.de
+;Internal error.\n\
+;Contact author: apel@tecmath.de
+;
+msgInhibitFailed
+Impossible d'empêcher le DOS d'utiliser la partition
+;Couldn't inhibit DOS from using partition
+;
+msgWrongBlocksize
+Taille des blocks de la parition FFS != 512 octets
+;FFS partition with blocksize != 512 bytes
+;
+msgNoDiskinfo
+Impossible d'obtenir les informations du disque
+;Couldn't get information about disk
+;
+msgNotValidated
+La partition n'est pas validée
+;Partition not validated
+;
+msgOutOfBounds
+Erreur Interne :\nAcces à une page en dehors des limites de la partition\n\
+Contacter l'auteur : apel@tecmath.de
+;Internal error:\nAccessing page out of partition bounds\n\
+;Contact author: apel@tecmath.de
+;
+msgNoFFS
+La pseudo-partition n'est pas un disque FFS
+;Pseudo partition not on a FFS disk
+;
+msgNoConfigFile
+Impossible de trouver le fichier de configuration.\n\
+Utilisez le bouton 'Utiliser' ou 'sauvegarder' de l'IHM
+;Couldn't find configuration file.\n\
+;Use the 'Use' or 'Save' button in the GUI
+;
+msgCorruptCfgFile
+L'un des fichier VMM.prefs ou VMM_MMU.config est corrompu.
+;Either VMM.prefs or\nVMM_MMU.config is corrupted.
+;
+msgVolumeNotFound
+Position du fichier de pagination non valide(Volume non trouvé)
+;Invalid location of paging file\n(Volume not found)
+;
+msgLowVersion
+Néccessite au moins l' OS V37 pour fonctionner
+;Need at least V37 of OS to run
+;
+msgNoDOS
+Impossible d'ouvrir la dos.library
+;Couldn't open dos.library
+;
+msgNoIntuition
+Impossible d'ouvrir l'intuition.library
+;Couldn't open intuition.library
+;
+msgNoGfx
+Impossible d'ouvrir la graphics.library
+;Couldn't open graphics.library
+;
+msgNoUtility
+Impossible d'ouvrir l'utility.library
+;Couldn't open utility.library
+;
+msgNoExpansion
+Impossible d'ouvrir l'expansion.library
+;Couldn't open expansion.library
+;
+msgNoCommodities
+Impossible d'ouvrir la commodities.library
+;Couldn't open commodities.library
+;
+msgWrongCPU
+Néccessite un MMU pour faire fonctionner ce programme
+;Need a MMU to run this program
+;
+msgNoAddrSpace
+Impossible d'allouer l'espace d'adressage\npour la mémoire virtuelle
+;Couldn't allocate address space\nfor virtual memory
+;
+msgNoPrefs
+Impossible de trouve le programme principal de VMM
+;Couldn't locate VMM main program
+;
+msgNoStatwindow
+Impossible d'ouvrir la fenètre de statistiques
+;Couldn't open statistics window
+;
+msgNoRexx
+Impossible d'ouvrir la rexxsyslib.library
+;Couldn't open rexxsyslib.library
+;
+; The following message is used by the ErrorTask to format its error message
+; it has to contain three %s
+msgGenericError
+%s de la tâche %s : \n %s
+;%s from task %s:\n%s
+;
+msgMessage
+Message
+;Message
+;
+msgError
+Erreur
+;Error
+;
+msgOK
+OK
+;OK
+;
+msgReboot
+Rebooter
+;Reboot
+;
+; Has to contain one %s for the device name
+msgNoDevice
+Impossible d'ouvrir %s
+;Couldn't open %s
+;
+msgNoTimer
+Impossible d'initialiser le timer
+;Couldn't initialize timer
+;
+msgPPTooLarge
+Pas assez de place pour la pseudo-partition.\n\
+Il reste %ld Mo sur la partition
+;Not enough space for pseudo-partition.\n\
+;Space left on device is %ld MB
+;
+msgTooFragmented
+Votre disque dur est trop fragementé\nLa taille du bloc contigü le plus grand est %ld Mo.\n\
+Réduisez la taille de la pseudo-partition ou reorganisez vorte disque
+;Your harddisk is too fragmented\nLargest contiguous chunk is %ld MB.\n\
+;Resize pseudo-partition or reorganize your disk
+;
+msgVMMLibStillOpen
+Impossible de quitter. la VMM.library est toujours ouverte
+;Can't quit. VMM.library is still opened
+;
+msgNotEnoughFrames
+Impossible de quitter. Pas assez de pages\npour stocker la mémoire encore allouée.
+;Can't quit. Not enough page frames\nto store still allocated memory in.
+;
+msgStillVMAllocated
+Il y a encore de la mémoire virtuelle allouée\n\
+Ces blocks sont chargés dans la mémoire physique\net VMM s'arrètera.
+;There is still virtual memory allocated\n\
+;These chunks are loaded into physical memory\nand VMM will quit.
+;
+msgUnusedPartition
+La partition %s n'a pas encore été utilisée\npour la pagination. Doit-on écrire par dessus ?
+;Partition %s has not been used\nfor paging yet. Overwrite it ?
+;
+msgUseCancel
+Utiliser|Annuler
+;Use|Cancel
+;
+msgDeleteFile
+Le fichier %s n'est pas continu ou a une mauvaise taille.\nDoit-on l'effacer ?
+;File %s is not\ncontiguous or has wrong size.\nDelete it ?
+;
+msgDeleteCancel
+Effacer|Annuler
+;Delete|Cancel
+;
+msgPageDevChanged
+Vous ne pouvez pas changer les paramètres du device de pagination\n\
+pendant l'utilisation de VMM. Vos changements ne seront pris en\n\
+compte qu'au prochain lancement de VMM.
+;You cannot change parameter of the paging device\n\
+;while VMM is running. Your changes will only take\n\
+;effect after the next start of VMM.
+;
+msgVMFree
+Mémoire virtuelle libre :
+;Virtual memory free:
+;
+msgPublicFastFree
+Mémoire rapide public libre :
+;Public Fast Mem free:
+;
+msgNumPF
+Nombre d'erreurs de page :
+;Number of pagefaults:
+;
+msgNumRead
+Nombre de lecture de pages :
+;Number of pages read:
+;
+msgNumWritten
+Nombre d'écriture de pages :
+;Number of pages written:
+;
+msgNumFrames
+Nombre de pages :
+;Number of page frames:
+;
+msgPagesUsed
+Pages utilisées sur le device :
+;Pages used on device:
+;
+msgDynMapFailed
+La table des pages pour la configuration dynamique de la MMU n'est pas \
+installable.\nTâche arrètée.
+;Could not install pagetable for dynamic MMU configuration.\n\
+;Task stopped.

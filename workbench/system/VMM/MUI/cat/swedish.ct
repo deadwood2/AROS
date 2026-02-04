@@ -1,0 +1,447 @@
+## version $VER: vmm.catalog 1.0 (22.3.95)
+## language svenska
+## codeset 0
+;
+; First some defines for the task page
+;
+msgDontUseVM
+Använd inte VM
+;Don't use VM
+;
+msgUseVM
+Använd VM
+;Use VM
+;
+msgAdvancedOptions
+Avancerade inställningar
+;Advanced options
+;
+msgAddProg
+Lägg till program
+;Add Program
+;
+msgAddProgShort
+p
+;p
+;
+msgAddTask
+Lägg till aktivt
+;Add Task
+;
+msgAddTaskShort
+k
+;t
+;
+msgAdd
+Lägg till
+;Add
+;
+msgAddShort
+l
+;a
+;
+msgTop
+Toppen
+;Top
+;
+msgTopShort
+t
+;t
+;
+msgUp
+Upp
+;Up
+;
+msgUpShort
+u
+;u
+;
+msgDown
+Ner
+;Down
+;
+msgDownShort
+n
+;w
+;
+msgBottom
+Botten
+;Bottom
+;
+msgBottomShort
+b
+;b
+;
+msgDelete
+Radera
+;Delete
+;
+msgDeleteShort
+r
+;d
+;
+msgSort
+Sortera
+;Sort
+;
+msgSortShort
+o
+;o
+;
+msgCode
+Kod
+;Code
+;
+msgData
+Data
+;Data
+;
+msgMinPublic
+Min. PUBLIC allok.
+;Min. PUBLIC alloc.
+;
+msgMinNonPublic
+Min. icke-PUBLIC allok.
+;Min. non-PUBLIC alloc.
+;
+msgSelectTask
+Välj aktivt program
+;Select Task
+;
+; Next come the strings for the memory page
+;
+msgFixedSize
+Fast storlek
+;Fixed size
+;
+msgDynamic
+Dynamiskt
+;Dynamic
+;
+msgRestrictedDynamic
+Begränsat dynamiskt
+;Restricted dynamic
+;
+msgDevice
+Partition
+;Partition
+;
+msgFile
+Fil
+;File
+;
+msgPseudoPart
+Låtstaspartition
+;Pseudo-partition
+;
+msgAny
+GODTYCKLIG
+;ANY
+;
+msgChip
+CHIP
+;CHIP
+;
+msgFast
+FAST
+;FAST
+;
+msgSelectFile
+Välj en fil
+;Please select file
+;
+msgPagingMemory
+\033cVäxlingsminne
+;\033cPaging memory
+;
+msgMemType
+\033cMinnestyp
+;\033cMemory type
+;
+msgMinMem
+\033cMinsta mängd minne
+;\033cMinimum memory
+;
+msgMaxMem
+\033cStörsta mängd minne
+;\033cMaximum memory
+;
+msgWriteBuffer
+\033cSkrivbuffer
+;\033cWrite buffer
+;
+msgPrio
+\033cVM-prioritet
+;\033cVM Priority
+;
+msgFileSize
+\033cFilstorlek
+;\033cFile size
+;
+; Following are the string for the misc / statistics page
+;
+msgZoomed
+Endast titelrad
+;Titlebar only
+;
+msgPosUnzoomed
+\033cPosition i normalt läge
+;\033cPosition in normal state
+;
+msgLeftEdge
+Vänster
+;Left
+;
+msgTopEdge
+Topp
+;Top
+;
+msgPosZoomed
+\033cPosition som titelrad
+;\033cPosition as titlebar
+;
+msgStatistics
+Statistik
+;Statistics
+;
+msgCacheZ2RAM
+Använd Zorro II RAM
+;Cache Zorro II RAM
+;
+msgPatchWB
+Visa VM i WB-titel
+;Show VM in WB title
+;
+msgMemTracking
+Minnesspårning
+;Memory tracking
+;
+msgMinVMAlloc
+Min. VM-allokering
+;Min. VM allocation
+;
+msgEnableHotkey
+Direktval aktivera VM
+;Enable VM hotkey
+;
+msgDisableHotkey
+Direktval inatkivera VM
+;Disable VM hotkey
+;
+; Menu strings
+;
+msgProject
+Arkiv
+;Project
+;
+msgOpen
+Öppna...
+;Open...
+;
+msgOpenShort
+O
+;O
+;
+msgSaveAs
+Spara som...
+;Save As...
+;
+msgSaveAsShort
+A
+;A
+;
+msgSaveWindow
+Spara fönster
+;Save Window
+;
+msgAbout
+Om...
+;About...
+;
+msgHide
+Göm
+;Hide
+;
+msgHideShort
+H
+;H
+;
+msgQuit
+Avsluta
+;Quit
+;
+msgQuitShort
+Q
+;Q
+;
+msgEdit
+Redigera
+;Edit
+;
+msgDefaults
+Förinställda värden
+;Reset To Defaults
+;
+msgDefaultsShort
+F
+;D
+;
+msgLastSaved
+Senast sparade
+;Last Saved
+;
+msgLastSavedShort
+E
+;L
+;
+msgRestore
+Återställ
+;Restore
+;
+msgRestoreShort
+Å
+;R
+;
+msgSave
+Spara
+;Save
+;
+msgSaveShort
+s
+;s
+;
+msgUse
+Använd
+;Use
+;
+msgUseShort
+a
+;u
+;
+msgCancel
+Avbryt
+;Cancel
+;
+msgCancelShort
+v
+;c
+;
+msgNameMissing
+Partitionsnamn för växlingsfil saknas
+;Name of partition of pagefile is missing
+;
+; The next strings are used here and there in the VMM preferences program
+;
+msgVMMDescr
+Hanterare för virutellt minne
+;Virtual memory manager
+;
+msgCopyright
+Upphovsrätt 1993-95 av Martin Apel
+;Copyright 1993-95 by Martin Apel
+;
+msgStartVMMError
+Kunde inte starta VMM\n
+;Couldn't start VMM\n
+;
+msgOutOfMem
+Ej tillräckligt med minne\n
+;Not enough memory\n
+;
+msgNew
+>> NY <<
+;>> NEW <<
+;
+msgDefault
+----- F Ö R V A L T -----
+;----- D E F A U L T -----
+;
+msgLoadPrefs
+Ladda VMM-inställningar
+;Load VMM Preferences
+;
+msgSavePrefs
+Spara VMM-inställningar
+;Save VMM Preferences
+;
+; this one needs one %s where the name of the preferences file is put in
+msgInvalidPrefs
+%s är inte en giltlig inställningsfil\n\
+Återgår till förvalda värden
+;%s is not a valid preferences file\n\
+;Resetting to defaults
+;
+msgAboutString
+\033c\033bVMM V3.3\033n\n\
+\033cVirtuellt minne för Amigor\n\
+\033cmed MMU\n\n\
+\033cUpphovsrätt 1993-95 av Martin Apel
+;\033c\033bVMM V3.3\033n\n\
+;\033cVirtual memory for Amigas\n\
+;\033cwith MMU\n\n\
+;\033cCopyright 1993-95 by Martin Apel
+;
+msgTasksProgs
+Program
+;Tasks/Programs
+;
+msgMemory
+Minne
+;Memory
+;
+msgMisc
+Diverse
+;Miscellaneous
+;
+msgSelectProg
+Välj programfil
+;Select program file
+;
+msgUseCodeShort
+J
+;Y
+;
+msgNoUseCodeShort
+N
+;N
+;
+msgUseDataShort
+J
+;Y
+;
+msgNoUseDataShort
+N
+;N
+;
+msgAdvancedDataShort
+A
+;A
+;
+msgSaveWinError
+Kunde inte spara fönsterposition
+;Error saving window position
+;
+msgNoCfgFile
+Kunde inte öppna inställningsfilen %s
+;Couldn't open config file %s
+;
+msgCorruptCfgFile
+Filen %s är inte en korrekt inställningsfil
+;File %s is not a valid config file
+;
+msgFastROM
+FastROM
+;FastROM
+;
+msgAddDir
+Lägg till låda
+;Add Dir
+;
+msgAddDirShort
+d
+;i
+;
+msgSelectDir
+Välj låda
+;Select directory
+;

@@ -1,4 +1,4 @@
-## version $VER: Trident.catalog 1.1 (10.03.2012)
+## version $VER: Trident.catalog 1.2 (06.12.2025)
 ## language français
 ## codeset 0
 ;
@@ -8,8 +8,8 @@ Trident
 ; Trident
 ;
 MSG_APP_VERSION
-4.3 (27.05.2009)
-; 4.3 (27-May-09)
+4.4 (06-Déc-2025)
+; 4.4 (06-Dec-2025)
 ;
 MSG_APP_DESC
 Préférences de Poseidon
@@ -116,8 +116,8 @@ M
 ; M
 ;
 MSG_WINDOW_TITLE
-Trident 4.3
-; Trident 4.3
+Trident 4.4
+; Trident 4.4
 ;
 MSG_MAINPANEL_GENERAL
 Général
@@ -196,8 +196,8 @@ Toujours notifier
 ; Always immediately annoy me
 ;
 MSG_PANEL_GENERAL_LABEL1
-\33cInterface graphique de Trident V4.3
-; \33cTrident V4.3 Graphical User Interface
+\33cInterface graphique de Trident V4.4
+; \33cTrident V4.4 Graphical User Interface
 ;
 MSG_PANEL_GENERAL_LABEL2
 \33cpour la pile USB Poseidon

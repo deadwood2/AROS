@@ -1,0 +1,72 @@
+##stringtype C
+##shortstrings
+/****************************************************************
+   This file was created automatically by `%fv'
+   from "%f0".
+
+   Do NOT edit by hand!
+****************************************************************/
+
+#include <clib/locale_protos.h>
+
+static LONG %b_Version = %v;
+static const STRPTR %b_BuiltInLanguage = (STRPTR) %l;
+
+struct FC_Type
+{   LONG   ID;
+    STRPTR Str;
+};
+
+
+const struct FC_Type _%i = { %d, %s };
+
+extern struct LocaleBase *LocaleBase;
+extern UWORD VMD_NestCnt;
+
+static struct Catalog *%b_Catalog = NULL;
+
+/******************************************************************************************/
+
+void Open%bCatalog (void)
+{ 
+VMD_NestCnt++;
+if (LocaleBase != NULL)
+  %b_Catalog = OpenCatalog(NULL, (STRPTR) "VMM-Handler.catalog",
+                           OC_BuiltInLanguage, %b_BuiltInLanguage,
+                           OC_Version, %b_Version,
+                           TAG_DONE);
+VMD_NestCnt--;
+}
+
+/******************************************************************************************/
+
+void Close%bCatalog (void)
+{ 
+VMD_NestCnt++;
+if (LocaleBase != NULL)
+  CloseCatalog(%b_Catalog);
+%b_Catalog = NULL;
+VMD_NestCnt--;
+}
+
+/******************************************************************************************/
+
+STRPTR Get%bString(APTR fcstr)
+{ 
+STRPTR defaultstr;
+LONG strnum;
+STRPTR tmp;
+
+strnum = ((struct FC_Type *) fcstr)->ID;
+defaultstr = ((struct FC_Type *) fcstr)->Str;
+
+if (LocaleBase != NULL)
+  {
+  VMD_NestCnt++;
+  tmp = GetCatalogStr(%b_Catalog, strnum, defaultstr);
+  VMD_NestCnt--;
+  return (tmp);
+  }
+
+return (defaultstr);
+}

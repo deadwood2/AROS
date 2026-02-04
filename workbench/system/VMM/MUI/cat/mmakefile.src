@@ -1,0 +1,9 @@
+# Copyright (C) 2025, The AROS Development Team. All rights reserved.
+
+include $(SRCDIR)/config/aros.cfg
+
+CATALOGS := danish french german italian russian spanish swedish
+
+%build_catalogs mmake=workbench-system-vmm-app-catalogs \
+    catalogs=$(CATALOGS) \
+    name=VMM subdir=System/System

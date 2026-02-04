@@ -1,0 +1,447 @@
+## version $VER: VMM.catalog 1.0 (03.01.2010)
+## language deutsch
+## codeset 0
+;
+; First some defines for the task page
+;
+msgDontUseVM
+VM nicht benutzen
+;Don't use VM
+;
+msgUseVM
+VM benutzen
+;Use VM
+;
+msgAdvancedOptions
+Zusatzoptionen
+;Advanced options
+;
+msgAddProg
+Programm hinzufügen
+;Add Program
+;
+msgAddProgShort
+p
+;p
+;
+msgAddTask
+Task hinzufügen
+;Add Task
+;
+msgAddTaskShort
+t
+;t
+;
+msgAdd
+Hinzufügen
+;Add
+;
+msgAddShort
+h
+;a
+;
+msgTop
+Anfang
+;Top
+;
+msgTopShort
+n
+;t
+;
+msgUp
+Aufwärts
+;Up
+;
+msgUpShort
+u
+;u
+;
+msgDown
+Abwärts
+;Down
+;
+msgDownShort
+w
+;w
+;
+msgBottom
+Ende
+;Bottom
+;
+msgBottomShort
+e
+;b
+;
+msgDelete
+Löschen
+;Delete
+;
+msgDeleteShort
+l
+;d
+;
+msgSort
+Sortieren
+;Sort
+;
+msgSortShort
+o
+;o
+;
+msgCode
+Code
+;Code
+;
+msgData
+Daten
+;Data
+;
+msgMinPublic
+Min. PUBLIC Allok.
+;Min. PUBLIC alloc.
+;
+msgMinNonPublic
+Min. non-PUBLIC Allok.
+;Min. non-PUBLIC alloc.
+;
+msgSelectTask
+Task auswählen
+;Select Task
+;
+; Next come the strings for the memory page
+;
+msgFixedSize
+Feste Größe
+;Fixed size
+;
+msgDynamic
+Dynamisch
+;Dynamic
+;
+msgRestrictedDynamic
+Eingeschränkt dynamisch
+;Restricted dynamic
+;
+msgDevice
+Partition
+;Partition
+;
+msgFile
+Datei
+;File
+;
+msgPseudoPart
+Pseudo-Partition
+;Pseudo-partition
+;
+msgAny
+ANY
+;ANY
+;
+msgChip
+CHIP
+;CHIP
+;
+msgFast
+FAST
+;FAST
+;
+msgSelectFile
+Datei auswählen
+;Please select file
+;
+msgPagingMemory
+\033cAuslagerungsspeicher
+;\033cPaging memory
+;
+msgMemType
+\033cSpeicherart
+;\033cMemory type
+;
+msgMinMem
+\033cMinimaler Speicher
+;\033cMinimum memory
+;
+msgMaxMem
+\033cMaximaler Speicher
+;\033cMaximum memory
+;
+msgWriteBuffer
+\033cSchreibpuffer
+;\033cWrite buffer
+;
+msgPrio
+\033cVM Priorität
+;\033cVM Priority
+;
+msgFileSize
+\033cDateigröße
+;\033cFile size
+;
+; Following are the string for the misc / statistics page
+;
+msgZoomed
+Titelleiste
+;Titlebar only
+;
+msgPosUnzoomed
+Position in normalem Zustand
+;\033cPosition in normal state
+;
+msgLeftEdge
+Links
+;Left
+;
+msgTopEdge
+Oben
+;Top
+;
+msgPosZoomed
+\033cPosition als Titelleiste
+;\033cPosition as titlebar
+;
+msgStatistics
+Statistik
+;Statistics
+;
+msgCacheZ2RAM
+Zorro II RAM cachen
+;Cache Zorro II RAM
+;
+msgPatchWB
+VM in WB-Titel anzeigen
+;Show VM in WB title
+;
+msgMemTracking
+Speicher protokollieren
+;Memory tracking
+;
+msgMinVMAlloc
+Min. VM Allokation
+;Min. VM allocation
+;
+msgEnableHotkey
+Hotkey: VM aktivieren
+;Enable VM hotkey
+;
+msgDisableHotkey
+Hotkey: VM deaktivieren
+;Disable VM hotkey
+;
+; Menu strings
+;
+msgProject
+Projekt
+;Project
+;
+msgOpen
+Öffnen...
+;Open...
+;
+msgOpenShort
+O
+;O
+;
+msgSaveAs
+Speichern als...
+;Save As...
+;
+msgSaveAsShort
+A
+;A
+;
+msgSaveWindow
+Fenster speichern
+;Save Window
+;
+msgAbout
+Version, Copyright...
+;About...
+;
+msgHide
+Verbergen
+;Hide
+;
+msgHideShort
+H
+;H
+;
+msgQuit
+Beenden
+;Quit
+;
+msgQuitShort
+Q
+;Q
+;
+msgEdit
+Vorgaben
+;Edit
+;
+msgDefaults
+auf Vorgaben zurücksetzen
+;Reset To Defaults
+;
+msgDefaultsShort
+Z
+;D
+;
+msgLastSaved
+auf zuletzt gespeichertes
+;Last Saved
+;
+msgLastSavedShort
+L
+;L
+;
+msgRestore
+auf vorherigen Stand
+;Restore
+;
+msgRestoreShort
+S
+;R
+;
+msgSave
+Speichern
+;Save
+;
+msgSaveShort
+s
+;s
+;
+msgUse
+Benutzen
+;Use
+;
+msgUseShort
+b
+;u
+;
+msgCancel
+Abbrechen
+;Cancel
+;
+msgCancelShort
+a
+;c
+;
+msgNameMissing
+Name des Geräts oder der Auslagerungsdatei fehlt
+;Name of partition of pagefile is missing
+;
+; The next strings are used here and there in the VMM preferences program
+;
+msgVMMDescr
+Virtuelle Speicherverwaltung
+;Virtual memory manager
+;
+msgCopyright
+Copyright 1993-95 Martin Apel
+;Copyright 1993-95 by Martin Apel
+;
+msgStartVMMError
+Kann VMM nicht starten\n
+;Couldn't start VMM\n
+;
+msgOutOfMem
+Nicht genug Speicher
+;Not enough memory\n
+;
+msgNew
+>> NEU <<
+;>> NEW <<
+;
+msgDefault
+----- V O R G A B E -----
+;----- D E F A U L T -----
+;
+msgLoadPrefs
+VMM Einstellungen laden
+;Load VMM Preferences
+;
+msgSavePrefs
+VMM Einstellungen speichern
+;Save VMM Preferences
+;
+; this one needs one %s where the name of the preferences file is put in
+msgInvalidPrefs
+%s ist keine gültige Einstellungsdatei\n\
+Auf Vorgabe zurückgesetzt
+;%s is not a valid preferences file\n\
+;Resetting to defaults
+;
+msgAboutString
+\033c\033bVMM V3.3\033n\n\
+\033cVirtueller Speicher für Amigas\n\
+\033cmit MMU\n\n\
+\033cCopyright 1993-95 Martin Apel
+;\033c\033bVMM V3.3\033n\n\
+;\033cVirtual memory for Amigas\n\
+;\033cwith MMU\n\n\
+;\033cCopyright 1993-95 by Martin Apel
+;
+msgTasksProgs
+Tasks / Programme
+;Tasks/Programs
+;
+msgMemory
+Speicher
+;Memory
+;
+msgMisc
+Verschiedenes
+;Miscellaneous
+;
+msgSelectProg
+Programmdatei auswählen
+;Select program file
+;
+msgUseCodeShort
+J
+;Y
+;
+msgNoUseCodeShort
+N
+;N
+;
+msgUseDataShort
+J
+;Y
+;
+msgNoUseDataShort
+N
+;N
+;
+msgAdvancedDataShort
+Z
+;A
+;
+msgSaveWinError
+Fehler beim Speichern der Fensterposition
+;Error saving window position
+;
+msgNoCfgFile
+Konnte Einstellungsdatei %s nicht öffnen
+;Couldn't open config file %s
+;
+msgCorruptCfgFile
+Datei %s ist keine gültige Einstellungsdatei
+;File %s is not a valid config file
+;
+msgFastROM
+FastROM
+;FastROM
+;
+msgAddDir
+Verzeichnis hinzufügen
+;Add Dir
+;
+msgAddDirShort
+V
+;i
+;
+msgSelectDir
+Verzeichnis auswählen
+;Select directory
+;

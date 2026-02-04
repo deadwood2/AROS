@@ -1,0 +1,335 @@
+;
+; VMM.catalog
+;
+;    Translated by Oleg Khimich'96 (c)
+;  39:243/1.0@amiganet 2:467/88.0@fidonet
+;
+## version $VER: VMM.catalog 3.3 (8.6.96) Russian catalog version (c) Oleg Khimich '96
+## codeset 0
+## language russian
+;
+msgDontUseVM
+Не использовать VM
+;
+msgUseVM
+Использовать VM
+;
+msgAdvancedOptions
+Advanced options
+;
+msgAddProg
+Добавить програму
+;
+msgAddProgShort
+б
+;
+msgAddTask
+Добавить задачу
+;
+msgAddTaskShort
+у
+;
+msgAdd
+Дoбавить
+;
+msgAddShort
+a
+;
+msgTop
+Пepвый
+;
+msgTopShort
+п
+;
+msgUp
+Вверх
+;
+msgUpShort
+в
+;
+msgDown
+Вниз
+;
+msgDownShort
+з
+;
+msgBottom
+Последний
+;
+msgBottomShort
+й
+;
+msgDelete
+Удалить
+;
+msgDeleteShort
+d
+;
+msgSort
+Сортировать
+;
+msgSortShort
+o
+;
+msgCode
+Код
+;
+msgData
+Данные
+;
+msgMinPublic
+Мин. PUBLIC распр.
+;
+msgMinNonPublic
+Мин. не-PUBLIC pаспр.
+;
+msgSelectTask
+Выбор задачи
+;
+msgFixedSize
+Фиксированный размер
+;
+msgDynamic
+Динамическая
+;
+msgRestrictedDynamic
+Ограниченно-динамич.
+;
+msgDevice
+Раздел
+;
+msgFile
+Файл
+;
+msgPseudoPart
+Псевдо раздел
+;
+msgAny
+ANY
+;
+msgChip
+CHIP
+;
+msgFast
+FAST
+;
+msgSelectFile
+Пожалуйста выберите файл
+;
+msgPagingMemory
+\x1BcPaging memory
+;
+msgMemType
+\x1BcТип памяти
+;
+msgMinMem
+\x1BcМинимум памяти
+;
+msgMaxMem
+\x1BcМаксимум памяти
+;
+msgWriteBuffer
+\x1BcБуфер записи
+;
+msgPrio
+\x1BcVM приоритет
+;
+msgFileSize
+\x1BcРазмер файла
+;
+msgZoomed
+Только заглавие
+;
+msgPosUnzoomed
+\x1BcНормальное пoлoжeниe
+;
+msgLeftEdge
+Слева
+;
+msgTopEdge
+Сверху
+;
+msgPosZoomed
+\x1BcПоложение заглавия
+;
+msgStatistics
+Статистика
+;
+msgCacheZ2RAM
+Кэшировать Zorro II ОЗУ
+;
+msgPatchWB
+Показывать VM в надписи WB
+;
+msgMemTracking
+Отслеживание памяти
+;
+msgMinVMAlloc
+Мин. VM распред.
+;
+msgEnableHotkey
+Enable VM hotkey
+;
+msgDisableHotkey
+Disable VM hotkey
+;
+msgProject
+Проект
+;
+msgOpen
+Открыть...
+;
+msgOpenShort
+O
+;
+msgSaveAs
+Записать как...
+;
+msgSaveAsShort
+A
+;
+msgSaveWindow
+3аписать окно
+;
+msgAbout
+О программе...
+;
+msgHide
+Спрятать
+;
+msgHideShort
+H
+;
+msgQuit
+Выход
+;
+msgQuitShort
+Q
+;
+msgEdit
+Редактировать
+;
+msgDefaults
+Восстановить стандартные
+;
+msgDefaultsShort
+D
+;
+msgLastSaved
+Последние записанные
+;
+msgLastSavedShort
+L
+;
+msgRestore
+Восстановить
+;
+msgRestoreShort
+R
+;
+msgSave
+Записать
+;
+msgSaveShort
+з
+;
+msgUse
+Использовать
+;
+msgUseShort
+и
+;
+msgCancel
+Отмена
+;
+msgCancelShort
+о
+;
+msgNameMissing
+Пропущено имя раздела страничного файла
+;
+msgVMMDescr
+Менеджер виртуальной памяти
+;
+msgCopyright
+Авторские права 1993-95 by Martin Apel
+;
+msgStartVMMError
+Не могу запустить VMM\n\
+
+;
+msgOutOfMem
+Нехватает памяти\n\
+
+;
+msgNew
+>> НОВАЯ <<
+;
+msgDefault
+----- СТАНДАРТНАЯ -----
+;
+msgLoadPrefs
+Загрузить установки VMM
+;
+msgSavePrefs
+Записать устанoвки VMM
+;
+msgInvalidPrefs
+%s не кoнфигуpациoнный файл\n\
+Устанавливаю стандартные
+;
+msgAboutString
+\x1Bc\x1BbVMM V3.3\x1Bn\n\
+\x1BcВиртуальная память для Амиг\n\
+\x1Bcс MMU\n\
+\n\
+\x1BcАвтopскиe пpава 1993-95 by Martin Apel
+;
+msgTasksProgs
+Задачи/Програмы
+;
+msgMemory
+Память
+;
+msgMisc
+Разное
+;
+msgSelectProg
+Выберите програмный файл
+;
+msgUseCodeShort
+Y
+;
+msgNoUseCodeShort
+N
+;
+msgUseDataShort
+Y
+;
+msgNoUseDataShort
+N
+;
+msgAdvancedDataShort
+A
+;
+msgSaveWinError
+Ошибка записи положения окна
+;
+msgNoCfgFile
+Не могу открыть файл конфигурации %s
+;
+msgCorruptCfgFile
+Файл %s не является конфигурационным
+;
+msgFastROM
+FastROM
+;
+msgAddDir
+Добавить директорию
+;
+msgAddDirShort
+i
+;
+msgSelectDir
+Выбрать директорию
+;

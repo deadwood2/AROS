@@ -1,0 +1,223 @@
+## version 
+## language 
+## codeset 0
+;
+msgNotEnoughMem
+
+;Not enough memory
+;
+msgNoPagingFile
+
+;Couldn't open paging file
+;
+msgNoSpace
+
+;Not enough space on disk
+;
+msgFailedIo
+
+;IO to paging device failed
+;
+msgFileIsDir
+
+;Pagefile is a directory
+;
+msgInternal
+
+;Internal error.\n\
+;Contact author: apel@tecmath.de
+;
+msgInhibitFailed
+
+;Couldn't inhibit DOS from using partition
+;
+msgWrongBlocksize
+
+;FFS partition with blocksize != 512 bytes
+;
+msgNoDiskinfo
+
+;Couldn't get information about disk
+;
+msgNotValidated
+
+;Partition not validated
+;
+msgOutOfBounds
+
+;Internal error:\nAccessing page out of partition bounds\n\
+;Contact author: apel@tecmath.de
+;
+msgNoFFS
+
+;Pseudo partition not on a FFS disk
+;
+msgNoConfigFile
+
+;Couldn't find configuration file.\n\
+;Use the 'Use' or 'Save' button in the GUI
+;
+msgCorruptCfgFile
+
+;Either VMM.prefs or\nVMM_MMU.config is corrupted.
+;
+msgVolumeNotFound
+
+;Invalid location of paging file\n(Volume not found)
+;
+msgLowVersion
+
+;Need at least V37 of OS to run
+;
+msgNoDOS
+
+;Couldn't open dos.library
+;
+msgNoIntuition
+
+;Couldn't open intuition.library
+;
+msgNoGfx
+
+;Couldn't open graphics.library
+;
+msgNoUtility
+
+;Couldn't open utility.library
+;
+msgNoExpansion
+
+;Couldn't open expansion.library
+;
+msgNoCommodities
+
+;Couldn't open commodities.library
+;
+msgWrongCPU
+
+;Need a MMU to run this program
+;
+msgNoAddrSpace
+
+;Couldn't allocate address space\nfor virtual memory
+;
+msgNoPrefs
+
+;Couldn't locate VMM main program
+;
+msgNoStatwindow
+
+;Couldn't open statistics window
+;
+msgNoRexx
+
+;Couldn't open rexxsyslib.library
+;
+; The following message is used by the ErrorTask to format its error message
+; it has to contain three %s
+msgGenericError
+
+;%s from task %s:\n%s
+;
+msgMessage
+
+;Message
+;
+msgError
+
+;Error
+;
+msgOK
+
+;OK
+;
+msgReboot
+
+;Reboot
+;
+; Has to contain one %s for the device name
+msgNoDevice
+
+;Couldn't open %s
+;
+msgNoTimer
+
+;Couldn't initialize timer
+;
+msgPPTooLarge
+
+;Not enough space for pseudo-partition.\n\
+;Space left on device is %ld MB
+;
+msgTooFragmented
+
+;Your harddisk is too fragmented\nLargest contiguous chunk is %ld MB.\n\
+;Resize pseudo-partition or reorganize your disk
+;
+msgVMMLibStillOpen
+
+;Can't quit. VMM.library is still opened
+;
+msgNotEnoughFrames
+
+;Can't quit. Not enough page frames\nto store still allocated memory in.
+;
+msgStillVMAllocated
+
+;There is still virtual memory allocated\n\
+;These chunks are loaded into physical memory\nand VMM will quit.
+;
+msgUnusedPartition
+
+;Partition %s has not been used\nfor paging yet. Overwrite it ?
+;
+msgUseCancel
+
+;Use|Cancel
+;
+msgDeleteFile
+
+;File %s is not\ncontiguous or has wrong size.\nDelete it ?
+;
+msgDeleteCancel
+
+;Delete|Cancel
+;
+msgPageDevChanged
+
+;You cannot change parameter of the paging device\n\
+;while VMM is running. Your changes will only take\n\
+;effect after the next start of VMM.
+;
+msgVMFree
+
+;Virtual memory free:
+;
+msgPublicFastFree
+
+;Public Fast Mem free:
+;
+msgNumPF
+
+;Number of pagefaults:
+;
+msgNumRead
+
+;Number of pages read:
+;
+msgNumWritten
+
+;Number of pages written:
+;
+msgNumFrames
+
+;Number of page frames:
+;
+msgPagesUsed
+
+;Pages used on device:
+;
+msgDynMapFailed
+
+;Could not install pagetable for dynamic MMU configuration.\n\
+;Task stopped.

@@ -1,0 +1,443 @@
+## version $VER: VMM.catalog 1.0 (03.01.2010)
+## language dansk
+## codeset 0
+;
+; First some defines for the task page
+;
+msgDontUseVM
+Benyt ikke VM
+;Don't use VM
+;
+msgUseVM
+Benyt VM
+;Use VM
+;
+msgAdvancedOptions
+Avancerede muligheder
+;Advanced options
+;
+msgAddProg
+Tilføj program
+;Add Program
+;
+msgAddProgShort
+p
+;p
+;
+msgAddTask
+Tilføj Task
+;Add Task
+;
+msgAddTaskShort
+t
+;t
+;
+msgAdd
+Tilføj
+;Add
+;
+msgAddShort
+f
+;a
+;
+msgTop
+Øverst
+;Top
+;
+msgTopShort
+v
+;t
+;
+msgUp
+Op
+;Up
+;
+msgUpShort
+o
+;u
+;
+msgDown
+Ned
+;Down
+;
+msgDownShort
+n
+;w
+;
+msgBottom
+Sidste
+;Bottom
+;
+msgBottomShort
+s
+;b
+;
+msgDelete
+Slet
+;Delete
+;
+msgDeleteShort
+l
+;d
+;
+msgSort
+Sorter
+;Sort
+;
+msgSortShort
+r
+;o
+;
+msgCode
+Kode
+;Code
+;
+msgData
+Data
+;Data
+;
+msgMinPublic
+Min. PUBLIC allok.
+;Min. PUBLIC alloc.
+;
+msgMinNonPublic
+Min. ikke-PUBLIC allok.
+;Min. non-PUBLIC alloc.
+;
+msgSelectTask
+Vælg Task
+;Select Task
+;
+; Next come the strings for the memory page
+;
+msgFixedSize
+Fast størrelse
+;Fixed size
+;
+msgDynamic
+Dynamisk
+;Dynamic
+;
+msgRestrictedDynamic
+Begrænset dynamisk
+;Restricted dynamic
+;
+msgDevice
+Partition
+;Partition
+;
+msgFile
+Fil
+;File
+;
+msgPseudoPart
+Pseudo-partition
+;Pseudo-partition
+;
+msgAny
+ANY
+;ANY
+;
+msgChip
+CHIP
+;CHIP
+;
+msgFast
+FAST
+;FAST
+;
+msgSelectFile
+Vælg venligst fil
+;Please select file
+;
+msgPagingMemory
+\033cPaging hukommelse
+;\033cPaging memory
+;
+msgMemType
+\033cHukommelsestype
+;\033cMemory type
+;
+msgMinMem
+\033cMinimum hukommelse
+;\033cMinimum memory
+;
+msgMaxMem
+\033caMaksimum hukommelse
+;\033cMaximum memory
+;
+msgWriteBuffer
+\033cSkrivebuffer
+;\033cWrite buffer
+;
+msgPrio
+\033cVM prioritet
+;\033cVM Priority
+;
+msgFileSize
+\033cFilstørrelse
+;\033cFile size
+;
+; Following are the string for the misc / statistics page
+;
+msgZoomed
+Kun vinduestitel
+;Titlebar only
+;
+msgPosUnzoomed
+\033cPosition i normal tilstand
+;\033cPosition in normal state
+;
+msgLeftEdge
+Venstre
+;Left
+;
+msgTopEdge
+Øverste
+;Top
+;
+msgPosZoomed
+\033cPosition som vinduestitel
+;\033cPosition as titlebar
+;
+msgStatistics
+Statistik
+;Statistics
+;
+msgCacheZ2RAM
+Cache ZorroII RAM
+;Cache Zorro II RAM
+;
+msgPatchWB
+Vis VM i WB titel
+;Show VM in WB title
+;
+msgMemTracking
+Hukommelsessporing
+;Memory tracking
+;
+msgMinVMAlloc
+Min. VM allokering
+;Min. VM allocation
+;
+msgEnableHotkey
+VM hotkey mulig
+;Enable VM hotkey
+;
+msgDisableHotkey
+VM hotkey ej mulig
+;Disable VM hotkey
+;
+; Menu strings
+;
+msgProject
+Projekt
+;Project
+;
+msgOpen
+Åben...
+;Open...
+;
+msgOpenShort
+Å
+;O
+;
+msgSaveAs
+Gem Som...
+;Save As...
+;
+msgSaveAsShort
+M
+;A
+;
+msgSaveWindow
+Gem vindue
+;Save Window
+;
+msgAbout
+Om...
+;About...
+;
+msgHide
+Skjul
+;Hide
+;
+msgHideShort
+S
+;H
+;
+msgQuit
+Afslut
+;Quit
+;
+msgQuitShort
+A
+;Q
+;
+msgEdit
+Editering
+;Edit
+;
+msgDefaults
+Sæt til standard
+;Reset To Defaults
+;
+msgDefaultsShort
+T
+;D
+;
+msgLastSaved
+Sidst gemt
+;Last Saved
+;
+msgLastSavedShort
+I
+;L
+;
+msgRestore
+Genskab
+;Restore
+;
+msgRestoreShort
+E
+;R
+;
+msgSave
+Gem
+;Save
+;
+msgSaveShort
+G
+;s
+;
+msgUse
+Benyt
+;Use
+;
+msgUseShort
+B
+;u
+;
+msgCancel
+Afbryd
+;Cancel
+;
+msgCancelShort
+A
+;c
+;
+msgNameMissing
+Navnet på partitionen med sidefilen mangler
+;Name of partition of pagefile is missing
+;
+; The next strings are used here and there in the VMM preferences program
+;
+msgVMMDescr
+Virtual Memory Manager
+;Virtual memory manager
+;
+msgCopyright
+Copyright 1993-95 af Martin Apel
+;Copyright 1993-95 by Martin Apel
+;
+msgStartVMMError
+Kunne ikke starte VMM\n
+;Couldn't start VMM\n
+;
+msgOutOfMem
+Utilstrækkelig hukommelse\n
+;Not enough memory\n
+;
+msgNew
+>> NY <<
+;>> NEW <<
+;
+msgDefault
+----- S T A N D A R D -----
+;----- D E F A U L T -----
+;
+msgLoadPrefs
+Indlæs VMM præferencer
+;Load VMM Preferences
+;
+msgSavePrefs
+Gem VMM præferencer
+;Save VMM Preferences
+;
+; this one needs one %s where the name of the preferences file is put in
+msgInvalidPrefs
+%s er ikke en gyldigt præferencefil\nSætter til standard
+;%s is not a valid preferences file\n\
+;Resetting to defaults
+;
+msgAboutString
+\033c\033bVMM V3.3\033n\n\033cVirtuel hukommelse til Amigaer\n\033cmed MMU\n\n\033cCopyright 1993-95 af Martin Apel
+;\033c\033bVMM V3.3\033n\n\
+;\033cVirtual memory for Amigas\n\
+;\033cwith MMU\n\n\
+;\033cCopyright 1993-95 by Martin Apel
+;
+msgTasksProgs
+Tasks/Programmer
+;Tasks/Programs
+;
+msgMemory
+Hukommelse
+;Memory
+;
+msgMisc
+Diverse
+;Miscellaneous
+;
+msgSelectProg
+Vælg programfil
+;Select program file
+;
+msgUseCodeShort
+Y
+;Y
+;
+msgNoUseCodeShort
+N
+;N
+;
+msgUseDataShort
+Y
+;Y
+;
+msgNoUseDataShort
+N
+;N
+;
+msgAdvancedDataShort
+A
+;A
+;
+msgSaveWinError
+Fejl under gemning af vinduesposition
+;Error saving window position
+;
+msgNoCfgFile
+Kunne ikke åbne konfigurationsfil %s
+;Couldn't open config file %s
+;
+msgCorruptCfgFile
+Fil %s er ikke en gyldig konfigurationsfil
+;File %s is not a valid config file
+;
+msgFastROM
+FastROM
+;FastROM
+;
+msgAddDir
+Tilføj katalog
+;Add Dir
+;
+msgAddDirShort
+k
+;i
+;
+msgSelectDir
+Vælg katalog
+;Select directory
+;

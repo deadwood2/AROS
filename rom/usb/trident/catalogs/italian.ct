@@ -1,4 +1,4 @@
-## version $VER: Trident.catalog 2.0 (17.05.2023)
+## version $VER: Trident.catalog 2.1 (06.12.2025)
 ## language italiano
 ## codeset 0
 ; Authors: AMIGASYSTEM
@@ -8,8 +8,8 @@ Trident
 ; Trident
 ;
 MSG_APP_VERSION
-4.3 (27-May-09)
-; 4.3 (27-May-09)
+4.4 (06-Dic-2025)
+; 4.4 (06-Dec-2025)
 ;
 MSG_APP_DESC
 Impostazioni Poseidon
@@ -116,8 +116,8 @@ M
 ; M
 ;
 MSG_WINDOW_TITLE
-Trident 4.3
-; Trident 4.3
+Trident 4.4
+; Trident 4.4
 ;
 MSG_MAINPANEL_GENERAL
 Generali
@@ -196,8 +196,8 @@ Notifica sempre
 ; Always immediately annoy me
 ;
 MSG_PANEL_GENERAL_LABEL1
-\33cTrident V4.3 Graphical User Interface
-; \33cTrident V4.3 Graphical User Interface
+\33cTrident V4.4 Graphical User Interface
+; \33cTrident V4.4 Graphical User Interface
 ;
 MSG_PANEL_GENERAL_LABEL2
 \33cPoseidon Stack USB
