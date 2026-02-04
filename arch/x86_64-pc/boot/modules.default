@@ -26,9 +26,15 @@
 /Devs/Drivers/bus.hidd
 /Devs/Drivers/storage.hidd
 /Devs/Drivers/system.hidd
+/Devs/Drivers/telemetry.hidd
 /Devs/Drivers/acpiacad.hidd
 /Devs/Drivers/acpibattery.hidd
+/Devs/Drivers/acpifan.hidd
 /Devs/Drivers/acpibutton.hidd
+/Devs/Drivers/acpithermal.hidd
+/Devs/Drivers/acpipowermeter.hidd
+/Devs/Drivers/ipmi.hidd
+/Devs/Drivers/smbios-ipmi.hidd
 /Devs/USBHardware/pciusb.device
 /Devs/usbromstartup.resource
 /Devs/bootloader.resource
