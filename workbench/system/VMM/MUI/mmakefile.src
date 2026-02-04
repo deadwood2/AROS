@@ -25,6 +25,6 @@ USER_CPPFLAGS := -DMUI_OBSOLETE
 %build_prog mmake=workbench-system-vmm-app \
     progname=VMM targetdir=$(AROS_SYSTEM) \
     files="$(FILES)" \
-    detach=no
+    detach=no usesdks="private"
 
 %common

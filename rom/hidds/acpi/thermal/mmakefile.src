@@ -9,16 +9,16 @@ USER_CFLAGS := $(NOWARN_FLAGS)
 USER_CPPFLAGS      := -D__OOP_NOLIBBASE__ \
                     -D__UTILITY_NOLIBBASE__
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs
 
 #MM kernel-hidd-acpithermal : kernel-hidd-telemetry-includes
 
 %build_module mmake=kernel-hidd-acpithermal \
     modname=acpithermal modtype=hidd \
-  files="$(FILES)" uselibs=acpica
+  files="$(FILES)" uselibs=acpica sdk=private usesdks="private"
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 %common

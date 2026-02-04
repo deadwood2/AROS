@@ -7,14 +7,14 @@ USER_CPPFLAGS := \
                -D__OOP_NOMETHODBASES__ \
                -D__OOP_NOATTRBASES__
 #USER_CPPFLAGS += -DDEBUG
-USER_LDFLAGS := -static
+USER_LDFLAGS := -noclibs
 
 %build_module mmake=kernel-hidd-ipmi \
     modname=ipmi modtype=hidd \
-    files="$(FILES)"
+    files="$(FILES)" sdk=private usesdks="private"
 
 INCLUDE_FILES    := $(call WILDCARD, include/*.h)
 
-%copy_includes path=hidd dir=include
+%copy_includes path=hidd dir=include sdk=private
 
 %common

@@ -100,11 +100,11 @@ USER_LDFLAGS :=
 #MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-telemetry
 #MM- workbench-tools-sysexplorer-modules-quick : workbench-tools-sysexplorer-module-telemetry-quick
 USER_INCLUDES := $(SYSEXPCOMMON_INCLUDES) -I$(SRCDIR)/$(CURDIR)/$(TELEMETRYMODDIR)
-USER_LDFLAGS := -static
+USER_LDFLAGS :=
 %build_module mmake=workbench-tools-sysexplorer-module-telemetry \
     modname=telemetry modtype=library modsuffix=sysexp \
     files="$(TELEMETRYFILES)" moduledir=$(AROS_DIR_TOOLS)/SysExpModules \
-    uselibs="amiga" includedir=$(SYSEXP_GENINCDIR) conffile=$(SRCDIR)/$(CURDIR)/$(TELEMETRYMODDIR)/telemetry.conf
+    uselibs="amiga oop" conffile=$(SRCDIR)/$(CURDIR)/$(TELEMETRYMODDIR)/telemetry.conf sdk=sysexplorer usesdks="private sysexplorer"
 
 ##MM workbench-tools-sysexplorer-module-gfx : workbench-tools-sysexplorer-includes
 ##MM- workbench-tools-sysexplorer-modules : workbench-tools-sysexplorer-module-gfx
