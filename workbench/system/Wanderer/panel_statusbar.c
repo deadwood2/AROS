@@ -50,6 +50,8 @@
 #include "iconwindow.h"
 #include "iconwindow_attributes.h"
 
+#include "panel_statusbar.h"
+
 extern struct List                     iconwindow_Extensions;
 
 /*** Private Data *********************************************************/
