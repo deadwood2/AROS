@@ -1,0 +1,11 @@
+astyle \
+  --style=bsd \
+  --indent=spaces=4 \
+  --attach-closing-while \
+  --pad-oper \
+  --pad-header \
+  --unpad-paren \
+  --align-pointer=name \
+  --max-code-length=120 \
+  --lineend=linux \
+  --recursive "*.c" "*.h"
