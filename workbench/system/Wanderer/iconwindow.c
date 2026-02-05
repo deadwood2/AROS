@@ -1295,13 +1295,15 @@ IPTR IconWindow__MUIM_IconWindow_Clicked
                         strncpy((char *) new_status_str, status_str, position - 1);
                         if (il_entry != NULL) {
                             sprintf(&new_status_str[position-1], " Selected: %s", il_entry->label);                            
+                        } else {
+                            new_status_str[position - 1] = '\0';
                         }
                         SET(panelStatusBarPrivate->iwp_StatusBar_StatusTextObj, MUIA_Text_Contents, (IPTR)new_status_str);
                     } else {
                         if (il_entry != NULL) {
                             sprintf(new_status_str, "%s Selected: %s", status_str, il_entry->label);
                             SET(panelStatusBarPrivate->iwp_StatusBar_StatusTextObj, MUIA_Text_Contents, (IPTR)new_status_str);
-                        } else {                            
+                        } else {
                             SET(panelStatusBarPrivate->iwp_StatusBar_StatusTextObj, MUIA_Text_Contents, (IPTR)status_str);
                         }
                     }
