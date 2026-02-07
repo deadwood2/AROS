@@ -81,7 +81,10 @@ void handle_request(struct FECBase *FECBase, struct IOSana2Req *request)
 {
 	D(bug("[FEC] handle_request\n"));
 
+	struct FECUnit *unit;
 	BOOL complete;
+
+	unit = (APTR)request->ios2_Req.io_Unit;
 
 	switch(request->ios2_Req.io_Command)
 	{
@@ -167,7 +170,7 @@ void handle_request(struct FECBase *FECBase, struct IOSana2Req *request)
 	if(complete && (request->ios2_Req.io_Flags & IOF_QUICK) == 0)
 		ReplyMsg((APTR)request);
 
-	ReleaseSemaphore(&((struct FECUnit *)request->ios2_Req.io_Unit)->feu_Lock);
+	ReleaseSemaphore(&unit->feu_Lock);
 }
 
 

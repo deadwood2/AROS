@@ -98,7 +98,10 @@ static const UWORD supported_commands[] =
 
 void handle_request(LIBBASETYPEPTR LIBBASE, struct IOSana2Req *request)
 {
+    struct RTL8168Unit *unit;
     BOOL complete;
+
+    unit = (APTR)request->ios2_Req.io_Unit;
 
     switch(request->ios2_Req.io_Command)
     {
@@ -184,7 +187,7 @@ void handle_request(LIBBASETYPEPTR LIBBASE, struct IOSana2Req *request)
     if(complete && (request->ios2_Req.io_Flags & IOF_QUICK) == 0)
 	ReplyMsg((APTR)request);
 
-    ReleaseSemaphore(&((struct RTL8168Unit *)request->ios2_Req.io_Unit)->rtl8168u_unit_lock);
+    ReleaseSemaphore(&unit->rtl8168u_unit_lock);
 }
 
 static BOOL CmdInvalid(LIBBASETYPEPTR LIBBASE, struct IOSana2Req *request)

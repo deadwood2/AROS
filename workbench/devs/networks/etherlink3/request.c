@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2001-2025 Neil Cafferkey
+Copyright (C) 2001-2026 Neil Cafferkey
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -150,7 +150,10 @@ static const TEXT *const special_stat_names[] =
 
 VOID ServiceRequest(struct IOSana2Req *request, struct DevBase *base)
 {
+   struct DevUnit *unit;
    BOOL complete;
+
+   unit = (APTR)request->ios2_Req.io_Unit;
 
    switch(request->ios2_Req.io_Command)
    {
@@ -227,8 +230,7 @@ VOID ServiceRequest(struct IOSana2Req *request, struct DevBase *base)
    if(complete && (request->ios2_Req.io_Flags & IOF_QUICK) == 0)
       ReplyMsg((APTR)request);
 
-   ReleaseSemaphore(&((struct DevUnit *)request->ios2_Req.io_Unit)->
-      access_lock);
+   ReleaseSemaphore(&unit->access_lock);
    return;
 }
 
