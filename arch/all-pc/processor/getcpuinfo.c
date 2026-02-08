@@ -4,6 +4,7 @@
     Desc: GetCPUInfo() - Provides information about installed CPUs
 */
 
+#include <aros/config.h>
 #include <aros/debug.h>
 
 #include <aros/libcall.h>
