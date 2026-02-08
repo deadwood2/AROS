@@ -1,1 +1,3 @@
 :Tools/InstallAROS
+:System/SysMon
+:Development/Debug/Tests/smp/SMP-SmallPT
