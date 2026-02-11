@@ -1,6 +1,6 @@
 /*
 
-Copyright (C) 2004-2023 Neil Cafferkey
+Copyright (C) 2004-2026 Neil Cafferkey
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,6 +36,11 @@ MA 02111-1307, USA.
 #include "unit_protos.h"
 
 #define BAR_NO 0
+
+#define PCI_COMMAND 4
+
+#define PCI_COMMANDF_MEMORY    0x2
+#define PCI_COMMANDF_BUSMASTER 0x4
 
 
 struct BusContext
@@ -343,7 +348,7 @@ static struct BusContext *AllocCard(ULONG index, struct DevBase *base)
    BOOL success = TRUE;
    struct BusContext *context;
    PCIBoard *card = NULL;
-   UWORD i = 0, revision;
+   UWORD i = 0, revision, command_value;
    ULONG value;
    UPINT vendor_id, product_id;
 
@@ -453,6 +458,17 @@ static struct BusContext *AllocCard(ULONG index, struct DevBase *base)
    {
       if(!Prm_SetBoardAttrsTags(card, PRM_BoardOwner, (UPINT)base, TAG_END))
          success = FALSE;
+   }
+
+   /* Ensure necessary features are enabled in PCI command register (should
+      not be necessary, but some systems have bus-mastering disabled by
+      default on this PCI device) */
+
+   if(success)
+   {
+      command_value = Prm_ReadConfigWord(card, PCI_COMMAND);
+      command_value |= PCI_COMMANDF_MEMORY | PCI_COMMANDF_BUSMASTER;
+      Prm_WriteConfigWord(card, command_value, PCI_COMMAND);
    }
 
    if(!success)

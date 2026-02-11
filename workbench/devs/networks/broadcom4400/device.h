@@ -38,8 +38,8 @@ MA 02111-1307, USA.
 
 #define DEVICE_NAME "broadcom4400.device"
 #define VERSION 1
-#define REVISION 3
-#define DATE "7.2.2026"
+#define REVISION 4
+#define DATE "11.2.2026"
 
 #define UTILITY_VERSION 36
 #define PROMETHEUS_VERSION 2
