@@ -626,7 +626,7 @@ static IPTR BootEditor__MUIM_PrefsEditor_ImportFH(Class *CLASS, Object *self,
                 if (!ReadBootArgs(line, data))
                     success = FALSE;
             }
-            else if (strstr(line, "module ") != NULL)
+            else if (strstr(line, "module2 ") != NULL)
             {
                 if (!ReadModule(line, data))
                     success = FALSE;
@@ -1304,7 +1304,7 @@ static BOOL WriteModule(Object *obj, BPTR file, struct module_entry *entry)
         FPrintf(file, "    ");
         if (!entry->active)
             FPrintf(file, "#");
-        FPrintf(file, "module /%s\n", path);
+        FPrintf(file, "module2 /%s\n", path);
     }
     CurrentDir(old_dir);
 
