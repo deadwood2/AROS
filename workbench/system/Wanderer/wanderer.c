@@ -1874,7 +1874,7 @@ void wanderer_menufunc_icon_rename(void)
 
                 UnLock(lock);
             }
-            else
+            else if ((entry->type != ST_LINKDIR) && (entry->type != ST_LINKFILE))
             {
                 BOOL isInfoFile = FALSE;
                 STRPTR filename = entry->ile_IconEntry->ie_IconNode.ln_Name;
