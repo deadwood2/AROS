@@ -1854,12 +1854,11 @@ BOOL CmdRenameObject(struct Handler *handler, struct Lock *old_lock,
       the target name */
 
    duplicate = GetHardObject(handler, new_lock, new_name, &parent);
-   if(duplicate)
+   if(duplicate) //the destination file exists
    {
-      if (duplicate != object)
+      if (Stricmp(old_name,new_name)!=0){
          error = ERROR_OBJECT_EXISTS;
-      else
-         error = ERROR_INVALID_COMPONENT_NAME;
+      }
    }
    if(parent == NULL)
       error = IoErr();
