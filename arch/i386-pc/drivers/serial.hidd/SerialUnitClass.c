@@ -258,6 +258,8 @@ OOP_Object *PCSerUnit__Root__Dispose(OOP_Class *cl, OOP_Object *obj, OOP_Msg msg
       irqnum = 4;
     }
     RemIntServer(INTB_KERNEL + irqnum, irq);
+    /* FIXME: Open(1) Open(3) Close(1) will remove a shared interrupt handler and will
+       make Unit3 stop working */
     irq->is_Node.ln_Name = NULL;
   }
 
