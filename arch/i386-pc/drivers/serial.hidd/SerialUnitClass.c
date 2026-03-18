@@ -258,6 +258,7 @@ OOP_Object *PCSerUnit__Root__Dispose(OOP_Class *cl, OOP_Object *obj, OOP_Msg msg
       irqnum = 4;
     }
     RemIntServer(INTB_KERNEL + irqnum, irq);
+    irq->is_Node.ln_Name = NULL;
   }
 
   Disable();
