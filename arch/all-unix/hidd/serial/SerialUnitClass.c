@@ -414,7 +414,7 @@ ULONG UXSerUnit__Hidd_SerialUnit__SetBaudrate(OOP_Class *cl, OOP_Object *o, stru
       }
       i++;
     } /* while */
-  } /* if */
+  } else valid = TRUE;
   return valid;
 }
 
