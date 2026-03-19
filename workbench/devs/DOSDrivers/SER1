@@ -1,6 +1,6 @@
-Handler = port-handler
+EHandler = port-handler
 Priority = 5
-GlobVec = -1
+GlobVec  = -1
 Device   = serial.device
 Unit     = 1
 Flags    = 0
