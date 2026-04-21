@@ -789,28 +789,60 @@ D(bug("[WBInfo] no free store\n"));
 
     ap->ap_Strlen = MAX_PATH_LEN;
 
-    if (0 != MatchFirst(file, ap))
+    BOOL file_found = FALSE;
+   
+    D(bug("[WBInfo] Attempting to locate file: '%s'\n", file));
+   
+    /*Try to lock file as-is*/
+    BPTR file_lock = Lock(file, SHARED_LOCK);
+   
+    if (file_lock)
     {
-        /* Directly matching file failed, maybe it's a def icon */
-        STRPTR fileinfo = AllocVec(strlen(file) + 5 + 1, MEMF_CLEAR);
-        ULONG res = 0;
-
-        sprintf(fileinfo, "%s.info", file);
-        res = MatchFirst(fileinfo, ap);
-        FreeVec(fileinfo);
-        if (0 != res)
+        /* File exists, examine it*/
+        if (Examine(file_lock, &ap->ap_Info))
         {
-D(bug("[WBInfo] pass to diskinfo\n"));
-            OpenWorkbenchObject(
-                "WANDERER:Tools/DiskInfo",
-                WBOPENA_ArgLock, (IPTR) startup->sm_ArgList[1].wa_Lock,
-                WBOPENA_ArgName, (IPTR) startup->sm_ArgList[1].wa_Name,
-                TAG_DONE);
-
-            retval = RETURN_OK;
-            goto funcmain_exit;
+            file_found = TRUE;
+            D(bug("[WBInfo] File located: '%s'\n", file));
         }
-    };
+        UnLock(file_lock);
+    }
+    else
+    {
+        /*File not found, try with ".info" extension (def. icon)*/
+        D(bug("[WBInfo] File not found, trying default icon...\n"));
+       
+        STRPTR fileinfo = AllocVec(strlen(file) + 5 + 1, MEMF_CLEAR);
+        if (fileinfo != NULL)
+        {
+            sprintf(fileinfo, "%s.info", file);
+            BPTR info_lock = Lock(fileinfo, SHARED_LOCK);
+            if (info_lock)
+            {
+                if (Examine(info_lock, &ap->ap_Info))
+                {
+                    file_found = TRUE;
+                    D(bug("[WBInfo] Default icon found: '%s'\n", fileinfo));
+                }
+                UnLock(info_lock);
+            }
+           
+            FreeVec(fileinfo);
+        }
+    }
+   
+    /*Pass to DiskInfo*/
+    if (!file_found)
+    {
+        D(bug("[WBInfo] File not found, passing to DiskInfo\n"));
+        OpenWorkbenchObject(
+            "WANDERER:Tools/DiskInfo",
+            WBOPENA_ArgLock, (IPTR) startup->sm_ArgList[1].wa_Lock,
+            WBOPENA_ArgName, (IPTR) startup->sm_ArgList[1].wa_Name,
+            TAG_DONE);
+       
+        retval = RETURN_OK;
+        goto funcmain_exit;
+    }
 
     ap->ap_BreakBits = SIGBREAKF_CTRL_C;
 
