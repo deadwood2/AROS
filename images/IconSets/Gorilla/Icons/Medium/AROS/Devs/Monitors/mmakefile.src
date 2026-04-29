@@ -2,8 +2,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-STORAGEICONS := Wrapper ATI IntelGMA NVidia
-PCDEVSICONS    := VMWare
+STORAGEICONS := Wrapper ATI NVidia
+PCDEVSICONS    := VMWare IntelGMA
 ifneq ($(AROS_TARGET_ARCH),pc)
 PCDEVSDIR := $(AROSDIR)/Storage/Monitors
 else
