@@ -48,12 +48,10 @@
 #include <nvif/mmu.h>
 #include <nvif/vmm.h>
 
-#if !defined(__AROS__)
-#include <drm/drm_connector.h>
+// #include <drm/drm_connector.h>
 #include <drm/drm_device.h>
-#include <drm/drm_drv.h>
-#include <drm/drm_file.h>
-#endif
+// #include <drm/drm_drv.h>
+// #include <drm/drm_file.h>
 
 #include <drm/ttm/ttm_bo_api.h>
 #include <drm/ttm/ttm_bo_driver.h>
@@ -131,11 +129,11 @@ struct nouveau_cli_work {
 void nouveau_cli_work_queue(struct nouveau_cli *, struct dma_fence *,
 			    struct nouveau_cli_work *);
 
-static inline struct nouveau_cli *
-nouveau_cli(struct drm_file *fpriv)
-{
-	return fpriv ? fpriv->driver_priv : NULL;
-}
+// static inline struct nouveau_cli *
+// nouveau_cli(struct drm_file *fpriv)
+// {
+// 	return fpriv ? fpriv->driver_priv : NULL;
+// }
 
 #include <nvif/object.h>
 

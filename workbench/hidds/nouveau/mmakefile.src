@@ -47,11 +47,26 @@ XF86_NOUVEAU_SOURCES = \
 
 DRM_PATH = $(SRCDIR)/$(CURDIR)/drm/
 DRM2_PATH = $(SRCDIR)/$(CURDIR)/drm2/
+DRM3_PATH = $(SRCDIR)/$(CURDIR)/drm3/
 XF86_NOUVEAU_PATH = $(SRCDIR)/$(CURDIR)/xf86-video-nouveau/
 
 #FIXME
 #            nouveau_galliumclass \
 #            $(addprefix $(GALLIUM_PATH)/drivers/nouveau/, $(GALLIUM_NOUVEAU_C_SOURCES:.c=)) \
+
+USER_INCLUDES := \
+            -I$(DRM3_PATH)/include \
+            -I$(DRM3_PATH)/drm \
+            -I$(DRM2_PATH)/drm/nouveau \
+            -I$(DRM2_PATH)/drm/nouveau/include \
+            -I$(DRM2_PATH)/drm/nouveau/include/nvkm \
+
+NOUVEAU_DRM_C_SOURCES := \
+            $(addprefix $(DRM2_PATH),$(AROS_DRM2_NVIDIA_SOURCES))
+
+%build_prog mmake=hidd-nouveau-drm files="$(NOUVEAU_DRM_C_SOURCES)" \
+    targetdir="$(AROS_C)" progname="dummy" usesdks="config"
+
 
 NOUVEAU_HIDD_C_SOURCES := \
             nouveau_hiddclass \
@@ -62,7 +77,6 @@ NOUVEAU_HIDD_C_SOURCES := \
             arosc_emul \
             nouveau_compositorclass \
             $(addprefix $(DRM2_PATH),$(AROS_DRM2_CORE_SOURCES))         \
-            $(addprefix $(DRM2_PATH),$(AROS_DRM2_NVIDIA_SOURCES))       \
             $(addprefix $(DRM_PATH),$(AROS_LIBDRM_CORE_SOURCES))        \
             $(addprefix $(DRM_PATH),$(AROS_LIBDRM_NVIDIA_SOURCES))      \
             $(addprefix $(XF86_NOUVEAU_PATH), $(XF86_NOUVEAU_SOURCES))  \
@@ -78,7 +92,7 @@ NOUVEAU_HIDD_C_SOURCES := \
 #            -iquote $(GENDIR)/workbench/libs/mesa/src/compiler/nir \
 
 
-USER_INCLUDES += \
+USER_INCLUDES := \
             -I$(DRM2_PATH)/include \
             -I$(DRM2_PATH)/drm \
             -I$(DRM2_PATH)/drm/nouveau \

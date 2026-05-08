@@ -135,6 +135,7 @@ static inline IPTR IS_ERR(APTR ptr)
 #define dev_warn(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define dev_err(dev, fmt, ...)          bug(fmt, ##__VA_ARGS__)
 #define dev_info(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
+#define NOT_IMPLEMENTED_STOP            { bug("NOT IMPLEMENTED %s\n", __func__);while(1); }
 
 /* PCI handling */
 void * ioremap(resource_size_t offset, unsigned long size);

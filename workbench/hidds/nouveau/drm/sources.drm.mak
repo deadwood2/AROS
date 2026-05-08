@@ -127,3 +127,6 @@ AROS_DRM_NVIDIA_SOURCES = \
             drm/nouveau/nvc0_vm \
             drm/nouveau/nvc0_vram \
             drm/nouveau/nvd0_display \
+
+AROS_DRM2_NVIDIA_SOURCES = \
+            drm/nouveau/nouveau_bo \

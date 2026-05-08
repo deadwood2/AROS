@@ -38,5 +38,6 @@
 #else
 #include "drm_compat_types.h"
 #include "drm_compat_funcs.h"
+#include "drm_linux_list.h"
 #endif
 #endif
