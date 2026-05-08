@@ -133,6 +133,8 @@ static inline IPTR IS_ERR(APTR ptr)
 #define BUG(x)                          bug("BUG:(%s)\n", __func__)
 #define WARN(condition, message, ...)   do { if (unlikely(condition)) bug("WARN: %s:%d" message "\n", __FILE__, __LINE__, ##__VA_ARGS__); } while(0)
 #define dev_warn(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
+#define dev_err(dev, fmt, ...)          bug(fmt, ##__VA_ARGS__)
+#define dev_info(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 
 /* PCI handling */
 void * ioremap(resource_size_t offset, unsigned long size);
