@@ -5,6 +5,8 @@
 #include "arosdrm.h"
 #include "drmP.h"
 
+#include "drm_crtc_internal.h"
+
 extern struct drm_driver * current_drm_driver;
 
 /* FIXME: Array for now, list maybe in future */

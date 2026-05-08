@@ -46,6 +46,7 @@ XF86_NOUVEAU_SOURCES = \
             nv04_exa \
 
 DRM_PATH = $(SRCDIR)/$(CURDIR)/drm/
+DRM2_PATH = $(SRCDIR)/$(CURDIR)/drm2/
 XF86_NOUVEAU_PATH = $(SRCDIR)/$(CURDIR)/xf86-video-nouveau/
 
 #FIXME
@@ -60,26 +61,31 @@ NOUVEAU_HIDD_C_SOURCES := \
             nouveau_i2cclass \
             arosc_emul \
             nouveau_compositorclass \
-            $(addprefix $(DRM_PATH),$(AROS_DRM_CORE_SOURCES))           \
-            $(addprefix $(DRM_PATH),$(AROS_DRM_NVIDIA_SOURCES))         \
+            $(addprefix $(DRM2_PATH),$(AROS_DRM2_CORE_SOURCES))         \
+            $(addprefix $(DRM2_PATH),$(AROS_DRM2_NVIDIA_SOURCES))       \
             $(addprefix $(DRM_PATH),$(AROS_LIBDRM_CORE_SOURCES))        \
             $(addprefix $(DRM_PATH),$(AROS_LIBDRM_NVIDIA_SOURCES))      \
             $(addprefix $(XF86_NOUVEAU_PATH), $(XF86_NOUVEAU_SOURCES))  \
 
-NOUVEAU_HIDD_CXX_SOURCES := \
-            $(addprefix $(GALLIUM_PATH)/drivers/nouveau/, $(GALLIUM_NOUVEAU_CXX_SOURCES:.cpp=))
+#NOUVEAU_HIDD_CXX_SOURCES := \
+#            $(addprefix $(GALLIUM_PATH)/drivers/nouveau/, $(GALLIUM_NOUVEAU_CXX_SOURCES:.cpp=))
+
+#            -iquote $(GALLIUM_PATH)/drivers \
+#            -iquote $(GALLIUM_PATH)/drivers/nouveau \
+#            -iquote $(GALLIUM_PATH)/include \
+#            -iquote $(GALLIUM_PATH)/auxiliary \
+#            -iquote $(top_srcdir)/src/mesa \
+#            -iquote $(GENDIR)/workbench/libs/mesa/src/compiler/nir \
+
 
 USER_INCLUDES += \
-            -I$(DRM_PATH)/drm \
-            -I$(DRM_PATH)/drm/nouveau \
+            -I$(DRM2_PATH)/include \
+            -I$(DRM2_PATH)/drm \
+            -I$(DRM2_PATH)/drm/nouveau \
+            -I$(DRM2_PATH)/drm/nouveau/include \
+            -I$(DRM2_PATH)/drm/nouveau/include/nvkm \
             -I$(DRM_PATH)/drm-aros \
             -I$(DRM_PATH)/drm-aros/nouveau \
-            -iquote $(GALLIUM_PATH)/drivers \
-            -iquote $(GALLIUM_PATH)/drivers/nouveau \
-            -iquote $(GALLIUM_PATH)/include \
-            -iquote $(GALLIUM_PATH)/auxiliary \
-            -iquote $(top_srcdir)/src/mesa \
-            -iquote $(GENDIR)/workbench/libs/mesa/src/compiler/nir \
             -I$(DRM_PATH)/libdrm \
             -I$(DRM_PATH)/libdrm/nouveau \
             -I$(XF86_NOUVEAU_PATH)

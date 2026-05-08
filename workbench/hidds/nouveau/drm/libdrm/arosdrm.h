@@ -27,7 +27,7 @@
 #if !defined(AROSDRM_H)
 #define AROSDRM_H
 
-#include <drm.h>
+#include <uapi/drm/drm.h>
 
 typedef unsigned int  drmSize,     *drmSizePtr;     /**< For mapped regions */
 typedef void          *drmAddress, **drmAddressPtr; /**< For mapped regions */

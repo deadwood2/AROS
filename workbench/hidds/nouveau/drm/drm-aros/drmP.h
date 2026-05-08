@@ -39,7 +39,7 @@
 
 #include <oop/oop.h>
 
-#include "drm.h"
+#include <uapi/drm/drm.h>
 #include "drm_aros_config.h"
 #include "drm_compat_funcs.h"
 #include "drm_redefines.h"
@@ -48,7 +48,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "drm_mm.h"
+#include <drm/drm_mm.h>
+#include <drm/drm_gem.h>
 
 #define DRM_ERROR(fmt, ...) bug("[" DRM_NAME "(ERROR):%s] " fmt, __func__ , ##__VA_ARGS__)
 #define DRM_DEBUG(fmt, ...) D(bug("[" DRM_NAME "(DEBUG):%s] " fmt, __func__ , ##__VA_ARGS__))
@@ -96,7 +97,7 @@ typedef int                 irqreturn_t;
 struct drm_file;
 struct drm_device;
 struct file;
-struct drm_gem_object;
+// struct drm_gem_object;
 
 typedef int drm_ioctl_t(struct drm_device *dev, void *data,
             struct drm_file *file_priv);
@@ -188,7 +189,7 @@ struct drm_pciid
     UWORD ProductID;
 };
 
-#include "drm_crtc.h"
+#include <drm/drm_crtc.h>
 
 /* Contains a collection of functions common to each drm driver */
 
@@ -302,54 +303,54 @@ struct drm_file
     struct list_head fbs;
 };
 
-struct drm_gem_object {
-    /** Reference count of this object */
-    struct kref refcount;
+// struct drm_gem_object {
+//     /** Reference count of this object */
+//     struct kref refcount;
 
-    /** Handle count of this object. Each handle also holds a reference */
-    atomic_t handle_count; /* number of handles on this object */
+//     /** Handle count of this object. Each handle also holds a reference */
+//     atomic_t handle_count; /* number of handles on this object */
 
-    /** Related drm device */
-    struct drm_device *dev;
+//     /** Related drm device */
+//     struct drm_device *dev;
 
-    /** File representing the shmem storage */
-    struct file *filp;
+//     /** File representing the shmem storage */
+//     struct file *filp;
 
-    /* Mapping info for this object */
-    struct drm_map_list map_list;
+//     /* Mapping info for this object */
+//     struct drm_map_list map_list;
 
-    /**
-     * Size of the object, in bytes.  Immutable over the object's
-     * lifetime.
-     */
-    size_t size;
+//     /**
+//      * Size of the object, in bytes.  Immutable over the object's
+//      * lifetime.
+//      */
+//     size_t size;
 
-    /**
-     * Global name for this object, starts at 1. 0 means unnamed.
-     * Access is covered by the object_name_lock in the related drm_device
-     */
-    int name;
+//     /**
+//      * Global name for this object, starts at 1. 0 means unnamed.
+//      * Access is covered by the object_name_lock in the related drm_device
+//      */
+//     int name;
 
-    /**
-     * Memory domains. These monitor which caches contain read/write data
-     * related to the object. When transitioning from one set of domains
-     * to another, the driver is called to ensure that caches are suitably
-     * flushed and invalidated
-     */
-    uint32_t read_domains;
-    uint32_t write_domain;
+//     /**
+//      * Memory domains. These monitor which caches contain read/write data
+//      * related to the object. When transitioning from one set of domains
+//      * to another, the driver is called to ensure that caches are suitably
+//      * flushed and invalidated
+//      */
+//     uint32_t read_domains;
+//     uint32_t write_domain;
 
-    /**
-     * While validating an exec operation, the
-     * new read/write domain values are computed here.
-     * They will be transferred to the above values
-     * at the point that any cache flushing occurs
-     */
-    uint32_t pending_read_domains;
-    uint32_t pending_write_domain;
+//     /**
+//      * While validating an exec operation, the
+//      * new read/write domain values are computed here.
+//      * They will be transferred to the above values
+//      * at the point that any cache flushing occurs
+//      */
+//     uint32_t pending_read_domains;
+//     uint32_t pending_write_domain;
 
-    void *driver_private;
-};
+//     void *driver_private;
+// };
 
 static inline int drm_core_has_AGP(struct drm_device *dev)
 {
@@ -409,97 +410,97 @@ DRM_AGP_MEM * drm_agp_bind_pages(struct drm_device *dev, struct page **pages,
 void drm_clflush_pages(struct page *pages[], unsigned long num_pages);
 
 /* GEM */
-int drm_gem_init(struct drm_device *dev);
-void drm_gem_object_release(struct drm_gem_object *obj);
-void drm_gem_object_free(struct kref *kref);
-void drm_gem_object_free_unlocked(struct kref *kref);
-void drm_gem_object_handle_free(struct drm_gem_object *obj);
-struct drm_gem_object *drm_gem_object_alloc(struct drm_device *dev,
-                        size_t size);
-int drm_gem_handle_create(struct drm_file *file_priv,
-              struct drm_gem_object *obj,
-              u32 *handlep);
+// int drm_gem_init(struct drm_device *dev);
+// void drm_gem_object_release(struct drm_gem_object *obj);
+// void drm_gem_object_free(struct kref *kref);
+// void drm_gem_object_free_unlocked(struct kref *kref);
+// void drm_gem_object_handle_free(struct drm_gem_object *obj);
+// struct drm_gem_object *drm_gem_object_alloc(struct drm_device *dev,
+//                         size_t size);
+// int drm_gem_handle_create(struct drm_file *file_priv,
+//               struct drm_gem_object *obj,
+//               u32 *handlep);
 
-struct drm_gem_object *drm_gem_object_lookup(struct drm_device *dev,
-                         struct drm_file *filp,
-                         u32 handle);
+// struct drm_gem_object *drm_gem_object_lookup(struct drm_device *dev,
+//                          struct drm_file *filp,
+//                          u32 handle);
 
-int drm_gem_handle_delete(struct drm_file *filp, u32 handle);
+// int drm_gem_handle_delete(struct drm_file *filp, u32 handle);
                          
-static inline void
-drm_gem_object_reference(struct drm_gem_object *obj)
-{
-    kref_get(&obj->refcount);
-}
+// static inline void
+// drm_gem_object_reference(struct drm_gem_object *obj)
+// {
+//     kref_get(&obj->refcount);
+// }
 
-static inline void
-drm_gem_object_unreference(struct drm_gem_object *obj)
-{
-    if (obj == NULL)
-        return;
+// static inline void
+// drm_gem_object_unreference(struct drm_gem_object *obj)
+// {
+//     if (obj == NULL)
+//         return;
 
-    kref_put(&obj->refcount, drm_gem_object_free);
-}
+//     kref_put(&obj->refcount, drm_gem_object_free);
+// }
 
-static inline void
-drm_gem_object_unreference_unlocked(struct drm_gem_object *obj)
-{
-    if (obj != NULL) {
-        struct drm_device *dev = obj->dev;
-        mutex_lock(&dev->struct_mutex);
-        kref_put(&obj->refcount, drm_gem_object_free);
-        mutex_unlock(&dev->struct_mutex);
-    }
-}
+// static inline void
+// drm_gem_object_unreference_unlocked(struct drm_gem_object *obj)
+// {
+//     if (obj != NULL) {
+//         struct drm_device *dev = obj->dev;
+//         mutex_lock(&dev->struct_mutex);
+//         kref_put(&obj->refcount, drm_gem_object_free);
+//         mutex_unlock(&dev->struct_mutex);
+//     }
+// }
 
-int drm_gem_handle_create(struct drm_file *file_priv,
-              struct drm_gem_object *obj,
-              u32 *handlep);
+// int drm_gem_handle_create(struct drm_file *file_priv,
+//               struct drm_gem_object *obj,
+//               u32 *handlep);
 
-static inline void
-drm_gem_object_handle_reference(struct drm_gem_object *obj)
-{
-    drm_gem_object_reference(obj);
-    atomic_inc(&obj->handle_count);
-}
+// static inline void
+// drm_gem_object_handle_reference(struct drm_gem_object *obj)
+// {
+//     drm_gem_object_reference(obj);
+//     atomic_inc(&obj->handle_count);
+// }
 
-static inline void
-drm_gem_object_handle_unreference(struct drm_gem_object *obj)
-{
-    if (obj == NULL)
-        return;
+// static inline void
+// drm_gem_object_handle_unreference(struct drm_gem_object *obj)
+// {
+//     if (obj == NULL)
+//         return;
 
-    if (atomic_read(&obj->handle_count) == 0)
-        return;
-    /*
-    * Must bump handle count first as this may be the last
-    * ref, in which case the object would disappear before we
-    * checked for a name
-    */
-    if (atomic_dec_and_test(&obj->handle_count))
-        drm_gem_object_handle_free(obj);
-    drm_gem_object_unreference(obj);
-}
+//     if (atomic_read(&obj->handle_count) == 0)
+//         return;
+//     /*
+//     * Must bump handle count first as this may be the last
+//     * ref, in which case the object would disappear before we
+//     * checked for a name
+//     */
+//     if (atomic_dec_and_test(&obj->handle_count))
+//         drm_gem_object_handle_free(obj);
+//     drm_gem_object_unreference(obj);
+// }
 
-static inline void
-drm_gem_object_handle_unreference_unlocked(struct drm_gem_object *obj)
-{
-    if (obj == NULL)
-        return;
+// static inline void
+// drm_gem_object_handle_unreference_unlocked(struct drm_gem_object *obj)
+// {
+//     if (obj == NULL)
+//         return;
 
-    if (atomic_read(&obj->handle_count) == 0)
-        return;
+//     if (atomic_read(&obj->handle_count) == 0)
+//         return;
 
-    /*
-    * Must bump handle count first as this may be the last
-    * ref, in which case the object would disappear before we
-    * checked for a name
-    */
+//     /*
+//     * Must bump handle count first as this may be the last
+//     * ref, in which case the object would disappear before we
+//     * checked for a name
+//     */
 
-    if (atomic_dec_and_test(&obj->handle_count))
-        drm_gem_object_handle_free(obj);
-    drm_gem_object_unreference_unlocked(obj);
-}
+//     if (atomic_dec_and_test(&obj->handle_count))
+//         drm_gem_object_handle_free(obj);
+//     drm_gem_object_unreference_unlocked(obj);
+// }
 
 /* GEM IOCTL */
 int drm_gem_open_ioctl(struct drm_device *dev, void *data,

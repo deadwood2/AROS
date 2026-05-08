@@ -25,14 +25,20 @@
 
 #include <stdint.h>
 #include <arosdrm.h>
-#include <nouveau_drm.h>
+#include <uapi/drm/nouveau_drm.h>
+#include <drm_legacy.h>
+#include <nvif/object.h>
+#include <core/mm.h>
+#include <nvif/device.h>
+struct nouveau_drm;
+#include <nouveau/nouveau_abi16.h>
 
 #include "nouveau_drmif.h"
 #include "nouveau_device.h"
 #include "nouveau_channel.h"
 #include "nouveau_grobj.h"
 #include "nouveau_notifier.h"
-#include "nouveau_bo.h"
+#include "nouveau_bo_libdrm.h"
 #include "nouveau_resource.h"
 #include "nouveau_pushbuf.h"
 #include "nouveau_reloc.h"

@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <stdint.h>
+#include <limits.h>
 
 #define __user
 #define __iomem
@@ -22,7 +23,10 @@
 #define __u32                       ULONG
 #define __s32                       LONG
 #define __u16                       UWORD
+#define __s16                       WORD
 #define __u64                       UQUAD
+#define __s64                       QUAD
+#define __u8                        BYTE
 #define u16                         UWORD
 #define s16                         WORD
 #define u32                         ULONG
@@ -30,11 +34,15 @@
 #define u64                         UQUAD
 #define s64                         QUAD
 #define u8                          UBYTE
+#define s8                          BYTE
 #define resource_size_t             IPTR
+#define __kernel_size_t             IPTR
 #define dma_addr_t                  IPTR
+#define phys_addr_t                 IPTR
 #define loff_t                      IPTR
 #define pgprot_t                    ULONG
 #define INT_MAX                     2147483647
+#define U64_MAX                     ULLONG_MAX
 #define __le16                      WORD /* WRONG! IT WILL ONLY WORK ON LE MACHINES */
 
 #undef offsetof
@@ -76,6 +84,8 @@ struct page
 #define PAGE_ALIGN(addr)        (APTR)(((IPTR)(addr) + PAGE_SIZE - 1) & PAGE_MASK)
 #define ALIGN(val, align)       (val + align - 1) & (~(align - 1))
 #define BITS_TO_LONGS(x)        ((x / (sizeof(long) * 8)) + 1)
+#define BIT(n)                  ((1UL) << (n))
+
 
 /* PCI support */
 struct pci_dev

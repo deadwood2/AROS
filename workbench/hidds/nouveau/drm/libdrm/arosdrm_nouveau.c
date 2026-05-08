@@ -12,6 +12,8 @@ extern struct drm_file * drm_files[128];
 
 /* FIXME: this should be generic, not nouveau specific */
 #include "nouveau_drv.h"
+#include "nouveau_bo.h"
+#include "nouveau_gem.h"
 void * drmMMap(int fd, uint32_t handle)
 {
     struct drm_file * f = drm_files[fd];
@@ -23,7 +25,7 @@ void * drmMMap(int fd, uint32_t handle)
         return NULL;
     
     /* Get GEM objects from handle */
-    gem_object = drm_gem_object_lookup(current_drm_driver->dev, f, handle);
+    gem_object = drm_gem_object_lookup(f, handle);
     if (!gem_object)
         return NULL;
     
@@ -41,7 +43,7 @@ void * drmMMap(int fd, uint32_t handle)
     
     /* Release the acquired reference */
     mutex_lock(&current_drm_driver->dev->struct_mutex);
-    drm_gem_object_unreference(gem_object);
+    drm_gem_object_put(gem_object);
     mutex_unlock(&current_drm_driver->dev->struct_mutex);    
     
     /* Return virtual address */
@@ -57,7 +59,7 @@ void drmMUnmap(int fd, uint32_t handle)
     if (!f) return ;
     
     /* Get GEM objects from handle */
-    gem_object = drm_gem_object_lookup(current_drm_driver->dev, f, handle);
+    gem_object = drm_gem_object_lookup(f, handle);
     if (!gem_object) return;
     
     /* Translate to nouveau_bo */
@@ -71,7 +73,7 @@ void drmMUnmap(int fd, uint32_t handle)
     
     /* Release the acquired reference */
     mutex_lock(&current_drm_driver->dev->struct_mutex);
-    drm_gem_object_unreference(gem_object);
+    drm_gem_object_put(gem_object);
     mutex_unlock(&current_drm_driver->dev->struct_mutex);
 }
 

@@ -23,7 +23,7 @@
  *
  */
 
-#include <drm.h>
+#include <uapi/drm/drm.h>
 
 typedef struct _drmModeRes {
 
