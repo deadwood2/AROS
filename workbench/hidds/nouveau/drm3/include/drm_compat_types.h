@@ -231,6 +231,7 @@ struct firmware
 struct work_struct;
 struct module;
 struct edid;
+struct clk;
 struct lock_class_key
 {
     ULONG dummy;

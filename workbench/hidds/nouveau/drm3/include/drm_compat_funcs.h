@@ -504,6 +504,11 @@ __res; })
 unsigned int hweight32(unsigned int number);
 unsigned int hweight8(unsigned int number);
 int snprintf(char * restrict s, size_t n, const char * restrict format, ...);
+int sprintf(char * restrict s, const char * restrict format, ...);
 int order_base_2(unsigned long n);
+unsigned long clk_get_rate(struct clk *);
+u64 div_u64(u64 a, u32 b);
+u32 get_unaligned_le32(const void *p);
+u16 get_unaligned_le16(const void *p);
 
 #endif /* _DRM_COMPAT_FUNCS_ */

@@ -234,8 +234,11 @@ gm20b_dvfs_calc_ndiv(struct gm20b_clk *clk, u32 n_eff, u32 *n_int, u32 *sdm_din)
 	u32 rem, rem_range;
 
 	/* calculate current ext_cal and subtract previous one */
+NOT_IMPLEMENTED_STOP
+#if 0
 	det_delta = DIV_ROUND_CLOSEST(((s32)clk->uv) - clk->uvdet_offs,
 				      clk->uvdet_slope);
+#endif
 	det_delta -= clk->dvfs.dfs_ext_cal;
 	det_delta = min(det_delta, clk->dvfs.dfs_det_max);
 	det_delta *= clk->dvfs.dfs_coeff;
