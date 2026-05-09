@@ -138,6 +138,7 @@ struct agp_memory
 
 
 #define ERESTARTSYS             782434897 /* Just some random value */
+#define ENOTSUPP                154335234 /* Just some random value */
 
 /* Reference counted objects implementation */
 struct kref

@@ -65,6 +65,7 @@ void *kmemdup(const void *src, size_t len, BYTE type);
 #define DIV_ROUND_UP(x, y)              (((x) + (y) - 1) / (y))
 #define EREMOTEIO                       EIO
 #define __ffs64(mask)                   ffs(mask)
+#define __ffs(mask)                     ffs(mask)
 #define max_t(t, x, y)                  ({(t)(x) > (t)(y) ? (t)(x) : (t)(y);})
 
 
@@ -172,6 +173,7 @@ void set_bit(int nr, volatile void *addr);
 int test_bit(int nr, volatile void *addr);
 #define __set_bit(nr, addr)         set_bit(nr, addr)
 #define __clear_bit(nr, addr)       clear_bit(nr, addr)
+#define for_each_set_bit(bit, addr, size) NOT_IMPLEMENTED_STOP
 
 /* Page handling */
 void __free_page(struct page * p);
@@ -447,5 +449,6 @@ __res; })
 
 unsigned int hweight32(unsigned int number);
 unsigned int hweight8(unsigned int number);
+int snprintf(char * restrict s, size_t n, const char * restrict format, ...);
 
 #endif /* _DRM_COMPAT_FUNCS_ */
