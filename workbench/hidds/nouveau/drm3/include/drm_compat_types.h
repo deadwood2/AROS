@@ -87,6 +87,7 @@ struct page
 #define BITS_TO_LONGS(x)        ((x / (sizeof(long) * 8)) + 1)
 #define BIT(n)                  ((1UL) << (n))
 #define BIT_ULL(n)              ((1ULL) << (n))
+#define BITS_PER_BYTE           (8)
 
 
 /* PCI support */
@@ -219,6 +220,9 @@ struct firmware
 struct work_struct;
 struct module;
 struct edid;
-struct lock_class_key;
+struct lock_class_key
+{
+    ULONG dummy;
+};
 
 #endif /* _DRM_COMPAT_TYPES_ */

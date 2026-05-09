@@ -28,7 +28,9 @@
 #define kfree(objp)                     HIDDNouveauFree(objp)
 #define vfree(objp)                     HIDDNouveauFree(objp)
 #define GFP_KERNEL 0x1
-void *kmemdup(const void *src, size_t len, BYTE type);
+void *kmemdup(const void *src, size_t len, BYTE flags);
+void *kmalloc_array(size_t n, size_t size, BYTE flags);
+char *kstrndup(const char *c, size_t len, BYTE flags);
 #define capable(p)                      TRUE
 #define roundup(x, y)                   ((((x) + ((y) - 1)) / (y)) * (y))
 #define round_up(x, y)                  roundup(x, y)
@@ -67,6 +69,7 @@ void *kmemdup(const void *src, size_t len, BYTE type);
 #define __ffs64(mask)                   ffs(mask)
 #define __ffs(mask)                     ffs(mask)
 #define max_t(t, x, y)                  ({(t)(x) > (t)(y) ? (t)(x) : (t)(y);})
+#define min_t(t, x, y)                  ({(t)(x) < (t)(y) ? (t)(x) : (t)(y);})
 
 
 APTR HIDDNouveauAlloc(ULONG size);

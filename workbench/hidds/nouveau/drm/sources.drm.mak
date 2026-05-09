@@ -153,3 +153,13 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/engine/sw/engine_sw \
             drm/nouveau/nvkm/engine/vp/engine_vp \
             drm/nouveau/nvkm/engine/xtensa \
+            drm/nouveau/nvkm/subdev/bar/subdev_bar \
+            drm/nouveau/nvkm/subdev/bios/subdev_bios \
+            drm/nouveau/nvkm/subdev/bios/shadowramin \
+            drm/nouveau/nvkm/subdev/bus/subdev_bus \
+            drm/nouveau/nvkm/subdev/clk/subdev_clk_1 \
+            drm/nouveau/nvkm/subdev/clk/subdev_clk_2 \
+            drm/nouveau/nvkm/subdev/clk/subdev_clk_3 \
+            drm/nouveau/nvkm/subdev/clk/subdev_clk_4 \
+            drm/nouveau/nvkm/subdev/clk/subdev_clk_5 \
+            drm/nouveau/nvkm/subdev/clk/subdev_clk_6 \
