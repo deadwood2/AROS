@@ -20,13 +20,14 @@
 #define __iomem
 #define __force
 #define __must_check
+#define __u64                       UQUAD
+#define __s64                       QUAD
 #define __u32                       ULONG
 #define __s32                       LONG
 #define __u16                       UWORD
 #define __s16                       WORD
-#define __u64                       UQUAD
-#define __s64                       QUAD
-#define __u8                        BYTE
+#define __u8                        UBYTE
+#define __s8                        BYTE
 #define u16                         UWORD
 #define s16                         WORD
 #define u32                         ULONG
@@ -85,6 +86,7 @@ struct page
 #define ALIGN(val, align)       (val + align - 1) & (~(align - 1))
 #define BITS_TO_LONGS(x)        ((x / (sizeof(long) * 8)) + 1)
 #define BIT(n)                  ((1UL) << (n))
+#define BIT_ULL(n)              ((1ULL) << (n))
 
 
 /* PCI support */
@@ -148,6 +150,14 @@ struct mutex
 {
     struct SignalSemaphore semaphore;
 };
+
+#define DEFINE_MUTEX(name) struct mutex name;   \
+static int init_##name()                        \
+{                                               \
+    mutex_init(&name);                          \
+    return TRUE;                                \
+}                                               \
+ADD2INIT(init_##name, 0)
 
 /* IDR handling */
 struct idr

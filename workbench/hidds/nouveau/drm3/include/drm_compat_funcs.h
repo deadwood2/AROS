@@ -60,7 +60,8 @@
 #define put_user(x, p)                  ({u32 ret = 0; *(p) = x; ret;})
 #define rounddown(x, y)                 (((x)/(y))*(y))
 #define DIV_ROUND_UP(x, y)              (((x) + (y) - 1) / (y))
-#define EREMOTEIO						EIO
+#define EREMOTEIO                       EIO
+#define __ffs64(mask)                   ffs(mask)
 
 
 APTR HIDDNouveauAlloc(ULONG size);
@@ -122,6 +123,7 @@ static inline IPTR IS_ERR(APTR ptr)
 #define __rcu
 
 /* Kernel debug */
+#define CONFIG_NOUVEAU_DEBUG            3 /* NV_DGB_INFO */
 #define KERN_ERR
 #define KERN_DEBUG
 #define KERN_WARNING
@@ -135,6 +137,8 @@ static inline IPTR IS_ERR(APTR ptr)
 #define dev_warn(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define dev_err(dev, fmt, ...)          bug(fmt, ##__VA_ARGS__)
 #define dev_info(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
+#define dev_notice(dev, fmt, ...)       bug(fmt, ##__VA_ARGS__)
+#define dev_crit(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define NOT_IMPLEMENTED_STOP            { bug("NOT IMPLEMENTED %s\n", __func__);while(1); }
 
 /* PCI handling */
