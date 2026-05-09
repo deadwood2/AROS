@@ -27,7 +27,8 @@
 #define vzalloc(size)                   vmalloc(size)
 #define kfree(objp)                     HIDDNouveauFree(objp)
 #define vfree(objp)                     HIDDNouveauFree(objp)
-#define GFP_KERNEL 0x1
+#define GFP_KERNEL (1UL < 0)
+#define __GFP_ZERO (1UL < 1)
 void *kmemdup(const void *src, size_t len, BYTE flags);
 void *kmalloc_array(size_t n, size_t size, BYTE flags);
 char *kstrndup(const char *c, size_t len, BYTE flags);
@@ -195,6 +196,7 @@ struct page * create_page_helper();                     /* Helper function - not
 #define kunmap(addr)
 #define vunmap(addr)
 #define set_page_dirty(p)
+struct page * alloc_page(ULONG mask);
 
 /* Atomic handling */
 static inline int atomic_add_return(int i, atomic_t *v)
@@ -446,6 +448,11 @@ struct device;
 int request_firmware(const struct firmware **fw, const char *name, struct device *device);
 void release_firmware(const struct firmware *fw);
 
+/* dma handling */
+#define DMA_BIDIRECTIONAL 0
+dma_addr_t dma_map_page(struct device *dev, struct page *page, unsigned long offset, size_t size, ULONG dir);
+static inline int dma_mapping_error(struct device *dev, dma_addr_t dma_addr) { return 0; }
+void dma_unmap_page(struct device *dev, dma_addr_t dma_handle, size_t size, ULONG dir);
 
 /* other */
 #define do_div(n,base) ({ \
