@@ -133,4 +133,6 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/engine/device/engine_device \
             drm/nouveau/nvkm/engine/gr/engine_gr \
             drm/nouveau/nvkm/engine/gr/ctxnv40 \
-
+            drm/nouveau/nvkm/engine/bsp/engine_bsp \
+            drm/nouveau/nvkm/engine/ce/engine_ce \
+            drm/nouveau/nvkm/engine/cipher/engine_cipher \
