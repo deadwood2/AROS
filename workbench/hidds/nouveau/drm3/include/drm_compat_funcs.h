@@ -24,9 +24,11 @@
 #define kmalloc(size, flags)            HIDDNouveauAlloc(size)
 #define vmalloc_user(size)              HIDDNouveauAlloc(size)
 #define vmalloc(size)                   HIDDNouveauAlloc(size)
+#define kvmalloc(size, flags)           HIDDNouveauAlloc(size)
 #define vzalloc(size)                   vmalloc(size)
 #define kfree(objp)                     HIDDNouveauFree(objp)
 #define vfree(objp)                     HIDDNouveauFree(objp)
+#define kvfree(objp)                    HIDDNouveauFree(objp)
 #define GFP_KERNEL (1UL < 0)
 #define __GFP_ZERO (1UL < 1)
 void *kmemdup(const void *src, size_t len, BYTE flags);
@@ -37,11 +39,11 @@ char *kstrndup(const char *c, size_t len, BYTE flags);
 #define round_up(x, y)                  roundup(x, y)
 #define lower_32_bits(n)                ((u32)(n))
 #define upper_32_bits(n)                ((u32)(((n) >> 16) >> 16))
-#define mutex_lock(x)                   ObtainSemaphore(x.semaphore)
+#define mutex_lock(x)                   ObtainSemaphore(&(x)->semaphore)
 #define mutex_lock_nested(x, y)         mutex_lock(x)
-#define mutex_unlock(x)                 ReleaseSemaphore(x.semaphore)
-#define mutex_trylock(x)                AttemptSemaphore(x.semaphore)
-#define mutex_init(x)                   InitSemaphore(x.semaphore);
+#define mutex_unlock(x)                 ReleaseSemaphore(&(x)->semaphore)
+#define mutex_trylock(x)                AttemptSemaphore(&(x)->semaphore)
+#define mutex_init(x)                   InitSemaphore(&(x)->semaphore);
 #define likely(x)                       __builtin_expect((IPTR)(x),1)
 #define unlikely(x)                     __builtin_expect((IPTR)(x),0)
 #define mb()                            __asm __volatile("lock; addl $0,0(%%esp)" : : : "memory");
@@ -120,7 +122,7 @@ static inline VOID memcpy_fromio(APTR dst, CONST_APTR src, ULONG size)
 
 #define BUG_ON(condition)           do { if (unlikely(condition)) bug("BUG: %s:%d\n", __FILE__, __LINE__); } while(0)
 #define WARN_ON(condition)          ({do { if (unlikely(condition)) bug("WARN: %s:%d\n", __FILE__, __LINE__); } while(0); condition;})
-#define WARN_ON_ONCE(condition)     do { bug("WARN_ON_ONCE NOT IMPLEMENTED\n"); } while (0)
+#define WARN_ON_ONCE(condition)     ({do { bug("WARN_ON_ONCE NOT IMPLEMENTED\n"); } while (0); condition;})
 #define EXPORT_SYMBOL(x)
 #define PTR_ERR(addr)               ((SIPTR)addr)
 #define ERR_PTR(error)              ((APTR)(SIPTR)error)
@@ -389,6 +391,19 @@ static inline void io_mapping_free(struct io_mapping *mapping)
     HIDDNouveauFree(mapping);
 }
 
+static inline void memset_io(volatile void *__addr, int value, size_t size)
+{
+    memset((void *)__addr, value, size);
+}
+
+/* iommu */
+struct iommu_domain;
+#define IOMMU_READ 1
+#define IOMMU_WRITE 2
+size_t iommu_unmap(struct iommu_domain *domain, unsigned long iova, size_t size);
+int iommu_map(struct iommu_domain *domain, unsigned long iova, phys_addr_t paddr, size_t size, int prot);
+
+
 /* I2C handling */
 int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num);
 int i2c_del_adapter(struct i2c_adapter *);
@@ -450,9 +465,14 @@ void release_firmware(const struct firmware *fw);
 
 /* dma handling */
 #define DMA_BIDIRECTIONAL 0
+#define DMA_ATTR_NON_CONSISTENT (1UL << 3)
+#define DMA_ATTR_WEAK_ORDERING (1UL << 1)
+#define DMA_ATTR_WRITE_COMBINE (1UL << 2)
 dma_addr_t dma_map_page(struct device *dev, struct page *page, unsigned long offset, size_t size, ULONG dir);
 static inline int dma_mapping_error(struct device *dev, dma_addr_t dma_addr) { return 0; }
 void dma_unmap_page(struct device *dev, dma_addr_t dma_handle, size_t size, ULONG dir);
+void dma_free_attrs(struct device *dev, size_t size, void *cpuaddr, dma_addr_t dma_handle, unsigned long attrs);
+void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle, ULONG flags, unsigned long attrs);
 
 /* other */
 #define do_div(n,base) ({ \

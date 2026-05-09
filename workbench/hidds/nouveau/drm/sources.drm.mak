@@ -173,3 +173,9 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/subdev/fuse/subdev_fuse \
             drm/nouveau/nvkm/subdev/gpio/subdev_gpio \
             drm/nouveau/nvkm/subdev/gsp/subdev_gsp \
+            drm/nouveau/nvkm/subdev/i2c/subdev_i2c \
+            drm/nouveau/nvkm/subdev/ibus/subdev_ibus \
+            drm/nouveau/nvkm/subdev/iccsense/subdev_iccsense \
+            drm/nouveau/nvkm/subdev/instmem/subdev_instmem \
+            drm/nouveau/nvkm/subdev/ltc/subdev_ltc \
+            drm/nouveau/nvkm/subdev/mc/subdev_mc \
