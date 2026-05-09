@@ -471,6 +471,7 @@ typedef struct {
     })
 
 /* firmaware handling */
+#define MODULE_FIRMWARE(x)
 struct device;
 int request_firmware(const struct firmware **fw, const char *name, struct device *device);
 void release_firmware(const struct firmware *fw);
@@ -508,6 +509,7 @@ int sprintf(char * restrict s, const char * restrict format, ...);
 int order_base_2(unsigned long n);
 unsigned long clk_get_rate(struct clk *);
 u64 div_u64(u64 a, u32 b);
+s64 div64_s64(s64 a, s64 b);
 u32 get_unaligned_le32(const void *p);
 u16 get_unaligned_le16(const void *p);
 

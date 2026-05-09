@@ -94,6 +94,7 @@ struct page
 #define BIT_ULL(n)              ((1ULL) << (n))
 #define BITS_PER_BYTE           (8)
 #define IS_ALIGNED(x, n)        ((x & ((typeof(x))(n) - 1)) == 0)
+#define __aligned(x)            __attribute__((__alligned__(x)))
 
 
 /* PCI support */
@@ -228,7 +229,10 @@ struct firmware
 };
 
 /* Other */
-struct work_struct;
+struct work_struct
+{
+    ULONG dummy;
+};
 struct module;
 struct edid;
 struct clk;
