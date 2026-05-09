@@ -175,6 +175,10 @@ int test_bit(int nr, volatile void *addr);
 #define __clear_bit(nr, addr)       clear_bit(nr, addr)
 #define for_each_set_bit(bit, addr, size) NOT_IMPLEMENTED_STOP
 
+#define DECLARE_BITMAP(name, bits)  UBYTE name[(bits) / 8]
+void bitmap_clear(UBYTE *map, unsigned int start, int len);
+unsigned long find_first_zero_bit(const UBYTE *addr, unsigned long size);
+
 /* Page handling */
 void __free_page(struct page * p);
 struct page * create_page_helper();                     /* Helper function - not from compat */
@@ -450,5 +454,6 @@ __res; })
 unsigned int hweight32(unsigned int number);
 unsigned int hweight8(unsigned int number);
 int snprintf(char * restrict s, size_t n, const char * restrict format, ...);
+int order_base_2(unsigned long n);
 
 #endif /* _DRM_COMPAT_FUNCS_ */

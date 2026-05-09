@@ -36,9 +36,7 @@ struct nvkm_fifo {
 	const struct nvkm_fifo_func *func;
 	struct nvkm_engine engine;
 
-#if !defined(__AROS__)
 	DECLARE_BITMAP(mask, NVKM_FIFO_CHID_NR);
-#endif
 	int nr;
 	struct list_head chan;
 	spinlock_t lock;

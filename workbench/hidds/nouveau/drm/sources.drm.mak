@@ -139,3 +139,6 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/engine/disp/engine_disp \
             drm/nouveau/nvkm/engine/disp/rootnv04 \
             drm/nouveau/nvkm/engine/disp/rootnv50 \
+            drm/nouveau/nvkm/engine/dma/engine_dma \
+            drm/nouveau/nvkm/engine/falcon \
+            drm/nouveau/nvkm/engine/fifo/engine_fifo \
