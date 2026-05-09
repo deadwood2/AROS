@@ -142,3 +142,14 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/engine/dma/engine_dma \
             drm/nouveau/nvkm/engine/falcon \
             drm/nouveau/nvkm/engine/fifo/engine_fifo \
+            drm/nouveau/nvkm/engine/mpeg/engine_mpeg \
+            drm/nouveau/nvkm/engine/mspdec/engine_mspdec \
+            drm/nouveau/nvkm/engine/msppp/engine_msppp \
+            drm/nouveau/nvkm/engine/msvld/engine_msvld \
+            drm/nouveau/nvkm/engine/nvdec/engine_nvdec \
+            drm/nouveau/nvkm/engine/pm/engine_pm \
+            drm/nouveau/nvkm/engine/sec/engine_sec \
+            drm/nouveau/nvkm/engine/sec2/engine_sec2 \
+            drm/nouveau/nvkm/engine/sw/engine_sw \
+            drm/nouveau/nvkm/engine/vp/engine_vp \
+            drm/nouveau/nvkm/engine/xtensa \
