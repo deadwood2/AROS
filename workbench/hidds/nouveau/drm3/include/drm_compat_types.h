@@ -42,6 +42,8 @@
 #define phys_addr_t                 IPTR
 #define loff_t                      IPTR
 #define pgprot_t                    ULONG
+#define gfp_t                       ULONG
+#define irqreturn_t                 ULONG
 #define INT_MAX                     2147483647
 #define U64_MAX                     ULLONG_MAX
 #define __le16                      WORD /* WRONG! IT WILL ONLY WORK ON LE MACHINES */
@@ -53,6 +55,9 @@
              (type *)((char *)__mptr - offsetof(type, member)); })
 
 #define ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
+
+#define IRQ_NONE    0
+#define IRQ_HANDLED 1
 
 typedef struct
 {
@@ -88,6 +93,7 @@ struct page
 #define BIT(n)                  ((1UL) << (n))
 #define BIT_ULL(n)              ((1ULL) << (n))
 #define BITS_PER_BYTE           (8)
+#define IS_ALIGNED(x, n)        ((x & ((typeof(x))(n) - 1)) == 0)
 
 
 /* PCI support */

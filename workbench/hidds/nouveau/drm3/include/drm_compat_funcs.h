@@ -25,14 +25,19 @@
 #define vmalloc_user(size)              HIDDNouveauAlloc(size)
 #define vmalloc(size)                   HIDDNouveauAlloc(size)
 #define kvmalloc(size, flags)           HIDDNouveauAlloc(size)
+#define kvcalloc(count, size, flags)    HIDDNouveauAlloc((count) * (size))
 #define vzalloc(size)                   vmalloc(size)
 #define kfree(objp)                     HIDDNouveauFree(objp)
 #define vfree(objp)                     HIDDNouveauFree(objp)
 #define kvfree(objp)                    HIDDNouveauFree(objp)
 #define GFP_KERNEL (1UL < 0)
 #define __GFP_ZERO (1UL < 1)
+#define GFP_DMA32  (1UL < 2)
+#define GFP_HIGHUSER (1UL < 3)
+#define GFP_USER (1UL < 4)
 void *kmemdup(const void *src, size_t len, BYTE flags);
 void *kmalloc_array(size_t n, size_t size, BYTE flags);
+void *kvmalloc_array(size_t n, size_t size, BYTE flags);
 char *kstrndup(const char *c, size_t len, BYTE flags);
 #define capable(p)                      TRUE
 #define roundup(x, y)                   ((((x) + ((y) - 1)) / (y)) * (y))
@@ -130,6 +135,11 @@ static inline IPTR IS_ERR(APTR ptr)
 {
     return (IPTR)(ptr) >= (IPTR)-MAX_ERRNO;
 }
+static inline bool IS_ERR_OR_NULL(APTR ptr)
+{
+    if (ptr == NULL) return TRUE;
+    return IS_ERR(ptr);
+}
 
 #define __rcu
 
@@ -145,6 +155,7 @@ static inline IPTR IS_ERR(APTR ptr)
 #define TRACE(fmt, ...)                 D(bug("[TRACE](%s): " fmt, __func__ , ##__VA_ARGS__))
 #define BUG(x)                          bug("BUG:(%s)\n", __func__)
 #define WARN(condition, message, ...)   do { if (unlikely(condition)) bug("WARN: %s:%d" message "\n", __FILE__, __LINE__, ##__VA_ARGS__); } while(0)
+#define dev_dbg(dev, fmt, ...)          bug(fmt, ##__VA_ARGS__)
 #define dev_warn(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define dev_err(dev, fmt, ...)          bug(fmt, ##__VA_ARGS__)
 #define dev_info(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
@@ -198,7 +209,8 @@ struct page * create_page_helper();                     /* Helper function - not
 #define kunmap(addr)
 #define vunmap(addr)
 #define set_page_dirty(p)
-struct page * alloc_page(ULONG mask);
+struct page *pfn_to_page(unsigned long pfn);
+struct page *alloc_page(ULONG mask);
 
 /* Atomic handling */
 static inline int atomic_add_return(int i, atomic_t *v)
@@ -463,6 +475,12 @@ struct device;
 int request_firmware(const struct firmware **fw, const char *name, struct device *device);
 void release_firmware(const struct firmware *fw);
 
+/* scatterlist */
+struct scatterlist;
+struct scatterlist *sg_next(struct scatterlist *s);
+dma_addr_t sg_dma_address(struct scatterlist *s);
+IPTR sg_dma_len(struct scatterlist *s);
+
 /* dma handling */
 #define DMA_BIDIRECTIONAL 0
 #define DMA_ATTR_NON_CONSISTENT (1UL << 3)
@@ -473,6 +491,8 @@ static inline int dma_mapping_error(struct device *dev, dma_addr_t dma_addr) { r
 void dma_unmap_page(struct device *dev, dma_addr_t dma_handle, size_t size, ULONG dir);
 void dma_free_attrs(struct device *dev, size_t size, void *cpuaddr, dma_addr_t dma_handle, unsigned long attrs);
 void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle, ULONG flags, unsigned long attrs);
+void *dma_alloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle, ULONG flags);
+void dma_free_coherent(struct device *dev, size_t size, void *cpuaddr, dma_addr_t dma_handle);
 
 /* other */
 #define do_div(n,base) ({ \
