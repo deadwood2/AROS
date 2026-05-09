@@ -53,8 +53,8 @@ struct nvkm_vmm {
 	bool replay;
 };
 
-// int nvkm_vmm_new(struct nvkm_device *, u64 addr, u64 size, void *argv, u32 argc,
-// 		 struct lock_class_key *, const char *name, struct nvkm_vmm **);
+int nvkm_vmm_new(struct nvkm_device *, u64 addr, u64 size, void *argv, u32 argc,
+		 struct lock_class_key *, const char *name, struct nvkm_vmm **);
 struct nvkm_vmm *nvkm_vmm_ref(struct nvkm_vmm *);
 void nvkm_vmm_unref(struct nvkm_vmm **);
 int nvkm_vmm_boot(struct nvkm_vmm *);

@@ -218,5 +218,6 @@ struct firmware
 struct work_struct;
 struct module;
 struct edid;
+struct lock_class_key;
 
 #endif /* _DRM_COMPAT_TYPES_ */

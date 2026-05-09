@@ -24,8 +24,11 @@
 #define kmalloc(size, flags)            HIDDNouveauAlloc(size)
 #define vmalloc_user(size)              HIDDNouveauAlloc(size)
 #define vmalloc(size)                   HIDDNouveauAlloc(size)
+#define vzalloc(size)                   vmalloc(size)
 #define kfree(objp)                     HIDDNouveauFree(objp)
 #define vfree(objp)                     HIDDNouveauFree(objp)
+#define GFP_KERNEL 0x1
+void *kmemdup(const void *src, size_t len, BYTE type);
 #define capable(p)                      TRUE
 #define roundup(x, y)                   ((((x) + ((y) - 1)) / (y)) * (y))
 #define round_up(x, y)                  roundup(x, y)
@@ -62,6 +65,7 @@
 #define DIV_ROUND_UP(x, y)              (((x) + (y) - 1) / (y))
 #define EREMOTEIO                       EIO
 #define __ffs64(mask)                   ffs(mask)
+#define max_t(t, x, y)                  ({(t)(x) > (t)(y) ? (t)(x) : (t)(y);})
 
 
 APTR HIDDNouveauAlloc(ULONG size);
@@ -139,6 +143,7 @@ static inline IPTR IS_ERR(APTR ptr)
 #define dev_info(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define dev_notice(dev, fmt, ...)       bug(fmt, ##__VA_ARGS__)
 #define dev_crit(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
+#define dev_WARN(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define NOT_IMPLEMENTED_STOP            { bug("NOT IMPLEMENTED %s\n", __func__);while(1); }
 
 /* PCI handling */
@@ -426,6 +431,12 @@ typedef struct {
         }                                                         \
         __ret;                                                    \
     })
+
+/* firmaware handling */
+struct device;
+int request_firmware(const struct firmware **fw, const char *name, struct device *device);
+void release_firmware(const struct firmware *fw);
+
 
 /* other */
 #define do_div(n,base) ({ \

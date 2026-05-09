@@ -60,6 +60,7 @@ USER_INCLUDES := \
             -I$(DRM2_PATH)/drm/nouveau \
             -I$(DRM2_PATH)/drm/nouveau/include \
             -I$(DRM2_PATH)/drm/nouveau/include/nvkm \
+            -I$(DRM2_PATH)/drm/nouveau/nvkm \
 
 NOUVEAU_DRM_C_SOURCES := \
             $(addprefix $(DRM2_PATH),$(AROS_DRM2_NVIDIA_SOURCES))
