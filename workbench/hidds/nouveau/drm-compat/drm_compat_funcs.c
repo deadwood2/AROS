@@ -1,9 +1,8 @@
 /*
-    Copyright 2009, The AROS Development Team. All rights reserved.
+    Copyright 2009-2026, The AROS Development Team. All rights reserved.
 */
 
-#include "drm_compat_funcs.h"
-#include "drm_aros_config.h"
+#include <drm-compat/drm_compat_funcs.h>
 
 #define PIO_RESERVED                (IPTR)0x40000UL
 
@@ -254,12 +253,12 @@ void idr_init(struct idr *idp)
 }
 
 /* PCI handling */
-#include "drm_aros.h"
 #include <aros/libcall.h>
 #include <proto/oop.h>
 #include <hidd/pci.h>
 #include <hidd/hidd.h>
 
+#if 0
 void *ioremap(resource_size_t offset, unsigned long size)
 {
     if (pciDriver)
@@ -290,6 +289,7 @@ void iounmap(void * addr)
         OOP_DoMethod(pciDriver, (OOP_Msg)msg);
     }
 }
+#endif
 
 resource_size_t pci_resource_start(struct pci_dev * pdev, unsigned int resource)
 {
@@ -373,7 +373,9 @@ AROS_UFH3(void, GetBusSlotEnumerator,
     }
     
     AROS_USERFUNC_EXIT
-}   
+}
+
+#if 0
 void * pci_get_bus_and_slot(unsigned int bus, unsigned int dev, unsigned int fun)
 {
     OOP_Object * pciDevice = NULL;
@@ -407,6 +409,7 @@ void * pci_get_bus_and_slot(unsigned int bus, unsigned int dev, unsigned int fun
     
     return pciDevice;
 }
+#endif
 
 int pci_read_config_word(struct pci_dev * pdev, int where, u16 *val)
 {

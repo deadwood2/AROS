@@ -16,26 +16,7 @@ AROS_LIBDRM_NVIDIA_SOURCES = \
             libdrm/arosdrm_nouveau \
 
 AROS_DRM_CORE_SOURCES = \
-            drm-aros/drm_aros \
-            drm-aros/drm_bufs \
-            drm-aros/drm_drv \
-            drm-aros/drm_compat_funcs \
-            drm/drm_mm \
-            drm/drm_irq \
-            drm/drm_gem \
-            drm/drm_cache \
-            drm/drm_crtc \
-            drm/drm_crtc_helper \
-            drm/drm_edid \
-            drm/drm_global \
-            drm/drm_memory \
-            drm/drm_modes \
-            drm/drm_agpsupport \
-            drm/ttm/ttm_bo \
-            drm/ttm/ttm_bo_manager \
-            drm/ttm/ttm_bo_util \
-            drm/ttm/ttm_tt \
-            drm/ttm/ttm_agp_backend \
+            drm-compat/drm_compat_funcs \
 
 AROS_DRM_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/engine/device/engine_device \
