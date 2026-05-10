@@ -236,6 +236,8 @@ struct work_struct
 struct module;
 struct edid;
 struct clk;
+struct drm_printer;
+
 struct lock_class_key
 {
     ULONG dummy;

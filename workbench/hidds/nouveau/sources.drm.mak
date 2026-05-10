@@ -85,5 +85,7 @@ AROS_DRM_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/falcon/msgqueue_0148cdec \
             drm/nouveau/nouveau_bo \
             drm/nouveau/nouveau_fence \
-
+            drm/nouveau/nouveau_vmm \
+            drm/nouveau/nouveau_dma \
+            drm/nouveau/nouveau_ttm \
 
