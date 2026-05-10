@@ -96,10 +96,7 @@ nv10_bo_put_tile_region(struct drm_device *dev, struct nouveau_drm_tile *tile,
 
 	if (tile) {
 		spin_lock(&drm->tile.lock);
-NOT_IMPLEMENTED_STOP
-#if 0
 		tile->fence = (struct nouveau_fence *)dma_fence_get(fence);
-#endif
 		tile->used = false;
 		spin_unlock(&drm->tile.lock);
 	}
@@ -562,13 +559,10 @@ nouveau_bo_sync_for_device(struct nouveau_bo *nvbo)
 	if (nvbo->force_coherent)
 		return;
 
-NOT_IMPLEMENTED_STOP
-#if 0
 	for (i = 0; i < ttm_dma->ttm.num_pages; i++)
 		dma_sync_single_for_device(drm->dev->dev,
 					   ttm_dma->dma_address[i],
 					   PAGE_SIZE, DMA_TO_DEVICE);
-#endif
 }
 
 void
@@ -585,12 +579,9 @@ nouveau_bo_sync_for_cpu(struct nouveau_bo *nvbo)
 	if (nvbo->force_coherent)
 		return;
 
-NOT_IMPLEMENTED_STOP
-#if 0
 	for (i = 0; i < ttm_dma->ttm.num_pages; i++)
 		dma_sync_single_for_cpu(drm->dev->dev, ttm_dma->dma_address[i],
 					PAGE_SIZE, DMA_FROM_DEVICE);
-#endif
 }
 
 int
@@ -1377,13 +1368,10 @@ nouveau_bo_vm_cleanup(struct ttm_buffer_object *bo,
 {
 	struct nouveau_drm *drm = nouveau_bdev(bo->bdev);
 	struct drm_device *dev = drm->dev;
-NOT_IMPLEMENTED_STOP
-#if 0
 	struct dma_fence *fence = dma_resv_get_excl(bo->base.resv);
 
 	nv10_bo_put_tile_region(dev, *old_tile, fence);
 	*old_tile = new_tile;
-#endif
 }
 
 static int
@@ -1660,8 +1648,6 @@ NOT_IMPLEMENTED_STOP
 		return r;
 	}
 
-NOT_IMPLEMENTED_STOP
-#if 0
 	for (i = 0; i < ttm->num_pages; i++) {
 		dma_addr_t addr;
 
@@ -1680,7 +1666,6 @@ NOT_IMPLEMENTED_STOP
 
 		ttm_dma->dma_address[i] = addr;
 	}
-#endif
 	return 0;
 }
 
@@ -1715,15 +1700,12 @@ nouveau_ttm_tt_unpopulate(struct ttm_tt *ttm)
 #endif
 #endif
 
-NOT_IMPLEMENTED_STOP
-#if 0
 	for (i = 0; i < ttm->num_pages; i++) {
 		if (ttm_dma->dma_address[i]) {
 			dma_unmap_page(dev, ttm_dma->dma_address[i], PAGE_SIZE,
 				       DMA_BIDIRECTIONAL);
 		}
 	}
-#endif
 
 	ttm_pool_unpopulate(ttm);
 }
@@ -1733,13 +1715,10 @@ nouveau_bo_fence(struct nouveau_bo *nvbo, struct nouveau_fence *fence, bool excl
 {
 	struct dma_resv *resv = nvbo->bo.base.resv;
 
-NOT_IMPLEMENTED_STOP
-#if 0
 	if (exclusive)
 		dma_resv_add_excl_fence(resv, &fence->base);
 	else if (fence)
 		dma_resv_add_shared_fence(resv, &fence->base);
-#endif
 }
 
 struct ttm_bo_driver nouveau_bo_driver = {

@@ -483,7 +483,9 @@ dma_addr_t sg_dma_address(struct scatterlist *s);
 IPTR sg_dma_len(struct scatterlist *s);
 
 /* dma handling */
-#define DMA_BIDIRECTIONAL 0
+#define DMA_BIDIRECTIONAL   0
+#define DMA_TO_DEVICE       1
+#define DMA_FROM_DEVICE     2
 #define DMA_ATTR_NON_CONSISTENT (1UL << 3)
 #define DMA_ATTR_WEAK_ORDERING (1UL << 1)
 #define DMA_ATTR_WRITE_COMBINE (1UL << 2)
@@ -494,6 +496,19 @@ void dma_free_attrs(struct device *dev, size_t size, void *cpuaddr, dma_addr_t d
 void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle, ULONG flags, unsigned long attrs);
 void *dma_alloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle, ULONG flags);
 void dma_free_coherent(struct device *dev, size_t size, void *cpuaddr, dma_addr_t dma_handle);
+void dma_sync_single_for_device(struct device *dev, dma_addr_t dma_addr, size_t size, ULONG dir);
+void dma_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr, size_t size, ULONG dir);
+
+/* dma fence handling */
+struct dma_fence
+{
+    ULONG dummy;
+};
+struct dma_resv;
+struct dma_fence *dma_fence_get(struct dma_fence *fence);
+struct dma_fence *dma_resv_get_excl(struct dma_resv *resv);
+void dma_resv_add_excl_fence(struct dma_resv *resv, struct dma_fence *fence);
+void dma_resv_add_shared_fence(struct dma_resv *resv, struct dma_fence *fence);
 
 /* other */
 #define do_div(n,base) ({ \

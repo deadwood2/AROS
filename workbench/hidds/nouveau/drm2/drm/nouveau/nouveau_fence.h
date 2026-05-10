@@ -12,9 +12,7 @@ struct nouveau_drm;
 struct nouveau_bo;
 
 struct nouveau_fence {
-#if !defined(__AROS__)
 	struct dma_fence base;
-#endif
 
 	struct list_head head;
 
