@@ -129,7 +129,6 @@ AROS_DRM_NVIDIA_SOURCES = \
             drm/nouveau/nvd0_display \
 
 AROS_DRM2_NVIDIA_SOURCES = \
-            drm/nouveau/nouveau_bo \
             drm/nouveau/nvkm/engine/device/engine_device \
             drm/nouveau/nvkm/engine/gr/engine_gr \
             drm/nouveau/nvkm/engine/gr/ctxnv40 \
@@ -194,4 +193,7 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/falcon/falcon_root \
             drm/nouveau/nvkm/falcon/msgqueue_0137c63d \
             drm/nouveau/nvkm/falcon/msgqueue_0148cdec \
+            drm/nouveau/nouveau_bo \
+            drm/nouveau/nouveau_fence \
+
 

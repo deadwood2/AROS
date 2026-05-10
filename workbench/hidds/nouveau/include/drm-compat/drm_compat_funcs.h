@@ -370,6 +370,11 @@ static inline int kref_sub(struct kref *kref, unsigned int count, void (*release
         return 0; 
 }
 
+static inline unsigned int kref_read(struct kref *kref)
+{
+    return kref->refcount.count;
+}
+
 void refcount_set(refcount_t *r, int n);
 bool refcount_dec_and_test(refcount_t *r);
 void refcount_inc(refcount_t *r);
@@ -509,15 +514,40 @@ void dma_sync_single_for_device(struct device *dev, dma_addr_t dma_addr, size_t 
 void dma_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr, size_t size, ULONG dir);
 
 /* dma fence handling */
+struct dma_resv;
+struct dma_fence;
+struct dma_fence_ops
+{
+    const char * (*get_driver_name)(struct dma_fence *fence);
+    const char * (*get_timeline_name)(struct dma_fence *fence);
+    bool (*enable_signaling)(struct dma_fence *fence);
+    bool (*signaled)(struct dma_fence *fence);
+    void (*release)(struct dma_fence *fence);
+    signed long (*wait)(struct dma_fence *fence, bool intr, signed long timeout);
+};
 struct dma_fence
 {
-    ULONG dummy;
+    struct kref refcount;
+    ULONG flags;
+    ULONG seqno;
+    struct dma_fence_ops *ops;
+    IPTR context;
+    spinlock_t *lock;
 };
-struct dma_resv;
+
+#define DMA_FENCE_FLAG_SIGNALED_BIT 0
+#define DMA_FENCE_FLAG_USER_BITS 3 /* last */
+
 struct dma_fence *dma_fence_get(struct dma_fence *fence);
 struct dma_fence *dma_resv_get_excl(struct dma_resv *resv);
 void dma_resv_add_excl_fence(struct dma_resv *resv, struct dma_fence *fence);
 void dma_resv_add_shared_fence(struct dma_resv *resv, struct dma_fence *fence);
+void dma_fence_free(struct dma_fence *fence);
+signed long dma_fence_wait(struct dma_fence *fence, bool intr);
+bool dma_fence_is_signaled(struct dma_fence *fence);
+void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops, spinlock_t *lock, u64 context, u64 seqno);
+void dma_fence_put(struct dma_fence *fence);
+int dma_fence_signal_locked(struct dma_fence *fence);
 
 /* other */
 #define do_div(n,base) ({ \
