@@ -34,10 +34,12 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// #if !defined(__AROS__)
-// #include <linux/kref.h>
-// #include <linux/dma-resv.h>
-// #endif
+#if !defined(__AROS__)
+#include <linux/kref.h>
+#include <linux/dma-resv.h>
+#else
+#include <drm-compat/drm_compat_funcs.h>
+#endif
 
 // #include <drm/drm_vma_manager.h>
 

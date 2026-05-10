@@ -491,7 +491,6 @@ int firmware_request_nowarn(const struct firmware **fw, const char *name, struct
 void release_firmware(const struct firmware *fw);
 
 /* scatterlist */
-struct scatterlist;
 struct scatterlist *sg_next(struct scatterlist *s);
 dma_addr_t sg_dma_address(struct scatterlist *s);
 IPTR sg_dma_len(struct scatterlist *s);

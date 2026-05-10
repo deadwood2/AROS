@@ -237,7 +237,11 @@ struct module;
 struct edid;
 struct clk;
 struct drm_printer;
-
+struct scatterlist;
+struct sg_table
+{
+    struct scatterlist *sgl;
+};
 struct lock_class_key
 {
     ULONG dummy;
