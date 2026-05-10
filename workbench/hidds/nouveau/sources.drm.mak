@@ -20,7 +20,6 @@ AROS_DRM_CORE_SOURCES = \
             drm-compat/drm_compat_stubs \
 
 AROS_DRM_NVIDIA_SOURCES = \
-            drm/nouveau/nouveau_sgdma \
             drm/nouveau/nvkm/engine/device/engine_device \
             drm/nouveau/nvkm/engine/gr/engine_gr \
             drm/nouveau/nvkm/engine/gr/ctxnv40 \
@@ -85,10 +84,12 @@ AROS_DRM_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/falcon/falcon_root \
             drm/nouveau/nvkm/falcon/msgqueue_0137c63d \
             drm/nouveau/nvkm/falcon/msgqueue_0148cdec \
+            drm/nouveau/nvif/nvif_root \
             drm/nouveau/nouveau_bo \
             drm/nouveau/nouveau_fence \
             drm/nouveau/nouveau_vmm \
             drm/nouveau/nouveau_dma \
             drm/nouveau/nouveau_ttm \
             drm/nouveau/nouveau_mem \
+            drm/nouveau/nouveau_sgdma \
 

@@ -192,6 +192,8 @@ int pci_is_pcie(struct pci_dev * pdev);
 void clear_bit(int nr, volatile void * addr);
 void set_bit(int nr, volatile void *addr);
 int test_bit(int nr, volatile void *addr);
+int test_and_clear_bit(unsigned int nr, volatile unsigned long *p);
+int test_and_set_bit(unsigned int nr, volatile unsigned long *p);
 #define __set_bit(nr, addr)         set_bit(nr, addr)
 #define __clear_bit(nr, addr)       clear_bit(nr, addr)
 #define for_each_set_bit(bit, addr, size) NOT_IMPLEMENTED_STOP
@@ -220,6 +222,16 @@ struct page *alloc_page(ULONG mask);
 static inline int atomic_add_return(int i, atomic_t *v)
 {
     return __sync_add_and_fetch(&v->count, i);
+}
+
+static inline int atomic_dec_return(atomic_t *v)
+{
+    return __sync_sub_and_fetch(&v->count, 1);
+}
+
+static inline int atomic_inc_return(atomic_t *v)
+{
+    return __sync_add_and_fetch(&v->count, 1);
 }
 
 static inline void atomic_add(int i, atomic_t *v)
