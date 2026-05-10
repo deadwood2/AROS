@@ -5,7 +5,7 @@ include $(SRCDIR)/workbench/libs/mesa/mesa.cfg
 GALLIUM_PATH = $(top_srcdir)/src/gallium
 
 include $(GALLIUM_PATH)/drivers/nouveau/Makefile.sources
-include $(SRCDIR)/$(CURDIR)/drm/sources.drm.mak
+include $(SRCDIR)/$(CURDIR)/sources.drm.mak
 
 # WARNING - THIS MMAKEFILE REFERENCES SOURCE CODE OUTSIDE OF ITS TREE
 
@@ -45,8 +45,6 @@ XF86_NOUVEAU_SOURCES = \
             nvc0_exa \
             nv04_exa \
 
-DRM_PATH = $(SRCDIR)/$(CURDIR)/drm/
-DRM2_PATH = $(SRCDIR)/$(CURDIR)/drm2/
 XF86_NOUVEAU_PATH = $(SRCDIR)/$(CURDIR)/xf86-video-nouveau/
 
 #FIXME
@@ -55,13 +53,13 @@ XF86_NOUVEAU_PATH = $(SRCDIR)/$(CURDIR)/xf86-video-nouveau/
 
 USER_INCLUDES := \
             -I$(SRCDIR)/$(CURDIR)/include \
-            -I$(DRM2_PATH)/drm/nouveau \
-            -I$(DRM2_PATH)/drm/nouveau/include \
-            -I$(DRM2_PATH)/drm/nouveau/include/nvkm \
-            -I$(DRM2_PATH)/drm/nouveau/nvkm \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau/include \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau/include/nvkm \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau/nvkm \
 
 NOUVEAU_DRM_C_SOURCES := \
-            $(addprefix $(DRM2_PATH),$(AROS_DRM2_NVIDIA_SOURCES))
+            $(addprefix $(SRCDIR)/$(CURDIR)/,$(AROS_DRM2_NVIDIA_SOURCES))
 
 %build_prog mmake=hidd-nouveau-drm files="$(NOUVEAU_DRM_C_SOURCES)" \
     targetdir="$(AROS_C)" progname="dummy" usesdks="config"
@@ -75,9 +73,9 @@ NOUVEAU_HIDD_C_SOURCES := \
             nouveau_i2cclass \
             arosc_emul \
             nouveau_compositorclass \
-            $(addprefix $(DRM2_PATH),$(AROS_DRM2_CORE_SOURCES))         \
-            $(addprefix $(DRM_PATH),$(AROS_LIBDRM_CORE_SOURCES))        \
-            $(addprefix $(DRM_PATH),$(AROS_LIBDRM_NVIDIA_SOURCES))      \
+            $(addprefix $(SRCDIR)/$(CURDIR)/,$(AROS_DRM2_CORE_SOURCES))  \
+            $(addprefix$(SRCDIR)/$(CURDIR)/,$(AROS_LIBDRM_CORE_SOURCES))        \
+            $(addprefix $(SRCDIR)/$(CURDIR)/,$(AROS_LIBDRM_NVIDIA_SOURCES))      \
             $(addprefix $(XF86_NOUVEAU_PATH), $(XF86_NOUVEAU_SOURCES))  \
 
 #NOUVEAU_HIDD_CXX_SOURCES := \
@@ -92,15 +90,15 @@ NOUVEAU_HIDD_C_SOURCES := \
 
 
 USER_INCLUDES := \
-            -I$(DRM2_PATH)/include \
-            -I$(DRM2_PATH)/drm \
-            -I$(DRM2_PATH)/drm/nouveau \
-            -I$(DRM2_PATH)/drm/nouveau/include \
-            -I$(DRM2_PATH)/drm/nouveau/include/nvkm \
-            -I$(DRM_PATH)/drm-aros \
-            -I$(DRM_PATH)/drm-aros/nouveau \
-            -I$(DRM_PATH)/libdrm \
-            -I$(DRM_PATH)/libdrm/nouveau \
+            -I$(SRCDIR)/$(CURDIR)/include \
+            -I$(SRCDIR)/$(CURDIR)/drm \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau/include \
+            -I$(SRCDIR)/$(CURDIR)/drm/nouveau/include/nvkm \
+            -I$(SRCDIR)/$(CURDIR)/drm-aros \
+            -I$(SRCDIR)/$(CURDIR)/drm-aros/nouveau \
+            -I$(SRCDIR)/$(CURDIR)/libdrm \
+            -I$(SRCDIR)/$(CURDIR)/libdrm/nouveau \
             -I$(XF86_NOUVEAU_PATH)
 
 
