@@ -47,7 +47,6 @@ XF86_NOUVEAU_SOURCES = \
 
 DRM_PATH = $(SRCDIR)/$(CURDIR)/drm/
 DRM2_PATH = $(SRCDIR)/$(CURDIR)/drm2/
-DRM3_PATH = $(SRCDIR)/$(CURDIR)/drm3/
 XF86_NOUVEAU_PATH = $(SRCDIR)/$(CURDIR)/xf86-video-nouveau/
 
 #FIXME
@@ -55,8 +54,7 @@ XF86_NOUVEAU_PATH = $(SRCDIR)/$(CURDIR)/xf86-video-nouveau/
 #            $(addprefix $(GALLIUM_PATH)/drivers/nouveau/, $(GALLIUM_NOUVEAU_C_SOURCES:.c=)) \
 
 USER_INCLUDES := \
-            -I$(DRM3_PATH)/include \
-            -I$(DRM3_PATH)/drm \
+            -I$(SRCDIR)/$(CURDIR)/include \
             -I$(DRM2_PATH)/drm/nouveau \
             -I$(DRM2_PATH)/drm/nouveau/include \
             -I$(DRM2_PATH)/drm/nouveau/include/nvkm \

@@ -36,8 +36,8 @@
 #include <soc/tegra/fuse.h>
 #include <soc/tegra/pmc.h>
 #else
-#include "drm_compat_types.h"
-#include "drm_compat_funcs.h"
-#include "drm_linux_list.h"
+#include <drm-compat/drm_compat_types.h>
+#include <drm-compat/drm_compat_funcs.h>
+#include <drm-compat/drm_linux_list.h>
 #endif
 #endif

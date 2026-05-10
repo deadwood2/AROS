@@ -43,7 +43,7 @@
 #include <linux/bitmap.h>
 #include <linux/dma-resv.h>
 #else
-#include "drm_linux_list.h"
+#include <drm-compat/drm_linux_list.h>
 #endif
 
 struct ttm_bo_global;
