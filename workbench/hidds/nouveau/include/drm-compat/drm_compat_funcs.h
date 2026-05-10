@@ -39,6 +39,7 @@ void *kmemdup(const void *src, size_t len, BYTE flags);
 void *kmalloc_array(size_t n, size_t size, BYTE flags);
 void *kvmalloc_array(size_t n, size_t size, BYTE flags);
 char *kstrndup(const char *c, size_t len, BYTE flags);
+int kstrtol(const char *s, unsigned int base, long *res);
 #define capable(p)                      TRUE
 #define roundup(x, y)                   ((((x) + ((y) - 1)) / (y)) * (y))
 #define round_up(x, y)                  roundup(x, y)
@@ -145,6 +146,8 @@ static inline bool IS_ERR_OR_NULL(APTR ptr)
 
 /* Kernel debug */
 #define CONFIG_NOUVEAU_DEBUG            3 /* NV_DGB_INFO */
+#define CONFIG_NOUVEAU_DEBUG_DEFAULT    3
+#define KERN_CRIT
 #define KERN_ERR
 #define KERN_DEBUG
 #define KERN_WARNING
@@ -162,6 +165,7 @@ static inline bool IS_ERR_OR_NULL(APTR ptr)
 #define dev_notice(dev, fmt, ...)       bug(fmt, ##__VA_ARGS__)
 #define dev_crit(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define dev_WARN(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
+#define pr_err(fmt, ...)                bug(fmt, ##__VA_ARGS__)
 #define NOT_IMPLEMENTED_STOP            { bug("NOT IMPLEMENTED %s\n", __func__);while(1); }
 
 /* PCI handling */
@@ -366,6 +370,10 @@ static inline int kref_sub(struct kref *kref, unsigned int count, void (*release
         return 0; 
 }
 
+void refcount_set(refcount_t *r, int n);
+bool refcount_dec_and_test(refcount_t *r);
+void refcount_inc(refcount_t *r);
+
 
 /* IDR handling */
 #define idr_pre_get(a, b)               idr_pre_get_internal(a)
@@ -474,6 +482,7 @@ typedef struct {
 #define MODULE_FIRMWARE(x)
 struct device;
 int request_firmware(const struct firmware **fw, const char *name, struct device *device);
+int firmware_request_nowarn(const struct firmware **fw, const char *name, struct device *device);
 void release_firmware(const struct firmware *fw);
 
 /* scatterlist */

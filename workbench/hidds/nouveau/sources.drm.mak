@@ -190,3 +190,4 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/subdev/timer/subdev_timer \
             drm/nouveau/nvkm/subdev/top/subdev_top \
             drm/nouveau/nvkm/subdev/volt/subdev_volt \
+            drm/nouveau/nvkm/core/core_root \
