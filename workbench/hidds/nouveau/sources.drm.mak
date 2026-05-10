@@ -191,3 +191,7 @@ AROS_DRM2_NVIDIA_SOURCES = \
             drm/nouveau/nvkm/subdev/top/subdev_top \
             drm/nouveau/nvkm/subdev/volt/subdev_volt \
             drm/nouveau/nvkm/core/core_root \
+            drm/nouveau/nvkm/falcon/falcon_root \
+            drm/nouveau/nvkm/falcon/msgqueue_0137c63d \
+            drm/nouveau/nvkm/falcon/msgqueue_0148cdec \
+
