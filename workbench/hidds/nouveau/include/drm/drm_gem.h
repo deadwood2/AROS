@@ -282,16 +282,14 @@ struct drm_gem_object {
 	 */
 	struct dma_resv *resv;
 
-// #if !defined(__AROS__)
-// 	/**
-// 	 * @_resv:
-// 	 *
-// 	 * A reservation object for this GEM object.
-// 	 *
-// 	 * This is unused for imported GEM objects.
-// 	 */
-// 	struct dma_resv _resv;
-// #endif
+	/**
+	 * @_resv:
+	 *
+	 * A reservation object for this GEM object.
+	 *
+	 * This is unused for imported GEM objects.
+	 */
+	struct dma_resv _resv;
 
 // 	/**
 // 	 * @funcs:

@@ -16,6 +16,7 @@ AROS_LIBDRM_NVIDIA_SOURCES = \
             libdrm/arosdrm_nouveau \
 
 AROS_DRM_CORE_SOURCES = \
+            drm/ttm/ttm_bo \
             drm-compat/drm_compat_funcs \
             drm-compat/drm_compat_stubs \
 

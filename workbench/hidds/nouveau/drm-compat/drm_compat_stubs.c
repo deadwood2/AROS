@@ -60,3 +60,17 @@ int iommu_map(struct iommu_domain *domain, unsigned long iova, phys_addr_t paddr
 
 int test_and_clear_bit(unsigned int nr, volatile unsigned long *p) { NOT_IMPLEMENTED_STOP }
 int test_and_set_bit(unsigned int nr, volatile unsigned long *p) { NOT_IMPLEMENTED_STOP }
+
+void dma_fence_enable_sw_signaling(struct dma_fence *fence) { NOT_IMPLEMENTED_STOP }
+void dma_resv_assert_held(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+int dma_resv_trylock(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+int dma_resv_lock(struct dma_resv *resv, struct ww_acquire_ctx *ctx) { NOT_IMPLEMENTED_STOP }
+int dma_resv_lock_interruptible(struct dma_resv *resv, struct ww_acquire_ctx *ctx) { NOT_IMPLEMENTED_STOP }
+void dma_resv_unlock(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+struct ww_acquire_ctx *dma_resv_locking_ctx(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+void dma_resv_init(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+void dma_resv_fini(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+int dma_resv_reserve_shared(struct dma_resv *resv, unsigned int num) { NOT_IMPLEMENTED_STOP }
+struct dma_resv_list *dma_resv_get_list(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+bool dma_resv_held(struct dma_resv *resv) { NOT_IMPLEMENTED_STOP }
+int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src) { NOT_IMPLEMENTED_STOP }

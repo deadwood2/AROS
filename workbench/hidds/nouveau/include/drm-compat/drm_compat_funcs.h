@@ -50,6 +50,7 @@ int kstrtol(const char *s, unsigned int base, long *res);
 #define mutex_unlock(x)                 ReleaseSemaphore(&(x)->semaphore)
 #define mutex_trylock(x)                AttemptSemaphore(&(x)->semaphore)
 #define mutex_init(x)                   InitSemaphore(&(x)->semaphore);
+#define mutex_destroy(x)
 #define likely(x)                       __builtin_expect((IPTR)(x),1)
 #define unlikely(x)                     __builtin_expect((IPTR)(x),0)
 #define mb()                            __asm __volatile("lock; addl $0,0(%%esp)" : : : "memory");
@@ -166,6 +167,7 @@ static inline bool IS_ERR_OR_NULL(APTR ptr)
 #define dev_crit(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define dev_WARN(dev, fmt, ...)         bug(fmt, ##__VA_ARGS__)
 #define pr_err(fmt, ...)                bug(fmt, ##__VA_ARGS__)
+#define pr_debug(fmt, ...)              bug(fmt, ##__VA_ARGS__)
 #define NOT_IMPLEMENTED_STOP            { bug("NOT IMPLEMENTED %s\n", __func__);while(1); }
 
 /* PCI handling */
@@ -525,7 +527,10 @@ void dma_sync_single_for_device(struct device *dev, dma_addr_t dma_addr, size_t 
 void dma_sync_single_for_cpu(struct device *dev, dma_addr_t dma_addr, size_t size, ULONG dir);
 
 /* dma fence handling */
-struct dma_resv;
+struct dma_resv
+{
+    ULONG dummy;
+};
 struct dma_fence;
 struct dma_fence_ops
 {
@@ -559,6 +564,21 @@ bool dma_fence_is_signaled(struct dma_fence *fence);
 void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops, spinlock_t *lock, u64 context, u64 seqno);
 void dma_fence_put(struct dma_fence *fence);
 int dma_fence_signal_locked(struct dma_fence *fence);
+void dma_fence_enable_sw_signaling(struct dma_fence *fence);
+void dma_resv_assert_held(struct dma_resv *resv);
+int dma_resv_trylock(struct dma_resv *resv);
+struct ww_acquire_ctx;
+int dma_resv_lock(struct dma_resv *resv, struct ww_acquire_ctx *ctx);
+int dma_resv_lock_interruptible(struct dma_resv *resv, struct ww_acquire_ctx *ctx);
+void dma_resv_unlock(struct dma_resv *resv);
+struct ww_acquire_ctx *dma_resv_locking_ctx(struct dma_resv *resv);
+void dma_resv_init(struct dma_resv *resv);
+void dma_resv_fini(struct dma_resv *resv);
+int dma_resv_reserve_shared(struct dma_resv *resv, unsigned int num);
+struct dma_resv_list;
+struct dma_resv_list *dma_resv_get_list(struct dma_resv *resv);
+bool dma_resv_held(struct dma_resv *resv);
+int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src);
 
 /* other */
 #define do_div(n,base) ({ \
