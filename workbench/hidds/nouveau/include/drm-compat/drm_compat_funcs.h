@@ -597,5 +597,6 @@ u64 div_u64(u64 a, u32 b);
 s64 div64_s64(s64 a, s64 b);
 u32 get_unaligned_le32(const void *p);
 u16 get_unaligned_le16(const void *p);
+void drm_clflush_pages(struct page *pages[], unsigned long num_pages);
 
 #endif /* _DRM_COMPAT_FUNCS_ */

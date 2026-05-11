@@ -41,6 +41,7 @@
 #define dma_addr_t                  IPTR
 #define phys_addr_t                 IPTR
 #define loff_t                      IPTR
+#define pgoff_t                     IPTR
 #define pgprot_t                    ULONG
 #define gfp_t                       ULONG
 #define irqreturn_t                 ULONG
