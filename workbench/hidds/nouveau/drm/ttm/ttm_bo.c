@@ -1831,22 +1831,22 @@ EXPORT_SYMBOL(ttm_bo_device_release);
 //  * buffer object vm functions.
 //  */
 
-// bool ttm_mem_reg_is_pci(struct ttm_bo_device *bdev, struct ttm_mem_reg *mem)
-// {
-// 	struct ttm_mem_type_manager *man = &bdev->man[mem->mem_type];
+bool ttm_mem_reg_is_pci(struct ttm_bo_device *bdev, struct ttm_mem_reg *mem)
+{
+	struct ttm_mem_type_manager *man = &bdev->man[mem->mem_type];
 
-// 	if (!(man->flags & TTM_MEMTYPE_FLAG_FIXED)) {
-// 		if (mem->mem_type == TTM_PL_SYSTEM)
-// 			return false;
+	if (!(man->flags & TTM_MEMTYPE_FLAG_FIXED)) {
+		if (mem->mem_type == TTM_PL_SYSTEM)
+			return false;
 
-// 		if (man->flags & TTM_MEMTYPE_FLAG_CMA)
-// 			return false;
+		if (man->flags & TTM_MEMTYPE_FLAG_CMA)
+			return false;
 
-// 		if (mem->placement & TTM_PL_FLAG_CACHED)
-// 			return false;
-// 	}
-// 	return true;
-// }
+		if (mem->placement & TTM_PL_FLAG_CACHED)
+			return false;
+	}
+	return true;
+}
 
 void ttm_bo_unmap_virtual_locked(struct ttm_buffer_object *bo)
 {
