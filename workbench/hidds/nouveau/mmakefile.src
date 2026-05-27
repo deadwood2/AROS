@@ -93,8 +93,8 @@ NOWARN_FLAGS := $(NOWARN_UNINITIALIZED) $(NOWARN_STRICT_ALIASING)
 USER_CFLAGS += $(NOWARN_FLAGS) -std=gnu99
 
 USER_LDFLAGS += \
-  -lhiddstubs -lstdlib -lcrtmod -lcrt
+  -lstdlib -lcrtmod -lcrt
   
 %build_module mmake=hidd-nouveau modname=nouveau modtype=hidd \
     files="$(NOUVEAU_HIDD_C_SOURCES)" cxxfiles="$(NOUVEAU_HIDD_CXX_SOURCES)" \
-    uselibs="oop libdrm_nouveau drm_nouveau crtmod crt" usesdks="config private mesa drm"
+    uselibs="oop libdrm_nouveau drm_nouveau hiddstubs crtmod crt" usesdks="config private mesa drm"
