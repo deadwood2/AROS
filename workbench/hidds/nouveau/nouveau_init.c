@@ -93,7 +93,7 @@ APTR HIDDNouveauAlloc(ULONG size)
 
 VOID HIDDNouveauFree(APTR memory)
 {
-    FreeVecPooled(NouveauMemPool, memory);
+    // FreeVecPooled(NouveauMemPool, memory);
 }
 
 ADD2INITLIB(Nouveau_Init, 0);
