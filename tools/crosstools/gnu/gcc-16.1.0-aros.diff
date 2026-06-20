@@ -601,6 +601,9 @@ diff -ruN gcc-16.1.0/gcc/config/aros.opt gcc-16.1.0.aros/gcc/config/aros.opt
 +nostdc
 +Driver
 +
++noclibs
++Driver
++
 +nosysbase
 +Driver
 +
@@ -675,41 +678,76 @@ diff -ruN gcc-16.1.0/gcc/config/aros-stdint.h gcc-16.1.0.aros/gcc/config/aros-st
 diff -ruN gcc-16.1.0/gcc/config/i386/aros64.h gcc-16.1.0.aros/gcc/config/i386/aros64.h
 --- gcc-16.1.0/gcc/config/i386/aros64.h	1970-01-01 00:00:00.000000000 +0000
 +++ gcc-16.1.0.aros/gcc/config/i386/aros64.h	2020-12-27 16:58:14.310000000 +0000
-@@ -0,0 +1,34 @@
-+/* Definitions for AMD x86_64 running AROS systems with ELF64 format.
-+   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2001, 2002
-+   Free Software Foundation, Inc.
-+   Contributed by Stanislaw Szymczyk <sszymczy@gmail.com>. Based on aros.h.
-+
-+This file is part of GNU CC.
-+
-+GNU CC is free software; you can redistribute it and/or modify
-+it under the terms of the GNU General Public License as published by
-+the Free Software Foundation; either version 2, or (at your option)
-+any later version.
-+
-+GNU CC is distributed in the hope that it will be useful,
-+but WITHOUT ANY WARRANTY; without even the implied warranty of
-+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+GNU General Public License for more details.
-+
-+You should have received a copy of the GNU General Public License
-+along with GNU CC; see the file COPYING.  If not, write to
-+the Free Software Foundation, 59 Temple Place - Suite 330,
-+Boston, MA 02111-1307, USA.  */
-+
-+/* The svr4 ABI for the i386 says that records and unions are returned
-+   in memory.  In the 64bit compilation we will turn this flag off in
-+   override_options, as we never do pcc_struct_return scheme on this target.  */
-+#undef DEFAULT_PCC_STRUCT_RETURN
-+#define DEFAULT_PCC_STRUCT_RETURN 1
-+
-+/* Provide a LINK_SPEC appropriate for AROS.  */
-+
-+#undef	LINK_SPEC
-+#define LINK_SPEC "%{!m32:-m elf_x86_64} %{m32:-m elf_i386} -L %R/lib" 
-+
-+/* FIXME: AROS doesn't support dw2 unwinding yet.  */
+@@ -0,0 +1,70 @@
+/* Definitions for AMD x86_64 running AROS systems with ELF64 format.
+   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2001, 2002
+   Free Software Foundation, Inc.
+   Contributed by Stanislaw Szymczyk <sszymczy@gmail.com>. Based on aros.h.
+
+This file is part of GNU CC.
+
+GNU CC is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
+
+GNU CC is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with GNU CC; see the file COPYING.  If not, write to
+the Free Software Foundation, 59 Temple Place - Suite 330,
+Boston, MA 02111-1307, USA.  */
+
+/* The svr4 ABI for the i386 says that records and unions are returned
+   in memory.  In the 64bit compilation we will turn this flag off in
+   override_options, as we never do pcc_struct_return scheme on this target.  */
+#undef DEFAULT_PCC_STRUCT_RETURN
+#define DEFAULT_PCC_STRUCT_RETURN 1
+
+/* Provide a LINK_SPEC appropriate for AROS.  */
+
+#undef	LINK_SPEC
+#define LINK_SPEC "%{!m32:-m elf_x86_64} %{m32:-m elf_i386} -L %R/lib" 
+
+/* FIXME: AROS doesn't support dw2 unwinding yet.  */
+
+/* Reserve r12 for the AROS library base pointer.
+   The proto-inline LVO calling convention uses r12 to hold the system library
+   base before each call (loaded via inline asm from the library base register,
+   then the JSR vector is indexed relative to r12).  Without r12 marked fixed,
+   GCC 16 treats it as an ordinary callee-saved register and, under
+   -mcmodel=large, may restore r12 from the stack *before* the call — so the
+   LVO executes with the wrong base, causing a wild jump / Privilege violation.
+   The array uses GCC 16 register numbering (92 entries: Intel APX adds r16-r31
+   beyond GCC 10's layout); only r12 (index 40) differs from the i386.h default.
+   Sourced from gcc-16.1.0/gcc/config/i386/i386.h lines 1004-1044.  */
+#undef FIXED_REGISTERS
+#define FIXED_REGISTERS							\
+/*ax,dx,cx,bx,si,di,bp,sp,st,st1,st2,st3,st4,st5,st6,st7*/		\
+{  0, 0, 0, 0, 0, 0, 0, 1, 0,  0,  0,  0,  0,  0,  0,  0,		\
+/*arg,flags,fpsr,frame*/						\
+    1,    1,   1,    1,							\
+/*xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7*/				\
+     0,   0,   0,   0,   0,   0,   0,   0,				\
+/* mm0, mm1, mm2, mm3, mm4, mm5, mm6, mm7*/				\
+     0,   0,   0,   0,   0,   0,   0,   0,				\
+/*  r8,  r9, r10, r11, r12, r13, r14, r15*/				\
+     0,   0,   0,   0,   1,   0,   0,   0,				\
+/*xmm8,xmm9,xmm10,xmm11,xmm12,xmm13,xmm14,xmm15*/			\
+     0,   0,    0,    0,    0,    0,    0,    0,			\
+/*xmm16,xmm17,xmm18,xmm19,xmm20,xmm21,xmm22,xmm23*/			\
+     0,   0,    0,    0,    0,    0,    0,    0,			\
+/*xmm24,xmm25,xmm26,xmm27,xmm28,xmm29,xmm30,xmm31*/			\
+     0,   0,    0,    0,    0,    0,    0,    0,			\
+/*  k0,  k1, k2, k3, k4, k5, k6, k7*/					\
+     0,  0,   0,  0,  0,  0,  0,  0,					\
+/*  r16,  r17, r18, r19, r20, r21, r22, r23*/				\
+     0,   0,   0,   0,   0,   0,   0,   0,				\
+/*  r24,  r25, r26, r27, r28, r29, r30, r31*/				\
+     0,   0,   0,   0,   0,   0,   0,   0}
 diff -ruN gcc-16.1.0/gcc/config/i386/aros.h gcc-16.1.0.aros/gcc/config/i386/aros.h
 --- gcc-16.1.0/gcc/config/i386/aros.h	1970-01-01 00:00:00.000000000 +0000
 +++ gcc-16.1.0.aros/gcc/config/i386/aros.h	2020-12-27 16:58:14.310000000 +0000
