@@ -14,7 +14,7 @@
 
 static module_t * FindModule(BPTR segList, struct Library * DebugBase);
 static LONG FindIndex(module_t * mod, BPTR segList);
-static VOID RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count);
+static BOOL RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count);
 
 /*****************************************************************************
 
@@ -80,7 +80,17 @@ static VOID RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count);
             if ((i >= mod->m_segcnt) || (mod->m_segments[i]->s_seg != segList))
             {
                 /* Order broken, clear ordered segments */
-                RemoveSegmentRange(mod, rangestart, (i - rangestart));
+                if (RemoveSegmentRange(mod, rangestart, (i - rangestart)))
+                {
+                    /* Module was fully removed and freed -- must not touch it
+                       again, otherwise FindIndex()/RemoveSegmentRange() below
+                       dereference freed memory (privilege violation). */
+                    mod = NULL;
+                    rangestart = -1;
+                    i = 0;
+                    segList = *(BPTR *)BADDR(segList);
+                    continue;
+                }
 
                 /* Restart */
                 i = rangestart = FindIndex(mod, segList);
@@ -136,7 +146,7 @@ static LONG FindIndex(module_t * mod, BPTR segList)
     return -1;
 }
 
-static VOID RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count)
+static BOOL RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count)
 {
     struct segment * seg;
     LONG i;
@@ -179,7 +189,7 @@ static VOID RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count)
             /* Free module descriptor at last */
             FreeVec(mod);
 
-            return;
+            return TRUE;
         }
     }
 
@@ -189,4 +199,5 @@ static VOID RemoveSegmentRange(module_t * mod, LONG firstidx, LONG count)
     for (i = firstidx;i < mod->m_segcnt; i++)
         mod->m_segments[i] = mod->m_segments[i + count];
 
+    return FALSE;
 }
