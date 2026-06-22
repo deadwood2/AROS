@@ -11,7 +11,9 @@
 #include <sys/param.h>
 
 #include "docommand.h"
+#include <stdio.h>
 #include "misc.h"
+#include <stdarg.h>
 
 static void _docommandv(const char *command, char *argv[], int do_path)
 {
@@ -23,6 +25,18 @@ static void _docommandv(const char *command, char *argv[], int do_path)
 
     if (pid == 0)
     {
+        {
+            int di;
+            fprintf(stderr, "[COLLECT-AROS-DIAG] docommand: execvp/execv command='%s'\n", command);
+            for (di = 0; argv[di]; di++)
+                fprintf(stderr, "[COLLECT-AROS-DIAG]   argv[%d]='%s'\n", di, argv[di]);
+        }
+        {
+            int di;
+            fprintf(stderr, "[COLLECT-AROS-DIAG] docommand: execvp/execv command='%s'\n", command);
+            for (di = 0; argv[di]; di++)
+                fprintf(stderr, "[COLLECT-AROS-DIAG]   argv[%d]='%s'\n", di, argv[di]);
+        }
         (do_path ? execvp : execv)(command, argv);
 
         nonfatal(command, strerror(errno));

@@ -10,6 +10,8 @@
 #include <string.h>
 
 #include "misc.h"
+#include <stdarg.h>
+#include <stdarg.h>
 
 #ifdef _WIN32
 #define PATH_SEPARATOR ';'
@@ -47,6 +49,23 @@ void fatal(const char *msg, const char *errorstr)
     nonfatal(msg, errorstr);
     exit(EXIT_FAILURE);
 }
+
+void diag_printf(const char *fmt, ...)
+{
+    va_list ap;
+    printf("DIAG: ");
+    va_start(ap, fmt);
+    vprintf(fmt, ap);
+    va_end(ap);
+    printf("\n");
+}
+
+#ifdef __linux__
+static const char *col_temp_dir(void) { const char *t = getenv("TMPDIR"); return t ? t : "/tmp"; }
+#else
+static const char *col_temp_dir(void) { return "T:"; }
+#endif
+
 
 void set_compiler_path(void)
 {
@@ -97,7 +116,18 @@ char *make_temp_file(char *suffix __attribute__((unused)))
     /* If you're unlucky enough to not have libiberty available, you'll have
        to live with temporary files in /tmp and no suffix; it's ok for our own
        purposes,  */
-    char template[] = "/tmp/catmpXXXXXX";
+    static int __catmp_ctr = 0;
+    char template[64];
+    {
+        const char *td = col_temp_dir();
+        size_t tdn = strlen(td);
+        /* On AROS the temp dir is a volume ("T:"); a "/" right after the colon
+           is parent-of-root navigation resolved against the per-process current
+           dir, so it points at different places in the collect-aros parent and
+           its vfork children. Use a volume-absolute "T:catmp..." (no slash). */
+        const char *sep = (tdn && (td[tdn-1] == ":" [0] || td[tdn-1] == "/" [0])) ? "" : "/";
+        snprintf(template, sizeof(template), "%s%scatmp%d_%dXXXXXX", td, sep, (int)getpid(), __catmp_ctr++);
+    }
 
     fd = mkstemp(template);
     if (fd == -1)

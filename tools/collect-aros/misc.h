@@ -9,5 +9,6 @@ extern char *program_name;
 extern void nonfatal(const char *msg, const char *errorstr);
 extern void fatal(const char *msg, const char *errorstr);
 extern void set_compiler_path(void);
+extern void diag_printf(const char *fmt, ...);
 
 #endif /* !_MISC_H */

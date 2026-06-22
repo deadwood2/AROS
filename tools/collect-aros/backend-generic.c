@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2023, The AROS Development Team. All rights reserved.
 */
 
 #include "misc.h"
@@ -40,43 +40,104 @@ static FILE *my_popen(const char *command, const char *file)
     return pipe;
 }
 
-
 /*
-    This routine is slow, but does the work and it's the simplest to write down.
+    The following routines are slow, but do the work and are the simplest to write down.
     All this will get integrated into the linker anyway, so there's no point
     in doing optimizations
 */
+/* AROS: objdump crashes at its own startup on this target (posixc path
+   translation heap fault), so we parse the ELF section headers directly
+   here instead of spawning "objdump -h".  We only need section names. */
+#include <stdint.h>
+
+typedef struct {
+    unsigned char e_ident[16];
+    uint16_t e_type, e_machine;
+    uint32_t e_version;
+    uint64_t e_entry, e_phoff, e_shoff;
+    uint32_t e_flags;
+    uint16_t e_ehsize, e_phentsize, e_phnum, e_shentsize, e_shnum, e_shstrndx;
+} Elf64_Ehdr_t;
+
+typedef struct {
+    uint32_t sh_name;
+    uint32_t sh_type;
+    uint64_t sh_flags, sh_addr, sh_offset, sh_size;
+    uint32_t sh_link, sh_info;
+    uint64_t sh_addralign, sh_entsize;
+} Elf64_Shdr_t;
+
 void collect_sets(const char *file, setnode **setlist_ptr)
 {
+    Elf64_Ehdr_t ehdr;
+    Elf64_Shdr_t *shdrs = NULL;
+    char *shstr = NULL;
     char secname[201];
+    FILE *f;
+    size_t shtblsize, i;
 
-    FILE *pipe = my_popen(OBJDUMP_NAME " -h ", file);
+    f = fopen(file, "rb");
+    if (f == NULL)
+        fatal(file, strerror(errno));
 
-    /* This fscanf() simply splits the whole stream into separate words */
-    while (fscanf(pipe, " %200s ", secname) > 0)
+    if (fread(&ehdr, 1, sizeof(ehdr), f) != sizeof(ehdr)
+        || ehdr.e_ident[0] != 0x7f || ehdr.e_ident[1] != 'E'
+        || ehdr.e_ident[2] != 'L'  || ehdr.e_ident[3] != 'F'
+        || ehdr.e_ident[4] != 2 /* ELFCLASS64 */
+        || ehdr.e_shoff == 0 || ehdr.e_shnum == 0)
     {
-        parse_format(secname);
+        fclose(f);
+        fatal(file, "not a 64-bit ELF object (collect_sets)");
+    }
+
+    /* The partial-link output is always elf64 here. */
+    parse_format("elf64");
+
+    shtblsize = (size_t)ehdr.e_shnum * sizeof(Elf64_Shdr_t);
+    shdrs = malloc(shtblsize);
+    if (shdrs == NULL || fseek(f, (long)ehdr.e_shoff, SEEK_SET) != 0
+        || fread(shdrs, 1, shtblsize, f) != shtblsize)
+    {
+        free(shdrs); fclose(f);
+        fatal(file, "cannot read section headers (collect_sets)");
+    }
+
+    /* Load the section-header string table. */
+    {
+        Elf64_Shdr_t *str = &shdrs[ehdr.e_shstrndx];
+        shstr = malloc((size_t)str->sh_size);
+        if (shstr == NULL || fseek(f, (long)str->sh_offset, SEEK_SET) != 0
+            || fread(shstr, 1, (size_t)str->sh_size, f) != (size_t)str->sh_size)
+        {
+            free(shstr); free(shdrs); fclose(f);
+            fatal(file, "cannot read section string table (collect_sets)");
+        }
+    }
+
+    for (i = 0; i < ehdr.e_shnum; i++)
+    {
+        const char *nm = shstr + shdrs[i].sh_name;
+        size_t l = strlen(nm);
+        if (l == 0 || l > 200)
+            continue;
+        memcpy(secname, nm, l + 1);
         parse_secname(secname, setlist_ptr);
     }
 
-    pclose(pipe);
+    free(shstr);
+    free(shdrs);
+    fclose(f);
 }
 
-/*
-    This routine is slow, but does the work and it's the simplest to write down.
-    All this will get integrated into the linker anyway, so there's no point
-    in doing optimizations
-*/
 void collect_libs(const char *file, setnode **liblist_ptr)
 {
-    unsigned long offset;
-    char type;
     char secname[201];
     char buff[256];
+    unsigned long offset;
+    char type;
 
-    FILE *pipe = my_popen("nm ", file);
+    FILE *pipe = my_popen(NM_NAME " ", file);
 
-    /* This fscanf() simply splits the whole stream into separate words */
     while (fgets(buff, sizeof(buff), pipe)) {
         struct setnode *node;
         int pri;
@@ -119,11 +180,46 @@ void collect_libs(const char *file, setnode **liblist_ptr)
     pclose(pipe);
 }
 
+void collect_extra(const char *file, setnode **liblist_ptr)
+{
+    char *objname, secname[201];
+    char buff[256];
+    unsigned long offset;
+    char type;
+
+    FILE *pipe = my_popen(NM_NAME " ", file);
+
+    while (fgets(buff, sizeof(buff), pipe)) {
+        struct setnode *node;
+
+        offset = 0;
+
+        if (sscanf(buff, "%lx %c %200s ", &offset, &type, secname) != 3 &&
+            sscanf(buff, " %c %200s", &type, secname) != 2)
+            continue;
+
+        if ((strncmp(secname, "__cxa_pure_virtual", 18) == 0) &&
+            (type == 'w'))
+        {
+            objname = calloc(strlen(OBJLIBDIR)+strlen(AROSOBJ_CXXPUREVIRT)+2, 1);
+            sprintf(objname, "%s/%s", OBJLIBDIR, AROSOBJ_CXXPUREVIRT);
+        }
+        else
+            continue;
+
+        node = calloc(sizeof(*node),1);
+        node->secname = strdup(objname);
+        node->next = *liblist_ptr;
+        *liblist_ptr = node;
+    }
+
+    pclose(pipe);
+}
 
 int check_and_print_undefined_symbols(const char *file)
 {
-    int there_are_undefined_syms = 0;
     char buf[200];
+    int undefined_syms = 0;
     size_t cnt;
 
     strcpy(buf, NM_NAME);
@@ -131,18 +227,16 @@ int check_and_print_undefined_symbols(const char *file)
         strcat(buf, " --demangle");
     if (!strstr(buf, "--undefined-only"))
         strcat(buf, " --undefined-only");
-#if (0)
-    //TODO: if we are using gnu nm, we should add --line-numbers
-    if (!strstr(buf, "--line-numbers"))
+    if ((have_gnunm) && (!strstr(buf, "--line-numbers")))
         strcat(buf, " --line-numbers");
-#endif
+
     FILE *pipe = my_popen(buf, file);
 
     while ((cnt = fread(buf, 1, sizeof(buf), pipe)) != 0)
     {
-        if (!there_are_undefined_syms)
+        if (!undefined_syms)
         {
-            there_are_undefined_syms = 1;
+            undefined_syms = 1;
             fprintf(stderr, "There are undefined symbols in '%s':\n", file);
         }
 
@@ -151,5 +245,11 @@ int check_and_print_undefined_symbols(const char *file)
 
     pclose(pipe);
 
-    return there_are_undefined_syms;
+    return undefined_syms;
+}
+
+void backend_init(char *ldname)
+{
+    // nothing to do
+    return;
 }
