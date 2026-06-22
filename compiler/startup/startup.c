@@ -10,6 +10,7 @@
 
 #include <dos/dos.h>
 #include <exec/memory.h>
+#include <exec/tasks.h>
 #include <workbench/startup.h>
 #include <proto/exec.h>
 #include <proto/dos.h>
@@ -87,13 +88,39 @@ __startup AROS_PROCH(__startup_entry, argstr, argsize, SysBase)
 } /* entry */
 
 
+/* AROS: honor the AmigaOS-style __stack symbol (requested stack size, bytes).
+   Weak -> resolves to 0 when the program does not define it (no behavior change). */
+IPTR __stack __attribute__((weak)) = 0;  /* weak DEFINITION: 0 unless program overrides (avoids weak-undef link-gate failure) */
+
+static IPTR __startup_call_main(IPTR argc, IPTR argv)
+{
+    return (IPTR)(*__main_function_ptr)((int)argc, (char **)argv);
+}
+
 static void __startup_main(struct ExecBase *SysBase)
 {
     D(bug("Entering __startup_main\n"));
 
     /* Invoke the main function. A weak symbol is used as function name so that
        it can be overridden (for *nix stuff, for instance).  */
-    __startup_error = (*__main_function_ptr) (__argc, __argv);
+    {
+        IPTR wantstack = (&__stack) ? __stack : 0;
+        APTR newmem = (wantstack >= (IPTR)0x10000) ? AllocMem(wantstack, MEMF_ANY) : NULL;
+        if (newmem)
+        {
+            struct StackSwapStruct sss;
+            struct StackSwapArgs ssa;
+            sss.stk_Lower   = newmem;
+            sss.stk_Upper   = (APTR)((IPTR)newmem + wantstack);
+            sss.stk_Pointer = sss.stk_Upper;
+            ssa.Args[0] = (IPTR)__argc;
+            ssa.Args[1] = (IPTR)__argv;
+            __startup_error = (int)NewStackSwap(&sss, (APTR)__startup_call_main, &ssa);
+            FreeMem(newmem, wantstack);
+        }
+        else
+            __startup_error = (*__main_function_ptr) (__argc, __argv);
+    }
 
     D(bug("Leaving __startup_main\n"));
 }

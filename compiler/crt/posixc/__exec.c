@@ -73,7 +73,7 @@ APTR __exec_prepare(const char *filename, int searchpath, char *const argv[], ch
     struct PosixCIntBase *PosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     char *filename2 = NULL;
-    char ***environptr = __posixc_get_environptr();
+    char ***environptr = searchpath ? __posixc_get_environptr() : NULL;  /* lazy: avoid StdCIOBase relbase access in vfork launcher when PATH search not needed */
     char **environ = (environptr != NULL) ? *environptr : NULL;
 
     D(bug("Entering __exec_prepare(\"%s\", %d, %x, %x)\n",
@@ -475,12 +475,20 @@ static void __exec_do_pretend_child(struct PosixCIntBase *PosixCBase)
     assert(0); /* Should not be reached */
 }
 
+static void __exec_log(ULONG tag, IPTR v)
+{
+    BPTR _f = Open((CONST_STRPTR)"SYS:exec_dbg.txt", MODE_READWRITE);
+    if (!_f) _f = Open((CONST_STRPTR)"SYS:exec_dbg.txt", MODE_NEWFILE);
+    if (_f) { Seek(_f,0,OFFSET_END); FPrintf(_f,(CONST_STRPTR)"E %lx %lx\n",(IPTR)tag,(IPTR)v); Close(_f); }
+}
+
 static void __exec_do_regular(struct PosixCIntBase *PosixCBase)
 {
     char *oldtaskname;
     struct CommandLineInterface *cli = Cli();
     struct Task *self = FindTask(NULL);
     LONG returncode;
+    __exec_log(1, 0);
 
     PosixCBase->flags |= EXEC_PARENT;
 
@@ -527,12 +535,17 @@ static void __exec_do_regular(struct PosixCIntBase *PosixCBase)
     }
 
     D(bug("[__exec_do_regular] Running program, PosixCBase=%x\n", PosixCBase));
+    ULONG __exec_stack = cli->cli_DefaultStack * CLI_DEFAULTSTACK_UNIT;
+    if (__exec_stack < 0x1000000) __exec_stack = 0x1000000; /* AROS: floor exec stack at 16MB (launcher CLI default is tiny; cc1 needs room) */
+    __exec_log(2, (IPTR)__exec_stack);
+    __exec_log(3, 0);
     returncode = RunCommand(
         PosixCBase->exec_seglist,
-        cli->cli_DefaultStack * CLI_DEFAULTSTACK_UNIT,
+        __exec_stack,
         (STRPTR)PosixCBase->exec_args,
         strlen(PosixCBase->exec_args)
     );
+    __exec_log(4, (IPTR)returncode);
 
     /* RunCommand() does not Close() standard output so may not flush either.
        So to be sure flush them here */

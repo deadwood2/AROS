@@ -35,7 +35,7 @@
 ({ \
     int _i; \
     for (_i = 0; _i < sizeof(jmp_buf); _i++) \
-        *((UBYTE *)((IPTR)(&a) + _i)) = *((UBYTE *)((IPTR)(&b) + _i)); \
+        *((UBYTE *)((IPTR)(a) + _i)) = *((UBYTE *)((IPTR)(b) + _i)); \
 })
 #else
 #define _VFORK_COPYENV(a,b)      *(a) = *(b)
@@ -299,7 +299,6 @@ pid_t __vfork(jmp_buf env)
     D(bug("__vfork: Parent: initial jmp_buf %p\n", env));
     D(bug("__vfork: Parent: ip: %p, stack: %p, alt: 0x%p\n", env->retaddr, env->regs[SP], env->regs[ALT]));
     D(bug("__vfork: Parent: Current altstack 0x%p\n", *((void **) this->tc_SPLower)));
-    D(hexdump(env, 0, sizeof(jmp_buf) + sizeof(void *) * 4));
 
     udata->parent = this;
     udata->prev = PosixCBase->vfork_data;
@@ -429,6 +428,8 @@ static __attribute__((noinline)) void __vfork_exit_controlled_stack(struct vfork
 
 static void parent_createchild(struct vfork_data *udata)
 {
+    IPTR __vfork_childstack = (IPTR)((UBYTE *)udata->parent->tc_SPUpper - (UBYTE *)udata->parent->tc_SPLower);
+    if (__vfork_childstack < 0x1000000) __vfork_childstack = 0x1000000;
     struct PosixCIntBase *PosixCBase =
         (struct PosixCIntBase *)__aros_getbase_PosixCBase();
     jmp_buf vfork_jmp;
@@ -445,6 +446,8 @@ static void parent_createchild(struct vfork_data *udata)
         { NP_Name,          (IPTR) "vfork()" },
         { NP_UserData,      (IPTR) udata },
         { NP_NotifyOnDeath, (IPTR) TRUE },
+        /* AROS: child runs the exec'd image (e.g. cc1) on this stack; give it room (>=16MB, or parent stack if larger) */
+        { NP_StackSize, (IPTR)__vfork_childstack },
         { TAG_DONE, 0 }
     };
 
@@ -575,6 +578,9 @@ static void parent_leavepretendchild(struct vfork_data *udata)
     CurrentDir(udata->parent_curdir);
 
     /* Restore parent's upathbuf */
+    /* AROS: pretend-child may have realloc(3)d the child upathbuf; write it back so the
+       child base does not later double-free the stale pointer (heap corruption). */
+    udata->child_posixcbase->upathbuf = PosixCBase->upathbuf;
     PosixCBase->upathbuf = udata->parent_upathbuf;
 
     /* Switch to previous vfork_data */

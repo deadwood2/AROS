@@ -15,6 +15,28 @@
 static const char *__path_devstuff_u2a(const char *path);
 static void  __path_normalstuff_u2a(const char *path, char *buf);
 
+/* Grow-only scratch buffer for path translation.  The old code used
+   realloc_nocopy(), which free()s the previous buffer on every grow -- but the
+   single shared upathbuf is handed back to callers ("valid only until the next
+   call") and is reused by both __path_u2a and __path_a2u, so a heavily-repeated
+   translation (e.g. cc1 include-path dedup hammering stat()) could free a buffer
+   still referenced -> tlsf_freevec fault.  Growing only, and never freeing
+   mid-life (the buffer is reclaimed when the task stdc mempool is torn down at
+   library close), removes the crashing free() while keeping the contract. */
+static char *__upath_grow(struct PosixCIntBase *PosixCBase, size_t needed)
+{
+    if (PosixCBase->upathbuf == NULL || PosixCBase->upathsize < needed)
+    {
+        size_t newsize = needed + 32;
+        char *nb = malloc(newsize);
+        if (nb == NULL)
+            return NULL;
+        PosixCBase->upathbuf  = nb;
+        PosixCBase->upathsize = newsize;
+    }
+    return PosixCBase->upathbuf;
+}
+
 /*****************************************************************************
 
     NAME */
@@ -97,7 +119,7 @@ static void  __path_normalstuff_u2a(const char *path, char *buf);
         D(bug("__path_u2a: No /dev stuff, doing normal conversion\n"));
 
         /* Else, convert it normally */
-        newpath = realloc_nocopy(PosixCBase->upathbuf, strlen(upath) + 1);
+        newpath = __upath_grow(PosixCBase, strlen(upath) + 1);
 
         if (newpath == NULL)
         {
@@ -186,7 +208,7 @@ static void  __path_normalstuff_u2a(const char *path, char *buf);
     if (size == 0)
         return "";
 
-    old_upath = realloc_nocopy(PosixCBase->upathbuf, 1 + size + 1);
+    old_upath = __upath_grow(PosixCBase, 1 + size + 1);
     if (old_upath == NULL)
     {
         errno = ENOMEM;

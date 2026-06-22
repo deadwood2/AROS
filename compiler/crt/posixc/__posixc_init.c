@@ -27,6 +27,16 @@ static int __posixc_open(struct PosixCIntBase *PosixCBase)
 
     PosixCBase->internalpool = CreatePool(MEMF_PUBLIC|MEMF_CLEAR, 256, 256);
 
+    /* The per-task (pertaskbase) base is created via MakeLibrary()+CopyMem of
+       only the public lib_PosSize bytes, so internal fields are NOT zeroed.
+       upathbuf is only ever assigned through the grow helper; a garbage value
+       here would cause a wild free on first path translation. Initialise the
+       __upath fields explicitly. */
+    PosixCBase->upathbuf = NULL;
+    PosixCBase->upathsize = 0;
+    PosixCBase->doupath = 0;
+    PosixCBase->parent_does_upath = 0;
+
     return PosixCBase->internalpool != NULL;
 }
 

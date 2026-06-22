@@ -70,6 +70,7 @@ struct PosixCIntBase
 
     /* __upath.c */
     char *upathbuf;  /* Buffer that holds intermediate converted paths */
+    size_t upathsize; /* Allocated capacity of upathbuf (grow-only) */
     int doupath;   /* BOOL - does the conversion need to be done?  */
     int parent_does_upath; /* BOOL - parent does upath conversion */
 
