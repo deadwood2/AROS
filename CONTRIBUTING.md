@@ -36,6 +36,8 @@ The master branch (representing Core targets) is periodically refreshed from mai
 
 * **Use 4 spaces for indentation instead of tab.** Different editors interpret tab differently which over time causes the code to become unreadable when multiple people work on it, each with different tab settings.
 
+* **Match local opening braces style.** Most files use opening braces on next line, which is the default. Some file use braces on same line. Match the style you find in function or file so that local code formatting remains consistent.
+
 * **Use ISO-8859-15 file encoding for source code.** Having same settings across different developers avoid unnecessary re-formating changes.
 
 * **Limit line length to 120 characters for code and comments. Limit line length to 80 characters for autodocs.** While 80 characters limits is no longer needed in 2020s, we are keeping it for backward compatibility with autodocs format which can be displayed on older hardware (Amigas).
