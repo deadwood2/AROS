@@ -1,6 +1,6 @@
 ## Contributing to this repository
 
-**VERSION: 1.3**
+**VERSION: 1.4**
 
 ### General Considerations
 
@@ -43,3 +43,11 @@ The master branch (representing Core targets) is periodically refreshed from mai
 * **Limit line length to 120 characters for code and comments. Limit line length to 80 characters for autodocs.** While 80 characters limits is no longer needed in 2020s, we are keeping it for backward compatibility with autodocs format which can be displayed on older hardware (Amigas).
 
 * **Use D(bug(x)); form, not D(bug(x);) form for single line debug statements.** The recommended form allows quick enabling of selected debug lines just by deleting the 'D' letter.
+
+#### Use of AI tools and other tools
+
+* **AI is just another tool.** Use if it you like. If you use it, treat it as just another tool, not as an (legal) entity.
+
+* **You are still the only author.** Whatever tools you use to develop your code, you need to guarantee that you can explain in your own words what the code does, that the code was tested and that you claim the copyrights for that code. Clear, human ownership of copyrights is expected. Commits which mention tools as "co-authors" cannot be accepted.
+
+* **Keep code comments clean of tool details.** Code comments are meant to describe the expected behavior of code, not to document what tools were used to develop it.
