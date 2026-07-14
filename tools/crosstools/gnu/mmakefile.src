@@ -352,5 +352,15 @@ LIBATOMIC_SRCDIR := $(HOSTDIR)/Ports/host/gcc/gcc-$(GCC_VERSION)/libatomic
 ifeq ($(AROS_TARGET_CPU),m68k)
 ISA_FLAGS:=$(ISA_FLOAT_FLAGS)
 endif
+# libatomic's all-local rule installs libatomic.la into $(gcc_objdir) = ../../gcc
+# (relative to its build dir) as an RPATH workaround, then removes it again.  In a
+# per-target build (core-*) the compiler is reused from the external toolchain and
+# is NOT rebuilt here, so that sibling gcc/ build dir is absent and the install
+# step fails.  Create it first so the workaround install succeeds.
+#MM
+tools-crosstools-gcc-libatomic-gccobjdir :
+	%mkdirs_q $(HOSTGENDIR)/$(CURDIR)/gcc/gcc
+
 %build_with_configure mmake=tools-crosstools-gcc-libatomic srcdir="$(LIBATOMIC_SRCDIR)" \
-	basedir= gendir="$(LIBATOMIC_OBJDIR)" extraoptions="$(LIBATOMIC_OPTS)" install_env="$(LIBATOMIC_ENV)"
+	basedir= gendir="$(LIBATOMIC_OBJDIR)" extraoptions="$(LIBATOMIC_OPTS)" install_env="$(LIBATOMIC_ENV)" \
+	postconfigure="tools-crosstools-gcc-libatomic-gccobjdir"
