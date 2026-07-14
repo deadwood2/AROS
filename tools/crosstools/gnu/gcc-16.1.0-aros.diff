@@ -1182,89 +1182,48 @@ diff -ruN gcc-16.1.0/gcc/config.host gcc-16.1.0.aros/gcc/config.host
 diff -ruN gcc-16.1.0/gcc/cp/g++spec.cc gcc-16.1.0.aros/gcc/cp/g++spec.cc
 --- gcc-16.1.0/gcc/cp/g++spec.cc	2026-04-30 08:33:20.000000000 +0000
 +++ gcc-16.1.0.aros/gcc/cp/g++spec.cc	2020-12-27 16:58:14.310000000 +0000
-@@ -50,6 +50,9 @@
- #ifndef LIBSTDCXX_STATIC
- #define LIBSTDCXX_STATIC NULL
- #endif
-+#ifndef LIBSTDCXX_PTHREAD
-+#define LIBSTDCXX_PTHREAD NULL
-+#endif
- 
- #ifndef LIBCXX
- #define LIBCXX "c++"
-@@ -84,6 +87,10 @@
- 		      unsigned int *in_decoded_options_count,
- 		      int *in_added_libraries)
- {
-+#ifdef LIBSTDCXX_CIRCULAR
-+  int started = 0;
-+#endif
-+
-   unsigned int i, j;
- 
-   /* If nonzero, the user gave us the `-p' or `-pg' flag.  */
-@@ -237,6 +244,8 @@
+@@ -237,12 +237,6 @@
  
  	case OPT_static_libstdc__:
  	  library = library >= 0 ? 2 : library;
-+	  if (LIBSTDCXX_PTHREAD != NULL)
-+  		added += 1;
- #ifdef HAVE_LD_STATIC_DYNAMIC
- 	  /* Remove -static-libstdc++ from the command only if target supports
- 	     LD_STATIC_DYNAMIC.  When not supported, it is left in so that a
-@@ -306,7 +315,10 @@
- #ifndef ENABLE_SHARED_LIBGCC
-   shared_libgcc = 0;
- #endif
--
-+#ifdef LIBSTDCXX_CIRCULAR
-+  if (library > 0)
-+    added += 2;
-+#endif
-   /* Add one for shared_libgcc or extra static library.  */
-   num_args = (argc + added + need_math + need_experimental
- 	      + (std_module * 5)
-@@ -412,6 +424,12 @@
+-#ifdef HAVE_LD_STATIC_DYNAMIC
+-	  /* Remove -static-libstdc++ from the command only if target supports
+-	     LD_STATIC_DYNAMIC.  When not supported, it is left in so that a
+-	     back-end target can use outfile substitution.  */
+-	  args[i] |= SKIPOPT;
+-#endif
+ 	  break;
+ 
+ 	case OPT_stdlib_:
+@@ -412,6 +406,13 @@
    /* Add `-lstdc++' if we haven't already done so.  */
    if (library > 0)
      {
-+#ifdef LIBSTDCXX_CIRCULAR
-+	  generate_option (OPT_Wl_, "--start-group", 1, CL_DRIVER,
-+			   &new_decoded_options[j++]);
-+	  started = 1;
-+#endif
-+
++      /* AROS: force -static-libstdc++ for every C++ link so the static-cxx
++	 startup objects (STARTFILE_SPEC %{static-libstdc++:...}, incl.
++	 __cxa_pure_virtual) are pulled in.  g++spec runs only for C++, so C
++	 programs are never affected.  */
++      generate_option (OPT_static_libstdc__, NULL, 1, CL_DRIVER,
++		       &new_decoded_options[j]);
++      j++;
        if (need_experimental && which_library == USE_LIBSTDCXX)
  	{
  	  generate_option (OPT_l, "stdc++exp", 1, CL_DRIVER,
-@@ -455,6 +473,13 @@
+@@ -447,14 +448,10 @@
+ 			 CL_DRIVER, &new_decoded_options[j]);
+       added_libraries++;
+       j++;
+-      /* Add target-dependent static library, if necessary.  */
+-      if ((static_link || library > 1) && LIBSTDCXX_STATIC != NULL)
+-	{
+ 	  generate_option (OPT_l, LIBSTDCXX_STATIC, 1,
+ 			   CL_DRIVER, &new_decoded_options[j]);
  	  added_libraries++;
  	  j++;
- 	}
-+      if ((static_link || library > 1) && LIBSTDCXX_PTHREAD != NULL)
-+	{
-+	  generate_option (OPT_l, LIBSTDCXX_PTHREAD, 1,
-+			   CL_DRIVER, &new_decoded_options[j]);
-+	  added_libraries++;
-+	  j++;
-+	}
+-	}
  #ifdef HAVE_LD_STATIC_DYNAMIC
        if (library > 1 && !static_link)
  	{
-@@ -481,6 +506,13 @@
-   if (shared_libgcc && !static_link)
-     generate_option (OPT_shared_libgcc, NULL, 1, CL_DRIVER,
- 		     &new_decoded_options[j++]);
-+#ifdef LIBSTDCXX_CIRCULAR
-+  if (started)
-+  {
-+    generate_option (OPT_Wl_, "--end-group", 1, CL_DRIVER,
-+			   &new_decoded_options[j++]);
-+  }
-+#endif
- 
-   *in_decoded_options_count = j;
-   *in_decoded_options = new_decoded_options;
 diff -ruN gcc-16.1.0/gcc/ginclude/aros/types/null.h gcc-16.1.0.aros/gcc/ginclude/aros/types/null.h
 --- gcc-16.1.0/gcc/ginclude/aros/types/null.h	1970-01-01 00:00:00.000000000 +0000
 +++ gcc-16.1.0.aros/gcc/ginclude/aros/types/null.h	2020-12-27 16:58:14.310000000 +0000
