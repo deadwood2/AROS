@@ -227,7 +227,7 @@ diff -ruN gcc-16.1.0/gcc/config/aarch64/aros.h gcc-16.1.0.aros/gcc/config/aarch6
 +#endif
 +
 +#undef SUBTARGET_CPP_SPEC
-+#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:%{!nostdc:%{!noposixc|noposixinc: -idirafter %R/include/aros/posixc} -idirafter %R/include/aros/stdc}}"
++#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc: -idirafter %R/include/aros/posixc -idirafter %R/include/aros/stdc}"
 +
 +#undef  SUBTARGET_EXTRA_LINK_SPEC
 +#define SUBTARGET_EXTRA_LINK_SPEC " -m " TARGET_LINKER_EMULATION
@@ -336,7 +336,7 @@ diff -ruN gcc-16.1.0/gcc/config/arm/aros.h gcc-16.1.0.aros/gcc/config/arm/aros.h
 +#endif
 +
 +#undef SUBTARGET_CPP_SPEC
-+#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc:%{!nostdc:%{!noposixc|noposixinc: -idirafter %R/include/aros/posixc} -idirafter %R/include/aros/stdc}}"
++#define SUBTARGET_CPP_SPEC "-D__ELF__ %{!nostdinc: -idirafter %R/include/aros/posixc -idirafter %R/include/aros/stdc}"
 +
 +#undef  SUBTARGET_EXTRA_LINK_SPEC
 +#define SUBTARGET_EXTRA_LINK_SPEC " -m " TARGET_LINKER_EMULATION
@@ -565,7 +565,7 @@ diff -Naur gcc-16.1.0/gcc/config/aros.h gcc-16.1.0.aros/gcc/config/aros.h
 diff -ruN gcc-16.1.0/gcc/config/aros.opt gcc-16.1.0.aros/gcc/config/aros.opt
 --- gcc-16.1.0/gcc/config/aros.opt	1970-01-01 00:00:00.000000000 +0000
 +++ gcc-16.1.0.aros/gcc/config/aros.opt	2020-12-27 16:58:14.310000000 +0000
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,32 @@
 +; Processor-independent options for AROS.
 +
 +; Copyright (C) 2015 Free Software Foundation, Inc.
@@ -590,18 +590,6 @@ diff -ruN gcc-16.1.0/gcc/config/aros.opt gcc-16.1.0.aros/gcc/config/aros.opt
 +Driver
 +
 +noclibs
-+Driver
-+
-+noposixc
-+Driver
-+
-+noposixinc
-+Driver
-+
-+deferposixc
-+Driver
-+
-+nostdc
 +Driver
 +
 +nosysbase
