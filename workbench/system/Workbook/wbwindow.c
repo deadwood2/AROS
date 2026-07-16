@@ -156,35 +156,37 @@ static BOOL wbMenuEnable(Class *cl, Object *obj, int id, BOOL onoff)
 
 AROS_UFH3(ULONG, wbFilterIcons_Hook,
     AROS_UFHA(struct Hook*, hook, A0),
-    AROS_UFHA(LONG *, type, A2),
-    AROS_UFHA(struct ExAllData*, ead, A1))
+    AROS_UFHA(struct ExAllData*, ead, A2),
+    AROS_UFHA(LONG *, type, A1))
 {
     AROS_USERFUNC_INIT
     int i;
 
-    if (stricmp(ead->ed_Name, "disk.info") == 0) {
+    if (stricmp(ead->ed_Name, "disk.info") == 0)
         return FALSE;
-    }
 
     i = strlen(ead->ed_Name);
-    if (i >= 5 && stricmp(&ead->ed_Name[i-5], ".info") == 0) {
-        ead->ed_Name[i-5] = '\0';
+    /* i > 5 (not >= 5) so a bare ".info" - the directory's own icon marker,
+     * e.g. the volume's disk-icon entry - is rejected rather than stripped to
+     * an empty name. A stripped-to-empty entry otherwise renders as a nameless
+     * ghost icon (it resolves to the drawer/volume disk.info image). */
+    if (i > 5 && stricmp(&ead->ed_Name[i-5], ".info") == 0) {
+        ead->ed_Name[i-5] = 0;
         return TRUE;
     }
 
-    if (stricmp(ead->ed_Name, ".backdrop") == 0) {
+    if (stricmp(ead->ed_Name, ".backdrop") == 0)
         return FALSE;
-    }
 
     return FALSE;
-    
+
     AROS_USERFUNC_EXIT
 }
 
 AROS_UFH3(ULONG, wbFilterAll_Hook,
     AROS_UFHA(struct Hook*, hook, A0),
-    AROS_UFHA(LONG *, type, A2),
-    AROS_UFHA(struct ExAllData*, ead, A1))
+    AROS_UFHA(struct ExAllData*, ead, A2),
+    AROS_UFHA(LONG *, type, A1))
 {
     AROS_USERFUNC_INIT
 
@@ -193,16 +195,22 @@ AROS_UFH3(ULONG, wbFilterAll_Hook,
     if (stricmp(ead->ed_Name, "disk.info") == 0)
         return FALSE;
 
-    i = strlen(ead->ed_Name);
-    if (i >= 5 && stricmp(&ead->ed_Name[i-5], ".info") == 0) {
+    /* Reject a bare ".info" (the directory's own icon marker); see
+     * wbFilterIcons_Hook - it would otherwise become a nameless ghost icon. */
+    if (stricmp(ead->ed_Name, ".info") == 0)
         return FALSE;
+
+    i = strlen(ead->ed_Name);
+    if (i > 5 && stricmp(&ead->ed_Name[i-5], ".info") == 0) {
+        ead->ed_Name[i-5] = 0;
+        return TRUE;
     }
 
     if (stricmp(ead->ed_Name, ".backdrop") == 0)
         return FALSE;
 
     return TRUE;
-    
+
     AROS_USERFUNC_EXIT
 }
 
