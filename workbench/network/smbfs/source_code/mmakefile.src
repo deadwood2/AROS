@@ -3,6 +3,13 @@
 
 include $(SRCDIR)/config/aros.cfg
 
+# GCC 14+ makes -Wincompatible-pointer-types a hard error by default (was a
+# warning under gcc-10.5); main.c passes struct timeval32* to GetSysTime()'s
+# struct timeval* parameter (ie_TimeStamp is deliberately the ABI-stable
+# 32-bit timeval32).  Restore the historical warn-not-error behaviour.
+NOWARN_CFLAGS := $(NOWARN_INCOMPAT_POINTER_TYPES)
+TARGET_ISA_CFLAGS := $(NOWARN_CFLAGS)
+
 FILES = \
     main \
     proc \

@@ -1,6 +1,13 @@
 
 include $(SRCDIR)/config/aros.cfg
 
+# GCC 14+ makes -Wincompatible-pointer-types a hard error by default (was a
+# warning under gcc-10.5); invertkeymap.c passes struct timeval32* to
+# GetSysTime()'s struct timeval* parameter.  Restore the historical
+# warn-not-error behaviour rather than touching the call site.
+NOWARN_CFLAGS := $(NOWARN_INCOMPAT_POINTER_TYPES)
+TARGET_ISA_CFLAGS := $(NOWARN_CFLAGS)
+
 USER_LDFLAGS :=
 
 FILES := commodities_inputhandler eventfuncs
