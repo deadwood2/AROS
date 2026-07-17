@@ -446,9 +446,9 @@ diff -ruN gcc-16.1.0/gcc/config/arm/t-aros gcc-16.1.0.aros/gcc/config/arm/t-aros
 +MULTILIB_REUSE		+= marm/mlittle-endian/march.armv7-a+fp/mfpu.vfpv3-d16/mfloat-abi.hard=mlittle-endian/march.armv7-a+fp/mfloat-abi.hard
 +MULTILIB_REUSE		+= marm/mlittle-endian/march.armv7-a+fp/mfpu.vfpv3-d16/mfloat-abi.hard=mlittle-endian/march.armv7-a+fp/mfpu.vfpv3-d16/mfloat-abi.hard
 +MULTILIB_REUSE		+= marm/mlittle-endian/march.armv7-a+fp/mfpu.neon/mfloat-abi.hard=mlittle-endian/march.armv7-a+fp/mfpu.neon/mfloat-abi.hard
-diff -Naur gcc-16.1.0/gcc/config/aros.h gcc-16.1.0.aros/gcc/config/aros.h
---- gcc-16.1.0/gcc/config/aros.h	1970-01-01 01:00:00.000000000 +0100
-+++ gcc-16.1.0.aros/gcc/config/aros.h	2024-09-10 00:03:13.043815916 +0200
+diff -ruN gcc-16.1.0/gcc/config/aros.h gcc-16.1.0.aros/gcc/config/aros.h
+--- gcc-16.1.0/gcc/config/aros.h	1970-01-01 00:00:00.000000000 +0000
++++ gcc-16.1.0.aros/gcc/config/aros.h	2024-09-09 22:03:13.043815916 +0000
 @@ -0,0 +1,112 @@
 +/* Definitions for AROS
 +   Copyright (C) 1995, 1996, 1997, 1998, 1999, 2000 Free Software Foundation, Inc.
@@ -737,8 +737,8 @@ diff -ruN gcc-16.1.0/gcc/config/i386/aros64.h gcc-16.1.0.aros/gcc/config/i386/ar
 +/* FIXME: AROS doesn't support dw2 unwinding yet.  */
 diff -ruN gcc-16.1.0/gcc/config/i386/aros.h gcc-16.1.0.aros/gcc/config/i386/aros.h
 --- gcc-16.1.0/gcc/config/i386/aros.h	1970-01-01 00:00:00.000000000 +0000
-+++ gcc-16.1.0.aros/gcc/config/i386/aros.h	2020-12-27 16:58:14.310000000 +0000
-@@ -0,0 +1,25 @@
++++ gcc-16.1.0.aros/gcc/config/i386/aros.h	2024-10-31 18:57:50.695914627 +0000
+@@ -0,0 +1,32 @@
 +/* Definitions for Intel 386 running AROS systems with ELF format.
 +   Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2001, 2002
 +   Free Software Foundation, Inc.
@@ -764,6 +764,13 @@ diff -ruN gcc-16.1.0/gcc/config/i386/aros.h gcc-16.1.0.aros/gcc/config/i386/aros
 +
 +#undef	LINK_SPEC
 +#define LINK_SPEC "-m elf_i386 -L%R/lib"
++
++/* Use the UNIX defaults, and add mno-red-zone.
++   In AROS, the stack pointer must be reliable at all times. */
++
++#undef TARGET_SUBTARGET_DEFAULT
++#define TARGET_SUBTARGET_DEFAULT \
++	(MASK_80387 | MASK_IEEE_FP | MASK_FLOAT_RETURNS | MASK_NO_RED_ZONE)
 diff -ruN gcc-16.1.0/gcc/config/m68k/m68k.cc gcc-16.1.0.aros/gcc/config/m68k/m68k.cc
 --- gcc-16.1.0/gcc/config/m68k/m68k.cc	2026-04-30 08:33:20.000000000 +0000
 +++ gcc-16.1.0.aros/gcc/config/m68k/m68k.cc	2020-12-27 16:58:14.310000000 +0000
