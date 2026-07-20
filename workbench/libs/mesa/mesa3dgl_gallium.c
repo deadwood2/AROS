@@ -285,8 +285,8 @@ struct mesa3dgl_framebuffer * MESA3DGLNewFrameBuffer(struct mesa3dgl_context * c
     framebuffer->base.flush_front = MESA3DGLFrameBufferFlushFront;
     framebuffer->base.validate = MESA3DGLFrameBufferValidate;
     framebuffer->base.state_manager = ctx->stmanager;
+    p_atomic_set(&framebuffer->base.stamp, 1);
 #if (0)
-    framebuffer->base.stamp = 1;
     framebuffer->base.ID = 1; // p_atomic_inc_return(&osmesa_fb_ID);
 #endif
     framebuffer->screen = ctx->stmanager->screen;
@@ -318,7 +318,7 @@ VOID MESA3DGLCheckAndUpdateBufferSize(struct mesa3dgl_context * ctx)
     MESA3DGLRecalculateBufferWidthHeight(ctx);
     if (ctx->framebuffer->resized)
     {
-        p_atomic_set(&ctx->framebuffer->base.stamp, 1);
+        p_atomic_inc(&ctx->framebuffer->base.stamp);
     }
 }
 
