@@ -184,7 +184,6 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
             }
         }
         else while(len--) {
-        {
             UBYTE c = *text++;
             ULONG idx;
             ULONG charloc;
