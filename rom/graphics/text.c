@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 1995-2020, The AROS Development Team. All rights reserved.
+    Copyright (C) 1995-2026, The AROS Development Team. All rights reserved.
     $Id$        $Log
 
     Desc: Graphics function Text()
@@ -67,35 +67,29 @@ void ColorFontBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
 {
     AROS_LIBFUNC_INIT
 
-    if (count)
-    {
+    if(count) {
         struct ColorTextFont *ctf = (struct ColorTextFont *)rp->Font;
         BOOL                  antialias;
         BOOL                  colorfont;
-                
+
         antialias = (ctf->ctf_TF.tf_Style & FSF_COLORFONT) &&
                     ((ctf->ctf_Flags & CT_COLORMASK) == CT_ANTIALIAS) &&
                     (GetBitMapAttr(rp->BitMap, BMA_DEPTH) >= 15);
 
         colorfont = (ctf->ctf_TF.tf_Style & FSF_COLORFONT) &&
                     (((ctf->ctf_Flags & CT_COLORMASK) == CT_COLORFONT) || ((ctf->ctf_Flags & CT_COLORMASK) == CT_GREYFONT));
-        
-        if (antialias)
-        {
+
+        if(antialias) {
             BltTemplateAlphaBasedText(rp, string, count, GfxBase);
-        }
-        else if (colorfont)
-        {
+        } else if(colorfont) {
             ColorFontBasedText(rp, string, count, GfxBase);
-        }
-        else
-        {
+        } else {
             BltTemplateBasedText(rp, string, count, GfxBase);
         }
     }
 
     AROS_LIBFUNC_EXIT
-    
+
 } /* Text */
 
 /***************************************************************************/
@@ -108,48 +102,70 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
     WORD                 raswidth, raswidth16, raswidth_bpr, rasheight, x, y, gx;
     UBYTE               *raster;
     BOOL                 is_bold, is_italic, fastfont;
-        
-    TextExtent(rp, text, len, &te);
-    
-    raswidth  = te.te_Extent.MaxX - te.te_Extent.MinX + 1;
-    rasheight = te.te_Extent.MaxY - te.te_Extent.MinY + 1;
-    
-    raswidth16 = (raswidth + 15) & ~15;
-    raswidth_bpr = raswidth16 / 8;
-    
-    if ((raster = AllocRaster(raswidth, rasheight)))
+    BOOL                 allocated = FALSE;
+    ULONG                rassize;
+
+    tf = rp->Font;
+    is_bold = (rp->AlgoStyle & FSF_BOLD) != 0;
+    is_italic = (rp->AlgoStyle & FSF_ITALIC) != 0;
+    fastfont = !is_bold && !is_italic && tf->tf_XSize == 8 &&
+               rp->TxSpacing == 0;
+
+    if (fastfont)
     {
-        SetMem(raster, 0, RASSIZE(raswidth, rasheight));
-        
-        tf = rp->Font;
-        
-        x = -te.te_Extent.MinX;
-        
-        is_bold   = (rp->AlgoStyle & FSF_BOLD) != 0;
-        is_italic = (rp->AlgoStyle & FSF_ITALIC) != 0;
-        
-        fastfont = !is_bold && !is_italic && !tf->tf_CharKern &&
-                   !tf->tf_CharSpace && tf->tf_XSize == 8 &&
-                   rp->TxSpacing == 0 && x == 0;
+        ULONG i;
 
-        if (fastfont)
+        for (i = 0; i < len; i++)
         {
-            ULONG i;
+            UBYTE c = text[i];
+            ULONG idx = (c < tf->tf_LoChar || c > tf->tf_HiChar) ?
+                        NUMCHARS(tf) - 1 : c - tf->tf_LoChar;
+            ULONG charloc = ((ULONG *)tf->tf_CharLoc)[idx];
 
-            for (i = 0; i < len; i++)
+            if ((charloc & 0xFFFF) != 8 || ((charloc >> 16) & 7) ||
+                (tf->tf_CharKern &&
+                    ((WORD *)tf->tf_CharKern)[idx] != 0) ||
+                (tf->tf_CharSpace &&
+                    ((WORD *)tf->tf_CharSpace)[idx] != 8))
             {
-                UBYTE c = text[i];
-                ULONG idx = (c < tf->tf_LoChar || c > tf->tf_HiChar) ?
-                            NUMCHARS(tf) - 1 : c - tf->tf_LoChar;
-                ULONG charloc = ((ULONG *)tf->tf_CharLoc)[idx];
-
-                if ((charloc & 0xFFFF) != 8 || ((charloc >> 16) & 7))
-                {
-                    fastfont = FALSE;
-                    break;
-                }
+                fastfont = FALSE;
+                break;
             }
         }
+    }
+
+    if (fastfont)
+    {
+        te.te_Width = len * 8;
+        te.te_Height = tf->tf_YSize;
+        te.te_Extent.MinX = 0;
+        te.te_Extent.MaxX = te.te_Width - 1;
+        te.te_Extent.MinY = -tf->tf_Baseline;
+        te.te_Extent.MaxY = te.te_Height - 1 - tf->tf_Baseline;
+    }
+    else
+        TextExtent(rp, text, len, &te);
+
+    raswidth  = te.te_Extent.MaxX - te.te_Extent.MinX + 1;
+    rasheight = te.te_Extent.MaxY - te.te_Extent.MinY + 1;
+
+    raswidth16 = (raswidth + 15) & ~15;
+    raswidth_bpr = raswidth16 / 8;
+    rassize = RASSIZE(raswidth, rasheight);
+
+    if (rp->TmpRas && rp->TmpRas->RasPtr && rp->TmpRas->Size >= rassize)
+        raster = rp->TmpRas->RasPtr;
+    else
+    {
+        raster = AllocRaster(raswidth, rasheight);
+        allocated = raster != NULL;
+    }
+
+    if(raster) {
+        if (!fastfont)
+            SetMem(raster, 0, rassize);
+
+        x = -te.te_Extent.MinX;
 
         /* The standard Amiga screen font is an unstyled, fixed-width,
          * byte-aligned 8-pixel font. Build its template a byte at a time
@@ -157,30 +173,60 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
         if (fastfont)
         {
             UBYTE *dst = raster;
+            ULONG remaining = len;
 
-            while (len--)
+            if (raswidth_bpr > len)
             {
-                UBYTE c = *text++;
-                ULONG idx;
-                ULONG charloc;
-                UWORD glyphpos;
-                UBYTE *glyphdata;
+                for (y = 0; y < rasheight; y++)
+                    raster[y * raswidth_bpr + len] = 0;
+            }
 
-                if (c < tf->tf_LoChar || c > tf->tf_HiChar)
-                    idx = NUMCHARS(tf) - 1;
-                else
-                    idx = c - tf->tf_LoChar;
+            while (remaining)
+            {
+                UBYTE *glyphdata[4];
+                ULONG batch = remaining >= 4 ? 4 :
+                              remaining >= 2 ? 2 : 1;
+                ULONG i;
 
-                charloc = ((ULONG *)tf->tf_CharLoc)[idx];
-                glyphpos = charloc >> 16;
+                for (i = 0; i < batch; i++)
+                {
+                    UBYTE c = text[i];
+                    ULONG idx = (c < tf->tf_LoChar || c > tf->tf_HiChar) ?
+                                NUMCHARS(tf) - 1 : c - tf->tf_LoChar;
+                    ULONG charloc = ((ULONG *)tf->tf_CharLoc)[idx];
 
-                glyphdata = (UBYTE *)tf->tf_CharData + glyphpos / 8;
+                    glyphdata[i] = (UBYTE *)tf->tf_CharData +
+                                   (charloc >> 16) / 8;
+                }
+
                 for (y = 0; y < rasheight; y++)
                 {
-                    dst[y * raswidth_bpr] = glyphdata[y * tf->tf_Modulo];
+                    UBYTE *row = dst + y * raswidth_bpr;
+
+                    if (batch == 4)
+                    {
+                        ULONG value =
+                            ((ULONG)glyphdata[0][y * tf->tf_Modulo] << 24) |
+                            ((ULONG)glyphdata[1][y * tf->tf_Modulo] << 16) |
+                            ((ULONG)glyphdata[2][y * tf->tf_Modulo] << 8) |
+                            glyphdata[3][y * tf->tf_Modulo];
+                        *(ULONG *)row = AROS_LONG2BE(value);
+                    }
+                    else if (batch == 2)
+                    {
+                        UWORD value =
+                            ((UWORD)glyphdata[0][y * tf->tf_Modulo] << 8) |
+                            glyphdata[1][y * tf->tf_Modulo];
+                        *(UWORD *)row = AROS_WORD2BE(value);
+                    }
+                    else
+                        *row = glyphdata[0][y * tf->tf_Modulo];
                 }
-                dst++;
-                x += 8;
+
+                text += batch;
+                dst += batch;
+                remaining -= batch;
+                x += batch * 8;
             }
         }
         else while(len--) {
@@ -192,13 +238,10 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
             UBYTE *dst;
             ULONG srcmask;
             ULONG dstmask;
-            
-            if (c < tf->tf_LoChar || c > tf->tf_HiChar)
-            {
+
+            if(c < tf->tf_LoChar || c > tf->tf_HiChar) {
                 idx = NUMCHARS(tf) - 1;
-            }
-            else
-            {
+            } else {
                 idx = c - tf->tf_LoChar;
             }
 
@@ -206,35 +249,29 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
 
             glyphwidth = charloc & 0xFFFF;
             glyphpos = charloc >> 16;
-            
-            if (tf->tf_CharKern)
-            {
+
+            if(tf->tf_CharKern) {
                 x += ((WORD *)tf->tf_CharKern)[idx];
             }
-                
-               
-            for(bold = 0; bold <= is_bold; bold++)
-            {
+
+
+            for(bold = 0; bold <= is_bold; bold++) {
                 WORD wx;
                 WORD italicshift, italiccheck = 0;
-                
-                if (is_italic)
-                {
+
+                if(is_italic) {
                     italiccheck = tf->tf_Baseline;
                     italicshift = italiccheck / 2;
-                }
-                else
-                {
+                } else {
                     italicshift = 0;
                 }
-                
+
                 wx = x + italicshift + (bold ? tf->tf_BoldSmear : 0);
-                
+
                 glyphdata = ((UBYTE *)tf->tf_CharData) + glyphpos / 8;
                 dst = raster + wx / 8;
 
-                for(y = 0; y < rasheight; y++)
-                {
+                for(y = 0; y < rasheight; y++) {
                     UBYTE *glyphdatax = glyphdata;
                     UBYTE *dstx = dst;
                     UBYTE srcdata;
@@ -244,122 +281,103 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
 
                     srcdata = *glyphdatax;
 
-                    for(gx = 0; gx < glyphwidth; gx++)
-                    {
-                        if (srcdata & srcmask)
-                        {
+                    for(gx = 0; gx < glyphwidth; gx++) {
+                        if(srcdata & srcmask) {
                             *dstx |= dstmask;
                         }
 
-                        if (dstmask == 0x1)
-                        {
+                        if(dstmask == 0x1) {
                             dstmask = 0x80;
                             dstx++;
-                        }
-                        else
-                        {
+                        } else {
                             dstmask >>= 1;
                         }
 
-                        if (srcmask == 0x1)
-                        {
+                        if(srcmask == 0x1) {
                             srcmask = 0x80;
                             glyphdatax++;
-                            srcdata =*glyphdatax;
-                        }
-                        else
-                        {
+                            srcdata = *glyphdatax;
+                        } else {
                             srcmask >>= 1;
                         }
-                        
+
                     } /* for(gx = 0; gx < glyphwidth; gx++) */
 
                     glyphdata += tf->tf_Modulo;
                     dst += raswidth_bpr;
-                    
-                    if (is_italic)
-                    {
+
+                    if(is_italic) {
                         italiccheck--;
-                        if (italiccheck & 1)
-                        {
+                        if(italiccheck & 1) {
                             italicshift--;
-                            
+
                             wx--;
-                            if ((wx & 7) == 7) dst--;
-                            
+                            if((wx & 7) == 7) dst--;
+
                         }
                     }
-                    
+
                 } /* for(y = 0; y < rasheight; y++) */
-                
+
             } /* for(bold = 0; bold < ((rp->AlgoStyle & FSF_BOLD) ? 2 : 1); bold++) */
-            
-            if (tf->tf_CharSpace)
-            {
+
+            if(tf->tf_CharSpace) {
                 x += ((WORD *)tf->tf_CharSpace)[idx];
-            }
-            else
-            {
+            } else {
                 x += tf->tf_XSize;
             }
-            
+
             x += rp->TxSpacing;
-            
+
         } /* while(len--) */
-        
-        if (rp->AlgoStyle & FSF_UNDERLINED)
-        {
+
+        if(rp->AlgoStyle & FSF_UNDERLINED) {
             UBYTE *dst;
             ULONG prev_word, act_word = 0, next_word, word;
             WORD count;
             LONG underline;
-            
+
             underline = rp->TxBaseline + 1;
-            if (underline < rasheight - 1) underline++;
-            
-            if (underline < rasheight)
-            {
+            if(underline < rasheight - 1) underline++;
+
+            if(underline < rasheight) {
                 dst = raster + underline * (LONG)raswidth_bpr;
                 next_word = *(UWORD *)dst;
-            #if !AROS_BIG_ENDIAN
+#if !AROS_BIG_ENDIAN
                 next_word = AROS_WORD2BE(next_word);
-            #endif
+#endif
                 count  = raswidth16 / 16;
 
-                while(count--)
-                {
+                while(count--) {
                     prev_word = act_word;
                     act_word = next_word;
-                    if (count > 1)
-                    {
+                    if(count > 1) {
                         next_word = ((UWORD *)dst)[1];
-                        
-                    #if !AROS_BIG_ENDIAN
+
+#if !AROS_BIG_ENDIAN
                         next_word = AROS_WORD2BE(next_word);
-                    #endif
-                    }
-                    else
-                    {
+#endif
+                    } else {
                         next_word = 0;
                     }
                     word = ((act_word << 1) & 0xFFFF) + (next_word >> 15);
                     word |= (act_word >> 1) + ((prev_word << 15) & 0xFFFF);
                     word &= ~act_word;
 
-                    word = 0xFFFF &~ word;
-            #if !AROS_BIG_ENDIAN
+                    word = 0xFFFF & ~ word;
+#if !AROS_BIG_ENDIAN
                     word = AROS_BE2WORD(word);
-            #endif
+#endif
 
                     *(UWORD *)dst = word;
                     dst += 2;
 
                 } /* while(count--) */
-                
+
             } /* if (underline < rasheight) */
-            
+
         } /* if (rp->AlgoStyle & FSF_UNDERLINED) */
-        
+
         BltTemplate(raster,
                     0,
                     raswidth_bpr,
@@ -368,13 +386,14 @@ void BltTemplateBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
                     rp->cp_y - rp->TxBaseline,
                     raswidth,
                     rasheight);
-                        
-        FreeRaster(raster, raswidth, rasheight);
-        
+
+        if (allocated)
+            FreeRaster(raster, raswidth, rasheight);
+
     } /* if ((raster = AllocRaster(raswidth, rasheight))) */
-    
+
     Move(rp, rp->cp_x + te.te_Width, rp->cp_y);
-    
+
 }
 
 /***************************************************************************/
@@ -389,42 +408,37 @@ void BltTemplateAlphaBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len
     BOOL                 is_bold, is_italic;
 
     /* CyberGfxBase is placed inside GfxBase, so it's static */
-    if (!CyberGfxBase)
+    if(!CyberGfxBase)
         CyberGfxBase = OpenLibrary("cybergraphics.library", 0);
-    if (!CyberGfxBase)
+    if(!CyberGfxBase)
         return;
-    
+
     TextExtent(rp, text, len, &te);
-    
+
     raswidth  = te.te_Extent.MaxX - te.te_Extent.MinX + 1;
     rasheight = te.te_Extent.MaxY - te.te_Extent.MinY + 1;
-    
+
     raswidth_bpr = raswidth;
-    
-    if ((raster = AllocVec(raswidth * rasheight, MEMF_CLEAR)))
-    {
+
+    if((raster = AllocVec(raswidth * rasheight, MEMF_CLEAR))) {
         tf = rp->Font;
-        
+
         x = -te.te_Extent.MinX;
-        
+
         is_bold   = (rp->AlgoStyle & FSF_BOLD) != 0;
         is_italic = (rp->AlgoStyle & FSF_ITALIC) != 0;
-        
-        while(len--)
-        {
+
+        while(len--) {
             UBYTE c = *text++;
             ULONG idx;
             ULONG charloc;
             UWORD glyphwidth, glyphpos, bold;
             UBYTE *glyphdata;
             UBYTE *dst;
-            
-            if (c < tf->tf_LoChar || c > tf->tf_HiChar)
-            {
+
+            if(c < tf->tf_LoChar || c > tf->tf_HiChar) {
                 idx = NUMCHARS(tf) - 1;
-            }
-            else
-            {
+            } else {
                 idx = c - tf->tf_LoChar;
             }
 
@@ -432,115 +446,97 @@ void BltTemplateAlphaBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len
 
             glyphwidth = charloc & 0xFFFF;
             glyphpos = charloc >> 16;
-            
-            if (tf->tf_CharKern)
-            {
+
+            if(tf->tf_CharKern) {
                 x += ((WORD *)tf->tf_CharKern)[idx];
             }
-                
-               
-            for(bold = 0; bold <= is_bold; bold++)
-            {
+
+
+            for(bold = 0; bold <= is_bold; bold++) {
                 WORD wx;
                 WORD italicshift, italiccheck = 0;
-                
-                if (is_italic)
-                {
+
+                if(is_italic) {
                     italiccheck = tf->tf_Baseline;
                     italicshift = italiccheck / 2;
-                }
-                else
-                {
+                } else {
                     italicshift = 0;
                 }
-                
+
                 wx = x + italicshift + (bold ? tf->tf_BoldSmear : 0);
-                
+
                 glyphdata = ((UBYTE *)((struct ColorTextFont *)tf)->ctf_CharData[0]) + glyphpos;
                 dst = raster + wx;
 
-                for(y = 0; y < rasheight; y++)
-                {
+                for(y = 0; y < rasheight; y++) {
                     UBYTE *glyphdatax = glyphdata;
                     UBYTE *dstx = dst;
 
-                    for(gx = 0; gx < glyphwidth; gx++)
-                    {
+                    for(gx = 0; gx < glyphwidth; gx++) {
                         UWORD old = *dstx;
-                        
+
                         old += *glyphdatax++;
-                        if (old > 255) old = 255;
+                        if(old > 255) old = 255;
                         *dstx++ = old;
                     }
 
                     glyphdata += tf->tf_Modulo * 8;
                     dst += raswidth_bpr;
-                    
-                    if (is_italic)
-                    {
+
+                    if(is_italic) {
                         italiccheck--;
-                        if (italiccheck & 1)
-                        {
+                        if(italiccheck & 1) {
                             italicshift--;
                             dst--;
                         }
                     }
-                    
+
                 } /* for(y = 0; y < rasheight; y++) */
-                
+
             } /* for(bold = 0; bold < ((rp->AlgoStyle & FSF_BOLD) ? 2 : 1); bold++) */
-            
-            if (tf->tf_CharSpace)
-            {
+
+            if(tf->tf_CharSpace) {
                 x += ((WORD *)tf->tf_CharSpace)[idx];
-            }
-            else
-            {
+            } else {
                 x += tf->tf_XSize;
             }
-            
+
             x += rp->TxSpacing;
-            
+
         } /* while(len--) */
 
-        if (rp->AlgoStyle & FSF_UNDERLINED)
-        {
+        if(rp->AlgoStyle & FSF_UNDERLINED) {
             UBYTE *dst;
             UBYTE prev_byte, act_byte = 0, next_byte;
             WORD count;
             LONG underline;
-            
+
             underline = rp->TxBaseline + 1;
-            if (underline < rasheight - 1) underline++;
-            
-            if (underline < rasheight)
-            {
+            if(underline < rasheight - 1) underline++;
+
+            if(underline < rasheight) {
                 dst = raster + underline * (LONG)raswidth_bpr;
                 count  = raswidth;
 
                 next_byte = *dst;
-                
-                while(count--)
-                {
+
+                while(count--) {
                     prev_byte = act_byte;
                     act_byte = next_byte;
-                    if (count > 1)
-                    {
+                    if(count > 1) {
                         next_byte = dst[1];
-                    }
-                    else
-                    {
+                    } else {
                         next_byte = 0;
                     }
 
                     *dst++ = (act_byte || (!prev_byte && !next_byte)) ? 255 : 0;
 
                 } /* while(count--) */
-                
+
             } /* if (underline < rasheight) */
-            
+
         } /* if (rp->AlgoStyle & FSF_UNDERLINED) */
-        
+
         BltTemplateAlpha(raster,
                          0,
                          raswidth_bpr,
@@ -549,13 +545,13 @@ void BltTemplateAlphaBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len
                          rp->cp_y - rp->TxBaseline,
                          raswidth,
                          rasheight);
-                        
+
         FreeVec(raster);
-        
+
     } /* if ((raster = AllocVec(raswidth * rasheight, MEMF_CLEAR))) */
-    
+
     Move(rp, rp->cp_x + te.te_Width, rp->cp_y);
-    
+
 }
 
 /***************************************************************************/
@@ -570,52 +566,46 @@ void ColorFontBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
     BOOL                 is_bold, is_italic;
 
     tf = rp->Font;
-    if (!ExtendFont(tf, NULL)) return;
-    
+    if(!ExtendFont(tf, NULL)) return;
+
     chunky = ((struct TextFontExtension_intern *)(tf->tf_Extension))->hash->chunky_colorfont;
-   
+
     TextExtent(rp, text, len, &te);
 
-    if ((rp->DrawMode & ~INVERSVID) == JAM2)
-    {
+    if((rp->DrawMode & ~INVERSVID) == JAM2) {
         ULONG             old_drmd = GetDrMd(rp);
 
         SetDrMd(rp, old_drmd ^ INVERSVID);
         RectFill(rp, rp->cp_x + te.te_Extent.MinX,
-                     rp->cp_y + te.te_Extent.MinY,
-                     rp->cp_x + te.te_Extent.MaxX,
-                     rp->cp_y + te.te_Extent.MaxY);
+                 rp->cp_y + te.te_Extent.MinY,
+                 rp->cp_x + te.te_Extent.MaxX,
+                 rp->cp_y + te.te_Extent.MaxY);
         SetDrMd(rp, old_drmd);
     }
 
-    
+
     raswidth  = te.te_Extent.MaxX - te.te_Extent.MinX + 1;
     rasheight = te.te_Extent.MaxY - te.te_Extent.MinY + 1;
-    
+
     raswidth_bpr = raswidth;
-    
-    if ((raster = AllocVec(raswidth * rasheight, MEMF_CLEAR)))
-    {
+
+    if((raster = AllocVec(raswidth * rasheight, MEMF_CLEAR))) {
         x = -te.te_Extent.MinX;
-        
+
         is_bold   = (rp->AlgoStyle & FSF_BOLD) != 0;
         is_italic = (rp->AlgoStyle & FSF_ITALIC) != 0;
 
-        while(len--)
-        {
+        while(len--) {
             UBYTE c = *text++;
             ULONG idx;
             ULONG charloc;
             UWORD glyphwidth, glyphpos, bold;
             UBYTE *glyphdata;
             UBYTE *dst;
-            
-            if (c < tf->tf_LoChar || c > tf->tf_HiChar)
-            {
+
+            if(c < tf->tf_LoChar || c > tf->tf_HiChar) {
                 idx = NUMCHARS(tf) - 1;
-            }
-            else
-            {
+            } else {
                 idx = c - tf->tf_LoChar;
             }
 
@@ -623,163 +613,142 @@ void ColorFontBasedText(struct RastPort *rp, CONST_STRPTR text, ULONG len,
 
             glyphwidth = charloc & 0xFFFF;
             glyphpos = charloc >> 16;
-            
-            if (tf->tf_CharKern)
-            {
+
+            if(tf->tf_CharKern) {
                 x += ((WORD *)tf->tf_CharKern)[idx];
             }
-                
-               
-            for(bold = 0; bold <= is_bold; bold++)
-            {
+
+
+            for(bold = 0; bold <= is_bold; bold++) {
                 WORD wx;
                 WORD italicshift, italiccheck = 0;
-                
-                if (is_italic)
-                {
+
+                if(is_italic) {
                     italiccheck = tf->tf_Baseline;
                     italicshift = italiccheck / 2;
-                }
-                else
-                {
+                } else {
                     italicshift = 0;
                 }
-                
+
                 wx = x + italicshift + (bold ? tf->tf_BoldSmear : 0);
-                
+
                 glyphdata = chunky + glyphpos;
                 dst = raster + wx;
 
-                for(y = 0; y < rasheight; y++)
-                {
+                for(y = 0; y < rasheight; y++) {
                     UBYTE *glyphdatax = glyphdata;
                     UBYTE *dstx = dst;
 
-                    for(gx = 0; gx < glyphwidth; gx++)
-                    {
+                    for(gx = 0; gx < glyphwidth; gx++) {
                         UBYTE p = *glyphdatax++;
-                        
-                        if (p || !bold) *dstx = p;
-                        
+
+                        if(p || !bold) *dstx = p;
+
                         dstx++;
                     }
 
                     glyphdata += tf->tf_Modulo * 8;
                     dst += raswidth_bpr;
-                    
-                    if (is_italic)
-                    {
+
+                    if(is_italic) {
                         italiccheck--;
-                        if (italiccheck & 1)
-                        {
+                        if(italiccheck & 1) {
                             italicshift--;
                             dst--;
                         }
                     }
-                    
+
                 } /* for(y = 0; y < rasheight; y++) */
-                
+
             } /* for(bold = 0; bold < ((rp->AlgoStyle & FSF_BOLD) ? 2 : 1); bold++) */
-            
-            if (tf->tf_CharSpace)
-            {
+
+            if(tf->tf_CharSpace) {
                 x += ((WORD *)tf->tf_CharSpace)[idx];
-            }
-            else
-            {
+            } else {
                 x += tf->tf_XSize;
             }
-            
+
             x += rp->TxSpacing;
-            
+
         } /* while(len--) */
 
 #if 0
-        if (rp->AlgoStyle & FSF_UNDERLINED)
-        {
+        if(rp->AlgoStyle & FSF_UNDERLINED) {
             UBYTE *dst;
             UBYTE prev_byte, act_byte = 0, next_byte;
             WORD count;
             LONG underline;
-            
+
             underline = rp->TxBaseline + 1;
-            if (underline < rasheight - 1) underline++;
-            
-            if (underline < rasheight)
-            {
+            if(underline < rasheight - 1) underline++;
+
+            if(underline < rasheight) {
                 dst = raster + underline * (LONG)raswidth_bpr;
                 count  = raswidth;
 
                 next_byte = *dst;
-                
-                while(count--)
-                {
+
+                while(count--) {
                     prev_byte = act_byte;
                     act_byte = next_byte;
-                    if (count > 1)
-                    {
+                    if(count > 1) {
                         next_byte = dst[1];
-                    }
-                    else
-                    {
+                    } else {
                         next_byte = 0;
                     }
 
                     *dst++ = (act_byte || (!prev_byte && !next_byte)) ? 255 : 0;
 
                 } /* while(count--) */
-                
+
             } /* if (underline < rasheight) */
-            
+
         } /* if (rp->AlgoStyle & FSF_UNDERLINED) */
-        
+
 #endif
 
         {
             HIDDT_PixelLUT  pixlut;
             HIDDT_Pixel     pixtab[256];
-            
+
             pixlut.entries = AROS_PALETTE_SIZE;
             pixlut.pixels  = IS_HIDD_BM(rp->BitMap) ? HIDD_BM_PIXTAB(rp->BitMap) : NULL;
-            
-            if ((rp->Flags & RPF_REMAP_COLORFONTS) &&
-                (CTF(tf)->ctf_ColorFontColors) &&
-                ((CTF(tf)->ctf_Flags & CT_COLORMASK) != CT_GREYFONT) && /* <-- FIX/CHECK/SUPPORT CT_GREYFONT) */
-                IS_HIDD_BM(rp->BitMap) &&
-                (GetBitMapAttr(rp->BitMap, BMA_DEPTH) > 8))
-            {
+
+            if((rp->Flags & RPF_REMAP_COLORFONTS) &&
+                    (CTF(tf)->ctf_ColorFontColors) &&
+                    ((CTF(tf)->ctf_Flags & CT_COLORMASK) != CT_GREYFONT) && /* <-- FIX/CHECK/SUPPORT CT_GREYFONT) */
+                    IS_HIDD_BM(rp->BitMap) &&
+                    (GetBitMapAttr(rp->BitMap, BMA_DEPTH) > 8)) {
                 UWORD *colortable = CTF(tf)->ctf_ColorFontColors->cfc_ColorTable;
                 WORD   i;
-                
-                for(i = 0; i < CTF(tf)->ctf_ColorFontColors->cfc_Count; i++)
-                {
+
+                for(i = 0; i < CTF(tf)->ctf_ColorFontColors->cfc_Count; i++) {
                     UWORD rgb12 = *colortable++;
                     HIDDT_Color col;
-                    
+
                     col.red   = ((rgb12 >> 8) & 0x0F) * 0x1111;
                     col.green = ((rgb12 >> 4) & 0x0F) * 0x1111;
                     col.blue  = ((rgb12 >> 0) & 0x0F) * 0x1111;
-                    
+
                     pixtab[i] = HIDD_BM_MapColor(HIDD_BM_OBJ(rp->BitMap), &col);
                 }
-                
+
                 pixlut.pixels = pixtab;
             }
-            
-            write_transp_pixels_8(rp, raster,raswidth_bpr,
+
+            write_transp_pixels_8(rp, raster, raswidth_bpr,
                                   rp->cp_x + te.te_Extent.MinX,
                                   rp->cp_y - rp->TxBaseline,
                                   rp->cp_x + te.te_Extent.MinX + raswidth - 1,
                                   rp->cp_y - rp->TxBaseline + rasheight - 1,
                                   &pixlut, 0, TRUE, GfxBase);
-            
+
         }
-                                  
+
         FreeVec(raster);
-        
+
     } /* if ((raster = AllocVec(raswidth * rasheight, MEMF_CLEAR))) */
-    
+
     Move(rp, rp->cp_x + te.te_Width, rp->cp_y);
 
 }
-                        
