@@ -541,7 +541,8 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
                     if((nbm->Planes[plane++] = AllocRaster(sizex*depth, sizey)) != NULL)
                     {
                         if (clear)
-                          SetMem (nbm->Planes[0], 0, RASSIZE(sizex*depth,sizey));
+                            BltClear(nbm->Planes[0],
+                                RASSIZE(sizex * depth, sizey), 1);
 
                         /* Set the plane pointers, and clear remaining entries.. */
                         for(; plane < depth; plane++) {
@@ -563,7 +564,8 @@ static HIDDT_StdPixFmt const cyber2hidd_pixfmt[] =
                             break;
 
                         if (clear)
-                            SetMem (nbm->Planes[plane], 0, RASSIZE(sizex, sizey));
+                            BltClear(nbm->Planes[plane],
+                                RASSIZE(sizex, sizey), 1);
                     }
                     if (plane != depth) {
                         for (--plane; plane >= 0; plane--)
