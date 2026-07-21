@@ -13,6 +13,7 @@
 #include "__stdio.h"
 
 static int __putc(int c, void *fh);
+static int hack_vfprintf(const char * format, va_list args);
 
 /*****************************************************************************
 
@@ -70,6 +71,8 @@ static int __putc(int c, void *fh);
 
 ******************************************************************************/
 {
+    if (stream->fd == -2 /* STDERR_FILENO */) return hack_vfprintf(format, args);
+
     fdesc *fdesc = __getfdesc(stream->fd);
 
     if (!fdesc)
@@ -92,4 +95,21 @@ static int __putc(int c, void *fhp)
     }
 
     return c;
+}
+
+#include <proto/exec.h>
+
+static int hack_vfprintf(const char * format, va_list args)
+{
+    struct Process *me = (struct Process *)FindTask(NULL);
+    static BPTR nil = BNULL;
+    if (me->pr_CES != BNULL)
+    {
+        return __vcformat ((void *)BADDR(me->pr_CES), __putc, format, args);
+    }
+    else
+    {
+        if (nil == BNULL) nil = Open("NIL:", MODE_OLDFILE);
+        return __vcformat ((void *)BADDR(nil), __putc, format, args);
+    }
 }
