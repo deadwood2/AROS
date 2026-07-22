@@ -47,7 +47,7 @@
 
 ******************************************************************************/
 
-#define DEBUG 0
+#define DEBUG 1
 
 #include <aros/debug.h>
 #include <dos/dosextens.h>
@@ -184,6 +184,29 @@ AROS_SH2H(AROSMonDrvs, 1.0, "Load AROS Monitor and Compositor drivers",
     struct Library *IconBase;
     BPTR dir, olddir;
     BOOL res = TRUE;
+
+    struct Process *me = (struct Process *)FindTask(NULL);
+    APTR win = me->pr_WindowPtr;
+    me->pr_WindowPtr = (APTR)-1;
+    BPTR log = BNULL;
+    do
+    {
+        bug("Openening DATA:out.log\n");
+        log = Open("DATA:out.log", MODE_NEWFILE);
+        if (log == BNULL) { bug("Failed. Sleep for 1 second.\n"); Delay(50); }
+    } while (log == BNULL);
+    me->pr_WindowPtr = win;
+
+    SystemTags("SYS:Tools/Debug/Sashimi", SYS_Output, log, SYS_Asynch, TRUE, NP_Priority, 20, TAG_END);
+    Delay(100);
+
+    bug("AAAAAAAAAAaa3\n");
+    // // Flush(log);
+    // BPTR zz = Open("DATA:test.file", MODE_NEWFILE);
+    // FPrintf(zz, "AAA");
+    // Close(zz);
+    // Delay(100);
+
 
     dir = Lock(MONITORS_DIR, SHARED_LOCK);
     D(bug("[LoadMonDrvs] Monitors directory 0x%p\n", dir));

@@ -3,7 +3,7 @@
 
     Desc: Display an alert in supervisor mode.
 */
-
+#define DEBUG 1
 #include <aros/debug.h>
 #include <exec/execbase.h>
 
@@ -25,9 +25,12 @@ void Alert_DisplayKrnAlert(struct Task * task, ULONG alertNum, APTR location, AP
     /* Get the alert text */
     buf = FormatAlert(buf, alertNum, task, location, type, SysBase);
     FormatAlertExtra(buf, stack, type, data, SysBase);
-
+bug("pre krn call\n%s", PrivExecBase(SysBase)->AlertBuffer);
+Wait(SIGF_SINGLE);
     /* Task is not available, display an alert via kernel.resource */
     KrnDisplayAlert(alertNum, PrivExecBase(SysBase)->AlertBuffer);
+
+
 }
 
 /*
@@ -60,15 +63,15 @@ void Exec_SystemAlert(ULONG alertNum, APTR location, APTR stack, UBYTE type, APT
 
         Alert_DisplayKrnAlert(t, alertNum | AT_DeadEnd, location, stack, type, data, SysBase);
     }
-    else if (PrivExecBase(SysBase)->SAT.sat_IsAvailable && !(alertNum & AT_DeadEnd))
-    {
-        /* SupervisorAlertTask is available, use it */
+    // else if (PrivExecBase(SysBase)->SAT.sat_IsAvailable && !(alertNum & AT_DeadEnd))
+    // {
+    //     /* SupervisorAlertTask is available, use it */
 
-        PrivExecBase(SysBase)->SAT.sat_Params[0] = alertNum;
-        PrivExecBase(SysBase)->SAT.sat_Params[1] = (IPTR)GET_THIS_TASK;
+    //     PrivExecBase(SysBase)->SAT.sat_Params[0] = alertNum;
+    //     PrivExecBase(SysBase)->SAT.sat_Params[1] = (IPTR)GET_THIS_TASK;
 
-        Signal(PrivExecBase(SysBase)->SAT.sat_Task, SIGF_SINGLE);
-    }
+    //     Signal(PrivExecBase(SysBase)->SAT.sat_Task, SIGF_SINGLE);
+    // }
     else
     {
         Alert_DisplayKrnAlert(GET_THIS_TASK, alertNum, location, stack, type, data, SysBase);

@@ -888,6 +888,8 @@ LONG OpWrite(struct ExtFileLock *lock, UBYTE *data, ULONG want,
 
             ReleaseDirHandle(&dh, glob);
         }
+
+        Cache_Flush(lock->ioh.sb->cache);
     }
 
     return err;

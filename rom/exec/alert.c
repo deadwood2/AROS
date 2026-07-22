@@ -4,6 +4,8 @@
     Desc: Display an alert.
 */
 
+#define DEBUG 1
+
 #include <aros/debug.h>
 #include <exec/alerts.h>
 #include <exec/execbase.h>
@@ -71,7 +73,7 @@ static const ULONG contextSizes[] =
 void Exec_ExtAlert(ULONG alertNum, APTR location, APTR stack, UBYTE type, APTR data, struct ExecBase *SysBase)
 {
     struct Task *task = GET_THIS_TASK;
-    int supervisor = KrnIsSuper();
+    int supervisor = TRUE;
     BOOL usesystemalert = !!supervisor;
     struct IntETask *iet = NULL;
 
@@ -167,7 +169,7 @@ void Exec_ExtAlert(ULONG alertNum, APTR location, APTR stack, UBYTE type, APTR d
      * We're here if Intuition failed. Use safe (but not so
      * system and user-friendly) way to post alerts.
      */
-    Disable();
+    // Disable();
 
     if (PrivExecBase(SysBase)->SupervisorDeadEndCnt > 0)
     {
@@ -175,8 +177,10 @@ void Exec_ExtAlert(ULONG alertNum, APTR location, APTR stack, UBYTE type, APTR d
            an infinite crash loop */
         ShutdownA(SD_FLAG_EMERGENCY | SD_ACTION_POWEROFF);
     }
+bug("pre systemalert\n");
 
     Exec_SystemAlert(alertNum, location, stack, type, data, SysBase);
+Wait(SIGF_SINGLE);
     if (alertNum & AT_DeadEnd)
     {
         /* Um, we have to do something here in order to prevent the
