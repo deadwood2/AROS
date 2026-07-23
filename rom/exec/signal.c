@@ -49,6 +49,9 @@ AROS_UFH3(IPTR, signal_hook,
 
     NAME */
 
+#if defined(__mc68000)
+void Exec_SignalSlow(struct Task *task, ULONG signalSet, struct ExecBase *SysBase)
+#else
         AROS_LH2(void, Signal,
 
 /*  SYNOPSIS */
@@ -57,6 +60,7 @@ AROS_UFH3(IPTR, signal_hook,
 
 /*  LOCATION */
         struct ExecBase *, SysBase, 54, Exec)
+#endif
 
 /*  FUNCTION
         Send some signals to a given task. If the task is currently waiting
@@ -85,7 +89,9 @@ AROS_UFH3(IPTR, signal_hook,
 
 ******************************************************************************/
 {
+#if !defined(__mc68000)
     AROS_LIBFUNC_INIT
+#endif
 
     struct Task *thisTask = GET_THIS_TASK;
 
@@ -280,5 +286,7 @@ AROS_UFH3(IPTR, signal_hook,
     }
 #endif
 
+#if !defined(__mc68000)
     AROS_LIBFUNC_EXIT
+#endif
 }
