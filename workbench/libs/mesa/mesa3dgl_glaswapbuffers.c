@@ -51,6 +51,8 @@
 
     D(bug("[MESA3DGL] %s()\n", __func__));
 
+    MESA3DGLCheckAndUpdateBufferSize(_ctx);
+
     if (_ctx->framebuffer->render_resource)
     {
         /* Flush rendering cache before blitting */
@@ -60,6 +62,4 @@
             _ctx->visible_rp, _ctx->left, _ctx->top,
             _ctx->framebuffer->width, _ctx->framebuffer->height);
     }
-
-    MESA3DGLCheckAndUpdateBufferSize(_ctx);
 }
