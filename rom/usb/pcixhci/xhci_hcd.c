@@ -2085,6 +2085,21 @@ static inline void xhciIOErrfromCC(struct IOUsbHWReq *ioreq, ULONG cc)
             ioreq->iouh_Actual = ioreq->iouh_Length;
         break;
 
+    case TRB_CC_SHORT_PACKET:                                   /* Short Packet */
+        /*
+         * The transfer completed with fewer bytes than requested — a
+         * distinct completion code in xHCI, but SUCCESS in USB terms
+         * when the client allows runt packets (bulk-in consumers like
+         * Bluetooth ACL read into max-size buffers by design).
+         * iouh_Actual already carries the true received length from
+         * the Transfer Event's remaining count.
+         */
+        if(ioreq->iouh_Flags & UHFF_ALLOWRUNTPKTS)
+            ioreq->iouh_Req.io_Error = UHIOERR_NO_ERROR;
+        else
+            ioreq->iouh_Req.io_Error = UHIOERR_RUNTPACKET;
+        break;
+
     case TRB_CC_BABBLE_DETECTED_ERROR:                          /* Data Buffer Error / Babble */
         ioreq->iouh_Req.io_Error = UHIOERR_BABBLE;
         break;
@@ -2546,10 +2561,19 @@ BOOL xhciIntWorkProcess(struct PCIController *hc, struct IOUsbHWReq *ioreq, ULON
         pciusbXHCIDebugTRBV("xHCI", DEBUGCOLOR_SET "          Ring    @ 0x%p" DEBUGCOLOR_RESET" \n",
                             driprivate->dpDevice->dc_EPAllocs[driprivate->dpEPID].dmaa_Ptr);
 
-        driprivate->dpCC = ccode;
+        /* NOTE: dpCC is deliberately NOT set here. It is the publish
+         * flag the done-queue scan keys on, and that scan runs in the
+         * event task, often already awake from a prior completion. If
+         * dpCC becomes visible before iouh_Actual is written below,
+         * the request is replied with the PREVIOUS transfer's length
+         * (observed as Bluetooth bulk-in lengths lagging one transfer
+         * behind). dpCC is set at the end, after all results land. */
 
-        /* Avoid log storms for expected ISO conditions */
+        /* Avoid log storms for expected conditions: ISO ring underrun
+         * and short packets (normal completion of every bulk-in read
+         * shorter than its buffer — e.g. Bluetooth ACL traffic) */
         if((ccode != TRB_CC_SUCCESS) &&
+                (ccode != TRB_CC_SHORT_PACKET) &&
                 !(ccode == TRB_CC_RING_UNDERRUN && (ioreq->iouh_Req.io_Command == UHCMD_ISOXFER))) {
             pciusbWarn("xHCI",
                        DEBUGWARNCOLOR_SET
@@ -2563,6 +2587,7 @@ BOOL xhciIntWorkProcess(struct PCIController *hc, struct IOUsbHWReq *ioreq, ULON
          * STOPPED while new TDs are being submitted.
          */
         if((ccode != TRB_CC_SUCCESS) &&
+                (ccode != TRB_CC_SHORT_PACKET) &&
                 !(ccode == TRB_CC_RING_UNDERRUN && (ioreq->iouh_Req.io_Command == UHCMD_ISOXFER))) {
             xhciDiagDumpEndpointBrief(hc, driprivate->dpDevice, (UBYTE)driprivate->dpEPID, "completion-error");
             xhciDumpEndpointCtx(hc, driprivate->dpDevice, driprivate->dpEPID, "completion-error");
@@ -2659,6 +2684,13 @@ BOOL xhciIntWorkProcess(struct PCIController *hc, struct IOUsbHWReq *ioreq, ULON
         ioreq->iouh_Actual = transferred;
         pciusbXHCIDebugTRBV("xHCI", DEBUGCOLOR_SET "IOReq Transfer done, %u bytes <io length %u, %u remaining>"
                             DEBUGCOLOR_RESET" \n", transferred, ioreq->iouh_Length, remaining);
+
+        /* Publish LAST (see note at the top of this block): the
+         * done-queue scan may reply the very moment this store lands,
+         * so every result field must already be in place. x86 TSO
+         * keeps these stores ordered; architectures with weaker
+         * memory models would need a write barrier here. */
+        driprivate->dpCC = ccode;
 
         return TRUE;
     }
@@ -3008,6 +3040,26 @@ static AROS_INTH1(xhciIntCode, struct PCIController *, hc)
                 }
 
                 if(!req && devCtx && (trbe_epid < MAX_DEVENDPOINTS)) {
+                    /* A SUCCESS/SHORT event whose ringio slot is already
+                     * empty is a duplicate delivery: on SMP, xhciIntCode
+                     * can run concurrently on two CPUs (TX and RX events
+                     * arriving back-to-back), and both walk the same
+                     * event-ring window. The busy-request fallback would
+                     * pin the stale event on the freshly re-queued
+                     * request for this endpoint, completing it with the
+                     * PREVIOUS transfer's residual (seen as bulk-in
+                     * lengths lagging one transfer behind). Only errors,
+                     * which genuinely may lack a usable TRB pointer, may
+                     * fall back to the busy request. */
+                    if((trbe_ccode == TRB_CC_SUCCESS) ||
+                            (trbe_ccode == TRB_CC_SHORT_PACKET)) {
+                        pciusbXHCIDebugTRBV("xHCI",
+                                            DEBUGCOLOR_SET
+                                            "TRANSFER EVT: duplicate/stale event (slot=%u epid=%u cc=%u) dropped"
+                                            DEBUGCOLOR_RESET" \n",
+                                            trbe_slot, trbe_epid, trbe_ccode);
+                        break;
+                    }
                     req = xhciBusyReqFromSlotEpid(hc, devCtx, trbe_epid);
                     if(req) {
                         pciusbXHCIDebugTRBV("xHCI",
@@ -3052,6 +3104,7 @@ static AROS_INTH1(xhciIntCode, struct PCIController *, hc)
                 }
 
                 if(trbe_ccode != TRB_CC_SUCCESS &&
+                        trbe_ccode != TRB_CC_SHORT_PACKET &&
                         trbe_slot < USB_DEV_MAX && trbe_epid < MAX_DEVENDPOINTS &&
                         devCtx && ring && have_idx) {
                     UBYTE *cnt = &xhci_diag_cc_err[trbe_slot][trbe_epid];
