@@ -181,8 +181,8 @@ LONG fillrect_pendrmd(struct RastPort *tp, WORD x1, WORD y1, WORD x2, WORD y2,
 
 BOOL int_bltbitmap(struct BitMap *srcBitMap, OOP_Object *srcbm_obj, WORD xSrc, WORD ySrc,
                    struct BitMap *dstBitMap, OOP_Object *dstbm_obj, WORD xDest, WORD yDest,
-                   WORD xSize, WORD ySize, UBYTE minterm, OOP_Object *gfxhidd, OOP_Object *gc,
-                   struct GfxBase *GfxBase);
+                   WORD xSize, WORD ySize, UBYTE minterm, UBYTE mask, OOP_Object *gfxhidd,
+                   OOP_Object *gc, struct GfxBase *GfxBase);
 
 
 LONG write_pixels_8(struct RastPort *rp, UBYTE *array, ULONG modulo,

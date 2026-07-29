@@ -218,7 +218,7 @@ static void copyonepixel(PLANEPTR src, ULONG xsrc, PLANEPTR dest,
                                   , destBitMap, dstbm_obj
                                   , xDest, yDest
                                   , xSize, ySize
-                                  , minterm
+                                  , minterm, mask
                                   , driver->gfxhidd
                                   , tmp_gc
                                   , GfxBase);
