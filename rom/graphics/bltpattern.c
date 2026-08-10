@@ -10,6 +10,7 @@
 
 #include "graphics_intern.h"
 #include "gfxfuncsupport.h"
+#include "graphics_driver.h"
 
 /****************************************************************************************/
 
