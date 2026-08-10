@@ -581,6 +581,47 @@ OOP_Object *P96GFXCl__Root__New(OOP_Class *cl, OOP_Object *o, struct pRoot_New *
 
     ReturnPtr("[P96Gfx]:New", OOP_Object *, o);
 }
+VOID P96GFXCl__Hidd_Gfx__NominalDimensions(OOP_Class *cl, OOP_Object *o, struct pHidd_Gfx_NominalDimensions *msg)
+{
+    struct p96gfx_staticdata *csd = CSD(cl);
+
+    D(bug("[P96Gfx] %s()\n", __func__));
+
+    /* The architecture nominals describe the chipset display; report
+       the RTG display's own, at the deepest depth the card offers */
+    if (msg->width)
+        *(msg->width) = 640;
+    if (msg->height)
+        *(msg->height) = 480;
+    if (msg->depth)
+    {
+        HIDDT_ModeID *midp;
+        UBYTE maxdepth = 32;//8;
+
+#if 0
+        midp = HIDD_DMEnum_QueryModeIDs(csd->dmenum, NULL);
+        if (midp)
+        {
+            ULONG i;
+
+            for (i = 0; midp[i] != vHidd_ModeID_Invalid; i++)
+            {
+                OOP_Object *sync, *pf;
+                IPTR depth = 0;
+
+                if (HIDD_DMEnum_GetMode(csd->dmenum, midp[i], &sync, &pf) && pf)
+                {
+                    OOP_GetAttr(pf, aHidd_PixFmt_Depth, &depth);
+                    if (depth > maxdepth)
+                        maxdepth = depth;
+                }
+            }
+            HIDD_DMEnum_ReleaseModeIDs(csd->dmenum, midp);
+        }
+#endif
+        *(msg->depth) = maxdepth;
+    }
+}
 
 /********** GfxHidd::Dispose()  ******************************/
 OOP_Object *P96GFXCl__Hidd_Gfx__CreateObject(OOP_Class *cl, OOP_Object *o, struct pHidd_Gfx_CreateObject *msg)
