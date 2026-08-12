@@ -722,7 +722,7 @@ BOOL HiddNouveauWriteFromRAM(
             {
                 SD(cl)->mid_GetPixFmt, srcPixFmt
             }, *gpf = &__gpf;
-            
+
             OOP_GetAttr(o, aHidd_BitMap_PixFmt, (APTR)&dstPF);
             OOP_GetAttr(o, aHidd_BitMap_GfxHidd, (APTR)&gfxHidd);
             srcPF = (OOP_Object *)OOP_DoMethod(gfxHidd, (OOP_Msg)gpf);
@@ -836,7 +836,7 @@ BOOL HiddNouveauReadIntoRAM(
             {
                 SD(cl)->mid_GetPixFmt, dstPixFmt
             }, *gpf = &__gpf;
-            
+
             OOP_GetAttr(o, aHidd_BitMap_PixFmt, (APTR)&srcPF);
             OOP_GetAttr(o, aHidd_BitMap_GfxHidd, (APTR)&gfxHidd);
             dstPF = (OOP_Object *)OOP_DoMethod(gfxHidd, (OOP_Msg)gpf);

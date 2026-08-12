@@ -878,7 +878,7 @@ BOOL METHOD(Nouveau, Hidd_Gfx, SetCursorShape)
         UNLOCK_ENGINE
     }
 
-    return TRUE;   
+    return TRUE;
 }
 
 BOOL METHOD(Nouveau, Hidd_Gfx, SetCursorPos)
