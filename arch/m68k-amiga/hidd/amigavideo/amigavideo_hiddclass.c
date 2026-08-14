@@ -940,10 +940,13 @@ BOOL AmigaVideoCl__Hidd_Gfx__SetCursorPos(OOP_Class *cl, OOP_Object *o, struct p
     struct amigabm_data *bm;
     ForeachNode(csd->compositedbms, bm)
     {
+        /* A scrolled screen (negative topedge) starts its display band at the top */
+        WORD bmtop = bm->topedge < 0 ? 0 : bm->topedge;
+
         cursy = msg->y;
         if (csd->interlaced)
             cursy >>= 1;
-        if (cursy < ((bm->topedge + bm->displayheight) >> bm->interlace))
+        if (cursy < ((bmtop + bm->displayheight) >> bm->interlace))
         {
             res = bm->res;
             interlace = (bm->interlace != 0);
@@ -964,10 +967,13 @@ BOOL AmigaVideoCl__Hidd_AmigaGfx__SetSpritePos(OOP_Class *cl, OOP_Object *o, str
     struct amigabm_data *bm;
     ForeachNode(csd->compositedbms, bm)
     {
+        /* A scrolled screen (negative topedge) starts its display band at the top */
+        WORD bmtop = bm->topedge < 0 ? 0 : bm->topedge;
+
         cursy = msg->y;
         if (csd->interlaced)
             cursy >>= 1;
-        if (cursy < ((bm->topedge + bm->displayheight) >> bm->interlace))
+        if (cursy < ((bmtop + bm->displayheight) >> bm->interlace))
         {
             res = bm->res;
             interlace = (bm->interlace != 0);
