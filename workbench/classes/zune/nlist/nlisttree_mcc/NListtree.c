@@ -2795,15 +2795,15 @@ static void InsertTreeImages( struct NListtree_Data *data, struct MUI_NListtree_
 
     if ( ( x1 != -1 ) && x2 )
     {
-      char tmpbuf[DATA_BUF_SIZE];
-
       if ( x1 == SPEC_Space )
         otn->tn_Space += x2 + data->IndentWidth;
 
       if ( otn->tn_Space > 0 )
       {
-        snprintf(tmpbuf, DATA_BUF_SIZE, "\033O[%p;%x;%d,%d]", (APTR)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)SPEC_Space, (int)otn->tn_Space );
-        strncat(data->buf, tmpbuf, DATA_BUF_SIZE);
+        char tmp[64];
+
+        snprintf(tmp, sizeof(tmp), "\033O[%lx;%x;%d,%d]", (unsigned long)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)SPEC_Space, (int)otn->tn_Space);
+        strlcat(data->buf, tmp, DATA_BUF_SIZE);
 
         otn->tn_ImagePos += otn->tn_Space;
         otn->tn_Space = 0;
@@ -2818,20 +2818,24 @@ static void InsertTreeImages( struct NListtree_Data *data, struct MUI_NListtree_
         */
         if(isFlagSet(data->Flags, NLTF_NO_ROOT_TREE) && gp->tn_Parent == NULL)
         {
-          snprintf(tmpbuf, DATA_BUF_SIZE, "\033O[%p;%x;%d,%d]", (APTR)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)SPEC_Space, (int)x2 );
-          strncat(data->buf, tmpbuf, DATA_BUF_SIZE);
+          char tmp[64];
+
+          snprintf(tmp, sizeof(tmp), "\033O[%lx;%x;%d,%d]", (unsigned long)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)SPEC_Space, (int)x2);
+          strlcat(data->buf, tmp, DATA_BUF_SIZE);
 
           otn->tn_ImagePos += x2;
         }
         else
         {
+          char tmp[64];
+
           // ensures proper text alignment with subnodes in
           // case the user selected an additional indentwidth
           if(data->IndentWidth > 0)
             x2 += 2;
 
-          snprintf(tmpbuf, DATA_BUF_SIZE, "\033O[%p;%x;%d,%d]", (APTR)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)x1, (int)x2 );
-          strncat(data->buf, tmpbuf, DATA_BUF_SIZE);
+          snprintf(tmp, sizeof(tmp), "\033O[%lx;%x;%d,%d]", (unsigned long)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)x1, (int)x2);
+          strlcat(data->buf, tmp, DATA_BUF_SIZE);
 
           otn->tn_ImagePos += x2;
         }
@@ -2842,39 +2846,26 @@ static void InsertTreeImages( struct NListtree_Data *data, struct MUI_NListtree_
 
 static void InsertImage( struct NListtree_Data *data, struct MUI_NListtree_TreeNode *otn )
 {
-  struct MUI_NListtree_ListNode *ln = CLN( otn );
-  char tmpbuf[DATA_BUF_SIZE];
-  LONG x1 = -1;
-
   InsertTreeImages( data, otn, otn, 0 );
 
-  if((isFlagSet(otn->tn_Flags, TNF_LIST) && isFlagClear(otn->tn_Flags, TNF_NOSIGN)) && ( !IsListEmpty( &ln->ln_List ) || isFlagClear(data->Flags, NLTF_EMPTYNODES)))
+  if((isFlagSet(otn->tn_Flags, TNF_LIST) && isFlagClear(otn->tn_Flags, TNF_NOSIGN)) && ( !IsListEmpty( (struct List *)&(CLN( otn ))->ln_List ) || isFlagClear(data->Flags, NLTF_EMPTYNODES)))
   {
-    if(isFlagSet(otn->tn_Flags, TNF_OPEN))
-    {
-      x1 = IMAGE_Open;
-    }
-    else
-    {
-      x1 = IMAGE_Closed;
-    }
+    char tmp[64];
 
-    snprintf(tmpbuf, DATA_BUF_SIZE, "\033O[%p]", (APTR)data->Image[x1].ListImage );
-    strncat(data->buf, tmpbuf, DATA_BUF_SIZE);
-
-    x1 = SPEC_Hor;
+    snprintf(tmp, sizeof(tmp), "\033O[%lx]", (unsigned long)data->Image[isFlagSet(otn->tn_Flags, TNF_OPEN) ? IMAGE_Open : IMAGE_Closed].ListImage);
+    strlcat(data->buf, tmp, DATA_BUF_SIZE);
 
     // add some indent width
     if(data->IndentWidth > 0)
     {
-      snprintf(tmpbuf, DATA_BUF_SIZE, "\033O[%p;%x;%d,%d]", (APTR)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (int)x1, (unsigned int)data->IndentWidth);
-      strncat(data->buf, tmpbuf, DATA_BUF_SIZE);
+      snprintf(tmp, sizeof(tmp), "\033O[%lx;%x;%d,%d]", (unsigned long)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (unsigned int)SPEC_Hor, (unsigned int)data->IndentWidth);
+      strlcat(data->buf, tmp, DATA_BUF_SIZE);
     }
 
     if(data->UseFolderImage == TRUE)
     {
-      snprintf(tmpbuf, DATA_BUF_SIZE, "\033O[%p]\033O[%p;%x;%d,%d]", (APTR)data->Image[IMAGE_Folder].ListImage, (APTR)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (unsigned int)SPEC_Space, 3);
-      strncat(data->buf, tmpbuf, DATA_BUF_SIZE);
+      snprintf(tmp, sizeof(tmp), "\033O[%lx]\033O[%lx;%x;%d,%d]", (unsigned long)data->Image[IMAGE_Folder].ListImage, (unsigned long)data->Image[IMAGE_Tree].ListImage, (unsigned int)MUIA_TI_Spec, (unsigned int)SPEC_Space, 3);
+      strlcat(data->buf, tmp, DATA_BUF_SIZE);
     }
   }
 }
