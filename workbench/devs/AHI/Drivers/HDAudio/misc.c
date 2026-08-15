@@ -187,14 +187,14 @@ struct HDAudioChip* AllocDriverData(APTR dev, struct DriverBase* AHIsubBase)
     success = ahi_pci_add_intserver(&card->interrupt, dev);
     if (success)
     {
+        card->interrupt_added = TRUE;
+
         if (card_init(card) < 0)
         {
             D(bug("[HDAudio] Unable to initialize Card subsystem.\n"));
 
             success = FALSE;
         }
-
-        card->interrupt_added = TRUE;
 
         card->card_initialized = TRUE;
         card->input          = 0;
