@@ -64,7 +64,6 @@ BOOL DriverInit(struct DriverBase* ahisubbase)
 {
     struct HDAudioBase* card_base = (struct HDAudioBase*) ahisubbase;
     struct PCIDevice *dev;
-    int card_no;
     int i;
 
     D(bug("[HDAudio] %s()\n", __func__));
@@ -109,17 +108,35 @@ BOOL DriverInit(struct DriverBase* ahisubbase)
     D(bug("[HDAudio] vendor_device_list_size = %ld\n", vendor_device_list_size));
 
     card_base->cards_found = 0;
-    dev = NULL;
+    card_base->driverdatas = NULL;
 
     for (i = 0; i < vendor_device_list_size; i++)
     {
-        dev = ahi_pci_find_device(vendor_device_list[i].vendor, vendor_device_list[i].device, dev);
+        dev = ahi_pci_find_device(vendor_device_list[i].vendor, vendor_device_list[i].device, NULL);
 
         if (dev != NULL)
         {
             D(bug("[HDAudio] Found device with vendor ID = %x, device ID = %x!(i = %d)\n", vendor_device_list[i].vendor, vendor_device_list[i].device, i));
-            ++card_base->cards_found;
-            break; // stop at first found controller
+
+            card_base->driverdatas = (struct HDAudioChip **) AllocVec(sizeof(*card_base->driverdatas), MEMF_PUBLIC | MEMF_CLEAR);
+
+            if (card_base->driverdatas == NULL)
+            {
+                D(bug("[HDAudio] Out of memory.\n"));
+                FreeVec(vendor_device_list);
+                return FALSE;
+            }
+
+            card_base->driverdatas[0] = AllocDriverData(dev, AHIsubBase);
+            if (card_base->driverdatas[0] != NULL)
+            {
+                card_base->cards_found = 1;
+                break;
+            }
+
+            D(bug("[HDAudio] Controller %04x:%04x failed to initialize, trying next\n", vendor_device_list[i].vendor, vendor_device_list[i].device));
+            FreeVec(card_base->driverdatas);
+            card_base->driverdatas = NULL;
         }
     }
 
@@ -131,35 +148,8 @@ BOOL DriverInit(struct DriverBase* ahisubbase)
 
     if (card_base->cards_found == 0)
     {
-        D(bug("[HDAudio] No HDaudio controller found! :-(\n"));
+        D(bug("[HDAudio] No working HDAudio controller found!\n"));
         return FALSE;
-    }
-
-
-    /*** Allocate and init all cards *******************************************/
-
-    card_base->driverdatas = (struct HDAudioChip **) AllocVec(
-        sizeof(*card_base->driverdatas) * card_base->cards_found,
-        MEMF_PUBLIC | MEMF_CLEAR);
-
-    if (card_base->driverdatas == NULL)
-    {
-        D(bug("[HDAudio] Out of memory.\n"));
-        return FALSE;
-    }
-
-    card_no = 0;
-
-    if (dev)
-    {
-        card_base->driverdatas[card_no] = AllocDriverData(dev, AHIsubBase);
-        if (card_base->driverdatas[card_no] == NULL)
-        {
-            FreeVec(card_base->driverdatas);
-            return FALSE;
-        }
-
-        ++card_no;
     }
 
     D(bug("[HDAudio] exit init\n"));
