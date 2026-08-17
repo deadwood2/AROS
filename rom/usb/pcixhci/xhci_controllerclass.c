@@ -280,7 +280,9 @@ takeownership:
                    READCONFIGLONG(hc, hc->hc_PCIDeviceObject, USB_INTEL_USB3_PSSEN),
                    READCONFIGLONG(hc, hc->hc_PCIDeviceObject, USB_INTEL_XUSB2PR));
 
-        if (hc->hc_ProdID == 0x8c31)
+        if (hc->hc_ProdID == 0x8c31 /* 8 series Lynx Point  */ ||
+            hc->hc_ProdID == 0x8cb1 /* 9 series Wildcat Point */ ||
+            hc->hc_ProdID == 0xa12f /* 100 series Sunrise Point */)
             hc->hc_Quirks |= HCQF_LYNXPOINT;
     }
 
