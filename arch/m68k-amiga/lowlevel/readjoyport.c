@@ -82,8 +82,6 @@ static inline ULONG llPollGameCtrl(int port)
     if ((bits & 3) != 2) {
         /* Stuck bits? Probably not a game controller */
         D(bug("%s: Stuck bits? (0x%04x)\n", __func__, bits));
-        /* Without reverting ciaddra, joystick gets stuck with RED/FIRE pressed */
-        cia->ciaddra = ciaaddr;
         /* Revert to autosense */
         return 0;
     }
