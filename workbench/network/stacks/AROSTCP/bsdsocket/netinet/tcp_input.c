@@ -2058,6 +2058,14 @@ tcp_mss(tp, offer)
 		bufsize = roundup(bufsize, mss);
 		if (bufsize > sb_max)
 			bufsize = sb_max;
+		/*
+		 * If window scaling won't be active on this connection,
+		 * cap the receive buffer to TCP_MAXWIN. Otherwise the
+		 * advertised window overflows the 16-bit TCP header field.
+		 */
+		if ((tp->t_flags & (TF_REQ_SCALE|TF_RCVD_SCALE)) !=
+			(TF_REQ_SCALE|TF_RCVD_SCALE) && bufsize > TCP_MAXWIN)
+			bufsize = TCP_MAXWIN;
 		(void)sbreserve(&so->so_rcv, bufsize);
 	}
 	/*
