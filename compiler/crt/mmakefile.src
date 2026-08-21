@@ -498,7 +498,8 @@ STDLIB := \
 STDLIB_LINKLIB := \
     stdc/strcasestr \
     stdc/__ctype_linklib \
-    stdc/ctype
+    stdc/ctype \
+    posixc/gcvt
 
 %build_module mmake=compiler-stdlib \
     modname=stdlib modtype=library \
