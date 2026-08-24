@@ -3,7 +3,7 @@ point it is expected that above 80% of ABIv0 programs will start and exit
 gracefully. For programs that start, it is expected that a large, useful
 subset of their functions will work.
 
-EmuV0 v1.0 (21.01.2026)
+EmuV0 v1.10 (25.01.2026)
 
 1. Usage
 
