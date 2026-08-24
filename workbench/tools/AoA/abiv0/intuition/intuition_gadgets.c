@@ -260,12 +260,12 @@ unhandledCodePath(__func__, "g_nativeTF not NULL", 0, 0);
     return (APTR32)(IPTR)g_v0TF;
 }
 
-static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, BOOL nowin)
+static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, BOOL nowinorscreen)
 {
     struct GadgetInfoV0 *v0gi = abiv0_AllocMem(sizeof(struct GadgetInfoV0), MEMF_CLEAR, Intuition_SysBaseV0);
 
     v0gi->gi_Domain         = nativegi->gi_Domain;
-    if (!nowin && nativegi->gi_Window)
+    if (!nowinorscreen && nativegi->gi_Window)
     {
         struct WindowProxy *wproxy = wmGetByWindow(nativegi->gi_Window);
         v0gi->gi_Window     = (APTR32)(IPTR)wproxy;
@@ -281,7 +281,7 @@ static struct GadgetInfoV0 *composeGadgetInfoV0Int(struct GadgetInfo *nativegi, 
         v0gi->gi_Layer      = (APTR32)(IPTR)lproxy;
     }
 
-    if (nativegi->gi_Screen)
+    if (!nowinorscreen && nativegi->gi_Screen)
     {
         v0gi->gi_Screen     = (APTR32)(IPTR)screenRemapN2V0(nativegi->gi_Screen);
     }
@@ -422,7 +422,8 @@ static IPTR process_message_on_31bit_stack_GADGET(struct IClass *CLASS, Object *
             struct GadgetV0 *v0g = data->gwd_Wrapped;
 
             struct gpHitTestV0 *v0msg = abiv0_AllocMem(sizeof(struct gpHitTestV0), MEMF_CLEAR, Intuition_SysBaseV0);
-            struct GadgetInfoV0 * v0gi = composeGadgetInfoV0Int(nativemsg->gpht_GInfo, TRUE); /* workaround for trash gi_Window */
+            /* Intuition is not setting gi_Window/gi_Screen when sending GM_HITTEST*/
+            struct GadgetInfoV0 * v0gi = composeGadgetInfoV0Int(nativemsg->gpht_GInfo, TRUE);
 
             v0msg->MethodID     = nativemsg->MethodID;
             v0msg->gpht_GInfo   = (APTR32)(IPTR)v0gi;
