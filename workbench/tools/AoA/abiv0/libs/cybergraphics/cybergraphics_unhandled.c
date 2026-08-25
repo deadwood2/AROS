@@ -1,8 +1,8 @@
-#include "include/aros/cpu.h"
-#include "include/aros/proxy.h"
-#include "include/exec/structures.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/exec/structures.h"
 
-#include "support.h"
+#include "../../support.h"
 
 static void abiv0_unhandledLVO5() { unhandledLibraryFunction("cybergraphics.library", 5); }
 MAKE_PROXY_ARG_1(unhandledLVO5)

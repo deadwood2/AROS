@@ -26,7 +26,8 @@ FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 internalloadseg_s
         abiv0/libs/intuition/intuition_windows \
         abiv0/libs/layers/layers_init \
         abiv0/libs/layers/layers_unhandled \
-        cybergraphics_unhandled \
+        abiv0/libs/cybergraphics/cybergraphics_init \
+        abiv0/libs/cybergraphics/cybergraphics_unhandled \
         abiv0/support
 
 EXEDIR := $(AROS_C)
