@@ -8,7 +8,6 @@
 #include <proto/timer.h>
 #include <exec/rawfmt.h>
 #include <proto/dos.h>
-#include <proto/input.h>
 #include <string.h>
 
 #include "abiv0/include/exec/functions.h"
@@ -21,14 +20,13 @@
 #include "abiv0/libs/exec/exec_libraries.h"
 #include "abiv0/libs/layers/layers_init.h"
 #include "abiv0/libs/cybergraphics/cybergraphics_init.h"
+#include "abiv0/devs/timer/timer_init.h"
+#include "abiv0/devs/input/input_init.h"
+#include "abiv0/devs/console/console_init.h"
 
 #include "abiv0/support.h"
 
 const TEXT version_string[] = "$VER: EmuV0 1.12 (24.08.2026)";
-
-struct DeviceProxy *abiv0TimerBase;
-struct DeviceProxy *abiv0InputBase;
-struct DeviceProxy *abiv0ConsoleBase;
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
@@ -67,65 +65,6 @@ unhandledCodePath(__func__, "!RTF_AUTOINIT", 0, 0);
 
     return library;
 } /* shallow_InitResident32 */
-
-void abiv0_GetSysTime(struct timeval *dest, struct LibraryV0 *TimerBaseV0)
-{
-    GetSysTime(dest);
-}
-MAKE_PROXY_ARG_2(GetSysTime)
-
-void abiv0_SubTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *TimerBaseV0)
-{
-    SubTime(dest, src);
-}
-MAKE_PROXY_ARG_3(SubTime)
-
-void abiv0_AddTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *TimerBaseV0)
-{
-    AddTime(dest, src);
-}
-MAKE_PROXY_ARG_3(AddTime)
-
-LONG abiv0_CmpTime(struct timeval *dest, struct timeval *src, struct LibraryV0 *TimerBaseV0)
-{
-    return CmpTime(dest, src);
-}
-MAKE_PROXY_ARG_3(CmpTime)
-
-UWORD abiv0_PeekQualifier(struct LibraryV0 *InputBaseV0)
-{
-    struct Library *InputBase = &(((struct DeviceProxy *)InputBaseV0)->native->dd_Library);
-    return PeekQualifier();
-}
-MAKE_PROXY_ARG_1(PeekQualifier)
-
-#include <proto/console.h>
-
-LONG abiv0_RawKeyConvert(struct InputEventV0 *events, STRPTR buffer, LONG length, struct KeyMap * keyMap, struct LibraryV0 *ConsoleBaseV0)
-{
-    /* Support SDL->CGX_TranslateKey case */
-    if (length != 5 || keyMap != NULL)
-    {
-unhandledCodePath(__func__, "length or keymap", length, (ULONG)(IPTR)keyMap);
-        return 0;
-    }
-    if ((APTR)(IPTR)events->ie_position.ie_addr != NULL)
-    {
-bug("abiv0_RawKeyConvert: STUB\n");
-        return 0;
-    }
-
-    struct Library *ConsoleDevice = &(((struct DeviceProxy *)ConsoleBaseV0)->native->dd_Library);
-    struct InputEvent eventnative;
-    eventnative.ie_Qualifier    = events->ie_Qualifier;
-    eventnative.ie_Class        = events->ie_Class;
-    eventnative.ie_SubClass     = events->ie_SubClass;
-    eventnative.ie_Code         = events->ie_Code;
-    eventnative.ie_position.ie_addr = NULL;
-    eventnative.ie_NextEvent = NULL; /* RawKeyConvert calls MapRawKey which ignores ie_NextEvent anyhow */
-    return RawKeyConvert(&eventnative, buffer, length, NULL);
-}
-MAKE_PROXY_ARG_5(RawKeyConvert)
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 
@@ -218,53 +157,15 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
 {
     TEXT path[64];
     TEXT currdir[256];
-    UWORD negsize, possize, lastlvo;
-    APTR tmpmem;
 
     /* Init ROM */
     struct ExecBaseV0 *SysBaseV0 = init_exec();
 
-    /* timer.device */
-    lastlvo = 12;
-    negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
-    possize = sizeof(struct DeviceProxy);
-    tmpmem  = abiv0_AllocMem(negsize + possize, MEMF_CLEAR, SysBaseV0);
-    abiv0TimerBase = (tmpmem + negsize);
-        /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0TimerBase, i, (APTR32)(IPTR)i + 1100);
-    __AROS_SETVECADDRV0(abiv0TimerBase, 11, (APTR32)(IPTR)proxy_GetSysTime);
-    __AROS_SETVECADDRV0(abiv0TimerBase,  8, (APTR32)(IPTR)proxy_SubTime);
-    __AROS_SETVECADDRV0(abiv0TimerBase,  7, (APTR32)(IPTR)proxy_AddTime);
-    __AROS_SETVECADDRV0(abiv0TimerBase,  9, (APTR32)(IPTR)proxy_CmpTime);
-    abiv0TimerBase->type                        = DEVPROXY_TYPE_TIMER;
-    abiv0TimerBase->base.dd_Library.lib_NegSize = negsize;
-    abiv0TimerBase->base.dd_Library.lib_PosSize = possize;
+    init_timer(SysBaseV0);
 
-    /* input.device */
-    lastlvo = 7;
-    negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
-    possize = sizeof(struct DeviceProxy);
-    tmpmem  = abiv0_AllocMem(negsize + possize, MEMF_CLEAR, SysBaseV0);
-    abiv0InputBase = (tmpmem + negsize);
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0InputBase, i, (APTR32)(IPTR)i + 1150);
-    __AROS_SETVECADDRV0(abiv0InputBase,  7, (APTR32)(IPTR)proxy_PeekQualifier);
-    abiv0InputBase->type                        = DEVPROXY_TYPE_INPUT;
-    abiv0InputBase->base.dd_Library.lib_NegSize = negsize;
-    abiv0InputBase->base.dd_Library.lib_PosSize = possize;
+    init_input(SysBaseV0);
 
-    /* console.device */
-    lastlvo = 12;
-    negsize = (lastlvo + 1) * sizeof(struct JumpVecV0);
-    possize = sizeof(struct DeviceProxy);
-    tmpmem  = abiv0_AllocMem(negsize + possize, MEMF_CLEAR, SysBaseV0);
-    abiv0ConsoleBase = (tmpmem + negsize);
-    /* Set all LVO addresses to their number so that code jumps to "number" of the LVO and crashes */
-    for (int i = 5; i <= lastlvo; i++) __AROS_SETVECADDRV0(abiv0ConsoleBase, i, (APTR32)(IPTR)i + 1200);
-    __AROS_SETVECADDRV0(abiv0ConsoleBase,  8, (APTR32)(IPTR)proxy_RawKeyConvert);
-    abiv0ConsoleBase->type                        = DEVPROXY_TYPE_CONSOLE;
-    abiv0ConsoleBase->base.dd_Library.lib_NegSize = negsize;
-    abiv0ConsoleBase->base.dd_Library.lib_PosSize = possize;
+    init_console(SysBaseV0);
 
     init_dos(SysBaseV0);
 
@@ -331,12 +232,9 @@ LONG_FUNC run_emulation(CONST_STRPTR program_path)
     exit_graphics();
     exit_dos();
 
-    abiv0_FreeMem((APTR)((IPTR)abiv0ConsoleBase - abiv0ConsoleBase->base.dd_Library.lib_NegSize),
-        abiv0ConsoleBase->base.dd_Library.lib_NegSize + abiv0ConsoleBase->base.dd_Library.lib_PosSize, SysBaseV0);
-    abiv0_FreeMem((APTR)((IPTR)abiv0InputBase - abiv0InputBase->base.dd_Library.lib_NegSize),
-        abiv0InputBase->base.dd_Library.lib_NegSize + abiv0InputBase->base.dd_Library.lib_PosSize, SysBaseV0);
-    abiv0_FreeMem((APTR)((IPTR)abiv0TimerBase - abiv0TimerBase->base.dd_Library.lib_NegSize),
-        abiv0TimerBase->base.dd_Library.lib_NegSize + abiv0TimerBase->base.dd_Library.lib_PosSize, SysBaseV0);
+    exit_console(SysBaseV0);
+    exit_input(SysBaseV0);
+    exit_timer(SysBaseV0);
 
     exit_exec();
 }

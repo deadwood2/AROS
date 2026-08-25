@@ -6,6 +6,9 @@ include $(SRCDIR)/config/aros.cfg
 #MM- local-emuv0-quick : local-emuv0-linux-quick local-emuv0-pc-quick
 
 FILES := AoA loadseg32 internalloadseg32 internalloadseg_elf32 internalloadseg_support32 \
+        abiv0/devs/console/console_init \
+        abiv0/devs/input/input_init \
+        abiv0/devs/timer/timer_init \
         abiv0/libs/dos/dos_init \
         abiv0/libs/dos/dos_unhandled \
         abiv0/libs/exec/initsemaphore \

@@ -5,6 +5,7 @@
 #ifndef ABIV0_INPUT_STRUCTURES_H
 #define ABIV0_INPUT_STRUCTURES_H
 
+#include <aros/types/timeval_s.h> /* get struct timeval32 */
 #include "../exec/structures.h"
 
 struct InputEventV0
