@@ -7,19 +7,19 @@
 #include <intuition/extensions.h>
 #include <aros/debug.h>
 
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/exec/functions.h"
-#include "../include/exec/proxy_structures.h"
-#include "../include/intuition/structures.h"
-#include "../include/intuition/proxy_structures.h"
-#include "../include/graphics/proxy_structures.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/exec/functions.h"
+#include "../../include/exec/proxy_structures.h"
+#include "../../include/intuition/structures.h"
+#include "../../include/intuition/proxy_structures.h"
+#include "../../include/graphics/proxy_structures.h"
 
 #include "../graphics/graphics_rastports.h"
 #include "intuition_gadgets.h"
 #include "intuition_screens.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 extern struct IClass *gadgetwrappercl;

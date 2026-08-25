@@ -4,7 +4,7 @@
     Desc: Initialize a SignalSemaphore
 */
 
-#include "../include/exec/structures.h"
+#include "../../include/exec/structures.h"
 
 #define NT_SIGNALSEM    15
 

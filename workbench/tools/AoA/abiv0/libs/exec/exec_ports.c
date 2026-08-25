@@ -5,13 +5,13 @@
 #include <proto/exec.h>
 #include <aros/debug.h>
 
-#include "../include/exec/structures.h"
-#include "../include/exec/proxy_structures.h"
-#include "../include/exec/functions.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
+#include "../../include/exec/structures.h"
+#include "../../include/exec/proxy_structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 struct MsgPortV0 * abiv0_CreateMsgPort(struct ExecBaseV0 *SysBaseV0)
 {

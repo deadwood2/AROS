@@ -7,15 +7,15 @@
 
 #include <aros/debug.h>
 
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/exec/functions.h"
-#include "../include/graphics/structures.h"
-#include "../include/graphics/proxy_structures.h"
-#include "../include/utility/structures.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/exec/functions.h"
+#include "../../include/graphics/structures.h"
+#include "../../include/graphics/proxy_structures.h"
+#include "../../include/utility/structures.h"
 
 #include "graphics_rastports.h"
-#include "../support.h"
+#include "../../support.h"
 
 /* 32-bit pool used for allocations of structures for V0 RastPorts */
 APTR rastPortPool;

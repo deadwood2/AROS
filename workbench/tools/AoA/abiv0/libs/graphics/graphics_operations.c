@@ -4,10 +4,10 @@
 
 #include <proto/graphics.h>
 
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/graphics/structures.h"
-#include "../include/graphics/proxy_structures.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/graphics/structures.h"
+#include "../../include/graphics/proxy_structures.h"
 
 #include "graphics_rastports.h"
 

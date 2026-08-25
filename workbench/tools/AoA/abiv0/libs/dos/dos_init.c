@@ -10,19 +10,19 @@
 
 #include <string.h>
 
-#include "../include/exec/structures.h"
-#include "../include/exec/functions.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/aros/call32.h"
+#include "../../include/exec/structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/aros/call32.h"
 
-#include "../include/dos/structures.h"
-#include "../include/utility/structures.h"
-#include "../include/timer/structures.h"
+#include "../../include/dos/structures.h"
+#include "../../include/utility/structures.h"
+#include "../../include/timer/structures.h"
 
 #include "../exec/exec_ports.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 struct ExecBaseV0 *DOS_SysBaseV0;
 extern struct LibraryV0 *abiv0TimerBase;

@@ -9,19 +9,19 @@
 
 #include <string.h>
 
-#include "../include/exec/structures.h"
-#include "../include/exec/proxy_structures.h"
-#include "../include/exec/functions.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
+#include "../../include/exec/structures.h"
+#include "../../include/exec/proxy_structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
 
-#include "../include/dos/structures.h"
+#include "../../include/dos/structures.h"
 
 #include "exec_devices.h"
 #include "exec_libraries.h"
 #include "exec_ports.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 BPTR LoadSeg32 (CONST_STRPTR name, struct DosLibrary *DOSBase);
 struct ExecBaseV0 *abiv0SysBase;

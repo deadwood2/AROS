@@ -11,20 +11,20 @@
 
 #include <aros/debug.h>
 
-#include "../include/exec/functions.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/aros/call32.h"
-#include "../include/intuition/structures.h"
-#include "../include/intuition/proxy_structures.h"
-#include "../include/graphics/proxy_structures.h"
-#include "../include/input/structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/aros/call32.h"
+#include "../../include/intuition/structures.h"
+#include "../../include/intuition/proxy_structures.h"
+#include "../../include/graphics/proxy_structures.h"
+#include "../../include/input/structures.h"
 
 #include "../graphics/graphics_rastports.h"
 #include "intuition_gadgets.h"
 #include "intuition_windows.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 extern struct ExecBaseV0 *Intuition_SysBaseV0;
 

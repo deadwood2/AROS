@@ -11,17 +11,17 @@
 
 #include <string.h>
 
-#include "../include/exec/structures.h"
-#include "../include/exec/proxy_structures.h"
-#include "../include/exec/functions.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/aros/call32.h"
-#include "../include/intuition/structures.h"
-#include "../include/intuition/proxy_structures.h"
-#include "../include/graphics/proxy_structures.h"
-#include "../include/utility/structures.h"
-#include "../include/input/structures.h"
+#include "../../include/exec/structures.h"
+#include "../../include/exec/proxy_structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/aros/call32.h"
+#include "../../include/intuition/structures.h"
+#include "../../include/intuition/proxy_structures.h"
+#include "../../include/graphics/proxy_structures.h"
+#include "../../include/utility/structures.h"
+#include "../../include/input/structures.h"
 
 #include "../graphics/graphics_rastports.h"
 #include "../exec/exec_libraries.h"
@@ -30,7 +30,7 @@
 #include "intuition_screens.h"
 #include "intuition_windows.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 struct ExecBaseV0 *Intuition_SysBaseV0;
 

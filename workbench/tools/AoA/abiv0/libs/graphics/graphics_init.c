@@ -15,21 +15,21 @@
 #include <string.h>
 
 
-#include "../include/exec/structures.h"
-#include "../include/exec/functions.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/aros/call32.h"
-#include "../include/graphics/structures.h"
-#include "../include/graphics/proxy_structures.h"
-#include "../include/utility/structures.h"
+#include "../../include/exec/structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/aros/call32.h"
+#include "../../include/graphics/structures.h"
+#include "../../include/graphics/proxy_structures.h"
+#include "../../include/utility/structures.h"
 
 #include "../exec/exec_libraries.h"
 #include "graphics_operations.h"
 #include "graphics_rastports.h"
 #include "graphics_regions.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 struct ExecBaseV0 *Gfx_SysBaseV0;
 

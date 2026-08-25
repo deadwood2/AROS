@@ -9,13 +9,13 @@
 
 #include <string.h>
 
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/aros/call32.h"
-#include "../include/exec/functions.h"
-#include "../include/exec/structures.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/aros/call32.h"
+#include "../../include/exec/functions.h"
+#include "../../include/exec/structures.h"
 
-#include "../support.h"
+#include "../../support.h"
 
 extern ULONG *execfunctable;
 extern struct DosLibraryV0 *abiv0DOSBase;

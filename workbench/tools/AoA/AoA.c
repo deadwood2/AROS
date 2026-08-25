@@ -18,7 +18,7 @@
 #include "abiv0/include/aros/call32.h"
 #include "abiv0/include/input/structures.h"
 
-#include "abiv0/exec/exec_libraries.h"
+#include "abiv0/libs/exec/exec_libraries.h"
 
 #include "abiv0/support.h"
 
@@ -71,7 +71,7 @@ unhandledCodePath(__func__, "!RTF_AUTOINIT", 0, 0);
 
 #include "abiv0/include/graphics/structures.h"
 #include "abiv0/include/graphics/proxy_structures.h"
-#include "abiv0/graphics/graphics_regions.h"
+#include "abiv0/libs/graphics/graphics_regions.h"
 
 struct ExecBaseV0 *Layers_SysBaseV0;
 
@@ -247,7 +247,7 @@ bug("abiv0_RawKeyConvert: STUB\n");
 MAKE_PROXY_ARG_5(RawKeyConvert)
 
 #include <proto/cybergraphics.h>
-#include "abiv0/graphics/graphics_rastports.h"
+#include "abiv0/libs/graphics/graphics_rastports.h"
 
 struct ExecBaseV0 *CyberGfx_SysBaseV0;
 

@@ -6,12 +6,12 @@
 #include <proto/exec.h>
 #include <proto/alib.h>
 
-#include "../include/exec/functions.h"
-#include "../include/graphics/structures.h"
-#include "../include/graphics/proxy_structures.h"
-#include "../include/aros/cpu.h"
-#include "../include/aros/proxy.h"
-#include "../include/utility/structures.h"
+#include "../../include/exec/functions.h"
+#include "../../include/graphics/structures.h"
+#include "../../include/graphics/proxy_structures.h"
+#include "../../include/aros/cpu.h"
+#include "../../include/aros/proxy.h"
+#include "../../include/utility/structures.h"
 
 #include "graphics_regions.h"
 
