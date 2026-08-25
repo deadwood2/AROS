@@ -26,7 +26,7 @@
 
 #include "abiv0/support.h"
 
-const TEXT version_string[] = "$VER: EmuV0 1.12 (24.08.2026)";
+const TEXT version_string[] = "$VER: EmuV0 1.13 (25.08.2026)";
 
 struct LibraryV0 *shallow_InitResident32(struct ResidentV0 *resident, BPTR segList, struct ExecBaseV0 *SysBaseV0)
 {
