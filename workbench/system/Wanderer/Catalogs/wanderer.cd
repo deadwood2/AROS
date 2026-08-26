@@ -344,6 +344,9 @@ File to delete
 MSG_WANDERER_FILEACCESS_DELETINGFILE (//)
 Deleting file
 ;
+MSG_WANDERER_FILEACCESS_MOVINGFILE (//)
+Moving file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES (//)
 Processed files:
 ;
