@@ -6,7 +6,7 @@
 
 #define MUIMASTER_YES_INLINE_STDARG
 
-#define DEBUG 0
+#define DEBUG 1
 #include <aros/debug.h>
 
 #define WANDERER_DEFAULT_BACKDROP
@@ -147,6 +147,13 @@ AROS_UFH3
             SET(d->fileObject, MUIA_Text_Contents, d->Buffer);
             SetAttrs(d->gauge, MUIA_Gauge_Current, d->numObjects, MUIA_Gauge_InfoText, d->NumberBuffer, TAG_DONE);
         }
+        else if ((d->action & ACTION_MOVE) == ACTION_MOVE)  // moving operation
+        {
+            CombineStringWithBuffer(d->Buffer, "%s: %s", _(MSG_WANDERER_FILEACCESS_MOVINGFILE), obj->file);  //añadir al catalogo detras de MSG_WANDERER_FILEACCESS_DELETINGFILE
+            SET(d->fileObject, MUIA_Text_Contents, d->Buffer);
+            SetAttrs(d->numFilesGauge, MUIA_Gauge_Current, d->numObjects, MUIA_Gauge_InfoText, d->NumberBuffer, TAG_DONE);
+            SET(d->gauge, MUIA_Gauge_Current, 0);
+        }		
         else
         {
             SET(d->gauge, MUIA_Gauge_Current, 0);
@@ -200,6 +207,7 @@ AROS_UFH3
 
     UWORD    ret = 0;
     char     *string = NULL;
+
 
     if (obj->file)
     {
@@ -324,8 +332,7 @@ D(bug("[Wanderer]: %s()\n", __func__));
 
         dobjects.totalObjects = numberOfObjects;
 
-        // Do not create copy display if we are moving files
-        BOOL displayCreated = (action == ACTION_COPY) ? CreateCopyDisplay(action, &dobjects) : TRUE;
+        BOOL displayCreated = CreateCopyDisplay(action, &dobjects);
 
         if (displayCreated)
         {
@@ -340,7 +347,16 @@ D(bug("[Wanderer]: %s()\n", __func__));
                 }
                 else
                 {
-                    MoveContent(currententry->dropse_Node.ln_Name, targetDir);
+					// Initialize OpModes for move operation
+					struct OpModes moveOpModes;
+					moveOpModes.deletemode = OPMODE_NONE;      // Not used for moves
+					moveOpModes.protectmode = OPMODE_ASK;      // Ask if unprotect needed
+					moveOpModes.overwritemode = OPMODE_ASK;    // Ask on conflict
+
+                    dobjects.currentObject = (CONST_STRPTR) currententry->dropse_Node.ln_Name;
+                    dobjects.numObjects++;
+					
+                    result = MoveContent(currententry->dropse_Node.ln_Name, targetDir, &displayCopyHook, &displayAskHook, &moveOpModes, (APTR) &dobjects, TRUE);                    //MoveContent(currententry->dropse_Node.ln_Name, targetDir);
                 }
                 
                 updatedIcons++;
@@ -349,11 +365,8 @@ D(bug("[Wanderer]: %s()\n", __func__));
                 FreeMem(currententry, sizeof(struct IconList_Drop_SourceEntry));
             }
 
-            // delete copy window
-            if (action == ACTION_COPY)
-            {
-                DisposeCopyDisplay(&dobjects);
-            }
+            DisposeCopyDisplay(&dobjects);
+
             
         }
         _isPerformingCopyOperation = FALSE;

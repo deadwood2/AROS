@@ -80,7 +80,7 @@ struct OpModes
 };
 
 BOOL CopyContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook* displayHook, struct Hook* askHook, struct OpModes *opModes, APTR userdata, BOOL root);
-BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir);
+BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *displayHook, struct Hook *askHook, struct OpModes *opModes, APTR userdata, BOOL first);
 BPTR CreateDirectory(CONST_STRPTR path);
 BOOL DeleteContent(CONST_STRPTR path, struct OpModes *opModes, struct Hook *askHook, struct Hook* displayHook, APTR userdata);
 BOOL IsOnSameDevice(CONST_STRPTR path1, CONST_STRPTR path2);
