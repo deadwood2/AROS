@@ -462,6 +462,10 @@ MSG_WANDERER_FILEACCESS_DELETINGFILE
 Fitxategia ezabatzen
 ; Deleting file
 ;
+MSG_WANDERER_FILEACCESS_MOVINGFILE
+Fitxategia mugitzen
+Moving file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Prozesatutako fitxategiak:
 ; Processed files:
