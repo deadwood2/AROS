@@ -461,6 +461,10 @@ MSG_WANDERER_FILEACCESS_DELETINGFILE
 Borrando fichero
 ; Deleting file
 ;
+MSG_WANDERER_FILEACCESS_MOVINGFILE
+Moviendo fichero
+Moving file
+;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Ficheros procesados:
 ; Processed files:
