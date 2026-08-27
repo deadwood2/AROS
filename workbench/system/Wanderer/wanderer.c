@@ -347,15 +347,15 @@ D(bug("[Wanderer]: %s()\n", __func__));
                 }
                 else
                 {
-					// Initialize OpModes for move operation
-					struct OpModes moveOpModes;
-					moveOpModes.deletemode = OPMODE_NONE;      // Not used for moves
-					moveOpModes.protectmode = OPMODE_ASK;      // Ask if unprotect needed
-					moveOpModes.overwritemode = OPMODE_ASK;    // Ask on conflict
+                    // Initialize OpModes for move operation
+                    struct OpModes moveOpModes;
+                    moveOpModes.deletemode = OPMODE_NONE;      // Not used for moves
+                    moveOpModes.protectmode = OPMODE_ASK;      // Ask if unprotect needed
+                    moveOpModes.overwritemode = OPMODE_ASK;    // Ask on conflict
 
                     dobjects.currentObject = (CONST_STRPTR) currententry->dropse_Node.ln_Name;
                     dobjects.numObjects++;
-					
+                    
                     result = MoveContent(currententry->dropse_Node.ln_Name, targetDir, &displayCopyHook, &displayAskHook, &moveOpModes, (APTR) &dobjects, TRUE);                    //MoveContent(currententry->dropse_Node.ln_Name, targetDir);
                 }
                 
