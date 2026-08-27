@@ -340,17 +340,19 @@ static BOOL moveFile(CONST_STRPTR sourcePath, CONST_STRPTR destDir, BOOL overWri
             
             if (!DeleteFile(to))
             {
-                DisplayIOError(_(MSG_FAILED_TO_DELETE_FILE), IoErr(), (IPTR)sourcePath);
+                DisplayIOError(_(MSG_FAILED_TO_DELETE_FILE), IoErr(), (IPTR)to);
                 D(bug("[Wanderer] %s: destination %s exists, delete failed\n", __func__, to));
                 stop = TRUE;
             }
-
-            D(bug("[Wanderer] %s: destination %s exists, attempting rename\n", __func__, to));            
-            if (Rename(sourcePath, to) == DOSFALSE)
-            {
-                stop = TRUE;
-                DisplayIOError(_(MSG_FAILED_TO_MOVE_FILE), IoErr(), (IPTR)sourcePath);
-                D(bug("[Wanderer] %s: destination %s exists, move failed\n", __func__, to));
+            if (!stop)
+			{
+                D(bug("[Wanderer] %s: destination %s exists, attempting rename\n", __func__, to));
+                if (Rename(sourcePath, to) == DOSFALSE)
+                {
+                    stop = TRUE;
+                    DisplayIOError(_(MSG_FAILED_TO_MOVE_FILE), IoErr(), (IPTR)to);
+                    D(bug("[Wanderer] %s: destination %s exists, move failed\n", __func__, to));
+                }
             }
             
         }
@@ -358,7 +360,7 @@ static BOOL moveFile(CONST_STRPTR sourcePath, CONST_STRPTR destDir, BOOL overWri
         {  //you should not arrive here if caller does the conflict control
             stop = TRUE;
 
-            DisplayIOError(_(MSG_FAILED_TO_MOVE_FILE), IoErr(), (IPTR)sourcePath);
+            DisplayIOError(_(MSG_FAILED_TO_MOVE_FILE), IoErr(), (IPTR)to);
             D(bug("[Wanderer] %s: destination %s exists, unmanaged conflict!\n", __func__, to));
         }
 
@@ -866,18 +868,26 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                                 SetProtection(nextTargetFile, 0);
                                 D(bug("[Wanderer] %s: unprotected '%s'\n", __func__, nextTargetFile));
                             }
+                            else //refused to unprotect
+                            {
+                                stop = TRUE;
+                                D(bug("[Wanderer] %s: Refuse to unprotect '%s' ,skipping it\n", __func__, nextTargetFile));
+                            }
                         }
                         if (destFib)
                         {
                             FreeDosObject(DOS_FIB, (APTR)destFib);
                         }
-                        D(bug("[Wanderer] %s: Overwrite file!: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
-                        stop = moveFile(localSourcePath, targetDir, TRUE);
-
-                        if (hasInfoFile && !stop)
+                        if (!stop)
                         {
-                            D(bug("[Wanderer] %s: Overwrite .info file!: ('%s' -> '%s')\n", __func__, sourceInfoFilePath, nextTargetFile));
-                            stop = moveFile(sourceInfoFilePath, targetDir, TRUE);
+                            D(bug("[Wanderer] %s: Overwrite file!: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
+                            stop = moveFile(localSourcePath, targetDir, TRUE);
+
+                            if (hasInfoFile && !stop)
+                            {
+                                D(bug("[Wanderer] %s: Overwrite .info file!: ('%s' -> '%s')\n", __func__, sourceInfoFilePath, nextTargetFile));
+                                stop = moveFile(sourceInfoFilePath, targetDir, TRUE);
+                            }
                         }
                     }
 
