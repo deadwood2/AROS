@@ -463,7 +463,7 @@ Borrando fichero
 ;
 MSG_WANDERER_FILEACCESS_MOVINGFILE
 Moviendo fichero
-Moving file
+; Moving file
 ;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Ficheros procesados:

@@ -464,7 +464,7 @@ Fitxategia ezabatzen
 ;
 MSG_WANDERER_FILEACCESS_MOVINGFILE
 Fitxategia mugitzen
-Moving file
+; Moving file
 ;
 MSG_WANDERER_FILEACCESS_NOOFFILES
 Prozesatutako fitxategiak:
