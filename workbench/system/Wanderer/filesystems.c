@@ -345,7 +345,7 @@ static BOOL moveFile(CONST_STRPTR sourcePath, CONST_STRPTR destDir, BOOL overWri
                 stop = TRUE;
             }
             if (!stop)
-			{
+            {
                 D(bug("[Wanderer] %s: destination %s exists, attempting rename\n", __func__, to));
                 if (Rename(sourcePath, to) == DOSFALSE)
                 {
