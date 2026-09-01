@@ -903,13 +903,6 @@ static void LoadBackground(void)
         {
             DoDTMethod (picture[x], NULL, NULL, DTM_PROCLAYOUT, NULL, DTSIF_NEWSIZE);
 
-            /*
-             * GetDTAttrs() writes IPTR-sized (8 bytes) values into the
-             * storage locations. Use IPTR temporaries for the LONG fields
-             * and truncate afterwards, otherwise the last attribute would
-             * overflow 4 bytes past the end of BackgroundData[] and clobber
-             * the following .bss global (StdlibBase).
-             */
             iw = 0;
             ih = 0;
             GetDTAttrs (picture[x],
