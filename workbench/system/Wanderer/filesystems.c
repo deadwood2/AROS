@@ -666,6 +666,135 @@ BOOL IsOnSameDevice(CONST_STRPTR path1, CONST_STRPTR path2)
     return returnValue;
 }
 
+
+
+
+static BOOL call_display_hook_move(struct Hook *displayHook, APTR userdata, CONST_STRPTR filename, ULONG filelen)
+{
+    BOOL result = FALSE;
+
+    if (!displayHook)
+    {
+        return FALSE;
+    }
+    struct FileCopyData hookData;
+    memset(&hookData, 0, sizeof(hookData));
+
+    hookData.userdata = userdata;
+    hookData.file     = filename;
+    hookData.filelen  = (filelen > 0) ? filelen : 1;   // Ensure non-zero
+    hookData.difftime = 1;   // non-zero
+
+    // 1) Initial call
+    hookData.flags = ACTION_MOVE;
+    hookData.totallen = 0;
+    hookData.actlen = 0;
+    (void) CallHook(displayHook, (Object *)&hookData, NULL);
+
+    // 2) Udate call progress for a move
+    hookData.flags = ACTION_MOVE | ACTION_UPDATE;
+    hookData.totallen = hookData.filelen;
+    hookData.actlen   = hookData.filelen;
+    result = (CallHook(displayHook, (Object *)&hookData, NULL) != 0);
+
+    return result;
+}
+
+/**
+* Function that given a directory path builds a list of the item it contents
+* Returns a pointer to DirectoryPaths, or NULL if the directory is empty, 
+* doesn't exist, or if out of memory.
+*/
+struct DirectoryPaths *CaptureDirectoryPaths(STRPTR sourceDir) 
+{
+    struct DirectoryPaths *data = NULL;
+    BPTR lock;
+
+    lock = Lock(sourceDir, SHARED_LOCK);
+    if (lock) 
+    {
+        struct FileInfoBlock *fib = AllocDosObject(DOS_FIB, NULL);
+        if (fib) 
+        {
+            if (Examine(lock, fib)) 
+            {
+                if (ExNext(lock, fib)) 
+                {                  
+                    data = (struct DirectoryPaths *)AllocVec(sizeof(struct DirectoryPaths), MEMF_ANY | MEMF_CLEAR);
+                    if (data) 
+                    {
+                        // Initialize list
+                        data->path_list.mlh_Head     = (struct MinNode *)&data->path_list.mlh_Tail;
+                        data->path_list.mlh_Tail     = NULL;
+                        data->path_list.mlh_TailPred = (struct MinNode *)&data->path_list.mlh_Head;
+                        data->total_items = 0;
+
+                        //loop
+                        do
+                        {
+                            const char *entryname = fib->fib_FileName;
+                            size_t entrylen = strlen(entryname);
+
+                            /* To prevent moving .info file twice, if entry ends with ".info" and the 
+                               corresponding base file exists, skip it.
+                               This prevents moving .info twice (once as companion, once as standalone). */
+                            if (entrylen > 5 && stricmp(entryname + entrylen - 5, ".info") == 0)
+                            {
+                                char parent[PATHBUFFERSIZE];
+                                char basepath[PATHBUFFERSIZE];
+                                char basenamebuf[PATHBUFFERSIZE];
+
+                                if (NameFromLock(lock, parent, sizeof(parent)))
+                                {
+                                    strncpy(basenamebuf, entryname, entrylen - 5);
+                                    basenamebuf[entrylen - 5] = '\0';
+                                    // build full path for base and check existence
+                                    strncpy(basepath, parent, sizeof(basepath) - 1);
+                                    basepath[sizeof(basepath) - 1] = '\0';
+                                    AddPart(basepath, basenamebuf, sizeof(basepath));
+                                    if (FileExists(basepath))
+                                    {
+                                        // base file exists -> foo.info is companion; skip adding it
+                                        continue;
+                                    }
+                                }
+                            }
+                            // Add entry to list
+                            D(bug("[Wanderer] %s: Adding: '%s' to list \n", __func__, entryname));
+                            struct PathNode *new_node = (struct PathNode *)AllocVec(sizeof(struct PathNode), MEMF_ANY | MEMF_CLEAR);
+                            if (new_node)
+                            {
+                                if (NameFromLock(lock, new_node->path, sizeof(new_node->path)))
+                                {
+                                    AddPart(new_node->path, fib->fib_FileName, sizeof(new_node->path));
+                                }
+                                else
+                                {
+                                    strncpy(new_node->path, fib->fib_FileName, sizeof(new_node->path) - 1);
+                                    new_node->path[sizeof(new_node->path) - 1] = '\0';
+                                }
+                                // append to list
+                                struct MinNode *node = (struct MinNode *)new_node;
+                                struct MinNode *tail = (struct MinNode *)&data->path_list.mlh_Tail;
+
+                                node->mln_Succ = tail;
+                                node->mln_Pred = tail->mln_Pred;
+                                tail->mln_Pred->mln_Succ = node;
+                                tail->mln_Pred = node;
+                                data->total_items++;
+                            }
+                        } while (ExNext(lock, fib));
+                    }
+                }
+            }
+            FreeDosObject(DOS_FIB, fib);
+        }
+        UnLock(lock);
+    }
+
+    return data;
+}
+
 /**
  * Moves all content from one path to another. The path can point to a directory, regular file or info file.
  *
@@ -677,6 +806,7 @@ BOOL IsOnSameDevice(CONST_STRPTR path1, CONST_STRPTR path2)
 BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *displayHook, struct Hook *askHook, struct OpModes *opModes, APTR userdata, BOOL first)
 {
     BOOL stop = FALSE;
+    BOOL skip = FALSE;
     BOOL hasInfoFile = FALSE;
     STRPTR sourceInfoFilePath;
     STRPTR localSourcePath = (STRPTR)sourcePath;
@@ -716,8 +846,8 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
             D(bug("[Wanderer] %s: Moving: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
  
             //Check destination is not the source directory nor one of its subdirectories
-//Solve R2 here 
-            if (Strnicmp(nextTargetFile, localSourcePath, strlen(localSourcePath)) == 0)
+            size_t len = strlen(localSourcePath);
+            if (len > 0 && strnicmp(nextTargetFile, localSourcePath, len) == 0 && ( nextTargetFile[len] == '\0' || nextTargetFile[len] == '/' || nextTargetFile[len] == ':' ) )
             {
                 D(bug("[Wanderer] %s: destination is within source; abort\n", __func__));
                 DisplayIOError(_(MSG_FAILED_TO_MOVE_FILE), IoErr(), (IPTR)localSourcePath);
@@ -731,9 +861,10 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                 {
                     D(bug("[Wanderer] %s: Origin is a dir: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
 
-                    //If the conflict is with the first directory, ask to warn
-                    //TO-DO: A proper request should be created or existing should be extended
-                    //in order to add Directory specific semantics (e.g.: add merge to overwrite, skip...)
+                    /*If the conflict is with the first directory, ask to warn
+                    *TO-DO: A proper request should be created or existing should be extended
+                    *in order to add Directory specific semantics (e.g.: add merge to overwrite, skip...)
+                    **/
                     if (first) 
                     {
                         BOOL stopTop = checkIfAlreadyExists(nextTargetFile, localSourcePath, askHook, opModes, userdata);
@@ -744,7 +875,7 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                         }
                     }
 
-                    /* get destination info to ensure it's a directory */
+                    // get destination info to ensure it's a directory 
                     struct FileInfoBlock *destFib = GetFileInfoBlock(nextTargetFile);
                     if (destFib == NULL)
                     {
@@ -755,89 +886,75 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                     {
                         if (destFib->fib_DirEntryType <= 0)
                         {
-                            /* destination is a file; cannot overwrite a file with a directory */
+                            // destination is a file; cannot overwrite a file with a directory
                             D(bug("[Wanderer] %s: destination '%s' is not a directory\n", __func__, nextTargetFile));
                             stop = TRUE;
                             DisplayIOError(_(MSG_FAILED_TO_MOVE_FILE), IoErr(), (IPTR)localSourcePath);
                         }
                         else
                         {
-                            /* read source directory and iterate children */
+                            // read source directory and iterate children
                             BPTR sourceDirectoryLock = ReadFileInfoBlockAndLockPath(localSourcePath, sourceFib);
                             if (sourceDirectoryLock == 0)
                             {
                                 DisplayIOError(_(MSG_FAILED_TO_READ_DIRECTORY_CONTENT), IoErr(), (IPTR)localSourcePath);
                                 stop = TRUE;
                             }
-                            else
+                                else
                             {
-                                if (Examine(sourceDirectoryLock, sourceFib))
+                                /* Build a list of children of the directory and iterate it safely.
+                                   Pass the full directory path (localSourcePath) to CaptureDirectoryPaths. */
+                                struct DirectoryPaths *stored_paths = CaptureDirectoryPaths(localSourcePath);
+                                if (stored_paths)
                                 {
-                                    struct FileInfoBlock *iterFib = GetFileInfoBlock(localSourcePath);
-                                    if (iterFib == NULL) 
+                                    struct PathNode *current_node = (struct PathNode *)stored_paths->path_list.mlh_Head;
+                                    while (current_node != (struct PathNode *)&stored_paths->path_list.mlh_Tail && !stop)
                                     {
-                                        stop = TRUE;
-                                    } else {
-                                        while (!stop) 
-                                        {
-                                            if (!Examine(sourceDirectoryLock, iterFib)) 
-                                            {
-                                                stop = TRUE;
-                                                DisplayIOError(_(MSG_FAILED_TO_READ_DIRECTORY_CONTENT), IoErr(), (IPTR)localSourcePath);
-                                                break;
-                                            }
-                                            if (!ExNext(sourceDirectoryLock, iterFib)) 
-                                            {
-                                                LONG err = IoErr();
-                                                if (err != ERROR_NO_MORE_ENTRIES) 
-                                                {
-                                                    DisplayIOError(_(MSG_FAILED_TO_READ_DIRECTORY_CONTENT), err, (IPTR)localSourcePath);
-                                                    stop = TRUE;
-                                                }
-                                                break; 
-                                            }
+                                        struct PathNode *next_node = (struct PathNode *)current_node->node.mln_Succ;
 
-                                            STRPTR childPath = CombinePath(iterFib->fib_FileName, localSourcePath);
-                                            if (childPath) 
-                                            {
-                                                stop = MoveContent(childPath, nextTargetFile, displayHook, askHook, opModes, userdata, FALSE);
-                                                FreeVec(childPath);
-                                            } 
-                                            else
-                                            {
-                                                stop= TRUE;
+                                        if (current_node->path && *current_node->path)
+                                        {
+                                            // update hook
+                                            stop = call_display_hook_move(displayHook, userdata, current_node->path, 1);
+                                            if (!stop)
+                                            {                                                
+                                                D(bug("[Wanderer] %s: movecontent for '%s'\n", __func__, current_node->path));
+                                                stop = MoveContent(current_node->path, nextTargetFile, displayHook, askHook, opModes, userdata, FALSE);
                                             }
                                         }
-                                        
-                                        LONG err = IoErr();
-                                        if (!stop && err != ERROR_NO_MORE_ENTRIES) 
+                                        else
                                         {
-                                            DisplayIOError(_(MSG_FAILED_TO_READ_DIRECTORY_CONTENT), err, (IPTR)localSourcePath);
                                             stop = TRUE;
                                         }
-                                        FreeDosObject(DOS_FIB, (APTR)iterFib);
+                                        FreeVec(current_node);
+                                        current_node = next_node;
                                     }
+                                    FreeVec(stored_paths);
                                 }
                                 UnLock(sourceDirectoryLock);
-                            }
 
-                            if (!stop)
-                            {
-                                // delete the now-empty source directory 
-                                if (!DeleteFile(localSourcePath))
+                                if (!stop)
                                 {
-                                    D(bug("[Wanderer] %s: Delete failed for '%s'\n", __func__, localSourcePath));
-                                    DisplayIOError(_(MSG_FAILED_TO_DELETE_FILE), IoErr(), (IPTR)localSourcePath);
-                                    stop = TRUE;
-                                }
-                                //Delete the info file if exists
-                                if (!stop&&hasInfoFile)
-                                {
-                                    if (!DeleteFile(sourceInfoFilePath))
+                                    // Check if directory is empty and then delete it
+                                    if (IsDirectoryEmpty(localSourcePath))
                                     {
-                                        D(bug("[Wanderer] %s: Delete failed for '%s'\n", __func__, sourceInfoFilePath));
-                                        DisplayIOError(_(MSG_FAILED_TO_DELETE_FILE), IoErr(), (IPTR)sourceInfoFilePath);
-                                        stop = TRUE;
+                                        if (!DeleteFile(localSourcePath))
+                                        {
+                                            D(bug("[Wanderer] %s: Delete failed for '%s'\n", __func__, localSourcePath));
+                                            DisplayIOError(_(MSG_FAILED_TO_DELETE_FILE), IoErr(), (IPTR)localSourcePath);
+                                            stop = TRUE;
+                                        }
+                                    // Delete the info file if it exists (first call)
+//                                        if (first && hasInfoFile)
+                                        if (hasInfoFile)
+                                        {
+                                            if (!DeleteFile(sourceInfoFilePath))
+                                            {
+                                                D(bug("[Wanderer] %s: Delete failed for '%s'\n", __func__, sourceInfoFilePath));
+                                                DisplayIOError(_(MSG_FAILED_TO_DELETE_FILE), IoErr(), (IPTR)sourceInfoFilePath);
+                                                stop = TRUE;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -847,9 +964,21 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                 }
                 else
                 {
-                    //Origin is a file, check and move overwriting if allowed
+                    //Origin is a file, check and move overwritting if allowed
                     D(bug("[Wanderer] %s: Origin is a file, ask!: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
                     stop = checkIfAlreadyExists(nextTargetFile, localSourcePath, askHook, opModes, userdata);
+                    D(bug("[Wanderer] ask result overwritemode=%d protectmode=%d deletemode=%d\n", opModes ? opModes->overwritemode : -1, opModes ? opModes->protectmode : -1, opModes ? opModes->deletemode : -1));
+                    if (stop && opModes)
+                    {
+                        skip=FALSE;
+                        // If answered "No" to overwrite/unprotect, skip this item
+                        if (opModes->overwritemode == OPMODE_NO || opModes->protectmode == OPMODE_NO || opModes->protectmode == OPMODE_NONE)
+                        {
+                            D(bug("[Wanderer] %s: user chose NO for '%s' -> skipping\n", __func__, nextTargetFile));
+                            stop=FALSE;   // do not abort 
+                            skip=TRUE;    // mark this item to be skipped
+                        }
+                    }
 
                     //overwriteable and unprotected 
                     if (!stop &&(opModes->overwritemode==OPMODE_ALL || opModes->overwritemode==OPMODE_YES))
@@ -868,11 +997,6 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                                 SetProtection(nextTargetFile, 0);
                                 D(bug("[Wanderer] %s: unprotected '%s'\n", __func__, nextTargetFile));
                             }
-                            else //refused to unprotect
-                            {
-                                stop = TRUE;
-                                D(bug("[Wanderer] %s: Refuse to unprotect '%s' ,skipping it\n", __func__, nextTargetFile));
-                            }
                         }
                         if (destFib)
                         {
@@ -880,13 +1004,33 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                         }
                         if (!stop)
                         {
-                            D(bug("[Wanderer] %s: Overwrite file!: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
-                            stop = moveFile(localSourcePath, targetDir, TRUE);
-
-                            if (hasInfoFile && !stop)
+                            //update hook
+                            stop = call_display_hook_move(displayHook, userdata, localSourcePath,sourceFib->fib_Size); 
+                            if (!stop && !skip){
+                                D(bug("[Wanderer] %s: Overwrite file!: ('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
+                                stop = moveFile(localSourcePath, targetDir, TRUE);                                
+                            }
+                            //move the .info companion
+                           if (hasInfoFile && !stop)
                             {
-                                D(bug("[Wanderer] %s: Overwrite .info file!: ('%s' -> '%s')\n", __func__, sourceInfoFilePath, nextTargetFile));
-                                stop = moveFile(sourceInfoFilePath, targetDir, TRUE);
+                                //update hook
+                                //get the right fib_Size 
+                                struct FileInfoBlock *sourceFibInfo;
+                                sourceFibInfo = GetFileInfoBlock(sourceInfoFilePath);
+                                if (sourceFibInfo == NULL)
+                                {
+                                    stop=TRUE;
+                                }
+                                else
+                                {
+                                    stop = call_display_hook_move(displayHook, userdata, sourceInfoFilePath,sourceFibInfo->fib_Size); 
+                                    FreeDosObject(DOS_FIB, (APTR)sourceFibInfo);
+                                    if (!stop)
+                                    {
+                                        D(bug("[Wanderer] %s: Overwrite .info file!: ('%s' -> '%s')\n", __func__, sourceInfoFilePath, nextTargetFile));
+                                        stop = moveFile(sourceInfoFilePath, targetDir, TRUE);
+                                    }
+                                }
                             }
                         }
                     }
@@ -898,14 +1042,32 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
                 D(bug("[Wanderer] %s: destination does not exist, attempting Rename('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
                 BPTR sourceDirectoryLock = LockDirectory(localSourcePath);
                 BPTR targetDirectoryLock = Lock(targetDir, ACCESS_WRITE);
-
-                stop = moveFile(localSourcePath, targetDir, FALSE);
-                D(bug("[Wanderer] %s: destination does not exist, from movefile('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
-
+                //update hook
+                stop = call_display_hook_move(displayHook, userdata, localSourcePath,sourceFib->fib_Size); 
+                if (!stop)
+                {
+                    stop = moveFile(localSourcePath, targetDir, FALSE);
+                    D(bug("[Wanderer] %s: destination does not exist, from movefile('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
+                }
                 if (hasInfoFile && !stop)
                 {
-                    D(bug("[Wanderer] %s: destination does not exist, attempting . info Rename('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
-                    stop = moveFile(sourceInfoFilePath, targetDir, FALSE);
+                    //update hook
+                    struct FileInfoBlock *sourceFibInfo;
+                    sourceFibInfo = GetFileInfoBlock(sourceInfoFilePath);
+                    if (sourceFibInfo == NULL)
+                    {
+                        stop=TRUE;
+                    }
+                    else
+                    {
+                        stop = call_display_hook_move(displayHook, userdata, sourceInfoFilePath,sourceFibInfo->fib_Size); 
+                        FreeDosObject(DOS_FIB, (APTR)sourceFibInfo);
+                        if (!stop)
+                        {
+                            D(bug("[Wanderer] %s: destination does not exist, attempting . info Rename('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
+                            stop = moveFile(sourceInfoFilePath, targetDir, FALSE);
+                        }
+                    }
                 }
 
                 UnLock(targetDirectoryLock);
