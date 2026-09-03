@@ -79,6 +79,18 @@ struct OpModes
     WORD        overwritemode;
 };
 
+struct PathNode 
+{
+    struct MinNode node;         
+    char           path[512];    
+};
+
+struct DirectoryPaths 
+{
+    struct MinList path_list;    
+    ULONG          total_items;
+};
+
 BOOL CopyContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook* displayHook, struct Hook* askHook, struct OpModes *opModes, APTR userdata, BOOL root);
 BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *displayHook, struct Hook *askHook, struct OpModes *opModes, APTR userdata, BOOL first);
 BPTR CreateDirectory(CONST_STRPTR path);
