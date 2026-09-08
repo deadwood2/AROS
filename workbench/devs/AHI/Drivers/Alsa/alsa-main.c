@@ -27,9 +27,18 @@ PROCGW( static, void,  slaveentry, SlaveEntry );
 #define slaveentry SlaveEntry
 #endif
 
+void
+RecordSlaveEntry( void );
+
+#ifdef PROCGW
+PROCGW( static, void,  recordslaveentry, RecordSlaveEntry );
+#else
+#define recordslaveentry RecordSlaveEntry
+#endif
+
 static const LONG frequencies[] =
 {
-  8000,     // µ- and A-Law (telephone)
+  8000,     // u- and A-Law (telephone)
   11025,    // CD/4
   22050,    // CD/2
   44100,    // CD
@@ -108,23 +117,25 @@ _AHIsub_AllocAudio( struct TagItem*         taglist,
   ULONG freq = AudioCtrl->ahiac_MixFreq;
 
   D(bug("[Alsa]: AllocAudio enter\n"));
-
+ 
   AudioCtrl->ahiac_DriverData = AllocVec( sizeof( struct AlsaData ),
          MEMF_CLEAR | MEMF_PUBLIC );
 
   if( dd != NULL )
   {
-    dd->slavesignal      = -1;
-    dd->mastersignal     = AllocSignal( -1 );
-    dd->mastertask       = (struct Process*) FindTask( NULL );
-    dd->ahisubbase       = AlsaBase;
+    dd->slavesignal        = -1;
+    dd->mastersignal       = AllocSignal( -1 );
+    dd->recordslavesignal  = -1;
+    dd->recordmastersignal = AllocSignal( -1 );
+    dd->mastertask         = (struct Process*) FindTask( NULL );
+    dd->ahisubbase         = AlsaBase;
   }
   else
   {
     return AHISF_ERROR;
   }
 
-  if( dd->mastersignal == -1 )
+  if( dd->mastersignal == -1 || dd->recordmastersignal == -1 )
   {
     return AHISF_ERROR;
   }
@@ -165,6 +176,7 @@ _AHIsub_FreeAudio( struct AHIAudioCtrlDrv* AudioCtrl,
   {
     ALSA_DropAndClose(dd->alsahandle);
     FreeSignal( dd->mastersignal );
+    FreeSignal( dd->recordmastersignal );
     FreeVec( AudioCtrl->ahiac_DriverData );
     AudioCtrl->ahiac_DriverData = NULL;
   }
@@ -254,7 +266,74 @@ _AHIsub_Start( ULONG                   flags,
 
   if( flags & AHISF_RECORD )
   {
-    return AHIE_UNKNOWN;
+    ULONG recfreq = AudioCtrl->ahiac_MixFreq;
+
+    struct TagItem rectags[] =
+    {
+      { NP_Entry,     (IPTR) &recordslaveentry },
+      { NP_Name,      (IPTR) LibName           },
+      { NP_Priority,  127                      },
+      { TAG_DONE,     0                        }
+    };
+
+    // Open a separate capture PCM (independent of the playback one, so this
+    // works full-duplex). ALSA_OpenCapture brackets snd_pcm_open with the
+    // PipeWire signal-mask hack, exactly like ALSA_Open must.
+    dd->capturehandle = ALSA_OpenCapture();
+
+    if( dd->capturehandle == NULL )
+    {
+      return AHIE_UNKNOWN;
+    }
+
+    if( !ALSA_SetHWParams( dd->capturehandle, &recfreq ) )
+    {
+      ALSA_DropAndClose( dd->capturehandle );
+      dd->capturehandle = NULL;
+      return AHIE_UNKNOWN;
+    }
+
+    // Capture must be explicitly started, or avail_update never advances.
+    ALSA_StartCapture( dd->capturehandle );
+
+    dd->recordbuffer = AllocVec( RECORD_BUFFER_SAMPLES * 4,   // stereo 16-bit
+                                 MEMF_ANY | MEMF_PUBLIC );
+
+    if( dd->recordbuffer == NULL )
+    {
+      ALSA_DropAndClose( dd->capturehandle );
+      dd->capturehandle = NULL;
+      return AHIE_NOMEM;
+    }
+
+    D(bug("[Alsa]: AHIsub_Start (record)\n"));
+
+    dd->recordslavetask = CreateNewProc( rectags );
+
+    if( dd->recordslavetask != NULL )
+    {
+      dd->recordslavetask->pr_Task.tc_UserData = AudioCtrl;
+      Signal( (struct Task *)dd->recordslavetask, SIGF_SINGLE );
+
+      Wait( 1L << dd->recordmastersignal );   // Wait for record slave to come alive
+
+      if( dd->recordslavetask == NULL )        // Alive or dead?
+      {
+        ALSA_DropAndClose( dd->capturehandle );
+        dd->capturehandle = NULL;
+        FreeVec( dd->recordbuffer );
+        dd->recordbuffer = NULL;
+        return AHIE_UNKNOWN;
+      }
+    }
+    else
+    {
+      ALSA_DropAndClose( dd->capturehandle );
+      dd->capturehandle = NULL;
+      FreeVec( dd->recordbuffer );
+      dd->recordbuffer = NULL;
+      return AHIE_NOMEM;
+    }
   }
 
   return AHIE_OK;
@@ -301,9 +380,31 @@ _AHIsub_Stop( ULONG                   flags,
     dd->mixbuffer = NULL;
   }
 
-  if(flags & AHISF_RECORD)
+  if( flags & AHISF_RECORD )
   {
-    // Do nothing
+    if( dd->recordslavetask != NULL )
+    {
+      if( dd->recordslavesignal != -1 )
+      {
+        Signal( (struct Task*) dd->recordslavetask,
+                1L << dd->recordslavesignal );    // Kill him!
+        D(bug("[Alsa]: AHIsub_Stop (record)\n"));
+      }
+
+      Wait( 1L << dd->recordmastersignal );       // Wait for slave to die
+    }
+
+    if( dd->capturehandle != NULL )
+    {
+      ALSA_DropAndClose( dd->capturehandle );
+      dd->capturehandle = NULL;
+    }
+
+    if( dd->recordbuffer != NULL )
+    {
+      FreeVec( dd->recordbuffer );
+      dd->recordbuffer = NULL;
+    }
   }
 }
 
@@ -373,7 +474,13 @@ _AHIsub_GetAttr( ULONG                   attribute,
       return (IPTR) LibIDString;
 
     case AHIDB_Record:
-      return FALSE;
+      return TRUE;
+
+    case AHIDB_FullDuplex:
+      return TRUE;
+
+    case AHIDB_MaxRecordSamples:
+      return RECORD_BUFFER_SAMPLES;
 
     case AHIDB_Realtime:
       return TRUE;

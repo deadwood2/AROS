@@ -8,6 +8,10 @@
 #define DRIVER_NEEDS_GLOBAL_EXECBASE
 #include "DriverBase.h"
 
+/* Max sample frames delivered per record-hook call. The record buffer is
+   stereo 16-bit, so its byte size is RECORD_BUFFER_SAMPLES * 2ch * 2bytes. */
+#define RECORD_BUFFER_SAMPLES  2048
+
 struct AlsaBase
 {
     struct DriverBase driverbase;
@@ -37,6 +41,15 @@ struct AlsaData
     APTR                mixbuffer;
 
     APTR                alsahandle;
+
+    /* --- record side (added for capture support) --- */
+    struct Process*     recordslavetask;
+    BYTE                recordmastersignal;   /* master<->record-slave handshake */
+    BYTE                recordslavesignal;    /* record-slave kill signal        */
+    UBYTE               pad2;
+    UBYTE               pad3;
+    APTR                capturehandle;        /* ALSA capture PCM handle         */
+    APTR                recordbuffer;         /* stereo 16-bit capture buffer    */
 };
 
 
