@@ -28,6 +28,8 @@ static const char *alsa_func_names[] =
     "snd_pcm_hw_params_get_buffer_size",
     "snd_pcm_hw_params_set_buffer_size",
     "snd_pcm_drop",
+    "snd_pcm_readi",
+    "snd_pcm_start",
 
     "snd_mixer_open",
     "snd_mixer_close",

@@ -9,7 +9,7 @@ srcdir		= @srcdir@
 DRIVER		= alsa.audio
 MODEFILE	= ALSA
 
-OBJECTS		= alsa-init.o alsa-main.o alsa-playslave.o alsa-accel.o
+OBJECTS		= alsa-init.o alsa-main.o alsa-playslave.o alsa-recslave.o alsa-accel.o
 LIBS		= -lalsa-bridge
 
 include ../Common/Makefile.common

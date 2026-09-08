@@ -19,13 +19,16 @@ LONG ALSA_MixerGetVolume(APTR elem);
 VOID ALSA_MixerSetVolume(APTR elem, LONG volume);
 
 APTR ALSA_Open();
+APTR ALSA_OpenCapture();
 VOID ALSA_DropAndClose(APTR handle);
 
 BOOL ALSA_SetHWParams(APTR handle, ULONG * rate);
 
 LONG ALSA_Write(APTR handle, APTR buffer, ULONG size);
+LONG ALSA_Read(APTR handle, APTR buffer, ULONG size);
 
 VOID ALSA_Prepare(APTR handle);
+VOID ALSA_StartCapture(APTR handle);
 
 LONG ALSA_Avail(APTR handle);
 

@@ -136,6 +136,24 @@ APTR ALSA_Open()
     return handle;
 }
 
+/* Capture counterpart of ALSA_Open(). MUST use the same PipeWire signal-mask
+   hack around snd_pcm_open - opening a capture PCM spawns the same host
+   threads that would otherwise stomp on AROS's interrupt handling. */
+APTR ALSA_OpenCapture()
+{
+    snd_pcm_t * handle = NULL;
+    int _ret;
+    sigset_t _current;
+
+    _prepare_kernel_for_new_host_pthread(&_current);
+    _ret = ALSACALL(snd_pcm_open, &handle, CARDNAME, SND_PCM_STREAM_CAPTURE, 0);
+    _restore_kernel_after_new_host_pthread(&_current);
+
+    if (_ret < 0) return NULL;
+
+    return handle;
+}
+
 VOID ALSA_DropAndClose(APTR handle)
 {
     if (handle)
@@ -176,9 +194,29 @@ LONG ALSA_Write(APTR handle, APTR buffer, ULONG size)
     return rc;
 }
 
+/* Capture counterpart of ALSA_Write(). */
+LONG ALSA_Read(APTR handle, APTR buffer, ULONG size)
+{
+    LONG rc = ALSACALL(snd_pcm_readi, handle, buffer, (snd_pcm_uframes_t)size);
+
+    if (rc == -EPIPE)
+        rc = ALSA_XRUN;
+
+    return rc;
+}
+
 VOID ALSA_Prepare(APTR handle)
 {
     ALSACALL(snd_pcm_prepare, handle);
+}
+
+/* Prepare AND start a capture stream. Unlike playback (which auto-starts once
+   enough is written), a capture stream must be explicitly started or
+   snd_pcm_avail_update never reports any captured frames. */
+VOID ALSA_StartCapture(APTR handle)
+{
+    ALSACALL(snd_pcm_prepare, handle);
+    ALSACALL(snd_pcm_start, handle);
 }
 
 LONG ALSA_Avail(APTR handle)

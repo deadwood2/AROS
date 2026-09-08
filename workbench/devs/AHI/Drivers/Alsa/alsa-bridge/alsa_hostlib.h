@@ -23,6 +23,8 @@ struct alsa_func
     int (*snd_pcm_hw_params_get_buffer_size)(const snd_pcm_hw_params_t *params, snd_pcm_uframes_t *val);
     int (*snd_pcm_hw_params_set_buffer_size)(snd_pcm_t *pcm, snd_pcm_hw_params_t *params, snd_pcm_uframes_t val);
     int (*snd_pcm_drop)(snd_pcm_t *pcm);
+    snd_pcm_sframes_t(*snd_pcm_readi)(snd_pcm_t *pcm, void *buffer, snd_pcm_uframes_t size);
+    int (*snd_pcm_start)(snd_pcm_t *pcm);
 
     int (*snd_mixer_open)(snd_mixer_t **mixer, int mode);
     int (*snd_mixer_close)(snd_mixer_t *mixer);
