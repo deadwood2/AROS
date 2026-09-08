@@ -296,13 +296,19 @@ _AHIsub_Start( ULONG                   flags,
     // Capture must be explicitly started, or avail_update never advances.
     ALSA_StartCapture( dd->capturehandle );
 
-    dd->recordbuffer = AllocVec( RECORD_BUFFER_SAMPLES * 4,   // stereo 16-bit
-                                 MEMF_ANY | MEMF_PUBLIC );
+    dd->recordbuffer[0] = AllocVec( RECORD_BUFFER_SAMPLES * 4,   // stereo 16-bit
+                                    MEMF_ANY | MEMF_PUBLIC );
+    dd->recordbuffer[1] = AllocVec( RECORD_BUFFER_SAMPLES * 4,
+                                    MEMF_ANY | MEMF_PUBLIC );
 
-    if( dd->recordbuffer == NULL )
+    if( dd->recordbuffer[0] == NULL || dd->recordbuffer[1] == NULL )
     {
       ALSA_DropAndClose( dd->capturehandle );
       dd->capturehandle = NULL;
+      FreeVec( dd->recordbuffer[0] );   // FreeVec(NULL) is safe
+      FreeVec( dd->recordbuffer[1] );
+      dd->recordbuffer[0] = NULL;
+      dd->recordbuffer[1] = NULL;
       return AHIE_NOMEM;
     }
 
@@ -321,8 +327,10 @@ _AHIsub_Start( ULONG                   flags,
       {
         ALSA_DropAndClose( dd->capturehandle );
         dd->capturehandle = NULL;
-        FreeVec( dd->recordbuffer );
-        dd->recordbuffer = NULL;
+        FreeVec( dd->recordbuffer[0] );
+        FreeVec( dd->recordbuffer[1] );
+        dd->recordbuffer[0] = NULL;
+        dd->recordbuffer[1] = NULL;
         return AHIE_UNKNOWN;
       }
     }
@@ -330,8 +338,10 @@ _AHIsub_Start( ULONG                   flags,
     {
       ALSA_DropAndClose( dd->capturehandle );
       dd->capturehandle = NULL;
-      FreeVec( dd->recordbuffer );
-      dd->recordbuffer = NULL;
+      FreeVec( dd->recordbuffer[0] );
+      FreeVec( dd->recordbuffer[1] );
+      dd->recordbuffer[0] = NULL;
+      dd->recordbuffer[1] = NULL;
       return AHIE_NOMEM;
     }
   }
@@ -400,11 +410,10 @@ _AHIsub_Stop( ULONG                   flags,
       dd->capturehandle = NULL;
     }
 
-    if( dd->recordbuffer != NULL )
-    {
-      FreeVec( dd->recordbuffer );
-      dd->recordbuffer = NULL;
-    }
+    FreeVec( dd->recordbuffer[0] );   // FreeVec(NULL) is safe
+    FreeVec( dd->recordbuffer[1] );
+    dd->recordbuffer[0] = NULL;
+    dd->recordbuffer[1] = NULL;
   }
 }
 
