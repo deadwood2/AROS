@@ -57,7 +57,8 @@ RecordSlave( struct ExecBase* SysBase )
   struct AlsaBase*         AlsaBase;   /* needed by the DOSBase macro (Delay) */
   BOOL                     running;
   ULONG                    signals;
-  ULONG                    filled = 0; /* frames already accumulated in recordbuffer */
+  ULONG                    filled = 0; /* frames already accumulated in recordbuffer[cur] */
+  int                      cur    = 0; /* which of the two record buffers we fill now     */
 
   struct AHIRecordMessage  recmsg =
   {
@@ -112,7 +113,7 @@ RecordSlave( struct ExecBase* SysBase )
         {
           LONG toread = ( avail < need ) ? avail : need;   /* only up to what completes the block */
           LONG frames = ALSA_Read( dd->capturehandle,
-                                   (UBYTE*)dd->recordbuffer + filled * 4,
+                                   (UBYTE*)dd->recordbuffer[cur] + filled * 4,
                                    toread );
 
           if( frames == ALSA_XRUN )
@@ -127,10 +128,11 @@ RecordSlave( struct ExecBase* SysBase )
 
             if( filled >= RECORD_BUFFER_SAMPLES )   /* full block -> deliver once */
             {
-              recmsg.ahirm_Buffer = dd->recordbuffer;
+              recmsg.ahirm_Buffer = dd->recordbuffer[cur];
               recmsg.ahirm_Length = RECORD_BUFFER_SAMPLES;   /* FIXED length, in frames */
               CallHookPkt( AudioCtrl->ahiac_SamplerFunc, AudioCtrl, &recmsg );
               filled = 0;
+              cur   ^= 1;   /* fill the OTHER buffer next; the master task drains this one */
             }
           }
         }

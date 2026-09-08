@@ -49,7 +49,10 @@ struct AlsaData
     UBYTE               pad2;
     UBYTE               pad3;
     APTR                capturehandle;        /* ALSA capture PCM handle         */
-    APTR                recordbuffer;         /* stereo 16-bit capture buffer    */
+    APTR                recordbuffer[2];      /* double-buffered stereo 16-bit capture: the
+                                                 slave fills one while the master drains the
+                                                 other, so a block is never overwritten while
+                                                 FeedReaders is still copying it out.        */
 };
 
 
