@@ -708,6 +708,14 @@ setup_tx_desc_die:
 
     D(bug("[%s] %s: Tx Ring Descriptors @ %p [%d bytes]\n", unit->e1ku_name, __func__, tx_ring->desc, tx_ring->size);)
 
+    if (!e1000func_alloc_tx_buffers(unit, tx_ring))
+    {
+        D(bug("[%s] %s: Unable to allocate the transmit frame buffers\n", unit->e1ku_name, __func__);)
+        FreeMem(tx_ring->desc, tx_ring->size);
+        tx_ring->dma = tx_ring->desc = NULL;
+        goto setup_tx_desc_die;
+    }
+
     tx_ring->next_to_use = 0;
     tx_ring->next_to_clean = 0;
 
@@ -829,37 +837,78 @@ int e1000func_setup_all_rx_resources(struct net_device *unit)
     return err;
 }
 
-void e1000func_unmap_and_free_tx_resource(struct net_device *unit,
-                                             struct e1000_buffer *buffer_info)
+/*
+ * The Tx frame buffers are owned by the ring for its whole life.  The Tx
+ * softint fills them and the hardware interrupt retires them, and neither
+ * may call AllocMem()/FreeMem(): on SMP the exec memory spinlocks are not
+ * interrupt safe, so an interrupt-context allocation spins forever against
+ * a task (or softint) that was interrupted while holding one.  The Rx ring
+ * already works this way (e1000func_alloc_rx_buffers_fake).
+ */
+BOOL e1000func_alloc_tx_buffers(struct net_device *unit,
+                                   struct e1000_tx_ring *tx_ring)
 {
-    D(bug("[%s] %s(0x%p)\n", unit->e1ku_name, __func__, unit);)
-    if (buffer_info->dma) {
+    struct e1000_buffer *buffer_info;
+    unsigned int i;
+
+    D(bug("[%s]: %s()\n", unit->e1ku_name, __func__));
+
+    for (i = 0; i < tx_ring->count; i++) {
+        buffer_info = &tx_ring->buffer_info[i];
+        if ((buffer_info->buffer = AllocMem(unit->e1ku_frame_max, MEMF_PUBLIC | MEMF_CLEAR)) == NULL) {
+            e1000func_free_tx_buffers(unit, tx_ring);
+            return FALSE;
+        }
+        D(bug("[%s] %s: Buffer %d Allocated @ %p [%d bytes]\n", unit->e1ku_name, __func__, i, buffer_info->buffer, unit->e1ku_frame_max));
+    }
+    return TRUE;
+}
+
+void e1000func_free_tx_buffers(struct net_device *unit,
+                                  struct e1000_tx_ring *tx_ring)
+{
+    struct e1000_buffer *buffer_info;
+    unsigned int i;
+
+    D(bug("[%s]: %s()\n", unit->e1ku_name, __func__));
+
+    for (i = 0; i < tx_ring->count; i++) {
+        buffer_info = &tx_ring->buffer_info[i];
+        if (buffer_info->buffer) {
+            FreeMem(buffer_info->buffer, unit->e1ku_frame_max);
+            buffer_info->buffer = NULL;
+        }
         buffer_info->dma = NULL;
     }
-    if (buffer_info->buffer) {
-        FreeMem(buffer_info->buffer, ETH_MAXPACKETSIZE);
-        buffer_info->buffer = NULL;
-    }
-    /* buffer_info must be completely set up in the transmit path */
+}
+
+void e1000func_unmap_tx_resource(struct net_device *unit,
+                                    struct e1000_buffer *buffer_info)
+{
+    D(bug("[%s] %s(0x%p)\n", unit->e1ku_name, __func__, unit);)
+    /*
+     * The frame buffer stays with the ring slot; only the in-flight state
+     * goes.  next_to_watch is left alone: e1000func_clean_tx_irq reads it
+     * from the slot after the one just cleaned to find the next EOP.
+     */
+    buffer_info->dma = NULL;
+    buffer_info->length = 0;
 }
 
 void e1000func_clean_tx_ring(struct net_device *unit,
                                 struct e1000_tx_ring *tx_ring)
 {
     struct e1000_buffer *buffer_info;
-    unsigned long size;
     unsigned int i;
 
     D(bug("[%s]: %s()\n", unit->e1ku_name, __func__));
 
-    /* Free all the Tx ring buffers */
+    /* Retire all the Tx ring buffers (they stay allocated) */
     for (i = 0; i < tx_ring->count; i++) {
             buffer_info = &tx_ring->buffer_info[i];
-            e1000func_unmap_and_free_tx_resource(unit, buffer_info);
+            e1000func_unmap_tx_resource(unit, buffer_info);
+            buffer_info->next_to_watch = 0;
     }
-
-    size = sizeof(struct e1000_buffer) * tx_ring->count;
-    memset(tx_ring->buffer_info, 0, size);
 
     /* Zero out the descriptor ring */
 
@@ -879,6 +928,7 @@ void e1000func_free_tx_resources(struct net_device *unit,
     D(bug("[%s]: %s()\n", unit->e1ku_name, __func__));
 
     e1000func_clean_tx_ring(unit, tx_ring);
+    e1000func_free_tx_buffers(unit, tx_ring);
 
     FreeMem(tx_ring->buffer_info, sizeof(struct e1000_buffer) * tx_ring->count);
     tx_ring->buffer_info = NULL;
@@ -1104,7 +1154,7 @@ BOOL e1000func_clean_tx_irq(struct net_device *unit,
                 retval = TRUE;
                 total_tx_packets++;
             }
-            e1000func_unmap_and_free_tx_resource(unit, buffer_info);
+            e1000func_unmap_tx_resource(unit, buffer_info);
             tx_desc->upper.data = 0;
 
             if (++i == tx_ring->count)
@@ -1116,6 +1166,10 @@ BOOL e1000func_clean_tx_irq(struct net_device *unit,
     }
 
     tx_ring->next_to_clean = i;
+
+    /* Writes left queued by a full ring can go out now that slots are free */
+    if (retval && !IsMsgPortEmpty(unit->e1ku_request_ports[WRITE_QUEUE]))
+        Cause(&unit->e1ku_tx_int);
 
 #define TX_WAKE_THRESHOLD 32
 //	if (cleaned && netif_carrier_ok(netdev) &&
