@@ -28,7 +28,7 @@
 
 /*
  * size	 Number of SAMPLES to fill. (Max 131071)
- * add	 Add interger.fraction in samples (2×16 bit)
+ * add	 Add interger.fraction in samples (2ï¿½16 bit)
  * src	 Source (AHIST_S16S)
  * offset Pointer to Source Offset in bytes (will be updated)
  * dest	Pointer to Destination (will be updated)
@@ -60,7 +60,7 @@ RecM8S( ULONG  size,
     offs += step;
   }
   
-  *offset += ( offs >> 32 ) * sizeof( struct sample* );
+  *offset += ( offs >> 32 ) * sizeof( struct sample );
   *dest   = to;
 }
 
@@ -85,7 +85,7 @@ RecS8S( ULONG  size,
     offs += step;
   }
   
-  *offset += ( offs >> 32 ) * sizeof( struct sample* );
+  *offset += ( offs >> 32 ) * sizeof( struct sample );
   *dest   = to;
 }
 
@@ -109,7 +109,7 @@ RecM16S( ULONG  size,
     offs += step;
   }
   
-  *offset += ( offs >> 32 ) * sizeof( struct sample* );
+  *offset += ( offs >> 32 ) * sizeof( struct sample );
   *dest   = to;
 }
 
@@ -134,7 +134,7 @@ RecS16S( ULONG  size,
     offs += step;
   }
   
-  *offset += ( offs >> 32 ) * sizeof( struct sample* );
+  *offset += ( offs >> 32 ) * sizeof( struct sample );
   *dest   = to;
 }
 
@@ -158,7 +158,7 @@ RecM32S( ULONG  size,
     offs += step;
   }
   
-  *offset += ( offs >> 32 ) * sizeof( struct sample* );
+  *offset += ( offs >> 32 ) * sizeof( struct sample );
   *dest   = to;
 }
 
@@ -183,6 +183,6 @@ RecS32S( ULONG  size,
     offs += step;
   }
   
-  *offset += ( offs >> 32 ) * sizeof( struct sample* );
+  *offset += ( offs >> 32 ) * sizeof( struct sample );
   *dest   = to;
 }
