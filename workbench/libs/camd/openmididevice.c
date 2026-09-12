@@ -71,17 +71,20 @@ BOOL isPointerInSeglist(APTR pointer,BPTR seglist,ULONG minsize);
 
 	if(seglist==BNULL) return NULL;
 
-// The code here is partly taken from AROS/rom/dos/lddemon.c - LDInit()
+// The code here is partly taken from AROS/rom/lddemon/lddemon.c - LDInit()
 
 	while(seg!=BNULL){
-		addr=(STRPTR)(BADDR(seg)-sizeof(ULONG));
+		addr=(STRPTR)((IPTR)BADDR(seg)-sizeof(ULONG));
 		size=*(ULONG *)addr;
 
 		for(
 			addr+=sizeof(BPTR)+sizeof(ULONG),
-			  size-=sizeof(BPTR)+sizeof(ULONG);		// Is this a bug? (- -> + ?)
+			  size-=sizeof(BPTR)+sizeof(ULONG);
 			size>=sizeof(struct MidiDeviceData);
-			size-=AROS_PTRALIGN,addr+=AROS_PTRALIGN
+			/* Step by 2, exactly as rom/lddemon LDInit does. Stepping by
+			   AROS_PTRALIGN (8 on x86-64) skips over the 4-byte MDD_Magic
+			   so a valid MidiDeviceData is never found on 64-bit. */
+			size-=2,addr+=2
 		){
 			mididevicedata=(struct MidiDeviceData *)addr;
 			if

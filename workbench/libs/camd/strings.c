@@ -6,6 +6,8 @@
 
 #include <proto/exec.h>
 #include <proto/utility.h>
+#include <exec/rawfmt.h>
+#include <stdarg.h>
 #include "camd_intern.h"
 
 ULONG mystrlen(char *string){
@@ -33,29 +35,28 @@ char *findonlyfilename(char *pathfile){
   return temp;
 }
 
-#ifdef __amigaos4__
-ASM void stuffChar( REG(d0, UBYTE in),REG(a3, char **stream)){
-#else
-ASM void stuffChar( REG(d0) UBYTE in,REG(a3) char **stream){
-#endif
-	stream[0]++;
-	stream[0][-1]=in;
-}
-
-
 #ifndef __amigaos4__
 void mysprintf(struct CamdBase *CamdBase,char *string,char *fmt,...){
-	void *start=&fmt+1;
+	va_list args;
 
-	// You should change your proto-file, if there is a warning about const.
-	CONST_STRPTR string2=string;
+	/* The old code did `void *start=&fmt+1; RawDoFmt(fmt,start,...)`, which
+	   assumes every vararg sits on the stack right after `fmt`. That only
+	   holds on m68k; on x86-64 (and other AROS targets) the first arguments
+	   arrive in registers, so `&fmt+1` pointed at the wrong data and a %s read
+	   a bogus pointer - which made the DEVS:Midi scan build paths like
+	   "devs:Midi/devs:Midi/..." so no driver ever loaded.
 
-	RawDoFmt(
-		 fmt,
-		 start,
-		 (VOID_FUNC)stuffChar,
-		 (APTR)&string2
-		 );
+	   Use VNewRawDoFmt (compiler fills the va_list correctly for every ABI)
+	   with the built-in RAWFMTFUNC_STRING sink, whose engine writes straight
+	   into the PutChData buffer (`*(PutChData++) = ch`) and NUL-terminates.
+	   This also avoids the custom PutChProc callback: RawDoFmt invokes a
+	   user PutChProc as (char D0, data A3) for an array DataStream but as
+	   proc(data, char) for a va_list DataStream, so a hand-rolled callback
+	   written for one path crashes on the other. RAWFMTFUNC_STRING sidesteps
+	   that entirely. */
+	va_start(args, fmt);
+	VNewRawDoFmt(fmt, RAWFMTFUNC_STRING, string, args);
+	va_end(args);
 }
 #endif
 
