@@ -1,0 +1,124 @@
+alsaseq - hosted-AROS CAMD MIDI driver backed by the Linux ALSA sequencer
+=========================================================================
+
+Exposes each CAMD MIDI port as an ALSA sequencer (snd_seq) client/port, so
+AROS MIDI apps appear on the host's MIDI graph: visible in `aconnect -l`, and
+connectable to/from fluidsynth, DAWs, virtual keyboards and hardware.
+
+Status: working on linux-x86_64 hosted. Loads, publishes an "AROS CAMD" seq
+client, and passes MIDI in both directions (verified with the standalone
+midi-send / midi-recv / midi-info tools, aseqdump, and vkeybd).
+
+Requirement: needs the camd.library 64-bit driver-loading fix (the
+mysprintf / OpenMidiDevice-segment-scan fixes in workbench/libs/camd). Without
+it, NO CAMD driver loads on a 64-bit build.
+
+Files
+-----
+  alsaseq.c          The CAMD driver: MidiDeviceData, Init/Expunge,
+                     OpenPort/ClosePort, ActivateXmit, and the single I/O
+                     slave process (timer + output drain). Pure AROS - no
+                     ALSA types.
+  alsaseq_bridge.h   Plain-C boundary - no ALSA types cross it, so alsaseq.c
+                     never sees <alsa/asoundlib.h>.
+  alsaseq_bridge.c   The only file that includes <alsa/asoundlib.h>; resolves
+                     libasound (+ libc) through hostlib.resource and does the
+                     raw-byte <-> snd_seq_event translation via snd_midi_event.
+  mmakefile.src      Build/deploy. Gated on OPT_HOST_ALSA; deploys to DEVS:Midi.
+
+Build & install
+---------------
+Requires host ALSA dev headers at configure time (OPT_HOST_ALSA=yes; ./configure
+--enable-alsa, the default). Then, from the build directory:
+
+    make workbench-devs-alsaseq-unix
+
+The module is deployed to $(AROS_DEVS)/Midi/alsaseq (i.e. DEVS:Midi/alsaseq in
+the running system). It is also pulled into a normal hosted build via the
+workbench-unix metatarget when OPT_HOST_ALSA=yes.
+
+The bridge TU needs the *host* <alsa/asoundlib.h>. The AROS target compiler
+normally sees only the AROS SDK (under --sysroot); the mmakefile's
+    USER_CFLAGS = $(KERNEL_INCLUDES) -isystem $(GENINCDIR)
+redirects the system-header search to the host (via KERNEL_INCLUDES) while
+keeping the AROS SDK headers reachable (GENINCDIR) - the same include line the
+AHI ALSA bridge uses. libasound is dlopen'd at runtime through hostlib.resource,
+so nothing links against it.
+
+Using it
+--------
+camd.library scans DEVS:Midi only on the first OpenLibrary("camd.library") -
+nothing loads it at boot - so the "AROS CAMD" client does not appear in
+`aconnect -l` until something in AROS opens camd (e.g. running midi-info).
+
+The driver creates, per CAMD port N, the usual cluster pair and one bidirectional
+seq port:
+  alsaseq.in.N   - MIDI arriving from the host  (driver is the cluster sender)
+  alsaseq.out.N  - MIDI going out to the host    (driver is the cluster receiver)
+Both map to the single seq port "AROS CAMD N": a host client connecting TO it
+feeds alsaseq.in.N; a host client connected FROM it drains alsaseq.out.N.
+
+  AROS -> host:  aconnect 128:0 <dest>   ; on AROS: send to alsaseq.out.0
+  host -> AROS:  aconnect <src>:0 128:0  ; on AROS: read from alsaseq.in.0
+                 (or `vkeybd --addr 128:0` to connect directly)
+
+How it maps CAMD onto snd_seq
+-----------------------------
+  * One snd_seq client ("AROS CAMD"), one bidirectional simple port per CAMD
+    port (caps READ|WRITE|SUBS_READ|SUBS_WRITE). A CAMD cluster is conceptually
+    an ALSA seq port + subscription, so this is the natural correspondence.
+  * OUT: camd calls ActivateXmit() in app context -> we only Signal the slave
+    (like enabling a TX interrupt). The slave pulls bytes from transmitfunc(),
+    feeds snd_midi_event to build events, and outputs them DIRECT (immediate).
+  * IN: the slave drains snd_seq_event_input() and snd_midi_event-decodes each
+    event back to raw bytes, handed to receivefunc() one byte at a time.
+  * One slave task owns the snd_seq handle for its whole life (non-blocking
+    mode), so no lock is needed around libasound and no libasound call stalls
+    the AROS scheduler.
+
+Input wakeup: why a 10 ms timer, not an interrupt
+-------------------------------------------------
+The obvious design is to wake the slave via AROS's fd interrupt
+(Hidd_UnixIO_AddInterrupt, which sets O_ASYNC/F_SETOWN -> SIGIO). That does NOT
+work here: under PipeWire the snd_seq input poll fd is an eventfd, which supports
+poll()-readiness but never raises SIGIO/fasync, so the interrupt never fires.
+
+AROS's only push mechanism for host-fd readiness is SIGIO, and you cannot do a
+blocking host poll()/read() from an AROS task (it would freeze the whole
+cooperative hosted scheduler; Hidd_UnixIO_Wait is itself SIGIO-based, so it would
+block forever too). So the slave opens timer.device and polls the fd every 10 ms
+via snd_seq_event_input (non-blocking), Wait()-ing on timer|drain|irq|CTRL_C in
+between so it yields to the scheduler - no busy loop, ~100 tiny wakeups/sec, well
+under 1% CPU. Output stays immediate via the drain signal. The SIGIO interrupt is
+still registered (harmless; gives lower-latency input for free on fds that do
+support it). True zero-poll input would need a dedicated host thread blocking in
+poll() and signaling AROS - deferred (cross-thread signaling risk).
+
+Timing
+------
+CAMD hands the driver no usable timestamp, so outbound events use DIRECT
+dispatch (snd_seq queues/scheduling unused). Inbound ALSA event timestamps are
+dropped at the per-byte receivefunc() boundary - the CAMD receive path has no
+per-event time channel; apps timestamp via their own MIDI_TimeStamp clock.
+
+Precedents this was built from
+------------------------------
+  arch/all-unix/devs/midi/hostmidi.c ............ CAMD driver conventions,
+                                                  UnixIO usage in this dir.
+  workbench/devs/AHI/Drivers/Alsa/alsa-bridge/ .. hostlib symbol-table pattern,
+                                                  and the PipeWire signal-mask
+                                                  hack (block all host signals
+                                                  around snd_seq_open, so the
+                                                  helper threads libasound may
+                                                  spawn can't run AROS irqs).
+  arch/all-unix/devs/networks/eth/iotask.c ...... the slave-loop + Wait pattern.
+
+Limitations / future
+--------------------
+  * NUMPORTS is 1. The code is structured for N (per-port coders, input demux
+    by dest.port); bump NUMPORTS and verify.
+  * snd_seq_open target is "default" (a virtual client that shows up in
+    aconnect). Making it configurable (ENV: or host env) is possible.
+  * SysEx relies on snd_midi_event's cross-byte buffering; large SysEx has had
+    only light testing.
+  * Input latency is bounded by the 10 ms poll (see above).

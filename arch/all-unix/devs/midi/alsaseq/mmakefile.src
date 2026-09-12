@@ -1,0 +1,34 @@
+# alsaseq - hosted-AROS CAMD MIDI driver backed by ALSA snd_seq.
+#
+# Builds only when configure found the host's ALSA dev headers
+# (OPT_HOST_ALSA=yes), gated with the same metatarget trick the AHI ALSA
+# bridge uses (workbench/devs/AHI/Drivers/Alsa/alsa-bridge/mmakefile.src).
+
+include $(SRCDIR)/config/aros.cfg
+
+EXEDIR := $(AROS_DEVS)/Midi
+
+# Pull the driver into the hosted build (workbench-unix) only if host ALSA is
+# present. When OPT_HOST_ALSA is empty/no the dependency names a target with no
+# rule, so nothing is built - exactly how hostmidi hooks workbench-unix, but
+# conditional.
+#MM- workbench-unix : workbench-devs-alsaseq-$(OPT_HOST_ALSA)
+#MM- workbench-devs-alsaseq-yes : workbench-devs-alsaseq-unix
+
+# alsaseq_bridge.c includes the host <alsa/asoundlib.h>. The AROS target compile
+# normally sees only the AROS SDK (under --sysroot); KERNEL_INCLUDES redirects
+# the system-header search to the host (-nostdinc -isystem /usr/include ...) so
+# the bridge finds libasound's headers, while -isystem $(GENINCDIR) keeps the
+# AROS SDK headers reachable for the pure-AROS alsaseq.c. This is exactly the
+# include line the AHI ALSA bridge uses (Drivers/Alsa/alsa-bridge/mmakefile.src).
+# libasound itself is dlopen'd through hostlib.resource at runtime, so nothing
+# links against it here. usestartup=no: like every CAMD driver this is a bare
+# LoadSeg module built around MidiDeviceData.
+USER_CFLAGS = $(KERNEL_INCLUDES) -isystem $(GENINCDIR)
+
+%build_prog mmake=workbench-devs-alsaseq-unix \
+    progname=alsaseq targetdir=$(EXEDIR) \
+    files="alsaseq alsaseq_bridge" \
+    usestartup=no usesdks="private"
+
+%common
