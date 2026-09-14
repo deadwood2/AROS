@@ -174,7 +174,7 @@ static LONG FLAC_read(FLAC_STREAM *stream, APTR buffer, ULONG offset, ULONG leng
 		stream->sample_offset = -1;
 		stream->eof = FALSE;
 		if (!FLAC__stream_decoder_seek_absolute(stream->decoder, sample_offset)) {
-			return (int32)dst - (int32)buffer;
+			return (LONG)((SIPTR)dst - (SIPTR)buffer);
 		}
 		stream->sample_offset = sample_offset;
 	}
@@ -211,7 +211,7 @@ static LONG FLAC_read(FLAC_STREAM *stream, APTR buffer, ULONG offset, ULONG leng
 			break;
 		}
 	}
-	return (LONG)dst - (LONG)buffer;
+	return (LONG)((SIPTR)dst - (SIPTR)buffer);
 }
 
 static FLAC__StreamDecoderReadStatus FLAC_read_callback(const FLAC__StreamDecoder *decoder,

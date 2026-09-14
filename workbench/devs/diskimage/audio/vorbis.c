@@ -156,7 +156,7 @@ static LONG VORBIS_read(VORBIS_STREAM *stream, APTR buffer, ULONG offset, ULONG 
 			bytes_to_read -= bytes_read;
 		}
 	}
-	return (LONG)dst - (LONG)buffer;
+	return (LONG)((SIPTR)dst - (SIPTR)buffer);
 }
 
 static size_t ogg_read (APTR buffer, size_t size, size_t nitems, APTR handle) {
