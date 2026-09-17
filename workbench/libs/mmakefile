@@ -69,7 +69,6 @@ include $(SRCDIR)/config/aros.cfg
 #MM     workbench-libs-expat-includes \
 #MM     workbench-libs-gadtools-includes \
 #MM     workbench-libs-gallium-includes \
-#MM     workbench-libs-glu-includes \
 #MM     workbench-libs-icon-includes \
 #MM     workbench-libs-identify-includes \
 #MM     workbench-libs-iffparse-includes \

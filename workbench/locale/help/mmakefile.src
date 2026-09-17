@@ -2,8 +2,8 @@
 
 include $(SRCDIR)/config/aros.cfg
 
-#MM- workbench-locale : workbench-locale-help workbench-locale-help-cpy1 workbench-locale-help-cpy2 \
-#MM	workbench-locale-help-gendoc
+##MM- workbench-locale : workbench-locale-help workbench-locale-help-cpy1 workbench-locale-help-cpy2 \
+##MM	workbench-locale-help-gendoc
 
 %copy_files_q mmake=workbench-locale-help-cpy1 files=LICENSE src=$(SRCDIR) dst=$(AROS_HELP)
 

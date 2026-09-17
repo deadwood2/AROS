@@ -1,10 +1,10 @@
 #   $Id$
 include $(SRCDIR)/config/aros.cfg
 
-#MM external-bz2-includes : \
-#MM     kernel-exec-includes includes-copy
+##MM external-bz2-includes : \
+##MM     kernel-exec-includes includes-copy
 
-#MM- external-bz2 : external-bz2-lib external-bz2-bzip2
+##MM- external-bz2 : external-bz2-lib external-bz2-bzip2
 
 ###################################################################################
 
@@ -37,8 +37,8 @@ FILES := blocksort huffman crctable randtable  \
          compress decompress bzlib
 USER_CPPFLAGS := -D__CRT_RELLIBBASE__
 
-%build_module mmake=external-bz2-lib \
-    modname=bz2 modtype=library files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) bz2_init" uselibs="crt_rel crtmod" usesdks="rel"
+#%build_module mmake=external-bz2-lib \
+#    modname=bz2 modtype=library files="$(addprefix $(ARCHSRCDIR)/,$(FILES)) bz2_init" uselibs="crt_rel crtmod" usesdks="rel"
 
 ###################################################################################
 

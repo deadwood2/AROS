@@ -5,8 +5,8 @@ FILTER_OUT :=   aros/types/max_align_t.h aros/stdc-wchar.h aros/stdc-wchar-char.
                 aros/stdc-wchar-utf8.h aros/types/locale_s.h
 INCLUDES :=  $(filter-out $(FILTER_OUT), $(INCLUDES))
 
-#MM- compiler-stdc-includes : compiler-stdc-includes-extra
-#MM- includes-copy : compiler-stdc-includes-extra
+##MM- compiler-stdc-includes : compiler-stdc-includes-extra
+##MM- includes-copy : compiler-stdc-includes-extra
 
-%copy_includes mmake=compiler-stdc-includes-extra \
-    includes=$(INCLUDES)
+#%copy_includes mmake=compiler-stdc-includes-extra \
+#    includes=$(INCLUDES)

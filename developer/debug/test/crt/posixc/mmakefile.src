@@ -14,14 +14,11 @@ POSIXCTESTFILES := \
         fcntl \
         flock \
         fprintf \
-        getfsstat \
         getpass \
         lseek \
-        mnt_names \
         open \
         opendir \
         pipe \
-        statfs \
         strptime \
         uname \
         usleep \
