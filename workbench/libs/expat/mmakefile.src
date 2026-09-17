@@ -20,27 +20,27 @@ EXPATARCHSRCDIR := $(PORTSDIR)/expat/$(EXPATARCHBASE)
     destination=$(PORTSDIR)/expat \
     srcdir="$(EXPATARCHBASE)"
 
-#MM- workbench-libs-expat : \
-#MM     workbench-libs-expat-lib \
-#MM     workbench-libs-expat-examples \
-#MM     workbench-libs-expat-pc
+##MM- workbench-libs-expat : \
+##MM     workbench-libs-expat-lib \
+##MM     workbench-libs-expat-examples \
+##MM     workbench-libs-expat-pc
 
-#MM- workbench-libs-expat-quick : \
-#MM     workbench-libs-expat-lib-quick \
-#MM     workbench-libs-expat-examples-quick
+##MM- workbench-libs-expat-quick : \
+##MM     workbench-libs-expat-lib-quick \
+##MM     workbench-libs-expat-examples-quick
 
 #MM- workbench-libs-expat-clean : \
 #MM     workbench-libs-expat-lib-clean \
 #MM     workbench-libs-expat-examples-clean
 
-#MM  workbench-libs-expat-lib : \
-#MM     workbench-libs-expat-fetch \
-#MM     linklibs
+##MM  workbench-libs-expat-lib : \
+##MM     workbench-libs-expat-fetch \
+##MM     linklibs
 
-#MM- workbench-libs-expat-includes : \
-#MM     workbench-libs-expat-fetch \
-#MM     kernel-exec-includes \
-#MM     includes-copy
+##MM- workbench-libs-expat-includes : \
+##MM     workbench-libs-expat-fetch \
+##MM     kernel-exec-includes \
+##MM     includes-copy
 
 EXPATFILES := \
     $(EXPATARCHSRCDIR)/lib/xmlparse \
@@ -53,12 +53,12 @@ USER_CPPFLAGS := \
 USER_INCLUDES := \
   -I$(SRCDIR)/$(CURDIR)
 
-%build_module mmake=workbench-libs-expat-lib \
-    modname=expat modtype=library \
-    files="$(EXPATFILES)"  linklibname=expat uselibs="crtmod"
+#%build_module mmake=workbench-libs-expat-lib \
+#    modname=expat modtype=library \
+#    files="$(EXPATFILES)"  linklibname=expat uselibs="crtmod"
 
 INCLUDE_FILES := expat.h expat_external.h
-%copy_includes dir=$(EXPATARCHSRCDIR)/lib
+#%copy_includes dir=$(EXPATARCHSRCDIR)/lib
 
 #MM- includes-copy : \
 #MM     workbench-libs-expat-fetch

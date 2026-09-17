@@ -50,7 +50,7 @@ NPUB_INCLUDES := $(filter-out $(PUB_INCLUDES), $(INCLUDES))
 DEST_INCLUDES := $(foreach f,$(PUB_INCLUDES),$(AROS_INCLUDES)/$(f))
 NPUB_DEST_INC := $(foreach f,$(NPUB_INCLUDES),$(NPUB_SDK)/$(f))
 
-#MM- includes-copy : network-includes-copy
+##MM- includes-copy : network-includes-copy
 #MM network-includes-copy : network-includes-setup
 
 #MM
