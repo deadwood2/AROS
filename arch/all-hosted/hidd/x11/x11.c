@@ -78,6 +78,7 @@ static VOID x11task_process_xevent(struct x11_staticdata *xsd, struct MinList *x
     struct xwinnode *node;
     BOOL window_found = FALSE;
     KeySym ks;
+    struct FromX11Msg *msg;
 
     ForeachNode(xwindowlist, node)
     {
@@ -275,14 +276,15 @@ static VOID x11task_process_xevent(struct x11_staticdata *xsd, struct MinList *x
             break;
         }
 
-#if !ADJUST_XWIN_SIZE
         case ClientMessage:
-        if (event->xclient.data.l[0] == xsd->delete_win_atom)
-        {
-            CCALL(raise, SIGINT);
-        }
-        break;
-#endif
+            if (event->xclient.data.l[0] == xsd->delete_win_atom)
+            {
+                msg = AllocMem(sizeof(struct FromX11Msg), MEMF_CLEAR);
+                msg->type = FROMX11_CLOSEWINDOW;
+                msg->xwindow = event->xany.window;
+                PutMsg(intuixchng.intuition_port,(struct Message *)msg);
+            }
+            break;
 
         } /* switch (X11 event type) */
 
@@ -479,12 +481,10 @@ VOID x11task_entry(struct x11task_params *xtpparam)
 
                         LOCK_X11
                         XCALL(XMapWindow, nmsg->xdisplay, nmsg->xwindow);
-#if ADJUST_XWIN_SIZE
-                        XCALL(XMapRaised, nmsg->xdisplay, nmsg->masterxwindow);
-#endif
                         UNLOCK_X11
 
-                        AddTail((struct List *) &nmsg_list, (struct Node *) nmsg);
+                        // AddTail((struct List *) &nmsg_list, (struct Node *) nmsg);
+                        ReplyMsg((struct Message *) nmsg);
 
                         /* Do not reply message yet */
                         break;
@@ -652,6 +652,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
             }
 
 #if ADJUST_XWIN_SIZE
+#if 0
             /* Must check this here, because below only the inner
              window events are recognized */
 
@@ -660,6 +661,7 @@ VOID x11task_entry(struct x11task_params *xtpparam)
                 D(bug("Shutting down AROS\n"));
                 CCALL(raise, SIGINT);
             }
+#endif
 
             /* Redirect focus from outer window to inner window. This allows
              keys to be seen without the mouse hovering over the window */

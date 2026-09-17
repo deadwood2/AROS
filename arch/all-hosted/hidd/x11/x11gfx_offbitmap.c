@@ -23,6 +23,7 @@ BOOL X11BM_InitPM(OOP_Class *cl, OOP_Object *o, struct TagItem *attrList)
     OOP_Object *friend;
     Drawable friend_drawable = 0;
     IPTR depth;
+    IPTR private1;
     struct bitmap_data *data = OOP_INST_DATA(cl, o);
 
     D(bug("[X11OffBm] %s()\n", __PRETTY_FUNCTION__));
@@ -67,6 +68,15 @@ BOOL X11BM_InitPM(OOP_Class *cl, OOP_Object *o, struct TagItem *attrList)
     XCALL(XFlush, data->display);
 
     HostLib_Unlock();
+
+    private1 = GetTagData(aHidd_BitMap_Private1, 0, attrList);
+
+    if (private1 != 0)
+    {
+        data->flags |= BMDF_FRAMEBUFFER;
+        WINDRAWABLE(data) = private1; // needed for list of handled windows to work
+        X11BM_NotifyFB(cl, o); // add window to list of handled windows
+    }
 
     return DRAWABLE(data) ? TRUE : FALSE;
 }
