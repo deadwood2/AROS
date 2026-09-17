@@ -1112,7 +1112,7 @@ endif
 
 %(prog) : OBJDIR := %(objdir)
 %(prog) : OBJS := $(strip %(objs)) $(AROS_LIB)/axrt.ld
-%(prog) : LDFLAGS := $(strip %(ldflags)) -specs=$(AROS_LIB)/axrt.specs
+%(prog) : LDFLAGS := $(strip %(ldflags)) -shared -specs=$(AROS_LIB)/axrt.specs
 %(prog) : LIBS := $(strip $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS)))
 %(prog) : ARCHLIBS := $(strip $(addprefix -l,%(usehostlibs)) %(archlibs))
 %(prog) : %(objs) $(%(mmake)-link_DEPLIBS)
@@ -1166,7 +1166,7 @@ endif
 %(mmake)-link_PROGS := $(addprefix %(targetdir)/,%(progs))
 
 $(%(mmake)-link_PROGS) : OBJDIR := %(objdir)
-$(%(mmake)-link_PROGS) : LDFLAGS := $(strip %(ldflags)) -specs=$(AROS_LIB)/axrt.specs
+$(%(mmake)-link_PROGS) : LDFLAGS := $(strip %(ldflags)) -shared -specs=$(AROS_LIB)/axrt.specs
 $(%(mmake)-link_PROGS) : LIBS := $(strip $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS)))
 $(%(mmake)-link_PROGS) : ARCHLIBS := $(strip $(addprefix -l,%(usehostlibs)) %(archlibs))
 $(%(mmake)-link_PROGS) : %(targetdir)/% : %(objdir)/%.o $(%(mmake)-link_DEPLIBS)
