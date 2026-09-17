@@ -81,9 +81,10 @@ endif
 %end
 #------------------------------------------------------------------------------
 
+
 #------------------------------------------------------------------------------
 # Link a specified number of objects to an executable
-%define link_q cmd="$(strip $(AROS_CC) $(TARGET_SYSROOT))" ldopts="$(strip $(TARGET_ISA_LDFLAGS))" ldflags="$(strip $(LDFLAGS))" from="$<" to="$@" libs="$(LIBS)" archlibs= strip="$(STRIP)" stripdebug="$(DEBUG)" objdir="$(GENDIR)/$(CURDIR)" coverageinstr=
+%define link_q cmd="$(strip $(AROS_CC) $(TARGET_SYSROOT))" ldopts="$(strip $(TARGET_ISA_LDFLAGS))" ldflags="$(strip $(LDFLAGS))" from="$<" to="$@" libs="$(LIBS)" archlibs= strip="$(STRIP)" stripdebug="$(DEBUG)" objdir="$(GENDIR)/$(CURDIR)" coverageinstr= patchelf=
 	$(Q)$(eval LINKTARGET=%(to))
 	$(Q)$(ECHO) "Linking    $(subst $(TARGETDIR)/,,$(LINKTARGET))..."
 	$(Q)$(eval LINKTMPFILE=%(objdir)/$(notdir $(LINKTARGET)))
@@ -99,6 +100,9 @@ endif
 		$(ECHO) "Link failed: %(cmd) %(ldopts) %(from) -o $(LINKTARGET) %(ldflags) $(strip %(libs) %(archlibs))" 1>&2 ; \
 		tee < $(GENDIR)/cerrors -a $(GENDIR)/errors 1>&2 ; \
 		exit 1 ; \
+	fi
+	$(Q)$(IF) $(TEST) "%(patchelf)" = "yes"; then \
+		$(PATCHELF) --add-debug $(LINKTARGET); \
 	fi
 	%strip_q stripdebug="%(stripdebug)" strip="%(strip)" file="$(LINKTARGET)"
 	$(Q)$(IF) $(TEST) "%(coverageinstr)" = "yes"; then \
@@ -1112,7 +1116,7 @@ endif
 %(prog) : LIBS := $(strip $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS)))
 %(prog) : ARCHLIBS := $(strip $(addprefix -l,%(usehostlibs)) %(archlibs))
 %(prog) : %(objs) $(%(mmake)-link_DEPLIBS)
-	%link_q cmd="%(cmd)" ldopts="$(strip %(ldopts) $(%(mmake)-link_LD_OPTS))" strip="%(strip)" stripdebug="%(stripdebug)" from="$(OBJS)" ldflags="$(LDFLAGS)" libs="$(LIBS)" archlibs="$(ARCHLIBS)" objdir="$(OBJDIR)" coverageinstr="%(coverageinstr)"
+	%link_q cmd="%(cmd)" ldopts="$(strip %(ldopts) $(%(mmake)-link_LD_OPTS))" strip="%(strip)" stripdebug="%(stripdebug)" from="$(OBJS)" ldflags="$(LDFLAGS)" libs="$(LIBS)" archlibs="$(ARCHLIBS)" objdir="$(OBJDIR)" coverageinstr="%(coverageinstr)" patchelf="yes"
 %end
 #------------------------------------------------------------------------------
 
@@ -1166,7 +1170,7 @@ $(%(mmake)-link_PROGS) : LDFLAGS := $(strip %(ldflags)) -specs=$(AROS_LIB)/axrt.
 $(%(mmake)-link_PROGS) : LIBS := $(strip $(addprefix -l,%(uselibs) $(%(mmake)-link_EXTRA_LIBS)))
 $(%(mmake)-link_PROGS) : ARCHLIBS := $(strip $(addprefix -l,%(usehostlibs)) %(archlibs))
 $(%(mmake)-link_PROGS) : %(targetdir)/% : %(objdir)/%.o $(%(mmake)-link_DEPLIBS)
-	%link_q cmd="%(cmd)" ldopts="$(strip %(ldopts) $(%(mmake)-link_LD_OPTS))" strip="%(strip)" stripdebug="%(stripdebug)" from="$< $(AROS_LIB)/axrt.ld" ldflags="$(LDFLAGS)" libs="$(LIBS)" archlibs="$(ARCHLIBS)" objdir="$(OBJDIR)" coverageinstr="%(coverageinstr)"
+	%link_q cmd="%(cmd)" ldopts="$(strip %(ldopts) $(%(mmake)-link_LD_OPTS))" strip="%(strip)" stripdebug="%(stripdebug)" from="$< $(AROS_LIB)/axrt.ld" ldflags="$(LDFLAGS)" libs="$(LIBS)" archlibs="$(ARCHLIBS)" objdir="$(OBJDIR)" coverageinstr="%(coverageinstr)" patchelf="yes"
 %end
 #------------------------------------------------------------------------------
 
