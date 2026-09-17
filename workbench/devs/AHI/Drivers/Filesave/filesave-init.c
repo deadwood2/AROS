@@ -11,13 +11,6 @@
 
 #include "DriverData.h"
 
-#ifdef __AROS__
-#include <libraries/stdlib.h>
-
-struct StdlibBase *StdlibBase = NULL;
-#endif
-
-
 /******************************************************************************
 ** Custom driver init *********************************************************
 ******************************************************************************/
@@ -82,16 +75,6 @@ DriverInit( struct DriverBase* AHIsubBase )
   }
 #endif
 
-#ifdef __AROS__
-  StdlibBase = (struct StdlibBase *) OpenLibrary( "stdlib.library", 0 );
-
-  if( StdlibBase == NULL )
-  {
-    Req( "Unable to open 'stdlib.library'.\n" );
-    return FALSE;
-  }
-#endif
-
   return TRUE;
 }
 
@@ -104,10 +87,6 @@ VOID
 DriverCleanup( struct DriverBase* AHIsubBase )
 {
   struct FilesaveBase* FilesaveBase = (struct FilesaveBase*) AHIsubBase;
-
-#ifdef __AROS__
-  CloseLibrary( (struct Library*) StdlibBase );
-#endif
 
 #ifdef __AMIGAOS4__
   DropInterface( (struct Interface *) IDOS);

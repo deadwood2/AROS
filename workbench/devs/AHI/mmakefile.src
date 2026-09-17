@@ -21,7 +21,7 @@ include $(SRCDIR)/config/aros.cfg
 EXEDIR := $(AROSDIR)
 
 NOWARN_FLAGS := $(NOWARN_POINTER_SIGN)
-USER_CPPFLAGS := $(NOWARN_FLAGS)
+USER_CPPFLAGS := $(NOWARN_FLAGS) -D__AROS__
 AHI_OPTIONS=--with-os-includedir=$(AROS_INCLUDES)
 
 # AHI's configure script will not set the needed preprocessor
@@ -29,7 +29,7 @@ AHI_OPTIONS=--with-os-includedir=$(AROS_INCLUDES)
 # the configure option.
 USER_CFLAGS := $(CFLAGS_NO_BUILTIN_FLOOR) -I$(AROS_PRIVATE_INCLUDES)
 AHI_OPTIONS+=--with-target-cppflags="$(TARGET_CPPFLAGS)"
-USER_LDFLAGS := -L$(AROS_PRIVATE_LIB)
+USER_LDFLAGS := -L$(AROS_PRIVATE_LIB) -specs=$(AROS_LIB)/axrt.specs
 
 #
 # AHI uses GAS syntax, which LLVM AS

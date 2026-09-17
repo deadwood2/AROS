@@ -3458,7 +3458,7 @@ top_builddir=$(pwd)
 : ${CPPFLAGS="-DCPU=\"\\\"${CPU}\\\"\" -I. -I${srcdir} -I${top_builddir} -I${top_builddir}/Include/gcc ${os_includedir} $target_cppflags"}
 : ${LDFLAGS="${linkerflags}"}
 : ${ASFLAGS="${asflags}"}
-: ${ARFLAGS="-ru"}
+: ${ARFLAGS=""}
 : ${STRIPFLAGS="${stripflag}"}
 
 : ${CFLAG_RESIDENT="${resident}"}
