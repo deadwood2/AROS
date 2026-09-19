@@ -2,7 +2,7 @@
 #define D(x)
 #define DLINE(x)
 
-#if defined(__AROS__)
+#if 0
 #include <proto/dos.h>
 #define CONSOUT(fmt, ...) Printf(fmt, ##__VA_ARGS__)
 #define CONSERR(fmt, ...) Printf(fmt, ##__VA_ARGS__)
