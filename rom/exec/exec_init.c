@@ -345,7 +345,7 @@ int Exec_InitServices(struct ExecBase *SysBase)
     return TRUE;
 }
 
-AROS_PLH1(struct ExecBase *, open,
+AROS_PLH1(struct ExecBase *, openExec,
     AROS_LHA(ULONG, version, D0),
     struct ExecBase *, SysBase, 1, Exec)
 {
@@ -358,7 +358,7 @@ AROS_PLH1(struct ExecBase *, open,
     AROS_LIBFUNC_EXIT
 }
 
-AROS_PLH0(BPTR, close,
+AROS_PLH0(BPTR, closeExec,
     struct ExecBase *, SysBase, 2, Exec)
 {
     AROS_LIBFUNC_INIT
