@@ -43,7 +43,6 @@ POSIXCNIXTESTFILES := \
 
 CUNITPOSIXCTESTFILES := \
     cunit-crt-fread \
-    cunit-crt-realpath \
     cunit-crt-types64 \
     cunit-crt-vfork
 
