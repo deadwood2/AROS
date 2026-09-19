@@ -430,7 +430,7 @@ CLASSINCLUDES := $(foreach f, $(CLASSES), $(SRCDIR)/$(CURDIR)/classes/$(f).h) \
                  $(foreach f, $(EXTCLASSES), $(SRCDIR)/$(CURDIR)/classes/$(f).h)
 FILES         := $(FILES) $(CLASSFILES)
 
-#MM workbench-libs-muimaster : includes linklibs \
+#MM workbench-libs-muimaster : includes linklibs linklibs-rexxsyslib \
 #MM workbench-libs-coolimages external-bz2 \
 #MM workbench-libs-muimaster-catalogs
 
