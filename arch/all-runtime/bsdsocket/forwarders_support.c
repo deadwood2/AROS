@@ -86,6 +86,9 @@ void __fs_translate_errno(int unix_errno, struct SocketBase *SocketBase)
     case(EBADF):
         *SocketBase->sb_ErrnoPtr =  9;
         break;
+    case(ECONNREFUSED):
+        *SocketBase->sb_ErrnoPtr = 61;
+        break;
     default:
         bug("<<WARN>>: %s. Translation for errno(%d) is not implemented. Please submit issuet at https://github.com/deadw00d/AROS/issues.\n",
             __FUNCTION__, unix_errno);
