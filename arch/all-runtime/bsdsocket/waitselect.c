@@ -83,11 +83,9 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
         maxfd = -1;
         FD_ZERO(&tmpreadfds); FD_ZERO(&tmpwritefds); FD_ZERO(&tmperrorfds);
 
-        __fs_fsset_conv_aros_unix(readfds, nfds,   &tmpreadfds, &maxfd);
-        __fs_fsset_conv_aros_unix(writefds, nfds,  &tmpwritefds, &maxfd);
-        __fs_fsset_conv_aros_unix(exceptfds, nfds, &tmperrorfds, &maxfd);
-
-        pread = &tmperrorfds; pwrite = &tmpwritefds; perror = &tmperrorfds;
+        if (readfds)    { __fs_fsset_conv_aros_unix(readfds, nfds,   &tmpreadfds, &maxfd); pread = &tmpreadfds; }
+        if (writefds)   { __fs_fsset_conv_aros_unix(writefds, nfds,  &tmpwritefds, &maxfd); pwrite = &tmpwritefds; }
+        if (exceptfds)  { __fs_fsset_conv_aros_unix(exceptfds, nfds, &tmperrorfds, &maxfd); perror = &tmperrorfds; }
 
         if (timeout)
         {
@@ -130,9 +128,9 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
 
     if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
     {
-        __fs_fsset_sync_unix_aros(&tmpreadfds,  readfds, nfds);
-        __fs_fsset_sync_unix_aros(&tmpwritefds, writefds, nfds);
-        __fs_fsset_sync_unix_aros(&tmperrorfds, exceptfds, nfds);
+        if (readfds)    __fs_fsset_sync_unix_aros(&tmpreadfds,  readfds, nfds);
+        if (writefds)   __fs_fsset_sync_unix_aros(&tmpwritefds, writefds, nfds);
+        if (exceptfds)  __fs_fsset_sync_unix_aros(&tmperrorfds, exceptfds, nfds);
     }
 
     return __selectresult;
