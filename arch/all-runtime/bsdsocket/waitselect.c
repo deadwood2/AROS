@@ -62,9 +62,9 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     int timeoutiters = 0;
     const int ITER_SLEEP = 500; /* microseconds */
 
-    fd_set tmpreadfds;
-    fd_set tmpwritefds;
-    fd_set tmperrorfds;
+    fd_set a_u_readfds;
+    fd_set a_u_writefds;
+    fd_set a_u_errorfds;
 
     /* Timeout handling: >0, 0, NULL
         if > 0, loop for timeoutiters iterations of ITER_SLEEP length
@@ -81,11 +81,11 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
     {
         maxfd = -1;
-        FD_ZERO(&tmpreadfds); FD_ZERO(&tmpwritefds); FD_ZERO(&tmperrorfds);
+        FD_ZERO(&a_u_readfds); FD_ZERO(&a_u_writefds); FD_ZERO(&a_u_errorfds);
 
-        if (readfds)    { __fs_fsset_conv_aros_unix(readfds, nfds,   &tmpreadfds, &maxfd); pread = &tmpreadfds; }
-        if (writefds)   { __fs_fsset_conv_aros_unix(writefds, nfds,  &tmpwritefds, &maxfd); pwrite = &tmpwritefds; }
-        if (exceptfds)  { __fs_fsset_conv_aros_unix(exceptfds, nfds, &tmperrorfds, &maxfd); perror = &tmperrorfds; }
+        if (readfds)    { __fs_fsset_conv_aros_unix(readfds, nfds,   &a_u_readfds, &maxfd); pread = &a_u_readfds; }
+        if (writefds)   { __fs_fsset_conv_aros_unix(writefds, nfds,  &a_u_writefds, &maxfd); pwrite = &a_u_writefds; }
+        if (exceptfds)  { __fs_fsset_conv_aros_unix(exceptfds, nfds, &a_u_errorfds, &maxfd); perror = &a_u_errorfds; }
 
         if (timeout)
         {
@@ -128,9 +128,9 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
 
     if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
     {
-        if (readfds)    __fs_fsset_sync_unix_aros(&tmpreadfds,  readfds, nfds);
-        if (writefds)   __fs_fsset_sync_unix_aros(&tmpwritefds, writefds, nfds);
-        if (exceptfds)  __fs_fsset_sync_unix_aros(&tmperrorfds, exceptfds, nfds);
+        if (readfds)    __fs_fsset_sync_unix_aros(&a_u_readfds,  readfds, nfds);
+        if (writefds)   __fs_fsset_sync_unix_aros(&a_u_writefds, writefds, nfds);
+        if (exceptfds)  __fs_fsset_sync_unix_aros(&a_u_errorfds, exceptfds, nfds);
     }
 
     return __selectresult;
