@@ -97,12 +97,17 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
 
     do
     {
-        /* do pooling with some small sleep, re-assign each iteration as select() clears _t */
+        /* do pooling with some small sleep, re-assign each iteration as select() clears arguments */
         struct timeval _t;
         _t.tv_sec  = 0;
         _t.tv_usec = (timeout == NULL || timeoutiters > 0) ? ITER_SLEEP : 0;
+        fd_set _treadfds, _twritefds, _terrorfds;
+        FD_ZERO(&_treadfds); FD_ZERO(&_twritefds); FD_ZERO(&_terrorfds);
+        if (readfds) _treadfds      = *pread;
+        if (writefds) _twritefds    = *pwrite;
+        if (exceptfds) _terrorfds   = *perror;
 
-        __selectresult = select(maxfd + 1, pread, pwrite, perror, &_t);
+        __selectresult = select(maxfd + 1, &_treadfds, &_twritefds, &_terrorfds, &_t);
         if (sigmask)
             rcvd = SetSignal(0L, *sigmask);
 
@@ -113,6 +118,9 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
              * If select timeouts, __selectresult = 0, if found FDs, __selectresult is > 0
              * In both cases the value is good for returning even if there was signal raised
              */
+            if (readfds)    *pread = _treadfds;
+            if (writefds)   *pwrite = _twritefds;
+            if (exceptfds)  *perror = _terrorfds;
         }
 
         if (timeout)
