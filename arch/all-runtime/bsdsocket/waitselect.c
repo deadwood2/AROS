@@ -57,7 +57,6 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     BOOL cont = TRUE;
     ULONG rcvd = 0;
     int __selectresult = 0;
-    ULONG _tsmask = sigmask ? *sigmask : 0;
     int maxfd = nfds - 1;
     fd_set *pread = readfds; fd_set *pwrite = writefds; fd_set *perror = exceptfds;
     int timeoutiters = 0;
@@ -104,7 +103,8 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
         _t.tv_usec = (timeout == NULL || timeoutiters > 0) ? ITER_SLEEP : 0;
 
         __selectresult = select(maxfd + 1, pread, pwrite, perror, &_t);
-        rcvd = SetSignal(0L, _tsmask);
+        if (sigmask)
+            rcvd = SetSignal(0L, *sigmask);
 
         if (rcvd != 0 || __selectresult != 0)
         {
@@ -121,7 +121,7 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
             else timeoutiters--;
         }
 
-    }while (cont);
+    } while (cont);
 
     if (__selectresult >= 0 && sigmask)
         *sigmask &= rcvd;
