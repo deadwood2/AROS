@@ -60,7 +60,7 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     int maxfd = nfds - 1;
     fd_set *pread = readfds; fd_set *pwrite = writefds; fd_set *perror = exceptfds;
     int timeoutiters = 0;
-    const int ITER_SLEEP = 50; /* microseconds */
+    const int ITER_SLEEP = 500; /* microseconds */
 
     fd_set tmpreadfds;
     fd_set tmpwritefds;
@@ -74,7 +74,8 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
     */
     if (timeout)
     {
-        timeoutiters = timeout->tv_usec / ITER_SLEEP;
+        timeoutiters = timeout->tv_sec * 1000000 + timeout->tv_usec;
+        timeoutiters /= ITER_SLEEP;
     }
 
     if (SocketBase->sb_Flags & SB_FLAG_CLIENT_IS_AROS_PROGRAM)
@@ -91,7 +92,8 @@ void __fs_fsset_sync_unix_aros(fd_set *_unix, fd_set *_aros, int arosmaxfd);
         if (timeout)
         {
             /* AROS timeval is 32-bit */
-            timeoutiters = timeout->tv_micro / ITER_SLEEP;
+            timeoutiters = timeout->tv_secs * 1000000 + timeout->tv_micro;
+            timeoutiters /= ITER_SLEEP;
         }
     }
 
