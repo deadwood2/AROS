@@ -3,7 +3,7 @@ include $(SRCDIR)/config/aros.cfg
 
 FILES := tiffclass
 
-#MM- workbench-datatypes-complete: workbench-datatypes-tiff
+##MM- workbench-datatypes-complete: workbench-datatypes-tiff
 #MM workbench-datatypes-tiff : includes linklibs workbench-libs-tiff-linklib
 
 #USER_CPPFLAGS   := -DMYDEBUG -DDEBUG=1
