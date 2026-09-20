@@ -245,6 +245,18 @@ diff -ruN libcodesets-6.22/include/SDI_lib.h libcodesets-6.22.aros/include/SDI_l
  #else
    #define LIBFUNC SAVEDS ASM
    #if (__STDC_VERSION__ >= 199901L || __GNUC__ >= 3 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95))
+diff -ruN libcodesets-6.22/src/libinit.c libcodesets-6.22.aros/src/libinit.c
+--- libcodesets-6.22/src/libinit.c	2024-02-26 07:56:38.000000000 +0000
++++ libcodesets-6.22.aros/src/libinit.c	2026-09-20 10:21:08.778988849 +0000
+@@ -802,3 +802,8 @@
+ }
+ 
+ /****************************************************************************/
++
++__attribute__((visibility("default"))) APTR __get_resident()
++{
++    return (struct Resident *)&ROMTag;
++}
 diff -ruN libcodesets-6.22/src/version.h libcodesets-6.22.aros/src/version.h
 --- libcodesets-6.22/src/version.h	2024-02-26 07:56:38.000000000 +0000
 +++ libcodesets-6.22.aros/src/version.h	2025-06-19 22:25:27.179309835 +0000
