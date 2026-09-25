@@ -242,10 +242,10 @@ AROS_UFH3
 
     if (string)
     {
-        if (obj->type == 0) ret = AskChoice2(d->copyApp, _(MSG_REQU_DELETE), string, _(MSG_REQU_DELETE_YESNO), 0, TRUE);
-        else if (obj->type == 1) ret = AskChoice2(d->copyApp, _(MSG_REQU_PROTECTION), string, _(MSG_REQU_PROTECTION_UNPROTECT), 0, TRUE);
-        else if (obj->type == 2) ret = AskChoice2(d->copyApp, _(MSG_REQU_OVERWRITE), string, _(MSG_REQU_OVERWRITE_YESNO), 0, TRUE);
-        else ret = AskChoice2(d->copyApp, _(MSG_REQU_OVERWRITE), string, _(MSG_REQU_OVERWRITE_SKIPABORT), 0, TRUE);
+        if (obj->type == 0) ret = AskChoice(d->copyApp, _(MSG_REQU_DELETE), string, _(MSG_REQU_DELETE_YESNO), 0, TRUE);
+        else if (obj->type == 1) ret = AskChoice(d->copyApp, _(MSG_REQU_PROTECTION), string, _(MSG_REQU_PROTECTION_UNPROTECT), 0, TRUE);
+        else if (obj->type == 2) ret = AskChoice(d->copyApp, _(MSG_REQU_OVERWRITE), string, _(MSG_REQU_OVERWRITE_YESNO), 0, TRUE);
+        else ret = AskChoice(d->copyApp, _(MSG_REQU_OVERWRITE), string, _(MSG_REQU_OVERWRITE_SKIPABORT), 0, TRUE);
         FreeVec(string);
     }
 
@@ -258,6 +258,8 @@ AROS_UFH3
 
     AROS_USERFUNC_EXIT
 }
+
+extern LONG _AppObjSlot;
 
 AROS_UFH3(void, Wanderer__Func_CopyDropEntries,
         AROS_UFHA(STRPTR,              argPtr, A0),
@@ -337,6 +339,9 @@ D(bug("[Wanderer]: %s()\n", __func__));
         if (displayCreated)
         {
             BOOL result = FALSE;
+
+            SetTaskStorageSlot(_AppObjSlot, (IPTR)dobjects.copyApp);
+
             while ((currententry = (struct IconList_Drop_SourceEntry *)RemTail(&copyFunc_DropEvent->drop_SourceList)) != NULL && !result)
             {
                 if (action & ACTION_COPY)

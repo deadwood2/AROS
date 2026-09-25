@@ -26,6 +26,9 @@ Class          *_WandererIntern_CLASS = NULL;
 /* Don't output errors to the console, open requesters instead */
 int                  __forceerrorrequester = 1;
 
+/* Slot that holds this processes app object. Needed for DisplayIOError. */
+LONG _AppObjSlot;
+
 ///main()
 int main(void)
 {
@@ -33,6 +36,8 @@ int main(void)
 
     /* WB programs have NULL pr_ConsoleTask */
     SetConsoleTask(NULL);
+
+    _AppObjSlot = AllocTaskStorageSlot();
 
     D(
         struct Task *me = (struct Task *)FindTask(NULL);
@@ -47,6 +52,8 @@ int main(void)
     {
         D(bug("[Wanderer] %s: Launching WBStartup items .. \n", __PRETTY_FUNCTION__));
         OpenWorkbenchObject("Wanderer:Tools/ExecuteStartup", TAG_DONE);
+
+        SetTaskStorageSlot(_AppObjSlot, (IPTR)_WandererIntern_AppObj);
 
         D(bug("[Wanderer] %s: Handing control over to Zune .. \n", __PRETTY_FUNCTION__));
         retval = DoMethod(_WandererIntern_AppObj, MUIM_Application_Execute);

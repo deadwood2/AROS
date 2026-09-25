@@ -4,8 +4,7 @@
 #include <exec/types.h>
 #include <proto/dos.h>
 
-WORD   AskChoice2(APTR app, CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWORD sel, BOOL centered);
-WORD   AskChoice(CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWORD sel, BOOL centered);
+WORD   AskChoice(APTR app, CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWORD sel, BOOL centered);
 STRPTR CombineString(STRPTR format, ...);
 VOID   CombineStringWithBuffer(STRPTR buffer, STRPTR format, ...);
 VOID   DisplayIOError(CONST_STRPTR errormessage, IPTR ioError, ...);

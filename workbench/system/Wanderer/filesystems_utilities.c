@@ -170,12 +170,25 @@ UWORD CountFiles(CONST_STRPTR path)
     return number;
 }
 
-WORD AskChoice2(APTR appptr, CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWORD selected, BOOL centered)
+/**
+ * Displays a request window, can display a set of buttons each with a unique numeric return value
+ *
+ * Params: appptr   -> application object owned by calling process
+ *         title    -> Window title
+ *         strg     -> Text displayed
+ *         gadgets  -> Buttons provided as a string split by the | character
+ *         selected -> Position of the pre-selected button
+ *         centered -> Centeres window on screen if true
+ *
+ * Result: The index of the button pressed, starting with 0
+ */
+
+WORD AskChoice(APTR appptr, CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWORD selected, BOOL centered)
 {
     Object *app, *win, *button, *buttonGroup, *selObject;
     LONG back, old;
     BOOL running = TRUE;
-    ULONG signals;
+    ULONG signals = 0;
     ULONG id;
     BYTE sourceBuffer[BUFFER_SIZE], destinationBuffer[BUFFER_SIZE];
 
@@ -318,24 +331,6 @@ WORD AskChoice2(APTR appptr, CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR
 }
 
 /**
- * Displays a request window, can display a set of buttons each with a unique numeric return value
- *
- * Params: title    -> Window title
- *         strg     -> Text displayed
- *         gadgets  -> Buttons provided as a string split by the | character
- *         selected -> Position of the pre-selected button
- *         centered -> Centeres window on screen if true
- *
- * Result: The index of the button pressed, starting with 0
- */
-extern Object *_WandererIntern_AppObj;
-
-WORD AskChoice(CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWORD selected, BOOL centered)
-{
-    return AskChoice2(_WandererIntern_AppObj, title, strg, gadgets, selected, centered);
-}
-
-/**
  * Formats an error message and displays it using the AskChoice function
  * 
  * Params: errormessage -> Error message 
@@ -343,6 +338,8 @@ WORD AskChoice(CONST_STRPTR title, CONST_STRPTR strg, CONST_STRPTR gadgets, UWOR
  *         varargs      -> Additional information used to enrich the error message
  *  
  */
+extern LONG _AppObjSlot;
+
 VOID DisplayIOError(CONST_STRPTR errormessage, IPTR ioError, ...)
 {
     CONST_STRPTR title = _(MSG_WANDERER_ERROR_FILE_OPERATION);
@@ -360,7 +357,11 @@ VOID DisplayIOError(CONST_STRPTR errormessage, IPTR ioError, ...)
         Fault(ioError, buffer, buffer, ERROR_LEN);
     }
 
-    AskChoice(title, buffer, _(MSG_MEN_ICONSCLOSE), 0, TRUE);
+    /* Ask choice needs to be called on app object owner by calling task. Otherwise singals don't match
+       and no user interaction happens */
+    Object *app = (Object *)GetTaskStorageSlot(_AppObjSlot);
+
+    AskChoice(app, title, buffer, _(MSG_MEN_ICONSCLOSE), 0, TRUE);
 }
 
 /**
