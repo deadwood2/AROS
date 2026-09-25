@@ -1037,8 +1037,9 @@ BOOL MoveContent(CONST_STRPTR sourcePath, CONST_STRPTR targetDir, struct Hook *d
 
                 }
             }
-            else
-            {//destination does not exist
+            else if (!stop)
+            {
+                //destination does not exist
                 D(bug("[Wanderer] %s: destination does not exist, attempting Rename('%s' -> '%s')\n", __func__, localSourcePath, nextTargetFile));
                 BPTR sourceDirectoryLock = LockDirectory(localSourcePath);
                 BPTR targetDirectoryLock = Lock(targetDir, ACCESS_WRITE);
