@@ -432,6 +432,8 @@ int e1000func_setup_all_rx_resources(struct net_device *);
 void e1000func_configure(struct net_device *);
 void e1000func_free_tx_resources(struct net_device *, struct e1000_tx_ring *);
 void e1000func_free_rx_resources(struct net_device *, struct e1000_rx_ring *);
+BOOL e1000func_alloc_tx_buffers(struct net_device *, struct e1000_tx_ring *);
+void e1000func_free_tx_buffers(struct net_device *, struct e1000_tx_ring *);
 int e1000func_set_mac(struct net_device *);
 void e1000func_set_multi(struct net_device *);
 BOOL e1000func_clean_tx_irq(struct net_device *, struct e1000_tx_ring *);

@@ -193,7 +193,13 @@ static AROS_SOFTINTH1(e1000func_TX_Int, struct e1000Unit *,  unit)
 
     D(bug("[%s] ## %s: nxt to use = %d, write queue port @ %p\n", unit->e1ku_name, __func__, i, port));
 
-    while(proceed && (!IsMsgPortEmpty(port)))
+    /*
+     * Leave requests queued when the ring is full; e1000func_clean_tx_irq
+     * re-Causes this softint once descriptors are retired.  The frame
+     * buffer belongs to the ring slot (see e1000func_alloc_tx_buffers) -
+     * nothing may be allocated here, this runs in interrupt context.
+     */
+    while(proceed && (!IsMsgPortEmpty(port)) && (E1000_DESC_UNUSED(tx_ring) > 0))
     {
         error = 0;
         request = (APTR)port->mp_MsgList.lh_Head;
@@ -203,7 +209,7 @@ static AROS_SOFTINTH1(e1000func_TX_Int, struct e1000Unit *,  unit)
 
         buffer_info = &tx_ring->buffer_info[i];
 
-        if ((buffer_info->buffer = AllocMem(ETH_MAXPACKETSIZE, MEMF_PUBLIC|MEMF_CLEAR)) != NULL)
+        if (buffer_info->buffer != NULL)
         {
             frame = buffer_info->buffer;
 
