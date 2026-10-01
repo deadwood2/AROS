@@ -95,8 +95,30 @@
     vpd = VPE_DATA(vpe);
     if (vpd)
     {
-        vpd->vpe = vpe;
+        struct monitor_driverdata *mdd = GET_VP_DRIVERDATA(viewport);
+        OOP_Object *bmobj;
+        BOOL installedfb = FALSE;
 
+        /* Workaround: When driver is DirectFB, the hidd bitmap under the BitMap gets switched out
+           to framebuffer. Calling MakeVPort in such case is causing viewport to be installed on
+           this framebuffer and is causing the screen compositing logic to break and screen stop
+           beeing switchable. This most likely is not a proper fix, but a workaround for issue
+           visible with Amelinium browser which calls MakeScreen after OpenScreen */
+        if (mdd->bm_bak && mdd->frontbm == viewport->RasInfo->BitMap)
+            { bmobj = mdd->bm_bak; installedfb = TRUE; }
+        else
+            bmobj = HIDD_BM_OBJ(viewport->RasInfo->BitMap);
+
+        if (installedfb && vpd->vpe == vpe && vpe->DriverData[1] == mdd && vpd->Bitmap == bmobj)
+        {
+            D(bug("[MakeVPort] ViewPort 0x%p already made, skipping\n", viewport));
+
+            /* Use ScrollVPort() in order to validate offsets */
+            ScrollVPort(viewport);
+            return MVP_OK;
+        }
+
+        vpd->vpe = vpe;
         /*
          * MakeVPort() can be called repeatedly on the same ViewPort.
          * However, each time we are called, the frontmost RastInfo
@@ -106,9 +128,10 @@
          * We don't need to use OBTAIN_HIDD_BM(), since we can
          * only display HIDD bitmaps (and we have verified that above).
          */
-        vpd->Bitmap = HIDD_BM_OBJ(viewport->RasInfo->BitMap);
 
-        D(bug("[MakeVPort] Bitmap object: 0x%p\n", vpd->Bitmap));
+        vpd->Bitmap = bmobj;
+
+        D(bug("[MakeVPort] Bitmap object: 0x%p from BitMap %p\n", vpd->Bitmap, viewport->RasInfo->BitMap));
 
         if (IS_HIDD_BM(viewport->RasInfo->BitMap))
         {
