@@ -14,6 +14,8 @@ jobs:
           python-version: '3.12'
       - name: Static checks
         run: python workbench/tools/aros-wizard/windows-launcher/test-static.py
+      - name: Virtual field and NAT network tests
+        run: python -m unittest discover -s workbench/tools/aros-wizard/virtual-field -p 'test_*.py' -v
       - name: PowerShell syntax
         shell: powershell
         run: |
