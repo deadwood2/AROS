@@ -25,3 +25,11 @@ Networking defaults to QEMU user-mode NAT with an emulated e1000 adapter. It doe
 The default virtual NIC is **pcnet** (`-nic user,model=pcnet`) to avoid the known AROS e1000 interrupt-context memory-free crash on older guest images. E1000 remains opt-in with `"network_adapter": "e1000"` only after verifying the guest driver includes the upstream fix. This change does not patch or rebuild the AROS kernel driver.
 
 Root-cause evidence: https://github.com/kaffeine1/telegram-amiga/blob/main/ROADMAP.md (e1000 interrupt FreeMem analysis).
+
+## Driver diagnostics
+Generate a machine-readable host preflight and guest driver checklist:
+```sh
+python3 driver_diagnostics.py --iso /path/to/aros.iso --output driver-report.json
+python3 -m unittest discover -s . -p 'test_*.py' -v
+```
+The report distinguishes PASS/BLOCKED host prerequisites from NOT_RUN guest driver tests. It covers pcnet/e1000, IDE, optical media, graphics/Wanderer live resizing, input, USB, audio, SMP and Odyssey. It does **not** claim to fix native AROS drivers or automatically boot the guest.
