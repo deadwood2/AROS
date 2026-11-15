@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-ALLOWED = {"name", "memory_mb", "cpus", "disk", "iso", "network", "display"}
+ALLOWED = {"name", "memory_mb", "cpus", "disk", "iso", "network", "display", "network_adapter"}
 def build_field(spec):
     unknown = set(spec) - ALLOWED
     if unknown:
@@ -35,7 +35,10 @@ def build_field(spec):
     network = spec.get("network", True)
     if type(network) is not bool:
         raise ValueError("network must be boolean")
-    args += ["-nic", "user,model=e1000" if network else "none"]
+    adapter = spec.get("network_adapter", "e1000")
+    if adapter not in ("e1000", "pcnet"):
+        raise ValueError("network_adapter must be e1000 or pcnet")
+    args += ["-nic", "user,model=" + adapter if network else "none"]
     return {"schema": 1, "name": name, "qemu_argv": args, "execution": "manual-review-required"}
 
 def main():
