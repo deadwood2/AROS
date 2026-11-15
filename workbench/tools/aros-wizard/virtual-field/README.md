@@ -20,3 +20,8 @@ The AI integration is a future interface: an LLM can generate only the allowlist
 Current limitations: no graphical canvas, no model connector, no QEMU execution, no automated installation, no Windows GUI integration, and no AROS-native build.
 
 Networking defaults to QEMU user-mode NAT with an emulated e1000 adapter. It does not expose incoming ports by default. Set `"network": false` to disable networking. Guest network drivers and connectivity still need runtime verification.
+
+## Driver safety (2026-11)
+The default virtual NIC is **pcnet** (`-nic user,model=pcnet`) to avoid the known AROS e1000 interrupt-context memory-free crash on older guest images. E1000 remains opt-in with `"network_adapter": "e1000"` only after verifying the guest driver includes the upstream fix. This change does not patch or rebuild the AROS kernel driver.
+
+Root-cause evidence: https://github.com/kaffeine1/telegram-amiga/blob/main/ROADMAP.md (e1000 interrupt FreeMem analysis).
