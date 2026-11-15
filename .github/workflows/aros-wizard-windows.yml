@@ -1,0 +1,26 @@
+name: AROS Wizard Windows validation
+on:
+  push:
+    branches: [feature/aros-wizard-macintosh-wb13]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  windows-build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static checks
+        run: python workbench/tools/aros-wizard/windows-launcher/test-static.py
+      - name: PowerShell syntax
+        shell: powershell
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'workbench/tools/aros-wizard/windows-launcher/AROS.ps1'), [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count -gt 0) { $errors | Format-List | Out-String | Write-Error; exit 1 }
+      - name: Compile and run embedded-resource self-test
+        shell: powershell
+        run: '& workbench/tools/aros-wizard/windows-launcher/build.ps1'
