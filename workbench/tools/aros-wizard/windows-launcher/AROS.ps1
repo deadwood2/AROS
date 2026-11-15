@@ -29,7 +29,7 @@ $ErrorActionPreference = 'Stop'
 function Set-MacintoshWizardTheme([System.Windows.Forms.Form]$Form) {
     $Form.BackColor = [System.Drawing.ColorTranslator]::FromHtml('#E8E8E8')
     $Form.ForeColor = [System.Drawing.ColorTranslator]::FromHtml('#111111')
-    $Form.Font = New-Object System.Drawing.Font('Segoe UI', 9)
+    $Form.Font = [System.Drawing.Font]::new('Segoe UI', 9)
     foreach ($control in $Form.Controls) {
         if ($control -is [System.Windows.Forms.Button]) {
             $control.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
