@@ -35,7 +35,7 @@ def build_field(spec):
     network = spec.get("network", True)
     if type(network) is not bool:
         raise ValueError("network must be boolean")
-    adapter = spec.get("network_adapter", "e1000")
+    adapter = spec.get("network_adapter", "pcnet")
     if adapter not in ("e1000", "pcnet"):
         raise ValueError("network_adapter must be e1000 or pcnet")
     args += ["-nic", "user,model=" + adapter if network else "none"]
