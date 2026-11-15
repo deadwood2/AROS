@@ -32,7 +32,7 @@ def build_field(spec):
                 args += [flag, "file=" + value.replace(",", ",,") + ",format=qcow2,if=ide"]
             else:
                 args += [flag, value]
-    network = spec.get("network", False)
+    network = spec.get("network", True)
     if type(network) is not bool:
         raise ValueError("network must be boolean")
     args += ["-nic", "user,model=e1000" if network else "none"]
