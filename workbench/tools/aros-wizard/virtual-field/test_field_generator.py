@@ -6,6 +6,10 @@ class FieldTests(unittest.TestCase):
         result = build_field({})
         self.assertEqual(result["execution"], "manual-review-required")
         self.assertIn("-nic", result["qemu_argv"])
+        self.assertEqual(result["qemu_argv"][-1], "user,model=e1000")
+
+    def test_network_disabled(self):
+        result = build_field({"network": False})
         self.assertEqual(result["qemu_argv"][-1], "none")
 
     def test_custom(self):
