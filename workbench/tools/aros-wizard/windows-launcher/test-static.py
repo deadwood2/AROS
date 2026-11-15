@@ -9,6 +9,8 @@ forms = len(re.findall(r'\$form\s*=\s*New-Object Windows\.Forms\.Form', script))
 styled = len(re.findall(r'Set-MacintoshWizardTheme\s+\$form', script))
 assert forms == 3, f'Expected 3 dialogs, found {forms}'
 assert styled == forms, f'{styled} themed dialogs of {forms}'
+assert "[System.Drawing.Font]::new('Segoe UI', 9)" in script, 'Font constructor missing'
+assert "New-Object System.Drawing.Font('Segoe UI', 9)" not in script, 'Invalid New-Object constructor regression'
 for token in ['#E8E8E8', '#F28B57', '#FFFFFF', '#111111']:
     assert token in script, f'Missing color: {token}'
 for token in ['-Smp', '-VirtualDrives', '-ChooseDistribution']:
