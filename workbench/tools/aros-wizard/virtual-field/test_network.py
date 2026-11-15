@@ -5,10 +5,10 @@ from field_generator import build_field
 class NetworkTests(unittest.TestCase):
     def test_default_nat(self):
         args = build_field({})["qemu_argv"]
-        self.assertEqual(args[args.index("-nic") + 1], "user,model=e1000")
+        self.assertEqual(args[args.index("-nic") + 1], "user,model=pcnet")
 
     def test_explicit_nat(self):
-        args = build_field({"network": True})["qemu_argv"]
+        args = build_field({"network": True, "network_adapter": "e1000"})["qemu_argv"]
         self.assertEqual(args[args.index("-nic") + 1], "user,model=e1000")
 
     def test_pcnet_fallback(self):
