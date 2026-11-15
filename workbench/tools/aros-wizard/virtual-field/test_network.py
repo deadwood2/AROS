@@ -11,6 +11,14 @@ class NetworkTests(unittest.TestCase):
         args = build_field({"network": True})["qemu_argv"]
         self.assertEqual(args[args.index("-nic") + 1], "user,model=e1000")
 
+    def test_pcnet_fallback(self):
+        args = build_field({"network_adapter": "pcnet"})["qemu_argv"]
+        self.assertEqual(args[args.index("-nic") + 1], "user,model=pcnet")
+
+    def test_invalid_adapter(self):
+        with self.assertRaises(ValueError):
+            build_field({"network_adapter": "virtio"})
+
     def test_network_disabled(self):
         args = build_field({"network": False})["qemu_argv"]
         self.assertEqual(args[args.index("-nic") + 1], "none")
