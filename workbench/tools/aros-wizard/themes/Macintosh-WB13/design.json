@@ -1,0 +1,20 @@
+{
+  "name": "Macintosh-WB13",
+  "version": "0.1.0",
+  "target": "AROS Appearance",
+  "status": "design specification; native implementation pending",
+  "palette": {
+    "desktop": "#315C9B",
+    "titlebar": "#F28B57",
+    "background": "#E8E8E8",
+    "highlight": "#FFFFFF",
+    "shadow": "#111111"
+  },
+  "window": {
+    "style": "classic Macintosh-inspired",
+    "title_alignment": "center",
+    "border_px": 2,
+    "button_style": "square"
+  },
+  "license": "CC0-1.0; no proprietary Apple assets"
+}
