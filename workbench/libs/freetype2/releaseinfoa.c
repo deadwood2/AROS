@@ -49,12 +49,14 @@ AROS_LH2(ULONG, ReleaseInfoA,
             FreeVec(GMap);
             break;
 
+#if 0
         case OT_ColorGlyphMap32:
             CMap = (struct ColorGlyphMap *)otagdata;
             if (CMap->cgm_ARGBMap)
                 FreeVec(CMap->cgm_ARGBMap);
             FreeVec(CMap);
             break;
+#endif
 
         case OT_WidthList:
             //D(bug("Release: OT_WidthList  Data=%lx\n", otagdata));

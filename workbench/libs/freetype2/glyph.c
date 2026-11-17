@@ -640,6 +640,7 @@ static void RenderColorGlyph(FT_GlyphEngine *ge, struct ColorGlyphMap *CMap)
         }
     }
 
+#if 0
     CMap->cgm_BMModulo    = width * sizeof(ULONG);
     CMap->cgm_BMRows      = rows;
     CMap->cgm_BlackLeft   = 0;
@@ -654,8 +655,10 @@ static void RenderColorGlyph(FT_GlyphEngine *ge, struct ColorGlyphMap *CMap)
     CMap->cgm_Y1          = top;
     CMap->cgm_Width       = em_width;
     CMap->cgm_ARGBMap     = out;
+#endif
 }
 
+#if 0
 struct ColorGlyphMap *GetColorGlyph(FT_GlyphEngine *ge)
 {
     struct ColorGlyphMap *CMap;
@@ -690,3 +693,4 @@ struct ColorGlyphMap *GetColorGlyph(FT_GlyphEngine *ge)
 
     return CMap;
 }
+#endif

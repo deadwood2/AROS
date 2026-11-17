@@ -115,6 +115,7 @@ AROS_LH2(ULONG, ObtainInfoA,
             }
             break;
 
+#if 0
         case OT_ColorGlyphMap32:
             D(bug("Obtain: OT_ColorGlyphMap32  Data=%lx\n", otagdata));
 
@@ -125,6 +126,7 @@ AROS_LH2(ULONG, ObtainInfoA,
                 rc = (ULONG) engine->last_error;
             }
             break;
+#endif
 
         case OT_WidthList:
             D(bug("Obtain: OT_WidthList  Data=%lx\n", otagdata));
