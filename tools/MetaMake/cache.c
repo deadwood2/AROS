@@ -1,5 +1,5 @@
 /* MetaMake - A Make extension
-   Copyright (C) 1995-2022, The AROS Development Team. All rights reserved.
+   Copyright (C) 1995-2026, The AROS Development Team. All rights reserved.
 
 This file is part of MetaMake.
 
@@ -77,6 +77,133 @@ struct Regenerate
     char *src;
     char *dest;
 };
+
+/* ------------------------------------------------------------------ *
+ * Hash index over cache->targets
+ *
+ * For source trees with tens of thousands of metatargets the former
+ * linear FindNode() scans inside buildtargetlist() cost O(T^2/2)
+ * strcmp operations. This index keeps the linked list as the
+ * authoritative container but provides O(1) lookup by name.
+ * ------------------------------------------------------------------ */
+
+#define TARGETHASH_BITS     14u
+#define TARGETHASH_BUCKETS  (1u << TARGETHASH_BITS)
+#define TARGETHASH_MASK     (TARGETHASH_BUCKETS - 1u)
+
+struct TargetHash
+{
+    struct List buckets[TARGETHASH_BUCKETS];
+    unsigned long count;
+};
+
+/* djb2 string hash */
+static unsigned long
+targethash (const char * s)
+{
+    unsigned long h = 5381;
+
+    while (*s)
+        h = h * 33 + (unsigned char)*s++;
+
+    return h;
+}
+
+static struct TargetHash *
+newtargethash (void)
+{
+    struct TargetHash * th = xmalloc (sizeof (struct TargetHash));
+    unsigned long b;
+
+    for (b = 0; b < TARGETHASH_BUCKETS; b++)
+        NewList (&th->buckets[b]);
+
+    th->count = 0;
+
+    return th;
+}
+
+static void
+freetargethash (struct TargetHash * th)
+{
+    /* Buckets reference nodes owned by the targets list - nothing to free here */
+    xfree (th);
+}
+
+static struct Target *
+targethash_find (struct TargetHash * th, const char * name)
+{
+    unsigned long h;
+    struct Node * n;
+
+    if (!th)
+        return NULL;
+
+    h = targethash (name) & TARGETHASH_MASK;
+
+    ForeachNode (&th->buckets[h], n)
+    {
+        struct Target *t = (struct Target *)((char *)n - offsetof (struct Target, hashnode));
+        if (!strcmp (t->node.name, name))
+            return t;
+    }
+
+    return NULL;
+}
+
+static void
+targethash_add (struct TargetHash * th, struct Target * target)
+{
+    unsigned long h = targethash (target->node.name) & TARGETHASH_MASK;
+
+    target->hashnode.name = NULL;
+    AddTail (&th->buckets[h], (struct Node *)&target->hashnode);
+    th->count++;
+}
+
+struct Target *
+cachetarget_find (struct Cache * cache, const char * name)
+{
+    return targethash_find (cache->targets_hash, name);
+}
+
+/* Adds the target to both the hash index and the authoritative list */
+void
+cachetarget_add (struct Cache * cache, struct Target * target)
+{
+    targethash_add (cache->targets_hash, target);
+    AddTail (&cache->targets, (struct Node *)target);
+}
+
+
+static char *
+makecachepath (struct Cache_priv * cache)
+{
+    char * path;
+    int length;
+    int written;
+    size_t size;
+
+    length = snprintf (NULL, 0, "%s/mmake.cache", cache->project->buildtop);
+    if (length < 0)
+    {
+        error ("Could not format cache path");
+        exit (20);
+    }
+
+    size = (size_t)length + 1;
+    path = xmalloc (size);
+
+    written = snprintf (path, size, "%s/mmake.cache", cache->project->buildtop);
+    if (written != length)
+    {
+        xfree (path);
+        error ("Could not format cache path");
+        exit (20);
+    }
+
+    return path;
+}
 
 
 static void
@@ -162,13 +289,9 @@ progress (FILE * fh)
 void
 readcache (struct Cache_priv * cache)
 {
-    char path[256];
+    char * path = makecachepath (cache);
     FILE * fh;
     uint32_t id;
-
-    strcpy (path, cache->project->buildtop);
-    strcat (path, "/mmake.cache");
-    assert (strlen(path) < sizeof(path));
 
     fh = fopen (path, "rb");
 
@@ -222,6 +345,8 @@ readcache (struct Cache_priv * cache)
     if (fh)
         fclose (fh);
 
+    xfree (path);
+
     if (debug)
     {
         printf ("readcache()\n");
@@ -233,7 +358,7 @@ void
 writecache (struct Cache_priv * cache)
 {
     int ok = 1;
-    char path[256];
+    char * path;
     FILE * fh = NULL;
     uint32_t id;
     struct Node *addedfile;
@@ -243,9 +368,7 @@ writecache (struct Cache_priv * cache)
     if (!cache->topdir)
         return;
 
-    strcpy (path, cache->project->buildtop);
-    strcat (path, "/mmake.cache");
-    assert (strlen(path) < sizeof(path));
+    path = makecachepath (cache);
 
     fh = fopen (path, "wb");
 
@@ -288,6 +411,8 @@ writecacheend:
 
         printf ("[MMAKE] %s: Warning! - Creating the cache failed\n", __func__);
     }
+
+    xfree (path);
 }
 
 
@@ -328,10 +453,8 @@ checknewsrc (struct Cache_priv * cache, struct Makefile * makefile, struct List 
             || checkdeps (&cache->project->genmakefiledeps, dst.st_mtime)
        )
     {
-        static char currdir[PATH_MAX];
         struct Regenerate *reg = new (struct Regenerate);
 
-        ASSERT(getcwd(currdir, PATH_MAX) != NULL);
         reg->dir = xstrdup (buildpath(makefile->dir));
         reg->src = mfsrc;
         reg->dest = xstrdup (makefile->node.name);
@@ -381,13 +504,14 @@ updatemflist (struct Cache_priv * cache, struct DirNode * node, struct List * re
     struct DirNode *subdir, *subdir2, *prevdir = NULL;
     struct Makefile * makefile;
     int goup = 0, reread = 0;
-    char curdir[1024];
+    char * curdir = NULL;
 
     debug(printf("MMAKE:cache.c->updatemflist(\"%s\")\n", node->node.name));
 
     if (strlen(node->node.name) != 0)
     {
-        if (getcwd(curdir, sizeof(curdir)) == NULL)
+        curdir = getcwd(NULL, 0);
+        if (curdir == NULL)
         {
             error("Could not get current directory");
             exit (20);
@@ -395,6 +519,7 @@ updatemflist (struct Cache_priv * cache, struct DirNode * node, struct List * re
         if (chdir(node->node.name) < 0)
         {
             error("Could not change to dir '%s'", node->node.name);
+            free (curdir);
             exit (20);
         }
         goup = 1;
@@ -443,7 +568,10 @@ updatemflist (struct Cache_priv * cache, struct DirNode * node, struct List * re
     }
 
     if (goup)
+    {
         ASSERT(chdir(curdir) == 0);
+        free (curdir);
+    }
 
     progress (stdout);
 
@@ -610,14 +738,14 @@ buildtargetlist (struct Cache_priv * cache, struct DirNode * node)
                 }
             }
 
-            target = FindNode (&cache->publicpart.targets, mftarget->node.name);
+            target = targethash_find (cache->publicpart.targets_hash, mftarget->node.name);
 
             if (target ==  NULL)
             {
                 target = newnodesize (mftarget->node.name, sizeof(struct Target));
                 target->updated = 0;
                 NewList (&target->makefiles);
-                AddTail (&cache->publicpart.targets, target);
+                cachetarget_add (&cache->publicpart, target);
             }
 
             mfref = newnodesize ("", sizeof(struct MakefileRef));
@@ -654,6 +782,7 @@ activatecache (struct Project *prj)
 
     NewList (&cache->addedfiles);
     NewList (&cache->publicpart.targets);
+    cache->publicpart.targets_hash = newtargethash ();
 
     readcache (cache);
 
@@ -755,4 +884,10 @@ closecache (struct Cache * gl_cache)
     struct Cache_priv * cache = (struct Cache_priv *)gl_cache;
 
     freetargetlist (cache);
+
+    if (cache->publicpart.targets_hash)
+    {
+        freetargethash (cache->publicpart.targets_hash);
+        cache->publicpart.targets_hash = NULL;
+    }
 }
