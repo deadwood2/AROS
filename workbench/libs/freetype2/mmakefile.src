@@ -8,7 +8,7 @@ include $(SRCDIR)/config/aros.cfg
 #MM workbench-libs-freetype-module : freetype2-fetch
 
 FT2NAME         := freetype
-FT2VERS         := 2.14.1
+FT2VERS         := 2.15.0
 ARCHBASE        := $(FT2NAME)-$(FT2VERS)
 
 FT2SRCDIR       := $(PORTSDIR)/$(FT2NAME)2/$(ARCHBASE)
@@ -43,6 +43,7 @@ FT2RASTFILES := \
 
 FT2FONTFILES := \
     cff/cff \
+    hvf/hvf \
     sfnt/sfnt \
     truetype/truetype \
     type1/type1 \
@@ -122,38 +123,72 @@ FT2FILES := $(addprefix $(FT2AROSBUILDDIR)/,$(FT2BASEARCHFILES)) $(addprefix $(F
 # Rules for generated files and Includes...
 #
 
+#MM workbench-libs-freetype-pkgconfig : freetype2-fetch
+
 #MM
 workbench-libs-freetype-pkgconfig : $(AROS_LIB)/pkgconfig/freetype2.pc
 
-$(AROS_LIB)/pkgconfig/freetype2.pc : $(FT2SRCDIR)/builds/unix/freetype2.in
+#
+# NB: freetype2.pc must carry the LIBTOOL version, not the release
+# version: that is what upstream's freetype2.pc publishes and what
+# consumers compare against (cairo wants >= 23.0.17, our own
+# fontconfig.pc wants >= 21.0.15). Publishing $(FT2VERS) made every
+# such test fail, and meson ports then silently built a bundled
+# freetype instead. Read it from the source, as upstream's configure
+# does, so it stays right across version bumps.
+#
+# This mmakefile is a prerequisite on purpose. The version is produced by
+# the recipe rather than copied from a file, so without it a tree that
+# already had a freetype2.pc keeps the one it has - freetype2.in comes
+# from the tarball and is always older than the generated file, so make
+# never re-runs a corrected recipe. That is how trees built before the
+# libtool version was published kept failing cairo's fontconfig test.
+#
+$(AROS_LIB)/pkgconfig/freetype2.pc : $(FT2SRCDIR)/builds/unix/freetype2.in \
+                                     $(FT2SRCDIR)/builds/unix/configure.raw \
+                                     $(SRCDIR)/$(CURDIR)/mmakefile.src
 	@$(ECHO) "Generating /Development/lib/pkgconfig/freetype2.pc ..."
 	%mkdir_q dir=$(AROS_LIB)/pkgconfig
-	@$(SED) -e 's|%FT2_EXTRA_LIBS%||' \
-	       -e 's|%LIBBZ2%||' \
-	       -e 's|%LIBZ%|-L $(AROS_LIB) -lz|' \
-	       -e 's|%exec_prefix%|$${prefix}|' \
-	       -e 's|%ft_version%|$(FT2VERS)|' \
+	@ft_vers=`$(SED) -n "s|^version_info='\([0-9:]*\)'.*|\1|p" \
+	             $(FT2SRCDIR)/builds/unix/configure.raw | tr ':' '.'`; \
+	 if [ -z "$$ft_vers" ]; then \
+	     $(ECHO) "ERROR: no version_info in $(FT2SRCDIR)/builds/unix/configure.raw;" >&2 ; \
+	     $(ECHO) "       freetype2.pc would claim $(FT2VERS), which every consumer" >&2 ; \
+	     $(ECHO) "       comparing against the libtool version rejects." >&2 ; \
+	     exit 1 ; \
+	 fi; \
+	 $(SED) -e 's|%exec_prefix%|$${prefix}|' \
+	       -e "s|%ft_version%|$$ft_vers|" \
 	       -e 's|%includedir%|$${prefix}/include|' \
 	       -e "s|includedir}/freetype2|includedir}/freetype|g" \
 	       -e 's|%libdir%|$${prefix}/lib|' \
-	       -e "s|-lfreetype|-lfreetype2|g" \
 	       -e 's|%prefix%|/Development|' \
-	       -e "s|%REQUIRES_PRIVATE%|libpng zlib|g" \
-	       -e 's|%LIBS_PRIVATE%||' \
+	       -e 's|%PKGCONFIG_REQUIRES%||' \
+	       -e "s|%PKGCONFIG_REQUIRES_PRIVATE%|libpng zlib|g" \
+	       -e 's|%PKGCONFIG_LIBS%|-L$${libdir} -lfreetype2|' \
+	       -e "s|%PKGCONFIG_LIBS_PRIVATE%|-lpng -lz|g" \
 	       $< >$@
 
 FT2_INCLUDE_FILES := $(notdir $(call WILDCARD, $(FT2SRCDIR)/include/*.h))
-%copy_includes dir=$(FT2SRCDIR)/include includes=$(FT2_INCLUDE_FILES)
+%copy_includes mmake=workbench-libs-freetype-includes-copy dir=$(FT2SRCDIR)/include includes=$(FT2_INCLUDE_FILES)
 
 FT2I_INCLUDE_FILES := $(notdir $(call WILDCARD, $(FT2SRCDIR)/include/freetype/*.h))
-%copy_includes path=freetype dir=$(FT2SRCDIR)/include/freetype includes=$(FT2I_INCLUDE_FILES)
+%copy_includes mmake=workbench-libs-freetype-includes-copy path=freetype dir=$(FT2SRCDIR)/include/freetype includes=$(FT2I_INCLUDE_FILES)
 
-#MM- includes-copy : workbench-libs-freetype-genincludes
+#MM- ports-includes : \
+#MM     workbench-libs-freetype-includes-copy \
+#MM     workbench-libs-freetype-genincludes
+
+#MM- includes-copy : workbench-libs-freetype-includes
+#MM workbench-libs-freetype-includes-copy : freetype2-fetch
 #MM- workbench-libs-freetype-genincludes : freetype2-fetch
+#MM- workbench-libs-freetype-includes : \
+#MM     workbench-libs-freetype-includes-copy \
+#MM     workbench-libs-freetype-genincludes
 
 FT2OPTIONFILE := ftoption.h
 FT2CONFIG_INCLUDE_FILES := $(filter-out $(FT2OPTIONFILE),$(notdir $(call WILDCARD, $(FT2SRCDIR)/include/freetype/config/*.h)))
-%copy_includes path=freetype/config  dir=$(FT2SRCDIR)/include/freetype/config includes=$(FT2CONFIG_INCLUDE_FILES)
+%copy_includes mmake=workbench-libs-freetype-includes-copy path=freetype/config  dir=$(FT2SRCDIR)/include/freetype/config includes=$(FT2CONFIG_INCLUDE_FILES)
 
 $(AROS_INCLUDES)/freetype/config/$(FT2OPTIONFILE) : $(FT2SRCDIR)/include/freetype/config/$(FT2OPTIONFILE)
 	@$(ECHO) "Generating Freetype2 build options ..."
@@ -184,7 +219,7 @@ workbench-libs-freetype-genincludes : $(AROS_INCLUDES)/freetype/config/$(FT2OPTI
 	@$(NOP)
 
 FT2INT_INCLUDE_FILES := $(notdir $(call WILDCARD, $(FT2SRCDIR)/include/freetype/internal/*.h))
-%copy_includes path=freetype/internal dir=$(FT2SRCDIR)/include/freetype/internal includes=$(FT2INT_INCLUDE_FILES)
+%copy_includes mmake=workbench-libs-freetype-includes-copy path=freetype/internal dir=$(FT2SRCDIR)/include/freetype/internal includes=$(FT2INT_INCLUDE_FILES)
 
 FT2SVC_INCLUDE_FILES := $(notdir $(call WILDCARD, $(FT2SRCDIR)/include/freetype/internal/services/*.h))
-%copy_includes path=freetype/internal/services dir=$(FT2SRCDIR)/include/freetype/internal/services includes=$(FT2SVC_INCLUDE_FILES)
+%copy_includes mmake=workbench-libs-freetype-includes-copy path=freetype/internal/services dir=$(FT2SRCDIR)/include/freetype/internal/services includes=$(FT2SVC_INCLUDE_FILES)
